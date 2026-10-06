@@ -1,0 +1,3 @@
+参考图1这张精灵条的动作序列和排版，把角色替换成图2的已定稿像素角色。图3只看手臂、身体、刀枪的动作。造型绝不能改变。人物依然很小，40个逻辑像素高，大头。每格128×96逻辑像素，3列2行，共6帧，输出3072×1536像素，所有背景真正透明，空白留白，禁止网格/编号/文字。每个逻辑像素画成8×8纯色方块，没有细小亚像素。站位和出手帧照图1；脚底在每格第81行，下面完全空白。每个头保持图2同一3/4正面朝右，眼罩在画面左眼、另一眼亮绿，墨绿黑发金发饰、长金箍辫。墨绿无袖高领红斜布带露腹，粗古铜手臂黑手套，金色双枪套、墨绿长靴红靴口金鞋跟。大刀始终图2一样长，深钢银刃金护手红刀柄头短飘带，枪钢色银管金配件。只用图2的28色，平涂、单格近黑描边。只换动作，不重设计，不画背影，不缩小刀，不画细腿或细棍手臂，武器握手在身体前或旁边可见。
+RANGED ATTACK 6 frames:1 draw front long revolver;2 raise arm;3 aim gun levelRIGHT at shoulder;4 FIRE with straight bronze arm/small recoil;5 still raised;6 lower toward hands-on-hips idle. Standing legs EXACT approved legs all frames. Sword on back. No muzzle flash.
+每帧与参考图1同位置同大小，出招朝右。No effects, muzzleflashes, slash arcs, bullets, glow, gradients or soft alpha. Exact low-resolution pixel sprite art.

@@ -1303,6 +1303,8 @@ league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulve
 2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one unit): 0.94 a game; the base lightning
 mage 3.40 and league_lissandra 2.10 in the same batch - no change.
+league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only onto a champion already in crowd
+control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3401,6 +3403,27 @@ lands (`MoveToTarget`'s `end_effects`) and adds `q_1` (240 ticks); the attack pi
 45; Determination's third-attack count (two 240-tick counters, league_diana's) runs alongside, so every branch is
 built twice (passive or not): 12 leaves in one `SwitchByBuff` tree. Each of `q_1`..`q_3` binds its own picture (3, 2
 and 1 gold talon marks over his head), so the count shows.
+
+**A gun at range, a sword up close, picked per attack (league_samira).** The attack's effect fires on tick 1: a hidden
+`TargetProjectile` (speed 100000) at the target whose hit runs `RandomTarget AllyOnlySelf` within pm_reach (league_morgana's
+reach check) and sets a 4-tick caster flag a_close - set only when she stands that near; a second probe on
+`EnemyChampionInCC` sets a_cc. Two ticks later a `SwitchByBuff` tree picks the juggle (a_cc, its own 360-tick cooldown
+flag), the sword (a_close: `CasterAnimation attack_m`, the cut in a `Delayed`) or the gun (the action's own `attack`
+strip, the bullet in a `Delayed`). The gun's strip shows for the 3 ticks before a sword strip takes over - too short to
+see.
+
+**A grade that climbs on different kinds of hit (league_samira's Style).** Six permanent caster flags g1..g6 (one at a
+time, each with its move speed), a g_live timer run again by every champion hit, and per kind a short hit flag c_<kind>
+and a last-kind flag l_<kind>. Each action reads its own c_<kind> once, after its hits: a kind other than the last one
+climbs a grade (the ladder `SwitchByBuff g6 / g5 / ...` written once), the same kind only keeps it. The first read after
+g_live ran out drops the grade - nothing else runs on a timer. Each grade binds its own picture (the letters E..S over
+her head, never mirrored).
+
+**An ult only at full grade (league_samira R).** The AI casts an ult slot whenever a champion is in reach, so an empty
+branch below S would waste the cooldown: the slot only arms r_armed for 330 ticks (refunded through a 3-tick
+`ult_cooldown_mult` when it lapses, league_evelynn R), and at S - or the next attack at S while armed - it fires: the
+grades and the last kinds go, a 120-tick `CasterAnimation`, life steal, and the shots on her own `AddCasted` so crowd
+control stops the spin but not the shots.
 
 **One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
 Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself

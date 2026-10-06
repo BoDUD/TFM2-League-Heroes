@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信。蛮王之后按用户的计划做中单泽拉斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、ADC 莎弥拉。蛮王之后按用户的计划做中单泽拉斯。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）和阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -117,6 +117,8 @@
 ![赵信演示：他跑进场；E 无畏冲锋：飞身持枪扑向德莱厄斯，身后拖着蓝白电光，落地时脚下一圈冲击波，德莱厄斯被减速，头顶亮起三道金爪印；Q 三重爪击：三下强化突刺，爪印一道一道减少，第三下把德莱厄斯挑飞，被动第三下回血的金光；两下普攻后被动大挥再回一次血；W 风斩电刺：身前横扫出金色月牙，再朝前刺出一道电光，穿过德莱厄斯和身后的盖伦，两人脚下减速；R 新月护卫：起手转枪的金光，绕身一圈蓝白新月刃光，被挑战的德莱厄斯留在身边、头顶金色挑战纹章，身后的盖伦被击退，他身后亮起金色护卫光 3 秒；他继续刺，德莱厄斯倒下](docs/preview/league_xinzhao_showcase.gif?v=1006xz)
 
 ![泽拉斯演示：他滑进场，一颗奥术法球打德莱厄斯；Q 奥能脉冲蓄满：举手蓄力、前爪聚起光球，一道长光束贯穿德莱厄斯和身后的盖伦；一颗法球，再一颗法力澎湃的强化法球（手上涌出蓝光、法球绕着闪电）；E 冲击法球打中德莱厄斯，头顶电光转圈晕住，随后他脚下亮起毁灭之眼的法阵、一道光柱砸下来；R 奥术仪式：脚下法阵亮起、光柱冲天，引导时脚下符文法阵转动，连发 4 发炮击——落点先出瞄准圈，光弹从天而降炸开，最后一发击杀德莱厄斯](docs/preview/league_xerath_showcase.gif?v=1006xr2)
+
+![莎弥拉演示：她跑进场，开一枪打德莱厄斯（头顶评价 E）；Q 交火开枪：枪口喷火，一发火焰子弹穿过德莱厄斯和身后的盖伦（D）；E 狂飙：拖着红色速度线和黄沙冲过德莱厄斯（C），落到他身后接 W 锋旋，一圈剑刃火环绕身转，砍两下（B）；她转身朝左（红色方的样子）挥剑砍德莱厄斯（A），Q 近身半月斩（S，头顶金红爆闪）；R 炼狱扳机：原地旋转双枪连射，身边枪火和玫瑰花瓣，子弹打向两人，德莱厄斯倒下、E 刷新的金光](docs/preview/league_samira_showcase.gif?v=1006sm)
 
 ## 英雄：盖伦
 
@@ -2648,6 +2650,46 @@ python addons/league_xinzhao_guard/make_override.py   # 附加包的英雄数据
 - 红色方：出招后才播放的施法者特效（被动回血、E 落地、W 横扫、R 横扫）都不跟随（`is_follow: false`），按朝向镜像；E 冲刺光痕、R 起手在动作第一 tick 播放、跟随。W 电刺是线状弹道的画面，按施法方向转动，做成严格上下对称（Codex 的差 4–12%，按中线镜像），朝左放时转半圈和左右翻转一模一样；R 之后的护卫光是 buff 的画面，游戏不按朝向翻转，做成严格左右对称。`lint_mod.py` 对赵信 0 错误、0 警告。
 
 逐帧预览：[`docs/preview/league_xinzhao_frames.png`](docs/preview/league_xinzhao_frames.png)，特效：[`docs/preview/league_xinzhao_effects.png`](docs/preview/league_xinzhao_effects.png)。
+
+## 英雄：莎弥拉
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | ADC（射手，分类 Range），用户排的第十三组的 ADC（同组：上单蛮王、打野赵信，中单布兰德、辅助派克以后做），第 64 位英雄。沙漠玫瑰 莎弥拉：远处开枪、近身挥剑，打出不同的招式把评分从 E 升到 S，到 S 才能放 R。技能位用户选的「Q / E→W 连招」，W 选「旋转时减伤」，R 选「这个不能走的话可以改RUST文件」（主包里 R 原地旋转连射，主包自己完整可玩；边走边射以后做原生附加包），被动「冲上去挑飞被控制的英雄」选做 |
+| 普攻 / 被动 | 普攻射程 55000（英雄联盟 500 码），攻击间隔 58 tick。第 1 tick 先发一颗看不见的探测弹：目标在 8000 内就挥剑（`attack_m`，第 12 tick 砍中，额外 15 + 20% 攻击力的魔法伤害——英雄联盟的近战加成），否则开枪（第 12 tick 子弹出枪口）。被动「悍勇本色」：用和上一次不同的招式（开枪、挥剑、Q、E、W 各算一种）命中英雄，评价 E→D→C→B→A→S 升一级，每级移速 +3%，9 秒没打到英雄清零；评价字母挂在头顶。攻击被控制住的敌方英雄时冲到他身上把他击飞 0.5 秒（英雄联盟的挑飞连击，6 秒一次，不然会和她自己的击飞无限连） |
+| 技能1 | Q「交火」：冷却 300 tick（5 秒），射程 90000，也对小兵和野怪放。身边 28000 内有敌人时挥剑斩前方的半圆（半径 32000，第 10 tick），否则开枪：一发直线子弹（95000 长，每 tick 9000）打中第一个敌人（第 9 tick 出枪口）。都是 30 + 130% 攻击力的物理伤害，挥剑再加近战加成 |
+| 技能2 | E「狂飙」→ W「锋旋」（英雄联盟的 E→W 连招）：冷却 720 tick（12 秒），只对敌方英雄放（射程 60000）。冲刺穿过目标落到他身后（每 tick 8000），落点 22000 内的敌人受到 70 + 40% 攻击力的魔法伤害，攻击速度 +30% 持续 5 秒；落地接锋旋：原地旋转 0.75 秒，32000 内砍两次（25 + 70% 攻击力 + 近战加成），旋转时受到的普攻伤害降低 60%（英雄联盟是挡掉飞行道具，这里挡不了弹道，用户选的减伤）。被她打中过的英雄 40 tick 内死掉就刷新所有技能冷却（英雄联盟的击杀刷新 E） |
+| 大招 | R「炼狱扳机」：只对敌方英雄放（射程 50000），评价到 S 才会放（AI 会在任何时候放技能位，所以没到 S 时这个技能只「待命」330 tick：到 S 后的下一次普攻放出，没用上就退还冷却，伊芙琳 R 的做法）。原地旋转连射 2 秒（120 tick），每 12 tick 向 55000 内每个敌人各开一枪：10 + 40% 攻击力的物理伤害，期间生命偷取 40%；被控制会打断旋转动作，但枪照样打（英雄联盟的 R 也不停）。放完评价清零。冷却 300 tick |
+| 数值 | 攻击 112（+20）、生命 1030（+92）、护甲 26（+7）、魔抗 15（+3）、移速 900（+9）。数值是自己设计的，用 SDK 对战模拟调：下路，对 4 个原版 ADC（`gunner`、`soldier`、`archer`、`gambler`），3 套阵容、两边各打，10 分钟。初稿 −2.72（E 冲刺距离固定把她留在兵线里、评价 9 秒太短升不到 S）；E 只冲英雄并落到目标身后、挥剑普攻单独算一种招式、攻击 100 → 112、生命 920 → 1030、护甲 22 → 26、射程 50000 → 55000、Q 110% → 130%、E 50 → 70、W 50% → 70% 后 +1.36 / +1.19；配上动作条和特效后 +1.73 / +1.38（同包韦鲁斯 +1.63 / +1.91、烬 +1.43 / +2.08） |
+| 亚索联动 | 被动的挑飞是亚索大招要的击飞：莎弥拉在下路时亚索大招每局对英雄放 0.25 次（同批原版枪手 0.35，韦鲁斯 0.67），挑飞要先有人控住对面，不用调 |
+| 精灵图 | 10 个动作 99 帧（含画进帧里的特效）：待机、移动、开枪普攻（`attack`）、挥剑普攻（`attack_m`）、Q 开枪（`skill`）、Q 挥剑（`skill_m`）、E→W（`skill2`）、R（`ult`）、受击、死亡。造型 32 × 40 px，28 色。待机 6 帧同一张、不呼吸（大剑垂到脚边，呼吸的缝会把剑身切断）；头像截取点 (1, −38) |
+| 特效 | Codex 生图的 23 张（`import_samira.py` 缩成游戏像素）：`league_samira_fx` 普攻、Q、R 的子弹和命中，挥剑、Q 剑斩、E、W 的命中，挑飞，E 击杀刷新的金光，头顶的评价字母 E D C B A S、升级闪光和到 S 的爆闪；`league_samira_big` W 绕身旋转的剑刃火环、R 身边的枪火和玫瑰花瓣；画进她自己动作帧里的：普攻和 Q 的枪口火光、R 两把枪的火光、挥剑的火焰弧光、Q 的半月斩、E 冲刺的拖尾 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_samira.py`）：开枪、挥剑、命中，评价升级和到 S，Q 上膛、开枪、挥剑、命中，E 冲刺、命中，W 旋转、命中，R 开始、连射、每一枪；Q（开枪、挥剑各一句）、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_samira.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_samira.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_samira.py        # 五种语言的文字、音效配置、共享文件里她的键（头像点在脚本的 VIEW 里）
+python tools/art/design_samira.py       # 造型：Codex 原稿 A 按格子读回、整行整列删到 40 行（只护住眼睛），武器露出轮廓，靴子理直
+python tools/lol/native_pose.py assets/source/samira/poses.json --out <渲染文件夹>   # 动作参考帧
+python tools/art/rig_samira.py          # 动作：每帧都是造型本身，手臂、腿、武器按下面的做法摆；--review <文件夹> 先看
+python tools/art/import_samira.py       # 特效；--raw assets/source/samira/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/import_native.py --hero samira   # 动作条 + 画进帧里的特效（assets/source/native/samira_bake.json）
+python tools/art/preview_samira.py
+```
+
+美术（原画的提示词见 [`assets/source/samira/PICTURE_PROMPT.md`](assets/source/samira/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/samira/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/samira/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/samira/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/samira/codex_picture/)、[`codex_model/`](assets/source/samira/codex_model/)、[`codex_strips/`](assets/source/samira/codex_strips/)、[`codex_fx/`](assets/source/samira/codex_fx/)；附图包由 `tools/art/pack_samira_*.py` 在本地生成，英雄联盟的渲染和 oppi 的图不进仓库）：
+
+- 原画：Codex 画了 A（双手叉腰、大剑背在身后）和 B，用户选 A。
+- 造型：Codex 的草稿 1 按格子读回、整行整列删到 40 行（用户：「40 行原样」；先护住整张脸会把身体挤成碎点，改成只护眼睛的行列）。武器看不清（「武器有点看不清啊」「你可以参考隔壁oppi的怎么画的」）：照 oppi 的做法让大剑的剑身和近侧手枪的枪管露出身体轮廓；Codex 按 oppi 待机姿势重摆的版本用户没要（「用左边的」），只把膝盖以下的靴子理直（「你帮我挑挑干净 脚这里都是歪的」）。
+- 动作：Codex 的动作条每条都重画了她、自己的检查也没通过，用户选「我用蛮王那套做」——全部用造型自己的像素摆（`rig_samira.py`）。第一版（手臂自己画成木板、身体按行错开、腿平移、死亡切掉几行）被否：「手变形 走路没交叉步 死亡动画完全错误 模型变形」；第二版（两段骨骼的手臂、照英雄联盟关节画的腿）也被否：「手臂对吗 走路对吗？」「你看了不奇怪吗 没违和感吗」——远侧肩膀放在了脖子旁边，手臂画在胸口和头发上面像从胸口长出来，R 两条手臂连成一根横穿身体的棍子；跑步的腿有一截她没有的皮肤大腿、红带跑到了胯上、两腿收成 V 字。第三版：手臂是直的、3 格粗（造型的肤色上亮下暗），手端两格墨绿手套，和叉腰的手臂一样长，从躯干上方的两个肩角出来——近侧从左肩外沿出来、画在身体上面，描边不压肩膀；远侧从躯干右上角出来、在躯干下面但压在背后的头发上；手臂抬起后原来叉腰的位置用躯干侧面和头发的颜色补上。枪和剑画在手臂下面、手套握住柄，剑只用整 90° 和 45° 的方向（不旋转像素），每一帧手和武器都看得见。跑步的腿用造型自己腿的每一行（两格深绿两格浅绿、膝盖红带、远侧靴子的脚和金鞋跟，脚尖朝前）沿着胯—膝—脚踝摆，两胯收到身体下方相隔 6 格，前后各迈 5 格：近侧腿在前时两腿交叉，远侧腿稍暗一档（不然交叉时糊成一团），抬起的脚最多离地 3 行，身体随落地下沉 1 行；手还是叉腰（英雄联盟跑步时手也在腰边）。死亡：受击、被击退、整个人转 45° 往后倒，再转 90° 仰躺（双腿并拢、手放在身侧），大剑落在头旁边。
+- 特效用 Codex 画的 23 张（生图原稿，`import_samira.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——枪火的白金橙、剑火的深红、玫瑰花瓣、评价字母的金、冲刺扬起的黄沙；火光外圈最暗的一档去掉，评价字母保留描边）。
+- 红色方（用户：「注意红色方和蓝色方的技能特效不要不对称 导致歪的」）：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图，所以有朝向的特效全部画进她的动作帧（`samira_bake.json`）：普攻、Q、R 两把枪的枪口火光，挥剑的弧光，Q 的半月斩，E 冲刺的拖尾——技能数据里不再单独播放 Q 斩和 E 拖尾。三种子弹做成严格上下对称（朝左飞时转半圈和左右翻转一样）；挂在她身上、不管朝哪边都播放的（W 剑环、R 枪火、E 刷新、升级和到 S 的闪光）做成严格左右对称，剑环和枪火在她身体上方那半圈掏空，看起来从她身后绕过；评价字母不镜像。子弹从她身上 8 格高处出发、前 2–3 tick 不显示，飞过枪口才出现（太高会斜着飞向目标脚下）。演示 GIF 后半段她转身朝左打，就是红色方的样子。
+
+逐帧预览：[`docs/preview/league_samira_frames.png`](docs/preview/league_samira_frames.png)，特效：[`docs/preview/league_samira_effects.png`](docs/preview/league_samira_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

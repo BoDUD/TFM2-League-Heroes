@@ -1,0 +1,1982 @@
+[
+  {
+    "file": "samira_fx_a_bullet.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      128
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1442305,
+    "palette_color_count_opaque": 14725,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          53,
+          289,
+          496,
+          430
+        ],
+        "visible_pixels": 18184,
+        "average_luminance": 173.2,
+        "brightest_decile_luminance": 253.4
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          576,
+          286,
+          1034,
+          436
+        ],
+        "visible_pixels": 18805,
+        "average_luminance": 179.3,
+        "brightest_decile_luminance": 253.3
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1121,
+          286,
+          1581,
+          436
+        ],
+        "visible_pixels": 17685,
+        "average_luminance": 178.1,
+        "brightest_decile_luminance": 253.3
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1680,
+          292,
+          2130,
+          434
+        ],
+        "visible_pixels": 16625,
+        "average_luminance": 181.0,
+        "brightest_decile_luminance": 253.4
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_a_flash.png",
+    "frames_expected": 3,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      768,
+      192
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1333413,
+    "palette_color_count_opaque": 22853,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          55,
+          180,
+          724,
+          546
+        ],
+        "visible_pixels": 114621,
+        "average_luminance": 169.9,
+        "brightest_decile_luminance": 253.1
+      },
+      {
+        "index": 2,
+        "rect": [
+          724,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          724,
+          255,
+          1446,
+          497
+        ],
+        "visible_pixels": 47616,
+        "average_luminance": 160.1,
+        "brightest_decile_luminance": 252.9
+      },
+      {
+        "index": 3,
+        "rect": [
+          1448,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          1551,
+          306,
+          2079,
+          473
+        ],
+        "visible_pixels": 14902,
+        "average_luminance": 165.4,
+        "brightest_decile_luminance": 253.1
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_a_hit.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2079,
+      756
+    ],
+    "requested_size": [
+      896,
+      224
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1354272,
+    "palette_color_count_opaque": 28010,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          520,
+          756
+        ],
+        "bbox": [
+          58,
+          149,
+          497,
+          589
+        ],
+        "visible_pixels": 51465,
+        "average_luminance": 171.6,
+        "brightest_decile_luminance": 253.2
+      },
+      {
+        "index": 2,
+        "rect": [
+          520,
+          0,
+          520,
+          756
+        ],
+        "bbox": [
+          607,
+          173,
+          966,
+          550
+        ],
+        "visible_pixels": 32499,
+        "average_luminance": 155.4,
+        "brightest_decile_luminance": 250.6
+      },
+      {
+        "index": 3,
+        "rect": [
+          1040,
+          0,
+          519,
+          756
+        ],
+        "bbox": [
+          1098,
+          173,
+          1516,
+          552
+        ],
+        "visible_pixels": 27113,
+        "average_luminance": 149.8,
+        "brightest_decile_luminance": 248.9
+      },
+      {
+        "index": 4,
+        "rect": [
+          1559,
+          0,
+          520,
+          756
+        ],
+        "bbox": [
+          1683,
+          224,
+          1998,
+          538
+        ],
+        "visible_pixels": 9387,
+        "average_luminance": 149.6,
+        "brightest_decile_luminance": 252.4
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_a_slash.png",
+    "frames_expected": 3,
+    "actual_size": [
+      2103,
+      748
+    ],
+    "requested_size": [
+      1440,
+      512
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1236704,
+    "palette_color_count_opaque": 37817,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          701,
+          748
+        ],
+        "bbox": [
+          21,
+          51,
+          687,
+          704
+        ],
+        "visible_pixels": 151568,
+        "average_luminance": 122.1,
+        "brightest_decile_luminance": 253.1
+      },
+      {
+        "index": 2,
+        "rect": [
+          701,
+          0,
+          701,
+          748
+        ],
+        "bbox": [
+          829,
+          51,
+          1343,
+          704
+        ],
+        "visible_pixels": 69776,
+        "average_luminance": 117.8,
+        "brightest_decile_luminance": 252.6
+      },
+      {
+        "index": 3,
+        "rect": [
+          1402,
+          0,
+          701,
+          748
+        ],
+        "bbox": [
+          1556,
+          80,
+          2045,
+          690
+        ],
+        "visible_pixels": 24844,
+        "average_luminance": 118.2,
+        "brightest_decile_luminance": 246.6
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_a_slash_hit.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1152,
+      288
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1343274,
+    "palette_color_count_opaque": 39013,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          51,
+          121,
+          543,
+          634
+        ],
+        "visible_pixels": 50769,
+        "average_luminance": 116.5,
+        "brightest_decile_luminance": 253.4
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          543,
+          110,
+          1077,
+          622
+        ],
+        "visible_pixels": 41235,
+        "average_luminance": 126.2,
+        "brightest_decile_luminance": 252.0
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1122,
+          148,
+          1582,
+          622
+        ],
+        "visible_pixels": 26308,
+        "average_luminance": 108.8,
+        "brightest_decile_luminance": 244.2
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1692,
+          157,
+          2067,
+          571
+        ],
+        "visible_pixels": 9171,
+        "average_luminance": 111.7,
+        "brightest_decile_luminance": 246.5
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_j_up.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2149,
+      732
+    ],
+    "requested_size": [
+      1408,
+      480
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1110889,
+    "palette_color_count_opaque": 49251,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          537,
+          732
+        ],
+        "bbox": [
+          38,
+          292,
+          502,
+          693
+        ],
+        "visible_pixels": 45488,
+        "average_luminance": 141.0,
+        "brightest_decile_luminance": 238.4
+      },
+      {
+        "index": 2,
+        "rect": [
+          537,
+          0,
+          537,
+          732
+        ],
+        "bbox": [
+          595,
+          71,
+          1038,
+          693
+        ],
+        "visible_pixels": 77636,
+        "average_luminance": 150.1,
+        "brightest_decile_luminance": 252.9
+      },
+      {
+        "index": 3,
+        "rect": [
+          1074,
+          0,
+          538,
+          732
+        ],
+        "bbox": [
+          1114,
+          44,
+          1583,
+          694
+        ],
+        "visible_pixels": 53706,
+        "average_luminance": 135.9,
+        "brightest_decile_luminance": 244.0
+      },
+      {
+        "index": 4,
+        "rect": [
+          1612,
+          0,
+          537,
+          732
+        ],
+        "bbox": [
+          1670,
+          96,
+          2105,
+          694
+        ],
+        "visible_pixels": 26645,
+        "average_luminance": 135.4,
+        "brightest_decile_luminance": 226.2
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_q_bullet.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1536,
+      160
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1303649,
+    "palette_color_count_opaque": 32512,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          25,
+          237,
+          523,
+          479
+        ],
+        "visible_pixels": 49565,
+        "average_luminance": 168.9,
+        "brightest_decile_luminance": 252.9
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          582,
+          254,
+          1062,
+          466
+        ],
+        "visible_pixels": 45091,
+        "average_luminance": 172.1,
+        "brightest_decile_luminance": 252.9
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1119,
+          252,
+          1601,
+          466
+        ],
+        "visible_pixels": 43764,
+        "average_luminance": 172.4,
+        "brightest_decile_luminance": 253.1
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1670,
+          258,
+          2148,
+          463
+        ],
+        "visible_pixels": 40709,
+        "average_luminance": 169.6,
+        "brightest_decile_luminance": 252.9
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_q_flash.png",
+    "frames_expected": 3,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1056,
+      256
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1249671,
+    "palette_color_count_opaque": 27720,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          33,
+          117,
+          702,
+          592
+        ],
+        "visible_pixels": 127674,
+        "average_luminance": 180.3,
+        "brightest_decile_luminance": 253.3
+      },
+      {
+        "index": 2,
+        "rect": [
+          724,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          748,
+          229,
+          1411,
+          519
+        ],
+        "visible_pixels": 75606,
+        "average_luminance": 158.6,
+        "brightest_decile_luminance": 253.0
+      },
+      {
+        "index": 3,
+        "rect": [
+          1448,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          1469,
+          225,
+          2139,
+          491
+        ],
+        "visible_pixels": 26480,
+        "average_luminance": 163.9,
+        "brightest_decile_luminance": 252.0
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_q_hit.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1152,
+      288
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1227301,
+    "palette_color_count_opaque": 35346,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          36,
+          159,
+          475,
+          578
+        ],
+        "visible_pixels": 56280,
+        "average_luminance": 196.1,
+        "brightest_decile_luminance": 253.5
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          570,
+          129,
+          1082,
+          620
+        ],
+        "visible_pixels": 77528,
+        "average_luminance": 186.0,
+        "brightest_decile_luminance": 252.7
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1133,
+          142,
+          1591,
+          574
+        ],
+        "visible_pixels": 29382,
+        "average_luminance": 164.4,
+        "brightest_decile_luminance": 251.9
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1706,
+          168,
+          2113,
+          574
+        ],
+        "visible_pixels": 12864,
+        "average_luminance": 147.6,
+        "brightest_decile_luminance": 248.7
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_q_slash.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2080,
+      756
+    ],
+    "requested_size": [
+      2816,
+      704
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1214596,
+    "palette_color_count_opaque": 53419,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          520,
+          756
+        ],
+        "bbox": [
+          47,
+          59,
+          441,
+          392
+        ],
+        "visible_pixels": 31758,
+        "average_luminance": 163.9,
+        "brightest_decile_luminance": 253.8
+      },
+      {
+        "index": 2,
+        "rect": [
+          520,
+          0,
+          520,
+          756
+        ],
+        "bbox": [
+          551,
+          52,
+          1040,
+          712
+        ],
+        "visible_pixels": 103391,
+        "average_luminance": 165.7,
+        "brightest_decile_luminance": 253.9
+      },
+      {
+        "index": 3,
+        "rect": [
+          1040,
+          0,
+          520,
+          756
+        ],
+        "bbox": [
+          1040,
+          96,
+          1538,
+          712
+        ],
+        "visible_pixels": 53242,
+        "average_luminance": 143.8,
+        "brightest_decile_luminance": 252.8
+      },
+      {
+        "index": 4,
+        "rect": [
+          1560,
+          0,
+          520,
+          756
+        ],
+        "bbox": [
+          1681,
+          114,
+          2059,
+          712
+        ],
+        "visible_pixels": 16478,
+        "average_luminance": 127.2,
+        "brightest_decile_luminance": 251.9
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_q_slash_hit.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1280,
+      320
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1189442,
+    "palette_color_count_opaque": 55666,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          24,
+          109,
+          529,
+          598
+        ],
+        "visible_pixels": 96666,
+        "average_luminance": 103.1,
+        "brightest_decile_luminance": 251.7
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          592,
+          119,
+          1051,
+          582
+        ],
+        "visible_pixels": 54679,
+        "average_luminance": 112.8,
+        "brightest_decile_luminance": 252.1
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1130,
+          163,
+          1567,
+          564
+        ],
+        "visible_pixels": 29788,
+        "average_luminance": 119.4,
+        "brightest_decile_luminance": 252.6
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1717,
+          172,
+          2115,
+          561
+        ],
+        "visible_pixels": 13290,
+        "average_luminance": 101.4,
+        "brightest_decile_luminance": 237.4
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_e_dash.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      3072,
+      384
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1321250,
+    "palette_color_count_opaque": 54401,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          105,
+          262,
+          534,
+          506
+        ],
+        "visible_pixels": 25135,
+        "average_luminance": 137.7,
+        "brightest_decile_luminance": 242.3
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          546,
+          240,
+          1071,
+          514
+        ],
+        "visible_pixels": 49713,
+        "average_luminance": 136.7,
+        "brightest_decile_luminance": 233.7
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1097,
+          255,
+          1603,
+          514
+        ],
+        "visible_pixels": 30446,
+        "average_luminance": 130.3,
+        "brightest_decile_luminance": 223.2
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1733,
+          286,
+          2131,
+          514
+        ],
+        "visible_pixels": 9471,
+        "average_luminance": 143.4,
+        "brightest_decile_luminance": 208.2
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_e_hit.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1152,
+      288
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1327699,
+    "palette_color_count_opaque": 41547,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          15,
+          263,
+          532,
+          476
+        ],
+        "visible_pixels": 48006,
+        "average_luminance": 118.3,
+        "brightest_decile_luminance": 253.3
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          580,
+          296,
+          1075,
+          538
+        ],
+        "visible_pixels": 48326,
+        "average_luminance": 153.5,
+        "brightest_decile_luminance": 243.1
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1125,
+          194,
+          1613,
+          546
+        ],
+        "visible_pixels": 41394,
+        "average_luminance": 163.1,
+        "brightest_decile_luminance": 245.3
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1708,
+          229,
+          2157,
+          523
+        ],
+        "visible_pixels": 14338,
+        "average_luminance": 150.2,
+        "brightest_decile_luminance": 242.7
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_e_reset.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1536,
+      384
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1299681,
+    "palette_color_count_opaque": 35410,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          85,
+          248,
+          458,
+          577
+        ],
+        "visible_pixels": 43011,
+        "average_luminance": 192.7,
+        "brightest_decile_luminance": 253.9
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          561,
+          109,
+          1065,
+          598
+        ],
+        "visible_pixels": 82163,
+        "average_luminance": 191.4,
+        "brightest_decile_luminance": 253.6
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1124,
+          103,
+          1607,
+          580
+        ],
+        "visible_pixels": 34349,
+        "average_luminance": 177.2,
+        "brightest_decile_luminance": 250.4
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1738,
+          163,
+          2086,
+          580
+        ],
+        "visible_pixels": 9750,
+        "average_luminance": 184.6,
+        "brightest_decile_luminance": 252.9
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_w_spin.png",
+    "frames_expected": 4,
+    "actual_size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      4096,
+      640
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1248313,
+    "palette_color_count_opaque": 66657,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          496,
+          793
+        ],
+        "bbox": [
+          25,
+          261,
+          482,
+          553
+        ],
+        "visible_pixels": 40119,
+        "average_luminance": 119.4,
+        "brightest_decile_luminance": 248.3
+      },
+      {
+        "index": 2,
+        "rect": [
+          496,
+          0,
+          496,
+          793
+        ],
+        "bbox": [
+          516,
+          239,
+          978,
+          564
+        ],
+        "visible_pixels": 40344,
+        "average_luminance": 119.2,
+        "brightest_decile_luminance": 248.4
+      },
+      {
+        "index": 3,
+        "rect": [
+          992,
+          0,
+          495,
+          793
+        ],
+        "bbox": [
+          1000,
+          253,
+          1477,
+          552
+        ],
+        "visible_pixels": 38050,
+        "average_luminance": 116.9,
+        "brightest_decile_luminance": 247.8
+      },
+      {
+        "index": 4,
+        "rect": [
+          1487,
+          0,
+          496,
+          793
+        ],
+        "bbox": [
+          1504,
+          231,
+          1966,
+          570
+        ],
+        "visible_pixels": 40773,
+        "average_luminance": 114.4,
+        "brightest_decile_luminance": 247.8
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_w_hit.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1152,
+      288
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1300423,
+    "palette_color_count_opaque": 41559,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          17,
+          168,
+          539,
+          573
+        ],
+        "visible_pixels": 97568,
+        "average_luminance": 136.9,
+        "brightest_decile_luminance": 253.2
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          583,
+          204,
+          1075,
+          559
+        ],
+        "visible_pixels": 39466,
+        "average_luminance": 134.2,
+        "brightest_decile_luminance": 253.3
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1155,
+          200,
+          1600,
+          559
+        ],
+        "visible_pixels": 21243,
+        "average_luminance": 138.8,
+        "brightest_decile_luminance": 252.7
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1705,
+          244,
+          2123,
+          538
+        ],
+        "visible_pixels": 7519,
+        "average_luminance": 109.9,
+        "brightest_decile_luminance": 246.3
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_r_on.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      4096,
+      896
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1045919,
+    "palette_color_count_opaque": 98582,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          25,
+          170,
+          530,
+          556
+        ],
+        "visible_pixels": 56358,
+        "average_luminance": 134.9,
+        "brightest_decile_luminance": 252.9
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          563,
+          162,
+          1066,
+          556
+        ],
+        "visible_pixels": 55298,
+        "average_luminance": 137.4,
+        "brightest_decile_luminance": 252.6
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1105,
+          170,
+          1618,
+          550
+        ],
+        "visible_pixels": 51320,
+        "average_luminance": 136.0,
+        "brightest_decile_luminance": 252.5
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1642,
+          174,
+          2146,
+          571
+        ],
+        "visible_pixels": 50796,
+        "average_luminance": 127.2,
+        "brightest_decile_luminance": 252.4
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_r_flash.png",
+    "frames_expected": 2,
+    "actual_size": [
+      1942,
+      809
+    ],
+    "requested_size": [
+      384,
+      160
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1328840,
+    "palette_color_count_opaque": 20962,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          971,
+          809
+        ],
+        "bbox": [
+          80,
+          139,
+          971,
+          682
+        ],
+        "visible_pixels": 160200,
+        "average_luminance": 169.6,
+        "brightest_decile_luminance": 253.0
+      },
+      {
+        "index": 2,
+        "rect": [
+          971,
+          0,
+          971,
+          809
+        ],
+        "bbox": [
+          994,
+          252,
+          1691,
+          550
+        ],
+        "visible_pixels": 37002,
+        "average_luminance": 160.7,
+        "brightest_decile_luminance": 251.9
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_r_bullet.png",
+    "frames_expected": 3,
+    "actual_size": [
+      1995,
+      788
+    ],
+    "requested_size": [
+      864,
+      128
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1442460,
+    "palette_color_count_opaque": 22424,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          665,
+          788
+        ],
+        "bbox": [
+          40,
+          322,
+          596,
+          462
+        ],
+        "visible_pixels": 33906,
+        "average_luminance": 146.2,
+        "brightest_decile_luminance": 252.8
+      },
+      {
+        "index": 2,
+        "rect": [
+          665,
+          0,
+          665,
+          788
+        ],
+        "bbox": [
+          692,
+          320,
+          1259,
+          467
+        ],
+        "visible_pixels": 31455,
+        "average_luminance": 133.0,
+        "brightest_decile_luminance": 250.2
+      },
+      {
+        "index": 3,
+        "rect": [
+          1330,
+          0,
+          665,
+          788
+        ],
+        "bbox": [
+          1372,
+          321,
+          1938,
+          462
+        ],
+        "visible_pixels": 27936,
+        "average_luminance": 130.6,
+        "brightest_decile_luminance": 247.2
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_r_hit.png",
+    "frames_expected": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1310224,
+    "palette_color_count_opaque": 34517,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          47,
+          173,
+          496,
+          602
+        ],
+        "visible_pixels": 46808,
+        "average_luminance": 226.6,
+        "brightest_decile_luminance": 253.6
+      },
+      {
+        "index": 2,
+        "rect": [
+          543,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          573,
+          186,
+          1065,
+          613
+        ],
+        "visible_pixels": 74899,
+        "average_luminance": 145.9,
+        "brightest_decile_luminance": 250.8
+      },
+      {
+        "index": 3,
+        "rect": [
+          1086,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1136,
+          201,
+          1582,
+          575
+        ],
+        "visible_pixels": 34461,
+        "average_luminance": 140.3,
+        "brightest_decile_luminance": 245.3
+      },
+      {
+        "index": 4,
+        "rect": [
+          1629,
+          0,
+          543,
+          724
+        ],
+        "bbox": [
+          1735,
+          245,
+          2107,
+          561
+        ],
+        "visible_pixels": 13181,
+        "average_luminance": 137.0,
+        "brightest_decile_luminance": 246.7
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_g_letters.png",
+    "frames_expected": 6,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1536,
+      256
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1200298,
+    "palette_color_count_opaque": 44244,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          362,
+          724
+        ],
+        "bbox": [
+          76,
+          247,
+          277,
+          517
+        ],
+        "visible_pixels": 49039,
+        "average_luminance": 107.1,
+        "brightest_decile_luminance": 226.0
+      },
+      {
+        "index": 2,
+        "rect": [
+          362,
+          0,
+          362,
+          724
+        ],
+        "bbox": [
+          417,
+          242,
+          651,
+          517
+        ],
+        "visible_pixels": 54362,
+        "average_luminance": 119.1,
+        "brightest_decile_luminance": 235.7
+      },
+      {
+        "index": 3,
+        "rect": [
+          724,
+          0,
+          362,
+          724
+        ],
+        "bbox": [
+          771,
+          242,
+          1001,
+          517
+        ],
+        "visible_pixels": 44317,
+        "average_luminance": 108.2,
+        "brightest_decile_luminance": 231.4
+      },
+      {
+        "index": 4,
+        "rect": [
+          1086,
+          0,
+          362,
+          724
+        ],
+        "bbox": [
+          1142,
+          221,
+          1373,
+          519
+        ],
+        "visible_pixels": 60821,
+        "average_luminance": 118.8,
+        "brightest_decile_luminance": 225.5
+      },
+      {
+        "index": 5,
+        "rect": [
+          1448,
+          0,
+          362,
+          724
+        ],
+        "bbox": [
+          1496,
+          221,
+          1748,
+          519
+        ],
+        "visible_pixels": 56400,
+        "average_luminance": 116.9,
+        "brightest_decile_luminance": 222.4
+      },
+      {
+        "index": 6,
+        "rect": [
+          1810,
+          0,
+          362,
+          724
+        ],
+        "bbox": [
+          1872,
+          88,
+          2113,
+          540
+        ],
+        "visible_pixels": 81591,
+        "average_luminance": 104.5,
+        "brightest_decile_luminance": 228.0
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_g_up.png",
+    "frames_expected": 3,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      864,
+      288
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1298554,
+    "palette_color_count_opaque": 30226,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          82,
+          80,
+          640,
+          644
+        ],
+        "visible_pixels": 70164,
+        "average_luminance": 209.7,
+        "brightest_decile_luminance": 253.2
+      },
+      {
+        "index": 2,
+        "rect": [
+          724,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          779,
+          71,
+          1393,
+          652
+        ],
+        "visible_pixels": 86401,
+        "average_luminance": 198.3,
+        "brightest_decile_luminance": 253.0
+      },
+      {
+        "index": 3,
+        "rect": [
+          1448,
+          0,
+          724,
+          724
+        ],
+        "bbox": [
+          1532,
+          124,
+          2088,
+          603
+        ],
+        "visible_pixels": 28395,
+        "average_luminance": 193.5,
+        "brightest_decile_luminance": 252.9
+      }
+    ]
+  },
+  {
+    "file": "samira_fx_g_s.png",
+    "frames_expected": 4,
+    "actual_size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1920,
+      480
+    ],
+    "size_exact": false,
+    "alpha_binary": false,
+    "transparent_pixels": 1184345,
+    "palette_color_count_opaque": 74956,
+    "cells": [
+      {
+        "index": 1,
+        "rect": [
+          0,
+          0,
+          496,
+          793
+        ],
+        "bbox": [
+          42,
+          216,
+          454,
+          617
+        ],
+        "visible_pixels": 46303,
+        "average_luminance": 203.6,
+        "brightest_decile_luminance": 253.6
+      },
+      {
+        "index": 2,
+        "rect": [
+          496,
+          0,
+          496,
+          793
+        ],
+        "bbox": [
+          513,
+          170,
+          975,
+          636
+        ],
+        "visible_pixels": 83551,
+        "average_luminance": 151.3,
+        "brightest_decile_luminance": 253.4
+      },
+      {
+        "index": 3,
+        "rect": [
+          992,
+          0,
+          495,
+          793
+        ],
+        "bbox": [
+          1010,
+          127,
+          1475,
+          638
+        ],
+        "visible_pixels": 49432,
+        "average_luminance": 144.0,
+        "brightest_decile_luminance": 252.0
+      },
+      {
+        "index": 4,
+        "rect": [
+          1487,
+          0,
+          496,
+          793
+        ],
+        "bbox": [
+          1516,
+          171,
+          1951,
+          641
+        ],
+        "visible_pixels": 21315,
+        "average_luminance": 122.2,
+        "brightest_decile_luminance": 248.0
+      }
+    ]
+  }
+]

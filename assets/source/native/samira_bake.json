@@ -1,0 +1,72 @@
+{
+ "fx": "league_samira_fx",
+ "items": [
+  {
+   "tag": "a_flash",
+   "into": "attack",
+   "at_ms": 180
+  },
+  {
+   "tag": "q_flash",
+   "into": "skill",
+   "at_ms": 120
+  },
+  {
+   "tag": "a_slash",
+   "into": "attack_m",
+   "at_ms": 140
+  },
+  {
+   "tag": "q_slash",
+   "into": "skill_m",
+   "at_ms": 140,
+   "fx": "league_samira_big"
+  },
+  {
+   "tag": "e_dash",
+   "into": "skill2",
+   "at_ms": 0,
+   "fx": "league_samira_big"
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 150
+  },
+  {
+   "tag": "rf_b",
+   "into": "ult",
+   "at_ms": 334
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 518
+  },
+  {
+   "tag": "rf_c",
+   "into": "ult",
+   "at_ms": 702
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 886
+  },
+  {
+   "tag": "rf_b",
+   "into": "ult",
+   "at_ms": 1070
+  },
+  {
+   "tag": "rf_a",
+   "into": "ult",
+   "at_ms": 1254
+  },
+  {
+   "tag": "rf_c",
+   "into": "ult",
+   "at_ms": 1438
+  }
+ ]
+}

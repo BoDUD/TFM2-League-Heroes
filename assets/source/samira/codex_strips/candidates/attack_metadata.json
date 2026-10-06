@@ -1,0 +1,183 @@
+{
+  "status": "candidate_not_accepted",
+  "native_grid_step": 8.5,
+  "grid_majority_read": true,
+  "no_actor_rescale": true,
+  "no_rows_deleted": true,
+  "frames": [
+    {
+      "frame": 1,
+      "rect": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "pivot": [
+        59,
+        70
+      ],
+      "ms": 60,
+      "bbox": [
+        48,
+        42,
+        80,
+        82
+      ],
+      "head_bbox": [
+        53,
+        42,
+        72,
+        57
+      ],
+      "head_exact_opaque_mask": true,
+      "weapon_anchors": null,
+      "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+    },
+    {
+      "frame": 2,
+      "rect": [
+        1024,
+        0,
+        1024,
+        768
+      ],
+      "pivot": [
+        60,
+        70
+      ],
+      "ms": 60,
+      "bbox": [
+        46,
+        42,
+        80,
+        82
+      ],
+      "head_bbox": [
+        54,
+        42,
+        73,
+        57
+      ],
+      "head_exact_opaque_mask": true,
+      "weapon_anchors": null,
+      "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+    },
+    {
+      "frame": 3,
+      "rect": [
+        2048,
+        0,
+        1024,
+        768
+      ],
+      "pivot": [
+        61,
+        70
+      ],
+      "ms": 60,
+      "bbox": [
+        49,
+        42,
+        86,
+        82
+      ],
+      "head_bbox": [
+        55,
+        42,
+        74,
+        57
+      ],
+      "head_exact_opaque_mask": true,
+      "weapon_anchors": null,
+      "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+    },
+    {
+      "frame": 4,
+      "rect": [
+        0,
+        768,
+        1024,
+        768
+      ],
+      "pivot": [
+        59,
+        70
+      ],
+      "ms": 70,
+      "bbox": [
+        46,
+        42,
+        86,
+        82
+      ],
+      "head_bbox": [
+        53,
+        42,
+        72,
+        57
+      ],
+      "head_exact_opaque_mask": true,
+      "weapon_anchors": null,
+      "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+    },
+    {
+      "frame": 5,
+      "rect": [
+        1024,
+        768,
+        1024,
+        768
+      ],
+      "pivot": [
+        60,
+        70
+      ],
+      "ms": 80,
+      "bbox": [
+        47,
+        42,
+        89,
+        82
+      ],
+      "head_bbox": [
+        54,
+        42,
+        73,
+        57
+      ],
+      "head_exact_opaque_mask": true,
+      "weapon_anchors": null,
+      "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+    },
+    {
+      "frame": 6,
+      "rect": [
+        2048,
+        768,
+        1024,
+        768
+      ],
+      "pivot": [
+        59,
+        70
+      ],
+      "ms": 100,
+      "bbox": [
+        47,
+        42,
+        80,
+        82
+      ],
+      "head_bbox": [
+        53,
+        42,
+        72,
+        57
+      ],
+      "head_exact_opaque_mask": true,
+      "weapon_anchors": null,
+      "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+    }
+  ]
+}
