@@ -471,8 +471,43 @@ def finish(P, raw):
     while True:
         gone = K.orphan_outline(f, P.D.outline)
         if not gone.any():
-            return f
+            break
         f[gone] = 0
+    soften_inner_ink(P, f)
+    return f
+
+
+def soften_inner_ink(P, f):
+    """Outline squares a pose puts inside the figure (an arm's or the scissors' ring over the hair and the dress, a leg's
+    over the other leg, the seam of a moved body) - not in the idle there, every 4-neighbour opaque, two or more of them
+    coloured - take the darkest colour beside them: one near-black ring outside, the material's own dark inside (oppi's
+    rule; the user: 「清理一下没用的黑色素」「弄干净点」). The idle is matched first by the shift that best fits the head."""
+    ink = np.array(P.D.outline, np.uint8)
+    idle = P.D.a
+    best = None
+    for dx in range(-5, 6):
+        for dy in range(-3, 4):
+            s = K.shifted(idle, dx, dy) if (dx or dy) else idle
+            cost = int((s[56:72, 50:80, :3] != f[56:72, 50:80, :3]).any(-1).sum())
+            if best is None or cost < best[0]:
+                best = (cost, s)
+    s = best[1]
+    was = (s[..., 3] > 0) & (s[..., :3] == ink).all(-1)
+    op = f[..., 3] > 0
+    isk = op & (f[..., :3] == ink).all(-1)
+    lum = lambda c: 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]  # noqa: E731
+    change = {}
+    for y, x in zip(*np.nonzero(isk & ~was)):
+        if y >= SOLES:
+            continue
+        n4 = [(y + dy, x + dx) for dy, dx in K.N4]
+        if not all(0 <= yy < f.shape[0] and 0 <= xx < f.shape[1] and op[yy, xx] for yy, xx in n4):
+            continue
+        cols = [tuple(int(v) for v in f[yy, xx, :3]) for yy, xx in n4 if not isk[yy, xx]]
+        if len(cols) >= 2:
+            change[(y, x)] = min(cols, key=lum)
+    for (y, x), c in change.items():
+        f[y, x, :3] = c
 
 
 def frames(P, tag):

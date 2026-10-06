@@ -102,14 +102,16 @@ LEAGUE = {"blade": ((20, 26), (-12, 40.5), 3.4),
                      ((29.5, 20), (29, 16.5), 1.6)],
           "shank": [((22, 25), (30, 24), 1.6), ((22, 26), (31, 28.5), 1.6)],
           "hand": {(11, 22): "U", (12, 22): "U", (11, 23): "S", (12, 23): "U", (12, 21): "G"}}
-# step 10: neck and bodice as the draft has them (the user: 「只剩脖子和身体那里有点怪了」), columns 27.. of the final crop
+# step 10: neck and bodice as the draft has them (the user: 「只剩脖子和身体那里有点怪了」), columns 27.. of the final crop;
+# rows 18-19 flat bodice under the V (they alternated dark and light columns: 「手臂这里颜色都对对齐看了好怪」) and the square
+# between the near sleeve and the bodice filled
 TORSO_X0 = 27
 TORSO = {14: "---BDDB-----",
          15: "---BhHB-----",
          16: "--IPDDPI----",
          17: "-aaQPDPQaa--",
-         18: "-aakQDQkaa--",
-         19: "--IQkQkQI---",
+         18: "-aaQQPQQaa--",
+         19: "-aIQQkQQIa--",
          20: "-lllTRTlll--",
          21: "-llkXTXkll--"}
 # the blade's point (the user: 「剪刀这里看起来像断的」): the last blue square stood one clear square off the blade with an
@@ -297,6 +299,46 @@ def league_scissors(fig, with_mask=False):
     return (out, added[:, xs.min():xs.max() + 1].copy()) if with_mask else out
 
 
+N4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
+DARK, CRUMB = 60, 3                    # step 11: dark crumbs (the user: 「清理一下没用的黑色素」「弄干净点」)
+FACE_BOX = (62, 70, 58, 70)            # rows r0..r1, columns c0..c1 on the canvas: the lashes, eyes and mouth stay
+
+
+def clean_dark(a, protect):
+    """Pieces (4-connected) of squares darker than DARK, CRUMB or fewer, inside the silhouette (not touching the
+    transparent outside) and off `protect`, take their lighter neighbours' commonest colour; twice. Returns the count."""
+    H, W = a.shape[:2]
+    n = 0
+    for _ in range(2):
+        op = a[..., 3] > 0
+        dk = op & ((0.299 * a[..., 0] + 0.587 * a[..., 1] + 0.114 * a[..., 2]) < DARK)
+        seen = np.zeros((H, W), bool)
+        for y0, x0 in zip(*np.nonzero(dk)):
+            if seen[y0, x0]:
+                continue
+            comp, st, out = [], [(y0, x0)], False
+            seen[y0, x0] = True
+            while st:
+                y, x = st.pop()
+                comp.append((y, x))
+                for dy, dx in N4:
+                    yy, xx = y + dy, x + dx
+                    if not (0 <= yy < H and 0 <= xx < W) or not op[yy, xx]:
+                        out = True
+                    elif dk[yy, xx] and not seen[yy, xx]:
+                        seen[yy, xx] = True
+                        st.append((yy, xx))
+            if out or len(comp) > CRUMB or any(protect[y, x] for y, x in comp):
+                continue
+            for y, x in comp:
+                nb = [tuple(int(v) for v in a[y + dy, x + dx, :3]) for dy, dx in N4
+                      if 0 <= y + dy < H and 0 <= x + dx < W and op[y + dy, x + dx] and not dk[y + dy, x + dx]]
+                if nb:
+                    a[y, x, :3] = max(set(nb), key=nb.count)
+                    n += 1
+    return n
+
+
 def build(with_mask=False):
     """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
@@ -326,6 +368,10 @@ def build(with_mask=False):
     canvas = np.zeros((128, 128, 4), np.uint8)
     y0, x0 = SOLE_ROW + 1 - fig.shape[0], int(round(MID_COL - mid_x))
     canvas[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = fig
+    face = np.zeros((128, 128), bool)
+    r0, r1, c0, c1 = FACE_BOX
+    face[r0:r1 + 1, c0:c1 + 1] = True
+    clean_dark(canvas, face)                           # step 11
     if with_mask:
         mask = np.zeros((128, 128), bool)
         mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
