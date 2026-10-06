@@ -1,0 +1,18 @@
+{
+  "a_snip": {"cell": [35, 15], "anchor": [17, 7], "frames": 3},
+  "q_snip": {"cell": [39, 23], "anchor": [19, 11], "frames": 3},
+  "q_final": {"cell": [51, 45], "anchor": [25, 22], "frames": 4},
+  "e_dash": {"cell": [41, 17], "anchor": [20, 8], "frames": 3},
+  "a_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "q_hit": {"cell": [15, 15], "anchor": [7, 7], "frames": 3},
+  "q_true": {"cell": [23, 23], "anchor": [11, 11], "frames": 4},
+  "r_hit": {"cell": [19, 17], "anchor": [9, 8], "frames": 4},
+  "w_mist": {"cell": [79, 47], "anchor": [39, 23], "frames": 8},
+  "qs_marks": {"cell": [5, 9], "anchor": [2, 4], "frames": 4},
+  "e_on": {"cell": [33, 43], "anchor": [16, 21], "frames": 4},
+  "w_in": {"cell": [41, 49], "anchor": [20, 24], "frames": 4},
+  "r_slow": {"cell": [27, 11], "anchor": [13, 5], "frames": 4},
+  "r_v1": {"cell": [83, 9], "anchor": [41, 4], "frames": 6},
+  "r_v3": {"cell": [75, 21], "anchor": [37, 10], "frames": 6},
+  "r_v5": {"cell": [83, 31], "anchor": [41, 15], "frames": 6}
+}

@@ -1,0 +1,466 @@
+[
+  {
+    "file": "gwen_fx_a_snip.png",
+    "prompt_number": 1,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 3,
+    "visual_frames": 3,
+    "columns": 3,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      20,
+      14
+    ],
+    "requested_canvas_px": [
+      960,
+      224
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 86909,
+    "requested_size_match": false,
+    "sha256": "e411957ae753dbb0397c373da490216dabb32292fec45b41681eed708fd7b2ec",
+    "binding": "画进 `gwen_attack` 第 4 帧起（剪尖，`design/gwen_shots.png` attack 4 的十字；导入时烘进精灵帧）",
+    "runtime_target_size": "18 × 12",
+    "limitations": "三帧可辨；剪尖前额外短光块，锚点需按动作剪尖校正。"
+  },
+  {
+    "file": "gwen_fx_q_snip.png",
+    "prompt_number": 2,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 3,
+    "visual_frames": 3,
+    "columns": 3,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      32,
+      22
+    ],
+    "requested_canvas_px": [
+      1536,
+      352
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 211550,
+    "requested_size_match": false,
+    "sha256": "30b04be50f85ca62e4889969c720165ef09087ab7a041526bd84b3fd9064af36",
+    "binding": "画进 `gwen_skill` 第 3、5 帧起（`design/gwen_shots.png` skill 3 的十字：剪刃中段；导入时烘进精灵帧）",
+    "runtime_target_size": "30 × 20",
+    "limitations": "三帧可辨；末帧仍保留较强 X，衰减需加强。"
+  },
+  {
+    "file": "gwen_fx_q_final.png",
+    "prompt_number": 3,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      46,
+      34
+    ],
+    "requested_canvas_px": [
+      2944,
+      544
+    ],
+    "actual_canvas_px": [
+      2126,
+      740
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 317699,
+    "requested_size_match": false,
+    "sha256": "2849b111ba277f962733444f24f7a808938dc4643745c9ed58b7f0610235d39e",
+    "binding": "画进 `gwen_skill` 第 7 帧起（`design/gwen_shots.png` skill 7 的十字：剪刃中段；导入时烘进精灵帧）",
+    "runtime_target_size": "44 × 32",
+    "limitations": "四帧可辨；大 X、交叉亮芯和尾部光点已表达；线程环不够规则。"
+  },
+  {
+    "file": "gwen_fx_e_dash.png",
+    "prompt_number": 4,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 3,
+    "visual_frames": 3,
+    "columns": 3,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      38,
+      24
+    ],
+    "requested_canvas_px": [
+      1824,
+      384
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 158475,
+    "requested_size_match": false,
+    "sha256": "b4666533833fcaa3b226f8d33a8c0d0d740c540abec3ae3a51dc7759fe54fa64",
+    "binding": "画进 `gwen_skill2` 第 1–3 帧（`design/gwen_shots.png` skill2 1 的十字是站位点，拖尾往左；导入时烘进精灵帧）",
+    "runtime_target_size": "36 × 22",
+    "limitations": "三帧可辨；拖尾向左，中帧最长；末帧仍较亮，右侧站位留白不足。"
+  },
+  {
+    "file": "gwen_fx_a_hit.png",
+    "prompt_number": 5,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      16,
+      16
+    ],
+    "requested_canvas_px": [
+      1024,
+      256
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 136021,
+    "requested_size_match": false,
+    "sha256": "b36a772346554908fee22e58801a165bc474341b69d9f0de96dc1f58eefcabe0",
+    "binding": "view_effects `league_gwen_a_hit`（跟随，画在人物上面）",
+    "runtime_target_size": "14",
+    "limitations": "四帧可辨；X 转散点，逐帧锚点需统一。"
+  },
+  {
+    "file": "gwen_fx_q_hit.png",
+    "prompt_number": 6,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 3,
+    "visual_frames": 3,
+    "columns": 3,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      14,
+      14
+    ],
+    "requested_canvas_px": [
+      672,
+      224
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 196520,
+    "requested_size_match": false,
+    "sha256": "e3e900102285ff398083596ce09b56a38c0126f58b9adca49d36258ea95b52a1",
+    "binding": "view_effects `league_gwen_q_hit`（跟随，画在人物上面）",
+    "runtime_target_size": "12",
+    "limitations": "三帧可辨；斜剪方向正确，末帧仍有较长剪痕。"
+  },
+  {
+    "file": "gwen_fx_q_true.png",
+    "prompt_number": 7,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      22,
+      22
+    ],
+    "requested_canvas_px": [
+      1408,
+      352
+    ],
+    "actual_canvas_px": [
+      2056,
+      765
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 300303,
+    "requested_size_match": false,
+    "sha256": "abcd88c02744b269f337faeb2eadcfcc2238102e3f2f661f7815812acee853a9",
+    "binding": "view_effects `league_gwen_q_true`（跟随，画在人物上面）",
+    "runtime_target_size": "20",
+    "limitations": "四帧可辨；四尖星、环、散线、光点已表达；光点数量多于规格。"
+  },
+  {
+    "file": "gwen_fx_r_hit.png",
+    "prompt_number": 8,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      14,
+      14
+    ],
+    "requested_canvas_px": [
+      896,
+      224
+    ],
+    "actual_canvas_px": [
+      2079,
+      756
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 152050,
+    "requested_size_match": false,
+    "sha256": "eedf7922bc621af51012c097d93274fb7715d2857023d189efee553fd9196ed3",
+    "binding": "view_effects `league_gwen_r_hit`（跟随，画在人物上面）",
+    "runtime_target_size": "12",
+    "limitations": "四帧可辨；针刺后散点；首帧刺向与规定不完全一致。"
+  },
+  {
+    "file": "gwen_fx_w_mist.png",
+    "prompt_number": 9,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 8,
+    "visual_frames": 8,
+    "columns": 4,
+    "rows": 2,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      78,
+      36
+    ],
+    "requested_canvas_px": [
+      4992,
+      1152
+    ],
+    "actual_canvas_px": [
+      1958,
+      803
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 657251,
+    "requested_size_match": false,
+    "sha256": "b5c7791ef38d0ff09a3e0526d67da37236d7c806bb9f4fecd4ce515247216cab",
+    "binding": "view_effects `league_gwen_w_mist`（BIG，画在人物下面，不跟随；左右对称；导入时第 3–6 帧循环铺满 4 秒）",
+    "runtime_target_size": "76 × 34",
+    "limitations": "八帧 4×2 可辨；中心雾色偏实，严格左右对称和 3–6 帧无缝循环未达成；外缘及底部有散点。"
+  },
+  {
+    "file": "gwen_fx_qs_marks.png",
+    "prompt_number": 10,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      24,
+      8
+    ],
+    "requested_canvas_px": [
+      1536,
+      128
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 13453,
+    "requested_size_match": false,
+    "sha256": "26363c24277f729bcda53d303b3e4212fdd730b87c51f1b09adc035985f14ee6",
+    "binding": "view_buffs `league_gwen_qs1`…`qs4`（第 k 格是第 k 层的记号，画在第 k 个位置；几层就同时亮几格，叠起来是一排；画在头顶，不旋转）",
+    "runtime_target_size": "24 × 8",
+    "limitations": "四格各一个竖向记号；尺寸、相同图形和 x=3/9/15/21 的精确位置仍需校正。"
+  },
+  {
+    "file": "gwen_fx_e_on.png",
+    "prompt_number": 11,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      30,
+      40
+    ],
+    "requested_canvas_px": [
+      1920,
+      640
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 329566,
+    "requested_size_match": false,
+    "sha256": "9264885734343dde0ae2bc9d16bebff9cf7ba5dcd821460d09ee4e1b558cb2bf",
+    "binding": "view_buffs `league_gwen_e_on`（循环，画在人物上面；左右对称）",
+    "runtime_target_size": "30 × 40",
+    "limitations": "四帧各有左右外围线程，中央空；高度递增，不是已验收的无缝循环，严格镜像未达成。"
+  },
+  {
+    "file": "gwen_fx_w_in.png",
+    "prompt_number": 12,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      36,
+      46
+    ],
+    "requested_canvas_px": [
+      2304,
+      736
+    ],
+    "actual_canvas_px": [
+      2172,
+      724
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 590356,
+    "requested_size_match": false,
+    "sha256": "308d0906a99915dc102f789200f78d4e34fc5d0350e0896eb3480a83b5762ca9",
+    "binding": "view_buffs `league_gwen_w_in`（循环，画在人物上面；左右对称）",
+    "runtime_target_size": "36 × 46",
+    "limitations": "四帧可辨；脚下环雾与头顶结已表达；中央有残余散点，外围偏粗且不严格镜像。"
+  },
+  {
+    "file": "gwen_fx_r_slow.png",
+    "prompt_number": 13,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 4,
+    "visual_frames": 4,
+    "columns": 4,
+    "rows": 1,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      26,
+      12
+    ],
+    "requested_canvas_px": [
+      1664,
+      192
+    ],
+    "actual_canvas_px": [
+      2017,
+      780
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 189935,
+    "requested_size_match": false,
+    "sha256": "62820fd8db0e3ed0fa08aeeb0fa4e71fb1bcd9b1f49fb7be6719fb678397a8fb",
+    "binding": "view_buffs `league_gwen_r_slow`（循环，画在人物上面；左右对称）",
+    "runtime_target_size": "26 × 12",
+    "limitations": "四帧交叉椭圆可辨；光点在移动，严格左右镜像未达成，线程偏粗。"
+  },
+  {
+    "file": "gwen_fx_r_v1.png",
+    "prompt_number": 14,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 6,
+    "visual_frames": 6,
+    "columns": 1,
+    "rows": 6,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      82,
+      8
+    ],
+    "requested_canvas_px": [
+      1312,
+      768
+    ],
+    "actual_canvas_px": [
+      1639,
+      960
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 112957,
+    "requested_size_match": false,
+    "sha256": "303da5babea0e26a3126f807528388de90829af1e9f4d8b5bf8191bd259fe6f6",
+    "binding": "view_projectiles `league_gwen_r_v1`（BIG，LineRangeProjectile 80000 长、5000 宽：画面按方向转动，**上下必须对称**）",
+    "runtime_target_size": "80 × 6",
+    "limitations": "六帧纵排，每帧一针向右推进；上下不严格镜像，针偏粗，尾帧未充分消散。"
+  },
+  {
+    "file": "gwen_fx_r_v3.png",
+    "prompt_number": 15,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 6,
+    "visual_frames": 6,
+    "columns": 1,
+    "rows": 6,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      82,
+      18
+    ],
+    "requested_canvas_px": [
+      1312,
+      1728
+    ],
+    "actual_canvas_px": [
+      966,
+      1628
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 271860,
+    "requested_size_match": false,
+    "sha256": "7eeff111b254d7eb4c9a951d2328e4c2fe84afdced69e3f3bab8c3d6785cd888",
+    "binding": "view_projectiles `league_gwen_r_v2`（BIG，LineRangeProjectile 80000 长、15000 宽：画面按方向转动，**上下必须对称**）",
+    "runtime_target_size": "80 × 16",
+    "limitations": "六帧纵排，每帧三针；中央针较长，上下不严格镜像，针偏粗。"
+  },
+  {
+    "file": "gwen_fx_r_v5.png",
+    "prompt_number": 16,
+    "status": "generated-source-needs-import-cleanup",
+    "requested_frames": 6,
+    "visual_frames": 6,
+    "columns": 1,
+    "rows": 6,
+    "order": "row-major",
+    "requested_cell_game_px": [
+      82,
+      28
+    ],
+    "requested_canvas_px": [
+      1312,
+      2688
+    ],
+    "actual_canvas_px": [
+      876,
+      1795
+    ],
+    "has_transparency": true,
+    "semi_transparent_pixel_count": 200889,
+    "requested_size_match": false,
+    "sha256": "35926738f72298c8735bf3b020528b729835855cb7767e93e68118a4aaa778aa",
+    "binding": "view_projectiles `league_gwen_r_v3`（BIG，LineRangeProjectile 80000 长、25000 宽：画面按方向转动，**上下必须对称**）",
+    "runtime_target_size": "80 × 26",
+    "limitations": "六帧纵排，每帧五针；首尾贴边及末帧底部裁切风险，上下不严格镜像，针偏粗。"
+  }
+]
