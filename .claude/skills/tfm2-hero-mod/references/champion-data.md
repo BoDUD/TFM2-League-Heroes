@@ -715,9 +715,12 @@ the same champion file.
     and E, league_vayne's bolts) - is made symmetric the same way. A slash or crescent across the target reads the
     same either way.
   - A picture that must point at the target rides a projectile, which is turned with its direction (below).
-  - **Not fixable in data:** a figure of the hero left on the ground while he moves on - league_ekko's R ghost,
-    league_shaco's W clone, league_yone's body during E. It is no one action, nothing reads his facing, a figure has
-    a front, and a projectile's picture turned half round stands upside down.
+  - **A figure of the hero left on the ground while he moves on is drawn from the front.** It is no one action,
+    nothing reads his facing, and a projectile's picture turned half round stands upside down - but a figure facing
+    the viewer faces no way. league_yone's E body was one already (it only stood 4 squares right of its spot: its
+    pivot moved in `yone_cells.json`); league_ekko's R hologram, made from his side-on idle, waits for a front view
+    (`assets/source/red_side/PROMPTS.md`, `tools/art/pack_red_side_figures.py`). league_shaco's R clone needs none:
+    it always stands left of the champion it strikes, facing him, whichever side Shaco cast from.
   `lint_mod.py` warns on every caster picture whose mirror leaves more than half its pixels on empty ones (137 in 46
   heroes before the pass, league_ekko's ghost after); `tools/art/bake_gifs.py --hero <hero>` draws the blue side and
   the red side before and after (`docs/preview/red_side/<hero>_bake.gif`). An `Animation` plays its tag once, so a

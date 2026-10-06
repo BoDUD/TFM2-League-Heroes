@@ -14,8 +14,8 @@ The client never mirrors a data effect picture (champion-data.md section 6), so 
 4. HIT: pictures on a target or point that show where the blow came from (a streak or a chevron pointing on along
    the shot: league_ezreal R, league_riven's Wind Slash, league_yasuo Q and E, league_vayne's bolts) are made symmetric
    too; a slash or crescent across the target reads the same either way and stays.
-KEEP is what neither fits: figures of the hero left on the ground while he moves on - league_ekko's R ghost (3.75 s
-where he cast it), league_shaco's W clone, league_yone's body during E. Not one action, and a figure has a front.
+KEEP is what neither fits: league_ekko's R hologram, a figure of him left where he cast it for 4 s while he walks on
+(not one action, and his side-on idle has a front); it gets a front view (assets/source/red_side/PROMPTS.md).
 """
 import argparse
 import os
