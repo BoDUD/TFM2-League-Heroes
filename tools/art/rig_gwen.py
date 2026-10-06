@@ -354,7 +354,7 @@ def stand(P, pose):
 # contact, loading, mid-stance, push, toe-off, kick, passing, reach; the other leg half a cycle later. The hip stays
 # under the skirt; the thigh rows lean to the knee, the shin rows on to the ankle, the boot rows move whole with the
 # ankle (the user: v1's legs slid as straight sticks, 「走路的时候 说不出的怪」)
-CYCLE = [(1, 4, 0), (1, 2, 0), (0, 0, 0), (-1, -2, 0), (-1, -4, 1), (0, -3, 3), (2, 0, 3), (2, 3, 1)]
+CYCLE = [(1, 3, 0), (1, 2, 0), (0, 0, 0), (-1, -2, 0), (-1, -3, 1), (0, -2, 3), (2, 0, 3), (2, 2, 1)]
 # the hips drawn in under the skirt (the near leg 2 columns right, the far one 2 left): 6 apart, a stride of 3 put both
 # feet on one spot at the contacts and the near leg hid the far one (「两个腿上都有像素丢失吧？」); 2 apart they part at
 # the contacts and cross while passing (run-crossing: twice the swing must exceed the hip gap)
@@ -363,6 +363,7 @@ BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact -
 LAG = 0                                # late, a reviewer's idea) squashed her onto her legs and tore the curls from the
 CURLS = ((68, 82), (60, 68))           # head: 「走路时模型变形了吧？」
 KNEE_ROW, BOOT_ROW = 91, 94            # the stockings to the knee, the shin, the boots from row 94
+FOOT_ROW = 96                          # the boots' feet (from here down the toe shows its way)
 FAR_SHADE = {"f": "d", "d": "b", "x": "s", "s": "m", "m": "j", "w": "x", "q": "l", "u": "q"}
 
 
@@ -401,6 +402,13 @@ def run_parts(P):
     near, far = legs.copy(), legs.copy()
     near[:, LEG_SPLIT + 1:] = 0
     far[:, :LEG_SPLIT] = 0
+    # both feet to the front as she runs: the near boot (its toe out to the left, as she stands) turned round in its own
+    # columns (「走路姿势有点怪」: the toes splayed, one pointing back)
+    rows = slice(FOOT_ROW, SOLES + 1)
+    xs = np.nonzero((near[rows, :, 3] > 0).any(0))[0]
+    if len(xs):
+        x0, x1 = xs.min(), xs.max()
+        near[rows, x0:x1 + 1] = near[rows, x0:x1 + 1][:, ::-1]
     inv = {tuple(v): k for k, v in P.L.items()}
     ys, xs = np.nonzero(far[..., 3] > 0)
     for y, x in zip(ys, xs):
