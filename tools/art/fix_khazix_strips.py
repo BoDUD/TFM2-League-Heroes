@@ -54,10 +54,17 @@ DEAD = ["codex", "codex", ("tilt", 45, -6), ("lying", 1, -8), ("lying", 0, -8), 
 # ---- the run (the design's canvas: soles on row 99)
 NEAR_HIP, NEAR_FOOT = 84, 95        # the image-left leg: from its hip (hidden under the body) to the toe claws' rows
 FAR_HIP, FAR_FOOT = 89, 95          # the mid leg from under the knee (the knee stays on the body, as the user saw it)
+# the share of the foot's move the leg's top row takes too: with the long strides a leg sheared from a still top
+# lay down flat (the mid leg's lever is 6 rows)
+NEAR_BASE, FAR_BASE = 0.3, 0.6
 CLAW_ROW = 88                       # the claws' parts from this row down lift off the ground
 # per frame: near foot dx, near lift, far foot dx, far lift, back-claw lift, front-claw lift, body bob (rows down)
-STRIDE = [(0, 0, 0, 0, 0, 0, 1), (4, 1, -3, 0, 2, 0, 0), (9, 2, -7, 0, 3, 0, 0), (14, 1, -11, 0, 2, 0, 0),
-          (16, 0, -14, 0, 0, 0, 1), (12, 0, -10, 1, 0, 2, 0), (7, 0, -6, 2, 0, 3, 0), (3, 0, -2, 1, 0, 2, 0)]
+# The feet swap places every half cycle (the near foot from 14 px behind the standing column to 6 ahead of it, the mid
+# one from 11 ahead to 7 behind), the foot in the air lifted up to 3 rows as it passes the other: the first strides
+# (16 / -14, lifts of 1-2) only brought the feet together under him and back, so in the game they never crossed (the
+# user: 「你在游戏里走路有点怪 没有交叉步的感觉」).
+STRIDE = [(0, 0, 0, 0, 0, 0, 1), (5, 2, -4, 0, 2, 0, 0), (10, 3, -9, 0, 3, 0, 0), (15, 2, -14, 0, 2, 0, 0),
+          (20, 0, -18, 0, 0, 0, 1), (15, 0, -13, 2, 0, 2, 0), (10, 0, -9, 3, 0, 3, 0), (5, 0, -4, 2, 0, 2, 0)]
 BONE = {(242, 220, 212), (255, 246, 240), (200, 168, 168)}     # the claws' edge colours (never part of a leg)
 
 
@@ -137,7 +144,7 @@ def darker(d):
 INK = (11, 8, 20)        # the design's outline colour
 
 
-def swung(d, mask, hip, foot, dx, lift, drop, shade=None):
+def swung(d, mask, hip, foot, dx, lift, drop, shade=None, base=0.0):
     """The leg's squares sheared from the hip: rows above `foot` moved across in proportion to dx, the foot whole; the
     WHOLE leg lifted `lift` rows (its top goes under the body) - lifting only the lower rows in proportion pressed rows
     onto each other and lost up to 15 of the far leg's 110 squares; where the shear steps a row more than a square
@@ -152,6 +159,7 @@ def swung(d, mask, hip, foot, dx, lift, drop, shade=None):
             prev = None
             continue
         t = min(1.0, max(0, r - hip) / max(1, foot - hip))
+        t = base + (1 - base) * t
         sh = int(math.floor(dx * t + 0.5))
         rr = r - lift + drop
         if not 0 <= rr < d.shape[0]:
@@ -179,18 +187,19 @@ def swung(d, mask, hip, foot, dx, lift, drop, shade=None):
     return out
 
 
-def run_frame(d, k, masks, shade):
+def run_frame(d, k, masks, shade, legs=(NEAR_HIP, NEAR_FOOT, FAR_HIP, FAR_FOOT), stride=STRIDE):
     near, far, back, front = masks
-    nd, nl, fd, fl, bl, frl, bob = STRIDE[k]
+    near_hip, near_foot, far_hip, far_foot = legs
+    nd, nl, fd, fl, bl, frl, bob = stride[k]
     rest = d.copy()
     rest[near | far | back | front] = 0
     out = np.zeros_like(d)
-    K.put(out, swung(d, far, FAR_HIP, FAR_FOOT, fd, fl, bob, shade), 0, 0)
+    K.put(out, swung(d, far, far_hip, far_foot, fd, fl, bob, shade, FAR_BASE), 0, 0)
     K.put(out, K.shifted(rest, 0, bob), 0, 0)
     claw = lambda m, lift: K.shifted(np.where(m[..., None], d, 0).astype(np.uint8), 0, bob - lift)
     K.put(out, claw(back, bl), 0, 0)
     # the near leg over the back claw (it is the leg nearest the viewer), under the front claw
-    K.put(out, swung(d, near, NEAR_HIP, NEAR_FOOT, nd, nl, bob), 0, 0)
+    K.put(out, swung(d, near, near_hip, near_foot, nd, nl, bob, base=NEAR_BASE), 0, 0)
     K.put(out, claw(front, frl), 0, 0)
     out[SOLES + 1:] = 0
     return out
@@ -315,6 +324,23 @@ def shrink_frame(f, head, cut, ink):
     return K.finish(g, ink, SOLES, keep=keep)
 
 
+def small_run(design, cut, head, ink):
+    """The run rebuilt on the shrunk design: shrinking the full-size run cut its moving legs and feet at different
+    squares in every frame (the cut is the same canvas rows and columns, the legs are not), so their shapes flickered
+    and the step read as a shuffle (the user, in the game: 「走路有点怪 没有交叉步的感觉」). Here the design and its
+    part masks are shrunk once and the legs swing on that, the stride scaled to the smaller figure: every frame the same
+    legs and feet, moved whole."""
+    sd = shrink_frame(design, head, cut, ink)
+    as_img = lambda m: np.dstack([m.astype(np.uint8) * 255] * 4)
+    masks = [shrink(as_img(m), *cut)[..., 3] > 0 for m in leg_masks(design)]
+    masks = [m & (sd[..., 3] > 0) for m in masks]
+    legs = [shrunk_xy(PIVOT[0], y, *cut)[1] for y in (NEAR_HIP, NEAR_FOOT, FAR_HIP, FAR_FOOT)]
+    f = (shrunk_xy(PIVOT[0] + 16, PIVOT[1], *cut)[0] - shrunk_xy(PIVOT[0] - 14, PIVOT[1], *cut)[0]) / 30
+    stride = [(round(nd * f), nl, round(fd * f), fl, bl, frl, bob) for nd, nl, fd, fl, bl, frl, bob in STRIDE]
+    shade = darker(sd)
+    return [K.finish(run_frame(sd, i, masks, shade, legs, stride), ink, SOLES) for i in range(len(STRIDE))]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -367,10 +393,12 @@ def main():
                 canv[tag, X, Y] = cv
         cut = drops(list(canv.values()), [3 if t in ("idle", "run") else 1 for t, _, _ in canv], SHRINK)
         head = np.asarray(Image.open(HEAD).convert("RGBA")).copy()
+        run = small_run(design, cut, head, ink)
         for tag in TAGS:
-            for X, Y, (px, py) in frames(tag):
+            for i, (X, Y, (px, py)) in enumerate(frames(tag)):
                 cell = np.zeros((ch, cw, 4), np.uint8)
-                K.put(cell, shrink_frame(canv[tag, X, Y], head, cut, ink), px - PIVOT[0], py - PIVOT[1])
+                fig = run[i] if tag == "run" else shrink_frame(canv[tag, X, Y], head, cut, ink)
+                K.put(cell, fig, px - PIVOT[0], py - PIVOT[1])
                 sheets[tag][Y:Y + ch, X:X + cw] = cell
         print("shrink: rows", cut[0], "columns", cut[1], cut[2])
     for tag in TAGS:
