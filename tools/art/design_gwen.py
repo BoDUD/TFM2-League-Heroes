@@ -380,6 +380,27 @@ def lone_ink(a, keep):
         a[y, x, :3] = c
     return len(hits)
 
+
+# step 13 (the user, at the portrait: 「头像这里一大块是什么？」「头发」「像素缺失？」): the dark violet masses the
+# votes left in the hair beside her head (the draft's shadowed back hair, darker than any hair colour) read as missing
+# squares; in the hair's rows there the violet black takes the hair's navy and the violet the hair's blue
+BACK_HAIR = {"rows": (59, 67), "cols": [(52, 59), (69, 75)],
+             "map": {"#1d1444": "#020375", "#3c2a71": "#025ff8"}}
+
+
+def back_hair(a):
+    r0, r1 = BACK_HAIR["rows"]
+    n = 0
+    for c0, c1 in BACK_HAIR["cols"]:
+        for y in range(r0, r1 + 1):
+            for x in range(c0, c1 + 1):
+                if a[y, x, 3]:
+                    h = "#%02x%02x%02x" % tuple(int(v) for v in a[y, x, :3])
+                    if h in BACK_HAIR["map"]:
+                        a[y, x, :3] = hx(BACK_HAIR["map"][h])
+                        n += 1
+    return n
+
 def build(with_mask=False):
     """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
@@ -416,6 +437,7 @@ def build(with_mask=False):
     mask = np.zeros((128, 128), bool)
     mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
     lone_ink(canvas, face | mask)                      # step 12
+    back_hair(canvas)                                  # step 13
     if with_mask:
         return canvas, mask
     return canvas

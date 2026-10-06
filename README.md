@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、ADC 莎弥拉、辅助派克。蛮王之后按用户的计划做中单泽拉斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、ADC 莎弥拉、辅助派克。第十四组有上单格温（同组的其他英雄以后做）。蛮王之后按用户的计划做中单泽拉斯。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）和阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -121,6 +121,8 @@
 ![莎弥拉演示：她跑进场，开一枪打德莱厄斯（头顶评价 E）；Q 交火开枪：枪口喷火，一发火焰子弹穿过德莱厄斯和身后的盖伦（D）；E 狂飙：拖着红色速度线和黄沙冲过德莱厄斯（C），落到他身后接 W 锋旋，一圈剑刃火环绕身转，砍两下（B）；她转身朝左（红色方的样子）挥剑砍德莱厄斯（A），Q 近身半月斩（S，头顶金红爆闪）；R 炼狱扳机：原地旋转双枪连射，身边枪火和玫瑰花瓣，子弹打向两人，德莱厄斯倒下、E 刷新的金光](docs/preview/league_samira_showcase.gif?v=1006sm)
 
 ![派克演示：他跑进场，鱼叉砍德莱厄斯；Q 透骨尖钉蓄力：举起的叉刃上聚起幽绿的光，鱼叉扔向身后的盖伦，钩中后把他拉回来，鱼叉收回，盖伦脚下减速；W 幽潭潜行：脚下炸开一圈幽水，E 魅影浪洄：他俯冲穿过德莱厄斯，起点留下一滩水，魅影从水里冲回他身边，晕住德莱厄斯；他转身朝左（红色方的样子）近身戳刺德莱厄斯（Q 秒放，减速）；R 涌泉之恨：德莱厄斯脚下亮起血红的 X，斩下来水刺冲起，德莱厄斯被处决，派克闪到他身上，金币和血红光环炸开（赏金）；最后没人打他时幽水回复灰血](docs/preview/league_pyke_showcase.gif?v=1006pk)
+
+![格温演示：她跑进场，剪了德莱厄斯四下，头顶一个个亮起 Q 层数的小记号；Q 快刀剪乱：身前一个接一个闪过青白色的 X 剪痕，最后一大剪，正中央的白光爆开（真实伤害）；E 断续疾走：拖着丝线跳过德莱厄斯，落到盖伦身后剪他一下，脚下升起一大片圣霭，她身上罩着雾、绕着丝线；她转身朝左（红色方的样子）剪盖伦，R 引针簇射：1 根、3 根、5 根针三波沿直线飞过两人，中间穿插普攻，中针的人脚踝缠上丝线减速，德莱厄斯倒下](docs/preview/league_gwen_showcase.gif?v=1006gw)
 
 ## 英雄：盖伦
 
@@ -2736,6 +2738,47 @@ python addons/league_pyke/make_override.py   # 附加包的英雄数据和文字
 - 红色方：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图。飞行的画面（鱼叉、魅影）做成严格上下对称；晚于动作第一 tick 播放的（处决赏金、灰血回复）不跟随、严格左右对称；头顶的晕眩、脚下的减速、地上的水洼和 X 也左右对称。演示 GIF 后半段他转身朝左打，就是红色方的样子。
 
 逐帧预览：[`docs/preview/league_pyke_frames.png`](docs/preview/league_pyke_frames.png)，特效：[`docs/preview/league_pyke_effects.png`](docs/preview/league_pyke_effects.png)。
+
+## 英雄：格温
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（刺客，分类 Assassin），用户排的第十四组的上单，第 66 位英雄。灵罗娃娃 格温：拿大剪刀近身剪，普攻叠层数让 Q 多剪几下，E 跳上去接 W 的圣霭（站在雾里远处的敌人看不到她），R 连扔三波针。技能位用户选的「Q / E→W 连招」，W 选「雾里隐身 + 双抗」，R 选「一次施放连投三段」；被动的百分比魔法伤害用户说「这个可以改rust」（主包里是最大生命值的真实伤害，主包自己完整可玩；真正的百分比魔法伤害以后做原生附加包） |
+| 普攻 / 被动 | 近战，射程 24000，攻击间隔 56 tick，第 11 tick 剪中（动作第 4 帧往前刺）。每次剪中敌人叠一层 Q（最多 4 层，6 秒）。被动「千穿百孔」：普攻、Q 的每一剪、R 的每根针附加 10 + 8% 法强的魔法伤害；对英雄再造成 1% 最大生命值的真实伤害（数据读不到最大生命值的魔法伤害，`FixedAttack target_hp_ratio`）并回复 10 + 6% 法强的生命 |
+| 技能1 | Q「快刀剪乱」：冷却 330 tick，射程 30000，也对小兵和野怪放。在身前扇形里剪 1 + 层数下（每下 12 + 8% 法强，3 tick 一下），第 22 tick 最后一大剪 60 + 40% 法强；正中央（前方 16000、半径 6000）的敌人再受到 25 真实伤害（英雄联盟中心的伤害是真实伤害）。层数清空 |
+| 技能2 | E「断续疾走」→ W「丝缕缠流」：冷却 900 tick（15 秒），只对敌方英雄放（射程 45000）。跳到目标身边（每 tick 6000），之后 4 秒攻速 +25%、攻击距离 +7500、普攻附加 15 + 20% 法强；落脚处升起圣霭 4 秒（半径 37000）：她站在雾里时每 0.1 秒刷新一次隐身（远处的敌人选不中她，走近的还能打，英雄联盟是雾外的敌人选不中她）和护甲、魔抗 +22，走出雾 0.1 秒内失效（阿卡丽第一层烟雾的做法：艾克的锚点 → 区域 → 只对自己） |
+| 大招 | R「引针簇射」：冷却 2400 tick，只对敌方英雄放（射程 70000），朝施法方向连扔三波（隔 36 tick）：1 根、3 根、5 根针（一条 80000 长、宽 5000 / 15000 / 25000 的直线，能躲），每波 50 / 60 / 75 + 25% 法强的魔法伤害，带被动，减速 40% 1.5 秒 |
+| 连招 | 用户：「另外加一点格温高手的连招逻辑进去」。**E→A**：E 落地立刻剪目标一下（英雄联盟 E 重置普攻；60% 攻击力 + 被动，也叠一层 Q）；**E→Q**：E 落地后 2 秒内放 Q，最后一剪的真实伤害直接打在 Q 的目标身上（高手用 E 调位置让中心对准，AI 对不准，这里替它对准）；**R 穿插普攻**：R 只在扔第一波时让她停下，后两波从她当时的位置照原方向飞，中间她照常普攻（英雄联盟 R 分三次放、中间穿插普攻） |
+| 数值 | 攻击 74（+10）、法强 50（+20）、生命 880（+98）、护甲 30（+8）、魔抗 24（+4）、移速 1080（+11）。数值是自己设计的，用 SDK 对战模拟调：上单，对 6 个原版上单（`fighter`、`executioner`、`lancer`、`pole_warrior`、`knight`、`berserker`），3 套阵容、两边各打，10 分钟。初稿 +1.55 / +2.00；生命 980 → 950、Q 90 + 50% → 70 + 40%、E 攻速 40% → 30%、W 25 → 22 后 +1.41 / +1.24（同包菲奥娜 +1.22 / +1.47、蛮王 +1.29 / +1.02）。加了连招后 +3.39，再调回：E 落地那一剪 60% 攻击力不带 E 的附加伤害、中心真伤 40 → 25、生命 950 → 880、攻击 80 → 74、Q 70 → 60（小剪 15 → 12）、E 攻速 30% → 25%、R 60/70/90 → 50/60/75，+1.33 / +1.30 |
+| 亚索联动 | 她的技能只有减速，没有击飞和晕眩，不用调 |
+| 精灵图 | 8 个动作 52 帧（含画进帧里的特效）：待机（呼吸：上半身和剪刀在第 3、4 帧沉一行）、移动、普攻、Q（`skill`）、E→W（`skill2`）、R（`ult`）、受击、死亡。造型 53 × 44 px（连身后的长剪刀），25 色。头像截取点 (1, −42)，选人卡片 `banpick_center` −7 |
+| 特效 | Codex 生图的 16 张（`import_gwen.py` 缩成游戏像素）：`league_gwen_fx` 普攻、Q 小剪、R 针的命中，Q 中心真伤的白光，头顶的 Q 层数记号（4 个位置），E 加速时的丝线、雾里的护罩、减速时脚踝的丝线；`league_gwen_big` 地上的圣霭、R 的三波针；画进她自己动作帧里的：普攻剪尖的 X、Q 的小剪和最后一大剪、E 跳跃的丝线拖尾 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_gwen.py`）：普攻挥剪、剪中，Q 开剪、小剪、最后一剪、剪中、真伤，E 冲刺，W 圣霭，R 起手、扔针、针中；Q、E、W、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_gwen.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_gwen.py          # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_gwen.py --face 1,-42 --banpick -7   # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/design_gwen.py         # 造型：Codex 草稿 bd82 按格子读回到 44 行，脸、剪刀、躯干逐格画
+python tools/art/rig_gwen.py            # 动作：每帧都是造型本身，手臂和剪刀整块摆；--review <文件夹> 先看
+python tools/art/import_gwen.py         # 特效；--raw assets/source/gwen/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/import_native.py --hero gwen   # 动作条 + 画进帧里的特效（assets/source/native/gwen_bake.json）
+python tools/art/preview_gwen.py
+```
+
+美术（原画的提示词见 [`assets/source/gwen/PICTURE_PROMPT.md`](assets/source/gwen/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/gwen/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/gwen/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/gwen/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/gwen/codex_picture/)、[`codex_model/`](assets/source/gwen/codex_model/)、[`codex_strips/`](assets/source/gwen/codex_strips/)、[`codex_fx/`](assets/source/gwen/codex_fx/)；附图包由 `tools/art/pack_gwen_*.py` 在本地生成，英雄联盟的渲染和 oppi 的图不进仓库）：
+
+- 原画：Codex 画了 A（大剪刀拖在身后）和 B，用户选 A。
+- 造型：用户给了一张草稿（「你那些都不合格 用这个」），按草稿自己的格子读回到 44 行，每个游戏像素按投票取色（描边和头发的暗线单独算）。脸照 oppi 的画法重画（「眼睛嘴巴不还是奇怪吗？改不好就学隔壁oppi美术的技巧」），后来按用户给的参考图改成上深下浅、左上白色高光、睫毛带眼尾的眼睛（「能不能把这个五官拿过来用 你慢慢手绘」）。剪刀用英雄联盟原版的样子（「我记得格温是大剪刀把？」「你看原版英雄啊」）：一把长长的合拢剪刀从腰后斜到脚边，两个带尖刺的环在身侧，环的孔是爱心（「剪刀孔请用可爱的形状」）。脖子和胸衣照草稿重画（「只剩脖子和身体那里有点怪了」），胸衣改成平涂（「手臂这里颜色都对对齐看了好怪」），身体里不连成线的孤立黑点清掉（「清理一下没用的黑色素」）。头两侧两块比头发暗得多的深紫色后发改成头发的深蓝和蓝（「头像这里一大块是什么？」「像素缺失？」）。试过把头发改成双螺旋马尾，用户要原样（「这发型你还原吧」）。
+- 动作：Codex 的动作条把手臂硬转 85–90°（变形）、R 和受击就是待机，用户：「有奇怪的地方你帮我修复 灵活运用工具」。`rig_gwen.py` 全部用造型自己的像素摆：手臂是直的、两格粗（肤色上亮下暗、紫手套两格），和造型垂着的手臂一样长；远侧手臂从肩角出来、画在身体下面但压在背后的卷发上，近侧画在身体上面。手里的剪刀每一帧都按造型的画法重画（同样的环、尖刺和刀身，角度不同，不旋转像素），张开时是两片刀刃。普攻、Q、W 手在腰的高度（在肩膀高度时环陷进卷发里），刀身不往地上戳；E 用跑步的腿跳一下；R 左手举起一把三根针、甩过胸口；受击整个人后退；死亡每一帧都绕脚转，倒下时剪刀先还在手里，倒地后躺在脚前面。跑步：腿用造型自己腿的每一行沿胯—膝—脚踝摆，两胯收到身下，交叉步，远侧腿暗一档，落地时身体沉一行；空着的左手和腿反着摆，后面卷发的下半段往后飘一格（「走路时太过于僵硬 没有那种灵性」；整束卷发一起动时头发变形：「头发上 有点变形」）。剪刀的描边在每一帧都保留原样（被清理改掉时剪刀一帧一个样：「上下摆动剪刀变形啊」）。
+- 特效用 Codex 画的 16 张（生图原稿，`import_gwen.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——剪刀和针的白青圣光、针的银白、圣霭的淡白蓝；光外圈最暗的一档去掉，Q 层数记号保留描边）。三波针的原稿每帧位置不齐、最后几帧被切掉，改成取最完整的一帧、由脚本沿直线匀速往前移；雾里的护罩和 E 的丝线把她盖白了，中间掏空；地上的圣霭底色太实，隔一格透出地面。
+- 红色方：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图，所以有朝向的特效全部画进她的动作帧（`gwen_bake.json`）：普攻剪尖的 X、Q 的小剪和最后一大剪、E 的拖尾——技能数据里不再单独播放 E 的拖尾。三波针做成严格上下对称；挂在她身上、地上、敌人脚下的画面做成严格左右对称。演示 GIF 后半段她转身朝左打，就是红色方的样子。
+
+逐帧预览：[`docs/preview/league_gwen_frames.png`](docs/preview/league_gwen_frames.png)，特效：[`docs/preview/league_gwen_effects.png`](docs/preview/league_gwen_effects.png)。
+
 
 ## 选人卡片位置（`banpick_center`）
 
