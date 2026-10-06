@@ -1,0 +1,8 @@
+{
+  "fx": "league_evelynn_big",
+  "items": [
+    {"tag": "e2_trail", "into": "attack_e2", "at_ms": 0, "under": true},
+    {"tag": "q_cast", "into": "skill", "at_ms": 183, "fx": "league_evelynn_fx"},
+    {"tag": "w_cast", "into": "skill2", "at_ms": 117, "fx": "league_evelynn_fx"}
+  ]
+}

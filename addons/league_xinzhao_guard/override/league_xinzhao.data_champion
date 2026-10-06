@@ -1254,10 +1254,6 @@
           "tick": 13,
           "effects": [
             {
-              "type": "CasterViewEffect",
-              "name": "league_xinzhao_w_slash"
-            },
-            {
               "type": "RangeEffect",
               "shape": {
                 "DirDot": {
@@ -1369,10 +1365,6 @@
         {
           "type": "Sfx",
           "name": "league_xinzhao_r_cast"
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_xinzhao_r_tell"
         },
         {
           "type": "Delayed",
@@ -1527,7 +1519,7 @@
     {
       "type": "Animation",
       "name": "league_xinzhao_p_heal",
-      "anim": "asset/league/effects/league_xinzhao_fx",
+      "anim": "asset/league/effects/league_xinzhao_sym",
       "tag": "p_heal",
       "z": 2,
       "is_follow": false
@@ -1574,14 +1566,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_xinzhao_w_slash",
-      "anim": "asset/league/effects/league_xinzhao_big",
-      "tag": "w_slash",
-      "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_xinzhao_w_hit",
       "anim": "asset/league/effects/league_xinzhao_fx",
       "tag": "w_hit",
@@ -1593,14 +1577,6 @@
       "name": "league_xinzhao_w_hit2",
       "anim": "asset/league/effects/league_xinzhao_fx",
       "tag": "w_hit2",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_xinzhao_r_tell",
-      "anim": "asset/league/effects/league_xinzhao_big",
-      "tag": "r_tell",
       "z": 2,
       "is_follow": true
     },

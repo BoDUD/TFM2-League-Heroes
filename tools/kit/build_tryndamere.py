@@ -29,6 +29,10 @@ add-on addons/league_tryndamere_rage, which reads his health - the data pack kee
 import argparse
 import json
 import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fix"))
+import red_side  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -290,7 +294,9 @@ def build(p, native=False):
         params = {k: int(p[k]) for k in keys}
         params.update({k[2:]: int(p[k]) for k in ("n_near", "n_r_hp", "n_q_hp", "n_burst", "n_burst_left", "n_burst_t")})
         kit["passive"] = {"passive_ref": "league_tryndamere_rage:guard", "params": params}
-    return kit
+    # the red-side pass (tools/fix/red_side_caster_fx.py): pictures with a front and a back drawn into his frames,
+    # the rest made symmetric - the same changes on every build, the add-on's copy included
+    return red_side.apply(kit, "tryndamere")
 
 
 def nodes(o):

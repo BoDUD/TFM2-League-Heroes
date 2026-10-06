@@ -217,8 +217,9 @@
               }
             },
             {
-              "type": "CasterViewEffect",
-              "name": "league_nocturne_swing"
+              "type": "CasterAnimation",
+              "name": "attack_fx1",
+              "tick": 20
             },
             {
               "type": "Delayed",
@@ -1422,8 +1423,9 @@
           "tick": 45
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_nocturne_r_trail"
+          "type": "CasterAnimation",
+          "name": "ult_fx1",
+          "tick": 45
         },
         {
           "type": "MoveToTarget",
@@ -1532,14 +1534,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_nocturne_swing",
-      "anim": "asset/league/effects/league_nocturne_fx",
-      "tag": "swing",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_nocturne_p_spin",
       "anim": "asset/league/effects/league_nocturne_fx",
       "tag": "p_spin",
@@ -1616,14 +1610,6 @@
       "anim": "asset/league/effects/league_nocturne_fx",
       "tag": "r_veil",
       "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_nocturne_r_trail",
-      "anim": "asset/league/effects/league_nocturne_fx",
-      "tag": "r_trail",
-      "z": -1,
       "is_follow": true
     },
     {

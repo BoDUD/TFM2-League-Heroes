@@ -291,10 +291,6 @@
           }
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_kayn_q_dash"
-        },
-        {
           "type": "RushTime",
           "speed": 3000,
           "tick": 8,
@@ -848,19 +844,20 @@
           "type": "SwitchByBuff",
           "buff_name": "league_kayn_form_d",
           "effect_buff": {
-            "type": "CasterViewEffect",
-            "name": "league_kayn_w_wind_d"
+            "type": "Combine",
+            "effects": []
           },
           "effect_none": {
             "type": "SwitchByBuff",
             "buff_name": "league_kayn_form_s",
             "effect_buff": {
-              "type": "CasterViewEffect",
-              "name": "league_kayn_w_wind_s"
+              "type": "Combine",
+              "effects": []
             },
             "effect_none": {
-              "type": "CasterViewEffect",
-              "name": "league_kayn_w_wind"
+              "type": "CasterAnimation",
+              "name": "skill2_fx1",
+              "tick": 46
             }
           }
         },
@@ -1662,12 +1659,13 @@
           }
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_kayn_r_dive"
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 12
         },
         {
           "type": "CasterAnimation",
-          "name": "ult",
+          "name": "ult_fx1",
           "tick": 12
         },
         {
@@ -1703,6 +1701,10 @@
             {
               "type": "RemoveCasterAnimation",
               "name": "ult"
+            },
+            {
+              "type": "RemoveCasterAnimation",
+              "name": "ult_fx1"
             },
             {
               "type": "CasterAnimation",
@@ -2370,14 +2372,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_kayn_q_dash",
-      "anim": "asset/league/effects/league_kayn_fx",
-      "tag": "q_dash",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_kayn_q_spin",
       "anim": "asset/league/effects/league_kayn_fx",
       "tag": "q_spin",
@@ -2418,43 +2412,11 @@
     },
     {
       "type": "Animation",
-      "name": "league_kayn_w_wind",
-      "anim": "asset/league/effects/league_kayn_fx",
-      "tag": "w_wind",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_kayn_w_wind_d",
-      "anim": "asset/league/effects/league_kayn_fx",
-      "tag": "w_wind_d",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_kayn_w_wind_s",
-      "anim": "asset/league/effects/league_kayn_fx",
-      "tag": "w_wind_s",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_kayn_w_hit",
       "anim": "asset/league/effects/league_kayn_fx",
       "tag": "w_hit",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_kayn_r_dive",
-      "anim": "asset/league/effects/league_kayn_fx",
-      "tag": "r_dive",
-      "z": -1,
-      "is_follow": false
     },
     {
       "type": "Animation",

@@ -355,10 +355,6 @@
           }
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_zilean_a_cast"
-        },
-        {
           "type": "TargetProjectile",
           "name": "league_zilean_a_orb",
           "speed": 5000,
@@ -717,8 +713,9 @@
           "name": "league_zilean_q_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_zilean_q_cast"
+          "type": "CasterAnimation",
+          "name": "skill_fx1",
+          "tick": 17
         },
         {
           "type": "RemoveCasterBuff",
@@ -1307,10 +1304,6 @@
                                 "name": "league_zilean_w_cast"
                               },
                               {
-                                "type": "CasterViewEffect",
-                                "name": "league_zilean_w_rewind"
-                              },
-                              {
                                 "type": "Delayed",
                                 "tick": 30,
                                 "effects": [
@@ -1791,10 +1784,6 @@
         },
         {
           "type": "Sfx",
-          "name": "league_zilean_e_cast"
-        },
-        {
-          "type": "CasterViewEffect",
           "name": "league_zilean_e_cast"
         },
         {
@@ -2463,25 +2452,9 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_zilean_a_cast",
-      "anim": "asset/league/effects/league_zilean_fx",
-      "tag": "a_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_zilean_a_hit",
       "anim": "asset/league/effects/league_zilean_fx",
       "tag": "a_hit",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_zilean_q_cast",
-      "anim": "asset/league/effects/league_zilean_fx",
-      "tag": "q_cast",
       "z": 1,
       "is_follow": true
     },
@@ -2532,22 +2505,6 @@
       "tag": "q_boom2",
       "z": 1,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_zilean_w_rewind",
-      "anim": "asset/league/effects/league_zilean_big",
-      "tag": "w_rewind",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_zilean_e_cast",
-      "anim": "asset/league/effects/league_zilean_fx",
-      "tag": "e_cast",
-      "z": 1,
-      "is_follow": true
     },
     {
       "type": "Animation",

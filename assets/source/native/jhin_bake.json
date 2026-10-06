@@ -1,0 +1,11 @@
+{
+  "fx": "league_jhin_fx",
+  "items": [
+    {"tag": "a_cast", "into": "attack", "at_ms": 67},
+    {"tag": "a_muzzle", "into": "attack", "at_ms": 167},
+    {"tag": "a4_muzzle", "into": "attack4", "at_ms": 200},
+    {"tag": "q_throw", "into": "skill", "at_ms": 167},
+    {"tag": "w_muzzle", "into": "skill2", "at_ms": 733},
+    {"tag": "r_muzzle", "into": "ult_shot", "at_ms": 0}
+  ]
+}

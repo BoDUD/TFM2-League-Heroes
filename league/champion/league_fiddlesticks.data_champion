@@ -2250,7 +2250,7 @@
     {
       "type": "Animation",
       "name": "league_fiddlesticks_r_storm",
-      "anim": "asset/league/effects/league_fiddlesticks_big",
+      "anim": "asset/league/effects/league_fiddlesticks_sym",
       "tag": "r_storm",
       "z": 1,
       "is_follow": true

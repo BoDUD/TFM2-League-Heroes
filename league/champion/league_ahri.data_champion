@@ -3830,7 +3830,7 @@
     {
       "type": "Animation",
       "name": "league_ahri_w_orbit",
-      "anim": "asset/league/effects/league_ahri_fx",
+      "anim": "asset/league/effects/league_ahri_sym",
       "tag": "w_orbit",
       "z": 1,
       "is_follow": true

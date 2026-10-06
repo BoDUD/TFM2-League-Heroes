@@ -1,0 +1,14 @@
+{
+  "fx": "league_varus_fx",
+  "items": [
+    {"tag": "a_flash", "into": "attack", "at_ms": 167},
+    {"tag": "q_charge", "into": "skill_fx1", "from": "skill", "slice_ms": 0, "length_ms": 1267, "at_ms": 0},
+    {"tag": "w_glow", "into": "skill_fx2", "from": "skill_fx1", "slice_ms": 0, "length_ms": 1267, "at_ms": 0},
+    {"tag": "q_fire", "into": "skill_fx1", "at_ms": 1100},
+    {"tag": "q_fire", "into": "skill_fx2", "at_ms": 1100},
+    {"tag": "q_charge_s", "into": "skill_quick", "at_ms": 0},
+    {"tag": "q_fire", "into": "skill_quick", "at_ms": 400},
+    {"tag": "e_cast", "into": "skill2", "at_ms": 183},
+    {"tag": "r_cast", "into": "ult", "at_ms": 267}
+  ]
+}

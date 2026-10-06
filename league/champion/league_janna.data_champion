@@ -1245,7 +1245,7 @@
     {
       "type": "Animation",
       "name": "league_janna_w_hit",
-      "anim": "asset/league/effects/league_janna_fx",
+      "anim": "asset/league/effects/league_janna_sym",
       "tag": "w_hit",
       "z": 1,
       "is_follow": true

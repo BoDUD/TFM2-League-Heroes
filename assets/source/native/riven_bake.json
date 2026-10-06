@@ -1,0 +1,24 @@
+{
+  "fx": "league_riven_big",
+  "items": [
+    {"tag": "r_on_back", "into": "ult_fx1", "from": "ult", "slice_ms": 0, "length_ms": 517, "at_ms": 0, "under": true},
+    {"tag": "r_on_front", "into": "ult_fx1", "at_ms": 0},
+    {"tag": "r_slash_back", "into": "r_slash_fx1", "from": "r_slash", "slice_ms": 0, "length_ms": 483, "at_ms": 0, "fx": "league_riven_fx", "under": true},
+    {"tag": "q3_back", "into": "q3_r", "at_ms": 0, "length_ms": 517, "fx": "league_riven_fx", "under": true},
+    {"tag": "q3_back", "into": "q3", "at_ms": 0, "length_ms": 517, "fx": "league_riven_fx", "under": true},
+    {"tag": "q2_back", "into": "q2_r", "at_ms": 0, "length_ms": 467, "fx": "league_riven_fx", "under": true},
+    {"tag": "q2_back", "into": "q2", "at_ms": 0, "length_ms": 467, "fx": "league_riven_fx", "under": true},
+    {"tag": "q2_front", "into": "q2_r", "at_ms": 0, "length_ms": 467, "fx": "league_riven_fx"},
+    {"tag": "q2_front", "into": "q2", "at_ms": 0, "length_ms": 467, "fx": "league_riven_fx"},
+    {"tag": "q1_back", "into": "skill_r", "at_ms": 0, "length_ms": 467, "fx": "league_riven_fx", "under": true},
+    {"tag": "q1_back", "into": "skill_fx1", "from": "skill", "slice_ms": 0, "length_ms": 467, "at_ms": 0, "fx": "league_riven_fx", "under": true},
+    {"tag": "q1_front", "into": "skill_r", "at_ms": 0, "length_ms": 467, "fx": "league_riven_fx"},
+    {"tag": "q1_front", "into": "skill_fx2", "from": "skill", "slice_ms": 0, "length_ms": 467, "at_ms": 0, "fx": "league_riven_fx"},
+    {"tag": "q1_front", "into": "skill_fx1", "at_ms": 0, "fx": "league_riven_fx"},
+    {"tag": "e_back", "into": "skill2_r", "at_ms": 0, "under": true},
+    {"tag": "e_back", "into": "skill2_fx1", "from": "skill2", "slice_ms": 0, "length_ms": 550, "at_ms": 0, "under": true},
+    {"tag": "e_front", "into": "skill2_r", "at_ms": 0},
+    {"tag": "e_front", "into": "skill2_fx2", "from": "skill2", "slice_ms": 0, "length_ms": 550, "at_ms": 0},
+    {"tag": "e_front", "into": "skill2_fx1", "at_ms": 0}
+  ]
+}

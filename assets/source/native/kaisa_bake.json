@@ -1,0 +1,10 @@
+{
+  "fx": "league_kaisa_fx",
+  "items": [
+    {"tag": "shot", "into": "attack", "at_ms": 150},
+    {"tag": "q_cast", "into": "skill", "at_ms": 167},
+    {"tag": "w_charge", "into": "skill2", "at_ms": 33},
+    {"tag": "w_muzzle", "into": "skill2", "at_ms": 417},
+    {"tag": "r_trail", "into": "ult", "at_ms": 33, "under": true}
+  ]
+}

@@ -1,0 +1,6 @@
+{
+ "league_kennen_w_burst": {
+  "anim": "asset/league/effects/league_kennen_big",
+  "tag": "w_burst"
+ }
+}

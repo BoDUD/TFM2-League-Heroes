@@ -22,9 +22,9 @@ on; the ground rings on the ellipse's middle, at the share of the canvas height 
 
 The second step places every cell by its anchor: the device flies with its core on the projectile; hits on the
 body; the ground rings on the ground under the unit (11 px below the pivot); the stun clock over the head; the
-shield round his body. Chronobreak's hologram (r_ghost, 4 s where he cast it) is Ekko's own idle drawing in the
-mint of League's rewind skin, with scan lines and two glitch frames: made here from league_ekko's sheet, not by
-Codex. No palette or outline pass on the sheets. Writes league/effects/league_ekko_fx (hit, q_hit, z_proc,
+shield round his body. Chronobreak's hologram (r_ghost, 4 s where he cast it) is Ekko's front view
+(assets/source/red_side/ekko_front.png: it faces no way, as nothing mirrors it) in the mint of League's rewind skin,
+with scan lines and two glitch frames. No palette or outline pass on the sheets. Writes league/effects/league_ekko_fx (hit, q_hit, z_proc,
 q_device, e_dash, e_hit, w_stun, w_shield, r_hit) and league/effects/league_ekko_big (q_field, w_forming,
 w_sphere, w_shatter, r_ghost, r_depart, r_arrive).
 """
@@ -184,12 +184,29 @@ MINT = [(0xD8, 0xFF, 0xF0), (0x9C, 0xE8, 0xD0), (0x5C, 0xC4, 0xAC), (0x3A, 0x8C,
 GHOST_ALPHA, SCAN_ALPHA = 200, 130
 
 
+# Ekko from the front (Codex, 2026-10-06; assets/source/red_side/PROMPTS.md): 8x blocks on a 56 x 56 canvas, the
+# soles on row 46, the middle on column 28. The client never mirrors an effect picture, so the hologram made from his
+# side-on idle faced right on the red side too; a front view faces no way.
+FRONT = os.path.join(ROOT, "assets", "source", "red_side", "ekko_front.png")
+FRONT_SOLES, FRONT_MID = 46, 28
+
+
+def front():
+    """The front view at game size, centred on his pivot (the soles 11 rows under it)."""
+    a = np.asarray(Image.open(G.lp(FRONT)).convert("RGBA"))[4::8, 4::8].copy()
+    py, px = FRONT_SOLES - 11, FRONT_MID
+    hh = max(py, a.shape[0] - 1 - py)
+    hw = max(px, a.shape[1] - 1 - px)
+    out = np.zeros((2 * hh + 1, 2 * hw + 1, 4), np.uint8)
+    out[hh - py:hh - py + a.shape[0], hw - px:hw - px + a.shape[1]] = a
+    return out
+
+
 def hologram():
-    """Ekko's idle drawing (the first idle frame of his sheet, centred on its pivot) in the rewind skin's mint:
-    each pixel by its brightness (the outline the darkest), every third row a dimmer scan line; 8 x 500 ms, the
-    third and sixth frames glitching (a band of rows slid a pixel sideways)."""
-    sp = T.load_sprite(os.path.join(MOD, "champions", "league_ekko"))
-    f = np.asarray(sp.frames[sp.tag_frames("idle")[0]].convert("RGBA")).copy()
+    """Ekko's front view (front()) in the rewind skin's mint: each pixel by its brightness (the outline the darkest),
+    every third row a dimmer scan line; 8 x 500 ms, the third and sixth frames glitching (a band of rows slid a pixel
+    sideways). Until 2026-10-06 it was his side-on idle, which faced right on the red side."""
+    f = front()
     on = f[..., 3] > 0
     lum = (0.299 * f[..., 0] + 0.587 * f[..., 1] + 0.114 * f[..., 2]) / 255.0
     cuts = np.quantile(lum[on], [0.75, 0.45, 0.2])

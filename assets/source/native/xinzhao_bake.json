@@ -1,0 +1,7 @@
+{
+  "fx": "league_xinzhao_big",
+  "items": [
+    {"tag": "w_slash", "into": "skill2", "at_ms": 250},
+    {"tag": "r_tell", "into": "ult", "at_ms": 33}
+  ]
+}

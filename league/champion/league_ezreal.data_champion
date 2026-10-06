@@ -2782,10 +2782,6 @@
           "name": "league_ezreal_r_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_ezreal_r_charge"
-        },
-        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_ezreal_r_chan",
@@ -3200,16 +3196,8 @@
     },
     {
       "type": "Animation",
-      "name": "league_ezreal_r_charge",
-      "anim": "asset/league/effects/league_ezreal_big",
-      "tag": "r_charge",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_ezreal_r_hit",
-      "anim": "asset/league/effects/league_ezreal_fx",
+      "anim": "asset/league/effects/league_ezreal_sym",
       "tag": "r_hit",
       "z": 1,
       "is_follow": true

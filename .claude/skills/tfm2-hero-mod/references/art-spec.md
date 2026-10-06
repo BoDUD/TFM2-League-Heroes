@@ -81,10 +81,11 @@ Sin's first idle, fixed in `leesin_retouch.json`).
 - Reuse base effects when they fit (`bundle_tool.py list --grep skill_effect/`).
 - **Anything with an up and down goes on a caster view.** A projectile's view is turned to the
   cast direction (champion-data section 6), so a wall or a banner on a `LineRangeProjectile` lies
-  across the screen when cast upward. A `CasterViewEffect` is not turned, is mirrored for a
-  left-facing caster and stands where it was played. Timed into an action (a `Delayed`), it must have
-  `is_follow: false`, or the client mirrors it the wrong way for a red-side caster (league_vi E, league_aatrox Q,
-  2026-10-03; champion-data section 6): check every directional picture with the hero on the red team.
+  across the screen when cast upward. A `CasterViewEffect` is not turned and **never mirrored**, `is_follow` or
+  not (2026-10-06, champion-data section 6): only the hero's own frames turn with his facing. So a picture with a
+  front and a back on the hero (a muzzle flash, a slash beside him) is drawn into his action frames
+  (`assets/source/native/<hero>_bake.json`), and one on a target or point is drawn left-right symmetric. Check every
+  directional picture with the hero on the red team (`tools/art/bake_gifs.py`).
   A ground zone's picture is a projectile's too: a `RangeProjectile` / `RangePeriodProjectile` on a `Position` cast
   is turned to (1, 0) or (-1, 0), so upside down cast leftward - league_leona R's sunlight, league_missfortune E's
   rain, league_soraka Q's falling star and E's field, league_lux E's orb over its ring and league_lissandra R's icicles

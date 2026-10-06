@@ -1,0 +1,9 @@
+{
+  "fx": "league_tristana_fx",
+  "items": [
+    {"tag": "shot", "into": "attack", "at_ms": 150},
+    {"tag": "e_shot", "into": "skill", "at_ms": 150},
+    {"tag": "q_cast", "into": "skill", "at_ms": 150},
+    {"tag": "r_muzzle", "into": "ult", "at_ms": 167}
+  ]
+}

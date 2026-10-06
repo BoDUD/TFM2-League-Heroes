@@ -547,8 +547,9 @@
           "tick": 30
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_vi_q_charge"
+          "type": "CasterAnimation",
+          "name": "skill_fx1",
+          "tick": 30
         },
         {
           "type": "Sfx",
@@ -591,10 +592,6 @@
               "type": "CasterAnimation",
               "name": "skill_dash",
               "tick": 16
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_vi_q_go"
             },
             {
               "type": "Sfx",
@@ -1436,12 +1433,13 @@
           "name": "league_vi_r_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_vi_r_trail"
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 8
         },
         {
           "type": "CasterAnimation",
-          "name": "ult",
+          "name": "ult_fx1",
           "tick": 8
         },
         {
@@ -1729,22 +1727,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_vi_q_charge",
-      "anim": "asset/league/effects/league_vi_fx",
-      "tag": "q_charge",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_vi_q_go",
-      "anim": "asset/league/effects/league_vi_fx",
-      "tag": "q_go",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_vi_q_hit",
       "anim": "asset/league/effects/league_vi_fx",
       "tag": "q_hit",
@@ -1762,7 +1744,7 @@
     {
       "type": "Animation",
       "name": "league_vi_e_arm",
-      "anim": "asset/league/effects/league_vi_fx",
+      "anim": "asset/league/effects/league_vi_sym",
       "tag": "e_arm",
       "z": 1,
       "is_follow": true
@@ -1781,14 +1763,6 @@
       "anim": "asset/league/effects/league_vi_fx",
       "tag": "r_cast",
       "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_vi_r_trail",
-      "anim": "asset/league/effects/league_vi_fx",
-      "tag": "r_trail",
-      "z": -1,
       "is_follow": true
     },
     {

@@ -1,0 +1,7 @@
+{
+  "fx": "league_nocturne_fx",
+  "items": [
+    {"tag": "swing", "into": "attack_fx1", "from": "attack", "slice_ms": 33, "length_ms": 333, "at_ms": 0},
+    {"tag": "r_trail", "into": "ult_fx1", "from": "ult", "slice_ms": 0, "length_ms": 750, "at_ms": 0, "under": true}
+  ]
+}

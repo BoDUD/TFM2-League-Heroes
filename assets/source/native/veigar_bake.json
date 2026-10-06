@@ -1,0 +1,6 @@
+{
+  "fx": "league_veigar_fx",
+  "items": [
+    {"tag": "r_cast", "into": "ult", "at_ms": 50}
+  ]
+}

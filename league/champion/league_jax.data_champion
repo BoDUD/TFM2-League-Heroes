@@ -1757,7 +1757,7 @@
     {
       "type": "Animation",
       "name": "league_jax_r_slam",
-      "anim": "asset/league/effects/league_jax_big",
+      "anim": "asset/league/effects/league_jax_sym",
       "tag": "r_slam",
       "z": -1,
       "is_follow": true

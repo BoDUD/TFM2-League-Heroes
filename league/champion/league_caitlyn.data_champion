@@ -100,10 +100,6 @@
                 "tick": 5,
                 "effects": [
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_caitlyn_e_shot"
-                  },
-                  {
                     "type": "TargetProjectile",
                     "name": "league_caitlyn_e_net",
                     "speed": 6000,
@@ -228,8 +224,9 @@
                       "tick": 9,
                       "effects": [
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_caitlyn_hs_shot"
+                          "type": "CasterAnimation",
+                          "name": "passive_fx1",
+                          "tick": 13
                         },
                         {
                           "type": "TargetProjectile",
@@ -305,8 +302,9 @@
                         "tick": 9,
                         "effects": [
                           {
-                            "type": "CasterViewEffect",
-                            "name": "league_caitlyn_hs_shot"
+                            "type": "CasterAnimation",
+                            "name": "passive_fx1",
+                            "tick": 13
                           },
                           {
                             "type": "TargetProjectile",
@@ -370,8 +368,9 @@
                           "tick": 9,
                           "effects": [
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_caitlyn_hs_shot"
+                              "type": "CasterAnimation",
+                              "name": "passive_fx1",
+                              "tick": 13
                             },
                             {
                               "type": "TargetProjectile",
@@ -438,8 +437,9 @@
                             "tick": 7,
                             "effects": [
                               {
-                                "type": "CasterViewEffect",
-                                "name": "league_caitlyn_shot"
+                                "type": "CasterAnimation",
+                                "name": "attack_fx1",
+                                "tick": 15
                               },
                               {
                                 "type": "TargetProjectile",
@@ -506,8 +506,9 @@
                               "tick": 7,
                               "effects": [
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_caitlyn_shot"
+                                  "type": "CasterAnimation",
+                                  "name": "attack_fx1",
+                                  "tick": 15
                                 },
                                 {
                                   "type": "TargetProjectile",
@@ -574,8 +575,9 @@
                                 "tick": 7,
                                 "effects": [
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_caitlyn_shot"
+                                    "type": "CasterAnimation",
+                                    "name": "attack_fx1",
+                                    "tick": 15
                                   },
                                   {
                                     "type": "TargetProjectile",
@@ -642,8 +644,9 @@
                                   "tick": 7,
                                   "effects": [
                                     {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_caitlyn_shot"
+                                      "type": "CasterAnimation",
+                                      "name": "attack_fx1",
+                                      "tick": 15
                                     },
                                     {
                                       "type": "TargetProjectile",
@@ -703,8 +706,9 @@
                                   "tick": 7,
                                   "effects": [
                                     {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_caitlyn_shot"
+                                      "type": "CasterAnimation",
+                                      "name": "attack_fx1",
+                                      "tick": 15
                                     },
                                     {
                                       "type": "TargetProjectile",
@@ -905,10 +909,6 @@
             {
               "type": "Sfx",
               "name": "league_caitlyn_q_fire"
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_caitlyn_q_muzzle"
             },
             {
               "type": "SwitchByBuff",
@@ -3352,6 +3352,10 @@
                 {
                   "type": "RemoveCasterAnimation",
                   "name": "ult"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_fx1"
                 }
               ]
             }
@@ -3374,6 +3378,10 @@
                 {
                   "type": "RemoveCasterAnimation",
                   "name": "ult"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_fx1"
                 }
               ]
             }
@@ -3396,6 +3404,10 @@
                 {
                   "type": "RemoveCasterAnimation",
                   "name": "ult"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_fx1"
                 }
               ]
             }
@@ -3418,6 +3430,10 @@
                 {
                   "type": "RemoveCasterAnimation",
                   "name": "ult"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_fx1"
                 }
               ]
             }
@@ -3440,6 +3456,10 @@
                 {
                   "type": "RemoveCasterAnimation",
                   "name": "ult"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_fx1"
                 }
               ]
             }
@@ -3462,6 +3482,10 @@
                 {
                   "type": "RemoveCasterAnimation",
                   "name": "ult"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_fx1"
                 }
               ]
             },
@@ -3480,8 +3504,9 @@
                     "name": "league_caitlyn_r_fire"
                   },
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_caitlyn_r_muzzle"
+                    "type": "CasterAnimation",
+                    "name": "ult_fx1",
+                    "tick": 22
                   },
                   {
                     "type": "LinearProjectile",
@@ -3614,22 +3639,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_caitlyn_shot",
-      "anim": "asset/league/effects/league_caitlyn_fx",
-      "tag": "shot",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_caitlyn_hs_shot",
-      "anim": "asset/league/effects/league_caitlyn_fx",
-      "tag": "hs_shot",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_caitlyn_hs_hit",
       "anim": "asset/league/effects/league_caitlyn_fx",
       "tag": "hs_hit",
@@ -3638,27 +3647,11 @@
     },
     {
       "type": "Animation",
-      "name": "league_caitlyn_e_shot",
-      "anim": "asset/league/effects/league_caitlyn_fx",
-      "tag": "e_shot",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_caitlyn_e_hit",
       "anim": "asset/league/effects/league_caitlyn_fx",
       "tag": "e_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_caitlyn_q_muzzle",
-      "anim": "asset/league/effects/league_caitlyn_fx",
-      "tag": "q_muzzle",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3699,14 +3692,6 @@
       "tag": "w_snap",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_caitlyn_r_muzzle",
-      "anim": "asset/league/effects/league_caitlyn_fx",
-      "tag": "r_muzzle",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",

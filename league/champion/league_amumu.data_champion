@@ -1982,10 +1982,6 @@
               }
             },
             {
-              "type": "CasterViewEffect",
-              "name": "league_amumu_r_burst"
-            },
-            {
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
@@ -2078,14 +2074,6 @@
       "name": "league_amumu_e_tantrum",
       "anim": "asset/league/effects/league_amumu_big",
       "tag": "e_tantrum",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_amumu_r_burst",
-      "anim": "asset/league/effects/league_amumu_big",
-      "tag": "r_burst",
       "z": 1,
       "is_follow": true
     }

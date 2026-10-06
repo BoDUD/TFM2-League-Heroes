@@ -590,10 +590,6 @@
                                   "tick": 30
                                 },
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_tryndamere_r_cast"
-                                },
-                                {
                                   "type": "Sfx",
                                   "name": "league_tryndamere_r_cast"
                                 },
@@ -704,8 +700,9 @@
                                           "tick": 24
                                         },
                                         {
-                                          "type": "CasterViewEffect",
-                                          "name": "league_tryndamere_q_heal"
+                                          "type": "CasterAnimation",
+                                          "name": "skill_q_fx1",
+                                          "tick": 24
                                         },
                                         {
                                           "type": "Sfx",
@@ -839,8 +836,9 @@
                                       "tick": 24
                                     },
                                     {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_tryndamere_q_heal"
+                                      "type": "CasterAnimation",
+                                      "name": "skill_q_fx1",
+                                      "tick": 24
                                     },
                                     {
                                       "type": "Sfx",
@@ -1897,8 +1895,9 @@
           "tick": 16
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_tryndamere_e_spin"
+          "type": "CasterAnimation",
+          "name": "skill_fx1",
+          "tick": 16
         },
         {
           "type": "Sfx",
@@ -3111,14 +3110,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_tryndamere_e_spin",
-      "anim": "asset/league/effects/league_tryndamere_big",
-      "tag": "e_spin",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_tryndamere_e_hit",
       "anim": "asset/league/effects/league_tryndamere_fx",
       "tag": "e_hit",
@@ -3128,7 +3119,7 @@
     {
       "type": "Animation",
       "name": "league_tryndamere_w_shout",
-      "anim": "asset/league/effects/league_tryndamere_big",
+      "anim": "asset/league/effects/league_tryndamere_sym",
       "tag": "w_shout",
       "z": 2,
       "is_follow": true
@@ -3140,22 +3131,6 @@
       "tag": "w_hit",
       "z": 3,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_tryndamere_r_cast",
-      "anim": "asset/league/effects/league_tryndamere_big",
-      "tag": "r_cast",
-      "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_tryndamere_q_heal",
-      "anim": "asset/league/effects/league_tryndamere_fx",
-      "tag": "q_heal",
-      "z": 2,
-      "is_follow": false
     }
   ],
   "view_buffs": [

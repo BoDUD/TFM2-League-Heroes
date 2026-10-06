@@ -666,8 +666,27 @@
                                   "only_to_enemy": false
                                 },
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_alistar_e_ready"
+                                  "buff_name": "league_alistar_r_armed",
+                                  "type": "SwitchByBuff",
+                                  "effect_buff": {
+                                    "buff_name": "league_alistar_r_go",
+                                    "type": "SwitchByBuff",
+                                    "effect_buff": {
+                                      "type": "CasterAnimation",
+                                      "name": "ult_fx1",
+                                      "tick": 30
+                                    },
+                                    "effect_none": {
+                                      "type": "CasterAnimation",
+                                      "name": "skill_fx1",
+                                      "tick": 28
+                                    }
+                                  },
+                                  "effect_none": {
+                                    "type": "CasterAnimation",
+                                    "name": "skill_fx1",
+                                    "tick": 28
+                                  }
                                 },
                                 {
                                   "type": "Sfx",
@@ -7615,7 +7634,7 @@
     {
       "type": "Animation",
       "name": "league_alistar_w_butt",
-      "anim": "asset/league/effects/league_alistar_fx",
+      "anim": "asset/league/effects/league_alistar_sym",
       "tag": "w_butt",
       "z": 2,
       "is_follow": false
@@ -7647,7 +7666,7 @@
     {
       "type": "Animation",
       "name": "league_alistar_e_ready",
-      "anim": "asset/league/effects/league_alistar_fx",
+      "anim": "asset/league/effects/league_alistar_sym",
       "tag": "e_ready",
       "z": 2,
       "is_follow": false

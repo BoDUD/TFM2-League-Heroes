@@ -92,12 +92,9 @@
                             "tick": 31
                           },
                           {
-                            "type": "CasterViewEffect",
-                            "name": "league_riven_r_on_back_atk"
-                          },
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_riven_r_on_front_atk"
+                            "type": "CasterAnimation",
+                            "name": "ult_fx1",
+                            "tick": 31
                           },
                           {
                             "type": "Sfx",
@@ -310,8 +307,9 @@
                               "tick": 29
                             },
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_riven_r_slash_back"
+                              "type": "CasterAnimation",
+                              "name": "r_slash_fx1",
+                              "tick": 29
                             },
                             {
                               "type": "Sfx",
@@ -539,10 +537,6 @@
               "name": "q3",
               "tick": 31
             }
-          },
-          {
-            "type": "CasterViewEffect",
-            "name": "league_riven_q3_back"
           },
           {
             "type": "CasterViewEffect",
@@ -820,14 +814,6 @@
               }
             },
             {
-              "type": "CasterViewEffect",
-              "name": "league_riven_q2_back"
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_riven_q2_front"
-            },
-            {
               "type": "SwitchByBuff",
               "buff_name": "league_riven_rune_2",
               "effect_buff": {
@@ -1072,12 +1058,38 @@
               }
             },
             {
-              "type": "CasterViewEffect",
-              "name": "league_riven_q1_back"
+              "buff_name": "league_riven_r",
+              "type": "SwitchByBuff",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "CasterAnimation",
+                "name": "skill_fx1",
+                "tick": 28
+              }
             },
             {
-              "type": "CasterViewEffect",
-              "name": "league_riven_q1_front"
+              "buff_name": "league_riven_r",
+              "type": "SwitchByBuff",
+              "effect_buff": {
+                "buff_name": "league_riven_r",
+                "type": "SwitchByBuff",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "CasterAnimation",
+                  "name": "skill_fx2",
+                  "tick": 28
+                }
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
             },
             {
               "type": "SwitchByBuff",
@@ -1353,12 +1365,38 @@
           }
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_riven_e_back"
+          "buff_name": "league_riven_r",
+          "type": "SwitchByBuff",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "CasterAnimation",
+            "name": "skill2_fx1",
+            "tick": 33
+          }
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_riven_e_front"
+          "buff_name": "league_riven_r",
+          "type": "SwitchByBuff",
+          "effect_buff": {
+            "buff_name": "league_riven_r",
+            "type": "SwitchByBuff",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "CasterAnimation",
+              "name": "skill2_fx2",
+              "tick": 33
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
         },
         {
           "type": "CasterViewEffect",
@@ -1772,12 +1810,9 @@
                   "tick": 31
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_riven_r_on_back"
-                },
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_riven_r_on_front"
+                  "type": "CasterAnimation",
+                  "name": "ult_fx1",
+                  "tick": 31
                 },
                 {
                   "type": "Sfx",
@@ -2025,8 +2060,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2125,8 +2161,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2225,8 +2262,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2325,8 +2363,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2425,8 +2464,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2525,8 +2565,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2625,8 +2666,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2725,8 +2767,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2825,8 +2868,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2925,8 +2969,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3025,8 +3070,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3125,8 +3171,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3225,8 +3272,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3325,8 +3373,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3425,8 +3474,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3525,8 +3575,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3625,8 +3676,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3725,8 +3777,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3825,8 +3878,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3925,8 +3979,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4025,8 +4080,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4125,8 +4181,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4225,8 +4282,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4325,8 +4383,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4425,8 +4484,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4525,8 +4585,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4625,8 +4686,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4725,8 +4787,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4825,8 +4888,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4925,8 +4989,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5025,8 +5090,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5125,8 +5191,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5225,8 +5292,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5325,8 +5393,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5425,8 +5494,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5525,8 +5595,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5625,8 +5696,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5725,8 +5797,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5825,8 +5898,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5925,8 +5999,9 @@
                           "tick": 29
                         },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_riven_r_slash_back"
+                          "type": "CasterAnimation",
+                          "name": "r_slash_fx1",
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -6008,65 +6083,9 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_riven_q1_back",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "q1_back",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q1_front",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "q1_front",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q2_back",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "q2_back",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q2_front",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "q2_front",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q3_back",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "q3_back",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_riven_q3_front",
       "anim": "asset/league/effects/league_riven_fx",
       "tag": "q3_front",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_e_back",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "e_back",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_e_front",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "e_front",
       "z": 1,
       "is_follow": true
     },
@@ -6085,46 +6104,6 @@
       "tag": "w_front",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_r_on_back",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "r_on_back",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_r_on_back_atk",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "r_on_back",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_r_on_front",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "r_on_front",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_r_on_front_atk",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "r_on_front",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_r_slash_back",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "r_slash_back",
-      "z": -1,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -6153,7 +6132,7 @@
     {
       "type": "Animation",
       "name": "league_riven_r_hit",
-      "anim": "asset/league/effects/league_riven_fx",
+      "anim": "asset/league/effects/league_riven_sym",
       "tag": "r_hit",
       "z": 1,
       "is_follow": true
