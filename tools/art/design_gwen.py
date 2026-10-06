@@ -423,6 +423,7 @@ POLISH_FACE = (62, 68, 63, 69)                     # columns, rows of the face: 
 CURLS_ = [(57.5, 68.5, 3.9, True), (73.0, 68.5, 3.9, False)]   # centre, radius, winding
 BOW_ = ["fd.df", "ddqdd", "bd.db"]
 BOWS_AT = [(57, 60), (73, 60)]
+LEG_DX = 2                                    # the legs under her middle (two columns right)
 SIDES = {62: ("0tnkhagh", "hgaknkh0"),
          63: ("0nkhgagh", "ggankhg0"),
          64: ("0khgaggh", "hgakhga0")}           # columns 54-61 and 69-76
@@ -559,14 +560,17 @@ def polish(canvas, mask):
         put(65, 84, "b")
     # 5. the legs redrawn (the user: 「腿能更新吗」, the picture's): diamond-checked violet stockings lit on the left edge,
     # a small gold star on the far thigh; white heeled boots - a gold star buckle at the ankle, a gold toe cap, the
-    # toes out, a gap under the arch for the heel - in the old legs' columns (the run splits them at column 64)
+    # toes out, a gap under the arch for the heel - two columns right of the old legs, under her middle (「腿移中间点
+    # 呗」: they stood left of the skirt's middle; the run splits them at column 66)
     for y in range(87, 100):
-        for x in range(56, 72):
-            if not mask[y, x] and (y >= 89 or x not in (56, 57, 70, 71)):
+        for x in range(56, 74):
+            if not mask[y, x] and (y >= 89 or 58 <= x <= 71):
                 put(x, y, ".")
+    dx = LEG_DX
     for y in range(87, 93):
         legs = ((60, 63), (65, 68)) if y < 91 else ((60, 62), (66, 68))
         for x0, x1 in legs:
+            x0, x1 = x0 + dx, x1 + dx
             put(x0 - 1, y, "0")
             put(x1 + 1, y, "0")
             for x in range(x0, x1 + 1):
@@ -574,11 +578,15 @@ def polish(canvas, mask):
             put(x0, y, "j")
             put(x1, y, "b" if (x1 + y) % 2 else "d")
     for x, y, c in ((67, 87, "u"), (66, 88, "q"), (67, 88, "u"), (68, 88, "q"), (67, 89, "l")):
-        put(x, y, c)
+        put(x + dx, y, c)
     for y, row in LEGS.items():
         for i, c in enumerate(row):
-            if c != "-" and not mask[y, 56 + i]:
-                put(56 + i, y, c)
+            if c != "-" and not mask[y, 56 + i + dx]:
+                put(56 + i + dx, y, c)
+    # the skirt's hem over the legs' tops: the outline row under it closed where the legs moved from
+    for x in range(56, 74):
+        if ch(87, x) == "." and ch(86, x) not in ".0":
+            put(x, 87, "0")
     # outline squares the rings above left touching no colour (over the scissors' spikes, outside the near shoulder) go
     ink = (a[..., :3] == hx(PAL["0"])).all(-1) & (a[..., 3] > 0)
     col = (a[..., 3] > 0) & ~ink
