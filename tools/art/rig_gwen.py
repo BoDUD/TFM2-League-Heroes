@@ -294,7 +294,11 @@ def stand(P, pose):
 # contact, loading, mid-stance, push, toe-off, kick, passing, reach; the other leg half a cycle later. The hip stays
 # under the skirt; the thigh rows lean to the knee, the shin rows on to the ankle, the boot rows move whole with the
 # ankle (the user: v1's legs slid as straight sticks, 「走路的时候 说不出的怪」)
-CYCLE = [(1, 3, 0), (1, 1, 0), (0, -1, 0), (-1, -2, 0), (-1, -3, 1), (0, -2, 2), (1, 0, 2), (2, 3, 1)]
+CYCLE = [(1, 4, 0), (1, 2, 0), (0, 0, 0), (-1, -2, 0), (-1, -4, 1), (0, -3, 3), (2, 0, 3), (2, 3, 1)]
+# the hips drawn in under the skirt (the near leg 2 columns right, the far one 2 left): 6 apart, a stride of 3 put both
+# feet on one spot at the contacts and the near leg hid the far one (「两个腿上都有像素丢失吧？」); 2 apart they part at
+# the contacts and cross while passing (run-crossing: twice the swing must exceed the hip gap)
+HIP_IN = {"near": 2, "far": -2}
 BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact - two rows (and the curls and scissors a frame
 LAG = 0                                # late, a reviewer's idea) squashed her onto her legs and tore the curls from the
 CURLS = ((68, 82), (60, 68))           # head: 「走路时模型变形了吧？」
@@ -358,8 +362,8 @@ def run_frame(P, k):
     sc = P.scissors.copy()
     body[curls] = 0
     c = np.zeros((128, 128, 4), np.uint8)
-    for leg, ph in ((far, (k + 4) % 8), (near, k)):
-        K.put(c, bent(leg, *CYCLE[ph]), 0, 0)
+    for leg, ph, side in ((far, (k + 4) % 8, "far"), (near, k, "near")):
+        K.put(c, shifted(bent(leg, *CYCLE[ph]), HIP_IN[side], 0), 0, 0)
     dy = BOB[k]
     late = BOB[k - LAG]
     K.put(c, shifted(body, 0, dy), 0, 0)
