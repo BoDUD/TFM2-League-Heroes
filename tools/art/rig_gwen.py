@@ -97,29 +97,53 @@ class Parts:
                 self.hair[y, x] = True
 
 
-def scissors_unit(P, deg, length=SC_LEN, opening=0):
-    """The scissors in her hand as a part with its joint on the grip: the two cyan rings side by side round the grip
-    (the fingers through them), the long blade along `deg` (0 right, 90 down) from just past them - or, open, two
-    blades opening/2 either side; design_gwen's own recipe and colours. No spikes in the hand: they crossed the open
-    blades into an X and merged with the curls (the idle keeps them). (A round silver handle with a split blade was
-    tried on 2026-10-06 and put back: 「这剪刀还不如之前的」.)"""
-    n = 2 * length + 24
-    c = np.zeros((n, n, 4), np.uint8)
-    g = np.array([n / 2, n / 2])
+# the idle's handle (design_gwen.LEAGUE) measured from the midpoint of its two rings: x along the handle away from the
+# blade, y across it (down in the idle)
+HANDLE_MID = (32.25, 25.5)
+BLADE_FROM = 3.8                       # the blade starts this far past the grip, at the rings' near edge
+
+
+def handle_frame(deg):
+    """The blade's direction u (deg: 0 right, 90 down), the handle's h (back from the blade) and its cross n - turned
+    the idle's way, or mirrored where turning would hang the idle's upper spikes below (n always points down)."""
     t = math.radians(deg)
     u = np.array([math.cos(t), math.sin(t)])
-    v = np.array([-u[1], u[0]])
-    for side in (1, -1):
-        DG.league_ring(c, tuple(g - 0.6 * u + side * 2.3 * v), 2.5, 1.1)
-    base = g + 2.0 * u
+    h = -u
+    n = np.array([-h[1], h[0]])
+    if n[1] < 0 or (abs(n[1]) < 1e-9 and n[0] < 0):
+        n = -n
+    return u, h, n
+
+
+def scissors_unit(P, deg, length=SC_LEN, opening=0):
+    """The scissors in her hand as a part with its joint on the grip: the idle's own two cyan rings and four spikes
+    round the grip (design_gwen.LEAGUE, the same size), the long blade along `deg` (0 right, 90 down) from the rings'
+    near edge - or, open, two blades opening/2 either side, without the one spike that points along the blade (it
+    crossed the upper blade); drawn with design_gwen's recipe and colours at every angle, never rotated pixels. (The
+    user: the held pair had no spikes - 「继续改」; a round silver handle with a split blade was tried on 2026-10-06 and
+    put back: 「这剪刀还不如之前的」.)"""
+    N = 2 * length + 40
+    c = np.zeros((N, N, 4), np.uint8)
+    g = np.array([N / 2, N / 2])
+    u, h, n = handle_frame(deg)
+    at = lambda q: tuple(g + q[0] * h + q[1] * n)  # noqa: E731
+    mx, my = HANDLE_MID
+    for (cx, cy), ro, ri in DG.LEAGUE["rings"]:
+        DG.league_ring(c, at((cx - mx, cy - my)), ro, ri)
+    for b0, b1, w in DG.LEAGUE["spikes"]:
+        q0, q1 = (b0[0] - mx, b0[1] - my), (b1[0] - mx, b1[1] - my)
+        if opening and q1[0] <= 0:
+            continue
+        DG.league_blade(c, at(q0), at(q1), w)
+    base = g + BLADE_FROM * u
     if opening:
         for sgn in (1, -1):
-            a = t + sgn * math.radians(opening / 2)
+            a = math.radians(deg) + sgn * math.radians(opening / 2)
             w = np.array([math.cos(a), math.sin(a)])
             DG.league_blade(c, tuple(base), tuple(base + length * w), 2.8)
     else:
         DG.league_blade(c, tuple(base), tuple(base + length * u), 3.4)
-    can, _, _ = strips.complete_outline(np.pad(c, ((1, 1), (1, 1), (0, 0))), color=DG.C["I"], feet=n + 2)
+    can, _, _ = strips.complete_outline(np.pad(c, ((1, 1), (1, 1), (0, 0))), color=DG.C["I"], feet=N + 2)
     c = can[1:-1, 1:-1]
     ys, xs = np.nonzero(c[..., 3] > 0)
     s = c[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy()
@@ -192,20 +216,40 @@ def shifted(a, dx, dy):
     return K.shifted(a, dx, dy) if (dx or dy) else a
 
 
-def needle(P):
-    """R's needle in the hand: a white point, four silver squares, outlined - six squares, pointing up (the three of v2
-    did not read beside the curls)."""
-    s = np.zeros((8, 3, 4), np.uint8)
-    for y, ch in ((1, "x"), (2, "x"), (3, "s"), (4, "s"), (5, "s"), (6, "m")):
-        s[y, 1] = P.rgba[ch]
-        s[y, 0] = s[y, 2] = P.rgba["0"]
-    s[0, 1] = s[7, 1] = P.rgba["0"]
-    return K.Part(s, (1.5, 7.0))
+NEEDLE = "xxssssm"                      # a needle from its point: white, silver, the eye's lilac
+FAN = (-35, 0, 35)                      # R: three needles in the raised hand, degrees from straight up (25 apart
+                                        # they merged into one white claw)
+LOOSE = (-12, 0, 12)                    # at the release: three leaving the hand, degrees from level (to image right)
+
+
+def needles(P, hand, held):
+    """R's needles as cells, outlined: "fan" - three six-square needles fanned up out of the hand (one alone did not
+    read: 「R的动作还是偏小」); "loose" - three flying out of the hand to the right, two squares clear of it."""
+    hx, hy = hand[0] - 0.5, hand[1] - 0.5
+    if held == "fan":
+        dirs, d0 = [(math.sin(math.radians(a)), -math.cos(math.radians(a))) for a in FAN], 1
+    else:
+        dirs, d0 = [(math.cos(math.radians(a)), math.sin(math.radians(a))) for a in LOOSE], 3
+    cells = {}
+    for dx, dy in dirs:
+        for i, ch in enumerate(reversed(NEEDLE)):
+            d = d0 + i
+            q = (int(math.floor(hx + d * dx + 0.5)), int(math.floor(hy + d * dy + 0.5)))
+            if q not in cells or ch in "xs":
+                cells[q] = P.rgba[ch]
+    ring = {}
+    for (x, y) in cells:
+        for ox, oy in K.N4:
+            q = (x + ox, y + oy)
+            if q not in cells:
+                ring[q] = P.rgba["0"]
+    ring.update(cells)
+    return ring
 
 
 # ------------------------------------------------------------------------------------------------ standing actions
 # per frame: "far": (arm degrees, scissors degrees, opening) - the scissors in the far hand; "throw": (arm degrees,
-# "needle" or None) - the far arm free, the scissors behind her as drawn (R: the open side of her, where the arm reads);
+# "fan", "loose" or None - needles()) - the far arm free, the scissors behind her as drawn (R: the open side of her, where the arm reads);
 # "near": the same for the near arm; "move": the whole frame (dx, dy); a frame without "far" keeps the scissors behind
 # her as drawn
 STAND = {
@@ -224,11 +268,13 @@ STAND = {
     "skill2": [{"leap": 0, "move": (1, 0)}, {"leap": 6, "move": (3, -2)}, {"leap": 7, "move": (2, 0)}, {},
                {"far": (45, -45, 0)}, {"far": (60, -70, 0)}, {"far": (45, -45, 0)}, {}],
     # Needlework (release frame 4) with the free near hand (the far one is by the scissors and in the curls): the
-    # hand at her side, swung back and up over the near curl with the needle (beside the hanging arm it read as a
-    # white stripe on her side), whipped across her chest to the right (the needle gone), the follow-through, home;
+    # hand at her side, swung back and up over the near curl with a fan of three needles (one beside the hanging arm
+    # read as a white stripe on her side; 「R的动作还是偏小」), whipped across her chest to the right, the needles gone
+    # (thrown - the effect flies them; drawn leaving the hand they lay across her chest as a white bar), the
+    # follow-through, home;
     # leaning back two columns for the wind-up and forward two at the release (in place it read as the idle)
-    "ult": [{"near": (-30, None), "move": (-1, 0)}, {"near": (-150, "needle"), "move": (-2, 0)},
-            {"near": (-160, "needle"), "move": (-2, 0)}, {"near": (100, None), "move": (2, 0)},
+    "ult": [{"near": (-30, None), "move": (-1, 0)}, {"near": (-150, "fan"), "move": (-2, 0)},
+            {"near": (-160, "fan"), "move": (-2, 0)}, {"near": (100, None), "move": (2, 0)},
             {"near": (70, None), "move": (1, 0)}, {}],
     # the hit: pushed back and recovering (the head alone moved tore the curls at the chin)
     "hit": [{"move": (-2, 0)}, {"move": (-1, 0)}],
@@ -276,21 +322,23 @@ def stand(P, pose):
         over_sc = lambda x, y: under(x, y) or sc_behind[y, x]  # noqa: E731
         put_cells(c, ring, over_sc)
         put_cells(c, col, over_sc)
-        if held == "needle":
-            nd = part_cells(needle(P), (hand[0], hand[1] - 1))
+        if held:
+            nd = needles(P, hand, held)
             put_cells(c, nd, over_sc)
             for (x, y) in nd:
-                keep[y, x] = True
+                if 0 <= y < 128 and 0 <= x < 128:
+                    keep[y, x] = True
     if near is not None:
         deg, held = near
         ring, col, hand = arm_cells(P, NEAR_SH, deg)
         put_cells(c, ring, clear_ok)
         put_cells(c, col)
-        if held == "needle":
-            nd = part_cells(needle(P), (hand[0], hand[1] - 1))
+        if held:
+            nd = needles(P, hand, held)
             put_cells(c, nd)
             for (x, y) in nd:
-                keep[y, x] = True
+                if 0 <= y < 128 and 0 <= x < 128:
+                    keep[y, x] = True
     c[SOLES + 1:] = 0
     dx, dy = pose.get("move", (0, 0))
     k4 = np.zeros(a.shape, np.uint8)

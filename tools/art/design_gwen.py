@@ -27,9 +27,11 @@ at one scale), then for the face 「脸部五官太奇怪了」「改不好就�
      has them: each ring a 5-square loop with a see-through middle (white top-left, lilac, a shade bottom-right), two
      blades 4 squares wide at the rings tapering to their points (cyan, a blue middle, a navy lower edge), the glove a
      2 x 2 block gripping the upper ring; the outline closed round the parts;
-  7. the face (FACE): skin flat; two 2 x 2 eyes under a near-black lash row (bright blue with a white square top
-     right over a dark-blue / blue row), a blush square under each eye, a one-square mouth in the middle, the chin
-     closed with the outline's blue; the old neck dot that read as a mouth corner made skin (NECK);
+  7. the face (FACE): skin flat; two 2 x 2 eyes under a near-black lash row that runs on over the outer corners, in
+     the user's reference's way (「能不能把这个五官拿过来用 你慢慢手绘」 - the eyes were 「有点丑」): the white square top
+     left (both eyes: one light), dark blue beside it, bright blue under them - dark on top, light below, looking the
+     way she faces; a blush square under each eye, a one-square mouth in the middle, the chin closed with the
+     outline's blue; the old neck dot that read as a mouth corner made skin (NECK);
   8. (the user: 「我记得格温是大剪刀把？」「你看原版英雄啊」) League's own scissors replace step 6's: closed, one long
      blade from behind her hip down to the lower left (about 1.1 times her height; League's is 1.6), two spiked ring
      handles behind her hip at image right, a shank from the hip to each ring - all drawn BEHIND the figure on a
@@ -84,9 +86,9 @@ SCISSORS = {"clear": (21, 39, 12),
             "glove": {(9, 22): "S", (10, 22): "U", (9, 23): "U", (10, 23): "U", (11, 22): "U", (11, 21): "G"}}
 # step 7: rows of columns 16-22
 FACE_X0 = 16
-FACE = {8: "GIIGIIG",
-        9: "GCLGCLG",
-        10: "GBCGBCG",
+FACE = {8: "IIIGIII",
+        9: "GLBGLBG",
+        10: "GCCGCCG",
         11: "GKGGGKG",
         12: "GGGPGGG",
         13: "AGGGGGA"}
