@@ -31,7 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_pyke")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_pyke_fx", "league_pyke_big")}
-HOOK_Y = -8                                            # the harpoon's y_offset (-3000: 8 px over the pivot)
+HOOK_Y = -5                                            # the harpoon's y_offset (0: 5 px over the pivot, his hand)
 
 
 class Me:
@@ -111,16 +111,16 @@ def showcase(out, z=3, step=40):
     a("idle", tick(P["atk_cd"] - P["atk_dur"]), loop=True)
     # Q held: the charge (the glow on the raised blade), the throw at Garen, the drag, the harpoon back
     q0 = t
-    over.append(OnMe(frames_of(small, "q_charge"), q0, me))
     rel = q0 + tick(P["q_hold"])
     sx = me.pos(rel)[0]
     gx = g.pos(rel)[0] - 8
     arrive = rel + tick((gx - sx) / (P["q_speed"] / 1000))
     over.append(Anim(frames_of(small, "q_hook"), rel, sx, gy + HOOK_Y, until=arrive, x1=gx, y1=gy + HOOK_Y))
     hit(g, "q_hit", arrive)
-    drag = tick((gx - (sx + 26)) / (P["q_grab"] / 1000))
+    stop = d.pos(arrive)[0] + 26                 # pulled in until just past Darius (not on top of him)
+    drag = tick((gx - stop) / (P["q_grab"] / 1000))
     g.holds.append((arrive, arrive + drag))
-    g.walks.append((arrive, arrive + drag, -(gx - (sx + 26))))
+    g.walks.append((arrive, arrive + drag, -(gx - stop)))
     over.append(Anim(mirrored(frames_of(small, "q_return")), arrive, gx, gy + HOOK_Y, until=arrive + drag,
                      x1=sx + 6, y1=gy + HOOK_Y))
     over.append(OnFoe(frames_of(small, "q_slow"), arrive, g, until=arrive + tick(P["q_slow_t"])))
@@ -136,6 +136,8 @@ def showcase(out, z=3, step=40):
     land = e0 + tick((land_x - start) / (P["e_speed"] / 1000))
     me.moves.append((e0, land, start, land_x))
     under.append(Anim(frames_of(big, "e_left"), e0, start, gy + 11))
+    for k in range(1, P["e_t"], 2):              # the wake: a streak dropped every 2 ticks of the dash
+        under.append(Anim(frames_of(small, "e_trail"), e0 + tick(k), me.pos(e0 + tick(k))[0], gy + 9))
     a("skill2", tick(P["e_t"]))
     back = e0 + tick(P["e_ret"])
     reach = back + tick((land_x - start) / (P["e_ph_speed"] / 1000))

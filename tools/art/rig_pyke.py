@@ -319,6 +319,68 @@ class Rig:
                 lie(90, -9)]
 
 
+# the whole figure a little smaller (the user: 「然后看看整体模型能不能缩小点 略微缩小」; at the design's size he stood
+# 53 x 62 squares, Darius 42 x 36): one square row in every SHRINK above the soles and one column in every SHRINK each
+# side of the standing column comes out of every frame of every strip alike - in each such band the row (column) most
+# like its neighbour over all the frames (the idle and the run counted thrice), so the eyes and the edges stay; the
+# soles and the standing column never move. No resampling: what is left is the design's own squares.
+SHRINK = 8
+
+
+def bands(start, stop, step):
+    """Whole bands of |step| squares from `start` outward (step < 0: towards smaller indices), none past `stop`."""
+    res, d = [], 1 if step > 0 else -1
+    while True:
+        b = [start + d * j for j in range(abs(step))]
+        if (b[-1] - stop) * d > 0:
+            return res
+        res.append(b)
+        start += step
+
+
+def drops(built, k):
+    """The rows and columns to drop: one per band, the least different from the square row / column beyond it."""
+    frs, w = [], []
+    for tag, fl in built.items():
+        for f in fl:
+            frs.append(f)
+            w.append(3 if tag in ("idle", "run") else 1)
+    alpha = np.array([f[..., 3] > 0 for f in frs])
+    ys = np.nonzero(alpha.any((0, 2)))[0]
+    xs = np.nonzero(alpha.any((0, 1)))[0]
+    W = np.array(w, float)[:, None]
+    st = np.stack(frs).astype(int)
+
+    def cost(axis, i, j):
+        a = np.take(st, i, axis=axis + 1)
+        b = np.take(st, j, axis=axis + 1)
+        diff = (np.abs(a - b).sum(-1) > 0)
+        return float((diff * W).sum())
+
+    rows = [min(b, key=lambda r: cost(0, r, r - 1)) for b in bands(SOLES - 1, int(ys.min()), -k)]
+    left = [min(b, key=lambda c: cost(1, c, c + 1)) for b in bands(PIVOT[0] - 1, int(xs.min()), -k)]
+    right = [min(b, key=lambda c: cost(1, c, c - 1)) for b in bands(PIVOT[0] + 1, int(xs.max()), k)]
+    return sorted(rows), sorted(left), sorted(right)
+
+
+def shrink(f, rows, left, right):
+    """The frame without those rows (the rest dropped down onto the soles) and columns (closed in on the standing
+    column)."""
+    h, w = f.shape[:2]
+    keep_r = [r for r in range(h) if r not in rows]
+    keep_c = [c for c in range(w) if c not in left and c not in right]
+    g = f[keep_r][:, keep_c]
+    out = np.zeros_like(f)
+    out[len(rows):, len(left):len(left) + g.shape[1]] = g
+    return out
+
+
+def shrunk_xy(x, y, rows, left, right):
+    """Where a canvas square (x, y) lands after shrink."""
+    return (x + sum(1 for c in left if c > x) - sum(1 for c in right if c < x),
+            y + sum(1 for r in rows if r > y))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -327,6 +389,10 @@ def main():
     a = ap.parse_args()
     rig = Rig()
     built = rig.build()
+    if SHRINK:
+        cut = drops(built, SHRINK)
+        built = {t: [shrink(f, *cut) for f in fl] for t, fl in built.items()}
+        print("shrink: rows", cut[0], "columns", cut[1], cut[2])
     if a.tags:
         built = {t: built[t] for t in a.tags.split(",")}
     for tag, frs in built.items():

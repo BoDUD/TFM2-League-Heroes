@@ -14,7 +14,7 @@
     "asset/league/icons/league_pyke_ult"
   ],
   "stat": {
-    "attack": 74,
+    "attack": 72,
     "magic_power": 0,
     "hp": 900,
     "defence": 26,
@@ -25,7 +25,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 8,
+    "attack": 7,
     "magic_power": 0,
     "hp": 82,
     "defence": 8,
@@ -807,10 +807,6 @@
                 "tick": 50
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_pyke_q_charge"
-              },
-              {
                 "type": "Sfx",
                 "name": "league_pyke_q_charge"
               },
@@ -954,7 +950,7 @@
                                 "radius": 6000
                               }
                             },
-                            "y_offset": -3000
+                            "y_offset": 0
                           }
                         ]
                       },
@@ -1043,7 +1039,7 @@
                               "radius": 6000
                             }
                           },
-                          "y_offset": -3000
+                          "y_offset": 0
                         }
                       }
                     ]
@@ -1613,6 +1609,76 @@
                     }
                   },
                   "y_offset": 5000
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_e_trail"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 3,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_e_trail"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 5,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_e_trail"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 7,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_e_trail"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 9,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_e_trail"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 11,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_e_trail"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 13,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_e_trail"
+                    }
+                  ]
                 },
                 {
                   "type": "RushMoveToBack",
@@ -2202,14 +2268,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_pyke_q_charge",
-      "anim": "asset/league/effects/league_pyke_fx",
-      "tag": "q_charge",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_pyke_q_stab_hit",
       "anim": "asset/league/effects/league_pyke_fx",
       "tag": "q_stab_hit",
@@ -2238,6 +2296,14 @@
       "anim": "asset/league/effects/league_pyke_big",
       "tag": "e_left",
       "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_e_trail",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "e_trail",
+      "z": -1,
       "is_follow": false
     },
     {

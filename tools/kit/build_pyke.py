@@ -43,16 +43,17 @@ ID = "league_pyke"
 FX = "asset/league/effects/league_pyke_fx"
 BIG = "asset/league/effects/league_pyke_big"
 
-# Numbers = candidate c5 of the 10-min classic-SDK simulations (tr_sim/sim/kd.py --lane 4 against priest, bard, enchanter,
-# monk and taoist, both sides, three lineups, 2026-10-06): +0.90 on seeds 1-24 (league_leona +0.78, league_rakan +0.84
-# on the same seeds). The draft c1 was +3.80 (8825 damage a game, twice Leona's; R 6 casts a game): attack 90 +16 ->
-# 74 +8, R 220 + 90% every 25 s -> 180 + 60% every 45 s, Q 60 + 100% -> 35 + 60% every 7 s, E 70 + 90% -> 50 + 60%,
+# Numbers = candidate c6a of the 10-min classic-SDK simulations (tr_sim/sim/kd.py --lane 4 against priest, bard,
+# enchanter, monk and taoist, both sides, three lineups, 2026-10-06): +1.12 on seeds 1-24 and +1.24 on 25-48
+# (league_leona +0.78 / +1.23, league_rakan +0.84 / +0.41 on the same seeds; c5 with attack 74 +8 was +1.67 / +1.44
+# with the final timings, c6b with R 170 + 55% every 50 s +1.41 / +1.25). The draft c1 was +3.80 (8825 damage a game,
+# twice Leona's; R 6 casts a game): attack 90 +16 -> 72 +7, R 220 + 90% every 25 s -> 180 + 60% every 45 s, Q 60 + 100% -> 35 + 60% every 7 s, E 70 + 90% -> 50 + 60%,
 # grey health 22 + 12% -> 15 + 8% a stack (c2 +1.53, c3 +2.82, c4 with less health and a shorter stun +0.56).
 # E's phantom comes back 12 ticks after the dash at 12000 a tick (25 hits in 32 casts; 3 in 37 at 40 ticks).
 P = {
     # stats (Assassin base: move 1100); League's Pyke: 600 +110 hp, 62 AD +2, 45 armour, 330 move, melee 150 range;
     # no bonus health (it becomes AD): the pack's lowest support health, an assassin's attack growth
-    "hp": 900, "hp_g": 82, "atk": 74, "atk_g": 8, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 12,
+    "hp": 900, "hp_g": 82, "atk": 72, "atk_g": 7, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 12,
     # attack: the harpoon swing
     "atk_range": 24000, "atk_dur": 24, "atk_cd": 55, "a_st": 12,
     # passive: grey health (League: 10% + lethality of champion damage taken in the last 4 s, healed while unseen)
@@ -60,7 +61,7 @@ P = {
     # skill: Q Bone Skewer (League: tap 100-? + 60% bonus AD stab; hold 0.5-1 s, 1100 range, 70 width, 2000 speed,
     # pull 500, slow 90% 1 s, cd 10-7.5 s)
     "q_cd": 420, "q_range": 100000, "q_close": 26000, "q_stab_t": 22, "q_stab_at": 13, "q_hold": 36, "q_throw_t": 14,
-    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": -3000, "q_dmg": 35, "q_ratio": 60, "q_slow": 60,
+    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": 0, "q_dmg": 35, "q_ratio": 60, "q_slow": 60,
     "q_slow_t": 60, "q_grab": 1500,
     # skill2: W Ghostwater Dive (League: camouflage 5 s, +45% fading over 1.5 s, cd 12-8 s) -> E Phantom Undertow
     # (League: dash 550, the phantom back after 1 s, 100-350 + 100% bonus AD to champions, stun 1.25 s, cd 15-11 s)
@@ -279,7 +280,8 @@ def build(p):
     release = combine(*rm("q_go"), sfx("q_throw"),
                       pick(p["q_reach"] - 10000, "EnemyChampion", flag("q_go", 1), hook("q_hook_c", "EnemyChampion")),
                       sw("q_go", NONE, hook("q_hook", "EnemyWithoutTower")))
-    hold = combine(anim("skill", p["q_hold"] + p["q_throw_t"]), cview("q_charge"), sfx("q_charge"), voice("vo_q", p),
+    # the charge glow is drawn into his own skill frames (assets/source/native/pyke_bake.json: the red side's mirroring)
+    hold = combine(anim("skill", p["q_hold"] + p["q_throw_t"]), sfx("q_charge"), voice("vo_q", p),
                    delayed(p["q_hold"], release))
     skill = action("skill", 3, p["q_cd"], 1, p["q_range"], "Direction", "EnemyWithoutTower",
                    combine(*rm("q_tap"), pick(p["q_close"], "EnemyChampion", flag("q_tap", 1)),
@@ -291,6 +293,7 @@ def build(p):
                     buff("e_stun", p["e_stun"]), view("e_hit"), tsfx("e_hit")])
     dive = combine(anim("skill2", p["e_t"]), sfx("e_dash"), voice("vo_e", p),
                    anchor([view("e_left"), delayed(p["e_ret"], sfx("e_return"), phantom)]),
+                   *[delayed(k, cview("e_trail")) for k in range(1, p["e_t"], 2)],   # the wake, puddle to landing
                    {"type": "RushMoveToBack", "speed": p["e_speed"], "applied_effects": []})
     camo = combine({"type": "CasterInvisible", "tick": p["w_camo"]}, refresh("w_camo", p["w_camo"]),
                    refresh("w_ms", p["w_ms_t"] // 2, move_speed_mult=p["w_ms"] // 2),
@@ -327,7 +330,7 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
     views_p = [P_("q_hook"), P_("q_hook_c", FX), P_("q_return"), P_("e_phantom", BIG)]
-    views_e = [E("a_hit"), E("q_charge"), E("q_stab_hit"), E("q_hit"), E("w_cast"), E("e_left", BIG, 1, False),
+    views_e = [E("a_hit"), E("q_stab_hit"), E("q_hit"), E("w_cast"), E("e_left", BIG, 1, False), E("e_trail", FX, -1, False),
                E("e_hit"), E("r_mark", BIG, -1, False), E("r_strike", BIG, 2, False), E("r_hit"),
                E("r_reset", FX, 3, False), E("p_heal", FX, 3, False)]
     views_b = [B_("q_slow", FX, -1), B_("e_stun", FX, 3)]

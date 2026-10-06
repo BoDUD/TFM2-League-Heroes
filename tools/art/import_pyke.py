@@ -15,8 +15,8 @@ Red side and blue side alike (the user: 「注意红色方和蓝色方的技能�
 frames with his facing and never an effect picture, so
 - the flying pictures (the harpoon, the phantom) are mirrored top to bottom about their middle row (cast leftward the
   engine turns them upside down); q_return is q_hook mirrored left to right (the harpoon coming back tail first);
-- what plays on him whichever way he faces late (r_reset, p_heal), the buffs (e_stun, q_slow), the charge glow and the
-  ground pictures (w_cast, e_left, r_mark, r_strike) are mirrored left to right about their middle.
+- the charge glow on his raised blade is drawn into his own skill frames (pyke_bake.json, import_native.bake);
+- what plays on him whichever way he faces late (r_reset, p_heal), E's wake (e_trail, drawn here), the buffs (e_stun, q_slow) and the ground pictures (w_cast, e_left, r_mark, r_strike) are mirrored left to right about their middle.
 Spots (game px from the pivot, x forward, y down; his soles 11 under it) come from the finished strips (rig_pyke.py;
 pack_pyke_fx.SHOTS). Times from the strips (rig_pyke.MS) and the kit (build_pyke.P, 60 ticks a second).
 """
@@ -72,7 +72,7 @@ RAW = {
     "r_strike": dict(n=5, size=58, measure="w", anchor=("fixed", "box", 0), ramps="BLOOD WATER", sym="lr"),
     "r_hit": dict(n=5, size=20, measure="m", anchor=("fixed", "core", 0), ramps="BLOOD"),
     "r_reset": dict(n=6, size=24, measure="m", anchor=("fixed", "box", 0), ramps="GOLD BLOOD", sym="lr"),
-    "p_heal": dict(n=6, size=22, measure="w", anchor=("fixed", "box", 0), ramps="WATER", sym="lr", hollow=5),
+    "p_heal": dict(n=6, size=22, measure="w", anchor=("fixed", "low", 0), ramps="WATER", sym="lr", hollow=5),
 }
 
 
@@ -119,12 +119,12 @@ def cells(name, n):
 
 
 # spots from the pivot (game px, x forward, y down), measured on the finished strips (pack_pyke_fx.SHOTS)
-BLADE = (-14, -29)              # the raised harpoon's blade in the charge (skill frames 2-4)
+BLADE = (-13, -24)              # the raised harpoon's blade in the charge (skill frames 2-4; rig_pyke.shrunk_xy)
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
 OVER = (0, -33)                 # over a head
-BODY = (0, -9)                  # round his body
-SOLES = (0, 11)                 # what stands on the ground: its ellipse there
-GROUND = (0, 0)                 # a picture put on a point on the ground (its anchor on the point)
+BODY = (0, -6)                  # round his body (after rig_pyke.SHRINK)
+SOLES = (0, 11)                 # what stands on the ground (round a unit, or on a point: a point is a unit's pivot,
+                                # its ground 11 under it): its ellipse there
 EMPTY = J.EMPTY
 seq = J.seq
 flight = J.flight
@@ -147,14 +147,50 @@ FX = {
     "e_stun": [("e_stun", seq(range(4), [80] * 4), [OVER])],
     "q_slow": [("q_slow", seq(range(4), [100] * 4), [SOLES])],
 }
+# E's wake (the user: 「E少了点特效？中间没线条」): drawn here, not by Codex - a thin streak of ghost water, left-right
+# symmetric (it stays put; the client never mirrors it), dropped under him every 2 ticks of the dash (9 px a tick, so
+# the 22 px streaks overlap into one line on the ground from the puddle to where he lands; under the units, so the
+# ones dropped after he lands hide under his feet); it fades as the phantom runs back along it
+TRAIL_W = 22
+
+
+def trail():
+    hexes_, _ = palette("WATER")
+    col = {k: np.array([int(h[i:i + 2], 16) for i in (0, 2, 4)] + [255], np.uint8) for k, h in zip("dmlwW", hexes_[1:])}
+    rows = [
+        # fresh: a bright core, dark-teal wisps over and under
+        ["....dd..dmmmmmmd..dd....", "..mmllllwwwwwwwwllllmm..", "....dd..dmmmmmmd..dd...."],
+        # the core goes
+        ["......d..dmmmmd..d......", "...dmmllllllllllllmmd...", "......d..dmmmmd..d......"],
+        # breaking up
+        [".......d...dd...d.......", "....dm.mmlllllmm.md.....", "........d.dd.d........."],
+        # drops
+        ["........................", ".....d..m..mm..m..d.....", "........................"],
+    ]
+    out = []
+    for fr in rows:
+        c = np.zeros((3, TRAIL_W + 2, 4), np.uint8)
+        for y, line in enumerate(fr):
+            line = (line + "." * (TRAIL_W + 2))[:TRAIL_W + 2]
+            for x, ch in enumerate(line):
+                if ch != ".":
+                    c[y, x] = col[ch]
+        c[:, (TRAIL_W + 2) // 2:] = c[:, :(TRAIL_W + 2) // 2][:, ::-1]   # left-right symmetric
+        out.append(c)
+    return out, [(TRAIL_W + 2) // 2 - 0.5, 1]
+
+
+FX["e_trail"] = [("e_trail", seq(range(4), [140, 120, 110, 100]), [(0, 9)])]   # on the ground, under the units
+
+
 BIG = {
     # the phantom: back to him at 12 px a tick from up to 120 px away
     "e_phantom": [("e_phantom", flight(4, 60, 600, lead=0), [(0, 0)])],
     # the puddle where the dash started, until the phantom has left it (12 ticks after the 14-tick dash)
-    "e_left": [("e_left", seq(range(6), [60, 70, 80, 80, 70, 60]), [GROUND])],
+    "e_left": [("e_left", seq(range(6), [60, 70, 80, 80, 70, 60]), [SOLES])],
     # R: the X on the target's spot, 30 ticks to the strike (the last frame held); the strike 6 ticks before it
-    "r_mark": [("r_mark", seq(range(6), [80, 80, 80, 80, 80, 100]), [GROUND])],
-    "r_strike": [("r_strike", seq(range(5), [60, 70, 80, 90, 100]), [GROUND])],
+    "r_mark": [("r_mark", seq(range(6), [80, 80, 80, 80, 80, 100]), [SOLES])],
+    "r_strike": [("r_strike", seq(range(5), [60, 70, 80, 90, 100]), [SOLES])],
 }
 
 
@@ -166,8 +202,11 @@ def build(table, extra):
         out[tag] = []
         for src, frames, spots in parts:
             base = "q_hook" if src == "q_return" else src
-            strip = cells(base, anchors[base]["frames"])
-            anc = anchors[base]["anchor"]
+            if src == "e_trail":
+                strip, anc = trail()
+            else:
+                strip = cells(base, anchors[base]["frames"])
+                anc = anchors[base]["anchor"]
             if src == "q_return":            # tail first: mirrored left to right about the anchor
                 strip = [c[:, ::-1].copy() for c in strip]
                 anc = [strip[0].shape[1] - 1 - anc[0], anc[1]]
@@ -177,6 +216,12 @@ def build(table, extra):
                     continue
                 out[tag].append((J.place(strip[k], anc, spots), ms))
     return out
+
+
+# the pictures drawn into his frames (import_native.bake): the charge glow on the raised blade rides the skill strip's
+# four charge frames (rig_pyke.MS skill: 4 x 150 ms) - placed off his middle, a data picture would stay on the wrong
+# side when he faces left (lint_mod: "has a front and a back")
+BAKE = {"fx": "league_pyke_fx", "items": [{"tag": "q_charge", "into": "skill", "at_ms": 0}]}
 
 
 def main():
@@ -190,6 +235,10 @@ def main():
         w, h = G.write_sheet(os.path.join(MOD, "effects", sheet), tags)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(
             f"{t} {len(v)}f {sum(m for _, m in v):.0f}ms" for t, v in tags.items()))
+    with open(G.lp(os.path.join(ROOT, "assets", "source", "native", "pyke_bake.json")), "w", encoding="utf-8",
+              newline="\n") as f:
+        f.write(json.dumps(BAKE, indent=1) + "\n")
+    print("assets/source/native/pyke_bake.json:", len(BAKE["items"]), "items")
 
 
 if __name__ == "__main__":

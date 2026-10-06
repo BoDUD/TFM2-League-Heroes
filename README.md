@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、ADC 莎弥拉。蛮王之后按用户的计划做中单泽拉斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、ADC 莎弥拉、辅助派克。蛮王之后按用户的计划做中单泽拉斯。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）和阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -119,6 +119,8 @@
 ![泽拉斯演示：他滑进场，一颗奥术法球打德莱厄斯；Q 奥能脉冲蓄满：举手蓄力、前爪聚起光球，一道长光束贯穿德莱厄斯和身后的盖伦；一颗法球，再一颗法力澎湃的强化法球（手上涌出蓝光、法球绕着闪电）；E 冲击法球打中德莱厄斯，头顶电光转圈晕住，随后他脚下亮起毁灭之眼的法阵、一道光柱砸下来；R 奥术仪式：脚下法阵亮起、光柱冲天，引导时脚下符文法阵转动，连发 4 发炮击——落点先出瞄准圈，光弹从天而降炸开，最后一发击杀德莱厄斯](docs/preview/league_xerath_showcase.gif?v=1006xr2)
 
 ![莎弥拉演示：她跑进场，开一枪打德莱厄斯（头顶评价 E）；Q 交火开枪：枪口喷火，一发火焰子弹穿过德莱厄斯和身后的盖伦（D）；E 狂飙：拖着红色速度线和黄沙冲过德莱厄斯（C），落到他身后接 W 锋旋，一圈剑刃火环绕身转，砍两下（B）；她转身朝左（红色方的样子）挥剑砍德莱厄斯（A），Q 近身半月斩（S，头顶金红爆闪）；R 炼狱扳机：原地旋转双枪连射，身边枪火和玫瑰花瓣，子弹打向两人，德莱厄斯倒下、E 刷新的金光](docs/preview/league_samira_showcase.gif?v=1006sm)
+
+![派克演示：他跑进场，鱼叉砍德莱厄斯；Q 透骨尖钉蓄力：举起的叉刃上聚起幽绿的光，鱼叉扔向身后的盖伦，钩中后把他拉回来，鱼叉收回，盖伦脚下减速；W 幽潭潜行：脚下炸开一圈幽水，E 魅影浪洄：他俯冲穿过德莱厄斯，起点留下一滩水，魅影从水里冲回他身边，晕住德莱厄斯；他转身朝左（红色方的样子）近身戳刺德莱厄斯（Q 秒放，减速）；R 涌泉之恨：德莱厄斯脚下亮起血红的 X，斩下来水刺冲起，德莱厄斯被处决，派克闪到他身上，金币和血红光环炸开（赏金）；最后没人打他时幽水回复灰血](docs/preview/league_pyke_showcase.gif?v=1006pk)
 
 ## 英雄：盖伦
 
@@ -2690,6 +2692,47 @@ python tools/art/preview_samira.py
 - 红色方（用户：「注意红色方和蓝色方的技能特效不要不对称 导致歪的」）：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图，所以有朝向的特效全部画进她的动作帧（`samira_bake.json`）：普攻、Q、R 两把枪的枪口火光，挥剑的弧光，Q 的半月斩，E 冲刺的拖尾——技能数据里不再单独播放 Q 斩和 E 拖尾。三种子弹做成严格上下对称（朝左飞时转半圈和左右翻转一样）；挂在她身上、不管朝哪边都播放的（W 剑环、R 枪火、E 刷新、升级和到 S 的闪光）做成严格左右对称，剑环和枪火在她身体上方那半圈掏空，看起来从她身后绕过；评价字母不镜像。子弹从她身上 8 格高处出发、前 2–3 tick 不显示，飞过枪口才出现（太高会斜着飞向目标脚下）。演示 GIF 后半段她转身朝左打，就是红色方的样子。
 
 逐帧预览：[`docs/preview/league_samira_frames.png`](docs/preview/league_samira_frames.png)，特效：[`docs/preview/league_samira_effects.png`](docs/preview/league_samira_effects.png)。
+
+## 英雄：派克
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 辅助（刺客，分类 Assassin），用户排的第十三组的辅助（同组：上单蛮王、打野赵信、ADC 莎弥拉，中单布兰德以后做），第 65 位英雄。血港鬼影 派克：近身戳刺或远处扔鱼叉把人钩回来，潜进幽水贴近、冲过去让魅影晕人，大招沿 X 斩下处决残血。四个选择都按推荐的来（用户选的）：技能位「Q / W→E 连招」，R「X 形处决 + 击杀可再放」，被动「灰血 + 生命换攻击」，分类刺客。数据读不到当前血量，用户：「这个读不到的话就改rust原码」——主包用下面的近似办法，自己完整能玩；精确的斩杀线处决以后做原生扩展包 |
+| 普攻 / 被动 | 鱼叉近战，射程 24000，攻击间隔 55 tick，第 12 tick 砍中。被动「溺水之幸」：身上挂一层 1 点的护盾当受击感应（瑟提 W 的做法），普攻和大招时看一眼：被打破过就多一层灰血（最多 5 层，8 秒不叠就消失）；他进 W 的潜行，或者普攻后 3 秒没再挨打，每层灰血回复 15 + 8% 攻击力的生命（分 4 次）。「无法获得额外生命」体现在属性上：生命成长低、攻击力成长高（装备给的生命数据管不了） |
+| 技能1 | Q「透骨尖钉」：冷却 420 tick（7 秒），射程 100000，也对小兵和野怪放。敌方英雄在 26000 内就秒放戳刺（第 13 tick 戳中那个英雄，35 + 60% 攻击力，减速 60% 1 秒）；否则蓄力 36 tick 扔出鱼叉：出手时射程内有敌方英雄就瞄他（鱼叉穿过小兵，AI 绕不开兵线，锤石 Q 的做法），否则沿施法方向打第一个敌人；命中同样伤害、减速，并把目标拉回他身边，鱼叉收回 |
+| 技能2 | W「幽潭潜行」→ E「魅影浪洄」：冷却 660 tick（11 秒），只对敌方英雄放（射程 70000）。先潜行 2.5 秒、移速 +40% 渐退，灰血回复；15 tick 后冲刺穿过目标落到他身后（每 tick 9000）；冲刺起点留下一滩水，12 tick 后魅影从那里飞回他身边（每 tick 12000，宽 12000），途经的敌方英雄受到 50 + 60% 攻击力的物理伤害并晕眩 1 秒 |
+| 大招 | R「涌泉之恨」：冷却 2700 tick（45 秒），射程 75000，只对队友刚打过的敌方英雄放（诺手 R 的做法，更容易挑到残血）。目标脚下亮起 X，0.5 秒后斩下（能躲）：半径 28000 内的敌方英雄受到「斩杀线」180 + 60% 攻击力的真实伤害——血量低于它的直接死掉，没死的下一 tick 回补一半（所以只吃一半，和英雄联盟一样；SDK 模拟里量过：377 伤害、188 回补，死了的不会被救活），小兵野怪受一半物理伤害。有英雄死在 X 里，派克闪到他身上，大招冷却刷新、可以马上再放。英雄联盟给助攻者金币做不了 |
+| 数值 | 攻击 72（+7）、生命 900（+82）、护甲 26（+8）、魔抗 18（+4）、移速 1100（+12）。数值是自己设计的，用 SDK 对战模拟调：辅助位，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），3 套阵容、两边各打，10 分钟。初稿 +3.80（伤害是日女的两倍多，R 一局放 6 次）；攻击 90 +16 → 72 +7、R 220 + 90% 每 25 秒 → 180 + 60% 每 45 秒、Q 60 + 100% → 35 + 60%、E 70 + 90% → 50 + 60%、灰血 22 + 12% → 15 + 8% 后 +1.12 / +1.24（同批种子日女 +0.78 / +1.23、洛 +0.84 / +0.41）。E 的魅影 40 tick 后才飞回时 37 次只中 3 次，12 tick 后飞回 32 次中 25 次 |
+| 亚索联动 | E 的晕眩和 Q 的拉拽是亚索大招要的控制：派克在辅助位时亚索大招每局对英雄放 1.88 次（同批锤石 1.40、日女 2.33），不用调 |
+| 精灵图 | 9 个动作 51 帧：待机、移动、普攻、Q 戳刺（`skill_stab`）、Q 扔鱼叉（`skill`）、W→E（`skill2`）、R（`ult`）、受击、死亡。造型 62 × 53 px（连举起的鱼叉；光头顶到脚底 40 行），29 色。待机 6 帧同一张，呼吸的缝在靴口；头像截取点 (10, −38)，选人卡片 `banpick_center` 0（鱼叉尖高出画布） |
+| 特效 | Codex 生图的 16 张（`import_pyke.py` 缩成游戏像素）：`league_pyke_fx` 普攻、Q 戳刺、Q 钩中、E、R 的命中，Q 蓄力的光，飞出去和收回来的鱼叉，W 脚下炸开的幽水，晕眩和减速，R 处决后的赏金，灰血回复的幽水；`league_pyke_big` E 起点的水洼和飞回来的魅影，R 地上的 X 预警和 X 斩击 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_pyke.py`）：挥砍、命中，Q 戳刺、蓄力、扔出、钩中，W 潜入，E 冲刺、魅影飞回、晕眩，R 起手、斩下、处决刷新，灰血回复；Q（扔鱼叉、戳刺各一句）、E、R 处决的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_pyke.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_pyke.py          # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_pyke.py          # 五种语言的文字、音效配置、共享文件里他的键（头像点在脚本的 VIEW 里）
+python tools/art/design_pyke.py         # 造型：Codex 原稿 A-second 按格子读回、整行整列删到 40 行（脸不删），眼睛改亮
+python tools/lol/native_pose.py assets/source/pyke/poses.json --out <渲染文件夹>   # 动作参考帧
+python tools/art/rig_pyke.py            # 动作：每帧都是造型本身，鱼叉和手臂整块转；跑步的腿用 Codex 换皮的腿；--review <文件夹> 先看
+python tools/art/import_pyke.py         # 特效；--raw assets/source/pyke/codex_fx 先把 Codex 的图缩成游戏尺寸的原尺寸条
+python tools/art/import_native.py --hero pyke
+python tools/art/preview_pyke.py
+```
+
+美术（原画的提示词见 [`assets/source/pyke/PICTURE_PROMPT.md`](assets/source/pyke/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/pyke/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/pyke/MODEL_STRIPS.md)，跑步换皮的见 [`RUN_SWAP.md`](assets/source/pyke/RUN_SWAP.md)，特效的见 [`PROMPTS_FX.md`](assets/source/pyke/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/pyke/codex_picture/)、[`codex_model/`](assets/source/pyke/codex_model/)、[`codex_strips/`](assets/source/pyke/codex_strips/)、[`codex_run/`](assets/source/pyke/codex_run/)、[`codex_fx/`](assets/source/pyke/codex_fx/)；附图包由 `tools/art/pack_pyke_*.py` 在本地生成，英雄联盟的渲染和 oppi 的图不进仓库）：
+
+- 原画：Codex 画了 A（英雄联盟的待机：半蹲、鱼叉高举）和 B（站姿），用户选 A。渲染参考图时，派克的模型里藏着一只大海怪（Nensi），`pose_ref.py` 改成只按画出来的部分量身高和脚底。
+- 造型：Codex 自己按格点取到 40 行碎成杂点；改成按原稿 A-second 自己的格子读回，分三段（头顶上的鱼叉、脸、身体）整行整列删，脸那几行不删，候选 40 / 44 / 48 行，用户选「40 行」（62 × 53）；读回来的眼睛是暗青色，只把 3 格眼睛改回原画的发光亮青。
+- 动作：Codex 的第 2 步也是拿造型零件摆的，但前手被转成横着的棍子、Q 和 R 的叉刃藏在身体后面、跑步的腿整条转 45°，用户：「有问题的地方你帮忙修复 和之前做英雄一样 灵活运用工具」。`rig_pyke.py` 重摆：远侧手臂连鱼叉是一整块，绕肩膀整块转（RotSprite，15–45° 的整块角度，不弯不拉伸）——蓄力时鱼叉竖着举在身后，出手时鱼叉横在头顶、刃朝前，手臂从背上那根大獠牙后面伸出来（鱼叉在远侧手里、长度有限，往前刺会挡脸或挡身体，试过镜像和平移都读不清）；前手的爪子始终是待机的样子；头每帧贴回造型原像素。死亡照希维尔：受击、后退、整个人转 45° 往后倒、再转 90° 仰躺——仰躺时两腿换成造型自己的护膝腿并拢伸直（远侧暗一档），两手顺着身体，鱼叉掉在旁边地上。
+- 跑步：派克是深蹲宽站姿、腿短，造型自己的腿平移只像在滑；照牛头的做法拿 oppi 雷恩加尔的跑步当骨架给 Codex 换皮画腿（`pack_pyke_run.py`），用户：「你直接拿过来修吧」——Codex 的原稿按 4.87 像素一格、每格取多数色读回，只用它的腿，上半身贴造型原像素。用户指出的三处都修了：「上下半身错位啊」——按腰带对齐 Codex 那一帧的身体（按头对齐差 2 行）；「移动时模型有点变形」——上半身保持待机的高度（落地帧低 1 行），腿顶藏到上半身下面，不再一跑就被拉高；「这里腿都歪了吧？？」——往后蹬的那条腿 Codex 画成水平、靴子悬空，整条绕胯往下转到靴子接近地面；「移动时手变形了」——Codex 腿图里带着它自己那条爪子手臂的描边，贴在造型手臂旁边，清掉后爪子和待机逐格一样。Codex 最后自己合成的跑步（腿没描边、下摆碎块飘着）只留作来源。
+- 特效用 Codex 画的 16 张（`import_pyke.py --raw`：每张按格子等分，每个游戏像素取覆盖的像素里最多的颜色，颜色归到包里给每张的色阶——幽水的青绿、鱼叉的骨白和金红、大招的血红、赏金的金；水和血外圈最暗的一档去掉，飞出去的鱼叉保留描边）；收回的鱼叉是飞出去那张左右镜像（尾巴朝前）。
+- 红色方：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图。飞行的画面（鱼叉、魅影）做成严格上下对称；晚于动作第一 tick 播放的（处决赏金、灰血回复）不跟随、严格左右对称；头顶的晕眩、脚下的减速、地上的水洼和 X 也左右对称。演示 GIF 后半段他转身朝左打，就是红色方的样子。
+
+逐帧预览：[`docs/preview/league_pyke_frames.png`](docs/preview/league_pyke_frames.png)，特效：[`docs/preview/league_pyke_effects.png`](docs/preview/league_pyke_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
