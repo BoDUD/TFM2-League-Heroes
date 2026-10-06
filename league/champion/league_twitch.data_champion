@@ -132,7 +132,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "skill2",
-                          "tick": 18
+                          "tick": 21
                         },
                         {
                           "type": "Sfx",
@@ -1180,7 +1180,7 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "skill2_e",
-                                        "tick": 18
+                                        "tick": 25
                                       },
                                       {
                                         "type": "Sfx",
@@ -1217,7 +1217,7 @@
                                       },
                                       {
                                         "type": "Delayed",
-                                        "tick": 8,
+                                        "tick": 10,
                                         "effects": [
                                           {
                                             "type": "CasterViewEffect",
@@ -1573,7 +1573,7 @@
                                               {
                                                 "type": "CasterAnimation",
                                                 "name": "skill2_e",
-                                                "tick": 18
+                                                "tick": 25
                                               },
                                               {
                                                 "type": "Sfx",
@@ -1610,7 +1610,7 @@
                                               },
                                               {
                                                 "type": "Delayed",
-                                                "tick": 8,
+                                                "tick": 10,
                                                 "effects": [
                                                   {
                                                     "type": "CasterViewEffect",
@@ -1839,7 +1839,7 @@
                             "name": "league_twitch_a_unit",
                             "duration": {
                               "Time": {
-                                "tick": 11
+                                "tick": 9
                               }
                             }
                           },
@@ -1852,7 +1852,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 9,
+                "tick": 7,
                 "effects": [
                   {
                     "type": "SwitchByBuff",
@@ -2809,7 +2809,7 @@
           },
           "effect_none": {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 7,
             "effects": [
               {
                 "type": "Combine",
@@ -3533,7 +3533,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "skill2_e",
-                    "tick": 18
+                    "tick": 25
                   },
                   {
                     "type": "Sfx",
@@ -3570,7 +3570,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 8,
+                    "tick": 10,
                     "effects": [
                       {
                         "type": "CasterViewEffect",
@@ -3760,7 +3760,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "skill2",
-                "tick": 18
+                "tick": 21
               },
               {
                 "type": "Sfx",
@@ -4637,7 +4637,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "skill2_e",
-                          "tick": 18
+                          "tick": 25
                         },
                         {
                           "type": "Sfx",
@@ -4674,7 +4674,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 8,
+                          "tick": 10,
                           "effects": [
                             {
                               "type": "CasterViewEffect",
@@ -5121,7 +5121,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "skill2_e",
-                                  "tick": 18
+                                  "tick": 25
                                 },
                                 {
                                   "type": "Sfx",
@@ -5158,7 +5158,7 @@
                                 },
                                 {
                                   "type": "Delayed",
-                                  "tick": 8,
+                                  "tick": 10,
                                   "effects": [
                                     {
                                       "type": "CasterViewEffect",
@@ -5383,7 +5383,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "skill2",
-                              "tick": 18
+                              "tick": 21
                             },
                             {
                               "type": "Sfx",

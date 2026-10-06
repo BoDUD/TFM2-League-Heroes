@@ -61,7 +61,7 @@ P = {
     # 59 AD, 630 +98 hp, 27 armour, 330 move, attack speed 0.679
     "hp": 900, "hp_g": 88, "atk": 94, "atk_g": 19, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     # attack: the bolt leaves the crossbow on a_st
-    "atk_range": 55000, "atk_dur": 24, "atk_cd": 54, "a_st": 9, "bolt_speed": 7500, "bolt_y": -3000, "a_read": 2,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 54, "a_st": 7, "bolt_speed": 7500, "bolt_y": -3000, "a_read": 2,
     # passive: Deadly Venom (League: 6 stacks, 6 s, 1-5? true damage a stack a second by level + 3% AP)
     "v_t": 360, "v_period": 60, "v_dmg": 1, "v_ratio": 2, "h_n": 6,
     # skill: Q Ambush (League: camouflage 10-14 s after a 1 s fade, +10% move speed (+30% hidden near enemies),
@@ -69,10 +69,10 @@ P = {
     "q_cd": 900, "q_range": 90000, "q_anim": 18, "q_t": 300, "q_poll": 6, "q_ms": 20, "q_as": 35, "q_as_t": 360,
     "k_hold": 40, "k_read": 4, "reset_mult": 10000,
     # skill2: W Venom Cask (League: 950 range, radius 300, slow 30-50% 3 s, puddle 3 s, cd 13-9 s)
-    "w_cd": 660, "w_range": 90000, "w_dur": 18, "w_rel": 9, "w_travel": 14, "w_r": 28000,
+    "w_cd": 660, "w_range": 90000, "w_dur": 21, "w_rel": 9, "w_travel": 14, "w_r": 28000,
     "w_slow": 30, "w_slow_t": 60, "w_pool": 180,
     # -> E Contaminate (League: 10-70 + 15-35 a stack + 35% bonus AD a stack, cd 12-8 s)
-    "e_cd": 600, "e_wait": 45, "e_need": 3, "e_anim": 18, "e_rel": 8, "e_dmg": 6, "e_ratio": 16, "e_reach": 120000,
+    "e_cd": 600, "e_wait": 45, "e_need": 3, "e_anim": 25, "e_rel": 10, "e_dmg": 6, "e_ratio": 16, "e_reach": 120000,
     # ult: R Spray and Pray (League: 6 s, +300 range, +15-? AD, pierce -10% a unit down to 60%, cd 90 s)
     "r_cd": 3600, "r_slot": 70000, "r_reach": 85000, "r_arm": 600, "r_hold": 180, "r_anim": 18, "r_t": 360, "r_bonus": 30000,
     "r_ad": 15, "r_len": 115000, "r_speed": 10000, "r_rad": 6000, "r_fall": 10, "r_min": 60, "e_lead": 30,
