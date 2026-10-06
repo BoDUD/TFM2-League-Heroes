@@ -151,7 +151,7 @@ FX = {
 # symmetric (it stays put; the client never mirrors it), dropped under him every 2 ticks of the dash (9 px a tick, so
 # the 22 px streaks overlap into one line on the ground from the puddle to where he lands; under the units, so the
 # ones dropped after he lands hide under his feet); it fades as the phantom runs back along it
-TRAIL_W = 22
+TRAIL_W = 23                    # odd: a middle column on the pivot, exactly symmetric
 
 
 def trail():
@@ -169,15 +169,16 @@ def trail():
     ]
     out = []
     for fr in rows:
-        c = np.zeros((3, TRAIL_W + 2, 4), np.uint8)
+        c = np.zeros((3, TRAIL_W + 2, 4), np.uint8)   # 25 wide, column 12 the middle
         for y, line in enumerate(fr):
             line = (line + "." * (TRAIL_W + 2))[:TRAIL_W + 2]
             for x, ch in enumerate(line):
                 if ch != ".":
                     c[y, x] = col[ch]
-        c[:, (TRAIL_W + 2) // 2:] = c[:, :(TRAIL_W + 2) // 2][:, ::-1]   # left-right symmetric
+        mid = (TRAIL_W + 2) // 2
+        c[:, mid + 1:] = c[:, :mid][:, ::-1]   # left-right symmetric about the middle column
         out.append(c)
-    return out, [(TRAIL_W + 2) // 2 - 0.5, 1]
+    return out, [mid, 1]
 
 
 FX["e_trail"] = [("e_trail", seq(range(4), [140, 120, 110, 100]), [(0, 9)])]   # on the ground, under the units
@@ -192,6 +193,20 @@ BIG = {
     "r_mark": [("r_mark", seq(range(6), [80, 80, 80, 80, 80, 100]), [SOLES])],
     "r_strike": [("r_strike", seq(range(5), [60, 70, 80, 90, 100]), [SOLES])],
 }
+
+
+# hit pictures that show where the blow came from (the stab's thrust streak) drawn over their mirror image: the client
+# never mirrors an effect picture, so stabbed from the right (the red side) the streak pointed back at him
+# (champion-data "A picture on a target or a point")
+UNION = {"q_stab_hit"}
+
+
+def union(frame):
+    f = frame.copy()
+    m = f[:, ::-1]
+    gap = (f[..., 3] == 0) & (m[..., 3] > 0)
+    f[gap] = m[gap]
+    return f
 
 
 def build(table, extra):
@@ -214,7 +229,8 @@ def build(table, extra):
                 if k == EMPTY:
                     out[tag].append((np.zeros((3, 3, 4), np.uint8), ms))
                     continue
-                out[tag].append((J.place(strip[k], anc, spots), ms))
+                fr = J.place(strip[k], anc, spots)
+                out[tag].append((union(fr) if tag in UNION else fr, ms))
     return out
 
 
