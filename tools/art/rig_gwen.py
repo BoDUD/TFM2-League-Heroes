@@ -66,8 +66,8 @@ NEAR_SH, FAR_SH = (58, 75), (71, 73)   # the arms' first squares (top-left of th
 ARM_STEPS, GLOVE_STEPS = 3, 2         # the design's arm: 3 skin steps and the glove's 2 (the user: longer ones were wrong)
 STRAY = [(58, 86), (58, 87), (58, 88)] # squares left of the old small scissors under the skirt's left edge
 LEG_TOP, LEG_SPLIT = 86, 64            # the legs' rows (to the soles) and the column between them
-SC_LEN, SC_OPEN, SHANK = 26, 44, 3     # the held scissors: blade (squares; the design's is 28 from its pivot), the snip's
-IDLE_DEG = 155                         # opening (degrees), the shank; the design's blade points 155 degrees
+SC_LEN, SC_OPEN = 30, 44               # the held scissors: blade (squares), the snip's opening (degrees)
+IDLE_DEG = 155                         # the design's blade points 155 degrees (down and back)
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
 HAIR_ROWS = (56, 80)                   # hang behind her shoulders), under everything else; right of the torso's edge
 TORSO_RIGHT = 70                       # (column 70) only the curls and the sleeve are there: the far arm goes over them
@@ -98,27 +98,27 @@ class Parts:
 
 
 def scissors_unit(P, deg, length=SC_LEN, opening=0):
-    """The design's scissors as a part with its joint on the grip (the hand holds the rings): the two round silver
-    rings side by side behind the grip, a short silver shank, the blade with its split line along `deg` (0 right, 90
-    down) - or, open, two blades opening/2 either side; design_gwen's own recipe, so it is the same pair in every
-    frame (a reviewer: the held scissors lost the handle and changed length)."""
-    n = 2 * (length + SHANK) + 24
+    """The design's scissors as a part with its joint on the grip (the hand holds the rings): the two cyan rings with
+    their spikes behind the grip, the long blade along `deg` (0 right, 90 down) - or, open, two blades opening/2 either
+    side; design_gwen's own recipe and colours, the same pair in every frame. (A round silver handle with a split blade
+    was tried on 2026-10-06 and put back: 「这剪刀还不如之前的」.)"""
+    n = 2 * length + 24
     c = np.zeros((n, n, 4), np.uint8)
     g = np.array([n / 2, n / 2])
     t = math.radians(deg)
     u = np.array([math.cos(t), math.sin(t)])
     v = np.array([-u[1], u[0]])
     for side in (1, -1):
-        DG.league_ring(c, tuple(g - 1.2 * u + side * 3.0 * v), 2.7, 1.25)
-    base = g + SHANK * u
-    DG.league_blade(c, tuple(g), tuple(base), 1.4, metal=True)
+        DG.league_ring(c, tuple(g - 2.6 * u + side * 2.3 * v), 2.5, 1.1)
+        DG.league_blade(c, tuple(g - 2.6 * u + side * 4.2 * v - 1.5 * u), tuple(g - 2.6 * u + side * 6.5 * v - 2.5 * u),
+                        1.4)
     if opening:
         for sgn in (1, -1):
             a = t + sgn * math.radians(opening / 2)
             w = np.array([math.cos(a), math.sin(a)])
-            DG.league_blade(c, tuple(base), tuple(base + length * w), 2.2)
+            DG.league_blade(c, tuple(g + 0.5 * w), tuple(g + length * w), 2.8)
     else:
-        DG.league_blade(c, tuple(base), tuple(base + length * u), 3.0, split=True)
+        DG.league_blade(c, tuple(g + 0.5 * u), tuple(g + length * u), 3.4)
     can, _, _ = strips.complete_outline(np.pad(c, ((1, 1), (1, 1), (0, 0))), color=DG.C["I"], feet=n + 2)
     c = can[1:-1, 1:-1]
     ys, xs = np.nonzero(c[..., 3] > 0)

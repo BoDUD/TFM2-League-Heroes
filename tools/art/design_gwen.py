@@ -96,17 +96,14 @@ NECK = {(18, 14): "G"}
 C.update({"y": hx("#8ff2fe"), "H": hx("#28ddfc"), "h": hx("#0187fa"), "R": hx("#fbe169"), "T": hx("#fabe38"),
           "S2": hx("#e89620"), "Ad": hx("#1d1444"), "Kp": hx("#653a94"), "Lb": hx("#4516eb")})
 PAD = (18, 10)
-# (2026-10-06, a reviewer's notes the user took up: 「剪刀改成两个圆环+分刃线」) the handle is two round silver rings
-# (no spikes: they read as a trident), the blade a little narrower with a dark split line down its middle (two blades
-# closed) and about her height long (it was 1.3 times)
-LEAGUE = {"blade": ((20, 26), (-6, 38.0), 3.0),
-          "rings": [((31.0, 22.5), 2.7, 1.25), ((32.0, 28.5), 2.7, 1.25)],
-          "spikes": [],
-          "shank": [((22, 25), (29, 23.5), 1.4), ((22, 26), (30, 28.0), 1.4)],
+LEAGUE = {"blade": ((20, 26), (-12, 40.5), 3.4),
+          "rings": [((31.5, 22.5), 3.0, 1.4), ((33.0, 28.5), 2.8, 1.3)],
+          "spikes": [((33.5, 20.5), (37.5, 18), 1.8), ((35.5, 28.5), (39.5, 28.5), 1.8), ((34, 31), (36.5, 34), 1.6),
+                     ((29.5, 20), (29, 16.5), 1.6)],
+          "shank": [((22, 25), (30, 24), 1.6), ((22, 26), (31, 28.5), 1.6)],
           "hand": {(11, 22): "U", (12, 22): "U", (11, 23): "S", (12, 23): "U", (12, 21): "G"}}
 # step 10: neck and bodice as the draft has them (the user: 「只剩脖子和身体那里有点怪了」), columns 27.. of the final crop
-TORSO_X0 = 15                          # on the figure before step 9 (its crop moves the body by SHIFT)
-SHIFT = 0
+TORSO_X0 = 27
 TORSO = {14: "---BDDB-----",
          15: "---BhHB-----",
          16: "--IPDDPI----",
@@ -117,7 +114,7 @@ TORSO = {14: "---BDDB-----",
          21: "-llkXTXkll--"}
 # the blade's point (the user: 「剪刀这里看起来像断的」): the last blue square stood one clear square off the blade with an
 # outline square under it; both go, the gap's square is outline - the point ends on row 39
-POINT = {}                             # (the shorter blade of 2026-10-06 ends clean)
+POINT = {(0, 40): None, (0, 41): None, (1, 40): "I"}
 TORSO_KEYS = {"B": "A", "D": "G", "P": "N", "I": "I", "a": "Ad", "Q": "U", "k": "Kp", "h": "h", "H": "H",
               "l": "Lb", "T": "T", "R": "R", "X": "S2"}
 
@@ -241,9 +238,8 @@ def scissors(fig):
     return fig
 
 
-def league_blade(layer, p0, p1, w0, split=False, metal=False):
-    """Step 9's blade (and shank): light top, mid, blue lower third; split: a dark line down the middle where it is 3
-    or more wide (two blades closed); metal: the rings' silver instead."""
+def league_blade(layer, p0, p1, w0):
+    """Step 9's blade (and spikes, shank): light top, mid, blue lower third."""
     p0, p1 = np.array(p0, float), np.array(p1, float)
     d = p1 - p0
     n = np.linalg.norm(d)
@@ -259,21 +255,16 @@ def league_blade(layer, p0, p1, w0, split=False, metal=False):
                 continue
             half = max(0.5, w0 / 2 * (1 - t) + 0.5 * t)
             if abs(s) <= half:
-                lit, mid, dark = ("L", "M", "J") if metal else ("y", "H", "h")
-                ch = lit if s > half * 0.35 else (mid if s > -half * 0.35 else dark)
-                if split and half >= 1.2 and abs(s) < 0.5:
-                    ch = "A"
-                layer[y, x, :3] = C[ch]
+                layer[y, x, :3] = C["y"] if s > half * 0.35 else (C["H"] if s > -half * 0.35 else C["h"])
                 layer[y, x, 3] = 255
 
 
 def league_ring(layer, c, ro, ri):
-    """A round silver ring handle (white top-left, lilac-silver, a shade bottom-right), its middle see-through."""
     for y in range(layer.shape[0]):
         for x in range(layer.shape[1]):
             dx, dy = x + 0.5 - c[0], y + 0.5 - c[1]
             if ri < np.hypot(dx, dy) <= ro:
-                layer[y, x, :3] = C["L"] if dx + dy < -1.5 else (C["J"] if dx + dy > 1.5 else C["M"])
+                layer[y, x, :3] = C["y"] if dx + dy < -1.5 else (C["h"] if dx + dy > 1.5 else C["H"])
                 layer[y, x, 3] = 255
 
 
@@ -291,10 +282,8 @@ def league_scissors(fig, with_mask=False):
     sh = lambda p: (p[0] + PAD[0], p[1])  # noqa: E731
     for c, ro, ri in LEAGUE["rings"]:
         league_ring(layer, sh(c), ro, ri)
-    for b0, b1, w in LEAGUE["shank"]:
-        league_blade(layer, sh(b0), sh(b1), w, metal=True)
-    b0, b1, w = LEAGUE["blade"]
-    league_blade(layer, sh(b0), sh(b1), w, split=True)
+    for b0, b1, w in LEAGUE["spikes"] + [LEAGUE["blade"]] + LEAGUE["shank"]:
+        league_blade(layer, sh(b0), sh(b1), w)
     can, _, _ = strips.complete_outline(np.pad(layer, ((1, 1), (1, 1), (0, 0))), color=C["I"], feet=H)
     layer = can[1:-1, 1:-1]
     behind = (layer[..., 3] > 0) & (big[..., 3] == 0)
@@ -305,8 +294,6 @@ def league_scissors(fig, with_mask=False):
     added = behind | ((big[..., 3] > 0) & ~was)
     xs = np.nonzero((big[..., 3] > 0).any(0))[0]
     out = big[:, xs.min():xs.max() + 1].copy()
-    global SHIFT
-    SHIFT = PAD[0] - int(xs.min())                     # the body's column 0 on the cropped canvas
     return (out, added[:, xs.min():xs.max() + 1].copy()) if with_mask else out
 
 
@@ -333,7 +320,7 @@ def build(with_mask=False):
     for (x, y), ch in POINT.items():
         fig[y, x] = 0 if ch is None else (*C[ch], 255)
         sc[y, x] = ch is not None
-    paint(fig, {(SHIFT + TORSO_X0 + i, y): TORSO_KEYS[ch] for y, row in TORSO.items() for i, ch in enumerate(row) if ch != "-"})
+    paint(fig, {(TORSO_X0 + i, y): TORSO_KEYS[ch] for y, row in TORSO.items() for i, ch in enumerate(row) if ch != "-"})
     feet = np.nonzero((fig[-FEET_ROWS:, :, 3] > 0).any(0))[0]
     mid_x = (feet.min() + feet.max()) / 2
     canvas = np.zeros((128, 128, 4), np.uint8)
