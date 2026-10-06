@@ -1,0 +1,14 @@
+Built-in image_gen, first generation (references: skeleton, approved design, idle cell, exact upper body)
+
+参考图1这张精灵图的跑步动作序列和构图布局，把图1里的角色替换为图2的角色。
+1. 保留图1所有帧的位置、大小、排列顺序和格子（4 列 × 2 行，每格 128×96 个 8×8 像素的纯色方块，前 6 格是 6 帧，最后 2 格空着），脚底都在每格第 81 行，人物和图3一样大，不能变大也不能变小。
+2. 上半身（腰带以上：头顶火焰、光头和发光的眼睛、焦黑带紫的身体和亮橙熔岩裂纹、两条手臂和两只火焰手）每一帧都直接用图4，逐格一样，只整体上下起伏 1 格。
+3. 腿的动作照图1：两条腿交叉迈步、膝盖弯曲的样子和交叉的时机都照图1；但腿换成图2的：棕褐色破长裤（裤脚是参差的破布条）、一条腿外侧几个铜色搭扣、焦黑的光脚和小腿上的亮橙裂纹；远侧腿用同样的材质但颜色深一级。两胯收在身体下方，裤子上沿接在腰带下面，不要横着戳出去的布条。
+4. 第 82 行以下什么都不能有；头相对每格第 64 列的横向位置每帧一样；首尾两帧能无缝接上。
+背景保持纯绿色 #00FF00，方便抠图。风格保持与图2一致：一圈近黑描边、大块平涂、没有抗锯齿。重点在于精准复刻图1的“腿的动作骨架”，上半身和长相全部是图2/图4的“皮囊”。
+特别强调：只重画裤子、两条腿和赤脚。上半身绝不能重画或旋转，照图4逐格固定。6帧里近侧腿与远侧腿必须分别领先：第1帧近侧腿向右前伸、远侧腿向左后收；第2帧迈回身体下；第3帧双腿在身体下交叉；第4帧远侧腿向右前伸、近侧腿向左后收；第5帧回收；第6帧交叉回到第1帧之前。远腿深棕，近腿浅棕，轮廓互相分离；不要两条腿成为垂直柱子。
+
+Targeted correction (references: generated sheet, skeleton, exact upper body)
+
+Edit this six-frame Brand running sheet. Keep the same 4-column by 2-row layout and green background; last two cells remain empty. Keep upper body identical in all six frames. Change ONLY the legs as follows: Frame 1 (top left): near leg LIGHT tan on IMAGE RIGHT leading forward, far leg DARK brown on IMAGE LEFT trailing; Frame 2 near leg returns under the hip, far knee bent back; Frame 3 legs cross under pelvis with TWO distinguishable dark and light trouser legs and TWO bare feet. Frame 4 (top right): near leg LIGHT tan now on IMAGE LEFT trailing back, far leg DARK brown on IMAGE RIGHT leading forward, the OPPOSITE leg leads compared with frame 1. Frame 5 returns under hip with opposite leg bent back compared with frame 2. Frame 6 (bottom row second cell): CROSSING pose under pelvis, TWO bent knees and TWO bare feet visibly distinguished by light/dark shading, NOT the wide split-leg pose, and leads smoothly into frame 1. Tan-brown calf-length ragged trousers, two copper buckles on near leg, charred BARE feet with a single orange shin crack, NEVER boots. Coarse clean flat pixel blocks, single dark outline, no dithering, no new effects, no labels or lines. Preserve figure size, both hands visible, feet on same baseline. Critical: the identity of leading leg actually reverses between frames 1 and 4.
+

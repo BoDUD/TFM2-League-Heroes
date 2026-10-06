@@ -1,0 +1,414 @@
+{
+  "frames": [
+    {
+      "frame": 1,
+      "bob": 1,
+      "source_grid": {
+        "step": 6,
+        "phase": [
+          0,
+          2
+        ],
+        "majority_purity": 0.5812
+      },
+      "generated_leg_bbox": [
+        28,
+        47,
+        55,
+        61
+      ],
+      "leg_placement": [
+        52,
+        68
+      ],
+      "leg_shape": [
+        14,
+        27
+      ],
+      "hip_x": 64,
+      "ms": 167,
+      "second_half_shading_swap": false,
+      "copper_pixels": [
+        [
+          70,
+          71
+        ],
+        [
+          69,
+          71
+        ],
+        [
+          71,
+          74
+        ],
+        [
+          70,
+          74
+        ]
+      ],
+      "feet": {
+        "left": [
+          55.0,
+          81
+        ],
+        "right": [
+          74.4,
+          81
+        ],
+        "near": [
+          74.4,
+          81
+        ],
+        "far": [
+          55.0,
+          81
+        ],
+        "near_minus_far_x": 19.4
+      }
+    },
+    {
+      "frame": 2,
+      "bob": 0,
+      "source_grid": {
+        "step": 6,
+        "phase": [
+          1,
+          2
+        ],
+        "majority_purity": 0.5755
+      },
+      "generated_leg_bbox": [
+        31,
+        47,
+        45,
+        61
+      ],
+      "leg_placement": [
+        56,
+        68
+      ],
+      "leg_shape": [
+        14,
+        14
+      ],
+      "hip_x": 64,
+      "ms": 167,
+      "second_half_shading_swap": false,
+      "copper_pixels": [
+        [
+          67,
+          71
+        ],
+        [
+          66,
+          71
+        ],
+        [
+          67,
+          74
+        ],
+        [
+          66,
+          74
+        ]
+      ],
+      "feet": {
+        "left": [
+          56.5,
+          77
+        ],
+        "right": [
+          65.82,
+          81
+        ],
+        "near": [
+          65.82,
+          81
+        ],
+        "far": [
+          56.5,
+          77
+        ],
+        "near_minus_far_x": 9.32
+      }
+    },
+    {
+      "frame": 3,
+      "bob": 0,
+      "source_grid": {
+        "step": 6,
+        "phase": [
+          0,
+          4
+        ],
+        "majority_purity": 0.5665
+      },
+      "generated_leg_bbox": [
+        33,
+        47,
+        47,
+        61
+      ],
+      "leg_placement": [
+        57,
+        68
+      ],
+      "leg_shape": [
+        14,
+        14
+      ],
+      "hip_x": 64,
+      "ms": 166,
+      "second_half_shading_swap": false,
+      "copper_pixels": [
+        [
+          67,
+          71
+        ],
+        [
+          66,
+          71
+        ],
+        [
+          68,
+          74
+        ]
+      ],
+      "feet": {
+        "left": [
+          60.2,
+          81
+        ],
+        "right": [
+          67.64,
+          81
+        ],
+        "near": [
+          67.64,
+          81
+        ],
+        "far": [
+          60.2,
+          81
+        ],
+        "near_minus_far_x": 7.44
+      }
+    },
+    {
+      "frame": 4,
+      "bob": 1,
+      "source_grid": {
+        "step": 6,
+        "phase": [
+          0,
+          2
+        ],
+        "majority_purity": 0.5638
+      },
+      "generated_leg_bbox": [
+        28,
+        47,
+        55,
+        61
+      ],
+      "leg_placement": [
+        52,
+        68
+      ],
+      "leg_shape": [
+        14,
+        27
+      ],
+      "hip_x": 64,
+      "ms": 167,
+      "second_half_shading_swap": false,
+      "copper_pixels": [
+        [
+          60,
+          71
+        ],
+        [
+          61,
+          71
+        ],
+        [
+          58,
+          74
+        ],
+        [
+          59,
+          74
+        ]
+      ],
+      "feet": {
+        "left": [
+          56.17,
+          81
+        ],
+        "right": [
+          75.0,
+          81
+        ],
+        "near": [
+          56.17,
+          81
+        ],
+        "far": [
+          75.0,
+          81
+        ],
+        "near_minus_far_x": -18.83
+      }
+    },
+    {
+      "frame": 5,
+      "bob": 0,
+      "source_grid": {
+        "step": 6,
+        "phase": [
+          0,
+          4
+        ],
+        "majority_purity": 0.5728
+      },
+      "generated_leg_bbox": [
+        31,
+        41,
+        45,
+        55
+      ],
+      "leg_placement": [
+        56,
+        68
+      ],
+      "leg_shape": [
+        14,
+        14
+      ],
+      "hip_x": 64,
+      "ms": 167,
+      "second_half_shading_swap": true,
+      "copper_pixels": [
+        [
+          63,
+          71
+        ],
+        [
+          64,
+          71
+        ],
+        [
+          61,
+          74
+        ],
+        [
+          62,
+          74
+        ]
+      ],
+      "feet": {
+        "left": [
+          57.2,
+          77
+        ],
+        "right": [
+          66.0,
+          81
+        ],
+        "near": [
+          57.2,
+          77
+        ],
+        "far": [
+          66.0,
+          81
+        ],
+        "near_minus_far_x": -8.8
+      }
+    },
+    {
+      "frame": 6,
+      "bob": 0,
+      "source_grid": {
+        "step": 6,
+        "phase": [
+          0,
+          4
+        ],
+        "majority_purity": 0.5727
+      },
+      "generated_leg_bbox": [
+        32,
+        41,
+        48,
+        55
+      ],
+      "leg_placement": [
+        56,
+        68
+      ],
+      "leg_shape": [
+        14,
+        16
+      ],
+      "hip_x": 64,
+      "ms": 166,
+      "second_half_shading_swap": true,
+      "copper_pixels": [
+        [
+          63,
+          71
+        ],
+        [
+          64,
+          71
+        ],
+        [
+          61,
+          74
+        ],
+        [
+          62,
+          74
+        ]
+      ],
+      "feet": {
+        "left": [
+          59.71,
+          81
+        ],
+        "right": [
+          68.56,
+          81
+        ],
+        "near": [
+          59.71,
+          81
+        ],
+        "far": [
+          68.56,
+          81
+        ],
+        "near_minus_far_x": -8.85
+      }
+    }
+  ],
+  "cell": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "grid": [
+    4,
+    2
+  ],
+  "frame_count": 6,
+  "duration_ms": 1000,
+  "empty_cells": [
+    7,
+    8
+  ],
+  "pivot_x": 64,
+  "feet_row": 81,
+  "method": "generated new legs, 6px grid majority, approved palette, exact supplied upper body; no rigid leg rotation"
+}
