@@ -808,7 +808,7 @@
                                   "tick": 60
                                 }
                               },
-                              "move_speed_mult": -60
+                              "move_speed_mult": -90
                             }
                           },
                           {
@@ -991,7 +991,7 @@
                                         "tick": 60
                                       }
                                     },
-                                    "move_speed_mult": -60
+                                    "move_speed_mult": -90
                                   }
                                 }
                               },
@@ -999,7 +999,7 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Grab",
-                                  "speed": 1500
+                                  "speed": 5000
                                 }
                               },
                               {
@@ -1057,7 +1057,7 @@
                               {
                                 "type": "BackToCasterLinearProjectile",
                                 "name": "league_pyke_q_return",
-                                "speed": 1500,
+                                "speed": 5000,
                                 "range": 95000,
                                 "shape": {
                                   "Circle": {
@@ -1116,7 +1116,7 @@
                                       "tick": 60
                                     }
                                   },
-                                  "move_speed_mult": -60
+                                  "move_speed_mult": -90
                                 }
                               }
                             },
@@ -1124,7 +1124,7 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Grab",
-                                "speed": 1500
+                                "speed": 5000
                               }
                             },
                             {
@@ -1146,7 +1146,7 @@
                             {
                               "type": "BackToCasterLinearProjectile",
                               "name": "league_pyke_q_return",
-                              "speed": 1500,
+                              "speed": 5000,
                               "range": 95000,
                               "shape": {
                                 "Circle": {
@@ -2423,30 +2423,6 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_pyke_k_r"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_pyke_k_r",
-                          "duration": {
-                            "Time": {
-                              "tick": 40
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
                     "type": "Native",
                     "effect_ref": "league_pyke:execute"
                   }
@@ -2463,113 +2439,6 @@
                   "effect": {
                     "type": "TargetSfx",
                     "name": "league_pyke_r_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddCasted",
-                    "casted_type": "Heal",
-                    "duration": 3,
-                    "period": 1,
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_pyke_k_r"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Delayed",
-                    "tick": 3,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_pyke_k_r",
-                        "effect_buff": {
-                          "type": "Teleport"
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Delayed",
-                        "tick": 4,
-                        "effects": [
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_pyke_k_r",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_pyke_k_r"
-                                },
-                                {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_pyke_r_reset"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_pyke_r_reset",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 2
-                                          }
-                                        },
-                                        "ult_cooldown_mult": 10000
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_pyke_r_reset"
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_pyke_r_reset"
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_pyke_vo_r"
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
-                          }
-                        ]
-                      }
-                    ]
                   }
                 }
               ]
