@@ -352,15 +352,15 @@ def stand(P, pose):
 
 # ------------------------------------------------------------------------------------------------ the run
 # one leg's cycle (8 frames): (knee columns, ankle columns from the hip - + forward = image right -, rows lifted):
-# contact, loading, mid-stance, push, toe-off, kick, passing, reach; the other leg half a cycle later. The crossing
-# step the user picked (「我选的A加交叉步啊」): both hips drawn in to her middle, a side view's stride - the feet eleven
-# columns apart at the contacts (the pushing foot a column further back: at ten the boots touched), one over the other
-# while passing (the far one lifted behind the near), the reaching foot past the pushing one (at +3/-3 the two boots
-# overlapped four columns into one blotch). Swung from
-# hips side by side the legs crossed into one blob (「还是有点奇怪呢」) or opened and closed like a jumping jack
-# (「太奇怪了」); the front view's trot in place had no crossing (「有交叉步吗现在」)
-CYCLE = [(2, 5, 0), (1, 2, 0), (0, -1, 0), (-2, -4, 0), (-2, -6, 1), (-1, -3, 3), (0, 0, 3), (2, 4, 1)]
-HIP_IN = {"near": 3, "far": -2}        # the hips drawn in under the skirt to column 66 (from nothing at the hip row)
+# contact, loading, mid-stance, toe-off, kick, kick, passing, reach; the other leg half a cycle later. A run, as
+# League's: one foot on the ground at a time, the other kicked up behind her as the first lands and brought through,
+# the hips drawn a column together so the feet stay under her middle. The crossing step before it (「我选的A加交叉步」)
+# had both feet down, a stride of eleven columns: with her front to us the legs read as split apart (「走路姿势也有点
+# 奇怪」); swung from hips side by side they crossed into one blob (「还是有点奇怪呢」) or opened and closed like a
+# jumping jack (「太奇怪了」)
+CYCLE = [(1, 2, 0), (0, 0, 0), (0, -1, 0), (-1, -2, 1), (-1, -3, 4), (0, -2, 4), (1, 0, 3), (1, 2, 1)]
+HIP_IN = {"near": 1, "far": -1}        # the hips drawn in under the skirt (from nothing at the hip row)
+RUN_LEAN = 0                           # the upper body this many columns ahead of the legs (1: leaning into the run)
 BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact - two rows (and the curls and scissors a frame
 LAG = 0                                # late, a reviewer's idea) squashed her onto her legs and tore the curls from the
 CURLS = ((68, 82), (60, 68))           # head: 「走路时模型变形了吧？」
@@ -458,18 +458,19 @@ def run_frame(P, k, hold=None):
     for leg, ph, side in ((far, (k + 4) % 8, "far"), (near, k, "near")):
         K.put(c, bent(leg, *CYCLE[ph], hip_in=HIP_IN[side]), 0, 0)
     dy = BOB[k]
-    K.put(c, shifted(top, 0, dy), 0, 0)
-    K.put(c, shifted(tails, SWAY[k], dy), 0, 0, under=True)
-    K.put(c, shifted(tails, 0, dy), 0, 0, under=True)  # the curl swung out: where it stood shows the curl, not a slit
-                                                       # of the ground beside her face
-    K.put(c, shifted(sc, 0, dy), 0, 0, under=True)
+    lean = RUN_LEAN
+    K.put(c, shifted(top, lean, dy), 0, 0)
+    K.put(c, shifted(tails, SWAY[k] + lean, dy), 0, 0, under=True)
+    K.put(c, shifted(tails, lean, dy), 0, 0, under=True)  # the curl swung out: where it stood shows the curl, not a
+                                                          # slit of the ground beside her face
+    K.put(c, shifted(sc, lean, dy), 0, 0, under=True)
     c[SOLES + 1:] = 0
     if "far" in hold:                                  # the held scissors' outline stays black (stand()'s keep)
         k4 = np.zeros(c.shape, np.uint8)
         k4[held] = 255
-        P.keep = (shifted(k4, 0, dy)[..., 3] > 0) & (c[..., 3] > 0)
+        P.keep = (shifted(k4, lean, dy)[..., 3] > 0) & (c[..., 3] > 0)
     else:
-        s4 = shifted(sc, 0, dy)
+        s4 = shifted(sc, lean, dy)
         P.keep = (s4[..., 3] > 0) & (c == s4).all(-1)
     return c
 
