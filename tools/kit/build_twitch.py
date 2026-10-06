@@ -50,27 +50,32 @@ ID = "league_twitch"
 FX = "asset/league/effects/league_twitch_fx"
 BIG = "asset/league/effects/league_twitch_big"
 
-# Numbers = draft c0 (to be simulated: tw_sim/sim/kd.py --lane 3 against gunner, soldier, archer and gambler).
+# Numbers = candidate c10 of the 10-min classic-SDK simulations (tw_sim/sim/kd.py --lane 3 against gunner, soldier, archer
+# and gambler, three lineups, both sides, 2026-10-07): +1.59 on seeds 1-24 and +1.59 on 25-48 (league_samira +1.36 /
+# +1.19, league_varus +1.63 / +1.91 on the same seeds). The draft c3 was +3.41: cutting E (12 + 28% -> 8 + 20% a stack)
+# and the venom (2 -> 1 + 2%) changed nothing (+3.40); attack 98 -> 94, Q's attack speed 45 -> 35% and R's +25 -> +15
+# attack with E at 6 + 16%: +2.33; the cask's slow is the big lever (35 -> 20% and a 2 s puddle: +0.08), 30% here.
+# Q's stealth 2.5 s (+1.66) or attack 88 / hp 850 (+1.61) did as much; League's 5 s stealth kept.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Twitch: 550 range,
     # 59 AD, 630 +98 hp, 27 armour, 330 move, attack speed 0.679
-    "hp": 900, "hp_g": 88, "atk": 98, "atk_g": 19, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
+    "hp": 900, "hp_g": 88, "atk": 94, "atk_g": 19, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     # attack: the bolt leaves the crossbow on a_st
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 54, "a_st": 9, "bolt_speed": 7500, "bolt_y": -3000, "a_read": 2,
     # passive: Deadly Venom (League: 6 stacks, 6 s, 1-5? true damage a stack a second by level + 3% AP)
-    "v_t": 360, "v_period": 60, "v_dmg": 2, "v_ratio": 2, "h_n": 6,
+    "v_t": 360, "v_period": 60, "v_dmg": 1, "v_ratio": 2, "h_n": 6,
     # skill: Q Ambush (League: camouflage 10-14 s after a 1 s fade, +10% move speed (+30% hidden near enemies),
     # +40-60% attack speed 6 s on leaving it, cd 16 s, reset when a poisoned champion dies)
-    "q_cd": 900, "q_range": 90000, "q_anim": 18, "q_t": 300, "q_poll": 6, "q_ms": 20, "q_as": 45, "q_as_t": 360,
+    "q_cd": 900, "q_range": 90000, "q_anim": 18, "q_t": 300, "q_poll": 6, "q_ms": 20, "q_as": 35, "q_as_t": 360,
     "k_hold": 40, "k_read": 4, "reset_mult": 10000,
     # skill2: W Venom Cask (League: 950 range, radius 300, slow 30-50% 3 s, puddle 3 s, cd 13-9 s)
     "w_cd": 660, "w_range": 90000, "w_dur": 18, "w_rel": 9, "w_travel": 14, "w_r": 28000,
-    "w_slow": 35, "w_slow_t": 60, "w_pool": 180,
+    "w_slow": 30, "w_slow_t": 60, "w_pool": 180,
     # -> E Contaminate (League: 10-70 + 15-35 a stack + 35% bonus AD a stack, cd 12-8 s)
-    "e_cd": 600, "e_wait": 45, "e_need": 3, "e_anim": 18, "e_rel": 8, "e_dmg": 12, "e_ratio": 28, "e_reach": 120000,
+    "e_cd": 600, "e_wait": 45, "e_need": 3, "e_anim": 18, "e_rel": 8, "e_dmg": 6, "e_ratio": 16, "e_reach": 120000,
     # ult: R Spray and Pray (League: 6 s, +300 range, +15-? AD, pierce -10% a unit down to 60%, cd 90 s)
     "r_cd": 3600, "r_slot": 70000, "r_reach": 85000, "r_arm": 600, "r_hold": 180, "r_anim": 18, "r_t": 360, "r_bonus": 30000,
-    "r_ad": 25, "r_len": 115000, "r_speed": 10000, "r_rad": 6000, "r_fall": 10, "r_min": 60, "e_lead": 30,
+    "r_ad": 15, "r_len": 115000, "r_speed": 10000, "r_rad": 6000, "r_fall": 10, "r_min": 60, "e_lead": 30,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }

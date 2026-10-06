@@ -479,10 +479,10 @@
       },
       "league_twitch": {
         "name": "图奇",
-        "attack": "弩箭攻击。被动<#ff9028ff>死亡毒液<>：普攻、毒桶和大招的箭每次挂一层毒，每层<#ffb900ff>6秒<>内每秒造成<#ffffffff>2<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<><#ffffffff>真实伤害<>。",
-        "skill": "伪装隐身最多<#ffb900ff>5秒<>并加速20%，出手即现形，之后<#ffb900ff>6秒<>攻速+45%。击杀敌方英雄时刷新冷却。",
-        "skill2": "扔出毒桶：范围内敌人挂一层毒并减速35%，毒池持续<#ffb900ff>3秒<>。随后接<#ff9028ff>毒性爆发<>：每层毒造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>28%<><#ff9028ff>物理伤害<>。",
-        "ult": "<#ffb900ff>6秒<>内射程+300、攻击力+25，弩箭穿透一条直线，每多穿一个少10%（最低60%）。两名敌方英雄在附近时施放。"
+        "attack": "弩箭攻击。被动<#ff9028ff>死亡毒液<>：普攻、毒桶和大招的箭每次挂一层毒，每层<#ffb900ff>6秒<>内每秒造成<#ffffffff>1<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<><#ffffffff>真实伤害<>。",
+        "skill": "伪装隐身最多<#ffb900ff>5秒<>并加速20%，出手即现形，之后<#ffb900ff>6秒<>攻速+35%。击杀敌方英雄时刷新冷却。",
+        "skill2": "扔出毒桶：范围内敌人挂一层毒并减速30%，毒池持续<#ffb900ff>3秒<>。随后接<#ff9028ff>毒性爆发<>：每层毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理伤害<>。",
+        "ult": "<#ffb900ff>6秒<>内射程+300、攻击力+15，弩箭穿透一条直线，每多穿一个少10%（最低60%）。两名敌方英雄在附近时施放。"
       }
     },
     "skill_name": {
@@ -1313,10 +1313,10 @@
       },
       "league_twitch": {
         "name": "圖奇",
-        "attack": "弩箭攻擊。被動<#ff9028ff>死亡毒液<>：普攻、毒桶和大招的箭每次掛一層毒，每層<#ffb900ff>6秒<>內每秒造成<#ffffffff>2<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<><#ffffffff>真實傷害<>。",
-        "skill": "偽裝隱形最多<#ffb900ff>5秒<>並加速20%，出手即現形，之後<#ffb900ff>6秒<>攻速+45%。擊殺敵方英雄時重置冷卻。",
-        "skill2": "擲出毒桶：範圍內敵人掛一層毒並緩速35%，毒池持續<#ffb900ff>3秒<>。隨後接<#ff9028ff>毒性爆發<>：每層毒造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>28%<><#ff9028ff>物理傷害<>。",
-        "ult": "<#ffb900ff>6秒<>內射程+300、攻擊力+25，弩箭貫穿一條直線，每多穿一個少10%（最低60%）。兩名敵方英雄在附近時施放。"
+        "attack": "弩箭攻擊。被動<#ff9028ff>死亡毒液<>：普攻、毒桶和大招的箭每次掛一層毒，每層<#ffb900ff>6秒<>內每秒造成<#ffffffff>1<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<><#ffffffff>真實傷害<>。",
+        "skill": "偽裝隱形最多<#ffb900ff>5秒<>並加速20%，出手即現形，之後<#ffb900ff>6秒<>攻速+35%。擊殺敵方英雄時重置冷卻。",
+        "skill2": "擲出毒桶：範圍內敵人掛一層毒並緩速30%，毒池持續<#ffb900ff>3秒<>。隨後接<#ff9028ff>毒性爆發<>：每層毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理傷害<>。",
+        "ult": "<#ffb900ff>6秒<>內射程+300、攻擊力+15，弩箭貫穿一條直線，每多穿一個少10%（最低60%）。兩名敵方英雄在附近時施放。"
       }
     },
     "skill_name": {
@@ -2147,10 +2147,10 @@
       },
       "league_twitch": {
         "name": "Twitch",
-        "attack": "Crossbow bolts. Passive <#ff9028ff>Deadly Venom<>: his attacks, the cask and R's bolts each add a stack of venom that deals <#ffffffff>2<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<> <#ffffffff>true damage<> per second for <#ffb900ff>6s<>.",
-        "skill": "Camouflaged for up to <#ffb900ff>5s<> with 20% move speed; attacking or casting reveals him and grants 45% attack speed for <#ffb900ff>6s<>. Champion takedowns reset the cooldown.",
-        "skill2": "Hurls a cask: enemies in the area gain a stack and are slowed 35%; the puddle lasts <#ffb900ff>3s<>. Then <#ff9028ff>Contaminate<>: every venom stack deals <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>28%<> <#ff9028ff>physical damage<>.",
-        "ult": "For <#ffb900ff>6s<>: +300 range and +25 attack; bolts pierce in a line, 10% less per unit hit (down to 60%). Cast with two enemy champions nearby."
+        "attack": "Crossbow bolts. Passive <#ff9028ff>Deadly Venom<>: his attacks, the cask and R's bolts each add a stack of venom that deals <#ffffffff>1<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<> <#ffffffff>true damage<> per second for <#ffb900ff>6s<>.",
+        "skill": "Camouflaged for up to <#ffb900ff>5s<> with 20% move speed; attacking or casting reveals him and grants 35% attack speed for <#ffb900ff>6s<>. Champion takedowns reset the cooldown.",
+        "skill2": "Hurls a cask: enemies in the area gain a stack and are slowed 30%; the puddle lasts <#ffb900ff>3s<>. Then <#ff9028ff>Contaminate<>: every venom stack deals <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<> <#ff9028ff>physical damage<>.",
+        "ult": "For <#ffb900ff>6s<>: +300 range and +15 attack; bolts pierce in a line, 10% less per unit hit (down to 60%). Cast with two enemy champions nearby."
       }
     },
     "skill_name": {
@@ -2981,10 +2981,10 @@
       },
       "league_twitch": {
         "name": "트위치",
-        "attack": "석궁 공격. 기본 지속 효과 <#ff9028ff>맹독<>: 기본 공격, 독약 병, 궁극기 화살마다 독 1중첩, 중첩당 <#ffb900ff>6초<> 동안 초당 <#ffffffff>2<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<>의 <#ffffffff>고정 피해<>.",
-        "skill": "최대 <#ffb900ff>5초<> 위장, 이동 속도 20%. 공격하거나 스킬을 쓰면 드러나고 <#ffb900ff>6초<> 동안 공격 속도 45%. 챔피언 처치 시 초기화.",
-        "skill2": "독약 병 투척: 범위 안의 적에게 독 1중첩, 35% 둔화, 웅덩이 <#ffb900ff>3초<>. 이어서 <#ff9028ff>오염<>: 독 중첩마다 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>28%<>의 <#ff9028ff>물리 피해<>.",
-        "ult": "<#ffb900ff>6초<> 동안 사거리 +300, 공격력 +25. 화살이 일직선으로 관통하며 대상마다 10% 감소(최소 60%). 적 챔피언 둘이 가까이 있을 때 사용."
+        "attack": "석궁 공격. 기본 지속 효과 <#ff9028ff>맹독<>: 기본 공격, 독약 병, 궁극기 화살마다 독 1중첩, 중첩당 <#ffb900ff>6초<> 동안 초당 <#ffffffff>1<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<>의 <#ffffffff>고정 피해<>.",
+        "skill": "최대 <#ffb900ff>5초<> 위장, 이동 속도 20%. 공격하거나 스킬을 쓰면 드러나고 <#ffb900ff>6초<> 동안 공격 속도 35%. 챔피언 처치 시 초기화.",
+        "skill2": "독약 병 투척: 범위 안의 적에게 독 1중첩, 30% 둔화, 웅덩이 <#ffb900ff>3초<>. 이어서 <#ff9028ff>오염<>: 독 중첩마다 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>의 <#ff9028ff>물리 피해<>.",
+        "ult": "<#ffb900ff>6초<> 동안 사거리 +300, 공격력 +15. 화살이 일직선으로 관통하며 대상마다 10% 감소(최소 60%). 적 챔피언 둘이 가까이 있을 때 사용."
       }
     },
     "skill_name": {
@@ -3815,10 +3815,10 @@
       },
       "league_twitch": {
         "name": "トゥイッチ",
-        "attack": "クロスボウで攻撃。パッシブ <#ff9028ff>スゴイ毒ダ！<>：通常攻撃・毒瓶・アルティメットの矢ごとに毒1スタック、1スタックにつき<#ffb900ff>6秒<>間毎秒<#ffffffff>2<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<>の<#ffffffff>確定ダメージ<>。",
-        "skill": "最大<#ffb900ff>5秒<>カモフラージュ、移動速度20%。攻撃かスキルで姿を現し<#ffb900ff>6秒<>攻撃速度45%。キルでCD解消。",
-        "skill2": "毒瓶を投げ、範囲の敵に毒1スタックと35%スロウ、毒溜まり<#ffb900ff>3秒<>。続けて<#ff9028ff>ボーン！<>：毒1スタックにつき<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>28%<>の<#ff9028ff>物理ダメージ<>。",
-        "ult": "<#ffb900ff>6秒<>間射程+300・攻撃力+25、矢が一直線に貫通し1体ごとに10%減少（最低60%）。敵チャンピオン2体が近い時に使用。"
+        "attack": "クロスボウで攻撃。パッシブ <#ff9028ff>スゴイ毒ダ！<>：通常攻撃・毒瓶・アルティメットの矢ごとに毒1スタック、1スタックにつき<#ffb900ff>6秒<>間毎秒<#ffffffff>1<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>2%<>の<#ffffffff>確定ダメージ<>。",
+        "skill": "最大<#ffb900ff>5秒<>カモフラージュ、移動速度20%。攻撃かスキルで姿を現し<#ffb900ff>6秒<>攻撃速度35%。キルでCD解消。",
+        "skill2": "毒瓶を投げ、範囲の敵に毒1スタックと30%スロウ、毒溜まり<#ffb900ff>3秒<>。続けて<#ff9028ff>ボーン！<>：毒1スタックにつき<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>の<#ff9028ff>物理ダメージ<>。",
+        "ult": "<#ffb900ff>6秒<>間射程+300・攻撃力+15、矢が一直線に貫通し1体ごとに10%減少（最低60%）。敵チャンピオン2体が近い時に使用。"
       }
     },
     "skill_name": {
