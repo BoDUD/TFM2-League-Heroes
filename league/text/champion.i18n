@@ -452,8 +452,8 @@
       "league_gwen": {
         "name": "格温",
         "attack": "被动<#ff9028ff>千穿百孔<>：攻击和技能命中附加<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>，对英雄再造成<#f5f5f5ff>1%最大生命值真实伤害<>并回复<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>生命。每次攻击叠一层剪刀层数，最多4层。",
-        "skill": "在身前剪<#ffb900ff>1+层数<>下，每下<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最后一剪<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，正中央的敌人额外受到<#f5f5f5ff>40真实伤害<>。每下都带被动。",
-        "skill2": "<#ff9028ff>断续疾走<>：冲向敌方英雄，4秒内攻速+40%、攻击距离增加、攻击附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>丝缕缠流<>：圣霭4秒，她在雾中时<#ffb900ff>隐身<>（远处敌人选不中她），护甲和魔抗+25。",
+        "skill": "在身前剪<#ffb900ff>1+层数<>下，每下<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最后一剪<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，正中央的敌人额外受到<#f5f5f5ff>40真实伤害<>。每下都带被动。",
+        "skill2": "<#ff9028ff>断续疾走<>：冲向敌方英雄，4秒内攻速+30%、攻击距离增加、攻击附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>丝缕缠流<>：圣霭4秒，她在雾中时<#ffb900ff>隐身<>（远处敌人选不中她），护甲和魔抗+22。",
         "ult": "朝敌方英雄连掷三轮针：1根、3根、5根，各造成<#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>1.5秒，带被动。"
       }
     },
@@ -1238,8 +1238,8 @@
       "league_gwen": {
         "name": "關",
         "attack": "被動<#ff9028ff>千刀萬剮<>：攻擊和技能命中附加<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>，對英雄再造成<#f5f5f5ff>1%最大生命值真實傷害<>並回復<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>生命。每次攻擊疊一層剪刀層數，最多4層。",
-        "skill": "在身前剪<#ffb900ff>1+層數<>下，每下<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最後一剪<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，正中央的敵人額外受到<#f5f5f5ff>40真實傷害<>。每下都帶被動。",
-        "skill2": "<#ff9028ff>剪步如飛<>：衝向敵方英雄，4秒內攻速+40%、攻擊距離增加、攻擊附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>聖霧絲縷<>：聖霧4秒，她在霧中時<#ffb900ff>隱形<>（遠處敵人選不中她），護甲和魔抗+25。",
+        "skill": "在身前剪<#ffb900ff>1+層數<>下，每下<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最後一剪<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，正中央的敵人額外受到<#f5f5f5ff>40真實傷害<>。每下都帶被動。",
+        "skill2": "<#ff9028ff>剪步如飛<>：衝向敵方英雄，4秒內攻速+30%、攻擊距離增加、攻擊附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>聖霧絲縷<>：聖霧4秒，她在霧中時<#ffb900ff>隱形<>（遠處敵人選不中她），護甲和魔抗+22。",
         "ult": "朝敵方英雄連擲三輪針：1根、3根、5根，各造成<#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>1.5秒，帶被動。"
       }
     },
@@ -2024,8 +2024,8 @@
       "league_gwen": {
         "name": "Gwen",
         "attack": "Passive <#ff9028ff>A Thousand Cuts<>: her attacks and skill hits deal <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> bonus <#a974ffff>magic damage<>; to champions also <#f5f5f5ff>1% max health true damage<>, healing her <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>. Each attack adds a snip stack (up to 4).",
-        "skill": "Snips in front of her <#ffb900ff>1 + stacks<> times for <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> each, then a final snip for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>; enemies in the centre take <#f5f5f5ff>40 true damage<> more. Every snip applies the passive.",
-        "skill2": "<#ff9028ff>Skip 'n Slash<>: dashes at an enemy champion; for 4s her attacks gain 40% attack speed, range and <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> on hit. Where she lands <#ff9028ff>Hallowed Mist<> settles for 4s: inside it she is <#ffb900ff>invisible<> (enemies far away cannot target her) with +25 armour and magic resist.",
+        "skill": "Snips in front of her <#ffb900ff>1 + stacks<> times for <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> each, then a final snip for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; enemies in the centre take <#f5f5f5ff>40 true damage<> more. Every snip applies the passive.",
+        "skill2": "<#ff9028ff>Skip 'n Slash<>: dashes at an enemy champion; for 4s her attacks gain 30% attack speed, range and <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> on hit. Where she lands <#ff9028ff>Hallowed Mist<> settles for 4s: inside it she is <#ffb900ff>invisible<> (enemies far away cannot target her) with +22 armour and magic resist.",
         "ult": "Hurls three volleys of needles at an enemy champion - 1, 3 and 5 needles - each dealing <#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 40%<> for 1.5s and applying the passive."
       }
     },
@@ -2810,8 +2810,8 @@
       "league_gwen": {
         "name": "그웬",
         "attack": "기본 지속 효과 <#ff9028ff>가위 난도질<>: 공격과 스킬 적중 시 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 추가 <#a974ffff>마법 피해<>, 챔피언에게는 <#f5f5f5ff>최대 체력의 1% 고정 피해<>를 더 주고 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> 회복. 공격마다 가위 중첩 1, 최대 4.",
-        "skill": "앞을 <#ffb900ff>1+중첩<>번 자르며 각각 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>, 마지막 가위질은 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>, 중앙의 적은 <#f5f5f5ff>40 고정 피해<> 추가. 매번 기본 지속 효과 적용.",
-        "skill2": "<#ff9028ff>돌격가위<>: 적 챔피언에게 돌진, 4초간 공격 속도 +40%, 사거리 증가, 적중 시 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. 착지한 곳에 <#ff9028ff>신성한 안개<> 4초: 안개 안에서 <#ffb900ff>투명<>(멀리 있는 적은 대상 지정 불가), 방어력과 마법 저항력 +25.",
+        "skill": "앞을 <#ffb900ff>1+중첩<>번 자르며 각각 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>, 마지막 가위질은 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>, 중앙의 적은 <#f5f5f5ff>40 고정 피해<> 추가. 매번 기본 지속 효과 적용.",
+        "skill2": "<#ff9028ff>돌격가위<>: 적 챔피언에게 돌진, 4초간 공격 속도 +30%, 사거리 증가, 적중 시 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. 착지한 곳에 <#ff9028ff>신성한 안개<> 4초: 안개 안에서 <#ffb900ff>투명<>(멀리 있는 적은 대상 지정 불가), 방어력과 마법 저항력 +22.",
         "ult": "적 챔피언에게 바늘을 세 번 던짐(1, 3, 5개): 각각 <#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>1.5초간 40% 둔화<>, 기본 지속 효과 적용."
       }
     },
@@ -3596,8 +3596,8 @@
       "league_gwen": {
         "name": "グウェン",
         "attack": "パッシブ <#ff9028ff>裁断<>：通常攻撃とスキル命中で<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の追加<#a974ffff>魔法ダメージ<>、チャンピオンには<#f5f5f5ff>最大体力の1%の確定ダメージ<>も与え<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>回復。通常攻撃ごとにハサミのスタック+1、最大4。",
-        "skill": "前方を<#ffb900ff>1+スタック<>回切り各<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>、最後の一断ちで<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、中心の敵は<#f5f5f5ff>40の確定ダメージ<>を追加で受ける。毎回パッシブ適用。",
-        "skill2": "<#ff9028ff>スキップスラッシュ<>：敵チャンピオンへ突進、4秒間攻撃速度+40%、射程増加、命中時<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。着地点に<#ff9028ff>聖なる霧<>が4秒：霧の中では<#ffb900ff>インビジブル<>（遠くの敵は対象にできない）、物防と魔防+25。",
+        "skill": "前方を<#ffb900ff>1+スタック<>回切り各<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>、最後の一断ちで<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、中心の敵は<#f5f5f5ff>40の確定ダメージ<>を追加で受ける。毎回パッシブ適用。",
+        "skill2": "<#ff9028ff>スキップスラッシュ<>：敵チャンピオンへ突進、4秒間攻撃速度+30%、射程増加、命中時<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。着地点に<#ff9028ff>聖なる霧<>が4秒：霧の中では<#ffb900ff>インビジブル<>（遠くの敵は対象にできない）、物防と魔防+22。",
         "ult": "敵チャンピオンへ針を3回投げる（1本、3本、5本）：各<#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>1.5秒間40%スロウ<>、パッシブ適用。"
       }
     },

@@ -1,0 +1,283 @@
+{
+ "hero": "gwen",
+ "champ": "Gwen",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.4,
+  "legs": 0.85,
+  "hair": 0.6
+ },
+ "height": 44,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "idle@0",
+ "hide_submeshes": [
+  "Doll",
+  "Needle",
+  "Scissors_A_Smear"
+ ],
+ "submesh_textures": {
+  "Scissors": "Weapon"
+ },
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "idle@0",
+     200
+    ],
+    [
+     "idle@0",
+     200
+    ],
+    [
+     "idle@0",
+     200
+    ],
+    [
+     "idle@0",
+     200
+    ],
+    [
+     "idle@0",
+     200
+    ],
+    [
+     "idle@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "idle@0",
+   "frames": [
+    [
+     "run@0",
+     150
+    ],
+    [
+     "run@150",
+     150
+    ],
+    [
+     "run@300",
+     150
+    ],
+    [
+     "run@450",
+     150
+    ],
+    [
+     "run@600",
+     150
+    ],
+    [
+     "run@750",
+     150
+    ],
+    [
+     "run@900",
+     150
+    ],
+    [
+     "run@1050",
+     150
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "idle@0>attack1@0:0.5",
+     60
+    ],
+    [
+     "attack1@75",
+     60
+    ],
+    [
+     "attack1@150",
+     70
+    ],
+    [
+     "attack1@225",
+     70
+    ],
+    [
+     "attack1@375",
+     80
+    ],
+    [
+     "attack1@525>idle@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "release": 6,
+   "frames": [
+    [
+     "idle@0>spell1@0:0.5",
+     50
+    ],
+    [
+     "spell1@125",
+     60
+    ],
+    [
+     "spell1@250",
+     60
+    ],
+    [
+     "spell1@375",
+     60
+    ],
+    [
+     "spell1@500",
+     60
+    ],
+    [
+     "spell1_c@121",
+     70
+    ],
+    [
+     "spell1_c@242",
+     80
+    ],
+    [
+     "spell1_c@600>idle@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 6,
+   "frames": [
+    [
+     "idle@0>spell3_dash@0:0.5",
+     40
+    ],
+    [
+     "spell3_dash@100",
+     40
+    ],
+    [
+     "spell3_dash@200",
+     40
+    ],
+    [
+     "spell2@117",
+     60
+    ],
+    [
+     "spell2@350",
+     80
+    ],
+    [
+     "spell2@583",
+     80
+    ],
+    [
+     "spell2@816",
+     80
+    ],
+    [
+     "spell2_to_idle@600>idle@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "idle@0>spell4@0:0.5",
+     50
+    ],
+    [
+     "spell4@125",
+     60
+    ],
+    [
+     "spell4@250",
+     60
+    ],
+    [
+     "spell4@375",
+     70
+    ],
+    [
+     "spell4@625",
+     80
+    ],
+    [
+     "spell4@875>idle@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "idle@0>death@300:0.25",
+     100
+    ],
+    [
+     "idle@0>death@300:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "idle@0>death@150:0.5",
+     100
+    ],
+    [
+     "death@325",
+     110
+    ],
+    [
+     "death@650",
+     110
+    ],
+    [
+     "death@975",
+     120
+    ],
+    [
+     "death@1300",
+     130
+    ],
+    [
+     "death@1625",
+     150
+    ],
+    [
+     "death@1950",
+     200
+    ],
+    [
+     "death@2275",
+     300
+    ]
+   ]
+  }
+ }
+}

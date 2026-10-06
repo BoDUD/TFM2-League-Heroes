@@ -17,7 +17,7 @@
   "stat": {
     "attack": 80,
     "magic_power": 50,
-    "hp": 980,
+    "hp": 950,
     "defence": 30,
     "magic_resistance": 24,
     "move_speed": 1080,
@@ -462,6 +462,10 @@
           "type": "CasterAnimation",
           "name": "skill",
           "tick": 30
+        },
+        {
+          "type": "Sfx",
+          "name": "league_gwen_q_open"
         },
         {
           "type": "Sfx",
@@ -929,8 +933,8 @@
               "effects": [
                 {
                   "type": "ApAttack",
-                  "damage": 90,
-                  "attack_ratio": 50,
+                  "damage": 70,
+                  "attack_ratio": 40,
                   "hp_ratio": 0,
                   "can_crit": false
                 },
@@ -1007,6 +1011,10 @@
                 },
                 {
                   "type": "ViewEffect",
+                  "name": "league_gwen_q_true"
+                },
+                {
+                  "type": "TargetSfx",
                   "name": "league_gwen_q_true"
                 }
               ]
@@ -1147,8 +1155,8 @@
                                       "tick": 8
                                     }
                                   },
-                                  "defence": 25,
-                                  "magic_resistance": 25
+                                  "defence": 22,
+                                  "magic_resistance": 22
                                 },
                                 "only_to_enemy": false
                               }
@@ -1178,7 +1186,7 @@
                         "tick": 240
                       }
                     },
-                    "attack_speed_mult": 40,
+                    "attack_speed_mult": 30,
                     "range": 7500
                   },
                   "only_to_enemy": false
