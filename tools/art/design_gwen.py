@@ -420,6 +420,7 @@ PAL = {"0": "#08021a", "a": "#020375", "b": "#1d1444", "c": "#0b0baa", "d": "#3c
        "u": "#fbe169", "v": "#fce3cd", "w": "#fcf6cb", "x": "#f3f8fa"}
 LETTER = {v: k for k, v in PAL.items()}
 POLISH_FACE = (62, 68, 63, 69)                     # columns, rows of the face: kept
+FACE_TURN = (62, 68)                               # the face's columns: its features moved one to the right
 CURLS_ = [(57.5, 68.5, 3.9, True), (73.0, 68.5, 3.9, False)]   # centre, radius, winding
 BOW_ = ["fd.df", "ddqdd", "bd.db"]
 BOWS_AT = [(57, 60), (73, 60)]
@@ -626,6 +627,13 @@ def polish(canvas, mask):
     for y, x in zip(*np.nonzero(~op)):
         if 50 <= y <= 99 and all(op[y + dy, x + dx] and not mask[y + dy, x + dx] for dy, dx in N4):
             put(x, y, "0")
+    # 6. the face turned a column to her front (image right) with the stance (「你现在站的太正了」, then 「加上」): the
+    # brows, eyes, blush and mouth (columns 62-68, rows 64-68) one column right, the column they leave skin
+    f0, f1 = FACE_TURN
+    for y in range(64, 69):
+        row = [ch(y, x) for x in range(f0, f1 + 1)]
+        for i, c in enumerate(["v"] + row[:-1]):
+            put(f0 + i, y, c)
 
 
 def build(with_mask=False):
