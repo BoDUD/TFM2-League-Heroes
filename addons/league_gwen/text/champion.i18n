@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_gwen": {
+        "attack": "【魔法伤害测试版】被动<#ff9028ff>千穿百孔<>：攻击和技能命中附加<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>，对英雄再造成<#a974ffff>1%（每100法强+0.6%）最大生命值魔法伤害<>并回复<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>生命。每次攻击叠一层剪刀层数，最多4层。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_gwen": {
+        "attack": "【魔法傷害測試版】被動<#ff9028ff>千刀萬剮<>：攻擊和技能命中附加<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>，對英雄再造成<#a974ffff>1%（每100法強+0.6%）最大生命值魔法傷害<>並回復<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>生命。每次攻擊疊一層剪刀層數，最多4層。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_gwen": {
+        "attack": "[Magic test build] Passive <#ff9028ff>A Thousand Cuts<>: her attacks and skill hits deal <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> bonus <#a974ffff>magic damage<>; to champions also <#a974ffff>1% (+0.6% per 100 AP) max health magic damage<>, healing her <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>. Each attack adds a snip stack (up to 4)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_gwen": {
+        "attack": "[마법 피해 테스트판] 기본 지속 효과 <#ff9028ff>가위 난도질<>: 공격과 스킬 적중 시 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 추가 <#a974ffff>마법 피해<>, 챔피언에게는 <#a974ffff>최대 체력의 1%(주문력 100당 +0.6%) 마법 피해<>를 더 주고 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> 회복. 공격마다 가위 중첩 1, 최대 4."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_gwen": {
+        "attack": "【魔法ダメージテスト版】パッシブ <#ff9028ff>裁断<>：通常攻撃とスキル命中で<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の追加<#a974ffff>魔法ダメージ<>、チャンピオンには<#a974ffff>最大体力の1%(魔力100毎に+0.6%)の魔法ダメージ<>も与え<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>回復。通常攻撃ごとにハサミのスタック+1、最大4。"
+      }
+    }
+  }
+}

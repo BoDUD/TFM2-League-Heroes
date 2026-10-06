@@ -56,6 +56,9 @@ P = {
     "atk_range": 24000, "atk_dur": 24, "atk_cd": 56, "a_hit": 11,
     # passive A Thousand Cuts
     "p_dmg": 10, "p_ratio": 8, "p_hp": 1, "p_heal": 10, "p_heal_r": 6,
+    # the add-on's (addons/league_gwen, League's): magic damage of p_hp% + p_hp_ap / 100 % per 100 AP of the
+    # champion's maximum health in place of the true p_hp%; 1 = the copy for the add-on (league_gwen:cuts)
+    "p_hp_ap": 60, "native": 0,
     # skill: Q Snip Snip! (League: cd 6.5-3.5 s, final 35-185 + 35% AP, minis 20% of it, 2 + 4 stacks, 6 s stacks)
     "q_n": 4, "q_keep": 360, "q_cd": 330, "q_range": 30000, "q_dur": 30, "q_t0": 6, "q_gap": 3, "q_final": 22,
     "q_mini": 12, "q_mini_r": 8, "q_dmg": 60, "q_ratio": 40, "q_true": 25, "q_cone_r": 30000, "q_cone": 300,
@@ -201,8 +204,9 @@ def build(p):
         return ap(p["p_dmg"], p["p_ratio"])
 
     def cuts_champ():
-        """On enemy champions only: max-health true damage and her heal."""
-        return [true(0, p["p_hp"]), heal(p["p_heal"], p["p_heal_r"])]
+        """On enemy champions only: max-health true damage (the add-on's copy: its magic damage) and her heal."""
+        hp_part = {"type": "Native", "effect_ref": f"{ID}:cuts"} if p["native"] else true(0, p["p_hp"])
+        return [hp_part, heal(p["p_heal"], p["p_heal_r"])]
 
     # ------------------------------------------------------------------ Q stacks (league_varus Blight's ladder)
     # qs1..qsk all on at k stacks, each q_keep ticks: a hit adds one (at most q_n) and runs the timers again.

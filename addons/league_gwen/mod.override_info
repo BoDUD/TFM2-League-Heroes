@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_gwen": {
+    "remapping": "asset/league_gwen/override/league_gwen",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_gwen/text/champion",
+    "type": "merge"
+  }
+}
