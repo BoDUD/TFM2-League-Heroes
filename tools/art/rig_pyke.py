@@ -167,9 +167,8 @@ class Rig:
         return K.finish(c, self.out, SOLES, keep=keep)
 
     def run(self):
-        """Codex's legs under the design's own upper body, placed where Codex's body stands in that frame: matched on
-        the belt (the legs hang from the hips), so legs and hips meet; the bob kept within one row (a frame lower than
-        that keeps its upper body a row up and takes Codex's legs from the row under it, no gap)."""
+        """Codex's legs under the design's own upper body: matched on the belt (the legs hang from the hips) for the
+        column, the upper body at the idle's height (a row lower in Codex's low frames) with the legs' top rows under it."""
         des = self.a
         dys, dxs = np.nonzero(des[..., 3])
         mid = (dxs.min() + dxs.max()) // 2
@@ -192,7 +191,10 @@ class Rig:
         hm4 = np.repeat(self.hm[..., None], 4, -1).astype(np.uint8) * 255
         frames = []
         for c, dx, dy in placed:
-            at = min(dy, top + 1)                      # the upper body's row offset: within one row of the highest
+            # the upper body at the idle's height, a row lower where Codex's body is low: the run never stands taller
+            # than the idle (on Codex's own height it stood up to two rows taller, 「移动时模型有点变形」); the legs' top
+            # rows go under it
+            at = 0 if dy <= top else 1
             out = np.zeros_like(des)
             legs = c.copy()
             legs[:RUN_SEAM + at] = 0                   # Codex's legs from just under where our upper body ends

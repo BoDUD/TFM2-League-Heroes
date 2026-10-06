@@ -329,7 +329,7 @@ def build(p):
     views_p = [P_("q_hook"), P_("q_hook_c", FX), P_("q_return"), P_("e_phantom", BIG)]
     views_e = [E("a_hit"), E("q_charge"), E("q_stab_hit"), E("q_hit"), E("w_cast"), E("e_left", BIG, 1, False),
                E("e_hit"), E("r_mark", BIG, -1, False), E("r_strike", BIG, 2, False), E("r_hit"),
-               E("r_reset", FX, 3, False), E("p_heal", FX, 3)]
+               E("r_reset", FX, 3, False), E("p_heal", FX, 3, False)]
     views_b = [B_("q_slow", FX, -1), B_("e_stun", FX, 3)]
     return {
         "id": ID, "category": "Assassin", "tags": ["AD", "Melee", "CC"],

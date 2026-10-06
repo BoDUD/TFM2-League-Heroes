@@ -2286,7 +2286,7 @@
       "anim": "asset/league/effects/league_pyke_fx",
       "tag": "p_heal",
       "z": 3,
-      "is_follow": true
+      "is_follow": false
     }
   ],
   "view_buffs": [
