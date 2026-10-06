@@ -130,7 +130,8 @@ def showcase(out, z=3, step=40):
                 over[-1].loop, over[-1].until = True, thr + tick(R_APPLY + 60)
         if k == 2:
             d.death = thr + tick(R_APPLY + 2)
-    a("ult", tick(R_T0 + R_ANIM))
+    u = a("ult")                                       # the strip is shorter than R_T0 + R_ANIM: the idle after it
+    a("idle", max(1.0, tick(R_T0 + R_ANIM) - u.total), loop=True)   # (she vanished for those frames)
     for _ in range(2):
         a("idle", tick(R_GAP - R_ANIM - 4), loop=True)
         attack(g)
