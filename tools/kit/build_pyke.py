@@ -69,7 +69,7 @@ P = {
     # skill: Q Bone Skewer (League: tap 100-? + 60% bonus AD stab; hold 0.5-1 s, 1100 range, 70 width, 2000 speed,
     # pull 500, slow 90% 1 s, cd 10-7.5 s)
     "q_cd": 420, "q_range": 100000, "q_close": 26000, "q_stab_t": 22, "q_stab_at": 13, "q_hold": 36, "q_throw_t": 14,
-    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": 1000, "q_dmg": 35, "q_ratio": 60, "q_slow": 60,
+    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": 2000, "q_dmg": 35, "q_ratio": 60, "q_slow": 60,
     "q_slow_t": 60, "q_grab": 1500,
     # skill2: W Ghostwater Dive (League: camouflage 5 s, +45% fading over 1.5 s, cd 12-8 s) -> E Phantom Undertow
     # (League: dash 550, the phantom back after 1 s, 100-350 + 100% bonus AD to champions, stun 1.25 s, cd 15-11 s)

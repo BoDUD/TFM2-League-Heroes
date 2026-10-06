@@ -164,7 +164,7 @@ class Rig:
         hm = head_mask(a)
         self.head = np.where(hm[..., None], a, 0).astype(np.uint8)
         self.hm = hm
-        self.head_at = set()                   # every offset the head is pasted at (the shrink keeps clear of them)
+        self.head_of = {}                      # id(frame) -> where its head was pasted (the shrink pastes it again)
 
     # ---------------------------------------------------------------- a standing frame
     def stand(self, rear=0, at=None, dx=0, dy=0, part=None, under=True):
@@ -177,9 +177,10 @@ class Rig:
             jx, jy = at if at is not None else SHOULDER
             K.place(c, p, (jx + dx, jy + dy), under=under)
         K.put(c, self.head, dx, dy)
-        self.head_at.add((dx, dy))
         keep = K.shifted(np.repeat(self.hm[..., None], 4, -1).astype(np.uint8) * 255, dx, dy)[..., 3] > 0
-        return K.finish(c, self.out, SOLES, keep=keep)
+        f = K.finish(c, self.out, SOLES, keep=keep)
+        self.head_of[id(f)] = (dx, dy)
+        return f
 
     def run(self):
         """Codex's legs under the design's own upper body: matched on the belt (the legs hang from the hips) for the
@@ -224,13 +225,13 @@ class Rig:
             K.put(out, hang, dx, at)
             K.put(out, up, dx, at)
             keep = K.shifted(hm4, dx, at)[..., 3] > 0
-            self.head_at.add((dx, at))
             out = self.trail_down(out, at)
             f = K.finish(out, self.out, SOLES, keep=keep)
             for comp in K.pieces(f)[1:]:
                 if len(comp) < 12:
                     for y, x in comp:
                         f[y, x] = 0
+            self.head_of[id(f)] = (dx, at)
             frames.append(f)
         return frames
 
@@ -322,13 +323,14 @@ class Rig:
                 lie(90, -9)]
 
 
-# the whole figure a little smaller (the user: 「然后看看整体模型能不能缩小点 略微缩小」; at the design's size he stood
-# 53 x 62 squares, Darius 42 x 36): one square row in every SHRINK above the soles and one column in every SHRINK each
-# side of the standing column comes out of every frame of every strip alike - in each such band the row (column) most
-# like its neighbour over all the frames (the idle and the run counted thrice), never through the head (drops), so the
-# face is the idle's in every frame; the soles and the standing column never move (47 x 55 now). No resampling: what is
-# left is the design's own squares.
-SHRINK = 8
+# the whole figure smaller (the user: 「然后看看整体模型能不能缩小点 略微缩小」, then 「派克游戏里体型感觉还是偏大」; at the
+# design's size he stood 53 x 62 squares, Darius 42 x 36): one square row in every SHRINK above the soles and one column
+# in every SHRINK each side of the standing column comes out of every frame of every strip alike - in each such band the
+# row (column) most like its neighbour over all the frames (the idle and the run counted thrice). The head is taken out
+# before and the idle's head, shrunk once, pasted back (shrink_frame), so the face is the same squares in every frame
+# (「派克移动时眼睛那变形？」); the soles and the standing column never move (41 x 48 now, 1 in 8 was 47 x 55). No
+# resampling: what is left is the design's own squares.
+SHRINK = 4
 
 
 def bands(start, stop, step):
@@ -343,10 +345,9 @@ def bands(start, stop, step):
 
 
 def drops(built, k, head=None):
-    """The rows and columns to drop: one per band, the least different from the square row / column beyond it. Never
-    a row or column through the head where any frame has it (`head`: (mask, offsets)): cut there, the eyes changed
-    from frame to frame as the run bobbed a row and the swings moved him a column (「派克移动时眼睛那变形？」) - a
-    band all over the head gives its square to the nearest free row (column) beyond it."""
+    """The rows and columns to drop: one per band, the least different from the square row / column beyond it; with
+    `head` ((mask, offsets)) never one through the head where any frame has it (a band all over the head gives its
+    square to the nearest free row or column beyond it) - shrink_frame pastes the head back instead now."""
     frs, w = [], []
     for tag, fl in built.items():
         for f in fl:
@@ -408,6 +409,32 @@ def shrunk_xy(x, y, rows, left, right):
             y + sum(1 for r in rows if r > y))
 
 
+def shrink_frame(f, off, cut, rig):
+    """A standing frame shrunk with its head as the idle's: the head (pasted last at `off`) comes out first, the rest
+    is shrunk, and the idle's head shrunk once is pasted back where that spot landed - every frame's face the same
+    squares however the run bobs or a swing moves him (「派克移动时眼睛那变形？」)."""
+    if off is None:
+        return shrink(f, *cut)
+    hm = rig.hm
+    hy, hx = np.nonzero(hm)
+    y0, x0 = int(hy.min()), int(hx.min())
+    dx, dy = off
+    m = np.zeros_like(hm)
+    ys, xs = hy + dy, hx + dx
+    ok = (ys >= 0) & (ys < hm.shape[0]) & (xs >= 0) & (xs < hm.shape[1])
+    m[ys[ok], xs[ok]] = True
+    body = f.copy()
+    body[m] = 0
+    g = shrink(body, *cut)
+    hs = shrink(rig.head, *cut)
+    ax, ay = shrunk_xy(x0, y0, *cut)
+    bx, by = shrunk_xy(x0 + dx, y0 + dy, *cut)
+    put = K.shifted(hs, bx - ax, by - ay)
+    keep = put[..., 3] > 0
+    g[keep] = put[keep]
+    return K.finish(g, rig.out, SOLES, keep=keep)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -417,8 +444,8 @@ def main():
     rig = Rig()
     built = rig.build()
     if SHRINK:
-        cut = drops(built, SHRINK, (rig.hm, rig.head_at))
-        built = {t: [shrink(f, *cut) for f in fl] for t, fl in built.items()}
+        cut = drops(built, SHRINK)
+        built = {t: [shrink_frame(f, rig.head_of.get(id(f)), cut, rig) for f in fl] for t, fl in built.items()}
         print("shrink: rows", cut[0], "columns", cut[1], cut[2])
     if a.tags:
         built = {t: built[t] for t in a.tags.split(",")}

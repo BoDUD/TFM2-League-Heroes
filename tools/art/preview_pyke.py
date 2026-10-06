@@ -31,7 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_pyke")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_pyke_fx", "league_pyke_big")}
-HOOK_Y = -4                                            # the harpoon's y_offset (1000: 4 px over the pivot, his hand)
+HOOK_Y = -3                                            # the harpoon's y_offset (2000: 3 px over the pivot, his hand)
 
 
 class Me:
