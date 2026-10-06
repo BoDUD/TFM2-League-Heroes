@@ -268,8 +268,10 @@ def league_ring(layer, c, ro, ri):
                 layer[y, x, 3] = 255
 
 
-def league_scissors(fig):
-    """Step 9: the first scissors' columns cleared again, the hand at her side, League's scissors behind her."""
+def league_scissors(fig, with_mask=False):
+    """Step 9: the first scissors' columns cleared again, the hand at her side, League's scissors behind her.
+    with_mask: also the squares the scissors add (blade, rings, shank and their outline) - tools/art/rig_gwen.py lifts
+    them off the body."""
     y0, y1, x1 = SCISSORS["clear"]
     fig[y0:y1, :x1] = 0
     paint(fig, LEAGUE["hand"])
@@ -286,13 +288,17 @@ def league_scissors(fig):
     layer = can[1:-1, 1:-1]
     behind = (layer[..., 3] > 0) & (big[..., 3] == 0)
     big[behind] = layer[behind]
+    was = big[..., 3] > 0
     can, _, _ = strips.complete_outline(np.pad(big, ((1, 1), (1, 1), (0, 0))), color=C["I"], feet=H)
     big = can[1:-1, 1:-1]
+    added = behind | ((big[..., 3] > 0) & ~was)
     xs = np.nonzero((big[..., 3] > 0).any(0))[0]
-    return big[:, xs.min():xs.max() + 1].copy()
+    out = big[:, xs.min():xs.max() + 1].copy()
+    return (out, added[:, xs.min():xs.max() + 1].copy()) if with_mask else out
 
 
-def build():
+def build(with_mask=False):
+    """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
     assert raw.shape[:2] == (105, 77), raw.shape
     idx, pal = dv.kmeans(raw, K)
@@ -310,15 +316,20 @@ def build():
     fig = scissors(fig)
     paint(fig, {(FACE_X0 + i, y): ch for y, row in FACE.items() for i, ch in enumerate(row) if ch != "-"})
     paint(fig, NECK)
-    fig = league_scissors(fig)
+    fig, sc = league_scissors(fig, with_mask=True)
     for (x, y), ch in POINT.items():
         fig[y, x] = 0 if ch is None else (*C[ch], 255)
+        sc[y, x] = ch is not None
     paint(fig, {(TORSO_X0 + i, y): TORSO_KEYS[ch] for y, row in TORSO.items() for i, ch in enumerate(row) if ch != "-"})
     feet = np.nonzero((fig[-FEET_ROWS:, :, 3] > 0).any(0))[0]
     mid_x = (feet.min() + feet.max()) / 2
     canvas = np.zeros((128, 128, 4), np.uint8)
     y0, x0 = SOLE_ROW + 1 - fig.shape[0], int(round(MID_COL - mid_x))
     canvas[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = fig
+    if with_mask:
+        mask = np.zeros((128, 128), bool)
+        mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
+        return canvas, mask
     return canvas
 
 
