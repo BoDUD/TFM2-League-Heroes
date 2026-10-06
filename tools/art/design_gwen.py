@@ -341,6 +341,29 @@ def clean_dark(a, protect):
     return n
 
 
+
+def lone_ink(a, keep):
+    """Step 12 (the user: 「最后清理一下没用的黑色素吧弄干净一点」): near-black squares inside the figure that join no line
+    (one or no near-black 4-neighbour, every 4-neighbour opaque), off `keep` (the face, the scissors), take their
+    4-neighbours' commonest colour - the dots at the neck's V, the sleeves' corners and the skirt's left edge; the lashes,
+    the rings' holes and the boots' split are lines and stay. Returns the count."""
+    ink = np.array(C["I"], np.uint8)
+    op = a[..., 3] > 0
+    isk = op & (a[..., :3] == ink).all(-1)
+    H, W = op.shape
+    hits = []
+    for y, x in zip(*np.nonzero(isk & ~keep)):
+        nb = [(y + dy, x + dx) for dy, dx in N4]
+        if not all(0 <= yy < H and 0 <= xx < W and op[yy, xx] for yy, xx in nb):
+            continue
+        if sum(isk[yy, xx] for yy, xx in nb) > 1:
+            continue
+        cols = [tuple(int(v) for v in a[yy, xx, :3]) for yy, xx in nb if not isk[yy, xx]]
+        hits.append((y, x, max(set(cols), key=cols.count)))
+    for y, x, c in hits:
+        a[y, x, :3] = c
+    return len(hits)
+
 def build(with_mask=False):
     """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
@@ -376,6 +399,7 @@ def build(with_mask=False):
     clean_dark(canvas, face)                           # step 11
     mask = np.zeros((128, 128), bool)
     mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
+    lone_ink(canvas, face | mask)                      # step 12
     if with_mask:
         return canvas, mask
     return canvas

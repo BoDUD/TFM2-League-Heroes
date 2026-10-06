@@ -577,8 +577,10 @@ def soften_inner_ink(P, f, keep=None):
             s = K.shifted(idle, dx, dy) if (dx or dy) else idle
             cost = int((s[56:72, 50:80, :3] != f[56:72, 50:80, :3]).any(-1).sum())
             if best is None or cost < best[0]:
-                best = (cost, s)
+                best = (cost, s, dx, dy)
     s = best[1]
+    face = np.zeros(f.shape[:2], bool)
+    face[64 + best[3]:70 + best[3], 62 + best[2]:69 + best[2]] = True
     was = (s[..., 3] > 0) & (s[..., :3] == ink).all(-1)
     op = f[..., 3] > 0
     isk = op & (f[..., :3] == ink).all(-1)
@@ -595,6 +597,20 @@ def soften_inner_ink(P, f, keep=None):
             change[(y, x)] = min(cols, key=lum)
     for (y, x), c in change.items():
         f[y, x, :3] = c
+    # then the lone near-black dots a pose leaves inside her (design_gwen.lone_ink's rule: no line through them; the
+    # face, the weapon's and the needles' outline kept): 「最后清理一下没用的黑色素吧弄干净一点」
+    off = face | (keep if keep is not None else np.zeros_like(face))
+    isk = op & (f[..., :3] == ink).all(-1)
+    for y, x in zip(*np.nonzero(isk & ~off)):
+        if y >= SOLES:
+            continue
+        n4 = [(y + dy, x + dx) for dy, dx in K.N4]
+        if not all(0 <= yy < f.shape[0] and 0 <= xx < f.shape[1] and op[yy, xx] for yy, xx in n4):
+            continue
+        if sum(isk[yy, xx] for yy, xx in n4) > 1:
+            continue
+        cols = [tuple(int(v) for v in f[yy, xx, :3]) for yy, xx in n4 if not isk[yy, xx]]
+        f[y, x, :3] = max(set(cols), key=cols.count)
 
 
 def frames(P, tag):
