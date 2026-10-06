@@ -54,6 +54,8 @@ RAISED = (63.5, 59.5)                  # where the shoulder joint sits when the 
 
 RUN_RAW = os.path.join(ROOT, "assets", "source", "pyke", "codex_run", "raw", "pyke_run_phase_fix_raw.png")
 RUN_PITCH, RUN_SEAM = 4.87, 83
+TRAIL_HIP, TRAIL_X, TRAIL_FROM = (55.5, 86.5), 54, 44     # the trailing leg: hip joint, columns left of TRAIL_X,
+                                                            # turned down when it reaches out past TRAIL_FROM
 
 
 def read_run(palette):
@@ -202,6 +204,7 @@ class Rig:
             K.put(out, hang, dx, at)
             K.put(out, up, dx, at)
             keep = K.shifted(hm4, dx, at)[..., 3] > 0
+            out = self.trail_down(out, at)
             f = K.finish(out, self.out, SOLES, keep=keep)
             for comp in K.pieces(f)[1:]:
                 if len(comp) < 12:
@@ -209,6 +212,36 @@ class Rig:
                         f[y, x] = 0
             frames.append(f)
         return frames
+
+    def trail_down(self, f, at):
+        """The leg kicked back level behind him (Codex drew the trailing thigh flat, the boot hanging in the air:
+        「这里腿都歪了吧？？」) turned down whole about the hip (RotSprite, no bend) until its boot is near the ground."""
+        hip = (TRAIL_HIP[0], TRAIL_HIP[1] + at)
+        m = np.zeros(f.shape[:2], bool)
+        m[RUN_SEAM + at:, :TRAIL_X + 1] = True          # all of it under the upper body (no strip left at the hip)
+        m &= f[..., 3] > 0
+        ys, xs = np.nonzero(m)
+        if not len(xs) or xs.min() > TRAIL_FROM:      # no leg out behind him
+            return f
+        leg = K.Part.from_canvas(f, m, hip)
+        rest = f.copy()
+        rest[m] = 0
+        p = None
+        for deg in range(5, 61, 5):                  # counter-clockwise: a leg pointing back (left) swings down
+            q = K.turn(leg, deg)
+            py = np.nonzero(q.s[..., 3].any(1))[0]
+            low = int(np.floor(hip[1] - q.j[1] + 1e-9)) + int(py.max())
+            if low > SOLES:
+                break
+            p = q
+            if low >= SOLES - 2:
+                break
+        if p is None:
+            return f
+        out = np.zeros_like(f)
+        K.place(out, p, hip)
+        K.put(out, rest, 0, 0)
+        return out
 
     def build(self):
         S = self.stand
