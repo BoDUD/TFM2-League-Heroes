@@ -1,0 +1,2266 @@
+{
+  "status": "incomplete_review_package",
+  "cell": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "bbox_convention": "[left,top,right,bottom], right/bottom exclusive; logical pixels unless rect specifies sheet pixels",
+  "accepted_new_actions": 0,
+  "source_idle_sha256": "853c455253d34fb4d42388ce668c376a15c04f789c31f4a69f6faf35d2a95eb1",
+  "delivered_idle_sha256": "853c455253d34fb4d42388ce668c376a15c04f789c31f4a69f6faf35d2a95eb1",
+  "palette_colors": [
+    "#023D08",
+    "#0C080D",
+    "#232B29",
+    "#262936",
+    "#2B5664",
+    "#2CB137",
+    "#38433D",
+    "#3B241D",
+    "#440B13",
+    "#6A381D",
+    "#6E020F",
+    "#777B90",
+    "#8D983A",
+    "#94510B",
+    "#951517",
+    "#AC8C69",
+    "#B20413",
+    "#B5BAD2",
+    "#BCBFB6",
+    "#D47603",
+    "#DA6D40",
+    "#DB0316",
+    "#E9EBF2",
+    "#EB9607",
+    "#F1955D",
+    "#F6B205",
+    "#F8D824",
+    "#FAEF8F"
+  ],
+  "actions": {
+    "idle": {
+      "status": "copied_unchanged",
+      "final_file": "samira_idle.png",
+      "required_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "active_frame": null,
+      "active_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 200,
+          "reference_head_center": [
+            62.4,
+            50.1
+          ],
+          "bbox_logical": [
+            49,
+            42,
+            81,
+            82
+          ],
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 200,
+          "reference_head_center": [
+            62.4,
+            50.1
+          ],
+          "bbox_logical": [
+            49,
+            42,
+            81,
+            82
+          ],
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 200,
+          "reference_head_center": [
+            62.4,
+            50.1
+          ],
+          "bbox_logical": [
+            49,
+            42,
+            81,
+            82
+          ],
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 200,
+          "reference_head_center": [
+            62.4,
+            50.1
+          ],
+          "bbox_logical": [
+            49,
+            42,
+            81,
+            82
+          ],
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 200,
+          "reference_head_center": [
+            62.4,
+            50.1
+          ],
+          "bbox_logical": [
+            49,
+            42,
+            81,
+            82
+          ],
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 200,
+          "reference_head_center": [
+            62.4,
+            50.1
+          ],
+          "bbox_logical": [
+            49,
+            42,
+            81,
+            82
+          ],
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        }
+      ],
+      "raw_attempts": []
+    },
+    "run": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "active_frame": null,
+      "active_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            63,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            65.0,
+            52.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            65,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            65.5,
+            57.0
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            65,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            65.6,
+            55.0
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            65,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            67.0,
+            52.5
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            65,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            67.9,
+            52.5
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            63,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            66.8,
+            56.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 7,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            65.3,
+            53.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 8,
+          "rect_sheet_pixels": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 133,
+          "reference_head_center": [
+            64.6,
+            51.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\run_attempt1.png",
+          "sha256": "23609cecb9bf78736e4821b804c91611367e1aaa383ae4c580ccf486bb1e9a48",
+          "checks": {
+            "actual_size": [
+              2048,
+              768
+            ],
+            "required_size": [
+              4096,
+              1536
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 80987,
+            "outside_approved_palette": 80984,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Costume, head and weapon details drift; original grid is not suitable for exact 40-row actor recovery."
+    },
+    "attack": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "active_frame": 4,
+      "active_tick": 11,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "ms": 60,
+          "reference_head_center": [
+            59.6,
+            49.7
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 60,
+          "reference_head_center": [
+            60.7,
+            50.6
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 60,
+          "reference_head_center": [
+            60.2,
+            51.2
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "ms": 70,
+          "reference_head_center": [
+            58.8,
+            51.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 80,
+          "reference_head_center": [
+            59.1,
+            52.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            59.1,
+            50.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\attack_attempt1.png",
+          "sha256": "7b0b5c8c837444c984a916ad6c5e4b0044b0319b549d1fe4adda7d75eb9b0f58",
+          "checks": {
+            "actual_size": [
+              1774,
+              887
+            ],
+            "required_size": [
+              3072,
+              1536
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 82934,
+            "outside_approved_palette": 82927,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        },
+        {
+          "file": "raw\\attack_attempt2.png",
+          "sha256": "00e908b5d2337364d9a665d4eae5d99ed6a9d82918f3be9266223eeca00db71d",
+          "checks": {
+            "actual_size": [
+              1774,
+              887
+            ],
+            "required_size": [
+              3072,
+              1536
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 106895,
+            "outside_approved_palette": 106887,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Attempt 1 detailed off-model. Attempt 2 has recoverable 8.5px source grid, but torso and pistol geometry still differ; frame 3 pistol loses readable body after palette/grid recovery.",
+      "candidate": "candidates/samira_attack.png"
+    },
+    "attack_m": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "active_frame": 4,
+      "active_tick": 8,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "ms": 50,
+          "reference_head_center": [
+            60.3,
+            52.5
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            66,
+            70
+          ],
+          "ms": 40,
+          "reference_head_center": [
+            67.5,
+            46.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            65,
+            70
+          ],
+          "ms": 50,
+          "reference_head_center": [
+            66.6,
+            50.7
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            56,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            59.4,
+            65.6
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            50,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            51.8,
+            59.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 110,
+          "reference_head_center": [
+            61.9,
+            55.0
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\attack_m_attempt1.png",
+          "sha256": "25e20267112081c1e95fbbd835e2cf9565a89a8a31b7c57e619b82b6c4cbeacd",
+          "checks": {
+            "actual_size": [
+              1774,
+              887
+            ],
+            "required_size": [
+              3072,
+              1536
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 82450,
+            "outside_approved_palette": 82445,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Head and costume drift; oversized detailed blade and altered standing leg pose."
+    },
+    "skill": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "active_frame": 3,
+      "active_tick": 7,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            63,
+            70
+          ],
+          "ms": 60,
+          "reference_head_center": [
+            64.3,
+            46.4
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "ms": 60,
+          "reference_head_center": [
+            59.0,
+            53.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            61.0,
+            54.5
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            64,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            64.2,
+            56.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 80,
+          "reference_head_center": [
+            60.0,
+            55.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            63.5,
+            49.2
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\skill_attempt1.png",
+          "sha256": "6dc9804c7c9a9c324b2966a7258fd4d5862e5696da8eeda9739ffd1b065077b2",
+          "checks": {
+            "actual_size": [
+              1774,
+              887
+            ],
+            "required_size": [
+              3072,
+              1536
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 86876,
+            "outside_approved_palette": 86868,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Correct shot in frame 3, but changed head/legs/weapons; source lacks exact approved grid."
+    },
+    "skill_m": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "active_frame": 4,
+      "active_tick": 8,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            56,
+            70
+          ],
+          "ms": 50,
+          "reference_head_center": [
+            58.5,
+            49.7
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            70,
+            70
+          ],
+          "ms": 50,
+          "reference_head_center": [
+            68.9,
+            51.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "ms": 40,
+          "reference_head_center": [
+            60.9,
+            64.6
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            38,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            39.5,
+            69.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            63.8,
+            65.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            67,
+            70
+          ],
+          "ms": 110,
+          "reference_head_center": [
+            68.6,
+            51.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\skill_m_attempt1.png",
+          "sha256": "0de5016a1c4ca1bd1900c3db7b66cbe7701460cf39744b077788aae9800b5458",
+          "checks": {
+            "actual_size": [
+              1774,
+              887
+            ],
+            "required_size": [
+              3072,
+              1536
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 75643,
+            "outside_approved_palette": 75640,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Frame 4 reads as rightward slash, but changed costume/head and weapon proportions."
+    },
+    "skill2": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        4096,
+        2304
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "active_frame": 4,
+      "active_tick": 10,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            65,
+            70
+          ],
+          "ms": 50,
+          "reference_head_center": [
+            63.4,
+            46.7
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 50,
+          "reference_head_center": [
+            61.1,
+            61.4
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            64,
+            70
+          ],
+          "ms": 67,
+          "reference_head_center": [
+            65.0,
+            52.6
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            64,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            65.6,
+            58.6
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            47,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            49.4,
+            42.6
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            66,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            67.5,
+            38.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 7,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            64,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            64.8,
+            36.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 8,
+          "rect_sheet_pixels": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            66,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            65.9,
+            38.2
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 9,
+          "rect_sheet_pixels": [
+            0,
+            1536,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            66,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            65.0,
+            39.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 10,
+          "rect_sheet_pixels": [
+            1024,
+            1536,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            54,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            54.4,
+            47.4
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 11,
+          "rect_sheet_pixels": [
+            2048,
+            1536,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            56,
+            70
+          ],
+          "ms": 90,
+          "reference_head_center": [
+            56.3,
+            54.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 12,
+          "rect_sheet_pixels": [
+            3072,
+            1536,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            69,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            70.0,
+            50.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\skill2_attempt1.png",
+          "sha256": "2f2d360e00a2f0d441171aa9831610afcacd256513060859b1a14fcd02bcd43f",
+          "checks": {
+            "actual_size": [
+              1672,
+              941
+            ],
+            "required_size": [
+              4096,
+              2304
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 113009,
+            "outside_approved_palette": 113004,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Frame 7 is a back view, forbidden; head and weapon geometry change throughout."
+    },
+    "ult": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        4096,
+        2304
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "active_frame": 2,
+      "active_tick": 9,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 150,
+          "reference_head_center": [
+            61.2,
+            49.5
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            61.6,
+            48.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            66,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            67.0,
+            54.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            62,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            63.2,
+            50.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            59.3,
+            51.1
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            61.7,
+            58.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 7,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            68,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            69.1,
+            63.5
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 8,
+          "rect_sheet_pixels": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            68,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            69.4,
+            52.1
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 9,
+          "rect_sheet_pixels": [
+            0,
+            1536,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            63,
+            70
+          ],
+          "ms": 184,
+          "reference_head_center": [
+            63.5,
+            50.3
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        },
+        {
+          "frame": 10,
+          "rect_sheet_pixels": [
+            1024,
+            1536,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "ms": 380,
+          "reference_head_center": [
+            61.0,
+            50.1
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not measured: no accepted actor frame"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\ult_attempt1.png",
+          "sha256": "c5ec1d1e598f9a52928348ad2a5da75d3224d0125c3dc8033610af977f5c98ce",
+          "checks": {
+            "actual_size": [
+              1672,
+              941
+            ],
+            "required_size": [
+              4096,
+              2304
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 88891,
+            "outside_approved_palette": 88887,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Frames 4-6 use back views; violates fixed frontal head; changed leg stance and costume."
+    },
+    "hit": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        2048,
+        768
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "active_frame": null,
+      "active_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            63,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            70.6,
+            52.5
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            65.9,
+            50.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\hit_attempt1.png",
+          "sha256": "a48855619951ea0a0c58fd9c9068bb2c2b213245e625e33125f0447a17e40cf2",
+          "checks": {
+            "actual_size": [
+              2048,
+              768
+            ],
+            "required_size": [
+              2048,
+              768
+            ],
+            "size_exact": true,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 58764,
+            "outside_approved_palette": 58759,
+            "pixels_below_feet_line": 9305
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Added glow; altered legs, braid and body details; cannot accept as exact source."
+    },
+    "dead": {
+      "status": "not_accepted",
+      "final_file": null,
+      "required_size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "active_frame": null,
+      "active_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_sheet_pixels": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            77,
+            70
+          ],
+          "ms": 100,
+          "reference_head_center": [
+            78.7,
+            55.0
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 2,
+          "rect_sheet_pixels": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            75,
+            70
+          ],
+          "ms": 110,
+          "reference_head_center": [
+            78.2,
+            64.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 3,
+          "rect_sheet_pixels": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            82,
+            70
+          ],
+          "ms": 110,
+          "reference_head_center": [
+            86.1,
+            71.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 4,
+          "rect_sheet_pixels": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            81,
+            70
+          ],
+          "ms": 120,
+          "reference_head_center": [
+            84.3,
+            69.9
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 5,
+          "rect_sheet_pixels": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            81,
+            70
+          ],
+          "ms": 130,
+          "reference_head_center": [
+            83.7,
+            59.8
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 6,
+          "rect_sheet_pixels": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            80,
+            70
+          ],
+          "ms": 150,
+          "reference_head_center": [
+            81.3,
+            52.1
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 7,
+          "rect_sheet_pixels": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            76,
+            70
+          ],
+          "ms": 200,
+          "reference_head_center": [
+            76.0,
+            51.2
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        },
+        {
+          "frame": 8,
+          "rect_sheet_pixels": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "ms": 300,
+          "reference_head_center": [
+            57.4,
+            75.2
+          ],
+          "bbox_logical": null,
+          "muzzle_logical": null,
+          "sword_tip_logical": null,
+          "gripping_hand_logical": null,
+          "anchor_status": "not applicable"
+        }
+      ],
+      "raw_attempts": [
+        {
+          "file": "raw\\dead_attempt1.png",
+          "sha256": "3c57e89df91ee50a4f40b9b818e86ee2296e067d6cb467f7a28d2441830d927b",
+          "checks": {
+            "actual_size": [
+              2050,
+              767
+            ],
+            "required_size": [
+              4096,
+              1536
+            ],
+            "size_exact": false,
+            "alpha_binary": false,
+            "strict_8x8_blocks": false,
+            "opaque_color_count": 94601,
+            "outside_approved_palette": 94596,
+            "pixels_below_feet_line": null
+          },
+          "accepted": false
+        }
+      ],
+      "blockers": "Head rotated and redesigned; dropped weapon shape differs; frames 7 and 8 differ."
+    }
+  },
+  "candidate_metadata": {
+    "status": "candidate_not_accepted",
+    "native_grid_step": 8.5,
+    "grid_majority_read": true,
+    "no_actor_rescale": true,
+    "no_rows_deleted": true,
+    "frames": [
+      {
+        "frame": 1,
+        "rect": [
+          0,
+          0,
+          1024,
+          768
+        ],
+        "pivot": [
+          59,
+          70
+        ],
+        "ms": 60,
+        "bbox": [
+          48,
+          42,
+          80,
+          82
+        ],
+        "head_bbox": [
+          53,
+          42,
+          72,
+          57
+        ],
+        "head_exact_opaque_mask": true,
+        "weapon_anchors": null,
+        "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+      },
+      {
+        "frame": 2,
+        "rect": [
+          1024,
+          0,
+          1024,
+          768
+        ],
+        "pivot": [
+          60,
+          70
+        ],
+        "ms": 60,
+        "bbox": [
+          46,
+          42,
+          80,
+          82
+        ],
+        "head_bbox": [
+          54,
+          42,
+          73,
+          57
+        ],
+        "head_exact_opaque_mask": true,
+        "weapon_anchors": null,
+        "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+      },
+      {
+        "frame": 3,
+        "rect": [
+          2048,
+          0,
+          1024,
+          768
+        ],
+        "pivot": [
+          61,
+          70
+        ],
+        "ms": 60,
+        "bbox": [
+          49,
+          42,
+          86,
+          82
+        ],
+        "head_bbox": [
+          55,
+          42,
+          74,
+          57
+        ],
+        "head_exact_opaque_mask": true,
+        "weapon_anchors": null,
+        "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+      },
+      {
+        "frame": 4,
+        "rect": [
+          0,
+          768,
+          1024,
+          768
+        ],
+        "pivot": [
+          59,
+          70
+        ],
+        "ms": 70,
+        "bbox": [
+          46,
+          42,
+          86,
+          82
+        ],
+        "head_bbox": [
+          53,
+          42,
+          72,
+          57
+        ],
+        "head_exact_opaque_mask": true,
+        "weapon_anchors": null,
+        "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+      },
+      {
+        "frame": 5,
+        "rect": [
+          1024,
+          768,
+          1024,
+          768
+        ],
+        "pivot": [
+          60,
+          70
+        ],
+        "ms": 80,
+        "bbox": [
+          47,
+          42,
+          89,
+          82
+        ],
+        "head_bbox": [
+          54,
+          42,
+          73,
+          57
+        ],
+        "head_exact_opaque_mask": true,
+        "weapon_anchors": null,
+        "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+      },
+      {
+        "frame": 6,
+        "rect": [
+          2048,
+          768,
+          1024,
+          768
+        ],
+        "pivot": [
+          59,
+          70
+        ],
+        "ms": 100,
+        "bbox": [
+          47,
+          42,
+          80,
+          82
+        ],
+        "head_bbox": [
+          53,
+          42,
+          72,
+          57
+        ],
+        "head_exact_opaque_mask": true,
+        "weapon_anchors": null,
+        "weapon_anchor_status": "not accepted; gun geometry differs from approved design"
+      }
+    ]
+  }
+}

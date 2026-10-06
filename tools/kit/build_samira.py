@@ -49,7 +49,10 @@ BIG = "asset/league/effects/league_samira_big"
 # (league_varus +1.63 / +1.91, league_jhin +1.43 / +2.08). The draft was -2.72: E onto champions only and to just behind
 # the target (a fixed RushTime left her in the wave), Style 9 s and the sword's attacks a kind of their own (S was rare),
 # then attack 100 -> 112, hp 920 -> 1030, defence 22 -> 26, range 50000 -> 55000, Q 110% -> 130%, E 50 -> 70, W 50% -> 70%
-# (range +0.37, hp +0.57, the skills +0.72 alone). Placeholder timings (no sprite yet).
+# (range +0.37, hp +0.57, the skills +0.72 alone). Timings fitted to the strips (tools/art/rig_samira.py MS): the gun's
+# bullet on tick 12 inside its firing frame (180-250 ms), the sword's cut on 12 (frame 12.4), Q's shot on 9 (frame
+# 7.2-12.6) and slash on 10 (frame 10.4), R's 120 ticks = the strip's 2002 ms. The sword strip keeps 22 ticks (2 past
+# the attack): ending it with the attack (20) went +0.30 / +1.18 on the same seeds against +1.36 / +1.19.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Samira: 500 range
     # (Varus 575 = 57500 here), 57 AD +3.3, 630 +108 hp, 26 armour, 335 move
