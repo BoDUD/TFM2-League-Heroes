@@ -22,9 +22,9 @@
     "asset/league/icons/league_khazix_ult"
   ],
   "stat": {
-    "attack": 106,
+    "attack": 85,
     "magic_power": 0,
-    "hp": 920,
+    "hp": 880,
     "defence": 26,
     "magic_resistance": 18,
     "move_speed": 1100,
@@ -33,9 +33,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 25,
+    "attack": 16,
     "magic_power": 1,
-    "hp": 88,
+    "hp": 84,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 13,
@@ -142,7 +142,7 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 30,
+                      "damage": 15,
                       "attack_ratio": 0,
                       "hp_ratio": 0,
                       "can_crit": false
@@ -150,7 +150,7 @@
                     {
                       "type": "Attack",
                       "damage": 0,
-                      "attack_ratio": 40,
+                      "attack_ratio": 25,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -448,8 +448,8 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "Attack",
-                      "damage": 40,
-                      "attack_ratio": 100,
+                      "damage": 25,
+                      "attack_ratio": 65,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -485,8 +485,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "Attack",
-                        "damage": 84,
-                        "attack_ratio": 200,
+                        "damage": 40,
+                        "attack_ratio": 115,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -553,8 +553,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "Attack",
-                        "damage": 40,
-                        "attack_ratio": 100,
+                        "damage": 25,
+                        "attack_ratio": 65,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -846,7 +846,7 @@
                                 },
                                 {
                                   "type": "ApAttack",
-                                  "damage": 30,
+                                  "damage": 15,
                                   "attack_ratio": 0,
                                   "hp_ratio": 0,
                                   "can_crit": false
@@ -854,7 +854,7 @@
                                 {
                                   "type": "Attack",
                                   "damage": 0,
-                                  "attack_ratio": 40,
+                                  "attack_ratio": 25,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -1271,8 +1271,8 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 40,
-                      "attack_ratio": 50,
+                      "damage": 25,
+                      "attack_ratio": 35,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -1393,8 +1393,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "Attack",
-                        "damage": 50,
-                        "attack_ratio": 80,
+                        "damage": 30,
+                        "attack_ratio": 50,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -1439,8 +1439,8 @@
                         "effects": [
                           {
                             "type": "Heal",
-                            "amount": 40,
-                            "attack_ratio": 25,
+                            "amount": 30,
+                            "attack_ratio": 15,
                             "ap_ratio": 0,
                             "heal_type": "Caster"
                           },
@@ -1663,7 +1663,7 @@
                                 },
                                 {
                                   "type": "ApAttack",
-                                  "damage": 30,
+                                  "damage": 15,
                                   "attack_ratio": 0,
                                   "hp_ratio": 0,
                                   "can_crit": false
@@ -1671,7 +1671,7 @@
                                 {
                                   "type": "Attack",
                                   "damage": 0,
-                                  "attack_ratio": 40,
+                                  "attack_ratio": 25,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -2210,7 +2210,7 @@
                                 },
                                 {
                                   "type": "ApAttack",
-                                  "damage": 30,
+                                  "damage": 15,
                                   "attack_ratio": 0,
                                   "hp_ratio": 0,
                                   "can_crit": false
@@ -2218,7 +2218,7 @@
                                 {
                                   "type": "Attack",
                                   "damage": 0,
-                                  "attack_ratio": 40,
+                                  "attack_ratio": 25,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"

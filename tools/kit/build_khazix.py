@@ -53,27 +53,32 @@ ID = "league_khazix"
 FX = "asset/league/effects/league_khazix_fx"
 BIG = "asset/league/effects/league_khazix_big"
 
-# Draft numbers (sims to come).
+# Numbers = candidate c2 of the 10-min classic-SDK simulations (tr_sim/sim/kd.py --lane 1 against demon, circus_blade,
+# hunter, inquisitor and ninja, three lineups, both sides, 2026-10-06): +1.18 on seeds 1-24 and +1.11 on 25-48
+# (league_kayn +1.38 / +1.33, league_xinzhao +1.02 / +1.54 on the same seeds). The draft c0 was +6.96 (15788 damage a
+# game, twice Kayn's: 12 Qs on champions, 46 on camps, most of them isolated): attack 106 +25 -> 85 +16, Q 40 + 100%
+# (isolated 84 + 200%) -> 25 + 65% (40 + 115%), E 40 + 50% -> 25 + 35%, W 50 + 80% -> 30 + 50% (heal 40 + 25% ->
+# 30 + 15%), the passive 30 + 40% -> 15 + 25%, hp 920 +88 -> 880 +84 (c1, half way: +3.35; c3, a step further: +0.16).
 P = {
     # stats (Assassin base: attack 120 +30, hp 900 +80, defence 25, mr 15, move 1100, range 23000, cooldown 50);
     # League's Kha'Zix: 643 +99 hp, 60 AD +3.1, 32 armour, 350 move, 125 range
-    "hp": 920, "hp_g": 88, "atk": 106, "atk_g": 25, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
+    "hp": 880, "hp_g": 84, "atk": 85, "atk_g": 16, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
     # attack: the claw swing
     "atk_range": 23000, "atk_dur": 22, "atk_cd": 50, "a_st": 10,
     # passive: Unseen Threat (League: 14-150 by level + 40% bonus AD magic, 25% slow 2 s)
-    "ut_dmg": 30, "ut_ratio": 40, "ut_slow": 25, "ut_slow_t": 120, "quiet": 240,
+    "ut_dmg": 15, "ut_ratio": 25, "ut_slow": 25, "ut_slow_t": 120, "quiet": 240,
     # evolutions: the level probe (league_kaisa's soak; the hit is absorbed whole) and the levels
     "pr_gap": 120, "ap_g": 1, "soak": 1000000, "lv_q": 5, "lv_e": 8, "lv_r": 11, "pr_stagger": 8,
     "pr_twice": 30,
     # skill: Q Taste Their Fear (League: 325 range (evolved 375), 60-160 + 110% bonus AD, isolated +110%,
     # evolved isolated refund 45%, cd 4 s; isolation: no allied unit within 375)
-    "q_cd": 240, "q_range": 26000, "q_dur": 20, "q_at": 8, "q_dmg": 40, "q_ratio": 100, "q_iso_dmg": 84,
-    "q_iso_ratio": 200, "iso_r": 30000, "q_evo_range": 6000, "q_ref": 82,
+    "q_cd": 240, "q_range": 26000, "q_dur": 20, "q_at": 8, "q_dmg": 25, "q_ratio": 65, "q_iso_dmg": 40,
+    "q_iso_ratio": 115, "iso_r": 30000, "q_evo_range": 6000, "q_ref": 82,
     # skill2: E Leap (League: 700 range (evolved 900), 65-240 + 20% bonus AD, cd 22-12 s, evolved takedown reset)
     # -> W Void Spike (League: 1025 range, 1700 speed, 85-205 + 100% bonus AD, heal 55-155 within the blast, cd 9 s)
     "e_cd": 720, "e_range": 60000, "e_range_evo": 80000, "e_speed": 7000, "e_short_t": 8, "e_t": 14, "e_rad": 22000,
-    "e_dmg": 40, "e_ratio": 50, "w_at": 6, "w_t": 18, "w_speed": 9000, "w_len": 70000, "w_rad": 6000, "w_y": -6000,
-    "w_dmg": 50, "w_ratio": 80, "w_slow": 40, "w_slow_t": 120, "w_heal": 40, "w_heal_r": 25, "w_blast": 30000,
+    "e_dmg": 25, "e_ratio": 35, "w_at": 6, "w_t": 18, "w_speed": 9000, "w_len": 70000, "w_rad": 6000, "w_y": -6000,
+    "w_dmg": 30, "w_ratio": 50, "w_slow": 40, "w_slow_t": 120, "w_heal": 30, "w_heal_r": 15, "w_blast": 30000,
     "reset_mult": 10000,
     # ult: R Void Assault (League: stealth 1.25 s (evolved 2 s), +40% move speed, 2 casts (evolved 3), recast after 2 s,
     # cd 100-70 s)
