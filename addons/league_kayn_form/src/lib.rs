@@ -27,6 +27,8 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 mod ranges;
+mod view;
+mod wall;
 
 const ID: &str = "league_kayn_form";
 
@@ -44,7 +46,7 @@ pub const READY_T: usize = 3600;
 pub const RANGED_FROM: u32 = 35_000;
 /// 查不到攻击距离的英雄：挂标记时离凯隐这么远以外算远程。
 pub const NEAR_UNKNOWN: f64 = 30_000.0;
-/// 参数缺了时的门槛（主包副本里写的是 14 / 14）。
+/// 参数缺了时的门槛（附加包的凯隐副本里写的是 14 / 14）。
 pub const NEED: u32 = 14;
 
 // ===================== 日志 =====================
@@ -66,10 +68,13 @@ fn log_path() -> PathBuf {
 
 static LOG_PATH: LazyLock<PathBuf> = LazyLock::new(log_path);
 
+/// Seconds since the add-on loaded, on every log line: to set a line against what the screen showed then.
+static T0: LazyLock<std::time::Instant> = LazyLock::new(std::time::Instant::now);
+
 fn wlog(msg: impl AsRef<str>) {
     let _guard = LOG_LOCK.lock().unwrap_or_else(|e| e.into_inner());
     if let Ok(mut f) = OpenOptions::new().create(true).append(true).open(&*LOG_PATH) {
-        let _ = writeln!(f, "{}", msg.as_ref());
+        let _ = writeln!(f, "[{:8.1}s] {}", T0.elapsed().as_secs_f64(), msg.as_ref());
         let _ = f.flush();
     }
 }
@@ -85,7 +90,17 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
         _ => "unknown",
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
-    format!("[{kind} m={} s={}] t={} {}", m(o.match_id), m(o.set_index), sim.tick(), who(sim, id))
+    let t = sim.tick();
+    let lv = level(sim, id).map_or(String::new(), |l| format!(" Lv{l}"));
+    format!("[{kind} m={} s={}] t={t} ({}:{:02}) {}{lv}", m(o.match_id), m(o.set_index), t / 3600, t / 60 % 60, who(sim, id))
+}
+
+/// 这个单位的玩家等级（日志用：「打野2级就变身了」——看变身时到底几级）。
+fn level(sim: &StableSim<'_>, id: usize) -> Option<usize> {
+    (0..sim.player_count())
+        .filter_map(|i| sim.player_at(i))
+        .find(|p| p.champion().is_some_and(|c| c.id() == id))
+        .map(|p| p.level())
 }
 
 fn who(sim: &StableSim<'_>, id: usize) -> String {
@@ -141,6 +156,43 @@ pub fn charges(name: &str, dist_from_kayn: f64) -> Form {
     }
 }
 
+// ===================== 两份模拟对齐 =====================
+
+/// 服务器那一侧（presim）定下的形态：(对局, 凯隐的单位 id) → (形态, 定下的 tick)。画面那一侧（实况、观战、回放）
+/// 走到那个 tick 就照着变身——2026-10-06 门槛 40 时两局都只有 presim 攒满，画面那一侧的计数中途丢了（日志里没有
+/// `[view] … ready`），凯隐打到 12 级画面也没变身。
+static DECIDED: LazyLock<Mutex<std::collections::HashMap<(u64, usize), (Form, usize)>>> =
+    LazyLock::new(|| Mutex::new(std::collections::HashMap::new()));
+
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum Side {
+    Server,
+    Shown,
+    Other,
+}
+
+fn side(sim: &StableSim<'_>) -> (Side, u64) {
+    let o = sim.sim_origin().unwrap_or_default();
+    let s = match SimOriginKindV1::from_code(o.kind) {
+        Some(SimOriginKindV1::ServerPresim) => Side::Server,
+        Some(SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay) => Side::Shown,
+        _ => Side::Other,
+    };
+    (s, o.match_id)
+}
+
+fn decided_at(match_id: u64, me: usize) -> Option<(Form, usize)> {
+    DECIDED.lock().unwrap_or_else(|e| e.into_inner()).get(&(match_id, me)).copied()
+}
+
+fn decide(match_id: u64, me: usize, f: Form, tick: usize) {
+    let mut d = DECIDED.lock().unwrap_or_else(|e| e.into_inner());
+    if d.len() > 256 {
+        d.clear(); // old matches
+    }
+    d.entry((match_id, me)).or_insert((f, tick));
+}
+
 // ===================== 被动 =====================
 
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
@@ -167,11 +219,15 @@ pub struct Orbs {
     pub need_d: u32,
     pub need_s: u32,
     pub form: Option<Form>,
+    /// 掠影步隔墙追人（wall.rs）
+    pub walker: wall::Walker,
+    /// 上一 tick 站在墙格里吗（进墙、出墙各播一次暗影溅开）
+    pub was_in_wall: bool,
 }
 
 impl Default for Orbs {
     fn default() -> Self {
-        Orbs { darkin: 0, shadow: 0, need_d: NEED, need_s: NEED, form: None }
+        Orbs { darkin: 0, shadow: 0, need_d: NEED, need_s: NEED, form: None, walker: wall::Walker::default(), was_in_wall: false }
     }
 }
 
@@ -204,6 +260,39 @@ impl Orbs {
     }
 }
 
+impl Orbs {
+    /// 穿墙的画面（Codex 画的，PROMPTS_WALL.md）：在墙格里时身上挂这个形态的暗影雾（`league_kayn_in_wall{,_d,_s}`，
+    /// 进墙时挂一次、出墙时去掉，动画连着循环），进墙、出墙那一刻各播一次暗影溅开（`league_kayn_wall_burst{,_d,_s}`）。
+    /// 两个画面只登记在本包的凯隐副本里（make_override.py）。
+    fn wall_fx(&mut self, sim: &mut StableSim<'_>, me: usize, in_wall: bool) {
+        let suf = if has_buff(sim, me, FORM_D) {
+            "_d"
+        } else if has_buff(sim, me, FORM_S) {
+            "_s"
+        } else {
+            ""
+        };
+        let aura = format!("league_kayn_in_wall{suf}");
+        if in_wall != self.was_in_wall {
+            let burst = format!("league_kayn_wall_burst{suf}");
+            sim.play_view_effect(&burst, me, &InputTargetV1::target(me), 0, 0, 0);
+        }
+        if in_wall {
+            for other in ["", "_d", "_s"].iter().filter(|o| **o != suf) {
+                sim.entity_remove_buff(me, &format!("league_kayn_in_wall{other}"));
+            }
+            if !has_buff(sim, me, &aura) {
+                sim.add_buff(me, &BuffV1::timed(&aura, 600));
+            }
+        } else if self.was_in_wall {
+            for other in ["", "_d", "_s"] {
+                sim.entity_remove_buff(me, &format!("league_kayn_in_wall{other}"));
+            }
+        }
+        self.was_in_wall = in_wall;
+    }
+}
+
 impl StablePassive for Orbs {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
@@ -221,6 +310,8 @@ impl StablePassive for Orbs {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some(k) = sim.get_entity(me) else { return };
         if !k.is_alive() {
+            // dead: his form, never the in-wall shadow (struck down mid Shadow Step, he lay there as one)
+            view::report(sim, has_buff(sim, me, FORM_D), has_buff(sim, me, FORM_S), false);
             return;
         }
         let team = k.team();
@@ -240,11 +331,31 @@ impl StablePassive for Orbs {
             let d = ((x as f64 - kx as f64).powi(2) + (y as f64 - ky as f64).powi(2)).sqrt();
             hits.push((e.id(), e.name().unwrap_or_default(), d, n));
         }
+        let (side, match_id) = side(sim);
+        // the shown side follows the server's decision when it gets to that tick (its own count may have been lost)
+        if side == Side::Shown && self.form.is_none() {
+            if let Some((f, tick)) = decided_at(match_id, me) {
+                if sim.tick() >= tick {
+                    self.form = Some(f);
+                    sim.add_buff(me, &BuffV1::timed(f.ready(), READY_T));
+                    wlog(format!("{} {} ready (as the server decided at t={tick}; shown side darkin {} shadow {})",
+                        head(sim, me), f.label(), self.darkin, self.shadow));
+                }
+            }
+        }
         for (id, name, d, n) in hits {
             sim.entity_remove_buff(id, TAG);
             let f = charges(&name, d);
+            let before = (self.darkin + self.shadow) / 5;
+            if self.form.is_none() && (self.darkin + self.shadow + n as u32) / 5 > before {
+                wlog(format!("{} hits so far: darkin {}/{} shadow {}/{} (+{n} on #{id} {name})", head(sim, me),
+                    self.darkin, self.need_d, self.shadow, self.need_s));
+            }
             for _ in 0..n {
                 if let Some(form) = self.count(f) {
+                    if side == Side::Server {
+                        decide(match_id, me, form, sim.tick());
+                    }
                     sim.add_buff(me, &BuffV1::timed(form.ready(), READY_T));
                     wlog(format!(
                         "{} {} ready: darkin {}/{} shadow {}/{} (last hit #{id} {name}, range {:?})",
@@ -260,6 +371,17 @@ impl StablePassive for Orbs {
             }
         }
         self.keep_form(sim, me, "no form buff");
+        // the full transform (view.rs): the form as the view side of the match shows it (alive only - dead, he keeps
+        // the form he fell in, and its death)
+        if side == Side::Shown && sim.tick() % 1800 == 0 {
+            // every 30 s of the match as the screen's side plays it (with the seconds on the line: how fast it runs)
+            wlog(format!("{} on screen: darkin {}/{} shadow {}/{}", head(sim, me), self.darkin, self.need_d, self.shadow,
+                self.need_s));
+        }
+        let ghost = has_buff(sim, me, wall::GHOST);
+        let in_wall = self.walker.update(sim, me, ghost, &|sim, msg| wlog(format!("{} {msg}", head(sim, me))));
+        self.wall_fx(sim, me, in_wall);
+        view::report(sim, has_buff(sim, me, FORM_D), has_buff(sim, me, FORM_S), in_wall);
     }
 }
 
@@ -269,7 +391,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v0.1 (melee hits charge the Darkin, ranged the Shadow Assassin; the form stays) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v0.2 (melee hits charge the Darkin, ranged the Shadow Assassin; the form stays; the whole body transforms) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -277,7 +399,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:orbs"), Orbs::default());
-    host.log(LogLevel::Info, "league_kayn_form loaded (Kayn's Darkin Scythe as in League: melee/ranged hits, the form survives death).");
+    view::install_once();
+    module.set_extension(view::Swap::new());
+    host.log(LogLevel::Info, "league_kayn_form loaded (Kayn's Darkin Scythe as in League: melee/ranged hits, the form survives death, the whole body transforms on game 0.6.2).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
