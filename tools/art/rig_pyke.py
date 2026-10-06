@@ -167,35 +167,39 @@ class Rig:
         return K.finish(c, self.out, SOLES, keep=keep)
 
     def run(self):
-        des, hm = self.a, self.hm
+        """Codex's legs under the design's own upper body, placed where Codex's body stands in that frame: matched on
+        the belt (the legs hang from the hips), so legs and hips meet; the bob kept within one row (a frame lower than
+        that keeps its upper body a row up and takes Codex's legs from the row under it, no gap)."""
+        des = self.a
         dys, dxs = np.nonzero(des[..., 3])
         mid = (dxs.min() + dxs.max()) // 2
-        hm4 = np.repeat(hm[..., None], 4, -1).astype(np.uint8) * 255
+        yy, xx = np.mgrid[0:128, 0:128]
+        belt = (yy >= 76) & (yy <= 84) & (xx >= 50) & (xx <= 80) & (des[..., 3] > 0)
+        belt4 = np.repeat(belt[..., None], 4, -1).astype(np.uint8) * 255
         placed = []
         for sm in read_run(self.d.palette):
             c = np.zeros_like(des)
             K.put(c, sm, mid - sm.shape[1] // 2, SOLES - sm.shape[0] + 1)
             best = max((int(((c[..., :3] == K.shifted(des, dx, dy)[..., :3]).all(-1)
-                             & (K.shifted(hm4, dx, dy)[..., 3] > 0)).sum()), dx, dy)
-                       for dx in range(-8, 9) for dy in range(-4, 5))
+                             & (K.shifted(belt4, dx, dy)[..., 3] > 0)).sum()), dx, dy)
+                       for dx in range(-8, 9) for dy in range(-5, 5))
             placed.append((c, best[1], best[2]))
-        mdx = int(round(np.mean([p[1] for p in placed])))
-        low = min(p[2] for p in placed)
-        yy, xx = np.mgrid[0:128, 0:128]
+        top = min(p[2] for p in placed)
         up = des.copy()
         up[RUN_SEAM:] = 0
         hang = des.copy()
         hang[(yy < RUN_SEAM) | (xx < 76)] = 0
+        hm4 = np.repeat(self.hm[..., None], 4, -1).astype(np.uint8) * 255
         frames = []
         for c, dx, dy in placed:
+            at = min(dy, top + 1)                      # the upper body's row offset: within one row of the highest
             out = np.zeros_like(des)
             legs = c.copy()
-            legs[:RUN_SEAM + max(dy, 0)] = 0
-            K.put(out, legs, mdx - dx, 0)
-            bob = max(0, min(1, dy - low))
-            K.put(out, hang, mdx, bob)
-            K.put(out, up, mdx, bob)
-            keep = K.shifted(hm4, mdx, bob)[..., 3] > 0
+            legs[:RUN_SEAM + at] = 0                   # Codex's legs from just under where our upper body ends
+            K.put(out, legs, 0, 0)
+            K.put(out, hang, dx, at)
+            K.put(out, up, dx, at)
+            keep = K.shifted(hm4, dx, at)[..., 3] > 0
             f = K.finish(out, self.out, SOLES, keep=keep)
             for comp in K.pieces(f)[1:]:
                 if len(comp) < 12:
