@@ -164,6 +164,7 @@ class Rig:
         hm = head_mask(a)
         self.head = np.where(hm[..., None], a, 0).astype(np.uint8)
         self.hm = hm
+        self.head_at = set()                   # every offset the head is pasted at (the shrink keeps clear of them)
 
     # ---------------------------------------------------------------- a standing frame
     def stand(self, rear=0, at=None, dx=0, dy=0, part=None, under=True):
@@ -176,6 +177,7 @@ class Rig:
             jx, jy = at if at is not None else SHOULDER
             K.place(c, p, (jx + dx, jy + dy), under=under)
         K.put(c, self.head, dx, dy)
+        self.head_at.add((dx, dy))
         keep = K.shifted(np.repeat(self.hm[..., None], 4, -1).astype(np.uint8) * 255, dx, dy)[..., 3] > 0
         return K.finish(c, self.out, SOLES, keep=keep)
 
@@ -222,6 +224,7 @@ class Rig:
             K.put(out, hang, dx, at)
             K.put(out, up, dx, at)
             keep = K.shifted(hm4, dx, at)[..., 3] > 0
+            self.head_at.add((dx, at))
             out = self.trail_down(out, at)
             f = K.finish(out, self.out, SOLES, keep=keep)
             for comp in K.pieces(f)[1:]:
@@ -322,8 +325,9 @@ class Rig:
 # the whole figure a little smaller (the user: 「然后看看整体模型能不能缩小点 略微缩小」; at the design's size he stood
 # 53 x 62 squares, Darius 42 x 36): one square row in every SHRINK above the soles and one column in every SHRINK each
 # side of the standing column comes out of every frame of every strip alike - in each such band the row (column) most
-# like its neighbour over all the frames (the idle and the run counted thrice), so the eyes and the edges stay; the
-# soles and the standing column never move. No resampling: what is left is the design's own squares.
+# like its neighbour over all the frames (the idle and the run counted thrice), never through the head (drops), so the
+# face is the idle's in every frame; the soles and the standing column never move (47 x 55 now). No resampling: what is
+# left is the design's own squares.
 SHRINK = 8
 
 
@@ -338,8 +342,11 @@ def bands(start, stop, step):
         start += step
 
 
-def drops(built, k):
-    """The rows and columns to drop: one per band, the least different from the square row / column beyond it."""
+def drops(built, k, head=None):
+    """The rows and columns to drop: one per band, the least different from the square row / column beyond it. Never
+    a row or column through the head where any frame has it (`head`: (mask, offsets)): cut there, the eyes changed
+    from frame to frame as the run bobbed a row and the swings moved him a column (「派克移动时眼睛那变形？」) - a
+    band all over the head gives its square to the nearest free row (column) beyond it."""
     frs, w = [], []
     for tag, fl in built.items():
         for f in fl:
@@ -357,10 +364,30 @@ def drops(built, k):
         diff = (np.abs(a - b).sum(-1) > 0)
         return float((diff * W).sum())
 
-    rows = [min(b, key=lambda r: cost(0, r, r - 1)) for b in bands(SOLES - 1, int(ys.min()), -k)]
-    left = [min(b, key=lambda c: cost(1, c, c + 1)) for b in bands(PIVOT[0] - 1, int(xs.min()), -k)]
-    right = [min(b, key=lambda c: cost(1, c, c - 1)) for b in bands(PIVOT[0] + 1, int(xs.max()), k)]
-    return sorted(rows), sorted(left), sorted(right)
+    hr, hc = set(), set()
+    if head is not None:
+        m, offs = head
+        my, mx = np.nonzero(m)
+        for dx, dy in offs:
+            hr.update(range(int(my.min()) + dy, int(my.max()) + dy + 1))
+            hc.update(range(int(mx.min()) + dx, int(mx.max()) + dx + 1))
+
+    def pick(bs, free, key, lo, hi):
+        got = []
+        ok = lambda r: r not in free and all(g is None or abs(r - g) > 1 for g in got)
+        for b in bs:
+            c = [r for r in b if ok(r)]
+            got.append(min(c, key=key) if c else None)
+        for i, g in enumerate(got):
+            if g is None:
+                c = [r for r in range(lo, hi + 1) if ok(r)]
+                got[i] = min(c, key=lambda r: (min(abs(r - x) for x in bs[i]), key(r)))
+        return sorted(got)
+
+    rows = pick(bands(SOLES - 1, int(ys.min()), -k), hr, lambda r: cost(0, r, r - 1), int(ys.min()), SOLES - 1)
+    left = pick(bands(PIVOT[0] - 1, int(xs.min()), -k), hc, lambda c: cost(1, c, c + 1), int(xs.min()), PIVOT[0] - 1)
+    right = pick(bands(PIVOT[0] + 1, int(xs.max()), k), hc, lambda c: cost(1, c, c - 1), PIVOT[0] + 1, int(xs.max()))
+    return rows, left, right
 
 
 def shrink(f, rows, left, right):
@@ -390,7 +417,7 @@ def main():
     rig = Rig()
     built = rig.build()
     if SHRINK:
-        cut = drops(built, SHRINK)
+        cut = drops(built, SHRINK, (rig.hm, rig.head_at))
         built = {t: [shrink(f, *cut) for f in fl] for t, fl in built.items()}
         print("shrink: rows", cut[0], "columns", cut[1], cut[2])
     if a.tags:

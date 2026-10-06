@@ -38,7 +38,7 @@ E = "<>"
 # face: the bald crown 40 px over the feet, 1.5 px ahead of the head centre (x +8.5; tfm2_ase.py face took the
 # harpoon over his head for the crown); banpick: the harpoon's tip 41 px over the pivot, -39 - (-41) = +2 -> 0 (never
 # positive, league_kayle's 0)
-VIEW = {"face": {"x": 8, "y": -32}, "center": {"x": 0, "y": -9}, "banpick_center": {"x": 0, "y": 0}}
+VIEW = {"face": {"x": 10, "y": -33}, "center": {"x": 0, "y": -8}, "banpick_center": {"x": 0, "y": 0}}
 
 
 def phy(d, r):

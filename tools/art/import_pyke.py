@@ -119,10 +119,10 @@ def cells(name, n):
 
 
 # spots from the pivot (game px, x forward, y down), measured on the finished strips (pack_pyke_fx.SHOTS)
-BLADE = (-13, -24)              # the raised harpoon's blade in the charge (skill frames 2-4; rig_pyke.shrunk_xy)
+BLADE = (-13, -25)              # the raised harpoon's blade in the charge (skill frames 2-4; rig_pyke.shrunk_xy)
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
 OVER = (0, -33)                 # over a head
-BODY = (0, -6)                  # round his body (after rig_pyke.SHRINK)
+BODY = (0, -5)                  # round his body (after rig_pyke.SHRINK)
 SOLES = (0, 11)                 # what stands on the ground (round a unit, or on a point: a point is a unit's pivot,
                                 # its ground 11 under it): its ellipse there
 EMPTY = J.EMPTY

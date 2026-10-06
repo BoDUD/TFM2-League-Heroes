@@ -950,7 +950,7 @@
                                 "radius": 6000
                               }
                             },
-                            "y_offset": 0
+                            "y_offset": 1000
                           }
                         ]
                       },
@@ -1039,7 +1039,7 @@
                               "radius": 6000
                             }
                           },
-                          "y_offset": 0
+                          "y_offset": 1000
                         }
                       }
                     ]

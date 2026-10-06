@@ -766,12 +766,12 @@
     },
     "league_pyke": {
       "face": {
-        "x": 8,
-        "y": -32
+        "x": 10,
+        "y": -33
       },
       "center": {
         "x": 0,
-        "y": -9
+        "y": -8
       },
       "banpick_center": {
         "x": 0,
