@@ -111,7 +111,7 @@ TEXT = {
 }
 
 C = "league_twitch_sfx_"
-V = "league_twitch_vo_"
+V = "league_twitch_sfx_vo_"  # clip names differ from the sound names: a clip named like its sound is not found in game
 # sound name -> [(clip, volume, delay)]
 SOUNDS = {
     "league_twitch_a_shot": [(C + "shot", 0.4, 0.0)],

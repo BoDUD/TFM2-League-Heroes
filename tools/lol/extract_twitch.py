@@ -49,10 +49,10 @@ CLIPS = {
     "league_twitch_sfx_r_cast": (P + "FullAutomatic_OnCast", 880541898, 1.6, -8),
     "league_twitch_sfx_r_shot": (P + "SprayAndPrayAttack_OnMissileLaunch", 802388961, 0.8, -11),
     "league_twitch_sfx_r_hit": (P + "SprayAndPrayAttack_OnHit", 893827816, 0.6, -12),
-    "league_twitch_vo_q": (V + "Spell3DQCast", 668859486, 2.4, -4),
-    "league_twitch_vo_w": (V + "Spell3DWCast", 1959965583, 2.0, -4),
-    "league_twitch_vo_e": (V + "Spell3DECast", 2068493795, 2.0, -4),
-    "league_twitch_vo_r": (V + "Spell3DRCast", 1462055750, 2.5, -4),
+    "league_twitch_sfx_vo_q": (V + "Spell3DQCast", 668859486, 2.4, -4),
+    "league_twitch_sfx_vo_w": (V + "Spell3DWCast", 1959965583, 2.0, -4),
+    "league_twitch_sfx_vo_e": (V + "Spell3DECast", 2068493795, 2.0, -4),
+    "league_twitch_sfx_vo_r": (V + "Spell3DRCast", 1462055750, 2.5, -4),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_twitch_skill": "ASSETS/Characters/Twitch/HUD/Icons2D/Twitch_Q.dds",

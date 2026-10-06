@@ -18,6 +18,8 @@ mod camille_wall;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_fiora_duel/src/lib.rs"]
 mod fiora_duel;
+#[path = "../../league_gwen/src/lib.rs"]
+mod gwen;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_kayn_form/src/lib.rs"]
 mod kayn_form;
@@ -60,11 +62,12 @@ fn init(host: &StableHost) -> StableMod {
     xinzhao_guard::register(host, &mut module);
     pyke::register(host, &mut module);
     khazix::register(host, &mut module);
+    gwen::register(host, &mut module);
     fiora_duel::register(host, &mut module);
     vayne_bolts::register(host, &mut module);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target.",
     );
     module
 }

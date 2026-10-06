@@ -2,7 +2,7 @@
   "plays": [
     {
       "delay": 0.05,
-      "clip": "league_pyke_vo_r",
+      "clip": "league_pyke_sfx_vo_r",
       "volume": 0.9
     }
   ]

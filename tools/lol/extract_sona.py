@@ -44,10 +44,10 @@ CLIPS = {
     "league_sona_sfx_r_cast": ("Play_sfx_Sona_SonaR_OnCast", 497885951, 1.8, -5),
     "league_sona_sfx_r_wave": ("Play_sfx_Sona_SonaR_OnMissileLaunch", 1012366840, 1.5, -6),
     "league_sona_sfx_r_hit": ("Play_sfx_Sona_SonaR_OnHit", 702153267, 1.1, -6),
-    "league_sona_vo_q": ("Play_vo_Sona_SonaQ_cast2D", 998215567, 2.6, -2),
-    "league_sona_vo_w": ("Play_vo_Sona_SonaW_cast2D", 265806099, 2.8, -2),
-    "league_sona_vo_e": ("Play_vo_Sona_SonaE_cast2D", 2146325456, 2.7, -2),
-    "league_sona_vo_r": ("Play_vo_Sona_SonaR_cast2D", 966893816, 2.6, -2),
+    "league_sona_sfx_vo_q": ("Play_vo_Sona_SonaQ_cast2D", 998215567, 2.6, -2),
+    "league_sona_sfx_vo_w": ("Play_vo_Sona_SonaW_cast2D", 265806099, 2.8, -2),
+    "league_sona_sfx_vo_e": ("Play_vo_Sona_SonaE_cast2D", 2146325456, 2.7, -2),
+    "league_sona_sfx_vo_r": ("Play_vo_Sona_SonaR_cast2D", 966893816, 2.6, -2),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_sona_skill": "ASSETS/Characters/Sona/HUD/Icons2D/Sona_Q.dds",

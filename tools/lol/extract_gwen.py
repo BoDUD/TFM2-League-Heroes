@@ -48,10 +48,10 @@ CLIPS = {
     "league_gwen_sfx_r_cast": (P + "R_OnCast", 675991025, 0.6, -9),
     "league_gwen_sfx_r_throw": (P + "R_missile", 380331369, 0.8, -9),
     "league_gwen_sfx_r_hit": (P + "RMis_OnHitLocation", 209986543, 0.3, -12),
-    "league_gwen_vo_q": (V + "Q_cast3D", 448126549, 1.4, -4),
-    "league_gwen_vo_w": (V + "W_cast3D", 476878312, 1.2, -4),
-    "league_gwen_vo_e": (V + "E_cast3D", 1432988918, 0.8, -4),
-    "league_gwen_vo_r": (V + "R_cast3D", 380381241, 1.2, -4),
+    "league_gwen_sfx_vo_q": (V + "Q_cast3D", 448126549, 1.4, -4),
+    "league_gwen_sfx_vo_w": (V + "W_cast3D", 476878312, 1.2, -4),
+    "league_gwen_sfx_vo_e": (V + "E_cast3D", 1432988918, 0.8, -4),
+    "league_gwen_sfx_vo_r": (V + "R_cast3D", 380381241, 1.2, -4),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_gwen_skill": "ASSETS/Characters/Gwen/HUD/Icons2D/Gwen_Q.dds",
