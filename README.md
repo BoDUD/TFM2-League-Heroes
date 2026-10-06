@@ -2702,6 +2702,8 @@ python tools/art/preview_samira.py
 | 技能1 | Q「透骨尖钉」：冷却 420 tick（7 秒），射程 100000，也对小兵和野怪放。敌方英雄在 26000 内就秒放戳刺（第 13 tick 戳中那个英雄，35 + 60% 攻击力，减速 60% 1 秒）；否则蓄力 36 tick 扔出鱼叉：出手时射程内有敌方英雄就瞄他（鱼叉穿过小兵，AI 绕不开兵线，锤石 Q 的做法），否则沿施法方向打第一个敌人；命中同样伤害、减速，并把目标拉回他身边，鱼叉收回 |
 | 技能2 | W「幽潭潜行」→ E「魅影浪洄」：冷却 660 tick（11 秒），只对敌方英雄放（射程 70000）。先潜行 2.5 秒、移速 +40% 渐退，灰血回复；15 tick 后冲刺穿过目标落到他身后（每 tick 9000）；冲刺起点留下一滩水，12 tick 后魅影从那里飞回他身边（每 tick 12000，宽 12000），途经的敌方英雄受到 50 + 60% 攻击力的物理伤害并晕眩 1 秒 |
 | 大招 | R「涌泉之恨」：冷却 2700 tick（45 秒），射程 75000，只对队友刚打过的敌方英雄放（诺手 R 的做法，更容易挑到残血）。目标脚下亮起 X，0.5 秒后斩下（能躲）：半径 28000 内的敌方英雄受到「斩杀线」180 + 60% 攻击力的真实伤害——血量低于它的直接死掉，没死的下一 tick 回补一半（所以只吃一半，和英雄联盟一样；SDK 模拟里量过：377 伤害、188 回补，死了的不会被救活），小兵野怪受一半物理伤害。有英雄死在 X 里，派克闪到他身上，大招冷却刷新、可以马上再放。英雄联盟给助攻者金币做不了 |
+| 连招 | 用户：「另外加点高手的连招逻辑吧」。照盲僧的做法，每个连招都是下一个技能自己打出来的，不占别的技能：**Q→E**：鱼叉钩中英雄后 2.5 秒内放 W→E，潜行后 3 tick 就冲（平时 15 tick），冲进正被拉过来的那个人，拉完正好晕住；**E→Q→A**：魅影晕住英雄后 2.5 秒内按 Q，40000 内有英雄就戳刺（平时 26000），戳完直接接一刀普攻（普攻的动作和伤害，不占普攻冷却）。R 不另做连招：它本来就等残血、斩杀后刷新。SDK 模拟 6 局：40 次 E 里 6 次是钩中后秒接的，E 晕人后 3 次 Q 接普攻；两批 720 局击杀差 +1.21 / +1.44（没有连招时 +1.12 / +1.24），强度不变 |
+| 精确斩杀附加包 | 用户：「大招逻辑也有点问题 总是满血砍人」。数据读不到当前生命，主包的 R 只能按「队友刚打过」挑人，满血的也会砍。附加包 [`addons/league_pyke`](addons/league_pyke/README.md)（在附加包合集里）用原生代码读生命：R 只放向 75000 内生命不高于斩杀线（180 + 60% 攻击力）的敌方英雄，几个时砍血最少的，AI 想砍斩不死的人就改成打他；X 落下时斩杀线以下的直接处决，其余吃一半真实伤害。主包不装附加包也完整可玩；附加包只做了单元测试，放 R 的时机要在游戏里看日志确认 |
 | 数值 | 攻击 72（+7）、生命 900（+82）、护甲 26（+8）、魔抗 18（+4）、移速 1100（+12）。数值是自己设计的，用 SDK 对战模拟调：辅助位，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），3 套阵容、两边各打，10 分钟。初稿 +3.80（伤害是日女的两倍多，R 一局放 6 次）；攻击 90 +16 → 72 +7、R 220 + 90% 每 25 秒 → 180 + 60% 每 45 秒、Q 60 + 100% → 35 + 60%、E 70 + 90% → 50 + 60%、灰血 22 + 12% → 15 + 8% 后 +1.12 / +1.24（同批种子日女 +0.78 / +1.23、洛 +0.84 / +0.41）。E 的魅影 40 tick 后才飞回时 37 次只中 3 次，12 tick 后飞回 32 次中 25 次 |
 | 亚索联动 | E 的晕眩和 Q 的拉拽是亚索大招要的控制：派克在辅助位时亚索大招每局对英雄放 1.88 次（同批锤石 1.40、日女 2.33），不用调 |
 | 精灵图 | 9 个动作 51 帧：待机、移动、普攻、Q 戳刺（`skill_stab`）、Q 扔鱼叉（`skill`）、W→E（`skill2`）、R（`ult`）、受击、死亡。造型 62 × 53 px（连举起的鱼叉；光头顶到脚底 40 行），29 色。待机 6 帧同一张，呼吸的缝在靴口；头像截取点 (10, −38)，选人卡片 `banpick_center` 0（鱼叉尖高出画布） |
@@ -2721,6 +2723,7 @@ python tools/art/rig_pyke.py            # 动作：每帧都是造型本身，�
 python tools/art/import_pyke.py         # 特效；--raw assets/source/pyke/codex_fx 先把 Codex 的图缩成游戏尺寸的原尺寸条
 python tools/art/import_native.py --hero pyke
 python tools/art/preview_pyke.py
+python addons/league_pyke/make_override.py   # 附加包的英雄数据和文字（主包的派克改了以后重跑）
 ```
 
 美术（原画的提示词见 [`assets/source/pyke/PICTURE_PROMPT.md`](assets/source/pyke/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/pyke/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/pyke/MODEL_STRIPS.md)，跑步换皮的见 [`RUN_SWAP.md`](assets/source/pyke/RUN_SWAP.md)，特效的见 [`PROMPTS_FX.md`](assets/source/pyke/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/pyke/codex_picture/)、[`codex_model/`](assets/source/pyke/codex_model/)、[`codex_strips/`](assets/source/pyke/codex_strips/)、[`codex_run/`](assets/source/pyke/codex_run/)、[`codex_fx/`](assets/source/pyke/codex_fx/)；附图包由 `tools/art/pack_pyke_*.py` 在本地生成，英雄联盟的渲染和 oppi 的图不进仓库）：

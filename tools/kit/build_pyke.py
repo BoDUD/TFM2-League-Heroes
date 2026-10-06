@@ -31,6 +31,14 @@ the target's current health, which the data cannot read - goes to a native add-o
           unit stays dead), so they lose half as in League; other enemies take half of T physical. A champion dying in
           the X (league_jinx's kill check) blinks him onto it and takes the ult's cooldown off: he can cast it again.
           League's gold for the assisting ally cannot be given from data.
+  combos  (the user: 「另外加点高手的连招逻辑吧」; league_leesin's way: each combo is the slot it spends, no slot held)
+          Q -> E: the harpoon landing on a champion (q_hook_c) adds `q_land` (qe_t ticks); W -> E cast in it dives
+          qe_lead ticks after the camouflage instead of c_lead, into the champion being dragged in - the stun as the
+          drag ends. E -> Q A: the phantom stunning a champion adds `e_land` (eq_t); Q cast in it stabs a champion
+          within q_close + eq_reach (he lands behind the target) and the stab runs into a harpoon swing (`CasterAnimation attack`, the attack's
+          hit a_st ticks in) on that champion. R needs no combo: it waits for a wounded champion and resets on a kill.
+          6 simulated games: 6 of 40 Es came off a hook, 3 stabs ran into the swing; kill difference +1.21 / +1.44
+          (+1.12 / +1.24 without the combos): the same strength.
 """
 import argparse
 import json
@@ -71,6 +79,9 @@ P = {
     # 50% to the rest, recast 20 s after a champion dies in it, cd 120-80 s)
     "r_cd": 2700, "r_range": 75000, "r_delay": 30, "r_rad": 28000, "r_dmg": 180, "r_ratio": 60, "r_anim": 40,
     "k_hold": 40, "k_read": 4,
+    # combos (the user: 「另外加点高手的连招逻辑吧」): Q -> E, the dive at once into the hooked champion; E -> Q A, the
+    # stab on the stunned one woven into an attack
+    "qe_t": 150, "qe_lead": 3, "eq_t": 150, "eq_reach": 14000,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -267,30 +278,40 @@ def build(p):
     # ------------------------------------------------------------------ skill: Q Bone Skewer
     slow = buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"])
     stab = combine(anim("skill_stab", p["q_stab_t"]), sfx("q_stab"), voice("vo_q2", p),
-                   delayed(p["q_stab_at"], pick(p["q_close"] + 6000, "EnemyChampion",
+                   delayed(p["q_stab_at"], pick(p["q_close"] + p["eq_reach"] + 6000, "EnemyChampion",
                                                 attack(p["q_dmg"], p["q_ratio"]), slow, view("q_stab_hit"),
                                                 tsfx("q_stab_hit"))))
+    # E -> Q A: on the champion the phantom stunned the stab runs straight into a harpoon swing (the attack's own pose
+    # and hit, its cooldown untouched)
+    weave = delayed(p["q_stab_t"], anim("attack", p["atk_dur"]), sfx("a_swing"),
+                    delayed(p["a_st"], pick(p["atk_range"] + 6000, "EnemyChampion", attack(0, 100), view("a_hit"),
+                                            tsfx("a_hit"))))
+    stab = combine(stab, sw("e_land", combine(*rm("e_land"), weave)))
     q_hit = [attack(p["q_dmg"], p["q_ratio"]), slow, {"type": "Grab", "speed": p["q_grab"]}, view("q_hit"),
              tsfx("q_hit")]
     q_back = back("q_return", p["q_grab"], p["q_reach"], 1000, "EnemyChampion", [])
 
-    def hook(name, target):
-        return line(name, p["q_speed"], p["q_reach"], p["q_rad"], p["q_y"], target, False, q_hit, [q_back])
+    def hook(name, target, *more):
+        return line(name, p["q_speed"], p["q_reach"], p["q_rad"], p["q_y"], target, False, q_hit + list(more),
+                    [q_back])
 
     release = combine(*rm("q_go"), sfx("q_throw"),
-                      pick(p["q_reach"] - 10000, "EnemyChampion", flag("q_go", 1), hook("q_hook_c", "EnemyChampion")),
+                      pick(p["q_reach"] - 10000, "EnemyChampion", flag("q_go", 1), hook("q_hook_c", "EnemyChampion",
+                                                                                on_me(refresh("q_land", p["qe_t"])))),
                       sw("q_go", NONE, hook("q_hook", "EnemyWithoutTower")))
     # the charge glow is drawn into his own skill frames (assets/source/native/pyke_bake.json: the red side's mirroring)
     hold = combine(anim("skill", p["q_hold"] + p["q_throw_t"]), sfx("q_charge"), voice("vo_q", p),
                    delayed(p["q_hold"], release))
     skill = action("skill", 3, p["q_cd"], 1, p["q_range"], "Direction", "EnemyWithoutTower",
-                   combine(*rm("q_tap"), pick(p["q_close"], "EnemyChampion", flag("q_tap", 1)),
+                   combine(*rm("q_tap"),
+                           sw("e_land", pick(p["q_close"] + p["eq_reach"], "EnemyChampion", flag("q_tap", 1)),
+                              pick(p["q_close"], "EnemyChampion", flag("q_tap", 1))),
                            sw("q_tap", stab, hold)))
 
     # ------------------------------------------------------------------ skill2: W Ghostwater Dive -> E Phantom Undertow
     phantom = back("e_phantom", p["e_ph_speed"], p["e_ph_range"], p["e_ph_rad"], "EnemyChampion",
                    [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]},
-                    buff("e_stun", p["e_stun"]), view("e_hit"), tsfx("e_hit")])
+                    buff("e_stun", p["e_stun"]), view("e_hit"), tsfx("e_hit"), on_me(refresh("e_land", p["eq_t"]))])
     dive = combine(anim("skill2", p["e_t"]), sfx("e_dash"), voice("vo_e", p),
                    anchor([view("e_left"), delayed(p["e_ret"], sfx("e_return"), phantom)]),
                    *[delayed(k, cview("e_trail")) for k in range(1, p["e_t"], 2)],   # the wake, puddle to landing
@@ -300,7 +321,8 @@ def build(p):
                    refresh("w_ms2", p["w_ms_t"], move_speed_mult=p["w_ms"] // 2),
                    cview("w_cast"), sfx("w_cast"), grey_heal())
     skill2 = action("skill2", 3, p["c_cd"], 1, p["c_range"], "Targeting", "EnemyChampion",
-                    combine(camo, delayed(p["c_lead"], dive)))
+                    combine(camo, sw("q_land", combine(*rm("q_land"), delayed(p["qe_lead"], dive)),
+                                     delayed(p["c_lead"], dive))))
 
     # ------------------------------------------------------------------ ult: R Death from Below
     k_set = refresh("k_r", p["k_hold"])

@@ -2130,7 +2130,7 @@
     "cancelable": false,
     "range": 75000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyChampionRecentlyAttacked",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -2447,12 +2447,8 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "FixedAttack",
-                    "damage": 180,
-                    "attack_ratio": 60,
-                    "hp_ratio": 0,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
+                    "type": "Native",
+                    "effect_ref": "league_pyke:execute"
                   }
                 },
                 {
@@ -2480,22 +2476,6 @@
                       {
                         "type": "RemoveCasterBuff",
                         "name": "league_pyke_k_r"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Delayed",
-                    "tick": 1,
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 90,
-                        "attack_ratio": 30,
-                        "ap_ratio": 0,
-                        "heal_type": "Any"
                       }
                     ]
                   }
