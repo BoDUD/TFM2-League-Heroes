@@ -69,7 +69,7 @@ LEG_TOP, LEG_SPLIT = 86, 64            # the legs' rows (to the soles) and the c
 SC_LEN, SC_OPEN = 30, 44               # the held scissors: blade (squares), the snip's opening (degrees)
 IDLE_DEG = 155                         # the design's blade points 155 degrees (down and back)
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
-HAIR_ROWS = (50, 84)                   # hang behind her shoulders), under everything else; right of the torso's edge
+HAIR_ROWS = (56, 80)                   # hang behind her shoulders), under everything else; right of the torso's edge
 TORSO_RIGHT = 70                       # (column 70) only the curls and the sleeve are there: the far arm goes over them
 
 
