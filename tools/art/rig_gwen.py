@@ -352,13 +352,15 @@ def stand(P, pose):
 
 # ------------------------------------------------------------------------------------------------ the run
 # one leg's cycle (8 frames): (knee columns, ankle columns from the hip - + forward = image right -, rows lifted):
-# contact, loading, mid-stance, push, toe-off, lift, passing, reach; the other leg half a cycle later. She stands
-# facing us, so the legs step where they stand (a front view's trot): the planted leg straight, the other lifted - its
-# top under the skirt, so it shows as a knee raised - its foot a column forward at the top. Swinging them sideways
-# read as anything but a step: crossed, the legs stacked into one (「还是有点奇怪呢」); swung apart together, they
-# opened and closed like a jumping jack (「太奇怪了 找找分析修复一下」)
-CYCLE = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 1), (0, 1, 2), (0, 1, 3), (0, 0, 1)]
-HIP_IN = {"near": 0, "far": 0}         # the hips where they stand (bent() can still draw a leg in under the skirt)
+# contact, loading, mid-stance, push, toe-off, kick, passing, reach; the other leg half a cycle later. The crossing
+# step the user picked (「我选的A加交叉步啊」): both hips drawn in to her middle, a side view's stride - the feet eleven
+# columns apart at the contacts (the pushing foot a column further back: at ten the boots touched), one over the other
+# while passing (the far one lifted behind the near), the reaching foot past the pushing one (at +3/-3 the two boots
+# overlapped four columns into one blotch). Swung from
+# hips side by side the legs crossed into one blob (「还是有点奇怪呢」) or opened and closed like a jumping jack
+# (「太奇怪了」); the front view's trot in place had no crossing (「有交叉步吗现在」)
+CYCLE = [(2, 5, 0), (1, 2, 0), (0, -1, 0), (-2, -4, 0), (-2, -6, 1), (-1, -3, 3), (0, 0, 3), (2, 4, 1)]
+HIP_IN = {"near": 3, "far": -2}        # the hips drawn in under the skirt to column 66 (from nothing at the hip row)
 BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact - two rows (and the curls and scissors a frame
 LAG = 0                                # late, a reviewer's idea) squashed her onto her legs and tore the curls from the
 CURLS = ((68, 82), (60, 68))           # head: 「走路时模型变形了吧？」
