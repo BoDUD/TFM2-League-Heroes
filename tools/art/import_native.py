@@ -274,8 +274,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # in 3-4 - the upper body and the scissors a row lower - so the six play in order, as Aatrox's)
          ("gwen", "idle"): [0, 1, 2, 3, 4, 5],
          # and Brand (Codex's raw draft A cut to 37 rows by whole lines, design_brand.py; rig_brand.py writes the design
-         # six times)
-         ("brand", "idle"): [0, 0, 0, 0, 0, 0]}
+         # with its flames flickering through three states, so the six play in order)
+         ("brand", "idle"): [0, 1, 2, 3, 4, 5]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield

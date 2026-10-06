@@ -321,10 +321,47 @@ def crumbs(a, least=6):
     return a
 
 
+# the fire lives (「火男移动时起码身上火焰要有点效果吧 不然太僵硬了」): in the idle and the run the head flames and the fire
+# hands flicker through three states - as drawn, the flame crown a row taller (its rows moved up one, the lowest kept:
+# the face never moves), every fire square a shade brighter
+FIRE = ["350607", "4D090A", "A30806", "B80402", "F01D09", "F95307", "FA7406", "FC9103", "FBC302", "FCCC02", "FADA03"]
+CROWN = (57, 62)                       # the flame crown's rows over the bald skull (the design's)
+FLICKER = {"idle": [0, 1, 2, 0, 1, 2], "run": [0, 1, 2, 0, 1, 2]}
+
+
+def flicker(P, f, state, tag):
+    if not state:
+        return f
+    out = f.copy()
+    top = int(np.nonzero(f[..., 3].any(1))[0].min())
+    dy = top - P.D.top                                                  # the bob: the crown moved with the body
+    r0, r1 = CROWN[0] + dy, CROWN[1] + dy
+    if state == 1:
+        out[r0 - 1:r1] = f[r0:r1 + 1]
+        out[r1] = f[r1]
+        return out
+    ramp = [tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) for h in FIRE]
+    nxt = {c: ramp[min(i + 1, len(ramp) - 1)] for i, c in enumerate(ramp)}
+    region = np.zeros(f.shape[:2], bool)
+    region[r0:r1 + 1] = True
+    arms = np.roll(P.back_m | P.front_m, dy, axis=0)
+    if tag == "run":                                                    # the run's lifted arms: their squares over
+        for d in (1, 2):
+            arms |= np.roll(arms, -d, axis=0)
+    region |= arms
+    for y, x in zip(*np.nonzero(region & (f[..., 3] > 0))):
+        c = tuple(int(v) for v in f[y, x, :3])
+        if c in nxt:
+            out[y, x, :3] = nxt[c]
+    return out
+
+
 def frames(P, tag):
     n = len(MS[tag])
     if tag == "run":
-        return [K.finish(run(P, k), P.D.outline, P.D.soles) for k in range(n)]
+        return [flicker(P, K.finish(run(P, k), P.D.outline, P.D.soles), FLICKER["run"][k], tag) for k in range(n)]
+    if tag == "idle":
+        return [flicker(P, P.D.a.copy(), FLICKER["idle"][k], tag) for k in range(n)]
     if tag == "dead":
         return [crumbs(K.finish(dead(P, k), P.D.outline, P.D.soles)) for k in range(n)]
     if tag in STAND:
