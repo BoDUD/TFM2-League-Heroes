@@ -105,6 +105,29 @@ def swung(d, mask, hip, foot, dx, lift, drop, shade=None):
     return out
 
 
+def new_gaps_filled(a, d, bob, outline):
+    """Gaps the swung legs enclose (between a leg, a claw and the body: the background showed through - the user:
+    「腿部移动时缺失模型看不到？」) take the commonest colour round them; the design's own gaps (beside the jaw) stay."""
+    own = set()
+    for comp in K.holes(K.finish(d, outline, SOLES)):     # with its outline closed, as the idle is
+        own |= {(y + bob, x) for y, x in comp}
+    for comp in K.holes(a):
+        if own & set(comp):
+            continue
+        nb = {}
+        cs = set(comp)
+        for y, x in comp:
+            for dy, dx in K.N4:
+                q = (y + dy, x + dx)
+                if q not in cs and a[q][3] and tuple(int(v) for v in a[q][:3]) != tuple(outline):
+                    key = tuple(int(v) for v in a[q])
+                    nb[key] = nb.get(key, 0) + 1
+        col = np.array(max(nb, key=nb.get) if nb else tuple(outline) + (255,), np.uint8)
+        for y, x in comp:
+            a[y, x] = col
+    return a
+
+
 def run_frame(d, k, masks, shade):
     near, far, back, front = masks
     nd, nl, fd, fl, bl, frl, bob = STRIDE[k]
@@ -168,7 +191,7 @@ def main():
             cols = sheet.shape[1] // cw
             masks, shade = leg_masks(design), darker(design)
             for i in range(len(STRIDE)):
-                fig = K.finish(run_frame(design, i, masks, shade), ink, SOLES)
+                fig = new_gaps_filled(K.finish(run_frame(design, i, masks, shade), ink, SOLES), design, STRIDE[i][6], ink)
                 X, Y = (i % cols) * cw, (i // cols) * ch
                 px, py = cells["tags"][tag][i]["pivot"]
                 cell = np.zeros((ch, cw, 4), np.uint8)
