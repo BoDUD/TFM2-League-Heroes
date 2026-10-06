@@ -794,12 +794,16 @@
     },
     "league_brand": {
       "face": {
-        "x": 0,
-        "y": -38
+        "x": 4,
+        "y": -26
       },
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
       }
     }
   }

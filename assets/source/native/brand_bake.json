@@ -1,0 +1,25 @@
+{
+ "fx": "league_brand_fx",
+ "items": [
+  {
+   "tag": "c_flash_attack_4",
+   "into": "attack",
+   "at_ms": 180
+  },
+  {
+   "tag": "c_flash_skill2_3",
+   "into": "skill2",
+   "at_ms": 100
+  },
+  {
+   "tag": "c_flash_skill2_6",
+   "into": "skill2",
+   "at_ms": 290
+  },
+  {
+   "tag": "c_flash_skill_4",
+   "into": "skill",
+   "at_ms": 180
+  }
+ ]
+}

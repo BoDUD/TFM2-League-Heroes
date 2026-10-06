@@ -56,8 +56,9 @@ P = {
     # hp, 550 range, a burst mage
     "hp": 820, "hp_g": 95, "atk": 78, "atk_g": 6, "mp": 42, "mp_g": 21, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    # attack (League 550 range)
-    "atk_range": 52000, "atk_dur": 28, "atk_cd": 90, "atk_st": 11, "bolt_speed": 4500, "bolt_y": -3000,
+    # attack (League 550 range); the bolt leaves the throwing hand 2 px over the pivot (5000 - y_offset above it), the
+    # Q fireball and the R seed 13 px up (a straight shot from higher leans onto its end)
+    "atk_range": 52000, "atk_dur": 28, "atk_cd": 90, "atk_st": 11, "bolt_speed": 4500, "bolt_y": 3000,
     # passive Blaze (League: 3% max HP magic over 4 s, 3 stacks -> 2 s later 9-13% max HP round the target)
     "p_t": 240, "p_period": 60, "p_burn": 6, "p_burn_ap": 4, "p_hp_period": 120, "p_hp": 0,
     "b_keep": 240, "p_wait": 120, "p_det_r": 26000, "p_det": 50, "p_det_ap": 30, "p_det_hp": 4,

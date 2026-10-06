@@ -57,7 +57,7 @@
           "type": "TargetProjectile",
           "name": "league_brand_a_bolt",
           "speed": 4500,
-          "y_offset": -3000,
+          "y_offset": 3000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
