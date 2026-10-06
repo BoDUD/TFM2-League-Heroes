@@ -42,6 +42,20 @@ def union(frame):
     return np.asarray(Image.alpha_composite(m, a))
 
 
+def rebind(kit, hero):
+    """Point the views of the pictures assets/source/native/<hero>_sym.json lists at league_<hero>_sym (a kit built
+    again from its parameters, tools/kit/build_*.py)."""
+    meta_path = os.path.join(ROOT, "assets", "source", "native", f"{hero}_sym.json")
+    if not os.path.exists(meta_path):
+        return kit
+    meta = json.load(open(meta_path, encoding="utf-8"))
+    for v in kit.get("view_effects", []):
+        if v["name"] in meta:
+            v["anim"] = f"asset/league/effects/league_{hero}_sym"
+            v["loop_tag" if "loop_tag" in v else "tag"] = v["name"].replace(f"league_{hero}_", "")
+    return kit
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--hero", required=True)

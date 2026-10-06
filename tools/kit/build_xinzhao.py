@@ -28,6 +28,10 @@ W's slash on 13 and its thrust on 17, R's sweep on 10.
 import argparse
 import json
 import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fix"))
+import red_side  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -269,7 +273,9 @@ def build(p, native=False):
     }
     if native:
         kit["passive"] = {"passive_ref": "league_xinzhao_guard:guard", "params": {"far": int(p["r_far"])}}
-    return kit
+    # the red-side pass (tools/fix/red_side_caster_fx.py): pictures with a front and a back drawn into his frames,
+    # the rest made symmetric - the same changes on every build, the add-on's copy included
+    return red_side.apply(kit, "xinzhao")
 
 
 def nodes(o):

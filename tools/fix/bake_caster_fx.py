@@ -207,19 +207,46 @@ def main():
     kit_path = os.path.join(MOD, "champion", f"league_{hero}.data_champion")
     raw = open(lp(kit_path), "rb").read().decode("utf-8")
     kit = json.loads(raw)
+    cfg, moved, left, gone = bake_kit(kit, hero, names=set(args.name) if args.name else None, cut=args.cut)
+    for line in moved:
+        print("  " + line)
+    for p in left:
+        print(f"  LEFT {p['name']} ({p['slot']}, tick {p['t']}): {p['why']}")
+    if args.dry:
+        return
+    out = json.dumps(kit, ensure_ascii=False, indent=2) + "\n"
+    if "\r\n" in raw:
+        out = out.replace("\n", "\r\n")
+    open(lp(kit_path), "wb").write(out.encode("utf-8"))
+    if cfg["items"]:
+        with open(lp(os.path.join(SRC, f"{hero}_bake.json")), "w", encoding="utf-8", newline="\n") as f:
+            f.write(dump(cfg))
+    print(f"league_{hero}: {len(moved)} plays moved, {len(left)} left, {len(gone)} bindings removed")
+
+
+def flagged(kit):
+    """The caster pictures lint_mod.py flags: mirrored, more than half the opaque pixels land on empty ones."""
     views = {v["name"]: v for v in kit.get("view_effects", [])}
-    if args.name:
-        names = set(args.name)
-    else:
-        names = set()
-        for n in L.caster_views({k: v for k, v in kit.items() if not k.startswith("view_")}):
-            v = views.get(n)
-            if not v:
-                continue
-            share = L.turned_off_share(os.path.join(MOD, v["anim"].split("asset/league/")[1]),
-                                       [v[k] for k in ("tag", "loop_tag") if v.get(k)], mirror=True)
-            if share is not None and share > 0.5:
-                names.add(n)
+    names = set()
+    for n in L.caster_views({k: v for k, v in kit.items() if not k.startswith("view_")}):
+        v = views.get(n)
+        if not v:
+            continue
+        share = L.turned_off_share(os.path.join(MOD, v["anim"].split("asset/league/")[1]),
+                                   [v[k] for k in ("tag", "loop_tag") if v.get(k)], mirror=True)
+        if share is not None and share > 0.5:
+            names.add(n)
+    return names
+
+
+def bake_kit(kit, hero, names=None, cut=(), frozen=False):
+    """Move the plays of `names` (default: flagged()) in `kit`, in place; returns (bake table, moved lines, plays
+    left, view entries removed). frozen: use only what assets/source/native/<hero>_bake.json already holds - a kit
+    built again from its parameters (tools/kit/build_*.py, the add-ons' overrides) gets the same changes, and a play
+    that would need a new item stops it (run this tool on the main kit first)."""
+    views = {v["name"]: v for v in kit.get("view_effects", [])}
+    if names is None:
+        names = flagged(kit)
     sp = tfm2_ase.load_sprite(os.path.join(MOD, "champions", f"league_{hero}#sheet.png"))
     lengths = {t["name"]: sum(sp.durations[t["frm"]:t["to"] + 1]) for t in sp.tags}
     bake_path = os.path.join(SRC, f"{hero}_bake.json")
@@ -232,6 +259,7 @@ def main():
             lengths[it["into"]] = it["length_ms"]
 
     fx_len = {}
+    used = set()
 
     def fx_ms(sheet, tag):
         if (sheet, tag) not in fx_len:
@@ -271,19 +299,24 @@ def main():
         if off >= end:
             raise ValueError(f"after {tag} ended ({off} ticks in, {end} long)")
         over = fx_ms(fx_sheet, fx_tag) - ms(end - off)
-        if over > SPILL and p["name"] not in args.cut:
+        if over > SPILL and p["name"] not in cut:
             raise ValueError(f"the picture runs {over} ms past the end of {tag} (it played on while he walked)")
         if not (p["conds"] - spec.conds) and starts.get(tag, 0) == 1:
             kw = {}
             if spec.held is not None and ms(spec.held) > lengths[tag]:
                 kw["length_ms"] = ms(spec.held)             # a held loop is drawn out to its whole hold first
             item = item_for(fx_tag, fx_sheet, under, into=tag, at_ms=ms(off), **kw)
-            if item not in cfg["items"]:
+            same = [i for i in cfg["items"] if {**i, "length_ms": 0} == {**item, "length_ms": 0}]
+            if not same:
+                if frozen:
+                    raise RuntimeError(f"league_{hero}: {fx_tag} into {tag} at {ms(off)} ms is not in the bake table")
                 cfg["items"].append(item)
             return None, f"drawn into {tag} at {ms(off)} ms"
         key = (tag, ms(off), ms(end - off), fx_tag, under)
         new = made.get(key)
         if new is None:
+            if frozen:
+                raise RuntimeError(f"league_{hero}: a copy of {tag} from {ms(off)} ms is not in the bake table")
             base = re.sub(r"_fx\d+$", "", tag)
             n = 1
             while f"{base}_fx{n}" in lengths:
@@ -293,6 +326,8 @@ def main():
                                          length_ms=ms(end - off), at_ms=0))
             made[key] = new
             lengths[new] = ms(end - off)
+        if new not in used:                         # counted as started once, from its first use (as when made)
+            used.add(new)
             starts[new] = 1
         return ({"type": "CasterAnimation", "name": new, "tick": end - off},
                 f"{tag} from {ms(off)} ms played as {new} ({end - off} ticks)")
@@ -379,21 +414,8 @@ def main():
                 vwalk(x)
     vwalk(body)
     gone = sorted(n for n in names if n not in still and n not in used_ve)
-    for line in moved:
-        print("  " + line)
-    for p in left:
-        print(f"  LEFT {p['name']} ({p['slot']}, tick {p['t']}): {p['why']}")
-    if args.dry:
-        return
     kit["view_effects"] = [v for v in kit["view_effects"] if v["name"] not in gone]
-    out = json.dumps(kit, ensure_ascii=False, indent=2) + "\n"
-    if "\r\n" in raw:
-        out = out.replace("\n", "\r\n")
-    open(lp(kit_path), "wb").write(out.encode("utf-8"))
-    if cfg["items"]:
-        with open(bake_path, "w", encoding="utf-8", newline="\n") as f:
-            f.write(dump(cfg))
-    print(f"league_{hero}: {len(moved)} plays moved, {len(left)} left, {len(gone)} bindings removed")
+    return cfg, moved, left, gone
 
 
 if __name__ == "__main__":

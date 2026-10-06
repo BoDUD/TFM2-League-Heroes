@@ -1197,12 +1197,12 @@
                     "type": "SwitchByBuff",
                     "buff_name": "league_aatrox_r",
                     "effect_buff": {
-                      "type": "CasterViewEffect",
-                      "name": "league_aatrox_p_swing_r"
+                      "type": "Combine",
+                      "effects": []
                     },
                     "effect_none": {
-                      "type": "CasterViewEffect",
-                      "name": "league_aatrox_p_swing"
+                      "type": "Combine",
+                      "effects": []
                     }
                   }
                 ]
@@ -1616,8 +1616,18 @@
                                   "name": "league_aatrox_e_cast"
                                 },
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_aatrox_e_dash"
+                                  "buff_name": "league_aatrox_r",
+                                  "type": "SwitchByBuff",
+                                  "effect_buff": {
+                                    "type": "CasterAnimation",
+                                    "name": "q3_r_fx1",
+                                    "tick": 30
+                                  },
+                                  "effect_none": {
+                                    "type": "CasterAnimation",
+                                    "name": "q3_fx1",
+                                    "tick": 30
+                                  }
                                 },
                                 {
                                   "type": "RushTime",
@@ -2075,12 +2085,12 @@
                               "type": "SwitchByBuff",
                               "buff_name": "league_aatrox_r",
                               "effect_buff": {
-                                "type": "CasterViewEffect",
-                                "name": "league_aatrox_q3_slash_r"
+                                "type": "Combine",
+                                "effects": []
                               },
                               "effect_none": {
-                                "type": "CasterViewEffect",
-                                "name": "league_aatrox_q3_slash"
+                                "type": "Combine",
+                                "effects": []
                               }
                             }
                           ]
@@ -2259,8 +2269,18 @@
                                     "name": "league_aatrox_e_cast"
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_aatrox_e_dash_back"
+                                    "buff_name": "league_aatrox_r",
+                                    "type": "SwitchByBuff",
+                                    "effect_buff": {
+                                      "type": "CasterAnimation",
+                                      "name": "q2_r_fx1",
+                                      "tick": 30
+                                    },
+                                    "effect_none": {
+                                      "type": "CasterAnimation",
+                                      "name": "q2_fx1",
+                                      "tick": 30
+                                    }
                                   },
                                   {
                                     "type": "MoveBack",
@@ -2296,8 +2316,18 @@
                                       "name": "league_aatrox_e_cast"
                                     },
                                     {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_aatrox_e_dash"
+                                      "buff_name": "league_aatrox_r",
+                                      "type": "SwitchByBuff",
+                                      "effect_buff": {
+                                        "type": "CasterAnimation",
+                                        "name": "q2_r_fx2",
+                                        "tick": 30
+                                      },
+                                      "effect_none": {
+                                        "type": "CasterAnimation",
+                                        "name": "q2_fx2",
+                                        "tick": 30
+                                      }
                                     },
                                     {
                                       "type": "RushTime",
@@ -2735,12 +2765,12 @@
                                 "type": "SwitchByBuff",
                                 "buff_name": "league_aatrox_r",
                                 "effect_buff": {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_aatrox_q2_slash_r"
+                                  "type": "Combine",
+                                  "effects": []
                                 },
                                 "effect_none": {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_aatrox_q2_slash"
+                                  "type": "Combine",
+                                  "effects": []
                                 }
                               }
                             ]
@@ -2912,8 +2942,18 @@
                                     "name": "league_aatrox_e_cast"
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_aatrox_e_dash_back"
+                                    "buff_name": "league_aatrox_r",
+                                    "type": "SwitchByBuff",
+                                    "effect_buff": {
+                                      "type": "CasterAnimation",
+                                      "name": "skill_r_fx1",
+                                      "tick": 30
+                                    },
+                                    "effect_none": {
+                                      "type": "CasterAnimation",
+                                      "name": "skill_fx1",
+                                      "tick": 30
+                                    }
                                   },
                                   {
                                     "type": "MoveBack",
@@ -2949,8 +2989,18 @@
                                       "name": "league_aatrox_e_cast"
                                     },
                                     {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_aatrox_e_dash"
+                                      "buff_name": "league_aatrox_r",
+                                      "type": "SwitchByBuff",
+                                      "effect_buff": {
+                                        "type": "CasterAnimation",
+                                        "name": "skill_r_fx2",
+                                        "tick": 30
+                                      },
+                                      "effect_none": {
+                                        "type": "CasterAnimation",
+                                        "name": "skill_fx2",
+                                        "tick": 30
+                                      }
                                     },
                                     {
                                       "type": "RushTime",
@@ -3388,12 +3438,13 @@
                                 "type": "SwitchByBuff",
                                 "buff_name": "league_aatrox_r",
                                 "effect_buff": {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_aatrox_q1_slash_r"
+                                  "type": "Combine",
+                                  "effects": []
                                 },
                                 "effect_none": {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_aatrox_q1_slash"
+                                  "type": "CasterAnimation",
+                                  "name": "skill_fx3",
+                                  "tick": 12
                                 }
                               }
                             ]
@@ -3678,12 +3729,13 @@
               "type": "SwitchByBuff",
               "buff_name": "league_aatrox_r",
               "effect_buff": {
-                "type": "CasterViewEffect",
-                "name": "league_aatrox_w_throw_r"
+                "type": "Combine",
+                "effects": []
               },
               "effect_none": {
-                "type": "CasterViewEffect",
-                "name": "league_aatrox_w_throw"
+                "type": "CasterAnimation",
+                "name": "skill2_fx1",
+                "tick": 14
               }
             },
             {
@@ -4792,75 +4844,11 @@
     },
     {
       "type": "Animation",
-      "name": "league_aatrox_p_swing",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "p_swing",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_p_swing_r",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "p_swing_r",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_aatrox_p_hit",
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "p_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_q1_slash",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "q1_slash",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_q2_slash",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "q2_slash",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_q3_slash",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "q3_slash",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_q1_slash_r",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "q1_slash_r",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_q2_slash_r",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "q2_slash_r",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_q3_slash_r",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "q3_slash_r",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -4909,38 +4897,6 @@
       "tag": "q_edge",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_e_dash",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "e_dash",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_e_dash_back",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "e_dash_back",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_w_throw",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "w_throw",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_w_throw_r",
-      "anim": "asset/league/effects/league_aatrox_fx",
-      "tag": "w_throw_r",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",
