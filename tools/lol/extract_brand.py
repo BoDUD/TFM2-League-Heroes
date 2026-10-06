@@ -47,10 +47,10 @@ CLIPS = {
     "league_brand_sfx_r_bounce": (P + "R_OnMissileLaunch", 1036548260, 0.6, -10),
     "league_brand_sfx_r_hit": (P + "R_hit", 814047673, 0.6, -10),
     "league_brand_sfx_p_boom": ("Play_sfx_Brand_P_detonate1", 488590296, 1.4, -8),
-    "league_brand_vo_q": (V + "Q_cast3D", 789762179, 1.4, -4),
-    "league_brand_vo_w": (V + "W_cast3D", 1338850688, 1.8, -4),
-    "league_brand_vo_e": (V + "E_cast3D", 86968150, 2.2, -4),
-    "league_brand_vo_r": (V + "R_cast3D", 627385700, 2.0, -4),
+    "league_brand_sfx_vo_q": (V + "Q_cast3D", 789762179, 1.4, -4),
+    "league_brand_sfx_vo_w": (V + "W_cast3D", 1338850688, 1.8, -4),
+    "league_brand_sfx_vo_e": (V + "E_cast3D", 86968150, 2.2, -4),
+    "league_brand_sfx_vo_r": (V + "R_cast3D", 627385700, 2.0, -4),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_brand_skill": "ASSETS/Characters/Brand/HUD/Icons2D/BrandW.dds",

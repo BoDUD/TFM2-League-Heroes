@@ -113,7 +113,7 @@ TEXT = {
 }
 
 C = "league_xerath_sfx_"
-V = "league_xerath_vo_"
+V = "league_xerath_sfx_vo_"  # clip names differ from the sound names: a clip named like its sound is not found in game
 # sound name -> [(clip, volume, delay)]
 SOUNDS = {
     "league_xerath_a_cast": [(C + "cast", 0.45, 0.0)],

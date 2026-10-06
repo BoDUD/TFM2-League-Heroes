@@ -55,9 +55,9 @@ CLIPS = {
     "league_xerath_sfx_r_shot": (P + "LocusPulse_OnMissileLaunch", 528591252, 1.0, -9),
     "league_xerath_sfx_r_blast": (P + "LocusOfPower2_hit", 191960755, 1.5, -7),
     "league_xerath_sfx_r_end": (P + "LocusOfPower2_OnBuffDeactivate", 458141038, 0.7, -9),
-    "league_xerath_vo_q": (V + "Arcanopulse2_cast3D", 297548091, 0.6, -4),
-    "league_xerath_vo_e": (V + "ArcaneBarrage2_cast3D", 931123522, 1.0, -4),
-    "league_xerath_vo_r": (V + "LocusOfPower2_cast3D", 76484870, 1.9, -3),
+    "league_xerath_sfx_vo_q": (V + "Arcanopulse2_cast3D", 297548091, 0.6, -4),
+    "league_xerath_sfx_vo_e": (V + "ArcaneBarrage2_cast3D", 931123522, 1.0, -4),
+    "league_xerath_sfx_vo_r": (V + "LocusOfPower2_cast3D", 76484870, 1.9, -3),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_xerath_skill": "ASSETS/Characters/Xerath/HUD/Icons2D/Xerath_Q1.dds",
