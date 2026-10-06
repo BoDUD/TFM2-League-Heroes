@@ -29,5 +29,11 @@
   "w_wind_d": {"cell": [27, 27], "anchor": [13, 13], "frames": 6},
   "w_wind_s": {"cell": [27, 27], "anchor": [13, 13], "frames": 6},
   "r_mark_d": {"cell": [21, 19], "anchor": [10, 9], "frames": 4},
-  "r_mark_s": {"cell": [21, 19], "anchor": [10, 9], "frames": 4}
+  "r_mark_s": {"cell": [21, 19], "anchor": [10, 9], "frames": 4},
+  "wall_aura": {"cell": [47, 89], "anchor": [23, 44], "frames": 6},
+  "wall_burst": {"cell": [43, 35], "anchor": [21, 17], "frames": 6},
+  "wall_aura_d": {"cell": [47, 89], "anchor": [23, 44], "frames": 6},
+  "wall_aura_s": {"cell": [47, 89], "anchor": [23, 44], "frames": 6},
+  "wall_burst_d": {"cell": [43, 35], "anchor": [21, 17], "frames": 6},
+  "wall_burst_s": {"cell": [43, 35], "anchor": [21, 17], "frames": 6}
 }

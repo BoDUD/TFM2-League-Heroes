@@ -35,7 +35,7 @@ TEXT_KEY = "description.league_kayn_form.attack"
 MARK = "league_kayn_mk_charge"
 TAG = "league_kayn_tag"
 TAG_T = 30
-NEED = {"darkin_need": 14, "shadow_need": 14}
+NEED = {"darkin_need": 14, "shadow_need": 14}     # tried 25, 40, 30; back to 14 (the user, 2026-10-06: 「还是全部调成14次吧 不然打野太慢了」)
 MK1, MK2 = "<#fffffffe><>", "<#ffffffff><>"
 Y, R, B, E = "<#ffb900ff>", "<#fe5c50ff>", "<#8484fbff>", "<>"
 RULE = {
@@ -169,6 +169,16 @@ def main():
     eff["effects"][:0] = ready
     champion["passive"] = {"passive_ref": MOD_ID + ":orbs", "params": NEED}
     champion["attack"]["description"] = "#asset/base/text/champion?" + TEXT_KEY
+    # the Shadow Step through a wall (src/wall.rs, src/lib.rs): the passive puts league_kayn_in_wall{,_d,_s} on him
+    # while he stands in a wall cell (the shroud, looping over him) and plays league_kayn_wall_burst{,_d,_s} as he goes
+    # in and comes out; their pictures are in the main pack's league_kayn_fx (tools/art/import_kayn.py --wall), bound
+    # here only: nothing in the main pack's data uses them
+    fx = "asset/league/effects/league_kayn_fx"
+    for suf in ("", "_d", "_s"):
+        champion["view_buffs"].append({"type": "Animated", "name": f"league_kayn_in_wall{suf}", "anim": fx,
+                                       "tag": f"wall_aura{suf}", "z": 1})
+        champion["view_effects"].append({"type": "Animation", "name": f"league_kayn_wall_burst{suf}", "anim": fx,
+                                         "tag": f"wall_burst{suf}", "z": 1, "is_follow": False})
 
     main_text = load(os.path.join(ROOT, "league", "text", "champion.i18n"))
     text, long = {}, {}

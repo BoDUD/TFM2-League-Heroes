@@ -572,6 +572,98 @@ def find(frame, tpl):
     return best
 
 
+# Form sheets: a hero's whole sheet again with the bodies the game plays by name (idle, run, hit, dead) taken from
+# <hero>_<prefix><tag>.png. Kayn's full transform (addons/league_kayn_form) renames his view to league_kayd /
+# league_kays, sent to these sheets; tools/art/rig_kayn_forms.py poses the bodies from the form designs' parts and
+# outlines them (its death dissolves in a dither: no outline pass here, nor any other touch - the frames go in as drawn,
+# centred on their pivots). Every other tag is the hero's own frames, as finished for his sheet.
+FORM_SHEETS = {"kayn": {"kayn_darkin": "rh_", "kayn_shadow": "sh_"}}
+FORM_BODY = ("idle", "run", "hit", "dead")
+# the base actions the hero already has a form strip for (rh_attack ...): in a form sheet the base tag plays the form's
+# frames too - the data plays "attack" on the action's first tick before its form switch picks "rh_attack", and in game
+# the user saw that tick as the base Kayn (「攻击的时候还是会变回去」)
+FORM_ACTIONS = ("attack", "skill", "skill2", "ult_exit")
+FORM_REVERSED = {"ult": "ult_exit", "ult_fx1": "ult_exit"}
+# the body animations the kit plays by CasterAnimation with no form strip of their own, drawn from the form's: the
+# transformation (played from the form's sheet - the form buff is on by then - it showed the base Kayn for 36 ticks
+# right after he turned) shows the form standing, the tf flash over it; the base W (skill2_fx1, played when no form
+# buff is on) the form's W, spread over its timings: 「一帧变身后 又释放技能的时候突然变回去」
+FORM_RETIMED = {"transform": "idle", "skill2_fx1": "skill2"}
+
+
+# In-wall sheets: every frame of the hero's (and each form's) sheet as a see-through shadow - the Shadow Step through a
+# wall (addons/league_kayn_form: the view's name ends in w / r / h while he stands in a wall cell). League shows Kayn
+# inside terrain as a dark shadow only; the user: 「穿墙的效果要模仿LOL里面」. The outline stays, the body takes the
+# smoke violets by its brightness with every other inside pixel left out (a checker), bright saturated pixels (his eyes,
+# the scythe's eye) glow crimson.
+WALL_SHEETS = {"kayn": "kayn_wall", "kayn_darkin": "kayn_darkin_wall", "kayn_shadow": "kayn_shadow_wall"}
+WALL_SMOKE = [(0x2C, 0x22, 0x50), (0x46, 0x3A, 0x74), (0x6A, 0x5C, 0x9E), (0x9A, 0x8E, 0xC8)]
+WALL_GLOW = (0xFF, 0x40, 0x58)
+
+
+def shadow_frame(a):
+    """One frame as the see-through in-wall shadow."""
+    out = np.zeros_like(a)
+    op = a[..., 3] > 0
+    if not op.any():
+        return out
+    rgb = a[..., :3].astype(np.int32)
+    lum = 0.299 * rgb[..., 0] + 0.587 * rgb[..., 1] + 0.114 * rgb[..., 2]
+    mx, mn = rgb.max(-1), rgb.min(-1)
+    sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1), 0)
+    pad = np.pad(op, 1)
+    edge = op & ~(pad[:-2, 1:-1] & pad[2:, 1:-1] & pad[1:-1, :-2] & pad[1:-1, 2:])
+    ys, xs = np.mgrid[0:a.shape[0], 0:a.shape[1]]
+    keep = op & (edge | ((xs + ys) % 2 == 0))
+    shade = np.clip((lum / 255.0 * len(WALL_SMOKE)).astype(int), 0, len(WALL_SMOKE) - 1)
+    out[keep, :3] = np.array(WALL_SMOKE, np.uint8)[shade[keep]]
+    dark = op & (lum < 40)
+    out[dark & keep, :3] = a[dark & keep, :3]            # the outline as it was
+    glow = op & (sat > 0.55) & (mx > 200)
+    out[glow, :3] = WALL_GLOW
+    out[keep | glow, 3] = 255
+    return out
+
+
+def wall_sheet(sheet):
+    return {tag: [(shadow_frame(a), ms) for a, ms in frames] for tag, frames in sheet.items()}
+
+
+def form_sheets(hero, sheet):
+    """{form sheet name: sheet} for a hero with form bodies (FORM_SHEETS) whose strips are all there."""
+    out = {}
+    if hero not in FORM_SHEETS:
+        return out
+    with open(os.path.join(SRC, f"{hero}_cells.json"), encoding="utf-8") as f:
+        spec = json.load(f)
+    table, cell = spec["tags"], tuple(spec.get("cell", CELL))
+    for name, prefix in FORM_SHEETS[hero].items():
+        if not all(os.path.exists(os.path.join(SRC, f"{hero}_{prefix}{t}.png")) for t in FORM_BODY):
+            continue
+        fs = dict(sheet)
+        for tag in FORM_BODY:
+            rows = table[tag]
+            fr = cells(hero, prefix + tag, len(rows), cell)
+            fs[tag] = [(G.centre_frame(fr[k], -rows[k]["pivot"][0], -rows[k]["pivot"][1]), rows[k]["ms"])
+                       for k in range(len(rows))]
+        for tag in FORM_ACTIONS:
+            if prefix + tag in sheet:
+                fs[tag] = sheet[prefix + tag]
+        # R's dive into the host has no form strip: the form's own exit played backwards (out of the host, reversed,
+        # is into it), as many frames as the dive, on the dive's timings - else every R showed the base Kayn for a
+        # moment (「变身后还有一定几率变回去」)
+        for tag, src in FORM_REVERSED.items():
+            if prefix + src in sheet and tag in sheet:
+                back = [a for a, _ in reversed(sheet[prefix + src])]
+                fs[tag] = [(back[k % len(back)], ms) for k, (_, ms) in enumerate(sheet[tag])]
+        for tag, src in FORM_RETIMED.items():
+            if tag in sheet and src in fs:
+                pics, n = [a for a, _ in fs[src]], len(sheet[tag])
+                fs[tag] = [(pics[k * len(pics) // n], ms) for k, (_, ms) in enumerate(sheet[tag])]
+        out[name] = fs
+    return out
+
+
 def build(hero):
     """{tag: [(frame centred on its pivot, ms)]} and {tag: [(head column from the pivot, moved)]}."""
     with open(os.path.join(SRC, f"{hero}_cells.json"), encoding="utf-8") as f:
@@ -1059,6 +1151,15 @@ def main():
         for tag, fx in bake(hero, sheet).items():
             print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
+        forms = form_sheets(hero, sheet)
+        for name, fsheet in forms.items():
+            fw, fh = G.write_sheet(os.path.join(MOD, "champions", f"league_{name}"), fsheet)
+            print(f"league/champions/league_{name}#sheet.png {fw}x{fh}: {hero}'s sheet with the form's "
+                  f"{', '.join(FORM_BODY)}")
+        for name, s in [(hero, sheet)] + list(forms.items()):
+            if name in WALL_SHEETS:
+                ww, wh = G.write_sheet(os.path.join(MOD, "champions", f"league_{WALL_SHEETS[name]}"), wall_sheet(s))
+                print(f"league/champions/league_{WALL_SHEETS[name]}#sheet.png {ww}x{wh}: {name} as the in-wall shadow")
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))
         print(f"league/champions/league_{hero}#sheet.png {w}x{h}: {len(frames)} frames, {colours} colours, "

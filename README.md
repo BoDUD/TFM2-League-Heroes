@@ -2174,8 +2174,8 @@ python tools/art/preview_aatrox.py
 |---|---|
 | 定位 | 打野（近战刺客，分类 Assassin），用户 10 月 2 日排的第十一组的打野。暗影刺客凯隐和镰刀拉亚斯特：打中英雄攒两种印记，先攒满的那种变身——暗裔杀手（拉亚斯特）吸血、按最大生命值打，影流刺客进入战斗后追加真实伤害、W 更远 |
 | 普攻 | 镰刀挥砍，100% 攻击力的物理伤害，射程 24000，攻击间隔 50 tick，第 10 tick 打中（动作第 4 帧） |
-| 被动 | 「暗裔魔镰」（用户选：主包近似 + 扩展包照搬）。英雄联盟按被打的英雄近战还是远程分，数据读不到对方的攻击距离：主包里技能打中身边的英雄攒暗裔（2 次），W 只打中远处的英雄攒影流（1 次），先满的变身；数据 buff 阵亡就没了，所以每条命重攒（门槛这么低是因为「你也要考虑不安装扩展包的人」：模拟里 81% 的命会变身，中位 33 秒）。暗裔杀手：对英雄的伤害回复 20%；影流刺客：进入战斗 3 秒内打英雄追加 8 + 15% 攻击力的真实伤害（8 秒冷却）。变身时播变身动作、0.6 秒减伤 50%，之后身上一直有形态光环，普攻、Q、W、R 破体换成那个形态的出招动作（待机、跑步、受击、死亡引擎不让换，还是本体，`form-switch` 的研究见 `tools/art/rig_kayn.py` 的说明） |
-| 扩展包 | `addons/league_kayn_form`（原生代码，可选）：照英雄联盟分近战 / 远程（本包英雄按各自的攻击距离，35000 以上算远程，别的 mod 的英雄按挂标记时的距离猜），各 14 次攒满；形态记在被动里，阵亡不丢、复活自动补回。不装也能玩，主包是完整的近似版 |
+| 被动 | 「暗裔魔镰」（用户选：主包近似 + 扩展包照搬）。英雄联盟按被打的英雄近战还是远程分，数据读不到对方的攻击距离：主包里技能打中身边的英雄攒暗裔（2 次），W 只打中远处的英雄攒影流（1 次），先满的变身；数据 buff 阵亡就没了，所以每条命重攒（门槛这么低是因为「你也要考虑不安装扩展包的人」：模拟里 81% 的命会变身，中位 33 秒）。暗裔杀手：对英雄的伤害回复 20%；影流刺客：进入战斗 3 秒内打英雄追加 8 + 15% 攻击力的真实伤害（8 秒冷却）。变身时播变身动作、0.6 秒减伤 50%，之后身上一直有形态光环，普攻、Q、W、R 破体换成那个形态的出招动作（待机、跑步、受击、死亡引擎按名字自动播，数据换不了，还是本体，`form-switch` 的研究见 `tools/art/rig_kayn.py` 的说明；装了附加包整个身体都换，见下一行） |
+| 扩展包 | `addons/league_kayn_form`（原生代码，可选，v0.2.0，在附加包合集里）：照英雄联盟分近战 / 远程（本包英雄按各自的攻击距离，35000 以上算远程，别的 mod 的英雄按挂标记时的距离猜），各 14 次攒满；形态记在被动里，阵亡不丢、复活自动补回。**完整变身**（游戏 0.6.2）：变身后待机、跑步、受击、阵亡也是形态的样子（用户：要像创意工坊的佛耶戈那样整个变身），按屏幕上的比赛时钟换（游戏先在后台算完整局再回放，按后台换会早好几分钟）。**掠影步穿墙**：Q 后 2 秒里隔着地图的墙追最近的敌方英雄，人在墙里是一团暗影（Codex 画的暗影雾和进出墙的溅开）。不装也能玩，主包是完整的近似版；详见 [附加包说明](addons/league_kayn_form/README.md) |
 | 技能1 | Q「巨镰横扫」+ E「掠影步」（用户选：并进 Q）：对 42000 内的敌人施放（清线、打野也用），冷却 6 秒。8 tick 冲过去，第 12 tick 原地转一圈（半径 24000），冲刺和旋转都造成 40 + 55% 攻击力的物理伤害（每个敌人各一次），暗裔额外 4% 最大生命值。转完 2 秒掠影步：移速 +35%（影流 +55%）、能穿墙、回复 20 + 20% 攻击力 |
 | 技能2 | W「利刃纵贯」：朝方向施放（50000），冷却 8 秒。镰刀上拉亚斯特的眼睛蓄力 0.55 秒（敌人看得到、躲得掉），然后一长条斩击：长 62000（影流 80000）、宽 7000，55 + 100% 攻击力的物理伤害，减速 50% 0.5 秒再 25% 1 秒；暗裔把英雄击飞 0.75 秒。瞄着的英雄被打中约 65% |
 | 大招 | R「裂舍影」：对 55000 内、队伍最近打过的敌方英雄施放，冷却 50 秒。0.2 秒扑过去钻进他体内 2 秒（隐身、无法选中、免控，跟着他走，他头上有标记），然后破体而出：110 + 150% 攻击力的物理伤害；暗裔额外 10% 最大生命值并吸血 70%，影流刷新被动 |
@@ -2190,9 +2190,11 @@ python tools/art/preview_aatrox.py
 python tools/lol/extract_kayn.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
 python tools/lol/native_pose.py assets/source/kayn/poses.json --out <渲染文件夹>   # 动作参考帧
 python tools/art/design_kayn.py           # 三张造型
-python tools/art/import_native.py --hero kayn
-python tools/art/import_kayn.py           # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸
+python tools/art/rig_kayn_forms.py        # 两种形态的待机、跑步、受击、阵亡（附加包的完整变身用）
+python tools/art/import_native.py --hero kayn   # 也写变身图集 league_kayn_darkin / _shadow 和墙里的 *_wall
+python tools/art/import_kayn.py           # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸；--wall <文件夹> 读穿墙特效
 python tools/art/preview_kayn.py
+python tools/art/preview_kayn_forms.py    # 完整变身的演示
 ```
 
 美术（原画的提示词见 [`assets/source/kayn/PICTURE_PROMPT.md`](assets/source/kayn/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/kayn/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/kayn/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/kayn/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](assets/source/kayn/codex_picture/)、[`codex_model/`](assets/source/kayn/codex_model/)、[`codex_fx/`](assets/source/kayn/codex_fx/)）：
@@ -2201,7 +2203,11 @@ python tools/art/preview_kayn.py
 - 导入：待机 6 帧都用定稿，第 3–5 帧从脚底上一行的接缝往下沉一格呼吸（`BOB`）；按近处那只金色眼睛定头的位置（`EYES`）；描边补齐（`COMPLETE`）；R 体内的 `r_hidden` 是一帧全透明。
 - 特效用 Codex 画的 23 种（生图原稿，`import_kayn.py --raw` 同烬：每个游戏像素取覆盖的原稿像素里最多的颜色，归到本体（暗紫转深红、青色刃光）、暗裔（血红到淡金）、影流（靛蓝到淡青）三套色阶），另 8 种是本体那张按色阶换成两种形态的颜色（普攻命中、Q 旋转、W 蓄力、R 标记）。变身的火柱和触手按 46 × 60 缩（原稿太窄，按高缩会盖在人身上）；W 的蓄力在各形态镰刀的眼睛上（本体 (31, −2)、暗裔 (41, −7)、影流 (36, −2)）；W 的斩击是范围投射物的画面，以线段中点为中心、长 62 / 80。
 
-逐帧预览：[`docs/preview/league_kayn_showcase_key.png`](docs/preview/league_kayn_showcase_key.png)。
+- 完整变身（附加包）：两种形态的待机、跑步、受击、阵亡用定稿的部件摆（`tools/art/rig_kayn_forms.py`，用户选「用造型像素摆」）。待机是定稿本身；跑步是定稿自己的两条腿各绕胯转 ±36°，两胯往中间并 3 格，脚能交叉（「走路没有交叉步」），上身整体前移一格，不斜切（斜切会把镰刀切歪：「武器看起来有点歪」）；受击后退两格再一格；阵亡是后仰、下蹲、跪下、伏身，最后按 4 × 4 的抖动网格分三步消散（两种形态比人宽，像本体那样转 90° 躺下会竖起来）。出招沿用两种形态的出招动作；R 扑进去和变身那一下用形态自己的画（R 出场倒放、待机），不然会闪回本体。墙里的样子是各自待机按亮度换成暗影紫，中间棋盘格透出地面，饱和的亮色换成深红（`import_native.py` 的 `shadow_frame`）；暗影雾和溅开是 Codex 画的（提示词 [`PROMPTS_WALL.md`](assets/source/kayn/PROMPTS_WALL.md)，`tools/art/pack_kayn_wall.py` 打包参考图）。
+
+![凯隐的完整变身：本体、暗裔、影流三行，待机、跑步、受击、阵亡和墙里的暗影五列](docs/preview/league_kayn_forms.gif)
+
+逐帧预览：[`docs/preview/league_kayn_showcase_key.png`](docs/preview/league_kayn_showcase_key.png)、[`league_kayn_forms_key.png`](docs/preview/league_kayn_forms_key.png)。
 
 ## 英雄：希维尔
 
