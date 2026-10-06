@@ -107,6 +107,12 @@ LEGS_ROW = 60
 LEGS_LEFT = 8
 # the hit frames: the idle knocked back this many squares (frame 1, frame 2)
 HIT_RECOIL = [-2, -1]
+# 9. E (the user: 「看看洛E回来的方向能不能面向队友 红色方好像不对」): the game turns him for the whole W -> E cast by
+# where its target - the enemy W landed on - stands, so the E flight back to an ally (Codex drew it heading the way he
+# faces, at the enemy) flew backwards on both sides. The flight and the landing are mirrored about the pivot: he heads
+# away from the enemy, toward his own side, where the ally E picks nearly always is (the nearest one within 25000,
+# then 50000, 90000).
+FACE_ALLY = ("e_dash", "e_land")
 
 
 def _col(x, ys, ch):
@@ -452,6 +458,14 @@ def build():
                 h = fix_holes(f, hm)
                 if h:
                     notes.append(f"holes +{h}")
+            if tag in FACE_ALLY:
+                px = cells["tags"][tag][k]["pivot"][0]
+                src = 2 * px - np.arange(f.shape[1])
+                ok = (src >= 0) & (src < f.shape[1])
+                g = np.zeros_like(f)
+                g[:, ok] = f[:, src[ok]]
+                f[:] = g
+                notes.append("turned to the ally")
             if notes:
                 log.append(f"{tag} {k + 1}: " + ", ".join(notes))
         out[tag] = (orig, a, slots)
