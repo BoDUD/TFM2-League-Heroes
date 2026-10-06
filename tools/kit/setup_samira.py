@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_samira in every language, description + skill_name),
 sound/sfx/league_samira_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and the
-ban/pick card's point once the sprite is in), mod.mod_info (0.65.0, Samira named). Only her keys change in the shared
+ban/pick card's point once the sprite is in), mod.mod_info (0.66.0, Samira named). Only her keys change in the shared
 files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: the client's zh_CN string table (莎弥拉 / 沙漠玫瑰, 悍勇本色, 交火, 锋旋, 狂飙, 炼狱扳机) and Data Dragon 16.19.1
 (zh_TW 煞蜜拉 / 荒漠薔薇, 敢死風采, 狂戰本能, 劍刃風暴, 狂野突進, 地獄火狂襲; ko 사미라 / 사막의 장미, 무모한 충동, 천부적 재능,
