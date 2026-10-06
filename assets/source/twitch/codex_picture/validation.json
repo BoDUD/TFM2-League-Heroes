@@ -1,0 +1,36 @@
+[
+  {
+    "file": "twitch-model-A.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 254,
+    "transparent_pixels": 1019858,
+    "solid_bbox_alpha128": [
+      52,
+      88,
+      1484,
+      957
+    ]
+  },
+  {
+    "file": "twitch-model-B.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 254,
+    "transparent_pixels": 1259603,
+    "solid_bbox_alpha128": [
+      287,
+      179,
+      1277,
+      886
+    ]
+  }
+]
