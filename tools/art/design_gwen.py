@@ -99,7 +99,7 @@ C.update({"y": hx("#8ff2fe"), "H": hx("#28ddfc"), "h": hx("#0187fa"), "R": hx("#
           "S2": hx("#e89620"), "Ad": hx("#1d1444"), "Kp": hx("#653a94"), "Lb": hx("#4516eb")})
 PAD = (18, 10)
 LEAGUE = {"blade": ((20, 26), (-12, 40.5), 3.4),
-          "rings": [((31.0, 22.5), 2.8, 1.3), ((33.0, 28.5), 2.8, 1.3)],
+          "rings": [((31.5, 21.5), 3.3, 1.3), ((33.5, 28.5), 3.3, 1.3)],
           "spikes": [((33.5, 20.5), (37.5, 18), 1.8), ((35.5, 28.5), (39.5, 28.5), 1.8), ((34, 31), (36.5, 34), 1.6),
                      ((29.5, 20), (29, 16.5), 1.6)],
           "shank": [((22, 25), (30, 24), 1.6), ((22, 26), (31, 28.5), 1.6)],
@@ -263,13 +263,29 @@ def league_blade(layer, p0, p1, w0):
                 layer[y, x, 3] = 255
 
 
+# the rings' holes are hearts (the user: 「剪刀孔请用可爱的形状」), upright at any angle: rows from the top, columns
+# from the left of the 5 x 4 middle of the ring's disc ("#" the hole; 3 x 3 in a 5-square disc read as a blot)
+HEART = [".#.#.", "#####", ".###.", "..#.."]
+
+
 def league_ring(layer, c, ro, ri):
+    """A ring handle: a disc of radius ro on the square nearest c (so the heart sits on whole squares), lit top left,
+    a heart-shaped hole (HEART) in its middle - the hole drawn in the outline colour (ri is the old round hole's
+    radius, kept in the tables)."""
+    cx, cy = np.floor(c[0]) + 0.5, np.floor(c[1]) + 0.5
     for y in range(layer.shape[0]):
         for x in range(layer.shape[1]):
-            dx, dy = x + 0.5 - c[0], y + 0.5 - c[1]
-            if ri < np.hypot(dx, dy) <= ro:
+            dx, dy = x + 0.5 - cx, y + 0.5 - cy
+            if np.hypot(dx, dy) <= ro:
                 layer[y, x, :3] = C["y"] if dx + dy < -1.5 else (C["h"] if dx + dy > 1.5 else C["H"])
                 layer[y, x, 3] = 255
+    for r, row in enumerate(HEART):
+        for i, ch in enumerate(row):
+            if ch == "#":
+                y, x = int(cy - 0.5) - 1 + r, int(cx - 0.5) - 2 + i
+                if 0 <= y < layer.shape[0] and 0 <= x < layer.shape[1]:
+                    layer[y, x, :3] = C["I"]
+                    layer[y, x, 3] = 255
 
 
 def league_scissors(fig, with_mask=False):
