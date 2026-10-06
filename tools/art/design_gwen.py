@@ -423,17 +423,17 @@ POLISH_FACE = (62, 68, 63, 69)                     # columns, rows of the face: 
 CURLS_ = [(57.5, 68.5, 3.9, True), (73.0, 68.5, 3.9, False)]   # centre, radius, winding
 BOW_ = ["fd.df", "ddqdd", "bd.db"]
 BOWS_AT = [(57, 60), (73, 60)]
-LEG_DX = 2                                    # the legs under her middle (two columns right)
 SIDES = {62: ("0tnkhagh", "hgaknkh0"),
          63: ("0nkhgagh", "ggankhg0"),
          64: ("0khgaggh", "hgakhga0")}           # columns 54-61 and 69-76
-LEGS = {93: "---0sxs0-0sxs0--",
-        94: "---0xsu0-0usx0--",
-        95: "---0mqm0-0mqm0--",
-        96: "--0smmb0-0bmms0-",
-        97: "-0qssmb0-0bmssq0",
-        98: "-0sss0b0-0b0sss0",
-        99: "-0000.0---0.0000"}                   # the boots, from column 56; '-' leaves the square
+THIGHS = (63, 66, 70)                         # rows 87-90 one block: the near thigh 63-66, the far 67-70
+CALVES = {91: ((62, 65), (67, 70)), 92: ((61, 65), (67, 70)), 93: ((61, 64), (67, 70))}  # near, far
+BOOTS = {94: ((61, "sxxsm"), (67, "msxs")),   # (first column, colours): the near boot facing us, its toe out to
+         95: ((61, "msqsb"), (67, "bmqm")),   # the left; the far boot turned to her front (image right), its toe
+         96: ((60, "ssxsb"), (67, "bmss")),   # out to the right - a gold buckle each, a gold toe cap
+         97: ((61, "qssb"), (67, "bmsss")),
+         98: ((62, "sssb"), (68, "bmssq"))}
+THIGH_STAR = ((69, 87, "u"), (68, 88, "q"), (69, 88, "u"), (70, 88, "q"), (69, 89, "l"))
 CROWN = {54: "--.000.........",
          55: "--0ntn0........",
          56: "--0nn0.........",
@@ -559,30 +559,48 @@ def polish(canvas, mask):
     if ch(84, 65) in "qul":
         put(65, 84, "b")
     # 5. the legs redrawn (the user: 「腿能更新吗」, the picture's): diamond-checked violet stockings lit on the left edge,
-    # a small gold star on the far thigh; white heeled boots - a gold star buckle at the ankle, a gold toe cap, the
-    # toes out, a gap under the arch for the heel - two columns right of the old legs, under her middle (「腿移中间点
-    # 呗」: they stood left of the skirt's middle; the run splits them at column 66)
+    # a small gold star on the far thigh, white boots with a gold buckle and toe cap - standing as the first design
+    # did, a little turned (「你看看之前的格温的站姿」「你现在站的太正了」: the redrawn legs stood square, apart, toes out):
+    # the thighs together, the near leg out to the left from the knee, its boot facing us, the far leg straight, its
+    # boot turned to her front; under her middle (「腿移中间点呗」; the run splits them at column 66)
     for y in range(87, 100):
-        for x in range(56, 74):
-            if not mask[y, x] and (y >= 89 or 58 <= x <= 71):
+        for x in range(56, 76):
+            if not mask[y, x] and (y >= 89 or 58 <= x <= 73):
                 put(x, y, ".")
-    dx = LEG_DX
-    for y in range(87, 93):
-        legs = ((60, 63), (65, 68)) if y < 91 else ((60, 62), (66, 68))
-        for x0, x1 in legs:
-            x0, x1 = x0 + dx, x1 + dx
-            put(x0 - 1, y, "0")
-            put(x1 + 1, y, "0")
-            for x in range(x0, x1 + 1):
-                put(x, y, "f" if (x + y) % 2 == 0 else "d")
+    legs = np.zeros(mask.shape, bool)
+
+    def stocking(y, x0, x1, lit):
+        for x in range(x0, x1 + 1):
+            put(x, y, "f" if (x + y) % 2 == 0 else "d")
+            legs[y, x] = True
+        if lit:
             put(x0, y, "j")
-            put(x1, y, "b" if (x1 + y) % 2 else "d")
-    for x, y, c in ((67, 87, "u"), (66, 88, "q"), (67, 88, "u"), (68, 88, "q"), (67, 89, "l")):
-        put(x + dx, y, c)
-    for y, row in LEGS.items():
-        for i, c in enumerate(row):
-            if c != "-" and not mask[y, 56 + i + dx]:
-                put(56 + i + dx, y, c)
+        put(x1, y, "b" if (x1 + y) % 2 else "d")
+
+    t0, t1, t2 = THIGHS
+    for y in range(87, 91):
+        stocking(y, t0, t1, True)
+        stocking(y, t1 + 1, t2, False)
+        if y >= 89:
+            put(t1 + 1, y, "b")                           # the crease between the thighs
+    for y, ((n0, n1), (f0, f1)) in CALVES.items():
+        stocking(y, n0, n1, True)
+        stocking(y, f0, f1, False)
+    for x, y, c in THIGH_STAR:
+        put(x, y, c)
+    for y, segs in BOOTS.items():
+        for x0, cols in segs:
+            for i, c in enumerate(cols):
+                put(x0 + i, y, c)
+                legs[y, x0 + i] = True
+    for y in range(87, 100):                              # one outline round them, never over the skirt or scissors
+        for x in range(56, 76):
+            if not (legs[y, x] or mask[y, x] or a[y, x, 3]) and any(
+                    legs[y + dy, x + dx] for dy, dx in N4 if 0 <= y + dy < 128):
+                put(x, y, "0")
+    for y in range(91, 99):                               # and one column between them
+        if not legs[y, 66]:
+            put(66, y, "0")
     # the skirt's bottom edge closed: an outline square under each skirt square left over nothing - row 86 had a hole
     # above the near stocking and none under the two last squares on the right (「太奇怪了 找找分析修复一下」), row 87
     # where the legs moved from
