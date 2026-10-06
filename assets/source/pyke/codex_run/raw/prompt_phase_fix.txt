@@ -1,0 +1,11 @@
+Edit the first image's RUN cycle legs ONLY. First image is a failed Pyke running sheet; second is correct motion reference; third is approved Pyke skin; fourth is fixed upper body. Produce one 2048x768 sheet, 4 columns x2 rows, 512x384 each, green #00FF00 background. Pixel sprite style coarse 4x4 blocks on native128x96 grid. Keep upper body, head, harpoon and hanging claw fixed same size and position. ONLY redraw pants, knee guards and boots into a true alternating 8-frame side view run facing right in a deep crouch. Grey-green BAGGY trousers, brown leather boots, NEAR leg distinguished by large brown kneepad and GOLD buckle, far leg darker.
+CRITICAL explicit phases, row-major:
+1: maximum split stride, GOLD-knee NEAR leg back/LEFT with bent knee and boot left; darker FAR leg forward/RIGHT with right boot planted.
+2: near leg swinging forward inward from left; far planted foot moves back.
+3: legs CROSS beneath hips, GOLD knee near center, near boot passes far boot, close together below belly.
+4: near leg extends toward RIGHT/front for landing, far curls back LEFT.
+5: opposite maximum split stride to frame1: GOLD-knee NEAR leg forward/RIGHT and boot planted at right; darker FAR leg bent back/LEFT and boot lifted at left. Gold kneepad MUST visibly move from LEFT in frame1 to RIGHT in frame5.
+6: near planted foot begins sweeping backward LEFT, far swings forward.
+7: opposite crossing under hips; near gold knee center, far forward foot passes beneath body.
+8: near knee bends backward LEFT preparing frame1, far extends to RIGHT.
+Do not just move the same silhouette; draw knee flexion and alternating leg occlusion. Two covered pant legs, no bare skin. No cloth or sword drawn in the leg area. Use approved skin's palette and outline. Head top native row41 and planted sole row81; no pixels below82. 40-ish pixel rows high head-to-foot. No text. Keep feet narrower than shoulders+weapon. Copy skeletal motion reference, not its character.

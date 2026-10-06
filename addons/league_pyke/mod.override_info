@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_pyke": {
+    "remapping": "asset/league_pyke/override/league_pyke",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_pyke/text/champion",
+    "type": "merge"
+  }
+}

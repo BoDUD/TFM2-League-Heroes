@@ -1,0 +1,281 @@
+{
+ "hero": "pyke",
+ "champ": "Pyke",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.2,
+  "legs": 0.85,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "Pyke_Idle1@0",
+ "hide_submeshes": [
+  "Pyke_Base_Nensi_Mat",
+  "Pyke_Base_Scroll_Mat"
+ ],
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Pyke_Idle1@0",
+     200
+    ],
+    [
+     "Pyke_Idle1@0",
+     200
+    ],
+    [
+     "Pyke_Idle1@0",
+     200
+    ],
+    [
+     "Pyke_Idle1@0",
+     200
+    ],
+    [
+     "Pyke_Idle1@0",
+     200
+    ],
+    [
+     "Pyke_Idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "Pyke_Idle1@0",
+   "frames": [
+    [
+     "Pyke_run_base@0",
+     135
+    ],
+    [
+     "Pyke_run_base@135",
+     135
+    ],
+    [
+     "Pyke_run_base@270",
+     135
+    ],
+    [
+     "Pyke_run_base@405",
+     135
+    ],
+    [
+     "Pyke_run_base@540",
+     135
+    ],
+    [
+     "Pyke_run_base@675",
+     135
+    ],
+    [
+     "Pyke_run_base@810",
+     135
+    ],
+    [
+     "Pyke_run_base@945",
+     135
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Pyke_Idle1@0>Pyke_attack1@240:0.5",
+     60
+    ],
+    [
+     "Pyke_attack1@240",
+     60
+    ],
+    [
+     "Pyke_attack1@320",
+     80
+    ],
+    [
+     "Pyke_attack1@400",
+     70
+    ],
+    [
+     "Pyke_attack1@520",
+     70
+    ],
+    [
+     "Pyke_attack1@700>Pyke_Idle1@0:0.5",
+     60
+    ]
+   ]
+  },
+  "skill_stab": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Pyke_Idle1@0>Pyke_spell1_short_hit@40:0.5",
+     70
+    ],
+    [
+     "Pyke_spell1_short_hit@120",
+     70
+    ],
+    [
+     "Pyke_spell1_short_hit@200",
+     80
+    ],
+    [
+     "Pyke_spell1_short_hit@280",
+     70
+    ],
+    [
+     "Pyke_spell1_short_hit@360>Pyke_Idle1@0:0.5",
+     77
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 5,
+   "frames": [
+    [
+     "Pyke_Idle1@0>Pyke_Channel_WindUp@200:0.5",
+     150
+    ],
+    [
+     "Pyke_Channel_WindUp@408",
+     150
+    ],
+    [
+     "Pyke_Channel_WindUp@612",
+     150
+    ],
+    [
+     "Pyke_Channel_WindUp@817",
+     150
+    ],
+    [
+     "Pyke_spell1_long_hook@100",
+     120
+    ],
+    [
+     "Pyke_spell1_long_hook@200>Pyke_Idle1@0:0.5",
+     113
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "Pyke_Idle1@0>Pyke_spell3@325:0.5",
+     60
+    ],
+    [
+     "Pyke_spell3@325",
+     60
+    ],
+    [
+     "Pyke_spell3@379",
+     60
+    ],
+    [
+     "Pyke_spell3@379>Pyke_Idle1@0:0.5",
+     53
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.2,
+   "rise": 0.15,
+   "release": 4,
+   "frames": [
+    [
+     "Pyke_Idle1@0>Pyke_spell4@0:0.5",
+     100
+    ],
+    [
+     "Pyke_spell4@150",
+     100
+    ],
+    [
+     "Pyke_spell4@300",
+     100
+    ],
+    [
+     "Pyke_spell4@450",
+     120
+    ],
+    [
+     "Pyke_spell4@525",
+     120
+    ],
+    [
+     "Pyke_spell4@525>Pyke_Idle1@0:0.5",
+     127
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Pyke_Idle1@0>Pyke_Death@0:0.25",
+     100
+    ],
+    [
+     "Pyke_Idle1@0>Pyke_Death@0:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Pyke_Death@0",
+     100
+    ],
+    [
+     "Pyke_Death@200",
+     110
+    ],
+    [
+     "Pyke_Death@400",
+     120
+    ],
+    [
+     "Pyke_Death@700",
+     130
+    ],
+    [
+     "Pyke_Death@1000",
+     150
+    ],
+    [
+     "Pyke_Death@1500",
+     200
+    ],
+    [
+     "Pyke_Death@2500",
+     300
+    ],
+    [
+     "Pyke_Death@4000",
+     400
+    ]
+   ]
+  }
+ }
+}

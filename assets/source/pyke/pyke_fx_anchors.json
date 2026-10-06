@@ -1,0 +1,18 @@
+{
+  "a_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "q_charge": {"cell": [13, 15], "anchor": [6, 7], "frames": 4},
+  "q_hook": {"cell": [49, 11], "anchor": [24, 5], "frames": 4},
+  "q_hit": {"cell": [19, 19], "anchor": [9, 9], "frames": 5},
+  "q_stab_hit": {"cell": [19, 15], "anchor": [9, 7], "frames": 4},
+  "w_cast": {"cell": [31, 33], "anchor": [15, 16], "frames": 5},
+  "e_left": {"cell": [29, 33], "anchor": [14, 16], "frames": 6},
+  "e_phantom": {"cell": [45, 17], "anchor": [22, 8], "frames": 4},
+  "e_hit": {"cell": [23, 21], "anchor": [11, 10], "frames": 5},
+  "e_stun": {"cell": [17, 11], "anchor": [8, 5], "frames": 4},
+  "q_slow": {"cell": [19, 13], "anchor": [9, 6], "frames": 4},
+  "r_mark": {"cell": [59, 31], "anchor": [29, 15], "frames": 6},
+  "r_strike": {"cell": [61, 51], "anchor": [30, 25], "frames": 5},
+  "r_hit": {"cell": [25, 25], "anchor": [12, 12], "frames": 5},
+  "r_reset": {"cell": [25, 29], "anchor": [12, 14], "frames": 6},
+  "p_heal": {"cell": [25, 69], "anchor": [12, 34], "frames": 6}
+}
