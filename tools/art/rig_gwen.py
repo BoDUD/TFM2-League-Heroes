@@ -303,6 +303,8 @@ def stand(P, pose):
     clear_ok = lambda x, y: not body[y, x] or ink[y, x]            # the near arm's outline: never over body colours
     c = a.copy()
     keep = np.zeros(a.shape[:2], bool)                            # the weapon's and the needle's outline stays black
+    if far is None:                                               # the idle's own pair too (cleaned, it changed shape
+        keep |= (P.scissors[..., 3] > 0) & (P.body[..., 3] == 0)  # frame to frame: 「上下摆动剪刀变形啊」)
     if far is not None:
         deg, sdeg, opening = far
         ring, col, hand = arm_cells(P, FAR_SH, deg)
@@ -443,6 +445,8 @@ def run_frame(P, k):
     K.put(c, shifted(tails, SWAY[k], dy), 0, 0, under=True)
     K.put(c, shifted(sc, 0, dy), 0, 0, under=True)
     c[SOLES + 1:] = 0
+    s4 = shifted(sc, 0, dy)
+    P.keep = (s4[..., 3] > 0) & (c == s4).all(-1)
     return c
 
 
@@ -450,6 +454,9 @@ def posed(P, pose):
     """A STAND frame: stand(), or for "leap" the run's frame of that number moved by "move"."""
     if "leap" in pose:
         c = shifted(run_frame(P, pose["leap"]), *pose.get("move", (0, 0)))
+        k4 = np.zeros(c.shape, np.uint8)
+        k4[P.keep] = 255
+        P.keep = shifted(k4, *pose.get("move", (0, 0)))[..., 3] > 0
         c[SOLES + 1:] = 0
         return c
     return stand(P, pose)
@@ -641,8 +648,10 @@ def breathe(P, d):
     top[BREATH_ROW + 1:] = 0
     a[:BREATH_ROW + 1] = 0
     K.put(a, shifted(top, 0, d), 0, 0)
-    K.put(a, shifted(P.scissors, 0, d), 0, 0, under=True)      # with the hand that holds them (they stayed: the grip
-    return finish(P, a)                                         # slid a row on the rings)
+    s4 = shifted(P.scissors, 0, d)
+    K.put(a, s4, 0, 0, under=True)                              # with the hand that holds them (they stayed: the grip
+    P.keep = (s4[..., 3] > 0) & (a == s4).all(-1)               # slid a row on the rings); their outline kept as drawn
+    return finish(P, a)
 
 
 def review_gif(P, built, path, z=4):
