@@ -80,7 +80,7 @@ P = {
     # skill2: E Leap (League: 700 range (evolved 900), 65-240 + 20% bonus AD, cd 22-12 s, evolved takedown reset)
     # -> W Void Spike (League: 1025 range, 1700 speed, 85-205 + 100% bonus AD, heal 55-155 within the blast, cd 9 s)
     "e_cd": 720, "e_range": 60000, "e_range_evo": 80000, "e_speed": 7000, "e_short_t": 8, "e_t": 14, "e_rad": 22000,
-    "e_dmg": 25, "e_ratio": 35, "w_at": 6, "w_t": 18, "w_speed": 9000, "w_len": 70000, "w_rad": 6000, "w_y": -6000,
+    "e_dmg": 25, "e_ratio": 35, "w_at": 6, "w_t": 18, "w_speed": 9000, "w_len": 70000, "w_rad": 6000, "w_y": 2000,
     "w_dmg": 30, "w_ratio": 50, "w_slow": 40, "w_slow_t": 120, "w_heal": 30, "w_heal_r": 15, "w_blast": 30000,
     "reset_mult": 10000,
     # ult: R Void Assault (League: stealth 1.25 s (evolved 2 s), +40% move speed, 2 casts (evolved 3), recast after 2 s,
