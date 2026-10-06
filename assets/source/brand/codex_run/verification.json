@@ -1,0 +1,194 @@
+{
+  "passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "upper_exact": true,
+      "colors": 22,
+      "bbox": [
+        46,
+        40,
+        83,
+        82
+      ],
+      "connected": true,
+      "feet": {
+        "left": [
+          55.0,
+          81
+        ],
+        "right": [
+          74.4,
+          81
+        ],
+        "near": [
+          74.4,
+          81
+        ],
+        "far": [
+          55.0,
+          81
+        ],
+        "near_minus_far_x": 19.4
+      }
+    },
+    {
+      "frame": 2,
+      "upper_exact": true,
+      "colors": 21,
+      "bbox": [
+        46,
+        39,
+        83,
+        82
+      ],
+      "connected": true,
+      "feet": {
+        "left": [
+          56.5,
+          77
+        ],
+        "right": [
+          65.82,
+          81
+        ],
+        "near": [
+          65.82,
+          81
+        ],
+        "far": [
+          56.5,
+          77
+        ],
+        "near_minus_far_x": 9.32
+      }
+    },
+    {
+      "frame": 3,
+      "upper_exact": true,
+      "colors": 22,
+      "bbox": [
+        46,
+        39,
+        83,
+        82
+      ],
+      "connected": true,
+      "feet": {
+        "left": [
+          60.2,
+          81
+        ],
+        "right": [
+          67.64,
+          81
+        ],
+        "near": [
+          67.64,
+          81
+        ],
+        "far": [
+          60.2,
+          81
+        ],
+        "near_minus_far_x": 7.44
+      }
+    },
+    {
+      "frame": 4,
+      "upper_exact": true,
+      "colors": 22,
+      "bbox": [
+        46,
+        40,
+        83,
+        82
+      ],
+      "connected": true,
+      "feet": {
+        "left": [
+          56.17,
+          81
+        ],
+        "right": [
+          75.0,
+          81
+        ],
+        "near": [
+          56.17,
+          81
+        ],
+        "far": [
+          75.0,
+          81
+        ],
+        "near_minus_far_x": -18.83
+      }
+    },
+    {
+      "frame": 5,
+      "upper_exact": true,
+      "colors": 22,
+      "bbox": [
+        46,
+        39,
+        83,
+        82
+      ],
+      "connected": true,
+      "feet": {
+        "left": [
+          57.2,
+          77
+        ],
+        "right": [
+          66.0,
+          81
+        ],
+        "near": [
+          57.2,
+          77
+        ],
+        "far": [
+          66.0,
+          81
+        ],
+        "near_minus_far_x": -8.8
+      }
+    },
+    {
+      "frame": 6,
+      "upper_exact": true,
+      "colors": 22,
+      "bbox": [
+        46,
+        39,
+        83,
+        82
+      ],
+      "connected": true,
+      "feet": {
+        "left": [
+          59.71,
+          81
+        ],
+        "right": [
+          68.56,
+          81
+        ],
+        "near": [
+          59.71,
+          81
+        ],
+        "far": [
+          68.56,
+          81
+        ],
+        "near_minus_far_x": -8.85
+      }
+    }
+  ],
+  "empty_last_two_cells": true,
+  "exact_8x": true,
+  "near_leg_lead_switch": true
+}

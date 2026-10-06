@@ -1303,6 +1303,8 @@ league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulve
 2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one unit): 0.94 a game; the base lightning
 mage 3.40 and league_lissandra 2.10 in the same batch - no change.
+league_brand (mid, --lane 2, 2026-10-06, Sear's 0.83 s stun after Conflagration, W's pillar on the stunned champion):
+1.73 a game; the base lightning mage 3.40, pyromancer 0.58 and league_xerath 1.17 in the same batch - no change.
 league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only onto a champion already in crowd
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
@@ -3454,6 +3456,12 @@ much.
 **An ult woven with attacks (league_gwen R).** League recasts Needlework three times with attacks between. One cast throws the three volleys as `Delayed` `LineRangeProjectile`s 36 ticks apart, but the action holds her only for the first throw (r_t0 + the pose): the later volleys fly from where she stands in the cast's direction while the AI attacks. Only the first carries a `CasterAnimation` (a later one would cut her attack pose).
 
 **A stack counter drawn by one buff per slot (league_gwen Q stacks).** qs1..qsk are all on at k stacks; each buff's view is one mark in its own slot over her head, so k marks show without any counting logic.
+
+**Stacks that blow up the third time, counted on him (league_brand passive, Blaze).** Every spell hit sets the unit ablaze: two `AddCasted Fire` instances (magic every 60 ticks for 240; one per hit, as League re-applies Blaze). Nothing reads a buff count on the target, so the stacks are league_kennen's caster ladder b_1 -> b_2 (240 ticks), climbed a tick later from a champion-only hit (a zone on `EnemyChampion`, or `RandomTarget {range: 1, EnemyChampion, from_projectile}` in a non-penetrating line's hit) behind a 3-tick lock per spell; a champion hit while b_2 holds adds an `unstable` buff (its picture) and `Delayed 120` a 1-tick lob onto him whose zone is the blast (magic + `FixedAttack target_hp_ratio`), and the ladder clears. The ladder also stands in for "the target is ablaze" (W's +25%, E's wider spread). The burn's own % max-health true damage (on every R bounce too) made the draft +5.62: dropped.
+
+**A bouncing ult without a projectile from the target (league_brand R, Pyroclasm).** Every projectile leaves from the caster (league_nami W), so after the seed's hit a 1-tick lob onto the target opens a chain of lobs on that spot (`travel_time` r_gap each, nested once per bounce - one level each, never a branch per level: two branches per bounce made 2^5 copies); each landing picks the next unit round the first spot with `RandomTarget from_projectile` - `EnemyChampion` first; after a champion hit (flag r_pc) only when a champion count zone found two (r_n2), else `EnemyWithoutTower` - and plays a seed falling on it, the hit r_fall ticks later. The cast is gated: a lob onto the target counts the enemies round it (u_1 -> u_2 flags); alone, the cast is called off and `Delayed 6` a 3-tick `ult_cooldown_mult` 4900 brings R back in 60 ticks (laid during the 6-tick action it did nothing: the cooldown starts when the action ends).
+
+**A combo into the other slot (league_brand E -> Q -> W).** skill2 (E then Q, on `EnemyChampion`) sets `q_champ` when Q's fireball hits a champion; q_rel + 6 ticks later, with W's shared cooldown flag w_cd off (the W slot's effect is an empty branch while it runs: league_leblanc W), it casts W's pillar on the `EnemyChampionInCC` in reach - the stunned one - and lays w_cd: three hits, the third stack.
 
 **One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
 Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself

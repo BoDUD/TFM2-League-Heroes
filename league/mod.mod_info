@@ -6,9 +6,9 @@
       "version": ">=0.4.11"
     }
   ],
-  "description": "League of Legends champions for Teamfight Manager 2: Garen, Ashe, Lux, Lee Sin, Soraka, Darius, Amumu, Yasuo, Jinx, Leona, Teemo, Master Yi, Annie, Miss Fortune, Janna, Malphite, Ekko, Yone, Ezreal, Thresh, Kayle, Fiddlesticks, Ahri, Lucian, Morgana, Riven, Briar, Akali, Vayne, Nami, Diana, Veigar, Jax, Taric, Tristana, Fiora, Fizz, Shaco, Caitlyn, Nocturne, Blitzcrank, Camille, LeBlanc, Kai'Sa, Sona, Kennen, Vi, Ryze, Jhin, Zilean, Aatrox, Kayn, Sivir, Twisted Fate, Rakan, Evelynn, Sett, Lissandra, Varus, Alistar, Tryndamere, Xerath, Xin Zhao, Samira, Pyke, Gwen and Kha'Zix. Kits rebuilt for TFM2 the LoL Reborn way (two basic abilities + ultimate, the rest folded in). Non-commercial fan project; League of Legends (c) Riot Games.",
-  "last_updated": "2026-10-06",
+  "description": "League of Legends champions for Teamfight Manager 2: Garen, Ashe, Lux, Lee Sin, Soraka, Darius, Amumu, Yasuo, Jinx, Leona, Teemo, Master Yi, Annie, Miss Fortune, Janna, Malphite, Ekko, Yone, Ezreal, Thresh, Kayle, Fiddlesticks, Ahri, Lucian, Morgana, Riven, Briar, Akali, Vayne, Nami, Diana, Veigar, Jax, Taric, Tristana, Fiora, Fizz, Shaco, Caitlyn, Nocturne, Blitzcrank, Camille, LeBlanc, Kai'Sa, Sona, Kennen, Vi, Ryze, Jhin, Zilean, Aatrox, Kayn, Sivir, Twisted Fate, Rakan, Evelynn, Sett, Lissandra, Varus, Alistar, Tryndamere, Xerath, Xin Zhao, Samira, Pyke, Gwen, Kha'Zix and Brand. Kits rebuilt for TFM2 the LoL Reborn way (two basic abilities + ultimate, the rest folded in). Non-commercial fan project; League of Legends (c) Riot Games.",
+  "last_updated": "2026-10-07",
   "mod_id": "league",
   "name": "League of Legends Heroes",
-  "version": "0.69.0"
+  "version": "0.70.0"
 }
