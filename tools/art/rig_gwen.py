@@ -61,13 +61,15 @@ NEAR_OFF = {75: (58, 59), 76: (58, 59), 77: (58, 58), 78: (57, 58), 79: (57, 58)
 NEAR_FILL = {75: (58, "0e"), 76: (58, "0e"), 77: (58, "0e"), 78: (58, "0"), 79: (58, "0")}
 FAR_OFF = {74: (71, 73), 75: (71, 73), 76: (71, 72), 77: (71, 72)}
 FAR_FILL = {74: (71, "b0"), 75: (71, "b0"), 76: (71, "e0"), 77: (71, "e0")}
-NEAR_SH, FAR_SH = (58, 75), (71, 74)   # the arms' first squares (top-left of the two-square cross-section)
-ARM_STEPS, GLOVE_STEPS = 5, 2         # the hanging arm shows 3 + 2: its top is under the sleeve and the curls
+NEAR_SH, FAR_SH = (58, 75), (71, 73)   # the arms' first squares (top-left of the two-square cross-section): the far one
+                                       # right under its puffed sleeve, so it shows over the curls
+ARM_STEPS, GLOVE_STEPS = 3, 2         # the design's arm: 3 skin steps and the glove's 2 (the user: longer ones were wrong)
 STRAY = [(58, 86), (58, 87), (58, 88)] # squares left of the old small scissors under the skirt's left edge
 LEG_TOP, LEG_SPLIT = 86, 64            # the legs' rows (to the soles) and the column between them
 SC_LEN, SC_OPEN = 30, 44               # the held scissors: blade length (squares), the snip's opening (degrees)
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
-HAIR_ROWS = (56, 80)                   # hang behind her shoulders), under everything else
+HAIR_ROWS = (56, 80)                   # hang behind her shoulders), under everything else; right of the torso's edge
+TORSO_RIGHT = 70                       # (column 70) only the curls and the sleeve are there: the far arm goes over them
 
 
 class Parts:
@@ -90,7 +92,7 @@ class Parts:
         self.hair = np.zeros(body.shape[:2], bool)
         ys, xs = np.nonzero(body[..., 3] > 0)
         for y, x in zip(ys, xs):
-            if HAIR_ROWS[0] <= y <= HAIR_ROWS[1] and inv.get(tuple(body[y, x, :3])) in HAIR:
+            if HAIR_ROWS[0] <= y <= HAIR_ROWS[1] and (inv.get(tuple(body[y, x, :3])) in HAIR or x > TORSO_RIGHT):
                 self.hair[y, x] = True
 
 
@@ -276,11 +278,34 @@ def stand(P, pose):
 
 
 # ------------------------------------------------------------------------------------------------ the run
-# one leg's cycle (8 frames): (columns forward, rows lifted): contact, loading, mid-stance, push, toe-off, kick,
-# passing, reach; the other leg half a cycle later
-CYCLE = [(3, 0), (2, 0), (0, 0), (-2, 0), (-3, 1), (-2, 2), (0, 2), (2, 1)]
-BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+# one leg's cycle (8 frames): (knee columns, ankle columns from the hip - + forward = image right -, rows lifted):
+# contact, loading, mid-stance, push, toe-off, kick, passing, reach; the other leg half a cycle later. The hip stays
+# under the skirt; the thigh rows lean to the knee, the shin rows on to the ankle, the boot rows move whole with the
+# ankle (the user: v1's legs slid as straight sticks, 「走路的时候 说不出的怪」)
+CYCLE = [(1, 3, 0), (1, 1, 0), (0, -1, 0), (-1, -2, 0), (-1, -3, 1), (0, -2, 2), (1, 0, 2), (2, 3, 1)]
+BOB = [1, 1, 0, 0, 1, 1, 0, 0]
+KNEE_ROW, BOOT_ROW = 91, 94            # the stockings to the knee, the shin, the boots from row 94
 FAR_SHADE = {"f": "d", "d": "b", "x": "s", "s": "m", "m": "j", "w": "x", "q": "l", "u": "q"}
+
+
+def bent(leg, knee, ankle, lift):
+    """The leg's own rows moved whole: row by row along hip -> knee -> ankle, the boot rows at the ankle, all lifted."""
+    out = np.zeros_like(leg)
+    for y in range(LEG_TOP, SOLES + 1):
+        if y <= KNEE_ROW:
+            dx = knee * (y - LEG_TOP) / (KNEE_ROW - LEG_TOP)
+        elif y < BOOT_ROW:
+            dx = knee + (ankle - knee) * (y - KNEE_ROW) / (BOOT_ROW - KNEE_ROW)
+        else:
+            dx = ankle
+        dx = int(math.floor(dx + 0.5))
+        row = leg[y]
+        ty = y - lift
+        if dx >= 0:
+            out[ty, dx:] = np.maximum(out[ty, dx:], row[:row.shape[0] - dx]) if dx else row
+        else:
+            out[ty, :dx] = row[-dx:]
+    return out
 
 
 def run_parts(P):
@@ -310,8 +335,7 @@ def run_frame(P, k):
     upper, sc_low, near, far = run_parts(P)
     c = np.zeros((128, 128, 4), np.uint8)
     for leg, ph in ((far, (k + 4) % 8), (near, k)):
-        dx, lift = CYCLE[ph]
-        K.put(c, shifted(leg, dx, -lift), 0, 0)
+        K.put(c, bent(leg, *CYCLE[ph]), 0, 0)
     dy = BOB[k]
     K.put(c, shifted(sc_low, 0, dy), 0, 0, under=True)
     K.put(c, shifted(upper, 0, dy), 0, 0)
@@ -358,9 +382,10 @@ def lying(P):
     return out
 
 
-def scissors_on_ground(P, x_grip=84):
-    """The scissors lying on the ground at her feet, the blade pointing left (closed)."""
-    part = scissors_unit(P, 180)
+def scissors_on_ground(P, x_grip=86):
+    """The scissors lying on the ground in front of her feet, the blade pointing right (closed), clear of her body
+    (under the boots they read as one lump)."""
+    part = scissors_unit(P, 0)
     c = np.zeros((128, 128, 4), np.uint8)
     cells = part_cells(part, (x_grip, 0))
     lo = max(y for _, y in cells)
