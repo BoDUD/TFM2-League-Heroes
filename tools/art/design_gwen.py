@@ -421,6 +421,9 @@ PAL = {"0": "#08021a", "a": "#020375", "b": "#1d1444", "c": "#0b0baa", "d": "#3c
 LETTER = {v: k for k, v in PAL.items()}
 POLISH_FACE = (62, 68, 63, 69)                     # columns, rows of the face: kept
 FACE_TURN = (62, 68)                               # the face's columns: its features moved one to the right
+FACE_NEAR = ((62, 64, "h"), (62, 65, "h"), (62, 66, "a"),   # a lock of the bangs down the near cheek,
+             (63, 65, "0"), (63, 67, "p"),                   # a lash at the near eye's outer corner, the blush 2 wide,
+             (62, 67, "r"), (62, 68, "r"))                   # the cheek's edge shaded
 CURLS_ = [(57.5, 68.5, 3.9, True), (73.0, 68.5, 3.9, False)]   # centre, radius, winding
 BOW_ = ["fd.df", "ddqdd", "bd.db"]
 BOWS_AT = [(57, 60), (73, 60)]
@@ -634,6 +637,10 @@ def polish(canvas, mask):
         row = [ch(y, x) for x in range(f0, f1 + 1)]
         for i, c in enumerate(["v"] + row[:-1]):
             put(f0 + i, y, c)
+    # its near side then two columns of bare skin (「左边脸部有点奇怪吧 再精致一点 感觉少了点什么」): a lock of the
+    # bangs down the near cheek, the near eye the bigger (a lash at its outer corner), the blush two wide, the edge shaded
+    for x, y, c in FACE_NEAR:
+        put(x, y, c)
 
 
 def build(with_mask=False):
