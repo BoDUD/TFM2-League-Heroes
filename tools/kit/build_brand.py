@@ -45,30 +45,35 @@ ID = "league_brand"
 FX = "asset/league/effects/league_brand_fx"
 BIG = "asset/league/effects/league_brand_big"
 
-# Draft numbers (to be set by the 10-min classic-SDK simulations, mid lane against the five base mages).
+# Numbers = candidate c4 of the 10-min classic-SDK simulations (tr_sim's kd.py copied to Temp/bd_sim, mid lane against
+# the five base mages, three lineups, both sides, 2026-10-06): +1.40 on seeds 1-24 (league_xerath +1.51, league_lissandra
+# +1.23 in the draft's batch). The draft c0 was +5.62: the burn's % max-health true damage (on every bounce of R too)
+# went, the spells came down, the stun 75 -> 50 ticks, hp 860 -> 820 (+2.34), then the cooldowns (E->Q 9 -> 11 s, W 7 ->
+# 8 s). Timings from the strips' release frames (assets/source/brand/poses.json): attack, W and R frame 4 at tick 11, E
+# frame 3 at tick 6, Q frame 6 at tick 17.
 P = {
     # stats (Magician base like league_xerath: attack 78 +6, magic power 42 +21, hp 860 +95); League's Brand: 570 +105
     # hp, 550 range, a burst mage
-    "hp": 860, "hp_g": 95, "atk": 78, "atk_g": 6, "mp": 42, "mp_g": 21, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
+    "hp": 820, "hp_g": 95, "atk": 78, "atk_g": 6, "mp": 42, "mp_g": 21, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
     "ms": 900, "ms_g": 9,
     # attack (League 550 range)
-    "atk_range": 52000, "atk_dur": 28, "atk_cd": 90, "atk_st": 10, "bolt_speed": 4500, "bolt_y": -3000,
+    "atk_range": 52000, "atk_dur": 28, "atk_cd": 90, "atk_st": 11, "bolt_speed": 4500, "bolt_y": -3000,
     # passive Blaze (League: 3% max HP magic over 4 s, 3 stacks -> 2 s later 9-13% max HP round the target)
-    "p_t": 240, "p_period": 60, "p_burn": 8, "p_burn_ap": 5, "p_hp_period": 120, "p_hp": 1,
-    "b_keep": 240, "p_wait": 120, "p_det_r": 26000, "p_det": 50, "p_det_ap": 30, "p_det_hp": 6,
+    "p_t": 240, "p_period": 60, "p_burn": 6, "p_burn_ap": 4, "p_hp_period": 120, "p_hp": 0,
+    "b_keep": 240, "p_wait": 120, "p_det_r": 26000, "p_det": 50, "p_det_ap": 30, "p_det_hp": 4,
     # skill: W Pillar of Flame (League: 900 range, 0.625 s delay, radius 240, 75-255 + 60% AP, +25% on ablaze,
     # cd 10.5-8 s)
-    "w_cd": 420, "w_range": 85000, "w_dur": 20, "w_rel": 10, "w_delay": 36, "w_r": 23000, "w_dmg": 80, "w_ap": 65,
+    "w_cd": 480, "w_range": 85000, "w_dur": 20, "w_rel": 11, "w_delay": 36, "w_r": 23000, "w_dmg": 70, "w_ap": 55,
     "w_bonus": 25,
     # skill2: E Conflagration (League: 675 range, 70-170 + 45% AP, spread 300 / 600 from ablaze, cd 13-9 s) -> Q Sear
     # (League: 1100 range at 1600/s, width 60, 80-240 + 55% AP, stun 1.5 s on ablaze, cd 8.5-6 s)
-    "c_cd": 540, "c_range": 60000, "c_dur": 30, "e_rel": 8, "e_r": 24000, "e_r_wide": 40000, "e_dmg": 60, "e_ap": 45,
-    "q_rel": 14, "q_speed": 8000, "q_reach": 95000, "q_rad": 7000, "q_y": -8000, "q_dmg": 70, "q_ap": 55,
-    "q_stun": 75, "cw_wait": 6,
+    "c_cd": 660, "c_range": 60000, "c_dur": 32, "e_rel": 6, "e_r": 24000, "e_r_wide": 40000, "e_dmg": 45, "e_ap": 35,
+    "q_rel": 17, "q_speed": 8000, "q_reach": 95000, "q_rad": 7000, "q_y": -8000, "q_dmg": 60, "q_ap": 45,
+    "q_stun": 50, "cw_wait": 6,
     # ult: R Pyroclasm (League: 750 range, 5 bounces, radius 600, 100-300 + 25% AP each, slow 30-60% 0.25 s on
     # ablaze, cd 105/90/75 s)
-    "r_cd": 2700, "r_range": 65000, "r_b": 55000, "r_n": 5, "r_gap": 16, "r_fall": 6, "r_rel": 10, "r_anim": 30,
-    "r_speed": 4000, "r_y": -8000, "r_dmg": 85, "r_ap": 25, "r_slow": 35, "r_slow_t": 30,
+    "r_cd": 2700, "r_range": 65000, "r_b": 55000, "r_n": 5, "r_gap": 16, "r_fall": 6, "r_rel": 11, "r_anim": 30,
+    "r_speed": 4000, "r_y": -8000, "r_dmg": 60, "r_ap": 20, "r_slow": 35, "r_slow_t": 30,
     # his spoken lines: one every vo_gap ticks at most
     "vo_gap": 600,
 }
