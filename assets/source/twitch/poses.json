@@ -1,0 +1,254 @@
+{
+ "hero": "twitch",
+ "champ": "Twitch",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.5,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 31,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "twitch_base_attack1@0",
+ "hide_submeshes": true,
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "twitch_base_attack1@0",
+     200
+    ],
+    [
+     "twitch_base_attack1@0",
+     200
+    ],
+    [
+     "twitch_base_attack1@0",
+     200
+    ],
+    [
+     "twitch_base_attack1@0",
+     200
+    ],
+    [
+     "twitch_base_attack1@0",
+     200
+    ],
+    [
+     "twitch_base_attack1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "twitch_base_attack1@0",
+   "frames": [
+    [
+     "twitch_base_run@0",
+     100
+    ],
+    [
+     "twitch_base_run@100",
+     100
+    ],
+    [
+     "twitch_base_run@200",
+     100
+    ],
+    [
+     "twitch_base_run@300",
+     100
+    ],
+    [
+     "twitch_base_run@400",
+     100
+    ],
+    [
+     "twitch_base_run@500",
+     100
+    ],
+    [
+     "twitch_base_run@600",
+     100
+    ],
+    [
+     "twitch_base_run@700",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "twitch_base_attack1@0",
+     60
+    ],
+    [
+     "twitch_base_attack1@183",
+     60
+    ],
+    [
+     "twitch_base_attack1@367",
+     80
+    ],
+    [
+     "twitch_base_attack1@733",
+     80
+    ],
+    [
+     "twitch_base_attack1@1100>twitch_base_attack1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.2,
+   "release": 2,
+   "frames": [
+    [
+     "twitch_base_attack1@0>twitch_base_idle_sneak@0:0.5",
+     100
+    ],
+    [
+     "twitch_base_idle_sneak@320",
+     100
+    ],
+    [
+     "twitch_base_idle_sneak@640>twitch_base_attack1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.2,
+   "rise": 0.0,
+   "release": 3,
+   "frames": [
+    [
+     "twitch_base_attack1@0>twitch_base_spell2@0:0.5",
+     80
+    ],
+    [
+     "twitch_base_spell2@0",
+     70
+    ],
+    [
+     "twitch_base_spell2@100",
+     100
+    ],
+    [
+     "twitch_base_spell2@100>twitch_base_attack1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2_e": {
+   "lunge": 0.2,
+   "rise": 0.25,
+   "release": 3,
+   "frames": [
+    [
+     "twitch_base_attack1@0>twitch_base_spell3@200:0.5",
+     80
+    ],
+    [
+     "twitch_base_spell3@200",
+     80
+    ],
+    [
+     "twitch_base_spell3@600",
+     100
+    ],
+    [
+     "twitch_base_spell3@700",
+     80
+    ],
+    [
+     "twitch_base_spell3@900>twitch_base_attack1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.1,
+   "release": 2,
+   "frames": [
+    [
+     "twitch_base_attack1@0>twitch_base_spell4@367:0.5",
+     100
+    ],
+    [
+     "twitch_base_spell4@550",
+     100
+    ],
+    [
+     "twitch_base_spell4@917>twitch_base_attack1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "twitch_base_attack1@0>twitch_base_death@0:0.25",
+     100
+    ],
+    [
+     "twitch_base_attack1@0>twitch_base_death@0:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "rise": 0.2,
+   "flat": true,
+   "frames": [
+    [
+     "twitch_base_death@0",
+     100
+    ],
+    [
+     "twitch_base_death@50",
+     110
+    ],
+    [
+     "twitch_base_death@750",
+     120
+    ],
+    [
+     "twitch_base_death@900",
+     130
+    ],
+    [
+     "twitch_base_death@1050",
+     150
+    ],
+    [
+     "twitch_base_death@1200",
+     200
+    ],
+    [
+     "twitch_base_death@1350",
+     300
+    ],
+    [
+     "twitch_base_death@1350",
+     400
+    ]
+   ]
+  }
+ }
+}
