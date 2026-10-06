@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.1,
+      "clip": "league_gwen_vo_w",
+      "volume": 0.75
+    }
+  ]
+}
