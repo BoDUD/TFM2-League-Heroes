@@ -7,8 +7,9 @@ league/champion/league_pyke.data_champion (so the copy never drifts from the shi
 R_DMG / R_RATIO / R_RANGE are P's r_dmg / r_ratio / r_range, and writes addons/league_pyke/override/
 league_pyke.data_champion and .../text/champion.i18n: the same kit with three changes -
   * in the X's champion zone (league_pyke_r_x_c) the threshold's true damage and the heal back a tick later become one
-    `Native` league_pyke:execute (it reads the health: at or under the threshold executed, else half of it); the kill
-    check, the blink and the reset stay the data's;
+    `Native` league_pyke:execute (it reads the health: at or under the threshold executed, else half of it), and the
+    data's kill check (k_r, the blink, the reset) goes: league_pyke:after does them K_READ ticks later (the native
+    damage lands at the end of its tick, so the data's check saw the target alive and called the blink off);
   * R's casting_target is EnemyChampion (the add-on's AI hook league_pyke:ult decides whom: only a champion the X
     kills; the main pack's EnemyChampionRecentlyAttacked was its stand-in for "wounded");
   * R's tooltip points to description.league_pyke.ult (an "exact execute test build" lead, so the tooltip in game
@@ -62,7 +63,7 @@ def consts():
     with open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8") as f:
         src = f.read()
     out = {}
-    for name in ("R_DMG", "R_RATIO", "R_RANGE", "SURVIVE"):
+    for name in ("R_DMG", "R_RATIO", "R_RANGE", "SURVIVE", "K_READ"):
         m = re.search(r"pub const %s: usize = ([0-9_]+);" % name, src)
         if not m:
             sys.exit("no %s in src/lib.rs: update this script" % name)
@@ -83,7 +84,7 @@ def walk(node):
 def main():
     p = dict(kit.P)
     c = consts()
-    want = {"R_DMG": p["r_dmg"], "R_RATIO": p["r_ratio"], "R_RANGE": p["r_range"], "SURVIVE": 50}
+    want = {"R_DMG": p["r_dmg"], "R_RATIO": p["r_ratio"], "R_RANGE": p["r_range"], "SURVIVE": 50, "K_READ": p["k_read"]}
     if c != want:
         sys.exit("src/lib.rs %s differs from build_pyke.P %s: update the constants" % (c, want))
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8-sig") as f:
@@ -106,8 +107,18 @@ def main():
     hit = eff[true_hits[0]]
     if (hit["damage"], hit["attack_ratio"]) != (p["r_dmg"], p["r_ratio"]):
         sys.exit("R's threshold is not r_dmg + r_ratio% AD any more: update src/lib.rs")
+    # the data's kill check (league_jinx's: k_r set, kept while the target is dead, then Teleport and the reset): the
+    # native damage lands at the end of the tick, so the check saw him alive and called the blink off - the add-on's
+    # league_pyke:after blinks and resets instead
+    kill = [i for i, e in enumerate(eff) if HERO + "_k_r" in json.dumps(e)]
+    if len(kill) != 4:
+        sys.exit("R's kill check changed shape (k_r set, kept, Teleport, reset - %d found): update this script" % len(kill))
+    for name in (HERO + "_r_reset", HERO + "_vo_r"):
+        if name not in json.dumps(ult):
+            sys.exit("%s is not in R any more: update src/lib.rs (after)" % name)
     native = {"casting_type": "Targeting", "effect": {"type": "Native", "effect_ref": MOD_ID + ":execute"}}
-    zones[0]["applied_effects"] = [native if i == true_hits[0] else a for i, a in enumerate(applied) if i != heals[0]]
+    drop = set(kill) | {heals[0]}
+    zones[0]["applied_effects"] = [native if i == true_hits[0] else a for i, a in enumerate(applied) if i not in drop]
     if ult["casting_target"] != "EnemyChampionRecentlyAttacked":
         sys.exit("R's casting target changed: update this script")
     ult["casting_target"] = "EnemyChampion"
