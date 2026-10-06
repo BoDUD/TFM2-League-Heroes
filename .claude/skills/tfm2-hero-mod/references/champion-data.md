@@ -3449,6 +3449,12 @@ The levels heal back in W's camouflage, and each attack also queues a 180-tick `
 sensor is still whole and `hurt` is gone - nobody hit him for 3 s. What it counts is "hit since the last check", not how
 much.
 
+**A mist that hides her from outside (league_gwen W, Hallowed Mist).** Where E lands, league_akali's first shroud: Ekko's anchor (a 1-range `LinearProjectile`) whose `end_effects` start a `RangePeriodProjectile` on `AllyChampion`, every 6 ticks a `RandomTarget AllyOnlySelf` from the zone refreshing `CasterInvisible` (8 ticks) and armour / MR. Enemies far away lose her; the ones that walk up still pick her (League: untargetable from outside). Leaving the mist ends both within 8 ticks.
+
+**An ult woven with attacks (league_gwen R).** League recasts Needlework three times with attacks between. One cast throws the three volleys as `Delayed` `LineRangeProjectile`s 36 ticks apart, but the action holds her only for the first throw (r_t0 + the pose): the later volleys fly from where she stands in the cast's direction while the AI attacks. Only the first carries a `CasterAnimation` (a later one would cut her attack pose).
+
+**A stack counter drawn by one buff per slot (league_gwen Q stacks).** qs1..qsk are all on at k stacks; each buff's view is one mark in its own slot over her head, so k marks show without any counting logic.
+
 **One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
 Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself
 (`RangeEffect AllyOnlySelf`) that stomps every 30 ticks for 3 s on `EnemyWithoutTower` round him, its first stomp on

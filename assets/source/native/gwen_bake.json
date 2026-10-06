@@ -1,0 +1,31 @@
+{
+ "fx": "league_gwen_fx",
+ "items": [
+  {
+   "tag": "a_snip",
+   "into": "attack",
+   "at_ms": 190
+  },
+  {
+   "tag": "q_snip",
+   "into": "skill",
+   "at_ms": 110
+  },
+  {
+   "tag": "q_snip",
+   "into": "skill",
+   "at_ms": 230
+  },
+  {
+   "tag": "q_final",
+   "into": "skill",
+   "at_ms": 360
+  },
+  {
+   "tag": "e_dash",
+   "into": "skill2",
+   "at_ms": 0,
+   "fx": "league_gwen_big"
+  }
+ ]
+}

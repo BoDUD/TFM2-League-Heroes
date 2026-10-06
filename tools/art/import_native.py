@@ -105,7 +105,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
-            "xerath", "xinzhao", "samira", "pyke"}
+            "xerath", "xinzhao", "samira", "pyke", "gwen"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -269,7 +269,10 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("samira", "idle"): [0, 0, 0, 0, 0, 0],
          # and Pyke (Codex's draft A-second cut to 40 rows by whole lines, design_pyke.py; rig_pyke.py writes the design
          # six times)
-         ("pyke", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("pyke", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Gwen (Codex's draft bd82 traced to 44 rows, design_gwen.py; rig_gwen.py writes the design with its breath
+         # in 3-4 - the upper body and the scissors a row lower - so the six play in order, as Aatrox's)
+         ("gwen", "idle"): [0, 1, 2, 3, 4, 5]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
