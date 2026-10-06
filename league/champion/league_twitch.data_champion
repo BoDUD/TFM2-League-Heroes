@@ -2409,7 +2409,7 @@
                               "radius": 6000
                             }
                           },
-                          "y_offset": -3000
+                          "y_offset": 0
                         }
                       ]
                     },
@@ -2424,7 +2424,7 @@
                           "type": "TargetProjectile",
                           "name": "league_twitch_a_bolt",
                           "speed": 7500,
-                          "y_offset": -3000,
+                          "y_offset": 0,
                           "applied_target": "Enemy",
                           "applied_effects": [
                             {
@@ -2458,7 +2458,7 @@
                           "type": "TargetProjectile",
                           "name": "league_twitch_a_twin",
                           "speed": 7500,
-                          "y_offset": -3000,
+                          "y_offset": 0,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -2822,7 +2822,7 @@
                     "type": "TargetProjectile",
                     "name": "league_twitch_a_bolt",
                     "speed": 7500,
-                    "y_offset": -3000,
+                    "y_offset": 0,
                     "applied_target": "Enemy",
                     "applied_effects": [
                       {
@@ -2856,7 +2856,7 @@
                     "type": "TargetProjectile",
                     "name": "league_twitch_a_twin",
                     "speed": 7500,
-                    "y_offset": -3000,
+                    "y_offset": 0,
                     "applied_target": "EnemyWithoutTower",
                     "applied_effects": [
                       {

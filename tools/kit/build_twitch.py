@@ -55,13 +55,15 @@ BIG = "asset/league/effects/league_twitch_big"
 # +1.19, league_varus +1.63 / +1.91 on the same seeds). The draft c3 was +3.41: cutting E (12 + 28% -> 8 + 20% a stack)
 # and the venom (2 -> 1 + 2%) changed nothing (+3.40); attack 98 -> 94, Q's attack speed 45 -> 35% and R's +25 -> +15
 # attack with E at 6 + 16%: +2.33; the cask's slow is the big lever (35 -> 20% and a 2 s puddle: +0.08), 30% here.
-# Q's stealth 2.5 s (+1.66) or attack 88 / hp 850 (+1.61) did as much; League's 5 s stealth kept.
+# Q's stealth 2.5 s (+1.66) or attack 88 / hp 850 (+1.61) did as much; League's 5 s stealth kept. Retimed to the strips
+# (the bolt on tick 7, W's throw 21 ticks, E's burst on tick 10 of 25): +1.62 / +1.35. The bolts fly at the pivot's
+# height (bolt_y 0): the crossbow's tip in the attack's release frame is 19 px in front, 11 up = the pivot's row.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Twitch: 550 range,
     # 59 AD, 630 +98 hp, 27 armour, 330 move, attack speed 0.679
     "hp": 900, "hp_g": 88, "atk": 94, "atk_g": 19, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     # attack: the bolt leaves the crossbow on a_st
-    "atk_range": 55000, "atk_dur": 24, "atk_cd": 54, "a_st": 7, "bolt_speed": 7500, "bolt_y": -3000, "a_read": 2,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 54, "a_st": 7, "bolt_speed": 7500, "bolt_y": 0, "a_read": 2,
     # passive: Deadly Venom (League: 6 stacks, 6 s, 1-5? true damage a stack a second by level + 3% AP)
     "v_t": 360, "v_period": 60, "v_dmg": 1, "v_ratio": 2, "h_n": 6,
     # skill: Q Ambush (League: camouflage 10-14 s after a 1 s fade, +10% move speed (+30% hidden near enemies),
