@@ -306,16 +306,20 @@ KNEE_ROW, BOOT_ROW = 91, 94            # the stockings to the knee, the shin, th
 FAR_SHADE = {"f": "d", "d": "b", "x": "s", "s": "m", "m": "j", "w": "x", "q": "l", "u": "q"}
 
 
-def bent(leg, knee, ankle, lift):
-    """The leg's own rows moved whole: row by row along hip -> knee -> ankle, the boot rows at the ankle, all lifted."""
+def bent(leg, knee, ankle, lift, hip_in=0):
+    """The leg's own rows moved whole: row by row along hip -> knee -> ankle, the boot rows at the ankle, all lifted;
+    hip_in draws the leg in toward the other from nothing at the hip to all of it at the knee (moving the hip itself left
+    a gap under the skirt's edge: 「这里少一块看不到吗」)."""
     out = np.zeros_like(leg)
     for y in range(LEG_TOP, SOLES + 1):
+        inward = hip_in * min(1.0, (y - LEG_TOP) / (KNEE_ROW - LEG_TOP))
         if y <= KNEE_ROW:
             dx = knee * (y - LEG_TOP) / (KNEE_ROW - LEG_TOP)
         elif y < BOOT_ROW:
             dx = knee + (ankle - knee) * (y - KNEE_ROW) / (BOOT_ROW - KNEE_ROW)
         else:
             dx = ankle
+        dx += inward
         dx = int(math.floor(dx + 0.5))
         row = leg[y]
         ty = y - lift
@@ -363,7 +367,7 @@ def run_frame(P, k):
     body[curls] = 0
     c = np.zeros((128, 128, 4), np.uint8)
     for leg, ph, side in ((far, (k + 4) % 8, "far"), (near, k, "near")):
-        K.put(c, shifted(bent(leg, *CYCLE[ph]), HIP_IN[side], 0), 0, 0)
+        K.put(c, bent(leg, *CYCLE[ph], hip_in=HIP_IN[side]), 0, 0)
     dy = BOB[k]
     late = BOB[k - LAG]
     K.put(c, shifted(body, 0, dy), 0, 0)
