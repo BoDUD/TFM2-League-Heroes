@@ -262,7 +262,7 @@ def build(p):
                   [buff("w_slow", 16, move_speed_mult=-p["w_slow"])]),
             field("w_pool_v", p["w_r"], p["w_pool"], 60, "EnemyWithoutTower", [*venom, champ_hit("w")])]
     cask = lob("w_cask", p["w_travel"], p["w_r"], "EnemyWithoutTower",
-               [*venom, slow_hit, view("w_hit"), champ_hit("w")], end=pool)
+               [*venom, slow_hit, view("w_hit"), champ_hit("w")], end=[view("w_pool"), *pool])
 
     def throw(follow_e):
         out = [refresh("w_cd", p["w_cd"]), anim("skill2", p["w_dur"]), sfx("w_cast"), voice("vo_w", p),
@@ -356,8 +356,10 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("a_bolt"), P_("r_bolt"), P_("w_cask", FX, 2), P_("w_pool", BIG, -1)]
-    views_e = [E("a_hit"), E("v_pop", BIG), E("w_hit"), E("q_cast", FX, 3), E("q_out", FX, 3, **LATE),
+    # the puddle's picture is a ViewEffect on the landing point (never turned), not the zone's own picture (a zone's
+    # picture turns with a leftward cast)
+    views_p = [P_("a_bolt"), P_("r_bolt"), P_("w_cask", FX, 2)]
+    views_e = [E("a_hit"), E("v_pop", BIG), E("w_hit"), E("w_pool", BIG, -1, follow=False), E("q_cast", FX, 3), E("q_out", FX, 3, **LATE),
                E("q_reset", FX, 3, **LATE), E("e_cast", BIG, -1, **LATE), E("r_cast", BIG, 3, **LATE), E("r_hit")]
     views_b = [B_("w_slow", FX, -1), B_("q_as", FX, 3), B_("r_on", BIG, 2)]
     return {

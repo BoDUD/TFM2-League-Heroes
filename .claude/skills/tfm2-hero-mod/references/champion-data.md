@@ -3513,6 +3513,43 @@ cooldown starts at each cast; a first cast (flag `r_c1`) and, evolved, a second 
 cooldown runs. There is no 12 s window (a lapse cannot add cooldown back), which the AI does not need: it spends the
 recasts as champions come into reach.
 
+**Venom stacks that burst on each enemy (league_twitch passive and E, Deadly Venom and Contaminate).** League's venom
+sits on the enemy, six stacks at most, and Contaminate deals damage per stack on every poisoned enemy. Nothing reads a
+buff count on a target, but `AddCasted` never refreshes or replaces: every hit (the bolt's twin on `EnemyWithoutTower`,
+the cask, its puddle, R's bolts) hangs two instances on the unit it hit - the venom (`Poison`, 360 ticks, true damage
+every 60: the poison icon) and a watcher (period 2, 360 ticks) whose effect is `SwitchByBuff e_pop` -> the per-stack
+burst (an `Attack` and its picture). E raises the caster flag `e_pop` for 3 ticks (league_ryze's Flux window): every
+watcher on every unit sees it exactly once, so each enemy takes the burst once per stack it carries. Measured with
+instrumented watchers (each burst and each venom tick adding a caster buff): the bursts of an E equal the live stacks,
+4 = 4, 5 = 5. Limits: no 6-stack cap (fast attacks reach 8-9) and no range (every poisoned unit on the map bursts).
+His E's takedown (Ambush's reset) is league_jinx's kill check laid on every champion within reach around the burst.
+
+**Camouflage broken by the first shot (league_twitch Q, Ambush).** league_evelynn's poll: the cast sets `q_on` (q_t)
+and an `AddCasted` on him that, every q_poll ticks while `q_on` holds, renews `CasterInvisible` for q_poll + 2 and the
+move speed; every attack, skill and ult first checks `q_on` - present: removed (the camouflage lapses within a poll)
+and the attack speed buff given. The cast is a `Targeting` slot on `EnemyChampion` at 90000, farther than his attack,
+so the AI hides as it closes in. The combo: the revealing attack throws the cask (W's cooldown is a caster flag too)
+when it is ready.
+
+**Piercing bolts while the ult lasts (league_twitch R, Spray and Pray).** `range` and `attack` on a caster buff r_on,
+and the attack branches on it: a tick-1 `TargetProjectile` probe on `EnemyWithoutTower` adds a flag (it must outlast
+the shot's tick: a 4-tick flag read on tick 7 never fired a single R bolt in the first draft), then at the shot either
+a penetrating `LinearProjectile` on `EnemyWithoutTower` toward the target (115000 long) or, for a tower, the plain
+bolt. The falloff (100 / 90 / 80 / 70 / 60%) is a ladder of 30-tick caster flags cleared at each shot. The slot is
+armed like league_samira R: a cast fires at once with two enemy champions within 85000, else arms 600 ticks during
+which his attacks count again and, after 180 ticks, fire with one champion in reach; a lapse refunds the cooldown.
+With the two-champion rule alone R fired 1-3 times in a 10-minute game.
+
+**A native effect that reads the unit a hit landed on (addons/league_fiora_duel, addons/league_vayne_bolts).** Data
+cannot tell which unit a hit is on (league_vayne's Silver Bolts, league_fiora's Vitals both count on the caster). A
+`Native` effect (`effect_ref`) placed in a projectile's `applied_effects` gets that unit as its input target
+(league_pyke's execute, confirmed in game), so it can read the unit's buffs: Fiora's copy adds a target buff
+`league_fiora_r_mark` where R starts and the native `vital` adds the 3-tick caster flag `r_tgt` only when Fiora's
+R is on and the unit hit carries the mark; Vayne's native `bolt` counts `league_vayne_bolts_s` instances on the unit
+hit and adds `sb_r1` / `sb_r2` / `sb_go`. The data reads the flag in the same `Combine` and, when it was not there yet,
+once more a tick later (a `Delayed 1`): whether a buff the native adds is visible to the data in the same tick is not
+proven in game. The data halves were checked in the classic sim with the `Native` node swapped for the flags it sets.
+
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never

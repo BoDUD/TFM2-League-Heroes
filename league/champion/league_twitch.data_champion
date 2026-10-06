@@ -550,6 +550,10 @@
                               ],
                               "end_effects": [
                                 {
+                                  "type": "ViewEffect",
+                                  "name": "league_twitch_w_pool"
+                                },
+                                {
                                   "type": "RangePeriodProjectile",
                                   "name": "league_twitch_w_pool",
                                   "shape": {
@@ -4178,6 +4182,10 @@
                     ],
                     "end_effects": [
                       {
+                        "type": "ViewEffect",
+                        "name": "league_twitch_w_pool"
+                      },
+                      {
                         "type": "RangePeriodProjectile",
                         "name": "league_twitch_w_pool",
                         "shape": {
@@ -5801,6 +5809,10 @@
                                   ],
                                   "end_effects": [
                                     {
+                                      "type": "ViewEffect",
+                                      "name": "league_twitch_w_pool"
+                                    },
+                                    {
                                       "type": "RangePeriodProjectile",
                                       "name": "league_twitch_w_pool",
                                       "shape": {
@@ -6318,14 +6330,6 @@
       "tag": "w_cask",
       "repeat": true,
       "z": 2
-    },
-    {
-      "type": "Animated",
-      "name": "league_twitch_w_pool",
-      "anim": "asset/league/effects/league_twitch_big",
-      "tag": "w_pool",
-      "repeat": true,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -6352,6 +6356,14 @@
       "tag": "w_hit",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_twitch_w_pool",
+      "anim": "asset/league/effects/league_twitch_big",
+      "tag": "w_pool",
+      "z": -1,
+      "is_follow": false
     },
     {
       "type": "Animation",

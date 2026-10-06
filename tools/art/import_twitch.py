@@ -77,8 +77,8 @@ FX = {
 BIG = {
     # Contaminate on every poisoned unit
     "v_pop": [("v_pop", seq(range(6), [40, 50, 60, 70, 70, 80]), [HIT])],
-    # the puddle: a 180-tick zone on the ground (looped)
-    "w_pool": [("w_pool", seq(range(4), [120] * 4), [(0, 0)])],
+    # the puddle: a ViewEffect on the landing point for the zone's 180 ticks (3 s: the 4-frame loop 6 times + 120 ms)
+    "w_pool": [("w_pool", seq([k % 4 for k in range(25)], [120] * 25), [(0, 0)])],
     "e_cast": [("e_cast", seq(range(6), [50, 60, 60, 70, 70, 80]), [SOLES])],
     "r_cast": [("r_cast", seq(range(6), [50, 50, 60, 60, 70, 80]), [SOLES])],
     "r_on": [("r_on", seq(range(4), [90] * 4), [SOLES])],
