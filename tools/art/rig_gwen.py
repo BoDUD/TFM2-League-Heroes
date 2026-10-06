@@ -421,21 +421,29 @@ def run_parts(P):
     return upper, sc_low, near, far
 
 
-# the run's life (the user: 「还有走路时太过于僵硬 没有那种灵性」): the free near hand swings against the near leg
-# (degrees from hanging, + forward), the twin drills trail a column behind as she pushes off and swing back at the
-# contacts - whole, under the arms and sleeves (moving them a frame late in rows tore them from the head)
-ARM_SWING = [-25, -15, 0, 15, 25, 15, 0, -15]
+# the run's life (the user: 「还有走路时太过于僵硬 没有那种灵性」), League's way (「参考一下英雄联盟怎么走路的」): she
+# runs with the scissors raised, held upright in the far hand, and the free near hand stays at her side as drawn
+# (swung, the redrawn arm changed shape frame to frame: 「左手摇来摇去要变形了」); the back spiral curl trails a column
+# behind as she pushes off and swings back at the contacts - whole, under the arms and sleeves (moving it a frame late
+# in rows tore it from the head)
+RUN_HOLD = {"far": (45, -90, 0)}       # far arm degrees, scissors degrees (straight up: leaning, the blade stepped), opening
 SWAY = [0, -1, -1, 0, 0, -1, -1, 0]
 DRILLS = ((64, 73), (61, 200))         # the trailing curl: the back (left) spiral curl whole (a part of it moved cut
                                        # its spiral; the right one swung into her neck: 「头发上 有点变形」)
 
 
-def run_frame(P, k):
+def run_frame(P, k, hold=None):
+    """The run's frame k, the scissors held as `hold` (RUN_HOLD; {} = behind her as drawn - E's skip)."""
+    hold = RUN_HOLD if hold is None else hold
     upper, sc_low, near, far = run_parts(P)
-    top = stand(P, {"near": (ARM_SWING[k], None)})
+    top = stand(P, hold)
+    held = P.keep
     P.keep = None
-    sc_only = (P.scissors[..., 3] > 0) & (P.body[..., 3] == 0) & (top == P.scissors).all(-1)
-    top[sc_only] = 0                                   # the scissors ride separately, under everything
+    sc = np.zeros_like(top)
+    if "far" not in hold:
+        sc = P.scissors.copy()
+        sc_only = (P.scissors[..., 3] > 0) & (P.body[..., 3] == 0) & (top == P.scissors).all(-1)
+        top[sc_only] = 0                               # the scissors ride separately, under everything
     top[LEG_TOP:] = 0
     (r0, r1), (cl, cr) = DRILLS
     drill = np.zeros(top.shape[:2], bool)
@@ -444,7 +452,6 @@ def run_frame(P, k):
     tails = np.zeros_like(top)
     tails[drill] = top[drill]
     top[drill] = 0
-    sc = P.scissors.copy()
     c = np.zeros((128, 128, 4), np.uint8)
     for leg, ph, side in ((far, (k + 4) % 8, "far"), (near, k, "near")):
         K.put(c, bent(leg, *CYCLE[ph], hip_in=HIP_IN[side]), 0, 0)
@@ -455,15 +462,20 @@ def run_frame(P, k):
                                                        # of the ground beside her face
     K.put(c, shifted(sc, 0, dy), 0, 0, under=True)
     c[SOLES + 1:] = 0
-    s4 = shifted(sc, 0, dy)
-    P.keep = (s4[..., 3] > 0) & (c == s4).all(-1)
+    if "far" in hold:                                  # the held scissors' outline stays black (stand()'s keep)
+        k4 = np.zeros(c.shape, np.uint8)
+        k4[held] = 255
+        P.keep = (shifted(k4, 0, dy)[..., 3] > 0) & (c[..., 3] > 0)
+    else:
+        s4 = shifted(sc, 0, dy)
+        P.keep = (s4[..., 3] > 0) & (c == s4).all(-1)
     return c
 
 
 def posed(P, pose):
     """A STAND frame: stand(), or for "leap" the run's frame of that number moved by "move"."""
     if "leap" in pose:
-        c = shifted(run_frame(P, pose["leap"]), *pose.get("move", (0, 0)))
+        c = shifted(run_frame(P, pose["leap"], hold={}), *pose.get("move", (0, 0)))
         k4 = np.zeros(c.shape, np.uint8)
         k4[P.keep] = 255
         P.keep = shifted(k4, *pose.get("move", (0, 0)))[..., 3] > 0
