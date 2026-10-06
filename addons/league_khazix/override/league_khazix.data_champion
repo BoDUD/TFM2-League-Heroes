@@ -2483,7 +2483,7 @@
       "type": "Animated",
       "name": "league_khazix_p_slow",
       "anim": "asset/league/effects/league_khazix_fx",
-      "tag": "p_slow",
+      "tag": "slow",
       "repeat": true,
       "z": -1
     },
@@ -2491,7 +2491,7 @@
       "type": "Animated",
       "name": "league_khazix_w_slow",
       "anim": "asset/league/effects/league_khazix_fx",
-      "tag": "w_slow",
+      "tag": "slow",
       "repeat": true,
       "z": -1
     },

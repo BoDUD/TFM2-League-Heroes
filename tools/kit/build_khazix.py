@@ -403,7 +403,8 @@ def build(p):
     views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("q_iso_hit", BIG), E("e_land", BIG, -1, False), E("e_hit"),
                E("w_hit"), E("w_heal", FX, 3, False), E("r_cast", BIG, 3), E("p_ready", FX, 3, False),
                E("e_reset", FX, 3, False), E("evo", BIG, 3, False)]
-    views_b = [B_("ut", FX, 3), B_("p_slow", FX, -1), B_("w_slow", FX, -1), B_("r_on", BIG, 2)]
+    slow = lambda name: {**B_(name, FX, -1), "tag": "slow"}     # one picture for both slows
+    views_b = [B_("ut", FX, 3), slow("p_slow"), slow("w_slow"), B_("r_on", BIG, 2)]
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_khazix:void",
