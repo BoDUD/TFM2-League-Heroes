@@ -53,11 +53,11 @@ TEXT = {
         "attack": "被动" + O + "千穿百孔" + E + "：攻击和技能命中附加" + mag("p_dmg", "p_ratio") + M + "魔法伤害" + E + "，对英雄再造成" + W +
                   "{p_hp}%最大生命值真实伤害" + E + "并回复" + mag("p_heal", "p_heal_r") + "生命。每次攻击叠一层剪刀层数，最多{q_n}层。",
         "skill": "在身前剪" + A + "1+层数" + E + "下，每下" + mag("q_mini", "q_mini_r") + "，最后一剪" + mag("q_dmg", "q_ratio") + M +
-                 "魔法伤害" + E + "，正中央的敌人额外受到" + W + "{q_true}真实伤害" + E + "。每下都带被动。",
-        "skill2": O + "断续疾走" + E + "：冲向敌方英雄，{e_t}秒内攻速+{e_as}%、攻击距离增加、攻击附加" + mag("e_dmg", "e_ratio") + "。落地放出" +
+                 "魔法伤害" + E + "，正中央的敌人额外受到" + W + "{q_true}真实伤害" + E + "。每下都带被动。断续疾走落地后2秒内施放，正中央对准目标。",
+        "skill2": O + "断续疾走" + E + "：冲向敌方英雄，落地立刻剪他一下，{e_t}秒内攻速+{e_as}%、攻击距离增加、攻击附加" + mag("e_dmg", "e_ratio") + "。落地放出" +
                   O + "丝缕缠流" + E + "：圣霭{w_t}秒，她在雾中时" + A + "隐身" + E + "（远处敌人选不中她），护甲和魔抗+{w_def}。",
         "ult": "朝敌方英雄连掷三轮针：1根、3根、5根，各造成" + needles() + M + "魔法伤害" + E + "并" + R + "减速{r_slow}%" + E +
-               "{r_slow_t}秒，带被动。",
+               "{r_slow_t}秒，带被动。三轮之间可以穿插普攻。",
         "names": ("快刀剪乱", "断续疾走", "引针簇射"),
     },
     "zh-hant": {
@@ -65,11 +65,11 @@ TEXT = {
         "attack": "被動" + O + "千刀萬剮" + E + "：攻擊和技能命中附加" + mag("p_dmg", "p_ratio") + M + "魔法傷害" + E + "，對英雄再造成" + W +
                   "{p_hp}%最大生命值真實傷害" + E + "並回復" + mag("p_heal", "p_heal_r") + "生命。每次攻擊疊一層剪刀層數，最多{q_n}層。",
         "skill": "在身前剪" + A + "1+層數" + E + "下，每下" + mag("q_mini", "q_mini_r") + "，最後一剪" + mag("q_dmg", "q_ratio") + M +
-                 "魔法傷害" + E + "，正中央的敵人額外受到" + W + "{q_true}真實傷害" + E + "。每下都帶被動。",
-        "skill2": O + "剪步如飛" + E + "：衝向敵方英雄，{e_t}秒內攻速+{e_as}%、攻擊距離增加、攻擊附加" + mag("e_dmg", "e_ratio") + "。落地放出" +
+                 "魔法傷害" + E + "，正中央的敵人額外受到" + W + "{q_true}真實傷害" + E + "。每下都帶被動。剪步如飛落地後2秒內施放，正中央對準目標。",
+        "skill2": O + "剪步如飛" + E + "：衝向敵方英雄，落地立刻剪他一下，{e_t}秒內攻速+{e_as}%、攻擊距離增加、攻擊附加" + mag("e_dmg", "e_ratio") + "。落地放出" +
                   O + "聖霧絲縷" + E + "：聖霧{w_t}秒，她在霧中時" + A + "隱形" + E + "（遠處敵人選不中她），護甲和魔抗+{w_def}。",
         "ult": "朝敵方英雄連擲三輪針：1根、3根、5根，各造成" + needles() + M + "魔法傷害" + E + "並" + R + "緩速{r_slow}%" + E +
-               "{r_slow_t}秒，帶被動。",
+               "{r_slow_t}秒，帶被動。三輪之間可以穿插普攻。",
         "names": ("剪剪！", "剪步如飛", "飛針走線"),
     },
     "en": {
@@ -79,12 +79,12 @@ TEXT = {
                   mag("p_heal", "p_heal_r") + ". Each attack adds a snip stack (up to {q_n}).",
         "skill": "Snips in front of her " + A + "1 + stacks" + E + " times for " + mag("q_mini", "q_mini_r") + " each, then a final snip for " +
                  mag("q_dmg", "q_ratio") + " " + M + "magic damage" + E + "; enemies in the centre take " + W + "{q_true} true damage" + E +
-                 " more. Every snip applies the passive.",
-        "skill2": O + "Skip 'n Slash" + E + ": dashes at an enemy champion; for {e_t}s her attacks gain {e_as}% attack speed, range and " +
+                 " more. Every snip applies the passive. Cast within 2s of Skip 'n Slash landing, the centre is on the target.",
+        "skill2": O + "Skip 'n Slash" + E + ": dashes at an enemy champion, snipping it as she lands; for {e_t}s her attacks gain {e_as}% attack speed, range and " +
                   mag("e_dmg", "e_ratio") + " on hit. Where she lands " + O + "Hallowed Mist" + E + " settles for {w_t}s: inside it she is " +
                   A + "invisible" + E + " (enemies far away cannot target her) with +{w_def} armour and magic resist.",
         "ult": "Hurls three volleys of needles at an enemy champion - 1, 3 and 5 needles - each dealing " + needles() + " " + M +
-               "magic damage" + E + ", " + R + "slowing {r_slow}%" + E + " for {r_slow_t}s and applying the passive.",
+               "magic damage" + E + ", " + R + "slowing {r_slow}%" + E + " for {r_slow_t}s and applying the passive. She can attack between the volleys.",
         "names": ("Snip Snip!", "Skip 'n Slash", "Needlework"),
     },
     "ko": {
@@ -93,12 +93,12 @@ TEXT = {
                   ", 챔피언에게는 " + W + "최대 체력의 {p_hp}% 고정 피해" + E + "를 더 주고 " + mag("p_heal", "p_heal_r") +
                   " 회복. 공격마다 가위 중첩 1, 최대 {q_n}.",
         "skill": "앞을 " + A + "1+중첩" + E + "번 자르며 각각 " + mag("q_mini", "q_mini_r") + ", 마지막 가위질은 " + mag("q_dmg", "q_ratio") +
-                 "의 " + M + "마법 피해" + E + ", 중앙의 적은 " + W + "{q_true} 고정 피해" + E + " 추가. 매번 기본 지속 효과 적용.",
-        "skill2": O + "돌격가위" + E + ": 적 챔피언에게 돌진, {e_t}초간 공격 속도 +{e_as}%, 사거리 증가, 적중 시 " + mag("e_dmg", "e_ratio") +
+                 "의 " + M + "마법 피해" + E + ", 중앙의 적은 " + W + "{q_true} 고정 피해" + E + " 추가. 매번 기본 지속 효과 적용. 돌격가위 착지 후 2초 안에 쓰면 중앙이 대상에게 맞춰짐.",
+        "skill2": O + "돌격가위" + E + ": 적 챔피언에게 돌진해 착지하며 한 번 자르고, {e_t}초간 공격 속도 +{e_as}%, 사거리 증가, 적중 시 " + mag("e_dmg", "e_ratio") +
                   ". 착지한 곳에 " + O + "신성한 안개" + E + " {w_t}초: 안개 안에서 " + A + "투명" + E +
                   "(멀리 있는 적은 대상 지정 불가), 방어력과 마법 저항력 +{w_def}.",
         "ult": "적 챔피언에게 바늘을 세 번 던짐(1, 3, 5개): 각각 " + needles() + "의 " + M + "마법 피해" + E + ", " + R +
-               "{r_slow_t}초간 {r_slow}% 둔화" + E + ", 기본 지속 효과 적용.",
+               "{r_slow_t}초간 {r_slow}% 둔화" + E + ", 기본 지속 효과 적용. 세 번 사이에 기본 공격 가능.",
         "names": ("싹둑싹둑!", "돌격가위", "바느질"),
     },
     "ja": {
@@ -107,11 +107,11 @@ TEXT = {
                   "、チャンピオンには" + W + "最大体力の{p_hp}%の確定ダメージ" + E + "も与え" + mag("p_heal", "p_heal_r") +
                   "回復。通常攻撃ごとにハサミのスタック+1、最大{q_n}。",
         "skill": "前方を" + A + "1+スタック" + E + "回切り各" + mag("q_mini", "q_mini_r") + "、最後の一断ちで" + mag("q_dmg", "q_ratio") + "の" +
-                 M + "魔法ダメージ" + E + "、中心の敵は" + W + "{q_true}の確定ダメージ" + E + "を追加で受ける。毎回パッシブ適用。",
-        "skill2": O + "スキップスラッシュ" + E + "：敵チャンピオンへ突進、{e_t}秒間攻撃速度+{e_as}%、射程増加、命中時" + mag("e_dmg", "e_ratio") +
+                 M + "魔法ダメージ" + E + "、中心の敵は" + W + "{q_true}の確定ダメージ" + E + "を追加で受ける。毎回パッシブ適用。スキップスラッシュ着地後2秒以内に使うと中心が対象に合う。",
+        "skill2": O + "スキップスラッシュ" + E + "：敵チャンピオンへ突進し着地と同時に一断ち、{e_t}秒間攻撃速度+{e_as}%、射程増加、命中時" + mag("e_dmg", "e_ratio") +
                   "。着地点に" + O + "聖なる霧" + E + "が{w_t}秒：霧の中では" + A + "インビジブル" + E + "（遠くの敵は対象にできない）、物防と魔防+{w_def}。",
         "ult": "敵チャンピオンへ針を3回投げる（1本、3本、5本）：各" + needles() + "の" + M + "魔法ダメージ" + E + "、" + R +
-               "{r_slow_t}秒間{r_slow}%スロウ" + E + "、パッシブ適用。",
+               "{r_slow_t}秒間{r_slow}%スロウ" + E + "、パッシブ適用。3回の間に通常攻撃を挟める。",
         "names": ("チョキチョキッ！", "スキップスラッシュ", "針仕事"),
     },
 }

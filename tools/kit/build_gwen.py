@@ -43,14 +43,15 @@ BIG = "asset/league/effects/league_gwen_big"
 # fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 24 seeds a batch,
 # 2026-10-06): +1.41 on seeds 1-24, +1.24 on 25-48 (league_fiora +1.22 / +1.47, league_tryndamere +1.29 / +1.02). The
 # draft g0 was +1.55 / +2.00: hp 980 -> 950, Q 90 + 50% -> 70 + 40%, E +40% -> +30% attack speed, W 25 -> 22 resists
-# (also cutting the passive to 8 went +1.42 / +0.53). Timings are placeholders until the strips.
+# (also cutting the passive to 8 went +1.42 / +0.53). Timings from the strips (tools/art/rig_gwen.py MS): the attack's
+# thrust frame 4 at 190 ms (tick 11), Q's shut frames 3 / 5 / 7 at ticks 7 / 14 / 22, R's throw frame 4 at tick 10.
 P = {
     # stats (Assassin AP base like league_diana / league_akali: attack 80 +10, magic power 50 +20, hp 950 +95, defence
     # 28 +8, mr 20 +3, move 1100); League's Gwen: 620 +114 hp, 63 AD, 39 armour, 340 move, 150 range
     "hp": 950, "hp_g": 98, "atk": 80, "atk_g": 10, "mp": 50, "mp_g": 20, "def": 30, "def_g": 8, "mr": 24, "mr_g": 4,
     "ms": 1080, "ms_g": 11,
     # attack
-    "atk_range": 24000, "atk_dur": 24, "atk_cd": 56, "a_hit": 8,
+    "atk_range": 24000, "atk_dur": 24, "atk_cd": 56, "a_hit": 11,
     # passive A Thousand Cuts
     "p_dmg": 10, "p_ratio": 8, "p_hp": 1, "p_heal": 10, "p_heal_r": 6,
     # skill: Q Snip Snip! (League: cd 6.5-3.5 s, final 35-185 + 35% AP, minis 20% of it, 2 + 4 stacks, 6 s stacks)
@@ -63,9 +64,12 @@ P = {
     "e_dmg": 15, "e_ratio": 20,
     "w_t": 240, "w_r": 37000, "w_period": 6, "w_def": 22,
     # ult: R Needlework (League: 3 casts, 1/3/5 needles, 35-95 + 10% AP each needle, slow 30-90% for 1.5 s, cd 120 s)
-    "r_cd": 2400, "r_range": 70000, "r_gap": 36, "r_t0": 8, "r_len": 80000, "r_w1": 5000, "r_w2": 15000, "r_w3": 25000,
+    "r_cd": 2400, "r_range": 70000, "r_gap": 36, "r_t0": 10, "r_len": 80000, "r_w1": 5000, "r_w2": 15000, "r_w3": 25000,
     "r_apply": 4, "r_delay": 12, "r_dmg1": 60, "r_dmg2": 70, "r_dmg3": 90, "r_ratio": 25, "r_slow": 40, "r_slow_t": 90,
     "r_anim": 24,
+    # combos (the user: 「另外加一点格温高手的连招逻辑进去」): E's landing snip, E -> Q's centre on the target, R woven
+    # with attacks
+    "e_cut": 1, "e_cut_ratio": 100, "e_cut_bonus": 1, "eq_t": 120, "r_weave": 1,
 }
 
 
@@ -222,8 +226,13 @@ def build(p):
                around(cone, "EnemyWithoutTower", [ap(dmg, ratio), cuts(), view("q_hit"), tsfx("q_hit")], forward=1000),
                around(cone, "EnemyChampion", cuts_champ(), forward=1000)]
         if final:
-            out.append(around(p["q_c_r"], "EnemyWithoutTower", [true(p["q_true"]), view("q_true"), tsfx("q_true")],
-                              forward=p["q_c_off"]))
+            centre = around(p["q_c_r"], "EnemyWithoutTower", [true(p["q_true"]), view("q_true"), tsfx("q_true")],
+                            forward=p["q_c_off"])
+            # combo E -> Q: in the window E's landing opened, the centre is put on Q's target (pros dash so it lands
+            # there; the AI cannot aim it)
+            on_target = combine(homing("q_mark", 100000, 0, "EnemyWithoutTower",
+                                       [true(p["q_true"]), view("q_true"), tsfx("q_true")]), *rm("eq"))
+            out.append(sw("eq", on_target, centre) if p["e_cut"] else centre)
         return out
 
     t0, gap = p["q_t0"], p["q_gap"]
@@ -248,21 +257,34 @@ def build(p):
               "end_effects": [zone]}
     land = [cview("w_mist"), sfx("w_cast"), sfx("vo_w"), anchor,
             refresh("e_on", p["e_t"], attack_speed_mult=p["e_as"], range=p["e_rng"])]
-    combo = combine(anim("skill2", p["e_tick"] + 4), sfx("e_cast"), sfx("vo_e"), cview("e_dash"),
+    if p["e_cut"]:
+        # combo E -> A: League's E resets her attack - she lands snipping the target (the attack's hit with E's on-hit
+        # damage, a Q stack) - and opens eq_t ticks in which Q's centre snips Q's target (E -> Q, below)
+        land += [sfx("a_swing"),
+                 homing("e_cut", 100000, 0, "EnemyChampion",
+                        [attack(0, p["e_cut_ratio"]), cuts(),
+                         *([ap(p["e_dmg"], p["e_ratio"])] if p["e_cut_bonus"] else []), view("a_hit"), tsfx("a_hit"),
+                         *cuts_champ()]),
+                 stack_up(), refresh("eq", p["eq_t"])]
+    combo = combine(anim("skill2", p["e_tick"] + 4), sfx("e_cast"), sfx("vo_e"),
                     {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 10000, "end_effects": []},
                     delayed(p["e_tick"], *land))
     skill2 = action("skill2", p["e_tick"] + 4, p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion", combo)
 
     # ------------------------------------------------------------------ ult: R Needlework
     def volley(k, width, dmg):
-        return [anim("ult", p["r_anim"]), sfx("r_throw"),
+        pose = [anim("ult", p["r_anim"])] if k == 1 or not p["r_weave"] else []
+        return [*pose, sfx("r_throw"),
                 fan(f"r_v{k}", width, p["r_len"], p["r_delay"], p["r_apply"], "EnemyWithoutTower",
                     [ap(dmg, p["r_ratio"]), cuts(), buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]),
                      view("r_hit"), tsfx("r_hit")]),
                 fan(f"r_v{k}_c", width, p["r_len"], p["r_delay"], p["r_apply"], "EnemyChampion", cuts_champ())]
 
     t = p["r_t0"]
-    ult = action("ult", t + 2 * p["r_gap"] + p["r_anim"], p["r_cd"], 1, p["r_range"], "Direction", "EnemyChampion",
+    # combo R -> A -> R -> A -> R: with r_weave the cast holds her for the first throw only; the later volleys fly
+    # from where she is while she attacks between them (League's recasts, woven with attacks)
+    hold = t + p["r_anim"] if p["r_weave"] else t + 2 * p["r_gap"] + p["r_anim"]
+    ult = action("ult", hold, p["r_cd"], 1, p["r_range"], "Direction", "EnemyChampion",
                  combine(sfx("vo_r"), sfx("r_cast"),
                          delayed(t, *volley(1, p["r_w1"], p["r_dmg1"])),
                          delayed(t + p["r_gap"], *volley(2, p["r_w2"], p["r_dmg2"])),
@@ -278,7 +300,7 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
     views_p = [P_(f"r_v{k}", BIG) for k in (1, 2, 3)]
-    views_e = [E("a_hit"), E("q_hit"), E("q_true"), E("r_hit"), E("e_dash"), E("w_mist", BIG, -1, **LATE)]
+    views_e = [E("a_hit"), E("q_hit"), E("q_true"), E("r_hit"), E("w_mist", BIG, -1, **LATE)]   # e_dash: in her frames
     views_b = [B_(f"qs{k}", FX, 3) for k in range(1, q_n + 1)] + [B_("e_on", FX, 2), B_("w_in", FX, 2),
                                                                   B_("r_slow", FX, 2)]
     return {
