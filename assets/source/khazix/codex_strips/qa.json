@@ -1,0 +1,450 @@
+{
+  "idle": {
+    "frame_count": 6,
+    "durations_ms": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "unique_frames": 1,
+    "native_contract_preserved": true,
+    "raw_generation": "provided idle",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 44,
+        "orphans": 7,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 44,
+        "orphans": 7,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 44,
+        "orphans": 7,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 44,
+        "orphans": 7,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 44,
+        "orphans": 7,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 44,
+        "orphans": 7,
+        "below": 0,
+        "area": 1.0
+      }
+    ]
+  },
+  "run": {
+    "frame_count": 8,
+    "durations_ms": [
+      125,
+      125,
+      125,
+      125,
+      125,
+      125,
+      125,
+      125
+    ],
+    "unique_frames": 8,
+    "native_contract_preserved": true,
+    "raw_generation": "raw/run_generated.png",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 32,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 32,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.97
+      },
+      {
+        "pieces": 1,
+        "holes": 25,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.94
+      },
+      {
+        "pieces": 1,
+        "holes": 41,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.91
+      },
+      {
+        "pieces": 1,
+        "holes": 40,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.93
+      },
+      {
+        "pieces": 1,
+        "holes": 41,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.9
+      },
+      {
+        "pieces": 1,
+        "holes": 22,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.93
+      },
+      {
+        "pieces": 1,
+        "holes": 35,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.98
+      }
+    ]
+  },
+  "attack": {
+    "frame_count": 6,
+    "durations_ms": [
+      60,
+      60,
+      60,
+      80,
+      70,
+      70
+    ],
+    "unique_frames": 6,
+    "native_contract_preserved": true,
+    "raw_generation": "raw/attack_generated.png",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 61,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.95
+      },
+      {
+        "pieces": 1,
+        "holes": 20,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.99
+      },
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 85,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.02
+      },
+      {
+        "pieces": 1,
+        "holes": 45,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      }
+    ]
+  },
+  "skill": {
+    "frame_count": 6,
+    "durations_ms": [
+      60,
+      70,
+      70,
+      80,
+      70,
+      70
+    ],
+    "unique_frames": 6,
+    "native_contract_preserved": true,
+    "raw_generation": "raw/skill_generated.png",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 61,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.97
+      },
+      {
+        "pieces": 1,
+        "holes": 20,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.01
+      },
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.02
+      },
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.02
+      },
+      {
+        "pieces": 1,
+        "holes": 45,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.03
+      }
+    ]
+  },
+  "skill2": {
+    "frame_count": 7,
+    "durations_ms": [
+      60,
+      60,
+      60,
+      60,
+      100,
+      100,
+      100
+    ],
+    "unique_frames": 7,
+    "native_contract_preserved": true,
+    "raw_generation": "raw/skill2_generated.png",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 80,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 9,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.96
+      },
+      {
+        "pieces": 1,
+        "holes": 9,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.96
+      },
+      {
+        "pieces": 1,
+        "holes": 80,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 62,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.03
+      },
+      {
+        "pieces": 1,
+        "holes": 40,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.93
+      },
+      {
+        "pieces": 1,
+        "holes": 45,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.05
+      }
+    ]
+  },
+  "ult": {
+    "frame_count": 3,
+    "durations_ms": [
+      100,
+      100,
+      100
+    ],
+    "unique_frames": 3,
+    "native_contract_preserved": true,
+    "raw_generation": "raw/ult_generated.png",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 58,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 12,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.83
+      },
+      {
+        "pieces": 1,
+        "holes": 45,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.02
+      }
+    ]
+  },
+  "hit": {
+    "frame_count": 2,
+    "durations_ms": [
+      100,
+      100
+    ],
+    "unique_frames": 2,
+    "native_contract_preserved": true,
+    "raw_generation": "raw/hit_generated.png",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 45,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      }
+    ]
+  },
+  "dead": {
+    "frame_count": 8,
+    "durations_ms": [
+      100,
+      110,
+      120,
+      130,
+      150,
+      200,
+      300,
+      400
+    ],
+    "unique_frames": 6,
+    "native_contract_preserved": true,
+    "raw_generation": "raw/dead_generated.png",
+    "per_frame": [
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 60,
+        "orphans": 0,
+        "below": 0,
+        "area": 1.0
+      },
+      {
+        "pieces": 1,
+        "holes": 40,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.94
+      },
+      {
+        "pieces": 1,
+        "holes": 48,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.94
+      },
+      {
+        "pieces": 1,
+        "holes": 34,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.93
+      },
+      {
+        "pieces": 1,
+        "holes": 34,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.93
+      },
+      {
+        "pieces": 1,
+        "holes": 34,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.93
+      },
+      {
+        "pieces": 1,
+        "holes": 34,
+        "orphans": 0,
+        "below": 0,
+        "area": 0.93
+      }
+    ]
+  }
+}
