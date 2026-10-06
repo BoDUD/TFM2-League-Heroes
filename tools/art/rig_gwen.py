@@ -295,9 +295,9 @@ def stand(P, pose):
 # under the skirt; the thigh rows lean to the knee, the shin rows on to the ankle, the boot rows move whole with the
 # ankle (the user: v1's legs slid as straight sticks, 「走路的时候 说不出的怪」)
 CYCLE = [(1, 3, 0), (1, 1, 0), (0, -1, 0), (-1, -2, 0), (-1, -3, 1), (0, -2, 2), (1, 0, 2), (2, 3, 1)]
-BOB = [2, 1, 0, 1, 2, 1, 0, 1]          # the body two rows lower at each contact (a reviewer: v2 did not bob enough)
-CURLS = ((68, 82), (60, 68))           # the curls: hair squares in these rows outside these columns (the face's); they
-                                       # and the scissors follow the body's bob a frame late
+BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact - two rows (and the curls and scissors a frame
+LAG = 0                                # late, a reviewer's idea) squashed her onto her legs and tore the curls from the
+CURLS = ((68, 82), (60, 68))           # head: 「走路时模型变形了吧？」
 KNEE_ROW, BOOT_ROW = 91, 94            # the stockings to the knee, the shin, the boots from row 94
 FAR_SHADE = {"f": "d", "d": "b", "x": "s", "s": "m", "m": "j", "w": "x", "q": "l", "u": "q"}
 
@@ -360,7 +360,8 @@ def run_frame(P, k):
     c = np.zeros((128, 128, 4), np.uint8)
     for leg, ph in ((far, (k + 4) % 8), (near, k)):
         K.put(c, bent(leg, *CYCLE[ph]), 0, 0)
-    dy, late = BOB[k], BOB[k - 1]
+    dy = BOB[k]
+    late = BOB[k - LAG]
     K.put(c, shifted(body, 0, dy), 0, 0)
     K.put(c, shifted(lag, 0, late), 0, 0, under=True)
     K.put(c, shifted(sc, 0, late), 0, 0, under=True)
