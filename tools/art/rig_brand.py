@@ -231,8 +231,10 @@ SEAT_MID = 62.5
 # the right edge from the waist to the legs one straight line (Varus's 「对齐」): the waist (rows 79-82) ends on column 67,
 # the belt and the seat stuck out to 68-69 over the straight legs - trimmed to it, the outline on column EDGE
 EDGE, EDGE_ROWS = 67, (83, 86)
-FRONT_SWING = [-2, -1, 0, 2, 1, 0]     # columns (+ = forward)
-BACK_SWING = [2, 1, 0, -2, -1, 0]
+# moved whole sideways an arm tore off its shoulder or sank into the body (「右手臂有点变形 走动的时候」): turned instead
+# about its shoulder by a few degrees (RotSprite), the shoulder end staying where it was
+FRONT_SWING = [-12, -6, 0, 12, 6, 0]   # degrees counter-clockwise on screen (+ = the hanging hand forward)
+BACK_SWING = [12, 6, 0, -12, -6, 0]
 
 
 def run(P, k):
@@ -279,15 +281,16 @@ def run(P, k):
                     out[r, x, :3] = P.D.outline
                 else:
                     out[r, x] = 0
-    # the arms swung: cut from the frame (the design's, dropped by the bob) and put back moved, over the body
-    for m, d in ((np.roll(P.back_m, bob, axis=0), BACK_SWING[k]), (np.roll(P.front_m, bob, axis=0), FRONT_SWING[k])):
+    # the arms swung: cut from the frame (the design's, dropped by the bob), turned about the shoulder, put back
+    for m, sh, d in ((np.roll(P.back_m, bob, axis=0), BACK_SHOULDER, BACK_SWING[k]),
+                     (np.roll(P.front_m, bob, axis=0), FRONT_SHOULDER, FRONT_SWING[k])):
         if not d:
             continue
-        arm = np.zeros_like(out)
         m = m & (out[..., 3] > 0)
-        arm[m] = out[m]
+        joint = (sh[0], sh[1] + bob)
+        part = K.Part.from_canvas(out, m, joint)
         out[m] = 0
-        K.put(out, K.shifted(arm, d, 0), 0, 0)
+        K.place(out, K.turn(part, d), joint)
     return out
 
 
