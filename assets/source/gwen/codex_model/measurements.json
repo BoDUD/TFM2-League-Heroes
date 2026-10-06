@@ -1,0 +1,52 @@
+[
+  {
+    "version": 1,
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "bbox_1x": [
+      44,
+      60,
+      76,
+      100
+    ],
+    "height": 40,
+    "width": 32,
+    "head_region_rows": 12,
+    "colours": 28,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "sole_row": 99,
+    "grid": 8,
+    "route": "generated-source nearest-neighbour segmented resampling; NOT native 40-row redraw",
+    "source": "exec-2eb56364-3062-41ae-ba2e-e68dbef9a303.png"
+  },
+  {
+    "version": 2,
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "bbox_1x": [
+      44,
+      60,
+      76,
+      100
+    ],
+    "height": 40,
+    "width": 32,
+    "head_region_rows": 10,
+    "colours": 26,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "sole_row": 99,
+    "grid": 8,
+    "route": "generated-source nearest-neighbour segmented resampling; NOT native 40-row redraw",
+    "source": "exec-d9f0937d-e7a3-43f3-a647-bb00aa4233d9.png"
+  }
+]
