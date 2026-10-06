@@ -36,9 +36,10 @@ W = "<#ffffffff>"      # true damage
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
 # face: the bald crown 40 px over the feet, 1.5 px ahead of the head centre (x +8.5; tfm2_ase.py face took the
-# harpoon over his head for the crown); banpick: the harpoon's tip 41 px over the pivot, -39 - (-41) = +2 -> 0 (never
-# positive, league_kayle's 0)
-VIEW = {"face": {"x": 10, "y": -33}, "center": {"x": 0, "y": -8}, "banpick_center": {"x": 0, "y": 0}}
+# harpoon over his head for the crown); banpick: the card's canvas shows 40 px, -40 - y to -y round the pivot; at 0
+# (base's -39 - top rule for the harpoon's tip) his legs were all under it (「派克在bp界面腿都看不到了」): -10 shows
+# him from the bald crown to the boots (-30 to +10), the harpoon's tip clipped
+VIEW = {"face": {"x": 10, "y": -33}, "center": {"x": 0, "y": -8}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phy(d, r):
