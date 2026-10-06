@@ -1,0 +1,130 @@
+[
+  {
+    "number": 1,
+    "file": "pyke_fx_a_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bone ramp (#FFFFFF, #FFF8E0, #E8D8AA, #C8B484, #8E7A54) and a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a HARPOON SLASH HIT, 4 frames: 1 a diagonal bone-white slash streak 12 squares long through the center (from the top right down to the bottom left), a white core; 2 the streak thinner, a white flash 5 squares across at its middle, teal water droplets flying out; 3 droplets scattering; 4 a few fading drops.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1024,
+    "height": 256,
+    "frames": 4
+  },
+  {
+    "number": 2,
+    "file": "pyke_fx_q_charge.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a CHARGING GLOW, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT: a teal-white glowing orb 5 squares across at the center, 6 small teal motes drawn inward toward it from 5 squares out; the orb pulses brighter and dimmer.\nLayout: one horizontal row of 4 equal square cells, image size 768x192 (each cell 192x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 768,
+    "height": 192,
+    "frames": 4
+  },
+  {
+    "number": 3,
+    "file": "pyke_fx_q_hook.png",
+    "prompt": "Pixel art game sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, a 1-square dark outline #0A0608 around the object, colours only from a bone ramp (#FFFFFF, #FFF8E0, #E8D8AA, #C8B484, #8E7A54), the harpoon's gold and red (#F6D48C, #E09A40, #B86A28, #9A1020, #D81A26) and a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a THROWN HARPOON flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM: at the front a wide bone-white blade 9 squares long with jagged barbs on BOTH edges (mirror-symmetric), a gold guard 2 squares wide with a cyan gem in its middle, a red-wrapped shaft 2 squares thick and 10 squares long, a short teal water trail and a dark rope 5 squares long behind it; the trail shimmers and the gem glints each frame.\nLayout: one horizontal row of 4 equal 28:10 cells, image size 1792x160 (each cell 448x160, 16 px a square); the blade's point 1 square from the RIGHT edge, vertically centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1792,
+    "height": 160,
+    "frames": 4
+  },
+  {
+    "number": 4,
+    "file": "pyke_fx_q_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a HARPOON HOOK HIT, 5 frames: 1 a white sharp eight-pointed star flash 8 squares across at the center; 2 the star smaller, a ring of teal water splash 12 squares across bursting out; 3 the splash wider and broken into droplets; 4 droplets falling; 5 a few fading drops.\nLayout: one horizontal row of 5 equal square cells, image size 1440x288 (each cell 288x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1440,
+    "height": 288,
+    "frames": 5
+  },
+  {
+    "number": 5,
+    "file": "pyke_fx_q_stab_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bone ramp (#FFFFFF, #FFF8E0, #E8D8AA, #C8B484, #8E7A54) and a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a STAB HIT, 4 frames, SYMMETRIC TOP TO BOTTOM: 1 a horizontal white-hot spike streak 14 squares long through the center, pointed at its RIGHT end, a white flash 4 squares across at the center; 2 the streak thinner, a puff of teal water droplets behind it; 3 droplets scattering; 4 fading drops.\nLayout: one horizontal row of 4 equal 18:12 cells, image size 1152x192 (each cell 288x192, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1152,
+    "height": 192,
+    "frames": 4
+  },
+  {
+    "number": 6,
+    "file": "pyke_fx_w_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a WATER BURST around a figure's feet (do NOT draw the figure; leave its place empty), 5 frames, SYMMETRIC LEFT TO RIGHT: 1 a flat ellipse ripple 24 squares wide and 6 tall on the ground at the standing point; 2 teal water splashing UP from its rim to 10 squares high; 3 the splash at its highest, droplets, white crests; 4 the water falling back; 5 a fading ripple on the ground.\nLayout: one horizontal row of 5 equal 30:18 cells, image size 2400x288 (each cell 480x288, 16 px a square); the standing point 3 squares above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 2400,
+    "height": 288,
+    "frames": 5
+  },
+  {
+    "number": 7,
+    "file": "pyke_fx_e_left.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a GHOST-WATER PUDDLE on the ground, 6 frames, SYMMETRIC LEFT TO RIGHT: 1 a flat teal ellipse puddle 20 squares wide and 5 tall appears; 2-4 the puddle ripples, a narrow teal water spout rising from its middle up to 12 squares high, white crests; 5 the spout bursting into droplets; 6 the puddle fading.\nLayout: one horizontal row of 6 equal 28:18 cells, image size 2688x288 (each cell 448x288, 16 px a square); the puddle's center 4 squares above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 2688,
+    "height": 288,
+    "frames": 6
+  },
+  {
+    "number": 8,
+    "file": "pyke_fx_e_phantom.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a DROWNED PHANTOM rushing to the RIGHT, 4 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM: at the front a translucent-looking teal ghost head 8 squares tall with two glowing white eyes side by side and pale bone-white fang shapes along its front edge, behind it a long tapering wave of teal water 16 squares long; the wave ripples and the eyes flicker each frame.\nLayout: one horizontal row of 4 equal 26:14 cells, image size 1664x224 (each cell 416x224, 16 px a square); the head's front 2 squares from the RIGHT edge, vertically centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1664,
+    "height": 224,
+    "frames": 4
+  },
+  {
+    "number": 9,
+    "file": "pyke_fx_e_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a GHOST-WATER HIT, 5 frames: 1 a horizontal teal water streak 16 squares long rushing through the center, a white flash 6 squares across; 2 the water bursting into splashes above and below; 3 splashes wider; 4 droplets falling; 5 fading drops.\nLayout: one horizontal row of 5 equal square cells, image size 1600x320 (each cell 320x320, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1600,
+    "height": 320,
+    "frames": 5
+  },
+  {
+    "number": 10,
+    "file": "pyke_fx_e_stun.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a STUN RING over a head, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT: a flat ellipse ring 12 squares wide and 4 tall of 6 small teal water beads and 2 tiny white stars circling round, each frame the beads moved a step along the ring.\nLayout: one horizontal row of 4 equal 16:8 cells, image size 1024x128 (each cell 256x128, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1024,
+    "height": 128,
+    "frames": 4
+  },
+  {
+    "number": 11,
+    "file": "pyke_fx_q_slow.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a SLOWING PUDDLE under a figure's feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT: a flat teal ellipse puddle 14 squares wide and 4 tall, 2 thin pale ripple rings spreading out from it each frame.\nLayout: one horizontal row of 4 equal 18:8 cells, image size 1152x128 (each cell 288x128, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1152,
+    "height": 128,
+    "frames": 4
+  },
+  {
+    "number": 12,
+    "file": "pyke_fx_r_mark.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blood ramp (#FFFFFF, #FFC8C0, #FF5A4A, #D01E2A, #8A0A1C, #4A0612) and a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: a GROUND X-MARK seen from above at an angle (flattened: twice as wide as tall), 6 frames, SYMMETRIC LEFT TO RIGHT AND TOP TO BOTTOM: two crossing bars like two crossed harpoons, each bar 4 squares thick, from corner to corner of a 54 x 26 square area, dark blood-red edges and a teal glow along their middle; 1 faint; 2-5 brighter and brighter, the red edges glowing; 6 at its brightest, a white line along the middle of each bar.\nLayout: one horizontal row of 6 equal 58:30 cells, image size 5568x480 (each cell 928x480, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 5568,
+    "height": 480,
+    "frames": 6
+  },
+  {
+    "number": 13,
+    "file": "pyke_fx_r_strike.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blood ramp (#FFFFFF, #FFC8C0, #FF5A4A, #D01E2A, #8A0A1C, #4A0612) and a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: an X-SHAPED STRIKE on the ground, 5 frames, SYMMETRIC LEFT TO RIGHT: 1 two crossing slash streaks along the diagonals of a 54 x 24 square flattened area, each 3 squares thick, white-hot cores with blood-red edges; 2 the streaks thinner, a burst of dark blood-red and teal water at the center, 4 water spikes shooting UP to 20 squares high; 3 the spikes at their highest; 4 the spikes falling into blood-red droplets; 5 fading drops and a faint X.\nLayout: one horizontal row of 5 equal 60:36 cells, image size 4800x576 (each cell 960x576, 16 px a square); the X's center 12 squares above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 4800,
+    "height": 576,
+    "frames": 5
+  },
+  {
+    "number": 14,
+    "file": "pyke_fx_r_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a blood ramp (#FFFFFF, #FFC8C0, #FF5A4A, #D01E2A, #8A0A1C, #4A0612).\nEffect: an EXECUTE HIT, 5 frames: 1 a vertical white-hot slash streak 18 squares tall through the center with blood-red edges; 2 the streak thinner, a burst of dark blood-red splash 14 squares across; 3 splash wider, droplets; 4 droplets falling; 5 fading drops.\nLayout: one horizontal row of 5 equal square cells, image size 1760x352 (each cell 352x352, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 1760,
+    "height": 352,
+    "frames": 5
+  },
+  {
+    "number": 15,
+    "file": "pyke_fx_r_reset.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold ramp (#FFFFFF, #FFF0A0, #FFD040, #E89A10, #A85A08) and a blood ramp (#FFFFFF, #FFC8C0, #FF5A4A, #D01E2A, #8A0A1C, #4A0612).\nEffect: a BOUNTY BURST, 6 frames, SYMMETRIC LEFT TO RIGHT: 1 a white-gold flash 8 squares across at the center; 2-4 8 small gold coins (2-3 squares each, a white glint) flying out and up, a thin blood-red ring expanding to 22 squares across; 5-6 the coins falling and fading, the ring fading.\nLayout: one horizontal row of 6 equal square cells, image size 2496x416 (each cell 416x416, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 2496,
+    "height": 416,
+    "frames": 6
+  },
+  {
+    "number": 16,
+    "file": "pyke_fx_p_heal.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around water, light, slashes, blood or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a ghost-water ramp (#FFFFFF, #D8FFF8, #8CF4E6, #3CCFC8, #16929E, #0B5466).\nEffect: HEALING WISPS around a figure (do NOT draw the figure; leave its place empty), 6 frames, SYMMETRIC LEFT TO RIGHT, the middle 10 squares left empty: 4 thin teal wisps (2 squares wide, white highlights) rising from the ground on both sides, curling up around the figure's place, fading above its head; each frame the wisps a step higher.\nLayout: one horizontal row of 6 equal 24:34 cells, image size 2304x544 (each cell 384x544, 16 px a square); the figure's place horizontally centered, its feet 2 squares above the bottom, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "width": 2304,
+    "height": 544,
+    "frames": 6
+  }
+]

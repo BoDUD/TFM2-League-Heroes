@@ -1305,6 +1305,8 @@ league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one un
 mage 3.40 and league_lissandra 2.10 in the same batch - no change.
 league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only onto a champion already in crowd
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
+league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
+Skewer's pull): 1.88 a game; league_thresh 1.40 and league_leona 2.33 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3424,6 +3426,28 @@ branch below S would waste the cooldown: the slot only arms r_armed for 330 tick
 `ult_cooldown_mult` when it lapses, league_evelynn R), and at S - or the next attack at S while armed - it fires: the
 grades and the last kinds go, a 120-tick `CasterAnimation`, life steal, and the shots on her own `AddCasted` so crowd
 control stops the spin but not the shots.
+
+**An execute without reading health (league_pyke R, Death from Below).** League executes champions under a threshold
+T and deals T/2 to the rest; nothing in the data reads current health. The X's zone deals T as `FixedAttack` (true
+damage) to every enemy champion in it - those under T die - and a `Delayed {tick: 1}` in the same `applied_effects`
+(queued on the champion hit) adds `Heal {amount: T/2, attack_ratio: half of T's, heal_type: "Any"}`: a survivor is
+healed back half, so it loses T/2 as in League, and a dead unit is not revived *(measured in the SDK simulation with an
+HP trace, 2026-10-06: 377 dealt then 188 healed; the executed stayed dead)*. A heal reduction on the target makes the
+survivor lose a little more. The kill check (league_jinx) on the same champions blinks him onto the dead (a `Delayed`
+`Teleport` on the target, read while the kill flag still holds) and takes the ult's cooldown off for a recast. A shared
+kill flag means a survivor in the same X hides another's death; the exact execute is a native add-on's job.
+
+**A phantom that comes back (league_pyke E, Phantom Undertow).** Where the dash starts, league_ekko's anchor (a
+`LinearProjectile` of speed 1 and range 1) ends at once; its `end_effects` hold that spot, and a `Delayed` there throws
+a penetrating `BackToCasterLinearProjectile` from it back to him, stunning every champion on its way. At 40 ticks it
+hit 3 of 37 casts (he had walked off by then); thrown 12 ticks after the dash at 12000 a tick, 25 of 32.
+
+**Grey health (league_pyke passive, Gift of the Drowned Ones).** League stores champion damage and heals it back while
+he is unseen. league_sett's hit sensor (a 1-point `Shield` and a `WithShield` caster flag) is read by his attack and
+his ult: broken -> one more grey level (g1..g5, each 480 ticks) and a `hurt` flag for 180 ticks, the sensor armed again.
+The levels heal back in W's camouflage, and each attack also queues a 180-tick `Delayed` on him that heals them if the
+sensor is still whole and `hurt` is gone - nobody hit him for 3 s. What it counts is "hit since the last check", not how
+much.
 
 **One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
 Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself

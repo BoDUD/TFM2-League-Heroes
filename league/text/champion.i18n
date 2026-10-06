@@ -449,12 +449,19 @@
         "skill2": "<#ff9028ff>狂飙<>：冲到敌方英雄身后，对周围敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，攻速+30%。随即<#ff9028ff>锋旋<>：旋转0.75秒砍两次，每次<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，期间受到的攻击伤害-60%。击杀英雄刷新冷却。",
         "ult": "评价到<#ffb900ff>S<>时才会施放：原地旋转连射<#ffb900ff>2秒<>，每0.2秒向周围所有敌人各开一枪，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>，期间生命偷取40%。放完评价清零。"
       },
+      "league_pyke": {
+        "name": "派克",
+        "attack": "鱼叉挥砍。被动<#ff9028ff>溺水之幸<>：挨打积攒灰血（最多5层），潜行或3秒没挨打时每层回复<#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<><#66bb6aff>生命<>。无法靠生命成长，攻击力成长更高。",
+        "skill": "英雄贴身时戳刺，否则蓄力扔出鱼叉，命中第一个敌人：<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>，减速60%，鱼叉命中的会被<#ef5350ff>拉回<>。",
+        "skill2": "<#ff9028ff>幽潭潜行<>：潜行并加速，回复灰血。随即<#ff9028ff>魅影浪洄<>：冲过敌方英雄，魅影随后飞回他身边，途经的英雄受到<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>晕眩1秒<>。",
+        "ult": "X形打击：英雄受到<#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<><#ffffffff>真实伤害<>，低于此值<#ef5350ff>被处决<>，否则只受一半；其他敌人受一半物理伤害。有英雄死在X里时派克闪到其身上并<#ffb900ff>刷新大招<>。"
+      },
       "league_gwen": {
         "name": "格温",
         "attack": "被动<#ff9028ff>千穿百孔<>：攻击和技能命中附加<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>，对英雄再造成<#f5f5f5ff>1%最大生命值真实伤害<>并回复<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>生命。每次攻击叠一层剪刀层数，最多4层。",
-        "skill": "在身前剪<#ffb900ff>1+层数<>下，每下<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最后一剪<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，正中央的敌人额外受到<#f5f5f5ff>40真实伤害<>。每下都带被动。",
-        "skill2": "<#ff9028ff>断续疾走<>：冲向敌方英雄，4秒内攻速+30%、攻击距离增加、攻击附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>丝缕缠流<>：圣霭4秒，她在雾中时<#ffb900ff>隐身<>（远处敌人选不中她），护甲和魔抗+22。",
-        "ult": "朝敌方英雄连掷三轮针：1根、3根、5根，各造成<#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>1.5秒，带被动。"
+        "skill": "在身前剪<#ffb900ff>1+层数<>下，每下<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最后一剪<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，正中央的敌人额外受到<#f5f5f5ff>25真实伤害<>。每下都带被动。断续疾走落地后2秒内施放，正中央对准目标。",
+        "skill2": "<#ff9028ff>断续疾走<>：冲向敌方英雄，落地立刻剪他一下，4秒内攻速+25%、攻击距离增加、攻击附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>丝缕缠流<>：圣霭4秒，她在雾中时<#ffb900ff>隐身<>（远处敌人选不中她），护甲和魔抗+22。",
+        "ult": "朝敌方英雄连掷三轮针：1根、3根、5根，各造成<#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>1.5秒，带被动。三轮之间可以穿插普攻。"
       }
     },
     "skill_name": {
@@ -777,6 +784,11 @@
         "skill1": "交火",
         "skill2": "狂飙",
         "ult": "炼狱扳机"
+      },
+      "league_pyke": {
+        "skill1": "透骨尖钉",
+        "skill2": "魅影浪洄",
+        "ult": "涌泉之恨"
       },
       "league_gwen": {
         "skill1": "快刀剪乱",
@@ -1235,12 +1247,19 @@
         "skill2": "<#ff9028ff>狂野突進<>：衝到敵方英雄身後，對周圍敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，攻速+30%。隨即<#ff9028ff>劍刃風暴<>：旋轉0.75秒砍兩次，每次<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，期間受到的攻擊傷害-60%。擊殺英雄刷新冷卻。",
         "ult": "評價到<#ffb900ff>S<>時才會施放：原地旋轉連射<#ffb900ff>2秒<>，每0.2秒向周圍所有敵人各開一槍，造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>，期間生命偷取40%。放完評價清零。"
       },
+      "league_pyke": {
+        "name": "派克",
+        "attack": "魚叉揮砍。被動<#ff9028ff>血港淹禮<>：挨打累積灰血（最多5層），潛行或3秒沒挨打時每層回復<#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<><#66bb6aff>生命<>。無法靠生命成長，攻擊力成長更高。",
+        "skill": "英雄貼身時戳刺，否則蓄力擲出魚叉，命中第一個敵人：<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>，緩速60%，魚叉命中的會被<#ef5350ff>拉回<>。",
+        "skill2": "<#ff9028ff>幽海深潛<>：潛行並加速，回復灰血。隨即<#ff9028ff>溺流鬼影<>：衝過敵方英雄，鬼影隨後飛回他身邊，途經的英雄受到<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩1秒<>。",
+        "ult": "X形打擊：英雄受到<#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<><#ffffffff>真實傷害<>，低於此值<#ef5350ff>被處決<>，否則只受一半；其他敵人受一半物理傷害。有英雄死在X裡時派克閃到其身上並<#ffb900ff>刷新大招<>。"
+      },
       "league_gwen": {
         "name": "關",
         "attack": "被動<#ff9028ff>千刀萬剮<>：攻擊和技能命中附加<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>，對英雄再造成<#f5f5f5ff>1%最大生命值真實傷害<>並回復<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>生命。每次攻擊疊一層剪刀層數，最多4層。",
-        "skill": "在身前剪<#ffb900ff>1+層數<>下，每下<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最後一剪<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，正中央的敵人額外受到<#f5f5f5ff>40真實傷害<>。每下都帶被動。",
-        "skill2": "<#ff9028ff>剪步如飛<>：衝向敵方英雄，4秒內攻速+30%、攻擊距離增加、攻擊附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>聖霧絲縷<>：聖霧4秒，她在霧中時<#ffb900ff>隱形<>（遠處敵人選不中她），護甲和魔抗+22。",
-        "ult": "朝敵方英雄連擲三輪針：1根、3根、5根，各造成<#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>1.5秒，帶被動。"
+        "skill": "在身前剪<#ffb900ff>1+層數<>下，每下<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>，最後一剪<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，正中央的敵人額外受到<#f5f5f5ff>25真實傷害<>。每下都帶被動。剪步如飛落地後2秒內施放，正中央對準目標。",
+        "skill2": "<#ff9028ff>剪步如飛<>：衝向敵方英雄，落地立刻剪他一下，4秒內攻速+25%、攻擊距離增加、攻擊附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>聖霧絲縷<>：聖霧4秒，她在霧中時<#ffb900ff>隱形<>（遠處敵人選不中她），護甲和魔抗+22。",
+        "ult": "朝敵方英雄連擲三輪針：1根、3根、5根，各造成<#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>1.5秒，帶被動。三輪之間可以穿插普攻。"
       }
     },
     "skill_name": {
@@ -1563,6 +1582,11 @@
         "skill1": "狂戰本能",
         "skill2": "狂野突進",
         "ult": "地獄火狂襲"
+      },
+      "league_pyke": {
+        "skill1": "刺骨串叉",
+        "skill2": "溺流鬼影",
+        "ult": "汪洋死域"
       },
       "league_gwen": {
         "skill1": "剪剪！",
@@ -2021,12 +2045,19 @@
         "skill2": "<#ff9028ff>Wild Rush<>: dashes past an enemy champion, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>40%<> <#a974ffff>magic damage<> around her and gaining 30% attack speed. Then <#ff9028ff>Blade Whirl<>: spins for 0.75s, slashing twice for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> each and taking 60% less damage from attacks. A champion kill refreshes the cooldown.",
         "ult": "Only at Style <#ffb900ff>S<>: spins in place firing for <#ffb900ff>2s<>, every 0.2s a shot at every enemy around her for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>, with 40% life steal. Spends her Style."
       },
+      "league_pyke": {
+        "name": "Pyke",
+        "attack": "Harpoon slashes. Passive <#ff9028ff>Gift of the Drowned Ones<>: hits store grey health (up to 5 stacks); camouflaged or unhit for 3s he heals <#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<> <#66bb6aff>health<> a stack. Little health growth, more attack damage growth.",
+        "skill": "Stabs a champion beside him, otherwise charges and throws his harpoon at the first enemy: <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, a 60% slow, and the harpoon <#ef5350ff>pulls<> it to him.",
+        "skill2": "<#ff9028ff>Ghostwater Dive<>: camouflage and a burst of speed, grey health healed. Then <#ff9028ff>Phantom Undertow<>: dashes through an enemy champion; a phantom rushes back to him, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> to champions on its way and <#ef5350ff>stunning<> them for 1s.",
+        "ult": "Strikes an X: champions take <#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<> <#ffffffff>true damage<> - below that they are <#ef5350ff>executed<>, otherwise they take half; other enemies take half as physical damage. A champion dying in the X blinks him to it and <#ffb900ff>refreshes the ult<>."
+      },
       "league_gwen": {
         "name": "Gwen",
         "attack": "Passive <#ff9028ff>A Thousand Cuts<>: her attacks and skill hits deal <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> bonus <#a974ffff>magic damage<>; to champions also <#f5f5f5ff>1% max health true damage<>, healing her <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>. Each attack adds a snip stack (up to 4).",
-        "skill": "Snips in front of her <#ffb900ff>1 + stacks<> times for <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> each, then a final snip for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; enemies in the centre take <#f5f5f5ff>40 true damage<> more. Every snip applies the passive.",
-        "skill2": "<#ff9028ff>Skip 'n Slash<>: dashes at an enemy champion; for 4s her attacks gain 30% attack speed, range and <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> on hit. Where she lands <#ff9028ff>Hallowed Mist<> settles for 4s: inside it she is <#ffb900ff>invisible<> (enemies far away cannot target her) with +22 armour and magic resist.",
-        "ult": "Hurls three volleys of needles at an enemy champion - 1, 3 and 5 needles - each dealing <#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 40%<> for 1.5s and applying the passive."
+        "skill": "Snips in front of her <#ffb900ff>1 + stacks<> times for <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> each, then a final snip for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; enemies in the centre take <#f5f5f5ff>25 true damage<> more. Every snip applies the passive. Cast within 2s of Skip 'n Slash landing, the centre is on the target.",
+        "skill2": "<#ff9028ff>Skip 'n Slash<>: dashes at an enemy champion, snipping it as she lands; for 4s her attacks gain 25% attack speed, range and <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> on hit. Where she lands <#ff9028ff>Hallowed Mist<> settles for 4s: inside it she is <#ffb900ff>invisible<> (enemies far away cannot target her) with +22 armour and magic resist.",
+        "ult": "Hurls three volleys of needles at an enemy champion - 1, 3 and 5 needles - each dealing <#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 40%<> for 1.5s and applying the passive. She can attack between the volleys."
       }
     },
     "skill_name": {
@@ -2349,6 +2380,11 @@
         "skill1": "Flair",
         "skill2": "Wild Rush",
         "ult": "Inferno Trigger"
+      },
+      "league_pyke": {
+        "skill1": "Bone Skewer",
+        "skill2": "Phantom Undertow",
+        "ult": "Death From Below"
       },
       "league_gwen": {
         "skill1": "Snip Snip!",
@@ -2807,12 +2843,19 @@
         "skill2": "<#ff9028ff>거침없는 질주<>: 적 챔피언 뒤로 돌진해 주변 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>, 공격 속도 +30%. 이어서 <#ff9028ff>원형 검무<>: 0.75초간 회전하며 두 번 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 피해, 받는 공격 피해 -60%. 챔피언 처치 시 재사용 대기시간 초기화.",
         "ult": "스타일 <#ffb900ff>S<>일 때만: 제자리에서 회전하며 <#ffb900ff>2초<>간 0.2초마다 주변 모든 적을 쏴 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 생명력 흡수 40%. 스타일을 소모합니다."
       },
+      "league_pyke": {
+        "name": "파이크",
+        "attack": "작살 공격. 기본 지속 효과 <#ff9028ff>가라앉은 자들의 축복<>: 피격 시 회색 체력 축적(최대 5중첩), 위장 중이거나 3초간 피격되지 않으면 중첩당 <#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<> <#66bb6aff>체력 회복<>. 체력 성장 낮음, 공격력 성장 높음.",
+        "skill": "곁의 챔피언은 찌르고, 아니면 충전 후 작살을 던져 첫 적에게 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>, 60% 둔화, 작살에 맞은 적을 <#ef5350ff>끌어옵니다<>.",
+        "skill2": "<#ff9028ff>유령 잠수<>: 위장하고 가속, 회색 체력 회복. 이어서 <#ff9028ff>망자의 물살<>: 적 챔피언을 지나 돌진, 유령이 돌아오며 지나는 챔피언에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>, 1초 <#ef5350ff>기절<>.",
+        "ult": "X자 타격: 챔피언에게 <#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<>의 <#ffffffff>고정 피해<>, 그 이하면 <#ef5350ff>처형<>, 아니면 절반만. 다른 적은 절반의 물리 피해. X 안에서 챔피언이 죽으면 그 위치로 점멸하고 <#ffb900ff>궁극기 초기화<>."
+      },
       "league_gwen": {
         "name": "그웬",
         "attack": "기본 지속 효과 <#ff9028ff>가위 난도질<>: 공격과 스킬 적중 시 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 추가 <#a974ffff>마법 피해<>, 챔피언에게는 <#f5f5f5ff>최대 체력의 1% 고정 피해<>를 더 주고 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> 회복. 공격마다 가위 중첩 1, 최대 4.",
-        "skill": "앞을 <#ffb900ff>1+중첩<>번 자르며 각각 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>, 마지막 가위질은 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>, 중앙의 적은 <#f5f5f5ff>40 고정 피해<> 추가. 매번 기본 지속 효과 적용.",
-        "skill2": "<#ff9028ff>돌격가위<>: 적 챔피언에게 돌진, 4초간 공격 속도 +30%, 사거리 증가, 적중 시 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. 착지한 곳에 <#ff9028ff>신성한 안개<> 4초: 안개 안에서 <#ffb900ff>투명<>(멀리 있는 적은 대상 지정 불가), 방어력과 마법 저항력 +22.",
-        "ult": "적 챔피언에게 바늘을 세 번 던짐(1, 3, 5개): 각각 <#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>1.5초간 40% 둔화<>, 기본 지속 효과 적용."
+        "skill": "앞을 <#ffb900ff>1+중첩<>번 자르며 각각 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>, 마지막 가위질은 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>, 중앙의 적은 <#f5f5f5ff>25 고정 피해<> 추가. 매번 기본 지속 효과 적용. 돌격가위 착지 후 2초 안에 쓰면 중앙이 대상에게 맞춰짐.",
+        "skill2": "<#ff9028ff>돌격가위<>: 적 챔피언에게 돌진해 착지하며 한 번 자르고, 4초간 공격 속도 +25%, 사거리 증가, 적중 시 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. 착지한 곳에 <#ff9028ff>신성한 안개<> 4초: 안개 안에서 <#ffb900ff>투명<>(멀리 있는 적은 대상 지정 불가), 방어력과 마법 저항력 +22.",
+        "ult": "적 챔피언에게 바늘을 세 번 던짐(1, 3, 5개): 각각 <#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>1.5초간 40% 둔화<>, 기본 지속 효과 적용. 세 번 사이에 기본 공격 가능."
       }
     },
     "skill_name": {
@@ -3135,6 +3178,11 @@
         "skill1": "천부적 재능",
         "skill2": "거침없는 질주",
         "ult": "지옥불 난사"
+      },
+      "league_pyke": {
+        "skill1": "뼈 작살",
+        "skill2": "망자의 물살",
+        "ult": "깊은 바다의 처형"
       },
       "league_gwen": {
         "skill1": "싹둑싹둑!",
@@ -3593,12 +3641,19 @@
         "skill2": "<#ff9028ff>ワイルドラッシュ<>：敵チャンピオンの背後へ突進し周囲に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、攻撃速度+30%。続けて<#ff9028ff>ブレードワール<>：0.75秒回転し2回<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>、受ける攻撃ダメージ-60%。キルでクールダウン解消。",
         "ult": "スタイル<#ffb900ff>S<>の時だけ：その場で回転し<#ffb900ff>2秒<>、0.2秒ごとに周囲の全ての敵を撃ち<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>、ライフスティール40%。スタイルを消費。"
       },
+      "league_pyke": {
+        "name": "パイク",
+        "attack": "銛で斬る。パッシブ <#ff9028ff>沈みし者の力<>：被弾でグレー体力を蓄積（最大5）、ステルス中か3秒被弾なしで1つごとに<#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<><#66bb6aff>回復<>。体力成長は低く攻撃力成長は高い。",
+        "skill": "隣のチャンピオンは突き、いなければ溜めて銛を投げ最初の敵に<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、60%スロウ、銛が当たると<#ef5350ff>引き寄せ<>。",
+        "skill2": "<#ff9028ff>ゴーストウォーター<>：ステルスと加速、グレー体力回復。続けて<#ff9028ff>亡者の引き波<>：敵チャンピオンを突き抜け、戻る幻影が通過したチャンピオンに<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と1秒<#ef5350ff>スタン<>。",
+        "ult": "X字の斬撃：チャンピオンに<#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<>の<#ffffffff>確定ダメージ<>、それ以下なら<#ef5350ff>処刑<>、それ以外は半分。他の敵は半分の物理ダメージ。X内でチャンピオンが死ぬとその場所へ移動し<#ffb900ff>R再使用可<>。"
+      },
       "league_gwen": {
         "name": "グウェン",
         "attack": "パッシブ <#ff9028ff>裁断<>：通常攻撃とスキル命中で<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の追加<#a974ffff>魔法ダメージ<>、チャンピオンには<#f5f5f5ff>最大体力の1%の確定ダメージ<>も与え<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>回復。通常攻撃ごとにハサミのスタック+1、最大4。",
-        "skill": "前方を<#ffb900ff>1+スタック<>回切り各<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>、最後の一断ちで<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、中心の敵は<#f5f5f5ff>40の確定ダメージ<>を追加で受ける。毎回パッシブ適用。",
-        "skill2": "<#ff9028ff>スキップスラッシュ<>：敵チャンピオンへ突進、4秒間攻撃速度+30%、射程増加、命中時<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。着地点に<#ff9028ff>聖なる霧<>が4秒：霧の中では<#ffb900ff>インビジブル<>（遠くの敵は対象にできない）、物防と魔防+22。",
-        "ult": "敵チャンピオンへ針を3回投げる（1本、3本、5本）：各<#a974ffff>60/70/90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>1.5秒間40%スロウ<>、パッシブ適用。"
+        "skill": "前方を<#ffb900ff>1+スタック<>回切り各<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>、最後の一断ちで<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、中心の敵は<#f5f5f5ff>25の確定ダメージ<>を追加で受ける。毎回パッシブ適用。スキップスラッシュ着地後2秒以内に使うと中心が対象に合う。",
+        "skill2": "<#ff9028ff>スキップスラッシュ<>：敵チャンピオンへ突進し着地と同時に一断ち、4秒間攻撃速度+25%、射程増加、命中時<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。着地点に<#ff9028ff>聖なる霧<>が4秒：霧の中では<#ffb900ff>インビジブル<>（遠くの敵は対象にできない）、物防と魔防+22。",
+        "ult": "敵チャンピオンへ針を3回投げる（1本、3本、5本）：各<#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>1.5秒間40%スロウ<>、パッシブ適用。3回の間に通常攻撃を挟める。"
       }
     },
     "skill_name": {
@@ -3921,6 +3976,11 @@
         "skill1": "フレア",
         "skill2": "ワイルドラッシュ",
         "ult": "インフェルノトリガー"
+      },
+      "league_pyke": {
+        "skill1": "ボーンスキューア",
+        "skill2": "亡者の引き波",
+        "ult": "水底の急襲"
       },
       "league_gwen": {
         "skill1": "チョキチョキッ！",

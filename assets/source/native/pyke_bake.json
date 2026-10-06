@@ -1,0 +1,10 @@
+{
+ "fx": "league_pyke_fx",
+ "items": [
+  {
+   "tag": "q_charge",
+   "into": "skill",
+   "at_ms": 0
+  }
+ ]
+}

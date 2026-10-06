@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.67.0"
+    }
+  ],
+  "description": "Test build of Pyke's Death from Below as in League (needs League of Legends Heroes): replaces the main pack's Pyke so his R reads health - champions at or below the threshold in the X are executed, the rest take half of it - and he casts it only on a champion it kills, instead of the data pack's guess (any champion his team hit lately, at full health too). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-06",
+  "mod_id": "league_pyke",
+  "mod_type": "native",
+  "name": "League Heroes: Pyke exact execute (test)",
+  "version": "0.1.0"
+}

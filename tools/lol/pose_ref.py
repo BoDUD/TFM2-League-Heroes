@@ -654,14 +654,16 @@ def main():
     anims = refs(w.read_path(f"data/characters/{champ.lower()}/animations/skin0.bin"), rb"anm")
     # frame the character once, from the bind pose: height -> cell height
     rest = skin(verts, influences, bind_inv, bind)
+    # frame on the drawn vertices only: a hidden submesh (Pyke's Nensi sea monster) must not set the height or the ground
+    drawn = np.unique(np.asarray(tris).ravel())
     small = args.head != 1.0 or args.legs != 1.0
     if small:
         legv = leg_vertices(joints, influences, verts)
         tall = skin(verts, influences, bind_inv, globals_(joints, [
             trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs, args.hair, hair_re)]))
-        height = tall[:, 1].max() - tall[:, 1].min()
+        height = tall[drawn, 1].max() - tall[drawn, 1].min()
     else:
-        height = rest[:, 1].max() - rest[:, 1].min()
+        height = rest[drawn, 1].max() - rest[drawn, 1].min()
     scale = args.size * args.fit / height
     ground = args.size * args.ground
     os.makedirs(args.out, exist_ok=True)
@@ -672,7 +674,7 @@ def main():
         if small:   # shorter legs lift the body: put the lowest point of the legs where League has it
             adult = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
             pv[:, 1] += adult[legv, 1].min() - pv[legv, 1].min()
-        pv[:, 1] -= rest[:, 1].min()
+        pv[:, 1] -= rest[drawn, 1].min()
         size = (int(args.size * args.width), args.size)
         if args.mirror:
             return draw(pv, tris, verts["uv"], tex, -args.yaw, args.pitch, size, scale, ground,
