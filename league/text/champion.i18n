@@ -452,7 +452,7 @@
       "league_pyke": {
         "name": "派克",
         "attack": "鱼叉挥砍。被动<#ff9028ff>溺水之幸<>：挨打积攒灰血（最多5层），潜行或3秒没挨打时每层回复<#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<><#66bb6aff>生命<>。无法靠生命成长，攻击力成长更高。",
-        "skill": "英雄贴身时戳刺，否则蓄力扔出鱼叉，命中第一个敌人：<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>，减速60%，鱼叉命中的会被<#ef5350ff>拉回<>。",
+        "skill": "英雄贴身时戳刺，否则蓄力扔出鱼叉，命中第一个敌人：<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>，减速90%，鱼叉命中的会被<#ef5350ff>拉回<>。",
         "skill2": "<#ff9028ff>幽潭潜行<>：潜行并加速，回复灰血。随即<#ff9028ff>魅影浪洄<>：冲过敌方英雄，魅影随后飞回他身边，途经的英雄受到<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>晕眩1秒<>。",
         "ult": "X形打击：英雄受到<#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<><#ffffffff>真实伤害<>，低于此值<#ef5350ff>被处决<>，否则只受一半；其他敌人受一半物理伤害。有英雄死在X里时派克闪到其身上并<#ffb900ff>刷新大招<>。"
       },
@@ -1250,7 +1250,7 @@
       "league_pyke": {
         "name": "派克",
         "attack": "魚叉揮砍。被動<#ff9028ff>血港淹禮<>：挨打累積灰血（最多5層），潛行或3秒沒挨打時每層回復<#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<><#66bb6aff>生命<>。無法靠生命成長，攻擊力成長更高。",
-        "skill": "英雄貼身時戳刺，否則蓄力擲出魚叉，命中第一個敵人：<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>，緩速60%，魚叉命中的會被<#ef5350ff>拉回<>。",
+        "skill": "英雄貼身時戳刺，否則蓄力擲出魚叉，命中第一個敵人：<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>，緩速90%，魚叉命中的會被<#ef5350ff>拉回<>。",
         "skill2": "<#ff9028ff>幽海深潛<>：潛行並加速，回復灰血。隨即<#ff9028ff>溺流鬼影<>：衝過敵方英雄，鬼影隨後飛回他身邊，途經的英雄受到<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩1秒<>。",
         "ult": "X形打擊：英雄受到<#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<><#ffffffff>真實傷害<>，低於此值<#ef5350ff>被處決<>，否則只受一半；其他敵人受一半物理傷害。有英雄死在X裡時派克閃到其身上並<#ffb900ff>刷新大招<>。"
       },
@@ -2048,7 +2048,7 @@
       "league_pyke": {
         "name": "Pyke",
         "attack": "Harpoon slashes. Passive <#ff9028ff>Gift of the Drowned Ones<>: hits store grey health (up to 5 stacks); camouflaged or unhit for 3s he heals <#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<> <#66bb6aff>health<> a stack. Little health growth, more attack damage growth.",
-        "skill": "Stabs a champion beside him, otherwise charges and throws his harpoon at the first enemy: <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, a 60% slow, and the harpoon <#ef5350ff>pulls<> it to him.",
+        "skill": "Stabs a champion beside him, otherwise charges and throws his harpoon at the first enemy: <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, a 90% slow, and the harpoon <#ef5350ff>pulls<> it to him.",
         "skill2": "<#ff9028ff>Ghostwater Dive<>: camouflage and a burst of speed, grey health healed. Then <#ff9028ff>Phantom Undertow<>: dashes through an enemy champion; a phantom rushes back to him, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> to champions on its way and <#ef5350ff>stunning<> them for 1s.",
         "ult": "Strikes an X: champions take <#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<> <#ffffffff>true damage<> - below that they are <#ef5350ff>executed<>, otherwise they take half; other enemies take half as physical damage. A champion dying in the X blinks him to it and <#ffb900ff>refreshes the ult<>."
       },
@@ -2846,7 +2846,7 @@
       "league_pyke": {
         "name": "파이크",
         "attack": "작살 공격. 기본 지속 효과 <#ff9028ff>가라앉은 자들의 축복<>: 피격 시 회색 체력 축적(최대 5중첩), 위장 중이거나 3초간 피격되지 않으면 중첩당 <#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<> <#66bb6aff>체력 회복<>. 체력 성장 낮음, 공격력 성장 높음.",
-        "skill": "곁의 챔피언은 찌르고, 아니면 충전 후 작살을 던져 첫 적에게 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>, 60% 둔화, 작살에 맞은 적을 <#ef5350ff>끌어옵니다<>.",
+        "skill": "곁의 챔피언은 찌르고, 아니면 충전 후 작살을 던져 첫 적에게 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>, 90% 둔화, 작살에 맞은 적을 <#ef5350ff>끌어옵니다<>.",
         "skill2": "<#ff9028ff>유령 잠수<>: 위장하고 가속, 회색 체력 회복. 이어서 <#ff9028ff>망자의 물살<>: 적 챔피언을 지나 돌진, 유령이 돌아오며 지나는 챔피언에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>, 1초 <#ef5350ff>기절<>.",
         "ult": "X자 타격: 챔피언에게 <#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<>의 <#ffffffff>고정 피해<>, 그 이하면 <#ef5350ff>처형<>, 아니면 절반만. 다른 적은 절반의 물리 피해. X 안에서 챔피언이 죽으면 그 위치로 점멸하고 <#ffb900ff>궁극기 초기화<>."
       },
@@ -3644,7 +3644,7 @@
       "league_pyke": {
         "name": "パイク",
         "attack": "銛で斬る。パッシブ <#ff9028ff>沈みし者の力<>：被弾でグレー体力を蓄積（最大5）、ステルス中か3秒被弾なしで1つごとに<#66bb6aff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>8%<><#66bb6aff>回復<>。体力成長は低く攻撃力成長は高い。",
-        "skill": "隣のチャンピオンは突き、いなければ溜めて銛を投げ最初の敵に<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、60%スロウ、銛が当たると<#ef5350ff>引き寄せ<>。",
+        "skill": "隣のチャンピオンは突き、いなければ溜めて銛を投げ最初の敵に<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、90%スロウ、銛が当たると<#ef5350ff>引き寄せ<>。",
         "skill2": "<#ff9028ff>ゴーストウォーター<>：ステルスと加速、グレー体力回復。続けて<#ff9028ff>亡者の引き波<>：敵チャンピオンを突き抜け、戻る幻影が通過したチャンピオンに<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と1秒<#ef5350ff>スタン<>。",
         "ult": "X字の斬撃：チャンピオンに<#ffffffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffffffff>60%<>の<#ffffffff>確定ダメージ<>、それ以下なら<#ef5350ff>処刑<>、それ以外は半分。他の敵は半分の物理ダメージ。X内でチャンピオンが死ぬとその場所へ移動し<#ffb900ff>R再使用可<>。"
       },

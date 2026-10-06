@@ -69,8 +69,8 @@ P = {
     # skill: Q Bone Skewer (League: tap 100-? + 60% bonus AD stab; hold 0.5-1 s, 1100 range, 70 width, 2000 speed,
     # pull 500, slow 90% 1 s, cd 10-7.5 s)
     "q_cd": 420, "q_range": 100000, "q_close": 26000, "q_stab_t": 22, "q_stab_at": 13, "q_hold": 36, "q_throw_t": 14,
-    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": 2000, "q_dmg": 35, "q_ratio": 60, "q_slow": 60,
-    "q_slow_t": 60, "q_grab": 1500,
+    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": 2000, "q_dmg": 35, "q_ratio": 60, "q_slow": 90,
+    "q_slow_t": 60, "q_grab": 5000,
     # skill2: W Ghostwater Dive (League: camouflage 5 s, +45% fading over 1.5 s, cd 12-8 s) -> E Phantom Undertow
     # (League: dash 550, the phantom back after 1 s, 100-350 + 100% bonus AD to champions, stun 1.25 s, cd 15-11 s)
     "c_cd": 660, "c_range": 70000, "c_lead": 15, "w_camo": 150, "w_ms": 40, "w_ms_t": 90, "e_t": 14, "e_speed": 9000,
@@ -289,6 +289,10 @@ def build(p):
     stab = combine(stab, sw("e_land", combine(*rm("e_land"), weave)))
     q_hit = [attack(p["q_dmg"], p["q_ratio"]), slow, {"type": "Grab", "speed": p["q_grab"]}, view("q_hit"),
              tsfx("q_hit")]
+    # the harpoon back at the pull's speed, with the one it drags: at 1500 a tick it homed on him for a second and more
+    # while he walked on and turned every way (「Q有点bug 回来的时候乱飞 人都移动了他乱飞」); at 5000 it is back in 19
+    # ticks at most, League's quick reel. The slow pull had held the target a second (forced movement):
+    # without it +0.77 / +0.38, with League's 90% slow (was 60%) +1.37 / +1.25 (+1.21 / +1.44 before)
     q_back = back("q_return", p["q_grab"], p["q_reach"], 1000, "EnemyChampion", [])
 
     def hook(name, target, *more):

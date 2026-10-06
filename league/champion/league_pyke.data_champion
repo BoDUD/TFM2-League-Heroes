@@ -808,7 +808,7 @@
                                   "tick": 60
                                 }
                               },
-                              "move_speed_mult": -60
+                              "move_speed_mult": -90
                             }
                           },
                           {
@@ -991,7 +991,7 @@
                                         "tick": 60
                                       }
                                     },
-                                    "move_speed_mult": -60
+                                    "move_speed_mult": -90
                                   }
                                 }
                               },
@@ -999,7 +999,7 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Grab",
-                                  "speed": 1500
+                                  "speed": 5000
                                 }
                               },
                               {
@@ -1057,7 +1057,7 @@
                               {
                                 "type": "BackToCasterLinearProjectile",
                                 "name": "league_pyke_q_return",
-                                "speed": 1500,
+                                "speed": 5000,
                                 "range": 95000,
                                 "shape": {
                                   "Circle": {
@@ -1116,7 +1116,7 @@
                                       "tick": 60
                                     }
                                   },
-                                  "move_speed_mult": -60
+                                  "move_speed_mult": -90
                                 }
                               }
                             },
@@ -1124,7 +1124,7 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Grab",
-                                "speed": 1500
+                                "speed": 5000
                               }
                             },
                             {
@@ -1146,7 +1146,7 @@
                             {
                               "type": "BackToCasterLinearProjectile",
                               "name": "league_pyke_q_return",
-                              "speed": 1500,
+                              "speed": 5000,
                               "range": 95000,
                               "shape": {
                                 "Circle": {
