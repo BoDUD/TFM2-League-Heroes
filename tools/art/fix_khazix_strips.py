@@ -13,11 +13,13 @@ death (rig_samira.py's): frames 1-2 Codex's (struck, knocked back), then the WHO
 image left, the bent insect legs up at the right - first a row above the ground (the bounce), then on it.
 The run was Codex's rows of the legs shifted in place - the feet slid, the legs never crossed, and the two scythe
 claws that hang to the ground in the design (they read as two more legs) stood still: the user, 「走路时腿有点奇怪啊 这是
-交叉步？」. RUN rebuilds it from the design (rig_samira.py's accepted run): the two insect legs cut out (NEAR_LEG, the
-image-left one, and FAR_LEG under the body), each swung from its hip by row shear with the foot moved whole (STRIDE: the
-feet cross, each lifted while it passes under the body, the lift spread along the shin so the foot never comes off),
-the far leg one shade darker, the body (everything else, the pasted head with it) bobbing a row on each landing, and
-the two claws (BACK_CLAW, FRONT_CLAW: their parts under CLAW_ROW) lifted in turn off the ground as the legs pass.
+交叉步？」, then 「腿部移动时缺失模型看不到？」 and 「修一下吧 还有问题」 on a version that only lifted the claws in turn (the legs
+still hid behind them and their gaps were filled into a dark blob). RUN builds it as League's run: both claws raised at
+his sides, the blades up - Codex's own arm units (its masks and shoulder joints) turned whole by 135 degrees (FA, NA) -
+so the two insect legs show; the legs (Codex's masks, the image-left one tucked TUCK columns in under the body) swung
+from their hips by row shear with the foot whole (CYCLE: the feet cross, each lifted while it passes under the body,
+mapped target row -> source row so a stretched leg never breaks), in the design's own colours (the mid leg is already
+a shade darker than the lit left one), the body a row up between the landings; the gaps between the legs stay open.
 Reads codex_strips/khazix_<tag>.png (8x) and khazix_cells.json, writes assets/source/native/khazix_<tag>.png (8x) and
 khazix_cells.json for tools/art/import_native.py. --check only prints what would change.
 """
@@ -39,6 +41,7 @@ import rigkit as K  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "khazix", "codex_strips")
 OUT = os.path.join(ROOT, "assets", "source", "native")
 DESIGN = os.path.join(OUT, "khazix_native.png")
+HEAD = os.path.join(OUT, "khazix_head_1x.png")     # the head pasted in every frame (the strips pack's)
 TAGS = ["idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead"]
 Z = 8
 PIVOT = (64, 88)                 # the design's standing point (the soles on row 99)
@@ -50,99 +53,112 @@ DEAD = ["codex", "codex", ("tilt", 45, -6), ("lying", 1, -8), ("lying", 0, -8), 
         ("lying", 0, -8)]
 
 
-# ---- the run (the design's canvas: soles on row 99)
-NEAR_HIP, NEAR_FOOT = 84, 95        # the image-left leg: from its hip (hidden under the body) to the toe claws' rows
-FAR_HIP, FAR_FOOT = 89, 95
-CLAW_ROW = 88                       # the claws' parts from this row down lift off the ground
-# per frame: near foot dx, near lift, far foot dx, far lift, back-claw lift, front-claw lift, body bob (rows down)
-STRIDE = [(0, 0, 0, 0, 0, 0, 1), (4, 1, -3, 0, 2, 0, 0), (9, 2, -7, 0, 3, 0, 0), (14, 1, -11, 0, 2, 0, 0),
-          (16, 0, -14, 0, 0, 0, 1), (12, 0, -10, 1, 0, 2, 0), (7, 0, -6, 2, 0, 3, 0), (3, 0, -2, 1, 0, 2, 0)]
-BONE = {(242, 220, 212), (255, 246, 240), (200, 168, 168)}     # the claws' edge colours (never part of a leg)
+# ---- the run (the design's canvas: soles on row 99; the masks are Codex's, codex_strips/raw/build_khazix_strips.py)
+def _rows(spec, op):
+    m = np.zeros(op.shape, bool)
+    for y, (x0, x1) in spec.items():
+        m[y, x0:x1 + 1] = True
+    return m & op
 
 
-def leg_masks(d):
-    op = d[..., 3] > 0
-    yy, xx = np.mgrid[0:d.shape[0], 0:d.shape[1]]
-    bone = np.zeros(op.shape, bool)
-    for c in BONE:
-        bone |= (d[..., :3] == c).all(-1)
-    near = op & ~bone & (((yy >= NEAR_HIP) & (xx <= 55)) | ((yy >= 82) & (yy < NEAR_HIP) & (xx >= 52) & (xx <= 55)))
-    far = op & ~bone & (yy >= FAR_HIP) & (xx >= 63) & (xx <= 80)
-    back = op & ~near & ~far & (yy >= CLAW_ROW) & (xx >= 53) & (xx <= 63)
-    front = op & ~near & ~far & (yy >= CLAW_ROW) & (xx >= 75)
-    return near, far, back, front
+ARM_FAR = {**{y: (55, 60) for y in range(75, 77)}, **{y: (55, 61) for y in range(77, 80)},
+           **{y: (56, 62) for y in range(80, 82)}, **{y: (57, 64) for y in range(82, 84)},
+           **{y: (57, 65) for y in range(84, 86)}, **{y: (57, 64) for y in range(86, 88)}, 88: (58, 65), 89: (58, 64),
+           90: (58, 63), 91: (58, 62), 92: (57, 62), 93: (58, 61), 94: (57, 61), 95: (57, 60), 96: (57, 60),
+           97: (56, 59), 98: (56, 59), 99: (56, 58)}          # the image-left arm with its claw, from the shoulder
+ARM_NEAR = {**{y: (78, 84) for y in range(75, 78)}, **{y: (79, 87) for y in range(78, 82)},
+            **{y: (81, 87) for y in range(82, 85)}, **{y: (77, 86) for y in range(85, 88)}, 88: (77, 85), 89: (77, 84),
+            90: (79, 84), 91: (80, 85), 92: (80, 86), 93: (81, 86), 94: (81, 87), 95: (82, 87), 96: (83, 88),
+            97: (84, 88), 98: (85, 88), 99: (86, 88)}         # the image-right arm with its claw
+LEG_LEFT = {**{y: (56, 61) for y in range(83, 86)}, **{y: (52, 59) for y in range(86, 90)},
+            **{y: (50, 56) for y in range(90, 95)}, **{y: (47, 54) for y in range(95, 100)}}
+LEG_MID = {83: (68, 75), **{y: (68, 77) for y in range(84, 89)}, **{y: (64, 77) for y in range(89, 94)},
+           **{y: (64, 81) for y in range(94, 100)}}
+# the hips the image-left arm covered in the design: kept on the body (without the claw's edge colour) so the raised
+# arm leaves no notch and the left leg joins the body
+HIP_BRIDGE = {**{y: (61, 67) for y in range(81, 84)}, **{y: (59, 67) for y in range(83, 87)}}
+SHOULDER_FAR, SHOULDER_NEAR = (56.5, 75.5), (79.5, 75.5)
+FA, NA = -135, 135        # the claws raised at his sides, the blades up (League's run): each arm turned whole
+TUCK = 3                  # the image-left leg's hip moved in under the body (the idle's stance is wide)
+LEGS = {"left": (LEG_LEFT, 84, 95), "mid": (LEG_MID, 84, 94)}   # mask, hip row, ankle row
+# per frame: left (dx, lift), mid (dx, lift), the body up (rows): the feet cross - the left (lit) foot back in frame 1
+# and forward in frame 5, the mid (shaded) one the other way, each lifted while it passes under the body; the body a
+# row up between the landings
+CYCLE = [((0, 0), (0, 0), 0), ((6, 2), (-5, 0), 1), ((12, 3), (-10, 0), 1), ((17, 2), (-15, 0), 1),
+         ((20, 0), (-20, 0), 0), ((15, 0), (-14, 2), 1), ((10, 0), (-8, 3), 1), ((5, 0), (-3, 2), 1)]
+BONE = [(200, 168, 168), (242, 220, 212), (255, 246, 240)]       # the claws' edge colours
+WING_GREEN = [(94, 110, 28), (156, 184, 58), (210, 228, 122)]
 
 
-def darker(d):
-    """Each colour -> the design's next darker colour of a like hue (the outline stays)."""
-    op = d[..., 3] > 0
-    pal = np.unique(d[op][:, :3], axis=0).astype(int)
-    lum = pal @ np.array([299, 587, 114]) / 1000
-    out = {}
-    for c, l in zip(pal, lum):
-        cand = [(p, pl) for p, pl in zip(pal, lum) if pl < l - 6]
-        if l < 30 or not cand:
-            out[tuple(c)] = tuple(c)
-            continue
-        cn = c / max(1, c.sum())
-        out[tuple(c)] = tuple(min(cand, key=lambda q: 400 * np.abs(q[0] / max(1, q[0].sum()) - cn).sum() + (l - q[1]))[0])
-    return out
+def _colours(a, cols):
+    m = np.zeros(a.shape[:2], bool)
+    for c in cols:
+        m |= (a[..., :3] == np.array(c, np.uint8)).all(-1) & (a[..., 3] > 0)
+    return m
 
 
-def swung(d, mask, hip, foot, dx, lift, drop, shade=None):
-    """The leg's squares sheared from the hip: rows above `foot` moved in proportion (dx and lift), the foot whole."""
-    out = np.zeros_like(d)
-    for r, c in zip(*np.nonzero(mask)):
-        t = min(1.0, max(0, r - hip) / max(1, foot - hip))
-        sh = int(math.floor(dx * t + 0.5))
-        up = int(math.floor(lift * t + 0.5))
-        rr, cc = r - up + drop, c + sh
-        if 0 <= rr < d.shape[0] and 0 <= cc < d.shape[1]:
-            px = d[r, c].copy()
-            if shade is not None:
-                px[:3] = shade[tuple(int(v) for v in px[:3])]
-            out[rr, cc] = px
-    return out
+class Run:
+    def __init__(self, d, head, ink):
+        op = d[..., 3] > 0
+        self.d, self.ink = d, ink
+        hm = head[..., 3] > 0
+        far, near = _rows(ARM_FAR, op) & ~hm, _rows(ARM_NEAR, op) & ~hm
+        left = _rows(LEG_LEFT, op) & ~(far | near | hm)
+        mid = _rows(LEG_MID, op) & ~(far | near | hm | left)
+        self.legs = {"left": (left, LEGS["left"][1], LEGS["left"][2]), "mid": (mid, LEGS["mid"][1], LEGS["mid"][2])}
+        bridge = _rows(HIP_BRIDGE, op) & ~hm & ~_colours(d, BONE)
+        base = d.copy()
+        base[far | near | left | mid] = 0
+        base[bridge] = d[bridge]
+        green = _colours(d, WING_GREEN)
+        ring = np.zeros_like(green)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                ring |= np.roll(np.roll(green, dy, 0), dx, 1)
+        wing = green | (ring & _colours(d, [tuple(ink)]))
+        wing[69:] = False
+        wing[:, 61:] = False
+        self.wing = np.where(wing[..., None], base, 0).astype(np.uint8)
+        self.torso = base.copy()
+        self.torso[wing] = 0
+        self.far = K.turn(K.Part.from_canvas(d, far, SHOULDER_FAR), FA)
+        self.near = K.turn(K.Part.from_canvas(d, near, SHOULDER_NEAR), NA)
+        self.hm = hm
 
+    def leg(self, name, dx, lift, up, shift=0):
+        """The leg sheared from its hip (the foot whole), the hip rising `up` with the body and the foot `lift` off the
+        ground; each target row takes its source row (a stretched leg repeats a row instead of breaking)."""
+        mask, hip, ankle = self.legs[name]
+        ys, _ = np.nonzero(mask)
+        r0, r1 = int(ys.min()), int(ys.max())
+        t = lambda r: min(1.0, max(0.0, (r - hip) / max(1, ankle - hip)))
+        target = {r: r - int(math.floor(up * (1 - t(r)) + lift * t(r) + 0.5)) for r in range(r0, r1 + 1)}
+        out = np.zeros_like(self.d)
+        for y in range(min(target.values()), max(target.values()) + 1):
+            src = [r for r in range(r0, r1 + 1) if target[r] <= y]
+            r = max(src) if src else r0
+            sh = int(math.floor(dx * t(r) + 0.5)) + shift
+            for c in np.nonzero(mask[r])[0]:
+                if 0 <= c + sh < out.shape[1]:
+                    out[y, c + sh] = self.d[r, c]
+        return out
 
-def new_gaps_filled(a, d, bob, outline):
-    """Gaps the swung legs enclose (between a leg, a claw and the body: the background showed through - the user:
-    「腿部移动时缺失模型看不到？」) take the commonest colour round them; the design's own gaps (beside the jaw) stay."""
-    own = set()
-    for comp in K.holes(K.finish(d, outline, SOLES)):     # with its outline closed, as the idle is
-        own |= {(y + bob, x) for y, x in comp}
-    for comp in K.holes(a):
-        if own & set(comp):
-            continue
-        nb = {}
-        cs = set(comp)
-        for y, x in comp:
-            for dy, dx in K.N4:
-                q = (y + dy, x + dx)
-                if q not in cs and a[q][3] and tuple(int(v) for v in a[q][:3]) != tuple(outline):
-                    key = tuple(int(v) for v in a[q])
-                    nb[key] = nb.get(key, 0) + 1
-        col = np.array(max(nb, key=nb.get) if nb else tuple(outline) + (255,), np.uint8)
-        for y, x in comp:
-            a[y, x] = col
-    return a
-
-
-def run_frame(d, k, masks, shade):
-    near, far, back, front = masks
-    nd, nl, fd, fl, bl, frl, bob = STRIDE[k]
-    rest = d.copy()
-    rest[near | far | back | front] = 0
-    out = np.zeros_like(d)
-    K.put(out, swung(d, far, FAR_HIP, FAR_FOOT, fd, fl, bob, shade), 0, 0)
-    K.put(out, K.shifted(rest, 0, bob), 0, 0)
-    claw = lambda m, lift: K.shifted(np.where(m[..., None], d, 0).astype(np.uint8), 0, bob - lift)
-    K.put(out, claw(back, bl), 0, 0)
-    # the near leg over the back claw (it is the leg nearest the viewer), under the front claw
-    K.put(out, swung(d, near, NEAR_HIP, NEAR_FOOT, nd, nl, bob), 0, 0)
-    K.put(out, claw(front, frl), 0, 0)
-    out[SOLES + 1:] = 0
-    return out
+    def frame(self, k):
+        """Back to front: the shaded mid leg, the lit left leg, the wings, the raised far arm (over the wings, under
+        the torso), the torso with the pasted head, the raised near arm."""
+        (ldx, llift), (mdx, mlift), up = CYCLE[k]
+        out = np.zeros_like(self.d)
+        K.put(out, self.leg("mid", mdx, mlift, up), 0, 0)
+        K.put(out, self.leg("left", ldx, llift, up, TUCK), 0, 0)
+        K.put(out, K.shifted(self.wing, 0, -up), 0, 0)
+        K.place(out, self.far, (SHOULDER_FAR[0], SHOULDER_FAR[1] - up))
+        K.put(out, K.shifted(self.torso, 0, -up), 0, 0)
+        K.place(out, self.near, (SHOULDER_NEAR[0], SHOULDER_NEAR[1] - up))
+        out[SOLES + 1:] = 0
+        head = np.zeros_like(self.hm)
+        head[:head.shape[0] - up] = self.hm[up:]
+        # pinholes of one square only: the gaps between the legs stay open (rigkit.finish would fill 2-3)
+        return K.finish(out, self.ink, SOLES, keep=head, pinholes=1)
 
 
 def at1x(path):
@@ -185,19 +201,20 @@ def main():
     cw, ch = cells["cell"]
     design = at1x(DESIGN) if Image.open(DESIGN).size[0] != 128 else np.asarray(Image.open(DESIGN).convert("RGBA")).copy()
     ink = outline_colour(design)
+    head = np.asarray(Image.open(HEAD).convert("RGBA"))
     for tag in TAGS:
         sheet = at1x(os.path.join(SRC, f"khazix_{tag}.png"))
         if tag == "run":
             cols = sheet.shape[1] // cw
-            masks, shade = leg_masks(design), darker(design)
-            for i in range(len(STRIDE)):
-                fig = new_gaps_filled(K.finish(run_frame(design, i, masks, shade), ink, SOLES), design, STRIDE[i][6], ink)
+            run = Run(design, head, ink)
+            for i in range(len(CYCLE)):
+                fig = run.frame(i)
                 X, Y = (i % cols) * cw, (i // cols) * ch
                 px, py = cells["tags"][tag][i]["pivot"]
                 cell = np.zeros((ch, cw, 4), np.uint8)
                 K.put(cell, fig, px - PIVOT[0], py - PIVOT[1])
                 sheet[Y:Y + ch, X:X + cw] = cell
-            print("run: 8 frames rebuilt from the design (crossing legs, claws lifted in turn)")
+            print("run: 8 frames rebuilt from the design (claws raised, crossing legs)")
         if tag == "dead":
             cols = sheet.shape[1] // cw
             for i, what in enumerate(DEAD):
