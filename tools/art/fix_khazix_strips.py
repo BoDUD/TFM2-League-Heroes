@@ -53,7 +53,7 @@ DEAD = ["codex", "codex", ("tilt", 45, -6), ("lying", 1, -8), ("lying", 0, -8), 
 
 # ---- the run (the design's canvas: soles on row 99)
 NEAR_HIP, NEAR_FOOT = 84, 95        # the image-left leg: from its hip (hidden under the body) to the toe claws' rows
-FAR_HIP, FAR_FOOT = 84, 94          # the mid leg, whole from its hip (from row 89 only, it broke as it swung)
+FAR_HIP, FAR_FOOT = 89, 95          # the mid leg from under the knee (the knee stays on the body, as the user saw it)
 CLAW_ROW = 88                       # the claws' parts from this row down lift off the ground
 # per frame: near foot dx, near lift, far foot dx, far lift, back-claw lift, front-claw lift, body bob (rows down)
 STRIDE = [(0, 0, 0, 0, 0, 0, 1), (4, 1, -3, 0, 2, 0, 0), (9, 2, -7, 0, 3, 0, 0), (14, 1, -11, 0, 2, 0, 0),
@@ -89,25 +89,31 @@ TORSO_LOW = 88                      # above this row a square no part holds is t
 
 
 def leg_masks(d):
-    """near (the lit image-left leg), far (the shaded mid leg), back / front (the claws' parts from CLAW_ROW down).
-    The squares under TORSO_LOW that no part holds (outline beside a leg or a claw) go to the part they touch most."""
+    """near (the lit image-left leg), far (the shaded mid leg under its knee), back / front (the claws' parts from
+    CLAW_ROW down): the first run's boxes (the user's 「之前那一版只是腿部有像素缺失」 - their shapes stay), with Codex's
+    exact arm outlines taken out of the leg boxes (the mid leg's box took a piece of the image-right arm along) and the
+    squares under CLAW_ROW that no box held (claw-edge and outline squares that stayed behind as loose pieces when the
+    legs moved) given to the part they touch most."""
     op = d[..., 3] > 0
+    yy, xx = np.mgrid[0:d.shape[0], 0:d.shape[1]]
+    bone = np.zeros(op.shape, bool)
+    for c in BONE:
+        bone |= (d[..., :3] == c).all(-1)
     head = np.asarray(Image.open(HEAD).convert("RGBA"))[..., 3] > 0
     back_arm = _rows(ARM_BACK, op) & ~head
     front_arm = _rows(ARM_FRONT, op) & ~head
-    near = _rows(LEG_LEFT, op) & ~(back_arm | front_arm | head)
-    far = _rows(LEG_MID, op) & ~(back_arm | front_arm | head | near)
-    parts = [near, far, back_arm, front_arm]
-    left = op & ~(near | far | back_arm | front_arm | head)
-    left[:TORSO_LOW] = False
+    near = op & ~bone & (((yy >= NEAR_HIP) & (xx <= 55)) | ((yy >= 82) & (yy < NEAR_HIP) & (xx >= 52) & (xx <= 55)))
+    near &= ~back_arm
+    far = op & ~bone & (yy >= FAR_HIP) & (xx >= 63) & (xx <= 80) & ~front_arm & ~back_arm
+    back = op & ~near & ~far & (yy >= CLAW_ROW) & ((xx >= 53) & (xx <= 63) | back_arm)
+    front = op & ~near & ~far & ~back & (yy >= CLAW_ROW) & ((xx >= 75) | front_arm)
+    parts = [near, far, back, front]
+    left = op & ~(near | far | back | front | head) & (yy >= CLAW_ROW)
     for y, x in zip(*np.nonzero(left)):
         touch = [sum(int(m[y + dy, x + dx]) for dy in (-1, 0, 1) for dx in (-1, 0, 1)
                      if 0 <= y + dy < op.shape[0] and 0 <= x + dx < op.shape[1]) for m in parts]
         if max(touch):
             parts[touch.index(max(touch))][y, x] = True
-    yy = np.mgrid[0:op.shape[0], 0:op.shape[1]][0]
-    back = back_arm & (yy >= CLAW_ROW)
-    front = front_arm & (yy >= CLAW_ROW)
     return near, far, back, front
 
 
@@ -173,29 +179,6 @@ def swung(d, mask, hip, foot, dx, lift, drop, shade=None):
     return out
 
 
-UNDERSIDE = (42, 26, 92)            # the design's darkest violet (#2A1A5C): the body's underside, the mid leg's shade
-
-
-def closed_gaps(a, d, drop, outline):
-    """Gaps the moving legs close off under the body (the ground showing through the middle of him) take back the
-    idle's own squares at that spot - the body's underside and the mid leg's top there - never a flat colour; the
-    design's own gaps (beside the jaw, partly covered while the front claw lifts) stay open."""
-    own = set()
-    for comp in K.holes(K.finish(d, outline, SOLES)):
-        for y, x in comp:
-            for dy in (-1, 0, 1, 2, 3):
-                own.add((y + dy, x))
-    for comp in K.holes(a):
-        if own & set(comp):
-            continue
-        for y, x in comp:
-            src = d[y - drop, x] if 0 <= y - drop < d.shape[0] else d[y, x]
-            # the idle's outline squares there would make a black patch inside him: the underside's dark indigo
-            dark = not src[3] or tuple(int(v) for v in src[:3]) == tuple(outline)
-            a[y, x] = np.array(UNDERSIDE + (255,), np.uint8) if dark else src
-    return K.finish(a, outline, SOLES)
-
-
 def run_frame(d, k, masks, shade):
     near, far, back, front = masks
     nd, nl, fd, fl, bl, frl, bob = STRIDE[k]
@@ -259,7 +242,7 @@ def main():
             cols = sheet.shape[1] // cw
             masks, shade = leg_masks(design), darker(design)
             for i in range(len(STRIDE)):
-                fig = closed_gaps(K.finish(run_frame(design, i, masks, shade), ink, SOLES), design, STRIDE[i][6], ink)
+                fig = K.finish(run_frame(design, i, masks, shade), ink, SOLES)
                 X, Y = (i % cols) * cw, (i // cols) * ch
                 px, py = cells["tags"][tag][i]["pivot"]
                 cell = np.zeros((ch, cw, 4), np.uint8)
