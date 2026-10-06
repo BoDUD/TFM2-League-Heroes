@@ -43,10 +43,13 @@ SHEETS = {
     "w_heal": (5, ("feet", 2), "lr"), "r_cast": (6, ("feet", 3), "lr"), "r_on": (4, ("feet", 2), "lr"),
     "evo": (8, ("feet", 2), "lr"),
 }
+# Everything on him sits on his pivot's column (x 0): the client flips his frames about the pivot with his facing but
+# never moves an effect, so a picture 2-6 px ahead of the pivot facing right would sit behind him facing left (the red
+# side) - the user: 「查一下红色蓝色方技能有没有歪的问题」.
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
-CHEST = (2, -14)                # his chest (the pack's ut: two flames either side of it)
-OVER = (6, -34)                 # over his head (the face plate's top is 22 over the pivot, the antenna tips 33)
-BODY = (2, -11)                 # the middle of his body
+CHEST = (0, -14)                # his chest (the pack's ut: two flames either side of it)
+OVER = (0, -34)                 # over his head (the face plate's top is 22 over the pivot, the antenna tips 33)
+BODY = (0, -11)                 # the middle of his body
 SOLES = (0, 11)                 # on the ground under a unit (his feet, or a point's)
 EMPTY = J.EMPTY
 seq = J.seq
