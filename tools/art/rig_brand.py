@@ -224,7 +224,15 @@ RUN_RECOLOUR = {(205, 125, 43): (170, 120, 75)}
 # legs below it, moved whole under the seat's middle
 SEAT_ROWS = (85, 86)
 SEAT_COLS = (54, 72)
+SEAT = {85: (55, 69), 86: (56, 68)}    # the belt spans columns 55-69: wider, the seat's ends stuck out like the strip
 SEAT_MID = 62.5
+# the arms swing with the stride (「上半身太僵」): each arm the design's own unit moved whole, opposite to the leg on its
+# side - Codex's frame 1 has the near (front) leg forward, frame 4 the far one -, never turned or stretched
+# the right edge from the waist to the legs one straight line (Varus's 「对齐」): the waist (rows 79-82) ends on column 67,
+# the belt and the seat stuck out to 68-69 over the straight legs - trimmed to it, the outline on column EDGE
+EDGE, EDGE_ROWS = 67, (83, 86)
+FRONT_SWING = [-2, -1, 0, 2, 1, 0]     # columns (+ = forward)
+BACK_SWING = [2, 1, 0, -2, -1, 0]
 
 
 def run(P, k):
@@ -240,10 +248,13 @@ def run(P, k):
         m[:86] = False
         c[m, :3] = dst
     bob = int(np.nonzero(c[..., 3].any(1))[0].min()) - P.D.top      # the upper body's drop this frame (0 / 1)
+    from design_brand import CHIN                                       # Codex pasted the design before the chin fix
+    for (y, x), rgb in CHIN.items():
+        c[y + bob, x, :3] = rgb
     arms = np.roll(P.back_m | P.front_m, bob, axis=0)
     rows = np.arange(128)[:, None]
     cols = np.arange(128)[None, :]
-    legs_m = (c[..., 3] > 0) & ~arms & (rows >= SEAT_ROWS[0] + bob) & (cols >= SEAT_COLS[0]) & (cols <= SEAT_COLS[1] + 4)
+    legs_m = (c[..., 3] > 0) & ~arms & (rows >= SEAT_ROWS[0] + bob) & (cols >= SEAT_COLS[0] - 6)
     legs = np.zeros_like(c)
     legs[legs_m] = c[legs_m]
     body = c.copy()
@@ -255,10 +266,28 @@ def run(P, k):
     out = K.put(body, K.shifted(legs, d, 0), 0, 0)
     seat = np.zeros_like(c)
     sm = np.zeros(c.shape[:2], bool)
-    sm[SEAT_ROWS[0]:SEAT_ROWS[1] + 1, SEAT_COLS[0]:SEAT_COLS[1] + 1] = True
+    for r, (c0, c1) in SEAT.items():                                   # as wide as the belt, the lower row a column in
+        sm[r, c0:c1 + 1] = True
     sm &= (P.D.a[..., 3] > 0) & ~(P.back_m | P.front_m)
     seat[sm] = P.D.a[sm]
     K.put(out, K.shifted(seat, 0, bob), 0, 0)
+    arms_now = np.roll(P.back_m | P.front_m, bob, axis=0)
+    for r in range(EDGE_ROWS[0] + bob, EDGE_ROWS[1] + bob + 1):
+        for x in range(EDGE, 128):
+            if out[r, x, 3] and not arms_now[r, x]:
+                if x == EDGE:
+                    out[r, x, :3] = P.D.outline
+                else:
+                    out[r, x] = 0
+    # the arms swung: cut from the frame (the design's, dropped by the bob) and put back moved, over the body
+    for m, d in ((np.roll(P.back_m, bob, axis=0), BACK_SWING[k]), (np.roll(P.front_m, bob, axis=0), FRONT_SWING[k])):
+        if not d:
+            continue
+        arm = np.zeros_like(out)
+        m = m & (out[..., 3] > 0)
+        arm[m] = out[m]
+        out[m] = 0
+        K.put(out, K.shifted(arm, d, 0), 0, 0)
     return out
 
 

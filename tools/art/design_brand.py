@@ -19,7 +19,9 @@ it was drawn). Steps:
   5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64;
   6. clean (the user picked A at 37 rows, 「A 37」): k-means colours used by RARE squares or fewer take the nearest of
      the others (single off-shade specks), and a lone near-black square inside the figure outside the face (all four
-     neighbours lit material) takes its darkest neighbour's colour (oppi: one black ring, outside).
+     neighbours lit material) takes its darkest neighbour's colour (oppi: one black ring, outside);
+  7. CHIN: the lava crack right under the chin (rows 74-75) read as a bloody open mouth (「嘴上这是什么 怎么看的这么怪」):
+     its seven squares take the neck's purple-greys and the shadow under the chin.
 --sheet writes the options (A and B at 37 / 40 / 44 rows crown to soles) beside Codex's own cuts and the pack's
 heroes; --check compares with the committed brand_native.png.
 """
@@ -50,6 +52,9 @@ RAWS = {
 }
 SOLE_ROW, MID_COL = 99, 64
 RARE = 3
+CHIN = {(74, 70): (0x35, 0x21, 0x34), (74, 71): (0x35, 0x21, 0x34), (74, 72): (0x21, 0x12, 0x1E),
+        (75, 68): (0x21, 0x12, 0x1E), (75, 69): (0x45, 0x36, 0x46), (75, 70): (0x45, 0x36, 0x46),
+        (75, 71): (0x35, 0x21, 0x34)}                                  # canvas (row, col) of the A 37 design
 
 
 def lp(path):
@@ -202,6 +207,10 @@ def main():
         return
     can, rows, cols, added, face_box = build(a.raw, a.body)
     can, fixed = clean(can, face_box)
+    if a.raw == "A" and a.body == 37:
+        for (y, x), rgb in CHIN.items():
+            assert can[y, x, 3], (y, x)
+            can[y, x, :3] = rgb
     text = f"{info(can)}, outline +{added}, inner ink {fixed}; rows kept {rows}; columns kept {cols}"
     if a.check:
         old = np.asarray(Image.open(lp(OUT)).convert("RGBA"))
