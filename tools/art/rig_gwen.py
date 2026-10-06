@@ -66,7 +66,8 @@ NEAR_SH, FAR_SH = (58, 75), (71, 73)   # the arms' first squares (top-left of th
 ARM_STEPS, GLOVE_STEPS = 3, 2         # the design's arm: 3 skin steps and the glove's 2 (the user: longer ones were wrong)
 STRAY = [(58, 86), (58, 87), (58, 88)] # squares left of the old small scissors under the skirt's left edge
 LEG_TOP, LEG_SPLIT = 86, 64            # the legs' rows (to the soles) and the column between them
-SC_LEN, SC_OPEN = 30, 44               # the held scissors: blade length (squares), the snip's opening (degrees)
+SC_LEN, SC_OPEN, SHANK = 26, 44, 3     # the held scissors: blade (squares; the design's is 28 from its pivot), the snip's
+IDLE_DEG = 155                         # opening (degrees), the shank; the design's blade points 155 degrees
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
 HAIR_ROWS = (56, 80)                   # hang behind her shoulders), under everything else; right of the torso's edge
 TORSO_RIGHT = 70                       # (column 70) only the curls and the sleeve are there: the far arm goes over them
@@ -97,25 +98,27 @@ class Parts:
 
 
 def scissors_unit(P, deg, length=SC_LEN, opening=0):
-    """The scissors as a part with its joint on the grip: the two spiked rings behind the grip, the blade (or, open,
-    two blades opening/2 either side) along `deg` (0 right, 90 down), design_gwen's recipe and colours."""
-    n = 2 * length + 24
+    """The design's scissors as a part with its joint on the grip (the hand holds the rings): the two round silver
+    rings side by side behind the grip, a short silver shank, the blade with its split line along `deg` (0 right, 90
+    down) - or, open, two blades opening/2 either side; design_gwen's own recipe, so it is the same pair in every
+    frame (a reviewer: the held scissors lost the handle and changed length)."""
+    n = 2 * (length + SHANK) + 24
     c = np.zeros((n, n, 4), np.uint8)
     g = np.array([n / 2, n / 2])
     t = math.radians(deg)
     u = np.array([math.cos(t), math.sin(t)])
     v = np.array([-u[1], u[0]])
     for side in (1, -1):
-        DG.league_ring(c, tuple(g - 2.6 * u + side * 2.3 * v), 2.5, 1.1)
-        DG.league_blade(c, tuple(g - 2.6 * u + side * 4.2 * v - 1.5 * u), tuple(g - 2.6 * u + side * 6.5 * v - 2.5 * u),
-                        1.4)
+        DG.league_ring(c, tuple(g - 1.2 * u + side * 3.0 * v), 2.7, 1.25)
+    base = g + SHANK * u
+    DG.league_blade(c, tuple(g), tuple(base), 1.4, metal=True)
     if opening:
-        for s in (1, -1):
-            a = t + s * math.radians(opening / 2)
+        for sgn in (1, -1):
+            a = t + sgn * math.radians(opening / 2)
             w = np.array([math.cos(a), math.sin(a)])
-            DG.league_blade(c, tuple(g + 0.5 * w), tuple(g + length * w), 2.8)
+            DG.league_blade(c, tuple(base), tuple(base + length * w), 2.2)
     else:
-        DG.league_blade(c, tuple(g + 0.5 * u), tuple(g + length * u), 3.4)
+        DG.league_blade(c, tuple(base), tuple(base + length * u), 3.0, split=True)
     can, _, _ = strips.complete_outline(np.pad(c, ((1, 1), (1, 1), (0, 0))), color=DG.C["I"], feet=n + 2)
     c = can[1:-1, 1:-1]
     ys, xs = np.nonzero(c[..., 3] > 0)
@@ -205,25 +208,29 @@ def needle(P):
 # "near": the same for the near arm; "move": the whole frame (dx, dy); a frame without "far" keeps the scissors behind
 # her as drawn
 STAND = {
-    # the thrust (release frame 4): lifted forward, drawn back level, held back, thrust out with the body leaning in,
-    # a twirl up, home
-    "attack": [{"far": (40, 30, 0)}, {"far": (70, 0, 0), "move": (-1, 0)}, {"far": (80, 0, 0), "move": (-1, 0)},
-               {"far": (90, 0, 0), "move": (2, 0)}, {"far": (120, -45, 0), "move": (1, 0)}, {}],
-    # Snip Snip! (release frame 6): brought round in front, four quick snips (open, shut, open, shut), the final wide
-    # snip low with a lunge, held, home
-    "skill": [{"far": (80, 0, 0)}, {"far": (90, 0, SC_OPEN)}, {"far": (90, 0, 0)}, {"far": (90, 0, SC_OPEN)},
-              {"far": (90, 0, 0)}, {"far": (70, 15, 64), "move": (2, 0)}, {"far": (70, 15, 0), "move": (1, 0)}, {}],
-    # Skip 'n Slash then Hallowed Mist (release frame 6): the skip forward (the scissors held low ahead), landing, the
-    # scissors raised and twirled over her head (up-right, level, up-left), home
-    "skill2": [{"far": (50, 30, 0), "move": (2, 0)}, {"far": (50, 30, 0), "move": (4, 0)},
-               {"far": (50, 30, 0), "move": (2, 0)}, {}, {"far": (150, -45, 0)}, {"far": (175, 0, 0)},
-               {"far": (150, -60, 0)}, {}],
+    # the thrust (release frame 4): the hand on the rings as in the idle (the blade down and back), swung down and
+    # forward with the figure leaning back a column, levelled, thrust out with the figure two columns forward, the blade
+    # rising back, home
+    "attack": [{"far": (15, IDLE_DEG, 0)}, {"far": (40, 100, 0), "move": (-1, 0)}, {"far": (70, 25, 0), "move": (-1, 0)},
+               {"far": (90, 0, 0), "move": (2, 0)}, {"far": (60, 60, 0), "move": (1, 0)}, {}],
+    # Snip Snip! (release frame 6): brought round from the idle hold, four quick snips held out in front (open, shut,
+    # open, shut), the final wide snip with a lunge, closed, home
+    "skill": [{"far": (50, 70, 0)}, {"far": (90, 0, SC_OPEN)}, {"far": (90, 0, 0)}, {"far": (90, 0, SC_OPEN)},
+              {"far": (90, 0, 0)}, {"far": (85, 5, 70), "move": (2, 0)}, {"far": (85, 5, 0), "move": (1, 0)}, {}],
+    # Skip 'n Slash then Hallowed Mist (release frame 6): the skip forward with the scissors trailing as in the idle,
+    # landing, the scissors raised and twirled over her head (up-right, level, up-right), home
+    "skill2": [{"far": (15, IDLE_DEG, 0), "move": (2, 0)}, {"far": (15, IDLE_DEG, 0), "move": (4, 0)},
+               {"far": (15, IDLE_DEG, 0), "move": (2, 0)}, {}, {"far": (120, -30, 0)}, {"far": (175, 0, 0)},
+               {"far": (150, -45, 0)}, {}],
     # Needlework (release frame 4): the needle drawn at her side, the arm swung back and up, whipped forward to the
     # right (the needle gone), the follow-through, home
     "ult": [{"throw": (45, "needle")}, {"throw": (135, "needle")}, {"throw": (155, "needle")}, {"throw": (95, None)},
             {"throw": (60, None)}, {}],
-    "hit": [{"move": (-2, 0)}, {"move": (-1, 0)}],
+    # the hit: the head thrown back a column and the figure pushed back, then recovering (a reviewer: 「hit 太弱」)
+    "hit": [{"move": (-2, 0), "head": -1}, {"move": (-1, 0)}],
 }
+# the head (rows to the chin) for "head": its own columns' shift
+HEAD_ROWS = (56, 69)
 
 
 def stand(P, pose):
@@ -272,6 +279,11 @@ def stand(P, pose):
         put_cells(c, col)
         if held == "needle":
             put_cells(c, part_cells(needle(P), (hand[0], hand[1] - 1)))
+    hd = pose.get("head", 0)
+    if hd:
+        top = c[:HEAD_ROWS[1] + 1].copy()
+        c[:HEAD_ROWS[1] + 1] = 0
+        c[:HEAD_ROWS[1] + 1] = shifted(np.pad(top, ((0, c.shape[0] - top.shape[0]), (0, 0), (0, 0))), hd, 0)[:HEAD_ROWS[1] + 1]
     c[SOLES + 1:] = 0
     dx, dy = pose.get("move", (0, 0))
     return shifted(c, dx, dy)
@@ -283,7 +295,9 @@ def stand(P, pose):
 # under the skirt; the thigh rows lean to the knee, the shin rows on to the ankle, the boot rows move whole with the
 # ankle (the user: v1's legs slid as straight sticks, 「走路的时候 说不出的怪」)
 CYCLE = [(1, 3, 0), (1, 1, 0), (0, -1, 0), (-1, -2, 0), (-1, -3, 1), (0, -2, 2), (1, 0, 2), (2, 3, 1)]
-BOB = [1, 1, 0, 0, 1, 1, 0, 0]
+BOB = [2, 1, 0, 1, 2, 1, 0, 1]          # the body two rows lower at each contact (a reviewer: v2 did not bob enough)
+CURLS = ((68, 82), (60, 68))           # the curls: hair squares in these rows outside these columns (the face's); they
+                                       # and the scissors follow the body's bob a frame late
 KNEE_ROW, BOOT_ROW = 91, 94            # the stockings to the knee, the shin, the boots from row 94
 FAR_SHADE = {"f": "d", "d": "b", "x": "s", "s": "m", "m": "j", "w": "x", "q": "l", "u": "q"}
 
@@ -333,12 +347,23 @@ def run_parts(P):
 
 def run_frame(P, k):
     upper, sc_low, near, far = run_parts(P)
+    body = P.body.copy()
+    body[LEG_TOP:] = 0
+    (r0, r1), (c0, c1) = CURLS
+    curls = np.zeros(body.shape[:2], bool)
+    curls[r0:r1 + 1] = P.hair[r0:r1 + 1]
+    curls[:, c0:c1 + 1] = False
+    lag = np.zeros_like(body)
+    lag[curls] = body[curls]
+    sc = P.scissors.copy()
+    body[curls] = 0
     c = np.zeros((128, 128, 4), np.uint8)
     for leg, ph in ((far, (k + 4) % 8), (near, k)):
         K.put(c, bent(leg, *CYCLE[ph]), 0, 0)
-    dy = BOB[k]
-    K.put(c, shifted(sc_low, 0, dy), 0, 0, under=True)
-    K.put(c, shifted(upper, 0, dy), 0, 0)
+    dy, late = BOB[k], BOB[k - 1]
+    K.put(c, shifted(body, 0, dy), 0, 0)
+    K.put(c, shifted(lag, 0, late), 0, 0, under=True)
+    K.put(c, shifted(sc, 0, late), 0, 0, under=True)
     c[SOLES + 1:] = 0
     return c
 
@@ -393,7 +418,9 @@ def scissors_on_ground(P, x_grip=86):
     return c
 
 
-DEAD = ["hit", "knocked", ("tilt", 45), ("lying", 1), ("lying", 0), ("lying", 0), ("lying", 0), ("lying", 0)]
+# struck, knocked back, falling (20, 45, 70 degrees: the reviewer missed the frames between standing and lying), on her
+# back; the scissors fall from her hand (tilted down beside her) and lie on the ground in front of her
+DEAD = ["hit", "knocked", ("tilt", 20), ("tilt", 45), ("tilt", 70), ("lying", 1), ("lying", 0), ("lying", 0)]
 
 
 def dead_frame(P, i):
@@ -401,8 +428,14 @@ def dead_frame(P, i):
     if what == "hit":
         return stand(P, {"move": (-1, 0)})
     if what == "knocked":
-        return stand(P, {"move": (-2, -1)})
-    out = scissors_on_ground(P)
+        return stand(P, {"move": (-2, -1), "head": -1})
+    if what == ("tilt", 20):
+        out = np.zeros((128, 128, 4), np.uint8)
+        put_cells(out, part_cells(scissors_unit(P, 175), (78.5, 93.5)))
+        fig = on_ground(turned(laid_out(P), 20, (60.0, 99.0)), -2)
+        K.put(out, fig, 0, 0)
+        return out
+    out = scissors_on_ground(P, 86 if what[0] == "tilt" else 96)
     if what[0] == "tilt":
         fig = shifted(on_ground(turned(laid_out(P), what[1], (60.0, 99.0)), -4), 0, -2)
         K.put(out, fig, 0, 0)
@@ -442,7 +475,27 @@ def frames(P, tag):
         return [fin(dead_frame(P, k)) for k in range(n)]
     if tag in STAND:
         return [fin(stand(P, p)) for p in STAND[tag]]
+    if tag == "idle":
+        return [breathe(P, d) for d in BREATH]
     return [P.D.a.copy() for _ in range(n)]
+
+
+BREATH = [0, 0, 1, 1, 0, 0]            # the upper body (to row BREATH_ROW) a row lower in two of the six frames
+BREATH_ROW = 80
+
+
+def breathe(P, d):
+    """The idle with the body above BREATH_ROW sunk d rows (the row under it covered), the scissors behind as drawn
+    (a reviewer: the idle read as a still picture)."""
+    if not d:
+        return P.D.a.copy()
+    a = P.body.copy()
+    top = a.copy()
+    top[BREATH_ROW + 1:] = 0
+    a[:BREATH_ROW + 1] = 0
+    K.put(a, shifted(top, 0, d), 0, 0)
+    K.put(a, P.scissors, 0, 0, under=True)
+    return finish(P, a)
 
 
 def review_gif(P, built, path, z=4):
