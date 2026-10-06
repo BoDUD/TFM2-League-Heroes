@@ -19,6 +19,9 @@ mod camille_wall;
 #[path = "../../league_kayn_form/src/lib.rs"]
 mod kayn_form;
 #[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_khazix/src/lib.rs"]
+mod khazix;
+#[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_leesin_hop/src/lib.rs"]
 mod leesin_hop;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -50,9 +53,10 @@ fn init(host: &StableHost) -> StableMod {
     tryndamere_rage::register(host, &mut module);
     xinzhao_guard::register(host, &mut module);
     pyke::register(host, &mut module);
+    khazix::register(host, &mut module);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions.",
     );
     module
 }

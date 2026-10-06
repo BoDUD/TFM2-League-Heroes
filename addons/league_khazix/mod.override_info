@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_khazix": {
+    "remapping": "asset/league_khazix/override/league_khazix",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_khazix/text/champion",
+    "type": "merge"
+  }
+}

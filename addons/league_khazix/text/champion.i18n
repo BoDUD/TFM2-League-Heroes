@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_khazix": {
+        "attack": "【视野测试版】利爪攻击。被动<#ff9028ff>无形威胁<>：不在敌方视野里时，下次攻击英雄附加<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#a974ffff>伤害<>并减速25%。<#ffb900ff>5/8/11级<>依次进化Q、E、R。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_khazix": {
+        "attack": "【視野測試版】利爪攻擊。被動<#ff9028ff>暗影殺機<>：不在敵方視野裡時，下次攻擊英雄附加<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#a974ffff>傷害<>並緩速25%。<#ffb900ff>5/8/11級<>依次進化Q、E、R。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_khazix": {
+        "attack": "[Vision test build] Claw strikes. Passive <#ff9028ff>Unseen Threat<>: while the enemy cannot see him, his next attack on a champion deals <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#a974ffff>bonus damage<> and slows 25%. Evolves Q, E, R at <#ffb900ff>levels 5/8/11<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_khazix": {
+        "attack": "[시야 테스트판] 발톱 공격. 기본 지속 효과 <#ff9028ff>보이지 않는 위협<>: 적에게 보이지 않을 때 다음 챔피언 공격이 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#a974ffff>추가 피해<>, 25% 둔화. <#ffb900ff>5/8/11레벨<>에 Q, E, R 진화."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_khazix": {
+        "attack": "【視界テスト版】爪で攻撃。パッシブ <#ff9028ff>見えざる脅威<>：敵から見えていない時、次のチャンピオンへの攻撃が<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#a974ffff>追加ダメージ<>と25%スロウ。<#ffb900ff>Lv5/8/11<>でQ・E・Rが進化。"
+      }
+    }
+  }
+}

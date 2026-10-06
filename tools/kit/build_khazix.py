@@ -83,6 +83,9 @@ P = {
     "k_hold": 40, "k_read": 4,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the copy for addons/league_khazix: its native passive reads his level and the enemy's vision, so the probes
+    # and the out-of-combat stand-in go (R's stealth still readies the passive)
+    "native": 0,
 }
 
 
@@ -238,7 +241,7 @@ def build(p):
     # ------------------------------------------------------------------ passive: Unseen Threat
     ready = sw("ut", NONE, combine(flag("ut", None), cview("p_ready"), sfx("p_ready")))
     # an action of his renews `fight`; the check queued by the last one finds it gone (league_evelynn's shade)
-    act = combine(refresh("fight", p["quiet"]), on_me(delayed(p["quiet"] + 2, sw("fight", NONE, ready))))
+    act = combine(refresh("fight", p["quiet"]), on_me(delayed(p["quiet"] + 2, sw("fight", NONE, ready))))         if not p["native"] else NONE
     proc = sw("ut", combine(*rm("ut"), ap(p["ut_dmg"], 0), attack(0, p["ut_ratio"]),
                             buff("p_slow", p["ut_slow_t"], move_speed_mult=-p["ut_slow"]), view("p_hit"),
                             tsfx("p_hit")))
@@ -297,7 +300,9 @@ def build(p):
     step = sw("pr_cd", NONE, combine(flag("pr_cd", p["pr_gap"]),
                                      sw("s3", NONE, sw("s2", probe("s3", True), sw("s1", probe("s2", True),
                                                                                     probe("s1", True))))))
-    life = sw("init", NONE, combine(flag("init", None), flag("pr_cd", p["pr_gap"]), ready,
+    if p["native"]:
+        step = NONE
+    life = NONE if p["native"] else sw("init", NONE, combine(flag("init", None), flag("pr_cd", p["pr_gap"]), ready,
                                     probe("s1", False), on_me(delayed(p["pr_stagger"], probe("s2", False))),
                                     on_me(delayed(2 * p["pr_stagger"], probe("s3", False)))))
 
@@ -391,8 +396,12 @@ def build(p):
                E("w_hit"), E("w_heal", FX, 3, False), E("r_cast", BIG, 3), E("p_ready", FX, 3, False),
                E("e_reset", FX, 3, False), E("evo", BIG, 3, False)]
     views_b = [B_("ut", FX, 3), B_("p_slow", FX, -1), B_("w_slow", FX, -1), B_("r_on", BIG, 2)]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": "league_khazix:void",
+                            "params": {k: p[k] for k in ("lv_q", "lv_e", "lv_r", "q_evo_range")}}
     return {
-        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"],
+        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
