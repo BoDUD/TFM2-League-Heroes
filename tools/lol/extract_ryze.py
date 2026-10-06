@@ -44,9 +44,9 @@ CLIPS = {
     "league_ryze_sfx_e_hit": ("Play_sfx_Ryze_RyzeEMissile_OnHit", 253034213, 0.45, -8),
     "league_ryze_sfx_r_cast": ("Play_sfx_Ryze_RyzeRChannel_buffactivate", 445978756, 2.4, -6),
     "league_ryze_sfx_r_warp": ("Play_sfx_Ryze_RyzeR_teleport", 151293173, 1.4, -6),
-    "league_ryze_vo_q": ("Play_vo_Ryze_RyzeQ_cast3D", 380104592, 1.0, -2),
-    "league_ryze_vo_e": ("Play_vo_Ryze_RyzeE_cast3D", 1059162823, 1.0, -2),
-    "league_ryze_vo_r": ("Play_vo_Ryze_RyzeR_cast3D", 337088990, 2.6, -2),
+    "league_ryze_sfx_vo_q": ("Play_vo_Ryze_RyzeQ_cast3D", 380104592, 1.0, -2),
+    "league_ryze_sfx_vo_e": ("Play_vo_Ryze_RyzeE_cast3D", 1059162823, 1.0, -2),
+    "league_ryze_sfx_vo_r": ("Play_vo_Ryze_RyzeR_cast3D", 337088990, 2.6, -2),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_ryze_skill": "ASSETS/Characters/Ryze/HUD/Icons2D/Ryze_Q.dds",

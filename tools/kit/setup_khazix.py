@@ -129,7 +129,7 @@ TEXT = {
 }
 
 C = "league_khazix_sfx_"
-V = "league_khazix_vo_"
+V = "league_khazix_sfx_vo_"  # clip names differ from the sound names: a clip named like its sound is not found in game
 # sound name -> [(clip, volume, delay)]
 SOUNDS = {
     "league_khazix_a_swing": [(C + "swing", 0.4, 0.0)],

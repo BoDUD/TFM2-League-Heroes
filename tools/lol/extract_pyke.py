@@ -53,10 +53,10 @@ CLIPS = {
     "league_pyke_sfx_r_strike": (P + "R_hitlocation_enemy", 887819556, 1.2, -8),
     "league_pyke_sfx_r_reset": (P + "R_kill_reset_selfonly", 175121820, 1.4, -9),
     "league_pyke_sfx_p_heal": (P + "Passive_heal_start", 285925337, 1.2, -12),
-    "league_pyke_vo_q": (V + "PykeQRange_cast3D", 1546633707, 1.3, -4),
-    "league_pyke_vo_q2": (V + "PykeQMelee_cast3D", 507620540, 1.0, -4),
-    "league_pyke_vo_e": (V + "PykeE_stealthExit3D", 1240967689, 1.5, -4),
-    "league_pyke_vo_r": (V + "RExecuteEnemy2D", 879376418, 2.3, -3),
+    "league_pyke_sfx_vo_q": (V + "PykeQRange_cast3D", 1546633707, 1.3, -4),
+    "league_pyke_sfx_vo_q2": (V + "PykeQMelee_cast3D", 507620540, 1.0, -4),
+    "league_pyke_sfx_vo_e": (V + "PykeE_stealthExit3D", 1240967689, 1.5, -4),
+    "league_pyke_sfx_vo_r": (V + "RExecuteEnemy2D", 879376418, 2.3, -3),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_pyke_skill": "ASSETS/Characters/Pyke/HUD/Icons2D/PykeQ.dds",
