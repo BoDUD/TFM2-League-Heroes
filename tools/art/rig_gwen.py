@@ -421,12 +421,12 @@ def run_parts(P):
     return upper, sc_low, near, far
 
 
-# the run's life (the user: 「还有走路时太过于僵硬 没有那种灵性」), League's way (「参考一下英雄联盟怎么走路的」): she
-# runs with the scissors raised, held upright in the far hand, and the free near hand stays at her side as drawn
-# (swung, the redrawn arm changed shape frame to frame: 「左手摇来摇去要变形了」); the back spiral curl trails a column
-# behind as she pushes off and swings back at the contacts - whole, under the arms and sleeves (moving it a frame late
-# in rows tore it from the head)
-RUN_HOLD = {"far": (45, -90, 0)}       # far arm degrees, scissors degrees (straight up: leaning, the blade stepped), opening
+# the run's life (the user: 「还有走路时太过于僵硬 没有那种灵性」): the free near hand stays at her side as drawn (swung,
+# the redrawn arm changed shape frame to frame: 「左手摇来摇去要变形了」), the scissors behind her as in the idle (the user
+# picked that over League's raised scissors, {"far": (45, -90, 0)}); the back spiral curl trails a column behind as she
+# pushes off and swings back at the contacts - whole, under the arms and sleeves (moving it a frame late in rows tore
+# it from the head)
+RUN_HOLD = {}                          # stand()'s pose: {} = the scissors behind her as drawn, the arms as drawn
 SWAY = [0, -1, -1, 0, 0, -1, -1, 0]
 DRILLS = ((64, 73), (61, 200))         # the trailing curl: the back (left) spiral curl whole (a part of it moved cut
                                        # its spiral; the right one swung into her neck: 「头发上 有点变形」)
