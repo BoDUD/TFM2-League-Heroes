@@ -2394,10 +2394,12 @@ behind the alive gate, from tick 22: the challenge's own picture covers the firs
 where the loop's stand.
 
 **A healing zone where the duel was won, also when someone else took the kill (league_fiora R's Victory Zone).** The
-fourth Vital lobs a `ParabolicProjectile` (`travel_time` 1) from a 1-tick `Delayed` (a projectile placed straight in
-a projectile's applied effects never spawns) that lands on the champion; its `end_effects` place a
-`RangePeriodProjectile` (tick 180, period 30, circle 35000, `Heal` on `AllyChampion`) and its picture as a
-`ViewEffect`. A target that dies after at least one Vital (`r_struck`), by anyone's hand, is found from her side: the
+fourth Vital sets a 4-tick caster flag `r_won`; an `AddCasted` poll (period 2, `Bleed`) put on the challenged champion
+where R starts finds it, removes it and lobs a `ParabolicProjectile` (`travel_time` 1; a projectile from an `AddCasted`
+flies from the caster to its carrier) whose `end_effects` place a `RangePeriodProjectile` (tick 180, period 30, circle
+35000, `Heal` on `AllyChampion`) and its picture as a `ViewEffect`. The Vitals are rung flags on her, so any champion
+she hits during R takes one (16 of 42 R strikes in 6 simulated games): until 0.71.0 the fourth one lobbed the zone onto
+whoever took it, and players saw it under another hero's feet (tools/fix/fix_fiora_r_zone.py). A target that dies after at least one Vital (`r_struck`), by anyone's hand, is found from her side: the
 target's picture pieces add the 2-tick `r_alive` caster flag the tick before each piece, so a self-only `Delayed` every
 60 ticks (a multiple of the pieces' 20) that finds it missing while `r_on` lasts means the target died, and the zone
 lands on her own spot (its picture a `CasterViewEffect`: a `ViewEffect` on her own spot never showed, league_thresh
