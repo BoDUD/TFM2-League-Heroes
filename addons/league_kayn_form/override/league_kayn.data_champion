@@ -2174,6 +2174,30 @@
       "tag": "r_exit_s",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_kayn_wall_burst",
+      "anim": "asset/league/effects/league_kayn_fx",
+      "tag": "wall_burst",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_kayn_wall_burst_d",
+      "anim": "asset/league/effects/league_kayn_fx",
+      "tag": "wall_burst_d",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_kayn_wall_burst_s",
+      "anim": "asset/league/effects/league_kayn_fx",
+      "tag": "wall_burst_s",
+      "z": 1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
@@ -2224,6 +2248,27 @@
       "name": "league_kayn_w_slow",
       "anim": "asset/league/effects/league_kayn_fx",
       "tag": "w_slow",
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayn_in_wall",
+      "anim": "asset/league/effects/league_kayn_fx",
+      "tag": "wall_aura",
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayn_in_wall_d",
+      "anim": "asset/league/effects/league_kayn_fx",
+      "tag": "wall_aura_d",
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayn_in_wall_s",
+      "anim": "asset/league/effects/league_kayn_fx",
+      "tag": "wall_aura_s",
       "z": 1
     }
   ],

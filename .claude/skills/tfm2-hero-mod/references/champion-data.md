@@ -3136,6 +3136,17 @@ target's attack range, and death clears every data buff, so the main pack's thre
 form, median 33 s); the optional native add-on `addons/league_kayn_form` swaps the charge blocks (wrapped in a no-op
 marker `RemoveCasterBuff league_kayn_mk_charge`) for tags it counts by the champion's range and keeps the form on
 respawn (native decides, data shows - section 9).
+On game 0.6.2 the add-on also changes the whole body (v0.2, `src/view.rs`): the game builds a unit's sprite path from
+the name in its view data every frame (`asset/base/aseprite_resources/champions/{name}`, then the asset remap table), so
+a hook on that builder finds Kayn's view record and the client extension rewrites the name's last letter
+(`league_kayd` / `league_kays`). `mod.override_info` sends those names to whole form sheets (idle, run, hit and dead
+included), built by `tools/art/import_native.py`. Two lessons for any native view change:
+- The client's match view sim (`ClientMatchView`) is not the screen. It simulates the whole match in seconds, and the
+  screen replays it later. Kayn's 7:38 transform was drawn while the screen showed level 2. Record each change's tick
+  in the view sim, and apply it when the screen's match clock reaches that tick. The clock is the UI label
+  `ingame.header.game_time.value`; UI paths are dot-joined node ids.
+- `ingame.header.dm_scoreboard.timer` is the deathmatch clock: hidden in MOBA and stuck at `02:00`. Check that every
+  node on a UI path is visible before trusting its text.
 
 **Riding inside a champion (league_kayn R, Umbral Trespass).** A `Targeting` cast on `EnemyChampionRecentlyAttacked`
 (the team's recent target) dives with `MoveToTarget`; its `end_effects` hide him for 120 ticks (`CasterInvisible`, a
