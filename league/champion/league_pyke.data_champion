@@ -40,7 +40,7 @@
     "description": "#asset/base/text/champion?description.league_pyke.attack",
     "duration": 24,
     "cooltime": 55,
-    "start_timing": 9,
+    "start_timing": 12,
     "cancelable": true,
     "range": 24000,
     "casting_type": "Targeting",
@@ -756,7 +756,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 8,
+                "tick": 13,
                 "effects": [
                   {
                     "type": "RandomTarget",

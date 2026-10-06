@@ -35,7 +35,10 @@ G = "<#66bb6aff>"      # healing
 W = "<#ffffffff>"      # true damage
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 4, "y": -26}, "center": {"x": 0, "y": -12}}
+# face: the bald crown 40 px over the feet, 1.5 px ahead of the head centre (x +8.5; tfm2_ase.py face took the
+# harpoon over his head for the crown); banpick: the harpoon's tip 41 px over the pivot, -39 - (-41) = +2 -> 0 (never
+# positive, league_kayle's 0)
+VIEW = {"face": {"x": 10, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": 0}}
 
 
 def phy(d, r):

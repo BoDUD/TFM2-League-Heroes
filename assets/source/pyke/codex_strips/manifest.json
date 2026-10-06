@@ -1,0 +1,1936 @@
+{
+  "schema": 1,
+  "unit": "1x pixel cells",
+  "scale": 8,
+  "cell": [
+    128,
+    96
+  ],
+  "feet_row": 81,
+  "source_design_sha256": "f0b84c23ac9f4105533180759f2201243ef2da301981c01df3a10f305ad6fd01",
+  "route": "imagegen motion studies + approved-pixel rigid-part repair",
+  "tags": {
+    "idle": {
+      "grid": [
+        3,
+        2
+      ],
+      "image_size": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 200,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            38,
+            29,
+            100,
+            82
+          ],
+          "hand": [
+            50,
+            44
+          ],
+          "harpoon_tip": [
+            72,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            74,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 200,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            38,
+            29,
+            100,
+            82
+          ],
+          "hand": [
+            50,
+            44
+          ],
+          "harpoon_tip": [
+            72,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            74,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 200,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            38,
+            29,
+            100,
+            82
+          ],
+          "hand": [
+            50,
+            44
+          ],
+          "harpoon_tip": [
+            72,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            74,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 200,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            38,
+            29,
+            100,
+            82
+          ],
+          "hand": [
+            50,
+            44
+          ],
+          "harpoon_tip": [
+            72,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            74,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 5,
+          "ms": 200,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            38,
+            29,
+            100,
+            82
+          ],
+          "hand": [
+            50,
+            44
+          ],
+          "harpoon_tip": [
+            72,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            74,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 6,
+          "ms": 200,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            38,
+            29,
+            100,
+            82
+          ],
+          "hand": [
+            50,
+            44
+          ],
+          "harpoon_tip": [
+            72,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            74,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ]
+    },
+    "run": {
+      "grid": [
+        4,
+        2
+      ],
+      "image_size": [
+        4096,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 135,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "bbox": [
+            36,
+            29,
+            98,
+            82
+          ],
+          "hand": [
+            48,
+            44
+          ],
+          "harpoon_tip": [
+            70,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            72,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 135,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "bbox": [
+            37,
+            29,
+            99,
+            82
+          ],
+          "hand": [
+            49,
+            44
+          ],
+          "harpoon_tip": [
+            71,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            73,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 135,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "bbox": [
+            35,
+            28,
+            103,
+            81
+          ],
+          "hand": [
+            47,
+            43
+          ],
+          "harpoon_tip": [
+            69,
+            29
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            71,
+            40
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 135,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "bbox": [
+            34,
+            29,
+            102,
+            82
+          ],
+          "hand": [
+            46,
+            44
+          ],
+          "harpoon_tip": [
+            68,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            70,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 5,
+          "ms": 135,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "bbox": [
+            35,
+            29,
+            97,
+            82
+          ],
+          "hand": [
+            47,
+            44
+          ],
+          "harpoon_tip": [
+            69,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            71,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 6,
+          "ms": 135,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "bbox": [
+            35,
+            29,
+            97,
+            82
+          ],
+          "hand": [
+            47,
+            44
+          ],
+          "harpoon_tip": [
+            69,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            71,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 7,
+          "ms": 135,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "bbox": [
+            35,
+            28,
+            91,
+            81
+          ],
+          "hand": [
+            47,
+            43
+          ],
+          "harpoon_tip": [
+            69,
+            29
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            71,
+            40
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 8,
+          "ms": 135,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "bbox": [
+            36,
+            29,
+            92,
+            82
+          ],
+          "hand": [
+            48,
+            44
+          ],
+          "harpoon_tip": [
+            70,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            72,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ]
+    },
+    "attack": {
+      "grid": [
+        3,
+        2
+      ],
+      "image_size": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "bbox": [
+            37,
+            29,
+            99,
+            82
+          ],
+          "hand": [
+            49,
+            44
+          ],
+          "harpoon_tip": [
+            71,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            73,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "bbox": [
+            45,
+            12,
+            95,
+            82
+          ],
+          "hand": [
+            50,
+            37
+          ],
+          "harpoon_tip": [
+            55,
+            12
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            69,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": -1,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 80,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "bbox": [
+            51,
+            21,
+            105,
+            82
+          ],
+          "hand": [
+            63,
+            36
+          ],
+          "harpoon_tip": [
+            85,
+            22
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            73,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            49,
+            70
+          ],
+          "bbox": [
+            36,
+            37,
+            88,
+            82
+          ],
+          "hand": [
+            54,
+            50
+          ],
+          "harpoon_tip": [
+            78,
+            55
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            56,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 3,
+          "release": true
+        },
+        {
+          "frame": 5,
+          "ms": 70,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "bbox": [
+            40,
+            37,
+            88,
+            82
+          ],
+          "hand": [
+            55,
+            57
+          ],
+          "harpoon_tip": [
+            69,
+            79
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            62,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 2,
+          "release": false
+        },
+        {
+          "frame": 6,
+          "ms": 60,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "bbox": [
+            31,
+            29,
+            93,
+            82
+          ],
+          "hand": [
+            43,
+            44
+          ],
+          "harpoon_tip": [
+            65,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            67,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ],
+      "release_frame": 4,
+      "release_tick": 12
+    },
+    "skill_stab": {
+      "grid": [
+        3,
+        2
+      ],
+      "image_size": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 70,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "bbox": [
+            31,
+            37,
+            102,
+            82
+          ],
+          "hand": [
+            47,
+            53
+          ],
+          "harpoon_tip": [
+            72,
+            59
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            70,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 70,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "bbox": [
+            24,
+            37,
+            95,
+            82
+          ],
+          "hand": [
+            40,
+            53
+          ],
+          "harpoon_tip": [
+            65,
+            59
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            63,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": -1,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 80,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "bbox": [
+            43,
+            37,
+            98,
+            82
+          ],
+          "hand": [
+            59,
+            57
+          ],
+          "harpoon_tip": [
+            84,
+            63
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            66,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 1,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "bbox": [
+            45,
+            37,
+            97,
+            82
+          ],
+          "hand": [
+            63,
+            50
+          ],
+          "harpoon_tip": [
+            87,
+            55
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            65,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 3,
+          "release": true
+        },
+        {
+          "frame": 5,
+          "ms": 77,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "bbox": [
+            30,
+            29,
+            92,
+            82
+          ],
+          "hand": [
+            42,
+            44
+          ],
+          "harpoon_tip": [
+            64,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            66,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ],
+      "release_frame": 4,
+      "release_tick": 13
+    },
+    "skill": {
+      "grid": [
+        3,
+        2
+      ],
+      "image_size": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 150,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            38,
+            29,
+            106,
+            82
+          ],
+          "hand": [
+            50,
+            44
+          ],
+          "harpoon_tip": [
+            72,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            74,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 150,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "bbox": [
+            44,
+            12,
+            100,
+            82
+          ],
+          "hand": [
+            49,
+            37
+          ],
+          "harpoon_tip": [
+            54,
+            12
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            68,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": -1,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 150,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "bbox": [
+            44,
+            12,
+            100,
+            82
+          ],
+          "hand": [
+            49,
+            37
+          ],
+          "harpoon_tip": [
+            54,
+            12
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            68,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": -1,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 150,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "bbox": [
+            42,
+            12,
+            98,
+            82
+          ],
+          "hand": [
+            47,
+            37
+          ],
+          "harpoon_tip": [
+            52,
+            12
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            66,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 5,
+          "ms": 120,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "bbox": [
+            46,
+            37,
+            98,
+            82
+          ],
+          "hand": [
+            64,
+            50
+          ],
+          "harpoon_tip": null,
+          "harpoon_held": false,
+          "head_origin": [
+            66,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 2,
+          "release": true
+        },
+        {
+          "frame": 6,
+          "ms": 113,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "bbox": [
+            42,
+            37,
+            88,
+            82
+          ],
+          "hand": [
+            55,
+            57
+          ],
+          "harpoon_tip": null,
+          "harpoon_held": false,
+          "head_origin": [
+            62,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ],
+      "release_frame": 5,
+      "release_tick": 36
+    },
+    "skill2": {
+      "grid": [
+        4,
+        1
+      ],
+      "image_size": [
+        4096,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "bbox": [
+            30,
+            29,
+            92,
+            82
+          ],
+          "hand": [
+            42,
+            44
+          ],
+          "harpoon_tip": [
+            64,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            66,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "bbox": [
+            42,
+            23,
+            91,
+            82
+          ],
+          "hand": [
+            65,
+            26
+          ],
+          "harpoon_tip": [
+            89,
+            31
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            78,
+            44
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 1,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 60,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "bbox": [
+            47,
+            23,
+            96,
+            82
+          ],
+          "hand": [
+            70,
+            26
+          ],
+          "harpoon_tip": [
+            94,
+            31
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            83,
+            44
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 2,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 53,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "bbox": [
+            29,
+            29,
+            91,
+            82
+          ],
+          "hand": [
+            41,
+            44
+          ],
+          "harpoon_tip": [
+            63,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            65,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ]
+    },
+    "ult": {
+      "grid": [
+        3,
+        2
+      ],
+      "image_size": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "bbox": [
+            29,
+            29,
+            97,
+            82
+          ],
+          "hand": [
+            41,
+            44
+          ],
+          "harpoon_tip": [
+            63,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            65,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "bbox": [
+            58,
+            15,
+            107,
+            77
+          ],
+          "hand": [
+            68,
+            31
+          ],
+          "harpoon_tip": [
+            62,
+            55
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            78,
+            36
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 100,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "bbox": [
+            46,
+            15,
+            95,
+            77
+          ],
+          "hand": [
+            56,
+            31
+          ],
+          "harpoon_tip": [
+            50,
+            55
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            66,
+            36
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 120,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "bbox": [
+            50,
+            37,
+            99,
+            82
+          ],
+          "hand": [
+            94,
+            56
+          ],
+          "harpoon_tip": [
+            88,
+            80
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            70,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 2,
+          "release": true
+        },
+        {
+          "frame": 5,
+          "ms": 120,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "bbox": [
+            51,
+            37,
+            100,
+            82
+          ],
+          "hand": [
+            95,
+            56
+          ],
+          "harpoon_tip": [
+            89,
+            80
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            71,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 2,
+          "release": false
+        },
+        {
+          "frame": 6,
+          "ms": 127,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "bbox": [
+            35,
+            29,
+            97,
+            82
+          ],
+          "hand": [
+            47,
+            44
+          ],
+          "harpoon_tip": [
+            69,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            71,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ],
+      "release_frame": 4,
+      "release_tick": 18
+    },
+    "hit": {
+      "grid": [
+        2,
+        1
+      ],
+      "image_size": [
+        2048,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "bbox": [
+            43,
+            28,
+            89,
+            82
+          ],
+          "hand": [
+            46,
+            53
+          ],
+          "harpoon_tip": [
+            51,
+            28
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            69,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": -2,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "bbox": [
+            37,
+            29,
+            99,
+            82
+          ],
+          "hand": [
+            49,
+            44
+          ],
+          "harpoon_tip": [
+            71,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            73,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ]
+    },
+    "dead": {
+      "grid": [
+        4,
+        2
+      ],
+      "image_size": [
+        4096,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "bbox": [
+            31,
+            29,
+            93,
+            82
+          ],
+          "hand": [
+            43,
+            44
+          ],
+          "harpoon_tip": [
+            65,
+            30
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            67,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 2,
+          "ms": 110,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "bbox": [
+            26,
+            37,
+            81,
+            82
+          ],
+          "hand": [
+            38,
+            53
+          ],
+          "harpoon_tip": [
+            60,
+            39
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            61,
+            41
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 3,
+          "ms": 120,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "bbox": [
+            25,
+            34,
+            78,
+            82
+          ],
+          "hand": [
+            30,
+            64
+          ],
+          "harpoon_tip": [
+            35,
+            39
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            40,
+            34
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 4,
+          "ms": 130,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "bbox": [
+            21,
+            27,
+            66,
+            82
+          ],
+          "hand": [
+            37,
+            70
+          ],
+          "harpoon_tip": [
+            23,
+            48
+          ],
+          "harpoon_held": true,
+          "head_origin": [
+            25,
+            35
+          ],
+          "head_rotation": 0,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 5,
+          "ms": 150,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "bbox": [
+            23,
+            31,
+            89,
+            82
+          ],
+          "hand": null,
+          "harpoon_tip": [
+            88,
+            72
+          ],
+          "harpoon_held": false,
+          "head_origin": null,
+          "head_rotation": 90,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 6,
+          "ms": 200,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "bbox": [
+            24,
+            31,
+            90,
+            82
+          ],
+          "hand": null,
+          "harpoon_tip": [
+            89,
+            72
+          ],
+          "harpoon_held": false,
+          "head_origin": null,
+          "head_rotation": 90,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 7,
+          "ms": 300,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "bbox": [
+            19,
+            31,
+            85,
+            82
+          ],
+          "hand": null,
+          "harpoon_tip": [
+            84,
+            72
+          ],
+          "harpoon_held": false,
+          "head_origin": null,
+          "head_rotation": 90,
+          "whole_body_shift_x": 0,
+          "release": false
+        },
+        {
+          "frame": 8,
+          "ms": 400,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            55,
+            70
+          ],
+          "bbox": [
+            22,
+            31,
+            88,
+            82
+          ],
+          "hand": null,
+          "harpoon_tip": [
+            87,
+            72
+          ],
+          "harpoon_held": false,
+          "head_origin": null,
+          "head_rotation": 90,
+          "whole_body_shift_x": 0,
+          "release": false
+        }
+      ]
+    }
+  }
+}
