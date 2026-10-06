@@ -463,6 +463,13 @@
         "skill2": "<#ff9028ff>断续疾走<>：冲向敌方英雄，落地立刻剪他一下，4秒内攻速+25%、攻击距离增加、攻击附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>丝缕缠流<>：圣霭4秒，她在雾中时<#ffb900ff>隐身<>（远处敌人选不中她），护甲和魔抗+22。",
         "ult": "朝敌方英雄连掷三轮针：1根、3根、5根，各造成<#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>1.5秒，带被动。三轮之间可以穿插普攻。"
       },
+      "league_khazix": {
+        "name": "卡兹克",
+        "attack": "利爪攻击。被动<#ff9028ff>无形威胁<>：隐身或4秒没出手后，下次攻击英雄附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#a974ffff>伤害<>并减速25%。<#ffb900ff>5/8/11级<>依次进化Q、E、R。",
+        "skill": "爪击：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>；目标身边没有友军（<#ffb900ff>孤立无援<>）时改为<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>。<#ff9028ff>进化收割利爪<>：攻击距离变长，对孤立目标返还冷却。",
+        "skill2": "跃向敌方英雄，落地造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理伤害<>，再射出<#ff9028ff>虚空突刺<>：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>并减速40%，身在爆炸中回复<#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<><#66bb6aff>生命<>。<#ff9028ff>进化虫翼<>：跳得更远，击杀英雄刷新。",
+        "ult": "<#ffb900ff>隐身1.25秒<>并加速40%，<#ff9028ff>无形威胁<>就绪，可再用1次。<#ff9028ff>进化动态遮蔽<>：<#ffb900ff>隐身2秒<>，共可用3次。"
+      },
       "league_brand": {
         "name": "布兰德",
         "attack": "被动<#ff9028ff>炽热之焰<>：技能命中使敌人<#ff9028ff>烈焰焚身<>4秒，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<><#a974ffff>魔法伤害<>并损失最大生命值。技能命中英雄叠层，第3层时该英雄2秒后爆炸，对周围造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>4%最大生命值<>伤害。",
@@ -801,6 +808,11 @@
         "skill1": "快刀剪乱",
         "skill2": "断续疾走",
         "ult": "引针簇射"
+      },
+      "league_khazix": {
+        "skill1": "品尝恐惧",
+        "skill2": "跃击",
+        "ult": "虚空来袭"
       },
       "league_brand": {
         "skill1": "烈焰之柱",
@@ -1273,6 +1285,13 @@
         "skill2": "<#ff9028ff>剪步如飛<>：衝向敵方英雄，落地立刻剪他一下，4秒內攻速+25%、攻擊距離增加、攻擊附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。落地放出<#ff9028ff>聖霧絲縷<>：聖霧4秒，她在霧中時<#ffb900ff>隱形<>（遠處敵人選不中她），護甲和魔抗+22。",
         "ult": "朝敵方英雄連擲三輪針：1根、3根、5根，各造成<#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>1.5秒，帶被動。三輪之間可以穿插普攻。"
       },
+      "league_khazix": {
+        "name": "卡力斯",
+        "attack": "利爪攻擊。被動<#ff9028ff>暗影殺機<>：隱形或4秒沒出手後，下次攻擊英雄附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#a974ffff>傷害<>並緩速25%。<#ffb900ff>5/8/11級<>依次進化Q、E、R。",
+        "skill": "爪擊：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>；目標身邊沒有友軍（<#ffb900ff>孤立<>）時改為<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>。<#ff9028ff>進化死神之爪<>：攻擊距離變長，對孤立目標返還冷卻。",
+        "skill2": "躍向敵方英雄，落地造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理傷害<>，再射出<#ff9028ff>虛空尖刺<>：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>並緩速40%，身在爆炸中回復<#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<><#66bb6aff>生命<>。<#ff9028ff>進化飛翅<>：跳得更遠，擊殺英雄重置。",
+        "ult": "<#ffb900ff>隱形1.25秒<>並加速40%，<#ff9028ff>暗影殺機<>就緒，可再用1次。<#ff9028ff>進化自適應化形<>：<#ffb900ff>隱形2秒<>，共可用3次。"
+      },
       "league_brand": {
         "name": "布蘭德",
         "attack": "被動<#ff9028ff>烈炎鐵血<>：技能命中使敵人燃燒4秒，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<><#a974ffff>魔法傷害<>並損失最大生命值。技能命中英雄疊層，第3層時該英雄2秒後爆炸，對周圍造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>4%最大生命值<>傷害。",
@@ -1611,6 +1630,11 @@
         "skill1": "剪剪！",
         "skill2": "剪步如飛",
         "ult": "飛針走線"
+      },
+      "league_khazix": {
+        "skill1": "孤獨的恐懼",
+        "skill2": "掠翅飛躍",
+        "ult": "虛空突襲"
       },
       "league_brand": {
         "skill1": "煉獄風暴",
@@ -2083,6 +2107,13 @@
         "skill2": "<#ff9028ff>Skip 'n Slash<>: dashes at an enemy champion, snipping it as she lands; for 4s her attacks gain 25% attack speed, range and <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> on hit. Where she lands <#ff9028ff>Hallowed Mist<> settles for 4s: inside it she is <#ffb900ff>invisible<> (enemies far away cannot target her) with +22 armour and magic resist.",
         "ult": "Hurls three volleys of needles at an enemy champion - 1, 3 and 5 needles - each dealing <#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 40%<> for 1.5s and applying the passive. She can attack between the volleys."
       },
+      "league_khazix": {
+        "name": "Kha'Zix",
+        "attack": "Claw strikes. Passive <#ff9028ff>Unseen Threat<>: after stealth or 4s without acting, his next attack on a champion deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#a974ffff>bonus damage<> and slows 25%. Evolves Q, E, R at <#ffb900ff>levels 5/8/11<>.",
+        "skill": "Slashes for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<>, or <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> to a target with no allies nearby (<#ffb900ff>Isolated<>). <#ff9028ff>Reaper Claws<>: longer attack range; refunds cooldown on Isolated targets.",
+        "skill2": "Leaps at an enemy champion, dealing <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>physical damage<> on landing, then fires a <#ff9028ff>Void Spike<>: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, a 40% slow, and heals him <#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<> if he is in the blast. <#ff9028ff>Wings<>: longer leap, reset on champion kills.",
+        "ult": "Becomes <#ffb900ff>invisible for 1.25s<> with 40% move speed and <#ff9028ff>Unseen Threat<> ready; can be cast once more. <#ff9028ff>Adaptive Cloaking<>: <#ffb900ff>2s<>, three casts."
+      },
       "league_brand": {
         "name": "Brand",
         "attack": "Passive <#ff9028ff>Blaze<>: his spells set enemies ablaze for 4s, dealing <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<> a second plus a share of max health. Spell hits on champions stack; at 3 stacks that champion detonates 2s later for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <#f5f5f5ff>4% max health<> damage round it.",
@@ -2421,6 +2452,11 @@
         "skill1": "Snip Snip!",
         "skill2": "Skip 'n Slash",
         "ult": "Needlework"
+      },
+      "league_khazix": {
+        "skill1": "Taste Their Fear",
+        "skill2": "Leap",
+        "ult": "Void Assault"
       },
       "league_brand": {
         "skill1": "Pillar of Flame",
@@ -2893,6 +2929,13 @@
         "skill2": "<#ff9028ff>돌격가위<>: 적 챔피언에게 돌진해 착지하며 한 번 자르고, 4초간 공격 속도 +25%, 사거리 증가, 적중 시 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. 착지한 곳에 <#ff9028ff>신성한 안개<> 4초: 안개 안에서 <#ffb900ff>투명<>(멀리 있는 적은 대상 지정 불가), 방어력과 마법 저항력 +22.",
         "ult": "적 챔피언에게 바늘을 세 번 던짐(1, 3, 5개): 각각 <#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>1.5초간 40% 둔화<>, 기본 지속 효과 적용. 세 번 사이에 기본 공격 가능."
       },
+      "league_khazix": {
+        "name": "카직스",
+        "attack": "발톱 공격. 기본 지속 효과 <#ff9028ff>보이지 않는 위협<>: 은신 후 또는 4초간 행동하지 않으면 다음 챔피언 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>의 <#a974ffff>추가 피해<>, 25% 둔화. <#ffb900ff>5/8/11레벨<>에 Q, E, R 진화.",
+        "skill": "베기: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>의 <#ff9028ff>물리 피해<>, 주변에 아군이 없는(<#ffb900ff>고립<>) 대상에게는 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>. <#ff9028ff>거대 갈고리<>: 사거리 증가, 고립 대상에게 재사용 대기시간 반환.",
+        "skill2": "적 챔피언에게 도약해 착지 시 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>의 <#ff9028ff>물리 피해<>, 이어서 <#ff9028ff>공허의 가시<>: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, 40% 둔화, 폭발 범위 안이면 <#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<> <#66bb6aff>회복<>. <#ff9028ff>날개<>: 사거리 증가, 챔피언 처치 시 초기화.",
+        "ult": "<#ffb900ff>1.25초 은신<>, 이동 속도 40%, <#ff9028ff>보이지 않는 위협<> 준비, 한 번 더 사용 가능. <#ff9028ff>활성 보호색<>: <#ffb900ff>2초<>, 3회 사용."
+      },
       "league_brand": {
         "name": "브랜드",
         "attack": "기본 지속 효과 <#ff9028ff>불길<>: 스킬 적중 시 4초간 불태워 초당 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>의 <#a974ffff>마법 피해<>와 최대 체력 비례 피해. 챔피언 적중 시 중첩, 3중첩 시 그 챔피언이 2초 후 폭발해 주변에 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <#f5f5f5ff>최대 체력의 4%<> 피해.",
@@ -3231,6 +3274,11 @@
         "skill1": "싹둑싹둑!",
         "skill2": "돌격가위",
         "ult": "바느질"
+      },
+      "league_khazix": {
+        "skill1": "공포 감지",
+        "skill2": "도약",
+        "ult": "공허의 습격"
       },
       "league_brand": {
         "skill1": "화염 기둥",
@@ -3703,6 +3751,13 @@
         "skill2": "<#ff9028ff>スキップスラッシュ<>：敵チャンピオンへ突進し着地と同時に一断ち、4秒間攻撃速度+25%、射程増加、命中時<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。着地点に<#ff9028ff>聖なる霧<>が4秒：霧の中では<#ffb900ff>インビジブル<>（遠くの敵は対象にできない）、物防と魔防+22。",
         "ult": "敵チャンピオンへ針を3回投げる（1本、3本、5本）：各<#a974ffff>50/60/75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>1.5秒間40%スロウ<>、パッシブ適用。3回の間に通常攻撃を挟める。"
       },
+      "league_khazix": {
+        "name": "カ＝ジックス",
+        "attack": "爪で攻撃。パッシブ <#ff9028ff>見えざる脅威<>：インビジブル後か4秒行動しないと、次のチャンピオンへの攻撃が<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の<#a974ffff>追加ダメージ<>と25%スロウ。<#ffb900ff>Lv5/8/11<>でQ・E・Rが進化。",
+        "skill": "斬撃：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>、近くに味方がいない（<#ffb900ff>孤立<>）対象には<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>。<#ff9028ff>死鎌<>：射程延長、孤立対象でCD返還。",
+        "skill2": "敵チャンピオンへ跳躍し着地で<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の<#ff9028ff>物理ダメージ<>、続けて<#ff9028ff>ヴォイドの刺棘<>：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>と40%スロウ、爆発内なら<#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<><#66bb6aff>回復<>。<#ff9028ff>翅<>：飛距離延長、キルでCD解消。",
+        "ult": "<#ffb900ff>1.25秒インビジブル<>、移動速度40%、<#ff9028ff>見えざる脅威<>発動、もう1回使用可。<#ff9028ff>適応擬態<>：<#ffb900ff>2秒<>、3回使用。"
+      },
       "league_brand": {
         "name": "ブランド",
         "attack": "パッシブ <#ff9028ff>炎上<>：スキル命中で4秒間炎上させ毎秒<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>と最大体力割合ダメージ。チャンピオンへの命中でスタック、3スタックでそのチャンピオンが2秒後に爆発し周囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>最大体力の4%<>のダメージ。",
@@ -4041,6 +4096,11 @@
         "skill1": "チョキチョキッ！",
         "skill2": "スキップスラッシュ",
         "ult": "針仕事"
+      },
+      "league_khazix": {
+        "skill1": "甘美なる恐怖",
+        "skill2": "リープ",
+        "ult": "捕食の本能"
       },
       "league_brand": {
         "skill1": "烈火の柱",

@@ -102,7 +102,8 @@ off across the cell, or held over her face, read as clutter at game size - it is
 Spec (JSON): {"hero", "champ", "camera": {"yaw", "pitch", "mirror"}, "chibi": {"head", "legs",
 "hair", "keep": {"<joint>": <radius>}, "scale": {"<joint>": <factor>}}, "height", "cell": [w, h] or [w, h, feet] (optional, default 56x64, feet line 10 px above the bottom), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "rise": 1.0, "anchor": "design",
 "flat": false, "head_like": null, "frames": [["<clip@ms or clipA@ms>clipB@ms:w>", <ms>, {"turn": <deg>,
-"head_like": "<clip@ms>", "hide": ["<joint regex>"]}], ...]}}} (the third item is optional; its "head_like"
+"head_like": "<clip@ms>", "hide": ["<joint regex>"]}], ...]}}, "layer": [{"at": "<clip@ms>", "joints": "<regex>"}]}
+(the third item is optional; its "head_like"
 and "hide" override the tag's for that frame, null turns them off). The renders show
 Riot's model: keep them local, never commit them (the spec and the cells table are fine).
 """
@@ -238,7 +239,26 @@ class Champ:
             other = P.local_pose(self.joints, self.clip(b), tb)
             blended = P.blend_pose(local, other, wgt)
             local = self.glued(blended, other if wgt >= 0.5 else local) if self.glue else blended
+        local = self.layered(local)
         return self.head_turned(local, head_like) if head_like else local
+
+    def set_layers(self, layers):
+        """[{"at": "<clip@ms>", "joints": "<regex>"}]: those joints take that clip's pose in every frame (pose_ref.py
+        --layer; League layers Kha'Zix's evolved parts from Khazix_evo_overrides)."""
+        self.layers = []
+        for ly in layers or ():
+            name, ms = ly["at"].rsplit("@", 1)
+            pose = P.local_pose(self.joints, self.clip(name), float(ms) / 1000.0)
+            self.layers.append(([i for i, j in enumerate(self.joints) if re.search(ly["joints"], j["name"], re.I)], pose))
+
+    def layered(self, local):
+        if not getattr(self, "layers", None):
+            return local
+        local = list(local)
+        for pick, pose in self.layers:
+            for i in pick:
+                local[i] = pose[i]
+        return local
 
     def glued(self, local, src):
         """`local` with the glued joint (a prop on a root joint of its own: Fiddlesticks's scythe) put back where
@@ -386,6 +406,7 @@ def main():
                spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False),
                spec.get("submesh_textures"), spec.get("glue"), spec.get("legs"), spec.get("head_joint", "head"),
                spec.get("opaque", False))
+    ch.set_layers(spec.get("layer"))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)

@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_brand in every language, description + skill_name),
 sound/sfx/league_brand_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and the
-ban/pick card's point once the sprite is in), mod.mod_info (0.69.0, Brand named). Only his keys change in the shared
+ban/pick card's point once the sprite is in), mod.mod_info (0.70.0, Brand named). Only his keys change in the shared
 files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: the client's zh_CN string table (布兰德 / 复仇焰魂, 炽热之焰 - its burn 烈焰焚身 -, 火焰烙印, 烈焰之柱, 烈火燃烧,
 烈焰风暴) and Data Dragon 16.19.1 (zh_TW 布蘭德 / 復仇業火, 烈炎鐵血, 火焰烙印, 煉獄風暴, 天火燎原, 末日熔岩; ko 브랜드 /
@@ -26,7 +26,7 @@ from build_brand import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_brand"
-VERSION = "0.69.0"
+VERSION = "0.70.0"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage

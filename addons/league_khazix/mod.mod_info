@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.69.0"
+    }
+  ],
+  "description": "Test build of Kha'Zix's Unseen Threat and evolutions as in League (needs League of Legends Heroes): replaces the main pack's Kha'Zix so his passive is ready whenever the enemy team cannot see him (brush, fog, his R), read from the game's vision, and his evolutions come exactly at levels 5, 8 and 11, read from his level, instead of the data pack's stand-ins (ready after stealth or 4 s without acting; a probe that finds the level a second or two late). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-06",
+  "mod_id": "league_khazix",
+  "mod_type": "native",
+  "name": "League Heroes: Kha'Zix vision and evolutions (test)",
+  "version": "0.1.0"
+}

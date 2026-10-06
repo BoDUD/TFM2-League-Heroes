@@ -105,7 +105,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
-            "xerath", "xinzhao", "samira", "pyke", "gwen", "brand"}
+            "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -273,7 +273,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Gwen (Codex's draft bd82 traced to 44 rows, design_gwen.py; rig_gwen.py writes the design with its breath
          # in 3-4 - the upper body and the scissors a row lower - so the six play in order, as Aatrox's)
          ("gwen", "idle"): [0, 1, 2, 3, 4, 5],
-         # and Brand (Codex's raw draft A cut to 37 rows by whole lines, design_brand.py; rig_brand.py writes the design
+         # and Kha'Zix (Codex's own design A, the user's pick; fix_khazix_strips.py copies its idle of six designs)
+         ("khazix", "idle"): [0, 0, 0, 0, 0, 0],
+         # Brand (Codex's raw draft A cut to 37 rows by whole lines, design_brand.py; rig_brand.py writes the design
          # with its flames flickering through three states, so the six play in order)
          ("brand", "idle"): [0, 1, 2, 3, 4, 5]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -287,6 +289,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("xerath", "idle"): (8, [2, 3, 4]),
        # Pyke crouches: the seam across the tops of his boots (row 93), the boots stay
        ("pyke", "idle"): (5, [2, 3, 4]),
+       # Kha'Zix crouches on insect legs: the seam across his shins (row 94), the toe claws stay
+       ("khazix", "idle"): (6, [2, 3, 4]),
        # Brand's wide crouch: the seam across his bare shins under the trousers' torn hems (row 95), the feet stay
        ("brand", "idle"): (7, [2, 3, 4]),
        # Alistar: the seam in his furry shins (row 92); the hooves and the fur round them stay

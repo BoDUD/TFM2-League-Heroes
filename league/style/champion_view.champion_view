@@ -792,6 +792,16 @@
         "y": -7
       }
     },
+    "league_khazix": {
+      "face": {
+        "x": 8,
+        "y": -26
+      },
+      "center": {
+        "x": 1,
+        "y": -11
+      }
+    },
     "league_brand": {
       "face": {
         "x": 4,
