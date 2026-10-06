@@ -1,0 +1,50 @@
+{
+  "A": {
+    "size_1x": [
+      128,
+      128
+    ],
+    "size_8x": [
+      1024,
+      1024
+    ],
+    "colors": 23,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      47,
+      55,
+      89,
+      100
+    ],
+    "eye_cells": 4,
+    "exact_8x": true,
+    "pixels_below_feet": 0
+  },
+  "B": {
+    "size_1x": [
+      128,
+      128
+    ],
+    "size_8x": [
+      1024,
+      1024
+    ],
+    "colors": 23,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      46,
+      51,
+      90,
+      100
+    ],
+    "eye_cells": 4,
+    "exact_8x": true,
+    "pixels_below_feet": 0
+  }
+}
