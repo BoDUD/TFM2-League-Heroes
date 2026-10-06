@@ -15,7 +15,8 @@ The client never mirrors a data effect picture (champion-data.md section 6), so 
    the shot: league_ezreal R, league_riven's Wind Slash, league_yasuo Q and E, league_vayne's bolts) are made symmetric
    too; a slash or crescent across the target reads the same either way and stays.
 KEEP is what neither fits: league_ekko's R hologram, a figure of him left where he cast it for 4 s while he walks on
-(not one action, and his side-on idle has a front); it gets a front view (assets/source/red_side/PROMPTS.md).
+(not one action, and his side-on idle had a front): tools/art/import_ekko.py makes it from Codex's front view now
+(assets/source/red_side/ekko_front.png), so it is symmetric and nothing is left.
 """
 import argparse
 import os

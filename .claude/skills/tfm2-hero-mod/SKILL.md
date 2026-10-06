@@ -102,8 +102,8 @@ empty tooltip). That is why the linter exists - run it after every edit.
   animation would have: a `CasterAnimation` keeps the unit from walking), then `tools/art/import_native.py` redraws
   the sheet. A caster picture that plays while he walks, and a hit that shows where the blow came from, is made
   left-right symmetric (`tools/fix/mirror_union_fx.py`); one that must point at a target rides a projectile (turned
-  with it). A figure of the hero left on the ground is drawn from the front (league_ekko's R hologram: Codex's front
-  view, `assets/source/red_side/PROMPTS.md`). `tools/fix/red_side_caster_fx.py` is the 2026-10-06 pass over the whole pack.
+  with it). A figure of the hero left on the ground is drawn from the front (league_ekko's R hologram, from Codex's
+  front view `assets/source/red_side/ekko_front.png`). `tools/fix/red_side_caster_fx.py` is the 2026-10-06 pass over the whole pack.
   `lint_mod.py` warns on every caster picture with a front and a back (champion-data section 6);
   `tools/art/bake_gifs.py` draws the blue side and the red side before and after.
 - **Both sides: a zone's picture turns with the cast.** The `view_projectiles` picture of a `RangeProjectile` /

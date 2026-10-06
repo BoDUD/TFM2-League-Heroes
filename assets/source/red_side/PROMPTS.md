@@ -41,3 +41,5 @@ Size and placement: the top of the hair on row 12, the soles on the bottom of ro
 - **小丑 R 的分身**挂在被攻击的敌方英雄身上，固定站在目标左边、面朝目标出手；不管小丑从哪边放，都是「站在目标一侧朝目标砍」，不算反，正面站姿反而不能出手。
 
 打包：`python tools/art/pack_red_side_figures.py --out <文件夹> --zip`。
+
+已完成（2026-10-06）：Codex 交回的正面图存为 `assets/source/red_side/ekko_front.png`，`tools/art/import_ekko.py` 的全息残影改由它生成。

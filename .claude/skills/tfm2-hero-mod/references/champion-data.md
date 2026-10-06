@@ -718,11 +718,11 @@ the same champion file.
   - **A figure of the hero left on the ground while he moves on is drawn from the front.** It is no one action,
     nothing reads his facing, and a projectile's picture turned half round stands upside down - but a figure facing
     the viewer faces no way. league_yone's E body was one already (it only stood 4 squares right of its spot: its
-    pivot moved in `yone_cells.json`); league_ekko's R hologram, made from his side-on idle, waits for a front view
-    (`assets/source/red_side/PROMPTS.md`, `tools/art/pack_red_side_figures.py`). league_shaco's R clone needs none:
+    pivot moved in `yone_cells.json`); league_ekko's R hologram was made from his side-on idle and is made from Codex's front view now
+    (`assets/source/red_side/ekko_front.png`, `PROMPTS.md`, `tools/art/pack_red_side_figures.py`, `import_ekko.py`). league_shaco's R clone needs none:
     it always stands left of the champion it strikes, facing him, whichever side Shaco cast from.
   `lint_mod.py` warns on every caster picture whose mirror leaves more than half its pixels on empty ones (137 in 46
-  heroes before the pass, league_ekko's ghost after); `tools/art/bake_gifs.py --hero <hero>` draws the blue side and
+  heroes before the pass, none after); `tools/art/bake_gifs.py --hero <hero>` draws the blue side and
   the red side before and after (`docs/preview/red_side/<hero>_bake.gif`). An `Animation` plays its tag once, so a
   view that must stand for seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames). A
   `CasterViewEffect` stays where it was played unless `is_follow`; a following one cannot be stopped: refreshed before
