@@ -35,8 +35,11 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing
 E = "<>"
-# champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 0, "y": -30}, "center": {"x": 0, "y": -10}}
+# champion_view: the face at the top of the blue face plate (33 px over the feet, 9 px ahead of the standing point;
+# tfm2_ase.py face took the antenna tips, 43 px up, for the crown), the centre on the chest; banpick: the card shows 40
+# px, -40 - y to -y round the pivot - at -3 the body from the wings' roots to the toe claws (the antenna tips and the
+# wings' tops, 45 px up, are cut)
+VIEW = {"face": {"x": 9, "y": -33}, "center": {"x": 2, "y": -16}, "banpick_center": {"x": 0, "y": -3}}
 
 
 def phy(d, r):

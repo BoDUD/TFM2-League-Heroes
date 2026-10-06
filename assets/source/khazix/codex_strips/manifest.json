@@ -1,0 +1,2669 @@
+{
+  "cell_1x": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "palette": [
+    "#0B0814",
+    "#1A3E8A",
+    "#2A1A5C",
+    "#2A78D0",
+    "#46309A",
+    "#4EB8F0",
+    "#5A2410",
+    "#5E6E1C",
+    "#6A0A14",
+    "#6A3010",
+    "#6A4ED0",
+    "#9478F0",
+    "#9A4A1E",
+    "#9CB83A",
+    "#B4662A",
+    "#C41E22",
+    "#C8A8A8",
+    "#CC7632",
+    "#D2E47A",
+    "#E89A50",
+    "#F2DCD4",
+    "#FFF6F0",
+    "#FFFFC0"
+  ],
+  "approved_design_sha256": "95df4ad72a8f4f4a97c1bed6fb2e6a811702cc62ff02c16743b62d2c88faede0",
+  "actions": {
+    "idle": {
+      "file": "khazix_idle.png",
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "0e3b74c933694177087ae8f14bf866dcd3b69c811eb4e32e0c3159a55aeb15f7"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "0e3b74c933694177087ae8f14bf866dcd3b69c811eb4e32e0c3159a55aeb15f7"
+        },
+        {
+          "frame": 3,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "0e3b74c933694177087ae8f14bf866dcd3b69c811eb4e32e0c3159a55aeb15f7"
+        },
+        {
+          "frame": 4,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "0e3b74c933694177087ae8f14bf866dcd3b69c811eb4e32e0c3159a55aeb15f7"
+        },
+        {
+          "frame": 5,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "0e3b74c933694177087ae8f14bf866dcd3b69c811eb4e32e0c3159a55aeb15f7"
+        },
+        {
+          "frame": 6,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "0e3b74c933694177087ae8f14bf866dcd3b69c811eb4e32e0c3159a55aeb15f7"
+        }
+      ]
+    },
+    "run": {
+      "file": "khazix_run.png",
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            46,
+            37,
+            89,
+            82
+          ],
+          "bbox_8x": [
+            368,
+            296,
+            712,
+            656
+          ],
+          "head_joint": [
+            72.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 0,
+                "lift": 1
+              },
+              {
+                "dx": 0,
+                "lift": 0
+              }
+            ],
+            "arm_joint_x_offsets": [
+              -1,
+              1
+            ]
+          },
+          "pixel_hash": "568709bd47cba1a3b791317c122a8f2ea4084df666a381ee7adef838700983eb"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            49,
+            36,
+            89,
+            81
+          ],
+          "bbox_8x": [
+            392,
+            288,
+            712,
+            648
+          ],
+          "head_joint": [
+            72.5,
+            56.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              -1
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 6,
+                "lift": 3
+              },
+              {
+                "dx": -6,
+                "lift": 0
+              }
+            ],
+            "arm_joint_x_offsets": [
+              -1,
+              1
+            ]
+          },
+          "pixel_hash": "fa7b61f64f6ce58644efbdd84fa5c6c7c969692fa1fcfa102caafdc182c3d743"
+        },
+        {
+          "frame": 3,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            50,
+            36,
+            89,
+            81
+          ],
+          "bbox_8x": [
+            400,
+            288,
+            712,
+            648
+          ],
+          "head_joint": [
+            73.5,
+            56.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              -1
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 14,
+                "lift": 3
+              },
+              {
+                "dx": -8,
+                "lift": 0
+              }
+            ],
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "5145d4df5dd4362ce6ce4b7ace63193eef59cabc46ddf467c346eb04b09c1350"
+        },
+        {
+          "frame": 4,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            51,
+            36,
+            89,
+            81
+          ],
+          "bbox_8x": [
+            408,
+            288,
+            712,
+            648
+          ],
+          "head_joint": [
+            74.5,
+            56.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              -1
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 20,
+                "lift": 1
+              },
+              {
+                "dx": -17,
+                "lift": 0
+              }
+            ],
+            "arm_joint_x_offsets": [
+              1,
+              -1
+            ]
+          },
+          "pixel_hash": "3334490f05f3c611a4f0f316a15eac48eb035b2eefb8dc5a1d0480fba16c8c94"
+        },
+        {
+          "frame": 5,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            47,
+            37,
+            87,
+            82
+          ],
+          "bbox_8x": [
+            376,
+            296,
+            696,
+            656
+          ],
+          "head_joint": [
+            72.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 22,
+                "lift": 0
+              },
+              {
+                "dx": -22,
+                "lift": 1
+              }
+            ],
+            "arm_joint_x_offsets": [
+              1,
+              -1
+            ]
+          },
+          "pixel_hash": "c2d2bab4423146547f9442890b2b1af2c90b8b669bc11ac51dd9827d1ea58a8e"
+        },
+        {
+          "frame": 6,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            50,
+            36,
+            88,
+            81
+          ],
+          "bbox_8x": [
+            400,
+            288,
+            704,
+            648
+          ],
+          "head_joint": [
+            73.5,
+            56.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              -1
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 16,
+                "lift": 0
+              },
+              {
+                "dx": -16,
+                "lift": 3
+              }
+            ],
+            "arm_joint_x_offsets": [
+              1,
+              -1
+            ]
+          },
+          "pixel_hash": "250d11177704b4f2f1503786edc9db800fdbd00230194060a3c476fe2134640f"
+        },
+        {
+          "frame": 7,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            52,
+            36,
+            91,
+            81
+          ],
+          "bbox_8x": [
+            416,
+            288,
+            728,
+            648
+          ],
+          "head_joint": [
+            75.5,
+            56.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              -1
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 9,
+                "lift": 0
+              },
+              {
+                "dx": -11,
+                "lift": 3
+              }
+            ],
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "21a0c5280850e4acc7a4fb8fe47209236132a5e4e08167dd3fa0d621b4e85c28"
+        },
+        {
+          "frame": 8,
+          "cell_rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 125,
+          "bbox": [
+            52,
+            36,
+            92,
+            81
+          ],
+          "bbox_8x": [
+            416,
+            288,
+            736,
+            648
+          ],
+          "head_joint": [
+            75.5,
+            56.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              -1
+            ],
+            "wings_open": false,
+            "legs": [
+              {
+                "dx": 3,
+                "lift": 0
+              },
+              {
+                "dx": -5,
+                "lift": 1
+              }
+            ],
+            "arm_joint_x_offsets": [
+              -1,
+              1
+            ]
+          },
+          "pixel_hash": "256734ed1bf42e29d69a6f04016c24cd0922df4e9612341a0e7c409ac5867711"
+        }
+      ]
+    },
+    "attack": {
+      "file": "khazix_attack.png",
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            42,
+            37,
+            107,
+            82
+          ],
+          "bbox_8x": [
+            336,
+            296,
+            856,
+            656
+          ],
+          "head_joint": [
+            76.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 90,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "e2d23d6766418a24419e343dc46dcbcb9bf10450ab06a3b1a8250e14eb67a638"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            41,
+            33,
+            84,
+            82
+          ],
+          "bbox_8x": [
+            328,
+            264,
+            672,
+            656
+          ],
+          "head_joint": [
+            75.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 180,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "24e7b0df0b8d6a5886d0be38ed113bf780512c4126e8b0fd6e4f1a69c98fe890"
+        },
+        {
+          "frame": 3,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            58,
+            37,
+            115,
+            82
+          ],
+          "bbox_8x": [
+            464,
+            296,
+            920,
+            656
+          ],
+          "head_joint": [
+            84.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 90,
+            "whole_shift": [
+              1,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "5dd1dff248e8b18a7b2c97d0f277fbdf245edb044229d4b17c532edfe3182b7e"
+        },
+        {
+          "frame": 4,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            44,
+            37,
+            107,
+            82
+          ],
+          "bbox_8x": [
+            352,
+            296,
+            856,
+            656
+          ],
+          "head_joint": [
+            78.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 45,
+            "whole_shift": [
+              3,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "4dfbdb8230658c8a44e449e8f2a690e60aebb28f80a65df9a19993180e734d24",
+          "release": {
+            "tick": 11,
+            "claw_tip_1x": [
+              105,
+              66
+            ],
+            "claw_tip_8x": [
+              844,
+              532
+            ],
+            "sheet_tip_8x": [
+              844,
+              1300
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            43,
+            37,
+            93,
+            82
+          ],
+          "bbox_8x": [
+            344,
+            296,
+            744,
+            656
+          ],
+          "head_joint": [
+            77.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 0,
+            "whole_shift": [
+              2,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "78431dabed4da97c7e809bd933cc683ca723eacc7e1851cad1bc809e8df627b6"
+        },
+        {
+          "frame": 6,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            49,
+            37,
+            91,
+            82
+          ],
+          "bbox_8x": [
+            392,
+            296,
+            728,
+            656
+          ],
+          "head_joint": [
+            75.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "1178331326ba01563c148d24133a822558b8be7bea57836d0ec68dada2e6dde0"
+        }
+      ]
+    },
+    "skill": {
+      "file": "khazix_skill.png",
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            36,
+            34,
+            88,
+            82
+          ],
+          "bbox_8x": [
+            288,
+            272,
+            704,
+            656
+          ],
+          "head_joint": [
+            70.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 135,
+            "whole_shift": [
+              -2,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "263459b13a8c42fc79c2b593a014ae4e51abb7d6e9e7173a237942583aefac89"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            37,
+            33,
+            80,
+            82
+          ],
+          "bbox_8x": [
+            296,
+            264,
+            640,
+            656
+          ],
+          "head_joint": [
+            71.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 180,
+            "whole_shift": [
+              -1,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "77fc3f7154b79c8dcf8a4e590c2388c06bb154fb6e309f91d6925ddc123964d1"
+        },
+        {
+          "frame": 3,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            45,
+            37,
+            102,
+            82
+          ],
+          "bbox_8x": [
+            360,
+            296,
+            816,
+            656
+          ],
+          "head_joint": [
+            71.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 90,
+            "whole_shift": [
+              1,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "39371924c3599c685c434743e3f8adc15110d897e47443707d5383ba1a590a30"
+        },
+        {
+          "frame": 4,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            49,
+            37,
+            114,
+            82
+          ],
+          "bbox_8x": [
+            392,
+            296,
+            912,
+            656
+          ],
+          "head_joint": [
+            83.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 90,
+            "whole_shift": [
+              3,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "09ea4ab851f8dbeb064a7e56c25b41153f9129105690cf74d28df23fcad105e0",
+          "release": {
+            "tick": 12,
+            "claw_tip_1x": [
+              111,
+              49
+            ],
+            "claw_tip_8x": [
+              892,
+              396
+            ],
+            "sheet_tip_8x": [
+              892,
+              1164
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            51,
+            37,
+            116,
+            82
+          ],
+          "bbox_8x": [
+            408,
+            296,
+            928,
+            656
+          ],
+          "head_joint": [
+            85.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 90,
+            "whole_shift": [
+              3,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "6b231e706c112b55235686bb2676b857718d95df78dab5c6c0e37970c00dfc3e"
+        },
+        {
+          "frame": 6,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "b4b1de3a698f747d71fb5e426fa0f5b178ec6301725e202d5e4d76e757cea1a1"
+        }
+      ]
+    },
+    "skill2": {
+      "file": "khazix_skill2.png",
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            44,
+            43,
+            107,
+            81
+          ],
+          "bbox_8x": [
+            352,
+            344,
+            856,
+            648
+          ],
+          "head_joint": [
+            78.5,
+            63.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 45,
+            "whole_shift": [
+              0,
+              2
+            ],
+            "wings_open": false,
+            "legs": [
+              -45,
+              45
+            ],
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ],
+            "landing_floor_drop": 4
+          },
+          "pixel_hash": "2203dae094be0f0be590f90e5c50851c0b471451fe14f6a48da9da99e5e99e21"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            46,
+            31,
+            111,
+            70
+          ],
+          "bbox_8x": [
+            368,
+            248,
+            888,
+            560
+          ],
+          "head_joint": [
+            80.5,
+            52.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 90,
+            "whole_shift": [
+              0,
+              -5
+            ],
+            "wings_open": true,
+            "legs": [
+              -45,
+              90
+            ],
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "ea9d8a2031ebb7266d008ac34aa55e4fe07c6e889870c4597fa50e375a92f7ad"
+        },
+        {
+          "frame": 3,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            46,
+            30,
+            111,
+            69
+          ],
+          "bbox_8x": [
+            368,
+            240,
+            888,
+            552
+          ],
+          "head_joint": [
+            80.5,
+            51.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 90,
+            "whole_shift": [
+              0,
+              -6
+            ],
+            "wings_open": true,
+            "legs": [
+              -45,
+              90
+            ],
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "990ee2fd24a0d5524b29df1d4b9d4489f559e1e44c3de8146f847f235b5b7308"
+        },
+        {
+          "frame": 4,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            48,
+            43,
+            111,
+            81
+          ],
+          "bbox_8x": [
+            384,
+            344,
+            888,
+            648
+          ],
+          "head_joint": [
+            82.5,
+            63.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 45,
+            "whole_shift": [
+              0,
+              2
+            ],
+            "wings_open": false,
+            "legs": [
+              -45,
+              45
+            ],
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ],
+            "landing_floor_drop": 4
+          },
+          "pixel_hash": "89766de7089cd5639c804a9201a27548c5fccaa6df41c4c5e800e007d71dcacb"
+        },
+        {
+          "frame": 5,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            50,
+            33,
+            92,
+            82
+          ],
+          "bbox_8x": [
+            400,
+            264,
+            736,
+            656
+          ],
+          "head_joint": [
+            76.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 180,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": true,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "a00c51de28309ad5b79ad0df08af6c6adc1ebc3ccf56beaea653b9e8b252384e"
+        },
+        {
+          "frame": 6,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            77,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            63,
+            36,
+            105,
+            82
+          ],
+          "bbox_8x": [
+            504,
+            288,
+            840,
+            656
+          ],
+          "head_joint": [
+            89.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 90,
+            "near_angle": 0,
+            "whole_shift": [
+              3,
+              0
+            ],
+            "wings_open": true,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "9833dd96363d793b6454b3b6574292aa1c64c68e833657034ccdd18cd3284a99",
+          "release": {
+            "tick": 20,
+            "claw_tip_1x": [
+              103,
+              79
+            ],
+            "claw_tip_8x": [
+              828,
+              636
+            ],
+            "sheet_tip_8x": [
+              1852,
+              1404
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            52,
+            37,
+            94,
+            82
+          ],
+          "bbox_8x": [
+            416,
+            296,
+            752,
+            656
+          ],
+          "head_joint": [
+            78.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "93142adf1b470d98182ebdf44f289943ec5f0a6d83e84f6e70fd64d1eedc314c"
+        }
+      ]
+    },
+    "ult": {
+      "file": "khazix_ult.png",
+      "size_8x": [
+        3072,
+        768
+      ],
+      "grid": [
+        3,
+        1
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            35,
+            103,
+            81
+          ],
+          "bbox_8x": [
+            320,
+            280,
+            824,
+            648
+          ],
+          "head_joint": [
+            74.5,
+            56.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 45,
+            "whole_shift": [
+              0,
+              -1
+            ],
+            "wings_open": true,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "48efba032935e5894d4a254018ee15793d6278a0400e6726c2166cd7ae020d6f"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            47,
+            37,
+            82,
+            82
+          ],
+          "bbox_8x": [
+            376,
+            296,
+            656,
+            656
+          ],
+          "head_joint": [
+            73.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 45,
+            "near_angle": -45,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "156dc74656d0728681ef1aed39c4d77d05bc352ef4d2a99d607453f88eeae22e",
+          "release": {
+            "tick": 6,
+            "claw_tip_1x": [
+              78,
+              52
+            ],
+            "claw_tip_8x": [
+              628,
+              420
+            ],
+            "sheet_tip_8x": [
+              1652,
+              420
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "b4b1de3a698f747d71fb5e426fa0f5b178ec6301725e202d5e4d76e757cea1a1"
+        }
+      ]
+    },
+    "hit": {
+      "file": "khazix_hit.png",
+      "size_8x": [
+        2048,
+        768
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            39,
+            37,
+            102,
+            82
+          ],
+          "bbox_8x": [
+            312,
+            296,
+            816,
+            656
+          ],
+          "head_joint": [
+            73.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 45,
+            "whole_shift": [
+              -2,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "3815a6a035d965d02205afa9ccfdddb295dc450b43ff4a1dd149a22b9e686a94"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            48,
+            37,
+            90,
+            82
+          ],
+          "bbox_8x": [
+            384,
+            296,
+            720,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": 0,
+            "near_angle": 0,
+            "whole_shift": [
+              0,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "b4b1de3a698f747d71fb5e426fa0f5b178ec6301725e202d5e4d76e757cea1a1"
+        }
+      ]
+    },
+    "dead": {
+      "file": "khazix_dead.png",
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            37,
+            103,
+            82
+          ],
+          "bbox_8x": [
+            320,
+            296,
+            824,
+            656
+          ],
+          "head_joint": [
+            74.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 45,
+            "whole_shift": [
+              -1,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "86b17877f9091d39d6ee18436c491e88261bbf60c3e349a0c68e158ea698dd2a"
+        },
+        {
+          "frame": 2,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 110,
+          "bbox": [
+            32,
+            37,
+            97,
+            82
+          ],
+          "bbox_8x": [
+            256,
+            296,
+            776,
+            656
+          ],
+          "head_joint": [
+            66.5,
+            57.5
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "far_angle": -45,
+            "near_angle": 90,
+            "whole_shift": [
+              -3,
+              0
+            ],
+            "wings_open": false,
+            "legs": null,
+            "arm_joint_x_offsets": [
+              0,
+              0
+            ]
+          },
+          "pixel_hash": "6a7cddaade970127aa686f50cc5630366e3cd6264b81e365e28a1e1cd083cf22"
+        },
+        {
+          "frame": 3,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            32,
+            32,
+            88,
+            82
+          ],
+          "bbox_8x": [
+            256,
+            256,
+            704,
+            656
+          ],
+          "head_joint": [
+            60.6715728752538,
+            45.94365081389596
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "whole_angle": 45,
+            "curl": false,
+            "floor_lift": -9
+          },
+          "pixel_hash": "ae4a92f0e12fd7c630148b82c62b270efd9cef8f087edcebd0a2ed6462fae1d6"
+        },
+        {
+          "frame": 4,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 130,
+          "bbox": [
+            23,
+            24,
+            73,
+            82
+          ],
+          "bbox_8x": [
+            184,
+            192,
+            584,
+            656
+          ],
+          "head_joint": [
+            49.7416697508023,
+            44.20577136594005
+          ],
+          "head_rotation": 0,
+          "head_mask_pixels": 120,
+          "pose": {
+            "whole_angle": 60,
+            "curl": false,
+            "floor_lift": -14
+          },
+          "pixel_hash": "5f14670bc242d0e6a009f66ec1d44ca8f3d7a781945c113c96df0cbee527e17b"
+        },
+        {
+          "frame": 5,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            30,
+            33,
+            75,
+            81
+          ],
+          "bbox_8x": [
+            240,
+            264,
+            600,
+            648
+          ],
+          "head_joint": [
+            50.5,
+            48.5
+          ],
+          "head_rotation": 90,
+          "head_mask_pixels": 120,
+          "pose": {
+            "whole_angle": 90,
+            "curl": true,
+            "floor_lift": -13
+          },
+          "pixel_hash": "e1dd7c822269f88858bf3e7e338af4753e94ad3130d3022b4fdb55c9a9d0c38f"
+        },
+        {
+          "frame": 6,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            30,
+            33,
+            75,
+            81
+          ],
+          "bbox_8x": [
+            240,
+            264,
+            600,
+            648
+          ],
+          "head_joint": [
+            50.5,
+            48.5
+          ],
+          "head_rotation": 90,
+          "head_mask_pixels": 120,
+          "pose": {
+            "whole_angle": 90,
+            "curl": true,
+            "floor_lift": -13
+          },
+          "pixel_hash": "e1dd7c822269f88858bf3e7e338af4753e94ad3130d3022b4fdb55c9a9d0c38f"
+        },
+        {
+          "frame": 7,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 300,
+          "bbox": [
+            28,
+            33,
+            73,
+            81
+          ],
+          "bbox_8x": [
+            224,
+            264,
+            584,
+            648
+          ],
+          "head_joint": [
+            48.5,
+            48.5
+          ],
+          "head_rotation": 90,
+          "head_mask_pixels": 120,
+          "pose": {
+            "whole_angle": 90,
+            "curl": true,
+            "floor_lift": -13
+          },
+          "pixel_hash": "4efc0398af5dc34c63d59c8abdbeb3a03ed19d117b02dba24176c408629fc8f3"
+        },
+        {
+          "frame": 8,
+          "cell_rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 400,
+          "bbox": [
+            28,
+            33,
+            73,
+            81
+          ],
+          "bbox_8x": [
+            224,
+            264,
+            584,
+            648
+          ],
+          "head_joint": [
+            48.5,
+            48.5
+          ],
+          "head_rotation": 90,
+          "head_mask_pixels": 120,
+          "pose": {
+            "whole_angle": 90,
+            "curl": true,
+            "floor_lift": -13
+          },
+          "pixel_hash": "4efc0398af5dc34c63d59c8abdbeb3a03ed19d117b02dba24176c408629fc8f3"
+        }
+      ]
+    }
+  }
+}

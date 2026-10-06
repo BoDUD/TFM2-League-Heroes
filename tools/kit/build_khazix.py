@@ -53,6 +53,9 @@ ID = "league_khazix"
 FX = "asset/league/effects/league_khazix_fx"
 BIG = "asset/league/effects/league_khazix_big"
 
+# Timings fitted to the strips (assets/source/native/khazix_cells.json): the claw's hit on tick 11 (attack frame 4),
+# Q's stab on tick 12 (frame 4, the strip 25 ticks), E's landing on 14 (frames 1-4), W's throw 6 later (frame 6), R's
+# flare 18 ticks (the strip's 300 ms).
 # Numbers = candidate c2 of the 10-min classic-SDK simulations (tr_sim/sim/kd.py --lane 1 against demon, circus_blade,
 # hunter, inquisitor and ninja, three lineups, both sides, 2026-10-06): +1.18 on seeds 1-24 and +1.11 on 25-48
 # (league_kayn +1.38 / +1.33, league_xinzhao +1.02 / +1.54 on the same seeds). The draft c0 was +6.96 (15788 damage a
@@ -64,7 +67,7 @@ P = {
     # League's Kha'Zix: 643 +99 hp, 60 AD +3.1, 32 armour, 350 move, 125 range
     "hp": 880, "hp_g": 84, "atk": 85, "atk_g": 16, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
     # attack: the claw swing
-    "atk_range": 23000, "atk_dur": 22, "atk_cd": 50, "a_st": 10,
+    "atk_range": 23000, "atk_dur": 22, "atk_cd": 50, "a_st": 11,
     # passive: Unseen Threat (League: 14-150 by level + 40% bonus AD magic, 25% slow 2 s)
     "ut_dmg": 15, "ut_ratio": 25, "ut_slow": 25, "ut_slow_t": 120, "quiet": 240,
     # evolutions: the level probe (league_kaisa's soak; the hit is absorbed whole) and the levels
@@ -72,7 +75,7 @@ P = {
     "pr_twice": 30,
     # skill: Q Taste Their Fear (League: 325 range (evolved 375), 60-160 + 110% bonus AD, isolated +110%,
     # evolved isolated refund 45%, cd 4 s; isolation: no allied unit within 375)
-    "q_cd": 240, "q_range": 26000, "q_dur": 20, "q_at": 8, "q_dmg": 25, "q_ratio": 65, "q_iso_dmg": 40,
+    "q_cd": 240, "q_range": 26000, "q_dur": 24, "q_at": 12, "q_dmg": 25, "q_ratio": 65, "q_iso_dmg": 40,
     "q_iso_ratio": 115, "iso_r": 30000, "q_evo_range": 6000, "q_ref": 82,
     # skill2: E Leap (League: 700 range (evolved 900), 65-240 + 20% bonus AD, cd 22-12 s, evolved takedown reset)
     # -> W Void Spike (League: 1025 range, 1700 speed, 85-205 + 100% bonus AD, heal 55-155 within the blast, cd 9 s)

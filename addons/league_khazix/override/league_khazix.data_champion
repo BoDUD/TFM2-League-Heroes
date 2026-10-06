@@ -48,7 +48,7 @@
     "description": "#asset/base/text/champion?description.league_khazix.attack",
     "duration": 22,
     "cooltime": 50,
-    "start_timing": 10,
+    "start_timing": 11,
     "cancelable": true,
     "range": 23000,
     "casting_type": "Targeting",
@@ -290,7 +290,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_khazix.skill",
-    "duration": 20,
+    "duration": 24,
     "cooltime": 240,
     "start_timing": 1,
     "cancelable": false,
@@ -395,7 +395,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill",
-          "tick": 20
+          "tick": 24
         },
         {
           "type": "Sfx",
@@ -432,7 +432,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 8,
+          "tick": 12,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -768,7 +768,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 20,
+                "tick": 24,
                 "effects": [
                   {
                     "type": "CasterAnimation",
@@ -781,7 +781,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 10,
+                    "tick": 11,
                     "effects": [
                       {
                         "type": "RandomTarget",
@@ -1598,7 +1598,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 10,
+                    "tick": 11,
                     "effects": [
                       {
                         "type": "RandomTarget",
@@ -2145,7 +2145,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 10,
+                    "tick": 11,
                     "effects": [
                       {
                         "type": "RandomTarget",
