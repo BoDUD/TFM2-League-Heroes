@@ -978,7 +978,7 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "skill2",
-                                        "tick": 34
+                                        "tick": 35
                                       },
                                       {
                                         "type": "SwitchByBuff",
@@ -1011,7 +1011,7 @@
                                       },
                                       {
                                         "type": "Delayed",
-                                        "tick": 9,
+                                        "tick": 7,
                                         "effects": [
                                           {
                                             "type": "Combine",
@@ -2001,7 +2001,7 @@
                                       },
                                       {
                                         "type": "Delayed",
-                                        "tick": 19,
+                                        "tick": 17,
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
@@ -2433,7 +2433,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 9,
+                "tick": 11,
                 "effects": [
                   {
                     "type": "Sfx",
@@ -2504,7 +2504,7 @@
                 },
                 {
                   "type": "Delayed",
-                  "tick": 9,
+                  "tick": 11,
                   "effects": [
                     {
                       "type": "Sfx",
@@ -2575,7 +2575,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 9,
+                    "tick": 11,
                     "effects": [
                       {
                         "type": "Sfx",
@@ -2646,7 +2646,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 9,
+                      "tick": 11,
                       "effects": [
                         {
                           "type": "Sfx",
@@ -2695,7 +2695,7 @@
                 },
                 "effect_none": {
                   "type": "Delayed",
-                  "tick": 9,
+                  "tick": 11,
                   "effects": [
                     {
                       "type": "Sfx",
@@ -2740,7 +2740,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_seraphine.skill",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
@@ -2815,11 +2815,11 @@
           {
             "type": "CasterAnimation",
             "name": "skill",
-            "tick": 24
+            "tick": 26
           },
           {
             "type": "Delayed",
-            "tick": 10,
+            "tick": 11,
             "effects": [
               {
                 "type": "Combine",
@@ -3339,7 +3339,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_seraphine.skill2",
-    "duration": 34,
+    "duration": 35,
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
@@ -3501,7 +3501,7 @@
           {
             "type": "CasterAnimation",
             "name": "skill2",
-            "tick": 34
+            "tick": 35
           },
           {
             "type": "SwitchByBuff",
@@ -3534,7 +3534,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 7,
             "effects": [
               {
                 "type": "Combine",
@@ -4524,7 +4524,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 19,
+            "tick": 17,
             "effects": [
               {
                 "type": "SwitchByBuff",
@@ -5047,7 +5047,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 12,
+                "tick": 11,
                 "effects": [
                   {
                     "type": "Combine",
@@ -5740,7 +5740,7 @@
                 "effects": [
                   {
                     "type": "Delayed",
-                    "tick": 32,
+                    "tick": 31,
                     "effects": [
                       {
                         "type": "SwitchByBuff",
@@ -5782,7 +5782,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "skill2",
-                                  "tick": 34
+                                  "tick": 35
                                 },
                                 {
                                   "type": "SwitchByBuff",
@@ -5815,7 +5815,7 @@
                                 },
                                 {
                                   "type": "Delayed",
-                                  "tick": 9,
+                                  "tick": 7,
                                   "effects": [
                                     {
                                       "type": "Combine",
@@ -6805,7 +6805,7 @@
                                 },
                                 {
                                   "type": "Delayed",
-                                  "tick": 19,
+                                  "tick": 17,
                                   "effects": [
                                     {
                                       "type": "SwitchByBuff",
@@ -7202,7 +7202,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "ult",
-                "tick": 30
+                "tick": 26
               }
             ]
           },
