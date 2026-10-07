@@ -11,7 +11,7 @@ bough, 72 rows), 07 = version B (the shorter bough, 65 rows), 06 = another B (59
         costing its difference from the nearer neighbour; the face rows and columns kept), then the outline closed;
   vote  each 42-row cell the colour most of its source block shows (ink only over half the block), then the outline
         closed (league_gwen's route).
-Step 7 (B46_final, the design now): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
+Step 8 (B46_final, the design now): the bough upright, the waist seam redrawn. Step 7 (B46_straight): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
 FIXES46). Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
 top with the lantern redrawn by tables. Colours: every square to the nearest of Codex's own palette (palette.hex, 32). The figure stands on the 128 canvas with
 the hooves on row 99 and their middle on column 64.
@@ -536,6 +536,57 @@ def straighten(can):
 
 
 
+# step 8 (the user: 「没改好吧？」 - 「人身和鹿身接缝」 and 「武器还是歪」): the bough upright on one column (75) from under the
+# blossom (moved a column left over it, the gold hook from the line's right side) to its tip on the deer's chest, the
+# near hand a column right to grip it, the hair and the far shoulder's leaves filling the old line; the waist seam
+# redrawn - the bare waist, one leaf skirt band (UPRIGHT/SEAM: the black block beside the waist gone, the hem two-leaf
+# tips), the deer's cream chest under it with the bough in front; the outline closed again (the step-6 column cut had
+# taken the hair's left outline at rows 74-77).
+UPRIGHT = {
+    # the blossom one column left, over the line; the gold hook from the line's right side
+    54: [(72, "...KK.....")],
+    55: [(72, "..KjjK....")],
+    56: [(72, ".KeVjKKKK.")],
+    57: [(72, "..KeeKKGYK")],
+    58: [(72, "..KQK..KYK")],
+    59: [(72, "KfKQGGKKGK")],
+    60: [(72, "KffQK.gGK.")],
+    61: [(72, "KfFQK.GK..")],
+    62: [(72, "KfKQK.gK..")],
+    63: [(73, ".KQK.KHK")],
+    64: [(73, ".KQKKFHPK")],
+    # rows 65-71 already on column 75; rows 72-77: the hair and the far shoulder's leaves fill the old line
+    72: [(72, "KhKQKKK")],
+    73: [(72, "KhKQK")],
+    74: [(71, "KffKQK")],
+    75: [(71, "FFFKQK")],
+    76: [(71, "fFfKQK")],
+    77: [(70, "fFfFKQK")],
+    # the hands: the far hand's bracer back, the line between the hands, the near hand one column right
+    79: [(73, "f")],
+    80: [(72, "ddKQK")],
+    81: [(71, "KKsssK")],
+    82: [(68, "ssssdsssK")],
+}
+SEAM = {
+    83: [(62, "KdssssdKfFfFKQK")],
+    84: [(60, "KFfFfFfFfFfFfFKQK")],
+    85: [(60, "OFFOFFOFFOFFOCCQCK")],
+    86: [(67, "OOOOCCCCQCK")],
+    87: [(68, "OOCCCCcqcK")],
+    88: [(68, "bbCCbacK.")],
+}
+
+
+
+
+def seam(can):
+    out = apply_letters(can, UPRIGHT)
+    out = apply_letters(out, SEAM)
+    out, _, _ = strips.complete_outline(out, color=OUTLINE, feet=SOLE_ROW + 1)
+    return recentre(out)
+
+
 CANDIDATES = {
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
@@ -544,7 +595,8 @@ CANDIDATES = {
     "B_clean": lambda: cleaned(to_canvas(cut("07")), np.zeros((128, 128), bool))[0],
     "B_polish": polished,
     "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)), "B46_slim": lambda: slim(design46()),
-    "B46_final": lambda: straighten(slim(design46())),
+    "B46_straight": lambda: straighten(slim(design46())),
+    "B46_final": lambda: seam(straighten(slim(design46()))),
 }
 
 
