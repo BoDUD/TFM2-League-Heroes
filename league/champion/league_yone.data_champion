@@ -4039,7 +4039,7 @@
                   "effects": [
                     {
                       "type": "CasterAnimation",
-                      "name": "e_dash",
+                      "name": "e_dash_fx1",
                       "tick": 30
                     },
                     {

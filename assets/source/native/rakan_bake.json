@@ -1,6 +1,0 @@
-{
-  "fx": "league_rakan_fx",
-  "items": [
-    {"tag": "r_start", "into": "ult_fx1", "from": "ult", "slice_ms": 0, "length_ms": 4000, "at_ms": 0}
-  ]
-}

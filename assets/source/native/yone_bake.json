@@ -1,6 +1,7 @@
 {
   "fx": "league_yone_fx",
   "items": [
-    {"tag": "e_cast", "into": "skill2_fx1", "from": "skill2", "slice_ms": 33, "length_ms": 367, "at_ms": 0}
+    {"tag": "e_cast", "into": "skill2_fx1", "from": "skill2", "slice_ms": 33, "length_ms": 367, "at_ms": 0},
+    {"tag": "e_cast", "into": "e_dash_fx1", "from": "e_dash", "slice_ms": 0, "length_ms": 500, "at_ms": 0}
   ]
 }
