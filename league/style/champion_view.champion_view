@@ -781,7 +781,7 @@
     "league_gwen": {
       "face": {
         "x": 2,
-        "y": -42
+        "y": -38
       },
       "center": {
         "x": 0,
@@ -789,7 +789,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -9
       }
     },
     "league_khazix": {

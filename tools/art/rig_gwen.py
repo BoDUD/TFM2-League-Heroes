@@ -54,23 +54,33 @@ MS = {"idle": [200] * 6, "run": [150] * 8, "attack": [60, 60, 70, 70, 80, 100],
 TAGS = list(MS)
 
 # ------------------------------------------------------------------------------------------------ the design's parts
+# Every row below is step 14's (the design before it was made smaller, 「格温的体型能缩小点吗」) moved by
+# design_gwen.old_to_new() (R), so the poses stay where they were on her
+def R(y):
+    return DG.old_to_new(0, y)[1]
+
+
+def _rows(spec):
+    return {R(y): v for y, v in spec.items()}
+
+
 # (rigkit.Design.letters: 0 ink, a navy, b dark violet, d bodice, e bow violet, f glove lit, r skin shade, v skin, ...)
 SKIN_LIT, SKIN_SHADE, GLOVE_LIT, GLOVE_SHADE = "v", "r", "f", "d"
 # the arms as drawn, taken off when the arm moves (rows: (first, last) column), and what they covered, filled in
-NEAR_OFF = {75: (58, 59), 76: (58, 59), 77: (58, 58), 78: (57, 58), 79: (57, 58)}
-NEAR_FILL = {75: (58, "0e"), 76: (58, "0e"), 77: (58, "0e"), 78: (58, "0"), 79: (58, "0")}
-FAR_OFF = {74: (71, 73), 75: (71, 73), 76: (71, 72), 77: (71, 72)}
-FAR_FILL = {74: (71, "b0"), 75: (71, "b0"), 76: (71, "e0"), 77: (71, "e0")}
-NEAR_SH, FAR_SH = (58, 75), (71, 73)   # the arms' first squares (top-left of the two-square cross-section): the far one
+NEAR_OFF = _rows({75: (58, 59), 76: (58, 59), 77: (58, 58), 78: (57, 58), 79: (57, 58)})
+NEAR_FILL = _rows({75: (58, "0e"), 76: (58, "0e"), 77: (58, "0e"), 78: (58, "0"), 79: (58, "0")})
+FAR_OFF = _rows({74: (71, 73), 75: (71, 73), 76: (71, 72), 77: (71, 72)})
+FAR_FILL = _rows({74: (71, "b0"), 75: (71, "b0"), 76: (71, "e0"), 77: (71, "e0")})
+NEAR_SH, FAR_SH = (58, R(75)), (71, R(73))   # the arms' first squares (top-left of the two-square cross-section): the far one
                                        # right under its puffed sleeve, so it shows over the curls
 ARM_STEPS, GLOVE_STEPS = 3, 2         # the design's arm: 3 skin steps and the glove's 2 (the user: longer ones were wrong)
-STRAY = [(58, 86), (58, 87), (58, 88)] # squares left of the old small scissors under the skirt's left edge
-LEG_TOP, LEG_SPLIT = 87, 66            # the legs' rows (to the soles) and the column between them; the skirt's hem
+STRAY = [(58, R(86)), (58, R(87)), (58, R(88))] # squares left of the old small scissors under the skirt's left edge
+LEG_TOP, LEG_SPLIT = R(87), 66            # the legs' rows (to the soles) and the column between them; the skirt's hem
                                        # (row 86) stays on the body (a lifted leg took its piece of it up)
-SC_LEN, SC_OPEN = 30, 44               # the held scissors: blade (squares), the snip's opening (degrees)
+SC_LEN, SC_OPEN = 27, 44               # the held scissors: blade (squares; 30 before step 15), the snip's opening (degrees)
 IDLE_DEG = 155                         # the design's blade points 155 degrees (down and back)
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
-HAIR_ROWS = (56, 80)                   # hang behind her shoulders), under everything else; right of the torso's edge
+HAIR_ROWS = (R(56), R(80))                   # hang behind her shoulders), under everything else; right of the torso's edge
 TORSO_RIGHT = 70                       # (column 70) only the curls and the sleeve are there: the far arm goes over them
 
 
@@ -129,8 +139,6 @@ def scissors_unit(P, deg, length=SC_LEN, opening=0):
     u, h, n = handle_frame(deg)
     at = lambda q: tuple(g + q[0] * h + q[1] * n)  # noqa: E731
     mx, my = HANDLE_MID
-    for (cx, cy), ro, ri in DG.LEAGUE["rings"]:
-        DG.league_ring(c, at((cx - mx, cy - my)), ro, ri)
     for b0, b1, w in DG.LEAGUE["spikes"]:
         q0, q1 = (b0[0] - mx, b0[1] - my), (b1[0] - mx, b1[1] - my)
         if opening and q1[0] <= 0:
@@ -144,6 +152,8 @@ def scissors_unit(P, deg, length=SC_LEN, opening=0):
             DG.league_blade(c, tuple(base), tuple(base + length * w), 2.8)
     else:
         DG.league_blade(c, tuple(base), tuple(base + length * u), 3.4)
+    for (cx, cy), ro, ri in DG.LEAGUE["rings"]:          # the rings over the spikes: both hearts whole and alike
+        DG.league_ring(c, at((cx - mx, cy - my)), ro, ri)  # (「武器的孔请两边都一样」)
     can, _, _ = strips.complete_outline(np.pad(c, ((1, 1), (1, 1), (0, 0))), color=DG.C["I"], feet=N + 2)
     c = can[1:-1, 1:-1]
     ys, xs = np.nonzero(c[..., 3] > 0)
@@ -363,9 +373,9 @@ HIP_IN = {"near": 1, "far": -1}        # the hips drawn in under the skirt (from
 RUN_LEAN = 0                           # the upper body this many columns ahead of the legs (1: leaning into the run)
 BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact - two rows (and the curls and scissors a frame
 LAG = 0                                # late, a reviewer's idea) squashed her onto her legs and tore the curls from the
-CURLS = ((68, 82), (60, 68))           # head: 「走路时模型变形了吧？」
-KNEE_ROW, BOOT_ROW = 91, 94            # the stockings to the knee, the shin, the boots from row 94
-FOOT_ROW = 96                          # the boots' feet (from here down the toe shows its way)
+CURLS = ((R(68), R(82)), (60, 68))           # head: 「走路时模型变形了吧？」
+KNEE_ROW, BOOT_ROW = R(91), R(94)            # the stockings to the knee, the shin, the boots from row 94
+FOOT_ROW = R(96)                          # the boots' feet (from here down the toe shows its way)
 FAR_SHADE = {"f": "d", "d": "b", "x": "s", "s": "m", "m": "j", "w": "x", "q": "l", "u": "q"}
 
 
@@ -430,7 +440,7 @@ def run_parts(P):
 # it from the head)
 RUN_HOLD = {}                          # stand()'s pose: {} = the scissors behind her as drawn, the arms as drawn
 SWAY = [0, -1, -1, 0, 0, -1, -1, 0]
-DRILLS = ((64, 73), (61, 200))         # the trailing curl: the back (left) spiral curl whole (a part of it moved cut
+DRILLS = ((R(64), R(73)), (61, 200))         # the trailing curl: the back (left) spiral curl whole (a part of it moved cut
                                        # its spiral; the right one swung into her neck: 「头发上 有点变形」)
 
 
@@ -542,7 +552,7 @@ def scissors_on_ground(P, x_grip=86):
 # (moved with the hand, standing on their tip beside her they floated), then lying on the ground in front of her
 DEAD = ["hit", "knocked", (20, -1, 0), (45, -3, 2), (70, -4, 1), (90, -5, 1), (90, -5, 0), (90, -5, 0)]
 FEET = (60.0, 99.0)
-GRIP = (72.0, 77.0)                    # the far hand on the idle's scissors (the glove's squares 71-72, rows 76-77)
+GRIP = (72.0, R(77) + 0.0)                    # the far hand on the idle's scissors (the glove's squares 71-72, rows 76-77)
 
 
 def about_feet(q, deg):
@@ -609,12 +619,12 @@ def soften_inner_ink(P, f, keep=None):
     for dx in range(-5, 6):
         for dy in range(-3, 4):
             s = K.shifted(idle, dx, dy) if (dx or dy) else idle
-            cost = int((s[56:72, 50:80, :3] != f[56:72, 50:80, :3]).any(-1).sum())
+            cost = int((s[R(56):R(72), 50:80, :3] != f[R(56):R(72), 50:80, :3]).any(-1).sum())
             if best is None or cost < best[0]:
                 best = (cost, s, dx, dy)
     s = best[1]
     face = np.zeros(f.shape[:2], bool)
-    face[64 + best[3]:70 + best[3], 62 + best[2]:69 + best[2]] = True
+    face[R(64) + best[3]:R(70) + best[3], 62 + best[2]:69 + best[2]] = True
     was = (s[..., 3] > 0) & (s[..., :3] == ink).all(-1)
     op = f[..., 3] > 0
     isk = op & (f[..., :3] == ink).all(-1)
@@ -662,7 +672,7 @@ def frames(P, tag):
 
 
 BREATH = [0, 0, 1, 1, 0, 0]            # the upper body (to row BREATH_ROW) a row lower in two of the six frames
-BREATH_ROW = 80
+BREATH_ROW = R(80)
 
 
 def breathe(P, d):

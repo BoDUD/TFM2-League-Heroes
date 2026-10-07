@@ -41,6 +41,12 @@ at one scale), then for the face 「脸部五官太奇怪了」「改不好就�
      gold star;
  10. the blade's point closed (POINT: a detached last square read as broken, 「剪刀这里看起来像断的」);
  11. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64.
+ 15. smaller (2026-10-07, 「格温的体型能缩小点吗」, the user picked 「A 缩到 42」 and the scissors 「变 但是武器的孔请两边都
+     一样」): 46 -> 42 rows by whole rows of the body alone (SHRINK_DROP: one of the hair over the face, two of the skirt's dark,
+     one of the stockings - the face and the arms untouched), the scissors taken off first and drawn again with
+     step 9's recipe, the handle moved with her hip, the blade and the shank 42 / 46 as long, the rings drawn last so
+     both heart holes are whole and the same (the spikes had cut into the lower one); old_to_new() maps a point of
+     step 14 for tools/art/rig_gwen.py.
 --check compares the result with the committed gwen_native.png instead of writing it.
 """
 import argparse
@@ -119,6 +125,15 @@ TORSO = {14: "---BDDB-----",
 # the blade's point (the user: 「剪刀这里看起来像断的」): the last blue square stood one clear square off the blade with an
 # outline square under it; both go, the gap's square is outline - the point ends on row 39
 POINT = {(0, 40): None, (0, 41): None, (1, 40): "I"}
+# step 15: the body's rows cut - a hair row like its neighbour (61), two of the skirt's dark under its white band (83, 84),
+# a stocking row (89); the tuft on the crown, the arms' rows 74-79
+# and the face kept), the canvas bottom-aligned on SOLE_ROW; the scissors' coordinates on the canvas are LEAGUE's +
+# SC_AT, the handle (rig_gwen.HANDLE_MID) moved as old_to_new() moves it, the blade and the shank scaled by SC_SCALE
+# about it, the rings and the spikes only moved (their size kept: a smaller ring has no room for the heart)
+SHRINK_DROP = [61, 83, 84, 89]
+SC_AT = (47, 56)
+HANDLE = (32.25, 25.5)
+SC_SCALE = 42 / 46
 TORSO_KEYS = {"B": "A", "D": "G", "P": "N", "I": "I", "a": "Ad", "Q": "U", "k": "Kp", "h": "h", "H": "H",
               "l": "Lb", "T": "T", "R": "R", "X": "S2"}
 
@@ -645,6 +660,45 @@ def polish(canvas, mask):
         put(x, y, c)
 
 
+def old_to_new(x, y):
+    """Where step 14's canvas point (x, y) is after step 15 (rows over a cut row move down one per cut under them)."""
+    return x, y + sum(1 for d in SHRINK_DROP if d > y)
+
+
+def scissors_at(layer, handle, scale=SC_SCALE):
+    """League's scissors (step 9) on `layer` with the handle's middle on `handle`: the blade, the shank and the spikes
+    first, the rings over them so the two heart holes are whole and alike; no outline."""
+    hx_, hy_ = HANDLE
+    mv = lambda p: (p[0] - hx_ + handle[0], p[1] - hy_ + handle[1])  # noqa: E731
+    sc = lambda p: (handle[0] + scale * (p[0] - hx_), handle[1] + scale * (p[1] - hy_))  # noqa: E731
+    for b0, b1, w in [LEAGUE["blade"]] + LEAGUE["shank"]:
+        league_blade(layer, sc(b0), sc(b1), w)
+    for b0, b1, w in LEAGUE["spikes"]:
+        league_blade(layer, mv(b0), mv(b1), w)
+    for c, ro, ri in LEAGUE["rings"]:
+        league_ring(layer, mv(c), ro, ri)
+
+
+def shrink(canvas, mask):
+    """Step 15: the body's rows cut, the scissors drawn again behind her. (canvas, scissors mask)"""
+    body = canvas.copy()
+    body[mask] = 0
+    keep = [y for y in range(128) if y not in SHRINK_DROP and y <= SOLE_ROW]
+    out = np.zeros_like(canvas)
+    out[SOLE_ROW + 1 - len(keep):SOLE_ROW + 1] = body[keep]
+    layer = np.zeros_like(out)
+    h = (HANDLE[0] + SC_AT[0], HANDLE[1] + SC_AT[1])
+    scissors_at(layer, old_to_new(*h))
+    can, _, _ = strips.complete_outline(np.pad(layer, ((1, 1), (1, 1), (0, 0))), color=C["I"], feet=SOLE_ROW + 1)
+    layer = can[1:-1, 1:-1]
+    behind = (layer[..., 3] > 0) & (out[..., 3] == 0)
+    out[behind] = layer[behind]
+    was = out[..., 3] > 0
+    can, _, _ = strips.complete_outline(np.pad(out, ((1, 1), (1, 1), (0, 0))), color=C["I"], feet=SOLE_ROW + 1)
+    out = can[1:-1, 1:-1]
+    return out, behind | ((out[..., 3] > 0) & ~was)
+
+
 def build(with_mask=False):
     """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
@@ -682,6 +736,7 @@ def build(with_mask=False):
     mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
     lone_ink(canvas, face | mask)                      # step 12
     polish(canvas, mask)                               # step 14 (supersedes step 13's recolouring)
+    canvas, mask = shrink(canvas, mask)                # step 15
     if with_mask:
         return canvas, mask
     return canvas

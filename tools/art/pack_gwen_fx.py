@@ -280,7 +280,7 @@ def rig_points():
                   ("skill2", 1, "e_dash: 站位点（拖尾往左）", feet),
                   ("skill2", 6, "w_mist: 站位点（椭圆中心）", feet),
                   ("ult", 4, "r 针：从她站的位置往前飞", feet),
-                  ("idle", 1, "qs 记号 / w_in 的结：头顶", [(R.PIVOT[0], 52)])]
+                  ("idle", 1, "qs 记号 / w_in 的结：头顶", [(R.PIVOT[0], R.R(52))])]
 
 
 def ref_sheet(path):
