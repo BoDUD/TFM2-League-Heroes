@@ -805,6 +805,16 @@
                                 "only_to_enemy": false
                               },
                               {
+                                "type": "Delayed",
+                                "tick": 120,
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_ekko_w_shield"
+                                  }
+                                ]
+                              },
+                              {
                                 "type": "Sfx",
                                 "name": "league_ekko_w_boom"
                               }

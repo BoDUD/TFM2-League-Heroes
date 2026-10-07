@@ -875,6 +875,16 @@
           "only_to_enemy": false
         },
         {
+          "type": "Delayed",
+          "tick": 180,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_annie_e_shield"
+            }
+          ]
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_annie_e_haste",

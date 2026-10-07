@@ -527,6 +527,17 @@ holds). Some pack buffs omit it - set it explicitly. *(seen in the SDK simulatio
 a `WithShield` caster buff added right after her own `Shield {tick: 180}` was gone 180 ticks later
 when nobody hit her, and 89 ticks after the cast when enemies broke the shield first.)*
 
+**A `WithShield` picture outlives its own shield** *(player video, league_annie E, 2026-10-07)*: since the buff
+stays while any shield holds, league_annie's Molten Shield ring stayed on her 10 s and more in a game where her own
+shield lasts 3 s (another shield on her held it; in the simulation an extra 1200-tick shield kept the ring on for good).
+A buff that is only the picture of one shield gets a `Delayed {tick: <the shield's tick>}` `RemoveCasterBuff` after
+it (league_annie E; then league_blitzcrank, league_camille, league_diana, league_ekko, league_riven and the self casts
+of league_janna, league_morgana and league_thresh - with no extra shield the simulation already showed Riven's E ring
+219 ticks on a 90-tick shield, Diana's 458 on 300). Not for a `WithShield` flag that asks "does a shield hold" on
+purpose (league_malphite's granite, league_rakan's passive: their shields last 36000 ticks, so a timer means nothing).
+One given to an ally (`AddBuff` from a `RandomTarget` or a projectile) cannot be taken off: `RemoveCasterBuff` works
+on the caster only, also from an `AddCasted` on the ally (its caster is still the giver); those stay `WithShield`.
+
 **`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
 with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
@@ -555,6 +566,17 @@ casting_target: AllyOnlySelf}` finds no dead caster, so a zone's applied effects
 from the search, read in the same tick) and keep their effects in plain sight of the AI - league_caitlyn W: 0 bites after
 29 deaths in 16 games (285 unguarded), the AI's throws unchanged, where the `Delayed`-projectile route cost a third of
 them.
+
+**In the game a dead caster's `Delayed` effects run, and fire projectiles** *(player video, league_riven R,
+2026-10-07)*: Riven died in a fight and 14 s later her Wind Slash, launched three times about a second apart from a
+cast's `Delayed {tick: 300..1470}` checks of `league_riven_r_slash_ready`, hit an enemy champion for 401 each while
+her respawn timer ran (「瑞雯死后放三次大招连放三次」). The SDK stops those `Delayed` effects at death and spawns no
+projectile from a dead caster, so no simulation showed it; and since her buffs froze when she died, the
+`RemoveCasterBuff` after each slash took nothing off, so every later check fired again. Every check now runs inside
+`RandomTarget {range: 1, casting_target: AllyOnlySelf}` (the search above that finds no dead caster): with her alive
+the slash rate and its hits are unchanged in the simulation (21 slashes in 62 R casts, 1.7 hits each, against 28 in
+70 and 1.7 before - different games past the first R). Any `Delayed` chain that deals damage, starts a projectile or
+reads a flag the cast set should be guarded the same way.
 
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
