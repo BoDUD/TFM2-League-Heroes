@@ -166,16 +166,17 @@ def cells(name, n):
     return [a[:, k * w:(k + 1) * w] for k in range(n)]
 
 
-# spots from the pivot (game px, x forward, y down), from the finished strips (pack_gwen_fx.rig_points)
-POINT = (43, -12)               # the attack's thrust (frame 4): the snip's bright left end 4 in from the scissors' point
-                                # (+47) so the X stays inside her 128-wide cell
-BLADES_Q = (30, -12)            # Q's shut frames 3 and 5: the blades' middle, the cut's crossing on it
-BLADES_F = (31, -12)            # Q's frame 7 (one column further: the lunge)
-DASH = (-17, -3)                # E's trail: its box middle behind her, knee to chest
+# spots from the pivot (game px, x forward, y down), from the finished strips (pack_gwen_fx.rig_points; measured again
+# when she was made smaller - 42 rows, the held blade 27 long, the far hand 3 rows lower)
+POINT = (40, -9)                # the attack's thrust (frame 4): the snip's bright left end 4 in from the scissors' point
+                                # (+44) so the X stays inside her 128-wide cell
+BLADES_Q = (29, -9)             # Q's shut frames 3 and 5: the blades' middle, the cut's crossing on it
+BLADES_F = (30, -9)             # Q's frame 7 (one column further: the lunge)
+DASH = (-17, -1)                # E's trail: its box middle behind her, knee to chest
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
-BODY = (0, -10)                 # round her: E's threads, the mist's veil
+BODY = (0, -8)                  # round her: E's threads, the mist's veil
 GROUND = (0, 12)                # the standing point: the mist's middle, the bind round the ankles
-OVER = (0, -38)                 # the stack marks over her head (her crown 32 over the pivot)
+OVER = (0, -34)                 # the stack marks over her head (her crown 28 over the pivot)
 SLOTS = (-9, -3, 3, 9)          # the four stack marks' columns from her middle
 LINE = (0, 0)                   # a LineRangeProjectile's picture is centred on its line
 EMPTY = J.EMPTY
