@@ -829,7 +829,7 @@
     "league_seraphine": {
       "face": {
         "x": 3,
-        "y": -40
+        "y": -42
       },
       "center": {
         "x": 0,
@@ -837,7 +837,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -6
       }
     }
   }

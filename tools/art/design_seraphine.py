@@ -23,8 +23,8 @@ at 46 and 52) went to the user, who picked the region cut at 52 (「E 分区删�
      one-square gaps in the outline under the raised arm's elbow and under the near glove closed (NOTCH, 「这里少一块？」);
   8. Gwen's clean-up off the drawn squares: lone squares no neighbour shares take their four neighbours' colour (two
      rounds, gold kept), then outline squares that join no line take their neighbours' colour;
-  9. shrunk (「萨勒芬妮在游戏里实在太大了」, 「还有感觉有点胖啊模型」, 「萨勒芬妮头有点大」): the figure 37 rows by whole rows
-     (the head 15 of them), 6 columns from the back hair and 2 a side from the shoulders down, the crown rounded (DOME),
+  9. shrunk (「萨勒芬妮在游戏里实在太大了」, 「还有感觉有点胖啊模型」): the figure 39 rows by whole rows
+     (the head 18 of them), 6 columns from the back hair and 2 a side from the shoulders down, the crown rounded (DOME),
      the stage drawn again at 24 x 6; old_to_new() maps a point of step 8 for tools/art/rig_seraphine.py.
 --check compares the result with the committed seraphine_native.png instead of writing it.
 """
@@ -224,17 +224,17 @@ def build(full=False):
 # from the back hair (the face, the hands and the glove keep theirs); the stage, which no cut kept readable at 6 rows
 # (the flower medallion and the crystals turned to mush), drawn again at 24 x 6 after the design's: the teal deck, the
 # gold hull, the blue flower medallion with its pink orb, a cyan crystal on each side, left-right symmetric.
-BODY_ROWS = [48, 50, 52, 55, 56, 57, 58, 60, 61, 62, 63, 64, 65, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
-             81, 82, 83, 84, 85, 86, 87, 88, 89]
+BODY_ROWS = [48, 50, 52, 53, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
+             78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
 DROP_COLS = [43, 45, 47, 49, 51, 55]
 # 「还有感觉有点胖啊模型」 (the user picked 「C 两边各收 2 列 + 高 45」): the 36-row cut kept the body's full width, so she
 # read squat; three of the cut rows came back (73, 75 in the torso, 84 in the legs) and from the shoulders down two
 # columns go on each side - 61-62 left of the middle from row 69, 70-71 right of it from row 73 (under the raised arm)
 SLIM = [(69, (61, 62)), (73, (70, 71))]
-# 「萨勒芬妮头有点大」 and 「最上面的方形看起来是平的 好奇怪」 (the user picked 「B 头顶少 2 行 + 下巴少 1 行」): two more hair
-# rows over the face (53 and 59) and the chin's middle row (66) go - the head
-# 18 -> 15 rows - and the crown, cut flat by the row cuts, is rounded: its first DOME_RY - 1 wide rows keep only what lies
-# in an ellipse round the head's middle column (the curl above them and the blue fins stay)
+# 「最上面的方形看起来是平的 好奇怪」: the crown, cut flat by the row cuts, is rounded - its first DOME_RY - 1 wide rows
+# keep only what lies in an ellipse round the head's middle column (the curl above them and the blue fins stay). Two
+# hair rows and a chin row fewer (「萨勒芬妮头有点大」, option B) were tried and dropped: the user kept the 45 rows with
+# the rounded crown alone (「用这个啊 这个发型完美」, the preview's 「dome 32x45」)
 DOME_CX, DOME_RX, DOME_RY = 66.5, 12.5, 6
 BODY_TOP = SOLE_ROW + 1 - 6 - len(BODY_ROWS)             # the figure's new top row; its feet on row 93, the deck under
 
