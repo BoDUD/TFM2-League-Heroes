@@ -10,7 +10,12 @@ The client never mirrors a data effect picture (champion-data.md section 6), so 
 2. tools/art/import_native.py redraws his sheet with assets/source/native/<hero>_bake.json;
 3. tools/fix/mirror_union_fx.py makes the rest left-right symmetric (SYM, the ones step 1 left: auras, shields and
    bursts that play while he walks or when a projectile lands - checked by eye: rings, sparks and flames that read
-   the same mirrored).
+   the same mirrored). league_garen's Judgment whirl is one too (2026-10-07, 「盖伦大风车没了」): drawn into copies of
+   his spin, it vanished whenever a hop's MoveToTarget reached its target and restarted the plain spin, so most casts
+   showed no whirl; it is a CasterViewEffect again (is_follow, held while he walks) on a symmetric sheet.
+   league_rakan's R start the same (his R hops restart "ult" every 20 ticks). league_yone's E flash and league_kaisa's
+   R trail stay in his frames: the flash in a copy of the dash that starts on the same tick (e_dash_fx1), the trail
+   continued into ult_dash (yone_bake.json, kaisa_bake.json).
 4. HIT: pictures on a target or point that show where the blow came from (a streak or a chevron pointing on along
    the shot: league_ezreal R, league_riven's Wind Slash, league_yasuo Q and E, league_vayne's bolts) are made symmetric
    too; a slash or crescent across the target reads the same either way and stays.
@@ -32,7 +37,7 @@ HEROES = ["aatrox", "ahri", "akali", "alistar", "amumu", "briar", "caitlyn", "di
           "tristana", "tryndamere", "twistedfate", "varus", "veigar", "vi", "xerath", "xinzhao", "yasuo", "yone", "zilean"]
 CUT = {"aatrox": ["q3_slash", "q3_slash_r"], "kaisa": ["r_trail"], "vi": ["q_go", "r_trail"], "tristana": ["q_cast"]}
 SYM = {
-    "ahri": ["w_orbit"], "alistar": ["e_ready", "w_butt"], "fiddlesticks": ["r_storm"], "fiora": ["v_ms_fx"],
+    "ahri": ["w_orbit"], "alistar": ["e_ready", "w_butt"], "fiddlesticks": ["r_storm"], "fiora": ["v_ms_fx"], "garen": ["spin"],
     "jax": ["r_slam"], "jhin": ["a_reload"], "jinx": ["excited"], "kaisa": ["e_aura", "e_invis"], "kayle": ["w_heal"],
     "kennen": ["w_burst"], "masteryi": ["q_vanish", "wuju"], "missfortune": ["strut"], "rakan": ["r_start"],
     "sivir": ["e_block", "r_renew"], "soraka": ["rejuv"], "teemo": ["stealth", "w_cast"], "tristana": ["q_rapid"],
