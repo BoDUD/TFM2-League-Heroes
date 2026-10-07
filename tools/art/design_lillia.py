@@ -11,7 +11,7 @@ bough, 72 rows), 07 = version B (the shorter bough, 65 rows), 06 = another B (59
         costing its difference from the nearer neighbour; the face rows and columns kept), then the outline closed;
   vote  each 42-row cell the colour most of its source block shows (ink only over half the block), then the outline
         closed (league_gwen's route).
-Step 8 (B46_final, the design now): the bough upright, the waist seam redrawn. Step 7 (B46_straight): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
+Step 9 (B46_final, the design now): step 8 without the black hole by the elbow. Step 8 (B46_seam): the bough upright, the waist seam redrawn. Step 7 (B46_straight): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
 FIXES46). Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
 top with the lantern redrawn by tables. Colours: every square to the nearest of Codex's own palette (palette.hex, 32). The figure stands on the 128 canvas with
 the hooves on row 99 and their middle on column 64.
@@ -587,6 +587,16 @@ def seam(can):
     return recentre(out)
 
 
+# step 9 (the user, at a crop of the arms: 「这里黑色一块是什么啊 这个修了就可以下一步了」, found by pixel search at
+# (68, 79)): three outline squares between the far elbow and the near hand (row 81, columns 70-72, on the final canvas)
+# read as a hole in the skin - now skin and the elbow's shade (option A of two).
+ELBOW = {81: [(70, "sdd")]}
+
+
+def final():
+    return apply_letters(seam(straighten(slim(design46()))), ELBOW)
+
+
 CANDIDATES = {
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
@@ -596,7 +606,8 @@ CANDIDATES = {
     "B_polish": polished,
     "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)), "B46_slim": lambda: slim(design46()),
     "B46_straight": lambda: straighten(slim(design46())),
-    "B46_final": lambda: seam(straighten(slim(design46()))),
+    "B46_seam": lambda: seam(straighten(slim(design46()))),
+    "B46_final": final,
 }
 
 
