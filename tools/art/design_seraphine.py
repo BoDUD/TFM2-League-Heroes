@@ -224,9 +224,13 @@ def build(full=False):
 # from the back hair (the face, the hands and the glove keep theirs); the stage, which no cut kept readable at 6 rows
 # (the flower medallion and the crystals turned to mush), drawn again at 24 x 6 after the design's: the teal deck, the
 # gold hull, the blue flower medallion with its pink orb, a cyan crystal on each side, left-right symmetric.
-BODY_ROWS = [48, 50, 52, 53, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
+BODY_ROWS = [48, 50, 52, 53, 56, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
              78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
 DROP_COLS = [43, 45, 47, 49, 51, 55]
+# 「萨勒芬妮的头想办法给我缩小一点」 (after the merge; the user picked 「C 少 2 行 + 收 4 列」 of four, the rounded crown and the
+# face kept): two hair rows under the crown (55, 57: they were in BODY_ROWS) and, down to the eyes' lower row (63), four
+# hair columns beside the face - 57 and 59 between the left fin and the face, 76 and 77 between the face and the right fin
+HEAD_COLS, HEAD_LAST = (57, 59, 76, 77), 63
 # 「还有感觉有点胖啊模型」 (the user picked 「C 两边各收 2 列 + 高 45」): the 36-row cut kept the body's full width, so she
 # read squat; three of the cut rows came back (73, 75 in the torso, 84 in the legs) and from the shoulders down two
 # columns go on each side - 61-62 left of the middle from row 69, 70-71 right of it from row 73 (under the raised arm)
@@ -245,6 +249,8 @@ BODY_TOP = SOLE_ROW + 1 - 6 - len(BODY_ROWS)             # the figure's new top 
 def kept_cols(r):
     """The columns of old row r the shrunk design keeps."""
     gone = set(DROP_COLS)
+    if r <= HEAD_LAST:
+        gone |= set(HEAD_COLS)
     for r0, cols in SLIM:
         if r >= r0:
             gone |= set(cols)
