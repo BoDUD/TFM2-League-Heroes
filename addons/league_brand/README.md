@@ -1,4 +1,4 @@
-# 布兰德被动层数附加包（测试版 v0.1.0）
+# 布兰德被动层数附加包（测试版 v0.1.1）
 
 主包 `league` 保持纯数据。数据只读得到施法者自己身上的 buff，所以主包布兰德的被动「炽热之焰」把层数记在**布兰德身上**：
 技能连中不同的英雄也会叠到第 3 层，第 3 下打中的那个英雄爆炸。这个附加包用原生代码做成英雄联盟的样子：
@@ -17,8 +17,11 @@
 2. 把整个 `league_brand` 文件夹放进 `<游戏目录>\mods\`，文件夹里要有 `league_brand.dll`、`mod.mod_info`、`mod.override_info`、
    `override\`、`text\`（或者用附加包合集 `league_addons`，里面已经包含本包）。
 3. 进游戏，在 MOD 菜单里启用它（含代码的 mod 会弹一次确认），确认排在主包后面，重启游戏。
-4. 看布兰德普攻（被动）的说明：开头是「【层数测试版】」、写着「技能命中的英雄各自叠层」就说明换上了。
+4. 让布兰德上场打一局，日志里有 `SPAWN` 一行就说明换上了（选人界面的说明开头是「【层数测试版】」）。
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_brand.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
+   - `SPAWN: the add-on's Brand (player 3, team 0)`：这局的布兰德是附加包的副本（游戏里看不到被动说明，靠这行确认；副本的被动是
+     诊断用的原生被动 `league_brand:watch`）；
+   - `WATCH: alive true, level 9, ap 230; blaze calls so far 12`：每 30 秒一行，叠层被调用过几次；
    - `BLAZE #7: 2 stack(s)`：技能打中英雄 #7，他身上现在 2 层；
    - `BLAZE #7: 3 stacks, detonates in 120 ticks`：第 3 层，2 秒后爆炸；
    - `BOOM #7: 3 enemies within 26000, ap 230 -> 119 + 4% max health magic each`：爆炸打中几个敌人、每人的伤害（减免前）；

@@ -12,6 +12,9 @@
 //!   魔法伤害）；他在爆炸前死了就不炸；
 //! * 每叠一层都刷新布兰德身上的 `league_brand_b_1`（`B_KEEP` tick）：W 的加成伤害和 E 的大范围蔓延照旧读它。
 //!
+//! 诊断（v0.1.1，游戏里看不到被动说明）：副本的被动是原生被动 `league_brand:watch`，布兰德每次出生写一行 `SPAWN`，
+//! 之后每 `WATCH_EVERY` tick 写一行他的状态和 `league_brand:blaze` 被调用过几次——有 SPAWN 就说明这局用的是附加包的布兰德。
+//!
 //! 数字是主包 tools/kit/build_brand.py 参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_brand.log`，每次启动游戏重写，上一次的留在 .prev.log。
@@ -19,6 +22,7 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -41,6 +45,11 @@ pub const P_T: usize = 240;
 pub const P_PERIOD: usize = 60;
 pub const P_BURN: usize = 6;
 pub const P_BURN_AP: usize = 4;
+/// 诊断：每这么多 tick 报一次布兰德的状态（30 秒）。
+const WATCH_EVERY: usize = 1800;
+
+/// `league_brand:blaze` 被调用的次数（所有对局合计，诊断用）。
+static BLAZE_CALLS: AtomicUsize = AtomicUsize::new(0);
 
 // ===================== 日志 =====================
 
@@ -163,12 +172,14 @@ fn magic_power(sim: &StableSim<'_>, id: usize) -> usize {
 
 /// 技能打中一个敌方英雄：在他身上叠一层。
 fn blaze(sim: &mut StableSim<'_>, brand: usize, input: InputTargetV1) {
+    BLAZE_CALLS.fetch_add(1, Ordering::Relaxed);
     if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
         wlog(format!("{} BLAZE skipped: input kind {} is not a unit", head(sim, brand), input.kind));
         return;
     }
     let target = input.target_id;
     if !sim.get_entity(target).is_some_and(|e| e.is_alive()) {
+        wlog(format!("{} BLAZE #{target}: not alive, skipped", head(sim, brand)));
         return;
     }
     let locked = has_buff(sim, target, &lock_name(brand));
@@ -246,6 +257,35 @@ fn burn(sim: &mut StableSim<'_>, brand: usize, input: InputTargetV1) {
     sim.deal_damage_typed(brand, target, d, DamageTypeV1::Ap, AttackTypeV1::Skill);
 }
 
+/// 诊断用的被动：证明这局的布兰德是附加包的副本，并定时报告。
+#[derive(Clone, Default)]
+struct Watch;
+
+impl StablePassive for Watch {
+    fn clone_box(&self) -> Box<dyn StablePassive> {
+        Box::new(self.clone())
+    }
+
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, entity: usize) {
+        let team = sim.get_entity(entity).map_or(usize::MAX, |e| e.team());
+        wlog(format!("{} SPAWN: the add-on's Brand (player {player}, team {team})", head(sim, entity)));
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+        let t = sim.tick();
+        if t == 0 || t % WATCH_EVERY != 0 {
+            return;
+        }
+        let Some(e) = sim.get_entity(me) else { return };
+        let (alive, level, ap) = (e.is_alive(), e.level(), e.stat().magic_power);
+        wlog(format!(
+            "{} WATCH: alive {alive}, level {level}, ap {ap}; blaze calls so far {}",
+            head(sim, me),
+            BLAZE_CALLS.load(Ordering::Relaxed)
+        ));
+    }
+}
+
 struct Step(fn(&mut StableSim<'_>, usize, InputTargetV1));
 impl StableEffectType for Step {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
@@ -271,6 +311,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:blaze"), Step(blaze));
     module.add_native_effect(format!("{ID}:boom"), Step(boom));
     module.add_native_effect(format!("{ID}:burn"), Step(burn));
+    module.add_native_passive(format!("{ID}:watch"), Watch);
     host.log(LogLevel::Info, "league_brand v1 loaded (Brand's passive: Blaze stacks on each enemy).");
 }
 

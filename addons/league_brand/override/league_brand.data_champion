@@ -2873,5 +2873,9 @@
       "repeat": true,
       "z": -1
     }
-  ]
+  ],
+  "passive": {
+    "passive_ref": "league_brand:watch",
+    "params": {}
+  }
 }

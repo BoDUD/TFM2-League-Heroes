@@ -9,6 +9,7 @@ are P's, and writes addons/league_brand/override/league_brand.data_champion and 
 native=1 -
   * every spell hit on an enemy champion: the stack climb on him (caster flags b_1 -> b_2) is the add-on's `Native`
     league_brand:blaze, which stacks on that champion and detonates it itself;
+  * passive = the add-on's league_brand:watch (diagnostics: a SPAWN line when he spawns, a WATCH line every 30 s);
   * the attack's tooltip (the passive) points to description.league_brand.attack with a "test build" lead and the
     per-enemy, magic wording, so the tooltip in game shows whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Brand changes.
@@ -92,6 +93,9 @@ def main():
     n = text.count(f'"effect_ref": "{MOD_ID}:blaze"')
     if not n or f'"{MOD_ID}_b_2"' in text or f'"{MOD_ID}_p_unstable"' in text:
         sys.exit("the copy still climbs b_2 / lays p_unstable itself, or has no league_brand:blaze: update this script")
+    if "passive" in champion:
+        sys.exit("the main pack's Brand has a passive now: update this script (the copy's is the watch)")
+    champion["passive"] = {"passive_ref": f"{MOD_ID}:watch", "params": {}}   # diagnostics: SPAWN / WATCH lines
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
 
     values = setup.values(p)
