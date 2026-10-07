@@ -483,6 +483,13 @@
         "skill": "伪装隐身最多<#ffb900ff>5秒<>并加速20%，出手即现形，之后<#ffb900ff>6秒<>攻速+35%。击杀敌方英雄时刷新冷却。",
         "skill2": "扔出毒桶：范围内敌人挂一层毒并减速30%，毒池持续<#ffb900ff>3秒<>。随后接<#ff9028ff>毒性爆发<>：每层毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理伤害<>。",
         "ult": "<#ffb900ff>6秒<>内射程+300、攻击力+15，弩箭穿透一条直线，每多穿一个少10%（最低60%）。两名敌方英雄在附近时施放。"
+      },
+      "league_seraphine": {
+        "name": "萨勒芬妮",
+        "attack": "被动<#ff9028ff>星光漫射<>：每第<#ffb900ff>3<>个技能<#ff9028ff>回音<>再放一次。放技能时得到一个音符，身边每个友方英雄再给一个（最多<#ffb900ff>4<>个），下次普攻每个音符额外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法伤害<>，有音符时射程更远。",
+        "skill": "在目标处落下高音，对范围内敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>；被控制的敌方英雄多受75%。",
+        "skill2": "声波对直线上的敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速60%<>；回音的声波<#ef5350ff>定身<>被减速的英雄、<#ef5350ff>晕眩<>被控制的英雄。接着<#ff9028ff>聚和心声<>：身边友方英雄获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30%<><#e8d44dff>护盾<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>，<#ffb900ff>2.5秒<>后按身边友方英雄数各回复<#6aff55ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>生命。",
+        "ult": "放出一道音波，碰到友方英雄后传得更远，对敌方英雄造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>魅惑1.5秒<>。附近有两名敌方英雄时施放。"
       }
     },
     "skill_name": {
@@ -830,6 +837,11 @@
         "skill1": "埋伏",
         "skill2": "剧毒之桶",
         "ult": "火力全开"
+      },
+      "league_seraphine": {
+        "skill1": "清籁穿云",
+        "skill2": "增幅节拍",
+        "ult": "炫音返场"
       }
     }
   },
@@ -1317,6 +1329,13 @@
         "skill": "偽裝隱形最多<#ffb900ff>5秒<>並加速20%，出手即現形，之後<#ffb900ff>6秒<>攻速+35%。擊殺敵方英雄時重置冷卻。",
         "skill2": "擲出毒桶：範圍內敵人掛一層毒並緩速30%，毒池持續<#ffb900ff>3秒<>。隨後接<#ff9028ff>毒性爆發<>：每層毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理傷害<>。",
         "ult": "<#ffb900ff>6秒<>內射程+300、攻擊力+15，弩箭貫穿一條直線，每多穿一個少10%（最低60%）。兩名敵方英雄在附近時施放。"
+      },
+      "league_seraphine": {
+        "name": "瑟菈紛",
+        "attack": "被動<#ff9028ff>耀眼星光<>：每第<#ffb900ff>3<>個技能<#ff9028ff>回音<>再放一次。放技能時得到一個音符，身邊每個友方英雄再給一個（最多<#ffb900ff>4<>個），下次普攻每個音符額外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法傷害<>，有音符時射程更遠。",
+        "skill": "在目標處落下高音，對範圍內敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>；被控制的敵方英雄多受75%。",
+        "skill2": "聲波對直線上的敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速60%<>；回音的聲波<#ef5350ff>定身<>被緩速的英雄、<#ef5350ff>暈眩<>被控制的英雄。接著<#ff9028ff>繞樑歌聲<>：身邊友方英雄獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30%<><#e8d44dff>護盾<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>，<#ffb900ff>2.5秒<>後按身邊友方英雄數各回復<#6aff55ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>生命。",
+        "ult": "放出一道音波，碰到友方英雄後傳得更遠，對敵方英雄造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>魅惑1.5秒<>。附近有兩名敵方英雄時施放。"
       }
     },
     "skill_name": {
@@ -1664,6 +1683,11 @@
         "skill1": "潛伏",
         "skill2": "虛弱之毒",
         "ult": "噴射，然後祈禱吧！"
+      },
+      "league_seraphine": {
+        "skill1": "樂音高亢",
+        "skill2": "迷人節奏",
+        "ult": "要不要來首安可曲"
       }
     }
   },
@@ -2151,6 +2175,13 @@
         "skill": "Camouflaged for up to <#ffb900ff>5s<> with 20% move speed; attacking or casting reveals him and grants 35% attack speed for <#ffb900ff>6s<>. Champion takedowns reset the cooldown.",
         "skill2": "Hurls a cask: enemies in the area gain a stack and are slowed 30%; the puddle lasts <#ffb900ff>3s<>. Then <#ff9028ff>Contaminate<>: every venom stack deals <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<> <#ff9028ff>physical damage<>.",
         "ult": "For <#ffb900ff>6s<>: +300 range and +15 attack; bolts pierce in a line, 10% less per unit hit (down to 60%). Cast with two enemy champions nearby."
+      },
+      "league_seraphine": {
+        "name": "Seraphine",
+        "attack": "Passive <#ff9028ff>Stage Presence<>: every third spell <#ff9028ff>echoes<> (cast again). Each spell gives her a note, plus one for every allied champion near her (up to <#ffb900ff>4<>); her next attack deals <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> per note, from a longer range.",
+        "skill": "Drops a high note on the target: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> to enemies in the area, 75% more to crowd-controlled champions.",
+        "skill2": "A sound wave deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> in a line and <#ef5350ff>slows 60%<>; an echoed wave <#ef5350ff>roots<> slowed champions and <#ef5350ff>stuns<> crowd-controlled ones. Then <#ff9028ff>Surround Sound<>: allied champions near her gain a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30%<> <#e8d44dff>shield<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<>; after <#ffb900ff>2.5s<> each heals <#6aff55ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<> per allied champion near.",
+        "ult": "A sound wave that travels farther past an ally deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> to enemy champions and <#ef5350ff>charms<> them for <#ffb900ff>1.5s<>. Cast with two enemy champions near."
       }
     },
     "skill_name": {
@@ -2498,6 +2529,11 @@
         "skill1": "Ambush",
         "skill2": "Venom Cask",
         "ult": "Spray and Pray"
+      },
+      "league_seraphine": {
+        "skill1": "High Note",
+        "skill2": "Beat Drop",
+        "ult": "Encore"
       }
     }
   },
@@ -2985,6 +3021,13 @@
         "skill": "최대 <#ffb900ff>5초<> 위장, 이동 속도 20%. 공격하거나 스킬을 쓰면 드러나고 <#ffb900ff>6초<> 동안 공격 속도 35%. 챔피언 처치 시 초기화.",
         "skill2": "독약 병 투척: 범위 안의 적에게 독 1중첩, 30% 둔화, 웅덩이 <#ffb900ff>3초<>. 이어서 <#ff9028ff>오염<>: 독 중첩마다 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>의 <#ff9028ff>물리 피해<>.",
         "ult": "<#ffb900ff>6초<> 동안 사거리 +300, 공격력 +15. 화살이 일직선으로 관통하며 대상마다 10% 감소(최소 60%). 적 챔피언 둘이 가까이 있을 때 사용."
+      },
+      "league_seraphine": {
+        "name": "세라핀",
+        "attack": "기본 지속 효과 <#ff9028ff>무대 장악<>: 세 번째 스킬마다 <#ff9028ff>메아리<>로 한 번 더 사용. 스킬마다 음표 1개와 근처 아군 챔피언마다 1개(최대 <#ffb900ff>4<>개), 다음 기본 공격이 음표마다 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>의 <#a974ffff>마법 피해<>, 사거리 증가.",
+        "skill": "대상 위치에 고음을 떨어뜨려 범위 안의 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>. 군중 제어 상태의 챔피언에게 75% 추가.",
+        "skill2": "음파가 일직선의 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>60% 둔화<>. 메아리 음파는 둔화된 챔피언을 <#ef5350ff>속박<>, 군중 제어 상태면 <#ef5350ff>기절<>. 이어서 <#ff9028ff>소리 장막<>: 근처 아군 챔피언에게 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30%<>의 <#e8d44dff>보호막<>과 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 20%<>, <#ffb900ff>2.5초<> 후 근처 아군 챔피언 수만큼 <#6aff55ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<> 회복.",
+        "ult": "아군을 지나면 더 멀리 가는 음파로 적 챔피언에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>매혹 1.5초<>. 적 챔피언 둘이 가까이 있을 때 사용."
       }
     },
     "skill_name": {
@@ -3332,6 +3375,11 @@
         "skill1": "매복",
         "skill2": "독약 병",
         "ult": "무차별 난사"
+      },
+      "league_seraphine": {
+        "skill1": "고음",
+        "skill2": "비트 발사",
+        "ult": "앙코르"
       }
     }
   },
@@ -3819,6 +3867,13 @@
         "skill": "最大<#ffb900ff>5秒<>カモフラージュ、移動速度20%。攻撃かスキルで姿を現し<#ffb900ff>6秒<>攻撃速度35%。キルでCD解消。",
         "skill2": "毒瓶を投げ、範囲の敵に毒1スタックと30%スロウ、毒溜まり<#ffb900ff>3秒<>。続けて<#ff9028ff>ボーン！<>：毒1スタックにつき<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>の<#ff9028ff>物理ダメージ<>。",
         "ult": "<#ffb900ff>6秒<>間射程+300・攻撃力+15、矢が一直線に貫通し1体ごとに10%減少（最低60%）。敵チャンピオン2体が近い時に使用。"
+      },
+      "league_seraphine": {
+        "name": "セラフィーン",
+        "attack": "パッシブ <#ff9028ff>ステージプレゼンス<>：3つ目のスキルごとに<#ff9028ff>エコー<>でもう一度発動。スキル時に音符1つと近くの味方チャンピオン1体ごとに1つ（最大<#ffb900ff>4<>）、次の通常攻撃が音符ごとに<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の<#a974ffff>魔法ダメージ<>、射程も伸びる。",
+        "skill": "対象地点に高音を落とし、範囲の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。行動妨害中のチャンピオンには75%増加。",
+        "skill2": "音波が直線上の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>60%スロウ<>。エコーの音波はスロウ中を<#ef5350ff>スネア<>、行動妨害中を<#ef5350ff>スタン<>。続けて<#ff9028ff>サラウンドサウンド<>：近くの味方チャンピオンに<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30%<>の<#e8d44dff>シールド<>と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>、<#ffb900ff>2.5秒<>後に近くの味方の数だけ<#6aff55ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>回復。",
+        "ult": "味方を通るとさらに伸びる音波が敵チャンピオンに<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>魅了1.5秒<>。敵チャンピオン2体が近い時に使用。"
       }
     },
     "skill_name": {
@@ -4166,6 +4221,11 @@
         "skill1": "オイラだヨ！",
         "skill2": "コイツを食らエ！",
         "ult": "ヒャッハー！"
+      },
+      "league_seraphine": {
+        "skill1": "ハイノート",
+        "skill2": "ビートドロップ",
+        "ult": "アンコール"
       }
     }
   }

@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_seraphine_sfx_w_cast",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_seraphine_sfx_w_shield",
+      "volume": 0.4
+    }
+  ]
+}
