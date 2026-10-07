@@ -1,0 +1,133 @@
+{
+  "assets": 23,
+  "frames": 113,
+  "passed": true,
+  "checks": [
+    "actual file dimensions",
+    "binary alpha",
+    "exact 16x tiles",
+    "per-frame symmetry",
+    "E empty left half",
+    "protected actor openings",
+    "bbox manifest match",
+    "raw source hashes"
+  ],
+  "runtime_tested": false,
+  "files": [
+    {
+      "file": "viktor_fx_a_bolt.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_a_blast.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_a_hit.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_a_blast_hit.png",
+      "frames": 5,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_q_bolt.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_q_hit.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_q_shield.png",
+      "frames": 5,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_q_charged.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_q_ms.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_w_field.png",
+      "frames": 10,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_w_burst.png",
+      "frames": 5,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_w_stun.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_w_slow.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_evo_slow.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_e_ray.png",
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_e_after.png",
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_e_hit.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_e_after_hit.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_r_land.png",
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_r_storm.png",
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_r_storm_big.png",
+      "frames": 6,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_r_hit.png",
+      "frames": 4,
+      "passed": true
+    },
+    {
+      "file": "viktor_fx_evo.png",
+      "frames": 6,
+      "passed": true
+    }
+  ]
+}
