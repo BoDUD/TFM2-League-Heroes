@@ -24,6 +24,9 @@ mod fiora_duel;
 #[path = "../../league_gwen/src/lib.rs"]
 mod gwen;
 #[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_kayle/src/lib.rs"]
+mod kayle;
+#[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_kayn_form/src/lib.rs"]
 mod kayn_form;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -77,9 +80,10 @@ fn init(host: &StableHost) -> StableMod {
     brand::register(host, &mut module);
     renekton::register(host, &mut module);
     lillia::register(host, &mut module);
+    kayle::register(host, &mut module);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death.",
     );
     module
 }
