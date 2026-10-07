@@ -236,6 +236,9 @@ SLIM = [(69, (61, 62)), (73, (70, 71))]
 # hair rows and a chin row fewer (「萨勒芬妮头有点大」, option B) were tried and dropped: the user kept the 45 rows with
 # the rounded crown alone (「用这个啊 这个发型完美」, the preview's 「dome 32x45」)
 DOME_CX, DOME_RX, DOME_RY = 66.5, 12.5, 6
+# 「萨勒芬妮右腿少一块白色的」: the cuts left the far (white) stocking a column narrow on its last row over the boot (row
+# 90: outline where its lilac shade square was) - the shade square back and the outline one column out, as the rows above
+SOCK = {(70, 90): "#cfcbe4", (71, 90): "#0d0222"}
 BODY_TOP = SOLE_ROW + 1 - 6 - len(BODY_ROWS)             # the figure's new top row; its feet on row 93, the deck under
 
 
@@ -293,6 +296,8 @@ def shrink(can, outline):
             if out[r0 + i, x, 3] and abs(x - DOME_CX) > half and not bl > r + 40:
                 out[r0 + i, x] = 0
     out, _, _ = strips.complete_outline(out, color=outline, feet=SOLE_ROW)
+    for (x, y), c in SOCK.items():
+        out[y, x] = (int(c[1:3], 16), int(c[3:5], 16), int(c[5:7], 16), 255)
     return out
 
 
