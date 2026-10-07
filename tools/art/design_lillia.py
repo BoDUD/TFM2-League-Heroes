@@ -11,7 +11,7 @@ bough, 72 rows), 07 = version B (the shorter bough, 65 rows), 06 = another B (59
         costing its difference from the nearer neighbour; the face rows and columns kept), then the outline closed;
   vote  each 42-row cell the colour most of its source block shows (ink only over half the block), then the outline
         closed (league_gwen's route).
-Step 6 (B46_slim, the design now): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
+Step 7 (B46_final, the design now): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
 FIXES46). Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
 top with the lantern redrawn by tables. Colours: every square to the nearest of Codex's own palette (palette.hex, 32). The figure stands on the 128 canvas with
 the hooves on row 99 and their middle on column 64.
@@ -482,6 +482,60 @@ def slim(can):
     return recentre(narrow)
 
 
+# step 7 (the user: 「武器也是歪的？」): the bough was three pieces - column 76, a jog to 75 at row 68, then down to 71 past
+# the hands. Now one line from under the blossom (76, 58) to its tip (72, 87), one column left every 7 rows, through
+# both hands (the far hand's wrist and the gap under it show it at column 73).
+BK = np.array(hx("#140808"), np.uint8)
+BQ = np.array(hx("#5A1078"), np.uint8)
+Bq = np.array(hx("#2A0838"), np.uint8)
+HANDS = range(78, 83)          # the hands cover the line here (rows 79-80 drawn by hand below)
+
+
+def bough_path():
+    return {y: 76 - (y - 58) // 7 for y in range(58, 88)}
+
+
+def is_(px, c):
+    return px[3] > 0 and (px[:3] == c).all()
+
+
+def straighten(can):
+    """The bough redrawn on one straight line (BOUGH_PATH); the squares the old line leaves take what was beside it."""
+    out = can.copy()
+    for y, xn in bough_path().items():
+        row = out[y]
+        olds = [x for x in range(68, 80) if is_(can[y, x], BQ) or is_(can[y, x], Bq)]
+        if not olds or y in HANDS:
+            continue
+        xo = olds[0]
+        if xo == xn:
+            continue
+        tip = is_(can[y, xo], Bq)
+        old = {xo - 1, xo, xo + 1}
+        new = {xn - 1, xn, xn + 1}
+        # what was beside the old line on the far side from the move fills the squares it leaves
+        for x in sorted(old - new):
+            side = x + 1 if xn < xo else x - 1
+            nb = can[y, side]
+            if nb[3] == 0:
+                out[y, x] = 0
+            elif is_(nb, BK):
+                out[y, x] = 0 if can[y, side + (1 if xn < xo else -1)][3] == 0 else nb
+            else:
+                out[y, x] = nb
+        out[y, xn - 1, :3], out[y, xn - 1, 3] = BK, 255
+        out[y, xn + 1, :3], out[y, xn + 1, 3] = BK, 255
+        out[y, xn, :3], out[y, xn, 3] = (Bq if tip else BQ), 255
+    # between the hands: the far hand's wrist (row 79) and the gap under it (row 80) show the line at column 73
+    for y in (79, 80):
+        out[y, 73, :3], out[y, 73, 3] = BQ, 255
+    out[80, 74, :3], out[80, 74, 3] = BK, 255
+    out[80, 75] = 0
+    return out
+
+
+
+
 CANDIDATES = {
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
@@ -490,6 +544,7 @@ CANDIDATES = {
     "B_clean": lambda: cleaned(to_canvas(cut("07")), np.zeros((128, 128), bool))[0],
     "B_polish": polished,
     "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)), "B46_slim": lambda: slim(design46()),
+    "B46_final": lambda: straighten(slim(design46())),
 }
 
 
