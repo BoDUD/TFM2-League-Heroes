@@ -856,12 +856,16 @@
     },
     "league_viktor": {
       "face": {
-        "x": 0,
-        "y": -30
+        "x": -1,
+        "y": -38
       },
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
       }
     }
   }
