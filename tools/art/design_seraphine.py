@@ -22,7 +22,9 @@ at 46 and 52) went to the user, who picked the region cut at 52 (「E 分区删�
   7. the legs and the boots redrawn (LEGS; 「这里也是」 with a crop of them - the draft itself drew them crudely); the
      one-square gaps in the outline under the raised arm's elbow and under the near glove closed (NOTCH, 「这里少一块？」);
   8. Gwen's clean-up off the drawn squares: lone squares no neighbour shares take their four neighbours' colour (two
-     rounds, gold kept), then outline squares that join no line take their neighbours' colour.
+     rounds, gold kept), then outline squares that join no line take their neighbours' colour;
+  9. shrunk to 42 x 33 (「萨勒芬妮在游戏里实在太大了」): the figure 36 rows by whole rows and columns, the stage drawn again
+     at 24 x 6 (SHRINK); old_to_new() maps a point of step 8 for tools/art/rig_seraphine.py.
 --check compares the result with the committed seraphine_native.png instead of writing it.
 """
 import argparse
@@ -192,7 +194,7 @@ def palette(raw):
     return out, pal
 
 
-def build():
+def build(full=False):
     a, pal = palette(read_back())
     outline = tuple(int(v) for v in pal[np.argmin(pal.astype(int).sum(1))])
     a = a[np.ix_(ROWS, COLS)]
@@ -209,7 +211,55 @@ def build():
     can, _ = lone(can, keep)
     can, _ = lone_ink(can, keep, C["I"])
     can = paint(can, NOTCH)                              # after the clean-up, which would spread it
-    return can, added, darkened
+    if full:
+        return can, added, darkened
+    return shrink(can, outline), added, darkened
+
+
+# step 9 (「萨勒芬妮在游戏里实在太大了 整体缩小一点」, the user picked 「C 身体和舞台都缩 → 42 行」): the figure 42 -> 36 rows by
+# whole rows region by region (design_akali.dp_keep: the hair over the face 12 -> 9 with the curl's top kept, the torso
+# 12 -> 10, the legs 9 -> 8; the face from the lashes to the choker, rows 60-68, untouched) and 38 -> 32 columns, all
+# from the back hair (the face, the hands and the glove keep theirs); the stage, which no cut kept readable at 6 rows
+# (the flower medallion and the crystals turned to mush), drawn again at 24 x 6 after the design's: the teal deck, the
+# gold hull, the blue flower medallion with its pink orb, a cyan crystal on each side, left-right symmetric.
+BODY_ROWS = [48, 50, 52, 53, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 74, 76, 77, 78, 79,
+             80, 81, 82, 83, 85, 86, 87, 88, 89]
+DROP_COLS = [43, 45, 47, 49, 51, 55]
+BODY_TOP = 58                                            # the figure's new top row; its feet on row 93, the deck under
+STAGE_C = {"t": hx("#0483C4"), "T": hx("#01BFFA"), "g": hx("#F7BD3A"), "G": hx("#BC7B25"), "c": hx("#80D4F2"),
+           "r": hx("#13136E"), "p": hx("#FC3581"), "P": hx("#FC4187")}   # its own letters (C's are the face's)
+STAGE = ["0ttTttttttttttttttttTtt0",
+         "0gGgcgg0rTTTTTTr0ggcgGg0",
+         ".0gGggg0rTppppTr0gggGg0.",
+         "..0gGgg0rTpPPpTr0ggGg0..",
+         "...0ggg0rrTTTTrr0ggg0...",
+         "....0000000000000000...."]
+STAGE_X0 = MID_COL - len(STAGE[0]) // 2
+
+
+def old_to_new(x, y):
+    """A point of the 52-row design (step 8) on the shrunk one: rows by the kept rows (a point between two keeps
+    lands proportionally), columns moved right by the dropped columns at or right of it (all left of the middle)."""
+    if y >= BODY_ROWS[-1] + 1:                           # the stage: its 10 rows pressed into 6
+        return x + sum(1 for d in DROP_COLS if d >= x), SOLE_ROW + 1 - len(STAGE) + (y - 90) * len(STAGE) / 10
+    ny = BODY_TOP + float(np.interp(y, BODY_ROWS, range(len(BODY_ROWS))))
+    return x + sum(1 for d in DROP_COLS if d >= x), ny
+
+
+def shrink(can, outline):
+    keep_c = [c for c in range(128) if c not in DROP_COLS]
+    body = can[BODY_ROWS][:, keep_c]
+    out = np.zeros_like(can)
+    x0 = MID_COL - keep_c.index(MID_COL)
+    w = min(body.shape[1], 128 - x0)
+    out[BODY_TOP:BODY_TOP + len(BODY_ROWS), x0:x0 + w] = body[:, :w]
+    for i, row in enumerate(STAGE):
+        y = SOLE_ROW + 1 - len(STAGE) + i
+        for j, ch in enumerate(row):
+            if ch != ".":
+                out[y, STAGE_X0 + j] = (*(outline if ch == "0" else STAGE_C[ch]), 255)
+    out, _, _ = strips.complete_outline(out, color=outline, feet=SOLE_ROW)
+    return out
 
 
 def main():

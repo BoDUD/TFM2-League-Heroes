@@ -37,6 +37,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+import design_seraphine as DS  # noqa: E402
 import rigkit as K  # noqa: E402
 
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
@@ -63,25 +64,51 @@ SKIN = (hx("#FDDAB8"), hx("#FCCF8A"), hx("#F2B89A"))
 GLOVE = (hx("#FDFCFE"), hx("#EEE5E5"), hx("#CFCBE4"))
 ARM_SKIN = (hx("#FDDAB8"), hx("#FDDAB8"), hx("#F2B89A"))   # the design's skin lit and its pink-brown shade (no orange)
 HAIR_FILL = hx("#D31865")
-STAGE_TOP = 90                         # the stage's rows (to the bottom)
-STAGE_RIGHT = 78                       # lying on the deck, her boots end here (the stage reaches column 79)
+# The coordinates below were measured on the 52-row design (design_seraphine step 8); the design is now shrunk to 42
+# rows (step 9, 「萨勒芬妮在游戏里实在太大了」), so every point goes through design_seraphine.old_to_new() and the arm's
+# bones and poses are scaled by SCALE (36 / 42 rows).
+SCALE = 36 / 42
+
+
+def _pt(x, y):
+    return DS.old_to_new(x, y)
+
+
+def _rows(spec):
+    """{old row: (first, last)} -> the same squares on the shrunk design (rows the shrink dropped go)."""
+    out = {}
+    for r, (c0, c1) in spec.items():
+        if r in DS.BODY_ROWS:
+            nx0, ny = _pt(c0, r)
+            nx1, _ = _pt(c1, r)
+            out[int(round(ny))] = (int(round(nx0)), int(round(nx1)))
+    return out
+
+
+STAGE_TOP = DS.SOLE_ROW + 1 - len(DS.STAGE)           # the stage's rows (to the bottom)
+STAGE_RIGHT = DS.STAGE_X0 + len(DS.STAGE[0]) - 2       # lying on the deck, her boots end here
 # the far arm as drawn: the forearm and the glove at her ear, lifted off when the arm moves (rows: (first, last))
-FAR_OFF = {63: (76, 77), 64: (76, 77), 65: (76, 77), 66: (76, 77), 67: (77, 77), 68: (77, 78), 69: (77, 78),
-           70: (77, 78), 71: (76, 78), 72: (76, 78), 73: (77, 78)}
-FAR_SHOULDER = (76.5, 70.5)            # where the far arm leaves the white puffed sleeve
-FAR_UPPER, FAR_FORE = 4.0, 6.0         # bone lengths (the forearm with the glove's last two squares)
+FAR_OFF = _rows({63: (76, 77), 64: (76, 77), 65: (76, 77), 66: (76, 77), 67: (77, 77), 68: (77, 78), 69: (77, 78),
+                 70: (77, 78), 71: (76, 78), 72: (76, 78), 73: (77, 78)})
+FAR_SHOULDER = _pt(76.5, 70.5)         # where the far arm leaves the white puffed sleeve
+FAR_UPPER, FAR_FORE = 4.0 * SCALE, 6.0 * SCALE   # bone lengths (the forearm with the glove's last two squares)
 # the near arm's forearm and glove (under the sleeve's gold band), the joint at the elbow
-NEAR_ARM = {73: (59, 60), 74: (59, 60), 75: (59, 60), 76: (58, 60), 77: (57, 60), 78: (57, 59), 79: (56, 59),
-            80: (56, 59), 81: (56, 57)}
-NEAR_ELBOW = (60.0, 73.0)
+NEAR_ARM = _rows({73: (59, 60), 74: (59, 60), 75: (59, 60), 76: (58, 60), 77: (57, 60), 78: (57, 59), 79: (56, 59),
+                  80: (56, 59), 81: (56, 57)})
+NEAR_ELBOW = _pt(60.0, 73.0)
 # the back hair: the pink mass left of the body, rows HAIR_ROWS, columns left of HAIR_EDGE (the sleeve and the arm
 # start there); streamed by stretching each row's run leftward from its right end
-HAIR_ROWS, HAIR_EDGE, HAIR_MAX = (62, 84), 57, 4
+HAIR_ROWS = (int(round(_pt(0, 62)[1])), int(round(_pt(0, 84)[1])))
+HAIR_EDGE, HAIR_MAX = int(round(_pt(57, 70)[0])), 3
 
-ARM_BOX = (70, 82, 58, 78)             # columns, rows round the far arm where outline gaps are closed (close_notches)
+_b0, _b1 = _pt(70, 58), _pt(82, 78)
+ARM_BOX = (int(_b0[0]), int(_b1[0]), int(round(_b0[1])), int(round(_b1[1])))   # columns, rows round the far arm where
+                                                                                # outline gaps are closed (close_notches)
+FEET = _pt(66.0, 89.5)                 # where she stands on the deck (the death turns about it)
 # far-arm poses: the hand relative to the shoulder (x right, y down) and which way the elbow bends (+1 down/out)
-POSES = {"fwd": ((9.0, -1.0), 1), "fwd_up": ((7.0, -6.5), 1), "up": ((3.0, -9.0), 1), "fwd_low": ((8.5, 3.0), 1),
-         "down": ((2.0, 9.0), -1), "wide": ((8.0, -4.5), 1), "chest": ((4.0, 2.0), -1)}
+POSES = {k: ((dx * SCALE, dy * SCALE), b) for k, ((dx, dy), b) in
+         {"fwd": ((9.0, -1.0), 1), "fwd_up": ((7.0, -6.5), 1), "up": ((3.0, -9.0), 1), "fwd_low": ((8.5, 3.0), 1),
+          "down": ((2.0, 9.0), -1), "wide": ((8.0, -4.5), 1), "chest": ((4.0, 2.0), -1)}.items()}
 
 
 class Parts:
@@ -158,7 +185,7 @@ def far_arm(dst, pose):
     # as the design's own arms: a short bit of skin under the sleeve, then the long white glove from the elbow to the
     # hand (「手和手臂感觉不太一样」: a skin-coloured forearm with an orange shade and a white tip read as another arm)
     mats = {"upper": [(0, 0.55, ARM_SKIN), (0.55, 1, GLOVE)], "fore": [(0, 1, GLOVE)]}
-    K.bone_arm(layer, sh, elb, hand, mats, width=(2.3, 2.3), outline=OUTLINE)
+    K.bone_arm(layer, sh, elb, hand, mats, width=(2.1, 2.1), outline=OUTLINE)
     return K.put(dst, layer, 0, 0, under=True)
 
 
@@ -206,7 +233,7 @@ def frame(P, stage_dy=0, **kw):
 
 def lying(P, deg, dx):
     """The figure (no stage) turned deg about her feet on the deck, on the stage."""
-    feet = (66.0, 89.5)
+    feet = FEET
     part = K.Part.from_canvas(P.fig, P.fig[..., 3] > 0, feet)
     t = K.turn(part, deg)
     body = K.place(np.zeros_like(P.fig), t, (feet[0] + dx, feet[1]))

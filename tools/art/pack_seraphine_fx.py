@@ -295,11 +295,12 @@ GROUPS = [
               "Seraphine_Base_P_Reveal", "Seraphine_Base_Idle_Platformhover_Whoosh", "Seraphine_Base_AvatarSparkle"]),
 ]
 # where the pictures start: (tag, frame, what, marks: "feet" or [(dx, dy) from the standing point, dy from the soles]);
-# the far hand from rig_seraphine.POSES (shoulder (76.5, 70.5) + the pose, the frame's dx; the stage's bottom row 99)
-SHOTS = [("attack", 4, "a_bolt / a_note: 手（音球从这里飞出）", [(22, -30)]),
-         ("skill", 4, "q_note: 手（高音从这里抛出）", [(20, -36)]),
-         ("skill2", 3, "e_wave: 手（声波从这里推出）", [(22, -26)]),
-         ("ult", 3, "r_wave: 手（音波从这里推出）", [(20, -36)]),
+# the far hand from rig_seraphine.POSES (its shoulder + the pose, the frame's dx; the stage's bottom row 99), on the
+# 42-row design
+SHOTS = [("attack", 4, "a_bolt / a_note: 手（音球从这里飞出）", [(21, -23)]),
+         ("skill", 4, "q_note: 手（高音从这里抛出）", [(20, -28)]),
+         ("skill2", 3, "e_wave: 手（声波从这里推出）", [(21, -20)]),
+         ("ult", 3, "r_wave: 手（音波从这里推出）", [(20, -28)]),
          ("idle", 1, "w_cast / r_cast / echo / n1-n4: 站位点", "feet")]
 
 

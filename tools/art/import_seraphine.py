@@ -13,7 +13,7 @@ drew (and check() asserts) the flying notes and waves symmetric top to bottom (c
 upside down), every picture on a unit, the buffs and what plays on her late (w_cast, r_cast, echo) symmetric left to
 right, the ground rings (q_land, w_cast) both ways. Nothing rides in her action frames: her hand sends everything.
 Spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it - hers are the stage's bottom, her
-boots stand on the deck 1 under the pivot, her head's top is 40 over it. Times from the kit (build_seraphine.P, 60
+boots stand on the deck 5 under the pivot, her head's top is 30 over it (the design shrunk to 42 rows). Times from the kit (build_seraphine.P, 60
 ticks a second) and the strips.
 """
 import os
@@ -46,15 +46,15 @@ SHEETS = {
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
 OVER = (0, -30)                 # over a unit's head
 SOLES = (0, 11)                 # on the ground under a unit (her stage's bottom)
-BODY = (0, -19)                 # the middle of her figure above the deck (boots 1 under the pivot, head 40 over)
-NOTES = (0, -6)                 # the notes' figure area (18 x 34) stands here: its top at her head's top
+BODY = (0, -12)                 # the middle of her figure above the deck (boots 5 under the pivot, head 30 over)
+NOTES = (0, 4)                  # the notes' figure area (18 x 34) stands here: its top at her head's top
 EMPTY = J.EMPTY
 seq = J.seq
 flight = J.flight
 
 FX = {
     # the notes: 55 px at 6 px a tick (build_seraphine.P bolt_speed 6000); 3 empty ticks so they show past her hand
-    # (22 px ahead)
+    # (21 px ahead)
     "a_bolt": [("a_bolt", flight(4, 60, 320, lead=3), [(0, 0)])],
     "a_note": [("a_note", flight(4, 60, 320, lead=3), [(0, 0)])],
     # High Note: an 18-tick lob (q_travel)

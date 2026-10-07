@@ -66,7 +66,7 @@ P = {
     # 570 +90 hp, 26 armour, 325 move speed
     "hp": 880, "hp_g": 92, "atk": 75, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
-    # attack: the note leaves her hand on a_st (22 px ahead, 18 over the pivot; flown 8 over it: a homing shot from
+    # attack: the note leaves her hand on a_st (21 px ahead, 11 over the pivot; flown 8 over it: a homing shot from
     # higher looks crooked)
     "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 11, "bolt_speed": 6000, "bolt_y": 8000,
     # passive (League: notes 4% AP + level scaling each, max 4, 6 s, +25 range; echo every 3rd spell)
