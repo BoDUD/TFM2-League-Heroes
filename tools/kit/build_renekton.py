@@ -45,26 +45,28 @@ BIG = "asset/league/effects/league_renekton_big"
 # (league_tryndamere +1.34, league_gwen +1.16, league_darius +1.18 on seeds 1-12). The draft c0 was +4.38: R's cooldown
 # 60 -> 90 s and 15 -> 10 s changed nothing (+4.70 on 6 seeds); attack 88 -> 80 and hp 1050 -> 980 (+3.11), Q's heals
 # 4 + 2% / 20 + 17% -> 2 + 1% / 10 + 10% and E 50 + 90% -> 40 + 70% (+3.50), both +2.48; then E's cooldown 12 -> 15 s
-# and Q 60 + 100% -> 45 + 80%. Placeholder timings (no strips yet).
+# and Q 60 + 100% -> 45 + 80%. Timings from the strips (assets/source/native/renekton_cells.json): the attack's slash
+# frame 3 at tick 7 of 23, Q's sweep frame 3 at tick 7 of 25, W's chops on frames 2 / 4 / 6 at ticks 4 / 11 / 18 (the
+# plain W holds 15 ticks, two chops; the empowered 28, three), R's roar 34 ticks.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Renekton:
     # 69 AD +3.75, 660 +111 hp, 35 armour, 345 move, attack speed 0.665
     "hp": 980, "hp_g": 105, "atk": 80, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     # attack
-    "atk_range": 25000, "atk_dur": 24, "atk_cd": 62, "atk_st": 12,
+    "atk_range": 25000, "atk_dur": 23, "atk_cd": 62, "atk_st": 7,
     # passive: Reign of Anger (League: 5 Fury an attack, 50 empowers, decays after 12 s out of combat)
     "f_n": 5, "f_t": 480,
     # skill: Q Cull the Meek (League: r 325, 60-210 + 100% AD; heal 2-7 + 2% AD a minion, 12-52 + 17% AD a champion;
     # empowered 90-315 + 140% AD, heals x3; cd 7 s)
-    "q_cd": 420, "q_range": 25000, "q_dur": 24, "q_hit": 10, "q_r": 32000, "q_dmg": 45, "q_ratio": 80,
+    "q_cd": 420, "q_range": 25000, "q_dur": 25, "q_hit": 7, "q_r": 32000, "q_dmg": 45, "q_ratio": 80,
     "q_dmg_e": 100, "q_ratio_e": 140, "q_hm": 2, "q_hm_r": 1, "q_hc": 10, "q_hc_r": 10, "q_heal_x": 3,
     # skill2: E Slice (League: 450 dash, 40-190 + 90% AD, cd 16-10 s; Dice within 4 s, empowered shreds 22.5-37.5%
     # armour 4 s) -> W Ruthless Predator (League: 2 strikes 5-80 + 75% AD each, stun 0.75 s; empowered 3 strikes, 1.5 s)
     "e_cd": 900, "e_range": 45000, "e_speed": 4000, "e_tick": 10, "e_rad": 14000, "e_dmg": 40, "e_ratio": 70,
     "d_open": 240, "d_gap": 8, "e_shred": 25, "e_shred_t": 240,
-    "w_dur": 24, "w_h1": 6, "w_gap": 6, "w_dmg": 20, "w_ratio": 75, "w_stun": 45, "w_stun_e": 90,
+    "w_dur": 15, "w_h1": 4, "w_gap": 7, "w_dmg": 20, "w_ratio": 75, "w_stun": 45, "w_stun_e": 90,
     # ult: R Dominus (League: 15 s, +300-700 hp, aura 0.5 s ticks, 5 Fury a second + 20 on the cast, cd 120/100/80 s)
-    "r_cd": 5400, "r_slot": 70000, "r_reach": 35000, "r_arm": 600, "r_anim": 24, "r_t": 600, "r_hp": 300,
+    "r_cd": 5400, "r_slot": 70000, "r_reach": 35000, "r_arm": 600, "r_anim": 34, "r_t": 600, "r_hp": 300,
     "r_period": 30, "r_r": 30000, "r_dmg": 15, "r_hp_dmg": 1, "r_fury": 60,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -244,14 +246,14 @@ def build(p):
         return out
 
     w_plain = combine(anim("skill2_w", p["w_dur"]), climb, *strikes(2, p["w_stun"]))
-    w_emp = combine(anim("skill2_w", p["w_dur"] + p["w_gap"]), *spend, cview("w_glow"), sfx("w_super"), voice("vo_w", p),
+    w_emp = combine(anim("skill2_w", p["w_dur"] + 2 * p["w_gap"] - 1), *spend, cview("w_glow"), sfx("w_super"), voice("vo_w", p),
                     *strikes(3, p["w_stun_e"]))
     w_strike = sw(full, w_emp, w_plain)
 
     dice_plain = rush(p, [attack(p["e_dmg"], p["e_ratio"]), climb, view("e_hit"), tsfx("e_hit")])
     dice_emp = rush(p, [attack(p["e_dmg"], p["e_ratio"]), buff("e_shred", p["e_shred_t"], defence_mult=-p["e_shred"]),
                         view("e_hit"), tsfx("e_hit")])
-    dice = sw("d_open", combine(*rm("d_open"), anim("skill2", p["e_tick"] + 4), sfx("e_dash"), cview("e_dash"),
+    dice = sw("d_open", combine(*rm("d_open"), anim("skill2", p["e_tick"] + 4), sfx("e_dash"),
                                 sw(full, combine(*spend, pick(p["e_range"], "EnemyChampion", dice_emp)),
                                    pick(p["e_range"], "EnemyChampion", dice_plain))))
     slice_ = rush(p, [attack(p["e_dmg"], p["e_ratio"]), climb, refresh("d_open", p["d_open"]), view("e_hit"),
@@ -264,7 +266,7 @@ def build(p):
                          delayed(p["q_dur"] + p["d_gap"], dice)))
     skill2 = action("skill2", p["e_tick"] + p["w_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
                     combine(refresh("e_cd", p["e_cd"]), anim("skill2", p["e_tick"] + 4), sfx("e_dash"),
-                            voice("vo_e", p), cview("e_dash"), slice_,
+                            voice("vo_e", p), slice_,
                             delayed(p["e_tick"], w_strike), delayed(w_end, after_w)))
 
     # ------------------------------------------------------------------ R Dominus
@@ -296,16 +298,15 @@ def build(p):
 
     # ------------------------------------------------------------------ views
     # a caster picture played after the action's first tick must not follow him (the red side's mirroring); the buffs
-    # left-right symmetric
+    # left-right symmetric; the slash of the attack and E's dash streak have a front and a back: drawn into his frames
+    # (assets/source/native/renekton_bake.json), not views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                    "z": z, "is_follow": follow}
     LATE = dict(follow=False)
-    P_ = lambda name, anim_=FX, z=1: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
-                                      "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("w_blade")]
-    views_e = [E("a_hit"), E("q_hit"), E("q_spin", BIG, 2, **LATE), E("q_spin_e", BIG, 2, **LATE), E("e_dash", BIG, -1),
+    views_p = []        # W's strikes fly unseen (the chop is in his frames, w_hit on the target)
+    views_e = [E("a_hit"), E("q_hit"), E("q_spin", BIG, 2, **LATE), E("q_spin_e", BIG, 2, **LATE),
                E("e_hit"), E("w_hit"), E("w_glow", FX, 3, **LATE), E("r_cast", BIG, 2, **LATE), E("r_burn")]
     views_b = [B_(full, FX, -1), B_("w_stun", FX, 3), B_("e_shred", FX, 3), B_("r_on", BIG, -1)]
     return {

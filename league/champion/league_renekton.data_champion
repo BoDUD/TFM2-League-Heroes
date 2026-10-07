@@ -38,9 +38,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_renekton.attack",
-    "duration": 24,
+    "duration": 23,
     "cooltime": 62,
-    "start_timing": 12,
+    "start_timing": 7,
     "cancelable": true,
     "range": 25000,
     "casting_type": "Targeting",
@@ -811,7 +811,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_renekton.skill",
-    "duration": 24,
+    "duration": 25,
     "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
@@ -838,7 +838,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "skill",
-                "tick": 24
+                "tick": 25
               },
               {
                 "type": "Sfx",
@@ -920,7 +920,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 10,
+                "tick": 7,
                 "effects": [
                   {
                     "type": "RangeEffect",
@@ -986,7 +986,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "skill",
-                "tick": 24
+                "tick": 25
               },
               {
                 "type": "Sfx",
@@ -1048,7 +1048,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 10,
+                "tick": 7,
                 "effects": [
                   {
                     "type": "RangeEffect",
@@ -1433,7 +1433,7 @@
             {
               "type": "CasterAnimation",
               "name": "skill",
-              "tick": 24
+              "tick": 25
             },
             {
               "type": "Sfx",
@@ -1495,7 +1495,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 10,
+              "tick": 7,
               "effects": [
                 {
                   "type": "RangeEffect",
@@ -1879,7 +1879,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_renekton.skill2",
-    "duration": 34,
+    "duration": 25,
     "cooltime": 900,
     "start_timing": 1,
     "cancelable": false,
@@ -1948,10 +1948,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_renekton_e_dash"
         },
         {
           "type": "RushTime",
@@ -2165,7 +2161,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "skill2_w",
-                    "tick": 30
+                    "tick": 28
                   },
                   {
                     "type": "RemoveCasterBuff",
@@ -2226,7 +2222,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 6,
+                    "tick": 4,
                     "effects": [
                       {
                         "type": "Sfx",
@@ -2270,7 +2266,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 12,
+                    "tick": 11,
                     "effects": [
                       {
                         "type": "Sfx",
@@ -2392,7 +2388,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "skill2_w",
-                    "tick": 24
+                    "tick": 15
                   },
                   {
                     "type": "SwitchByBuff",
@@ -2533,7 +2529,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 6,
+                    "tick": 4,
                     "effects": [
                       {
                         "type": "Sfx",
@@ -2577,7 +2573,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 12,
+                    "tick": 11,
                     "effects": [
                       {
                         "type": "Sfx",
@@ -2654,7 +2650,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 46,
+          "tick": 39,
           "effects": [
             {
               "type": "SwitchByBuff",
@@ -2680,10 +2676,6 @@
                         },
                         {
                           "type": "Sfx",
-                          "name": "league_renekton_e_dash"
-                        },
-                        {
-                          "type": "CasterViewEffect",
                           "name": "league_renekton_e_dash"
                         },
                         {
@@ -2983,7 +2975,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "skill",
-                              "tick": 24
+                              "tick": 25
                             },
                             {
                               "type": "Sfx",
@@ -3065,7 +3057,7 @@
                             },
                             {
                               "type": "Delayed",
-                              "tick": 10,
+                              "tick": 7,
                               "effects": [
                                 {
                                   "type": "RangeEffect",
@@ -3131,7 +3123,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "skill",
-                              "tick": 24
+                              "tick": 25
                             },
                             {
                               "type": "Sfx",
@@ -3193,7 +3185,7 @@
                             },
                             {
                               "type": "Delayed",
-                              "tick": 10,
+                              "tick": 7,
                               "effects": [
                                 {
                                   "type": "RangeEffect",
@@ -3576,7 +3568,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 32,
+                    "tick": 33,
                     "effects": [
                       {
                         "type": "SwitchByBuff",
@@ -3595,10 +3587,6 @@
                             },
                             {
                               "type": "Sfx",
-                              "name": "league_renekton_e_dash"
-                            },
-                            {
-                              "type": "CasterViewEffect",
                               "name": "league_renekton_e_dash"
                             },
                             {
@@ -4484,7 +4472,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "ult",
-                "tick": 24
+                "tick": 34
               }
             ]
           },
@@ -4554,16 +4542,7 @@
       ]
     }
   },
-  "view_projectiles": [
-    {
-      "type": "Animated",
-      "name": "league_renekton_w_blade",
-      "anim": "asset/league/effects/league_renekton_fx",
-      "tag": "w_blade",
-      "repeat": true,
-      "z": 1
-    }
-  ],
+  "view_projectiles": [],
   "view_effects": [
     {
       "type": "Animation",
@@ -4596,14 +4575,6 @@
       "tag": "q_spin_e",
       "z": 2,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_renekton_e_dash",
-      "anim": "asset/league/effects/league_renekton_big",
-      "tag": "e_dash",
-      "z": -1,
-      "is_follow": true
     },
     {
       "type": "Animation",
