@@ -53,30 +53,36 @@ ID = "league_seraphine"
 FX = "asset/league/effects/league_seraphine_fx"
 BIG = "asset/league/effects/league_seraphine_big"
 
-# Draft numbers (to be set by the classic-SDK simulations: kd.py --lane 4 against priest, bard, enchanter, monk, taoist).
+# Numbers = candidate c4 of the 10-min classic-SDK simulations (sr_sim/sim/kd.py --lane 4 against priest, bard, enchanter,
+# monk and taoist, three lineups, both sides, 2026-10-07): +0.82 on seeds 13-24 and +1.76 on 1-12 (+1.29). The draft s0
+# was +3.21 (league_sona +0.93, league_nami +0.96, league_janna +0.53 in the same batch, seeds 1-12): Q 70 + 50% -> 55 +
+# 40%, E 60 + 45% -> 45 + 35%, the notes 12 + 12% -> 8 + 8%, R 150 + 60% -> 120 + 50%, Q's cooldown 8 -> 9 s, the root and
+# the stun 1 -> 0.75 s, Q's amp 75 -> 50%, hp 920 -> 880, the shield 60 + 30% -> 50 + 25%, the slow 60 -> 40% (c3: +1.52 /
+# +1.69), then the slow 30% and the heal 10 + 8% -> 8 + 6% a champion (c4). c5 (c3 with R 100 + 40% and the notes 6 + 6%)
+# +1.09 / +0.54.
 P = {
     # stats (Util, league_sona: attack 80 +6, AP 30 +15, hp 950 +95, def/mr 24); League's Seraphine: 525 range, 50 AD,
     # 570 +90 hp, 26 armour, 325 move speed
-    "hp": 920, "hp_g": 92, "atk": 75, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
+    "hp": 880, "hp_g": 92, "atk": 75, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     # attack: the bolt leaves her hand on a_st
     "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 9, "bolt_speed": 6000, "bolt_y": 1500,
     # passive (League: notes 4% AP + level scaling each, max 4, 6 s, +25 range; echo every 3rd spell)
-    "note_t": 360, "note_r": 60000, "note_dmg": 12, "note_ratio": 12, "note_range": 3000,
+    "note_t": 360, "note_r": 60000, "note_dmg": 8, "note_ratio": 8, "note_range": 3000,
     "echo_delay": 12, "echo_hold": 300,
     # skill: Q High Note (League: 900 range, radius 350, 35-185 + 40% AP, up to +75% vs missing health, cd 8-6 s)
-    "q_cd": 480, "q_range": 75000, "q_anim": 24, "q_rel": 10, "q_travel": 18, "q_r": 30000, "q_dmg": 70,
-    "q_ratio": 50, "q_amp": 75,
+    "q_cd": 540, "q_range": 75000, "q_anim": 24, "q_rel": 10, "q_travel": 18, "q_r": 30000, "q_dmg": 55,
+    "q_ratio": 40, "q_amp": 50,
     # skill2: E Beat Drop (League: 1300 line, 40-220 + 50% AP, slow 1-1.6 s, root slowed, stun CC'd, cd 11-9 s)
     "e_cd": 600, "e_range": 85000, "e_anim": 34, "e_rel": 9, "e_speed": 6000, "e_len": 100000, "e_w": 9000,
-    "e_dmg": 60, "e_ratio": 45, "e_slow": 60, "e_slow_t": 60, "e_root": 60, "e_stun": 60, "e_mark": 90,
+    "e_dmg": 45, "e_ratio": 35, "e_slow": 30, "e_slow_t": 60, "e_root": 45, "e_stun": 45, "e_mark": 90,
     # -> W Surround Sound (League: 800 range, shield 40-160 + 20% AP 2.5 s, +20% MS, heal 6-18% missing HP a nearby
     # ally after 2.5 s, cd 22 s)
-    "w_rel": 22, "w_r": 50000, "w_sh": 60, "w_sh_ratio": 30, "w_t": 150, "w_ms": 20, "w_heal_delay": 150,
-    "w_heal": 10, "w_heal_ratio": 8,
+    "w_rel": 22, "w_r": 50000, "w_sh": 50, "w_sh_ratio": 25, "w_t": 150, "w_ms": 20, "w_heal_delay": 150,
+    "w_heal": 8, "w_heal_ratio": 6,
     # ult: R Encore (League: 1200 range extended by allies, 100-400 + 40% AP, charm 1-2.5 s, cd 160-120 s)
     "r_cd": 3300, "r_slot": 80000, "r_reach": 70000, "r_arm": 600, "r_hold": 180, "r_anim": 30, "r_rel": 12,
-    "r_speed": 5000, "r_len": 90000, "r_len2": 150000, "r_w": 18000, "r_dmg": 150, "r_ratio": 60, "r_charm": 90,
+    "r_speed": 5000, "r_len": 90000, "r_len2": 150000, "r_w": 18000, "r_dmg": 120, "r_ratio": 50, "r_charm": 90,
     # combos
     "cq_wait": 10, "rc_wait": 20,
     # her spoken lines, at most one every vo_gap ticks

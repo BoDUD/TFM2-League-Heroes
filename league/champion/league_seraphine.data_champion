@@ -18,7 +18,7 @@
   "stat": {
     "attack": 75,
     "magic_power": 30,
-    "hp": 920,
+    "hp": 880,
     "defence": 22,
     "magic_resistance": 24,
     "move_speed": 1000,
@@ -602,8 +602,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 150,
-                                                        "attack_ratio": 60,
+                                                        "damage": 120,
+                                                        "attack_ratio": 50,
                                                         "hp_ratio": 0,
                                                         "attack_effect_type": "Target"
                                                       }
@@ -650,8 +650,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 150,
-                                                        "attack_ratio": 60,
+                                                        "damage": 120,
+                                                        "attack_ratio": 50,
                                                         "hp_ratio": 0,
                                                         "attack_effect_type": "Target"
                                                       }
@@ -829,8 +829,8 @@
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "ApAttack",
-                                              "damage": 150,
-                                              "attack_ratio": 60,
+                                              "damage": 120,
+                                              "attack_ratio": 50,
                                               "hp_ratio": 0,
                                               "attack_effect_type": "Target"
                                             }
@@ -877,8 +877,8 @@
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "ApAttack",
-                                              "damage": 150,
-                                              "attack_ratio": 60,
+                                              "damage": 120,
+                                              "attack_ratio": 50,
                                               "hp_ratio": 0,
                                               "attack_effect_type": "Target"
                                             }
@@ -1330,8 +1330,8 @@
                                                                       "casting_type": "Targeting",
                                                                       "effect": {
                                                                         "type": "ApAttack",
-                                                                        "damage": 60,
-                                                                        "attack_ratio": 45,
+                                                                        "damage": 45,
+                                                                        "attack_ratio": 35,
                                                                         "hp_ratio": 0,
                                                                         "attack_effect_type": "Target"
                                                                       }
@@ -1347,7 +1347,7 @@
                                                                               "tick": 60
                                                                             }
                                                                           },
-                                                                          "move_speed_mult": -60
+                                                                          "move_speed_mult": -30
                                                                         }
                                                                       }
                                                                     },
@@ -1430,7 +1430,7 @@
                                                                                   "effects": [
                                                                                     {
                                                                                       "type": "Bind",
-                                                                                      "duration": 60
+                                                                                      "duration": 45
                                                                                     },
                                                                                     {
                                                                                       "type": "ViewEffect",
@@ -1469,7 +1469,7 @@
                                                                       "casting_type": "Targeting",
                                                                       "effect": {
                                                                         "type": "Stun",
-                                                                        "duration": 60
+                                                                        "duration": 45
                                                                       }
                                                                     },
                                                                     {
@@ -1555,9 +1555,9 @@
                                                                       "effects": [
                                                                         {
                                                                           "type": "Shield",
-                                                                          "amount": 60,
+                                                                          "amount": 50,
                                                                           "attack_ratio": 0,
-                                                                          "ap_ratio": 30,
+                                                                          "ap_ratio": 25,
                                                                           "tick": 150
                                                                         },
                                                                         {
@@ -1608,9 +1608,9 @@
                                                                               "effects": [
                                                                                 {
                                                                                   "type": "Heal",
-                                                                                  "amount": 10,
+                                                                                  "amount": 8,
                                                                                   "attack_ratio": 0,
-                                                                                  "ap_ratio": 8,
+                                                                                  "ap_ratio": 6,
                                                                                   "heal_type": "Ally"
                                                                                 }
                                                                               ]
@@ -1700,8 +1700,8 @@
                                                             "casting_type": "Targeting",
                                                             "effect": {
                                                               "type": "ApAttack",
-                                                              "damage": 60,
-                                                              "attack_ratio": 45,
+                                                              "damage": 45,
+                                                              "attack_ratio": 35,
                                                               "hp_ratio": 0,
                                                               "attack_effect_type": "Target"
                                                             }
@@ -1717,7 +1717,7 @@
                                                                     "tick": 60
                                                                   }
                                                                 },
-                                                                "move_speed_mult": -60
+                                                                "move_speed_mult": -30
                                                               }
                                                             }
                                                           },
@@ -1800,7 +1800,7 @@
                                                                         "effects": [
                                                                           {
                                                                             "type": "Bind",
-                                                                            "duration": 60
+                                                                            "duration": 45
                                                                           },
                                                                           {
                                                                             "type": "ViewEffect",
@@ -1839,7 +1839,7 @@
                                                             "casting_type": "Targeting",
                                                             "effect": {
                                                               "type": "Stun",
-                                                              "duration": 60
+                                                              "duration": 45
                                                             }
                                                           },
                                                           {
@@ -1925,9 +1925,9 @@
                                                             "effects": [
                                                               {
                                                                 "type": "Shield",
-                                                                "amount": 60,
+                                                                "amount": 50,
                                                                 "attack_ratio": 0,
-                                                                "ap_ratio": 30,
+                                                                "ap_ratio": 25,
                                                                 "tick": 150
                                                               },
                                                               {
@@ -1978,9 +1978,9 @@
                                                                     "effects": [
                                                                       {
                                                                         "type": "Heal",
-                                                                        "amount": 10,
+                                                                        "amount": 8,
                                                                         "attack_ratio": 0,
-                                                                        "ap_ratio": 8,
+                                                                        "ap_ratio": 6,
                                                                         "heal_type": "Ally"
                                                                       }
                                                                     ]
@@ -2032,7 +2032,7 @@
                                                             "name": "league_seraphine_q_cd",
                                                             "duration": {
                                                               "Time": {
-                                                                "tick": 480
+                                                                "tick": 540
                                                               }
                                                             }
                                                           },
@@ -2319,8 +2319,8 @@
                                                               "casting_type": "Targeting",
                                                               "effect": {
                                                                 "type": "ApAttack",
-                                                                "damage": 70,
-                                                                "attack_ratio": 50,
+                                                                "damage": 55,
+                                                                "attack_ratio": 40,
                                                                 "hp_ratio": 0,
                                                                 "attack_effect_type": "Target"
                                                               }
@@ -2361,8 +2361,8 @@
                                                               "casting_type": "Targeting",
                                                               "effect": {
                                                                 "type": "ApAttack",
-                                                                "damage": 52,
-                                                                "attack_ratio": 38,
+                                                                "damage": 28,
+                                                                "attack_ratio": 20,
                                                                 "hp_ratio": 0,
                                                                 "attack_effect_type": "Target"
                                                               }
@@ -2461,8 +2461,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 48,
-                          "attack_ratio": 48,
+                          "damage": 32,
+                          "attack_ratio": 32,
                           "hp_ratio": 0,
                           "attack_effect_type": "Target"
                         }
@@ -2532,8 +2532,8 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 36,
-                            "attack_ratio": 36,
+                            "damage": 24,
+                            "attack_ratio": 24,
                             "hp_ratio": 0,
                             "attack_effect_type": "Target"
                           }
@@ -2603,8 +2603,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 24,
-                              "attack_ratio": 24,
+                              "damage": 16,
+                              "attack_ratio": 16,
                               "hp_ratio": 0,
                               "attack_effect_type": "Target"
                             }
@@ -2674,8 +2674,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 12,
-                                "attack_ratio": 12,
+                                "damage": 8,
+                                "attack_ratio": 8,
                                 "hp_ratio": 0,
                                 "attack_effect_type": "Target"
                               }
@@ -2741,7 +2741,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_seraphine.skill",
     "duration": 24,
-    "cooltime": 480,
+    "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
     "range": 75000,
@@ -2771,7 +2771,7 @@
                   "name": "league_seraphine_q_cd",
                   "duration": {
                     "Time": {
-                      "tick": 480
+                      "tick": 540
                     }
                   }
                 },
@@ -3128,8 +3128,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "ApAttack",
-                                          "damage": 70,
-                                          "attack_ratio": 50,
+                                          "damage": 55,
+                                          "attack_ratio": 40,
                                           "hp_ratio": 0,
                                           "attack_effect_type": "Target"
                                         }
@@ -3170,8 +3170,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "ApAttack",
-                                          "damage": 52,
-                                          "attack_ratio": 38,
+                                          "damage": 28,
+                                          "attack_ratio": 20,
                                           "hp_ratio": 0,
                                           "attack_effect_type": "Target"
                                         }
@@ -3268,8 +3268,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 70,
-                              "attack_ratio": 50,
+                              "damage": 55,
+                              "attack_ratio": 40,
                               "hp_ratio": 0,
                               "attack_effect_type": "Target"
                             }
@@ -3310,8 +3310,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 52,
-                              "attack_ratio": 38,
+                              "damage": 28,
+                              "attack_ratio": 20,
                               "hp_ratio": 0,
                               "attack_effect_type": "Target"
                             }
@@ -3406,9 +3406,9 @@
                 "effects": [
                   {
                     "type": "Shield",
-                    "amount": 60,
+                    "amount": 50,
                     "attack_ratio": 0,
-                    "ap_ratio": 30,
+                    "ap_ratio": 25,
                     "tick": 150
                   },
                   {
@@ -3459,9 +3459,9 @@
                         "effects": [
                           {
                             "type": "Heal",
-                            "amount": 10,
+                            "amount": 8,
                             "attack_ratio": 0,
-                            "ap_ratio": 8,
+                            "ap_ratio": 6,
                             "heal_type": "Ally"
                           }
                         ]
@@ -3853,8 +3853,8 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 60,
-                                            "attack_ratio": 45,
+                                            "damage": 45,
+                                            "attack_ratio": 35,
                                             "hp_ratio": 0,
                                             "attack_effect_type": "Target"
                                           }
@@ -3870,7 +3870,7 @@
                                                   "tick": 60
                                                 }
                                               },
-                                              "move_speed_mult": -60
+                                              "move_speed_mult": -30
                                             }
                                           }
                                         },
@@ -3953,7 +3953,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "Bind",
-                                                          "duration": 60
+                                                          "duration": 45
                                                         },
                                                         {
                                                           "type": "ViewEffect",
@@ -3992,7 +3992,7 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "Stun",
-                                            "duration": 60
+                                            "duration": 45
                                           }
                                         },
                                         {
@@ -4078,9 +4078,9 @@
                                           "effects": [
                                             {
                                               "type": "Shield",
-                                              "amount": 60,
+                                              "amount": 50,
                                               "attack_ratio": 0,
-                                              "ap_ratio": 30,
+                                              "ap_ratio": 25,
                                               "tick": 150
                                             },
                                             {
@@ -4131,9 +4131,9 @@
                                                   "effects": [
                                                     {
                                                       "type": "Heal",
-                                                      "amount": 10,
+                                                      "amount": 8,
                                                       "attack_ratio": 0,
-                                                      "ap_ratio": 8,
+                                                      "ap_ratio": 6,
                                                       "heal_type": "Ally"
                                                     }
                                                   ]
@@ -4223,8 +4223,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "ApAttack",
-                                  "damage": 60,
-                                  "attack_ratio": 45,
+                                  "damage": 45,
+                                  "attack_ratio": 35,
                                   "hp_ratio": 0,
                                   "attack_effect_type": "Target"
                                 }
@@ -4240,7 +4240,7 @@
                                         "tick": 60
                                       }
                                     },
-                                    "move_speed_mult": -60
+                                    "move_speed_mult": -30
                                   }
                                 }
                               },
@@ -4323,7 +4323,7 @@
                                             "effects": [
                                               {
                                                 "type": "Bind",
-                                                "duration": 60
+                                                "duration": 45
                                               },
                                               {
                                                 "type": "ViewEffect",
@@ -4362,7 +4362,7 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Stun",
-                                  "duration": 60
+                                  "duration": 45
                                 }
                               },
                               {
@@ -4448,9 +4448,9 @@
                                 "effects": [
                                   {
                                     "type": "Shield",
-                                    "amount": 60,
+                                    "amount": 50,
                                     "attack_ratio": 0,
-                                    "ap_ratio": 30,
+                                    "ap_ratio": 25,
                                     "tick": 150
                                   },
                                   {
@@ -4501,9 +4501,9 @@
                                         "effects": [
                                           {
                                             "type": "Heal",
-                                            "amount": 10,
+                                            "amount": 8,
                                             "attack_ratio": 0,
-                                            "ap_ratio": 8,
+                                            "ap_ratio": 6,
                                             "heal_type": "Ally"
                                           }
                                         ]
@@ -4555,7 +4555,7 @@
                                 "name": "league_seraphine_q_cd",
                                 "duration": {
                                   "Time": {
-                                    "tick": 480
+                                    "tick": 540
                                   }
                                 }
                               },
@@ -4842,8 +4842,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "ApAttack",
-                                    "damage": 70,
-                                    "attack_ratio": 50,
+                                    "damage": 55,
+                                    "attack_ratio": 40,
                                     "hp_ratio": 0,
                                     "attack_effect_type": "Target"
                                   }
@@ -4884,8 +4884,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "ApAttack",
-                                    "damage": 52,
-                                    "attack_ratio": 38,
+                                    "damage": 28,
+                                    "attack_ratio": 20,
                                     "hp_ratio": 0,
                                     "attack_effect_type": "Target"
                                   }
@@ -5406,8 +5406,8 @@
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "ApAttack",
-                                                  "damage": 150,
-                                                  "attack_ratio": 60,
+                                                  "damage": 120,
+                                                  "attack_ratio": 50,
                                                   "hp_ratio": 0,
                                                   "attack_effect_type": "Target"
                                                 }
@@ -5454,8 +5454,8 @@
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "ApAttack",
-                                                  "damage": 150,
-                                                  "attack_ratio": 60,
+                                                  "damage": 120,
+                                                  "attack_ratio": 50,
                                                   "hp_ratio": 0,
                                                   "attack_effect_type": "Target"
                                                 }
@@ -5633,8 +5633,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "ApAttack",
-                                        "damage": 150,
-                                        "attack_ratio": 60,
+                                        "damage": 120,
+                                        "attack_ratio": 50,
                                         "hp_ratio": 0,
                                         "attack_effect_type": "Target"
                                       }
@@ -5681,8 +5681,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "ApAttack",
-                                        "damage": 150,
-                                        "attack_ratio": 60,
+                                        "damage": 120,
+                                        "attack_ratio": 50,
                                         "hp_ratio": 0,
                                         "attack_effect_type": "Target"
                                       }
@@ -6134,8 +6134,8 @@
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
                                                                   "type": "ApAttack",
-                                                                  "damage": 60,
-                                                                  "attack_ratio": 45,
+                                                                  "damage": 45,
+                                                                  "attack_ratio": 35,
                                                                   "hp_ratio": 0,
                                                                   "attack_effect_type": "Target"
                                                                 }
@@ -6151,7 +6151,7 @@
                                                                         "tick": 60
                                                                       }
                                                                     },
-                                                                    "move_speed_mult": -60
+                                                                    "move_speed_mult": -30
                                                                   }
                                                                 }
                                                               },
@@ -6234,7 +6234,7 @@
                                                                             "effects": [
                                                                               {
                                                                                 "type": "Bind",
-                                                                                "duration": 60
+                                                                                "duration": 45
                                                                               },
                                                                               {
                                                                                 "type": "ViewEffect",
@@ -6273,7 +6273,7 @@
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
                                                                   "type": "Stun",
-                                                                  "duration": 60
+                                                                  "duration": 45
                                                                 }
                                                               },
                                                               {
@@ -6359,9 +6359,9 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "Shield",
-                                                                    "amount": 60,
+                                                                    "amount": 50,
                                                                     "attack_ratio": 0,
-                                                                    "ap_ratio": 30,
+                                                                    "ap_ratio": 25,
                                                                     "tick": 150
                                                                   },
                                                                   {
@@ -6412,9 +6412,9 @@
                                                                         "effects": [
                                                                           {
                                                                             "type": "Heal",
-                                                                            "amount": 10,
+                                                                            "amount": 8,
                                                                             "attack_ratio": 0,
-                                                                            "ap_ratio": 8,
+                                                                            "ap_ratio": 6,
                                                                             "heal_type": "Ally"
                                                                           }
                                                                         ]
@@ -6504,8 +6504,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 60,
-                                                        "attack_ratio": 45,
+                                                        "damage": 45,
+                                                        "attack_ratio": 35,
                                                         "hp_ratio": 0,
                                                         "attack_effect_type": "Target"
                                                       }
@@ -6521,7 +6521,7 @@
                                                               "tick": 60
                                                             }
                                                           },
-                                                          "move_speed_mult": -60
+                                                          "move_speed_mult": -30
                                                         }
                                                       }
                                                     },
@@ -6604,7 +6604,7 @@
                                                                   "effects": [
                                                                     {
                                                                       "type": "Bind",
-                                                                      "duration": 60
+                                                                      "duration": 45
                                                                     },
                                                                     {
                                                                       "type": "ViewEffect",
@@ -6643,7 +6643,7 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "Stun",
-                                                        "duration": 60
+                                                        "duration": 45
                                                       }
                                                     },
                                                     {
@@ -6729,9 +6729,9 @@
                                                       "effects": [
                                                         {
                                                           "type": "Shield",
-                                                          "amount": 60,
+                                                          "amount": 50,
                                                           "attack_ratio": 0,
-                                                          "ap_ratio": 30,
+                                                          "ap_ratio": 25,
                                                           "tick": 150
                                                         },
                                                         {
@@ -6782,9 +6782,9 @@
                                                               "effects": [
                                                                 {
                                                                   "type": "Heal",
-                                                                  "amount": 10,
+                                                                  "amount": 8,
                                                                   "attack_ratio": 0,
-                                                                  "ap_ratio": 8,
+                                                                  "ap_ratio": 6,
                                                                   "heal_type": "Ally"
                                                                 }
                                                               ]
@@ -6836,7 +6836,7 @@
                                                       "name": "league_seraphine_q_cd",
                                                       "duration": {
                                                         "Time": {
-                                                          "tick": 480
+                                                          "tick": 540
                                                         }
                                                       }
                                                     },
@@ -7123,8 +7123,8 @@
                                                         "casting_type": "Targeting",
                                                         "effect": {
                                                           "type": "ApAttack",
-                                                          "damage": 70,
-                                                          "attack_ratio": 50,
+                                                          "damage": 55,
+                                                          "attack_ratio": 40,
                                                           "hp_ratio": 0,
                                                           "attack_effect_type": "Target"
                                                         }
@@ -7165,8 +7165,8 @@
                                                         "casting_type": "Targeting",
                                                         "effect": {
                                                           "type": "ApAttack",
-                                                          "damage": 52,
-                                                          "attack_ratio": 38,
+                                                          "damage": 28,
+                                                          "attack_ratio": 20,
                                                           "hp_ratio": 0,
                                                           "attack_effect_type": "Target"
                                                         }
