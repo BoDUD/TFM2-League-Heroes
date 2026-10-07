@@ -16,6 +16,12 @@ blade, far arm, both legs, tail; whole-part moves and nearest-neighbour turns). 
      turned the tail with the body, so it stuck straight down under the back leg. Its squares (the rig's own tail
      part, placed as the rig places the frame) are taken out and turned TAIL_TURN degrees about its root (the tail
      square nearest the back leg) to lie along the ground beside the feet, drawn behind the body.
+  3. 「鳄鱼走路有点僵硬啊」: Codex's run moved only the two legs (whole pieces crossing over) and lifted the whole
+     frame a row on two of the eight; the body, both arms, the blade and the tail stood still. The run is recomposed
+     from the same rig parts with Codex's leg moves kept and RUN's additions: the upper body (core, head, arms, tail)
+     sinks a row on each landing (frames 1 and 5) with the feet on the ground in every frame, the far arm swings
+     forward and back against the legs (whole, up to 2 columns), the blade arm the other way (1 column, a row up while
+     the legs pass), and the tail sways 2 columns each way.
 """
 import argparse
 import json
@@ -39,6 +45,14 @@ CORPSE = range(3, 8)  # dead frames (0-based) lying at 90 degrees
 # the rig's death (codex_strips/rig/rebuild.py config 'dead'): body turn, whole-body x offset, near arm
 D_ROT = [0, 0, 45, 90, 90, 90, 90, 90]
 D_DX = [-1, -3, -3, -3, -3, -3, -3, -3]
+# the rig's run (rebuild.py config 'run'): each leg piece moved whole, crossing over
+R_NEAR = [(23, 0), (19, -1), (13, -2), (7, -2), (1, 0), (5, 0), (11, 1), (17, 0)]       # the back (near) leg
+R_FAR = [(-25, 0), (-21, 0), (-15, 1), (-9, 0), (-3, 0), (-7, -1), (-13, -2), (-19, -2)]  # the front leg, a shade darker
+# fix 3: the upper body's sink, the far arm's and the blade arm's swing (dx, dy), the tail's sway
+RUN = {"body_dy": [1, 0, 0, 0, 1, 0, 0, 0],
+       "far": [(2, 0), (1, 0), (0, 0), (-1, 0), (-2, 0), (-1, 0), (0, 0), (1, 0)],
+       "near": [(-1, 0), (-1, 0), (0, -1), (1, 0), (1, 0), (1, 0), (0, -1), (-1, 0)],
+       "tail": [0, -1, -2, -1, 0, 1, 2, 1]}
 
 
 def lp(path):
@@ -147,6 +161,39 @@ def lay_tail(c, parts, i, pivot):
     return np.array(out), int(shown.sum())
 
 
+# ---------------------------------------------------------------------------------------------- fix 3: the run
+def darken(im):
+    """The rig's far-leg shade (rebuild.py darken)."""
+    a = np.array(im)
+    mp = {(1, 128, 132): (2, 89, 95), (2, 89, 95): (2, 89, 95), (194, 192, 192): (147, 145, 145),
+          (147, 145, 145): (75, 72, 80), (2, 24, 178): (1, 14, 132)}
+    for old, new in mp.items():
+        m = (a[:, :, :3] == old).all(2) & (a[:, :, 3] > 0)
+        a[m, :3] = new
+    return Image.fromarray(a)
+
+
+def run_frame(parts, i, pivot):
+    by = RUN["body_dy"][i]
+    im = Image.new("RGBA", (128, 128))
+    im.alpha_composite(moved(parts["tail"], RUN["tail"][i], by))
+    im.alpha_composite(moved(darken(parts["frontleg"]), *R_FAR[i]))
+    im.alpha_composite(moved(parts["rearleg"], *R_NEAR[i]))
+    im.alpha_composite(moved(parts["core"], 0, by))
+    fx, fy = RUN["far"][i]
+    im.alpha_composite(moved(parts["far"], fx, by + fy))
+    nx, ny = RUN["near"][i]
+    im.alpha_composite(moved(parts["near"], nx, by + ny))
+    im.alpha_composite(moved(parts["head"], 0, by))
+    tx, ty = pivot[0] - 64, pivot[1] - 88
+    bx = im.getbbox()
+    if bx[3] + ty > FEET + 1:
+        ty -= bx[3] + ty - FEET - 1
+    f = Image.new("RGBA", (128, 96))
+    f.alpha_composite(im, (tx, ty))
+    return np.array(f)
+
+
 def layout(n):
     return {1: 1, 2: 2, 3: 3, 4: 4, 5: 3, 6: 3}.get(n, 4)
 
@@ -167,6 +214,8 @@ def main():
         for i in range(len(frs)):
             y0, x0 = (i // cols) * ch, (i % cols) * cw
             c = small[y0:y0 + ch, x0:x0 + cw]
+            if tag == "run":
+                c = run_frame(parts, i, frs[i]["pivot"])
             if tag == "dead" and i in CORPSE:
                 c, moved_n = lay_tail(c, parts, i, frs[i]["pivot"])
                 print(tag, i + 1, "tail turned", TAIL_TURN, "degrees,", moved_n, "squares")
