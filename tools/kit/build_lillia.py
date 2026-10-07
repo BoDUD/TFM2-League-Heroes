@@ -53,7 +53,7 @@ P = {
     "hp": 960, "hp_g": 95, "atk": 70, "atk_g": 8, "ap": 45, "ap_g": 20, "def": 28, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1050, "ms_g": 11,
     # attack: the branch swing
-    "atk_range": 25000, "atk_dur": 26, "atk_cd": 60, "a_st": 12,
+    "atk_range": 25000, "atk_dur": 26, "atk_cd": 60, "a_st": 7,
     # passive: Dream Dust (League: 5% max HP magic over 3 s in 6 ticks, heal 25% of it on monsters, 100%? champions)
     "d_t": 181, "d_period": 45, "d_dmg": 4, "d_ratio": 3, "d_hp": 1, "d_heal": 12, "d_heal_ratio": 8,
     # the add-on (addons/league_lillia): + d_ap_bp / 10000 of maximum health per 100 AP each run (League +1.5% per 100
@@ -62,16 +62,16 @@ P = {
     # Prance (League: 1-7% x4 for 6.5 s)
     "pr_t": 390, "pr_ms": 5,
     # skill: Q Blooming Blows (League: radius 485, inner 225, 35-85 + 35% AP magic, the same as true on the edge, cd 6-4)
-    "q_cd": 300, "q_range": 24000, "q_anim": 28, "q_st": 12, "q_r": 26000, "q_in": 12000, "q_dmg": 35, "q_ratio": 30,
+    "q_cd": 300, "q_range": 24000, "q_anim": 28, "q_st": 7, "q_r": 26000, "q_in": 12000, "q_dmg": 35, "q_ratio": 30,
     # skill2: E Swirlseed (League: 700 range, 60-185 + 50% AP, slow 40% 3 s, cd 12)
     "s2_target": "EnemyWithoutTower",
-    "e_cd": 600, "e_range": 70000, "e_anim": 22, "e_rel": 8, "e_travel": 20, "e_r": 9000, "e_dmg": 45, "e_ratio": 40,
+    "e_cd": 600, "e_range": 70000, "e_anim": 22, "e_rel": 7, "e_travel": 20, "e_r": 9000, "e_dmg": 45, "e_ratio": 40,
     "e_slow": 40, "e_slow_t": 180, "e_roll": 0, "e_roll_speed": 2500, "e_roll_len": 40000,
     # -> W Watch Out! Eep! (League: 500-700, radius 250, 80-180 + 35%? AP, sweet spot 65 x3, windup 0.6-0.75 s, cd 14-9)
     "w_cd_t": 600, "w_anim": 40, "w_wind": 30, "w_r": 22000, "w_sweet": 4000, "w_sweet_x": 3, "w_dmg": 40,
     "w_ratio": 30,
     # ult: R Lilting Lullaby (League: drowsy 1.5 s (slowing), asleep 2 s, wake 50-350 + ?% AP, cd 150/130/110)
-    "r_cd": 4200, "r_slot": 80000, "r_reach": 70000, "r_arm": 600, "r_hold": 180, "r_anim": 30, "r_rel": 12,
+    "r_cd": 4200, "r_slot": 80000, "r_reach": 70000, "r_arm": 600, "r_hold": 180, "r_anim": 30, "r_rel": 10,
     "r_drowsy": 90, "r_slow": 40, "r_sleep": 90, "r_wake": 80, "r_wake_ratio": 40,
     # combos
     "rw_wait": 10,
@@ -357,6 +357,8 @@ def build(p, native=False):
                E("w_mark", BIG, -2, follow=False), E("w_land", BIG, -1, follow=False), E("w_hit"), E("w_sweet"),
                E("r_cast", BIG, 3, **LATE), E("wake")]
     views_b = [B_(x, FX, -1, tag="prance") for x in prs] + [B_("drowsy", FX, 3), B_("sleep", FX, 3), B_("e_slow", FX, -1)]
+    if native:
+        views_b.append(B_("dust", FX, 2))           # the add-on's dust buff (the data pack's dust has no buff)
     kit = {
         "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "CC", "Heal", "Dot"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

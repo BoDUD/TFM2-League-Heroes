@@ -43,7 +43,7 @@
     "description": "#asset/base/text/champion?description.league_lillia.attack",
     "duration": 26,
     "cooltime": 60,
-    "start_timing": 12,
+    "start_timing": 7,
     "cancelable": true,
     "range": 25000,
     "casting_type": "Targeting",
@@ -124,7 +124,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 6,
           "effects": [
             {
               "type": "Combine",
@@ -1589,7 +1589,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 8,
+          "tick": 7,
           "effects": [
             {
               "type": "Combine",
@@ -3685,7 +3685,7 @@
                   "effects": [
                     {
                       "type": "Delayed",
-                      "tick": 12,
+                      "tick": 10,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -3871,7 +3871,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 134,
+                      "tick": 132,
                       "effects": [
                         {
                           "type": "RandomTarget",
