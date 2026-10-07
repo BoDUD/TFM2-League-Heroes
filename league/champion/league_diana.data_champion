@@ -612,6 +612,16 @@
                     "only_to_enemy": false
                   },
                   {
+                    "type": "Delayed",
+                    "tick": 300,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_diana_w_shield"
+                      }
+                    ]
+                  },
+                  {
                     "type": "RemoveCasterBuff",
                     "name": "league_diana_w_orb2"
                   },

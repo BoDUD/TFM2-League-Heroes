@@ -531,7 +531,12 @@ when nobody hit her, and 89 ticks after the cast when enemies broke the shield f
 stays while any shield holds, league_annie's Molten Shield ring stayed on her 10 s and more in a game where her own
 shield lasts 3 s (another shield on her held it; in the simulation an extra 1200-tick shield kept the ring on for good).
 A buff that is only the picture of one shield gets a `Delayed {tick: <the shield's tick>}` `RemoveCasterBuff` after
-it (league_annie E). Not for a `WithShield` flag that asks "does a shield hold" on purpose (league_malphite's granite).
+it (league_annie E; then league_blitzcrank, league_camille, league_diana, league_ekko, league_riven and the self casts
+of league_janna, league_morgana and league_thresh - with no extra shield the simulation already showed Riven's E ring
+219 ticks on a 90-tick shield, Diana's 458 on 300). Not for a `WithShield` flag that asks "does a shield hold" on
+purpose (league_malphite's granite, league_rakan's passive: their shields last 36000 ticks, so a timer means nothing).
+One given to an ally (`AddBuff` from a `RandomTarget` or a projectile) cannot be taken off: `RemoveCasterBuff` works
+on the caster only, also from an `AddCasted` on the ally (its caster is still the giver); those stay `WithShield`.
 
 **`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it

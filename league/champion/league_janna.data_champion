@@ -878,6 +878,16 @@
                       "duration": "WithShield",
                       "attack_mult": 15
                     }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 240,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_janna_e_storm"
+                      }
+                    ]
                   }
                 ]
               }

@@ -1347,6 +1347,16 @@
                 "name": "league_riven_e_shield",
                 "duration": "WithShield"
               }
+            },
+            {
+              "type": "Delayed",
+              "tick": 90,
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_riven_e_shield"
+                }
+              ]
             }
           ]
         },
