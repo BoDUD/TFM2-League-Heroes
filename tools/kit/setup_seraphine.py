@@ -37,9 +37,10 @@ S = "<#e8d44dff>"      # shields
 H = "<#6aff55ff>"      # heals
 Wh = "<#ffffffff>"     # move speed
 E = "<>"
-# champion_view: the face point tfm2_ase.py face suggests (the crown, 42 px over the stage's bottom, on the 45-row
-# design); the idle's top is 33 over the pivot, so banpick_center -39 + 33 = -6 (run with --banpick -6)
-VIEW = {"face": {"x": 3, "y": -42}, "center": {"x": 0, "y": -12}}
+# champion_view: the face point tfm2_ase.py face suggests (the crown, 40 px over the stage's bottom, on the 43-row
+# design with the smaller head); the idle's top is 31 over the pivot, so banpick_center -39 + 31 = -8 (run with
+# --banpick -8)
+VIEW = {"face": {"x": 3, "y": -40}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

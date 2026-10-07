@@ -1,0 +1,295 @@
+{
+ "hero": "lillia",
+ "champ": "Lillia",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.8,
+  "legs": 0.8,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "hide_submeshes": [
+  "Bird",
+  "Smear",
+  "Head_Bloom"
+ ],
+ "hover": 9,
+ "design": "lillia_idle2@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "lillia_idle2@0",
+     200
+    ],
+    [
+     "lillia_idle2@0",
+     200
+    ],
+    [
+     "lillia_idle2@0",
+     200
+    ],
+    [
+     "lillia_idle2@0",
+     200
+    ],
+    [
+     "lillia_idle2@0",
+     200
+    ],
+    [
+     "lillia_idle2@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "lillia_idle2@0",
+   "frames": [
+    [
+     "lillia_run2_0@0",
+     92
+    ],
+    [
+     "lillia_run2_0@91",
+     92
+    ],
+    [
+     "lillia_run2_0@182",
+     92
+    ],
+    [
+     "lillia_run2_0@274",
+     92
+    ],
+    [
+     "lillia_run2_0@365",
+     92
+    ],
+    [
+     "lillia_run2_0@456",
+     92
+    ],
+    [
+     "lillia_run2_0@547",
+     92
+    ],
+    [
+     "lillia_run2_0@639",
+     92
+    ]
+   ],
+   "flat": true
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "lillia_idle2@0>lillia_attack1@0:0.5",
+     60
+    ],
+    [
+     "lillia_attack1@100",
+     60
+    ],
+    [
+     "lillia_attack1@300",
+     80
+    ],
+    [
+     "lillia_attack1@500",
+     80
+    ],
+    [
+     "lillia_attack1@850>lillia_idle2@0:0.5",
+     100
+    ]
+   ],
+   "flat": true
+  },
+  "skill": {
+   "lunge": 0.2,
+   "release": 3,
+   "frames": [
+    [
+     "lillia_idle2@0>lillia_spell1@0:0.5",
+     60
+    ],
+    [
+     "lillia_spell1@100",
+     60
+    ],
+    [
+     "lillia_spell1@200",
+     70
+    ],
+    [
+     "lillia_attack1@500",
+     70
+    ],
+    [
+     "lillia_attack1@100",
+     70
+    ],
+    [
+     "lillia_attack1@850>lillia_idle2@0:0.5",
+     80
+    ]
+   ],
+   "flat": true
+  },
+  "skill2": {
+   "lunge": 0.2,
+   "release": 3,
+   "frames": [
+    [
+     "lillia_idle2@0>lillia_spell3@100:0.5",
+     60
+    ],
+    [
+     "lillia_spell3@200",
+     60
+    ],
+    [
+     "lillia_attack1@300",
+     70
+    ],
+    [
+     "lillia_attack1@850>lillia_idle2@0:0.5",
+     80
+    ]
+   ],
+   "flat": true
+  },
+  "skill2_w": {
+   "lunge": 0.3,
+   "release": 5,
+   "frames": [
+    [
+     "lillia_idle2@0>lillia_spell2b@150:0.5",
+     80
+    ],
+    [
+     "lillia_spell2b@450",
+     100
+    ],
+    [
+     "lillia_spell2b@600",
+     100
+    ],
+    [
+     "lillia_spell2b@600",
+     150
+    ],
+    [
+     "lillia_spell2b@750",
+     80
+    ],
+    [
+     "lillia_spell2b@1050",
+     120
+    ],
+    [
+     "lillia_spell2b@1450>lillia_idle2@0:0.5",
+     120
+    ]
+   ],
+   "flat": true
+  },
+  "ult": {
+   "lunge": 0.1,
+   "release": 3,
+   "frames": [
+    [
+     "lillia_idle2@0>lillia_spell4@0:0.5",
+     80
+    ],
+    [
+     "lillia_spell4@100",
+     80
+    ],
+    [
+     "lillia_spell4@100>lillia_idle2@0:0.3",
+     100
+    ],
+    [
+     "lillia_spell4@100>lillia_idle2@0:0.3",
+     100
+    ],
+    [
+     "lillia_spell4@1000",
+     100
+    ],
+    [
+     "lillia_spell4@1000>lillia_idle2@0:0.5",
+     100
+    ]
+   ],
+   "flat": true
+  },
+  "hit": {
+   "frames": [
+    [
+     "lillia_idle2@0>lillia_death@0:0.25",
+     100
+    ],
+    [
+     "lillia_idle2@0>lillia_death@0:0.1",
+     100
+    ]
+   ],
+   "flat": true
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "lillia_death@0",
+     100
+    ],
+    [
+     "lillia_death@250",
+     110
+    ],
+    [
+     "lillia_death@2000",
+     110
+    ],
+    [
+     "lillia_death@2200",
+     120
+    ],
+    [
+     "lillia_death@2800",
+     130
+    ],
+    [
+     "lillia_death@2800",
+     150
+    ],
+    [
+     "lillia_death@2800",
+     200
+    ],
+    [
+     "lillia_death@2800",
+     300
+    ]
+   ]
+  }
+ }
+}

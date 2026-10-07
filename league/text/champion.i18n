@@ -498,6 +498,13 @@
         "skill2": "声波对直线上的敌人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>；回音的声波<#ef5350ff>定身<>被减速的英雄、<#ef5350ff>晕眩<>被控制的英雄。接着<#ff9028ff>聚和心声<>：身边友方英雄获得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>25%<><#e8d44dff>护盾<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>，<#ffb900ff>2.5秒<>后按身边友方英雄数各回复<#6aff55ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>6%<>生命。",
         "ult": "放出一道音波，碰到友方英雄后传得更远，对敌方英雄造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并<#ef5350ff>魅惑1.5秒<>。附近有两名敌方英雄时施放。"
       },
+      "league_lillia": {
+        "name": "莉莉娅",
+        "attack": "被动<#ff9028ff>梦满枝<>：技能命中时附上<#ff9028ff>梦尘<>，<#ffb900ff>3秒<>内造成<#ffb900ff>5<>次<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<><#a974ffff>魔法伤害<>，对英雄另造成共5%最大生命值真实伤害并回复她<#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>生命。施法叠<#ff9028ff>腾跃<>，每层<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+5%<>（最多<#ffb900ff>4<>层）。",
+        "skill": "挥舞枝条，对周围敌人造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>并附上梦尘；外圈的敌人再受到同等的真实伤害。",
+        "skill2": "抛出种子，对落点敌人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>。接着<#ff9028ff>惊惶木<>：蓄力重击目标所在处，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>，正中心受到<#ffb900ff>3<>倍。",
+        "ult": "所有带梦尘的敌方英雄<#ef5350ff>困倦<><#ffb900ff>1.5秒<>（<#ef5350ff>减速40%<>），随后<#ef5350ff>昏睡<><#ffb900ff>1.5秒<>；她的技能叫醒昏睡者时额外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
+      },
       "league_viktor": {
         "name": "维克托",
         "attack": "被动<#ff9028ff>光荣进化<>：<#ffb900ff>3<>级E附带余波，<#ffb900ff>5<>级Q护盾更强并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速30%<>，<#ffb900ff>7<>级技能命中<#ef5350ff>减速20%<>，<#ffb900ff>9<>级风暴变大、转移后持续更久。",
@@ -861,6 +868,11 @@
         "skill1": "清籁穿云",
         "skill2": "增幅节拍",
         "ult": "炫音返场"
+      },
+      "league_lillia": {
+        "skill1": "飞花挞",
+        "skill2": "流涡种",
+        "ult": "夜阑谣"
       },
       "league_viktor": {
         "skill1": "虹吸能量",
@@ -1368,6 +1380,13 @@
         "skill2": "聲波對直線上的敵人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>；回音的聲波<#ef5350ff>定身<>被緩速的英雄、<#ef5350ff>暈眩<>被控制的英雄。接著<#ff9028ff>繞樑歌聲<>：身邊友方英雄獲得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>25%<><#e8d44dff>護盾<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>，<#ffb900ff>2.5秒<>後按身邊友方英雄數各回復<#6aff55ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>6%<>生命。",
         "ult": "放出一道音波，碰到友方英雄後傳得更遠，對敵方英雄造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並<#ef5350ff>魅惑1.5秒<>。附近有兩名敵方英雄時施放。"
       },
+      "league_lillia": {
+        "name": "莉莉亞",
+        "attack": "被動<#ff9028ff>夢沉枝枒<>：技能命中時附上<#ff9028ff>夢境之塵<>，<#ffb900ff>3秒<>內造成<#ffb900ff>5<>次<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<><#a974ffff>魔法傷害<>，對英雄另造成共5%最大生命值真實傷害並回復她<#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>生命。施法疊加跑速，每層<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+5%<>（最多<#ffb900ff>4<>層）。",
+        "skill": "揮舞枝枒，對周圍敵人造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>並附上夢境之塵；外圈的敵人再受到同等的真實傷害。",
+        "skill2": "拋出種籽，對落點敵人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>。接著<#ff9028ff>拽柯之擊<>：蓄力重擊目標所在處，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>，正中心受到<#ffb900ff>3<>倍。",
+        "ult": "所有帶夢境之塵的敵方英雄<#ef5350ff>疲倦<><#ffb900ff>1.5秒<>（<#ef5350ff>緩速40%<>），隨後<#ef5350ff>沉睡<><#ffb900ff>1.5秒<>；她的技能喚醒沉睡者時額外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
+      },
       "league_viktor": {
         "name": "維克特",
         "attack": "被動<#ff9028ff>榮光進化<>：<#ffb900ff>3<>級E附帶餘波，<#ffb900ff>5<>級Q護盾更強並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速30%<>，<#ffb900ff>7<>級技能命中<#ef5350ff>緩速20%<>，<#ffb900ff>9<>級風暴變大、轉移後持續更久。",
@@ -1731,6 +1750,11 @@
         "skill1": "樂音高亢",
         "skill2": "迷人節奏",
         "ult": "要不要來首安可曲"
+      },
+      "league_lillia": {
+        "skill1": "盛綻之舞",
+        "skill2": "飛旋種籽",
+        "ult": "柔沉夢謠"
       },
       "league_viktor": {
         "skill1": "能量守恆",
@@ -2238,6 +2262,13 @@
         "skill2": "A sound wave deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> in a line and <#ef5350ff>slows 30%<>; an echoed wave <#ef5350ff>roots<> slowed champions and <#ef5350ff>stuns<> crowd-controlled ones. Then <#ff9028ff>Surround Sound<>: allied champions near her gain a <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>25%<> <#e8d44dff>shield<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<>; after <#ffb900ff>2.5s<> each heals <#6aff55ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>6%<> per allied champion near.",
         "ult": "A sound wave that travels farther past an ally deals <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> to enemy champions and <#ef5350ff>charms<> them for <#ffb900ff>1.5s<>. Cast with two enemy champions near."
       },
+      "league_lillia": {
+        "name": "Lillia",
+        "attack": "Passive <#ff9028ff>Dream-Laden Bough<>: her ability hits leave <#ff9028ff>Dream Dust<>: <#ffb900ff>5<> pulses of <#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<> <#a974ffff>magic damage<> over <#ffb900ff>3s<>, plus 5% of a champion's max health as true damage, and she heals <#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>. Each cast stacks <#ff9028ff>Prance<>: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>+5% Move Speed<> (up to <#ffb900ff>4<>).",
+        "skill": "Swings her bough: <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and Dream Dust to nearby enemies; those on the edge take the same again as true damage.",
+        "skill2": "Lobs a seed: <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> and a <#ef5350ff>40% slow<>. Then <#ff9028ff>Watch Out! Eep!<>: a wound-up strike where the target stood, <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>, <#ffb900ff>3x<> in the center.",
+        "ult": "Every enemy champion with Dream Dust turns <#ef5350ff>Drowsy<> (<#ef5350ff>40% slow<>) for <#ffb900ff>1.5s<>, then falls <#ef5350ff>Asleep<> for <#ffb900ff>1.5s<>; her abilities wake sleepers for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> more <#a974ffff>magic damage<>."
+      },
       "league_viktor": {
         "name": "Viktor",
         "attack": "Passive <#ff9028ff>Glorious Evolution<>: at level <#ffb900ff>3<> Hextech Ray leaves an aftershock, at <#ffb900ff>5<> Siphon Power's shield grows and gives <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>, at <#ffb900ff>7<> his spells <#ef5350ff>slow 20%<>, at <#ffb900ff>9<> the storm grows and lasts longer when it moves on.",
@@ -2601,6 +2632,11 @@
         "skill1": "High Note",
         "skill2": "Beat Drop",
         "ult": "Encore"
+      },
+      "league_lillia": {
+        "skill1": "Blooming Blows",
+        "skill2": "Swirlseed",
+        "ult": "Lilting Lullaby"
       },
       "league_viktor": {
         "skill1": "Siphon Power",
@@ -3108,6 +3144,13 @@
         "skill2": "음파가 일직선의 적에게 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>30% 둔화<>. 메아리 음파는 둔화된 챔피언을 <#ef5350ff>속박<>, 군중 제어 상태면 <#ef5350ff>기절<>. 이어서 <#ff9028ff>소리 장막<>: 근처 아군 챔피언에게 <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>25%<>의 <#e8d44dff>보호막<>과 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 20%<>, <#ffb900ff>2.5초<> 후 근처 아군 챔피언 수만큼 <#6aff55ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>6%<> 회복.",
         "ult": "아군을 지나면 더 멀리 가는 음파로 적 챔피언에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>매혹 1.5초<>. 적 챔피언 둘이 가까이 있을 때 사용."
       },
+      "league_lillia": {
+        "name": "릴리아",
+        "attack": "기본 지속 효과 <#ff9028ff>꿈나무 지팡이<>: 스킬 적중 시 <#ff9028ff>꿈가루<>: <#ffb900ff>3초<> 동안 <#ffb900ff>5<>회 <#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<>의 <#a974ffff>마법 피해<>, 챔피언에게는 최대 체력의 5% 고정 피해, 릴리아는 <#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<> 회복. 스킬마다 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 5%<> 중첩(최대 <#ffb900ff>4<>).",
+        "skill": "지팡이를 휘둘러 주변 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>와 꿈가루. 가장자리의 적은 같은 양의 고정 피해를 추가로 받습니다.",
+        "skill2": "씨앗을 던져 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>40% 둔화<>. 이어서 <#ff9028ff>이익! 쿵!<>: 대상 위치를 강타해 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>, 중심은 <#ffb900ff>3<>배.",
+        "ult": "꿈가루가 묻은 모든 적 챔피언이 <#ffb900ff>1.5초<> <#ef5350ff>졸음<>(<#ef5350ff>40% 둔화<>) 후 <#ffb900ff>1.5초<> <#ef5350ff>잠듭니다<>. 릴리아의 스킬로 깨우면 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<> 추가."
+      },
       "league_viktor": {
         "name": "빅토르",
         "attack": "기본 지속 효과 <#ff9028ff>영광스러운 진화<>: <#ffb900ff>3<>레벨 E에 여진, <#ffb900ff>5<>레벨 Q 보호막 강화와 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<>, <#ffb900ff>7<>레벨 스킬 적중 시 <#ef5350ff>20% 둔화<>, <#ffb900ff>9<>레벨 폭풍이 커지고 옮겨 가면 더 오래 유지.",
@@ -3471,6 +3514,11 @@
         "skill1": "고음",
         "skill2": "비트 발사",
         "ult": "앙코르"
+      },
+      "league_lillia": {
+        "skill1": "뾰로롱 강타",
+        "skill2": "데굴데굴 씨앗",
+        "ult": "감미로운 자장가"
       },
       "league_viktor": {
         "skill1": "힘의 흡수",
@@ -3978,6 +4026,13 @@
         "skill2": "音波が直線上の敵に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。エコーの音波はスロウ中を<#ef5350ff>スネア<>、行動妨害中を<#ef5350ff>スタン<>。続けて<#ff9028ff>サラウンドサウンド<>：近くの味方チャンピオンに<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>25%<>の<#e8d44dff>シールド<>と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>、<#ffb900ff>2.5秒<>後に近くの味方の数だけ<#6aff55ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>6%<>回復。",
         "ult": "味方を通るとさらに伸びる音波が敵チャンピオンに<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>魅了1.5秒<>。敵チャンピオン2体が近い時に使用。"
       },
+      "league_lillia": {
+        "name": "リリア",
+        "attack": "パッシブ <#ff9028ff>夢を集める大枝<>：スキル命中で<#ff9028ff>夢のかけら<>、<#ffb900ff>3秒<>で<#ffb900ff>5<>回<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<>の<#a974ffff>魔法ダメージ<>、チャンピオンには最大体力の5%の確定ダメージ、リリアは<#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>回復。スキルごとに<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度5%<>（最大<#ffb900ff>4<>）。",
+        "skill": "大枝を振り、周囲の敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>と夢のかけら。端の敵には同量の確定ダメージを追加。",
+        "skill2": "種を投げ<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%スロウ<>。続けて<#ff9028ff>ひゃっ、あぶない！<>：対象地点を強打し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>、中心は<#ffb900ff>3<>倍。",
+        "ult": "夢のかけらを受けた敵チャンピオン全員に<#ef5350ff>眠気<><#ffb900ff>1.5秒<>（<#ef5350ff>40%スロウ<>）、その後<#ef5350ff>睡眠<><#ffb900ff>1.5秒<>。リリアのスキルで起こすと<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>追加。"
+      },
       "league_viktor": {
         "name": "ビクター",
         "attack": "パッシブ <#ff9028ff>グロリアス・エヴォリューション<>：<#ffb900ff>3<>レベルでEに余波、<#ffb900ff>5<>レベルでQのシールド強化と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>、<#ffb900ff>7<>レベルでスキルが<#ef5350ff>20%スロウ<>、<#ffb900ff>9<>レベルで嵐が大きく、移ると長持ち。",
@@ -4341,6 +4396,11 @@
         "skill1": "ハイノート",
         "skill2": "ビートドロップ",
         "ult": "アンコール"
+      },
+      "league_lillia": {
+        "skill1": "花開く風",
+        "skill2": "コロコロの種",
+        "ult": "夢見の子守唄"
       },
       "league_viktor": {
         "skill1": "パワーブラスト",
