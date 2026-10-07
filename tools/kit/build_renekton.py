@@ -11,7 +11,8 @@ transformation when the fight starts):
           one for the rest, Slice a rung for every unit it passes, W a rung (when not empowered), R two rungs on the
           cast and one every r_fury ticks while it lasts. At f5 (League's 50 Fury) the next skill is empowered and
           spends it all - except Q, which takes it only while W is cooling down (the pro rule: keep the Fury for W's
-          long stun). League's +50% Fury below half health reads his health: a native add-on, later.
+          long stun). League's +50% Fury below half health reads his health: the native add-on addons/league_renekton
+          (league_renekton:anger: below n_low% health every n_every-th rung gained brings one more).
   attack  A melee slash (100% AD) that climbs a rung; while R is armed it fires R when an enemy champion is in reach.
   skill   Q Cull the Meek (巨鳄狂袭): a `Targeting` cast on `EnemyWithoutTower` (q_range). On q_hit every enemy within
           q_r takes q_dmg + q_ratio% AD; he heals q_hm + q_hm_r% AD for every unit hit and q_hc + q_hc_r% AD more for
@@ -56,6 +57,9 @@ P = {
     "atk_range": 25000, "atk_dur": 23, "atk_cd": 62, "atk_st": 7,
     # passive: Reign of Anger (League: 5 Fury an attack, 50 empowers, decays after 12 s out of combat)
     "f_n": 5, "f_t": 480,
+    # the native add-on (addons/league_renekton): below n_low% health every n_every-th rung he gains brings one more
+    # (League: +50% Fury below half health)
+    "n_low": 50, "n_every": 2,
     # skill: Q Cull the Meek (League: r 325, 60-210 + 100% AD; heal 2-7 + 2% AD a minion, 12-52 + 17% AD a champion;
     # empowered 90-315 + 140% AD, heals x3; cd 7 s)
     "q_cd": 420, "q_range": 25000, "q_dur": 25, "q_hit": 7, "q_r": 32000, "q_dmg": 45, "q_ratio": 80,
@@ -197,7 +201,8 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p):
+def build(p, native=False):
+    """native: the add-on's copy - the same kit with the passive league_renekton:anger, which reads his health."""
     fs = [f"f{k}" for k in range(1, p["f_n"] + 1)]
 
     # ------------------------------------------------------------------ passive: Reign of Anger (Fury)
@@ -309,7 +314,7 @@ def build(p):
     views_e = [E("a_hit"), E("q_hit"), E("q_spin", BIG, 2, **LATE), E("q_spin_e", BIG, 2, **LATE),
                E("e_hit"), E("w_hit"), E("w_glow", FX, 3, **LATE), E("r_cast", BIG, 2, **LATE), E("r_burn")]
     views_b = [B_(full, FX, -1), B_("w_stun", FX, 3), B_("e_shred", FX, 3), B_("r_on", BIG, -1)]
-    return {
+    kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Heal"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
@@ -320,6 +325,11 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if native:
+        kit["passive"] = {"passive_ref": f"{ID}:anger",
+                          "params": {"f_n": int(p["f_n"]), "f_t": int(p["f_t"]), "low": int(p["n_low"]),
+                                     "every": int(p["n_every"])}}
+    return kit
 
 
 def nodes(o):
