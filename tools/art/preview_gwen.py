@@ -29,7 +29,8 @@ from preview_samira import Me, OnFoe, OnMe  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_gwen")
-FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_gwen_fx", "league_gwen_big")}
+FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_gwen_fx", "league_gwen_big", "league_gwen_sym")}
+SYM = ("q_hit", "r_hit")                         # played from league_gwen_sym (the red side: made left-right symmetric)
 ATK_CD, ATK_DUR, A_HIT = 56, 24, 11                    # atk_cd, atk_dur, the hit tick
 Q_DUR, Q_T0, Q_GAP, Q_FINAL, Q_N = 30, 6, 3, 22, 4
 E_TICK, E_T, W_T = 8, 240, 240
@@ -40,7 +41,7 @@ LINE = 80                                              # r_len 80000
 def showcase(out, z=3, step=40):
     sp = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
-    small, big = fx["league_gwen_fx"], fx["league_gwen_big"]
+    small, big, sym = fx["league_gwen_fx"], fx["league_gwen_big"], fx["league_gwen_sym"]
     W, H = 340, 150
     gy = 100
     x0 = 70
@@ -60,7 +61,7 @@ def showcase(out, z=3, step=40):
         return an
 
     def hit(foe, tag, when):
-        over.append(OnFoe(frames_of(small, tag), when, foe))
+        over.append(OnFoe(frames_of(sym if tag in SYM else small, tag), when, foe))
         foe.flinches.append(when)
 
     marks = []

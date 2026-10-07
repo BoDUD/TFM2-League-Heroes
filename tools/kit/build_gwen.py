@@ -31,6 +31,7 @@ and the data pack keeps the closest it can read):
 import argparse
 import json
 import os
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -38,6 +39,8 @@ OUT = os.path.join(REPO, "league", "champion", "league_gwen.data_champion")
 ID = "league_gwen"
 FX = "asset/league/effects/league_gwen_fx"
 BIG = "asset/league/effects/league_gwen_big"
+sys.path.insert(0, os.path.join(REPO, "tools", "fix"))
+import mirror_union_fx  # noqa: E402
 
 # Numbers = candidate g4 of the 10-min classic-SDK simulations (tr_sim's kd.py copied to Temp/gw_sim, top lane against
 # fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 24 seeds a batch,
@@ -311,7 +314,7 @@ def build(p):
     views_e = [E("a_hit"), E("q_hit"), E("q_true"), E("r_hit"), E("w_mist", BIG, -1, **LATE)]   # e_dash: in her frames
     views_b = [B_(f"qs{k}", FX, 3) for k in range(1, q_n + 1)] + [B_("e_on", FX, 2), B_("w_in", FX, 2),
                                                                   B_("r_slow", FX, 2)]
-    return {
+    kit = {
         "id": ID, "category": "Assassin", "tags": ["AP", "Magic", "Melee", "Heal"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
@@ -322,6 +325,9 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    # the red side: Q's and R's hits show where the blow came from and the client never mirrors them, so they play
+    # from league_gwen_sym (each frame over its mirror, tools/fix/mirror_union_fx.py; assets/source/native/gwen_sym.json)
+    return mirror_union_fx.rebind(kit, "gwen")
 
 
 def nodes(o):

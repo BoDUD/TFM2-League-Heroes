@@ -1994,7 +1994,7 @@
     {
       "type": "Animation",
       "name": "league_gwen_q_hit",
-      "anim": "asset/league/effects/league_gwen_fx",
+      "anim": "asset/league/effects/league_gwen_sym",
       "tag": "q_hit",
       "z": 2,
       "is_follow": true
@@ -2010,7 +2010,7 @@
     {
       "type": "Animation",
       "name": "league_gwen_r_hit",
-      "anim": "asset/league/effects/league_gwen_fx",
+      "anim": "asset/league/effects/league_gwen_sym",
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
