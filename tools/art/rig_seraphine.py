@@ -78,6 +78,7 @@ NEAR_ELBOW = (60.0, 73.0)
 # start there); streamed by stretching each row's run leftward from its right end
 HAIR_ROWS, HAIR_EDGE, HAIR_MAX = (62, 84), 57, 4
 
+ARM_BOX = (70, 82, 58, 78)             # columns, rows round the far arm where outline gaps are closed (close_notches)
 # far-arm poses: the hand relative to the shoulder (x right, y down) and which way the elbow bends (+1 down/out)
 POSES = {"fwd": ((9.0, -1.0), 1), "fwd_up": ((7.0, -6.5), 1), "up": ((3.0, -9.0), 1), "fwd_low": ((8.5, 3.0), 1),
          "down": ((2.0, 9.0), -1), "wide": ((8.0, -4.5), 1), "chest": ((4.0, 2.0), -1)}
@@ -184,11 +185,23 @@ def figure(P, pose=None, hair=0, near=0, dx=0, dy=0):
     return K.shifted(body, dx, dy)
 
 
+def close_notches(a, box=ARM_BOX):
+    """One-square gaps in the outline round the far arm (a clear square with coloured squares left, right and above:
+    the elbow's 「这里少一块？」) take the outline colour."""
+    x0, x1, y0, y1 = box
+    op = a[..., 3] > 0
+    gaps = [(y, x) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1)
+            if not op[y, x] and op[y, x - 1] and op[y, x + 1] and op[y - 1, x]]
+    for y, x in gaps:                    # one pass: a filled gap must not open the square under it (it cascaded)
+        a[y, x] = (*OUTLINE, 255)
+    return a
+
+
 def frame(P, stage_dy=0, **kw):
     f = figure(P, **kw)
     out = K.shifted(P.stage, 0, stage_dy)
     out = K.put(out, f, 0, 0)
-    return K.finish(out, P.D.outline, SOLES)
+    return close_notches(K.finish(out, P.D.outline, SOLES))
 
 
 def lying(P, deg, dx):

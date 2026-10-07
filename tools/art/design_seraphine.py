@@ -20,7 +20,7 @@ at 46 and 52) went to the user, who picked the region cut at 52 (「E 分区删�
   6. the face redrawn after Gwen's (FACE; the user: 「脸的质量有点差 灵活运用工具修一修啊」「参考格温怎么弄的 多精致」 and a crop of
      the chin, 「这里全是个啥啊」);
   7. the legs and the boots redrawn (LEGS; 「这里也是」 with a crop of them - the draft itself drew them crudely); the
-     near glove's lower outline closed (NOTCH, 「这里少一块？」);
+     one-square gaps in the outline under the raised arm's elbow and under the near glove closed (NOTCH, 「这里少一块？」);
   8. Gwen's clean-up off the drawn squares: lone squares no neighbour shares take their four neighbours' colour (two
      rounds, gold kept), then outline squares that join no line take their neighbours' colour.
 --check compares the result with the committed seraphine_native.png instead of writing it.
@@ -73,8 +73,10 @@ LEGS = {
     90: (56, "-IIIIIIII--IIIIIIIII"),
 }
 
-# step 7b (「这里少一块？」): the near glove's lower outline had a one-square gap at column 59 that showed the background
-NOTCH = {81: (59, "I")}
+# step 7b (「这里少一块？」, then 「你没修好啊」): the raised far arm's elbow had a one-square gap in its lower outline at
+# (76, 73) that showed the background - the square the user pointed at; the near glove's lower outline had one too at
+# (59, 81), closed first by mistake for it
+NOTCH = {73: (76, "I"), 81: (59, "I")}
 # step 6 (「脸的质量有点差」, the chin crop 「这里全是个啥啊」): Gwen's cute face - a lash row, 3 x 3 eyes (white top-left,
 # dark blue, bright and light cyan below), a blush square pair, a one-square mouth, the chin closed, a 4-square neck,
 # a navy choker with a cyan gem, a pendant dot
