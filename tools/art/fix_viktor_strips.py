@@ -75,7 +75,7 @@ RUN_MANIFEST = os.path.join(os.path.dirname(RUN_SRC), "manifest.json")
 # leg over it; the upper body the design's, bobbing as Codex's (upper_shift's rows).
 FOOT_X = {"near": 6.2, "far": -3.5}     # the design's feet (their foot rows' centres) from the pivot
 HIP_X = {"near": -3, "far": 3}          # the hips drawn in toward each other
-KNEE_BEND = 1
+KNEE_BEND = 2
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_e", "ult", "hit", "dead"]
 Z = 8
 
@@ -177,8 +177,8 @@ def run_frames(design):
 
 
 def bent2(part, hip, ankle, lift, bend):
-    """The leg's rows moved whole: hip -> knee (half way, plus bend) -> ankle columns, the foot rows at the ankle; the
-    rows raised from nothing at the hip to `lift` at the soles."""
+    """The leg's rows moved whole: hip -> knee (half way, plus bend) -> ankle columns, the foot rows at the ankle; a
+    lifted leg's rows from the hip's `lift`-th down raised `lift` rows (the thigh's top rows under the belt drop out)."""
     knee = (hip + ankle) / 2 + bend
     out = np.zeros_like(part)
     for y in range(LEG_TOP, SOLES + 1):
@@ -189,7 +189,9 @@ def bent2(part, hip, ankle, lift, bend):
         else:
             dx = ankle
         dx = int(np.floor(dx + 0.5))
-        ty = y - int(round(lift * (y - LEG_TOP) / (SOLES - LEG_TOP)))
+        # the shin and the foot raised whole; the thigh's top `lift` rows fold away under the belt (the first try
+        # pressed the whole leg flatter and dropped foot rows: 「右脚失去像素了吧」)
+        ty = y - min(lift, y - LEG_TOP)
         row = np.roll(part[y], dx, axis=0)
         m = row[:, 3] > 0
         out[ty][m] = row[m]
