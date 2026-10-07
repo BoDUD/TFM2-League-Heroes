@@ -4336,7 +4336,7 @@
         {
           "type": "CasterAnimation",
           "name": "ult",
-          "tick": 240
+          "tick": 12
         },
         {
           "type": "ApplyInProjectile",
@@ -4635,7 +4635,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 240
+                          "tick": 12
                         },
                         {
                           "type": "SwitchByBuff",
@@ -4689,7 +4689,7 @@
                               {
                                 "type": "CasterAnimation",
                                 "name": "ult",
-                                "tick": 240
+                                "tick": 12
                               },
                               {
                                 "type": "SwitchByBuff",
@@ -4728,7 +4728,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "ult",
-                                  "tick": 240
+                                  "tick": 12
                                 },
                                 {
                                   "type": "SwitchByBuff",
@@ -4791,7 +4791,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 220
+                          "tick": 12
                         },
                         {
                           "type": "SwitchByBuff",
@@ -4845,7 +4845,7 @@
                               {
                                 "type": "CasterAnimation",
                                 "name": "ult",
-                                "tick": 220
+                                "tick": 12
                               },
                               {
                                 "type": "SwitchByBuff",
@@ -4884,7 +4884,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "ult",
-                                  "tick": 220
+                                  "tick": 12
                                 },
                                 {
                                   "type": "SwitchByBuff",
@@ -4947,7 +4947,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 200
+                          "tick": 12
                         },
                         {
                           "type": "SwitchByBuff",
@@ -5001,7 +5001,7 @@
                               {
                                 "type": "CasterAnimation",
                                 "name": "ult",
-                                "tick": 200
+                                "tick": 12
                               },
                               {
                                 "type": "SwitchByBuff",
@@ -5040,7 +5040,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "ult",
-                                  "tick": 200
+                                  "tick": 12
                                 },
                                 {
                                   "type": "SwitchByBuff",
@@ -5109,7 +5109,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 180
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -5163,7 +5163,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 180
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -5202,7 +5202,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 180
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -5273,7 +5273,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 160
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -5327,7 +5327,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 160
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -5366,7 +5366,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 160
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -5437,7 +5437,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 140
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -5491,7 +5491,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 140
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -5530,7 +5530,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 140
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -5601,7 +5601,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 120
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -5655,7 +5655,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 120
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -5694,7 +5694,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 120
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -5765,7 +5765,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 100
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -5819,7 +5819,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 100
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -5858,7 +5858,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 100
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -5929,7 +5929,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 80
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -5983,7 +5983,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 80
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -6022,7 +6022,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 80
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -6093,7 +6093,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 60
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -6147,7 +6147,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 60
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -6186,7 +6186,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 60
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -6257,7 +6257,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 40
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -6311,7 +6311,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 40
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -6350,7 +6350,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 40
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
@@ -6421,7 +6421,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 20
+                              "tick": 12
                             },
                             {
                               "type": "SwitchByBuff",
@@ -6475,7 +6475,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "ult",
-                                    "tick": 20
+                                    "tick": 12
                                   },
                                   {
                                     "type": "SwitchByBuff",
@@ -6514,7 +6514,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 20
+                                      "tick": 12
                                     },
                                     {
                                       "type": "SwitchByBuff",
