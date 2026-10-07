@@ -44,6 +44,12 @@ blade, far arm, both legs, tail; whole-part moves and nearest-neighbour turns). 
      its tip out past the blade. In the rig's frames the body's place comes from matching the rig's core piece (the
      body never turns there); the run uses Codex's upper-body shifts. The falling and lying death frames (dead 3-8)
      keep their own (fix 2).
+  5. 「鳄鱼放大时这里有点缺失像素啊」 (R's frames 2-5): where the blade arm swung away, the body it had covered in the
+     design was never drawn, so the background showed through between the body and the hip. VACATED: squares of a frame
+     that are clear, enclosed by the figure, and sat under the blade arm in the design (its rig part, placed by the
+     body's offset; only the body side, design columns >= ARM_BODY_X) are filled from their filled neighbours,
+     outward in, with the body's teal (the commonest teal next to each square, else the shade); the rest of the
+     frame is untouched.
 """
 import argparse
 import json
@@ -81,6 +87,10 @@ DESIGN = os.path.join(OUT, "renekton_native.png")
 CODEX_RUN = os.path.join(ROOT, "assets", "source", "renekton", "codex_run")
 TAIL_AT = (54, 90)       # fix 4: the tail picture's lower-right corner (its root) on the design canvas
 NO_TAIL = {("dead", i) for i in range(2, 8)}
+ARM_BODY_X = 44          # fix 5: the blade arm's squares from this design column on lie over the body
+BODY_TEAL = [(1, 128, 132), (2, 89, 95)]   # fix 5: the side of his body behind the arm - its teal, light and shade
+BLADE_COLOURS = {(249, 238, 219), (238, 207, 161), (203, 163, 116), (247, 164, 11), (243, 130, 2), (168, 110, 8),
+                 (69, 58, 4), (2, 24, 178), (1, 14, 132)}
 CELL_DY = 18             # a design row - CELL_DY = its row in a run cell (the feet on row 81, the design's on 99)
 # design rows 83-86: the thigh tops under the belt - the left thigh's teal (columns 55-59) and everything right of the
 # kilt (the right kilt flap's stub from its top at the belt, the right thigh's top and their outline)
@@ -297,6 +307,62 @@ def body_offset(c, core, pivot):
     return best[1], best[2], best[0] / len(xs)
 
 
+def enclosed(c):
+    """Clear squares the figure closes in (not reachable from the cell's border through clear squares)."""
+    op = c[..., 3] > 0
+    h, w = op.shape
+    out = np.zeros_like(op)
+    st = [(y, x) for y in range(h) for x in (0, w - 1)] + [(y, x) for x in range(w) for y in (0, h - 1)]
+    st = [p for p in st if not op[p]]
+    for p in st:
+        out[p] = True
+    while st:
+        y, x = st.pop()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < h and 0 <= nx < w and not op[ny, nx] and not out[ny, nx]:
+                out[ny, nx] = True
+                st.append((ny, nx))
+    return ~op & ~out
+
+
+def fill_vacated(c, near, ox, oy):
+    """Fix 5: enclosed clear squares where the blade arm lay over the body in the design, filled outward in from their
+    filled 4-neighbours with the commonest body colour among them (blade colours and outline ink never spread)."""
+    ys, xs = np.nonzero(near[..., 3] > 0)
+    keep = xs >= ARM_BODY_X
+    was = np.zeros(c.shape[:2], bool)
+    cy, cx = ys[keep] + oy, xs[keep] + ox
+    ok = (cy >= 0) & (cy < c.shape[0]) & (cx >= 0) & (cx < c.shape[1])
+    was[cy[ok], cx[ok]] = True
+    todo = enclosed(c) & was
+    out = c.copy()
+    n = int(todo.sum())
+    while todo.any():
+        done = []
+        for y, x in zip(*np.nonzero(todo)):
+            cols = []
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ny, nx = y + dy, x + dx
+                if 0 <= ny < out.shape[0] and 0 <= nx < out.shape[1] and out[ny, nx, 3] and not todo[ny, nx]:
+                    col = tuple(int(v) for v in out[ny, nx, :3])
+                    if col not in BLADE_COLOURS and (np.array(col) * [0.299, 0.587, 0.114]).sum() >= 25:
+                        cols.append(col)
+            cols = [col for col in cols if col in BODY_TEAL]
+            if cols:
+                done.append((y, x, max(set(cols), key=cols.count)))
+            elif any(0 <= y + dy < out.shape[0] and 0 <= x + dx < out.shape[1] and out[y + dy, x + dx, 3]
+                     and not todo[y + dy, x + dx] for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                done.append((y, x, BODY_TEAL[1]))
+        if not done:
+            break
+        for y, x, col in done:
+            out[y, x, :3] = col
+            out[y, x, 3] = 255
+            todo[y, x] = False
+    return out, n
+
+
 def codex_run():
     """Codex's run (1x sheet) recomposed from its layers with the upper body's thigh tops trimmed."""
     legs = np.array(Image.open(lp(os.path.join(CODEX_RUN, "layers", "redrawn_legs_1x.png"))).convert("RGBA"))
@@ -342,6 +408,7 @@ def main():
     global TAIL
     TAIL = raised_tail()
     core = np.array(parts["core"])
+    near = np.array(parts["near"])
     cw, ch = cells["cell"]
     total = 0
     for tag, frs in cells["tags"].items():
@@ -362,6 +429,9 @@ def main():
                 if share < 0.9:
                     raise SystemExit(f"{tag} {i + 1}: the body piece matches only {share:.0%} - where is he?")
                 c = tail_behind(c, TAIL, TAIL_AT[0] + ox, TAIL_AT[1] + oy)
+                c, filled = fill_vacated(c, near, ox, oy)       # after the tail: it closes the gap behind the arm
+                if filled:
+                    print(tag, i + 1, "vacated squares filled", filled)
             c, gone = clean(c)
             if gone:
                 print(tag, i + 1, len(gone), [(int(y), int(x)) for y, x in gone])
