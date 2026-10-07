@@ -3,7 +3,7 @@
 //! 主包保持纯数据：数据里能读最大生命值的只有真实伤害（`FixedAttack` 的 `target_hp_ratio`），读不到法强，所以主包的
 //! 被动对英雄造成 `p_hp`% 最大生命值的真实伤害。`mod.override_info` 把主包的格温换成 `override/` 里的副本，只有一处
 //! 不同：被动打到敌方英雄时的那段真实伤害换成原生效果 `league_gwen:cuts`——读目标的最大生命值和格温的法强，造成
-//! 英雄联盟的 `P_HP`% + 每 100 法强 `P_HP_AP` / 100 % 最大生命值的**魔法伤害**（会被魔抗减免）。普攻、Q 的每一剪、
+//! `P_HP`% + 每 100 法强 `P_HP_AP` / 100 % 最大生命值的**魔法伤害**（英雄联盟每 100 法强 0.6%，这里减半）（会被魔抗减免）。普攻、Q 的每一剪、
 //! R 的每根针都触发（同主包），回血和附加的固定魔法伤害照旧由数据做。
 //!
 //! 数字是主包 tools/kit/build_gwen.py 参数表 P 的 `p_hp`、`p_hp_ap`；`make_override.py` 生成副本时核对这里的常数和
@@ -22,8 +22,8 @@ const ID: &str = "league_gwen";
 
 /// 最大生命值的这么多 %（主包 P 的 p_hp）。
 pub const P_HP: u64 = 1;
-/// 每 100 法强再加最大生命值的这么多万分之一（主包 P 的 p_hp_ap；英雄联盟每 100 法强 +0.6%）。
-pub const P_HP_AP: u64 = 60;
+/// 每 100 法强再加最大生命值的这么多万分之一（主包 P 的 p_hp_ap；英雄联盟每 100 法强 +0.6%，后期一套 Q 打掉二成多生命，减半）。
+pub const P_HP_AP: u64 = 30;
 /// 同一个格温至少隔这么多 tick 记一行命中日志（Q 一次剪五六下）。
 const LOG_EVERY: usize = 60;
 
@@ -167,17 +167,17 @@ mod tests {
 
     #[test]
     fn leagues_ratio() {
-        // 0 法强：1%；100 法强：1.6%；230 法强：2.38%
+        // 0 法强：1%；100 法强：1.3%；500 法强：2.5%
         assert_eq!(ratio_bp(0), 100);
-        assert_eq!(ratio_bp(100), 160);
-        assert_eq!(ratio_bp(230), 238);
+        assert_eq!(ratio_bp(100), 130);
+        assert_eq!(ratio_bp(500), 250);
     }
 
     #[test]
     fn damage_from_max_health() {
         assert_eq!(cut_damage(2000, 0), 20);
-        assert_eq!(cut_damage(2000, 230), 47);
-        assert_eq!(cut_damage(3000, 100), 48);
+        assert_eq!(cut_damage(2000, 230), 33);
+        assert_eq!(cut_damage(3000, 100), 39);
         // 再小也有 1
         assert_eq!(cut_damage(10, 0), 1);
     }

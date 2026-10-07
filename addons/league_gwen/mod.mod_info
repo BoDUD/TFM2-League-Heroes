@@ -11,10 +11,10 @@
       "version": ">=0.68.0"
     }
   ],
-  "description": "Test build of Gwen's A Thousand Cuts as in League (needs League of Legends Heroes): replaces the main pack's Gwen so every passive hit on an enemy champion deals 1% (+0.6% per 100 AP) of the champion's maximum health as magic damage, reduced by magic resistance, read from the game, instead of the data pack's stand-in (1% of maximum health as true damage). The heal and the flat magic damage are unchanged. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Gwen's A Thousand Cuts (needs League of Legends Heroes): replaces the main pack's Gwen so every passive hit on an enemy champion deals 1% (+0.3% per 100 AP) of the champion's maximum health as magic damage, reduced by magic resistance, read from the game, instead of the data pack's stand-in (1% of maximum health as true damage). The heal and the flat magic damage are unchanged. Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-07",
   "mod_id": "league_gwen",
   "mod_type": "native",
   "name": "League Heroes: Gwen's A Thousand Cuts (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
