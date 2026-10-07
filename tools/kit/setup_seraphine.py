@@ -37,8 +37,9 @@ S = "<#e8d44dff>"      # shields
 H = "<#6aff55ff>"      # heals
 Wh = "<#ffffffff>"     # move speed
 E = "<>"
-# champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -16}}
+# champion_view: the face point tfm2_ase.py face suggests (the crown, 47 px over the stage's bottom); the idle's top is
+# 40 over the pivot, so banpick_center 0 (-39 - top would be positive: never)
+VIEW = {"face": {"x": 2, "y": -47}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):
