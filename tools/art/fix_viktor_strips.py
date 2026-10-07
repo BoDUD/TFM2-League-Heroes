@@ -66,6 +66,16 @@ UPRIGHT = {"ult"}                  # strips whose turned staff goes upright
 # the run Codex redrew from League's walk (pack_viktor_run.py, RUN_SWAP.md): its legs over the design's upper body; the
 # rebuilds from the design's two legs above (CYCLE) stay for reference
 RUN_SRC = os.path.join(REPO, "assets", "source", "viktor", "codex_run", "viktor-run", "viktor_run.png")
+RUN_MANIFEST = os.path.join(os.path.dirname(RUN_SRC), "manifest.json")
+# Codex's legs were League's long legs pressed 1.5 times flatter into the 12 leg rows: thin 2-3 square sticks with small
+# feet (「走路腿有点变形 还得调一调吧」). Fix 4 keeps its walk - each foot where Codex's frame has it (manifest: the visible
+# feet's centres and bottoms) - and draws the design's own legs there (bent2): both hips drawn in to HIP_X (the legs
+# leave the gold belt together and slant out to the feet, as Codex's do), the knee half way plus KNEE_BEND forward on a
+# lifted leg, the rows below the hip raised toward the foot's lift; the far leg a shade darker under the body, the near
+# leg over it; the upper body the design's, bobbing as Codex's (upper_shift's rows).
+FOOT_X = {"near": 6.2, "far": -3.5}     # the design's feet (their foot rows' centres) from the pivot
+HIP_X = {"near": -3, "far": 3}          # the hips drawn in toward each other
+KNEE_BEND = 1
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_e", "ult", "hit", "dead"]
 Z = 8
 
@@ -166,6 +176,53 @@ def run_frames(design):
     return out
 
 
+def bent2(part, hip, ankle, lift, bend):
+    """The leg's rows moved whole: hip -> knee (half way, plus bend) -> ankle columns, the foot rows at the ankle; the
+    rows raised from nothing at the hip to `lift` at the soles."""
+    knee = (hip + ankle) / 2 + bend
+    out = np.zeros_like(part)
+    for y in range(LEG_TOP, SOLES + 1):
+        if y <= KNEE_ROW:
+            dx = hip + (knee - hip) * (y - LEG_TOP) / (KNEE_ROW - LEG_TOP)
+        elif y < BOOT_ROW:
+            dx = knee + (ankle - knee) * (y - KNEE_ROW) / (BOOT_ROW - KNEE_ROW)
+        else:
+            dx = ankle
+        dx = int(np.floor(dx + 0.5))
+        ty = y - int(round(lift * (y - LEG_TOP) / (SOLES - LEG_TOP)))
+        row = np.roll(part[y], dx, axis=0)
+        m = row[:, 3] > 0
+        out[ty][m] = row[m]
+    return out
+
+
+def run_frames_codex(design, manifest):
+    """Fix 4: the design's legs on Codex's walk."""
+    near, far = legs()
+    body = design.copy()
+    body[(near[..., 3] > 0) | (far[..., 3] > 0)] = 0
+    far = darker(far)
+    out = []
+    for f in manifest["frames"]:
+        px, py = f["pivot"]
+        bob = f["upper_shift"][1]
+        legs_at = {}
+        for side in ("near", "far"):
+            ft = f["feet"][side]
+            ankle = ft["centroid_x"] - px - FOOT_X[side]
+            lift = max(0, (py + 11) - (ft["bbox"][3] - 1))
+            legs_at[side] = (HIP_X[side], ankle, lift, KNEE_BEND if lift else 0)
+        c = bent2(far, *legs_at["far"])
+        b = np.roll(body, bob, axis=0)
+        m = b[..., 3] > 0
+        c[m] = b[m]
+        n = bent2(near, *legs_at["near"])
+        m = n[..., 3] > 0
+        c[m] = n[m]
+        out.append(c)
+    return out
+
+
 def place_run(strip, cells, frames):
     """Each rebuilt frame into its cell, the design's pivot on the cell's pivot."""
     cw, ch = cells["cell"]
@@ -255,8 +312,12 @@ def main():
     for tag in TAGS:
         big = np.array(Image.open(D.lp(os.path.join(CODEX, f"viktor_{tag}.png"))).convert("RGBA"))
         one = big[Z // 2::Z, Z // 2::Z].copy()
-        if tag == "run" and os.path.exists(RUN_SRC):
-            one = np.array(Image.open(D.lp(RUN_SRC)).convert("RGBA"))[Z // 2::Z, Z // 2::Z].copy()
+        if tag == "run" and os.path.exists(RUN_MANIFEST):
+            design = np.array(Image.open(D.lp(D.OUT)).convert("RGBA"))
+            with open(os.path.join(CODEX, "viktor_cells.json"), encoding="utf-8") as f:
+                cells = json.load(f)
+            with open(RUN_MANIFEST, encoding="utf-8") as f:
+                place_run(one, cells, run_frames_codex(design, json.load(f)))
         elif tag == "run":
             design = np.array(Image.open(D.lp(D.OUT)).convert("RGBA"))
             with open(os.path.join(CODEX, "viktor_cells.json"), encoding="utf-8") as f:
