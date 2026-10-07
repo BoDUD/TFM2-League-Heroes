@@ -527,6 +527,12 @@ holds). Some pack buffs omit it - set it explicitly. *(seen in the SDK simulatio
 a `WithShield` caster buff added right after her own `Shield {tick: 180}` was gone 180 ticks later
 when nobody hit her, and 89 ticks after the cast when enemies broke the shield first.)*
 
+**A `WithShield` picture outlives its own shield** *(player video, league_annie E, 2026-10-07)*: since the buff
+stays while any shield holds, league_annie's Molten Shield ring stayed on her 10 s and more in a game where her own
+shield lasts 3 s (another shield on her held it; in the simulation an extra 1200-tick shield kept the ring on for good).
+A buff that is only the picture of one shield gets a `Delayed {tick: <the shield's tick>}` `RemoveCasterBuff` after
+it (league_annie E). Not for a `WithShield` flag that asks "does a shield hold" on purpose (league_malphite's granite).
+
 **`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
 with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
