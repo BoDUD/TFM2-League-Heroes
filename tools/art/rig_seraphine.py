@@ -10,9 +10,9 @@ frames stacked two faces. The user: 「codex交付了 有问题的地方你灵�
 the design instead:
 - the body, the head, the legs and the stage: the design's own squares, every frame;
 - the far arm (image right, the gloved hand raised at her ear in the design): the forearm and the glove lifted off
-  (FAR_OFF) and drawn again per pose with rigkit.bone_arm from the shoulder under the white puffed sleeve, in the
-  design's materials (skin lit / mid / shade, the white glove's two steps at the hand), one outline ring, under the
-  body (the far arm);
+  (FAR_OFF) and drawn again per pose with rigkit.bone_arm from the shoulder under the white puffed sleeve, as the
+  design draws her arms: a short bit of skin (lit, pink-brown shade) and the long white glove from the elbow to the hand
+  (white, grey, lilac shade), one outline ring, under the body (the far arm);
 - the near arm (image left, hanging at the hip with its glove): as drawn (turned outward for W's song it read as a
   white stick across the hair; near_turned() kept for a later pose);
 - the back hair (the long pink mass on the image left): stretched backward row by row from where it leaves the body
@@ -61,6 +61,7 @@ def hx(h):
 OUTLINE = hx("#0D0222")
 SKIN = (hx("#FDDAB8"), hx("#FCCF8A"), hx("#F2B89A"))
 GLOVE = (hx("#FDFCFE"), hx("#EEE5E5"), hx("#CFCBE4"))
+ARM_SKIN = (hx("#FDDAB8"), hx("#FDDAB8"), hx("#F2B89A"))   # the design's skin lit and its pink-brown shade (no orange)
 HAIR_FILL = hx("#D31865")
 STAGE_TOP = 90                         # the stage's rows (to the bottom)
 STAGE_RIGHT = 78                       # lying on the deck, her boots end here (the stage reaches column 79)
@@ -153,7 +154,9 @@ def far_arm(dst, pose):
     hand = (sh[0] + dx, sh[1] + dy)
     elb, hand = K.elbow(sh, hand, FAR_UPPER, FAR_FORE, bend)
     layer = np.zeros_like(dst)
-    mats = {"upper": [(0, 1, SKIN)], "fore": [(0, 0.62, SKIN), (0.62, 1, GLOVE)]}
+    # as the design's own arms: a short bit of skin under the sleeve, then the long white glove from the elbow to the
+    # hand (「手和手臂感觉不太一样」: a skin-coloured forearm with an orange shade and a white tip read as another arm)
+    mats = {"upper": [(0, 0.55, ARM_SKIN), (0.55, 1, GLOVE)], "fore": [(0, 1, GLOVE)]}
     K.bone_arm(layer, sh, elb, hand, mats, width=(2.3, 2.3), outline=OUTLINE)
     return K.put(dst, layer, 0, 0, under=True)
 
