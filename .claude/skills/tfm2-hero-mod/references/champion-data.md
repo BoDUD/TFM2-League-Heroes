@@ -556,6 +556,17 @@ from the search, read in the same tick) and keep their effects in plain sight of
 29 deaths in 16 games (285 unguarded), the AI's throws unchanged, where the `Delayed`-projectile route cost a third of
 them.
 
+**In the game a dead caster's `Delayed` effects run, and fire projectiles** *(player video, league_riven R,
+2026-10-07)*: Riven died in a fight and 14 s later her Wind Slash, launched three times about a second apart from a
+cast's `Delayed {tick: 300..1470}` checks of `league_riven_r_slash_ready`, hit an enemy champion for 401 each while
+her respawn timer ran (「瑞雯死后放三次大招连放三次」). The SDK stops those `Delayed` effects at death and spawns no
+projectile from a dead caster, so no simulation showed it; and since her buffs froze when she died, the
+`RemoveCasterBuff` after each slash took nothing off, so every later check fired again. Every check now runs inside
+`RandomTarget {range: 1, casting_target: AllyOnlySelf}` (the search above that finds no dead caster): with her alive
+the slash rate and its hits are unchanged in the simulation (21 slashes in 62 R casts, 1.7 hits each, against 28 in
+70 and 1.7 before - different games past the first R). Any `Delayed` chain that deals damage, starts a projectile or
+reads a flag the cast set should be guarded the same way.
+
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
 respawned, until his next action added it again; so were league_teemo R's slot buffs. Item buffs and
