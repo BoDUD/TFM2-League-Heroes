@@ -45,6 +45,21 @@ and feet) stay, and the rows the move covers vanish inside the legs. Do not move
 over a still pelvis: the seam then sits at the waist and the belt slides over the hips (Lee
 Sin's first idle, fixed in `leesin_retouch.json`).
 
+**Idle and run are drawn animations, never the design repeated (user rule, 2026-10-08).** Players saw the pack's
+heroes in ban/pick 「清一色的不动 不然就是动两个像素点」: 73 idles were the design six times plus a 1-row bob at 1.2 s, 14
+of them fully still. Measured: oppi's idles are 5-7 hand-redrawn frames at ~100 ms (feet planted, the upper body
+sways and rises 1-3 rows, shoulders lift, weapon / hair / cape trail half a beat, glows turn); base idles 4 frames
+at 140-200 ms. So the action-strips pack (step 2) asks for idle and run as real animations:
+- the skeleton: oppi's own sprite of the same champion when it exists (LoL Reborn `champions/*.aseprite`, read
+  with `tfm2_ase.load_sprite`) as image 1 of a skin swap, the design as image 2; otherwise the design repeated in
+  the output grid plus an oppi idle (or run) of a similar body as a motion example, the pose staying the design's;
+- the idle: 5-7 different frames, a cycle of 1 s or less, the sway and rise at least 2 rows, the props lagging;
+- the run: the same, from oppi's run (arms pumping against the legs, the recovering leg bent, the body bobbing);
+- after the delivery: key, regrid on the drawing's grid, snap to the design's colours, paste the design's head on
+  every frame, and before showing check >= 5 distinct idle frames, >= 2 rows of motion, feet fixed, no loose
+  pieces or one-frame blinks, and look at it at the ban/pick card's size (`banpick_center`, 131 x 88).
+Never commit oppi's frames; keep only our prompt and design image in the hero's source folder.
+
 ## Canvas and anchoring
 
 - Base exported frames are cropped with odd sizes so the pivot pixel sits in the middle; the
