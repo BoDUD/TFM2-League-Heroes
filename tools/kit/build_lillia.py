@@ -31,7 +31,8 @@ complete alone with the closest data can do / R drowsy then asleep on dusted cha
           the window r_win wake it with r_wake + r_wake_ratio% AP more.
   combos  (「加」高手连招): E slow -> W on the sweet spot is the slot itself; R -> W: once they sleep (rw_wait after the
           fire), with w_cd off, the strike goes to a crowd-controlled champion in reach (asleep: the sweet spot and the
-          wake); R only after dust, armed as above.
+          wake); while R waits armed, skill2 throws E alone and keeps W for it; R only after dust, armed as
+          above.
 """
 import argparse
 import json
@@ -67,10 +68,10 @@ P = {
     "w_cd_t": 600, "w_anim": 40, "w_wind": 30, "w_r": 22000, "w_sweet": 4000, "w_sweet_x": 3, "w_dmg": 40,
     "w_ratio": 30,
     # ult: R Lilting Lullaby (League: drowsy 1.5 s (slowing), asleep 2 s, wake 50-350 + ?% AP, cd 150/130/110)
-    "r_cd": 3600, "r_slot": 80000, "r_reach": 70000, "r_arm": 600, "r_hold": 180, "r_anim": 30, "r_rel": 12,
-    "r_drowsy": 90, "r_slow": 40, "r_sleep": 120, "r_wake": 80, "r_wake_ratio": 40,
+    "r_cd": 4200, "r_slot": 80000, "r_reach": 70000, "r_arm": 600, "r_hold": 180, "r_anim": 30, "r_rel": 12,
+    "r_drowsy": 90, "r_slow": 40, "r_sleep": 90, "r_wake": 80, "r_wake_ratio": 40,
     # combos
-    "rw_wait": 10, "rw_t": 60,
+    "rw_wait": 10,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -245,8 +246,10 @@ def build(p):
         rel = p["r_rel"] if slot else 0
         win = p["r_drowsy"] + p["r_sleep"] + p["d_period"]
         lullaby = combine(refresh("r_go", p["d_period"]), refresh("r_win", win), cview("r_cast"), sfx("r_cast"))
-        # R -> W: once they sleep, her next attack swings into W instead (the attack is not copied every tick)
-        rw = delayed(rel + p["d_period"] // 2 + p["r_drowsy"] + p["rw_wait"], refresh("rw", p["rw_t"]))
+        # R -> W: once they sleep, the strike goes to a crowd-controlled champion in reach (its dust twin is not armed,
+        # so no R inside it)
+        rw = delayed(rel + p["d_period"] // 2 + p["r_drowsy"] + p["rw_wait"],
+                     alive(sw("w_cd", NONE, pick(p["e_range"], "EnemyChampionInCC", w_combo(False)))))
         out = [*rm("r_armed"), voice("vo_r", p), on_me(delayed(rel, alive(lullaby, prance)), rw)]
         if slot:
             out.append(anim("ult", p["r_anim"]))
@@ -314,7 +317,8 @@ def build(p):
 
     skill2 = action("skill2", p["e_anim"], p["e_cd"], 1, p["e_range"], "Targeting", p["s2_target"],
                     combine(voice("vo_e", p), delayed(p["e_rel"], e_seed(), on_me(prance)),
-                            delayed(p["e_anim"] - 1, sw("w_cd", NONE, w_combo()))))
+                            # armed R waiting: W is kept for the sleepers (R -> W)
+                            delayed(p["e_anim"] - 1, sw("w_cd", NONE, sw("r_armed", NONE, w_combo())))))
 
     # ------------------------------------------------------------------ ult
     arm = combine(refresh("r_armed", p["r_arm"]), refresh("r_wait", p["r_hold"]),
@@ -325,9 +329,7 @@ def build(p):
 
     # ------------------------------------------------------------------ attack: the branch swing
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy",
-                      combine(sw("rw", sw("w_cd", NONE, pick(p["e_range"], "EnemyChampionInCC",
-                                                              combine(*rm("rw"), w_combo(False))))),
-                              sfx("a_swing"), attack(0, 100), view("a_hit")), atype="BaseAttack", cancel=True)
+                      combine(sfx("a_swing"), attack(0, 100), view("a_hit")), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ views
     # a caster picture played after the action's first tick must not follow her (the red side's mirroring); the
