@@ -8,6 +8,9 @@ soles on row 99) and writes the design on the same 128x128 canvas. The user's no
 and 「清碎块、补描边 中间这个黑线也要处理」 - only these, nothing else redrawn:
   1. the staff: the shaft goes straight up its column (7 of the figure) and the hooked head sits on top of it (Codex
      drew the head beside the shaft, cols 0-5, and the shaft's top ran on into the mechanical arm's slant: a bent staff);
+  1b. the shaft's kink (the user: 「法杖这一段有点歪 可以顺便修复了」, the crop found by pixel search): Codex's shaft runs on
+     column 7 of the figure down to row 30 and on column 8 from row 31 to its foot (row 40); the lower piece (columns 6-9)
+     moves one column left onto column 7, the column it leaves takes the cape's colour beside it, else ink;
   2. the waist's black line: row 27 of the figure, between the gold chest plate and the gold belt, takes the colour
      below it (above it where that is ink too);
   3. crumbs: a near-black square inside the figure joining no line (at most one near-black 4-neighbour, all
@@ -50,6 +53,8 @@ HEAD = {
 }
 STAFF_X = 7
 OLD_HEAD = (slice(11, 22), slice(0, 6))  # Codex's head beside the shaft
+KINK_ROWS, KINK_COLS = range(31, 41), (6, 10)  # the shaft's lower piece, moved one column left
+CAPE = {hx(h) for h in ("#5A0A1E", "#95142E", "#C62A44")}
 WAIST_ROW, WAIST_COLS = 27, range(12, 21)
 FACE = (slice(7, 18), slice(16, 26))     # the mask and the eyes
 CLAW = (slice(0, 9), slice(0, 11))       # the mechanical arm's gold claw and its cyan core
@@ -81,6 +86,20 @@ def staff(c):
         put(c, r, STAFF_X, "O")
         if c[r, STAFF_X + 1, 3] == 0 or r < 18:
             put(c, r, STAFF_X + 1, "A")
+
+
+def kink(c):
+    a, b = KINK_COLS
+    for r in KINK_ROWS:
+        old = c[r].copy()
+        c[r, a - 1:b - 1] = old[a:b]
+        right = old[b]
+        if right[3] and tuple(int(v) for v in right[:3]) in CAPE:
+            c[r, b - 1] = right
+        elif right[3]:
+            put(c, r, b - 1, "A")
+        else:
+            c[r, b - 1] = 0
 
 
 def is_ink(p):
@@ -149,6 +168,7 @@ def build(crumbs=False):
     a = np.array(Image.open(lp(SRC)).convert("RGBA"))
     c = a[Y0:Y0 + H, X0:X0 + W].copy()
     staff(c)
+    kink(c)
     waist(c)
     # the user at v1 (lone() over every colour, then lone_ink): 「你这个改的不如之前一版本啊 色素清太多了」 - only the lone
     # near-black dots go, no colour square is touched
