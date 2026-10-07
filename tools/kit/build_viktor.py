@@ -60,7 +60,12 @@ ID = "league_viktor"
 FX = "asset/league/effects/league_viktor_fx"
 BIG = "asset/league/effects/league_viktor_big"
 
-# Numbers = the draft d0 (before the simulations).
+# Numbers = candidate c2 of the 10-min classic-SDK simulations (vk_sim/sim/kd.py --lane 2 against the five base mages,
+# three lineups, both sides, 2026-10-07): +1.44 on seeds 1-12, +1.31 on 13-36, +1.89 on 37-60 (league_xerath +0.62 in
+# that batch; c6 = c2 with R 90 + 45% and ticks 30 + 18% +1.44) - about +1.57 over 60 seeds. The draft d0 was +2.89 (league_brand
+# +1.01, league_xerath +1.51, league_ryze +1.63 in the same batch, seeds 1-24): E 60 + 50% -> 45 + 40%, the aftershock
+# 40 + 60% -> 30 + 45%, R 100 + 50% -> 80 + 40% and its ticks 35 + 20% -> 25 + 15%. E's cut alone (c1) +1.23 / +2.03;
+# c3 (c2 with Q 50 + 40% and a 1 s stun) +0.97, c4 (c3 with E 40 + 35%, hp 850) +0.68 on 12 seeds.
 P = {
     # stats (Magician base: attack 80 +6, magic power 40 +20, hp 900 +100, defence 20, mr 20, move 900, range 60000,
     # attack cooldown 90); League's Viktor: 525 range, 53 AD, 600 + 100 hp, 23 armour, 335 move speed.
@@ -83,11 +88,11 @@ P = {
     # -> E Hextech Ray (League: start within 550, ray 700, 30-270 + 50% AP, aftershock after 1 s -10..170 + 80% AP,
     # cd 12-8 s)
     "e_cd": 600, "e_range": 75000, "e_anim": 26, "e_rel": 10, "e_gap": 18, "e_len": 70000, "e_w": 9000,
-    "e_apply": 8, "e_fly": 1, "e_cos": 985, "e_dmg": 60, "e_ratio": 50, "e_after": 60, "e_after_dmg": 40, "e_after_ratio": 60,
+    "e_apply": 8, "e_fly": 1, "e_cos": 985, "e_dmg": 45, "e_ratio": 40, "e_after": 60, "e_after_dmg": 30, "e_after_ratio": 45,
     # ult: R Arcane Storm (League: 700 range, radius 325, 6.5 s, burst 100-400 + 50% AP, 65-265 + 35% AP a second,
     # follows the champions it hurt; upgraded: faster, grows and lasts 3 s more when one of them dies; cd 120-80 s)
     "r_cd": 4200, "r_slot": 70000, "r_reach": 60000, "r_arm": 600, "r_hold": 180, "r_poll": 10, "r_anim": 30, "r_rel": 12,
-    "r_fall": 6, "r_r": 30000, "r_r_evo": 38000, "r_dmg": 100, "r_ratio": 50, "r_tick": 35, "r_tick_ratio": 20,
+    "r_fall": 6, "r_r": 30000, "r_r_evo": 38000, "r_dmg": 80, "r_ratio": 40, "r_tick": 25, "r_tick_ratio": 15,
     "r_runs": 6, "r_jump_r": 45000, "r_jump_runs": 2, "r_jump_evo": 5, "r_jumps": 2,
     # combos
     "wq_wait": 4,

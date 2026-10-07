@@ -1,0 +1,96 @@
+[
+  {
+    "version": "A",
+    "height_rows": 40,
+    "width_columns": 30,
+    "bbox_1x": [
+      49,
+      60,
+      79,
+      100
+    ],
+    "feet_baseline_row": 99,
+    "colors": 29,
+    "alpha": [
+      0,
+      255
+    ],
+    "grid_px": 8,
+    "source_sample_spacing_px": 20,
+    "deleted_source_rows": [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      27,
+      33,
+      37,
+      44,
+      46
+    ],
+    "deleted_source_columns": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      18,
+      20,
+      23,
+      26
+    ]
+  },
+  {
+    "version": "B",
+    "height_rows": 42,
+    "width_columns": 30,
+    "bbox_1x": [
+      49,
+      58,
+      79,
+      100
+    ],
+    "feet_baseline_row": 99,
+    "colors": 29,
+    "alpha": [
+      0,
+      255
+    ],
+    "grid_px": 8,
+    "source_sample_spacing_px": 20,
+    "deleted_source_rows": [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      27,
+      33,
+      44
+    ],
+    "deleted_source_columns": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      18,
+      20,
+      23,
+      26
+    ]
+  }
+]
