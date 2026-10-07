@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.1,
+      "clip": "league_renekton_sfx_r_roar",
+      "volume": 0.55
+    }
+  ]
+}
