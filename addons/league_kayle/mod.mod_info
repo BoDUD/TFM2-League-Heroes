@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.76.1"
+    }
+  ],
+  "description": "Test build of Kayle's ascension kept through death (needs League of Legends Heroes): replaces the main pack's Kayle so the stages she has reached (levels 5, 8 and 12: her range, attack speed and the wings behind her) come back the moment death clears them, instead of at her first attack after respawning as the data pack must. New stages still come from the main pack (with their ceremony). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-08",
+  "mod_id": "league_kayle",
+  "mod_type": "native",
+  "name": "League Heroes: Kayle's ascension kept through death (test)",
+  "version": "0.1.0"
+}

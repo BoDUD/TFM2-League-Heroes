@@ -9990,5 +9990,9 @@
       "repeat": true,
       "z": -1
     }
-  ]
+  ],
+  "passive": {
+    "passive_ref": "league_kayle:ascend",
+    "params": {}
+  }
 }
