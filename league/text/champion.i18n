@@ -472,7 +472,7 @@
       },
       "league_brand": {
         "name": "布兰德",
-        "attack": "被动<#ff9028ff>炽热之焰<>：技能命中使敌人<#ff9028ff>烈焰焚身<>4秒，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<><#a974ffff>魔法伤害<>并损失最大生命值。技能命中英雄叠层，第3层时该英雄2秒后爆炸，对周围造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>4%最大生命值<>伤害。",
+        "attack": "被动<#ff9028ff>炽热之焰<>：技能命中使敌人<#ff9028ff>烈焰焚身<>4秒，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<><#a974ffff>魔法伤害<>。技能命中英雄叠层，第3层时该英雄2秒后爆炸，对周围造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>4%最大生命值<>伤害。",
         "skill": "短暂延迟后在目标处升起烈焰之柱，对范围内敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并点燃；有英雄在燃烧时伤害提高25%。",
         "skill2": "<#ff9028ff>烈火燃烧<>：点燃敌方英雄并蔓延到周围，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。随后<#ff9028ff>火焰烙印<>：火球命中首个敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并<#ef5350ff>晕眩0.83秒<>。命中英雄且烈焰之柱就绪时，再对他施放烈焰之柱。",
         "ult": "火种在敌人间弹射<#ffb900ff>5次<>，优先英雄，每次造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法伤害<>、点燃并<#ef5350ff>减速35%<>。目标附近没有其他敌人时不施放。"
@@ -1306,7 +1306,7 @@
       },
       "league_brand": {
         "name": "布蘭德",
-        "attack": "被動<#ff9028ff>烈炎鐵血<>：技能命中使敵人燃燒4秒，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<><#a974ffff>魔法傷害<>並損失最大生命值。技能命中英雄疊層，第3層時該英雄2秒後爆炸，對周圍造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>4%最大生命值<>傷害。",
+        "attack": "被動<#ff9028ff>烈炎鐵血<>：技能命中使敵人燃燒4秒，每秒受到<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<><#a974ffff>魔法傷害<>。技能命中英雄疊層，第3層時該英雄2秒後爆炸，對周圍造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>4%最大生命值<>傷害。",
         "skill": "短暫延遲後在目標處升起火柱，對範圍內敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並點燃；有英雄在燃燒時傷害提高25%。",
         "skill2": "<#ff9028ff>天火燎原<>：點燃敵方英雄並蔓延到周圍，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。隨後<#ff9028ff>火焰烙印<>：火球命中首個敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩0.83秒<>。命中英雄且煉獄風暴就緒時，再對他施放煉獄風暴。",
         "ult": "火種在敵人間彈射<#ffb900ff>5次<>，優先英雄，每次造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<><#a974ffff>魔法傷害<>、點燃並<#ef5350ff>緩速35%<>。目標附近沒有其他敵人時不施放。"
@@ -2140,7 +2140,7 @@
       },
       "league_brand": {
         "name": "Brand",
-        "attack": "Passive <#ff9028ff>Blaze<>: his spells set enemies ablaze for 4s, dealing <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<> a second plus a share of max health. Spell hits on champions stack; at 3 stacks that champion detonates 2s later for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <#f5f5f5ff>4% max health<> damage round it.",
+        "attack": "Passive <#ff9028ff>Blaze<>: his spells set enemies ablaze for 4s, dealing <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<> <#a974ffff>magic damage<> a second. Spell hits on champions stack; at 3 stacks that champion detonates 2s later for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <#f5f5f5ff>4% max health<> damage round it.",
         "skill": "After a short delay a pillar of flame rises at the target, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<> to enemies in it and setting them ablaze; 25% more while a champion burns.",
         "skill2": "<#ff9028ff>Conflagration<>: sets an enemy champion ablaze, spreading to those around it, for <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>. Then <#ff9028ff>Sear<>: a fireball hits the first enemy for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<>, <#ef5350ff>stunning 0.83s<>. On a champion with Pillar of Flame ready, the pillar follows on him.",
         "ult": "A fireball bounces <#ffb900ff>5 times<> among enemies, champions first, each dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<>, setting ablaze and <#ef5350ff>slowing 35%<>. Not cast on a target with no other enemy near."
@@ -2974,7 +2974,7 @@
       },
       "league_brand": {
         "name": "브랜드",
-        "attack": "기본 지속 효과 <#ff9028ff>불길<>: 스킬 적중 시 4초간 불태워 초당 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>의 <#a974ffff>마법 피해<>와 최대 체력 비례 피해. 챔피언 적중 시 중첩, 3중첩 시 그 챔피언이 2초 후 폭발해 주변에 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <#f5f5f5ff>최대 체력의 4%<> 피해.",
+        "attack": "기본 지속 효과 <#ff9028ff>불길<>: 스킬 적중 시 4초간 불태워 초당 <#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>의 <#a974ffff>마법 피해<>. 챔피언 적중 시 중첩, 3중첩 시 그 챔피언이 2초 후 폭발해 주변에 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + <#f5f5f5ff>최대 체력의 4%<> 피해.",
         "skill": "잠시 후 대상 위치에 화염 기둥이 솟아 범위 내 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>의 <#a974ffff>마법 피해<>를 주고 불태움. 불타는 챔피언이 있으면 피해 25% 증가.",
         "skill2": "<#ff9028ff>발화<>: 적 챔피언을 불태우고 주변으로 번지며 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>. 이어서 <#ff9028ff>불태우기<>: 화염구가 처음 맞은 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>0.83초 기절<>. 챔피언 적중 시 화염 기둥이 준비되어 있으면 그에게 이어서 시전.",
         "ult": "화염구가 적 사이를 <#ffb900ff>5번<> 튕기며(챔피언 우선) 각각 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>의 <#a974ffff>마법 피해<>, 불태우고 <#ef5350ff>35% 둔화<>. 대상 주변에 다른 적이 없으면 시전하지 않음."
@@ -3808,7 +3808,7 @@
       },
       "league_brand": {
         "name": "ブランド",
-        "attack": "パッシブ <#ff9028ff>炎上<>：スキル命中で4秒間炎上させ毎秒<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>と最大体力割合ダメージ。チャンピオンへの命中でスタック、3スタックでそのチャンピオンが2秒後に爆発し周囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>最大体力の4%<>のダメージ。",
+        "attack": "パッシブ <#ff9028ff>炎上<>：スキル命中で4秒間炎上させ毎秒<#a974ffff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>。チャンピオンへの命中でスタック、3スタックでそのチャンピオンが2秒後に爆発し周囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+<#f5f5f5ff>最大体力の4%<>のダメージ。",
         "skill": "少し後に対象地点に烈火の柱が立ち、範囲内の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>を与え炎上させる。燃えているチャンピオンがいるとダメージ25%増加。",
         "skill2": "<#ff9028ff>焼灼<>：敵チャンピオンを炎上させ周囲に燃え広がり<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>。続けて<#ff9028ff>焦炎<>：火球が最初の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.83秒スタン<>。チャンピオンに命中し烈火の柱が使えれば続けて彼に放つ。",
         "ult": "火球が敵の間を<#ffb900ff>5回<>跳ね（チャンピオン優先）、各<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の<#a974ffff>魔法ダメージ<>、炎上と<#ef5350ff>35%スロウ<>。対象の近くに他の敵がいなければ使わない。"

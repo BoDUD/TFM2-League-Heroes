@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_brand in every language, description + skill_name),
 sound/sfx/league_brand_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and the
-ban/pick card's point once the sprite is in), mod.mod_info (0.70.0, Brand named). Only his keys change in the shared
+ban/pick card's point once the sprite is in), mod.mod_info (0.71.1, Brand named). Only his keys change in the shared
 files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: the client's zh_CN string table (布兰德 / 复仇焰魂, 炽热之焰 - its burn 烈焰焚身 -, 火焰烙印, 烈焰之柱, 烈火燃烧,
 烈焰风暴) and Data Dragon 16.19.1 (zh_TW 布蘭德 / 復仇業火, 烈炎鐵血, 火焰烙印, 煉獄風暴, 天火燎原, 末日熔岩; ko 브랜드 /
@@ -26,7 +26,7 @@ from build_brand import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_brand"
-VERSION = "0.70.0"
+VERSION = "0.71.1"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage
@@ -47,7 +47,7 @@ TEXT = {
     "zh-hans": {
         "name": "布兰德",
         "attack": "被动" + O + "炽热之焰" + E + "：技能命中使敌人" + O + "烈焰焚身" + E + "{p_t}秒，每秒受到" + mag("p_burn", "p_burn_ap") + M +
-                  "魔法伤害" + E + "并损失最大生命值。技能命中英雄叠层，第3层时该英雄{p_wait}秒后爆炸，对周围造成" +
+                  "魔法伤害" + E + "。技能命中英雄叠层，第3层时该英雄{p_wait}秒后爆炸，对周围造成" +
                   mag("p_det", "p_det_ap") + "+" + W + "{p_det_hp}%最大生命值" + E + "伤害。",
         "skill": "短暂延迟后在目标处升起烈焰之柱，对范围内敌人造成" + mag("w_dmg", "w_ap") + M + "魔法伤害" + E +
                  "并点燃；有英雄在燃烧时伤害提高{w_bonus}%。",
@@ -61,7 +61,7 @@ TEXT = {
     "zh-hant": {
         "name": "布蘭德",
         "attack": "被動" + O + "烈炎鐵血" + E + "：技能命中使敵人燃燒{p_t}秒，每秒受到" + mag("p_burn", "p_burn_ap") + M + "魔法傷害" + E +
-                  "並損失最大生命值。技能命中英雄疊層，第3層時該英雄{p_wait}秒後爆炸，對周圍造成" + mag("p_det", "p_det_ap") +
+                  "。技能命中英雄疊層，第3層時該英雄{p_wait}秒後爆炸，對周圍造成" + mag("p_det", "p_det_ap") +
                   "+" + W + "{p_det_hp}%最大生命值" + E + "傷害。",
         "skill": "短暫延遲後在目標處升起火柱，對範圍內敵人造成" + mag("w_dmg", "w_ap") + M + "魔法傷害" + E +
                  "並點燃；有英雄在燃燒時傷害提高{w_bonus}%。",
@@ -75,7 +75,7 @@ TEXT = {
     "en": {
         "name": "Brand",
         "attack": "Passive " + O + "Blaze" + E + ": his spells set enemies ablaze for {p_t}s, dealing " + mag("p_burn", "p_burn_ap") + " " +
-                  M + "magic damage" + E + " a second plus a share of max health. Spell hits on champions stack; at 3 stacks that "
+                  M + "magic damage" + E + " a second. Spell hits on champions stack; at 3 stacks that "
                   "champion detonates {p_wait}s later for " + mag("p_det", "p_det_ap") + " + " + W + "{p_det_hp}% max health" + E +
                   " damage round it.",
         "skill": "After a short delay a pillar of flame rises at the target, dealing " + mag("w_dmg", "w_ap") + " " + M +
@@ -92,7 +92,7 @@ TEXT = {
     "ko": {
         "name": "브랜드",
         "attack": "기본 지속 효과 " + O + "불길" + E + ": 스킬 적중 시 {p_t}초간 불태워 초당 " + mag("p_burn", "p_burn_ap") + "의 " + M +
-                  "마법 피해" + E + "와 최대 체력 비례 피해. 챔피언 적중 시 중첩, 3중첩 시 그 챔피언이 {p_wait}초 후 폭발해 주변에 " +
+                  "마법 피해" + E + ". 챔피언 적중 시 중첩, 3중첩 시 그 챔피언이 {p_wait}초 후 폭발해 주변에 " +
                   mag("p_det", "p_det_ap") + " + " + W + "최대 체력의 {p_det_hp}%" + E + " 피해.",
         "skill": "잠시 후 대상 위치에 화염 기둥이 솟아 범위 내 적에게 " + mag("w_dmg", "w_ap") + "의 " + M + "마법 피해" + E +
                  "를 주고 불태움. 불타는 챔피언이 있으면 피해 {w_bonus}% 증가.",
@@ -106,7 +106,7 @@ TEXT = {
     "ja": {
         "name": "ブランド",
         "attack": "パッシブ " + O + "炎上" + E + "：スキル命中で{p_t}秒間炎上させ毎秒" + mag("p_burn", "p_burn_ap") + "の" + M + "魔法ダメージ" +
-                  E + "と最大体力割合ダメージ。チャンピオンへの命中でスタック、3スタックでそのチャンピオンが{p_wait}秒後に爆発し周囲に" +
+                  E + "。チャンピオンへの命中でスタック、3スタックでそのチャンピオンが{p_wait}秒後に爆発し周囲に" +
                   mag("p_det", "p_det_ap") + "+" + W + "最大体力の{p_det_hp}%" + E + "のダメージ。",
         "skill": "少し後に対象地点に烈火の柱が立ち、範囲内の敵に" + mag("w_dmg", "w_ap") + "の" + M + "魔法ダメージ" + E +
                  "を与え炎上させる。燃えているチャンピオンがいるとダメージ{w_bonus}%増加。",
