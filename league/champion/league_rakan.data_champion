@@ -5073,152 +5073,160 @@
           "tick": 60,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 180
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 180
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 180
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 180
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 180
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 180
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -5229,152 +5237,160 @@
           "tick": 80,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 160
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 160
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 160
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 160
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 160
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 160
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -5385,152 +5401,160 @@
           "tick": 100,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 140
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 140
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 140
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 140
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 140
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 140
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -5541,152 +5565,160 @@
           "tick": 120,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 120
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 120
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 120
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 120
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 120
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 120
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -5697,152 +5729,160 @@
           "tick": 140,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 100
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 100
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 100
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 100
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 100
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 100
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -5853,152 +5893,160 @@
           "tick": 160,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 80
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 80
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 80
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 80
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 80
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 80
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -6009,152 +6057,160 @@
           "tick": 180,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 60
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 60
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 60
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 60
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 60
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 60
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -6165,152 +6221,160 @@
           "tick": 200,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 40
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 40
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 40
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 40
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 40
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 40
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
@@ -6321,152 +6385,160 @@
           "tick": 220,
           "effects": [
             {
-              "type": "Combine",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_rakan_r_got"
-                },
-                {
-                  "type": "RandomTarget",
-                  "range": 25000,
-                  "casting_target": "EnemyChampion",
-                  "from_projectile": false,
+                  "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_rakan_r_got",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_rakan_r_got"
                     },
                     {
-                      "type": "Combine",
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
                       "effects": [
                         {
-                          "type": "CasterAnimation",
-                          "name": "ult",
-                          "tick": 20
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_r_got",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_rakan_r_fast",
-                          "effect_buff": {
-                            "type": "RushMoveToBack",
-                            "speed": 2600,
-                            "applied_effects": []
-                          },
-                          "effect_none": {
-                            "type": "RushMoveToBack",
-                            "speed": 1800,
-                            "applied_effects": []
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_rakan_r_got",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RandomTarget",
-                        "range": 50000,
-                        "casting_target": "EnemyChampion",
-                        "from_projectile": false,
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_rakan_r_got",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "CasterAnimation",
-                                "name": "ult",
-                                "tick": 20
-                              },
-                              {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_rakan_r_fast",
-                                "effect_buff": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 2600,
-                                  "applied_effects": []
-                                },
-                                "effect_none": {
-                                  "type": "RushMoveToBack",
-                                  "speed": 1800,
-                                  "applied_effects": []
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_rakan_r_got",
-                        "effect_buff": {
                           "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "RandomTarget",
-                          "range": 50000,
-                          "casting_target": "EnemyWithoutTower",
-                          "from_projectile": false,
                           "effects": [
                             {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "ult",
-                                  "tick": 20
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_rakan_r_fast",
-                                  "effect_buff": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 2600,
-                                    "applied_effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "RushMoveToBack",
-                                    "speed": 1800,
-                                    "applied_effects": []
-                                  }
-                                }
-                              ]
+                              "type": "CasterAnimation",
+                              "name": "ult",
+                              "tick": 20
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_rakan_r_fast",
+                              "effect_buff": {
+                                "type": "RushMoveToBack",
+                                "speed": 2600,
+                                "applied_effects": []
+                              },
+                              "effect_none": {
+                                "type": "RushMoveToBack",
+                                "speed": 1800,
+                                "applied_effects": []
+                              }
                             }
                           ]
                         }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rakan_r_got",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 50000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_rakan_r_got",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 20
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_rakan_r_fast",
+                                    "effect_buff": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 2600,
+                                      "applied_effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RushMoveToBack",
+                                      "speed": 1800,
+                                      "applied_effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_rakan_r_got",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 50000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 20
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_r_fast",
+                                      "effect_buff": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 2600,
+                                        "applied_effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RushMoveToBack",
+                                        "speed": 1800,
+                                        "applied_effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               ]
             }
