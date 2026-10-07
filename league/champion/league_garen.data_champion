@@ -257,6 +257,10 @@
           "tick": 0,
           "effects": [
             {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
+            {
               "type": "Combine",
               "effects": [
                 {
@@ -384,11 +388,6 @@
             {
               "type": "CasterAnimation",
               "name": "spin",
-              "tick": 27
-            },
-            {
-              "type": "CasterAnimation",
-              "name": "spin_fx1",
               "tick": 27
             },
             {
@@ -419,6 +418,10 @@
           "tick": 26,
           "effects": [
             {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
+            {
               "type": "Combine",
               "effects": [
                 {
@@ -549,11 +552,6 @@
               "tick": 26
             },
             {
-              "type": "CasterAnimation",
-              "name": "spin_fx2",
-              "tick": 26
-            },
-            {
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
@@ -576,6 +574,10 @@
           "type": "Delayed",
           "tick": 51,
           "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
             {
               "type": "Combine",
               "effects": [
@@ -704,11 +706,6 @@
             {
               "type": "CasterAnimation",
               "name": "spin",
-              "tick": 27
-            },
-            {
-              "type": "CasterAnimation",
-              "name": "spin_fx1",
               "tick": 27
             },
             {
@@ -739,6 +736,10 @@
           "tick": 77,
           "effects": [
             {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
+            {
               "type": "Combine",
               "effects": [
                 {
@@ -866,11 +867,6 @@
             {
               "type": "CasterAnimation",
               "name": "spin",
-              "tick": 27
-            },
-            {
-              "type": "CasterAnimation",
-              "name": "spin_fx1",
               "tick": 27
             },
             {
@@ -897,6 +893,10 @@
           "tick": 103,
           "effects": [
             {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
+            {
               "type": "Combine",
               "effects": [
                 {
@@ -1024,11 +1024,6 @@
             {
               "type": "CasterAnimation",
               "name": "spin",
-              "tick": 27
-            },
-            {
-              "type": "CasterAnimation",
-              "name": "spin_fx1",
               "tick": 27
             },
             {
@@ -1058,6 +1053,10 @@
           "type": "Delayed",
           "tick": 129,
           "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
             {
               "type": "Combine",
               "effects": [
@@ -1189,11 +1188,6 @@
               "tick": 26
             },
             {
-              "type": "CasterAnimation",
-              "name": "spin_fx2",
-              "tick": 26
-            },
-            {
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
@@ -1216,6 +1210,10 @@
           "type": "Delayed",
           "tick": 154,
           "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
             {
               "type": "Combine",
               "effects": [
@@ -1344,11 +1342,6 @@
             {
               "type": "CasterAnimation",
               "name": "spin",
-              "tick": 27
-            },
-            {
-              "type": "CasterAnimation",
-              "name": "spin_fx1",
               "tick": 27
             },
             {
@@ -1452,6 +1445,14 @@
       "name": "league_garen_r_sword",
       "anim": "asset/league/effects/league_garen_r",
       "tag": "impact",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_garen_spin",
+      "anim": "asset/league/effects/league_garen_sym",
+      "tag": "spin",
       "z": 1,
       "is_follow": true
     },
