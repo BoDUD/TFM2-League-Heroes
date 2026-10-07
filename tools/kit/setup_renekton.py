@@ -35,8 +35,9 @@ O = "<#ff9028ff>"      # names, physical
 A = "<#ffb900ff>"      # durations, counts
 R_ = "<#ef5350ff>"     # crowd control
 E = "<>"
-# champion_view: placeholder until the sprite is in (setup --face / --banpick then)
-VIEW = {"face": {"x": 4, "y": -24}, "center": {"x": 0, "y": -12}}
+# champion_view: the face on his eye and snout (the helmet's top 29 over the pivot, the eye 19 over and 14 ahead; tfm2_ase.py
+# face suggests the helmet's crown); the idle's top is 29 over the pivot, so banpick_center -10 (= -39 + 29)
+VIEW = {"face": {"x": 12, "y": -24}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phy(d, r):
