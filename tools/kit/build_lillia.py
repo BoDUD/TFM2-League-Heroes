@@ -56,6 +56,9 @@ P = {
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 60, "a_st": 12,
     # passive: Dream Dust (League: 5% max HP magic over 3 s in 6 ticks, heal 25% of it on monsters, 100%? champions)
     "d_t": 181, "d_period": 45, "d_dmg": 4, "d_ratio": 3, "d_hp": 1, "d_heal": 12, "d_heal_ratio": 8,
+    # the add-on (addons/league_lillia): + d_ap_bp / 10000 of maximum health per 100 AP each run (League +1.5% per 100
+    # AP over the dust's 6 runs -> 0.3% a run of 5), the sleep n_sleep (League's 2 s: there any damage wakes them)
+    "d_ap_bp": 30, "n_sleep": 120,
     # Prance (League: 1-7% x4 for 6.5 s)
     "pr_t": 390, "pr_ms": 5,
     # skill: Q Blooming Blows (League: radius 485, inner 225, 35-85 + 35% AP magic, the same as true on the edge, cd 6-4)
@@ -213,7 +216,10 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p):
+def build(p, native=False):
+    """The kit; native=True is the add-on's copy (addons/league_lillia): the champion dust is a buff league_lillia_dust
+    the add-on's passive league_lillia:dream reads (% max-health magic, R's drowsy and the sleep that breaks on damage
+    with the wake damage), so the data's true part, R's listener and the wake twins go."""
     prs = ["p1", "p2", "p3", "p4"]
 
     # ------------------------------------------------------------------ Prance: one rung at a time, read from the top
@@ -234,7 +240,7 @@ def build(p):
     # the champion dust's run: its true part, and R's flag (only from a living Lillia: a dead caster's flags freeze)
     lull = combine(alive(refresh("lives", 1)), sw("lives", combine(*rm("lives"), sw("r_go", sleep()))))
     dust_all = casted(p["d_t"], p["d_period"], magic(p["d_dmg"], p["d_ratio"]))
-    dust_champ_run = casted(p["d_t"], p["d_period"], true_hp(p["d_hp"]), lull)
+    dust_champ_run = buff("dust", p["d_t"]) if native else casted(p["d_t"], p["d_period"], true_hp(p["d_hp"]), lull)
 
     # ------------------------------------------------------------------ R Lilting Lullaby
     def count():
@@ -269,6 +275,10 @@ def build(p):
     def wake():
         return sw("r_win", combine(magic(p["r_wake"], p["r_wake_ratio"]), view("wake"), tsfx("wake")))
 
+    def wakes(*effects):
+        """The data's wake twins (the add-on wakes sleepers on any damage itself)."""
+        return [] if native else list(effects)
+
     # ------------------------------------------------------------------ Q Blooming Blows
     def q_spin():
         edge = [magic(p["q_dmg"], p["q_ratio"])]  # no picture: it would also play on the inside
@@ -277,7 +287,7 @@ def build(p):
             # the dust a tick later: its first run would come this tick, under the inside's damaged_reduce
             around(p["q_r"], "EnemyWithoutTower", [magic(p["q_dmg"], p["q_ratio"]), delayed(1, dust_all), view("q_hit")]),
             around(p["q_r"], "EnemyChampion", [delayed(1, dust_champ_run)] + dust_champ()[1:]),
-            around(p["q_r"], "EnemyChampionInCC", [wake()]),
+            *wakes(around(p["q_r"], "EnemyChampionInCC", [wake()])),
             # the edge: the inside shrugs it off for this tick, the rest takes it through full magic penetration
             around(p["q_in"], "EnemyWithoutTower", [buff("q_in", 1, damaged_reduce=99)]),
             refresh("q_pen", 1, magic_resistance_penetration=100),
@@ -293,7 +303,7 @@ def build(p):
                 mark="w_mark"),
             lob("w_sweet_lob", p["w_wind"], p["w_sweet"], "EnemyWithoutTower", sweet, end=[]),
             lob("w_champ", p["w_wind"], p["w_r"], "EnemyChampion", dust_champ(False)),
-            lob("w_wake", p["w_wind"], p["w_r"], "EnemyChampionInCC", [wake()]))
+            *wakes(lob("w_wake", p["w_wind"], p["w_r"], "EnemyChampionInCC", [wake()])))
 
     def w_combo(armed=True):
         """W alone (the slot after E, and R -> W): the windup, the strike aimed now where the target stands."""
@@ -347,7 +357,7 @@ def build(p):
                E("w_mark", BIG, -2, follow=False), E("w_land", BIG, -1, follow=False), E("w_hit"), E("w_sweet"),
                E("r_cast", BIG, 3, **LATE), E("wake")]
     views_b = [B_(x, FX, -1, tag="prance") for x in prs] + [B_("drowsy", FX, 3), B_("sleep", FX, 3), B_("e_slow", FX, -1)]
-    return {
+    kit = {
         "id": ID, "category": "Melee", "tags": ["AP", "Magic", "Melee", "CC", "Heal", "Dot"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2",
@@ -360,6 +370,17 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if native:
+        kit["passive"] = {"passive_ref": "league_lillia:dream", "params": native_params(p)}
+    return kit
+
+
+def native_params(p):
+    """The add-on passive's numbers (non-negative integers): the dust per run as basis points of maximum health (the
+    data's d_hp% true, now magic) plus d_ap_bp per 100 AP, R's drowsy, slow and sleep (N_SLEEP: League's 2 s, since
+    any damage ends it) and the wake damage."""
+    return {"d_period": p["d_period"], "d_hp_bp": p["d_hp"] * 100, "d_ap_bp": p["d_ap_bp"], "r_drowsy": p["r_drowsy"],
+            "r_slow": p["r_slow"], "r_sleep": p["n_sleep"], "r_wake": p["r_wake"], "r_wake_ratio": p["r_wake_ratio"]}
 
 
 def nodes(o):
