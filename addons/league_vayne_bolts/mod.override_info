@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_vayne": {
+    "remapping": "asset/league_vayne_bolts/override/league_vayne",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_vayne_bolts/text/champion",
+    "type": "merge"
+  }
+}

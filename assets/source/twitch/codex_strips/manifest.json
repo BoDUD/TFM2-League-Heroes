@@ -1,0 +1,1857 @@
+{
+  "schema_version": 1,
+  "cell": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "soles_row": 81,
+  "coordinate_units": "1x grid cells; rect_px is 8x atlas pixels",
+  "approved_design_sha256": "da011c44daaef1c60eea29f7d886e08b353c08e8f7e76789bf8fdb988f311bf3",
+  "tags": {
+    "idle": {
+      "file": "twitch_idle.png",
+      "size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "provided_idle"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "provided_idle"
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "provided_idle"
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "provided_idle"
+        },
+        {
+          "index": 5,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "provided_idle"
+        },
+        {
+          "index": 6,
+          "rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "provided_idle"
+        }
+      ],
+      "source_grid": null
+    },
+    "run": {
+      "file": "twitch_run.png",
+      "size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            38,
+            44,
+            82,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            53,
+            48
+          ],
+          "opaque_pixels": 954,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              63,
+              79
+            ],
+            "far_foot": [
+              58,
+              80
+            ],
+            "near_lift": 0,
+            "far_lift": 0,
+            "head_relative_x": -5,
+            "bob": 0
+          }
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            37,
+            44,
+            81,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            52,
+            48
+          ],
+          "opaque_pixels": 932,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              60,
+              79
+            ],
+            "far_foot": [
+              59,
+              80
+            ],
+            "near_lift": 0,
+            "far_lift": 0,
+            "head_relative_x": -5,
+            "bob": 0
+          }
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            37,
+            43,
+            81,
+            81
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            52,
+            47
+          ],
+          "opaque_pixels": 911,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              58,
+              76
+            ],
+            "far_foot": [
+              61,
+              79
+            ],
+            "near_lift": 2,
+            "far_lift": 0,
+            "head_relative_x": -5,
+            "bob": -1
+          }
+        },
+        {
+          "index": 4,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            37,
+            43,
+            81,
+            81
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            52,
+            47
+          ],
+          "opaque_pixels": 937,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              53,
+              76
+            ],
+            "far_foot": [
+              66,
+              79
+            ],
+            "near_lift": 2,
+            "far_lift": 0,
+            "head_relative_x": -5,
+            "bob": -1
+          }
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            56,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            36,
+            44,
+            80,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            51,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              49,
+              79
+            ],
+            "far_foot": [
+              68,
+              80
+            ],
+            "near_lift": 0,
+            "far_lift": 0,
+            "head_relative_x": -5,
+            "bob": 0
+          }
+        },
+        {
+          "index": 6,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            37,
+            44,
+            81,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            52,
+            48
+          ],
+          "opaque_pixels": 955,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              52,
+              79
+            ],
+            "far_foot": [
+              67,
+              80
+            ],
+            "near_lift": 0,
+            "far_lift": 0,
+            "head_relative_x": -5,
+            "bob": 0
+          }
+        },
+        {
+          "index": 7,
+          "rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            38,
+            43,
+            82,
+            81
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            53,
+            47
+          ],
+          "opaque_pixels": 913,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              59,
+              78
+            ],
+            "far_foot": [
+              62,
+              77
+            ],
+            "near_lift": 0,
+            "far_lift": 2,
+            "head_relative_x": -5,
+            "bob": -1
+          }
+        },
+        {
+          "index": 8,
+          "rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            39,
+            43,
+            83,
+            81
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            54,
+            47
+          ],
+          "opaque_pixels": 917,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "stride": {
+            "near_foot": [
+              62,
+              78
+            ],
+            "far_foot": [
+              61,
+              77
+            ],
+            "near_lift": 0,
+            "far_lift": 2,
+            "head_relative_x": -5,
+            "bob": -1
+          }
+        }
+      ],
+      "source_grid": {
+        "period_x": 5.329999999999961,
+        "period_y": 5.239999999999963,
+        "phase_x": 4.670056017771763,
+        "phase_y": 1.0119799241158314,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    },
+    "attack": {
+      "file": "twitch_attack.png",
+      "size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 60,
+          "bbox": [
+            41,
+            44,
+            86,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            56,
+            48
+          ],
+          "opaque_pixels": 968,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            38,
+            44,
+            81,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            53,
+            48
+          ],
+          "opaque_pixels": 948,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "release": {
+            "tick": 7,
+            "bow_tip": [
+              78,
+              70
+            ],
+            "near_hand": [
+              56,
+              65
+            ],
+            "far_hand": [
+              70,
+              69
+            ],
+            "hand_empty": false
+          }
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 965,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 5,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            41,
+            44,
+            85,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            56,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        }
+      ],
+      "source_grid": {
+        "period_x": 6.369999999999939,
+        "period_y": 5.309999999999961,
+        "phase_x": 2.1641394640434246,
+        "phase_y": 5.281157936056822,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    },
+    "skill": {
+      "file": "twitch_skill.png",
+      "size": [
+        3072,
+        768
+      ],
+      "grid": [
+        3,
+        1
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            41,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            56,
+            48
+          ],
+          "opaque_pixels": 969,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            44,
+            83,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 962,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "release": {
+            "tick": 6,
+            "bow_tip": [
+              80,
+              72
+            ],
+            "near_hand": [
+              58,
+              67
+            ],
+            "far_hand": [
+              72,
+              71
+            ],
+            "hand_empty": false
+          }
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            43,
+            44,
+            87,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            58,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        }
+      ],
+      "source_grid": {
+        "period_x": 6.0099999999999465,
+        "period_y": 5.309999999999961,
+        "phase_x": 5.197163254089273,
+        "phase_y": 0.9804624341219325,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    },
+    "skill2": {
+      "file": "twitch_skill2.png",
+      "size": [
+        4096,
+        768
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "ms": 70,
+          "bbox": [
+            44,
+            44,
+            88,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            59,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            44,
+            44,
+            88,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            59,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "release": {
+            "tick": 9,
+            "bow_tip": [
+              86,
+              72
+            ],
+            "near_hand": [
+              67,
+              66
+            ],
+            "far_hand": [
+              78,
+              71
+            ],
+            "hand_empty": true
+          }
+        },
+        {
+          "index": 4,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            41,
+            44,
+            85,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            56,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        }
+      ],
+      "source_grid": {
+        "period_x": 7.339999999999918,
+        "period_y": 6.78999999999993,
+        "phase_x": 6.7480215032651865,
+        "phase_y": 0.635862965946209,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    },
+    "skill2_e": {
+      "file": "twitch_skill2_e.png",
+      "size": [
+        3072,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            43,
+            44,
+            87,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            58,
+            48
+          ],
+          "opaque_pixels": 965,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            44,
+            44,
+            88,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            59,
+            48
+          ],
+          "opaque_pixels": 960,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            39,
+            41,
+            84,
+            79
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            54,
+            45
+          ],
+          "opaque_pixels": 968,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "release": {
+            "tick": 10,
+            "bow_tip": [
+              82,
+              68
+            ],
+            "near_hand": [
+              49,
+              50
+            ],
+            "far_hand": [
+              74,
+              67
+            ],
+            "hand_empty": false
+          }
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            41,
+            44,
+            85,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            56,
+            48
+          ],
+          "opaque_pixels": 965,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 5,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "ms": 80,
+          "bbox": [
+            41,
+            44,
+            85,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            56,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        }
+      ],
+      "source_grid": {
+        "period_x": 5.3999999999999595,
+        "period_y": 5.339999999999961,
+        "phase_x": 3.25246860086276,
+        "phase_y": 4.099776603166771,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    },
+    "ult": {
+      "file": "twitch_ult.png",
+      "size": [
+        3072,
+        768
+      ],
+      "grid": [
+        3,
+        1
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            39,
+            44,
+            83,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            54,
+            48
+          ],
+          "opaque_pixels": 957,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            44,
+            92,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 972,
+          "source": "approved_design_rigid_parts_after_generated_pose_review",
+          "release": {
+            "tick": 6,
+            "bow_tip": [
+              90,
+              66
+            ],
+            "near_hand": [
+              50,
+              53
+            ],
+            "far_hand": [
+              82,
+              65
+            ],
+            "hand_empty": false
+          }
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 965,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        }
+      ],
+      "source_grid": {
+        "period_x": 8.039999999999903,
+        "period_y": 7.969999999999905,
+        "phase_x": 6.777995338373798,
+        "phase_y": 3.5412124655239743,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    },
+    "hit": {
+      "file": "twitch_hit.png",
+      "size": [
+        2048,
+        768
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            38,
+            44,
+            82,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            53,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            40,
+            44,
+            84,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            55,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        }
+      ],
+      "source_grid": {
+        "period_x": 5.2599999999999625,
+        "period_y": 5.2599999999999625,
+        "phase_x": 2.971299871199242,
+        "phase_y": 3.860402384469838,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    },
+    "dead": {
+      "file": "twitch_dead.png",
+      "size": [
+        4096,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "ms": 100,
+          "bbox": [
+            42,
+            44,
+            86,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            57,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 2,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 110,
+          "bbox": [
+            29,
+            44,
+            73,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 0,
+          "head_bbox_origin": [
+            44,
+            48
+          ],
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 3,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            39,
+            70
+          ],
+          "ms": 120,
+          "bbox": [
+            15,
+            39,
+            58,
+            82
+          ],
+          "head_exact": false,
+          "head_rotation": 45,
+          "head_bbox_origin": null,
+          "opaque_pixels": 975,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 4,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            36,
+            70
+          ],
+          "ms": 130,
+          "bbox": [
+            10,
+            38,
+            48,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 90,
+          "head_bbox_origin": null,
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "ms": 150,
+          "bbox": [
+            12,
+            38,
+            50,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 90,
+          "head_bbox_origin": null,
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 6,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "ms": 200,
+          "bbox": [
+            12,
+            38,
+            50,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 90,
+          "head_bbox_origin": null,
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 7,
+          "rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "ms": 300,
+          "bbox": [
+            12,
+            38,
+            50,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 90,
+          "head_bbox_origin": null,
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        },
+        {
+          "index": 8,
+          "rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            38,
+            70
+          ],
+          "ms": 400,
+          "bbox": [
+            12,
+            38,
+            50,
+            82
+          ],
+          "head_exact": true,
+          "head_rotation": 90,
+          "head_bbox_origin": null,
+          "opaque_pixels": 976,
+          "source": "approved_design_rigid_parts_after_generated_pose_review"
+        }
+      ],
+      "source_grid": {
+        "period_x": 5.329999999999961,
+        "period_y": 5.499999999999957,
+        "phase_x": 3.44662833643617,
+        "phase_y": 3.975665010269272,
+        "status": "pose_reference_only_identity_drift_not_final"
+      }
+    }
+  }
+}
