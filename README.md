@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单布兰德、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单泽拉斯、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅（同组的其他英雄以后做）。蛮王之后按用户的计划做中单泽拉斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单布兰德、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单泽拉斯、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托（同组的其他英雄以后做）。蛮王之后按用户的计划做中单泽拉斯。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -131,6 +131,7 @@
 
 ![雷克顿演示：他跑进场，月牙刀砍德莱厄斯（刀光画在动作里），三刀后怒气满了，身后烧起红光；Q 巨鳄狂袭：一圈象牙白的刀光扫过德莱厄斯和身后的盖伦；E 横冲直撞：身后拖着沙色风痕冲过德莱厄斯；满怒气的 W 冷酷捕猎：身上冒出红色怒气，转身劈三刀，德莱厄斯头顶冒金星晕 1.5 秒；二段 E 再冲回来；R 终极统治：脚下炸开沙暴、头顶亮起金色的鳄鱼神符号，之后脚下一圈沙暴光环每半秒烫两人，他接着砍，德莱厄斯倒下](docs/preview/league_renekton_showcase.gif?v=1007rk4)
 ![莉莉娅演示：她小跑进场，用枝条打德莱厄斯两下，粉紫花光炸开；Q 飞花挞：脚下绽开一圈粉紫花环，德莱厄斯和身后的盖伦身上闪过金色闪刺，蹄下飘起腾跃的花瓣；E 流涡种：橙色种子从枝头抛到德莱厄斯身上炸开，脚下一团蓝紫梦雾减速；W 惊惶木：她人立起来，德莱厄斯脚下亮起预警圈，砸下去时正中甜点的金色暴击、盖伦也挨了一下；她小跑到两人右边、转身朝左（红色方的样子）放 R 夜阑谣：身边升起蓝色梦境光带，两人头顶先飘困倦的梦雾，再睡着冒出梦泡泡；她一枝条打醒盖伦，泡泡啪地破开](docs/preview/league_lillia_showcase.gif?v=1007ll2)
+![维克托演示：他用奥术光弹打德莱厄斯；Q 虹吸能量：法杖射出金色海克斯光弹，打中后他身上亮起青色护盾、身边绕着两颗金色光点，下一下普攻变成金色光弹；W 重力场：德莱厄斯脚下展开蓝紫色引力场，两人减速；E 海克斯射线：从德莱厄斯脚下往身后扫出一道金光，穿过盖伦；1.25 秒后引力场爆开，两人头顶冒出引力环晕住，余波沿射线再炸一遍；他走到两人右边、转身朝左（红色方的样子）放 R 奥术风暴：风暴落在德莱厄斯身上，每秒劈下闪电；最后身上亮起光荣进化的金光](docs/preview/league_viktor_showcase.gif?v=1007vk1)
 
 ## 英雄：盖伦
 
@@ -3049,6 +3050,46 @@ python addons/league_lillia/make_override.py   # 附加包的英雄数据和文�
 - 红色方：飞行的种子严格上下对称；命中、她身上的花环和梦境光带、挂着循环的减速 / 困倦 / 昏睡 / 梦尘 / 腾跃都严格左右对称；地上的花环、种子落地、预警圈、砸地上下左右都对称。没有特效画进动作帧。
 
 逐帧预览：[`docs/preview/league_lillia_frames.png`](docs/preview/league_lillia_frames.png)，特效：[`docs/preview/league_lillia_effects.png`](docs/preview/league_lillia_effects.png)。
+
+## 英雄：维克托
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 中单（法师，分类 Magician），用户排的第十五组的中单（同组：上单雷克顿、打野莉莉娅已做，其他英雄以后做），第 73 位英雄。奥术先驱 维克托（客户端里名字和称号两格是互换的）：海克斯科技发明家，Q 法杖射出光弹得护盾、下一次普攻强化，W 在敌人脚下放重力场减速、1.25 秒后晕眩，E 从目标身上往后扫一道海克斯射线，R 召唤奥术风暴跟着敌方英雄走、他阵亡就转到附近的英雄；被动「光荣进化」按等级依次升级技能。用户选的：技能位「Q 单独 + W→E 连招」并加高手连招，进化「按等级依次升级」，E「英雄联盟式：从目标旁起点扫过」，R「跟着英雄走 + 目标死后跳走」 |
+| 普攻 / 被动 | 远程奥术光弹（追踪），100% 攻击力，射程 55000，攻击间隔 90 tick（第 10 tick 放出）。被动「光荣进化」：英雄联盟靠海克斯碎片升级，数据里跨死亡的计数存不住（死亡会清掉自定义增益），改成按等级：普攻顺带用护盾探针量他的攻击力（法师只买法强装，攻击力只随等级涨，卡兹克的做法），每条命开头静默重读。3 级 E 附带余波，5 级 Q 护盾 ×1.6 并加速 30%，7 级他的技能命中都减速 20% 1 秒，9 级风暴变大（半径 30000 → 38000）、转到下一个英雄后持续 5 秒（原来 2 秒） |
+| 技能1 | Q「虹吸能量」：冷却 480 tick（8 秒），也对小兵和野怪放，射程 60000。第 9 tick 法杖射出追踪光弹：60 + 45% 法强的魔法伤害；打中后他得到 40 + 20% 法强的护盾 2.5 秒，4 秒内下一次普攻变成金色光弹，多 30 + 45% 法强的魔法伤害 |
+| 技能2 | W「重力场」→ E「海克斯射线」：冷却 600 tick（10 秒，E 的），也对小兵和野怪放，射程 75000。W 冷却好、70000 内有敌方英雄时先放 W（冷却 16 秒）：第 9 tick 在他脚下放重力场（半径 30000，4 秒），里面的敌人每 6 tick 减速 35%，落下 1.25 秒时还在里面的敌人晕眩 1.25 秒；18 tick 后接 E。E：英雄联盟的射线从选定的点起扫，这里起点就是目标脚下：一道从目标往外（维克托→目标的方向）延伸 70000 的光束，45 + 40% 法强的魔法伤害（打中范围是落点上一个朝外张开约 10° 的锥形：落点处生成的线段在引擎里从施法者算起，没法用；画面是一条不打人的线，画在落点、跟着方向转）。W 冷却中或附近没有英雄时 E 单独打目标（也清兵）。3 级后 1 秒后同一条路径的余波 30 + 45% 法强。高手连招：重力场晕住人后 Q 好了就打被晕的英雄（下一下普攻就是强化光弹） |
+| 大招 | R「奥术风暴」：冷却 4200 tick（70 秒），对英雄放。上膛（萨勒芬妮 R 的做法）：60000 内有两个敌方英雄就放，否则待命 10 秒，期间每 10 tick 看一次：有被控制的英雄（W 晕住的）立刻砸他，等 3 秒后攻击范围内一个英雄也放，没用上退还冷却。风暴落在那个英雄身上（安妮提伯斯的做法）：先炸一下 80 + 40% 法强，之后 6 秒每秒对他周围（半径 30000）的敌人 25 + 15% 法强，画面跟着他走；每秒落点留一个看守区，下一秒没续上标记就说明他死了，风暴转到看守区里的第一个敌方英雄身上再打 2 秒（9 级后 5 秒、范围更大），最多转两次 |
+| 数值 | 攻击 78（+7）、法强 40（+20）、生命 880（+95）、护甲 20（+7）、魔抗 20（+4）、移速 920（+9）。数值是自己设计的，用 SDK 对战模拟调：中路，对 5 个原版法师（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），3 套阵容、两边各打，10 分钟。初稿 +2.89（同批布兰德 +1.01、泽拉斯 +1.51、瑞兹 +1.63）；E 60 + 50% → 45 + 40%、余波 40 + 60% → 30 + 45%、R 100 + 50% → 80 + 40%、每秒 35 + 20% → 25 + 15% 后三批种子 +1.44 / +1.31 / +1.89（第三批同批泽拉斯 +0.62），约 +1.57 |
+| 亚索联动 | W 的晕眩算控制：维克托在亚索队里打中路时，亚索每局对英雄放 R 1.35 次（原版闪电法师 3.40、布兰德 1.58），不用调 |
+| 精灵图 | 9 个动作 48 帧：待机、移动、普攻、Q（`skill`）、W（`skill2`）、E（`skill2_e`）、R（`ult`）、受击、死亡。造型 30 × 42 px（连收在肩后的机械臂金爪），29 色。待机 6 帧同一张；头像截取点 (−1, −38)，选人卡片中心 −8 |
+| 特效 | Codex 画的 23 张，按游戏尺寸交付，两张表 `league_viktor_fx` / `league_viktor_big`：普攻的蓝紫光弹，Q 的金色海克斯光弹、命中、青色护盾泡、强化普攻的金色光点和光弹、升级后的加速圈，W 地上的引力场（持续 4 秒，往里收）、晕眩爆发、头顶的引力环、减速圈，E 的射线和余波（画在落点往外的半边）、命中，R 的落地爆发、跟着英雄的风暴（升级后的大风暴）、每秒的闪电，进化的金光和减速圈 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_viktor.py`）：光弹、命中，Q 施放、命中、护盾、强化普攻，W 施放、落地、晕眩，E 射线、余波，R 施放、爆发、每秒、风暴，进化；Q、W、E、R 的中文配音（片段名 `league_viktor_sfx_vo_*`，和声音名不同；W 自己的配音在这个版本没有媒体，用晕眩那句）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_viktor.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_viktor.py            # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_viktor.py --face=-1,-38 --banpick=-8  # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/design_viktor.py           # 造型：Codex 的 B，法杖扶直、去掉腰部黑线、补外描边
+python tools/lol/native_pose.py assets/source/viktor/poses.json --out <渲染文件夹>   # 动作参考帧（英雄联盟原动作）
+python tools/art/fix_viktor_strips.py       # 动作：Codex 的动作帧，法杖扶直，跑步用定稿的腿走 Codex 换腿包的步子
+python tools/art/import_viktor.py           # 特效
+python tools/art/import_native.py --hero viktor   # 精灵
+python tools/art/preview_viktor.py          # 逐帧预览、特效预览、演示 GIF
+```
+
+美术（原画的提示词见 [`assets/source/viktor/PICTURE_PROMPT.md`](assets/source/viktor/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/viktor/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/viktor/MODEL_STRIPS.md)，跑步换腿的见 [`RUN_SWAP.md`](assets/source/viktor/RUN_SWAP.md)，特效的见 [`PROMPTS_FX.md`](assets/source/viktor/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/viktor/codex_picture/)、[`codex_model/`](assets/source/viktor/codex_model/)、[`codex_strips/`](assets/source/viktor/codex_strips/)、[`codex_run/`](assets/source/viktor/codex_run/)、[`codex_fx/`](assets/source/viktor/codex_fx/)；附图包由 `tools/art/pack_viktor_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
+
+- 原画：A 是英雄联盟的待机（背后的机械臂高举过头），B 是机械臂收在肩后（更紧凑）。用户选「B 机械臂收在肩后」。
+- 造型：Codex 第 1 步交了 A 30 × 40、B 30 × 42（从它最粗的原稿 02 读回再整行整列删）。用户选「Codex B 30×42 精修」，然后「法杖歪的 其他都挺好」（杖头画在杖身旁边、杖身上段接进机械臂的斜线：改成杖身同一列笔直到顶、钩环收在正上方）、「中间这个黑线也要处理」（金色胸甲和腰甲之间一整行黑线换成下面的颜色）。第一版顺手清掉了所有孤立的颜色格，用户：「你这个改的不如之前一版本啊 色素清太多了」——Codex 的两档交错明暗本来就有很多孤立格，清掉就平了；最后只扶法杖、去黑线、补外描边（「选中」）。之后「法杖这一段有点歪」：杖身下段从第 31 行起错了一列，左移对齐（`design_viktor.py` 第 1b 步）。
+- 动作：Codex 第 2 步用造型自己的零件摆（头、机械臂、近侧手臂连法杖、远侧手臂、斗篷、两条腿）。`fix_viktor_strips.py`：每帧里找出杖身下段那段错位的像素按同样方式扶直（躺倒的帧转 90° 再找）；R 第 2–4 帧 Codex 把手臂连法杖绕肩膀转了 −10° / −15°，1 格宽的杖身转出不齐的台阶（「这里的法杖歪修了吗？」），改回竖直（英雄联盟放 R 也是竖着拿），擦掉后露出来的远侧腿用定稿的腿补上（「像素消失」）。跑步几经修改：Codex 把远近两条腿弄反、每半周期换层，循环里着地的脚往前滑（「走路交叉步是反的」）；照零件横移 6 格像螃蟹（「走路和螃蟹一样？」），小步踢腿又看不出交叉（「走路没有明显的交叉步感觉」「不行啊 还是看不出」）；于是照雷克顿的做法发了换腿包（骨架是英雄联盟维克托自己的走路，上半身定稿原样）。Codex 画的腿是写实长腿压进 12 行，成了细竹竿（「走路腿有点变形」），最后保留它每帧两只脚的位置和交叉时机，腿用定稿的粗腿和大脚、两胯收拢斜着伸出去，抬脚时脚和小腿整块抬起（「右脚失去像素了吧」），左右两条腿一模一样、颜色不压暗（「左右腿能不一样的啊 颜色也不一样」）。
+- 特效：Codex 第 3 步把 23 张都按游戏尺寸画了一份（[`codex_fx/viktor-fx/pixel_1x/`](assets/source/viktor/codex_fx/viktor-fx/pixel_1x/)），`tools/art/import_viktor.py` 每格切出、按锚点（中心、脚底、弹头、线的起点）放好，导入时逐格检查对称、射线的左半边为空。
+- 红色方：飞行的光弹和射线 / 余波（线的画面跟着方向转）严格上下对称；命中、他身上的护盾和进化光、跟着英雄的风暴、挂着循环的强化光点 / 减速 / 加速都严格左右对称；地上的重力场、晕眩爆发、风暴落地上下左右都对称。没有特效画进动作帧。
+
+逐帧预览：[`docs/preview/league_viktor_frames.png`](docs/preview/league_viktor_frames.png)，特效：[`docs/preview/league_viktor_effects.png`](docs/preview/league_viktor_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
