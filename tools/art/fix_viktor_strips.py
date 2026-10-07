@@ -15,11 +15,18 @@ image-right leg with the big foot (the near one, darkened and swapped in front a
 cycle slid the planted foot forward and the lifted one back, then jumped both back (the legs' offsets read from its
 frames: -8..+6 and +8..-6). The run is rebuilt from the design: the body as Codex's idle (its bob kept: up a row in
 frames 2, 3, 6, 7), the far leg (image left, rig/near_leg) drawn first and the body over it (the cape and the staff in
-front of it), the near leg (image right, rig/far_leg) last, both in the design's own colours; RUN gives each leg's
-offset (dx, lift) per frame: the planted foot slides back, the lifted one comes forward, LEG_AMP columns either way, so
-the feet swap front and back; a leg's rows shear from the hip (the top HIP_SHARE of the offset) to the foot (all of it).
+front of it), the near leg (image right, rig/far_leg) last, both in the design's own colours; each leg
+follows CYCLE (league_gwen's run, rig_gwen.bent: knee and ankle columns from the hip, rows lifted - the planted foot
+slides back, the lifted one is kicked up and brought forward; the other leg half a cycle later). The first rebuild slid
+the feet 6 columns either way and swapped them: 「走路和螃蟹一样？」.
+Fix 3 (the user at R's frames: 「这里的法杖歪修了吗？」): Codex turned the near arm with the staff -10 / -15 degrees in R's
+frames 2-4 (nearest-neighbour, about the shoulder STAFF_TURN_CENTRE - found by matching its pixels exactly), and the
+one-square shaft came out in uneven steps; League holds the staff upright in R. Those pixels are taken out, the
+part is put back unturned with the same shift (the shaft's kink fixed), and what neither covers takes its neighbours'
+commonest colour (or stays clear).
 """
 import json
+import math
 import os
 import shutil
 import sys
@@ -36,10 +43,14 @@ CODEX = os.path.join(REPO, "assets", "source", "viktor", "codex_strips")
 NATIVE = os.path.join(REPO, "assets", "source", "native")
 RIG = os.path.join(CODEX, "rig")
 PIVOT = (64, 88)                 # the design's standing point on its 128x128 canvas
-LEG_AMP, HIP_SHARE = 6, 0.4
-# per frame: (near dx, near lift), (far dx, far lift); body dy (Codex's bob)
-RUN = [((6, 0), (-6, 0), 0), ((3, 0), (-3, 1), -1), ((0, 0), (0, 2), -1), ((-3, 0), (3, 1), 0),
-       ((-6, 0), (6, 0), 0), ((-3, 1), (3, 0), -1), ((0, 2), (0, 0), -1), ((3, 1), (-3, 0), 0)]
+LEG_TOP, KNEE_ROW, BOOT_ROW, SOLES = 88, 93, 96, 99
+# one leg's cycle (league_gwen's run, rig_gwen.CYCLE): (knee columns, ankle columns from the hip, + = forward = image
+# right; rows lifted): contact, loading, mid-stance, toe-off, kick, kick, passing, reach; the other leg half a cycle
+# later. The first rebuild slid the feet 6 columns either way: 「走路和螃蟹一样？」
+CYCLE = [(1, 2, 0), (0, 0, 0), (0, -1, 0), (-1, -2, 1), (-1, -3, 4), (0, -2, 4), (1, 0, 3), (1, 2, 1)]
+BOB = [0, -1, -1, 0, 0, -1, -1, 0]   # Codex's bob
+STAFF_TURN_CENTRE = (61.0, 80.0)   # canvas coordinates of the design
+UPRIGHT = {"ult"}                  # strips whose turned staff goes upright
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_e", "ult", "hit", "dead"]
 Z = 8
 
@@ -89,14 +100,22 @@ def fix(strip, piece):
     return hits
 
 
-def leg(canvas, part, dx, lift):
-    """Draw the leg (its pixels on the design canvas) sheared from the hip: row r of the leg moves dx x (HIP_SHARE +
-    (1 - HIP_SHARE) x depth) columns and the whole leg `lift` rows up."""
-    ys, xs = np.nonzero(part[..., 3] > 0)
-    top, bot = ys.min(), ys.max()
-    for y, x in zip(ys, xs):
-        k = HIP_SHARE + (1 - HIP_SHARE) * (y - top) / max(1, bot - top)
-        canvas[y - lift, x + int(round(dx * k))] = part[y, x]
+def bent(part, knee, ankle, lift):
+    """The leg's own rows moved whole (rig_gwen.bent): row by row along hip -> knee -> ankle, the foot rows at the
+    ankle, all lifted."""
+    out = np.zeros_like(part)
+    for y in range(LEG_TOP, SOLES + 1):
+        if y <= KNEE_ROW:
+            dx = knee * (y - LEG_TOP) / (KNEE_ROW - LEG_TOP)
+        elif y < BOOT_ROW:
+            dx = knee + (ankle - knee) * (y - KNEE_ROW) / (BOOT_ROW - KNEE_ROW)
+        else:
+            dx = ankle
+        dx = int(np.floor(dx + 0.5))
+        row = np.roll(part[y], dx, axis=0)
+        m = row[:, 3] > 0
+        out[y - lift][m] = row[m]
+    return out
 
 
 def run_frames(design):
@@ -105,13 +124,14 @@ def run_frames(design):
     body = design.copy()
     body[(near[..., 3] > 0) | (far[..., 3] > 0)] = 0
     out = []
-    for (ndx, nl), (fdx, fl), bob in RUN:
-        c = np.zeros_like(design)
-        leg(c, far, fdx, fl)
-        b = np.roll(body, bob, axis=0)
+    for k in range(8):
+        c = bent(far, *CYCLE[(k + 4) % 8])
+        b = np.roll(body, BOB[k], axis=0)
         m = b[..., 3] > 0
         c[m] = b[m]
-        leg(c, near, ndx, nl)
+        n = bent(near, *CYCLE[k])
+        m = n[..., 3] > 0
+        c[m] = n[m]
         out.append(c)
     return out
 
@@ -128,6 +148,70 @@ def place_run(strip, cells, frames):
         strip[cy + py - PIVOT[1] + ys, cx + px - PIVOT[0] + xs] = f[ys, xs]
 
 
+def turned(part, ang, centre):
+    """Codex's rotation: each target pixel samples the part at R(-a)(t - c) + c, nearest."""
+    a = math.radians(ang)
+    cx, cy = centre
+    ty, tx = np.mgrid[0:128, 0:128]
+    sx = np.floor(np.cos(a) * (tx - cx) + np.sin(a) * (ty - cy) + cx + 0.5).astype(int)
+    sy = np.floor(-np.sin(a) * (tx - cx) + np.cos(a) * (ty - cy) + cy + 0.5).astype(int)
+    ok = (sx >= 0) & (sx < 128) & (sy >= 0) & (sy < 128)
+    out = part[sy.clip(0, 127), sx.clip(0, 127)].copy()
+    out[~ok] = 0
+    return out
+
+
+def kinked_part(part):
+    """The rig's near arm and staff with design_viktor's kink fix (step 1b) on its shaft."""
+    c = part[D.Y0:D.Y0 + D.H, D.X0:D.X0 + D.W].copy()
+    D.kink(c)
+    out = part.copy()
+    out[D.Y0:D.Y0 + D.H, D.X0:D.X0 + D.W] = c
+    return out
+
+
+def upright(strip, tag, manifest):
+    part = np.array(Image.open(D.lp(os.path.join(RIG, "near_arm_staff_1x.png"))).convert("RGBA"))
+    straight = kinked_part(part)
+    cw, ch = manifest["cell_1x"]
+    cols = strip.shape[1] // cw
+    n = 0
+    for i, f in enumerate(manifest["animations"][tag]["frames"]):
+        rig = f["rig"]
+        ang = rig["near_arm_staff_angle_deg"]
+        if not ang:
+            continue
+        cx, cy = (i % cols) * cw, (i // cols) * ch
+        px, py = f["pivot_cell_1x"]
+        ox = cx + px - PIVOT[0] + rig["whole_shift"][0] + rig["near_arm_staff_shift"][0]
+        oy = cy + py - PIVOT[1] + rig["whole_shift"][1] + rig["near_arm_staff_shift"][1]
+        old = turned(part, ang, STAFF_TURN_CENTRE)
+        ys, xs = np.nonzero(old[..., 3] > 0)
+        hole = np.zeros(strip.shape[:2], bool)
+        for y, x in zip(ys + oy, xs + ox):
+            hole[y, x] = True
+        for (y, x), p in zip(zip(ys + oy, xs + ox), old[ys, xs]):
+            if np.array_equal(strip[y, x], p):
+                strip[y, x] = 0
+        ys, xs = np.nonzero(straight[..., 3] > 0)
+        strip[ys + oy, xs + ox] = straight[ys, xs]
+        hole[ys + oy, xs + ox] = False
+        hole &= strip[..., 3] == 0
+        for _ in range(3):           # the uncovered squares: their neighbours' commonest colour, else clear
+            fill = []
+            for y, x in zip(*np.nonzero(hole)):
+                nb = [tuple(strip[y + dy, x + dx]) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))
+                      if not hole[y + dy, x + dx]]
+                op = [q for q in nb if q[3]]
+                if len(op) >= 3:
+                    fill.append((y, x, max(sorted(set(op)), key=op.count)))
+            for y, x, c in fill:
+                strip[y, x] = c
+                hole[y, x] = False
+        n += 1
+    return n
+
+
 def main():
     piece = old_piece()
     for tag in TAGS:
@@ -140,6 +224,10 @@ def main():
         # the rebuilt run comes from the fixed design: its shaft matches the old piece too (the column left behind takes
         # the same cape colour), and a second pass would move it again
         n = 0 if tag == "run" else fix(one, piece)
+        if tag in UPRIGHT:
+            with open(os.path.join(CODEX, "manifest.json"), encoding="utf-8") as f:
+                n3 = upright(one, tag, json.load(f))
+            print(f"{tag:9s} staff upright in {n3} frame(s)")
         Image.fromarray(np.repeat(np.repeat(one, Z, 0), Z, 1)).save(D.lp(os.path.join(NATIVE, f"viktor_{tag}.png")))
         print(f"{tag:9s} shaft fixed in {n} frame(s)")
     shutil.copyfile(os.path.join(CODEX, "viktor_cells.json"), os.path.join(NATIVE, "viktor_cells.json"))
