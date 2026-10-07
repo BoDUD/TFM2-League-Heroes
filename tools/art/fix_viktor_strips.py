@@ -71,9 +71,12 @@ RUN_MANIFEST = os.path.join(os.path.dirname(RUN_SRC), "manifest.json")
 # feet (「走路腿有点变形 还得调一调吧」). Fix 4 keeps its walk - each foot where Codex's frame has it (manifest: the visible
 # feet's centres and bottoms) - and draws the design's own legs there (bent2): both hips drawn in to HIP_X (the legs
 # leave the gold belt together and slant out to the feet, as Codex's do), the knee half way plus KNEE_BEND forward on a
-# lifted leg, the rows below the hip raised toward the foot's lift; the far leg a shade darker under the body, the near
-# leg over it; the upper body the design's, bobbing as Codex's (upper_shift's rows).
-FOOT_X = {"near": 6.2, "far": -3.5}     # the design's feet (their foot rows' centres) from the pivot
+# lifted leg, the rows below the hip raised toward the foot's lift; the far leg (a copy of the near leg, same colours) under the body,
+# the near leg over it; the upper body the design's, bobbing as Codex's (upper_shift's rows).
+# the far leg is the near leg's copy FAR_FROM columns left, in the same colours (the design's own far leg - small,
+# half hidden, and darkened - made the two legs differ: 「左右腿能不一样的啊 颜色也不一样」)
+FAR_FROM = -6
+FOOT_X = {"near": 6.2, "far": 6.2 + FAR_FROM}   # the feet's centres (their foot rows) from the pivot
 HIP_X = {"near": -3, "far": 3}          # the hips drawn in toward each other
 KNEE_BEND = 2
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_e", "ult", "hit", "dead"]
@@ -199,11 +202,11 @@ def bent2(part, hip, ankle, lift, bend):
 
 
 def run_frames_codex(design, manifest):
-    """Fix 4: the design's legs on Codex's walk."""
+    """Fix 4: the design's legs on Codex's walk - both legs the design's near leg."""
     near, far = legs()
     body = design.copy()
     body[(near[..., 3] > 0) | (far[..., 3] > 0)] = 0
-    far = darker(far)
+    far = np.roll(near, FAR_FROM, axis=1)
     out = []
     for f in manifest["frames"]:
         px, py = f["pivot"]
