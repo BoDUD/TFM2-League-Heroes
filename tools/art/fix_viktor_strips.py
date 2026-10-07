@@ -20,6 +20,8 @@ front of it), the near leg (image right, rig/far_leg) last, the far one a shade 
 lifted; the other leg half a cycle later), drawn in toward the other by HIP_IN so the swinging far leg crosses in front
 of the near one. The first rebuild (feet 6 columns either way) read as a crab: 「走路和螃蟹一样？」; league_gwen's kick
 cycle never crossed: 「走路没有明显的交叉步感觉」.
+The run now comes from Codex's leg swap (RUN_SRC: League's walk redrawn as his legs under the design's upper body, the
+user: 「不行啊 还是看不出」 at the rebuilds).
 Fix 3 (the user at R's frames: 「这里的法杖歪修了吗？」): Codex turned the near arm with the staff -10 / -15 degrees in R's
 frames 2-4 (nearest-neighbour, about the shoulder STAFF_TURN_CENTRE - found by matching its pixels exactly), and the
 one-square shaft came out in uneven steps; League holds the staff upright in R. Those pixels are taken out, the
@@ -61,6 +63,9 @@ DARKER = {"#A3AAD6": "#7E86B8", "#7E86B8": "#5B6194", "#5B6194": "#3E4270", "#3E
           "#6F86AE": "#5B6194"}
 STAFF_TURN_CENTRE = (61.0, 80.0)   # canvas coordinates of the design
 UPRIGHT = {"ult"}                  # strips whose turned staff goes upright
+# the run Codex redrew from League's walk (pack_viktor_run.py, RUN_SWAP.md): its legs over the design's upper body; the
+# rebuilds from the design's two legs above (CYCLE) stay for reference
+RUN_SRC = os.path.join(REPO, "assets", "source", "viktor", "codex_run", "viktor-run", "viktor_run.png")
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_e", "ult", "hit", "dead"]
 Z = 8
 
@@ -250,7 +255,9 @@ def main():
     for tag in TAGS:
         big = np.array(Image.open(D.lp(os.path.join(CODEX, f"viktor_{tag}.png"))).convert("RGBA"))
         one = big[Z // 2::Z, Z // 2::Z].copy()
-        if tag == "run":
+        if tag == "run" and os.path.exists(RUN_SRC):
+            one = np.array(Image.open(D.lp(RUN_SRC)).convert("RGBA"))[Z // 2::Z, Z // 2::Z].copy()
+        elif tag == "run":
             design = np.array(Image.open(D.lp(D.OUT)).convert("RGBA"))
             with open(os.path.join(CODEX, "viktor_cells.json"), encoding="utf-8") as f:
                 place_run(one, json.load(f), run_frames(design))
