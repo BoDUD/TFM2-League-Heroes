@@ -96,6 +96,17 @@ class Parts:
         far = K.mask_rows(FAR_OFF)
         self.no_far = fig.copy()
         self.no_far[far] = 0
+        # the old arm's own outline ring goes with it (left behind it cut the redrawn arm with a black line at the
+        # elbow, 「手臂这里一条黑线怎么回事」): dark squares next to the lifted arm that touch no other coloured square
+        lum = 0.299 * fig[..., 0] + 0.587 * fig[..., 1] + 0.114 * fig[..., 2]
+        dark = (fig[..., 3] > 0) & (lum < 40)
+        op = self.no_far[..., 3] > 0
+        for y, x in zip(*np.nonzero(dark & ~far)):
+            nb = [(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+            if not any(far[q] for q in nb):
+                continue
+            if not any(op[q] and not dark[q] for q in nb):
+                self.no_far[y, x] = 0
         near = K.mask_rows(NEAR_ARM)
         self.near_part = K.Part.from_canvas(fig, near, NEAR_ELBOW)
         self.near_mask = near & (fig[..., 3] > 0)
