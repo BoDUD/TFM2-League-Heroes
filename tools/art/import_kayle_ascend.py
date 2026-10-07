@@ -4,7 +4,7 @@ league_kayle_ascend.
 
     python tools/art/import_kayle_ascend.py
 
-Codex delivered every sheet at game size as well (assets/source/kayle/codex_ascend/kayle-ascend/pixel_1x/, one game
+Codex delivered every sheet at game size as well (assets/source/kayle/codex_ascend/pixel_1x/, one game
 pixel a square, a row of equal cells), so nothing is resampled: each cell is cut out, its anchor put on its spot
 (tools/art/import_viktor.py's way), the red side's symmetry asserted (the client never mirrors an effect picture): the
 wings and the hits left to right, the flying ones top to bottom, the ground blast both ways.
@@ -25,7 +25,7 @@ sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import import_jhin as J  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "kayle", "codex_ascend", "kayle-ascend", "pixel_1x")
+SRC = os.path.join(ROOT, "assets", "source", "kayle", "codex_ascend", "pixel_1x")
 MOD = os.path.join(ROOT, "league")
 CHEST = (0, -4)
 WINGS = (0, -20)

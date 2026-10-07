@@ -649,15 +649,28 @@
                                                                                                                             "type": "Combine",
                                                                                                                             "effects": [
                                                                                                                               {
-                                                                                                                                "type": "AddCasterBuff",
-                                                                                                                                "buff_state": {
-                                                                                                                                  "name": "league_kayle_rank12",
-                                                                                                                                  "duration": "Permanent",
-                                                                                                                                  "range": 10000,
-                                                                                                                                  "attack_speed_mult": 30,
-                                                                                                                                  "move_speed_mult": 10
-                                                                                                                                },
-                                                                                                                                "only_to_enemy": false
+                                                                                                                                "type": "Combine",
+                                                                                                                                "effects": [
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_rank12",
+                                                                                                                                      "duration": "Permanent",
+                                                                                                                                      "range": 10000,
+                                                                                                                                      "attack_speed_mult": 30,
+                                                                                                                                      "move_speed_mult": 10
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_form3",
+                                                                                                                                      "duration": "Permanent"
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  }
+                                                                                                                                ]
                                                                                                                               },
                                                                                                                               {
                                                                                                                                 "type": "Delayed",
@@ -962,15 +975,28 @@
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_kayle_rank12",
-                                                          "duration": "Permanent",
-                                                          "range": 10000,
-                                                          "attack_speed_mult": 30,
-                                                          "move_speed_mult": 10
-                                                        },
-                                                        "only_to_enemy": false
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_kayle_rank12",
+                                                              "duration": "Permanent",
+                                                              "range": 10000,
+                                                              "attack_speed_mult": 30,
+                                                              "move_speed_mult": 10
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_kayle_form3",
+                                                              "duration": "Permanent"
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
                                                       },
                                                       {
                                                         "type": "Sfx",
@@ -1401,15 +1427,28 @@
                                                                                             "type": "Combine",
                                                                                             "effects": [
                                                                                               {
-                                                                                                "type": "AddCasterBuff",
-                                                                                                "buff_state": {
-                                                                                                  "name": "league_kayle_rank12",
-                                                                                                  "duration": "Permanent",
-                                                                                                  "range": 10000,
-                                                                                                  "attack_speed_mult": 30,
-                                                                                                  "move_speed_mult": 10
-                                                                                                },
-                                                                                                "only_to_enemy": false
+                                                                                                "type": "Combine",
+                                                                                                "effects": [
+                                                                                                  {
+                                                                                                    "type": "AddCasterBuff",
+                                                                                                    "buff_state": {
+                                                                                                      "name": "league_kayle_rank12",
+                                                                                                      "duration": "Permanent",
+                                                                                                      "range": 10000,
+                                                                                                      "attack_speed_mult": 30,
+                                                                                                      "move_speed_mult": 10
+                                                                                                    },
+                                                                                                    "only_to_enemy": false
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "AddCasterBuff",
+                                                                                                    "buff_state": {
+                                                                                                      "name": "league_kayle_form3",
+                                                                                                      "duration": "Permanent"
+                                                                                                    },
+                                                                                                    "only_to_enemy": false
+                                                                                                  }
+                                                                                                ]
                                                                                               },
                                                                                               {
                                                                                                 "type": "Sfx",
@@ -2064,15 +2103,28 @@
                                                                                                                                   "type": "Combine",
                                                                                                                                   "effects": [
                                                                                                                                     {
-                                                                                                                                      "type": "AddCasterBuff",
-                                                                                                                                      "buff_state": {
-                                                                                                                                        "name": "league_kayle_rank12",
-                                                                                                                                        "duration": "Permanent",
-                                                                                                                                        "range": 10000,
-                                                                                                                                        "attack_speed_mult": 30,
-                                                                                                                                        "move_speed_mult": 10
-                                                                                                                                      },
-                                                                                                                                      "only_to_enemy": false
+                                                                                                                                      "type": "Combine",
+                                                                                                                                      "effects": [
+                                                                                                                                        {
+                                                                                                                                          "type": "AddCasterBuff",
+                                                                                                                                          "buff_state": {
+                                                                                                                                            "name": "league_kayle_rank12",
+                                                                                                                                            "duration": "Permanent",
+                                                                                                                                            "range": 10000,
+                                                                                                                                            "attack_speed_mult": 30,
+                                                                                                                                            "move_speed_mult": 10
+                                                                                                                                          },
+                                                                                                                                          "only_to_enemy": false
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                          "type": "AddCasterBuff",
+                                                                                                                                          "buff_state": {
+                                                                                                                                            "name": "league_kayle_form3",
+                                                                                                                                            "duration": "Permanent"
+                                                                                                                                          },
+                                                                                                                                          "only_to_enemy": false
+                                                                                                                                        }
+                                                                                                                                      ]
                                                                                                                                     },
                                                                                                                                     {
                                                                                                                                       "type": "Sfx",
@@ -2621,48 +2673,112 @@
                 "name": "league_kayle_attack_shot"
               },
               {
-                "type": "TargetProjectile",
-                "name": "league_kayle_bolt",
-                "speed": 7000,
-                "y_offset": 1500,
-                "applied_target": "Enemy",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Attack",
-                      "damage": 0,
-                      "attack_ratio": 100,
-                      "hp_ratio": 0,
-                      "target_hp_ratio": 0,
-                      "attack_effect_type": "Target"
+                "type": "SwitchByBuff",
+                "buff_name": "league_kayle_rank12",
+                "effect_buff": {
+                  "type": "TargetProjectile",
+                  "name": "league_kayle_bolt_x",
+                  "speed": 7000,
+                  "y_offset": 1500,
+                  "applied_target": "Enemy",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 15,
+                        "attack_ratio": 20,
+                        "hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayle_rank12",
+                        "effect_buff": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_bolt_hit_x"
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_bolt_hit"
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_kayle_attack_ranged_hit"
+                      }
                     }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ApAttack",
-                      "damage": 15,
-                      "attack_ratio": 20,
-                      "hp_ratio": 0,
-                      "attack_effect_type": "Target"
+                  ]
+                },
+                "effect_none": {
+                  "type": "TargetProjectile",
+                  "name": "league_kayle_bolt",
+                  "speed": 7000,
+                  "y_offset": 1500,
+                  "applied_target": "Enemy",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 15,
+                        "attack_ratio": 20,
+                        "hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayle_rank12",
+                        "effect_buff": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_bolt_hit_x"
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_bolt_hit"
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_kayle_attack_ranged_hit"
+                      }
                     }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_kayle_bolt_hit"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "league_kayle_attack_ranged_hit"
-                    }
-                  }
-                ]
+                  ]
+                }
               },
               {
                 "type": "SwitchByBuff",
@@ -2678,45 +2794,36 @@
                         "name": "league_kayle_wave"
                       },
                       {
-                        "type": "LinearProjectile",
-                        "name": "league_kayle_wave",
-                        "speed": 7000,
-                        "range": 70000,
-                        "y_offset": 1500,
-                        "shape": {
-                          "Circle": {
-                            "radius": 10000
-                          }
-                        },
-                        "penetrate": true,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ApAttack",
-                              "damage": 20,
-                              "attack_ratio": 25,
-                              "hp_ratio": 0,
-                              "attack_effect_type": "Target"
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayle_rank12",
+                        "effect_buff": {
+                          "type": "LinearProjectile",
+                          "name": "league_kayle_wave_x",
+                          "speed": 7000,
+                          "range": 70000,
+                          "y_offset": 1500,
+                          "shape": {
+                            "Circle": {
+                              "radius": 10000
                             }
-                          }
-                        ],
-                        "end_effects": []
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kayle_zeal5",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "Sfx",
-                          "name": "league_kayle_wave"
+                          },
+                          "penetrate": true,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ApAttack",
+                                "damage": 20,
+                                "attack_ratio": 25,
+                                "hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            }
+                          ],
+                          "end_effects": []
                         },
-                        {
+                        "effect_none": {
                           "type": "LinearProjectile",
                           "name": "league_kayle_wave",
                           "speed": 7000,
@@ -2742,6 +2849,77 @@
                             }
                           ],
                           "end_effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_kayle_zeal5",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "league_kayle_wave"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_kayle_rank12",
+                          "effect_buff": {
+                            "type": "LinearProjectile",
+                            "name": "league_kayle_wave_x",
+                            "speed": 7000,
+                            "range": 70000,
+                            "y_offset": 1500,
+                            "shape": {
+                              "Circle": {
+                                "radius": 10000
+                              }
+                            },
+                            "penetrate": true,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 20,
+                                  "attack_ratio": 25,
+                                  "hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          },
+                          "effect_none": {
+                            "type": "LinearProjectile",
+                            "name": "league_kayle_wave",
+                            "speed": 7000,
+                            "range": 70000,
+                            "y_offset": 1500,
+                            "shape": {
+                              "Circle": {
+                                "radius": 10000
+                              }
+                            },
+                            "penetrate": true,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 20,
+                                  "attack_ratio": 25,
+                                  "hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              }
+                            ],
+                            "end_effects": []
+                          }
                         }
                       ]
                     },
@@ -3688,15 +3866,28 @@
                                                                                                                             "type": "Combine",
                                                                                                                             "effects": [
                                                                                                                               {
-                                                                                                                                "type": "AddCasterBuff",
-                                                                                                                                "buff_state": {
-                                                                                                                                  "name": "league_kayle_rank12",
-                                                                                                                                  "duration": "Permanent",
-                                                                                                                                  "range": 10000,
-                                                                                                                                  "attack_speed_mult": 30,
-                                                                                                                                  "move_speed_mult": 10
-                                                                                                                                },
-                                                                                                                                "only_to_enemy": false
+                                                                                                                                "type": "Combine",
+                                                                                                                                "effects": [
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_rank12",
+                                                                                                                                      "duration": "Permanent",
+                                                                                                                                      "range": 10000,
+                                                                                                                                      "attack_speed_mult": 30,
+                                                                                                                                      "move_speed_mult": 10
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_form3",
+                                                                                                                                      "duration": "Permanent"
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  }
+                                                                                                                                ]
                                                                                                                               },
                                                                                                                               {
                                                                                                                                 "type": "Delayed",
@@ -4001,15 +4192,28 @@
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_kayle_rank12",
-                                                          "duration": "Permanent",
-                                                          "range": 10000,
-                                                          "attack_speed_mult": 30,
-                                                          "move_speed_mult": 10
-                                                        },
-                                                        "only_to_enemy": false
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_kayle_rank12",
+                                                              "duration": "Permanent",
+                                                              "range": 10000,
+                                                              "attack_speed_mult": 30,
+                                                              "move_speed_mult": 10
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_kayle_form3",
+                                                              "duration": "Permanent"
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
                                                       },
                                                       {
                                                         "type": "Sfx",
@@ -4440,15 +4644,28 @@
                                                                                             "type": "Combine",
                                                                                             "effects": [
                                                                                               {
-                                                                                                "type": "AddCasterBuff",
-                                                                                                "buff_state": {
-                                                                                                  "name": "league_kayle_rank12",
-                                                                                                  "duration": "Permanent",
-                                                                                                  "range": 10000,
-                                                                                                  "attack_speed_mult": 30,
-                                                                                                  "move_speed_mult": 10
-                                                                                                },
-                                                                                                "only_to_enemy": false
+                                                                                                "type": "Combine",
+                                                                                                "effects": [
+                                                                                                  {
+                                                                                                    "type": "AddCasterBuff",
+                                                                                                    "buff_state": {
+                                                                                                      "name": "league_kayle_rank12",
+                                                                                                      "duration": "Permanent",
+                                                                                                      "range": 10000,
+                                                                                                      "attack_speed_mult": 30,
+                                                                                                      "move_speed_mult": 10
+                                                                                                    },
+                                                                                                    "only_to_enemy": false
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "AddCasterBuff",
+                                                                                                    "buff_state": {
+                                                                                                      "name": "league_kayle_form3",
+                                                                                                      "duration": "Permanent"
+                                                                                                    },
+                                                                                                    "only_to_enemy": false
+                                                                                                  }
+                                                                                                ]
                                                                                               },
                                                                                               {
                                                                                                 "type": "Sfx",
@@ -5103,15 +5320,28 @@
                                                                                                                                   "type": "Combine",
                                                                                                                                   "effects": [
                                                                                                                                     {
-                                                                                                                                      "type": "AddCasterBuff",
-                                                                                                                                      "buff_state": {
-                                                                                                                                        "name": "league_kayle_rank12",
-                                                                                                                                        "duration": "Permanent",
-                                                                                                                                        "range": 10000,
-                                                                                                                                        "attack_speed_mult": 30,
-                                                                                                                                        "move_speed_mult": 10
-                                                                                                                                      },
-                                                                                                                                      "only_to_enemy": false
+                                                                                                                                      "type": "Combine",
+                                                                                                                                      "effects": [
+                                                                                                                                        {
+                                                                                                                                          "type": "AddCasterBuff",
+                                                                                                                                          "buff_state": {
+                                                                                                                                            "name": "league_kayle_rank12",
+                                                                                                                                            "duration": "Permanent",
+                                                                                                                                            "range": 10000,
+                                                                                                                                            "attack_speed_mult": 30,
+                                                                                                                                            "move_speed_mult": 10
+                                                                                                                                          },
+                                                                                                                                          "only_to_enemy": false
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                          "type": "AddCasterBuff",
+                                                                                                                                          "buff_state": {
+                                                                                                                                            "name": "league_kayle_form3",
+                                                                                                                                            "duration": "Permanent"
+                                                                                                                                          },
+                                                                                                                                          "only_to_enemy": false
+                                                                                                                                        }
+                                                                                                                                      ]
                                                                                                                                     },
                                                                                                                                     {
                                                                                                                                       "type": "Sfx",
@@ -5495,84 +5725,184 @@
           "name": "league_kayle_q_cast"
         },
         {
-          "type": "LinearProjectile",
-          "name": "league_kayle_q_sword",
-          "speed": 9000,
-          "range": 70000,
-          "y_offset": 1500,
-          "shape": {
-            "Circle": {
-              "radius": 6000
-            }
-          },
-          "penetrate": false,
-          "applied_target": "EnemyWithoutTower",
-          "applied_effects": [],
-          "end_effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_kayle_q_blast"
+          "type": "SwitchByBuff",
+          "buff_name": "league_kayle_rank12",
+          "effect_buff": {
+            "type": "LinearProjectile",
+            "name": "league_kayle_q_sword_x",
+            "speed": 9000,
+            "range": 70000,
+            "y_offset": 1500,
+            "shape": {
+              "Circle": {
+                "radius": 6000
+              }
             },
-            {
-              "type": "Sfx",
-              "name": "league_kayle_q_hit"
-            },
-            {
-              "type": "RangeProjectile",
-              "name": "league_kayle_q_blast_zone",
-              "shape": {
-                "Circle": {
-                  "radius": 20000
+            "penetrate": false,
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": [],
+            "end_effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_kayle_rank12",
+                "effect_buff": {
+                  "type": "ViewEffect",
+                  "name": "league_kayle_q_blast_x"
+                },
+                "effect_none": {
+                  "type": "ViewEffect",
+                  "name": "league_kayle_q_blast"
                 }
               },
-              "delay": 1,
-              "apply": 1,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ApAttack",
-                    "damage": 60,
-                    "attack_ratio": 60,
-                    "hp_ratio": 0,
-                    "attack_effect_type": "Target"
+              {
+                "type": "Sfx",
+                "name": "league_kayle_q_hit"
+              },
+              {
+                "type": "RangeProjectile",
+                "name": "league_kayle_q_blast_zone",
+                "shape": {
+                  "Circle": {
+                    "radius": 20000
                   }
                 },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_kayle_q_slow",
-                      "duration": {
-                        "Time": {
-                          "tick": 120
-                        }
-                      },
-                      "move_speed_mult": -30
+                "delay": 1,
+                "apply": 1,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ApAttack",
+                      "damage": 60,
+                      "attack_ratio": 60,
+                      "hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_q_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 120
+                          }
+                        },
+                        "move_speed_mult": -30
+                      }
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_q_shred",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -15,
+                        "magic_resistance_mult": -15
+                      }
                     }
                   }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "LinearProjectile",
+            "name": "league_kayle_q_sword",
+            "speed": 9000,
+            "range": 70000,
+            "y_offset": 1500,
+            "shape": {
+              "Circle": {
+                "radius": 6000
+              }
+            },
+            "penetrate": false,
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": [],
+            "end_effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_kayle_rank12",
+                "effect_buff": {
+                  "type": "ViewEffect",
+                  "name": "league_kayle_q_blast_x"
                 },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_kayle_q_shred",
-                      "duration": {
-                        "Time": {
-                          "tick": 240
-                        }
-                      },
-                      "defence_mult": -15,
-                      "magic_resistance_mult": -15
-                    }
-                  }
+                "effect_none": {
+                  "type": "ViewEffect",
+                  "name": "league_kayle_q_blast"
                 }
-              ]
-            }
-          ]
+              },
+              {
+                "type": "Sfx",
+                "name": "league_kayle_q_hit"
+              },
+              {
+                "type": "RangeProjectile",
+                "name": "league_kayle_q_blast_zone",
+                "shape": {
+                  "Circle": {
+                    "radius": 20000
+                  }
+                },
+                "delay": 1,
+                "apply": 1,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ApAttack",
+                      "damage": 60,
+                      "attack_ratio": 60,
+                      "hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_q_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 120
+                          }
+                        },
+                        "move_speed_mult": -30
+                      }
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_q_shred",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -15,
+                        "magic_resistance_mult": -15
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }
@@ -6190,15 +6520,28 @@
                                                                                                                             "type": "Combine",
                                                                                                                             "effects": [
                                                                                                                               {
-                                                                                                                                "type": "AddCasterBuff",
-                                                                                                                                "buff_state": {
-                                                                                                                                  "name": "league_kayle_rank12",
-                                                                                                                                  "duration": "Permanent",
-                                                                                                                                  "range": 10000,
-                                                                                                                                  "attack_speed_mult": 30,
-                                                                                                                                  "move_speed_mult": 10
-                                                                                                                                },
-                                                                                                                                "only_to_enemy": false
+                                                                                                                                "type": "Combine",
+                                                                                                                                "effects": [
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_rank12",
+                                                                                                                                      "duration": "Permanent",
+                                                                                                                                      "range": 10000,
+                                                                                                                                      "attack_speed_mult": 30,
+                                                                                                                                      "move_speed_mult": 10
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_form3",
+                                                                                                                                      "duration": "Permanent"
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  }
+                                                                                                                                ]
                                                                                                                               },
                                                                                                                               {
                                                                                                                                 "type": "Delayed",
@@ -6503,15 +6846,28 @@
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_kayle_rank12",
-                                                          "duration": "Permanent",
-                                                          "range": 10000,
-                                                          "attack_speed_mult": 30,
-                                                          "move_speed_mult": 10
-                                                        },
-                                                        "only_to_enemy": false
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_kayle_rank12",
+                                                              "duration": "Permanent",
+                                                              "range": 10000,
+                                                              "attack_speed_mult": 30,
+                                                              "move_speed_mult": 10
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_kayle_form3",
+                                                              "duration": "Permanent"
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
                                                       },
                                                       {
                                                         "type": "Sfx",
@@ -6942,15 +7298,28 @@
                                                                                             "type": "Combine",
                                                                                             "effects": [
                                                                                               {
-                                                                                                "type": "AddCasterBuff",
-                                                                                                "buff_state": {
-                                                                                                  "name": "league_kayle_rank12",
-                                                                                                  "duration": "Permanent",
-                                                                                                  "range": 10000,
-                                                                                                  "attack_speed_mult": 30,
-                                                                                                  "move_speed_mult": 10
-                                                                                                },
-                                                                                                "only_to_enemy": false
+                                                                                                "type": "Combine",
+                                                                                                "effects": [
+                                                                                                  {
+                                                                                                    "type": "AddCasterBuff",
+                                                                                                    "buff_state": {
+                                                                                                      "name": "league_kayle_rank12",
+                                                                                                      "duration": "Permanent",
+                                                                                                      "range": 10000,
+                                                                                                      "attack_speed_mult": 30,
+                                                                                                      "move_speed_mult": 10
+                                                                                                    },
+                                                                                                    "only_to_enemy": false
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "AddCasterBuff",
+                                                                                                    "buff_state": {
+                                                                                                      "name": "league_kayle_form3",
+                                                                                                      "duration": "Permanent"
+                                                                                                    },
+                                                                                                    "only_to_enemy": false
+                                                                                                  }
+                                                                                                ]
                                                                                               },
                                                                                               {
                                                                                                 "type": "Sfx",
@@ -7605,15 +7974,28 @@
                                                                                                                                   "type": "Combine",
                                                                                                                                   "effects": [
                                                                                                                                     {
-                                                                                                                                      "type": "AddCasterBuff",
-                                                                                                                                      "buff_state": {
-                                                                                                                                        "name": "league_kayle_rank12",
-                                                                                                                                        "duration": "Permanent",
-                                                                                                                                        "range": 10000,
-                                                                                                                                        "attack_speed_mult": 30,
-                                                                                                                                        "move_speed_mult": 10
-                                                                                                                                      },
-                                                                                                                                      "only_to_enemy": false
+                                                                                                                                      "type": "Combine",
+                                                                                                                                      "effects": [
+                                                                                                                                        {
+                                                                                                                                          "type": "AddCasterBuff",
+                                                                                                                                          "buff_state": {
+                                                                                                                                            "name": "league_kayle_rank12",
+                                                                                                                                            "duration": "Permanent",
+                                                                                                                                            "range": 10000,
+                                                                                                                                            "attack_speed_mult": 30,
+                                                                                                                                            "move_speed_mult": 10
+                                                                                                                                          },
+                                                                                                                                          "only_to_enemy": false
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                          "type": "AddCasterBuff",
+                                                                                                                                          "buff_state": {
+                                                                                                                                            "name": "league_kayle_form3",
+                                                                                                                                            "duration": "Permanent"
+                                                                                                                                          },
+                                                                                                                                          "only_to_enemy": false
+                                                                                                                                        }
+                                                                                                                                      ]
                                                                                                                                     },
                                                                                                                                     {
                                                                                                                                       "type": "Sfx",
@@ -8003,34 +8385,100 @@
             "type": "Combine",
             "effects": [
               {
-                "type": "TargetProjectile",
-                "name": "league_kayle_e_bolt",
-                "speed": 8000,
-                "y_offset": 1500,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_kayle_e_blast"
+                "type": "SwitchByBuff",
+                "buff_name": "league_kayle_rank12",
+                "effect_buff": {
+                  "type": "TargetProjectile",
+                  "name": "league_kayle_e_bolt_x",
+                  "speed": 8000,
+                  "y_offset": 1500,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayle_rank12",
+                        "effect_buff": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_blast_x"
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_blast"
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayle_rank12",
+                        "effect_buff": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_hit_x"
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_hit"
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_kayle_e_hit"
+                      }
                     }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_kayle_e_hit"
+                  ]
+                },
+                "effect_none": {
+                  "type": "TargetProjectile",
+                  "name": "league_kayle_e_bolt",
+                  "speed": 8000,
+                  "y_offset": 1500,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayle_rank12",
+                        "effect_buff": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_blast_x"
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_blast"
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kayle_rank12",
+                        "effect_buff": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_hit_x"
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_kayle_e_hit"
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_kayle_e_hit"
+                      }
                     }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "league_kayle_e_hit"
-                    }
-                  }
-                ]
+                  ]
+                }
               },
               {
                 "type": "TargetSplashProjectile",
@@ -8055,37 +8503,90 @@
             ]
           },
           "effect_none": {
-            "type": "TargetProjectile",
-            "name": "league_kayle_e_bolt",
-            "speed": 8000,
-            "y_offset": 1500,
-            "applied_target": "EnemyWithoutTower",
-            "applied_effects": [
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "ApAttack",
-                  "damage": 40,
-                  "attack_ratio": 50,
-                  "hp_ratio": 0,
-                  "attack_effect_type": "Target"
+            "type": "SwitchByBuff",
+            "buff_name": "league_kayle_rank12",
+            "effect_buff": {
+              "type": "TargetProjectile",
+              "name": "league_kayle_e_bolt_x",
+              "speed": 8000,
+              "y_offset": 1500,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 40,
+                    "attack_ratio": 50,
+                    "hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_kayle_rank12",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_kayle_e_hit_x"
+                    },
+                    "effect_none": {
+                      "type": "ViewEffect",
+                      "name": "league_kayle_e_hit"
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_kayle_e_hit"
+                  }
                 }
-              },
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "ViewEffect",
-                  "name": "league_kayle_e_hit"
+              ]
+            },
+            "effect_none": {
+              "type": "TargetProjectile",
+              "name": "league_kayle_e_bolt",
+              "speed": 8000,
+              "y_offset": 1500,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 40,
+                    "attack_ratio": 50,
+                    "hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_kayle_rank12",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_kayle_e_hit_x"
+                    },
+                    "effect_none": {
+                      "type": "ViewEffect",
+                      "name": "league_kayle_e_hit"
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_kayle_e_hit"
+                  }
                 }
-              },
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "TargetSfx",
-                  "name": "league_kayle_e_hit"
-                }
-              }
-            ]
+              ]
+            }
           }
         },
         {
@@ -8820,15 +9321,28 @@
                                                                                                                             "type": "Combine",
                                                                                                                             "effects": [
                                                                                                                               {
-                                                                                                                                "type": "AddCasterBuff",
-                                                                                                                                "buff_state": {
-                                                                                                                                  "name": "league_kayle_rank12",
-                                                                                                                                  "duration": "Permanent",
-                                                                                                                                  "range": 10000,
-                                                                                                                                  "attack_speed_mult": 30,
-                                                                                                                                  "move_speed_mult": 10
-                                                                                                                                },
-                                                                                                                                "only_to_enemy": false
+                                                                                                                                "type": "Combine",
+                                                                                                                                "effects": [
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_rank12",
+                                                                                                                                      "duration": "Permanent",
+                                                                                                                                      "range": 10000,
+                                                                                                                                      "attack_speed_mult": 30,
+                                                                                                                                      "move_speed_mult": 10
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                    "type": "AddCasterBuff",
+                                                                                                                                    "buff_state": {
+                                                                                                                                      "name": "league_kayle_form3",
+                                                                                                                                      "duration": "Permanent"
+                                                                                                                                    },
+                                                                                                                                    "only_to_enemy": false
+                                                                                                                                  }
+                                                                                                                                ]
                                                                                                                               },
                                                                                                                               {
                                                                                                                                 "type": "Delayed",
@@ -9279,6 +9793,38 @@
       "tag": "e_bolt",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayle_bolt_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "bolt_x",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayle_wave_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "wave_x",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayle_q_sword_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "q_sword_x",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayle_e_bolt_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "e_bolt_x",
+      "repeat": true,
+      "z": 1
     }
   ],
   "view_effects": [
@@ -9361,6 +9907,38 @@
       "tag": "ascend",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_kayle_bolt_hit_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "bolt_hit_x",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_kayle_e_hit_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "e_hit_x",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_kayle_q_blast_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "q_blast_x",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_kayle_e_blast_x",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "e_blast_x",
+      "z": 1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
@@ -9387,6 +9965,30 @@
       "tag": "r_invuln",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayle_rank5",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "wings1",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayle_rank8",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "wings2",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_kayle_form3",
+      "anim": "asset/league/effects/league_kayle_ascend",
+      "tag": "wings3",
+      "repeat": true,
+      "z": -1
     }
   ]
 }

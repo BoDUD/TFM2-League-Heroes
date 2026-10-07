@@ -1,0 +1,264 @@
+{
+  "generator": "built-in image_gen",
+  "technical_normalization_authorized": true,
+  "palette": [
+    "#FFFFFF",
+    "#FFF6C8",
+    "#FFE27A",
+    "#F7B931",
+    "#C47A12",
+    "#FFE6A8",
+    "#FFB347",
+    "#F07A1C",
+    "#B8460C",
+    "#FFFBEA",
+    "#FFF0B0",
+    "#DDEBFF",
+    "#9CC4FF"
+  ],
+  "animation_count": 11,
+  "frame_count": 53,
+  "timing_note": "Preview timings only; new pack does not define engine durations. Preserve existing engine durations on import.",
+  "assets": [
+    {
+      "name": "wings1",
+      "file": "kayle_fx_wings1.png",
+      "cell": [
+        60,
+        44
+      ],
+      "frames": 4,
+      "sheet_1x": [
+        240,
+        44
+      ],
+      "sheet_16x": [
+        3840,
+        704
+      ],
+      "symmetry": "left-right",
+      "anchor": [
+        30.0,
+        22.0
+      ],
+      "frame_ms_preview": 100,
+      "source_sha256": "a65f8fb106fe704848ea6a9802c16387cf5ac6e0dfdc91ea41916c0fada5103e"
+    },
+    {
+      "name": "wings2",
+      "file": "kayle_fx_wings2.png",
+      "cell": [
+        76,
+        48
+      ],
+      "frames": 4,
+      "sheet_1x": [
+        304,
+        48
+      ],
+      "sheet_16x": [
+        4864,
+        768
+      ],
+      "symmetry": "left-right",
+      "anchor": [
+        38.0,
+        24.0
+      ],
+      "frame_ms_preview": 100,
+      "source_sha256": "7d4763d950763e2489016b86ac2e30257a85cf1bf562256f31c51b3180d282f3"
+    },
+    {
+      "name": "wings3",
+      "file": "kayle_fx_wings3.png",
+      "cell": [
+        84,
+        64
+      ],
+      "frames": 4,
+      "sheet_1x": [
+        336,
+        64
+      ],
+      "sheet_16x": [
+        5376,
+        1024
+      ],
+      "symmetry": "left-right",
+      "anchor": [
+        42.0,
+        32.0
+      ],
+      "frame_ms_preview": 100,
+      "source_sha256": "23e631482fcdc67ad6c12883f0d54624c8324e500af99fa0ffb514abfde9923a"
+    },
+    {
+      "name": "bolt_x",
+      "file": "kayle_fx_bolt_x.png",
+      "cell": [
+        20,
+        12
+      ],
+      "frames": 4,
+      "sheet_1x": [
+        80,
+        12
+      ],
+      "sheet_16x": [
+        1280,
+        192
+      ],
+      "symmetry": "top-bottom",
+      "anchor": null,
+      "frame_ms_preview": 60,
+      "source_sha256": "0e826a37813f1c9c6fdb985ba57484521112b52c26e825a438b0e28e06cb30ff"
+    },
+    {
+      "name": "wave_x",
+      "file": "kayle_fx_wave_x.png",
+      "cell": [
+        18,
+        28
+      ],
+      "frames": 4,
+      "sheet_1x": [
+        72,
+        28
+      ],
+      "sheet_16x": [
+        1152,
+        448
+      ],
+      "symmetry": "top-bottom",
+      "anchor": null,
+      "frame_ms_preview": 60,
+      "source_sha256": "000f8646fd6bbb0bd55c7ffc95176a7f2fc0751aa907cf30c3c79f445f620261"
+    },
+    {
+      "name": "q_sword_x",
+      "file": "kayle_fx_q_sword_x.png",
+      "cell": [
+        34,
+        16
+      ],
+      "frames": 4,
+      "sheet_1x": [
+        136,
+        16
+      ],
+      "sheet_16x": [
+        2176,
+        256
+      ],
+      "symmetry": "top-bottom",
+      "anchor": null,
+      "frame_ms_preview": 60,
+      "source_sha256": "ce7b24c2fe9f5e7032d860ffb49518442166292dcaa1e233348d233a687c45a2"
+    },
+    {
+      "name": "e_bolt_x",
+      "file": "kayle_fx_e_bolt_x.png",
+      "cell": [
+        26,
+        16
+      ],
+      "frames": 4,
+      "sheet_1x": [
+        104,
+        16
+      ],
+      "sheet_16x": [
+        1664,
+        256
+      ],
+      "symmetry": "top-bottom",
+      "anchor": null,
+      "frame_ms_preview": 60,
+      "source_sha256": "574ee327f81cd4a18cb5362324cab30f0f4bd18a01cf779aa27cabfb498b82ac"
+    },
+    {
+      "name": "bolt_hit_x",
+      "file": "kayle_fx_bolt_hit_x.png",
+      "cell": [
+        22,
+        22
+      ],
+      "frames": 5,
+      "sheet_1x": [
+        110,
+        22
+      ],
+      "sheet_16x": [
+        1760,
+        352
+      ],
+      "symmetry": "left-right",
+      "anchor": null,
+      "frame_ms_preview": 50,
+      "source_sha256": "3d4191d45da8495d8404ca55ba1bba435970977616602219a6b113dfb45ea6ec"
+    },
+    {
+      "name": "e_hit_x",
+      "file": "kayle_fx_e_hit_x.png",
+      "cell": [
+        28,
+        32
+      ],
+      "frames": 6,
+      "sheet_1x": [
+        168,
+        32
+      ],
+      "sheet_16x": [
+        2688,
+        512
+      ],
+      "symmetry": "left-right",
+      "anchor": null,
+      "frame_ms_preview": 50,
+      "source_sha256": "e5a17dcd4e65214895d5bb328c4251b07f527e5958194d4610040aff8d689b37"
+    },
+    {
+      "name": "q_blast_x",
+      "file": "kayle_fx_q_blast_x.png",
+      "cell": [
+        52,
+        34
+      ],
+      "frames": 7,
+      "sheet_1x": [
+        364,
+        34
+      ],
+      "sheet_16x": [
+        5824,
+        544
+      ],
+      "symmetry": "both",
+      "anchor": null,
+      "frame_ms_preview": 60,
+      "source_sha256": "835cb10f94e83062a4032f61269777c0c03a770d7fc8e2167f55144335fbf5e7"
+    },
+    {
+      "name": "e_blast_x",
+      "file": "kayle_fx_e_blast_x.png",
+      "cell": [
+        52,
+        58
+      ],
+      "frames": 7,
+      "sheet_1x": [
+        364,
+        58
+      ],
+      "sheet_16x": [
+        5824,
+        928
+      ],
+      "symmetry": "left-right",
+      "anchor": null,
+      "frame_ms_preview": 60,
+      "source_sha256": "6dec8451d9a2f6763e12e54f6ca2dc9037207e694eeb2b72e2f39a1bc3da452e"
+    }
+  ]
+}
