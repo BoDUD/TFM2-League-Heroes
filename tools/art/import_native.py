@@ -55,6 +55,12 @@ STEADY = ("idle", "run")
 # (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
 UNSTEADY = {("rakan", "run")}
+# heroes whose idle is Codex's skin swap (tools/art/idle_swap.py, assets/source/<hero>/codex_idle/idle.json): the idle is
+# taken as drawn - no ORDER, BOB / NECK, retouch or head steadying on it (they were made for the design repeated six
+# times; steadying would also cancel the sway)
+IDLE_SWAP = {os.path.basename(os.path.dirname(os.path.dirname(p)))
+             for p in glob.glob(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                                             "assets", "source", "*", "codex_idle", "idle.json"))}
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
 # line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
@@ -708,7 +714,8 @@ def build(hero):
     head = pasted_head(hero)
     joint = isinstance(head, str)
     if head is None and hero not in EYES:
-        head = head_of(cells(hero, "idle", len(table["idle"]), cell)[0], crown=hero in CROWN)
+        ref = design_cell(hero) if hero in IDLE_SWAP else cells(hero, "idle", len(table["idle"]), cell)[0]
+        head = head_of(ref, crown=hero in CROWN)
     sheet, report = {}, {}
     for tag, rows in table.items():
         fr = cells(hero, tag, len(rows), cell)
@@ -724,10 +731,11 @@ def build(hero):
         # a PASTED hero's idle is one frame (ORDER): steady on the frames shown, or it moves off its pivot
         used = sorted(set(ORDER.get((hero, tag), range(len(fr))))) if hero in PASTED else range(len(fr))
         sure = [hx[k] for k in used if hx[k] is not None]
-        if tag in STEADY and (hero, tag) not in UNSTEADY and sure:
+        swapped = tag == "idle" and hero in IDLE_SWAP
+        if tag in STEADY and (hero, tag) not in UNSTEADY and sure and not swapped:
             target = round(sum(sure) / len(sure))
             dx = [0 if h is None else target - h for h in hx]
-        order = ORDER.get((hero, tag), range(len(fr)))
+        order = range(len(fr)) if swapped else ORDER.get((hero, tag), range(len(fr)))
         sheet[tag] = [(G.centre_frame(fr[k], dx[k] - rows[k]["pivot"][0], sunk(hero, fr[k], rows[k]["pivot"][1])),
                        rows[slot]["ms"]) for slot, k in enumerate(order)]
         report[tag] = [(None if hx[k] is None else hx[k] + dx[k], dx[k]) for k in order]
@@ -744,6 +752,23 @@ def sunk(hero, frame, py):
     return -py + n
 
 
+def design_cell(hero):
+    """An IDLE_SWAP hero's design (the idle before the swap, one cell at 1x): the reference the head template, NECK_UP,
+    HEAD_MOVE and the outline colour read instead of the redrawn idle frame 1."""
+    path = os.path.join(os.path.dirname(SRC), hero, "codex_idle", "design.png")
+    return np.asarray(Image.open(path).convert("RGBA")).copy()
+
+
+def idle_ref(hero, sheet):
+    """Idle frame 1 centred on its pivot, or an IDLE_SWAP hero's design centred the same way."""
+    if hero not in IDLE_SWAP:
+        return sheet["idle"][0][0]
+    with open(os.path.join(SRC, f"{hero}_cells.json"), encoding="utf-8") as f:
+        px, py = json.load(f)["tags"]["idle"][0]["pivot"]
+    a = design_cell(hero)
+    return G.centre_frame(a, -px, sunk(hero, a, py))
+
+
 def touch_up(hero, sheet):
     """Apply <hero>_retouch.json to the cut frames in place; the number of pixels changed."""
     path = os.path.join(SRC, f"{hero}_retouch.json")
@@ -754,6 +779,8 @@ def touch_up(hero, sheet):
     pal = {k: tuple(int(v[i:i + 2], 16) for i in (1, 3, 5)) for k, v in spec["palette"].items()}
     n = 0
     for tag, frames in spec["frames"].items():
+        if tag == "idle" and hero in IDLE_SWAP:
+            continue
         for k, pixels in enumerate(frames):
             a = sheet[tag][k][0]
             hh, hw = a.shape[0] // 2, a.shape[1] // 2
@@ -773,7 +800,7 @@ def neck_up(hero, sheet):
     if not any(h == hero for h, _ in NECK_UP):
         return 0
     eye = np.array(EYES[hero])
-    idle = sheet["idle"][0][0]
+    idle = idle_ref(hero, sheet)
     ys, xs = np.nonzero((idle[..., :3] == eye).all(-1) & (idle[..., 3] > 0))
     iey, iex = int(ys.max()), int(round(xs.mean()))
     head = [(y - iey, x - iex) for y, x in zip(*np.nonzero(idle[..., 3] > 0)) if y <= iey + 3 and abs(x - iex) <= 9]
@@ -895,7 +922,7 @@ def breathe(hero, sheet):
     """BOB and NECK: move the upper body of the listed slots down a row (after the retouch, which is drawn on the
     frame before it moves); BOB_CARRY's columns go down whole, under the seam too."""
     for (h, tag), (y0, slots) in list(BOB.items()) + list(NECK.items()):
-        if h != hero or tag not in sheet:
+        if h != hero or tag not in sheet or (tag == "idle" and hero in IDLE_SWAP):
             continue
         for k in slots:
             a, ms = sheet[tag][k]
@@ -933,7 +960,7 @@ def head_move(hero, sheet):
     for (h, tag), (ref, moves, (r0, r1, c0, c1)) in HEAD_MOVE.items():
         if h != hero or tag not in sheet:
             continue
-        idle = sheet["idle"][0][0]
+        idle = idle_ref(hero, sheet)
         ie = eye_at(hero, idle)
         arrs, cy, cx = canvas([np.pad(a, ((4, 4), (8, 8), (0, 0))) for a, _ in sheet[tag]])
         for k, (dx, dy) in moves.items():
@@ -977,7 +1004,7 @@ def close_outline(hero, sheet):
     strips.clean_outline; (added, darkened, {clean rule: pixels})."""
     if hero not in COMPLETE:
         return 0, 0, {}
-    first = sheet["idle"][0][0]
+    first = idle_ref(hero, sheet)
     op = first[..., 3] > 0
     p = np.pad(op, 1)
     edge = op & ~(p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:])
