@@ -18,6 +18,9 @@ prompt asks for a shorter blade held closer and a shorter tail.
                        game now (idle, first frame) at 8x on one soles line
   4_head.png           the head, enlarged
   5_parts.png          the blade with its hand, the pauldron and arm, the tail, the belt and kilt, a foot, enlarged
+  5b_blade_shape.png   the blade of picture B (the user, 2026-10-07: 「鳄鱼的斧头应该是这形状的」 - the full crescent, a spiked
+                       ivory outer edge, the gold frame with its gem inside, the blue grip along the inner curve), as
+                       drawn and turned a quarter (lying along picture A's trailing direction, the edge down)
   6_size_guide.png     the picture shrunk straight to version A's size, on the same canvas - only to see what fits where
   7_league.png         with --league: League's render of this stance (Riot material: the pack only, never git)
 """
@@ -44,6 +47,8 @@ QUALITY = ["tryndamere", "darius", "twitch", "khazix", "gwen"]
 BODY = 673                       # picture A: the helmet's top (y 205) to the soles (y 878)
 WINGS = ((225, 610, 560, 870),)  # the box holding only the tail (drawn lighter)
 HEAD_BOX = (900, 200, 1250, 500)                       # the helmet, the eye, the snout and teeth
+PICTURE_B = os.path.join(ROOT, "assets", "source", "renekton", "codex_picture", "renekton-model-B.png")
+BLADE_B = (320, 10, 700, 700)    # picture B's blade with the gripping hand
 CROP_BOXES = [(175, 380, 800, 630), (620, 220, 860, 420), (225, 600, 720, 880), (700, 440, 1010, 740),
               (1170, 770, 1350, 885)]
 
@@ -198,6 +203,20 @@ def crops(pic):
     return head, both
 
 
+def blade_shape():
+    b = Image.open(PICTURE_B).convert("RGBA")
+    a = np.array(b)
+    a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
+    blade = Image.fromarray(a).crop(BLADE_B)
+    turned = blade.rotate(90, expand=True)
+    pad = 40
+    img = Image.new("RGBA", (blade.width + turned.width + 3 * pad, max(blade.height, turned.height) + 2 * pad),
+                    (255, 255, 255, 255))
+    img.alpha_composite(blade, (pad, pad))
+    img.alpha_composite(turned, (blade.width + 2 * pad, pad + (blade.height - turned.height) // 2))
+    return img
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", required=True)
@@ -220,6 +239,7 @@ def main():
     head, parts = crops(hard)
     head.convert("RGB").save(os.path.join(args.out, "4_head.png"))
     parts.convert("RGB").save(os.path.join(args.out, "5_parts.png"))
+    blade_shape().convert("RGB").save(os.path.join(args.out, "5b_blade_shape.png"))
     size_guide(pic).convert("RGB").save(os.path.join(args.out, "6_size_guide.png"))
     if args.league:
         shutil.copy(args.league, os.path.join(args.out, "7_league.png"))
