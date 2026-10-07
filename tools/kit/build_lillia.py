@@ -50,7 +50,7 @@ P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, cooldown 65;
     # league_diana 80/50 AP 950, league_evelynn 75/50 AP 880); League's Lillia: 605 +105 hp, 48 AD, 22 armour,
     # 330 move, 325 range
-    "hp": 960, "hp_g": 95, "atk": 70, "atk_g": 8, "ap": 45, "ap_g": 20, "def": 28, "def_g": 8, "mr": 22, "mr_g": 4,
+    "hp": 960, "hp_g": 95, "atk": 65, "atk_g": 8, "ap": 45, "ap_g": 20, "def": 28, "def_g": 8, "mr": 22, "mr_g": 4,
     "ms": 1050, "ms_g": 11,
     # attack: the branch swing
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 60, "a_st": 7,
