@@ -14,9 +14,9 @@
     "asset/league/icons/league_renekton_ult"
   ],
   "stat": {
-    "attack": 80,
+    "attack": 77,
     "magic_power": 0,
-    "hp": 980,
+    "hp": 940,
     "defence": 32,
     "magic_resistance": 25,
     "move_speed": 1000,

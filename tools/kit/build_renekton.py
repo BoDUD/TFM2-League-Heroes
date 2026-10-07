@@ -41,18 +41,19 @@ ID = "league_renekton"
 FX = "asset/league/effects/league_renekton_fx"
 BIG = "asset/league/effects/league_renekton_big"
 
-# Numbers = candidate c9 of the 10-min classic-SDK simulations (rk_sim/sim/kd.py --lane 0 against fighter, executioner,
-# lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-07): +1.51 on seeds 1-24
-# (league_tryndamere +1.34, league_gwen +1.16, league_darius +1.18 on seeds 1-12). The draft c0 was +4.38: R's cooldown
-# 60 -> 90 s and 15 -> 10 s changed nothing (+4.70 on 6 seeds); attack 88 -> 80 and hp 1050 -> 980 (+3.11), Q's heals
-# 4 + 2% / 20 + 17% -> 2 + 1% / 10 + 10% and E 50 + 90% -> 40 + 70% (+3.50), both +2.48; then E's cooldown 12 -> 15 s
-# and Q 60 + 100% -> 45 + 80%. Timings from the strips (assets/source/native/renekton_cells.json): the attack's slash
-# frame 3 at tick 7 of 23, Q's sweep frame 3 at tick 7 of 25, W's chops on frames 2 / 4 / 6 at ticks 4 / 11 / 18 (the
-# plain W holds 15 ticks, two chops; the empowered 28, three), R's roar 34 ticks.
+# Numbers = candidate c12 of the 10-min classic-SDK simulations (rk_sim/sim/kd.py --lane 0 against fighter, executioner,
+# lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-07): +1.78 on seeds 1-24 and +1.07 on
+# 25-48 (league_tryndamere +1.34, league_gwen +1.16, league_darius +1.18 on seeds 1-12). The draft c0 was +4.38: R's
+# cooldown 60 -> 90 s and 15 -> 10 s changed nothing (+4.70 on 6 seeds); attack 88 -> 80 and hp 1050 -> 980 (+3.11), Q's
+# heals 4 + 2% / 20 + 17% -> 2 + 1% / 10 + 10% and E 50 + 90% -> 40 + 70% (+3.50), both +2.48; then E's cooldown
+# 12 -> 15 s and Q 60 + 100% -> 45 + 80%: c9 +1.51. Timings from the strips (assets/source/native/renekton_cells.json):
+# the attack's slash frame 3 at tick 7 of 23, Q's sweep frame 3 at tick 7 of 25, W's chops on frames 2 / 4 / 6 at
+# ticks 4 / 11 / 18 (the plain W holds 15 ticks, two chops; the empowered 28, three), R's roar 34 ticks: +2.38 (the
+# earlier hits); attack 80 -> 77 and hp 980 -> 940 for c12 (E's cooldown 18 s instead, c14: +1.41 / +0.64).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Renekton:
     # 69 AD +3.75, 660 +111 hp, 35 armour, 345 move, attack speed 0.665
-    "hp": 980, "hp_g": 105, "atk": 80, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
+    "hp": 940, "hp_g": 105, "atk": 77, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     # attack
     "atk_range": 25000, "atk_dur": 23, "atk_cd": 62, "atk_st": 7,
     # passive: Reign of Anger (League: 5 Fury an attack, 50 empowers, decays after 12 s out of combat)
