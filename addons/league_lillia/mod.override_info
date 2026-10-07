@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_lillia": {
+    "remapping": "asset/league_lillia/override/league_lillia",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_lillia/text/champion",
+    "type": "merge"
+  }
+}

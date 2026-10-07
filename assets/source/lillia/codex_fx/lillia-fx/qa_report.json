@@ -1,0 +1,270 @@
+{
+  "source": "generated original effect sheets, not code-drawn forms",
+  "source_count": 17,
+  "effect_count": 17,
+  "frame_count": 79,
+  "checks": {
+    "17_effects_and_79_frames": true,
+    "17_generated_raw_sources_saved": true,
+    "file_list_matches_fx_list": true,
+    "dimensions_and_frame_count": true,
+    "strict_16x_blocks": true,
+    "binary_alpha": true,
+    "transparent_rgb_zero": true,
+    "only_allowed_light_palette": true,
+    "required_pixel_exact_symmetry": true,
+    "R_and_dust_character_slots_empty": true,
+    "Q_center_empty": true,
+    "R_and_prance_bottom_anchor": true,
+    "bright_core_every_frame": true,
+    "all_animations_have_distinct_frames": true
+  },
+  "effects": {
+    "a_hit": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        64,
+        16
+      ],
+      "size_16x": [
+        1024,
+        256
+      ]
+    },
+    "q_spin": {
+      "pass": true,
+      "frames": 6,
+      "distinct_frames": 6,
+      "symmetry": "xy",
+      "size_1x": [
+        348,
+        24
+      ],
+      "size_16x": [
+        5568,
+        384
+      ]
+    },
+    "q_hit": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        72,
+        18
+      ],
+      "size_16x": [
+        1152,
+        288
+      ]
+    },
+    "e_seed": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "y",
+      "size_1x": [
+        40,
+        10
+      ],
+      "size_16x": [
+        640,
+        160
+      ]
+    },
+    "e_land": {
+      "pass": true,
+      "frames": 5,
+      "distinct_frames": 5,
+      "symmetry": "xy",
+      "size_1x": [
+        110,
+        10
+      ],
+      "size_16x": [
+        1760,
+        160
+      ]
+    },
+    "e_hit": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        64,
+        16
+      ],
+      "size_16x": [
+        1024,
+        256
+      ]
+    },
+    "e_slow": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        72,
+        8
+      ],
+      "size_16x": [
+        1152,
+        128
+      ]
+    },
+    "w_mark": {
+      "pass": true,
+      "frames": 6,
+      "distinct_frames": 6,
+      "symmetry": "xy",
+      "size_1x": [
+        288,
+        20
+      ],
+      "size_16x": [
+        4608,
+        320
+      ]
+    },
+    "w_land": {
+      "pass": true,
+      "frames": 6,
+      "distinct_frames": 6,
+      "symmetry": "xy",
+      "size_1x": [
+        300,
+        22
+      ],
+      "size_16x": [
+        4800,
+        352
+      ]
+    },
+    "w_hit": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        72,
+        18
+      ],
+      "size_16x": [
+        1152,
+        288
+      ]
+    },
+    "w_sweet": {
+      "pass": true,
+      "frames": 5,
+      "distinct_frames": 5,
+      "symmetry": "x",
+      "size_1x": [
+        120,
+        24
+      ],
+      "size_16x": [
+        1920,
+        384
+      ]
+    },
+    "r_cast": {
+      "pass": true,
+      "frames": 6,
+      "distinct_frames": 6,
+      "symmetry": "x",
+      "size_1x": [
+        276,
+        54
+      ],
+      "size_16x": [
+        4416,
+        864
+      ]
+    },
+    "drowsy": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        80,
+        12
+      ],
+      "size_16x": [
+        1280,
+        192
+      ]
+    },
+    "sleep": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        80,
+        16
+      ],
+      "size_16x": [
+        1280,
+        256
+      ]
+    },
+    "wake": {
+      "pass": true,
+      "frames": 5,
+      "distinct_frames": 5,
+      "symmetry": "x",
+      "size_1x": [
+        100,
+        20
+      ],
+      "size_16x": [
+        1600,
+        320
+      ]
+    },
+    "dust": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        96,
+        32
+      ],
+      "size_16x": [
+        1536,
+        512
+      ]
+    },
+    "prance": {
+      "pass": true,
+      "frames": 4,
+      "distinct_frames": 4,
+      "symmetry": "x",
+      "size_1x": [
+        112,
+        10
+      ],
+      "size_16x": [
+        1792,
+        160
+      ]
+    }
+  },
+  "game_imported": false,
+  "in_game_verified": false,
+  "notes": [
+    "Preview timing is an illustrative 100ms per frame; engine timing was not supplied.",
+    "Majority color within visible source samples; 20% coverage threshold preserves small motes.",
+    "Generated source proportions normalized per frame; exact shape sizes and petal counts remain approximate.",
+    "R/dust middle slots cleaned; mirroring selects existing sampled colors, not new artwork."
+  ]
+}
