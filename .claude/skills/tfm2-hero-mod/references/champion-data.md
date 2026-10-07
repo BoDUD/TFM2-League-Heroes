@@ -3682,6 +3682,34 @@ flat `hp` +300 for 600 ticks and a `Heal` of the same 300 (the bonus health star
 `AddCasted` on him (`on_me`): a 30-tick pulse of `ApAttack` 15 + `hp_ratio` 1 (1% of his maximum health) round him on
 `EnemyWithoutTower`, and a rung every 60 ticks. No size change (the sand aura is a view buff behind him).
 
+**A damage over time that also counts on champions (league_lillia passive, Dream-Laden Bough).** Every ability hit
+leaves Dream Dust: an `AddCasted` of `Poison` kind (d_t ticks, a run every d_period) with magic damage on anything and,
+on `EnemyChampion`, a twin dealing `hp_ratio` 1 a run as TRUE damage (`ApAttack`'s max-health part ignores magic
+resistance: League's 5% magic is the add-on's) and healing her once per champion hit. The champion twin is also R's
+listener (below). Each cast climbs Prance, an exclusive caster-flag ladder p1..p4 of move speed (league_twitch's way).
+
+**An outer ring that hits harder (league_lillia Q, Blooming Blows).** Data has no "outside radius r_in" target. Q hits
+everything in q_r with magic damage; the inner circle first gets a 1-tick `damaged_reduce` 99 buff (q_in), then the
+edge hit lands on everything in q_r again as true damage (a 1-tick full magic penetration on her), so only the ring
+outside q_in takes it. The dust in Q is delayed a tick: its first run would land under the inner buff.
+
+**A thrown seed, then a strike that lands where the target stood (league_lillia E -> W).** E is a `ParabolicProjectile`
+lob onto the target (magic, slow, dust); once the throw ends she winds up (`skill2_w`) and W's strike is another hidden
+lob of w_wind ticks aimed at the target's position, its warning ring a `ViewEffect` on the point (never turned); the
+landing hits round it and a second, smaller lob (w_sweet) adds the sweet spot's extra damage - the slow from E keeps
+the target on it. League's seed rolls on after a miss: a projectile started from a landing flies from the caster
+again (logged), so the roll is left out.
+
+**A sleep on everyone she dusted (league_lillia R, Lilting Lullaby).** Data cannot find "every champion with my buff".
+R sets a caster flag r_go for one dust period; every champion's dust twin, on its next run, reads that flag on its
+caster and applies drowsy (a slow, r_drowsy ticks) then a `Stun` (r_sleep) with the sleep's picture - league_ryze's
+flux trick. The slot is armed like league_seraphine R (two champions within reach with dust lately, or one after
+r_hold) and refunds the cooldown when unused. Her own Q / W on a sleeper within the window add the wake damage;
+damage breaking the sleep (League) needs the native add-on addons/league_lillia, whose passive reads r_go's rising
+edge, sleeps the dusted champions with `apply_cc` and clears it when their health and shield drop. As crowd control
+for league_yasuo's R: with her jungling in Yasuo's team, R on champions 1.27 a game (the base
+ninja 0.58, league_leesin 1.67, league_kayn 1.00) - no change.
+
 **A native effect that reads the unit a hit landed on (addons/league_fiora_duel, addons/league_vayne_bolts).** Data
 cannot tell which unit a hit is on (league_vayne's Silver Bolts, league_fiora's Vitals both count on the caster). A
 `Native` effect (`effect_ref`) placed in a projectile's `applied_effects` gets that unit as its input target

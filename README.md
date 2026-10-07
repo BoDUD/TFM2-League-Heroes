@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单布兰德、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单泽拉斯、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿（同组的其他英雄以后做）。蛮王之后按用户的计划做中单泽拉斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单布兰德、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单泽拉斯、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅（同组的其他英雄以后做）。蛮王之后按用户的计划做中单泽拉斯。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -130,6 +130,7 @@
 ![萨勒芬妮演示：她站在浮空小舞台上，头顶飘着两个音符，一记带音符的彩色音球打中德莱厄斯；Q 清籁穿云：高音抛到德莱厄斯和身后的盖伦之间，落地炸开一圈声波环；E 增幅节拍：声波推过两人（脚下五线谱光减速），回音的彩虹光一闪，第二道声波把两人定身；接着 W 聚和心声：脚下扩开歌声光环，她和身后的金克丝罩上护盾泡泡，随后飘起回血的爱心；她滑到两人右边、转身朝左（红色方的样子）放 R 炫音返场：舞台聚光灯亮起，一道大音波穿过盖伦和德莱厄斯，魅惑的爱心炸开，紧接着 E 让被魅惑的德莱厄斯头顶转起眩晕音符；最后舞台下亮起回音就绪的彩光](docs/preview/league_seraphine_showcase.gif?v=1007sr7)
 
 ![雷克顿演示：他跑进场，月牙刀砍德莱厄斯（刀光画在动作里），三刀后怒气满了，身后烧起红光；Q 巨鳄狂袭：一圈象牙白的刀光扫过德莱厄斯和身后的盖伦；E 横冲直撞：身后拖着沙色风痕冲过德莱厄斯；满怒气的 W 冷酷捕猎：身上冒出红色怒气，转身劈三刀，德莱厄斯头顶冒金星晕 1.5 秒；二段 E 再冲回来；R 终极统治：脚下炸开沙暴、头顶亮起金色的鳄鱼神符号，之后脚下一圈沙暴光环每半秒烫两人，他接着砍，德莱厄斯倒下](docs/preview/league_renekton_showcase.gif?v=1007rk4)
+![莉莉娅演示：她小跑进场，用枝条打德莱厄斯两下，粉紫花光炸开；Q 飞花挞：脚下绽开一圈粉紫花环，德莱厄斯和身后的盖伦身上闪过金色闪刺，蹄下飘起腾跃的花瓣；E 流涡种：橙色种子从枝头抛到德莱厄斯身上炸开，脚下一团蓝紫梦雾减速；W 惊惶木：她人立起来，德莱厄斯脚下亮起预警圈，砸下去时正中甜点的金色暴击、盖伦也挨了一下；她小跑到两人右边、转身朝左（红色方的样子）放 R 夜阑谣：身边升起蓝色梦境光带，两人头顶先飘困倦的梦雾，再睡着冒出梦泡泡；她一枝条打醒盖伦，泡泡啪地破开](docs/preview/league_lillia_showcase.gif?v=1007ll2)
 
 ## 英雄：盖伦
 
@@ -3006,6 +3007,48 @@ python addons/league_renekton/make_override.py   # 附加包的英雄数据和�
 - 红色方：命中、他身上的刀光圈 / 怒气 / 沙暴爆发、挂着循环的满怒气 / 眩晕 / 削甲 / 沙暴光环都严格左右对称；只有普攻刀光和 E 的冲刺风痕有朝向，画进动作帧里（`renekton_bake.json`），跟着他一起翻转。
 
 逐帧预览：[`docs/preview/league_renekton_frames.png`](docs/preview/league_renekton_frames.png)，特效：[`docs/preview/league_renekton_effects.png`](docs/preview/league_renekton_effects.png)。
+
+## 英雄：莉莉娅
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 打野（法师，分类 Melee），用户排的第十五组的打野（同组：上单雷克顿已做，其他英雄以后做），第 72 位英雄。含羞蓓蕾 莉莉娅：小鹿身子的梦之精灵，技能打中的敌人沾上梦尘持续掉血、她回血，Q 抡枝条转一圈（外圈多一下真实伤害），E 抛出种子减速，接着 W 人立起来往前方一个圈砸下去（正中甜点三倍），R 唱催眠曲让带梦尘的敌方英雄先困倦再昏睡。用户选的：技能位「Q 单独 + E→W 连招」，被动「这个需要做附加包的」（主包近似、附加包做真的百分比魔法伤害），R「主包眩晕 + 附加包真睡」，另外「加入高手的连招」 |
+| 普攻 / 被动 | 近战挥枝条，100% 攻击力，射程 25000，攻击间隔 60 tick（第 7 tick 打中）。被动「梦满枝」：技能每打中一个敌人就挂上梦尘（3 秒，每 0.75 秒一次：4 + 3% 法强的魔法伤害；对英雄每次再加 1% 最大生命值的**真实伤害**——数据里读最大生命值的只有真实伤害，英雄联盟是魔法伤害，在附加包里），每打中一个英雄她回 12 + 8% 法强。每放一个技能「腾跃」加一阶移速（最多 4 阶，每阶 +5%，6.5 秒） |
+| 技能1 | Q「飞花挞」：冷却 300 tick（5 秒），也对小兵和野怪放。第 7 tick 抡枝条转一圈：半径 26000 内 35 + 30% 法强的魔法伤害并挂梦尘；内圈 12000 以外的外圈再吃同样数值的真实伤害（内圈先挂 1 tick 的 99% 减伤，再打一遍真实伤害，只有外圈吃到） |
+| 技能2 | E「流涡种」→ W「惊惶木」：冷却 600 tick（10 秒），也对小兵和野怪放，射程 70000。E 把种子抛到目标身上（20 tick 飞行）：45 + 40% 法强的魔法伤害，减速 40% 3 秒，挂梦尘；扔完接 W：人立蓄力，0.5 秒后砸在扔种子时目标站的地方（地上先亮预警圈），半径 22000 内 40 + 30% 法强的魔法伤害并挂梦尘，正中甜点（4000）三倍——被 E 减速的目标通常还在圈心（高手连招）。英雄联盟里种子没打中会往前滚，数据里从落点发出的弹道会从她身上重新飞，没做 |
+| 大招 | R「夜阑谣」：冷却 4200 tick（70 秒）。上膛（萨勒芬妮 R 的做法）：70000 内有两个敌方英雄、而且最近有英雄沾了梦尘就立刻放，否则待命 10 秒，期间梦尘每打中英雄一次再判一次，等 3 秒后一个也放，没用上退还冷却。放出后她身上挂 0.75 秒的标记，每个英雄身上的梦尘下一次跳的时候读到它：困倦 1.5 秒（减速 40%），然后昏睡 1.5 秒（眩晕）；她的 Q / W 打到昏睡的英雄多一段 80 + 40% 法强的惊醒伤害。高手连招：英雄睡着后 W 冷却好了就砸睡着的人（甜点 + 惊醒）；R 待命时 E 单独扔、W 留给睡着的人 |
+| 梦尘与昏睡附加包 | 附加包 [`addons/league_lillia`](addons/league_lillia/README.md)（在附加包合集里）用原生代码做英雄联盟的规则：梦尘对英雄每 0.75 秒造成 1% + 每 100 法强 0.3% 最大生命值的**魔法伤害**；大招让带梦尘的敌方英雄困倦 1.5 秒后**昏睡** 2 秒，**受到任何伤害就醒**并吃 80 + 40% 法强的惊醒伤害。副本和主包只差梦尘的写法和这个被动，主包不装附加包也完整可玩；附加包只做了单元测试，要在游戏里看日志确认 |
+| 数值 | 攻击 65（+8）、法强 45（+20）、生命 960（+95）、护甲 28（+8）、魔抗 22（+4）、移速 1050（+11）。数值是自己设计的，用 SDK 对战模拟调：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），3 套阵容、两边各打，10 分钟。初稿 +2.20（同批凯隐 +1.76、赵信 +1.12）；R 的昏睡 2 → 1.5 秒、冷却 → 70 秒、R→W 由大招自己接后 +1.30 / +1.16（同批种子凯隐 +1.33、伊芙琳 +1.30）；按动作帧定下出手时机（普攻、Q、E 都提前到第 7 tick，R 第 10 tick）后到 +1.78 / +1.95，攻击 70 → 65：两批种子 +1.33 / +1.77（另试过 Q 35 → 31：+1.75 / +1.84；攻击 65 + 生命 930：+1.52 / +1.92） |
+| 亚索联动 | R 的昏睡（数据里是眩晕）算控制：莉莉娅在亚索队里打野时，亚索每局对英雄放 R 1.27 次（原版忍者 0.58，李青以前测的 1.67、凯隐 1.00），不用调 |
+| 精灵图 | 9 个动作 52 帧：待机、移动、普攻、Q（`skill`）、E 抛种子（`skill2`）、W 人立砸地（`skill2_w`）、R（`ult`）、受击、死亡。造型 32 × 46 px（连枝头到蹄子，小鹿身子四条腿），26 色。待机 6 帧同一张，腰以上轻轻呼吸；头像截取点 (3, −41)，选人卡片中心 −5（待机最高处是枝头，站位点上方 34 格；先设的 0 让卡片退回小图的默认画法，用户：「BP界面莉莉娅的位置要调一下」） |
+| 特效 | Codex 画的 17 张，按游戏尺寸交付，两张表 `league_lillia_fx` / `league_lillia_big`：普攻的花光，Q 脚下绽开的粉紫花环、命中的金色闪刺，E 飞行的橙色种子（严格上下对称）、落地炸开、命中、脚下减速的梦雾，W 地上的预警圈（甜点和往里收的倒计时圈）、砸地的冲击波、命中、甜点的金色暴击，R 身边升起的蓝色梦境光带、头顶的困倦梦雾和昏睡泡泡、被打醒破泡，腾跃时蹄下飘起的花瓣，附加包里敌人身上的梦尘 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_lillia.py`）：挥枝、命中，Q 施放、命中、外圈，W 施放、甜点、命中，E 施放、命中，R 施放、困倦、昏睡、惊醒；Q、W、E、R 的中文配音（片段名 `league_lillia_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_lillia.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_lillia.py            # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_lillia.py --face 3,-41 --banpick -5  # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/design_lillia.py --pick B46_rig   # 造型：Codex 原稿 07 按自己的格子读回，删到 46 行再逐格修
+python tools/lol/native_pose.py assets/source/lillia/poses.json --out <渲染文件夹>   # 动作参考帧（英雄联盟原动作）
+python tools/art/rig_lillia.py              # 动作：定稿整体（手臂不拆）旋转、跃起、人立，枝条绕双手转，腿按髋重画
+python tools/art/import_lillia.py           # 特效
+python tools/art/import_native.py --hero lillia   # 精灵
+python tools/art/preview_lillia.py          # 逐帧预览、特效预览、演示 GIF
+python addons/league_lillia/make_override.py   # 附加包的英雄数据和文字（主包的莉莉娅改了以后重跑）
+```
+
+美术（原画的提示词见 [`assets/source/lillia/PICTURE_PROMPT.md`](assets/source/lillia/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/lillia/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/lillia/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/lillia/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/lillia/codex_picture/)、[`codex_model/`](assets/source/lillia/codex_model/)、[`codex_strips/`](assets/source/lillia/codex_strips/)、[`codex_fx/`](assets/source/lillia/codex_fx/)；附图包由 `tools/art/pack_lillia_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
+
+- 原画：A 是英雄联盟的待机（枝条竖着抱在身前），B 是枝条低低地往前伸。用户选「A 竖抱枝条」。
+- 造型：Codex 自己删到 42 行的两版都碎了。用户：「你选一个吧 但的确不满意 需要调用工具修复」，选了原稿 07（按它自己的格子读回 65 行），再「用这个慢慢调不就行了吗」：轻轻删到 46 行，照字符表逐格修（脸、枝条的金钩和圆灯笼、两格宽的腿和后腿的跗关节、蹄子）。之后按用户说的一处处改：「有点胖」（删两行两列、腿重画直）、「身体和小鹿的腿连接的那里有点歪」「武器也是歪的」（枝条改成竖直一列，人和鹿身的接缝重画成一圈叶子裙）、「这里黑色一块是什么啊」（手肘旁的黑洞补成皮肤）；做动作时又修了「手臂这里不改吗 空这么大」（腰前横过的前臂原来是一圈肤色夹一条绿护腕，改成两行前臂 + 一圈护腕 + 下面一道描边）、枝条上一格描边色、裙摆的缺格、枝条挪开后往外凸的胸口。
+- 动作：Codex 第 2 步把造型的零件重新摆了，用户：「像素缺失 还有走路不掉很奇怪」「这里露出来一大截啊」。`tools/art/rig_lillia.py` 重做：先试过拆掉手臂按姿势重画，用户：「我觉得还是奇怪 这个身体」「腰部大规模像素消失啊 而且这个莉莉娅没有英雄联盟那种自然的感觉」「感觉不像是连体的」——于是手臂、手、腰一律保留定稿原样，枝条绕两手之间的握点转动、上下滑；动作照英雄联盟的原动作用整个身体做：普攻先后仰再跃起前扑、Q 小跳转一圈、E 蹲下再上抛、W 人立约 28° 再前倾砸地、R 起身举枝摇晃（腿上的部分整体按 RotSprite 旋转，四条腿从转过的髋重新画，收腿或踏地，画法和定稿的腿一样：两格宽、跗关节、蹄子）；跑步是小跑，对角两条腿一起迈，每次落地身子下沉一行，女孩的上半身晚一帧再跟着沉一行（用户：「莉莉娅移动时上半身有点僵硬」），灯笼轻轻晃；死亡照英雄联盟：后仰、人立、侧翻倒地，腿蜷着，枝条掉在身前。
+- 特效：Codex 第 3 步把 17 张都按游戏尺寸画了一份（[`codex_fx/lillia-fx/pixel_1x/`](assets/source/lillia/codex_fx/lillia-fx/pixel_1x/)），`tools/art/import_lillia.py` 每格切出、按锚点（中心、脚底）放好，导入时逐格检查对称。
+- 红色方：飞行的种子严格上下对称；命中、她身上的花环和梦境光带、挂着循环的减速 / 困倦 / 昏睡 / 梦尘 / 腾跃都严格左右对称；地上的花环、种子落地、预警圈、砸地上下左右都对称。没有特效画进动作帧。
+
+逐帧预览：[`docs/preview/league_lillia_frames.png`](docs/preview/league_lillia_frames.png)，特效：[`docs/preview/league_lillia_effects.png`](docs/preview/league_lillia_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

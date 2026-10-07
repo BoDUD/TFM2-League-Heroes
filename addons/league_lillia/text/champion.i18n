@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_lillia": {
+        "attack": "【梦尘测试版】被动<#ff9028ff>梦满枝<>：技能命中英雄时附上<#ff9028ff>梦尘<>，每<#ffb900ff>0.75秒<>造成1% + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>0.3%最大生命值的<#a974ffff>魔法伤害<>，并回复她<#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>生命；对其他敌人造成<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<>。施法叠<#ff9028ff>腾跃<>，每层<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+5%<>。",
+        "ult": "【昏睡测试版】所有带梦尘的敌方英雄<#ef5350ff>困倦<><#ffb900ff>1.5秒<>（<#ef5350ff>减速40%<>），随后<#ef5350ff>昏睡<><#ffb900ff>2秒<>；受到任何伤害就会醒来，并额外受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_lillia": {
+        "attack": "【夢境之塵測試版】被動<#ff9028ff>夢沉枝枒<>：技能命中英雄時附上<#ff9028ff>夢境之塵<>，每<#ffb900ff>0.75秒<>造成1% + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>0.3%最大生命值的<#a974ffff>魔法傷害<>，並回復她<#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>生命；對其他敵人造成<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<>。施法疊加跑速，每層<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+5%<>。",
+        "ult": "【沉睡測試版】所有帶夢境之塵的敵方英雄<#ef5350ff>疲倦<><#ffb900ff>1.5秒<>（<#ef5350ff>緩速40%<>），隨後<#ef5350ff>沉睡<><#ffb900ff>2秒<>；受到任何傷害就會醒來，並額外受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_lillia": {
+        "attack": "[Dream Dust test build] Passive <#ff9028ff>Dream-Laden Bough<>: her ability hits on champions leave <#ff9028ff>Dream Dust<>: every <#ffb900ff>0.75s<> 1% + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>0.3% of their max health as <#a974ffff>magic damage<>, and she heals <#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>; other enemies take <#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<>. Each cast stacks <#ff9028ff>Prance<>: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>+5% Move Speed<>.",
+        "ult": "[Sleep test build] Every enemy champion with Dream Dust turns <#ef5350ff>Drowsy<> (<#ef5350ff>40% slow<>) for <#ffb900ff>1.5s<>, then falls <#ef5350ff>Asleep<> for <#ffb900ff>2s<>; any damage wakes them, with <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> more <#a974ffff>magic damage<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_lillia": {
+        "attack": "[꿈가루 테스트판] 기본 지속 효과 <#ff9028ff>꿈나무 지팡이<>: 스킬이 챔피언에게 적중하면 <#ff9028ff>꿈가루<>: <#ffb900ff>0.75초<>마다 최대 체력의 1% + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>0.3% <#a974ffff>마법 피해<>, 릴리아는 <#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<> 회복. 다른 적은 <#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<>. 스킬마다 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 5%<> 중첩.",
+        "ult": "[수면 테스트판] 꿈가루가 묻은 모든 적 챔피언이 <#ffb900ff>1.5초<> <#ef5350ff>졸음<>(<#ef5350ff>40% 둔화<>) 후 <#ffb900ff>2초<> <#ef5350ff>잠듭니다<>. 피해를 입으면 깨어나며 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>를 추가로 받습니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_lillia": {
+        "attack": "【夢のかけらテスト版】パッシブ <#ff9028ff>夢を集める大枝<>：スキルがチャンピオンに命中で<#ff9028ff>夢のかけら<>、<#ffb900ff>0.75秒<>ごとに最大体力の1% + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>0.3%の<#a974ffff>魔法ダメージ<>、リリアは<#6aff55ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>8%<>回復。他の敵には<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>3%<>。スキルごとに<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度5%<>。",
+        "ult": "【睡眠テスト版】夢のかけらを受けた敵チャンピオン全員に<#ef5350ff>眠気<><#ffb900ff>1.5秒<>（<#ef5350ff>40%スロウ<>）、その後<#ef5350ff>睡眠<><#ffb900ff>2秒<>。ダメージを受けると目覚め、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>を追加で受ける。"
+      }
+    }
+  }
+}
