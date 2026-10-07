@@ -1,0 +1,2219 @@
+[
+  {
+    "name": "a_bolt",
+    "file": "twitch_fx_a_bolt.png",
+    "prompt_number": 1,
+    "frames": 4,
+    "cell_1x": [
+      14,
+      6
+    ],
+    "sheet_1x": [
+      56,
+      6
+    ],
+    "sheet_16x": [
+      896,
+      96
+    ],
+    "symmetry": [
+      "top_bottom"
+    ],
+    "binding": "view_projectiles `league_twitch_a_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+    "raw_file": "raw/twitch_fx_a_bolt.png",
+    "source_crop_common": [
+      0,
+      233,
+      543,
+      458
+    ],
+    "palette": [
+      "#0A0806",
+      "#7A4A10",
+      "#C88A1C",
+      "#FCC23A",
+      "#FFE68A",
+      "#8CD82A",
+      "#F2FFD0"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          14,
+          6
+        ],
+        "bbox": [
+          2,
+          1,
+          13,
+          5
+        ],
+        "opaque_pixels": 22,
+        "central_slot_empty_fraction": null,
+        "sha256": "8c7ec4429fccc764883c6b663225c54fd9958ce35043c0865140468ba2765746"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          14,
+          0,
+          14,
+          6
+        ],
+        "bbox": [
+          5,
+          1,
+          13,
+          5
+        ],
+        "opaque_pixels": 20,
+        "central_slot_empty_fraction": null,
+        "sha256": "fbcc71e42adf750f769de0a5d970213b46fcde54460450843e910735d1622bbf"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          28,
+          0,
+          14,
+          6
+        ],
+        "bbox": [
+          4,
+          1,
+          13,
+          5
+        ],
+        "opaque_pixels": 22,
+        "central_slot_empty_fraction": null,
+        "sha256": "ab6f1661124becbd0ffd0eceafcf4ff665bfaa8dc6ba9eae01da013bcdc790e4"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          42,
+          0,
+          14,
+          6
+        ],
+        "bbox": [
+          4,
+          1,
+          13,
+          5
+        ],
+        "opaque_pixels": 20,
+        "central_slot_empty_fraction": null,
+        "sha256": "b7f5a5f06e2c2bcd8c679e48462acbf76593a8547e2109eb81c7f313505e93f0"
+      }
+    ],
+    "origin_1x": [
+      12,
+      3.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "a_flash",
+    "file": "twitch_fx_a_flash.png",
+    "prompt_number": 2,
+    "frames": 3,
+    "cell_1x": [
+      12,
+      10
+    ],
+    "sheet_1x": [
+      36,
+      10
+    ],
+    "sheet_16x": [
+      576,
+      160
+    ],
+    "symmetry": [],
+    "binding": "烘进普攻出手帧（`twitch_bake.json`：弩尖的位置，随人物朝向翻转）",
+    "raw_file": "raw/twitch_fx_a_flash.png",
+    "source_crop_common": [
+      0,
+      204,
+      724,
+      568
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C",
+      "#FFF6C0",
+      "#FFE68A",
+      "#FCC23A",
+      "#C88A1C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          12,
+          10
+        ],
+        "bbox": [
+          2,
+          2,
+          8,
+          8
+        ],
+        "opaque_pixels": 22,
+        "central_slot_empty_fraction": null,
+        "sha256": "cc420020624dadb75334f5f598f2c0c3b59e60e37919cd5df6a5815dbd8cc29b"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          12,
+          0,
+          12,
+          10
+        ],
+        "bbox": [
+          1,
+          1,
+          11,
+          9
+        ],
+        "opaque_pixels": 46,
+        "central_slot_empty_fraction": null,
+        "sha256": "1dbedd732fc22db60d313c7b784588c513b6ffca8661ad9ef0d0d6ad26621e1e"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          24,
+          0,
+          12,
+          10
+        ],
+        "bbox": [
+          2,
+          2,
+          8,
+          8
+        ],
+        "opaque_pixels": 16,
+        "central_slot_empty_fraction": null,
+        "sha256": "fe6bc8581df32cad71987fdeedf6efbd1aaac7683e0b774a800ceb67513bfef2"
+      }
+    ],
+    "origin_1x": [
+      6.0,
+      5.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "a_hit",
+    "file": "twitch_fx_a_hit.png",
+    "prompt_number": 3,
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "sheet_1x": [
+      56,
+      14
+    ],
+    "sheet_16x": [
+      896,
+      224
+    ],
+    "symmetry": [],
+    "binding": "view_effects `league_twitch_a_hit`（跟随，画在人物上面）",
+    "raw_file": "raw/twitch_fx_a_hit.png",
+    "source_crop_common": [
+      33,
+      106,
+      539,
+      608
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          14,
+          14
+        ],
+        "bbox": [
+          4,
+          4,
+          10,
+          10
+        ],
+        "opaque_pixels": 19,
+        "central_slot_empty_fraction": null,
+        "sha256": "963fdb7ef05f6483fcad1eed30c991f5dd3c15f88aead3a6b28b59508857bcf6"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          14,
+          0,
+          14,
+          14
+        ],
+        "bbox": [
+          1,
+          1,
+          13,
+          13
+        ],
+        "opaque_pixels": 54,
+        "central_slot_empty_fraction": null,
+        "sha256": "6ceaa3741c18af54b2088609ce37c34198230a4354785a5f85e5ea30abf86ac3"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          28,
+          0,
+          14,
+          14
+        ],
+        "bbox": [
+          2,
+          2,
+          11,
+          12
+        ],
+        "opaque_pixels": 24,
+        "central_slot_empty_fraction": null,
+        "sha256": "573e303fef537c49e45747f3678b165126fe9ad8601d4b171123588b674c05bd"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          42,
+          0,
+          14,
+          14
+        ],
+        "bbox": [
+          4,
+          4,
+          11,
+          11
+        ],
+        "opaque_pixels": 6,
+        "central_slot_empty_fraction": null,
+        "sha256": "e7008ce72986ca7b3fd504780892bbc09eaf4c3f7dd247da947ec5e529264233"
+      }
+    ],
+    "origin_1x": [
+      7.0,
+      7.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "v_pop",
+    "file": "twitch_fx_v_pop.png",
+    "prompt_number": 4,
+    "frames": 6,
+    "cell_1x": [
+      24,
+      24
+    ],
+    "sheet_1x": [
+      144,
+      24
+    ],
+    "sheet_16x": [
+      2304,
+      384
+    ],
+    "symmetry": [],
+    "binding": "view_effects `league_twitch_v_pop`（跟随，画在人物上面）",
+    "raw_file": "raw/twitch_fx_v_pop.png",
+    "source_crop_common": [
+      0,
+      161,
+      362,
+      592
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          24,
+          24
+        ],
+        "bbox": [
+          9,
+          9,
+          16,
+          15
+        ],
+        "opaque_pixels": 25,
+        "central_slot_empty_fraction": null,
+        "sha256": "49577d615da972391edc4b6077a20767410e3fec1afebe2a3e3702cb0cc46ff3"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          24,
+          0,
+          24,
+          24
+        ],
+        "bbox": [
+          2,
+          3,
+          23,
+          20
+        ],
+        "opaque_pixels": 150,
+        "central_slot_empty_fraction": null,
+        "sha256": "04423f7749c50c19a4e28cfdd011f2d38c7bd9c3dc76bdcbd2a428291b4a7956"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          48,
+          0,
+          24,
+          24
+        ],
+        "bbox": [
+          1,
+          1,
+          23,
+          22
+        ],
+        "opaque_pixels": 222,
+        "central_slot_empty_fraction": null,
+        "sha256": "883504e299635bc4da355ab8aa1985fda10932b39dc09b4fd8e7b331dc3593b4"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          72,
+          0,
+          24,
+          24
+        ],
+        "bbox": [
+          2,
+          2,
+          23,
+          23
+        ],
+        "opaque_pixels": 199,
+        "central_slot_empty_fraction": null,
+        "sha256": "8ad3bb0e82038420780653adc3c995de9b66f4248a086263a06901b0ea731cf5"
+      },
+      {
+        "index": 5,
+        "rect_1x": [
+          96,
+          0,
+          24,
+          24
+        ],
+        "bbox": [
+          1,
+          1,
+          23,
+          23
+        ],
+        "opaque_pixels": 176,
+        "central_slot_empty_fraction": null,
+        "sha256": "6e83486e75930717e42c7116c8c4ab9c7f35a129ea1e85a2f03657c0256ac0d3"
+      },
+      {
+        "index": 6,
+        "rect_1x": [
+          120,
+          0,
+          24,
+          24
+        ],
+        "bbox": [
+          5,
+          5,
+          21,
+          21
+        ],
+        "opaque_pixels": 62,
+        "central_slot_empty_fraction": null,
+        "sha256": "d3e6438a9aae385d5edd7b844183e27f4e75cf5d453473741d37071fee0e36f4"
+      }
+    ],
+    "origin_1x": [
+      12.0,
+      12.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "w_cask",
+    "file": "twitch_fx_w_cask.png",
+    "prompt_number": 5,
+    "frames": 4,
+    "cell_1x": [
+      8,
+      8
+    ],
+    "sheet_1x": [
+      32,
+      8
+    ],
+    "sheet_16x": [
+      512,
+      128
+    ],
+    "symmetry": [
+      "top_bottom"
+    ],
+    "binding": "view_projectiles `league_twitch_w_cask`（抛物线飞行；上下对称）",
+    "raw_file": "raw/twitch_fx_w_cask.png",
+    "source_crop_common": [
+      25,
+      236,
+      461,
+      541
+    ],
+    "palette": [
+      "#0A0806",
+      "#7A4A10",
+      "#C88A1C",
+      "#FCC23A",
+      "#FFE68A",
+      "#8CD82A",
+      "#F2FFD0"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          8,
+          8
+        ],
+        "bbox": [
+          1,
+          1,
+          7,
+          7
+        ],
+        "opaque_pixels": 26,
+        "central_slot_empty_fraction": null,
+        "sha256": "7e779ffb43714ba3087f3517ae2eb5eebcea997117e2d9b997ad35bd975937ea"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          8,
+          0,
+          8,
+          8
+        ],
+        "bbox": [
+          1,
+          1,
+          7,
+          7
+        ],
+        "opaque_pixels": 28,
+        "central_slot_empty_fraction": null,
+        "sha256": "e6cfa0f07fc92ea9dfa6755d859aab083041c5a424783104b99b6f980f5fb2e0"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          16,
+          0,
+          8,
+          8
+        ],
+        "bbox": [
+          1,
+          1,
+          7,
+          7
+        ],
+        "opaque_pixels": 24,
+        "central_slot_empty_fraction": null,
+        "sha256": "b51aad8036b7d4135c611aecebb410d89eb38071b79539caae1d078c850dca2c"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          24,
+          0,
+          8,
+          8
+        ],
+        "bbox": [
+          1,
+          1,
+          7,
+          7
+        ],
+        "opaque_pixels": 28,
+        "central_slot_empty_fraction": null,
+        "sha256": "e6cfa0f07fc92ea9dfa6755d859aab083041c5a424783104b99b6f980f5fb2e0"
+      }
+    ],
+    "origin_1x": [
+      4.0,
+      4.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "w_hit",
+    "file": "twitch_fx_w_hit.png",
+    "prompt_number": 6,
+    "frames": 5,
+    "cell_1x": [
+      18,
+      18
+    ],
+    "sheet_1x": [
+      90,
+      18
+    ],
+    "sheet_16x": [
+      1440,
+      288
+    ],
+    "symmetry": [],
+    "binding": "view_effects `league_twitch_w_hit`（跟随，画在人物上面）",
+    "raw_file": "raw/twitch_fx_w_hit.png",
+    "source_crop_common": [
+      0,
+      160,
+      421,
+      643
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C",
+      "#FFF6C0",
+      "#FFE68A",
+      "#FCC23A",
+      "#C88A1C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          18,
+          18
+        ],
+        "bbox": [
+          6,
+          4,
+          12,
+          12
+        ],
+        "opaque_pixels": 21,
+        "central_slot_empty_fraction": null,
+        "sha256": "cc5ac476596fbb3c1ef479562568a51a83511c632135a744b09f989ea7553487"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          18,
+          0,
+          18,
+          18
+        ],
+        "bbox": [
+          2,
+          1,
+          17,
+          15
+        ],
+        "opaque_pixels": 59,
+        "central_slot_empty_fraction": null,
+        "sha256": "fd988983472dfb5e4212bc0b61a92cfbb139b43abee9ce70703a3adb7add96a2"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          36,
+          0,
+          18,
+          18
+        ],
+        "bbox": [
+          2,
+          2,
+          17,
+          17
+        ],
+        "opaque_pixels": 54,
+        "central_slot_empty_fraction": null,
+        "sha256": "d6fe91c6f35c5a6dbb518e0e9314b2a309af33bd151ad6334639ce5484061f9e"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          54,
+          0,
+          18,
+          18
+        ],
+        "bbox": [
+          4,
+          4,
+          16,
+          15
+        ],
+        "opaque_pixels": 22,
+        "central_slot_empty_fraction": null,
+        "sha256": "392eee149ea0df1831e15c71618e17e58a41f6961a7d7bda898a12dda88b79f5"
+      },
+      {
+        "index": 5,
+        "rect_1x": [
+          72,
+          0,
+          18,
+          18
+        ],
+        "bbox": [
+          5,
+          7,
+          13,
+          14
+        ],
+        "opaque_pixels": 5,
+        "central_slot_empty_fraction": null,
+        "sha256": "b9c75b9a890d555fdc06d247196261a19c426c5aec5b7074d056d472dcd57772"
+      }
+    ],
+    "origin_1x": [
+      9.0,
+      9.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "w_pool",
+    "file": "twitch_fx_w_pool.png",
+    "prompt_number": 7,
+    "frames": 4,
+    "cell_1x": [
+      58,
+      24
+    ],
+    "sheet_1x": [
+      232,
+      24
+    ],
+    "sheet_16x": [
+      3712,
+      384
+    ],
+    "symmetry": [
+      "left_right",
+      "top_bottom"
+    ],
+    "binding": "view_projectiles `league_twitch_w_pool`（地上，不旋转，画在人物下面；上下左右都对称）",
+    "raw_file": "raw/twitch_fx_w_pool.png",
+    "source_crop_common": [
+      9,
+      249,
+      516,
+      504
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          58,
+          24
+        ],
+        "bbox": [
+          1,
+          1,
+          57,
+          23
+        ],
+        "opaque_pixels": 860,
+        "central_slot_empty_fraction": null,
+        "sha256": "c54e082114f17b7a2259c2aebab8642a39c5d8d5f7e8f0d688c1f786459a7288"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          58,
+          0,
+          58,
+          24
+        ],
+        "bbox": [
+          1,
+          1,
+          57,
+          23
+        ],
+        "opaque_pixels": 856,
+        "central_slot_empty_fraction": null,
+        "sha256": "042e3a70239ecbbb326a019f2c7aa585fff2c19ac2c95374834b204aee724f7b"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          116,
+          0,
+          58,
+          24
+        ],
+        "bbox": [
+          1,
+          1,
+          57,
+          23
+        ],
+        "opaque_pixels": 848,
+        "central_slot_empty_fraction": null,
+        "sha256": "0d411074eaad1cea628e366a59e81326594404af5875e2be3bc4d8ca72d7f09b"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          174,
+          0,
+          58,
+          24
+        ],
+        "bbox": [
+          1,
+          1,
+          57,
+          23
+        ],
+        "opaque_pixels": 852,
+        "central_slot_empty_fraction": null,
+        "sha256": "660facc530c034408ba2c579674cf3ae6267958cb337b5d3f4324fd70c7e58e2"
+      }
+    ],
+    "origin_1x": [
+      29.0,
+      12.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "w_slow",
+    "file": "twitch_fx_w_slow.png",
+    "prompt_number": 8,
+    "frames": 4,
+    "cell_1x": [
+      18,
+      8
+    ],
+    "sheet_1x": [
+      72,
+      8
+    ],
+    "sheet_16x": [
+      1152,
+      128
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_buffs `league_twitch_w_slow`（画在脚下，左右对称）",
+    "raw_file": "raw/twitch_fx_w_slow.png",
+    "source_crop_common": [
+      0,
+      240,
+      470,
+      601
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          18,
+          8
+        ],
+        "bbox": [
+          2,
+          2,
+          16,
+          7
+        ],
+        "opaque_pixels": 34,
+        "central_slot_empty_fraction": null,
+        "sha256": "c1619f6861011a170c2048054c5a340e88ad335200a9e6148bc1742c511df9ac"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          18,
+          0,
+          18,
+          8
+        ],
+        "bbox": [
+          2,
+          1,
+          16,
+          7
+        ],
+        "opaque_pixels": 38,
+        "central_slot_empty_fraction": null,
+        "sha256": "5479d172712db18b21e9ca9e5221ec88ea909a6e34ffc916e14d7f5618dac487"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          36,
+          0,
+          18,
+          8
+        ],
+        "bbox": [
+          2,
+          2,
+          16,
+          7
+        ],
+        "opaque_pixels": 34,
+        "central_slot_empty_fraction": null,
+        "sha256": "b0e5d0b9ffc0841c9e9260951783aa7fa6e9737b5bdb9efe27314c7a3590cf93"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          54,
+          0,
+          18,
+          8
+        ],
+        "bbox": [
+          2,
+          1,
+          16,
+          7
+        ],
+        "opaque_pixels": 34,
+        "central_slot_empty_fraction": null,
+        "sha256": "cdcc91fc98604874fad429bd50ceae73b43ee3a0a6310eb2e8b585e3ff1454dd"
+      }
+    ],
+    "origin_1x": [
+      9.0,
+      4.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "q_cast",
+    "file": "twitch_fx_q_cast.png",
+    "prompt_number": 9,
+    "frames": 6,
+    "cell_1x": [
+      36,
+      36
+    ],
+    "sheet_1x": [
+      216,
+      36
+    ],
+    "sheet_16x": [
+      3456,
+      576
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_effects `league_twitch_q_cast`（技能第一 tick 播放、跟随；中心在站位点上面约 16 格）",
+    "raw_file": "raw/twitch_fx_q_cast.png",
+    "source_crop_common": [
+      0,
+      164,
+      362,
+      633
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C",
+      "#F4E8FF",
+      "#C8A8F0",
+      "#8A5CC0",
+      "#56347E",
+      "#2E1A48"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "bbox": [
+          4,
+          25,
+          32,
+          34
+        ],
+        "opaque_pixels": 112,
+        "central_slot_empty_fraction": 0.9352,
+        "sha256": "bba933f9997b75f5390cb5eb40c556d10cb8461c889ec75abe240f10557eebd0"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          36,
+          0,
+          36,
+          36
+        ],
+        "bbox": [
+          1,
+          10,
+          35,
+          34
+        ],
+        "opaque_pixels": 386,
+        "central_slot_empty_fraction": 0.9722,
+        "sha256": "27dceb066533151109cb0c641734ec6b2ae709798847ebea659f9f727dfbfc0b"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          72,
+          0,
+          36,
+          36
+        ],
+        "bbox": [
+          1,
+          4,
+          35,
+          35
+        ],
+        "opaque_pixels": 540,
+        "central_slot_empty_fraction": 0.9444,
+        "sha256": "3e61837543014c7d2b637e51ae5612957be088a10fc5f8b7938089e1f51edd16"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          108,
+          0,
+          36,
+          36
+        ],
+        "bbox": [
+          2,
+          1,
+          34,
+          35
+        ],
+        "opaque_pixels": 556,
+        "central_slot_empty_fraction": 0.7685,
+        "sha256": "52f9688fcbaef7b01765a2ddaf2efd18682942a83c17ff66cd8a0518fae728d1"
+      },
+      {
+        "index": 5,
+        "rect_1x": [
+          144,
+          0,
+          36,
+          36
+        ],
+        "bbox": [
+          1,
+          1,
+          35,
+          35
+        ],
+        "opaque_pixels": 350,
+        "central_slot_empty_fraction": 0.8704,
+        "sha256": "b109b90ab4343677f82250d4e55c384a4b0be8286eb5d5e15fc5125d5886bd8c"
+      },
+      {
+        "index": 6,
+        "rect_1x": [
+          180,
+          0,
+          36,
+          36
+        ],
+        "bbox": [
+          3,
+          2,
+          33,
+          34
+        ],
+        "opaque_pixels": 220,
+        "central_slot_empty_fraction": 0.8426,
+        "sha256": "76aedaf43d11c8771faf52090250e9bf384ff5523966711a8159b5beb36dc22e"
+      }
+    ],
+    "origin_1x": [
+      18.0,
+      18.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only.",
+    "recommended_center_above_actor_feet_game_pixels": 16,
+    "empty_actor_feet_anchor_1x": [
+      18.0,
+      33
+    ]
+  },
+  {
+    "name": "q_out",
+    "file": "twitch_fx_q_out.png",
+    "prompt_number": 10,
+    "frames": 5,
+    "cell_1x": [
+      30,
+      30
+    ],
+    "sheet_1x": [
+      150,
+      30
+    ],
+    "sheet_16x": [
+      2400,
+      480
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_effects `league_twitch_q_out`（不跟随，左右对称；中心在站位点上面约 16 格）",
+    "raw_file": "raw/twitch_fx_q_out.png",
+    "source_crop_common": [
+      0,
+      258,
+      384,
+      583
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C",
+      "#F4E8FF",
+      "#C8A8F0",
+      "#8A5CC0",
+      "#56347E",
+      "#2E1A48"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          30,
+          30
+        ],
+        "bbox": [
+          3,
+          16,
+          27,
+          21
+        ],
+        "opaque_pixels": 52,
+        "central_slot_empty_fraction": 0.9556,
+        "sha256": "9e8b86e5cc15954e3b214682b7de2edc2d70e7fada14ab39114c51b14ced79e1"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          30,
+          0,
+          30,
+          30
+        ],
+        "bbox": [
+          1,
+          7,
+          29,
+          24
+        ],
+        "opaque_pixels": 134,
+        "central_slot_empty_fraction": 0.9667,
+        "sha256": "33e55baff7a81aae04dc8fc10b7cb597508339560f29e07ffab29d011645f582"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          60,
+          0,
+          30,
+          30
+        ],
+        "bbox": [
+          1,
+          1,
+          29,
+          29
+        ],
+        "opaque_pixels": 244,
+        "central_slot_empty_fraction": 0.9111,
+        "sha256": "1c67762cc00185df3036823cf1d4d0411b8943d38cf12a43fc404b82816cee21"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          90,
+          0,
+          30,
+          30
+        ],
+        "bbox": [
+          1,
+          6,
+          29,
+          29
+        ],
+        "opaque_pixels": 112,
+        "central_slot_empty_fraction": 0.8333,
+        "sha256": "d961c50ae9c7c3e3f51269476dd891c21c3f69bf511072db7687ed195c6e0cbe"
+      },
+      {
+        "index": 5,
+        "rect_1x": [
+          120,
+          0,
+          30,
+          30
+        ],
+        "bbox": [
+          1,
+          11,
+          29,
+          23
+        ],
+        "opaque_pixels": 20,
+        "central_slot_empty_fraction": 0.9444,
+        "sha256": "9c579b5fd62733236b51e93f3cb4616fb2e0426f39f39b14e39157fe5ef2599e"
+      }
+    ],
+    "origin_1x": [
+      15.0,
+      15.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only.",
+    "recommended_center_above_actor_feet_game_pixels": 16,
+    "empty_actor_feet_anchor_1x": [
+      15.0,
+      27
+    ]
+  },
+  {
+    "name": "q_as",
+    "file": "twitch_fx_q_as.png",
+    "prompt_number": 11,
+    "frames": 4,
+    "cell_1x": [
+      28,
+      14
+    ],
+    "sheet_1x": [
+      112,
+      14
+    ],
+    "sheet_16x": [
+      1792,
+      224
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_buffs `league_twitch_q_as`（跟随，画在他身上，左右对称）",
+    "raw_file": "raw/twitch_fx_q_as.png",
+    "source_crop_common": [
+      27,
+      315,
+      388,
+      601
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          28,
+          14
+        ],
+        "bbox": [
+          1,
+          2,
+          27,
+          12
+        ],
+        "opaque_pixels": 84,
+        "central_slot_empty_fraction": 0.9286,
+        "sha256": "0b4bb7d795042696d81ea684e75bc177a73bc5d0cbc7a4c6164175db6327291a"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          28,
+          0,
+          28,
+          14
+        ],
+        "bbox": [
+          2,
+          1,
+          26,
+          13
+        ],
+        "opaque_pixels": 88,
+        "central_slot_empty_fraction": 0.881,
+        "sha256": "de08cdab11d194ef0298963251af4dd642c9321873d2f0d1175878b487826235"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          56,
+          0,
+          28,
+          14
+        ],
+        "bbox": [
+          2,
+          2,
+          26,
+          13
+        ],
+        "opaque_pixels": 74,
+        "central_slot_empty_fraction": 0.9286,
+        "sha256": "bf0cd8421608b032996f3c4e30b17f1a87d293802a8a1aaff7d6296d568f837c"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          84,
+          0,
+          28,
+          14
+        ],
+        "bbox": [
+          2,
+          2,
+          26,
+          12
+        ],
+        "opaque_pixels": 80,
+        "central_slot_empty_fraction": 0.8571,
+        "sha256": "021518ac069c8be4ec00ebe1e2a752d4b4ad7b508844136d9bdabe8a2858bd8c"
+      }
+    ],
+    "origin_1x": [
+      14.0,
+      7.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "q_reset",
+    "file": "twitch_fx_q_reset.png",
+    "prompt_number": 12,
+    "frames": 5,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "sheet_1x": [
+      80,
+      16
+    ],
+    "sheet_16x": [
+      1280,
+      256
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_effects `league_twitch_q_reset`（不跟随，左右对称；中心在站位点上面约 34 格）",
+    "raw_file": "raw/twitch_fx_q_reset.png",
+    "source_crop_common": [
+      5,
+      197,
+      393,
+      597
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C",
+      "#FFF6C0",
+      "#FFE68A",
+      "#FCC23A",
+      "#C88A1C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          7,
+          7,
+          9,
+          9
+        ],
+        "opaque_pixels": 4,
+        "central_slot_empty_fraction": null,
+        "sha256": "a8ecabc44f3b0213d69625c48f7cfa3423258d7e63381f8a08a334860196649e"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          3,
+          3,
+          13,
+          12
+        ],
+        "opaque_pixels": 52,
+        "central_slot_empty_fraction": null,
+        "sha256": "ccaf9ddccd0c5bb9a81fbb2d6f9cca528e74a1500be134bbef10d12b81835dfd"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          32,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          2,
+          2,
+          14,
+          13
+        ],
+        "opaque_pixels": 64,
+        "central_slot_empty_fraction": null,
+        "sha256": "c9f99a44ce2e80352b23b3d83f466b97b81ef46a894aafcaedaa376340dfb3d6"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          48,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          4,
+          5,
+          12,
+          11
+        ],
+        "opaque_pixels": 30,
+        "central_slot_empty_fraction": null,
+        "sha256": "a3e31b4e73dbf0e645488f059d839ab077a8bc2b248ed37b447354a57b0605f3"
+      },
+      {
+        "index": 5,
+        "rect_1x": [
+          64,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          7,
+          7,
+          9,
+          9
+        ],
+        "opaque_pixels": 4,
+        "central_slot_empty_fraction": null,
+        "sha256": "19cbe2af2853e2233bdca8d5753af3146aecbdcc1de792991d98c332ac1e7583"
+      }
+    ],
+    "origin_1x": [
+      8.0,
+      8.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only.",
+    "recommended_center_above_actor_feet_game_pixels": 34
+  },
+  {
+    "name": "e_cast",
+    "file": "twitch_fx_e_cast.png",
+    "prompt_number": 13,
+    "frames": 6,
+    "cell_1x": [
+      46,
+      32
+    ],
+    "sheet_1x": [
+      276,
+      32
+    ],
+    "sheet_16x": [
+      4416,
+      512
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_effects `league_twitch_e_cast`（不跟随，画在人物下面，左右对称；中心在站位点上面约 12 格）",
+    "raw_file": "raw/twitch_fx_e_cast.png",
+    "source_crop_common": [
+      0,
+      184,
+      337,
+      587
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          46,
+          32
+        ],
+        "bbox": [
+          7,
+          16,
+          39,
+          29
+        ],
+        "opaque_pixels": 124,
+        "central_slot_empty_fraction": 0.8304,
+        "sha256": "c052ff3ff6caebdb6a16d4386303d5721598fa254fd86e9b4b022b478e25f36b"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          46,
+          0,
+          46,
+          32
+        ],
+        "bbox": [
+          2,
+          7,
+          44,
+          29
+        ],
+        "opaque_pixels": 390,
+        "central_slot_empty_fraction": 0.8661,
+        "sha256": "95d146cb77541fc26708def3b57ebe5acfe9f2afd7602358ee3e897c1a8fd321"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          92,
+          0,
+          46,
+          32
+        ],
+        "bbox": [
+          1,
+          1,
+          45,
+          31
+        ],
+        "opaque_pixels": 586,
+        "central_slot_empty_fraction": 0.7589,
+        "sha256": "0b21e6760a161fb29a60529f6d2d62726f026aa21e2cf60374928c547dcfb800"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          138,
+          0,
+          46,
+          32
+        ],
+        "bbox": [
+          1,
+          4,
+          45,
+          31
+        ],
+        "opaque_pixels": 432,
+        "central_slot_empty_fraction": 0.8839,
+        "sha256": "3f674562b9301e5260de89c92d27a957cd88f632035b7b143bd666e0ca85ead7"
+      },
+      {
+        "index": 5,
+        "rect_1x": [
+          184,
+          0,
+          46,
+          32
+        ],
+        "bbox": [
+          1,
+          7,
+          45,
+          30
+        ],
+        "opaque_pixels": 274,
+        "central_slot_empty_fraction": 0.875,
+        "sha256": "b4b836acc56dab0ea500047951e0dfa42999326f3b4fa1e09b00dd4670bd0745"
+      },
+      {
+        "index": 6,
+        "rect_1x": [
+          230,
+          0,
+          46,
+          32
+        ],
+        "bbox": [
+          1,
+          10,
+          45,
+          29
+        ],
+        "opaque_pixels": 164,
+        "central_slot_empty_fraction": 0.9286,
+        "sha256": "c2fda43fb48d9d1c9afe5bbb208233caf58fcd89bb02333921a81567c1bafe9d"
+      }
+    ],
+    "origin_1x": [
+      23.0,
+      16.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only.",
+    "recommended_center_above_actor_feet_game_pixels": 12,
+    "empty_actor_feet_anchor_1x": [
+      23.0,
+      29
+    ]
+  },
+  {
+    "name": "r_cast",
+    "file": "twitch_fx_r_cast.png",
+    "prompt_number": 14,
+    "frames": 6,
+    "cell_1x": [
+      38,
+      38
+    ],
+    "sheet_1x": [
+      228,
+      38
+    ],
+    "sheet_16x": [
+      3648,
+      608
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_effects `league_twitch_r_cast`（不跟随，左右对称；中心在站位点上面约 16 格）",
+    "raw_file": "raw/twitch_fx_r_cast.png",
+    "source_crop_common": [
+      0,
+      130,
+      362,
+      615
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C",
+      "#FFF6C0",
+      "#FFE68A",
+      "#FCC23A",
+      "#C88A1C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          38,
+          38
+        ],
+        "bbox": [
+          7,
+          23,
+          31,
+          32
+        ],
+        "opaque_pixels": 64,
+        "central_slot_empty_fraction": 0.9737,
+        "sha256": "9c46641a020dec4c9b1007f76256ec7d12161b4c0d0e3208838653a0ca957262"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          38,
+          0,
+          38,
+          38
+        ],
+        "bbox": [
+          2,
+          22,
+          36,
+          34
+        ],
+        "opaque_pixels": 124,
+        "central_slot_empty_fraction": 0.9825,
+        "sha256": "62def66813606abab1ba734bb0ab1399d3cca946bcc26f2cf3b67e31ebd1b0ee"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          76,
+          0,
+          38,
+          38
+        ],
+        "bbox": [
+          1,
+          6,
+          37,
+          35
+        ],
+        "opaque_pixels": 294,
+        "central_slot_empty_fraction": 0.9649,
+        "sha256": "d3bbf711e30fc65e5b3d8f489c4644056a596696038f3cc1ffa02e7539db21ad"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          114,
+          0,
+          38,
+          38
+        ],
+        "bbox": [
+          1,
+          1,
+          37,
+          36
+        ],
+        "opaque_pixels": 378,
+        "central_slot_empty_fraction": 0.9649,
+        "sha256": "484da43104f6089d279337dc333fb1d979829cf4d71c445900c58aee1c5ad151"
+      },
+      {
+        "index": 5,
+        "rect_1x": [
+          152,
+          0,
+          38,
+          38
+        ],
+        "bbox": [
+          1,
+          4,
+          37,
+          36
+        ],
+        "opaque_pixels": 212,
+        "central_slot_empty_fraction": 0.886,
+        "sha256": "0f519bdfdb73e0bee4e42a76ab1e57cd9d0e4828727139fdf0bb86b32d29aaba"
+      },
+      {
+        "index": 6,
+        "rect_1x": [
+          190,
+          0,
+          38,
+          38
+        ],
+        "bbox": [
+          1,
+          5,
+          37,
+          36
+        ],
+        "opaque_pixels": 82,
+        "central_slot_empty_fraction": 0.9912,
+        "sha256": "5635bf8a29f494a1c3aebfa5b6161fabba6218529606b47f18c6455c31e68941"
+      }
+    ],
+    "origin_1x": [
+      19.0,
+      19.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only.",
+    "recommended_center_above_actor_feet_game_pixels": 16,
+    "empty_actor_feet_anchor_1x": [
+      19.0,
+      35
+    ]
+  },
+  {
+    "name": "r_on",
+    "file": "twitch_fx_r_on.png",
+    "prompt_number": 15,
+    "frames": 4,
+    "cell_1x": [
+      32,
+      38
+    ],
+    "sheet_1x": [
+      128,
+      38
+    ],
+    "sheet_16x": [
+      2048,
+      608
+    ],
+    "symmetry": [
+      "left_right"
+    ],
+    "binding": "view_buffs `league_twitch_r_on`（跟随，画在他身上，左右对称）",
+    "raw_file": "raw/twitch_fx_r_on.png",
+    "source_crop_common": [
+      36,
+      22,
+      505,
+      684
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          32,
+          38
+        ],
+        "bbox": [
+          1,
+          7,
+          31,
+          37
+        ],
+        "opaque_pixels": 192,
+        "central_slot_empty_fraction": 0.9766,
+        "sha256": "2c1b01972716aea298b6d8ce675146b91486f29c3d282627c960ea94bed79437"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          32,
+          0,
+          32,
+          38
+        ],
+        "bbox": [
+          1,
+          4,
+          31,
+          37
+        ],
+        "opaque_pixels": 222,
+        "central_slot_empty_fraction": 0.9708,
+        "sha256": "6990eb5610361d96167178033f4caecc3eb68439c318da41041ed1aaf6dfdfb0"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          64,
+          0,
+          32,
+          38
+        ],
+        "bbox": [
+          1,
+          1,
+          31,
+          37
+        ],
+        "opaque_pixels": 236,
+        "central_slot_empty_fraction": 0.9415,
+        "sha256": "5f88d03bf83ff161643a9acbfe0768d1d6bc6d35f731382f462e1fc2b0176f1c"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          96,
+          0,
+          32,
+          38
+        ],
+        "bbox": [
+          1,
+          2,
+          31,
+          37
+        ],
+        "opaque_pixels": 222,
+        "central_slot_empty_fraction": 0.9825,
+        "sha256": "ed3ebe537948b3a87e7f9565b626463037907e9e10da033d2fe026ccf04eba19"
+      }
+    ],
+    "origin_1x": [
+      16.0,
+      19.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only.",
+    "empty_actor_feet_anchor_1x": [
+      16.0,
+      35
+    ]
+  },
+  {
+    "name": "r_bolt",
+    "file": "twitch_fx_r_bolt.png",
+    "prompt_number": 16,
+    "frames": 4,
+    "cell_1x": [
+      24,
+      8
+    ],
+    "sheet_1x": [
+      96,
+      8
+    ],
+    "sheet_16x": [
+      1536,
+      128
+    ],
+    "symmetry": [
+      "top_bottom"
+    ],
+    "binding": "view_projectiles `league_twitch_r_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+    "raw_file": "raw/twitch_fx_r_bolt.png",
+    "source_crop_common": [
+      17,
+      248,
+      527,
+      464
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          24,
+          8
+        ],
+        "bbox": [
+          4,
+          2,
+          23,
+          6
+        ],
+        "opaque_pixels": 46,
+        "central_slot_empty_fraction": null,
+        "sha256": "5af4be97a75a72487108cef9d8886e06a5fa03ec01e6ac76e757e19f3a5e2af7"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          24,
+          0,
+          24,
+          8
+        ],
+        "bbox": [
+          6,
+          1,
+          23,
+          7
+        ],
+        "opaque_pixels": 48,
+        "central_slot_empty_fraction": null,
+        "sha256": "07e4edcf95f811ef6adc61a973adde704c730cee93510319429a1dadac8fda20"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          48,
+          0,
+          24,
+          8
+        ],
+        "bbox": [
+          5,
+          1,
+          23,
+          7
+        ],
+        "opaque_pixels": 50,
+        "central_slot_empty_fraction": null,
+        "sha256": "1873ecef960f74f6d7935be04a2ad27d89035887a8bd38fcf386fd153d232208"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          72,
+          0,
+          24,
+          8
+        ],
+        "bbox": [
+          5,
+          1,
+          23,
+          7
+        ],
+        "opaque_pixels": 44,
+        "central_slot_empty_fraction": null,
+        "sha256": "b3e49334f940d7565fd37be953ee552279ad8c8be710a60c93876c38e05804d9"
+      }
+    ],
+    "origin_1x": [
+      22,
+      4.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  },
+  {
+    "name": "r_hit",
+    "file": "twitch_fx_r_hit.png",
+    "prompt_number": 17,
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "sheet_1x": [
+      64,
+      16
+    ],
+    "sheet_16x": [
+      1024,
+      256
+    ],
+    "symmetry": [],
+    "binding": "view_effects `league_twitch_r_hit`（跟随，画在人物上面）",
+    "raw_file": "raw/twitch_fx_r_hit.png",
+    "source_crop_common": [
+      20,
+      137,
+      520,
+      591
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#F2FFD0",
+      "#C8F060",
+      "#8CD82A",
+      "#4E9A18",
+      "#24500C",
+      "#FFF6C0",
+      "#FFE68A",
+      "#FCC23A",
+      "#C88A1C"
+    ],
+    "frame_info": [
+      {
+        "index": 1,
+        "rect_1x": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          2,
+          6,
+          15,
+          11
+        ],
+        "opaque_pixels": 39,
+        "central_slot_empty_fraction": null,
+        "sha256": "0b27a9662131f292c844c6ea2c0e98d8035434a7d31f03dae7d54ca5bf0c28c4"
+      },
+      {
+        "index": 2,
+        "rect_1x": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          1,
+          2,
+          14,
+          15
+        ],
+        "opaque_pixels": 85,
+        "central_slot_empty_fraction": null,
+        "sha256": "9c0bc1d0aba9e58b106bca2450c40807b1ccabbc9ec4953d1a4c600b9fd1b1ee"
+      },
+      {
+        "index": 3,
+        "rect_1x": [
+          32,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          2,
+          3,
+          14,
+          14
+        ],
+        "opaque_pixels": 22,
+        "central_slot_empty_fraction": null,
+        "sha256": "9bc4624ad3e71d03e81776f5e2f17e365581f96a89e5baecd5b009a421010a69"
+      },
+      {
+        "index": 4,
+        "rect_1x": [
+          48,
+          0,
+          16,
+          16
+        ],
+        "bbox": [
+          5,
+          3,
+          12,
+          11
+        ],
+        "opaque_pixels": 3,
+        "central_slot_empty_fraction": null,
+        "sha256": "4fd846e4c0c93c2b49d5e9711cbf658a95b1d3a21d8fbd3c35c0886395b8ad4a"
+      }
+    ],
+    "origin_1x": [
+      8.0,
+      8.0
+    ],
+    "timing_ms": null,
+    "timing_note": "Not specified by source pack; preview GIF uses 120ms only."
+  }
+]

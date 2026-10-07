@@ -1,0 +1,103 @@
+{
+  "frames": 44,
+  "grid": true,
+  "palette_size": 24,
+  "hard_alpha": true,
+  "empty_unused_cells": true,
+  "frame_contract": true,
+  "head_exact_translation": true,
+  "run_stride_proof": true,
+  "release_points_on_opaque_pixels": true,
+  "release": [
+    {
+      "tag": "attack",
+      "index": 3,
+      "tick": 7,
+      "bow_tip": [
+        78,
+        70
+      ],
+      "near_hand": [
+        56,
+        65
+      ],
+      "far_hand": [
+        70,
+        69
+      ],
+      "hand_empty": false
+    },
+    {
+      "tag": "skill",
+      "index": 2,
+      "tick": 6,
+      "bow_tip": [
+        80,
+        72
+      ],
+      "near_hand": [
+        58,
+        67
+      ],
+      "far_hand": [
+        72,
+        71
+      ],
+      "hand_empty": false
+    },
+    {
+      "tag": "skill2",
+      "index": 3,
+      "tick": 9,
+      "bow_tip": [
+        86,
+        72
+      ],
+      "near_hand": [
+        67,
+        66
+      ],
+      "far_hand": [
+        78,
+        71
+      ],
+      "hand_empty": true
+    },
+    {
+      "tag": "skill2_e",
+      "index": 3,
+      "tick": 10,
+      "bow_tip": [
+        82,
+        68
+      ],
+      "near_hand": [
+        49,
+        50
+      ],
+      "far_hand": [
+        74,
+        67
+      ],
+      "hand_empty": false
+    },
+    {
+      "tag": "ult",
+      "index": 2,
+      "tick": 6,
+      "bow_tip": [
+        90,
+        66
+      ],
+      "near_hand": [
+        50,
+        53
+      ],
+      "far_hand": [
+        82,
+        65
+      ],
+      "hand_empty": false
+    }
+  ]
+}

@@ -253,6 +253,10 @@
                       "effects": [
                         {
                           "type": "RemoveCasterBuff",
+                          "name": "league_fiora_r_won"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
                           "name": "league_fiora_r_armed"
                         },
                         {
@@ -2993,6 +2997,76 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "AddCasted",
+                          "casted_type": "Bleed",
+                          "duration": 481,
+                          "period": 2,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_fiora_r_won",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_fiora_r_won"
+                                  },
+                                  {
+                                    "type": "ParabolicProjectile",
+                                    "name": "league_fiora_r_lob",
+                                    "travel_time": 1,
+                                    "range": 400000,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "applied_target": "Enemy",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "RangePeriodProjectile",
+                                        "name": "league_fiora_r_zone_heal",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 35000
+                                          }
+                                        },
+                                        "tick": 180,
+                                        "period": 30,
+                                        "first_delay": 0,
+                                        "applied_target": "AllyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Heal",
+                                              "amount": 20,
+                                              "attack_ratio": 12,
+                                              "ap_ratio": 0,
+                                              "heal_type": "Ally"
+                                            }
+                                          }
+                                        ],
+                                        "end_effects": []
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_fiora_r_zone"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          ]
                         }
                       ]
                     },
@@ -3445,49 +3519,16 @@
                                         "tick": 1,
                                         "effects": [
                                           {
-                                            "type": "ParabolicProjectile",
-                                            "name": "league_fiora_r_lob",
-                                            "travel_time": 1,
-                                            "range": 400000,
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 1000
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_fiora_r_won",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 4
+                                                }
                                               }
                                             },
-                                            "applied_target": "Enemy",
-                                            "applied_effects": [],
-                                            "end_effects": [
-                                              {
-                                                "type": "RangePeriodProjectile",
-                                                "name": "league_fiora_r_zone_heal",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 35000
-                                                  }
-                                                },
-                                                "tick": 180,
-                                                "period": 30,
-                                                "first_delay": 0,
-                                                "applied_target": "AllyChampion",
-                                                "applied_effects": [
-                                                  {
-                                                    "casting_type": "Targeting",
-                                                    "effect": {
-                                                      "type": "Heal",
-                                                      "amount": 20,
-                                                      "attack_ratio": 12,
-                                                      "ap_ratio": 0,
-                                                      "heal_type": "Ally"
-                                                    }
-                                                  }
-                                                ],
-                                                "end_effects": []
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_fiora_r_zone"
-                                              }
-                                            ]
+                                            "only_to_enemy": false
                                           }
                                         ]
                                       }
@@ -4565,49 +4606,16 @@
                                               "tick": 1,
                                               "effects": [
                                                 {
-                                                  "type": "ParabolicProjectile",
-                                                  "name": "league_fiora_r_lob",
-                                                  "travel_time": 1,
-                                                  "range": 400000,
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 1000
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_fiora_r_won",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 4
+                                                      }
                                                     }
                                                   },
-                                                  "applied_target": "Enemy",
-                                                  "applied_effects": [],
-                                                  "end_effects": [
-                                                    {
-                                                      "type": "RangePeriodProjectile",
-                                                      "name": "league_fiora_r_zone_heal",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 35000
-                                                        }
-                                                      },
-                                                      "tick": 180,
-                                                      "period": 30,
-                                                      "first_delay": 0,
-                                                      "applied_target": "AllyChampion",
-                                                      "applied_effects": [
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "Heal",
-                                                            "amount": 20,
-                                                            "attack_ratio": 12,
-                                                            "ap_ratio": 0,
-                                                            "heal_type": "Ally"
-                                                          }
-                                                        }
-                                                      ],
-                                                      "end_effects": []
-                                                    },
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_fiora_r_zone"
-                                                    }
-                                                  ]
+                                                  "only_to_enemy": false
                                                 }
                                               ]
                                             }
@@ -5726,49 +5734,16 @@
                                             "tick": 1,
                                             "effects": [
                                               {
-                                                "type": "ParabolicProjectile",
-                                                "name": "league_fiora_r_lob",
-                                                "travel_time": 1,
-                                                "range": 400000,
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_fiora_r_won",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 4
+                                                    }
                                                   }
                                                 },
-                                                "applied_target": "Enemy",
-                                                "applied_effects": [],
-                                                "end_effects": [
-                                                  {
-                                                    "type": "RangePeriodProjectile",
-                                                    "name": "league_fiora_r_zone_heal",
-                                                    "shape": {
-                                                      "Circle": {
-                                                        "radius": 35000
-                                                      }
-                                                    },
-                                                    "tick": 180,
-                                                    "period": 30,
-                                                    "first_delay": 0,
-                                                    "applied_target": "AllyChampion",
-                                                    "applied_effects": [
-                                                      {
-                                                        "casting_type": "Targeting",
-                                                        "effect": {
-                                                          "type": "Heal",
-                                                          "amount": 20,
-                                                          "attack_ratio": 12,
-                                                          "ap_ratio": 0,
-                                                          "heal_type": "Ally"
-                                                        }
-                                                      }
-                                                    ],
-                                                    "end_effects": []
-                                                  },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_fiora_r_zone"
-                                                  }
-                                                ]
+                                                "only_to_enemy": false
                                               }
                                             ]
                                           }
@@ -7030,49 +7005,16 @@
                                                       "tick": 1,
                                                       "effects": [
                                                         {
-                                                          "type": "ParabolicProjectile",
-                                                          "name": "league_fiora_r_lob",
-                                                          "travel_time": 1,
-                                                          "range": 400000,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 1000
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_fiora_r_won",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 4
+                                                              }
                                                             }
                                                           },
-                                                          "applied_target": "Enemy",
-                                                          "applied_effects": [],
-                                                          "end_effects": [
-                                                            {
-                                                              "type": "RangePeriodProjectile",
-                                                              "name": "league_fiora_r_zone_heal",
-                                                              "shape": {
-                                                                "Circle": {
-                                                                  "radius": 35000
-                                                                }
-                                                              },
-                                                              "tick": 180,
-                                                              "period": 30,
-                                                              "first_delay": 0,
-                                                              "applied_target": "AllyChampion",
-                                                              "applied_effects": [
-                                                                {
-                                                                  "casting_type": "Targeting",
-                                                                  "effect": {
-                                                                    "type": "Heal",
-                                                                    "amount": 20,
-                                                                    "attack_ratio": 12,
-                                                                    "ap_ratio": 0,
-                                                                    "heal_type": "Ally"
-                                                                  }
-                                                                }
-                                                              ],
-                                                              "end_effects": []
-                                                            },
-                                                            {
-                                                              "type": "ViewEffect",
-                                                              "name": "league_fiora_r_zone"
-                                                            }
-                                                          ]
+                                                          "only_to_enemy": false
                                                         }
                                                       ]
                                                     }
@@ -8173,49 +8115,16 @@
                                                         "tick": 1,
                                                         "effects": [
                                                           {
-                                                            "type": "ParabolicProjectile",
-                                                            "name": "league_fiora_r_lob",
-                                                            "travel_time": 1,
-                                                            "range": 400000,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 1000
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_fiora_r_won",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 4
+                                                                }
                                                               }
                                                             },
-                                                            "applied_target": "Enemy",
-                                                            "applied_effects": [],
-                                                            "end_effects": [
-                                                              {
-                                                                "type": "RangePeriodProjectile",
-                                                                "name": "league_fiora_r_zone_heal",
-                                                                "shape": {
-                                                                  "Circle": {
-                                                                    "radius": 35000
-                                                                  }
-                                                                },
-                                                                "tick": 180,
-                                                                "period": 30,
-                                                                "first_delay": 0,
-                                                                "applied_target": "AllyChampion",
-                                                                "applied_effects": [
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "Heal",
-                                                                      "amount": 20,
-                                                                      "attack_ratio": 12,
-                                                                      "ap_ratio": 0,
-                                                                      "heal_type": "Ally"
-                                                                    }
-                                                                  }
-                                                                ],
-                                                                "end_effects": []
-                                                              },
-                                                              {
-                                                                "type": "ViewEffect",
-                                                                "name": "league_fiora_r_zone"
-                                                              }
-                                                            ]
+                                                            "only_to_enemy": false
                                                           }
                                                         ]
                                                       }
@@ -8796,6 +8705,10 @@
             {
               "type": "Combine",
               "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_fiora_r_won"
+                },
                 {
                   "type": "RemoveCasterBuff",
                   "name": "league_fiora_r_armed"
@@ -11536,6 +11449,76 @@
                           }
                         }
                       ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AddCasted",
+                  "casted_type": "Bleed",
+                  "duration": 481,
+                  "period": 2,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_fiora_r_won",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_fiora_r_won"
+                          },
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_fiora_r_lob",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "applied_target": "Enemy",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangePeriodProjectile",
+                                "name": "league_fiora_r_zone_heal",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 35000
+                                  }
+                                },
+                                "tick": 180,
+                                "period": 30,
+                                "first_delay": 0,
+                                "applied_target": "AllyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Heal",
+                                      "amount": 20,
+                                      "attack_ratio": 12,
+                                      "ap_ratio": 0,
+                                      "heal_type": "Ally"
+                                    }
+                                  }
+                                ],
+                                "end_effects": []
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_fiora_r_zone"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
                     }
                   ]
                 }
