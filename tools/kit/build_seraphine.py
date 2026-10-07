@@ -66,8 +66,9 @@ P = {
     # 570 +90 hp, 26 armour, 325 move speed
     "hp": 880, "hp_g": 92, "atk": 75, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
-    # attack: the bolt leaves her hand on a_st
-    "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 11, "bolt_speed": 6000, "bolt_y": 1500,
+    # attack: the note leaves her hand on a_st (22 px ahead, 18 over the pivot; flown 8 over it: a homing shot from
+    # higher looks crooked)
+    "atk_range": 55000, "atk_dur": 30, "atk_cd": 90, "a_st": 11, "bolt_speed": 6000, "bolt_y": 8000,
     # passive (League: notes 4% AP + level scaling each, max 4, 6 s, +25 range; echo every 3rd spell)
     "note_t": 360, "note_r": 60000, "note_dmg": 8, "note_ratio": 8, "note_range": 3000,
     "echo_delay": 12, "echo_hold": 300,
@@ -256,7 +257,7 @@ def build(p):
         return combine(sfx("q_throw"),
                        lob("q_note", p["q_travel"], p["q_r"], "EnemyWithoutTower",
                            [magic(p["q_dmg"], p["q_ratio"]), view("q_hit")], end=[view("q_land"), sfx("q_hit")]),
-                       lob("q_amp", p["q_travel"], p["q_r"], "EnemyChampionInCC",
+                       lob("q_amp_lob", p["q_travel"], p["q_r"], "EnemyChampionInCC",
                            [magic(round(p["q_dmg"] * q_amp), round(p["q_ratio"] * q_amp)), view("q_amp")]))
 
     q_slot = combine(refresh("q_cd", p["q_cd"]), sfx("q_cast"), voice("vo_q", p), anim("skill", p["q_anim"]),
@@ -273,7 +274,7 @@ def build(p):
                        line("e_wave", p["e_speed"], p["e_len"], p["e_w"], 0, "EnemyWithoutTower", True,
                             [magic(p["e_dmg"], p["e_ratio"]), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
                              view("e_hit"), champ, mark]),
-                       line("e_stun", p["e_speed"], p["e_len"], p["e_w"], 0, "EnemyChampionInCC", True,
+                       line("e_cc", p["e_speed"], p["e_len"], p["e_w"], 0, "EnemyChampionInCC", True,
                             [{"type": "Stun", "duration": p["e_stun"]}, view("e_stun"), tsfx("e_stun")]))
 
     def w_song():
@@ -357,13 +358,13 @@ def build(p):
     LATE = dict(follow=False)
     P_ = lambda name, anim_=FX, z=1: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
-                                      "z": z}
+    B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
+                                                "repeat": True, "z": z}
     views_p = [P_("a_bolt"), P_("a_note"), P_("q_note"), P_("e_wave", BIG), P_("r_wave", BIG)]
     views_e = [E("a_hit"), E("a_note_hit"), E("q_hit"), E("q_land", BIG, -1, follow=False), E("q_amp"),
                E("e_hit"), E("e_root"), E("e_stun"), E("w_cast", BIG, -1, **LATE), E("w_heal"), E("r_cast", BIG, 3, **LATE),
                E("r_hit"), E("echo", FX, 3, **LATE)]
-    views_b = [B_("n1", FX, 3), B_("n2", FX, 3), B_("n3", FX, 3), B_("n4", FX, 3), B_("echo", FX, 3),
+    views_b = [B_("n1", FX, 3), B_("n2", FX, 3), B_("n3", FX, 3), B_("n4", FX, 3), B_("echo", FX, -1, tag="echo_ready"),
                B_("e_slow", FX, -1), B_("w_on", FX, -1)]
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "CC", "Heal", "Shield"],

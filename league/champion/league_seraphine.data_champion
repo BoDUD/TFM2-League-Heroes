@@ -1461,7 +1461,7 @@
                                                                 },
                                                                 {
                                                                   "type": "LinearProjectile",
-                                                                  "name": "league_seraphine_e_stun",
+                                                                  "name": "league_seraphine_e_cc",
                                                                   "penetrate": true,
                                                                   "applied_target": "EnemyChampionInCC",
                                                                   "applied_effects": [
@@ -1831,7 +1831,7 @@
                                                       },
                                                       {
                                                         "type": "LinearProjectile",
-                                                        "name": "league_seraphine_e_stun",
+                                                        "name": "league_seraphine_e_cc",
                                                         "penetrate": true,
                                                         "applied_target": "EnemyChampionInCC",
                                                         "applied_effects": [
@@ -2346,7 +2346,7 @@
                                                         },
                                                         {
                                                           "type": "ParabolicProjectile",
-                                                          "name": "league_seraphine_q_amp",
+                                                          "name": "league_seraphine_q_amp_lob",
                                                           "travel_time": 18,
                                                           "range": 400000,
                                                           "shape": {
@@ -2443,7 +2443,7 @@
                     "type": "TargetProjectile",
                     "name": "league_seraphine_a_note",
                     "speed": 6000,
-                    "y_offset": 1500,
+                    "y_offset": 8000,
                     "applied_target": "Enemy",
                     "applied_effects": [
                       {
@@ -2514,7 +2514,7 @@
                       "type": "TargetProjectile",
                       "name": "league_seraphine_a_note",
                       "speed": 6000,
-                      "y_offset": 1500,
+                      "y_offset": 8000,
                       "applied_target": "Enemy",
                       "applied_effects": [
                         {
@@ -2585,7 +2585,7 @@
                         "type": "TargetProjectile",
                         "name": "league_seraphine_a_note",
                         "speed": 6000,
-                        "y_offset": 1500,
+                        "y_offset": 8000,
                         "applied_target": "Enemy",
                         "applied_effects": [
                           {
@@ -2656,7 +2656,7 @@
                           "type": "TargetProjectile",
                           "name": "league_seraphine_a_note",
                           "speed": 6000,
-                          "y_offset": 1500,
+                          "y_offset": 8000,
                           "applied_target": "Enemy",
                           "applied_effects": [
                             {
@@ -2705,7 +2705,7 @@
                       "type": "TargetProjectile",
                       "name": "league_seraphine_a_bolt",
                       "speed": 6000,
-                      "y_offset": 1500,
+                      "y_offset": 8000,
                       "applied_target": "Enemy",
                       "applied_effects": [
                         {
@@ -3155,7 +3155,7 @@
                                   },
                                   {
                                     "type": "ParabolicProjectile",
-                                    "name": "league_seraphine_q_amp",
+                                    "name": "league_seraphine_q_amp_lob",
                                     "travel_time": 18,
                                     "range": 400000,
                                     "shape": {
@@ -3295,7 +3295,7 @@
                       },
                       {
                         "type": "ParabolicProjectile",
-                        "name": "league_seraphine_q_amp",
+                        "name": "league_seraphine_q_amp_lob",
                         "travel_time": 18,
                         "range": 400000,
                         "shape": {
@@ -3984,7 +3984,7 @@
                                     },
                                     {
                                       "type": "LinearProjectile",
-                                      "name": "league_seraphine_e_stun",
+                                      "name": "league_seraphine_e_cc",
                                       "penetrate": true,
                                       "applied_target": "EnemyChampionInCC",
                                       "applied_effects": [
@@ -4354,7 +4354,7 @@
                           },
                           {
                             "type": "LinearProjectile",
-                            "name": "league_seraphine_e_stun",
+                            "name": "league_seraphine_e_cc",
                             "penetrate": true,
                             "applied_target": "EnemyChampionInCC",
                             "applied_effects": [
@@ -4869,7 +4869,7 @@
                             },
                             {
                               "type": "ParabolicProjectile",
-                              "name": "league_seraphine_q_amp",
+                              "name": "league_seraphine_q_amp_lob",
                               "travel_time": 18,
                               "range": 400000,
                               "shape": {
@@ -6265,7 +6265,7 @@
                                                           },
                                                           {
                                                             "type": "LinearProjectile",
-                                                            "name": "league_seraphine_e_stun",
+                                                            "name": "league_seraphine_e_cc",
                                                             "penetrate": true,
                                                             "applied_target": "EnemyChampionInCC",
                                                             "applied_effects": [
@@ -6635,7 +6635,7 @@
                                                 },
                                                 {
                                                   "type": "LinearProjectile",
-                                                  "name": "league_seraphine_e_stun",
+                                                  "name": "league_seraphine_e_cc",
                                                   "penetrate": true,
                                                   "applied_target": "EnemyChampionInCC",
                                                   "applied_effects": [
@@ -7150,7 +7150,7 @@
                                                   },
                                                   {
                                                     "type": "ParabolicProjectile",
-                                                    "name": "league_seraphine_q_amp",
+                                                    "name": "league_seraphine_q_amp_lob",
                                                     "travel_time": 18,
                                                     "range": 400000,
                                                     "shape": {
@@ -7478,9 +7478,9 @@
       "type": "Animated",
       "name": "league_seraphine_echo",
       "anim": "asset/league/effects/league_seraphine_fx",
-      "tag": "echo",
+      "tag": "echo_ready",
       "repeat": true,
-      "z": 3
+      "z": -1
     },
     {
       "type": "Animated",
