@@ -37,6 +37,13 @@ blade, far arm, both legs, tail; whole-part moves and nearest-neighbour turns). 
      right kilt flap (design rows 83-86, left in by my cut at row 87), hanging in the air when Codex's legs stepped away
      (league_brand's belt-and-seat case): THIGH_TOPS trims them before the legs go on; import_native closes the outline.
      run_frame (the parts recomposition) stays for reference.
+  4. 「待机时攻击时放技能时尾巴看不到啊」: the narrowed design's only tail was the small hook under the blade. The tail
+     Codex drew for the run (codex_run/raw/tail.png, frame 1: a 32 x 22 crocodile tail, root lower right, tip upper
+     left; read back on its grid, its chroma fringe to ink, every square to the design's nearest colour) is drawn
+     behind him in every frame (the user's pick 「A 斜向后上翘」): its root at TAIL_AT behind the hip, raised back and up,
+     its tip out past the blade. In the rig's frames the body's place comes from matching the rig's core piece (the
+     body never turns there); the run uses Codex's upper-body shifts. The falling and lying death frames (dead 3-8)
+     keep their own (fix 2).
 """
 import argparse
 import json
@@ -72,6 +79,8 @@ TAIL_ROOT = (45, 92)     # its root at the hip
 RUN_TAIL = -60           # degrees (clockwise: raised behind him)
 DESIGN = os.path.join(OUT, "renekton_native.png")
 CODEX_RUN = os.path.join(ROOT, "assets", "source", "renekton", "codex_run")
+TAIL_AT = (54, 90)       # fix 4: the tail picture's lower-right corner (its root) on the design canvas
+NO_TAIL = {("dead", i) for i in range(2, 8)}
 CELL_DY = 18             # a design row - CELL_DY = its row in a run cell (the feet on row 81, the design's on 99)
 # design rows 83-86: the thigh tops under the belt - the left thigh's teal (columns 55-59) and everything right of the
 # kilt (the right kilt flap's stub from its top at the belt, the right thigh's top and their outline)
@@ -236,6 +245,58 @@ def run_frame(parts, i, pivot):
     return np.array(f)
 
 
+def raised_tail():
+    """Fix 4: Codex's run tail (raw/tail.png, the first of its 4 x 2 cells) read back on its grid, in the design's colours."""
+    import sys
+    sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+    from regrid import regrid
+    im = np.array(Image.open(lp(os.path.join(CODEX_RUN, "raw", "tail.png"))).convert("RGBA"))
+    green = (im[..., 1] > 200) & (im[..., 0] < 90) & (im[..., 2] < 90)
+    im[green, 3] = 0
+    r, _, _ = regrid(im[:im.shape[0] // 2, :im.shape[1] // 4])
+    r[r[..., 3] < 128] = 0
+    r[r[..., 3] > 0, 3] = 255
+    ys, xs = np.nonzero(r[..., 3] > 0)
+    t = r[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy()
+    op = t[..., 3] > 0
+    fringe = op & (t[..., 1].astype(int) > t[..., 0].astype(int) + 40) & (t[..., 1].astype(int) > t[..., 2].astype(int) + 40)
+    t[fringe] = (4, 4, 3, 255)
+    d = np.array(Image.open(lp(DESIGN)).convert("RGBA"))
+    pal = np.array(sorted({tuple(c) for c in d[d[..., 3] > 0][:, :3].tolist()}))
+    op = t[..., 3] > 0
+    t[op, :3] = pal[np.argmin(((t[op][:, None, :3].astype(int) - pal[None]) ** 2).sum(-1), 1)]
+    return t
+
+
+def tail_behind(c, tail, x, y):
+    """The tail with its lower-right corner on (x, y) of cell c, only where c is clear (behind everything)."""
+    h, w = tail.shape[:2]
+    x0, y0 = x - w + 1, y - h + 1
+    out = c.copy()
+    for ty in range(h):
+        for tx in range(w):
+            cy, cx = y0 + ty, x0 + tx
+            if tail[ty, tx, 3] and 0 <= cy < out.shape[0] and 0 <= cx < out.shape[1] and not out[cy, cx, 3]:
+                out[cy, cx] = tail[ty, tx]
+    return out
+
+
+def body_offset(c, core, pivot):
+    """Where the rig put the design in cell c: the translation (design -> cell) under which most of the core piece's
+    squares match, searched round the pivot's own placement."""
+    ys, xs = np.nonzero(core[..., 3] > 0)
+    bx, by = pivot[0] - 64, pivot[1] - 88
+    best = (-1, bx, by)
+    for dy in range(-6, 7):
+        for dx in range(-8, 9):
+            cy, cx = ys + by + dy, xs + bx + dx
+            ok = (cy >= 0) & (cy < c.shape[0]) & (cx >= 0) & (cx < c.shape[1])
+            n = int((c[cy[ok], cx[ok]] == core[ys[ok], xs[ok]]).all(-1).sum())
+            if n > best[0]:
+                best = (n, bx + dx, by + dy)
+    return best[1], best[2], best[0] / len(xs)
+
+
 def codex_run():
     """Codex's run (1x sheet) recomposed from its layers with the upper body's thigh tops trimmed."""
     legs = np.array(Image.open(lp(os.path.join(CODEX_RUN, "layers", "redrawn_legs_1x.png"))).convert("RGBA"))
@@ -258,12 +319,11 @@ def codex_run():
         before = Image.new("RGBA", (128, 96))
         before.alpha_composite(leg)
         before.alpha_composite(Image.fromarray(upper), tuple(fr["upper_shift"]))
-        fin = final[Y:Y + 96, X:X + 128]
-        tail = np.where(((np.array(before) != fin).any(-1) & (fin[..., 3] > 0))[..., None], fin, 0).astype(np.uint8)
-        cell = Image.fromarray(tail)
+        cell = Image.new("RGBA", (128, 96))
         cell.alpha_composite(leg)
         cell.alpha_composite(Image.fromarray(trimmed), tuple(fr["upper_shift"]))
-        out[Y:Y + 96, X:X + 128] = np.array(cell)
+        sx, sy = fr["upper_shift"]
+        out[Y:Y + 96, X:X + 128] = tail_behind(np.array(cell), TAIL, TAIL_AT[0] + sx, TAIL_AT[1] - CELL_DY + sy)
     return out
 
 
@@ -279,6 +339,9 @@ def main():
     parts = {n: Image.open(lp(os.path.join(RIG, f"{n}.png"))).convert("RGBA")
              for n in ("core", "far", "frontleg", "head", "near", "rearleg", "tail")}
     rparts = run_parts(parts)
+    global TAIL
+    TAIL = raised_tail()
+    core = np.array(parts["core"])
     cw, ch = cells["cell"]
     total = 0
     for tag, frs in cells["tags"].items():
@@ -294,6 +357,11 @@ def main():
             if tag == "dead" and i in CORPSE:
                 c, moved_n = lay_tail(c, parts, i, frs[i]["pivot"])
                 print(tag, i + 1, "tail turned", TAIL_TURN, "degrees,", moved_n, "squares")
+            if tag != "run" and (tag, i) not in NO_TAIL:
+                ox, oy, share = body_offset(c, core, frs[i]["pivot"])
+                if share < 0.9:
+                    raise SystemExit(f"{tag} {i + 1}: the body piece matches only {share:.0%} - where is he?")
+                c = tail_behind(c, TAIL, TAIL_AT[0] + ox, TAIL_AT[1] + oy)
             c, gone = clean(c)
             if gone:
                 print(tag, i + 1, len(gone), [(int(y), int(x)) for y, x in gone])
