@@ -108,8 +108,8 @@ empty tooltip). That is why the linter exists - run it after every edit.
   in another move a tick or two in that by design shows something else (league_samira's attack and Q fire the pistol
   from afar, a_flash / q_flash, and swing the sword up close, attack_m / skill_m with the slash), and a copy cut from a
   tag at slice_ms keeps what was drawn into that tag before it (league_xerath's passive attack_fx1 carries a_flash);
-  league_samira's R pistol flashes end with the spin when she attacks during R, while the r_on buff's symmetric
-  gunfire loop runs on (2026-10-07). A caster picture that plays while he walks, and a hit that shows where the blow came from, is made
+  nor an action that plays its tag only for its own length with no `CasterAnimation` to hold it (league_samira's ult
+  below S rank only arms R: 3 ticks of the ult pose, none of the spin's flashes reached; 2026-10-07). A caster picture that plays while he walks, and a hit that shows where the blow came from, is made
   left-right symmetric (`tools/fix/mirror_union_fx.py`); one that must point at a target rides a projectile (turned
   with it). A figure of the hero left on the ground is drawn from the front (league_ekko's R hologram, from Codex's
   front view `assets/source/red_side/ekko_front.png`). `tools/fix/red_side_caster_fx.py` is the 2026-10-06 pass over the whole pack.
