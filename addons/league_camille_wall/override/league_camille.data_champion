@@ -387,6 +387,16 @@
                               "only_to_enemy": false
                             },
                             {
+                              "type": "Delayed",
+                              "tick": 120,
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_camille_p_on"
+                                }
+                              ]
+                            },
+                            {
                               "type": "AddCasterBuff",
                               "buff_state": {
                                 "name": "league_camille_p_cd",
