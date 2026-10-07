@@ -818,74 +818,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -896,74 +1009,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -974,74 +1200,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1052,74 +1391,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1130,74 +1582,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1208,74 +1773,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1286,74 +1964,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1364,74 +2155,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1442,74 +2346,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1520,74 +2537,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1598,74 +2728,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },
@@ -1676,74 +2919,187 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_missfortune_bullet_time"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_missfortune_lives",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
               ]
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_missfortune_bullet_time",
+              "buff_name": "league_missfortune_lives",
               "effect_buff": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_missfortune_r_wave",
-                    "width": 36000,
-                    "length": 100000,
-                    "delay": 15,
-                    "apply": 65,
-                    "applied_target": "Ally",
-                    "applied_effects": []
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "DirDot": {
-                        "radius": 100000,
-                        "range": 906
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": {
-                      "Forward": {
-                        "offset": 1000
-                      }
-                    },
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 15,
-                        "attack_ratio": 45,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_missfortune_r_hit"
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
                       }
                     ]
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_missfortune_r_wave"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   }
                 ]
               },
               "effect_none": {
-                "type": "Combine",
-                "effects": []
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyOnlySelf",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_missfortune_bullet_time"
+                      },
+                      {
+                        "type": "RemoveCasterAnimation",
+                        "name": "ult"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_missfortune_bullet_time",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_missfortune_r_wave",
+                          "width": 36000,
+                          "length": 100000,
+                          "delay": 15,
+                          "apply": 65,
+                          "applied_target": "Ally",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "DirDot": {
+                              "radius": 100000,
+                              "range": 906
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": {
+                            "Forward": {
+                              "offset": 1000
+                            }
+                          },
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 15,
+                              "attack_ratio": 45,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_missfortune_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_missfortune_r_wave"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_missfortune_lives"
             }
           ]
         },

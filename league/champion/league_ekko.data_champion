@@ -3695,413 +3695,858 @@
               "tick": 239,
               "effects": [
                 {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_ekko_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
                   "type": "SwitchByBuff",
-                  "buff_name": "league_ekko_chrono",
+                  "buff_name": "league_ekko_lives",
                   "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_ekko_chrono"
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_ekko_r_depart"
-                      },
-                      {
-                        "type": "Teleport"
-                      },
-                      {
-                        "type": "CasterAnimation",
-                        "name": "ult_arrive",
-                        "tick": 24
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_ekko_r_phase",
-                          "duration": {
-                            "Time": {
-                              "tick": 20
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_ekko_chrono",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_ekko_chrono"
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_ekko_r_depart"
+                        },
+                        {
+                          "type": "Teleport"
+                        },
+                        {
+                          "type": "CasterAnimation",
+                          "name": "ult_arrive",
+                          "tick": 24
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_ekko_r_phase",
+                            "duration": {
+                              "Time": {
+                                "tick": 20
+                              }
+                            },
+                            "damaged_reduce": 100,
+                            "cc_immune": true
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_ekko_r_arrive"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_ekko_r_rewind"
+                        },
+                        {
+                          "type": "Heal",
+                          "amount": 150,
+                          "attack_ratio": 0,
+                          "ap_ratio": 80,
+                          "heal_type": "Caster"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 35000
                             }
                           },
-                          "damaged_reduce": 100,
-                          "cc_immune": true
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_ekko_r_arrive"
-                      },
-                      {
-                        "type": "Sfx",
-                        "name": "league_ekko_r_rewind"
-                      },
-                      {
-                        "type": "Heal",
-                        "amount": 150,
-                        "attack_ratio": 0,
-                        "ap_ratio": 80,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 35000
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "ApAttack",
-                            "damage": 150,
-                            "attack_ratio": 100
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_ekko_r_hit"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 35000
-                          }
-                        },
-                        "target": "EnemyChampion",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_ekko_r_zlock",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
+                          "target": "EnemyWithoutTower",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 150,
+                              "attack_ratio": 100
                             },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_ekko_r_zlock",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 2
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 35000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_ekko_r_zlock",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_ekko_r_zlock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 2
+                                        }
                                       }
-                                    }
+                                    },
+                                    "only_to_enemy": false
                                   },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_ekko_z_cd",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
+                                  {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_ekko_z2",
+                                    "buff_name": "league_ekko_z_cd",
                                     "effect_buff": {
                                       "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_ekko_z2"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_ekko_z_cd",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 180
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "ApAttack",
-                                              "damage": 100,
-                                              "attack_ratio": 80
-                                            },
-                                            {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_ekko_z_slow",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 90
-                                                  }
-                                                },
-                                                "move_speed_mult": -40
-                                              }
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_ekko_z_proc"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_ekko_z_proc"
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_ekko_z_haste",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              },
-                                              "effect_none": {
-                                                "type": "RandomTarget",
-                                                "range": 40000,
-                                                "casting_target": "EnemyChampion",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_ekko_z_haste",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 120
-                                                        }
-                                                      },
-                                                      "move_speed_mult": 40
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      ]
+                                      "effects": []
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_ekko_z1",
+                                      "buff_name": "league_ekko_z2",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_ekko_z1"
+                                            "name": "league_ekko_z2"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_ekko_z2",
+                                              "name": "league_ekko_z_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 240
+                                                  "tick": 180
                                                 }
                                               }
                                             },
                                             "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ApAttack",
+                                                "damage": 100,
+                                                "attack_ratio": 80
+                                              },
+                                              {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_ekko_z_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -40
+                                                }
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_ekko_z_proc"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_ekko_z_proc"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_ekko_z_haste",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "RandomTarget",
+                                                  "range": 40000,
+                                                  "casting_target": "EnemyChampion",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_ekko_z_haste",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        },
+                                                        "move_speed_mult": 40
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
                                           }
                                         ]
                                       },
                                       "effect_none": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_ekko_z1",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 240
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ekko_z1",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_ekko_z1"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_ekko_z2",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
                                             }
-                                          }
+                                          ]
                                         },
-                                        "only_to_enemy": false
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 35000
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_ekko_r_zlock",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_ekko_r_zlock",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 2
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_ekko_z_cd",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_ekko_z2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_ekko_z2"
-                                        },
-                                        {
+                                        "effect_none": {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_ekko_z_cd",
+                                            "name": "league_ekko_z1",
                                             "duration": {
                                               "Time": {
-                                                "tick": 180
+                                                "tick": 240
                                               }
                                             }
                                           },
                                           "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "ApAttack",
-                                              "damage": 100,
-                                              "attack_ratio": 80
-                                            },
-                                            {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_ekko_z_slow",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 90
-                                                  }
-                                                },
-                                                "move_speed_mult": -40
-                                              }
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_ekko_z_proc"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_ekko_z_proc"
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_ekko_z_haste",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              },
-                                              "effect_none": {
-                                                "type": "RandomTarget",
-                                                "range": 40000,
-                                                "casting_target": "EnemyChampion",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_ekko_z_haste",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 120
-                                                        }
-                                                      },
-                                                      "move_speed_mult": 40
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            }
-                                          ]
                                         }
-                                      ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 35000
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_ekko_r_zlock",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_ekko_r_zlock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 2
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ekko_z_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_ekko_z1",
+                                      "buff_name": "league_ekko_z2",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_ekko_z1"
+                                            "name": "league_ekko_z2"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_ekko_z2",
+                                              "name": "league_ekko_z_cd",
                                               "duration": {
                                                 "Time": {
-                                                  "tick": 240
+                                                  "tick": 180
                                                 }
                                               }
                                             },
                                             "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "ApAttack",
+                                                "damage": 100,
+                                                "attack_ratio": 80
+                                              },
+                                              {
+                                                "type": "AddBuff",
+                                                "buff_state": {
+                                                  "name": "league_ekko_z_slow",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 90
+                                                    }
+                                                  },
+                                                  "move_speed_mult": -40
+                                                }
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_ekko_z_proc"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_ekko_z_proc"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_ekko_z_haste",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "RandomTarget",
+                                                  "range": 40000,
+                                                  "casting_target": "EnemyChampion",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_ekko_z_haste",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 120
+                                                          }
+                                                        },
+                                                        "move_speed_mult": 40
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
                                           }
                                         ]
                                       },
                                       "effect_none": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_ekko_z1",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 240
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ekko_z1",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_ekko_z1"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_ekko_z2",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
                                             }
-                                          }
+                                          ]
                                         },
-                                        "only_to_enemy": false
+                                        "effect_none": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ekko_z1",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 240
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
                                       }
                                     }
                                   }
-                                }
-                              ]
+                                ]
+                              }
                             }
-                          }
-                        ]
-                      }
-                    ]
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
                   },
                   "effect_none": {
-                    "type": "Combine",
-                    "effects": []
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_chrono",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_chrono"
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_ekko_r_depart"
+                            },
+                            {
+                              "type": "Teleport"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "ult_arrive",
+                              "tick": 24
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_ekko_r_phase",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 20
+                                  }
+                                },
+                                "damaged_reduce": 100,
+                                "cc_immune": true
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_ekko_r_arrive"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_ekko_r_rewind"
+                            },
+                            {
+                              "type": "Heal",
+                              "amount": 150,
+                              "attack_ratio": 0,
+                              "ap_ratio": 80,
+                              "heal_type": "Caster"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 35000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 150,
+                                  "attack_ratio": 100
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_ekko_r_hit"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 35000
+                                }
+                              },
+                              "target": "EnemyChampion",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ekko_r_zlock",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_ekko_r_zlock",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 2
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ekko_z_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_ekko_z2",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_ekko_z2"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_ekko_z_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 180
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "ApAttack",
+                                                    "damage": 100,
+                                                    "attack_ratio": 80
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_ekko_z_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 90
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -40
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_ekko_z_proc"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_ekko_z_proc"
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_ekko_z_haste",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "RandomTarget",
+                                                      "range": 40000,
+                                                      "casting_target": "EnemyChampion",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_ekko_z_haste",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 120
+                                                              }
+                                                            },
+                                                            "move_speed_mult": 40
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_ekko_z1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_ekko_z1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_ekko_z2",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_ekko_z1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 35000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ekko_r_zlock",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_ekko_r_zlock",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 2
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_ekko_z_cd",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_ekko_z2",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_ekko_z2"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_ekko_z_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 180
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "ApAttack",
+                                                    "damage": 100,
+                                                    "attack_ratio": 80
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_ekko_z_slow",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 90
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -40
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_ekko_z_proc"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_ekko_z_proc"
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_ekko_z_haste",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "RandomTarget",
+                                                      "range": 40000,
+                                                      "casting_target": "EnemyChampion",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_ekko_z_haste",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 120
+                                                              }
+                                                            },
+                                                            "move_speed_mult": 40
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_ekko_z1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_ekko_z1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_ekko_z2",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_ekko_z1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
                   }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_ekko_lives"
                 }
               ]
             }

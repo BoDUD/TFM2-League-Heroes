@@ -1167,6 +1167,10 @@
                                       "type": "Combine",
                                       "effects": []
                                     }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_caitlyn_w_live"
                                   }
                                 ]
                               },
@@ -1912,6 +1916,10 @@
                                       "type": "Combine",
                                       "effects": []
                                     }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_caitlyn_w_live"
                                   }
                                 ]
                               },
@@ -2658,6 +2666,10 @@
                                     "type": "Combine",
                                     "effects": []
                                   }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_caitlyn_w_live"
                                 }
                               ]
                             },

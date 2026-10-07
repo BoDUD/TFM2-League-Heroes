@@ -498,123 +498,131 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -625,123 +633,131 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -752,123 +768,131 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -879,123 +903,131 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1006,123 +1038,131 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1133,123 +1173,131 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1260,123 +1308,131 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
                           }
                         ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1387,140 +1443,148 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_fiddlesticks_w_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_fiddlesticks_w_ch"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "w_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "w_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_w_ch",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_w_souls"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_w_ch",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 16,
-                        "attack_ratio": 12
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_w_souls"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 2,
-                        "attack_ratio": 0,
-                        "ap_ratio": 2,
-                        "heal_type": "Caster"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_drain"
-                      },
-                      {
-                        "type": "ApAttack",
-                        "damage": 50,
-                        "attack_ratio": 40
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_w_final"
-                      },
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_fiddlesticks_w_link",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ParabolicProjectile",
-                              "name": "league_fiddlesticks_w_spot",
-                              "travel_time": 1,
-                              "range": 400000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 0
-                                }
-                              },
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [],
-                              "end_effects": [
-                                {
-                                  "type": "BackToCasterLinearProjectile",
-                                  "name": "league_fiddlesticks_w_chain",
-                                  "speed": 1600,
-                                  "range": 120000,
-                                  "penetrate": true,
+                            "type": "ApAttack",
+                            "damage": 16,
+                            "attack_ratio": 12
+                          },
+                          {
+                            "type": "Heal",
+                            "amount": 2,
+                            "attack_ratio": 0,
+                            "ap_ratio": 2,
+                            "heal_type": "Caster"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_drain"
+                          },
+                          {
+                            "type": "ApAttack",
+                            "damage": 50,
+                            "attack_ratio": 40
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_w_final"
+                          },
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_fiddlesticks_w_link",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_fiddlesticks_w_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
                                   "shape": {
                                     "Circle": {
                                       "radius": 0
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": []
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_fiddlesticks_w_chain",
+                                      "speed": 1600,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": []
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
                         ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
+                      },
                       {
-                        "type": "Heal",
-                        "amount": 8,
-                        "attack_ratio": 0,
-                        "ap_ratio": 6,
-                        "heal_type": "Caster"
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 8,
+                            "attack_ratio": 0,
+                            "ap_ratio": 6,
+                            "heal_type": "Caster"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_fiddlesticks_w_end"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_fiddlesticks_w_ch"
                       }
                     ]
                   },
-                  {
-                    "type": "Sfx",
-                    "name": "league_fiddlesticks_w_end"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_fiddlesticks_w_ch"
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         }
@@ -1720,62 +1784,70 @@
           "tick": 60,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Fear",
+                            "tick": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_fiddlesticks_fear"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_fiddlesticks_fear"
+                          }
+                        ]
                       }
                     ]
                   },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Fear",
-                        "tick": 60
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_fiddlesticks_fear"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "league_fiddlesticks_fear"
-                      }
-                    ]
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1784,38 +1856,46 @@
           "tick": 90,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1824,38 +1904,46 @@
           "tick": 120,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1864,38 +1952,46 @@
           "tick": 150,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1904,38 +2000,46 @@
           "tick": 180,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1944,38 +2048,46 @@
           "tick": 210,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1984,38 +2096,46 @@
           "tick": 240,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -2024,38 +2144,46 @@
           "tick": 270,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -2064,38 +2192,46 @@
           "tick": 300,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -2104,38 +2240,46 @@
           "tick": 330,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_fiddlesticks_storm",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_fiddlesticks_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 45000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_fiddlesticks_storm",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 25,
-                        "attack_ratio": 20
+                        "type": "CasterViewEffect",
+                        "name": "league_fiddlesticks_r_storm"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 45000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 25,
+                            "attack_ratio": 20
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         }
