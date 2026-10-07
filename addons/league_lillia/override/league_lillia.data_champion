@@ -3898,7 +3898,9 @@
       "r_slow": 40,
       "r_sleep": 120,
       "r_wake": 80,
-      "r_wake_ratio": 40
+      "r_wake_ratio": 40,
+      "d_dmg": 4,
+      "d_ratio": 3
     }
   }
 }

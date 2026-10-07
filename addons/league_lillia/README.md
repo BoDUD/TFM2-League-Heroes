@@ -1,4 +1,4 @@
-# 莉莉娅梦尘与昏睡附加包（测试版 v0.1.0）
+# 莉莉娅梦尘与昏睡附加包（测试版 v0.1.1）
 
 主包 `league` 保持纯数据。数据里能读最大生命值的只有真实伤害，也没有「受到伤害就醒」的效果，所以主包莉莉娅：
 被动「梦满枝」的梦尘对英雄每 0.75 秒造成 1% 最大生命值的**真实伤害**；大招「夜阑谣」让带梦尘的敌方英雄困倦 1.5 秒后
@@ -12,7 +12,7 @@
   **魔法伤害**（会被魔抗减免）；
 - 莉莉娅身上出现大招的标记 `league_lillia_r_go`（主包的 R 照旧加它）时，所有带梦尘的敌方英雄**困倦**（减速 40%，1.5 秒，
   `league_lillia_drowsy` 的画面），之后**昏睡** 2 秒（原生眩晕 + `league_lillia_sleep` 的画面）；昏睡中生命 + 护盾少了
-  （梦尘自己那一下除外）就**醒来**：眩晕解除，受到 80 + 40% 法强的魔法伤害（`league_lillia_wake` 的画面和声音）。
+  （梦尘自己那一下、主包数据里梦尘那一跳 `d_dmg` + `d_ratio`% 法强的魔法伤害除外）就**醒来**：眩晕解除，受到 80 + 40% 法强的魔法伤害（`league_lillia_wake` 的画面和声音）。
 - 数字从参数表 `P`（`d_period`、`d_hp`、`d_ap_bp`、`r_drowsy`、`r_slow`、`n_sleep`、`r_wake`、`r_wake_ratio`）写进副本的
   `passive.params`。
 
@@ -36,3 +36,4 @@
 - 在 `addons/` 下 `cargo test --release -p league_lillia`：单元测试（参数、梦尘伤害、只有梦尘以外的伤害才叫醒、buff 名字）。
 - 在 `addons/` 下 `cargo build --release -p league_lillia`（Windows）得到 `target/release/league_lillia.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，还没在游戏里看过日志。
+- v0.1.1：游戏日志 `WAKE #1: #25 hit for 6 while asleep (100 ticks left)`——刚睡着 20 tick，三个人同时被主包数据里梦尘那一跳（4 + 3% 法强的魔法伤害，6 点）叫醒。每 tick 少掉的生命在这一跳以内不算被打（参数 `d_dmg`、`d_ratio` 从参数表写进副本）。

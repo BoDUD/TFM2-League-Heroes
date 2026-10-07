@@ -90,11 +90,25 @@ pub struct Params {
     /// 惊醒伤害：固定值、法强 %。
     pub r_wake: usize,
     pub r_wake_ratio: usize,
+    /// 主包数据里梦尘那一跳的魔法伤害（固定值、法强 %）：它不算打醒（游戏日志：睡着 20 tick 就被这一跳 6 点叫醒）。
+    pub d_dmg: usize,
+    pub d_ratio: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { d_period: 45, d_hp_bp: 100, d_ap_bp: 30, r_drowsy: 90, r_slow: 40, r_sleep: 120, r_wake: 80, r_wake_ratio: 40 }
+        Self {
+            d_period: 45,
+            d_hp_bp: 100,
+            d_ap_bp: 30,
+            r_drowsy: 90,
+            r_slow: 40,
+            r_sleep: 120,
+            r_wake: 80,
+            r_wake_ratio: 40,
+            d_dmg: 4,
+            d_ratio: 3,
+        }
     }
 }
 
@@ -115,6 +129,8 @@ pub fn parse_params(json: &str) -> Params {
             "r_sleep" => &mut p.r_sleep,
             "r_wake" => &mut p.r_wake,
             "r_wake_ratio" => &mut p.r_wake_ratio,
+            "d_dmg" => &mut p.d_dmg,
+            "d_ratio" => &mut p.d_ratio,
             _ => continue,
         };
         *slot = v;
@@ -129,6 +145,11 @@ pub fn parse_params(json: &str) -> Params {
 pub fn dust_damage(p: &Params, max_hp: usize, ap: usize) -> usize {
     let bp = p.d_hp_bp as u64 + p.d_ap_bp as u64 * ap as u64 / 100;
     ((max_hp as u64 * bp / 10_000) as usize).max(1)
+}
+
+/// 主包数据里梦尘一跳的魔法伤害（减免前）：昏睡中每 tick 少掉这么多以内不算被打。
+pub fn data_dust(p: &Params, ap: usize) -> usize {
+    p.d_dmg + p.d_ratio * ap / 100
 }
 
 /// 惊醒伤害（减免前）。
@@ -268,7 +289,7 @@ impl Dream {
                 continue;
             }
             let now = guard_of(sim, s.target);
-            let own = dealt.iter().filter(|(t, _)| *t == s.target).map(|(_, d)| *d).sum();
+            let own = dealt.iter().filter(|(t, _)| *t == s.target).map(|(_, d)| *d).sum::<usize>() + data_dust(&self.p, ap);
             if was_hit(s.guard, now, own) {
                 sim.entity_clear_cc(s.target);
                 sim.entity_remove_buff(s.target, &ll("sleep"));
@@ -378,8 +399,22 @@ mod tests {
 
     #[test]
     fn params_come_from_the_champion_data() {
-        let p = parse_params(r#"{"d_period":30,"d_hp_bp":120,"d_ap_bp":20,"r_drowsy":60,"r_slow":30,"r_sleep":90,"r_wake":50,"r_wake_ratio":20,"x":1}"#);
-        assert_eq!(p, Params { d_period: 30, d_hp_bp: 120, d_ap_bp: 20, r_drowsy: 60, r_slow: 30, r_sleep: 90, r_wake: 50, r_wake_ratio: 20 });
+        let p = parse_params(
+            r#"{"d_period":30,"d_hp_bp":120,"d_ap_bp":20,"r_drowsy":60,"r_slow":30,"r_sleep":90,"r_wake":50,"r_wake_ratio":20,"d_dmg":5,"d_ratio":4,"x":1}"#,
+        );
+        let want = Params {
+            d_period: 30,
+            d_hp_bp: 120,
+            d_ap_bp: 20,
+            r_drowsy: 60,
+            r_slow: 30,
+            r_sleep: 90,
+            r_wake: 50,
+            r_wake_ratio: 20,
+            d_dmg: 5,
+            d_ratio: 4,
+        };
+        assert_eq!(p, want);
         assert_eq!(parse_params("{}"), Params::default());
         assert_eq!(parse_params(r#"{"d_period":0}"#).d_period, 1);
     }
@@ -400,6 +435,15 @@ mod tests {
         assert!(!was_hit(1000, 980, 20)); // her dust only
         assert!(was_hit(1000, 979, 20)); // her dust and one more point
         assert!(was_hit(1000, 900, 0)); // a hit (or a shield broken: guard counts the shield)
+    }
+
+    #[test]
+    fn the_data_dust_tick_does_not_wake() {
+        let p = Params::default();
+        let allow = data_dust(&p, 60); // 4 + 3% of 60 AP
+        assert_eq!(allow, 5);
+        assert!(!was_hit(1000, 994, 1 + allow)); // the game log's 6: dust only
+        assert!(was_hit(1000, 950, 1 + allow)); // a real hit
     }
 
     #[test]

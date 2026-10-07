@@ -380,9 +380,11 @@ def build(p, native=False):
 def native_params(p):
     """The add-on passive's numbers (non-negative integers): the dust per run as basis points of maximum health (the
     data's d_hp% true, now magic) plus d_ap_bp per 100 AP, R's drowsy, slow and sleep (N_SLEEP: League's 2 s, since
-    any damage ends it) and the wake damage."""
+    any damage ends it), the wake damage, and the data dust's own magic run (d_dmg + d_ratio% AP), which must not wake
+    a sleeper (the game log: a 6-point dust run woke all three 20 ticks into the sleep)."""
     return {"d_period": p["d_period"], "d_hp_bp": p["d_hp"] * 100, "d_ap_bp": p["d_ap_bp"], "r_drowsy": p["r_drowsy"],
-            "r_slow": p["r_slow"], "r_sleep": p["n_sleep"], "r_wake": p["r_wake"], "r_wake_ratio": p["r_wake_ratio"]}
+            "r_slow": p["r_slow"], "r_sleep": p["n_sleep"], "r_wake": p["r_wake"], "r_wake_ratio": p["r_wake_ratio"],
+            "d_dmg": p["d_dmg"], "d_ratio": p["d_ratio"]}
 
 
 def nodes(o):
