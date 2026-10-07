@@ -1,0 +1,7 @@
+{
+  "fx": "league_renekton_fx",
+  "items": [
+    {"tag": "a_slash", "into": "attack", "at_ms": 120},
+    {"tag": "e_dash", "into": "skill2", "at_ms": 0, "under": true}
+  ]
+}

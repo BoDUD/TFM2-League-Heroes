@@ -1,0 +1,14 @@
+[package]
+name = "league_renekton"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(league_bundle)"] }

@@ -455,8 +455,9 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
 - A `RangeProjectile` straight in a `Targeting` cast (or in a `Delayed` of one) never spawns: a zone needs
   a point, as in a projectile's `applied_effects`. A hidden `ParabolicProjectile` with `travel_time: 1`
   lands on the target unit's current position the tick it is fired and its `end_effects` start the zone
-  there, which hits the next tick - an area round a unit wherever it walks (league_annie R). A dead caster
-  fires no projectile, this one included.
+  there, which hits the next tick - an area round a unit wherever it walks (league_annie R). In the SDK a dead
+  caster fires no projectile, this one included; in the game it does (section 5, "In the game a dead caster's
+  `Delayed` effects run").
 - An `AddCasted` runs its effects a tick after it is added from an action's effect tree, the same tick when
   added from a `Delayed` effect, then every `period` ticks while fewer than `duration` have passed
   (duration 301, period 60: six runs, 0 to 300 ticks after it was added). Its effects play on the target:
@@ -527,6 +528,17 @@ holds). Some pack buffs omit it - set it explicitly. *(seen in the SDK simulatio
 a `WithShield` caster buff added right after her own `Shield {tick: 180}` was gone 180 ticks later
 when nobody hit her, and 89 ticks after the cast when enemies broke the shield first.)*
 
+**A `WithShield` picture outlives its own shield** *(player video, league_annie E, 2026-10-07)*: since the buff
+stays while any shield holds, league_annie's Molten Shield ring stayed on her 10 s and more in a game where her own
+shield lasts 3 s (another shield on her held it; in the simulation an extra 1200-tick shield kept the ring on for good).
+A buff that is only the picture of one shield gets a `Delayed {tick: <the shield's tick>}` `RemoveCasterBuff` after
+it (league_annie E; then league_blitzcrank, league_camille, league_diana, league_ekko, league_riven and the self casts
+of league_janna, league_morgana and league_thresh - with no extra shield the simulation already showed Riven's E ring
+219 ticks on a 90-tick shield, Diana's 458 on 300). Not for a `WithShield` flag that asks "does a shield hold" on
+purpose (league_malphite's granite, league_rakan's passive: their shields last 36000 ticks, so a timer means nothing).
+One given to an ally (`AddBuff` from a `RandomTarget` or a projectile) cannot be taken off: `RemoveCasterBuff` works
+on the caster only, also from an `AddCasted` on the ally (its caster is still the giver); those stay `WithShield`.
+
 **`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
 with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
@@ -534,8 +546,9 @@ damage, and damage a shield absorbs does not count in the simulation's "tank" st
 the order they were added, and a 1-tick `Shield` is gone by the end of the tick it was added in (no `EntityShield` event
 shows it) *(SDK simulation, league_kaisa, 2026-10-04: a 39 shield then a 1-tick 100000 one; a hit of 23 left 16, a
 hit of 43 cost no health)*. Damage is floored after the reduction (20.5 x 115 = 2357 under 99% hit for 23).
-A `Damaged` event carries the whole hit, shield-absorbed or not. A dying caster's
-zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them. Not a zone started
+A `Damaged` event carries the whole hit, shield-absorbed or not. In the SDK a dying caster's
+zones and pending `Delayed` effects stop (in the game the `Delayed` effects run on: "In the game a dead caster's
+`Delayed` effects run" below); the respawned hero is a new entity with none of them. Not a zone started
 from a projectile's `end_effects` (or a `Delayed` there): it runs its whole life (league_caitlyn W's traps, thrown as
 projectiles, 2026-10-01; see "A dead caster").
 
@@ -547,14 +560,81 @@ death still runs its effects, but a projectile it starts does not spawn (a dead 
 league_jinx E's links went on after her death and, with the lock never added, bit the champion they had rooted
 at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); each check then started from a
 `Delayed {tick: 1}` and a dead Jinx's trap bit no one in the simulation (0 in 51 games) - but players saw it again
-on that version, so the game may spawn what the SDK does not: the trap is now `Delayed` effects of the cast itself,
-which stop when she dies (section 7, "A trap that waits and snaps once"). A flag the trap puts on her while she
+on that version, so the game spawns what the SDK does not (league_riven R below): the trap is now `Delayed` effects
+of the cast itself, which the SDK stops when she dies and the game does not - there each link's heartbeat, a flag
+the link before it added, ends the trap one link after her death (section 7, "A trap that waits and snaps once").
+A flag the trap puts on her while she
 lives and reads later cannot do it: any flag on when she dies stays on, and gates that are off when the AI decides
 cost casts (section 3: the AI scores the branch the caster's buffs pick). A search can: `RandomTarget {range: 1,
 casting_target: AllyOnlySelf}` finds no dead caster, so a zone's applied effects can ask "does she live" (a 1-tick flag
-from the search, read in the same tick) and keep their effects in plain sight of the AI - league_caitlyn W: 0 bites after
-29 deaths in 16 games (285 unguarded), the AI's throws unchanged, where the `Delayed`-projectile route cost a third of
-them.
+from the search, read and taken off in the same run) and keep their effects in plain sight of the AI - league_caitlyn W: 0
+bites after 29 deaths in 16 games (285 unguarded), the AI's throws unchanged, where the `Delayed`-projectile route cost a
+third of them. Take the flag off right after reading it (`RemoveCasterBuff`, same list): a 1-tick flag lasts to the end
+of its tick, and a caster killed later in that tick keeps it on for good, so every later check passes (league_caitlyn
+W's `w_live` and league_jhin E's `e_live` were left on until 2026-10-07: a caster dying in the tick one trap went
+off would have had the other traps go off every tick).
+
+**In the game a dead caster's `Delayed` effects run, and fire projectiles** *(player video, league_riven R,
+2026-10-07)*: Riven died in a fight and 14 s later her Wind Slash, launched three times about a second apart from a
+cast's `Delayed {tick: 300..1470}` checks of `league_riven_r_slash_ready`, hit an enemy champion for 401 each while
+her respawn timer ran (「瑞雯死后放三次大招连放三次」). The SDK stops those `Delayed` effects at death and spawns no
+projectile from a dead caster, so no simulation showed it; and since her buffs froze when she died, the
+`RemoveCasterBuff` after each slash took nothing off, so every later check fired again. Every check now runs inside
+`RandomTarget {range: 1, casting_target: AllyOnlySelf}` (the search above that finds no dead caster): with her alive
+the slash rate and its hits are unchanged in the simulation (21 slashes in 62 R casts, 1.7 hits each, against 28 in
+70 and 1.7 before - different games past the first R). Any `Delayed` chain that deals damage, starts a projectile or
+reads a flag the cast set should be guarded the same way.
+
+**Which chains need the guard** *(audit of the 60 released heroes, 2026-10-07)*: what matters is what gates the
+harmful branch of a `Delayed` that runs after the caster may have died.
+- Safe as it is: a branch behind a caster flag the same run adds just before reading it - a search adds a 1-tick
+  flag, `SwitchByBuff` reads it - since a dead caster adds nothing (league_blitzcrank R's `r_go`, league_akali R2's
+  `r2_t` from a hidden check, league_nocturne E's fear, league_morgana R's tethers). A flag added a tick or more before
+  the read leaves a window: a caster killed in it keeps the flag on, and every later check passes (league_taric R's
+  `n2`, added a tick before each fire check - a dead Taric would have made the allies round his body invulnerable
+  every 30 ticks; guarded). A heartbeat, each link reading the flag the link before it added, ends a chain one link
+  after the death (league_jinx E: one more trap check, one bite at most).
+- Unsafe: a branch behind a flag the cast set and only a timer or a later effect takes off - a channel, a window, a
+  count - or behind none at all: frozen on, it fires to the end. Guarded on 2026-10-07: league_lucian R (shots on
+  `r_ch`), league_missfortune R (waves on `bullet_time`), league_fiddlesticks R (storm, 5 s) and W (drain),
+  league_janna R (heals), league_diana W (the orb count it takes off froze, so every check while an enemy stood near
+  her body fired another orb), league_amumu's Despair pulses, league_leona W's Eclipse burst, league_ekko R's rewind
+  (a `Delayed` in the anchor's `end_effects`: the SDK runs it after his death too), league_garen E (no flag: six more
+  spins), league_rakan R's later rushes, league_taric R; league_yone E's echoes read a flag his return adds (section 7).
+- Left: one effect League's own spell lets finish (league_kayle R's blades, league_taric R's invulnerability 2.5 s
+  after it fired, league_zilean R on an ally, league_jhin's lotus blooms, league_fizz R's shark, league_annie's
+  Tibbers), effects on the dead caster only (league_blitzcrank's barrier, league_evelynn's camouflage chain and its
+  one "shade" sound, a `Teleport` of the body: league_yone E, league_twistedfate R), chains of about 1.7 s or less
+  (league_aatrox W, league_jax E, league_leblanc E, league_lissandra, league_nocturne E's ticks), league_fiora R (her
+  `r_alive` is added a tick before each read, and its heal needs every vital struck), and league_kayn R (he takes no
+  damage inside his target).
+
+The guard goes only on a `Delayed` that does something a player sees - damage, healing, a projectile, a move, a
+picture or sound; one that only adds or takes caster flags is harmless dead and is left alone (wrapped, league_lucian
+R's end-of-channel flag swap changed: inside the search its `SwitchByBuff` caught `r_ch` on the tick it ran out, which
+the bare one had missed). It has two shapes. When nothing in the `Delayed` uses the action's own target, point or
+direction (caster flags, caster pictures and sounds, `RandomTarget`, `RangeEffect` `AroundCaster`), its effects go
+inside the `RandomTarget {range: 1, casting_target: AllyOnlySelf}` (league_riven R; 1 effect node). Otherwise - a zone
+at the cast point, a `Forward` area, an effect on the unit a projectile hit - inside the search they would land on the
+caster (league_missfortune R's waves flew with direction (0, 0)), so the `Delayed` runs `RandomTarget AllyOnlySelf ->
+AddCasterBuff <hero>_lives {tick: 1}`, then `SwitchByBuff <hero>_lives` with the effects as `effect_buff` and the same
+effects inside a `RandomTarget AllyOnlySelf` as `effect_none`, then `RemoveCasterBuff <hero>_lives` (league_missfortune
+R, league_ekko R). The `effect_none` copy is for the AI: units read other units' pending effects through the branch
+their buffs pick at that moment, when the 1-tick flag is always off - with an empty `effect_none` enemies stopped
+seeing league_missfortune R's waves and league_yone E's echoes, and the games parted (29 of 30 seeds for Yone); a
+`RandomTarget` they read through. The copy doubles the effects, so mind skill and skill2, which the game copies every
+tick (docs/perf.md) - why league_yone E's 108 echoes use the return's flag instead.
+
+To check a guard: the search draws from the game's random numbers, so a guarded hero's games part from the unguarded
+ones after the first guard. Compare instead against a control kit with the same search and flag but no gate (the
+effects run anyway): the hero's event logs must match tick for tick while he lives (`EntityInfo` snapshots aside - a
+flag on and off within a tick changes when they are sent). 2026-10-07, 30 seeds x 600 s each (`evlog.exe 600 <seed>`):
+league_lucian, league_missfortune, league_fiddlesticks, league_janna, league_diana, league_amumu, league_leona,
+league_taric, league_ekko, league_rakan, league_caitlyn and league_jhin matched in all 30 - 1648 R bullets, 1402
+waves, 1829 orbs, 291 Eclipse bursts, 45 Cosmic Radiances, 96 rewinds among them; league_garen in 11, the other 19
+parting only after his death: the control's E spun on round a dead Garen, so the SDK does not stop every pending
+`Delayed` either. Before the AI-visible `effect_none` and before league_lucian R's flag swap was left unguarded, the
+same check caught both.
 
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
@@ -1179,8 +1259,9 @@ no periodic aura that follows the caster, so every action (basic attack, each sk
 starts a train unless one runs: `SwitchByBuff train` -> `AddCasterBuff train {tick: 240}` + four
 `Delayed` pulses at 0/60/120/180, each a `RangeEffect` around the caster plus a `CasterViewEffect`.
 The train buff outlasts the last pulse, so a new train never doubles one; the gap at a restart is at
-most one attack. Each pulse checks the train buff again, so the aura should stop when he dies
-(death clears buffs, section 5). A sound on the start of a train is gated by its own 600-tick buff.
+most one attack. Each pulse checks the train buff again, but a dead Amumu's train buff stays on (his
+buffs freeze, section 5), so each pulse first asks `RandomTarget AllyOnlySelf` whether he lives
+(2026-10-07; in the game the pulses outlived him otherwise). A sound on the start of a train is gated by its own 600-tick buff.
 
 **A debuff that must not stack (league_amumu's Curse).** Same-name buffs add up (section 5), so a
 3 s `damaged_amplify` on every hit would reach +30%. Re-apply it from a pulse with a duration equal
@@ -1350,12 +1431,16 @@ the next from its `end_effects` unless a lock on Jinx was on - and a chain start
 the caster dies (below): players saw champions bitten again and again ("夹子反复触发", then "被秒的英雄同时碰到了两个
 炸弹" on a version that only kept the dead caster's checks from spawning). Now the links are flat, league_teemo R's
 way: a `Position` cast keeps its point for every effect it runs, so each link is a `Delayed` of the cast itself (the
-throw lands on tick 36, the links follow every 15 ticks, the fizzle after them), and a dying caster's pending
-`Delayed` effects stop - in simulation the chain showed 19 links after Jinx's 7 deaths with a trap out, the flat
-links none after 6. Each link, at the cast point:
+throw lands on tick 36, the links follow every 15 ticks, the fizzle after them), and the SDK stops a dying caster's
+pending `Delayed` effects - in simulation the chain showed 19 links after Jinx's 7 deaths with a trap out, the flat
+links none after 6. The game does not stop them (section 5, league_riven R); there the heartbeat below ends the trap.
+Each link, at the cast point:
 - skips if this trap already bit (`e_spent<slot>`, set a tick after the bite): one bite per trap;
-- from the third link on, skips unless the link before it ran (`e_hb<slot>_<k-1>`, set by that link): should the
-  links ever go on after her death, her frozen flags stop the trap one link later, one bite at most;
+- from the third link on, skips unless the link before it ran (`e_hb<slot>_<k-1>`, set by that link): the links go
+  on after her death in the game, and a dead Jinx cannot add the heartbeat, so the trap stops one link later (two
+  if she dies before the second link), one bite at most. The 2026-10-07 audit kept it so rather than ask
+  `RandomTarget AllyOnlySelf` in all 40 links: that cost 200 effect nodes on the pack's biggest skill2 tree, which
+  the game copies every tick (docs/perf.md);
 - shows the lying trap and, unless a trap bit someone in the last 90 ticks (`e_lock`, shared, the root's length),
   starts the check: a `RangeProjectile` (`delay` 14, `apply` 1) on `EnemyChampion` whose effects bite every champion
   inside (`Bind` 90, damage, a `ViewEffect`) and `WithSelf {Delayed {tick: 1}}` set `e_lock` and `e_spent<slot>`.
@@ -1537,8 +1622,13 @@ has a champion-only twin (the attack's `TargetProjectile`, twins of Q's, Q3's an
 that, in spirit form, queues a `FixedAttack` of 25% of that hit's own numbers. The pop must land after the
 return, whenever the hit came: the cast adds a ladder of caster buffs (b1..b11, 20, 40 ... 220 ticks) and a
 binary search of `SwitchByBuff` over them finds the first still present, the hit's 20-tick bucket k; the pop
-is a `Delayed` of 240 - 20k + 2 ticks, landing 2-22 ticks after the return, and checks a caster buff that
-outlives the spirit by 32 ticks (no pops once he died). The mark on the enemy is an `AddBuff` on the target
+is a `Delayed` of 240 - 20k + 2 ticks, landing 2-22 ticks after the return, and pops only while `e_back`
+is on, a 30-tick caster flag the return's `Delayed` adds: a dead Yone cannot add it, so no echo pops once he died.
+Until 2026-10-07 the pops read `e_alive`, added at the cast for 272 ticks, which a dead Yone's frozen buffs kept on - in
+the game every queued echo still popped. (A search guard on each of the 108 echoes cost 6 effect nodes apiece, skill2
+465 -> about 680; the flag costs one. In the SDK 12 games blocked 9 echoes, all while he was dead, and 145 popped; the AI
+no longer sees an echo before the return, so the games part from the old ones.) The mark on the enemy is an `AddBuff`
+on the target
 with that same wait as its duration and a `ThreePhase` picture (intro, loop, a dimmed last frame): in the
 simulation it came on with the hit and went off the tick before the burst. Two engine facts from it *(seen in
 the SDK simulation)*: a `Delayed` `FixedAttack` on a unit Yone's team could not see (its `EntityIsVisible` for
@@ -1858,7 +1948,8 @@ over - no more slow, no stun - as in League, where it breaks at 1050 against a 6
 50000). The check measures from the projectile's hit point to her, and both bodies add about 18000 (with range 70000
 a tether held at 86137 and broke at 90877). The same `RandomTarget` in a plain `Delayed` on the champion never finds
 her (every check failed, one at 9287). A `TargetProjectile` inside a `Delayed` in another one's `applied_effects`
-does spawn (nine levels here). Her death stops the pulses (a dead caster fires no projectile). Until 0.25.0's review
+does spawn (nine levels here). Her death ends the tethers: in the SDK no pulse spawns from a dead caster; in the game
+the pulse flies, but its `AllyOnlySelf` check finds no dead caster. Until 0.25.0's review
 a single `Delayed {tick: 180}` `RangeEffect` (70000) stunned every enemy champion near her then, also one that had
 run off and come back or had never been chained (the user: "脱离了大招的线就不应该眩晕了吧"). In 16 simulated games
 62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
@@ -3567,6 +3658,29 @@ named apart (`e_cc`) so no picture rides on it - a projectile named like a `View
 150000 with the flag, 90000 without. The slot is armed like league_twitch R (two champions within 70000 at once, one
 in attack reach after 3 s, else the cooldown refunded); the armed check rides only on the attack (in the skills it
 copied the whole ult into trees cloned every tick: 6000+ nodes).
+**Fury that empowers the next skill (league_renekton passive, Reign of Anger).** League's 50 Fury is five rungs of one
+exclusive caster-flag ladder f1..f5 (league_twitch's venom ladder, about 20 nodes): a gain steps one rung up and runs
+the hold again (480 ticks); the hold lapsing drops it all (League's out-of-combat decay in one step - the cumulative
+ladder of league_tryndamere, every lower rung a step longer, cost three times the nodes in every gain). Gains: his
+attack, Q's champion hits (one each) plus one for the rest (a 2-tick flag any hit lays, read a tick later), every unit
+Slice passes, W when not empowered, R two on the cast and one a second. Each skill branches on f5 at its first tick:
+empowered, it spends the ladder. Q takes it only while W's caster flag (its slot cooldown) is on, so the AI keeps a
+full Fury for W's 1.5 s stun (the pro rule). League's +50% Fury below half health needs his health: a native add-on.
+
+**Dash, chop, dash back (league_renekton E -> W -> Dice).** One `Targeting` cast on `EnemyChampion`: Slice is a
+`RushTime` through the target (penetrate, a Fury rung and a 240-tick `d_open` flag per unit hit); on landing W fires two
+(three) instant `TargetProjectile`s at the target 7 ticks apart on `EnemyChampion`, the last carrying the `Stun` and its
+stars buff; then, when Q's own flag is off, Q (E -> W -> Q, the heal right after the stun) and Dice: a `RandomTarget`
+on `EnemyChampion` holding a second `RushTime` (empowered: an armour shred buff `defence_mult` -25 instead of the rung).
+Q's slot keeps that flag too, and a slot cast inside it is a 1-tick nothing. The combo's Q branch is the plain and
+empowered copies only (W's flag is on there), keeping skill2 at 309 nodes. As crowd control for league_yasuo's R: with
+him top in Yasuo's team, R on champions 2.40 a game (the base fighter 2.12, league_darius 1.31) - no change.
+
+**A transformation armed for the fight (league_renekton R, Dominus).** Armed like league_twitch R: within 35000 of an
+enemy champion it fires at once, else his attacks fire it for 600 ticks (refunded when it lapses). Fired: `r_on` with
+flat `hp` +300 for 600 ticks and a `Heal` of the same 300 (the bonus health starts full), two Fury rungs, and two
+`AddCasted` on him (`on_me`): a 30-tick pulse of `ApAttack` 15 + `hp_ratio` 1 (1% of his maximum health) round him on
+`EnemyWithoutTower`, and a rung every 60 ticks. No size change (the sand aura is a view buff behind him).
 
 **A native effect that reads the unit a hit landed on (addons/league_fiora_duel, addons/league_vayne_bolts).** Data
 cannot tell which unit a hit is on (league_vayne's Silver Bolts, league_fiora's Vitals both count on the caster). A

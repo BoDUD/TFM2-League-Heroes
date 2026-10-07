@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单布兰德、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单泽拉斯、ADC 图奇、辅助萨勒芬妮。蛮王之后按用户的计划做中单泽拉斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单布兰德、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单泽拉斯、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿（同组的其他英雄以后做）。蛮王之后按用户的计划做中单泽拉斯。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -128,6 +128,8 @@
 ![布兰德演示：他走进场，朝德莱厄斯扔两个火球；W 烈焰之柱：德莱厄斯脚下亮起一圈火纹，火柱冲天而起，他身上烧起来、头顶亮起一个火苗；E 烈火燃烧：火从德莱厄斯脚下往外烧成一圈，蔓延到后面的盖伦，头顶两个火苗；Q 火焰烙印：火球打中德莱厄斯，他被晕住，头顶三个火苗、脚下的火焰圈开始倒计时，两秒后轰地炸开，盖伦也被炸到；布兰德绕到他们右边转身朝左（红色方的样子）放 R 烈焰风暴：身边卷起火焰，火种打中盖伦，在两人之间弹了五次，每次从上面砸下来，脚下烧起余烬（减速），德莱厄斯倒下](docs/preview/league_brand_showcase.gif?v=1007bd2)
 ![图奇演示：他放 Q 埋伏，身边炸开一团紫烟，隐身（画成半透明）摸到德莱厄斯面前，第一箭现形，腰两侧亮起攻速毒火，两箭给德莱厄斯上毒；W 剧毒之桶：毒桶抛到德莱厄斯和身后的盖伦中间，绿色毒液溅满两人、地上留下毒池，两人减速；E 毒性爆发：他身边炸开毒云，两人身上的毒刺爆炸；他绕到右边转身朝左（红色方的样子）开 R 火力全开：身边冲起绿色光丝，穿透箭一箭穿过盖伦和德莱厄斯，德莱厄斯倒下，头顶亮起埋伏刷新的小老鼠](docs/preview/league_twitch_showcase.gif?v=1007tw)
 ![萨勒芬妮演示：她站在浮空小舞台上，头顶飘着两个音符，一记带音符的彩色音球打中德莱厄斯；Q 清籁穿云：高音抛到德莱厄斯和身后的盖伦之间，落地炸开一圈声波环；E 增幅节拍：声波推过两人（脚下五线谱光减速），回音的彩虹光一闪，第二道声波把两人定身；接着 W 聚和心声：脚下扩开歌声光环，她和身后的金克丝罩上护盾泡泡，随后飘起回血的爱心；她滑到两人右边、转身朝左（红色方的样子）放 R 炫音返场：舞台聚光灯亮起，一道大音波穿过盖伦和德莱厄斯，魅惑的爱心炸开，紧接着 E 让被魅惑的德莱厄斯头顶转起眩晕音符；最后舞台下亮起回音就绪的彩光](docs/preview/league_seraphine_showcase.gif?v=1007sr6)
+
+![雷克顿演示：他跑进场，月牙刀砍德莱厄斯（刀光画在动作里），三刀后怒气满了，身后烧起红光；Q 巨鳄狂袭：一圈象牙白的刀光扫过德莱厄斯和身后的盖伦；E 横冲直撞：身后拖着沙色风痕冲过德莱厄斯；满怒气的 W 冷酷捕猎：身上冒出红色怒气，转身劈三刀，德莱厄斯头顶冒金星晕 1.5 秒；二段 E 再冲回来；R 终极统治：脚下炸开沙暴、头顶亮起金色的鳄鱼神符号，之后脚下一圈沙暴光环每半秒烫两人，他接着砍，德莱厄斯倒下](docs/preview/league_renekton_showcase.gif?v=1007rk4)
 
 ## 英雄：盖伦
 
@@ -2919,6 +2921,7 @@ python tools/art/preview_twitch.py        # 逐帧预览、特效预览、演示
 
 逐帧预览：[`docs/preview/league_twitch_frames.png`](docs/preview/league_twitch_frames.png)，特效：[`docs/preview/league_twitch_effects.png`](docs/preview/league_twitch_effects.png)。
 
+
 ## 英雄：萨勒芬妮
 
 | 部分 | 内容 |
@@ -2960,6 +2963,49 @@ python tools/art/preview_seraphine.py        # 逐帧预览、特效预览、演
 - 红色方：飞出去的音球、高音、声波、大音波严格上下对称；所有挂在人身上、脚下的画面和晚于动作第一 tick 播放的（歌声光环、聚光灯、回音）都严格左右对称、不跟随；地上的声波环、歌声光环上下左右都对称。她的手发出所有东西，没有画进动作帧的特效。演示 GIF 后半段她转身朝左放大招，就是红色方的样子。
 
 逐帧预览：[`docs/preview/league_seraphine_frames.png`](docs/preview/league_seraphine_frames.png)，特效：[`docs/preview/league_seraphine_effects.png`](docs/preview/league_seraphine_effects.png)。
+
+## 英雄：雷克顿
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（战士，分类 Melee），用户排的第十五组的上单（同组的其他英雄以后做），第 71 位英雄。荒漠屠夫 雷克顿：普攻和技能攒怒气，满怒气时下一个技能被强化；Q 转身横扫回血，E 冲过去接 W 连砍眩晕、再冲一次，R 变身加生命、脚下的沙暴烫周围的敌人。四个选择都按推荐的来（用户选的）：技能位「Q 单独 + E→W 连招」并加高手连招，怒气「5 层 + 强化技能，低血加速以后做附加包」，R「上膛，交战时变身」 |
+| 普攻 / 被动 | 近战挥刀，100% 攻击力，射程 25000，攻击间隔 62 tick（第 7 tick 砍中）。被动「怒之领域」：怒气是他身上的一条 5 阶阶梯（同一时刻只有一阶），普攻、Q 每打中一个英雄（其余的合计一次）、E 每穿过一个单位、W（不强化时）各往上走一阶，R 开时两阶、之后每秒一阶；480 tick（8 秒）没积攒就全部清空（英雄联盟是脱战后慢慢掉，这里一次清掉）。满 5 阶（英雄联盟的 50 怒气）时下一个技能被强化并耗尽怒气；Q 只在 W 冷却时才用怒气（高手连招：怒气留给 W 晕 1.5 秒）。英雄联盟「低于一半生命时怒气 +50%」要读生命，在附加包里 |
+| 技能1 | Q「巨鳄狂袭」：冷却 420 tick（7 秒），也对小兵和野怪放。第 7 tick 半径 32000 内的敌人受到 45 + 80% 攻击力的物理伤害；每打中一个敌人回 2 + 1% 攻击力，每打中一个英雄再回 10 + 10%。强化：100 + 140% 攻击力，回血 ×3 |
+| 技能2 | E「横冲直撞」→ W「冷酷捕猎」：冷却 900 tick（15 秒），只对英雄放，射程 45000。冲刺穿过目标（40 + 70% 攻击力，路上每个单位都打）；落地接 W：连砍两刀（每刀 20 + 75% 攻击力，第 4、11 tick），最后一刀眩晕 0.75 秒；强化三刀（第 18 tick 第三刀）、眩晕 1.5 秒。然后 Q 好了先接 Q（眩晕后马上回血），再冲一次（二段 E，40 + 70%；强化时削甲 25% 4 秒） |
+| 大招 | R「终极统治」：冷却 5400 tick（90 秒）。上膛（图奇 R 的做法）：35000 内有敌方英雄立刻变身，否则待命 10 秒、他的普攻碰到英雄就变身，没用上退还冷却。变身 10 秒：生命 +300（同时回 300），每 0.5 秒对身边 30000 内的敌人造成 15 + 1% 最大生命值的魔法伤害，怒气两阶、之后每秒一阶。体型不变，脚下一圈沙暴 |
+| 低血怒气附加包 | 附加包 [`addons/league_renekton`](addons/league_renekton/README.md)（在附加包合集里）用原生代码读生命：生命低于 50% 时，他每积攒 2 次怒气就再多给一阶（+50%，英雄联盟的规则）；技能一字不改，副本和主包只差这一个被动。主包不装附加包也完整可玩；附加包只做了单元测试，要在游戏里看日志确认 |
+| 数值 | 攻击 77（+17）、生命 940（+105）、护甲 32（+8）、魔抗 25（+4）、移速 1000（+11）。数值是自己设计的，用 SDK 对战模拟调：上路，对 6 个原版上单（`fighter`、`executioner`、`lancer`、`pole_warrior`、`knight`、`berserker`），3 套阵容、两边各打，10 分钟。初稿 +4.38（同批蛮王 +1.34、格温 +1.16、德莱厄斯 +1.18）；R 冷却 60 → 90 秒、变身 15 → 10 秒几乎没变化，降攻击生命（88 → 80、1050 → 980）、削 Q 回血和 E 伤害后 +2.48，E 冷却 12 → 15 秒、Q 60 + 100% → 45 + 80% 后 +1.51；按动作帧定下出手时机（普攻、Q 都提前到第 7 tick）后又到 +2.38，攻击 80 → 77、生命 980 → 940：两批种子 +1.78 / +1.07 |
+| 亚索联动 | W 的眩晕算控制：雷克顿在亚索队里打上单时，亚索每局对英雄放 R 2.40 次（原版斗士 2.12、德莱厄斯 1.31，闪电法师以前测的 3.40），不用调 |
+| 精灵图 | 9 个动作 52 帧：待机、移动、普攻、Q（`skill`）、E 冲刺（`skill2`）、W 连砍（`skill2_w`）、R（`ult`）、受击、死亡。造型 57 × 41 px（大月牙刀和尾巴在身后，蛮王 53 × 37），23 色。待机 6 帧同一张；头像截取点 (12, −24)（眼睛和长嘴），选人卡片中心 −10。原来是 65 × 41，用户在 BP 画面看到「雷克顿在BP画面里太大了」「都显示不完整」（选人格子约露 49 × 42 格，光身体就 51 格宽），选了只把刀和尾巴缩短：身体、头、腿逐格不变 |
+| 特效 | Codex 画的 15 张，按游戏尺寸交付，两张表 `league_renekton_fx` / `league_renekton_big`：普攻、Q、E、W、R 光环的命中，Q 的刀光圈（强化版更大更红），W 强化的怒气、眩晕金星、削甲标记，满怒气的红光，R 的沙暴爆发和沙暴光环；普攻刀光和 E 的冲刺风痕画进动作帧里 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_renekton.py`）：挥刀、命中，Q 施放、命中，W 普通 / 强化、眩晕，E 冲刺、命中，R 施放、怒吼；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_renekton.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_renekton.py          # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_renekton.py          # 五种语言的文字、音效配置、共享文件里他的键（头像点在脚本的 VIEW 里）
+python tools/art/design_renekton.py         # 造型：Codex 原稿 B 按自己的格子读回，只删刀和尾巴那段的列（65 宽，再缩到 57 宽）
+python tools/lol/native_pose.py assets/source/renekton/poses.json --out <渲染文件夹>   # 动作参考帧
+python assets/source/renekton/codex_strips_narrow/rig/rebuild.py   # 动作：Codex 的零件脚本在缩窄的造型上重新生成
+python tools/art/fix_renekton_strips.py     # 清掉腿边的残留描边，倒地时尾巴平躺；跑步用 Codex 换腿包的图层重拼；每帧身后加翘起的尾巴
+python tools/art/import_renekton.py         # 特效
+python tools/art/import_native.py --hero renekton   # 精灵（刀光、冲刺风痕按 renekton_bake.json 画进动作）
+python tools/art/preview_renekton.py        # 逐帧预览、特效预览、演示 GIF
+python addons/league_renekton/make_override.py   # 附加包的英雄数据和文字（主包的雷克顿改了以后重跑）
+```
+
+美术（原画的提示词见 [`assets/source/renekton/PICTURE_PROMPT.md`](assets/source/renekton/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/renekton/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/renekton/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/renekton/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/renekton/codex_picture/)、[`codex_model/`](assets/source/renekton/codex_model/)、[`codex_strips/`](assets/source/renekton/codex_strips/)、[`codex_fx/`](assets/source/renekton/codex_fx/)；附图包由 `tools/art/pack_renekton_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
+
+- 原画：A 是英雄联盟的待机（弓背、刀低低地拖在身侧朝后），B 是冷酷捕猎起手（月牙刀竖着举在身侧）。用户选 A，再指定刀的形状照 B（「鳄鱼的斧头应该是这形状的」：一整把宽月牙，外弧象牙白尖齿刃、金框和绿宝石、深蓝握柄沿内弧），第 1 步的包里加了 B 的刀和它横躺的样子。
+- 造型：按蛮王（37 行、拖着大剑 53 格宽）的个子要 38 / 40 行。Codex 自己删到 53 × 38 / 56 × 40 时在身体和脸上也删了列，碎了；按它的生图原稿自己的格子读回（B 76 × 41，28 色聚类），只删刀和尾巴那段的列。用户选「B 64」（65 × 41）。装进游戏后 BP 画面装不下（「雷克顿在BP画面里太大了」「都显示不完整」），用户选「刀和尾巴缩短」：在定稿上只删刀和尾巴那段的 8 列，57 × 41，身体那几列逐格不变；动作用 Codex 自己的零件脚本在新造型上重新生成（[`codex_strips_narrow/`](assets/source/renekton/codex_strips_narrow/)，身体左边剩下的格子归给握刀的手臂和尾巴，挥刀不留残影）。
+- 动作：英雄联盟的 Q 转一圈（有半圈是背影）、E 贴地扑出去、W 强化时刀会闪成另一把，包里改成正面横扫、压低前冲、举刀从头顶劈。Codex 第 2 步用造型自己的零件摆（头、身体、两条腿、尾巴、两只手臂连刀，整块平移和转动）。用户指出两处，`fix_renekton_strips.py` 只修这两处：「腿上有多余的像素」——零件切开时留下的描边残点（前膝旁浮着的 1–2 格黑点、后腿旁只靠斜角挂着的黑格），共 55 格；「死亡的时候尾巴有点怪」——倒地时尾巴跟着身体转成竖直戳向地面，改成绕尾根再转 90° 平躺在脚边；跑步几经修改：「鳄鱼走路有点僵硬」——原来只有两条腿动；「尾巴都变形了」「尾巴跟着后腿太怪了 还不如翘起来」——尾巴那一小块挨着后脚，后腿迈出去就浮在半空；「走路时候腿部模型严重变形」——零件拼法只挪小腿、横移 20 多格去交叉，大腿留在原处。用户选了「给 Codex 发换腿包」（`tools/art/pack_renekton_run.py`、[`RUN_SWAP.md`](assets/source/renekton/RUN_SWAP.md)，骨架是英雄联盟雷克顿自己的跑步）：Codex 重画了整条腿（交叉步、远侧腿暗一档）和翘在身后的尾巴，上半身是定稿原样（[`codex_run/`](assets/source/renekton/codex_run/)）。「腿的连接处」——上半身里还留着两条大腿的顶端和皮裙右片的一截，腿迈开后悬空（布兰德那次的问题），拼帧前把腰带下面那 4 行修掉。「待机时攻击时放技能时尾巴看不到」——缩窄后的造型只剩刀下一小截尾巴，用户选「斜向后上翘」：Codex 跑步那轮画的整条鳄鱼尾（32 × 22 格）画在他身后，尾根在胯后、尾尖从刀后伸出来，除了倒地的几帧每个动作都有。
+- 特效：Codex 第 3 步把 15 张都按游戏尺寸画了一份（[`codex_fx/pixel_1x/`](assets/source/renekton/codex_fx/pixel_1x/)），`tools/art/import_renekton.py` 每格切出、按锚点（中心、脚底、风痕起点）放好，导入时逐格检查对称。
+- 红色方：命中、他身上的刀光圈 / 怒气 / 沙暴爆发、挂着循环的满怒气 / 眩晕 / 削甲 / 沙暴光环都严格左右对称；只有普攻刀光和 E 的冲刺风痕有朝向，画进动作帧里（`renekton_bake.json`），跟着他一起翻转。
+
+逐帧预览：[`docs/preview/league_renekton_frames.png`](docs/preview/league_renekton_frames.png)，特效：[`docs/preview/league_renekton_effects.png`](docs/preview/league_renekton_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

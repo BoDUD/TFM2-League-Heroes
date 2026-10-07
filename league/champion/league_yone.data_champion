@@ -134,7 +134,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -182,7 +182,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -231,7 +231,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -286,7 +286,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -334,7 +334,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -383,7 +383,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -442,7 +442,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -490,7 +490,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -539,7 +539,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -591,7 +591,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -639,7 +639,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -690,7 +690,7 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_yone_e_alive",
+                                    "buff_name": "league_yone_e_back",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
@@ -814,7 +814,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -862,7 +862,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -911,7 +911,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -966,7 +966,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1014,7 +1014,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1063,7 +1063,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -1122,7 +1122,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1170,7 +1170,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1219,7 +1219,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -1271,7 +1271,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -1319,7 +1319,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -1370,7 +1370,7 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_yone_e_alive",
+                                    "buff_name": "league_yone_e_back",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
@@ -1555,7 +1555,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1603,7 +1603,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1652,7 +1652,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -1707,7 +1707,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1755,7 +1755,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1804,7 +1804,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -1863,7 +1863,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1911,7 +1911,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -1960,7 +1960,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -2012,7 +2012,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -2060,7 +2060,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -2111,7 +2111,7 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_yone_e_alive",
+                                    "buff_name": "league_yone_e_back",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
@@ -2357,7 +2357,7 @@
                                     "effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
+                                        "buff_name": "league_yone_e_back",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
@@ -2405,7 +2405,7 @@
                                     "effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
+                                        "buff_name": "league_yone_e_back",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
@@ -2454,7 +2454,7 @@
                                   "effects": [
                                     {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_yone_e_alive",
+                                      "buff_name": "league_yone_e_back",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
@@ -2509,7 +2509,7 @@
                                     "effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
+                                        "buff_name": "league_yone_e_back",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
@@ -2557,7 +2557,7 @@
                                     "effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
+                                        "buff_name": "league_yone_e_back",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
@@ -2606,7 +2606,7 @@
                                   "effects": [
                                     {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_yone_e_alive",
+                                      "buff_name": "league_yone_e_back",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
@@ -2665,7 +2665,7 @@
                                     "effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
+                                        "buff_name": "league_yone_e_back",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
@@ -2713,7 +2713,7 @@
                                     "effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
+                                        "buff_name": "league_yone_e_back",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
@@ -2762,7 +2762,7 @@
                                   "effects": [
                                     {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_yone_e_alive",
+                                      "buff_name": "league_yone_e_back",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
@@ -2814,7 +2814,7 @@
                                   "effects": [
                                     {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_yone_e_alive",
+                                      "buff_name": "league_yone_e_back",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
@@ -2862,7 +2862,7 @@
                                   "effects": [
                                     {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_yone_e_alive",
+                                      "buff_name": "league_yone_e_back",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
@@ -2913,7 +2913,7 @@
                             "effects": [
                               {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_yone_e_alive",
+                                "buff_name": "league_yone_e_back",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
@@ -3155,7 +3155,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -3204,7 +3204,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -3254,7 +3254,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -3310,7 +3310,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -3359,7 +3359,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -3409,7 +3409,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -3469,7 +3469,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -3518,7 +3518,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -3568,7 +3568,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -3621,7 +3621,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -3670,7 +3670,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -3722,7 +3722,7 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_yone_e_alive",
+                                    "buff_name": "league_yone_e_back",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
@@ -3816,18 +3816,6 @@
                       }
                     },
                     "move_speed_mult": 25
-                  },
-                  "only_to_enemy": false
-                },
-                {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_yone_e_alive",
-                    "duration": {
-                      "Time": {
-                        "tick": 272
-                      }
-                    }
                   },
                   "only_to_enemy": false
                 },
@@ -3995,6 +3983,18 @@
                       "type": "Delayed",
                       "tick": 239,
                       "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_yone_e_back",
+                            "duration": {
+                              "Time": {
+                                "tick": 30
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
                         {
                           "type": "SwitchByBuff",
                           "buff_name": "league_yone_spirit",
@@ -4231,7 +4231,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_yone_e_alive",
+                                                          "buff_name": "league_yone_e_back",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": [
@@ -4280,7 +4280,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_yone_e_alive",
+                                                          "buff_name": "league_yone_e_back",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": [
@@ -4330,7 +4330,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "SwitchByBuff",
-                                                        "buff_name": "league_yone_e_alive",
+                                                        "buff_name": "league_yone_e_back",
                                                         "effect_buff": {
                                                           "type": "Combine",
                                                           "effects": [
@@ -4386,7 +4386,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_yone_e_alive",
+                                                          "buff_name": "league_yone_e_back",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": [
@@ -4435,7 +4435,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_yone_e_alive",
+                                                          "buff_name": "league_yone_e_back",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": [
@@ -4485,7 +4485,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "SwitchByBuff",
-                                                        "buff_name": "league_yone_e_alive",
+                                                        "buff_name": "league_yone_e_back",
                                                         "effect_buff": {
                                                           "type": "Combine",
                                                           "effects": [
@@ -4545,7 +4545,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_yone_e_alive",
+                                                          "buff_name": "league_yone_e_back",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": [
@@ -4594,7 +4594,7 @@
                                                       "effects": [
                                                         {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_yone_e_alive",
+                                                          "buff_name": "league_yone_e_back",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": [
@@ -4644,7 +4644,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "SwitchByBuff",
-                                                        "buff_name": "league_yone_e_alive",
+                                                        "buff_name": "league_yone_e_back",
                                                         "effect_buff": {
                                                           "type": "Combine",
                                                           "effects": [
@@ -4697,7 +4697,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "SwitchByBuff",
-                                                        "buff_name": "league_yone_e_alive",
+                                                        "buff_name": "league_yone_e_back",
                                                         "effect_buff": {
                                                           "type": "Combine",
                                                           "effects": [
@@ -4746,7 +4746,7 @@
                                                     "effects": [
                                                       {
                                                         "type": "SwitchByBuff",
-                                                        "buff_name": "league_yone_e_alive",
+                                                        "buff_name": "league_yone_e_back",
                                                         "effect_buff": {
                                                           "type": "Combine",
                                                           "effects": [
@@ -4798,7 +4798,7 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_yone_e_alive",
+                                                  "buff_name": "league_yone_e_back",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
@@ -5027,7 +5027,7 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_yone_e_alive",
+                                                  "buff_name": "league_yone_e_back",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
@@ -5076,7 +5076,7 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_yone_e_alive",
+                                                  "buff_name": "league_yone_e_back",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
@@ -5126,7 +5126,7 @@
                                             "effects": [
                                               {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_yone_e_alive",
+                                                "buff_name": "league_yone_e_back",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
@@ -5182,7 +5182,7 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_yone_e_alive",
+                                                  "buff_name": "league_yone_e_back",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
@@ -5231,7 +5231,7 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_yone_e_alive",
+                                                  "buff_name": "league_yone_e_back",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
@@ -5281,7 +5281,7 @@
                                             "effects": [
                                               {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_yone_e_alive",
+                                                "buff_name": "league_yone_e_back",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
@@ -5341,7 +5341,7 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_yone_e_alive",
+                                                  "buff_name": "league_yone_e_back",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
@@ -5390,7 +5390,7 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_yone_e_alive",
+                                                  "buff_name": "league_yone_e_back",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
@@ -5440,7 +5440,7 @@
                                             "effects": [
                                               {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_yone_e_alive",
+                                                "buff_name": "league_yone_e_back",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
@@ -5493,7 +5493,7 @@
                                             "effects": [
                                               {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_yone_e_alive",
+                                                "buff_name": "league_yone_e_back",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
@@ -5542,7 +5542,7 @@
                                             "effects": [
                                               {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_yone_e_alive",
+                                                "buff_name": "league_yone_e_back",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
@@ -5594,7 +5594,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -5866,7 +5866,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -5914,7 +5914,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -5963,7 +5963,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -6018,7 +6018,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6066,7 +6066,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6115,7 +6115,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -6174,7 +6174,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6222,7 +6222,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6271,7 +6271,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -6323,7 +6323,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -6371,7 +6371,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -6422,7 +6422,7 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_yone_e_alive",
+                                    "buff_name": "league_yone_e_back",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
@@ -6678,7 +6678,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6726,7 +6726,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6775,7 +6775,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -6830,7 +6830,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6878,7 +6878,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -6927,7 +6927,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -6986,7 +6986,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -7034,7 +7034,7 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_yone_e_alive",
+                                            "buff_name": "league_yone_e_back",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
@@ -7083,7 +7083,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -7135,7 +7135,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -7183,7 +7183,7 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
+                                          "buff_name": "league_yone_e_back",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
@@ -7234,7 +7234,7 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_yone_e_alive",
+                                    "buff_name": "league_yone_e_back",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [

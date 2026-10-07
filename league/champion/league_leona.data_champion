@@ -269,92 +269,100 @@
           "tick": 178,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_leona_eclipse",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_leona_w_burst"
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_leona_w_burst"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 35000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyOnlySelf",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_leona_eclipse",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "ApAttack",
-                        "damage": 60,
-                        "attack_ratio": 40
+                        "type": "CasterViewEffect",
+                        "name": "league_leona_w_burst"
                       },
                       {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_leona_sunlight",
-                          "duration": {
-                            "Time": {
-                              "tick": 90
-                            }
-                          },
-                          "damaged_amplify": 10
-                        }
+                        "type": "Sfx",
+                        "name": "league_leona_w_burst"
                       },
                       {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_leona_w_lock",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 35000
+                          }
                         },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_leona_w_lock",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 2
-                                  }
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 60,
+                            "attack_ratio": 40
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_leona_sunlight",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
                                 }
                               },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_leona_eclipse_hold",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 180
-                                  }
-                                },
-                                "damaged_reduce": 25
-                              },
-                              "only_to_enemy": false
+                              "damaged_amplify": 10
                             }
-                          ]
-                        }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_leona_w_lock",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_leona_w_lock",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_leona_eclipse_hold",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    },
+                                    "damaged_reduce": 25
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         }

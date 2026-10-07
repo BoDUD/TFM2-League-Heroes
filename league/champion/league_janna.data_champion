@@ -878,6 +878,16 @@
                       "duration": "WithShield",
                       "attack_mult": 15
                     }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 240,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_janna_e_storm"
+                      }
+                    ]
                   }
                 ]
               }
@@ -950,57 +960,65 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_janna_monsoon"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_janna_monsoon"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "ult_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_janna_monsoon",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_janna_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "AllyChampion",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_janna_monsoon",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "Heal",
-                        "amount": 130,
-                        "ap_ratio": 50,
-                        "heal_type": "Ally"
+                        "type": "CasterViewEffect",
+                        "name": "league_janna_r_storm"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_janna_r_heal"
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 130,
+                            "ap_ratio": 50,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_janna_r_heal"
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1011,57 +1029,65 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_janna_monsoon"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_janna_monsoon"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "ult_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_janna_monsoon",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_janna_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "AllyChampion",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_janna_monsoon",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "Heal",
-                        "amount": 130,
-                        "ap_ratio": 50,
-                        "heal_type": "Ally"
+                        "type": "CasterViewEffect",
+                        "name": "league_janna_r_storm"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_janna_r_heal"
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 130,
+                            "ap_ratio": 50,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_janna_r_heal"
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1072,57 +1098,65 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_janna_monsoon"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_janna_monsoon"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "ult_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_janna_monsoon",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_janna_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "AllyChampion",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_janna_monsoon",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "Heal",
-                        "amount": 130,
-                        "ap_ratio": 50,
-                        "heal_type": "Ally"
+                        "type": "CasterViewEffect",
+                        "name": "league_janna_r_storm"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_janna_r_heal"
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 130,
+                            "ap_ratio": 50,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_janna_r_heal"
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
@@ -1133,57 +1167,65 @@
             {
               "type": "RandomTarget",
               "range": 1,
-              "casting_target": "AllyChampionInCC",
+              "casting_target": "AllyOnlySelf",
               "from_projectile": false,
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_janna_monsoon"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_janna_monsoon"
+                    },
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "ult_loop"
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult_loop"
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_janna_monsoon",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_janna_r_storm"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 40000
-                      }
-                    },
-                    "target": "AllyChampion",
-                    "apply_type": "AroundCaster",
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_janna_monsoon",
+                  "effect_buff": {
+                    "type": "Combine",
                     "effects": [
                       {
-                        "type": "Heal",
-                        "amount": 130,
-                        "ap_ratio": 50,
-                        "heal_type": "Ally"
+                        "type": "CasterViewEffect",
+                        "name": "league_janna_r_storm"
                       },
                       {
-                        "type": "ViewEffect",
-                        "name": "league_janna_r_heal"
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "AllyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 130,
+                            "ap_ratio": 50,
+                            "heal_type": "Ally"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_janna_r_heal"
+                          }
+                        ]
                       }
                     ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+                }
+              ]
             }
           ]
         },
