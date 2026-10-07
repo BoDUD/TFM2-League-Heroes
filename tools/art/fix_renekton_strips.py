@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-"""Codex's step-2 strips of Renekton (assets/source/renekton/codex_strips/renekton_<tag>.png, 8x) cleaned into
-assets/source/native/renekton_<tag>.png, which import_native.py reads.
+"""Codex's step-2 strips of Renekton cleaned into assets/source/native/renekton_<tag>.png, which import_native.py reads.
+The strips are Codex's rig (codex_strips/rig/rebuild.py) run again on the narrowed design (design_renekton.py step 7,
+the ban/pick card: 「雷克顿在BP画面里太大了」), in assets/source/renekton/codex_strips_narrow/ (its rig/rebuild.py gives
+the blade arm and the tail every square left of the body that the old outlines left to the core, so a swung blade
+leaves no ghost behind; its idle is the narrowed design six times).
 
     python tools/art/fix_renekton_strips.py [--check]
 
@@ -21,7 +24,8 @@ blade, far arm, both legs, tail; whole-part moves and nearest-neighbour turns). 
      from the same rig parts with Codex's leg moves kept and RUN's additions: the upper body (core, head, arms, tail)
      sinks a row on each landing (frames 1 and 5) with the feet on the ground in every frame, the far arm swings
      forward and back against the legs (whole, up to 2 columns), the blade arm the other way (1 column, a row up while
-     the legs pass), and the tail sways 2 columns each way.
+     the legs pass). 「尾巴都变形了」: the tail piece sat by the back foot and was left floating when the leg stepped
+     away (Codex's run too, the sway made it worse): it moves with the back leg now, so it stays on.
 """
 import argparse
 import json
@@ -32,7 +36,7 @@ from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-SRC = os.path.join(ROOT, "assets", "source", "renekton", "codex_strips")
+SRC = os.path.join(ROOT, "assets", "source", "renekton", "codex_strips_narrow")
 RIG = os.path.join(SRC, "rig", "source_parts")
 OUT = os.path.join(ROOT, "assets", "source", "native")
 Z = 8
@@ -51,8 +55,7 @@ R_FAR = [(-25, 0), (-21, 0), (-15, 1), (-9, 0), (-3, 0), (-7, -1), (-13, -2), (-
 # fix 3: the upper body's sink, the far arm's and the blade arm's swing (dx, dy), the tail's sway
 RUN = {"body_dy": [1, 0, 0, 0, 1, 0, 0, 0],
        "far": [(2, 0), (1, 0), (0, 0), (-1, 0), (-2, 0), (-1, 0), (0, 0), (1, 0)],
-       "near": [(-1, 0), (-1, 0), (0, -1), (1, 0), (1, 0), (1, 0), (0, -1), (-1, 0)],
-       "tail": [0, -1, -2, -1, 0, 1, 2, 1]}
+       "near": [(-1, 0), (-1, 0), (0, -1), (1, 0), (1, 0), (1, 0), (0, -1), (-1, 0)]}
 
 
 def lp(path):
@@ -176,7 +179,7 @@ def darken(im):
 def run_frame(parts, i, pivot):
     by = RUN["body_dy"][i]
     im = Image.new("RGBA", (128, 128))
-    im.alpha_composite(moved(parts["tail"], RUN["tail"][i], by))
+    im.alpha_composite(moved(parts["tail"], *R_NEAR[i]))         # the tail rides with the back leg
     im.alpha_composite(moved(darken(parts["frontleg"]), *R_FAR[i]))
     im.alpha_composite(moved(parts["rearleg"], *R_NEAR[i]))
     im.alpha_composite(moved(parts["core"], 0, by))

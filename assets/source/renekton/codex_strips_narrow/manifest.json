@@ -1,0 +1,4446 @@
+{
+  "schema": 1,
+  "scale": 8,
+  "cell_1x": [
+    128,
+    96
+  ],
+  "feet_row": 81,
+  "palette": [
+    "#010957",
+    "#010E84",
+    "#018084",
+    "#0218B2",
+    "#02595F",
+    "#040403",
+    "#272016",
+    "#453A04",
+    "#4B4850",
+    "#5C371E",
+    "#843A15",
+    "#939191",
+    "#A8161F",
+    "#A86E08",
+    "#B1542F",
+    "#BF5A02",
+    "#C2C0C0",
+    "#CBA374",
+    "#EECFA1",
+    "#F38202",
+    "#F7A40B",
+    "#F9D206",
+    "#F9EEDB"
+  ],
+  "source_model_sha256": "11c8bdffbe7ebcc4d11702eabf3192851910d136f10650113db5aefb7e24dd9b",
+  "animations": {
+    "run": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 96,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "pivot_sheet_1x": [
+            67,
+            70
+          ],
+          "pivot_sheet_8x": [
+            536,
+            560
+          ],
+          "bbox_local_1x": [
+            39,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            312,
+            328,
+            768,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              3,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            3,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              23,
+              0
+            ],
+            "front": [
+              -25,
+              0
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 2,
+          "ms": 96,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            64,
+            70
+          ],
+          "pivot_sheet_1x": [
+            192,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1536,
+            560
+          ],
+          "bbox_local_1x": [
+            36,
+            41,
+            93,
+            82
+          ],
+          "bbox_local_8x": [
+            288,
+            328,
+            744,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              0,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            0,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              19,
+              -1
+            ],
+            "front": [
+              -21,
+              0
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": -1
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 3,
+          "ms": 96,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_1x": [
+            319,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2552,
+            560
+          ],
+          "bbox_local_1x": [
+            35,
+            40,
+            92,
+            82
+          ],
+          "bbox_local_8x": [
+            280,
+            320,
+            736,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -1,
+              -19
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            -1
+          ],
+          "placement_translation_from_design": [
+            -1,
+            -19
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              13,
+              -2
+            ],
+            "front": [
+              -15,
+              1
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": -1
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 4,
+          "ms": 96,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_1x": [
+            447,
+            70
+          ],
+          "pivot_sheet_8x": [
+            3576,
+            560
+          ],
+          "bbox_local_1x": [
+            35,
+            41,
+            92,
+            82
+          ],
+          "bbox_local_8x": [
+            280,
+            328,
+            736,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -1,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            -1,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              7,
+              -2
+            ],
+            "front": [
+              -9,
+              0
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 5,
+          "ms": 96,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            62,
+            70
+          ],
+          "pivot_sheet_1x": [
+            62,
+            166
+          ],
+          "pivot_sheet_8x": [
+            496,
+            1328
+          ],
+          "bbox_local_1x": [
+            34,
+            41,
+            91,
+            82
+          ],
+          "bbox_local_8x": [
+            272,
+            328,
+            728,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            -2,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              1,
+              0
+            ],
+            "front": [
+              -3,
+              0
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 6,
+          "ms": 96,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_1x": [
+            191,
+            166
+          ],
+          "pivot_sheet_8x": [
+            1528,
+            1328
+          ],
+          "bbox_local_1x": [
+            35,
+            41,
+            92,
+            82
+          ],
+          "bbox_local_8x": [
+            280,
+            328,
+            736,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -1,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            -1,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              5,
+              0
+            ],
+            "front": [
+              -7,
+              -1
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 1
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 7,
+          "ms": 96,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            65,
+            70
+          ],
+          "pivot_sheet_1x": [
+            321,
+            166
+          ],
+          "pivot_sheet_8x": [
+            2568,
+            1328
+          ],
+          "bbox_local_1x": [
+            37,
+            40,
+            94,
+            82
+          ],
+          "bbox_local_8x": [
+            296,
+            320,
+            752,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -19
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            -1
+          ],
+          "placement_translation_from_design": [
+            1,
+            -19
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              11,
+              1
+            ],
+            "front": [
+              -13,
+              -2
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 1
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 8,
+          "ms": 96,
+          "cell_rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "pivot_sheet_1x": [
+            451,
+            166
+          ],
+          "pivot_sheet_8x": [
+            3608,
+            1328
+          ],
+          "bbox_local_1x": [
+            39,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            312,
+            328,
+            768,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              3,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            3,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              17,
+              0
+            ],
+            "front": [
+              -19,
+              -2
+            ],
+            "farshade": true,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        4096,
+        1536
+      ],
+      "hit_frame": null,
+      "hit_tick": null,
+      "impact_frames": [],
+      "empowered_only_frames": [],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "attack": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            65,
+            70
+          ],
+          "pivot_sheet_1x": [
+            65,
+            70
+          ],
+          "pivot_sheet_8x": [
+            520,
+            560
+          ],
+          "bbox_local_1x": [
+            37,
+            41,
+            94,
+            82
+          ],
+          "bbox_local_8x": [
+            296,
+            328,
+            752,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            1,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 2,
+          "ms": 60,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            59,
+            70
+          ],
+          "pivot_sheet_1x": [
+            187,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1496,
+            560
+          ],
+          "bbox_local_1x": [
+            27,
+            34,
+            87,
+            82
+          ],
+          "bbox_local_8x": [
+            216,
+            272,
+            696,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -6,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            -1,
+            0
+          ],
+          "placement_translation_from_design": [
+            -6,
+            -18
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 3,
+          "ms": 80,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            60,
+            70
+          ],
+          "pivot_sheet_1x": [
+            316,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2528,
+            560
+          ],
+          "bbox_local_1x": [
+            39,
+            41,
+            101,
+            82
+          ],
+          "bbox_local_8x": [
+            312,
+            328,
+            808,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            2,
+            0
+          ],
+          "placement_translation_from_design": [
+            -2,
+            -18
+          ],
+          "arm_blade_angle_deg": 180,
+          "body_rotation_deg": 0,
+          "hit_frame": true,
+          "blade_midpoint_local_1x": [
+            88.781,
+            48.356
+          ],
+          "blade_midpoint_sheet_8x": [
+            2758.248,
+            386.848
+          ],
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 180,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              10
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 10
+        },
+        {
+          "index": 4,
+          "ms": 80,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            58,
+            70
+          ],
+          "pivot_sheet_1x": [
+            58,
+            166
+          ],
+          "pivot_sheet_8x": [
+            464,
+            1328
+          ],
+          "bbox_local_1x": [
+            36,
+            41,
+            101,
+            82
+          ],
+          "bbox_local_8x": [
+            288,
+            328,
+            808,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -5,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            1,
+            0
+          ],
+          "placement_translation_from_design": [
+            -5,
+            -18
+          ],
+          "arm_blade_angle_deg": 90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 90,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              0
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 3
+        },
+        {
+          "index": 5,
+          "ms": 100,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            194,
+            166
+          ],
+          "pivot_sheet_8x": [
+            1552,
+            1328
+          ],
+          "bbox_local_1x": [
+            38,
+            41,
+            95,
+            82
+          ],
+          "bbox_local_8x": [
+            304,
+            328,
+            760,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            2,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "hit_frame": 3,
+      "hit_tick": 7,
+      "impact_frames": [
+        3
+      ],
+      "empowered_only_frames": [],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "skill": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            61,
+            70
+          ],
+          "pivot_sheet_1x": [
+            61,
+            70
+          ],
+          "pivot_sheet_8x": [
+            488,
+            560
+          ],
+          "bbox_local_1x": [
+            32,
+            41,
+            89,
+            82
+          ],
+          "bbox_local_8x": [
+            256,
+            328,
+            712,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -4,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            -1,
+            0
+          ],
+          "placement_translation_from_design": [
+            -4,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 2,
+          "ms": 60,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            64,
+            70
+          ],
+          "pivot_sheet_1x": [
+            192,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1536,
+            560
+          ],
+          "bbox_local_1x": [
+            32,
+            34,
+            92,
+            82
+          ],
+          "bbox_local_8x": [
+            256,
+            272,
+            736,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -1,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            -1,
+            0
+          ],
+          "placement_translation_from_design": [
+            -1,
+            -18
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 3,
+          "ms": 70,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            56,
+            70
+          ],
+          "pivot_sheet_1x": [
+            312,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2496,
+            560
+          ],
+          "bbox_local_1x": [
+            35,
+            41,
+            97,
+            82
+          ],
+          "bbox_local_8x": [
+            280,
+            328,
+            776,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -6,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            2,
+            0
+          ],
+          "placement_translation_from_design": [
+            -6,
+            -18
+          ],
+          "arm_blade_angle_deg": 180,
+          "body_rotation_deg": 0,
+          "hit_frame": true,
+          "blade_midpoint_local_1x": [
+            84.781,
+            48.356
+          ],
+          "blade_midpoint_sheet_8x": [
+            2726.248,
+            386.848
+          ],
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 180,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              10
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 10
+        },
+        {
+          "index": 4,
+          "ms": 70,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            68,
+            70
+          ],
+          "pivot_sheet_1x": [
+            68,
+            166
+          ],
+          "pivot_sheet_8x": [
+            544,
+            1328
+          ],
+          "bbox_local_1x": [
+            46,
+            41,
+            111,
+            82
+          ],
+          "bbox_local_8x": [
+            368,
+            328,
+            888,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              5,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            1,
+            0
+          ],
+          "placement_translation_from_design": [
+            5,
+            -18
+          ],
+          "arm_blade_angle_deg": 90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 90,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              0
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 3
+        },
+        {
+          "index": 5,
+          "ms": 70,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            64,
+            70
+          ],
+          "pivot_sheet_1x": [
+            192,
+            166
+          ],
+          "pivot_sheet_8x": [
+            1536,
+            1328
+          ],
+          "bbox_local_1x": [
+            31,
+            39,
+            93,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            312,
+            744,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              0,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            0,
+            -18
+          ],
+          "arm_blade_angle_deg": -45,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -45,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 5
+        },
+        {
+          "index": 6,
+          "ms": 80,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            68,
+            70
+          ],
+          "pivot_sheet_1x": [
+            324,
+            166
+          ],
+          "pivot_sheet_8x": [
+            2592,
+            1328
+          ],
+          "bbox_local_1x": [
+            40,
+            41,
+            97,
+            82
+          ],
+          "bbox_local_8x": [
+            320,
+            328,
+            776,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              4,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            4,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "hit_frame": 3,
+      "hit_tick": 7,
+      "impact_frames": [
+        3
+      ],
+      "empowered_only_frames": [],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "skill2": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_8x": [
+            504,
+            560
+          ],
+          "bbox_local_1x": [
+            31,
+            40,
+            93,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            320,
+            744,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              0,
+              -17
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            1,
+            1
+          ],
+          "placement_translation_from_design": [
+            0,
+            -17
+          ],
+          "arm_blade_angle_deg": -45,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -45,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              -1
+            ],
+            "front": [
+              0,
+              -1
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 5
+        },
+        {
+          "index": 2,
+          "ms": 60,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            65,
+            70
+          ],
+          "pivot_sheet_1x": [
+            193,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1544,
+            560
+          ],
+          "bbox_local_1x": [
+            44,
+            43,
+            110,
+            82
+          ],
+          "bbox_local_8x": [
+            352,
+            344,
+            880,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              4,
+              -16
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            3,
+            2
+          ],
+          "placement_translation_from_design": [
+            4,
+            -16
+          ],
+          "arm_blade_angle_deg": 90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 90,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              -3,
+              -3
+            ],
+            "front": [
+              3,
+              -2
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              -2
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 3,
+          "ms": 60,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_1x": [
+            319,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2552,
+            560
+          ],
+          "bbox_local_1x": [
+            37,
+            42,
+            94,
+            82
+          ],
+          "bbox_local_8x": [
+            296,
+            336,
+            752,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -17
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            2,
+            1
+          ],
+          "placement_translation_from_design": [
+            1,
+            -17
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": true,
+          "blade_midpoint_local_1x": [
+            48.219,
+            67.644
+          ],
+          "blade_midpoint_sheet_8x": [
+            2433.752,
+            541.152
+          ],
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              -2,
+              -1
+            ],
+            "front": [
+              2,
+              -1
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 4,
+          "ms": 60,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            450,
+            70
+          ],
+          "pivot_sheet_8x": [
+            3600,
+            560
+          ],
+          "bbox_local_1x": [
+            38,
+            41,
+            95,
+            82
+          ],
+          "bbox_local_8x": [
+            304,
+            328,
+            760,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            2,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        }
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "size_px": [
+        4096,
+        768
+      ],
+      "hit_frame": 3,
+      "hit_tick": 7,
+      "impact_frames": [
+        3
+      ],
+      "empowered_only_frames": [],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "skill2_w": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            65,
+            70
+          ],
+          "pivot_sheet_1x": [
+            65,
+            70
+          ],
+          "pivot_sheet_8x": [
+            520,
+            560
+          ],
+          "bbox_local_1x": [
+            34,
+            34,
+            94,
+            82
+          ],
+          "bbox_local_8x": [
+            272,
+            272,
+            752,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            1,
+            -18
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 2,
+          "ms": 70,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            53,
+            70
+          ],
+          "pivot_sheet_1x": [
+            181,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1448,
+            560
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -10,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            1,
+            0
+          ],
+          "placement_translation_from_design": [
+            -10,
+            -18
+          ],
+          "arm_blade_angle_deg": 90,
+          "body_rotation_deg": 0,
+          "hit_frame": true,
+          "blade_midpoint_local_1x": [
+            87.644,
+            59.781
+          ],
+          "blade_midpoint_sheet_8x": [
+            1725.152,
+            478.248
+          ],
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 90,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              0
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 3
+        },
+        {
+          "index": 3,
+          "ms": 60,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            58,
+            70
+          ],
+          "pivot_sheet_1x": [
+            314,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2512,
+            560
+          ],
+          "bbox_local_1x": [
+            27,
+            34,
+            87,
+            82
+          ],
+          "bbox_local_8x": [
+            216,
+            272,
+            696,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -6,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            -6,
+            -18
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 4,
+          "ms": 70,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            53,
+            70
+          ],
+          "pivot_sheet_1x": [
+            437,
+            70
+          ],
+          "pivot_sheet_8x": [
+            3496,
+            560
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -10,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            1,
+            0
+          ],
+          "placement_translation_from_design": [
+            -10,
+            -18
+          ],
+          "arm_blade_angle_deg": 90,
+          "body_rotation_deg": 0,
+          "hit_frame": true,
+          "blade_midpoint_local_1x": [
+            87.644,
+            59.781
+          ],
+          "blade_midpoint_sheet_8x": [
+            3773.152,
+            478.248
+          ],
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 90,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              0
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 3
+        },
+        {
+          "index": 5,
+          "ms": 60,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            58,
+            70
+          ],
+          "pivot_sheet_1x": [
+            58,
+            166
+          ],
+          "pivot_sheet_8x": [
+            464,
+            1328
+          ],
+          "bbox_local_1x": [
+            27,
+            34,
+            87,
+            82
+          ],
+          "bbox_local_8x": [
+            216,
+            272,
+            696,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -6,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            -6,
+            -18
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 6,
+          "ms": 70,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            53,
+            70
+          ],
+          "pivot_sheet_1x": [
+            181,
+            166
+          ],
+          "pivot_sheet_8x": [
+            1448,
+            1328
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -10,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            1,
+            0
+          ],
+          "placement_translation_from_design": [
+            -10,
+            -18
+          ],
+          "arm_blade_angle_deg": 90,
+          "body_rotation_deg": 0,
+          "hit_frame": true,
+          "blade_midpoint_local_1x": [
+            87.644,
+            59.781
+          ],
+          "blade_midpoint_sheet_8x": [
+            1725.152,
+            1246.248
+          ],
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 90,
+            "farangle": -45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              29,
+              0
+            ],
+            "farshift": [
+              -27,
+              -10
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 3
+        },
+        {
+          "index": 7,
+          "ms": 80,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            69,
+            70
+          ],
+          "pivot_sheet_1x": [
+            325,
+            166
+          ],
+          "pivot_sheet_8x": [
+            2600,
+            1328
+          ],
+          "bbox_local_1x": [
+            41,
+            41,
+            98,
+            82
+          ],
+          "bbox_local_8x": [
+            328,
+            328,
+            784,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              5,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            5,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        4096,
+        1536
+      ],
+      "hit_frame": 2,
+      "hit_tick": 4,
+      "impact_frames": [
+        2,
+        4,
+        6
+      ],
+      "empowered_only_frames": [
+        6
+      ],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "ult": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 80,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_8x": [
+            528,
+            560
+          ],
+          "bbox_local_1x": [
+            38,
+            41,
+            95,
+            82
+          ],
+          "bbox_local_8x": [
+            304,
+            328,
+            760,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            2,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 2,
+          "ms": 80,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            62,
+            70
+          ],
+          "pivot_sheet_1x": [
+            190,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1520,
+            560
+          ],
+          "bbox_local_1x": [
+            29,
+            39,
+            95,
+            82
+          ],
+          "bbox_local_8x": [
+            232,
+            312,
+            760,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            -2,
+            -18
+          ],
+          "arm_blade_angle_deg": -45,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -45,
+            "farangle": 45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 5
+        },
+        {
+          "index": 3,
+          "ms": 100,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_1x": [
+            319,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2552,
+            560
+          ],
+          "bbox_local_1x": [
+            30,
+            39,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            240,
+            312,
+            768,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -1,
+              -19
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            -1,
+            -18
+          ],
+          "arm_blade_angle_deg": -45,
+          "body_rotation_deg": 0,
+          "hit_frame": true,
+          "blade_midpoint_local_1x": [
+            38.026,
+            57.052
+          ],
+          "blade_midpoint_sheet_8x": [
+            2352.208,
+            456.416
+          ],
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -45,
+            "farangle": 45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 1,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 5
+        },
+        {
+          "index": 4,
+          "ms": 100,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            66,
+            166
+          ],
+          "pivot_sheet_8x": [
+            528,
+            1328
+          ],
+          "bbox_local_1x": [
+            33,
+            39,
+            99,
+            82
+          ],
+          "bbox_local_8x": [
+            264,
+            312,
+            792,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              2,
+              -19
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            2,
+            -18
+          ],
+          "arm_blade_angle_deg": -45,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -45,
+            "farangle": 45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 1,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 5
+        },
+        {
+          "index": 5,
+          "ms": 100,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            194,
+            166
+          ],
+          "pivot_sheet_8x": [
+            1552,
+            1328
+          ],
+          "bbox_local_1x": [
+            33,
+            39,
+            99,
+            82
+          ],
+          "bbox_local_8x": [
+            264,
+            312,
+            792,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              2,
+              -19
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            2,
+            -18
+          ],
+          "arm_blade_angle_deg": -45,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -45,
+            "farangle": 45,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 1,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 5
+        },
+        {
+          "index": 6,
+          "ms": 100,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            322,
+            166
+          ],
+          "pivot_sheet_8x": [
+            2576,
+            1328
+          ],
+          "bbox_local_1x": [
+            38,
+            41,
+            95,
+            82
+          ],
+          "bbox_local_8x": [
+            304,
+            328,
+            760,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            0,
+            0
+          ],
+          "placement_translation_from_design": [
+            2,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        3072,
+        1536
+      ],
+      "hit_frame": 3,
+      "hit_tick": 10,
+      "impact_frames": [
+        3
+      ],
+      "empowered_only_frames": [],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "hit": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_8x": [
+            528,
+            560
+          ],
+          "bbox_local_1x": [
+            36,
+            41,
+            93,
+            82
+          ],
+          "bbox_local_8x": [
+            288,
+            328,
+            744,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              0,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            -2,
+            0
+          ],
+          "placement_translation_from_design": [
+            0,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 2,
+          "ms": 100,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            194,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1552,
+            560
+          ],
+          "bbox_local_1x": [
+            37,
+            41,
+            94,
+            82
+          ],
+          "bbox_local_8x": [
+            296,
+            328,
+            752,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            -1,
+            0
+          ],
+          "placement_translation_from_design": [
+            1,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        }
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "size_px": [
+        2048,
+        768
+      ],
+      "hit_frame": null,
+      "hit_tick": null,
+      "impact_frames": [],
+      "empowered_only_frames": [],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "dead": {
+      "frames": [
+        {
+          "index": 1,
+          "ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_1x": [
+            66,
+            70
+          ],
+          "pivot_sheet_8x": [
+            528,
+            560
+          ],
+          "bbox_local_1x": [
+            37,
+            41,
+            94,
+            82
+          ],
+          "bbox_local_8x": [
+            296,
+            328,
+            752,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            -1,
+            0
+          ],
+          "placement_translation_from_design": [
+            1,
+            -18
+          ],
+          "arm_blade_angle_deg": 0,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": 0,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 0
+        },
+        {
+          "index": 2,
+          "ms": 110,
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            69,
+            70
+          ],
+          "pivot_sheet_1x": [
+            197,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1576,
+            560
+          ],
+          "bbox_local_1x": [
+            35,
+            34,
+            95,
+            82
+          ],
+          "bbox_local_8x": [
+            280,
+            272,
+            760,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              2,
+              -18
+            ],
+            "rotation_deg": 0
+          },
+          "whole_body_offset_from_pivot": [
+            -3,
+            0
+          ],
+          "placement_translation_from_design": [
+            2,
+            -18
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 0,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 3,
+          "ms": 110,
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "pivot_sheet_1x": [
+            323,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2584,
+            560
+          ],
+          "bbox_local_1x": [
+            20,
+            30,
+            89,
+            82
+          ],
+          "bbox_local_8x": [
+            160,
+            240,
+            712,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              0,
+              -28
+            ],
+            "rotation_deg": 45
+          },
+          "whole_body_offset_from_pivot": [
+            -3,
+            0
+          ],
+          "placement_translation_from_design": [
+            0,
+            -28
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 45,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              0,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 3
+        },
+        {
+          "index": 4,
+          "ms": 120,
+          "cell_rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            71,
+            70
+          ],
+          "pivot_sheet_1x": [
+            455,
+            70
+          ],
+          "pivot_sheet_8x": [
+            3640,
+            560
+          ],
+          "bbox_local_1x": [
+            32,
+            30,
+            80,
+            82
+          ],
+          "bbox_local_8x": [
+            256,
+            240,
+            640,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              4,
+              -29
+            ],
+            "rotation_deg": 90
+          },
+          "whole_body_offset_from_pivot": [
+            -3,
+            0
+          ],
+          "placement_translation_from_design": [
+            4,
+            -29
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 90,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              9,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 5,
+          "ms": 130,
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            68,
+            70
+          ],
+          "pivot_sheet_1x": [
+            68,
+            166
+          ],
+          "pivot_sheet_8x": [
+            544,
+            1328
+          ],
+          "bbox_local_1x": [
+            29,
+            30,
+            77,
+            82
+          ],
+          "bbox_local_8x": [
+            232,
+            240,
+            616,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -29
+            ],
+            "rotation_deg": 90
+          },
+          "whole_body_offset_from_pivot": [
+            -3,
+            0
+          ],
+          "placement_translation_from_design": [
+            1,
+            -29
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 90,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              9,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 6,
+          "ms": 150,
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            64,
+            70
+          ],
+          "pivot_sheet_1x": [
+            192,
+            166
+          ],
+          "pivot_sheet_8x": [
+            1536,
+            1328
+          ],
+          "bbox_local_1x": [
+            25,
+            30,
+            73,
+            82
+          ],
+          "bbox_local_8x": [
+            200,
+            240,
+            584,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -3,
+              -29
+            ],
+            "rotation_deg": 90
+          },
+          "whole_body_offset_from_pivot": [
+            -3,
+            0
+          ],
+          "placement_translation_from_design": [
+            -3,
+            -29
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 90,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              9,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 7,
+          "ms": 200,
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            63,
+            70
+          ],
+          "pivot_sheet_1x": [
+            319,
+            166
+          ],
+          "pivot_sheet_8x": [
+            2552,
+            1328
+          ],
+          "bbox_local_1x": [
+            24,
+            30,
+            72,
+            82
+          ],
+          "bbox_local_8x": [
+            192,
+            240,
+            576,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              -4,
+              -29
+            ],
+            "rotation_deg": 90
+          },
+          "whole_body_offset_from_pivot": [
+            -3,
+            0
+          ],
+          "placement_translation_from_design": [
+            -4,
+            -29
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 90,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              9,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        },
+        {
+          "index": 8,
+          "ms": 300,
+          "cell_rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_local_1x": [
+            68,
+            70
+          ],
+          "pivot_sheet_1x": [
+            452,
+            166
+          ],
+          "pivot_sheet_8x": [
+            3616,
+            1328
+          ],
+          "bbox_local_1x": [
+            29,
+            30,
+            77,
+            82
+          ],
+          "bbox_local_8x": [
+            232,
+            240,
+            616,
+            656
+          ],
+          "head_transform": {
+            "translation_from_design": [
+              1,
+              -29
+            ],
+            "rotation_deg": 90
+          },
+          "whole_body_offset_from_pivot": [
+            -3,
+            0
+          ],
+          "placement_translation_from_design": [
+            1,
+            -29
+          ],
+          "arm_blade_angle_deg": -90,
+          "body_rotation_deg": 90,
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null,
+          "blade_midpoint_sheet_8x": null,
+          "blade_midpoint_method": "centroid of transformed ivory blade-edge pixels; no arm/handle pixels included",
+          "rig_config": {
+            "nearangle": -90,
+            "farangle": 0,
+            "tailangle": 0,
+            "rear": [
+              0,
+              0
+            ],
+            "front": [
+              0,
+              0
+            ],
+            "farshade": false,
+            "headup": 0,
+            "nearshift": [
+              9,
+              0
+            ],
+            "farshift": [
+              0,
+              0
+            ],
+            "tailshift": 0
+          },
+          "isolated_border_pixels_removed": 4
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        4096,
+        1536
+      ],
+      "hit_frame": null,
+      "hit_tick": null,
+      "impact_frames": [],
+      "empowered_only_frames": [],
+      "source_route": "approved-model rigid-part composition; generated run attempt rejected"
+    },
+    "idle": {
+      "source_route": "supplied unchanged",
+      "size_px": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "ms": 200,
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "pivot_sheet_1x": [
+            67,
+            70
+          ],
+          "pivot_sheet_8x": [
+            536,
+            560
+          ],
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null
+        },
+        {
+          "index": 2,
+          "ms": 200,
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "cell_rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "pivot_sheet_1x": [
+            195,
+            70
+          ],
+          "pivot_sheet_8x": [
+            1560,
+            560
+          ],
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null
+        },
+        {
+          "index": 3,
+          "ms": 200,
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "cell_rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "pivot_sheet_1x": [
+            323,
+            70
+          ],
+          "pivot_sheet_8x": [
+            2584,
+            560
+          ],
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null
+        },
+        {
+          "index": 4,
+          "ms": 200,
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "pivot_sheet_1x": [
+            67,
+            166
+          ],
+          "pivot_sheet_8x": [
+            536,
+            1328
+          ],
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null
+        },
+        {
+          "index": 5,
+          "ms": 200,
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "cell_rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "pivot_sheet_1x": [
+            195,
+            166
+          ],
+          "pivot_sheet_8x": [
+            1560,
+            1328
+          ],
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null
+        },
+        {
+          "index": 6,
+          "ms": 200,
+          "pivot_local_1x": [
+            67,
+            70
+          ],
+          "cell_rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            41,
+            96,
+            82
+          ],
+          "bbox_local_8x": [
+            248,
+            328,
+            768,
+            656
+          ],
+          "pivot_sheet_1x": [
+            323,
+            166
+          ],
+          "pivot_sheet_8x": [
+            2584,
+            1328
+          ],
+          "hit_frame": false,
+          "blade_midpoint_local_1x": null
+        }
+      ]
+    }
+  }
+}

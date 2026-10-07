@@ -13,7 +13,7 @@ drew (and check() asserts) every hit, every picture on him (Q's rings, W's fury 
 Fury, the stun stars, the shred mark, R's sand aura) symmetric left to right. The two pictures with a front and a back -
 the attack's slash a_slash and E's dash streak e_dash - are drawn into his frames instead
 (assets/source/native/renekton_bake.json; tools/art/import_native.py bakes them): the slash at the blade's middle in
-the attack's release frame (Codex's manifest: (92.8, 48.7), pivot (60, 70) -> 33 px ahead, 21 over the pivot), the
+the attack's release frame (codex_strips_narrow/manifest.json: (88.8, 48.4), pivot (60, 70) -> 29 px ahead, 22 over the pivot), the
 streak from just behind him in the dash frames, under the body.
 Spots are game px from the pivot (x forward, y down; his soles 11 under it). Times from the kit (build_renekton.P, 60
 ticks a second) and the strips.
@@ -48,7 +48,7 @@ STARS = (0, -31)                # over a unit's head
 SHRED = (0, -38)                # over the stars
 SOLES = (0, 11)                 # on the ground under him
 WAIST = (0, -2)                 # Q's ring round his waist (it spans 64 px: Q's radius 32000)
-BLADE = (33, -21)               # the blade's middle in the attack's release frame
+BLADE = (29, -22)               # the blade's middle in the attack's release frame (the narrowed strips)
 BACK = (-8, 2)                  # E's streak starts behind his hips and trails back
 EMPTY = J.EMPTY
 seq = J.seq

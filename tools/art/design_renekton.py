@@ -16,7 +16,12 @@ to 38 / 40 rows and 53 / 56 columns itself, deleting columns through the body an
   5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64;
   6. clean: colours used by RARE squares or fewer take the nearest of the others, a lone near-black square inside the
      figure takes its darkest neighbour's colour.
-The user picked B at 64 (65 x 41, 2026-10-07). --sheet writes the options beside Codex's own cuts and the pack's heroes; --check compares with the committed file.
+The user picked B at 64 (65 x 41, 2026-10-07). Then in the game the ban/pick slot showed him cut off (「雷克顿在BP画面里太大了」
+「都显示不完整」: the slot shows about 49 x 42 px at a fixed zoom, his body alone is 51 wide and the trailing blade made
+65); the user picked the blade and tail shortened: step 7 narrows the approved 65-px design to NARROW columns by
+deleting whole columns only in its blade-and-tail zone (canvas columns ZONE, left of the back pauldron; a fresh build at
+56 shifted the body a column), the body, head and legs pixel for pixel the approved ones, then closes the outline.
+--sheet writes the options beside Codex's own cuts and the pack's heroes; --check compares with the committed file.
 """
 import argparse
 import os
@@ -41,6 +46,8 @@ K = 28
 BACK = {"A": 30, "B": 28}         # the first column of the body (the back pauldron); left of it only blade and tail
 OPTIONS = (("A", 0), ("A", 60), ("B", 0), ("B", 64), ("B", 58))
 SOLE_ROW, MID_COL = 99, 64
+NARROW = 57                     # step 7: the narrowed design's width
+ZONE = range(29, 45)            # the approved design's blade-and-tail columns (raw 2-27 kept; raw 28 = BACK is col 45)
 RARE = 3
 
 
@@ -108,6 +115,36 @@ def clean(can):
     return out, fixed
 
 
+def narrow(can, width=NARROW):
+    """Step 7: whole columns of ZONE deleted (design_riven.pick, the ones that lose least), the columns left of them moved
+    right onto the kept ones, the body untouched; the outline closed again."""
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    drop = (xs.max() - xs.min() + 1) - width
+    if drop <= 0:
+        return can
+    zone = list(ZONE)
+    idx = np.zeros(can.shape[:2], int)
+    keep = [zone[i] for i in shrink([can[:, c].reshape(-1) for c in zone], len(zone) - drop)]
+    out = np.zeros_like(can)
+    out[:, ZONE.stop:] = can[:, ZONE.stop:]
+    x = ZONE.stop - 1
+    for c in reversed(keep):
+        out[:, x] = can[:, c]
+        x -= 1
+    for c in range(ZONE.start - 1, -1, -1):          # the outline column and anything left of the zone
+        out[:, x] = can[:, c]
+        x -= 1
+        if x < 0:
+            break
+    dark = out[..., 3] > 0
+    lum = (out[..., :3] * [0.299, 0.587, 0.114]).sum(-1)
+    ink = tuple(int(v) for v in out[dark & (lum < 25)][0][:3])
+    body = np.zeros(out.shape[:2], bool)
+    body[:, ZONE.stop:] = True
+    out, _, _ = strips.complete_outline(out, color=ink, feet=SOLE_ROW, keep=body)
+    return out
+
+
 def info(can):
     ys, xs = np.nonzero(can[..., 3] > 0)
     return (f"{xs.max() - xs.min() + 1} x {ys.max() - ys.min() + 1} (rows {ys.min()}-{ys.max()}, cols "
@@ -164,6 +201,7 @@ def main():
         return
     can, cols, added = build(a.raw, a.width)
     can, fixed = clean(can)
+    can = narrow(can)
     text = f"{info(can)}, outline +{added}, inner ink {fixed}; columns kept {cols}"
     if a.check:
         old = np.asarray(Image.open(lp(OUT)).convert("RGBA"))
