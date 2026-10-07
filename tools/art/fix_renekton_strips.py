@@ -24,8 +24,10 @@ blade, far arm, both legs, tail; whole-part moves and nearest-neighbour turns). 
      from the same rig parts with Codex's leg moves kept and RUN's additions: the upper body (core, head, arms, tail)
      sinks a row on each landing (frames 1 and 5) with the feet on the ground in every frame, the far arm swings
      forward and back against the legs (whole, up to 2 columns), the blade arm the other way (1 column, a row up while
-     the legs pass). 「尾巴都变形了」: the tail piece sat by the back foot and was left floating when the leg stepped
-     away (Codex's run too, the sway made it worse): it moves with the back leg now, so it stays on.
+     the legs pass). 「尾巴都变形了」 then 「尾巴跟着后腿太怪了 还不如翘起来」: the tail is the small hooked strip at
+     the lower left (TAIL_BOX: columns <= 44, rows >= 91 of the design; Codex's back-leg part had swallowed most of it,
+     so it stepped with the leg); in the run it is its own piece, raised RUN_TAIL degrees about its root at the hip
+     and riding with the body, behind everything (most of it tucks behind the blade, its tip shows).
 """
 import argparse
 import json
@@ -56,6 +58,10 @@ R_FAR = [(-25, 0), (-21, 0), (-15, 1), (-9, 0), (-3, 0), (-7, -1), (-13, -2), (-
 RUN = {"body_dy": [1, 0, 0, 0, 1, 0, 0, 0],
        "far": [(2, 0), (1, 0), (0, 0), (-1, 0), (-2, 0), (-1, 0), (0, 0), (1, 0)],
        "near": [(-1, 0), (-1, 0), (0, -1), (1, 0), (1, 0), (1, 0), (0, -1), (-1, 0)]}
+TAIL_BOX = (44, 91)      # the design's tail: columns <= 44, rows >= 91
+TAIL_ROOT = (45, 92)     # its root at the hip
+RUN_TAIL = -60           # degrees (clockwise: raised behind him)
+DESIGN = os.path.join(OUT, "renekton_native.png")
 
 
 def lp(path):
@@ -176,10 +182,26 @@ def darken(im):
     return Image.fromarray(a)
 
 
+def run_parts(parts):
+    """The rig's parts with the design's tail strip taken out of every part and made a piece of its own."""
+    d = np.array(Image.open(lp(DESIGN)).convert("RGBA"))
+    yy, xx = np.indices(d.shape[:2])
+    m = (d[..., 3] > 0) & (xx <= TAIL_BOX[0]) & (yy >= TAIL_BOX[1])
+    out = {}
+    for name, im in parts.items():
+        a = np.array(im)
+        a[m] = 0
+        out[name] = Image.fromarray(a)
+    tail = np.zeros_like(d)
+    tail[m] = d[m]
+    out["tail"] = Image.fromarray(tail)
+    return out
+
+
 def run_frame(parts, i, pivot):
     by = RUN["body_dy"][i]
     im = Image.new("RGBA", (128, 128))
-    im.alpha_composite(moved(parts["tail"], *R_NEAR[i]))         # the tail rides with the back leg
+    im.alpha_composite(moved(parts["tail"], 0, by, RUN_TAIL, anchor=TAIL_ROOT))    # raised, with the body
     im.alpha_composite(moved(darken(parts["frontleg"]), *R_FAR[i]))
     im.alpha_composite(moved(parts["rearleg"], *R_NEAR[i]))
     im.alpha_composite(moved(parts["core"], 0, by))
@@ -208,6 +230,7 @@ def main():
     cells = json.load(open(lp(os.path.join(OUT, "renekton_cells.json")), encoding="utf-8"))
     parts = {n: Image.open(lp(os.path.join(RIG, f"{n}.png"))).convert("RGBA")
              for n in ("core", "far", "frontleg", "head", "near", "rearleg", "tail")}
+    rparts = run_parts(parts)
     cw, ch = cells["cell"]
     total = 0
     for tag, frs in cells["tags"].items():
@@ -218,7 +241,7 @@ def main():
             y0, x0 = (i // cols) * ch, (i % cols) * cw
             c = small[y0:y0 + ch, x0:x0 + cw]
             if tag == "run":
-                c = run_frame(parts, i, frs[i]["pivot"])
+                c = run_frame(rparts, i, frs[i]["pivot"])
             if tag == "dead" and i in CORPSE:
                 c, moved_n = lay_tail(c, parts, i, frs[i]["pivot"])
                 print(tag, i + 1, "tail turned", TAIL_TURN, "degrees,", moved_n, "squares")
