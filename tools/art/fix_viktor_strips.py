@@ -15,15 +15,17 @@ image-right leg with the big foot (the near one, darkened and swapped in front a
 cycle slid the planted foot forward and the lifted one back, then jumped both back (the legs' offsets read from its
 frames: -8..+6 and +8..-6). The run is rebuilt from the design: the body as Codex's idle (its bob kept: up a row in
 frames 2, 3, 6, 7), the far leg (image left, rig/near_leg) drawn first and the body over it (the cape and the staff in
-front of it), the near leg (image right, rig/far_leg) last, both in the design's own colours; each leg
-follows CYCLE (league_gwen's run, rig_gwen.bent: knee and ankle columns from the hip, rows lifted - the planted foot
-slides back, the lifted one is kicked up and brought forward; the other leg half a cycle later). The first rebuild slid
-the feet 6 columns either way and swapped them: 「走路和螃蟹一样？」.
+front of it), the near leg (image right, rig/far_leg) last, the far one a shade darker (DARKER); each leg follows CYCLE
+(rig_gwen.bent: knee and ankle columns, rows lifted - the planted foot slides back, the swinging one comes forward
+lifted; the other leg half a cycle later), drawn in toward the other by HIP_IN so the swinging far leg crosses in front
+of the near one. The first rebuild (feet 6 columns either way) read as a crab: 「走路和螃蟹一样？」; league_gwen's kick
+cycle never crossed: 「走路没有明显的交叉步感觉」.
 Fix 3 (the user at R's frames: 「这里的法杖歪修了吗？」): Codex turned the near arm with the staff -10 / -15 degrees in R's
 frames 2-4 (nearest-neighbour, about the shoulder STAFF_TURN_CENTRE - found by matching its pixels exactly), and the
 one-square shaft came out in uneven steps; League holds the staff upright in R. Those pixels are taken out, the
 part is put back unturned with the same shift (the shaft's kink fixed), and what neither covers takes its neighbours'
-commonest colour (or stays clear).
+commonest colour (or stays clear) - after the design's legs and torso go in under it where they stood (Codex's turned
+staff had covered the far leg, which it never drew: 「像素消失」).
 """
 import json
 import math
@@ -44,11 +46,19 @@ NATIVE = os.path.join(REPO, "assets", "source", "native")
 RIG = os.path.join(CODEX, "rig")
 PIVOT = (64, 88)                 # the design's standing point on its 128x128 canvas
 LEG_TOP, KNEE_ROW, BOOT_ROW, SOLES = 88, 93, 96, 99
-# one leg's cycle (league_gwen's run, rig_gwen.CYCLE): (knee columns, ankle columns from the hip, + = forward = image
-# right; rows lifted): contact, loading, mid-stance, toe-off, kick, kick, passing, reach; the other leg half a cycle
-# later. The first rebuild slid the feet 6 columns either way: 「走路和螃蟹一样？」
-CYCLE = [(1, 2, 0), (0, 0, 0), (0, -1, 0), (-1, -2, 1), (-1, -3, 4), (0, -2, 4), (1, 0, 3), (1, 2, 1)]
+# one leg's cycle: (knee columns, ankle columns from where it stands, + = forward = image right; rows lifted): the
+# planted foot slides back 3 -> -3, the swinging one comes forward lifted; the other leg half a cycle later. HIP_IN
+# draws the legs toward each other (nothing at the hip, all of it from the knee down) so the swinging far leg passes
+# in front of the near one: a crossing step. The first rebuild slid the feet 6 columns either way without it, a
+# straddle 20 columns wide (「走路和螃蟹一样？」); league_gwen's kick cycle after it never crossed (「走路没有明显的
+# 交叉步感觉」)
+CYCLE = [(1, 3, 0), (0, 1, 0), (0, -1, 0), (-1, -3, 0), (-1, -2, 1), (0, 0, 2), (1, 2, 2), (1, 3, 1)]
+HIP_IN = {"near": -2, "far": 2}
 BOB = [0, -1, -1, 0, 0, -1, -1, 0]   # Codex's bob
+# the far leg one shade darker (the step-2 prompt's rule), so the crossed legs read apart
+DARKER = {"#A3AAD6": "#7E86B8", "#7E86B8": "#5B6194", "#5B6194": "#3E4270", "#3E4270": "#3A2C40",
+          "#FFF1A0": "#F7D04A", "#F7D04A": "#D49A1E", "#D49A1E": "#8A5A10", "#FF8A1E": "#C8400A",
+          "#6F86AE": "#5B6194"}
 STAFF_TURN_CENTRE = (61.0, 80.0)   # canvas coordinates of the design
 UPRIGHT = {"ult"}                  # strips whose turned staff goes upright
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_e", "ult", "hit", "dead"]
@@ -100,36 +110,51 @@ def fix(strip, piece):
     return hits
 
 
-def bent(part, knee, ankle, lift):
+def bent(part, knee, ankle, lift, hip_in=0):
     """The leg's own rows moved whole (rig_gwen.bent): row by row along hip -> knee -> ankle, the foot rows at the
-    ankle, all lifted."""
+    ankle, all lifted; hip_in from nothing at the hip to all of it at the knee."""
     out = np.zeros_like(part)
     for y in range(LEG_TOP, SOLES + 1):
+        inward = hip_in * min(1.0, (y - LEG_TOP) / (KNEE_ROW - LEG_TOP))
         if y <= KNEE_ROW:
             dx = knee * (y - LEG_TOP) / (KNEE_ROW - LEG_TOP)
         elif y < BOOT_ROW:
             dx = knee + (ankle - knee) * (y - KNEE_ROW) / (BOOT_ROW - KNEE_ROW)
         else:
             dx = ankle
-        dx = int(np.floor(dx + 0.5))
+        dx = int(np.floor(dx + inward + 0.5))
         row = np.roll(part[y], dx, axis=0)
         m = row[:, 3] > 0
         out[y - lift][m] = row[m]
     return out
 
 
-def run_frames(design):
+def darker(part):
+    out = part.copy()
+    for a, b in DARKER.items():
+        m = (part[..., 3] > 0) & (part[..., :3] == D.hx(a)).all(-1)
+        out[m, :3] = D.hx(b)
+    return out
+
+
+def legs():
     near = np.array(Image.open(D.lp(os.path.join(RIG, "far_leg_1x.png"))).convert("RGBA"))   # Codex's names swapped
     far = np.array(Image.open(D.lp(os.path.join(RIG, "near_leg_1x.png"))).convert("RGBA"))
+    return near, far
+
+
+def run_frames(design):
+    near, far = legs()
     body = design.copy()
     body[(near[..., 3] > 0) | (far[..., 3] > 0)] = 0
+    far = darker(far)
     out = []
     for k in range(8):
-        c = bent(far, *CYCLE[(k + 4) % 8])
+        c = bent(far, *CYCLE[(k + 4) % 8], hip_in=HIP_IN["far"])
         b = np.roll(body, BOB[k], axis=0)
         m = b[..., 3] > 0
         c[m] = b[m]
-        n = bent(near, *CYCLE[k])
+        n = bent(near, *CYCLE[k], hip_in=HIP_IN["near"])
         m = n[..., 3] > 0
         c[m] = n[m]
         out.append(c)
@@ -173,6 +198,7 @@ def kinked_part(part):
 def upright(strip, tag, manifest):
     part = np.array(Image.open(D.lp(os.path.join(RIG, "near_arm_staff_1x.png"))).convert("RGBA"))
     straight = kinked_part(part)
+    torso = np.array(Image.open(D.lp(os.path.join(RIG, "torso_1x.png"))).convert("RGBA"))
     cw, ch = manifest["cell_1x"]
     cols = strip.shape[1] // cw
     n = 0
@@ -193,6 +219,13 @@ def upright(strip, tag, manifest):
         for (y, x), p in zip(zip(ys + oy, xs + ox), old[ys, xs]):
             if np.array_equal(strip[y, x], p):
                 strip[y, x] = 0
+        # under it: the design's legs and torso where they stood (Codex drew the turned staff over the far leg)
+        wx = cx + px - PIVOT[0] + rig["whole_shift"][0]
+        wy = cy + py - PIVOT[1] + rig["whole_shift"][1]
+        for under in (*legs(), torso):
+            ys, xs = np.nonzero(under[..., 3] > 0)
+            m = hole[ys + wy, xs + wx] & (strip[ys + wy, xs + wx, 3] == 0)
+            strip[ys[m] + wy, xs[m] + wx] = under[ys[m], xs[m]]
         ys, xs = np.nonzero(straight[..., 3] > 0)
         strip[ys + oy, xs + ox] = straight[ys, xs]
         hole[ys + oy, xs + ox] = False
