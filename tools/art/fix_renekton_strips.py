@@ -28,6 +28,10 @@ blade, far arm, both legs, tail; whole-part moves and nearest-neighbour turns). 
      the lower left (TAIL_BOX: columns <= 44, rows >= 91 of the design; Codex's back-leg part had swallowed most of it,
      so it stepped with the leg); in the run it is its own piece, raised RUN_TAIL degrees about its root at the hip
      and riding with the body, behind everything (most of it tucks behind the blade, its tip shows).
+     「还有走路时候腿部模型严重变形」: the rig only moved the shins (up to 24 columns, to cross them) while the thighs stayed
+     in the body piece; the user picked a leg pack for Codex (tools/art/pack_renekton_run.py, RUN_SWAP.md). The run is
+     now Codex's (assets/source/renekton/codex_run/renekton_run.png: whole legs redrawn crossing, the tail raised behind
+     him, our upper body pasted back), only cleaned here (RUN_SRC); run_frame stays for reference.
 """
 import argparse
 import json
@@ -62,6 +66,7 @@ TAIL_BOX = (44, 91)      # the design's tail: columns <= 44, rows >= 91
 TAIL_ROOT = (45, 92)     # its root at the hip
 RUN_TAIL = -60           # degrees (clockwise: raised behind him)
 DESIGN = os.path.join(OUT, "renekton_native.png")
+RUN_SRC = os.path.join(ROOT, "assets", "source", "renekton", "codex_run", "renekton_run.png")
 
 
 def lp(path):
@@ -234,14 +239,13 @@ def main():
     cw, ch = cells["cell"]
     total = 0
     for tag, frs in cells["tags"].items():
-        img = np.array(Image.open(lp(os.path.join(SRC, f"renekton_{tag}.png"))).convert("RGBA"))
+        src = RUN_SRC if tag == "run" else os.path.join(SRC, f"renekton_{tag}.png")
+        img = np.array(Image.open(lp(src)).convert("RGBA"))
         small = img[Z // 2::Z, Z // 2::Z].copy()
         cols = layout(len(frs))
         for i in range(len(frs)):
             y0, x0 = (i // cols) * ch, (i % cols) * cw
             c = small[y0:y0 + ch, x0:x0 + cw]
-            if tag == "run":
-                c = run_frame(rparts, i, frs[i]["pivot"])
             if tag == "dead" and i in CORPSE:
                 c, moved_n = lay_tail(c, parts, i, frs[i]["pivot"])
                 print(tag, i + 1, "tail turned", TAIL_TURN, "degrees,", moved_n, "squares")

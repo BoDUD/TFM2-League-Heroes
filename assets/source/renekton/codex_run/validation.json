@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "sheet_4096x1536": true,
+    "native_512x192": true,
+    "exact_8x_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "protected_upper_exact": true,
+    "foot_line_row81": true,
+    "nothing_below_row81": true,
+    "fixed_head_horizontal_to_pivot": true
+  },
+  "source_stencil_pixels_removed": 22,
+  "actual_frame_ms": 96,
+  "gif_preview_frame_ms": 90,
+  "gait_assessment": "visual review; knees/whole thighs bend, two crossing passes at frames3/7",
+  "exact_3d_skeleton_retargeting": false,
+  "game_runtime_tested": false
+}
