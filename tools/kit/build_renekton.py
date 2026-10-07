@@ -40,26 +40,31 @@ ID = "league_renekton"
 FX = "asset/league/effects/league_renekton_fx"
 BIG = "asset/league/effects/league_renekton_big"
 
-# Numbers = draft c0 (placeholder timings, no sprite yet).
+# Numbers = candidate c9 of the 10-min classic-SDK simulations (rk_sim/sim/kd.py --lane 0 against fighter, executioner,
+# lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-07): +1.51 on seeds 1-24
+# (league_tryndamere +1.34, league_gwen +1.16, league_darius +1.18 on seeds 1-12). The draft c0 was +4.38: R's cooldown
+# 60 -> 90 s and 15 -> 10 s changed nothing (+4.70 on 6 seeds); attack 88 -> 80 and hp 1050 -> 980 (+3.11), Q's heals
+# 4 + 2% / 20 + 17% -> 2 + 1% / 10 + 10% and E 50 + 90% -> 40 + 70% (+3.50), both +2.48; then E's cooldown 12 -> 15 s
+# and Q 60 + 100% -> 45 + 80%. Placeholder timings (no strips yet).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Renekton:
     # 69 AD +3.75, 660 +111 hp, 35 armour, 345 move, attack speed 0.665
-    "hp": 1050, "hp_g": 105, "atk": 88, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
+    "hp": 980, "hp_g": 105, "atk": 80, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     # attack
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 62, "atk_st": 12,
     # passive: Reign of Anger (League: 5 Fury an attack, 50 empowers, decays after 12 s out of combat)
     "f_n": 5, "f_t": 480,
     # skill: Q Cull the Meek (League: r 325, 60-210 + 100% AD; heal 2-7 + 2% AD a minion, 12-52 + 17% AD a champion;
     # empowered 90-315 + 140% AD, heals x3; cd 7 s)
-    "q_cd": 420, "q_range": 25000, "q_dur": 24, "q_hit": 10, "q_r": 32000, "q_dmg": 60, "q_ratio": 100,
-    "q_dmg_e": 100, "q_ratio_e": 140, "q_hm": 4, "q_hm_r": 2, "q_hc": 20, "q_hc_r": 17, "q_heal_x": 3,
+    "q_cd": 420, "q_range": 25000, "q_dur": 24, "q_hit": 10, "q_r": 32000, "q_dmg": 45, "q_ratio": 80,
+    "q_dmg_e": 100, "q_ratio_e": 140, "q_hm": 2, "q_hm_r": 1, "q_hc": 10, "q_hc_r": 10, "q_heal_x": 3,
     # skill2: E Slice (League: 450 dash, 40-190 + 90% AD, cd 16-10 s; Dice within 4 s, empowered shreds 22.5-37.5%
     # armour 4 s) -> W Ruthless Predator (League: 2 strikes 5-80 + 75% AD each, stun 0.75 s; empowered 3 strikes, 1.5 s)
-    "e_cd": 720, "e_range": 45000, "e_speed": 4000, "e_tick": 10, "e_rad": 14000, "e_dmg": 50, "e_ratio": 90,
+    "e_cd": 900, "e_range": 45000, "e_speed": 4000, "e_tick": 10, "e_rad": 14000, "e_dmg": 40, "e_ratio": 70,
     "d_open": 240, "d_gap": 8, "e_shred": 25, "e_shred_t": 240,
     "w_dur": 24, "w_h1": 6, "w_gap": 6, "w_dmg": 20, "w_ratio": 75, "w_stun": 45, "w_stun_e": 90,
     # ult: R Dominus (League: 15 s, +300-700 hp, aura 0.5 s ticks, 5 Fury a second + 20 on the cast, cd 120/100/80 s)
-    "r_cd": 3600, "r_slot": 70000, "r_reach": 35000, "r_arm": 600, "r_anim": 24, "r_t": 900, "r_hp": 300,
+    "r_cd": 5400, "r_slot": 70000, "r_reach": 35000, "r_arm": 600, "r_anim": 24, "r_t": 600, "r_hp": 300,
     "r_period": 30, "r_r": 30000, "r_dmg": 15, "r_hp_dmg": 1, "r_fury": 60,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

@@ -14,9 +14,9 @@
     "asset/league/icons/league_renekton_ult"
   ],
   "stat": {
-    "attack": 88,
+    "attack": 80,
     "magic_power": 0,
-    "hp": 1050,
+    "hp": 980,
     "defence": 32,
     "magic_resistance": 25,
     "move_speed": 1000,
@@ -272,7 +272,7 @@
                             "name": "league_renekton_r_on",
                             "duration": {
                               "Time": {
-                                "tick": 900
+                                "tick": 600
                               }
                             },
                             "hp": 300
@@ -616,7 +616,7 @@
                         {
                           "type": "AddCasted",
                           "casted_type": "Heal",
-                          "duration": 900,
+                          "duration": 600,
                           "period": 30,
                           "effects": [
                             {
@@ -647,7 +647,7 @@
                         {
                           "type": "AddCasted",
                           "casted_type": "Heal",
-                          "duration": 900,
+                          "duration": 600,
                           "period": 60,
                           "effects": [
                             {
@@ -942,8 +942,8 @@
                       },
                       {
                         "type": "Heal",
-                        "amount": 12,
-                        "attack_ratio": 6,
+                        "amount": 6,
+                        "attack_ratio": 3,
                         "ap_ratio": 0,
                         "heal_type": "Caster"
                       },
@@ -969,8 +969,8 @@
                     "effects": [
                       {
                         "type": "Heal",
-                        "amount": 60,
-                        "attack_ratio": 51,
+                        "amount": 30,
+                        "attack_ratio": 30,
                         "ap_ratio": 0,
                         "heal_type": "Caster"
                       }
@@ -1062,16 +1062,16 @@
                     "effects": [
                       {
                         "type": "Attack",
-                        "damage": 60,
-                        "attack_ratio": 100,
+                        "damage": 45,
+                        "attack_ratio": 80,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
                       },
                       {
                         "type": "Heal",
-                        "amount": 4,
-                        "attack_ratio": 2,
+                        "amount": 2,
+                        "attack_ratio": 1,
                         "ap_ratio": 0,
                         "heal_type": "Caster"
                       },
@@ -1118,8 +1118,8 @@
                     "effects": [
                       {
                         "type": "Heal",
-                        "amount": 20,
-                        "attack_ratio": 17,
+                        "amount": 10,
+                        "attack_ratio": 10,
                         "ap_ratio": 0,
                         "heal_type": "Caster"
                       },
@@ -1509,16 +1509,16 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 60,
-                      "attack_ratio": 100,
+                      "damage": 45,
+                      "attack_ratio": 80,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
                     },
                     {
                       "type": "Heal",
-                      "amount": 4,
-                      "attack_ratio": 2,
+                      "amount": 2,
+                      "attack_ratio": 1,
                       "ap_ratio": 0,
                       "heal_type": "Caster"
                     },
@@ -1565,8 +1565,8 @@
                   "effects": [
                     {
                       "type": "Heal",
-                      "amount": 20,
-                      "attack_ratio": 17,
+                      "amount": 10,
+                      "attack_ratio": 10,
                       "ap_ratio": 0,
                       "heal_type": "Caster"
                     },
@@ -1880,7 +1880,7 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_renekton.skill2",
     "duration": 34,
-    "cooltime": 720,
+    "cooltime": 900,
     "start_timing": 1,
     "cancelable": false,
     "range": 45000,
@@ -1903,7 +1903,7 @@
                 "name": "league_renekton_e_cd",
                 "duration": {
                   "Time": {
-                    "tick": 720
+                    "tick": 900
                   }
                 }
               },
@@ -1965,8 +1965,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Attack",
-                "damage": 50,
-                "attack_ratio": 90,
+                "damage": 40,
+                "attack_ratio": 70,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -2730,8 +2730,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "Attack",
-                                          "damage": 50,
-                                          "attack_ratio": 90,
+                                          "damage": 40,
+                                          "attack_ratio": 70,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
@@ -2790,8 +2790,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 50,
-                                      "attack_ratio": 90,
+                                      "damage": 40,
+                                      "attack_ratio": 70,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -3087,8 +3087,8 @@
                                     },
                                     {
                                       "type": "Heal",
-                                      "amount": 12,
-                                      "attack_ratio": 6,
+                                      "amount": 6,
+                                      "attack_ratio": 3,
                                       "ap_ratio": 0,
                                       "heal_type": "Caster"
                                     },
@@ -3114,8 +3114,8 @@
                                   "effects": [
                                     {
                                       "type": "Heal",
-                                      "amount": 60,
-                                      "attack_ratio": 51,
+                                      "amount": 30,
+                                      "attack_ratio": 30,
                                       "ap_ratio": 0,
                                       "heal_type": "Caster"
                                     }
@@ -3207,16 +3207,16 @@
                                   "effects": [
                                     {
                                       "type": "Attack",
-                                      "damage": 60,
-                                      "attack_ratio": 100,
+                                      "damage": 45,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
                                     },
                                     {
                                       "type": "Heal",
-                                      "amount": 4,
-                                      "attack_ratio": 2,
+                                      "amount": 2,
+                                      "attack_ratio": 1,
                                       "ap_ratio": 0,
                                       "heal_type": "Caster"
                                     },
@@ -3263,8 +3263,8 @@
                                   "effects": [
                                     {
                                       "type": "Heal",
-                                      "amount": 20,
-                                      "attack_ratio": 17,
+                                      "amount": 10,
+                                      "attack_ratio": 10,
                                       "ap_ratio": 0,
                                       "heal_type": "Caster"
                                     },
@@ -3645,8 +3645,8 @@
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "Attack",
-                                              "damage": 50,
-                                              "attack_ratio": 90,
+                                              "damage": 40,
+                                              "attack_ratio": 70,
                                               "hp_ratio": 0,
                                               "target_hp_ratio": 0,
                                               "attack_effect_type": "Target"
@@ -3705,8 +3705,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "Attack",
-                                          "damage": 50,
-                                          "attack_ratio": 90,
+                                          "damage": 40,
+                                          "attack_ratio": 70,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
@@ -3892,7 +3892,7 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_renekton.ult",
     "duration": 3,
-    "cooltime": 3600,
+    "cooltime": 5400,
     "start_timing": 1,
     "cancelable": false,
     "range": 70000,
@@ -3962,7 +3962,7 @@
                       "name": "league_renekton_r_on",
                       "duration": {
                         "Time": {
-                          "tick": 900
+                          "tick": 600
                         }
                       },
                       "hp": 300
@@ -4306,7 +4306,7 @@
                   {
                     "type": "AddCasted",
                     "casted_type": "Heal",
-                    "duration": 900,
+                    "duration": 600,
                     "period": 30,
                     "effects": [
                       {
@@ -4337,7 +4337,7 @@
                   {
                     "type": "AddCasted",
                     "casted_type": "Heal",
-                    "duration": 900,
+                    "duration": 600,
                     "period": 60,
                     "effects": [
                       {
