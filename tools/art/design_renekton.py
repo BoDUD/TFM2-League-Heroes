@@ -2,7 +2,7 @@
 """Renekton's design (assets/source/native/renekton_native.png): Codex's generated draft read back on its own grid,
 narrowed by whole columns in the blade-and-tail zone only (tools/art/design_twitch.py's way).
 
-    python tools/art/design_renekton.py [--raw B] [--width 60] [--sheet out.png] [--check]
+    python tools/art/design_renekton.py [--raw B] [--width 64] [--sheet out.png] [--check]
 
 The user picked Codex's picture A (codex_picture/renekton-model-A.png, 2026-10-07: League's idle, the blade trailing)
 and then gave the blade picture B's shape (「鳄鱼的斧头应该是这形状的」). Codex's step 1 (codex_model/) cut its drafts
@@ -16,7 +16,7 @@ to 38 / 40 rows and 53 / 56 columns itself, deleting columns through the body an
   5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64;
   6. clean: colours used by RARE squares or fewer take the nearest of the others, a lone near-black square inside the
      figure takes its darkest neighbour's colour.
---sheet writes the options beside Codex's own cuts and the pack's heroes; --check compares with the committed file.
+The user picked B at 64 (65 x 41, 2026-10-07). --sheet writes the options beside Codex's own cuts and the pack's heroes; --check compares with the committed file.
 """
 import argparse
 import os
@@ -149,7 +149,7 @@ def sheet(path, options, z=6):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw", default="B")
-    ap.add_argument("--width", type=int, default=0)
+    ap.add_argument("--width", type=int, default=64)
     ap.add_argument("--sheet")
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
