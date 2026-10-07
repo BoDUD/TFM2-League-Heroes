@@ -69,7 +69,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -9
       }
     },
     "league_amumu": {
@@ -714,10 +714,6 @@
       "center": {
         "x": 0,
         "y": -12
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -8
       }
     },
     "league_tryndamere": {
