@@ -1,0 +1,34 @@
+[
+  {
+    "version": 1,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "opaque_bbox_inclusive": [
+      317,
+      330,
+      896,
+      1206
+    ],
+    "opaque_rgb_colors": 72154,
+    "alpha_levels": 256,
+    "grid_status": "not a uniform 8px grid; native cell count cannot be reliably certified"
+  },
+  {
+    "version": 2,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "opaque_bbox_inclusive": [
+      364,
+      321,
+      878,
+      1166
+    ],
+    "opaque_rgb_colors": 73635,
+    "alpha_levels": 256,
+    "grid_status": "not a uniform 8px grid; native cell count cannot be reliably certified"
+  }
+]

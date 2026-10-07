@@ -1390,6 +1390,9 @@ league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only o
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
 Skewer's pull): 1.88 a game; league_thresh 1.40 and league_leona 2.33 in the same batch - no change.
+league_seraphine (support, --lane 4, 2026-10-07, Beat Drop's 0.75 s root from the echoed wave and stun on the crowd-
+controlled, Encore's 1.5 s charm): 1.52 a game; league_leona 2.33, league_janna 1.23 and the base priest 0.58 in the
+same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3631,6 +3634,30 @@ armed like league_samira R: a cast fires at once with two enemy champions within
 which his attacks count again and, after 180 ticks, fire with one champion in reach; a lapse refunds the cooldown.
 With the two-champion rule alone R fired 1-3 times in a 10-minute game.
 
+**Every third spell cast twice, and notes for the next attack (league_seraphine passive, Stage Presence).** Each cast
+(Q, E -> W, R and the combos' casts) climbs a caster ladder `c1` -> `echo` (`Permanent`, its own picture under the
+stage); a cast that finds `echo` removes it and plays the same effect again `echo_delay` (12) ticks later from a
+`Delayed` - the play is in the tree twice, not three times (normal, echoed and copy). Q leaves a ready echo alone for
+`echo_hold` ticks (a 300-tick flag laid with it) so the echo goes to E -> W or R. The notes are a second ladder `n1`..`n4`
+(360 ticks, each carrying `range` +3000): every cast climbs it once, and once more for each allied champion within 60000
+(the climb inside a `RangeEffect` on `AllyNotSelf` runs once per ally); the next attack reads it from the top, removes
+it and sends a charged note (k x note damage) instead of the plain one.
+
+**Slowed -> rooted, CC'd -> stunned (league_seraphine E, Beat Drop).** Nothing reads a slow on the target and the echoed
+wave is the only one that can find her own slow still on it, so every champion the wave hits carries a mark: a
+`Delayed {tick: 4}` `AddCasted` poll (period 2, 90 ticks) whose effect is `SwitchByBuff e_rt` -> `Bind` 45. A champion
+hit by a wave sets `e_rt` for 3 ticks only while the caster flag `e_2nd` holds, which the echoed copy lays before it
+flies (the `copy` argument of the cast wrapper): the first wave marks, the echo roots what it marked. The 4-tick delay
+keeps a wave's own mark from reading the `e_rt` its own later hits set (a two-champion line rooted the first one
+otherwise). The stun is a twin wave with `applied_target: EnemyChampionInCC` (charmed by R, rooted, anyone's stun),
+named apart (`e_cc`) so no picture rides on it - a projectile named like a `ViewEffect` would carry that picture.
+
+**A line that reaches farther past an ally (league_seraphine R, Encore).** A hidden `LinearProjectile` probe on
+`AllyChampion` at 60000 a tick runs the wave's line first and sets `r_ext` on her when it touches an allied champion
+(it never touched her at its start: 0.25 extensions a game, none without an ally ahead); 2 ticks later the wave flies
+150000 with the flag, 90000 without. The slot is armed like league_twitch R (two champions within 70000 at once, one
+in attack reach after 3 s, else the cooldown refunded); the armed check rides only on the attack (in the skills it
+copied the whole ult into trees cloned every tick: 6000+ nodes).
 **Fury that empowers the next skill (league_renekton passive, Reign of Anger).** League's 50 Fury is five rungs of one
 exclusive caster-flag ladder f1..f5 (league_twitch's venom ladder, about 20 nodes): a gain steps one rung up and runs
 the hold again (480 ticks); the hold lapsing drops it all (League's out-of-combat decay in one step - the cumulative
