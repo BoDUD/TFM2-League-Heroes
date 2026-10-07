@@ -31,7 +31,12 @@ blade, far arm, both legs, tail; whole-part moves and nearest-neighbour turns). 
      「还有走路时候腿部模型严重变形」: the rig only moved the shins (up to 24 columns, to cross them) while the thighs stayed
      in the body piece; the user picked a leg pack for Codex (tools/art/pack_renekton_run.py, RUN_SWAP.md). The run is
      now Codex's (assets/source/renekton/codex_run/renekton_run.png: whole legs redrawn crossing, the tail raised behind
-     him, our upper body pasted back), only cleaned here (RUN_SRC); run_frame stays for reference.
+     him, our upper body pasted back), recomposed here from its layers (codex_run/layers: the legs per frame, one
+     upper body with a shift per frame; the tail is what the finished frame holds beyond the two). 「这里还是有问题啊
+     腿的连接处 之前别的英雄有过处理方法啊」: the upper body still carried the tops of both thighs and a stub of the
+     right kilt flap (design rows 83-86, left in by my cut at row 87), hanging in the air when Codex's legs stepped away
+     (league_brand's belt-and-seat case): THIGH_TOPS trims them before the legs go on; import_native closes the outline.
+     run_frame (the parts recomposition) stays for reference.
 """
 import argparse
 import json
@@ -66,7 +71,14 @@ TAIL_BOX = (44, 91)      # the design's tail: columns <= 44, rows >= 91
 TAIL_ROOT = (45, 92)     # its root at the hip
 RUN_TAIL = -60           # degrees (clockwise: raised behind him)
 DESIGN = os.path.join(OUT, "renekton_native.png")
-RUN_SRC = os.path.join(ROOT, "assets", "source", "renekton", "codex_run", "renekton_run.png")
+CODEX_RUN = os.path.join(ROOT, "assets", "source", "renekton", "codex_run")
+CELL_DY = 18             # a design row - CELL_DY = its row in a run cell (the feet on row 81, the design's on 99)
+# design rows 83-86: the thigh tops under the belt - the left thigh's teal (columns 55-59) and everything right of the
+# kilt (the right kilt flap's stub from its top at the belt, the right thigh's top and their outline)
+THIGH_ROWS = range(83, 87)
+LEFT_THIGH = range(55, 60)
+RIGHT_OF_KILT = {83: 71, 84: 70, 85: 70, 86: 70}
+TEAL = {(1, 128, 132), (2, 89, 95)}
 
 
 def lp(path):
@@ -224,6 +236,37 @@ def run_frame(parts, i, pivot):
     return np.array(f)
 
 
+def codex_run():
+    """Codex's run (1x sheet) recomposed from its layers with the upper body's thigh tops trimmed."""
+    legs = np.array(Image.open(lp(os.path.join(CODEX_RUN, "layers", "redrawn_legs_1x.png"))).convert("RGBA"))
+    upper = np.array(Image.open(lp(os.path.join(CODEX_RUN, "layers", "upper_body_clean_1x.png"))).convert("RGBA"))
+    final = np.array(Image.open(lp(os.path.join(CODEX_RUN, "renekton_run_1x.png"))).convert("RGBA"))
+    with open(lp(os.path.join(CODEX_RUN, "manifest.json")), encoding="utf-8") as f:
+        frames = json.load(f)["frames"]
+    trimmed = upper.copy()
+    for y in THIGH_ROWS:
+        r = y - CELL_DY
+        for x in range(trimmed.shape[1]):
+            c = tuple(int(v) for v in trimmed[r, x, :3])
+            if x >= RIGHT_OF_KILT[y] or (x in LEFT_THIGH and c in TEAL):
+                trimmed[r, x] = 0
+    out = np.zeros_like(final)
+    for fr in frames:
+        k = fr["frame"] - 1
+        X, Y = (k % 4) * 128, (k // 4) * 96
+        leg = Image.fromarray(legs[Y:Y + 96, X:X + 128])
+        before = Image.new("RGBA", (128, 96))
+        before.alpha_composite(leg)
+        before.alpha_composite(Image.fromarray(upper), tuple(fr["upper_shift"]))
+        fin = final[Y:Y + 96, X:X + 128]
+        tail = np.where(((np.array(before) != fin).any(-1) & (fin[..., 3] > 0))[..., None], fin, 0).astype(np.uint8)
+        cell = Image.fromarray(tail)
+        cell.alpha_composite(leg)
+        cell.alpha_composite(Image.fromarray(trimmed), tuple(fr["upper_shift"]))
+        out[Y:Y + 96, X:X + 128] = np.array(cell)
+    return out
+
+
 def layout(n):
     return {1: 1, 2: 2, 3: 3, 4: 4, 5: 3, 6: 3}.get(n, 4)
 
@@ -239,8 +282,10 @@ def main():
     cw, ch = cells["cell"]
     total = 0
     for tag, frs in cells["tags"].items():
-        src = RUN_SRC if tag == "run" else os.path.join(SRC, f"renekton_{tag}.png")
-        img = np.array(Image.open(lp(src)).convert("RGBA"))
+        if tag == "run":
+            img = np.repeat(np.repeat(codex_run(), Z, 0), Z, 1)
+        else:
+            img = np.array(Image.open(lp(os.path.join(SRC, f"renekton_{tag}.png"))).convert("RGBA"))
         small = img[Z // 2::Z, Z // 2::Z].copy()
         cols = layout(len(frs))
         for i in range(len(frs)):
