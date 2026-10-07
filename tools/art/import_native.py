@@ -59,11 +59,61 @@ UNSTEADY = {("rakan", "run")}
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
 # (Brand's idle is already six drawings of his burning body), NO_NOD breathes without the head's late nod
 BREATHE_SKIP = {"brand"}
-NO_NOD = {"malphite",   # his small head sits in the rock: the piece took half the chest
-          "kayle", "morgana",   # the head piece cut the wings in two
-          "alistar",    # the bull's head piece took part of the hump
-          "jhin", "pyke", "samira", "soraka", "veigar", "xerath",   # only part of the head found: it would split
-          "khazix"}     # the piece took his upper body
+# idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
+# Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
+# rows come from down to the shins
+BREATHE_OPTS = {"alistar": {"zone": (0.20, 1)}}   # cuts in his legs, not his flat belt (the fists must breathe too)
+# hero: (colour set, seed corner) of a weapon resting on or near the ground. idle_breathe would cut or hinge THROUGH
+# a blade that spans the legs' columns (Garen's and Aatrox's swords bent: 「剑魔和盖伦武器有点变形」), so the weapon is
+# lifted out before the breath and stamped back unmoved on every frame: the sword stands planted, the hands slide 1-2
+# px along the hilt. The mask floods the weapon's own colours from its lowest pixel on the named side, then takes the
+# outline squares that ring only the weapon.
+WEAPON_FREEZE = {"garen": ({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65),
+                            (0x29, 0x63, 0x80), (0xFC, 0xFC, 0xFC)}, "right"),
+                 "aatrox": ({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A),
+                             (0x27, 0x0D, 0x28)}, "left")}
+
+
+def weapon_mask(a, colours, side):
+    """The weapon as one piece: its colours flooded (8-connected) from the lowest such pixel on the given half of the
+    figure, plus the outline squares that touch it and nothing else but it, outline or air."""
+    op = a[..., 3] > 0
+    H, W = a.shape[:2]
+    cols = {tuple(int(v) for v in a[y, x, :3]) for y, x in zip(*np.nonzero(op))}
+    is_w = np.zeros((H, W), bool)
+    for y, x in zip(*np.nonzero(op)):
+        is_w[y, x] = tuple(int(v) for v in a[y, x, :3]) in colours
+    xs0 = np.nonzero(op.any(0))[0]
+    mid = (xs0.min() + xs0.max()) // 2
+    half = is_w.copy()
+    if side == "left":
+        half[:, mid:] = False
+    else:
+        half[:, :mid] = False
+    ys, xs = np.nonzero(half)
+    k = int(np.argmax(ys))
+    m = np.zeros((H, W), bool)
+    st = [(int(ys[k]), int(xs[k]))]
+    while st:
+        y, x = st.pop()
+        if not (0 <= y < H and 0 <= x < W) or m[y, x] or not is_w[y, x]:
+            continue
+        m[y, x] = True
+        st += [(y + dy, x + dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1)]
+    dark = min(cols, key=lambda c: 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2])
+    ring = np.zeros_like(m)
+    for y, x in zip(*np.nonzero(m)):
+        for ny in (y - 1, y, y + 1):
+            for nx in (x - 1, x, x + 1):
+                if 0 <= ny < H and 0 <= nx < W and op[ny, nx] and not m[ny, nx] and                         tuple(int(v) for v in a[ny, nx, :3]) == dark:
+                    good = all(not op[qy, qx] or m[qy, qx] or tuple(int(v) for v in a[qy, qx, :3]) == dark
+                               for qy in (ny - 1, ny, ny + 1) for qx in (nx - 1, nx, nx + 1)
+                               if 0 <= qy < H and 0 <= qx < W)
+                    if good:
+                        ring[ny, nx] = True
+    return m | ring
+NO_NOD = set()
+    # the piece took his upper body
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
 # line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
@@ -752,8 +802,9 @@ HEAD_AT = {}
 
 def breathe_idle(hero, sheet):
     """idle_breathe.py: the idle becomes 8 frames of the design breathing (feet still, the body down 2 rows through
-    the thighs and back, the head a frame late), drawn from idle slot 1 after every other step. The head point: the
-    eye-only colour (EYES), else the cells' head point, else the middle of the top rows. Returns the head piece or None."""
+    the thighs and back, leaning a column, the head a frame late), drawn from idle slot 1 after every other step. The
+    head point: the eye-only colour (EYES), else the cells' head point, else the middle of the top rows. Returns the
+    rows used, or None."""
     if hero in BREATHE_SKIP or "idle" not in sheet:
         return None
     a = sheet["idle"][0][0]
@@ -765,12 +816,22 @@ def breathe_idle(hero, sheet):
     else:
         ys, xs = np.nonzero(a[..., 3])
         head = (float(np.median(xs[ys < ys.min() + 8])), float(ys.min() + 7))
-    frames, piece = IB.breathe(a, head, nod=hero not in NO_NOD)
-    if os.environ.get("IDLE_DEBUG"):                     # the design with its head piece, for a contact sheet
+    frozen = None
+    if hero in WEAPON_FREEZE:
+        frozen = weapon_mask(a, *WEAPON_FREEZE[hero])
+        a = a.copy()
+        a[frozen] = 0
+    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **BREATHE_OPTS.get(hero, {}))
+    if frozen is not None:
+        src = sheet["idle"][0][0]
+        fy, fx = np.nonzero(frozen)
+        for f in frames:
+            f[fy + 2, fx + 2] = src[fy, fx]                  # breathe pads its frames by 2 all round
+        rows["frozen"] = int(frozen.sum())
+    if os.environ.get("IDLE_DEBUG"):                     # the frames, for review sheets
         np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}.npy"), np.stack(frames))
-        np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}_piece.npy"), piece)
     sheet["idle"] = [(f, IB.MS) for f in frames]
-    return piece
+    return rows
 
 
 def sunk(hero, frame, py):
@@ -1223,10 +1284,11 @@ def main():
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
-        piece = breathe_idle(hero, sheet)
-        if piece is not None:
-            print(f"{hero}: idle breathes from the design ({len(sheet['idle'])} frames x {IB.MS} ms, head piece "
-                  f"{int(piece.sum())} px)")
+        rows = breathe_idle(hero, sheet)
+        if rows is not None:
+            print(f"{hero}: idle breathes from the design ({len(sheet['idle'])} frames x {IB.MS} ms; cut px "
+                  f"{rows['dip_cost']:.0f}, lean px {rows['lean_cost']:.0f}, "
+                  f"nod {'px %.0f' % rows['neck_cost'] if rows['neck'] is not None else 'OFF'})")
         for tag, fx in bake(hero, sheet).items():
             print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
