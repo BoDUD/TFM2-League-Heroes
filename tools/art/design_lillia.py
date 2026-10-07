@@ -11,7 +11,9 @@ bough, 72 rows), 07 = version B (the shorter bough, 65 rows), 06 = another B (59
         costing its difference from the nearer neighbour; the face rows and columns kept), then the outline closed;
   vote  each 42-row cell the colour most of its source block shows (ink only over half the block), then the outline
         closed (league_gwen's route).
-Step 9 (B46_final, the design now): step 8 without the black hole by the elbow. Step 8 (B46_seam): the bough upright, the waist seam redrawn. Step 7 (B46_straight): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
+Step 10 (B46_rig, the design now): step 9 with the defects the action strips showed (rig_lillia.py, FIX10): the waist's
+forearm two rows with the bracer round it (「手臂这里不改吗 空这么大」), the bough's outline square on row 67, the hem's gaps,
+the chest ended at the bough. Step 9 (B46_final): step 8 without the black hole by the elbow. Step 8 (B46_seam): the bough upright, the waist seam redrawn. Step 7 (B46_straight): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
 FIXES46). Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
 top with the lantern redrawn by tables. Colours: every square to the nearest of Codex's own palette (palette.hex, 32). The figure stands on the 128 canvas with
 the hooves on row 99 and their middle on column 64.
@@ -597,6 +599,17 @@ def final():
     return apply_letters(seam(straighten(slim(design46()))), ELBOW)
 
 
+# step 10: what the rig's strips showed (the user: 「像素缺失」, 「这里露出来一大截啊」, 「手臂这里不改吗 空这么大」)
+FIX10 = {67: [(75, "Q")], 71: [(73, "K")],
+         81: [(61, "hsssLLfssssssssK")], 82: [(61, "HdddfFFddddddssK")], 83: [(61, "hKKKKKKKKKKKFKQK")],
+         85: [(63, "b"), (66, "b"), (69, "b"), (72, "b"), (73, "CcQK.")], 86: [(74, "cQK.")],
+         87: [(74, "cqK.")], 88: [(76, ".")]}
+
+
+def final10():
+    return apply_letters(final(), FIX10)
+
+
 CANDIDATES = {
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
@@ -607,7 +620,7 @@ CANDIDATES = {
     "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)), "B46_slim": lambda: slim(design46()),
     "B46_straight": lambda: straighten(slim(design46())),
     "B46_seam": lambda: seam(straighten(slim(design46()))),
-    "B46_final": final,
+    "B46_final": final, "B46_rig": final10,
 }
 
 
