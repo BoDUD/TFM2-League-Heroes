@@ -48,7 +48,9 @@ SHEETS = {
 # side) - the user: 「查一下红色蓝色方技能有没有歪的问题」.
 # His own spots moved with the shrink (fix_khazix_strips.SHRINK: 45 rows -> 37; before CHEST -14, OVER -34, BODY -11).
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
-CHEST = (0, -10)                # his chest (the pack's ut: two flames either side of it)
+# the pack's ut, two flames either side of him, at his waist: on the chest (-10) they covered the face plate in the
+# game (the user: 「螳螂这个特效挡住脸部了」)
+CHEST = (0, -4)
 OVER = (0, -27)                 # over his head (the face plate's top is 17 over the pivot, the antenna tips 26)
 BODY = (0, -7)                  # the middle of his body
 SOLES = (0, 11)                 # on the ground under a unit (his feet, or a point's)
