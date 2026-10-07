@@ -13,7 +13,7 @@ drew (and check() asserts) the flying notes and waves symmetric top to bottom (c
 upside down), every picture on a unit, the buffs and what plays on her late (w_cast, r_cast, echo) symmetric left to
 right, the ground rings (q_land, w_cast) both ways. Nothing rides in her action frames: her hand sends everything.
 Spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it - hers are the stage's bottom, her
-boots stand on the deck 5 under the pivot, her head's top is 30 over it (the design shrunk to 42 rows). Times from the kit (build_seraphine.P, 60
+boots stand on the deck 5 under the pivot, her head's top is 33 over it (the design shrunk to 45 rows). Times from the kit (build_seraphine.P, 60
 ticks a second) and the strips.
 """
 import os
@@ -46,15 +46,15 @@ SHEETS = {
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
 OVER = (0, -30)                 # over a unit's head
 SOLES = (0, 11)                 # on the ground under a unit (her stage's bottom)
-BODY = (0, -12)                 # the middle of her figure above the deck (boots 5 under the pivot, head 30 over)
-NOTES = (0, 4)                  # the notes' figure area (18 x 34) stands here: its top at her head's top
+BODY = (0, -14)                 # the middle of her figure above the deck (boots 5 under the pivot, head 33 over)
+NOTES = (0, 1)                  # the notes' figure area (18 x 34) stands here: its top at her head's top
 EMPTY = J.EMPTY
 seq = J.seq
 flight = J.flight
 
 FX = {
     # the notes: 55 px at 6 px a tick (build_seraphine.P bolt_speed 6000); 3 empty ticks so they show past her hand
-    # (21 px ahead)
+    # (22 px ahead)
     "a_bolt": [("a_bolt", flight(4, 60, 320, lead=3), [(0, 0)])],
     "a_note": [("a_note", flight(4, 60, 320, lead=3), [(0, 0)])],
     # High Note: an 18-tick lob (q_travel)
@@ -91,7 +91,45 @@ BIG = {
 }
 
 
+# W's shield bubble on an ally (「这个特效尺寸要调一调吧」): Codex's was a broken 24 x 32 ring, smaller than most units
+# (it ran through her face in game); drawn here instead as a whole ellipse ring round a 32 x 44 figure in Codex's four
+# shield colours - white at the top, pale blue down the sides, deeper at the bottom - two highlight arcs inside the top
+# and a bright band sliding down both sides through the 4-frame loop, left-right symmetric
+BUBBLE = (34, 47, 16, 22)               # cell width, height, the ellipse's x / y radius (its bottom 2 rows over the cell's)
+SH = {k: (int(v[1:3], 16), int(v[3:5], 16), int(v[5:7], 16)) for k, v in
+      {"w": "#FFFFFF", "l": "#C8E8FF", "m": "#9ACCF8", "d": "#5A9AE0"}.items()}
+
+
+def bubble():
+    W, H, rx, ry = BUBBLE
+    cx, cy = (W - 1) / 2, H - 3 - ry
+    inside = np.zeros((H, W), bool)
+    for y in range(H):
+        for x in range(W):
+            inside[y, x] = ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1.0
+    ring = inside & ~(np.roll(inside, 1, 0) & np.roll(inside, -1, 0) & np.roll(inside, 1, 1) & np.roll(inside, -1, 1))
+    frames = []
+    for k in range(4):
+        a = np.zeros((H, W, 4), np.uint8)
+        band = cy - ry * 0.55 + k * ry * 0.4          # the sliding light, from the shoulders down the sides
+        for y, x in zip(*np.nonzero(ring)):
+            t = (y - (cy - ry)) / (2 * ry)            # 0 at the top, 1 at the bottom
+            c = "w" if t < 0.12 else "l" if t < 0.4 else "m" if t < 0.8 else "d"
+            if abs(y - band) < 1.6 and 0.15 < t < 0.9:
+                c = "w"
+            a[y, x] = (*SH[c], 255)
+        for dx, dy in ((-7, 4), (-6, 3), (-5, 3), (-4, 3)):   # a highlight arc inside the top, both sides
+            for sx in (1, -1):
+                x = int(round(cx + sx * -dx)) if sx < 0 else int(round(cx + dx))
+                a[int(round(cy - ry + dy)), x] = (*SH["l" if k % 2 else "w"], 255)
+        a = np.maximum(a, a[:, ::-1])                 # exactly symmetric left to right
+        frames.append(a)
+    return frames
+
+
 def cells(name, n):
+    if name == "w_on":
+        return bubble()
     a = np.asarray(Image.open(G.lp(os.path.join(SRC, f"seraphine_fx_{name}.png"))).convert("RGBA")).copy()
     a[a[..., 3] < 128] = 0
     a[a[..., 3] > 0, 3] = 255
