@@ -105,7 +105,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
-            "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch"}
+            "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -280,7 +280,10 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("brand", "idle"): [0, 1, 2, 3, 4, 5],
          # Twitch (Codex's raw draft B cut to 38 rows, design_twitch.py; fix_twitch_strips.py keeps Codex's idle of six
          # designs)
-         ("twitch", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("twitch", "idle"): [0, 0, 0, 0, 0, 0],
+         # Renekton (Codex's raw draft B read back on its grid, the blade-and-tail columns cut to 65 x 41,
+         # design_renekton.py; Codex's idle is the design six times)
+         ("renekton", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield

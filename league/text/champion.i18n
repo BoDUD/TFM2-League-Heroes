@@ -483,6 +483,13 @@
         "skill": "伪装隐身最多<#ffb900ff>5秒<>并加速20%，出手即现形，之后<#ffb900ff>6秒<>攻速+35%。击杀敌方英雄时刷新冷却。",
         "skill2": "扔出毒桶：范围内敌人挂一层毒并减速30%，毒池持续<#ffb900ff>3秒<>。随后接<#ff9028ff>毒性爆发<>：每层毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理伤害<>。",
         "ult": "<#ffb900ff>6秒<>内射程+300、攻击力+15，弩箭穿透一条直线，每多穿一个少10%（最低60%）。两名敌方英雄在附近时施放。"
+      },
+      "league_renekton": {
+        "name": "雷克顿",
+        "attack": "近战挥砍。被动<#ff9028ff>怒之领域<>：普攻和技能命中积攒怒气（最多5层，<#ffb900ff>8秒<>没积攒就清空）；满层时下一个技能被强化并耗尽怒气。",
+        "skill": "横扫周围，造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>，每打中一个敌人回血，打中英雄回得更多。强化：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>，回血×3（W 冷却时才用怒气）。",
+        "skill2": "冲过敌方英雄造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，接<#ff9028ff>冷酷捕猎<>：连砍两刀，<#ef5350ff>眩晕<><#ffb900ff>0.75秒<>（强化三刀、<#ffb900ff>1.5秒<>）；Q 好了接 Q，再冲一次，强化时削甲25%。",
+        "ult": "交战时变身<#ffb900ff>10秒<>：<i#asset/base/ui/banpick/champion_stat_icon:hp_0>生命+300，每<#ffb900ff>0.5秒<>对周围造成15 + <i#asset/base/ui/banpick/champion_stat_icon:hp_0>1%的<#a974ffff>魔法伤害<>，不断积攒怒气。"
       }
     },
     "skill_name": {
@@ -830,6 +837,11 @@
         "skill1": "埋伏",
         "skill2": "剧毒之桶",
         "ult": "火力全开"
+      },
+      "league_renekton": {
+        "skill1": "巨鳄狂袭",
+        "skill2": "横冲直撞",
+        "ult": "终极统治"
       }
     }
   },
@@ -1317,6 +1329,13 @@
         "skill": "偽裝隱形最多<#ffb900ff>5秒<>並加速20%，出手即現形，之後<#ffb900ff>6秒<>攻速+35%。擊殺敵方英雄時重置冷卻。",
         "skill2": "擲出毒桶：範圍內敵人掛一層毒並緩速30%，毒池持續<#ffb900ff>3秒<>。隨後接<#ff9028ff>毒性爆發<>：每層毒造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理傷害<>。",
         "ult": "<#ffb900ff>6秒<>內射程+300、攻擊力+15，弩箭貫穿一條直線，每多穿一個少10%（最低60%）。兩名敵方英雄在附近時施放。"
+      },
+      "league_renekton": {
+        "name": "雷尼克頓",
+        "attack": "近戰揮砍。被動<#ff9028ff>怒不可遏<>：普攻和技能命中累積怒氣（最多5層，<#ffb900ff>8秒<>沒累積就清空）；滿層時下一個技能被強化並耗盡怒氣。",
+        "skill": "橫掃周圍，造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>，每打中一個敵人回血，打中英雄回得更多。強化：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>，回血×3（W 冷卻時才用怒氣）。",
+        "skill2": "衝過敵方英雄造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>，接<#ff9028ff>庖丁解牛<>：連砍兩刀，<#ef5350ff>暈眩<><#ffb900ff>0.75秒<>（強化三刀、<#ffb900ff>1.5秒<>）；Q 好了接 Q，再衝一次，強化時削甲25%。",
+        "ult": "交戰時變身<#ffb900ff>10秒<>：<i#asset/base/ui/banpick/champion_stat_icon:hp_0>生命+300，每<#ffb900ff>0.5秒<>對周圍造成15 + <i#asset/base/ui/banpick/champion_stat_icon:hp_0>1%的<#a974ffff>魔法傷害<>，不斷累積怒氣。"
       }
     },
     "skill_name": {
@@ -1664,6 +1683,11 @@
         "skill1": "潛伏",
         "skill2": "虛弱之毒",
         "ult": "噴射，然後祈禱吧！"
+      },
+      "league_renekton": {
+        "skill1": "弱肉強食",
+        "skill2": "大切八塊",
+        "ult": "君臨天下"
       }
     }
   },
@@ -2151,6 +2175,13 @@
         "skill": "Camouflaged for up to <#ffb900ff>5s<> with 20% move speed; attacking or casting reveals him and grants 35% attack speed for <#ffb900ff>6s<>. Champion takedowns reset the cooldown.",
         "skill2": "Hurls a cask: enemies in the area gain a stack and are slowed 30%; the puddle lasts <#ffb900ff>3s<>. Then <#ff9028ff>Contaminate<>: every venom stack deals <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<> <#ff9028ff>physical damage<>.",
         "ult": "For <#ffb900ff>6s<>: +300 range and +15 attack; bolts pierce in a line, 10% less per unit hit (down to 60%). Cast with two enemy champions nearby."
+      },
+      "league_renekton": {
+        "name": "Renekton",
+        "attack": "Melee slashes. Passive <#ff9028ff>Reign of Anger<>: hits build Fury (up to 5 stacks, lost after <#ffb900ff>8s<> without a gain); at full Fury his next skill is empowered and spends it.",
+        "skill": "Swings round him for <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, healing for every enemy hit, more for champions. Empowered: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>, heals x3 (only while W is on cooldown).",
+        "skill2": "Dashes through an enemy champion for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>, then <#ff9028ff>Ruthless Predator<>: two strikes and a <#ef5350ff>stun<> of <#ffb900ff>0.75s<> (empowered: three, <#ffb900ff>1.5s<>); Q if ready, then a second dash that, empowered, shreds 25% armour.",
+        "ult": "Transforms when the fight starts, for <#ffb900ff>10s<>: +300 <i#asset/base/ui/banpick/champion_stat_icon:hp_0>health, every <#ffb900ff>0.5s<> 15 + <i#asset/base/ui/banpick/champion_stat_icon:hp_0>1% <#a974ffff>magic damage<> round him, and Fury keeps building."
       }
     },
     "skill_name": {
@@ -2498,6 +2529,11 @@
         "skill1": "Ambush",
         "skill2": "Venom Cask",
         "ult": "Spray and Pray"
+      },
+      "league_renekton": {
+        "skill1": "Cull the Meek",
+        "skill2": "Slice and Dice",
+        "ult": "Dominus"
       }
     }
   },
@@ -2985,6 +3021,13 @@
         "skill": "최대 <#ffb900ff>5초<> 위장, 이동 속도 20%. 공격하거나 스킬을 쓰면 드러나고 <#ffb900ff>6초<> 동안 공격 속도 35%. 챔피언 처치 시 초기화.",
         "skill2": "독약 병 투척: 범위 안의 적에게 독 1중첩, 30% 둔화, 웅덩이 <#ffb900ff>3초<>. 이어서 <#ff9028ff>오염<>: 독 중첩마다 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>의 <#ff9028ff>물리 피해<>.",
         "ult": "<#ffb900ff>6초<> 동안 사거리 +300, 공격력 +15. 화살이 일직선으로 관통하며 대상마다 10% 감소(최소 60%). 적 챔피언 둘이 가까이 있을 때 사용."
+      },
+      "league_renekton": {
+        "name": "레넥톤",
+        "attack": "근접 베기. 기본 지속 효과 <#ff9028ff>분노의 지배<>: 공격과 스킬 적중으로 분노 축적(최대 5중첩, <#ffb900ff>8초<> 동안 쌓지 않으면 사라짐). 가득 차면 다음 스킬이 강화되고 분노를 소모.",
+        "skill": "주변을 베어 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, 적중한 적마다 체력 회복, 챔피언은 더 많이. 강화: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>, 회복 x3(W 재사용 대기 중일 때만).",
+        "skill2": "적 챔피언을 관통 돌진해 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>, 이어서 <#ff9028ff>무자비한 포식자<>: 2회 베기와 <#ffb900ff>0.75초<> <#ef5350ff>기절<>(강화: 3회, <#ffb900ff>1.5초<>). Q가 있으면 Q, 다시 돌진, 강화 시 방어력 25% 감소.",
+        "ult": "교전 시 <#ffb900ff>10초<> 변신: <i#asset/base/ui/banpick/champion_stat_icon:hp_0>체력 +300, <#ffb900ff>0.5초<>마다 주변에 15 + <i#asset/base/ui/banpick/champion_stat_icon:hp_0>1%의 <#a974ffff>마법 피해<>, 분노가 계속 쌓임."
       }
     },
     "skill_name": {
@@ -3332,6 +3375,11 @@
         "skill1": "매복",
         "skill2": "독약 병",
         "ult": "무차별 난사"
+      },
+      "league_renekton": {
+        "skill1": "양떼 도륙",
+        "skill2": "자르고 토막내기",
+        "ult": "강신"
       }
     }
   },
@@ -3819,6 +3867,13 @@
         "skill": "最大<#ffb900ff>5秒<>カモフラージュ、移動速度20%。攻撃かスキルで姿を現し<#ffb900ff>6秒<>攻撃速度35%。キルでCD解消。",
         "skill2": "毒瓶を投げ、範囲の敵に毒1スタックと30%スロウ、毒溜まり<#ffb900ff>3秒<>。続けて<#ff9028ff>ボーン！<>：毒1スタックにつき<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>の<#ff9028ff>物理ダメージ<>。",
         "ult": "<#ffb900ff>6秒<>間射程+300・攻撃力+15、矢が一直線に貫通し1体ごとに10%減少（最低60%）。敵チャンピオン2体が近い時に使用。"
+      },
+      "league_renekton": {
+        "name": "レネクトン",
+        "attack": "近接斬撃。パッシブ <#ff9028ff>激情の支配<>：攻撃とスキルの命中で憤怒を蓄積（最大5スタック、<#ffb900ff>8秒<>増えないと消失）。最大で次のスキルが強化され憤怒を消費。",
+        "skill": "周囲を薙ぎ払い<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、命中した敵ごとに回復（チャンピオンは多め）。強化：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>、回復x3（Wがクールダウン中のみ）。",
+        "skill2": "敵チャンピオンを突き抜け<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>、続けて<#ff9028ff>メッタ斬り<>：2回斬り<#ffb900ff>0.75秒<><#ef5350ff>スタン<>（強化：3回、<#ffb900ff>1.5秒<>）。Qがあれば Q、再突進、強化で物防25%低下。",
+        "ult": "交戦時<#ffb900ff>10秒<>変身：<i#asset/base/ui/banpick/champion_stat_icon:hp_0>体力+300、<#ffb900ff>0.5秒<>ごとに周囲へ15 + <i#asset/base/ui/banpick/champion_stat_icon:hp_0>1%の<#a974ffff>魔法ダメージ<>、憤怒が溜まり続ける。"
       }
     },
     "skill_name": {
@@ -4166,6 +4221,11 @@
         "skill1": "オイラだヨ！",
         "skill2": "コイツを食らエ！",
         "ult": "ヒャッハー！"
+      },
+      "league_renekton": {
+        "skill1": "ミートカット",
+        "skill2": "スライス・アンド・ダイス",
+        "ult": "セベクの怒り"
       }
     }
   }

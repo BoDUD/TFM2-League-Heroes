@@ -1,0 +1,121 @@
+Built-in image_gen was used once for the run candidate below. That candidate was rejected because it altered approved character anatomy and pixel scale. All eight final action strips use approved-model rigid-part composition, not independently generated replacement characters. No accepted image was shrunk, and no logical rows/columns were deleted.
+
+RUN GENERATION PROMPT (actual call)
+Final Renekton animation pixel sprite sheet. Reference1 EXACT APPROVED 41-row-tall,65-column-wide character design,23colors; do not change model. Reference2 original motion sheet: exact layout and frame count, no copying 3D shading or mirrored direction. Reference3 highres motion ONLY, not design. Reference4 blade identity. EVERY frame: same chunky square pixels, helmet/green gem, orange eye, openlongsnout/teeth, teal/orangebody,silverarmour,navywraps,goldbuckle,tanflap,brownkilt,spikedtail. Wide curved double-pointed crescent IVORY/GOLD blade withGREENgem and internalNAVYhandle, alwaysvisible in nearhand. Arms thick from outer shoulder,arm+blade rigid whole part rotates45degree steps. Standing frames use design's own body/legs unchanged; onlyarms move, wholebodytranslate1-3pixels. Head exactly copied originalpixels translated only, except death90deg. All actionsface RIGHT3/4,neverback. No extra weapons,no skinnyarms,no bend blade. Exact23color palette ofdesign. Transparentalpha noeffects,glow,shadow,text,grid. Native cell128x96logicalpixels,8xnearest enlargement1024x768cell. Solesatlogicalrow81. Spriteheight41logicalpixels, not fills cell. Emptycells transparent. Match reference2 positions exactly.
+Animation RUN 8-frame seamless heavy charge. Near leg leads in frame1, far leg leads in frame5. Frames3 and7 lifted foot passes BESIDE the other foot 2-3 pixels higher; the legs genuinely CROSS and swap front/back every half cycle. Body bobs1 pixel, tail swings slightly, blade low trailing. Head x offset to pivot stays fixed. Far leg darker.
+Layout 4columns x2rows; EXACT8frames; 4096x1536px.
+
+RIG MOTION SPECIFICATIONS (execution specs, NOT eight additional image_gen calls)
+{
+  "run": {
+    "cols": 4,
+    "rows": 2,
+    "ms": [
+      96,
+      96,
+      96,
+      96,
+      96,
+      96,
+      96,
+      96
+    ],
+    "hit": null,
+    "anim": "RUN 8-frame seamless heavy charge. Near leg leads in frame1, far leg leads in frame5. Frames3 and7 lifted foot passes BESIDE the other foot 2-3 pixels higher; the legs genuinely CROSS and swap front/back every half cycle. Body bobs1 pixel, tail swings slightly, blade low trailing. Head x offset to pivot stays fixed. Far leg darker."
+  },
+  "attack": {
+    "cols": 3,
+    "rows": 2,
+    "ms": [
+      60,
+      60,
+      80,
+      80,
+      100
+    ],
+    "hit": 3,
+    "anim": "BASIC ATTACK5 frames:1 idle;2 windup blade back/up;3 HIT blade and near arm forward RIGHT at chest height whole body lunges2 pixels;4 followthrough blade low infront;5 idle. Same idle legs."
+  },
+  "skill": {
+    "cols": 3,
+    "rows": 2,
+    "ms": [
+      60,
+      60,
+      70,
+      70,
+      70,
+      80
+    ],
+    "hit": 3,
+    "anim": "Q FRONTAL SWEEP6frames:1 low behind crouch1pixel;2 back shoulder raise;3 HIT wide sweep forwardRIGHT chestheight;4 low infront;5 blade returningbehind;6 idle. Entire time front3/4, no spinning backview. Idlelegs."
+  },
+  "skill2": {
+    "cols": 4,
+    "rows": 1,
+    "ms": [
+      60,
+      60,
+      60,
+      60
+    ],
+    "hit": 3,
+    "anim": "E DASH4frames:1 lowered readiness;2 bodyforward3pixels lower2rows, legs separate oneback onefront, blade forwardRIGHThipheight;3 slashthrough blade swept backLEFT;4 riseidle. Never allfours."
+  },
+  "skill2_w": {
+    "cols": 4,
+    "rows": 2,
+    "ms": [
+      60,
+      70,
+      60,
+      70,
+      60,
+      70,
+      80
+    ],
+    "hit": 2,
+    "anim": "W7frames:1 neararm blade overhead;2 FIRSTCHOP down infront to RIGHT;3 raise overhead;4 SECONDCHOP;5 raise;6 THIRDCHOP;7 idle. Body and legs exact idle body."
+  },
+  "ult": {
+    "cols": 3,
+    "rows": 2,
+    "ms": [
+      80,
+      80,
+      100,
+      100,
+      100,
+      100
+    ],
+    "hit": 3,
+    "anim": "R6frames:1 rising blade low;2 arms spread down/out;3 ROAR arms wide, head copy moves UP onepixel no rotation;4-5hold;6idle. No effects no enlargement. Legs exactidle."
+  },
+  "hit": {
+    "cols": 2,
+    "rows": 1,
+    "ms": [
+      100,
+      100
+    ],
+    "hit": null,
+    "anim": "HIT2frames:1 entireidlebody jolt LEFT2pixels;2 recover LEFT1pixel. Character silhouette parts retained."
+  },
+  "dead": {
+    "cols": 4,
+    "rows": 2,
+    "ms": [
+      100,
+      110,
+      110,
+      120,
+      130,
+      150,
+      200,
+      300
+    ],
+    "hit": null,
+    "anim": "DEATH8frames:1 joltleft;2 knockleft3pixels;3 WHOLE character includingblade/tail tipsbackwards45degrees;4 whole character90degrees lying ONBACK with head LEFT feetRIGHT;5-8 identical still corpse. Groundlowestrow81."
+  }
+}
+

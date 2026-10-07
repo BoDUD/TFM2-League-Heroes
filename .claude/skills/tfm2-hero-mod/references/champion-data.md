@@ -3562,6 +3562,30 @@ armed like league_samira R: a cast fires at once with two enemy champions within
 which his attacks count again and, after 180 ticks, fire with one champion in reach; a lapse refunds the cooldown.
 With the two-champion rule alone R fired 1-3 times in a 10-minute game.
 
+**Fury that empowers the next skill (league_renekton passive, Reign of Anger).** League's 50 Fury is five rungs of one
+exclusive caster-flag ladder f1..f5 (league_twitch's venom ladder, about 20 nodes): a gain steps one rung up and runs
+the hold again (480 ticks); the hold lapsing drops it all (League's out-of-combat decay in one step - the cumulative
+ladder of league_tryndamere, every lower rung a step longer, cost three times the nodes in every gain). Gains: his
+attack, Q's champion hits (one each) plus one for the rest (a 2-tick flag any hit lays, read a tick later), every unit
+Slice passes, W when not empowered, R two on the cast and one a second. Each skill branches on f5 at its first tick:
+empowered, it spends the ladder. Q takes it only while W's caster flag (its slot cooldown) is on, so the AI keeps a
+full Fury for W's 1.5 s stun (the pro rule). League's +50% Fury below half health needs his health: a native add-on.
+
+**Dash, chop, dash back (league_renekton E -> W -> Dice).** One `Targeting` cast on `EnemyChampion`: Slice is a
+`RushTime` through the target (penetrate, a Fury rung and a 240-tick `d_open` flag per unit hit); on landing W fires two
+(three) instant `TargetProjectile`s at the target 7 ticks apart on `EnemyChampion`, the last carrying the `Stun` and its
+stars buff; then, when Q's own flag is off, Q (E -> W -> Q, the heal right after the stun) and Dice: a `RandomTarget`
+on `EnemyChampion` holding a second `RushTime` (empowered: an armour shred buff `defence_mult` -25 instead of the rung).
+Q's slot keeps that flag too, and a slot cast inside it is a 1-tick nothing. The combo's Q branch is the plain and
+empowered copies only (W's flag is on there), keeping skill2 at 309 nodes. As crowd control for league_yasuo's R: with
+him top in Yasuo's team, R on champions 2.40 a game (the base fighter 2.12, league_darius 1.31) - no change.
+
+**A transformation armed for the fight (league_renekton R, Dominus).** Armed like league_twitch R: within 35000 of an
+enemy champion it fires at once, else his attacks fire it for 600 ticks (refunded when it lapses). Fired: `r_on` with
+flat `hp` +300 for 600 ticks and a `Heal` of the same 300 (the bonus health starts full), two Fury rungs, and two
+`AddCasted` on him (`on_me`): a 30-tick pulse of `ApAttack` 15 + `hp_ratio` 1 (1% of his maximum health) round him on
+`EnemyWithoutTower`, and a rung every 60 ticks. No size change (the sand aura is a view buff behind him).
+
 **A native effect that reads the unit a hit landed on (addons/league_fiora_duel, addons/league_vayne_bolts).** Data
 cannot tell which unit a hit is on (league_vayne's Silver Bolts, league_fiora's Vitals both count on the caster). A
 `Native` effect (`effect_ref`) placed in a projectile's `applied_effects` gets that unit as its input target
