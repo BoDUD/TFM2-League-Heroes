@@ -35,4 +35,4 @@
   主包的布兰德改了以后要重跑。
 - 在 `addons/` 下 `cargo test --release -p league_brand`：单元测试（三层引爆、等爆炸时不叠、伤害、点燃、爆炸半径、buff 名字长度）。
 - 在 `addons/` 下 `cargo build --release -p league_brand`（Windows）得到 `target/release/league_brand.dll`；`league_addons` 合集也会编进本包。
-- 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+- 经典 SDK 的模拟器跑不了原生代码。游戏里确认过（2026-10-07，v0.1.1 装进合集后约 30 分钟的日志：12 场对局里叠层 13107 次，1 层 6787、2 层 3980、第 3 层 2179 次；爆炸 2171 次，其中 375 次目标在爆炸前死了；爆炸多数只打到他本人（1293 次），最多打到 10 个；`BLAZE skipped` 0 次，Q 和 R 弹跳在「随机目标」效果里也拿得到被打中的英雄）。
