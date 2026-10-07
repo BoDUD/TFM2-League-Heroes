@@ -1,0 +1,2337 @@
+{
+  "units": "native pixel cells; rect is [x,y,width,height] in sheet; bbox is [left,top,right,bottom] local to cell with exclusive right/bottom",
+  "cell": [
+    112,
+    88
+  ],
+  "scale": 8,
+  "palette_colors": 44,
+  "status": "prepared_for_visual_review",
+  "animations": {
+    "run": {
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3584,
+        1408
+      ],
+      "prompt_key": "run",
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 133,
+          "rect": [
+            0,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            55,
+            64
+          ],
+          "bbox": [
+            24,
+            24,
+            72,
+            76
+          ],
+          "head_origin": [
+            41,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            39,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.200000000000008,
+              5.2250000000000085
+            ],
+            "phase": [
+              1.0,
+              4.25
+            ],
+            "bbox_grid": [
+              20,
+              18,
+              68,
+              71
+            ],
+            "size": [
+              48,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "ms": 133,
+          "rect": [
+            112,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            61,
+            64
+          ],
+          "bbox": [
+            31,
+            23,
+            78,
+            75
+          ],
+          "head_origin": [
+            47,
+            23
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            45,
+            65
+          ],
+          "stage_bottom_row": 74,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.125000000000007,
+              5.275000000000009
+            ],
+            "phase": [
+              4.5,
+              0.5
+            ],
+            "bbox_grid": [
+              22,
+              16,
+              69,
+              68
+            ],
+            "size": [
+              47,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "ms": 133,
+          "rect": [
+            224,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            65,
+            64
+          ],
+          "bbox": [
+            35,
+            23,
+            82,
+            75
+          ],
+          "head_origin": [
+            51,
+            23
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            49,
+            65
+          ],
+          "stage_bottom_row": 74,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.1500000000000075,
+              5.30000000000001
+            ],
+            "phase": [
+              5.0,
+              1.5
+            ],
+            "bbox_grid": [
+              21,
+              18,
+              69,
+              70
+            ],
+            "size": [
+              48,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "ms": 133,
+          "rect": [
+            336,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            65,
+            64
+          ],
+          "bbox": [
+            33,
+            24,
+            82,
+            76
+          ],
+          "head_origin": [
+            51,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            49,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.175000000000008,
+              5.2250000000000085
+            ],
+            "phase": [
+              2.75,
+              4.25
+            ],
+            "bbox_grid": [
+              21,
+              18,
+              70,
+              71
+            ],
+            "size": [
+              49,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "ms": 133,
+          "rect": [
+            0,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            69,
+            64
+          ],
+          "bbox": [
+            37,
+            24,
+            86,
+            76
+          ],
+          "head_origin": [
+            55,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            53,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.175000000000008,
+              5.30000000000001
+            ],
+            "phase": [
+              2.25,
+              5.0
+            ],
+            "bbox_grid": [
+              19,
+              13,
+              68,
+              65
+            ],
+            "size": [
+              49,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "ms": 133,
+          "rect": [
+            112,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            66,
+            64
+          ],
+          "bbox": [
+            36,
+            23,
+            83,
+            75
+          ],
+          "head_origin": [
+            52,
+            23
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            50,
+            65
+          ],
+          "stage_bottom_row": 74,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.050000000000006,
+              5.075000000000006
+            ],
+            "phase": [
+              3.75,
+              4.5
+            ],
+            "bbox_grid": [
+              23,
+              12,
+              70,
+              66
+            ],
+            "size": [
+              47,
+              54
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "ms": 133,
+          "rect": [
+            224,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            60,
+            64
+          ],
+          "bbox": [
+            29,
+            23,
+            77,
+            75
+          ],
+          "head_origin": [
+            46,
+            23
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            44,
+            65
+          ],
+          "stage_bottom_row": 74,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.175000000000008,
+              5.250000000000009
+            ],
+            "phase": [
+              4.0,
+              3.75
+            ],
+            "bbox_grid": [
+              20,
+              13,
+              68,
+              66
+            ],
+            "size": [
+              48,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 8,
+          "ms": 133,
+          "rect": [
+            336,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            54,
+            64
+          ],
+          "bbox": [
+            23,
+            24,
+            71,
+            76
+          ],
+          "head_origin": [
+            40,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            38,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.175000000000008,
+              5.30000000000001
+            ],
+            "phase": [
+              2.75,
+              0.75
+            ],
+            "bbox_grid": [
+              21,
+              14,
+              70,
+              66
+            ],
+            "size": [
+              49,
+              52
+            ]
+          }
+        }
+      ],
+      "review_required": [
+        "shoulder/arm attachments",
+        "source head cleanup",
+        "body/arm occlusion"
+      ]
+    },
+    "attack": {
+      "grid": [
+        3,
+        2
+      ],
+      "size": [
+        2688,
+        1408
+      ],
+      "prompt_key": "attack",
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            38,
+            24,
+            76,
+            76
+          ],
+          "head_origin": [
+            45,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.07500000000001,
+              5.000000000000009
+            ],
+            "phase": [
+              4.25,
+              5.0
+            ],
+            "bbox_grid": [
+              36,
+              29,
+              74,
+              82
+            ],
+            "size": [
+              38,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            112,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            34,
+            23,
+            80,
+            76
+          ],
+          "head_origin": [
+            44,
+            23
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.05000000000001,
+              5.025000000000009
+            ],
+            "phase": [
+              4.5,
+              3.0
+            ],
+            "bbox_grid": [
+              32,
+              29,
+              78,
+              82
+            ],
+            "size": [
+              46,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "ms": 60,
+          "rect": [
+            224,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            66,
+            64
+          ],
+          "bbox": [
+            31,
+            25,
+            83,
+            76
+          ],
+          "head_origin": [
+            42,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            50,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              4.4,
+              5.250000000000012
+            ],
+            "phase": [
+              3.0,
+              0.75
+            ],
+            "bbox_grid": [
+              34,
+              28,
+              88,
+              79
+            ],
+            "size": [
+              54,
+              51
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "ms": 80,
+          "rect": [
+            0,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            66,
+            64
+          ],
+          "bbox": [
+            40,
+            25,
+            100,
+            76
+          ],
+          "head_origin": [
+            59,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            50,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": 11,
+          "release_glove_centroid": [
+            85.78260869565217,
+            46.30434782608695
+          ],
+          "source_grid": {
+            "pitch": [
+              4.775000000000006,
+              5.200000000000012
+            ],
+            "phase": [
+              4.75,
+              4.0
+            ],
+            "bbox_grid": [
+              35,
+              23,
+              95,
+              74
+            ],
+            "size": [
+              60,
+              51
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect": [
+            112,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            32,
+            25,
+            80,
+            76
+          ],
+          "head_origin": [
+            45,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.000000000000009,
+              5.250000000000012
+            ],
+            "phase": [
+              3.0,
+              0.75
+            ],
+            "bbox_grid": [
+              31,
+              23,
+              79,
+              74
+            ],
+            "size": [
+              48,
+              51
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "ms": 80,
+          "rect": [
+            224,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            62,
+            64
+          ],
+          "bbox": [
+            41,
+            24,
+            79,
+            76
+          ],
+          "head_origin": [
+            48,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            46,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.125000000000011,
+              5.10000000000001
+            ],
+            "phase": [
+              1.25,
+              0.75
+            ],
+            "bbox_grid": [
+              35,
+              23,
+              75,
+              76
+            ],
+            "size": [
+              40,
+              53
+            ]
+          }
+        }
+      ],
+      "review_required": [
+        "shoulder/arm attachments",
+        "source head cleanup",
+        "body/arm occlusion"
+      ]
+    },
+    "skill": {
+      "grid": [
+        3,
+        2
+      ],
+      "size": [
+        2688,
+        1408
+      ],
+      "prompt_key": "skill",
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            65,
+            64
+          ],
+          "bbox": [
+            44,
+            24,
+            82,
+            76
+          ],
+          "head_origin": [
+            51,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            49,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.925000000000011,
+              5.925000000000011
+            ],
+            "phase": [
+              5.0,
+              0.5
+            ],
+            "bbox_grid": [
+              30,
+              23,
+              68,
+              75
+            ],
+            "size": [
+              38,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            112,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            68,
+            64
+          ],
+          "bbox": [
+            44,
+            25,
+            87,
+            76
+          ],
+          "head_origin": [
+            56,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            52,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              6.000000000000012,
+              5.950000000000012
+            ],
+            "phase": [
+              6.0,
+              4.5
+            ],
+            "bbox_grid": [
+              26,
+              23,
+              66,
+              74
+            ],
+            "size": [
+              40,
+              51
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "ms": 70,
+          "rect": [
+            224,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            66,
+            64
+          ],
+          "bbox": [
+            41,
+            22,
+            85,
+            76
+          ],
+          "head_origin": [
+            51,
+            22
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            50,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.950000000000012,
+              5.950000000000012
+            ],
+            "phase": [
+              5.0,
+              4.75
+            ],
+            "bbox_grid": [
+              26,
+              21,
+              70,
+              74
+            ],
+            "size": [
+              44,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "ms": 80,
+          "rect": [
+            0,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            69,
+            64
+          ],
+          "bbox": [
+            36,
+            24,
+            98,
+            76
+          ],
+          "head_origin": [
+            64,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            53,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": 11,
+          "release_glove_centroid": [
+            88.23076923076923,
+            43.1025641025641
+          ],
+          "source_grid": {
+            "pitch": [
+              6.000000000000012,
+              6.000000000000012
+            ],
+            "phase": [
+              1.0,
+              3.0
+            ],
+            "bbox_grid": [
+              19,
+              16,
+              81,
+              68
+            ],
+            "size": [
+              62,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect": [
+            112,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            67,
+            64
+          ],
+          "bbox": [
+            42,
+            24,
+            89,
+            76
+          ],
+          "head_origin": [
+            58,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            51,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.425000000000004,
+              6.000000000000012
+            ],
+            "phase": [
+              3.75,
+              3.0
+            ],
+            "bbox_grid": [
+              31,
+              16,
+              79,
+              68
+            ],
+            "size": [
+              48,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "ms": 80,
+          "rect": [
+            224,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            68,
+            64
+          ],
+          "bbox": [
+            47,
+            24,
+            85,
+            76
+          ],
+          "head_origin": [
+            54,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            52,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.950000000000012,
+              6.000000000000012
+            ],
+            "phase": [
+              5.25,
+              3.0
+            ],
+            "bbox_grid": [
+              30,
+              17,
+              68,
+              68
+            ],
+            "size": [
+              38,
+              51
+            ]
+          }
+        }
+      ],
+      "review_required": [
+        "shoulder/arm attachments",
+        "source head cleanup",
+        "body/arm occlusion"
+      ]
+    },
+    "skill2": {
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3584,
+        1408
+      ],
+      "prompt_key": "skill2",
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            63,
+            64
+          ],
+          "bbox": [
+            42,
+            24,
+            80,
+            76
+          ],
+          "head_origin": [
+            49,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            47,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.000000000000005,
+              5.050000000000006
+            ],
+            "phase": [
+              4.0,
+              5.0
+            ],
+            "bbox_grid": [
+              28,
+              15,
+              69,
+              68
+            ],
+            "size": [
+              41,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            112,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            66,
+            64
+          ],
+          "bbox": [
+            46,
+            25,
+            88,
+            76
+          ],
+          "head_origin": [
+            57,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            50,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.1500000000000075,
+              5.32500000000001
+            ],
+            "phase": [
+              4.75,
+              3.25
+            ],
+            "bbox_grid": [
+              35,
+              15,
+              77,
+              65
+            ],
+            "size": [
+              42,
+              50
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "ms": 80,
+          "rect": [
+            224,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            61,
+            64
+          ],
+          "bbox": [
+            34,
+            26,
+            85,
+            76
+          ],
+          "head_origin": [
+            52,
+            26
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            45,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": 7,
+          "release_glove_centroid": [
+            77.64864864864865,
+            49.83783783783784
+          ],
+          "source_grid": {
+            "pitch": [
+              5.000000000000005,
+              5.2250000000000085
+            ],
+            "phase": [
+              2.0,
+              4.5
+            ],
+            "bbox_grid": [
+              25,
+              16,
+              76,
+              66
+            ],
+            "size": [
+              51,
+              50
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "ms": 80,
+          "rect": [
+            336,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            61,
+            64
+          ],
+          "bbox": [
+            39,
+            25,
+            77,
+            76
+          ],
+          "head_origin": [
+            45,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            45,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.075000000000006,
+              5.32500000000001
+            ],
+            "phase": [
+              0.75,
+              3.5
+            ],
+            "bbox_grid": [
+              28,
+              15,
+              68,
+              65
+            ],
+            "size": [
+              40,
+              50
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "ms": 60,
+          "rect": [
+            0,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            66,
+            64
+          ],
+          "bbox": [
+            43,
+            26,
+            83,
+            76
+          ],
+          "head_origin": [
+            50,
+            26
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            50,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.075000000000006,
+              5.450000000000012
+            ],
+            "phase": [
+              2.75,
+              2.5
+            ],
+            "bbox_grid": [
+              28,
+              11,
+              69,
+              60
+            ],
+            "size": [
+              41,
+              49
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "ms": 80,
+          "rect": [
+            112,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            67,
+            64
+          ],
+          "bbox": [
+            32,
+            18,
+            85,
+            76
+          ],
+          "head_origin": [
+            50,
+            26
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            51,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": 20,
+          "release_glove_centroid": [
+            79.41935483870968,
+            43.41935483870968
+          ],
+          "source_grid": {
+            "pitch": [
+              4.725000000000001,
+              5.35000000000001
+            ],
+            "phase": [
+              4.0,
+              2.75
+            ],
+            "bbox_grid": [
+              26,
+              3,
+              81,
+              61
+            ],
+            "size": [
+              55,
+              58
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "ms": 80,
+          "rect": [
+            224,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            66,
+            64
+          ],
+          "bbox": [
+            39,
+            24,
+            82,
+            76
+          ],
+          "head_origin": [
+            49,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            50,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.375000000000011,
+              5.100000000000007
+            ],
+            "phase": [
+              4.5,
+              2.25
+            ],
+            "bbox_grid": [
+              21,
+              12,
+              65,
+              64
+            ],
+            "size": [
+              44,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 8,
+          "ms": 80,
+          "rect": [
+            336,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            67,
+            64
+          ],
+          "bbox": [
+            46,
+            24,
+            84,
+            76
+          ],
+          "head_origin": [
+            53,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            51,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              4.975000000000005,
+              5.075000000000006
+            ],
+            "phase": [
+              4.75,
+              3.25
+            ],
+            "bbox_grid": [
+              28,
+              11,
+              69,
+              64
+            ],
+            "size": [
+              41,
+              53
+            ]
+          }
+        }
+      ],
+      "review_required": [
+        "shoulder/arm attachments",
+        "source head cleanup",
+        "body/arm occlusion"
+      ]
+    },
+    "ult": {
+      "grid": [
+        4,
+        1
+      ],
+      "size": [
+        3584,
+        704
+      ],
+      "prompt_key": "ult",
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 80,
+          "rect": [
+            0,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            61,
+            64
+          ],
+          "bbox": [
+            44,
+            25,
+            78,
+            76
+          ],
+          "head_origin": [
+            47,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            45,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              6.800000000000014,
+              6.000000000000003
+            ],
+            "phase": [
+              3.75,
+              2.0
+            ],
+            "bbox_grid": [
+              22,
+              43,
+              55,
+              96
+            ],
+            "size": [
+              33,
+              53
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "rect": [
+            112,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            58,
+            64
+          ],
+          "bbox": [
+            42,
+            33,
+            79,
+            76
+          ],
+          "head_origin": [
+            48,
+            33
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            42,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              6.800000000000014,
+              6.50000000000001
+            ],
+            "phase": [
+              1.0,
+              4.5
+            ],
+            "bbox_grid": [
+              27,
+              45,
+              61,
+              88
+            ],
+            "size": [
+              34,
+              43
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "ms": 120,
+          "rect": [
+            224,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            63,
+            64
+          ],
+          "bbox": [
+            35,
+            20,
+            85,
+            76
+          ],
+          "head_origin": [
+            50,
+            20
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            47,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": 11,
+          "release_glove_centroid": [
+            76.86363636363636,
+            39.70454545454545
+          ],
+          "source_grid": {
+            "pitch": [
+              6.000000000000003,
+              6.100000000000004
+            ],
+            "phase": [
+              2.0,
+              1.0
+            ],
+            "bbox_grid": [
+              21,
+              39,
+              71,
+              95
+            ],
+            "size": [
+              50,
+              56
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "ms": 120,
+          "rect": [
+            336,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            38,
+            25,
+            76,
+            76
+          ],
+          "head_origin": [
+            45,
+            25
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.900000000000001,
+              6.000000000000003
+            ],
+            "phase": [
+              2.75,
+              2.0
+            ],
+            "bbox_grid": [
+              25,
+              43,
+              64,
+              96
+            ],
+            "size": [
+              39,
+              53
+            ]
+          }
+        }
+      ],
+      "review_required": [
+        "shoulder/arm attachments",
+        "source head cleanup",
+        "body/arm occlusion"
+      ]
+    },
+    "hit": {
+      "grid": [
+        2,
+        1
+      ],
+      "size": [
+        1792,
+        704
+      ],
+      "prompt_key": "hit",
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "rect": [
+            0,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            60,
+            64
+          ],
+          "bbox": [
+            30,
+            20,
+            76,
+            76
+          ],
+          "head_origin": [
+            40,
+            20
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            44,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              7.250000000000015,
+              6.650000000000007
+            ],
+            "phase": [
+              4.75,
+              4.25
+            ],
+            "bbox_grid": [
+              38,
+              38,
+              82,
+              95
+            ],
+            "size": [
+              44,
+              57
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "rect": [
+            112,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            58,
+            64
+          ],
+          "bbox": [
+            35,
+            24,
+            74,
+            76
+          ],
+          "head_origin": [
+            42,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            42,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              7.2750000000000155,
+              7.3500000000000165
+            ],
+            "phase": [
+              6.5,
+              0.25
+            ],
+            "bbox_grid": [
+              44,
+              35,
+              84,
+              87
+            ],
+            "size": [
+              40,
+              52
+            ]
+          }
+        }
+      ],
+      "review_required": [
+        "shoulder/arm attachments",
+        "source head cleanup",
+        "body/arm occlusion"
+      ]
+    },
+    "dead": {
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3584,
+        1408
+      ],
+      "prompt_key": "dead",
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "rect": [
+            0,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            68,
+            64
+          ],
+          "bbox": [
+            46,
+            24,
+            84,
+            76
+          ],
+          "head_origin": [
+            53,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            52,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.125000000000011,
+              5.150000000000011
+            ],
+            "phase": [
+              4.75,
+              4.75
+            ],
+            "bbox_grid": [
+              23,
+              21,
+              60,
+              73
+            ],
+            "size": [
+              37,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "ms": 110,
+          "rect": [
+            112,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            61,
+            64
+          ],
+          "bbox": [
+            26,
+            24,
+            77,
+            76
+          ],
+          "head_origin": [
+            34,
+            24
+          ],
+          "head_angle": 0,
+          "stage_origin": [
+            45,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.000000000000009,
+              5.125000000000011
+            ],
+            "phase": [
+              5.0,
+              1.25
+            ],
+            "bbox_grid": [
+              21,
+              22,
+              72,
+              74
+            ],
+            "size": [
+              51,
+              52
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "ms": 120,
+          "rect": [
+            224,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            41,
+            17,
+            78,
+            76
+          ],
+          "head_origin": [
+            33,
+            12
+          ],
+          "head_angle": 20,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.000000000000009,
+              5.125000000000011
+            ],
+            "phase": [
+              2.0,
+              1.25
+            ],
+            "bbox_grid": [
+              23,
+              23,
+              76,
+              74
+            ],
+            "size": [
+              53,
+              51
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "ms": 130,
+          "rect": [
+            336,
+            0,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            42,
+            15,
+            83,
+            76
+          ],
+          "head_origin": [
+            30,
+            8
+          ],
+          "head_angle": 45,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.000000000000009,
+              5.150000000000011
+            ],
+            "phase": [
+              3.0,
+              4.75
+            ],
+            "bbox_grid": [
+              24,
+              27,
+              80,
+              73
+            ],
+            "size": [
+              56,
+              46
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "ms": 150,
+          "rect": [
+            0,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            53,
+            64
+          ],
+          "bbox": [
+            32,
+            28,
+            74,
+            76
+          ],
+          "head_origin": [
+            32,
+            28
+          ],
+          "head_angle": 90,
+          "stage_origin": [
+            37,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.150000000000011,
+              4.9000000000000075
+            ],
+            "phase": [
+              3.75,
+              4.5
+            ],
+            "bbox_grid": [
+              16,
+              35,
+              72,
+              64
+            ],
+            "size": [
+              56,
+              29
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "ms": 200,
+          "rect": [
+            112,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            58,
+            64
+          ],
+          "bbox": [
+            37,
+            28,
+            79,
+            76
+          ],
+          "head_origin": [
+            37,
+            28
+          ],
+          "head_angle": 90,
+          "stage_origin": [
+            42,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              4.800000000000006,
+              4.9000000000000075
+            ],
+            "phase": [
+              3.75,
+              4.5
+            ],
+            "bbox_grid": [
+              18,
+              35,
+              77,
+              64
+            ],
+            "size": [
+              59,
+              29
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "ms": 300,
+          "rect": [
+            224,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            38,
+            28,
+            80,
+            76
+          ],
+          "head_origin": [
+            38,
+            28
+          ],
+          "head_angle": 90,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.200000000000012,
+              4.9000000000000075
+            ],
+            "phase": [
+              0.75,
+              4.5
+            ],
+            "bbox_grid": [
+              17,
+              35,
+              71,
+              64
+            ],
+            "size": [
+              54,
+              29
+            ]
+          }
+        },
+        {
+          "frame": 8,
+          "ms": 400,
+          "rect": [
+            336,
+            88,
+            112,
+            88
+          ],
+          "pivot": [
+            59,
+            64
+          ],
+          "bbox": [
+            38,
+            28,
+            80,
+            76
+          ],
+          "head_origin": [
+            38,
+            28
+          ],
+          "head_angle": 90,
+          "stage_origin": [
+            43,
+            66
+          ],
+          "stage_bottom_row": 75,
+          "release_tick": null,
+          "release_glove_centroid": null,
+          "source_grid": {
+            "pitch": [
+              5.500000000000016,
+              4.9000000000000075
+            ],
+            "phase": [
+              2.0,
+              4.5
+            ],
+            "bbox_grid": [
+              16,
+              35,
+              67,
+              64
+            ],
+            "size": [
+              51,
+              29
+            ]
+          }
+        }
+      ],
+      "review_required": [
+        "shoulder/arm attachments",
+        "source head cleanup",
+        "body/arm occlusion"
+      ]
+    }
+  }
+}
