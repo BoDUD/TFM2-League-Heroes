@@ -1,7 +1,0 @@
-{
-  "fx": "league_garen_spin",
-  "items": [
-    {"tag": "loop", "into": "spin_fx1", "from": "spin", "slice_ms": 0, "length_ms": 450, "at_ms": 0},
-    {"tag": "loop", "into": "spin_fx2", "from": "spin", "slice_ms": 0, "length_ms": 433, "at_ms": 0}
-  ]
-}
