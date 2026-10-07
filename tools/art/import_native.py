@@ -45,6 +45,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
+import idle_breathe as IB  # noqa: E402
 from native_refs import CELL, Z, layout  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "native")
@@ -55,6 +56,14 @@ STEADY = ("idle", "run")
 # (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
 UNSTEADY = {("rakan", "run")}
+# idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
+# (Brand's idle is already six drawings of his burning body), NO_NOD breathes without the head's late nod
+BREATHE_SKIP = {"brand"}
+NO_NOD = {"malphite",   # his small head sits in the rock: the piece took half the chest
+          "kayle", "morgana",   # the head piece cut the wings in two
+          "alistar",    # the bull's head piece took part of the hump
+          "jhin", "pyke", "samira", "soraka", "veigar", "xerath",   # only part of the head found: it would split
+          "khazix"}     # the piece took his upper body
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
 # line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
@@ -731,7 +740,37 @@ def build(hero):
         sheet[tag] = [(G.centre_frame(fr[k], dx[k] - rows[k]["pivot"][0], sunk(hero, fr[k], rows[k]["pivot"][1])),
                        rows[slot]["ms"]) for slot, k in enumerate(order)]
         report[tag] = [(None if hx[k] is None else hx[k] + dx[k], dx[k]) for k in order]
+        if tag == "idle" and rows[order[0]].get("head"):         # the head point in idle slot 1's centred frame
+            k, a = order[0], sheet[tag][0][0]
+            u0, r0 = dx[k] - rows[k]["pivot"][0], sunk(hero, fr[k], rows[k]["pivot"][1])
+            HEAD_AT[hero] = (a.shape[1] // 2 + rows[k]["head"][0] + u0, a.shape[0] // 2 + rows[k]["head"][1] + r0)
     return sheet, report
+
+
+HEAD_AT = {}
+
+
+def breathe_idle(hero, sheet):
+    """idle_breathe.py: the idle becomes 8 frames of the design breathing (feet still, the body down 2 rows through
+    the thighs and back, the head a frame late), drawn from idle slot 1 after every other step. The head point: the
+    eye-only colour (EYES), else the cells' head point, else the middle of the top rows. Returns the head piece or None."""
+    if hero in BREATHE_SKIP or "idle" not in sheet:
+        return None
+    a = sheet["idle"][0][0]
+    e = eye_at(hero, a) if hero in EYES else None
+    if e is not None:
+        head = (e[1] + 1.0, float(e[0]))
+    elif hero in HEAD_AT:
+        head = HEAD_AT[hero]
+    else:
+        ys, xs = np.nonzero(a[..., 3])
+        head = (float(np.median(xs[ys < ys.min() + 8])), float(ys.min() + 7))
+    frames, piece = IB.breathe(a, head, nod=hero not in NO_NOD)
+    if os.environ.get("IDLE_DEBUG"):                     # the design with its head piece, for a contact sheet
+        np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}.npy"), np.stack(frames))
+        np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}_piece.npy"), piece)
+    sheet["idle"] = [(f, IB.MS) for f in frames]
+    return piece
 
 
 def sunk(hero, frame, py):
@@ -1184,6 +1223,10 @@ def main():
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
+        piece = breathe_idle(hero, sheet)
+        if piece is not None:
+            print(f"{hero}: idle breathes from the design ({len(sheet['idle'])} frames x {IB.MS} ms, head piece "
+                  f"{int(piece.sum())} px)")
         for tag, fx in bake(hero, sheet).items():
             print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
