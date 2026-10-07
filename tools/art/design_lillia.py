@@ -11,7 +11,7 @@ bough, 72 rows), 07 = version B (the shorter bough, 65 rows), 06 = another B (59
         costing its difference from the nearer neighbour; the face rows and columns kept), then the outline closed;
   vote  each 42-row cell the colour most of its source block shows (ink only over half the block), then the outline
         closed (league_gwen's route).
-Step 5 (B46_fixed, the design now): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
+Step 6 (B46_slim, the design now): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
 FIXES46). Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
 top with the lantern redrawn by tables. Colours: every square to the nearest of Codex's own palette (palette.hex, 32). The figure stands on the 128 canvas with
 the hooves on row 99 and their middle on column 64.
@@ -447,6 +447,41 @@ def design46():
     return recentre(can)
 
 
+# step 6 (the user: 「改的挺好的 就是有点胖」 and 「还有身体和小鹿的腿连接的那里有点歪」 - the near hind leg drifted right
+# down its length, the hips stepped): option V2 picked - two rows of the deer's barrel out (SLIM_DROP_ROWS: the skirt's
+# middle and the lower body), the four legs redrawn two rows longer and straight under the body (SLIM_LEGS: A 53-54,
+# B 58-59, C 67-68, D 73-74, hocks on the hind legs, 3-square hooves), the bough's lower end a dark tip, then two columns
+# out (SLIM_DROP_COLS: picked where nothing but hair, arm and barrel is - never the face, the lantern or a leg) -> 32x46.
+SLIM_DROP_ROWS = (85, 88)
+SLIM_LEGS = {
+    89: [(51, ".KbaK.KObK.....KObK..KbaK.....")],
+    90: [(51, ".KbaK.KObK.....KObK..KbaK.....")],
+    91: [(51, ".KbaK.KObK.....KObK..KbaK.....")],
+    92: [(51, ".KbaK.KObK.....KObK..KbaK.....")],
+    93: [(51, "KbbaKKOObK.....KObK..KbaK.....")],
+    94: [(51, "KbbaKKOObK.....KObK..KbaK.....")],
+    95: [(51, ".KbaK.KObK.....KObK..KbaK.....")],
+    96: [(51, ".KbaK.KObK.....KObK..KbaK.....")],
+    97: [(51, ".KeeVKKeeVK....KeeVK.KeeVK....")],
+    98: [(51, ".KueeKKueeK....KueeK.KueeK....")],
+    99: [(51, "..KKK..KKK......KKK...KKK.....")],
+    87: [(72, "q")],
+}
+SLIM_DROP_COLS = (56, 62)
+
+
+def slim(can):
+    rows = [r for r in range(54, 91) if r not in SLIM_DROP_ROWS]
+    out = np.zeros_like(can)
+    out[SOLE_ROW - 10 - len(rows):SOLE_ROW - 10] = can[rows]
+    out = apply_letters(out, SLIM_LEGS)
+    out, _, _ = strips.complete_outline(out, color=OUTLINE, feet=SOLE_ROW + 1)
+    keep = [c for c in range(128) if c not in SLIM_DROP_COLS]
+    narrow = np.zeros_like(out)
+    narrow[:, :len(keep)] = out[:, keep]
+    return recentre(narrow)
+
+
 CANDIDATES = {
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
@@ -454,7 +489,7 @@ CANDIDATES = {
     "B2_cut": lambda: to_canvas(cut("06")), "B2_vote": lambda: to_canvas(vote("06")),
     "B_clean": lambda: cleaned(to_canvas(cut("07")), np.zeros((128, 128), bool))[0],
     "B_polish": polished,
-    "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)),
+    "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)), "B46_slim": lambda: slim(design46()),
 }
 
 
