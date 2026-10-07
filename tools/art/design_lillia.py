@@ -11,7 +11,8 @@ bough, 72 rows), 07 = version B (the shorter bough, 65 rows), 06 = another B (59
         costing its difference from the nearer neighbour; the face rows and columns kept), then the outline closed;
   vote  each 42-row cell the colour most of its source block shows (ink only over half the block), then the outline
         closed (league_gwen's route).
-Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
+Step 5 (B46_fixed, the design now): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
+FIXES46). Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
 top with the lantern redrawn by tables. Colours: every square to the nearest of Codex's own palette (palette.hex, 32). The figure stands on the 128 canvas with
 the hooves on row 99 and their middle on column 64.
 """
@@ -75,12 +76,12 @@ def weights(idx):
     return w
 
 
-def cut(name):
+def cut(name, rows=ROWS):
     idx, _ = read_back(name)
     H, W = idx.shape
     face_rows, face_cols = FACE[name]
     w = weights(idx)
-    rows_n = ROWS - 1  # the outline closed over the top adds a row
+    rows_n = rows - 1 if rows == ROWS else rows  # the outline closed over the top adds a row
     tw = round(W * rows_n / H)
     best = None
     for order in ("rc", "cr"):
@@ -315,6 +316,137 @@ def polished():
     return can
 
 
+# step 5 (the user: 「继续改 太多地方不对了」, then at raw 07 「用这个慢慢调不就行了吗」): raw 07 cut gently to 46 rows
+# (cut46: dp_keep to 45 + the closed outline; at 42 rows the cut shreds the legs, the body and the lantern) and fixed by
+# hand, square by square from its char map (charmap letters, LETTERS) - the face (2x2 purple eyes, blush, a soft mouth),
+# one purple bough line, the gold hook, a round lantern with gold bands and two ribs, a clean leaf curl, the torso (the
+# far hand high on the bough, the near arm across to the low grip, leaf top, bare waist, leaf skirt), the lower bough
+# ending at the deer's chest, four 2-square legs with hocks on the hind ones and 3-square hooves; outline closed, the
+# hooves' middle back on column 64. Body (bud to hooves) 40 rows, 46 with the bough's blossom.
+LETTERS = {"K": "#140808", "a": "#9A2A08", "b": "#D84A0A", "O": "#FF7F00", "o": "#FFA840", "c": "#E8C890",
+           "C": "#FFF0C8", "v": "#7A3CC8", "x": "#6E0A40", "h": "#B8075E", "H": "#F00480", "P": "#FF6EB8",
+           "d": "#D88C68", "s": "#F8C8A0", "l": "#FFE4CC", "F": "#036A2E", "f": "#3E8A2A", "L": "#B1DC43",
+           "z": "#2E4A10", "u": "#3A2C9A", "U": "#5A5AE0", "V": "#9499FC", "E": "#4A1AA0", "e": "#8A4AF0",
+           "q": "#2A0838", "Q": "#5A1078", "R": "#9A3AD8", "g": "#8A5A10", "G": "#E8A010", "Y": "#FBD70B",
+           "j": "#56C8FE", "W": "#FFFFFF"}
+FACE46 = {
+    67: [(66, "KsssK")],
+    68: [(65, "hsssssh")],
+    69: [(64, "hKKssKKh")],
+    70: [(64, "hWEssWEK")],
+    71: [(64, "heessees")],
+    72: [(64, "KPssssPs")],
+    73: [(63, "KdsssdssdK")],
+    74: [(64, "KdssssdK")],
+    75: [(66, "KddK")],
+}
+# the bough: one purple line (col 76 rows 58-67, col 75 rows 68-77), its outline on both sides
+SHAFT46 = {58: [(75, "KQK")], 59: [(75, "KQ")], 60: [(75, "fQK")], 61: [(75, "FQK")], 62: [(75, "KQK")],
+         63: [(75, "KQK")], 64: [(75, "KQK")], 65: [(75, "KQK")], 66: [(75, "KQK")], 67: [(75, "KQK")],
+         68: [(74, "KQK")], 69: [(74, "KQK")], 70: [(74, "KQK")], 71: [(74, "KQK")], 72: [(74, "KQK")],
+         73: [(74, "KQK")], 74: [(74, "KQK")], 75: [(74, "KQK")], 76: [(74, "KQK")]}
+# the gold hook from the blossom over to the right and back down to the lantern's link
+HOOK46 = {57: [(79, "GY")], 58: [(80, "Y")], 59: [(77, "GKKG")], 60: [(78, "gG")], 61: [(78, "G")], 62: [(77, "KgK")]}
+CURL46 = {
+    65: [(56, "KLffK")],
+    66: [(56, "KfzfK")],
+    67: [(56, "KffFK")],
+    68: [(56, "KKFFK")],
+    69: [(57, "KhfKh")],
+    70: [(57, "KhFhh")],
+    71: [(56, "KHhfK")],
+    72: [(56, "KHhfK")],
+    73: [(56, "KHhGK")],
+    74: [(55, "KHHhYK")],
+}
+
+TORSO46 = {
+    76: [(61, "KFFfKKssKKfFKKQK.")],
+    77: [(61, "KsFfFdssdfFfKKQK.")],
+    78: [(61, "KssfFfPfFfsffssK.")],
+    79: [(61, "KsdFfHHfFfsFfdsK.")],
+    80: [(61, "KsdfFfhFfssdKQK..")],
+    81: [(61, "KdssssssdKKsssK..")],
+    82: [(61, "KssFfFfssssdsK...")],
+    83: [(61, "KKdsssdKKKQK.....")],
+    84: [(61, "FfFfFfFfFKQK")],
+    85: [(60, "KfFfFfFfFfKQKKKK")],
+    86: [(60, "FfFfOOFfFFKQKKffK")],
+    87: [(69, "KKQKCCF")],
+    88: [(68, "KKQK")],
+}
+LEGS46 = {
+    90: [(51, "KbaObOOObCCCCbOOObbCbbaK")],
+    91: [(50, ".KbaKKOObK....KOObK.KbbaK...")],
+    92: [(50, ".KbaK.KObK.....KObK..KbaK...")],
+    93: [(50, ".KbaK.KObK.....KObK..KbaK...")],
+    94: [(50, ".KbaK..KObK....KObK..KbaK...")],
+    95: [(50, ".KbaK..KObK....KObK..KbaK...")],
+    96: [(50, ".KbaK..KObK....KObK..KbaK...")],
+    97: [(50, ".KeeVK.KeeVK...KeeVK.KeeVK..")],
+    98: [(50, ".KueeK.KueeK...KueeK.KueeK..")],
+    99: [(50, "..KKK...KKK.....KKK...KKK...")],
+}
+LANTERN46 = {
+    62: [(77, "KgK...")],
+    63: [(77, "KKHK..")],
+    64: [(77, "KFHPK.")],
+    65: [(77, "KGGGK.")],
+    66: [(77, "KYYObK")],
+    67: [(76, "KYYgOObK")],
+    68: [(76, "KYOgOgbK")],
+    69: [(76, "KOOgOgbK")],
+    70: [(76, "KbOgObaK")],
+    71: [(76, "KKbGGbKK")],
+    72: [(77, "KKGgKK")],
+    73: [(77, ".KYK..")],
+    74: [(77, ".KYK..")],
+    75: [(77, ".KGK..")],
+    76: [(77, ".KGK..")],
+    77: [(77, "..K...")],
+    78: [(78, ".....")],     # the read-back's own tassel below
+    79: [(78, ".....")],
+    80: [(78, ".....")],
+}
+HOCKS46 = {
+    93: [(50, "KbbaK"), (56, "KOObK")],
+    94: [(50, "KbbaK"), (56, "KOObK")],
+    95: [(50, ".KbaK"), (56, ".KObK")],
+}
+FIXES46 = [FACE46, SHAFT46, HOOK46, CURL46, TORSO46, LEGS46, LANTERN46, HOCKS46]
+
+
+def apply_letters(can, edits):
+    """edits {row: [(col, "letters")]} on the canvas: '-' leaves a square, '.' clears it."""
+    out = can.copy()
+    for y, frags in edits.items():
+        for x0, s in frags:
+            for i, ch in enumerate(s):
+                if ch == "-":
+                    continue
+                if ch == ".":
+                    out[y, x0 + i] = 0
+                    continue
+                out[y, x0 + i, :3] = hx(LETTERS[ch])
+                out[y, x0 + i, 3] = 255
+    return out
+
+
+def recentre(can):
+    """The hooves' middle (bottom two rows) back on MID_COL."""
+    feet = np.nonzero(can[SOLE_ROW - 2:SOLE_ROW, :, 3].max(0) > 0)[0]
+    dx = int(round(MID_COL - (feet.min() + feet.max()) / 2))
+    return np.roll(can, dx, axis=1) if dx else can
+
+
+def design46():
+    can = to_canvas(cut("07", 45))
+    for t in FIXES46:
+        can = apply_letters(can, t)
+    can, _, _ = strips.complete_outline(can, color=OUTLINE, feet=SOLE_ROW + 1)
+    return recentre(can)
+
+
 CANDIDATES = {
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
@@ -322,6 +454,7 @@ CANDIDATES = {
     "B2_cut": lambda: to_canvas(cut("06")), "B2_vote": lambda: to_canvas(vote("06")),
     "B_clean": lambda: cleaned(to_canvas(cut("07")), np.zeros((128, 128), bool))[0],
     "B_polish": polished,
+    "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)),
 }
 
 
