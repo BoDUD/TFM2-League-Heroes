@@ -66,8 +66,9 @@ ARM_SKIN = (hx("#FDDAB8"), hx("#FDDAB8"), hx("#F2B89A"))   # the design's skin l
 HAIR_FILL = hx("#D31865")
 # The coordinates below were measured on the 52-row design (design_seraphine step 8); the design is now shrunk to 42
 # rows (step 9, 「萨勒芬妮在游戏里实在太大了」), so every point goes through design_seraphine.old_to_new() and the arm's
-# bones and poses are scaled by SCALE (the kept figure rows / 42).
-SCALE = len(DS.BODY_ROWS) / 42
+# bones and poses are scaled by SCALE (the kept figure rows / 42; the two hair rows the smaller head dropped,
+# 「萨勒芬妮的头想办法给我缩小一点」, are over her shoulders and do not shorten her arms).
+SCALE = (len(DS.BODY_ROWS) + 2) / 42
 
 
 def _pt(x, y):

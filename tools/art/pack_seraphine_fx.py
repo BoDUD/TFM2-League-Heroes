@@ -296,7 +296,7 @@ GROUPS = [
 ]
 # where the pictures start: (tag, frame, what, marks: "feet" or [(dx, dy) from the standing point, dy from the soles]);
 # the far hand from rig_seraphine.POSES (its shoulder + the pose, the frame's dx; the stage's bottom row 99), on the
-# 45-row design
+# 43-row design (the smaller head)
 SHOTS = [("attack", 4, "a_bolt / a_note: 手（音球从这里飞出）", [(22, -26)]),
          ("skill", 4, "q_note: 手（高音从这里抛出）", [(20, -31)]),
          ("skill2", 3, "e_wave: 手（声波从这里推出）", [(21, -23)]),
