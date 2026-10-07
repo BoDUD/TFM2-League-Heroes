@@ -254,9 +254,21 @@ def trot_spec(i):
     return spec
 
 
+# the girl above her waist follows the deer a frame late (the user: 「莉莉娅移动时上半身有点僵硬」): one row down on
+# the frame after each landing, over the deer's own bob; the leaf skirt (rows 84-85) takes the seam
+GIRL_BOB = [0, 1, 0, 0, 0, 1, 0, 0]
+GIRL_ROWS = 84                        # the girl: rows above this, right of the deer's raised tail
+TAIL_COLS = 57
+
+
 def run_frame(P, i):
     up = lantern_swing(P.full, SWAY[i]).copy()
     up[LEG_TOP:] = 0
+    if GIRL_BOB[i]:
+        girl = np.zeros_like(up)
+        girl[:GIRL_ROWS, TAIL_COLS:] = up[:GIRL_ROWS, TAIL_COLS:]
+        up[:GIRL_ROWS, TAIL_COLS:] = np.where(girl[:GIRL_ROWS, TAIL_COLS:, 3:] > 0, 0, up[:GIRL_ROWS, TAIL_COLS:])
+        up = K.put(up, K.shifted(girl, 0, GIRL_BOB[i]), 0, 0)
     a = figure(P, up, trot_spec(i), BOB[i])
     return done(P, a)
 
