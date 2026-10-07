@@ -322,6 +322,16 @@
                       "name": "league_thresh_w_shield",
                       "duration": "WithShield"
                     }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 150,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_thresh_w_shield"
+                      }
+                    ]
                   }
                 ]
               },

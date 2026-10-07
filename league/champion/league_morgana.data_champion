@@ -658,6 +658,16 @@
                     }
                   },
                   {
+                    "type": "Delayed",
+                    "tick": 300,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_morgana_e_shield"
+                      }
+                    ]
+                  },
+                  {
                     "type": "TargetSfx",
                     "name": "league_morgana_e_shield"
                   }
