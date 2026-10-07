@@ -1,0 +1,348 @@
+{
+  "idle": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 6,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true
+  },
+  "run": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 8,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true
+  },
+  "attack": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 5,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true,
+    "leg_pixel_changes": [],
+    "release_anchors": {
+      "near_hand": {
+        "position": [
+          46,
+          57
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "far_hand": {
+        "position": [
+          70,
+          56
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "staff_head": {
+        "position": [
+          43,
+          46
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          212,
+          154,
+          30
+        ]
+      },
+      "claw_core": {
+        "position": [
+          45,
+          39
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          74,
+          216,
+          248
+        ]
+      }
+    }
+  },
+  "skill": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 5,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true,
+    "leg_pixel_changes": [],
+    "release_anchors": {
+      "near_hand": {
+        "position": [
+          44,
+          51
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          11,
+          9,
+          16
+        ]
+      },
+      "far_hand": {
+        "position": [
+          59,
+          65
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "staff_head": {
+        "position": [
+          55,
+          53
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          212,
+          154,
+          30
+        ]
+      },
+      "claw_core": {
+        "position": [
+          39,
+          39
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          74,
+          216,
+          248
+        ]
+      }
+    }
+  },
+  "skill2": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 4,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true,
+    "leg_pixel_changes": [],
+    "release_anchors": {
+      "near_hand": {
+        "position": [
+          47,
+          57
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "far_hand": {
+        "position": [
+          71,
+          58
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "staff_head": {
+        "position": [
+          44,
+          46
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          212,
+          154,
+          30
+        ]
+      },
+      "claw_core": {
+        "position": [
+          68,
+          45
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          74,
+          216,
+          248
+        ]
+      }
+    }
+  },
+  "skill2_e": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 5,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true,
+    "leg_pixel_changes": [],
+    "release_anchors": {
+      "near_hand": {
+        "position": [
+          41,
+          57
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "far_hand": {
+        "position": [
+          62,
+          49
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          30,
+          134,
+          224
+        ]
+      },
+      "staff_head": {
+        "position": [
+          38,
+          46
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          212,
+          154,
+          30
+        ]
+      },
+      "claw_core": {
+        "position": [
+          62,
+          47
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          74,
+          216,
+          248
+        ]
+      }
+    }
+  },
+  "ult": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 5,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true,
+    "release_anchors": {
+      "near_hand": {
+        "position": [
+          44,
+          52
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "far_hand": {
+        "position": [
+          65,
+          49
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          62,
+          66,
+          112
+        ]
+      },
+      "staff_head": {
+        "position": [
+          38,
+          42
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          212,
+          154,
+          30
+        ]
+      },
+      "claw_core": {
+        "position": [
+          45,
+          32
+        ],
+        "opaque_at_marker": true,
+        "rgb": [
+          74,
+          216,
+          248
+        ]
+      }
+    }
+  },
+  "hit": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 2,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true,
+    "leg_pixel_changes": []
+  },
+  "dead": {
+    "dimensions": true,
+    "strict_8x8_blocks": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "frame_count": 8,
+    "unused_cells_empty": true,
+    "feet_line": true,
+    "head_checks_from_build": true,
+    "last_five_frames_equal_relative_to_pivot": true
+  }
+}

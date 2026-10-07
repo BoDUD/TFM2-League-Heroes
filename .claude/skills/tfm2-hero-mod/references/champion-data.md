@@ -1386,6 +1386,8 @@ league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one un
 mage 3.40 and league_lissandra 2.10 in the same batch - no change.
 league_brand (mid, --lane 2, 2026-10-06, Sear's 0.83 s stun after Conflagration, W's pillar on the stunned champion):
 1.73 a game; the base lightning mage 3.40, pyromancer 0.58 and league_xerath 1.17 in the same batch - no change.
+league_viktor (mid, --lane 2, 2026-10-07, Gravity Field's 1.25 s stun after 1.25 s inside, R fired on a crowd-controlled champion):
+1.35 a game; the base lightning mage 3.40 and league_brand 1.58 in the same batch - no change.
 league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only onto a champion already in crowd
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
@@ -3709,6 +3711,38 @@ damage breaking the sleep (League) needs the native add-on addons/league_lillia,
 edge, sleeps the dusted champions with `apply_cc` and clears it when their health and shield drop. As crowd control
 for league_yasuo's R: with her jungling in Yasuo's team, R on champions 1.27 a game (the base
 ninja 0.58, league_leesin 1.67, league_kayn 1.00) - no change.
+
+**Upgrades by level, re-read every life (league_viktor passive, Glorious Evolution).** League counts Hex Fragments
+across deaths; data cannot (death clears a mod's caster buffs), so the four upgrades come by level through
+league_khazix's probe on the attack - with his attack as the gauge: every base mage and league_brand buy only ability
+power items in the SDK (their item events), so a mage's attack is atk + atk_g a level and nothing else. Under 2 ticks
+of `damaged_reduce` 99 and `defence_penetration` 100 a 1-run `AddCasted` `Attack` of 1000000% (100 x his attack after
+the cut; damage over time never crits) against a 3-tick shield halfway below the level. His own Q shield blocks a probe
+(the WithShield guard), so it simply waits. Each life's first attack opens a 900-tick quiet window in which the next
+stage is probed every 40 ticks without the gold flash. In logged games the stages came at levels 3 / 5 / 7 / 9 and came
+back silently after each death.
+
+**A line that starts on the target (league_viktor E, Hextech Ray).** League starts the ray at a chosen point and sweeps
+it on. A `LineRangeProjectile` started in a lob's `end_effects` does NOT start there: its hit segment runs from the
+caster (the lob's spawn; logged `from` = his position, `to` = 70000 ahead) while its view is drawn at the landing point
+(the projectile's x, y) turned from him to it - a short test (length 20000, width 1000) hit only minions beside him and
+never the target 60000 away, with a 3-tick lob too. So the hit is a `RangeProjectile` with a `DirDot` shape on the
+landing point (radius 70000, range 985: a cone about 10 degrees each side opening away from him; the unit standing on
+the point is inside it - the target was hit on 49 of 49 casts; a circle on the point as well hit it twice in a quarter
+of the casts), and the picture is a hitless `LineRangeProjectile` (applied to `Ally`, nothing applied) whose cell is
+twice the ray's length with the beam drawn in its right half from the centre. The aftershock is the same pair in a
+`Delayed` of the `end_effects` (the point is kept).
+
+**A storm that rides a champion and moves on when he dies (league_viktor R, Arcane Storm).** league_annie's Tibbers:
+a lob bursts round the target, then an `AddCasted` (period 60) on him runs a picture over him and a 1-tick lob whose
+circle hits everyone round him. Each run's landing also leaves a hidden `RangePeriodProjectile` (radius r_jump_r, tick
+62, period and first_delay out of reach) whose `end_effects` - applied to every enemy champion inside when it ends -
+move the storm to the first of them when the caster flag `r_live` is missing: the next run renews it, so only a target
+that died since leaves it gone. A 2-tick `r_live` gave false moves (the zone ends a tick or two after the next run):
+6 ticks. The move takes a lock and reads it back in the same tick: a dead caster's flags freeze and nothing can be
+added, so no storm moves (or doubles) while he is dead. Moves nest linearly (the evolved size chosen once at the cast:
+branching on it at every level made the tree exponential, 4 MB); two moves keep the ult at 662 nodes. In 4 logged games
+every move followed a champion's death.
 
 **A native effect that reads the unit a hit landed on (addons/league_fiora_duel, addons/league_vayne_bolts).** Data
 cannot tell which unit a hit is on (league_vayne's Silver Bolts, league_fiora's Vitals both count on the caster). A

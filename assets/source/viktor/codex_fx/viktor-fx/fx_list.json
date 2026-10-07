@@ -1,0 +1,117 @@
+[
+ {
+  "file": "viktor_fx_a_bolt.png",
+  "binding": "view_projectiles `league_viktor_a_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "8 × 5"
+ },
+ {
+  "file": "viktor_fx_a_blast.png",
+  "binding": "view_projectiles `league_viktor_a_blast`（同上；上下对称）",
+  "size": "12 × 8"
+ },
+ {
+  "file": "viktor_fx_a_hit.png",
+  "binding": "view_effects `league_viktor_a_hit`（跟随，画在人物上面；左右对称）",
+  "size": "10"
+ },
+ {
+  "file": "viktor_fx_a_blast_hit.png",
+  "binding": "view_effects `league_viktor_a_blast_hit`（跟随；左右对称）",
+  "size": "16"
+ },
+ {
+  "file": "viktor_fx_q_bolt.png",
+  "binding": "view_projectiles `league_viktor_q_bolt`（朝飞行方向转；上下对称）",
+  "size": "12 × 8"
+ },
+ {
+  "file": "viktor_fx_q_hit.png",
+  "binding": "view_effects `league_viktor_q_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "viktor_fx_q_shield.png",
+  "binding": "view_effects `league_viktor_q_shield`（施法后，不跟随，画在人物上面；左右对称）",
+  "size": "26 × 34"
+ },
+ {
+  "file": "viktor_fx_q_charged.png",
+  "binding": "view_buffs `league_viktor_q_buff`（跟随；左右对称）",
+  "size": "26 × 34"
+ },
+ {
+  "file": "viktor_fx_q_ms.png",
+  "binding": "view_buffs `league_viktor_q_ms`（画在脚下；左右对称）",
+  "size": "18 × 6"
+ },
+ {
+  "file": "viktor_fx_w_field.png",
+  "binding": "view_effects `league_viktor_w_field`（落点上，不旋转，画在人物下面；上下左右都对称）",
+  "size": "64 × 26"
+ },
+ {
+  "file": "viktor_fx_w_burst.png",
+  "binding": "view_effects `league_viktor_w_burst`（落点上，不旋转，画在人物下面；上下左右都对称）",
+  "size": "64 × 26"
+ },
+ {
+  "file": "viktor_fx_w_stun.png",
+  "binding": "view_effects `league_viktor_w_stun`（跟随；左右对称）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "viktor_fx_w_slow.png",
+  "binding": "view_buffs `league_viktor_w_slow`（画在脚下；左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "viktor_fx_evo_slow.png",
+  "binding": "view_buffs `league_viktor_evo_slow`（画在脚下；左右对称）",
+  "size": "14 × 5"
+ },
+ {
+  "file": "viktor_fx_e_ray.png",
+  "binding": "view_projectiles `league_viktor_e_ray`（线的画面：以落点为中心、朝维克托→落点的方向转；**画在格子右半边**；上下对称）",
+  "size": "140 × 26"
+ },
+ {
+  "file": "viktor_fx_e_after.png",
+  "binding": "view_projectiles `league_viktor_e_after`（同 e_ray：格子右半边、上下对称）",
+  "size": "140 × 26"
+ },
+ {
+  "file": "viktor_fx_e_hit.png",
+  "binding": "view_effects `league_viktor_e_hit`（跟随；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "viktor_fx_e_after_hit.png",
+  "binding": "view_effects `league_viktor_e_after_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "viktor_fx_r_land.png",
+  "binding": "view_effects `league_viktor_r_land`（落点上，不旋转，画在人物下面；上下左右都对称）",
+  "size": "64 × 26"
+ },
+ {
+  "file": "viktor_fx_r_storm.png",
+  "binding": "view_effects `league_viktor_r_storm`（跟随英雄，画在人物上面；左右对称）",
+  "size": "60 × 56"
+ },
+ {
+  "file": "viktor_fx_r_storm_big.png",
+  "binding": "view_effects `league_viktor_r_storm_big`（同上；左右对称）",
+  "size": "76 × 64"
+ },
+ {
+  "file": "viktor_fx_r_hit.png",
+  "binding": "view_effects `league_viktor_r_hit`（跟随；左右对称）",
+  "size": "12 × 18"
+ },
+ {
+  "file": "viktor_fx_evo.png",
+  "binding": "view_effects `league_viktor_evo`（施法后，不跟随，画在人物上面；左右对称）",
+  "size": "30 × 44"
+ }
+]

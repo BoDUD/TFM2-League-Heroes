@@ -504,6 +504,13 @@
         "skill": "挥舞枝条，对周围敌人造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>并附上梦尘；外圈的敌人再受到同等的真实伤害。",
         "skill2": "抛出种子，对落点敌人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>。接着<#ff9028ff>惊惶木<>：蓄力重击目标所在处，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>，正中心受到<#ffb900ff>3<>倍。",
         "ult": "所有带梦尘的敌方英雄<#ef5350ff>困倦<><#ffb900ff>1.5秒<>（<#ef5350ff>减速40%<>），随后<#ef5350ff>昏睡<><#ffb900ff>1.5秒<>；她的技能叫醒昏睡者时额外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。"
+      },
+      "league_viktor": {
+        "name": "维克托",
+        "attack": "被动<#ff9028ff>光荣进化<>：<#ffb900ff>3<>级E附带余波，<#ffb900ff>5<>级Q护盾更强并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速30%<>，<#ffb900ff>7<>级技能命中<#ef5350ff>减速20%<>，<#ffb900ff>9<>级风暴变大、转移后持续更久。",
+        "skill": "能量弹造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，获得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<><#e8d44dff>护盾<>；<#ffb900ff>4秒<>内下次普攻额外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>。",
+        "skill2": "先在敌方英雄脚下放<#ff9028ff>重力场<>：<#ef5350ff>减速35%<>，<#ffb900ff>1.25秒<>后场内敌人<#ef5350ff>晕眩1.25秒<>。再从目标处向后方射出海克斯射线，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。",
+        "ult": "风暴落在敌方英雄身上，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，之后<#ffb900ff>6秒<>每秒对周围敌人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法伤害<>，目标阵亡就转移到附近英雄。"
       }
     },
     "skill_name": {
@@ -866,6 +873,11 @@
         "skill1": "飞花挞",
         "skill2": "流涡种",
         "ult": "夜阑谣"
+      },
+      "league_viktor": {
+        "skill1": "虹吸能量",
+        "skill2": "海克斯射线",
+        "ult": "奥术风暴"
       }
     }
   },
@@ -1374,6 +1386,13 @@
         "skill": "揮舞枝枒，對周圍敵人造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>並附上夢境之塵；外圈的敵人再受到同等的真實傷害。",
         "skill2": "拋出種籽，對落點敵人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>。接著<#ff9028ff>拽柯之擊<>：蓄力重擊目標所在處，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>，正中心受到<#ffb900ff>3<>倍。",
         "ult": "所有帶夢境之塵的敵方英雄<#ef5350ff>疲倦<><#ffb900ff>1.5秒<>（<#ef5350ff>緩速40%<>），隨後<#ef5350ff>沉睡<><#ffb900ff>1.5秒<>；她的技能喚醒沉睡者時額外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。"
+      },
+      "league_viktor": {
+        "name": "維克特",
+        "attack": "被動<#ff9028ff>榮光進化<>：<#ffb900ff>3<>級E附帶餘波，<#ffb900ff>5<>級Q護盾更強並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速30%<>，<#ffb900ff>7<>級技能命中<#ef5350ff>緩速20%<>，<#ffb900ff>9<>級風暴變大、轉移後持續更久。",
+        "skill": "能量彈造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，獲得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<><#e8d44dff>護盾<>；<#ffb900ff>4秒<>內下次普攻額外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>。",
+        "skill2": "先在敵方英雄腳下放<#ff9028ff>萬有引力產生裝置<>：<#ef5350ff>緩速35%<>，<#ffb900ff>1.25秒<>後場內敵人<#ef5350ff>暈眩1.25秒<>。再從目標處向後方射出海克斯科技射線，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。",
+        "ult": "風暴落在敵方英雄身上，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，之後<#ffb900ff>6秒<>每秒對周圍敵人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法傷害<>，目標陣亡就轉移到附近英雄。"
       }
     },
     "skill_name": {
@@ -1736,6 +1755,11 @@
         "skill1": "盛綻之舞",
         "skill2": "飛旋種籽",
         "ult": "柔沉夢謠"
+      },
+      "league_viktor": {
+        "skill1": "能量守恆",
+        "skill2": "海克斯科技射線",
+        "ult": "奧術風暴"
       }
     }
   },
@@ -2244,6 +2268,13 @@
         "skill": "Swings her bough: <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and Dream Dust to nearby enemies; those on the edge take the same again as true damage.",
         "skill2": "Lobs a seed: <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> and a <#ef5350ff>40% slow<>. Then <#ff9028ff>Watch Out! Eep!<>: a wound-up strike where the target stood, <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>, <#ffb900ff>3x<> in the center.",
         "ult": "Every enemy champion with Dream Dust turns <#ef5350ff>Drowsy<> (<#ef5350ff>40% slow<>) for <#ffb900ff>1.5s<>, then falls <#ef5350ff>Asleep<> for <#ffb900ff>1.5s<>; her abilities wake sleepers for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> more <#a974ffff>magic damage<>."
+      },
+      "league_viktor": {
+        "name": "Viktor",
+        "attack": "Passive <#ff9028ff>Glorious Evolution<>: at level <#ffb900ff>3<> Hextech Ray leaves an aftershock, at <#ffb900ff>5<> Siphon Power's shield grows and gives <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>, at <#ffb900ff>7<> his spells <#ef5350ff>slow 20%<>, at <#ffb900ff>9<> the storm grows and lasts longer when it moves on.",
+        "skill": "A bolt deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and gives him a <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<> <#e8d44dff>shield<>; his next attack within <#ffb900ff>4s<> deals <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> bonus <#a974ffff>magic damage<>.",
+        "skill2": "First a <#ff9028ff>Gravity Field<> under an enemy champion <#ef5350ff>slows 35%<> and <#ef5350ff>stuns<> enemies still inside after <#ffb900ff>1.25s<> for <#ffb900ff>1.25s<>. Then a Hextech Ray from the target on away from him deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>.",
+        "ult": "A storm lands on an enemy champion for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, then deals <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> a second round him for <#ffb900ff>6s<>, moving on to a champion near when he dies."
       }
     },
     "skill_name": {
@@ -2606,6 +2637,11 @@
         "skill1": "Blooming Blows",
         "skill2": "Swirlseed",
         "ult": "Lilting Lullaby"
+      },
+      "league_viktor": {
+        "skill1": "Siphon Power",
+        "skill2": "Hextech Ray",
+        "ult": "Arcane Storm"
       }
     }
   },
@@ -3114,6 +3150,13 @@
         "skill": "지팡이를 휘둘러 주변 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>와 꿈가루. 가장자리의 적은 같은 양의 고정 피해를 추가로 받습니다.",
         "skill2": "씨앗을 던져 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>40% 둔화<>. 이어서 <#ff9028ff>이익! 쿵!<>: 대상 위치를 강타해 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>, 중심은 <#ffb900ff>3<>배.",
         "ult": "꿈가루가 묻은 모든 적 챔피언이 <#ffb900ff>1.5초<> <#ef5350ff>졸음<>(<#ef5350ff>40% 둔화<>) 후 <#ffb900ff>1.5초<> <#ef5350ff>잠듭니다<>. 릴리아의 스킬로 깨우면 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<> 추가."
+      },
+      "league_viktor": {
+        "name": "빅토르",
+        "attack": "기본 지속 효과 <#ff9028ff>영광스러운 진화<>: <#ffb900ff>3<>레벨 E에 여진, <#ffb900ff>5<>레벨 Q 보호막 강화와 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<>, <#ffb900ff>7<>레벨 스킬 적중 시 <#ef5350ff>20% 둔화<>, <#ffb900ff>9<>레벨 폭풍이 커지고 옮겨 가면 더 오래 유지.",
+        "skill": "에너지 탄이 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>, <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<>의 <#e8d44dff>보호막<>. <#ffb900ff>4초<> 안의 다음 기본 공격이 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 추가 <#a974ffff>마법 피해<>.",
+        "skill2": "먼저 적 챔피언 발밑에 <#ff9028ff>중력장<>: <#ef5350ff>35% 둔화<>, <#ffb900ff>1.25초<> 뒤 안에 남은 적 <#ef5350ff>기절 1.25초<>. 이어서 대상에서 뒤쪽으로 마법공학 광선이 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>.",
+        "ult": "적 챔피언에게 폭풍을 떨어뜨려 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>, 이후 <#ffb900ff>6초<> 동안 매초 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>의 <#a974ffff>마법 피해<>. 대상이 죽으면 근처 챔피언에게 옮겨 감."
       }
     },
     "skill_name": {
@@ -3476,6 +3519,11 @@
         "skill1": "뾰로롱 강타",
         "skill2": "데굴데굴 씨앗",
         "ult": "감미로운 자장가"
+      },
+      "league_viktor": {
+        "skill1": "힘의 흡수",
+        "skill2": "마법공학 광선",
+        "ult": "아케인 폭풍"
       }
     }
   },
@@ -3984,6 +4032,13 @@
         "skill": "大枝を振り、周囲の敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>と夢のかけら。端の敵には同量の確定ダメージを追加。",
         "skill2": "種を投げ<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%スロウ<>。続けて<#ff9028ff>ひゃっ、あぶない！<>：対象地点を強打し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>、中心は<#ffb900ff>3<>倍。",
         "ult": "夢のかけらを受けた敵チャンピオン全員に<#ef5350ff>眠気<><#ffb900ff>1.5秒<>（<#ef5350ff>40%スロウ<>）、その後<#ef5350ff>睡眠<><#ffb900ff>1.5秒<>。リリアのスキルで起こすと<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>追加。"
+      },
+      "league_viktor": {
+        "name": "ビクター",
+        "attack": "パッシブ <#ff9028ff>グロリアス・エヴォリューション<>：<#ffb900ff>3<>レベルでEに余波、<#ffb900ff>5<>レベルでQのシールド強化と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>、<#ffb900ff>7<>レベルでスキルが<#ef5350ff>20%スロウ<>、<#ffb900ff>9<>レベルで嵐が大きく、移ると長持ち。",
+        "skill": "エネルギー弾が<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>、<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<>の<#e8d44dff>シールド<>。<#ffb900ff>4秒<>以内の次の通常攻撃が<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の追加<#a974ffff>魔法ダメージ<>。",
+        "skill2": "まず敵チャンピオンの足元に<#ff9028ff>グラビティフィールド<>：<#ef5350ff>35%スロウ<>、<#ffb900ff>1.25秒<>後に中の敵を<#ef5350ff>1.25秒スタン<>。続けて対象から奥へレイが<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "敵チャンピオンに嵐を落とし<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>6秒<>毎秒周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の<#a974ffff>魔法ダメージ<>。対象が倒れると近くのチャンピオンへ移る。"
       }
     },
     "skill_name": {
@@ -4346,6 +4401,11 @@
         "skill1": "花開く風",
         "skill2": "コロコロの種",
         "ult": "夢見の子守唄"
+      },
+      "league_viktor": {
+        "skill1": "パワーブラスト",
+        "skill2": "ヘクステック レイ",
+        "ult": "アーケインストーム"
       }
     }
   }
