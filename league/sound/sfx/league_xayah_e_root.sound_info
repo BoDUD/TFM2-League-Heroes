@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_xayah_sfx_e_root",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_xayah_vo_root",
+      "volume": 0.8
+    }
+  ]
+}

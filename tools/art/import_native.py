@@ -61,7 +61,9 @@ UNSTEADY = {("rakan", "run")}
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
 # back too: 「永恩 格温 凯尔 恢复到之前的」, then Alistar, Soraka, Blitzcrank: 「牛头 / 索拉卡 / 机器人恢复到之前的」,
 # 2026-10-08), NO_NOD breathes without the head's late nod
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank"}
+# Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
+# shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
+BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -111,6 +113,8 @@ WEAPON_CARRY = {
                 (-41, 0, -99, -6))],   # his staff, head to foot, left of his cloak's red (「维克托武器也变形」)
     "jhin": [({(0x26, 0x2A, 0x3A), (0x4A, 0x54, 0x70), (0xD8, 0x90, 0x2C), (0xA0, 0x58, 0x1A), (0xFF, 0xD8, 0x78), (0x74, 0x85, 0x9E), (0x5A, 0x2E, 0x10), (0xD2, 0xCA, 0xB0)},
               (-13, -1, 6, 99))],
+    # Xayah's two feather blades hanging from the near hand (rig_xayah BLADES: rows -10..-5, columns +14..+19)
+    "xayah": [({(0x5F, 0x0A, 0x3D), (0x76, 0x14, 0x81), (0xB2, 0x15, 0x90), (0xF0, 0x2D, 0x71)}, (-11, -4, 13, 20))],
     # 「诺手待机动作武器变形」: the haft's top (the ball and the brown shaft over his pauldron) and the axe's head by his
     # feet, carried whole with his hands (the haft between runs behind his arm); the head dips like LeBlanc's staff foot
     "darius": [({(0x0B, 0x03, 0x12), (0x06, 0x02, 0x0B), (0x08, 0x03, 0x0E), (0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x4F, 0x3C, 0x3A)},
@@ -226,7 +230,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor"}
+            "lillia", "viktor", "xayah"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -410,6 +414,7 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("seraphine", "idle"): [0, 1, 2, 3, 4, 5],
          # Lillia (design_lillia.py step 10; rig_lillia.py writes the design six times, BOB breathes it)
          ("lillia", "idle"): [0, 0, 0, 0, 0, 0],
+
          # Viktor (Codex's design B, the staff straightened, design_viktor.py; Codex's idle is the design six times)
          ("viktor", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
