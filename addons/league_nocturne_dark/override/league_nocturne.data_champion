@@ -1613,7 +1613,7 @@
       "name": "league_nocturne_dark_veil",
       "anim": "asset/league_nocturne_dark/effects/league_nocturne_dark",
       "tag": "dark",
-      "z": -2,
+      "z": -1,
       "is_follow": false
     }
   ],

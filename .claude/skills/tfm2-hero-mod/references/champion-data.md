@@ -3804,6 +3804,9 @@ slot).
 
 ## 8. Gotchas
 
+**A native view effect played on a fixed map point draws once (league_nocturne_dark 0.4.0 -> 0.4.1, 2026-10-09).** `StableSim::play_view_effect` with `InputTargetV1::pos` at the map centre returned true and the sim logged the veil on every ult, but the client darkened the screen only on the first one (「第一个大是会黑的」). Played on Nocturne (`InputTargetV1::target`, the view `is_follow: false`) every layer shows (15 ults, 45 layers, 「每次都黑了」). Play native pictures on an entity, never on the same point twice.
+
+
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never
   created (league_nocturne W's poll: no zone in the logs, no attack speed in nine games); zones start from a
   projectile's `end_effects` - a hidden 1-tick `ParabolicProjectile` onto the target does it (league_ekko's zones,

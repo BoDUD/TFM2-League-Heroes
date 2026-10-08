@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::ffi::c_void;
 use std::mem::{size_of, zeroed};
 
-use league_nocturne_dark::{FLY_T, LAND_T, MAP_CENTER, VEIL, VEIL_LAYERS, VEIL_STEP};
+use league_nocturne_dark::{FLY_T, LAND_T, VEIL, VEIL_LAYERS, VEIL_STEP};
 use mod_api_stable::*;
 
 struct Unit {
@@ -231,13 +231,13 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
             assert!((FLY_T + 2..FLY_T + 30).all(|t| !w.hidden.contains_key(&t)), "still hidden after the darkness");
             assert!(w.queue.is_empty());
 
-            // 地图暗色：地图中心，叠 VEIL_LAYERS 层、每层隔 VEIL_STEP tick，之后不再播
+            // 暗色：播在魔腾身上，叠 VEIL_LAYERS 层、每层隔 VEIL_STEP tick，之后不再播
             let ticks: Vec<usize> = w.views.iter().map(|v| v.0).collect();
             assert_eq!(ticks, (0..VEIL_LAYERS).map(|k| k * VEIL_STEP).collect::<Vec<_>>());
             for (_, name, caster, at) in &w.views {
                 assert_eq!((name.as_str(), *caster), (VEIL, 0));
-                assert_eq!(at.kind, InputTargetKindV1::Pos.code());
-                assert_eq!((at.x, at.y), MAP_CENTER);
+                assert_eq!(at.kind, InputTargetKindV1::Target.code());
+                assert_eq!(at.target_id, 0);
             }
         }
 

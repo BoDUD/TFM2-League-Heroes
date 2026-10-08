@@ -12,7 +12,7 @@ addons/league_nocturne_dark/override/league_nocturne.data_champion, .../text/cha
     the ult plays - 180 ticks outlasted it: 「魔腾不放大的时候也全队隐身」); the veil pictures, the mist on
     enemies, the flight and the hit stay as they are;
   * a view effect league_nocturne_dark_veil: one 1280 x 1280 frame of translucent night blue
-    (the whole map picture, 128 px border included) shown for 0.75 s under the units (z -2); the
+    (the whole map picture, 128 px border included) shown for 0.75 s under the units (z -1); the
     native code plays it three times at the map centre, a few ticks apart, so the map darkens in
     steps and lightens the same way. It is an ordinary effect event, so it plays in step with the
     match picture (v1 darkened the screen from the client and drifted, see the README);
@@ -122,7 +122,7 @@ def main():
     if any(v.get("name") == VEIL for v in views):
         sys.exit("the main pack already has a %s view effect" % VEIL)
     views.append({"type": "Animation", "name": VEIL, "anim": "asset/%s/%s" % (MOD_ID, VEIL_ANIM),
-                  "tag": VEIL_TAG, "z": -2, "is_follow": False})
+                  "tag": VEIL_TAG, "z": -1, "is_follow": False})
     veil = write_veil()
 
     out = os.path.join(ADDON, "override", "league_nocturne.data_champion")
