@@ -316,6 +316,8 @@ fn drink(sim: &mut StableSim<'_>, me: usize, p: &Params, why: &str) {
 struct Guard {
     p: Params,
     seen: Vec<(usize, f64)>,
+    /// R was armed at the last look (to log the tick it arms: the cast the game shows as an ult).
+    was_armed: bool,
 }
 
 impl Guard {
@@ -348,6 +350,10 @@ impl Guard {
             controlled: controlled(sim, me),
         };
         let why = format!("hp {hp:.0}% (top {top:.0}% in {} ticks){}", self.p.burst_t, if from_hit { " on a hit" } else { "" });
+        if n.armed && !self.was_armed {
+            wlog(format!("{} ARMED: {why}", head(sim, me)));
+        }
+        self.was_armed = n.armed;
         match decide(&self.p, &n) {
             Some(Move::Rage) => rage_with_mark(sim, me, &self.p, &why),
             Some(Move::Drink) => {
@@ -446,6 +452,7 @@ struct UltAi {
     p: Params,
     seen: Vec<(usize, f64)>,
     last_hold: Option<usize>,
+    last_cast: Option<usize>,
 }
 
 impl StablePlayerAi for UltAi {
@@ -472,12 +479,18 @@ impl StablePlayerAi for UltAi {
         let base_target = base.and_then(|b| {
             (InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target)).then_some(b.target.target_id)
         });
-        let (hp, free, danger_near, target, target_pos, line) = {
+        // the AI's own R must never get through (its target or its position missing let it arm R at full health:
+        // the log of 2026-10-08 - 376 of 442 rages armed by the AI itself): every way out below gives another input
+        let stay = |ctx: &mut StableAiContext<'_>| -> Option<InputV1> {
+            let sim = ctx.sim()?;
+            let (x, y) = sim.get_player(player)?.champion()?.pos();
+            Some(InputV1::move_to(x, y))
+        };
+        let Some((hp, free, danger_near, cc, target, target_pos, near_pos, line)) = (|| {
             let sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
             let me = pl.champion()?;
             if !me.is_alive() {
-                self.seen.clear();
                 return None;
             }
             let (now, max) = me.hp();
@@ -494,34 +507,51 @@ impl StablePlayerAi for UltAi {
                 .min_by_key(|e| sim.distance_sq(id, e.id()))
                 .map(|e| e.id());
             let target_pos = base_target.and_then(|t| sim.get_entity(t)).map(|e| e.pos());
-            (hp, free, enemy_near(&sim, id, team, self.p.near), target, target_pos, head(&sim, id))
+            let near_pos = target.and_then(|t| sim.get_entity(t)).map(|e| e.pos());
+            Some((hp, free, enemy_near(&sim, id, team, self.p.near), controlled(&sim, id), target, target_pos, near_pos, head(&sim, id)))
+        })() else {
+            self.seen.clear();
+            return if wants_ult { stay(ctx) } else { None };
         };
         self.seen.retain(|(t, _)| t + self.p.burst_t >= tick);
         self.seen.push((tick, hp));
         let top = self.seen.iter().map(|s| s.1).fold(hp, f64::max);
-        let danger = danger_near && about_to_die(&self.p, hp, top);
-        match ult_plan(wants_ult, danger, free) {
+        let danger = danger_near && !cc && about_to_die(&self.p, hp, top);
+        let cast = target.map(|t| InputV1::action(InputKindV1::Ult, InputTargetV1::target(t)));
+        let plan = match ult_plan(wants_ult, danger, free) {
+            UltPlan::Cast if !cast.is_some_and(|c| ctx.is_valid_input(&c)) => {
+                if wants_ult { UltPlan::Hold } else { UltPlan::Keep }
+            }
+            plan => plan,
+        };
+        match plan {
             UltPlan::Keep => None,
             UltPlan::Cast => {
-                let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(target?));
-                if !ctx.is_valid_input(&input) {
-                    return None;
+                if self.last_cast.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
+                    self.last_cast = Some(tick);
+                    wlog(format!("{line} R CAST: hp {hp:.0}% (top {top:.0}% in {} ticks)", self.p.burst_t));
                 }
-                wlog(format!("{line} R CAST: hp {hp:.0}% (top {top:.0}% in {} ticks)", self.p.burst_t));
-                Some(input)
+                cast
             }
             UltPlan::Hold => {
                 if self.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
                     self.last_hold = Some(tick);
                     wlog(format!("{line} R HELD: hp {hp:.0}%, not about to die"));
                 }
-                let t = base_target?;
-                let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
-                if ctx.is_valid_input(&attack) {
-                    return Some(attack);
+                // attack the AI's target, else the nearest enemy champion; else walk to one; else stand
+                for t in [base_target, target].into_iter().flatten() {
+                    let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+                    if ctx.is_valid_input(&attack) {
+                        return Some(attack);
+                    }
                 }
-                let (x, y) = target_pos?;
-                Some(InputV1::move_to(x, y))
+                for (x, y) in [target_pos, near_pos].into_iter().flatten() {
+                    let walk = InputV1::move_to(x, y);
+                    if ctx.is_valid_input(&walk) {
+                        return Some(walk);
+                    }
+                }
+                stay(ctx)
             }
         }
     }

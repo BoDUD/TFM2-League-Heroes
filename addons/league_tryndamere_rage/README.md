@@ -26,7 +26,8 @@ SDK 模拟里这样开大时他的生命中位数是 75%，一半的阵亡发生
 3. 进游戏，在 MOD 菜单里启用它（含代码的 mod 会弹一次确认），确认排在主包后面，重启游戏。
 4. 看蛮王 R 的说明：开头是「【残血开大测试版】」就说明换上了。
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_tryndamere_rage.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
-   - `R CAST: hp 12% (top 40% in 60 ticks)`：AI 钩子按下 R；`R HELD: hp 100%, not about to die`：AI 想放 R 被拦下（2 秒最多记一次）；
+   - `ARMED: hp 12% (...)`：R 进入待命（游戏里显示为「开大」的那一刻）和当时的生命——应当都在残血；
+   - `R CAST: hp 12% (top 40% in 60 ticks)`：AI 钩子按下 R；`R HELD: hp 100%, not about to die`：AI 想放 R 被拦下（两条都 2 秒最多记一次）；
    - `RAGE: hp 12% (top 40% in 60 ticks)`：开大，当时的生命和 1 秒内最高的生命；
    - `DRINK (hp 27% ...): 3 fury, healed 340 -> …`：喝 Q，几层怒气、回了多少；
    - `DRINK (R ends)`：R 结束时的 Q。
