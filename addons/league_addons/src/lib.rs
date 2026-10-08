@@ -45,6 +45,9 @@ mod nocturne_dark;
 #[path = "../../league_pyke/src/lib.rs"]
 mod pyke;
 #[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_rengar_bush/src/lib.rs"]
+mod rengar_bush;
+#[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_renekton/src/lib.rs"]
 mod renekton;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -64,6 +67,15 @@ mod xinzhao_guard;
 mod zilean_rewind;
 
 pub const ID: &str = "league_addons";
+
+/// A mod has one map hook: Camille's wall reader and Rengar's bush reader both read the map's document.
+struct MapReaders;
+impl StableMapCustomizer for MapReaders {
+    fn customize(&self, mode: Option<GameModeKindV1>, doc: &mut StableJsonDoc<'_>) {
+        camille_wall::WallReader.customize(mode, doc);
+        rengar_bush::BushReader::read(mode, doc);
+    }
+}
 
 fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new(ID);
@@ -85,9 +97,11 @@ fn init(host: &StableHost) -> StableMod {
     lillia::register(host, &mut module);
     kayle::register(host, &mut module);
     vladimir_pool::register(host, &mut module);
+    rengar_bush::register(host, &mut module);
+    module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health, Rengar's leap from the map's bushes.",
     );
     module
 }

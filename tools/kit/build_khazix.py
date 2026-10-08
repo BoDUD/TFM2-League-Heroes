@@ -91,6 +91,9 @@ P = {
     # combos (the user: 「另外加入高手的连招」)
     "eq_t": 150, "qr_t": 150, "re_t": 120,
     "k_hold": 40, "k_read": 4,
+    # the Rengar easter egg (league_rengar's docstring): the marks' life, how near the rival must be, the extra
+    # evolution's attack (it also gives the next stage now; both until he dies)
+    "rv_t": 40, "seen_t": 60, "near_r": 60000, "rv_bonus": 10,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_khazix: its native passive reads his level and the enemy's vision, so the probes
@@ -140,6 +143,15 @@ def refresh(name, tick, **fields):
 
 def buff(name, tick, **fields):
     return {"type": "AddBuff", "buff_state": {"name": n(name), "duration": {"Time": {"tick": tick}}, **fields}}
+
+
+def rsw(buff_name, yes, no=None):
+    """A SwitchByBuff on another kit's buff (the Rengar easter egg's marks), its name as is."""
+    return {"type": "SwitchByBuff", "buff_name": buff_name, "effect_buff": yes, "effect_none": no or NONE}
+
+
+def rbuff(name, tick):
+    return {"type": "AddBuff", "buff_state": {"name": name, "duration": {"Time": {"tick": tick}}}}
 
 
 def delayed(tick, *effects):
@@ -262,12 +274,30 @@ def build(p):
     reset = combine(refresh("e_reset", 2, skill_cooldown_mult=p["reset_mult"], ult_cooldown_mult=-p["reset_mult"]),
                     cview("e_reset"), sfx("e_reset"))
 
+    # the Rengar easter egg: a takedown while he holds `league_rengar_seen` (Rengar, hit by him lately, answered from
+    # near) is Rengar's: the extra evolution - the next stage now and rv_bonus% attack, both until he dies
+    nxt = sw("s3", NONE, sw("s2", flag("s3", None), sw("s1", flag("s2", None), flag("s1", None, range=p["q_evo_range"]))))
+    rival_evo = rsw("league_rengar_seen", sw("rv_evo", NONE, combine(flag("rv_evo", None, attack_mult=p["rv_bonus"]),
+                                                                     nxt, cview("evo"), sfx("evo"), sfx("vo_evo_x"))))
+
     def kill_check(src):
         """On a hit enemy champion, around its damage: the flag before, the living target's clear after, the read on
-        him later (only once Wings evolved). Each source keeps its own flag (league_tristana W)."""
+        him later (the reset once Wings evolved; the easter egg's extra evolution). Each source keeps its own flag
+        (league_tristana W)."""
         k = f"k_{src}"
-        return (sw("s2", refresh(k, p["k_hold"])),
-                sw("s2", combine(casted(3, 1, *rm(k)), on_me(delayed(p["k_read"], sw(k, combine(*rm(k), reset)))))))
+        return (refresh(k, p["k_hold"]),
+                combine(casted(3, 1, *rm(k)),
+                        on_me(delayed(p["k_read"], sw(k, combine(*rm(k), sw("s2", reset), rival_evo))))))
+
+    # Rengar hit me lately (his mark on me): the enemy champions round me learn it (`league_khazix_seen`, Rengar reads
+    # it in his kill check); `league_khazix_near` tells Rengar I am near; his `league_rengar_near` on me: my laugh
+    # and the anger mark, once a life
+    mark = rbuff("league_khazix_rival_hit", p["rv_t"])
+    rival = combine(rsw("league_rengar_rival_hit", around(p["near_r"], "EnemyChampion",
+                                                          [rbuff("league_khazix_seen", p["seen_t"])])),
+                    around(p["near_r"], "EnemyChampion", [rbuff("league_khazix_near", p["seen_t"])]),
+                    sw("met", NONE, rsw("league_rengar_near", combine(flag("met", None), cview("k_meet"),
+                                                                      sfx("vo_rengar")))))
 
     # ------------------------------------------------------------------ evolutions: the level probe
     def threshold(level):
@@ -322,9 +352,9 @@ def build(p):
     def swing_hit():
         return [attack(0, 100), view("a_hit"), tsfx("a_hit")]
 
-    champ_a = [ka_set, proc, ka_read]
+    champ_a = [mark, ka_set, proc, ka_read]
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy",
-                      combine(life, act, step, sfx("a_swing"), *swing_hit(),
+                      combine(life, act, rival, step, sfx("a_swing"), *swing_hit(),
                               homing("a_twin", 100000, 0, "EnemyChampion", champ_a)),
                       atype="BaseAttack", cancel=True)
 
@@ -343,9 +373,9 @@ def build(p):
     claw = sw("i2", homing("q_cut", 100000, 0, "EnemyWithoutTower", plain),
               sw("i1", homing("q_cut_iso", 100000, 0, "EnemyWithoutTower", lonely),
                  homing("q_cut", 100000, 0, "EnemyWithoutTower", plain)))
-    q_champ = homing("q_twin", 100000, 0, "EnemyChampion", [kq_set, on_me(refresh("q_land", p["qr_t"])), kq_read])
+    q_champ = homing("q_twin", 100000, 0, "EnemyChampion", [mark, kq_set, on_me(refresh("q_land", p["qr_t"])), kq_read])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(*rm("i1", "i2"), act, iso_probe, anim("skill", p["q_dur"]), sfx("q_swing"),
+                   combine(*rm("i1", "i2"), act, rival, iso_probe, anim("skill", p["q_dur"]), sfx("q_swing"),
                            voice("vo_q", p),
                            delayed(p["q_at"], claw, q_champ),
                            sw("e_land", combine(*rm("e_land"), weave(p["q_dur"])))))
@@ -357,18 +387,18 @@ def build(p):
     leap_short = {"type": "RushTime", "speed": p["e_speed"], "tick": p["e_short_t"], "range": 1000,
                   "casting_target": "EnemyChampion", "penetrate": True, "applied_effects": []}
     land = combine(cview("e_land"), sfx("e_land"),
-                   around(p["e_rad"], "EnemyChampion", [ke_set, ke_read]),
+                   around(p["e_rad"], "EnemyChampion", [mark, ke_set, ke_read]),
                    around(p["e_rad"], "EnemyWithoutTower", [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"),
                                                            tsfx("e_hit")]),
                    pick(p["e_rad"], "EnemyChampion", on_me(refresh("e_land", p["eq_t"]))))
     spike = combine(sfx("w_throw"),
                     line("w_spike", p["w_speed"], p["w_len"], p["w_rad"], p["w_y"], "EnemyWithoutTower", False,
-                         [pick(1000, "EnemyChampion", kw_set, fp=True),
+                         [pick(1000, "EnemyChampion", mark, kw_set, fp=True),
                           attack(p["w_dmg"], p["w_ratio"]),
                           buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]), view("w_hit"), tsfx("w_hit"),
                           pick(p["w_blast"], "AllyOnlySelf", heal(p["w_heal"], p["w_heal_r"]), cview("w_heal"), fp=True),
                           pick(1000, "EnemyChampion", kw_read, fp=True)]))
-    combo = combine(*rm("e_ok"), act, anim("skill2", p["e_t"] + p["w_t"]), sfx("e_jump"), voice("vo_e", p),
+    combo = combine(*rm("e_ok"), act, rival, anim("skill2", p["e_t"] + p["w_t"]), sfx("e_jump"), voice("vo_e", p),
                     pick(p["e_range"], "EnemyChampion", flag("e_ok", 2)),
                     sw("s2", leap_full, sw("e_ok", leap_full, leap_short)),
                     delayed(p["e_t"], land),
@@ -390,7 +420,7 @@ def build(p):
                   combine(*rm("r_c1", "r_c2"))),
                combine(flag("r_c1", None), r_refund))
     ult = action("ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(act, anim("ult", p["r_anim"]), hide, casts,
+                 combine(act, rival, anim("ult", p["r_anim"]), hide, casts,
                          sw("q_land", combine(*rm("q_land"), weave(p["r_anim"])))))
 
     # ------------------------------------------------------------------ views
@@ -404,7 +434,8 @@ def build(p):
     views_p = [P_("w_spike")]
     views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("q_iso_hit", BIG), E("e_land", BIG, -1, False), E("e_hit"),
                E("w_hit"), E("w_heal", FX, 3, False), E("r_cast", BIG, 3), E("p_ready", FX, 3, False),
-               E("e_reset", FX, 3, False), E("evo", BIG, 3, False)]
+               E("e_reset", FX, 3, False), E("evo", BIG, 3, False),
+               {**E("k_meet", "asset/league/effects/league_rengar_fx", 4, False)}]     # Rengar's anger mark
     slow = lambda name: {**B_(name, FX, -1), "tag": "slow"}     # one picture for both slows
     views_b = [B_("ut", FX, 3), slow("p_slow"), slow("w_slow"), B_("r_on", BIG, 2)]
     extra = {}

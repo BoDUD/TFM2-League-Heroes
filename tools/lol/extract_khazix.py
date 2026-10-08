@@ -58,6 +58,10 @@ CLIPS = {
     "league_khazix_sfx_vo_evo_q": (V + "KhazixQEvo_cast3D", 1201279788, 2.5, -3),
     "league_khazix_sfx_vo_evo_e": (V + "KhazixEEvo_cast3D", 652586847, 2.7, -3),
     "league_khazix_sfx_vo_evo_r": (V + "KhazixREvo_cast3D", 2049473451, 3.2, -3),
+    # the Rengar easter egg: another evolution line (the W evolution's, unused by the three) for the extra evolution,
+    # a laugh when he first meets Rengar
+    "league_khazix_sfx_vo_evo_x": (V + "KhazixWEvo_cast3D", 1030460470, 3.5, -3),
+    "league_khazix_sfx_vo_rengar": (V + "Laugh3DGeneral", 1744272967, 2.6, -4),
 }
 ICONS = {  # TFM2 slot -> Riot icon (the _red ones are the evolved icons)
     "league_khazix_skill": "ASSETS/Characters/KhaZix/HUD/Icons2D/Khazix_Q.dds",

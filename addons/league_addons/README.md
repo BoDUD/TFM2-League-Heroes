@@ -7,7 +7,7 @@
 
 - 游戏一个 mod 只加载一个 DLL（`<mod_id>.dll`），所以不能把几个附加包的 DLL 放进同一个文件夹。这里把各附加包的源码当模块编进
   `league_addons.dll`（`src/lib.rs` 的 `#[path]`），每个附加包的 `register` 把自己的原生效果、被动、AI 钩子和地图读取注册进同一个
-  `StableMod`。SDK 里这些都是列表（地图读取只有一个，只有钩墙用），名字只是约定加前缀，所以名字照旧（`league_nocturne_dark:start`
+  `StableMod`。SDK 里这些都是列表（地图读取只有一个：合集的 `MapReaders` 先调卡密尔的读墙、再调雷恩加尔的读草丛），名字只是约定加前缀，所以名字照旧（`league_nocturne_dark:start`
   等），各附加包的英雄数据原样可用。
 - `build.rs` 打开 `league_bundle`：各附加包源码里的 `declare_stable_mod!` 只在单独编译时生效，合集只导出自己的入口。
   单独编译每个附加包还是它自己的 DLL（`cargo build --release` 一次全编）。
