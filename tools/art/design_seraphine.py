@@ -25,7 +25,8 @@ at 46 and 52) went to the user, who picked the region cut at 52 (「E 分区删�
      rounds, gold kept), then outline squares that join no line take their neighbours' colour;
   9. shrunk (「萨勒芬妮在游戏里实在太大了」, 「还有感觉有点胖啊模型」): the figure 39 rows by whole rows
      (the head 18 of them), 6 columns from the back hair and 2 a side from the shoulders down, the crown rounded (DOME),
-     the stage drawn again at 24 x 6; old_to_new() maps a point of step 8 for tools/art/rig_seraphine.py.
+     the stage drawn again at 24 x 6; old_to_new() maps a point of step 8 for tools/art/rig_seraphine.py;
+ 10. the jaw tapered over three rows and the crown drawn again with the picture's curl (JAW, CROWN, head_fix).
 --check compares the result with the committed seraphine_native.png instead of writing it.
 """
 import argparse
@@ -244,6 +245,44 @@ DOME_CX, DOME_RX, DOME_RY = 66.5, 12.5, 6
 # 90: outline where its lilac shade square was) - the shade square back and the outline one column out, as the rows above
 SOCK = {(70, 90): "#cfcbe4", (71, 90): "#0d0222"}
 BODY_TOP = SOLE_ROW + 1 - 6 - len(BODY_ROWS)             # the figure's new top row; its feet on row 93, the deck under
+# step 10 (2026-10-08, 「帮我修复一下萨勒芬妮的头部吧 也看着像正方形」, then pointing at the crown: 「头这里有点怪 可能是发型
+#怪？」; the user picked 「S1 + crown」): the face, 13 squares wide with straight sides from the eyes to the mouth, tapers
+# over three rows (JAW: the skin squares outside each row's span take the outline, or on row 69 the hair beside them):
+# 13 -> 11 -> 9 -> 6 down to the chin; the crown (rows 54-60, cols 59-74 - the picture's curl had been cut to a flat
+# dark-maroon block on a flat top row) is drawn again after picture A (CROWN): a round dome in the hair's pinks, the
+# pink curl on its top-left hooking back to the left. Rows 61 down besides the jaw, the fins (cols 75-78) and the
+# fringe stay.
+JAW = {69: (63, 73), 70: (64, 72), 71: (66, 71)}
+JAW_SKIN = "#fddab8"
+CROWN = {   # row: {col: colour key}; every other square of cols 59-74 on these rows is cleared
+    54: {60: "I", 61: "I", 62: "I", 63: "I"},
+    55: {59: "I", 60: "E", 61: "H", 62: "H", 63: "E", 64: "I"},
+    56: {59: "I", 60: "S", 61: "I", 62: "I", 63: "E", 64: "I"},
+    57: {60: "I", 62: "I", 63: "E", 64: "I", 65: "I", 66: "I", 67: "I", 68: "I", 69: "I", 70: "I"},
+    58: {62: "I", 63: "H", 64: "H", 65: "H", 66: "E", 67: "E", 68: "E", 69: "E", 70: "M", 71: "S", 72: "I"},
+    59: {60: "I", 61: "E", 62: "H", 63: "H", 64: "E", 65: "E", 66: "E", 67: "E", 68: "E", 69: "E", 70: "M", 71: "S",
+         72: "S", 73: "I"},
+    60: {59: "I", 60: "E", 61: "E", 62: "H", 63: "E", 64: "E", 65: "E", 66: "E", 67: "E", 68: "E", 69: "E", 70: "E",
+         71: "M", 72: "S", 73: "S", 74: "I"},
+}
+CROWN_C = {"I": "#0d0222", "E": "#fc3581", "H": "#fc4187", "M": "#d11563", "S": "#c81260"}
+
+
+def head_fix(out):
+    """Step 10: the jaw's taper and the crown (JAW, CROWN)."""
+    skin = hx(JAW_SKIN)
+    ink = hx(CROWN_C["I"])
+    for r, (lo, hi) in JAW.items():
+        for x in range(60, 77):
+            if tuple(int(v) for v in out[r, x, :3]) == skin and out[r, x, 3] and not lo <= x <= hi:
+                side = out[r, x - 1] if x < lo else out[r, x + 1]
+                col = ink if tuple(int(v) for v in side[:3]) == ink or r >= 70 else tuple(int(v) for v in side[:3])
+                out[r, x] = (*col, 255)
+    for r, row in CROWN.items():
+        out[r, 59:75] = 0
+        for x, k in row.items():
+            out[r, x] = (*hx(CROWN_C[k]), 255)
+    return out
 
 
 def kept_cols(r):
@@ -304,7 +343,7 @@ def shrink(can, outline):
     out, _, _ = strips.complete_outline(out, color=outline, feet=SOLE_ROW)
     for (x, y), c in SOCK.items():
         out[y, x] = (int(c[1:3], 16), int(c[3:5], 16), int(c[5:7], 16), 255)
-    return out
+    return head_fix(out)
 
 
 def main():
