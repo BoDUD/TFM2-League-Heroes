@@ -624,6 +624,13 @@ BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
 TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"}
+# heroes players found too big (2026-10-08: league_xinzhao): the finished frames lose whole rows and columns, never
+# resampled (shrink_frames.py), as the last step before the sheet is written
+SHRINK = {"xinzhao": 0.9}
+# their skin colours: no row or column through a hand (a small piece of skin) is taken out (「赵兴的手还是丢失了啊」);
+# "!" colours: no line through the box from the first to the last of them, "+up,down,left,right" grows it - Xin Zhao's
+# eye glint grown to his whole face (rows -12/-10 had cut it: 「缩小后这里脸变形」)
+SHRINK_KEEP = {"xinzhao": ["F3B786", "BB7656", "!D5C9C6+6,4,9,8"]}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -908,6 +915,7 @@ def build(hero):
 
 
 HEAD_AT = {}
+SHRUNK = {}
 
 
 def breathe_idle(hero, sheet):
@@ -1420,6 +1428,17 @@ def main():
                   f"nod {'px %.0f' % rows['neck_cost'] if rows['neck'] is not None else 'OFF'})")
         for tag, fx in bake(hero, sheet).items():
             print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
+        if hero in SHRINK:
+            import shrink_frames as SF
+            bake_path = os.path.join(SRC, f"{hero}_bake.json")
+            copies = {}
+            if os.path.exists(bake_path):
+                with open(bake_path, encoding="utf-8") as f:
+                    copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
+            plans = SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, keep_colours=SHRINK_KEEP.get(hero, ()))
+            SHRUNK[hero] = plans
+            print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
+                f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         forms = form_sheets(hero, sheet)
         for name, fsheet in forms.items():
