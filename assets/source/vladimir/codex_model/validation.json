@@ -1,0 +1,54 @@
+[
+  {
+    "version": 1,
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      52,
+      60,
+      76,
+      100
+    ],
+    "height": 40,
+    "width": 24,
+    "colors": 22,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "sole_row": 99,
+    "eyes_row": 71
+  },
+  {
+    "version": 2,
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      52,
+      63,
+      76,
+      100
+    ],
+    "height": 37,
+    "width": 24,
+    "colors": 22,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "sole_row": 99,
+    "eyes_row": 71
+  }
+]

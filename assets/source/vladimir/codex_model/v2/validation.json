@@ -1,0 +1,38 @@
+[
+  {
+    "version": 1,
+    "height": 40,
+    "width": 24,
+    "bbox_1x": [
+      51,
+      60,
+      75,
+      100
+    ],
+    "colors": 20,
+    "alpha": [
+      0,
+      255
+    ],
+    "sole_row": 99,
+    "construction": "native grid; no large image resampling"
+  },
+  {
+    "version": 2,
+    "height": 37,
+    "width": 24,
+    "bbox_1x": [
+      51,
+      63,
+      75,
+      100
+    ],
+    "colors": 20,
+    "alpha": [
+      0,
+      255
+    ],
+    "sole_row": 99,
+    "construction": "native grid; no large image resampling"
+  }
+]

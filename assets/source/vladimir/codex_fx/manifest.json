@@ -1,0 +1,2118 @@
+{
+  "version": 1,
+  "delivery_mode": "generated sources accepted by supplied brief",
+  "coordinate_units": "source PNG pixels",
+  "frame_order": "one row left to right",
+  "import_notes": [
+    "Use explicit rects; some generated gutters are uneven.",
+    "Rects retain full source height and transparent margins. Do not scale the full source cell blindly to game_size.",
+    "Fit visible effect content to the intended logical footprint, preserving one shared anchor across frames.",
+    "Source RGB and alpha need importer palette/edge normalization; the supplied brief explicitly accepts imagegen sources."
+  ],
+  "assets": [
+    {
+      "file": "vladimir_fx_a_bolt.png",
+      "prompt_number": 1,
+      "kind": "generated_source",
+      "binding": "view_projectiles `league_vladimir_a_bolt`（循环，朝飞行方向转）",
+      "game_size": "10 × 6",
+      "loop": true,
+      "canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        576,
+        128
+      ],
+      "requested_cell": [
+        192,
+        128
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            48,
+            249,
+            692,
+            454
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            72,
+            231,
+            693,
+            464
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            37,
+            245,
+            692,
+            451
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        724,
+        1448,
+        2172
+      ],
+      "preview": "previews/vladimir_fx_a_bolt.gif",
+      "sha256": "df34c668d9e3144449e53f2c3b6e7b2ddb75f4addcf4e122feb7f90eb46d2d82",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_a_hit.png",
+      "prompt_number": 2,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_a_hit`（跟随，画在人物上面）",
+      "game_size": "12",
+      "loop": false,
+      "canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        768,
+        192
+      ],
+      "requested_cell": [
+        192,
+        192
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            190,
+            293,
+            349,
+            446
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            24,
+            155,
+            486,
+            533
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            16,
+            117,
+            518,
+            549
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            288,
+            242,
+            365,
+            482
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        543,
+        1086,
+        1629,
+        2172
+      ],
+      "preview": "previews/vladimir_fx_a_hit.gif",
+      "sha256": "5e77c25f8ff654763b071b5f815c840fdaf6524da821866de1d4b22f72fd140b",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_q_drain.png",
+      "prompt_number": 3,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_q_drain`（跟随，画在人物上面）",
+      "game_size": "16 × 20",
+      "loop": false,
+      "canvas": [
+        1983,
+        793
+      ],
+      "requested_canvas": [
+        1280,
+        320
+      ],
+      "requested_cell": [
+        256,
+        320
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            58,
+            265,
+            330,
+            531
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            38,
+            214,
+            357,
+            553
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            42,
+            227,
+            354,
+            549
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            35,
+            214,
+            363,
+            560
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            59,
+            260,
+            331,
+            538
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        397,
+        793,
+        1190,
+        1586,
+        1983
+      ],
+      "preview": "previews/vladimir_fx_q_drain.gif",
+      "sha256": "298818168deeb3e55187c0276c7de75339f4f5d8a380fe6e224c06c9b449377c",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_q_orb.png",
+      "prompt_number": 4,
+      "kind": "generated_source",
+      "binding": "view_projectiles `league_vladimir_q_orb`（循环，朝飞行方向转）",
+      "game_size": "12 × 8",
+      "loop": true,
+      "canvas": [
+        2079,
+        756
+      ],
+      "requested_canvas": [
+        896,
+        160
+      ],
+      "requested_cell": [
+        224,
+        160
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            520,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            16,
+            244,
+            480,
+            497
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            520,
+            0,
+            519,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            22,
+            205,
+            460,
+            508
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1039,
+            0,
+            520,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            18,
+            244,
+            463,
+            508
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1559,
+            0,
+            520,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            18,
+            243,
+            483,
+            497
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        520,
+        1039,
+        1559,
+        2079
+      ],
+      "preview": "previews/vladimir_fx_q_orb.gif",
+      "sha256": "8e79149e5fc970f5d8f93d38f9dba434851c460e3f9e94433ffa8c57b6514f1a",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_q_rush.png",
+      "prompt_number": 5,
+      "kind": "generated_source",
+      "binding": "view_projectiles `league_vladimir_q_rush`（循环，朝飞行方向转；第二次 Q 和连招一用）",
+      "game_size": "16 × 10",
+      "loop": true,
+      "canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1152,
+        192
+      ],
+      "requested_cell": [
+        288,
+        192
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            0,
+            193,
+            531,
+            531
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            20,
+            184,
+            535,
+            531
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            38,
+            192,
+            537,
+            515
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            20,
+            192,
+            538,
+            531
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        543,
+        1086,
+        1629,
+        2172
+      ],
+      "preview": "previews/vladimir_fx_q_rush.gif",
+      "sha256": "7229f791ed48e65c50e03b5c153a209bf007722d6094fe3e1b9cf6725a74ca38",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_q_heal.png",
+      "prompt_number": 6,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_q_heal`（跟随，画在人物上面）",
+      "game_size": "18 × 24",
+      "loop": false,
+      "canvas": [
+        2103,
+        748
+      ],
+      "requested_canvas": [
+        1440,
+        384
+      ],
+      "requested_cell": [
+        288,
+        384
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            421,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            86,
+            301,
+            357,
+            551
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            421,
+            0,
+            420,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            30,
+            185,
+            408,
+            626
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            841,
+            0,
+            421,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            33,
+            105,
+            389,
+            644
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1262,
+            0,
+            420,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            28,
+            92,
+            393,
+            613
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1682,
+            0,
+            421,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            59,
+            68,
+            354,
+            475
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        421,
+        841,
+        1262,
+        1682,
+        2103
+      ],
+      "preview": "previews/vladimir_fx_q_heal.gif",
+      "sha256": "17d306f62a40f6ee91507c50630e1cc80e6235d9cb9aad03f5de68ce6bda1efb",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_q_ready.png",
+      "prompt_number": 7,
+      "kind": "generated_source",
+      "binding": "view_buffs `league_vladimir_q_ready`（循环，画在人物下面；下一个 Q 是强化的时候一直在）",
+      "game_size": "20 × 8",
+      "loop": true,
+      "canvas": [
+        1983,
+        793
+      ],
+      "requested_canvas": [
+        1280,
+        128
+      ],
+      "requested_cell": [
+        320,
+        128
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            30,
+            314,
+            469,
+            510
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            32,
+            290,
+            467,
+            510
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            30,
+            230,
+            465,
+            510
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            29,
+            314,
+            466,
+            510
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        496,
+        991,
+        1487,
+        1983
+      ],
+      "preview": "previews/vladimir_fx_q_ready.gif",
+      "sha256": "c962590f7ecd3c32a8cf7661af655df5c855ec82c30d916d4e0faa2045a20315",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_e_charge.png",
+      "prompt_number": 8,
+      "kind": "generated_source",
+      "binding": "view_buffs `league_vladimir_e_charge`（循环，画在人物上面；蓄力的 1 秒里）",
+      "game_size": "28 × 30",
+      "loop": true,
+      "canvas": [
+        2089,
+        753
+      ],
+      "requested_canvas": [
+        1792,
+        480
+      ],
+      "requested_cell": [
+        448,
+        480
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            522,
+            753
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            26,
+            65,
+            505,
+            648
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            522,
+            0,
+            522,
+            753
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            19,
+            65,
+            503,
+            652
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1044,
+            0,
+            523,
+            753
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            20,
+            65,
+            505,
+            652
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1567,
+            0,
+            522,
+            753
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            18,
+            65,
+            503,
+            648
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        522,
+        1044,
+        1567,
+        2089
+      ],
+      "preview": "previews/vladimir_fx_e_charge.gif",
+      "sha256": "94b917a61cd0d61c85f6bce8e271c0def499977faef992cdb90b7916f5fd660d",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_e_burst.png",
+      "prompt_number": 9,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_e_burst`（BIG，跟随，画在人物上面；释放的那一下，连招二、三也用）",
+      "game_size": "44 × 30",
+      "loop": false,
+      "canvas": [
+        2176,
+        722
+      ],
+      "requested_canvas": [
+        1760,
+        240
+      ],
+      "requested_cell": [
+        352,
+        240
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            326,
+            722
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            46,
+            267,
+            279,
+            463
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            326,
+            0,
+            466,
+            722
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            261,
+            419,
+            480
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            792,
+            0,
+            516,
+            722
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            202,
+            514,
+            511
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1308,
+            0,
+            451,
+            722
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            43,
+            228,
+            449,
+            492
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1759,
+            0,
+            417,
+            722
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            47,
+            294,
+            388,
+            464
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        326,
+        792,
+        1308,
+        1759,
+        2176
+      ],
+      "preview": "previews/vladimir_fx_e_burst.gif",
+      "sha256": "8651ba5dc90f11fc4efb4f0a2e6b64ddff6cb7e925e6f07bf61190684dd4b0af",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_e_bolt.png",
+      "prompt_number": 10,
+      "kind": "generated_source",
+      "binding": "view_projectiles `league_vladimir_e_bolt`（循环，朝飞行方向转；一圈 8 颗往外飞）",
+      "game_size": "10 × 6",
+      "loop": true,
+      "canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        576,
+        128
+      ],
+      "requested_cell": [
+        192,
+        128
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            73,
+            196,
+            714,
+            506
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            107,
+            204,
+            691,
+            506
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            124,
+            222,
+            685,
+            489
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        724,
+        1448,
+        2172
+      ],
+      "preview": "previews/vladimir_fx_e_bolt.gif",
+      "sha256": "d911ea78e228f02d8e61c96c1a00bf3bb524a80a9696913bed93c8133506bd3b",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_e_hit.png",
+      "prompt_number": 11,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_e_hit`（跟随，画在人物上面）",
+      "game_size": "14",
+      "loop": false,
+      "canvas": [
+        2079,
+        756
+      ],
+      "requested_canvas": [
+        896,
+        224
+      ],
+      "requested_cell": [
+        224,
+        224
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            503,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            85,
+            228,
+            381,
+            525
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            503,
+            0,
+            536,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            141,
+            491,
+            605
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1039,
+            0,
+            520,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            22,
+            152,
+            500,
+            597
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1559,
+            0,
+            520,
+            756
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            64,
+            197,
+            470,
+            553
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        503,
+        1039,
+        1559,
+        2079
+      ],
+      "preview": "previews/vladimir_fx_e_hit.gif",
+      "sha256": "e7911066cf2155a4b22f0402a3635627a71e162475007fb1f878e71e34a2c03f",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_w_splash.png",
+      "prompt_number": 12,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_w_splash`（BIG，画在人物上面；进池和出池各放一次）",
+      "game_size": "36 × 24",
+      "loop": false,
+      "canvas": [
+        2103,
+        748
+      ],
+      "requested_canvas": [
+        1440,
+        192
+      ],
+      "requested_cell": [
+        288,
+        192
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            375,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            25,
+            480,
+            353,
+            559
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            375,
+            0,
+            393,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            207,
+            359,
+            560
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            566,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            163,
+            564,
+            566
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1334,
+            0,
+            367,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            15,
+            249,
+            365,
+            566
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1701,
+            0,
+            402,
+            748
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            4,
+            408,
+            362,
+            559
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        375,
+        768,
+        1334,
+        1701,
+        2103
+      ],
+      "preview": "previews/vladimir_fx_w_splash.gif",
+      "sha256": "a987b0e43eaac1b2893cd29e85e3be6390d5d73cba80dde7f5ffad1f5452e55e",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_w_pool.png",
+      "prompt_number": 13,
+      "kind": "generated_source",
+      "binding": "view_buffs `league_vladimir_w_pool`（循环，BIG，画在人物下面；2 秒，就是减速吸血的范围）",
+      "game_size": "40 × 20",
+      "loop": true,
+      "canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        1920,
+        160
+      ],
+      "requested_cell": [
+        320,
+        160
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            19,
+            314,
+            355,
+            433
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            17,
+            260,
+            353,
+            433
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            15,
+            271,
+            351,
+            433
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            12,
+            314,
+            349,
+            433
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            11,
+            260,
+            346,
+            433
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            8,
+            271,
+            343,
+            433
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        362,
+        724,
+        1086,
+        1448,
+        1810,
+        2172
+      ],
+      "preview": "previews/vladimir_fx_w_pool.gif",
+      "sha256": "e949013fe3598cd1b42d1ecacc9d7439e9515e6319540118a7bc4949aa87644f",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_w_drain.png",
+      "prompt_number": 14,
+      "kind": "generated_source",
+      "binding": "view_buffs `league_vladimir_w_drain`（循环，画在人物上面；站在血池里的敌人身上）",
+      "game_size": "14 × 22",
+      "loop": true,
+      "canvas": [
+        1997,
+        788
+      ],
+      "requested_canvas": [
+        896,
+        352
+      ],
+      "requested_cell": [
+        224,
+        352
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            499,
+            788
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            58,
+            81,
+            475,
+            689
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            499,
+            0,
+            499,
+            788
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            42,
+            81,
+            470,
+            689
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            998,
+            0,
+            500,
+            788
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            32,
+            81,
+            451,
+            689
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1498,
+            0,
+            499,
+            788
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            29,
+            81,
+            449,
+            689
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        499,
+        998,
+        1498,
+        1997
+      ],
+      "preview": "previews/vladimir_fx_w_drain.gif",
+      "sha256": "9ae5a4e3e6dc662dda13e392c08be68cc06646d860992cba647eea4b752c2d9f",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_r_cloud.png",
+      "prompt_number": 15,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_r_cloud`（BIG，画在人物上面；施法点）",
+      "game_size": "52 × 34",
+      "loop": false,
+      "canvas": [
+        2115,
+        743
+      ],
+      "requested_canvas": [
+        2912,
+        272
+      ],
+      "requested_cell": [
+        416,
+        272
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            193,
+            743
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            33,
+            516,
+            142,
+            604
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            193,
+            0,
+            311,
+            743
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            405,
+            307,
+            604
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            504,
+            0,
+            440,
+            743
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            232,
+            438,
+            604
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            944,
+            0,
+            337,
+            743
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            5,
+            283,
+            335,
+            610
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1281,
+            0,
+            292,
+            743
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            4,
+            331,
+            290,
+            604
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1573,
+            0,
+            289,
+            743
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            376,
+            287,
+            607
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1862,
+            0,
+            253,
+            743
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            28,
+            448,
+            230,
+            604
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        193,
+        504,
+        944,
+        1281,
+        1573,
+        1862,
+        2115
+      ],
+      "preview": "previews/vladimir_fx_r_cloud.gif",
+      "sha256": "7f76e52fc746dedaa096f77cfaa3eae274723d61683c9e86c25a9f888ecc421b",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_r_mark.png",
+      "prompt_number": 16,
+      "kind": "generated_source",
+      "binding": "view_buffs `league_vladimir_r_mark`（循环，画在人物上面；3 秒，受到伤害 +10%）",
+      "game_size": "16 × 28",
+      "loop": true,
+      "canvas": [
+        1895,
+        830
+      ],
+      "requested_canvas": [
+        1024,
+        448
+      ],
+      "requested_cell": [
+        256,
+        448
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            474,
+            830
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            31,
+            52,
+            447,
+            749
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            474,
+            0,
+            473,
+            830
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            11,
+            65,
+            460,
+            749
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            947,
+            0,
+            474,
+            830
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            13,
+            62,
+            462,
+            749
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1421,
+            0,
+            474,
+            830
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            27,
+            56,
+            443,
+            749
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        474,
+        947,
+        1421,
+        1895
+      ],
+      "preview": "previews/vladimir_fx_r_mark.gif",
+      "sha256": "7a2c0ca08ae85024460eba6a361e0e0f275314da3d8707a2ee133bcd81fc48df",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_r_burst.png",
+      "prompt_number": 17,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_r_burst`（跟随，画在人物上面；3 秒后）",
+      "game_size": "24 × 30",
+      "loop": false,
+      "canvas": [
+        2172,
+        724
+      ],
+      "requested_canvas": [
+        2304,
+        480
+      ],
+      "requested_cell": [
+        384,
+        480
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            326,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            47,
+            261,
+            257,
+            472
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            326,
+            0,
+            367,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            174,
+            344,
+            537
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            693,
+            0,
+            395,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            3,
+            79,
+            393,
+            656
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1088,
+            0,
+            383,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            23,
+            164,
+            381,
+            600
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1471,
+            0,
+            348,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            46,
+            207,
+            346,
+            545
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1819,
+            0,
+            353,
+            724
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            107,
+            295,
+            296,
+            512
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        326,
+        693,
+        1088,
+        1471,
+        1819,
+        2172
+      ],
+      "preview": "previews/vladimir_fx_r_burst.gif",
+      "sha256": "93b103e2dbf30cf2cfac2c82915d3ecf39f3c282b194ca6d79e8f6bab84a6f7b",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_r_heal.png",
+      "prompt_number": 18,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_r_heal`（跟随，画在人物上面；每打中一个英雄回一次血）",
+      "game_size": "26 × 32",
+      "loop": false,
+      "canvas": [
+        2143,
+        734
+      ],
+      "requested_canvas": [
+        2496,
+        512
+      ],
+      "requested_cell": [
+        416,
+        512
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            405,
+            734
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            19,
+            67,
+            403,
+            652
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            405,
+            0,
+            343,
+            734
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            38,
+            82,
+            341,
+            637
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            748,
+            0,
+            329,
+            734
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            64,
+            141,
+            327,
+            550
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1077,
+            0,
+            361,
+            734
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            68,
+            153,
+            359,
+            552
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1438,
+            0,
+            348,
+            734
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            72,
+            91,
+            314,
+            597
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1786,
+            0,
+            357,
+            734
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            100,
+            162,
+            285,
+            564
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        405,
+        748,
+        1077,
+        1438,
+        1786,
+        2143
+      ],
+      "preview": "previews/vladimir_fx_r_heal.gif",
+      "sha256": "b23d3c08ac61d154053c79f66f6762432066fb80fd5f95235dfedc52a11ddaf5",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    },
+    {
+      "file": "vladimir_fx_c_blink.png",
+      "prompt_number": 19,
+      "kind": "generated_source",
+      "binding": "view_effects `league_vladimir_c_blink`（画在人物上面；起点、落点各放一次）",
+      "game_size": "20 × 28",
+      "loop": false,
+      "canvas": [
+        2051,
+        767
+      ],
+      "requested_canvas": [
+        1600,
+        448
+      ],
+      "requested_cell": [
+        320,
+        448
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            410,
+            767
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            20,
+            279,
+            393,
+            715
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            410,
+            0,
+            410,
+            767
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            33,
+            20,
+            374,
+            716
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            820,
+            0,
+            411,
+            767
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            26,
+            31,
+            397,
+            716
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1231,
+            0,
+            410,
+            767
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            53,
+            60,
+            374,
+            715
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1641,
+            0,
+            410,
+            767
+          ],
+          "duration_ms": 100,
+          "visible_bbox_alpha128": [
+            60,
+            163,
+            363,
+            706
+          ]
+        }
+      ],
+      "source_separators": [
+        0,
+        410,
+        820,
+        1231,
+        1641,
+        2051
+      ],
+      "preview": "previews/vladimir_fx_c_blink.gif",
+      "sha256": "81f8854d0dfa82f0636e6b967bb20105b9de2a99f4029b0ccf82d734766cb88a",
+      "notes": [
+        "Original imagegen RGBA source, no pixel reconstruction.",
+        "100 ms per frame is a preview suggestion, not an engine requirement.",
+        "Import must fit the specified logical game footprint and palette."
+      ]
+    }
+  ]
+}

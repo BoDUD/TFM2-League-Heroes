@@ -124,6 +124,10 @@ WEAPON_CARRY = {
               (-13, -1, 6, 99))],
     # Xayah's two feather blades hanging from the near hand (rig_xayah BLADES: rows -10..-5, columns +14..+19)
     "xayah": [({(0x5F, 0x0A, 0x3D), (0x76, 0x14, 0x81), (0xB2, 0x15, 0x90), (0xF0, 0x2D, 0x71)}, (-11, -4, 13, 20))],
+    # Vladimir's steel claws hanging from both gauntlets at thigh height (rig_vladimir FAR / NEAR: the far hand's rows
+    # -16..-9, columns -13..-7; the near hand's rows -12..-9, columns +7..+12) - the breath's seam would cut a claw short
+    "vladimir": [({(0xD5, 0xE6, 0xF7), (0x87, 0xA1, 0xC6), (0x3D, 0x49, 0x6A)}, (-17, -8, -14, -6)),
+                 ({(0xD5, 0xE6, 0xF7), (0x87, 0xA1, 0xC6), (0x3D, 0x49, 0x6A)}, (-13, -8, 6, 13))],
     # 「诺手待机动作武器变形」: the haft's top (the ball and the brown shaft over his pauldron) and the axe's head by his
     # feet, carried whole with his hands (the haft between runs behind his arm); the head dips like LeBlanc's staff foot
     "darius": [({(0x0B, 0x03, 0x12), (0x06, 0x02, 0x0B), (0x08, 0x03, 0x0E), (0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x4F, 0x3C, 0x3A)},
@@ -281,7 +285,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "lulu"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.

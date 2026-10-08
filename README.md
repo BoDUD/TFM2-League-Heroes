@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -139,6 +139,8 @@
 
 ![霞演示：洛站在她身后，她跑进场，甩出两片羽刃打德莱厄斯；Q 双刃：两把匕首穿过德莱厄斯和盖伦，在盖伦身后各留一根羽毛；被动锐切：两下强化普攻穿过德莱厄斯，羽毛落在他身后；E 倒钩：四根羽毛一起飞回来，再穿过两人，第三次命中把德莱厄斯定在原地；W 致死羽衣：脚下卷起羽刃风暴，每次普攻多甩一片羽刃，命中后脚下拖出加速的羽流；R 暴风羽刃：跃起展开羽翼，向前降下一片匕首雨打中两人，留下一排羽毛，随即收回，德莱厄斯倒下](docs/preview/league_xayah_showcase.gif?v=1008xy2)
 ![璐璐演示：她跑到盖伦身后，法杖平举打德莱厄斯，魔法弹沿着法杖飞出去，皮克斯跟着射出三发小弹；Q 闪耀长枪：她和皮克斯各射一道粉紫长枪穿过德莱厄斯，他脚下亮起减速光圈；W 奇思妙想把德莱厄斯变成一团粉色烟雾里的小松鼠，同时皮克斯飞到盖伦身上，给他护盾光环和金色加速；变身结束烟雾散开；R 狂野生长：她举起法杖，盖伦身上冲起绿色光柱，德莱厄斯被击飞，盖伦脚下留下生长光环](docs/preview/league_lulu_showcase.gif?v=1008lu)
+
+![弗拉基米尔演示：他射出血弹打德莱厄斯；Q 鲜血转换：从德莱厄斯身上抽出一团血，血球飞回来给他回血，脚下亮起半满的血环；第二次 Q 是猩红冲刺，血球更大更亮；E 血之潮汐：蓄力时身边绕着血珠，地上炸开一圈血浪，向两人各射一颗血弹；连招 E→Q：潮汐打中英雄后马上接的 Q 直接是猩红冲刺；连招闪 R E：化成血雾闪到敌人身边，血之瘟疫的血云落在德莱厄斯身上，两人挂上瘟疫印记，再炸一圈血浪，3 秒后瘟疫爆开、血回到他身上；血红之池：化成一滩血 2 秒，站在上面的两人被吸血，钻出来时 E 正好好了，直接甩出一圈血浪（连招 E-W）](docs/preview/league_vladimir_showcase.gif?v=1008vl)
 
 ## 英雄：盖伦
 
@@ -3179,6 +3181,49 @@ python tools/art/preview_lulu.py
 - 特效：Codex 第 3 步的 21 张（`import_lulu.py --raw`：按交付清单切帧，颜色归到每张的色阶）；原地播放的特效整条用一个锚点（不然每帧会滑），小松鼠单独按 18 px 宽取样、描边优先，脸才看得清。魔法弹按出手帧法杖的高度抬起，在她身前出现、沿着法杖飞出去。
 
 逐帧预览：[`docs/preview/league_lulu_frames.png`](docs/preview/league_lulu_frames.png)，特效：[`docs/preview/league_lulu_effects.png`](docs/preview/league_lulu_effects.png)。
+
+## 英雄：弗拉基米尔
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（法师，分类 Magician），第 76 位英雄，用户选的上单法师。猩红收割者 弗拉基米尔：靠吸血撑在战斗里，技能伤害随最大生命值提高。用户选的方案 A：被动「血色契约」、Q 指向性吸血（每第二次强化）、E 蓄力血潮、W 血池自动、R 群体瘟疫；W 的触发：「危险信号 + 现在就做扩展包」；用户：「还要加入高手的连招」「吸血鬼」 |
+| 普攻 / 被动 | 普攻射出一颗追踪血弹，100% 攻击力的物理伤害，射程 48000，攻击间隔 85 tick（第 12 tick 出手）。被动「血色契约」：英雄联盟里额外生命值和法术强度互相加成；数据能读到的只有他自己的最大生命值，所以每个技能的魔法伤害都加上一份最大生命值（`hp_ratio`，Q 5%、E 5%、W 每跳 2%、R 6%） |
+| 技能1 | Q「鲜血转换」：冷却 240 tick（4 秒），射程 55000，也对小兵和野怪放。第 11 tick 对目标造成 100 + 75% 法强 + 5% 最大生命值的魔法伤害；一个隐藏的抛射物落在目标脚下，从那里飞回一颗血球（`BackToCasterLinearProjectile`，霞的羽毛那样），回到他身上时回复 40 + 30% 法强。每第二次是「猩红冲刺」（英雄联盟两次攒满血槽）：伤害 180%、回血翻倍、移速 +30% 1 秒；半满时脚下有一圈血环 |
+| 技能2 | E「血之潮汐」：冷却 480 tick（8 秒），身边 32000 内有敌人（小兵、野怪也算）时放。蓄力 58 tick（约 1 秒，身边绕着血珠），然后向 32000 内每个敌人各射一颗追踪血弹：90 + 70% 法强 + 5% 最大生命值的魔法伤害，减速 40% 0.5 秒（英雄联盟满蓄的效果） |
+| W（自动） | 「血红之池」没有技能位，数据里自动：他身上整局跑着一个每 3 tick 看一次的轮询（`AddCasted`，普攻和技能会重新启动它），看到 `w_go` 就化成血池：先扣 5% 最大生命值（2 tick 不死，不会因此送命），然后 120 tick（2 秒）不可选取（霞的大招那样：隐身 + 100% 减伤 + 免控；给自己放放逐会让队友丢失视野），脚下 22000 内的敌人每 30 tick 受到 25 + 10% 法强 + 2% 最大生命值的魔法伤害并减速 40%，他每跳回复 15 + 8% 法强；冷却 20 秒。主包的 `w_go` 由普攻里的**危险信号**加上（蛮王的做法）：两名以上敌方英雄在 30000 内，或连续两次检查都挨了打。模拟里每局开 7 次 |
+| 残血血池附加包 | 用户选「危险信号 + 现在就做扩展包」。附加包 [`addons/league_vladimir_pool`](addons/league_vladimir_pool/README.md) 用原生代码读生命：活着、没被控住、身边 60000 内有敌方英雄、血池不在冷却也不在池里、**生命低于 35%** 时加上 `w_go`，数据的轮询最多 3 tick 后开池（血池本身全在数据里，和主包一样）；普攻里的危险信号去掉。代价按英雄联盟扣**当前**生命的 20%（0.2.0：数据只能扣 5% 最大生命值，第一份日志里 3% 血开池被扣到 1 点）；游戏日志：开池时都在 35% 以下、1–3 tick 内入池、扣的正好是当前生命的 20%。主包不装附加包也完整可玩；附加包只做了单元测试，开池时机要在游戏里看日志确认。已编进附加包合集 `league_addons` |
+| 大招 | R「血之瘟疫」：冷却 3600 tick（60 秒），只对正在交战的敌方英雄放（`EnemyChampionRecentlyAttacked`，60000 内，霞的「别乱放」）。第 11 tick 一个隐藏的抛射物落在目标脚下，血云在那里炸开：半径 26000 内的敌人 180 tick（3 秒）受到伤害 +10%（`damaged_amplify`），然后爆发 200 + 80% 法强 + 6% 最大生命值的魔法伤害；每命中一名英雄他回复 70 + 30% 法强 |
+| 高手连招 | 用户：「还要加入高手的连招」。和李青、阿卡丽那样，每个连招只由它自己那个技能放出来，不占用别的技能的冷却：**E→Q**：潮汐的血弹打中英雄后 150 tick（2.5 秒）内的 Q 直接是猩红冲刺，血槽不变；**E-W**：血池结束时 E 已就绪，钻出来时直接甩出一圈 70% 伤害的潮汐（英雄联盟里先蓄 E 再开池）；**闪 R E**：R 放出时 E 已就绪，先化成血雾往目标闪最多 30000（一条隐藏的直线，停在第一个敌方英雄前 22000，再瞬移过去，英雄联盟的闪现），云落下 18 tick 后甩出一圈 70% 伤害的潮汐，吃瘟疫的 +10%。模拟里每局：E→Q 2.3 次、E-W 2.5 次、闪 R E 2.3 次（共 3 次大招） |
+| 数值 | 攻击 72（+5）、法强 40（+20）、生命 1000（+105）、护甲 22（+7）、魔抗 22（+3）、移速 910（+10）。数值是自己设计的，用 SDK 对战模拟调：上路，对 6 个原版英雄（`fighter`、`executioner`、`knight`、`berserker`、`lancer`、`pole_warrior`），3 套阵容、两边各打，10 分钟。初稿 −2.63（同一批凯南 +1.43、提莫 +1.20）；Q、E、R 加伤害、缩冷却，生命 1000：种子 1–12 +1.24、25–36 +0.64；E→Q 的窗口 1.5 → 2.5 秒：种子 25–36 +1.44（同一批凯南 +1.47）。血池冷却 30 秒（+1.22）或要连续三次挨打（+1.31）差别不大；回血再加（+1.58）偏强 |
+| 亚索联动 | 弗拉基米尔没有击飞或硬控，E、W 只是减速，不算亚索大招要的控制，不用调 |
+| 精灵图 | 9 个动作 59 帧：待机 8、移动 8、普攻 6、Q（`skill`）6、E（`skill2`）7、W 血池（`skill_w`）8、R（`ult`）6、受击 2、死亡 8。造型 28 × 38 px，19 色。头像截取点 (0, −37)；待机最高 −26，不设 `banpick_center` |
+| 特效 | Codex 生图的 19 张（`import_vladimir.py` 缩成游戏像素）：`league_vladimir_fx` 普攻血弹、命中，Q 的抽血、血球、猩红冲刺的大血球、回血、半满的血环，E 的蓄力血珠、血弹、命中，W 的吸血，R 的瘟疫印记、爆发、回血，连招的血雾闪烁；`league_vladimir_big` E 的血浪、W 的溅血和血池、R 的血云 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_vladimir.py`）：普攻、Q 出手和命中、回血、猩红冲刺，E 蓄力和释放、命中，血池进出（也给连招的闪烁），R 出手、落地、爆发；Q、E、R 和血池结束各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_vladimir.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_vladimir.py       # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_vladimir.py --face 0,-37   # 五种语言的文字、音效配置、共享文件里他的键
+python addons/league_vladimir_pool/make_override.py   # 附加包的副本（普攻去掉危险信号，被动读生命）
+python tools/art/design_vladimir.py --final   # 造型：40 行的字母格子 -> 8 倍原尺寸图
+python tools/art/rig_vladimir.py         # 动作：造型自己的零件无损摆姿势（整格平移、90° 旋转、翻转、整行移动、叠放）
+python tools/art/import_native.py --hero vladimir
+python tools/art/import_vladimir.py      # 特效；--raw assets/source/vladimir/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/preview_vladimir.py
+```
+
+美术（动作的提示词见 [`assets/source/vladimir/MODEL_STRIPS.md`](assets/source/vladimir/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/vladimir/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/vladimir/codex_model/)、[`codex_strips/`](assets/source/vladimir/codex_strips/)、[`codex_fx/`](assets/source/vladimir/codex_fx/)）：
+
+- 原画：Codex 画了 A（待机）和 B（Q 前冲），用户选 A。
+- 造型：Codex 画的大图直接缩到 40 行全是碎点；用户先后说「你要参考之前的工具 还有另外一个账号怎么做的慢慢调整啊」「头太大了 身体细节太差了」「太模糊了」「尺寸有点大」。最后按参考格子手写身体（尖角肩甲、V 领、三颗扣子、带宝石的袖口、爪子、开衩下摆、条纹裤、护膝、钢头靴），再用无损的整行整列删减缩到 40 行（脸、扣子、袖口、膝盖、鞋子的行不删），存成字母格子 `vladimir_design_40.txt`；用户：「40 行 可以了」。之后用户：「吸血鬼的头可以缩小一点 现在太大了」——头部再删 2 行 2 列（`work/vl/head_shrink_vl.py` 的方案 B：发冠和脸颊各 1 行、左右发束和领子各 1 列，只删整行整列），头 13 → 11 行，全身 38 行。
+- 动作：Codex 第 2 步交回的动作条手和身体分离、肩甲和扣子丢了；用户：「有奇怪的地方直接帮我修复 我要完美的」。`rig_vladimir.py` 全部用造型自己的像素重摆（霞的做法）：两只手臂按格子精确切出，只做平移、90° 旋转、翻转和叠放；下摆整行摆动；血池是身体下沉、在脚下画一滩血；死亡是绕脚 90° 倒下；跑步用造型自己的小腿前后摆开、交替。待机是自动呼吸，爪子跟着手走（`WEAPON_CARRY`）。E 的蓄力和血池的时长按技能改过（蓄力 960 ms 出手，血池 2 秒）。
+- 特效：Codex 第 3 步的 19 张（`import_vladimir.py --raw`：按交付的 `manifest.json` 切帧——有几张帧宽不一样——颜色归到包里给每张的色阶：血红、酒红、淡粉白）。
+- 红色方：飞行的血弹、血球（画面跟着方向转）严格上下对称；命中、回血、血环、蓄力、血浪、血池、吸血、血云、瘟疫印记、闪烁严格左右对称，不需要画进动作帧。
+
+逐帧预览：[`docs/preview/league_vladimir_frames.png`](docs/preview/league_vladimir_frames.png)，特效：[`docs/preview/league_vladimir_effects.png`](docs/preview/league_vladimir_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

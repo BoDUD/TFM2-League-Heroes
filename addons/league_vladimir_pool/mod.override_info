@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_vladimir": {
+    "remapping": "asset/league_vladimir_pool/override/league_vladimir",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_vladimir_pool/text/champion",
+    "type": "merge"
+  }
+}

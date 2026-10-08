@@ -1392,6 +1392,7 @@ league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only o
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_xayah (bottom, --lane 3, 2026-10-08, Bladecaller's 1.25 s root from the third champion hit of one recall): 0.25
 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
+league_vladimir (top, 2026-10-08): slows only (Tides of Blood, Sanguine Pool) - not the crowd control R reads, not simulated.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
 Skewer's pull): 1.88 a game; league_thresh 1.40 and league_leona 2.33 in the same batch - no change.
 league_seraphine (support, --lane 4, 2026-10-07, Beat Drop's 0.75 s root from the echoed wave and stun on the crowd-
@@ -3779,6 +3780,27 @@ a fourth E ring that reaches her, his Xayah voice line. Without her the buffs ne
 
 **An ult held for a fight (league_xayah R).** `EnemyChampionRecentlyAttacked` within 60000 instead of any enemy champion
 within 85000: 3.3 casts a game, 1 of 40 with no champion under the rain (6 of 58 before), 1.5 champions a cast.
+
+**A spell with no slot that fires itself (league_vladimir W, Sanguine Pool).** The pool is a data tree started from a
+poll: every attack and spell adds, unless the caster flag `polling` is on, an `AddCasted` on himself (36000 ticks,
+period 3) whose effects refresh `polling` (period + 2 ticks, so a poll that ended with his death is started again by his
+next attack) and run the pool when `w_go` is on and `w_cd` off. Anything may set `w_go`: the main pack's attack runs
+league_tryndamere's danger check (two enemy champions within d_near, or the 1-point-shield hit sensor at h_n checks in a
+row); the add-on's native passive (addons/league_vladimir_pool) sets it below 35% health. The pool itself: a 2-tick
+`undying` flag around a `FixedAttack` hp_ratio on himself (the health cost never kills), `CasterInvisible` + a caster flag
+with damaged_reduce 100 and cc_immune (league_xayah R), `CasterAnimation skill_w` for the whole time, pulses in
+`Delayed`s. 7 pools a game in the sim.
+
+**A drain whose blood flies back (league_vladimir Q).** The damage lands on the target in the cast; a hidden
+`ParabolicProjectile` with travel_time 1 lands on the target's spot and its end_effects start a
+`BackToCasterLinearProjectile` from there, whose own end_effects heal him when it arrives (league_xayah's feathers).
+
+**Combos played by the slot they spend (league_vladimir).** E -> Q: a champion-only twin of E's bolts adds `eq`; Q's tree
+branches on it before the Crimson Rush counter. E-W: the pool's last `Delayed` runs E's nova at 70% when `e_cd` (set on
+every E for its cooldown) is off. Flash R E: R with `e_cd` off adds a hidden `LinearProjectile` on EnemyChampion whose
+radius stops it r_stop short of the first champion; its end_effects `Teleport` him there (league_lissandra E), and a
+`Delayed` nova follows the cloud. None of them spends E's cooldown (league_leesin_combos: an empty branch cannot hold a
+slot).
 
 ## 8. Gotchas
 
