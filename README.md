@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托（同组的其他英雄以后做）。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动；辅助以后做）。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -136,6 +136,8 @@
 ![雷克顿演示：他跑进场，月牙刀砍德莱厄斯（刀光画在动作里），三刀后怒气满了，身后烧起红光；Q 巨鳄狂袭：一圈象牙白的刀光扫过德莱厄斯和身后的盖伦；E 横冲直撞：身后拖着沙色风痕冲过德莱厄斯；满怒气的 W 冷酷捕猎：身上冒出红色怒气，转身劈三刀，德莱厄斯头顶冒金星晕 1.5 秒；二段 E 再冲回来；R 终极统治：脚下炸开沙暴、头顶亮起金色的鳄鱼神符号，之后脚下一圈沙暴光环每半秒烫两人，他接着砍，德莱厄斯倒下](docs/preview/league_renekton_showcase.gif?v=1008idle6)
 ![莉莉娅演示：她小跑进场，用枝条打德莱厄斯两下，粉紫花光炸开；Q 飞花挞：脚下绽开一圈粉紫花环，德莱厄斯和身后的盖伦身上闪过金色闪刺，蹄下飘起腾跃的花瓣；E 流涡种：橙色种子从枝头抛到德莱厄斯身上炸开，脚下一团蓝紫梦雾减速；W 惊惶木：她人立起来，德莱厄斯脚下亮起预警圈，砸下去时正中甜点的金色暴击、盖伦也挨了一下；她小跑到两人右边、转身朝左（红色方的样子）放 R 夜阑谣：身边升起蓝色梦境光带，两人头顶先飘困倦的梦雾，再睡着冒出梦泡泡；她一枝条打醒盖伦，泡泡啪地破开](docs/preview/league_lillia_showcase.gif?v=1008idle6)
 ![维克托演示：他用奥术光弹打德莱厄斯；Q 虹吸能量：法杖射出金色海克斯光弹，打中后他身上亮起青色护盾、身边绕着两颗金色光点，下一下普攻变成金色光弹；W 重力场：德莱厄斯脚下展开蓝紫色引力场，两人减速；E 海克斯射线：从德莱厄斯脚下往身后扫出一道金光，穿过盖伦；1.25 秒后引力场爆开，两人头顶冒出引力环晕住，余波沿射线再炸一遍；他走到两人右边、转身朝左（红色方的样子）放 R 奥术风暴：风暴落在德莱厄斯身上，每秒劈下闪电；最后身上亮起光荣进化的金光](docs/preview/league_viktor_showcase.gif?v=1008vk5)
+
+![霞演示：洛站在她身后，她跑进场，甩出两片羽刃打德莱厄斯；Q 双刃：两把匕首穿过德莱厄斯和盖伦，在盖伦身后各留一根羽毛；被动锐切：两下强化普攻穿过德莱厄斯，羽毛落在他身后；E 倒钩：四根羽毛一起飞回来，再穿过两人，第三次命中把德莱厄斯定在原地；W 致死羽衣：脚下卷起羽刃风暴，每次普攻多甩一片羽刃，命中后脚下拖出加速的羽流；R 暴风羽刃：跃起展开羽翼，向前降下一片匕首雨打中两人，留下一排羽毛，随即收回，德莱厄斯倒下](docs/preview/league_xayah_showcase.gif?v=1008xy)
 
 ## 英雄：盖伦
 
@@ -2314,6 +2316,7 @@ python tools/art/preview_twistedfate.py
 | 大招 | R「惊鸿过隙」：对敌方英雄施放，射程 50000，冷却 50 秒。4 秒内移速 +75%，碰到的每个敌人（10000 内）受到一次 140 + 70% 法术强度的魔法伤害并被魅惑 1.25 秒；碰到的第一个英雄让他的冲刺快 1.5 秒（英雄联盟的递减加速）。每 1/3 秒冲过一个敌方英雄（先找 25000 内，再 50000，都没有时冲过任意敌人）。大招的动作只在冲刺的那 12 tick 播放，中间他带着加速自己跑、照常普攻（「洛开大后在原地跑」：原来 4 秒都锁在大招动作里，只靠冲刺移动，身边或附近没敌人时就站在原地播跑步动作；`tools/fix/fix_rakan_r_walk.py`） |
 | 数值 | 攻击 78（+6）、法术强度 30（+15）、生命 1000（+105）、护甲 28（+8）、魔抗 26（+4）、移速 1030（+10）。数值是自己设计的，用 SDK 对战模拟调：打辅助，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），两边、三套队友阵容各 24 局，一批 720 局。初稿 −1.59（同一批蕾欧娜 +0.78、迦娜 +0.11）；Q 的羽毛飞得太慢（打中英雄 15%），弹速 2500 → 6000 后打中 30%，−1.01；Q、治疗、W、E、R、被动和生命、护甲一起加强 +0.22；W 冷却 8 → 7.5 秒、Q 6 → 5.5 秒后两批 **+0.72 / +0.91**（第二批同种子蕾欧娜 +1.23），定下这版。每局 Q 打英雄约 20 次、打兵和野怪约 33 次，W → E 约 8 次（每次击飞约 1.1 个英雄，68% 飞到队友身边），R 约 2.3 次（每次魅惑 1.4–1.8 个英雄），被动护盾约 12 次 |
 | 亚索联动 | W 的击飞和 R 的魅惑是亚索大招要的控制：洛辅助、亚索同队时，亚索每局 R 到被控英雄 2.10 次（同一批蕾欧娜 2.19、迦娜 0.98），亚索不用调 |
+| 霞联动 | 霞（`league_xayah`）在附近时（她的普攻、W 在洛身上挂的 buff，`tools/fix/rakan_xayah_duo.py`）：霞的 W 「致死羽衣」也给洛攻速和移速，他的普攻多甩一根羽毛；E「轻舞成双」找不到其他队友时，飞到 130000 外的霞身边（英雄联盟 700 → 1000 码），飞向霞时说霞那句台词。没有霞时洛的对局不变 |
 | 精灵图 | 11 个动作 60 帧：待机、移动、普攻、Q、W 冲刺、W 落地旋升、E 飞向队友、E 落地、R、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机：金羽毛在下巴边，羽毛披风拖在地上），Codex 的游戏尺寸草稿按自己的格子读回、删到 40 行（`design_rakan.py`，用户：「40 行（我删的）」，脸「原样」）；动作是 Codex 照英雄联盟的动作画的，不对的地方 Claude 修（`fix_rakan_strips.py`，用户：「不对的地方你帮我修复 codex太笨了 不想让他返工了」）。32 × 40 px，22 色；待机 6 帧同一张，膝下红带下面的接缝呼吸；待机最高点 −28，`banpick_center` 不设；头像截取点 (−2, −39) |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_rakan.py`）：普攻甩羽和命中，Q 射出、命中、带上治疗、治疗放出，W 冲出、旋升，E 起飞、落地，被动护盾，R 施放、魅惑命中；Q、W、E、R 施放时各一句配音 |
 
@@ -3097,6 +3100,48 @@ python tools/art/preview_viktor.py          # 逐帧预览、特效预览、演�
 - 红色方：飞行的光弹和射线 / 余波（线的画面跟着方向转）严格上下对称；命中、他身上的护盾和进化光、跟着英雄的风暴、挂着循环的强化光点 / 减速 / 加速都严格左右对称；地上的重力场、晕眩爆发、风暴落地上下左右都对称。没有特效画进动作帧。
 
 逐帧预览：[`docs/preview/league_viktor_frames.png`](docs/preview/league_viktor_frames.png)，特效：[`docs/preview/league_viktor_effects.png`](docs/preview/league_viktor_effects.png)。
+
+## 英雄：霞
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | ADC（远程，分类 Range），用户排的第十五组的 ADC（同组：上单雷克顿、打野莉莉娅、中单维克托已做），第 74 位英雄。逆羽 霞：洛的搭档，技能都围绕羽毛——匕首和强化普攻在落点留下羽毛，收回时穿过路上的敌人，一次收回打中英雄三次就定身。用户选的方案 B：被动放在普攻上，Q 接自动收回（E），W 单独，R 是跃起加匕首雨 |
+| 普攻 / 被动 | 普攻甩出一片追踪羽刃，100% 攻击力的物理伤害，射程 57500，攻击间隔 50 tick（第 8 tick 出手）。被动「锐切」：每放一个技能，之后 3 次普攻（最多存 5 次，8 秒）变成强化普攻：目标仍吃一片追踪羽刃的 100%，同时朝它射出一道穿透直线（72000），路上其他目标受到 50%，直线停下的地方（目标身后）留下一根羽毛，6 秒。英雄联盟里羽毛停在原地等她按 E；这个游戏没有「按需施放」的 E，所以收回是固定时机（见技能1） |
+| 技能1 | Q「双刃」→ E「倒钩」（用户选的方案 B，Q 自带收回）：冷却 420 tick（7 秒），也对小兵和野怪放，射程 75000（射程内有敌方英雄时朝英雄）。第 8 tick 起相隔 6 tick 扔出两把穿透匕首（飞 95000，每 tick 6000），每把 60 + 80% 攻击力的物理伤害（第一个之后的目标 50%），各在尽头留下一根羽毛；出手 70 tick 后收回：摆出 E 的姿势，地上所有羽毛（Q 的、强化普攻留下的）一起飞回她身边（每 tick 4500），每根对路过的敌人造成 50 + 60% 攻击力的物理伤害。英雄联盟是一个敌人被三根羽毛打中才定身；这里数不了每个目标各被打了几次，改成一次收回里打中英雄的第 3 次起，被打中的英雄定身 1.25 秒 |
+| 技能2 | W「致死羽衣」：冷却 480 tick（8 秒），攻击范围内有敌人（小兵、野怪也算）时放。4 秒内攻速 +50%，每次普攻 6 tick 后再甩出一片 25% 伤害的羽刃，这片羽刃打中英雄时她移速 +30%，1.5 秒；也给 3 次强化普攻 |
+| 大招 | R「暴风羽刃」：冷却 3600 tick（60 秒），只对英雄放。用户：「霞的大招逻辑要注意 别乱放」——只在 60000 内有正在交战的敌方英雄（`EnemyChampionRecentlyAttacked`）时放，不再是 85000 内随便哪个英雄：模拟里每局 3.3 次，40 次里只有 1 次匕首雨下没有英雄（原来 58 次里 6 次），每次平均打中 1.5 个英雄。跃起 66 tick 内不受伤害和控制（易 Q 的做法：隐身 + 100% 减伤 + 免控；给自己放放逐会让队友丢失视野），第 48 tick 朝前方降下匕首雨（90000 × 40000 的扇形，160 + 100% 攻击力的物理伤害），沿施放方向留下一排 5 根羽毛；40 tick 后收回；也给 3 次强化普攻 |
+| 洛联动 | 用户选的方案 1：W 共享、洛的 E 飞得更远、两人互相的配音。引擎里没有「按英雄挑队友」的条件，`SwitchByBuff` 只看自己身上的 buff；但别的英雄的技能挂在洛身上的 buff，洛自己的技能也读得到（探针验证：每局读到 50 次）。所以霞的每次普攻给 130000 内的友方挂上「霞在附近」，W 给 70000 内的友方挂上「致死羽衣」；洛的数据（`tools/fix/rakan_xayah_duo.py`，在主线的洛上就地补丁，不重新生成）读到它们时：普攻也获得 W 的攻速和移速，并多甩一根 25% 的羽毛；E「轻舞成双」三圈（25000、50000、90000）都没找到队友而霞在附近时，再找第四圈 130000（英雄联盟：对霞 700 → 1000 码）；E 飞向霞时说霞那句台词；霞拿到洛 E 的护盾时说洛那句（10 秒冷却）。没有霞时这些 buff 从来不会出现，洛自己的对局前后完全一样（模拟器对比验证） |
+| 数值 | 攻击 100（+19）、生命 980（+88）、护甲 24（+7）、魔抗 15（+3）、移速 910（+9）。数值是自己设计的，用 SDK 对战模拟调：下路，对 3 个原版射手（`gunner`、`archer`、`boomerang_hunter`），3 套阵容、两边各打，10 分钟。初稿 −0.68：强化普攻只是一道直线，打不中走动的目标；改成追踪羽刃 + 穿透直线后 +0.85，再把攻击 100、攻击间隔 50、射程 57500，Q 60 + 80%，羽毛 50 + 60%，W 8 秒一次、攻速 50%，生命 980、护甲 24 定下来：种子 1–24 +1.81、25–48 +1.83（同一批韦鲁斯 +2.11 / +2.15、烬 +1.92 / +2.01）。R 改成只在交战时放以后 +2.12（种子 1–24） |
+| 亚索联动 | E 的定身算控制：霞在亚索队里打下路时，亚索每局对英雄放 R 0.25 次（韦鲁斯 0.67、原版 `gunner` 0.35），不用调 |
+| 精灵图 | 9 个动作 52 帧：待机 8、移动 8、普攻 6、Q（`skill`）4、E 收回（`skill_e`）4、W（`skill2`）4、R（`ult`）8、受击 2、死亡 8。造型 34 × 44 px，28 色。头像截取点 (1, −41)，选人卡片 `banpick_center` y −7 |
+| 特效 | Codex 画的 21 张（`import_xayah.py` 缩成游戏像素），两张表：`league_xayah_fx` 普攻羽刃、强化普攻的穿透羽刃、命中，W 的第二片羽刃，Q 的匕首、出手闪光和命中，飞回的羽毛、落地和插在地上的羽毛，E 收回的光、命中、定身的羽刃和缠绕，W 的风暴、脚下的风暴圈、加速羽流，R 的羽翼和命中；`league_xayah_big` R 的匕首雨。被动的光在 `league_xayah_sym` |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_xayah.py`）：普攻出手、命中，强化普攻，羽毛，Q、W、W 的羽刃、E、E 命中、定身，R 和匕首雨；Q、E、R、定身各一句中文配音，加上拿到洛护盾的那句（联动）。洛那边加了 E 飞向霞的那句（`tools/lol/extract_rakan.py`）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_xayah.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/lol/extract_rakan.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"   # 洛那句联动配音
+python tools/kit/build_xayah.py          # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_xayah.py --face 1,-41 --banpick -7   # 五种语言的文字、音效配置、共享文件里她的键
+python tools/fix/rakan_xayah_duo.py      # 洛那一半的联动（就地补丁主线的洛；--check 只看补没补）
+python tools/art/design_xayah.py         # 造型：Codex 原稿按区域缩到 44 行，去掉头顶一大块黑线
+python tools/art/rig_xayah.py            # 动作：造型自己的零件无损摆姿势（整格平移、90° 旋转、整行移动、叠放）
+python tools/art/import_native.py --hero xayah
+python tools/art/import_xayah.py         # 特效；--raw assets/source/xayah/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/preview_xayah.py
+```
+
+美术（动作的提示词见 [`assets/source/xayah/MODEL_STRIPS.md`](assets/source/xayah/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/xayah/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](assets/source/xayah/codex_picture/)、[`codex_model/`](assets/source/xayah/codex_model/)、[`codex_strips/`](assets/source/xayah/codex_strips/)、[`codex_fx/`](assets/source/xayah/codex_fx/)）：
+
+- 原画：Codex 画了几版，用户选 A（英雄联盟的待机）。
+- 造型：Codex 第 1 步的几种缩法用户都觉得「太模糊」，改成按区域分别缩（脸、身体、腿各自取舍行列，保住眼睛）到 44 行；用户选了没精修的那版：「用这个就行 头顶一大块黑线帮我处理了」，只去掉头顶的黑线、补两个缺口。
+- 动作：Codex 第 2 步的动作条有平板手臂、斗篷横条、躺倒的身体上立着的头，跑步的腿转得变形。用户：「不要有任何模型变形的问题」「像素缺失也是」「腿部还有变形 还有多余的像素」。`rig_xayah.py` 全部用造型自己的像素重摆：手臂、刀刃、整个人按格子精确切出，只做平移、90° 旋转 / 翻转、整行移动和叠放，不做任意角度旋转、不删行；只在动过的部位 2 格以内补描边。每帧检查：一整块、没有洞、颜色是造型的子集、头和造型完全一样、脚底以下没有像素。待机是自己的呼吸（身体下沉一行、斗篷下摆贴地），不用 `idle_breathe` 的切小腿（条纹腿会被切短）；跑步用造型自己的近侧腿复制成远侧腿，前后摆开、交替抬脚。
+- 特效：Codex 第 3 步的 21 张（`import_xayah.py --raw`：每张按格子等分，颜色归到包里给每张的色阶，飞行物锚在刀尖，命中锚在亮核，地上的东西锚在最低一行），按动作帧量出的手、胸口、脚底的位置放好，时长按技能。
+- 红色方（用户：「蓝色方红色方特效不要颠倒」）：Q、W、E、R 出手时有前后之分的画面（Q、W 手上的闪光，E、W、R 胸前的光）画进她自己的动作帧，跟着她一起翻转（`bake_caster_fx.py`，`build_xayah.py` 每次生成都会重新套上）；被动的光在每个技能的五档层数里都会播，画进帧要复制太多动作，改成放在身体中间、左右对称；飞行的羽刃、匕首、羽毛和匕首雨（画面跟着方向转）严格上下对称；命中、插在地上的羽毛、定身、风暴圈、加速羽流严格左右对称。
+
+逐帧预览：[`docs/preview/league_xayah_frames.png`](docs/preview/league_xayah_frames.png)，特效：[`docs/preview/league_xayah_effects.png`](docs/preview/league_xayah_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
