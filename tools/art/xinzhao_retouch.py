@@ -92,6 +92,9 @@ def hexc(p):
 
 
 def main():
+    # superseded 2026-10-08: rig_xinzhao.straight_head turns the head on the spear part itself (every orientation);
+    # running this on those frames would bend the head down a second time
+    sys.exit("xinzhao_retouch.py: superseded by rig_xinzhao.straight_head - the table is no longer used")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--preview", help="write before/after sheets of the changed frames here")
     a_ = ap.parse_args()

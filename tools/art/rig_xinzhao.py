@@ -75,6 +75,18 @@ def axis_y(x):
     return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
 
 
+def straight_head(sp):
+    """The spear's head turned down onto the shaft's line, on the part itself: the design drew the head left of the
+    crescent guard one row every three columns against the shaft's one every two, so it bent up at the guard (「赵信的
+    武器这里有点歪啊」). xinzhao_retouch.py once fixed it only in the frames holding the idle's spear; every turned
+    spear stayed bent (「武器上面还是歪的」). Same column shifts (xinzhao_retouch.turned), now in every orientation."""
+    import xinzhao_retouch as XR
+    violet = (sp[..., :3] == (0xA7, 0x2D, 0xE2)).all(-1) & (sp[..., 3] > 0)
+    ys, xs = np.nonzero(violet)
+    c, r = int(xs.min()) - 1, int(ys.max()) + 2 - XR.HEAD_H
+    return XR.turned(sp, r, c)
+
+
 class Parts:
     def __init__(self):
         D = K.Design(DESIGN)
@@ -104,6 +116,7 @@ class Parts:
         # the butt end moved along so the shaft enters its ring on the drawn shaft's row
         butt = np.where(butt_keep[..., None], a, 0).astype(np.uint8)
         K.put(sp, butt, 0, top(BUTT_KEEP) - BUTT_ROW)
+        sp = straight_head(sp)
         self.spear = K.Part.from_canvas(sp, sp[..., 3] > 0, SPEAR_GRIP)
         s = self.spear
         self.spears = {"dl": s, "ul": K.rot90(s, 1), "ur": K.rot90(s, 2), "dr": K.rot90(s, 3),
