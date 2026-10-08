@@ -47,6 +47,16 @@ at one scale), then for the face 「脸部五官太奇怪了」「改不好就�
      step 9's recipe, the handle moved with her hip, the blade and the shank 42 / 46 as long, the rings drawn last so
      both heart holes are whole and the same (the spikes had cut into the lower one); old_to_new() maps a point of
      step 14 for tools/art/rig_gwen.py.
+ 16. the head again (2026-10-09, the user: 「格温的眼睛」, then 「发型和眼睛能一起改吗 现在好怪」 and 「眼睛形状改一改吧 这形状
+     不像格温」; B of the options sheet): the round spiral curls at the height of her eyes (they read as ear muffs and
+     made the head 25 squares wide) go; League's head instead - a round crown lit from the upper left, the bows behind
+     it (only their outer wings show), two drill ringlets hanging from behind her ears to below her shoulders, their
+     bands slanting down to her back (light over dark). The bangs and the face stay. The eyes League's almond ones:
+     the near eye three squares (white at its outer corner, the teal iris, the pupil toward her front), the far eye
+     two, both under a thick lash running a square past the outer corner, a pink lower lid; teal, not her hair's
+     blues. HEAD2 is drawn on the finished canvas from the pivot (64, 88), columns x -12..13, rows -31..-6: '-' keeps
+     the square, '.' clears the old hair (its blues, the outline, the old bows over row -22), never the scissors or
+     the body; drills() gives tools/art/rig_gwen.py the two ringlets' squares.
 --check compares the result with the committed gwen_native.png instead of writing it.
 """
 import argparse
@@ -432,7 +442,8 @@ def back_hair(a):
 PAL = {"0": "#08021a", "a": "#020375", "b": "#1d1444", "c": "#0b0baa", "d": "#3c2a71", "e": "#4516eb", "f": "#653a94",
        "g": "#025ff8", "h": "#0187fa", "i": "#e0506a", "j": "#7f6be0", "k": "#03adfb", "l": "#e89620", "m": "#aa93f3",
        "n": "#28ddfc", "o": "#f39378", "p": "#f6a6a0", "q": "#fabe38", "r": "#f8b899", "s": "#cec1fa", "t": "#8ff2fe",
-       "u": "#fbe169", "v": "#fce3cd", "w": "#fcf6cb", "x": "#f3f8fa"}
+       "u": "#fbe169", "v": "#fce3cd", "w": "#fcf6cb", "x": "#f3f8fa",
+       "y": "#2cc4c8", "z": "#86e8e4"}                 # step 16: the eyes' teal iris and its light
 LETTER = {v: k for k, v in PAL.items()}
 POLISH_FACE = (62, 68, 63, 69)                     # columns, rows of the face: kept
 FACE_TURN = (62, 68)                               # the face's columns: its features moved one to the right
@@ -737,9 +748,89 @@ def build(with_mask=False):
     lone_ink(canvas, face | mask)                      # step 12
     polish(canvas, mask)                               # step 14 (supersedes step 13's recolouring)
     canvas, mask = shrink(canvas, mask)                # step 15
+    head2(canvas, mask)                                # step 16
     if with_mask:
         return canvas, mask
     return canvas
+
+
+# ------------------------------------------------------------------------------------------------ step 16: the head
+HEAD2_X0, HEAD2_Y0 = -12, -31            # from the pivot (64, 88)
+HEAD2 = [
+    "..........................",  # -31
+    "..........................",  # -30
+    ".........000000...........",  # -29
+    ".......00ttnnkk000........",  # -28
+    "......0tnnnkkhhhhg0.......",  # -27
+    ".....0tnnkkhhhhhggg0......",  # -26
+    "..0000nnkkhhhhggggga00000.",  # -25
+    "..0bd0nkkhhhhkkhhgga0dbd0.",  # -24  the bows' outer wings behind the crown
+    "..0bdq0------------a0qdb0.",  # -23  the bangs kept
+    "..0bdd0----hgh-----a0ddb0.",  # -22  their lower edge over the nose shaded (the skin between the eyes ran up into them)
+    "...000hggh-------0gaaa0...",  # -21  the face (x -2..4) kept; back hair under the right bow (raised, the blade closed a gap there)
+    ".....0kghh-------hgaaa0...",  # -20
+    "....00hga0-------0gaaa0...",  # -19
+    "...0tnkha0-------thakg0...",  # -18  the ringlets from behind her ears
+    "..0tnkkgg0-------0hnkga0..",  # -17
+    "..0nkhga0a-------0ntkgga0.",  # -16
+    "..0kgaa0tn-------0nkhaa0..",  # -15
+    "...0a0tnkh-------0tnkga0..",  # -14
+    "...0tnkkga-------0nkgaa0..",  # -13
+    "..0nkhgaa0-------0tnkga0..",  # -12
+    "..0kgaa0---------0ntkgg0..",  # -11
+    "...0a0kh0--------0kgaa0...",  # -10
+    "....0kga0---------0ga0....",  # -9
+    ".....0a0----------0000....",  # -8   (the square over the rings closed: a pinhole of the ground)
+    "......0-------------------",  # -7
+    "--------------------------",  # -6
+]
+assert len(HEAD2) == 26 and all(len(r) == 26 for r in HEAD2)
+# the eyes (x, y from the pivot): lashes, the near eye x -1..1, the far eye x 3..4
+EYES2 = {(-2, -21): "0", (-1, -21): "0", (0, -21): "0", (1, -21): "0", (3, -21): "0", (4, -21): "0", (5, -21): "0",
+         (-1, -20): "x", (0, -20): "y", (1, -20): "0", (3, -20): "y", (4, -20): "0",
+         (-1, -19): "p", (0, -19): "z", (1, -19): "y", (3, -19): "z", (4, -19): "y"}
+HAIR_OLD = set("acghknt0")                # what '.' may clear: the old hair's blues and its outline,
+BOWS_OLD = set("bdfqu")                    # and the old bows (rows up to -22 only: under them is the bodice)
+
+
+def head2(canvas, mask):
+    """Step 16 on the finished canvas (in place); the scissors' squares (mask) are never touched."""
+    px, py = 64, 88
+    for j, row in enumerate(HEAD2):
+        for i, ch in enumerate(row):
+            if ch == "-":
+                continue
+            x, y = px + HEAD2_X0 + i, py + HEAD2_Y0 + j
+            if mask[y, x]:
+                continue
+            if ch == ".":
+                if canvas[y, x, 3]:
+                    old = LETTER.get("#%02x%02x%02x" % tuple(int(v) for v in canvas[y, x, :3]), "?")
+                    if old in HAIR_OLD or (old in BOWS_OLD and HEAD2_Y0 + j <= -22):
+                        canvas[y, x] = 0
+            else:
+                canvas[y, x] = (*hx(PAL[ch]), 255)
+    for (x, y), ch in EYES2.items():
+        canvas[py + y, px + x] = (*hx(PAL[ch]), 255)
+
+
+def drills():
+    """The two ringlets' squares on the canvas (rows -21..-7 from the pivot, left of the face / right of it):
+    (left, right) bool masks - tools/art/rig_gwen.py moves and layers them as hair."""
+    left, right = np.zeros((128, 128), bool), np.zeros((128, 128), bool)
+    for j, row in enumerate(HEAD2):
+        y = HEAD2_Y0 + j
+        if not -21 <= y <= -7:
+            continue
+        for i, ch in enumerate(row):
+            x = HEAD2_X0 + i
+            if ch in "-.":
+                continue
+            if x <= -3:
+                left[88 + y, 64 + x] = True
+            elif x >= 5:
+                right[88 + y, 64 + x] = True
+    return left, right
 
 
 def main():
