@@ -14,23 +14,23 @@
  53 
  54 
  55 
- 56 
- 57 
- 58 
- 59 
- 60 
- 61 
- 62           00000
- 63          0iihii0000000
- 64      0qcajihhhhjjjjjjhh 00
- 65      0pcbjhhiiikkkki0jh0pp0
- 66      apecjj00a0jkki00jaacpa
- 67     0qpeehm00x0ikk000iaceep0
- 68     0qppehmkkxykkkx0jiaceep0
- 69      0qpphmkhkkkkkkajiaecpa
- 70        aqqmikkmmmkajiabppa
- 71        aqqhakkkkkaaihabqa
- 72        0qahaikkk0aaiabba
+ 56
+ 57
+ 58
+ 59              00
+ 60          0  0hh0
+ 61         0j00ihhh0
+ 62        0mjijihhhi0
+ 63        0mjjijihhhi0
+ 64        0mmjjiihikkk0
+ 65        0mmjjiihikkkk0
+ 66        0mmjjih00kk0k0
+ 67        0mmjjihxykkxi0
+ 68      0q0mmjjihkkkkki0 0q0
+ 69      0pq0mhjjikkkkki0beq0
+ 70       0pe0hmjjjkckki0beq0
+ 71        0qahajjikkki0bebqa
+ 72        0qahaajikki0aaiabba
  73       00bbhabpa0aqabaa00
  74      0ss0bhbbqqaaqbbppaa00
  75       0tsuppeeebaa0epp0
