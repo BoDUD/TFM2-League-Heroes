@@ -640,7 +640,11 @@ TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
 SHRINK = {"xerath": 0.9, "renekton": 0.9}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」
 # no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
-SHRINK_KEEP = {"xerath": ["!FBFCFC"], "renekton": ["!F9D206+2,1,2,2", "!A8161F"]}
+# "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
+# and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
+# every low row "knee" and the cut fell on his head
+SHRINK_KEEP = {"xerath": ["!FBFCFC"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP_TAG = {"renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
@@ -1444,7 +1448,7 @@ def main():
             import shrink_frames as SF
             body0 = SF.body_of(sheet["idle"])
             a0 = sheet["idle"][0][0]
-            idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), body=body0,
+            idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero), body=body0,
                                         tags=["idle"], anchor=SHRINK_ANCHOR.get(hero))["idle"]
             if hero in HEAD_AT:
                 hx, hy = HEAD_AT[hero]
@@ -1466,7 +1470,7 @@ def main():
                 with open(bake_path, encoding="utf-8") as f:
                     copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
             plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
-                                                         keep_colours=SHRINK_KEEP.get(hero, ()),
+                                                         keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
                                                          tags=[t for t in sheet if t != "idle"],
                                                          anchor=SHRINK_ANCHOR.get(hero))}
             SHRUNK[hero] = plans

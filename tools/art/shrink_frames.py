@@ -116,7 +116,7 @@ def _kept(st, colours, limit=10):
                 down[:-1] = env[1:]
                 m &= up & down
             out[k] |= m
-    colours = [h for h in colours if not h.startswith("#")]
+    colours = [h for h in colours if not h.startswith("#") and not h.startswith("=")]
     for h in colours:
         if h.startswith("!"):
             hexs, _, m = h[1:].partition("+")              # "!RRGGBB+up,down,left,right": the box grown by that
@@ -247,11 +247,14 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
     # only the face / head box ("!" colours) and the edges are held this hard; a hand line that could not be
     # avoided stays cut
     hard = _kept(st, [c for c in keep_colours if c[0] in "!#"])
+    # "=RRGGBB": no ROW through a square of that colour, columns may still cross it (Renekton's knee guard: a row
+    # through it halved the guard and shifted the stripes of his leg - 「这里是像素缺失吗」「在左脚啊」)
+    row_only = _kept(st, ["#" + c[1:] for c in keep_colours if c[0] == "="])     # its squares themselves
     if hard_frames is not None:
         # the death's lying frames put the head at the body's height: in the sum over all frames they made every
         # standing row "the head" and the whole cut fell on the legs (Samira: 「太怪了」) - they count as soft only
         hard[~np.asarray(hard_frames, bool)] = False
-    hr, hc = hard.sum((0, 2)), hard.sum((0, 1))
+    hr, hc = hard.sum((0, 2)) + row_only.sum((0, 2)), hard.sum((0, 1))
     for edge in edge_r:
         if 0 <= edge < len(hr):
             hr[edge] += big
@@ -348,11 +351,13 @@ def body_of(frames):
     return (ys.min() - H, ys.max() - H, xs.min() - W, xs.max() - W)
 
 
-def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None, anchor=None):
+def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None, anchor=None,
+                 keep_by_tag=None):
     """Every action of the sheet (or only `tags`) made `scale` as big; returns {tag: plan}. same_as {tag: source tag}: a
     copy of another action's frames (import_native's bake: the attack with a flash drawn in) takes its source's plan.
     body: the range the counts come from (body_of the idle as drawn), when the idle has been shrunk already.
-    anchor: a colour only one feature has; the lines then follow the body from frame to frame (anchor_shifts)."""
+    anchor: a colour only one feature has; the lines then follow the body from frame to frame (anchor_shifts).
+    keep_by_tag: {tag: keep colours} for an action that needs other ones (a lying death)."""
     if body is None:
         body = body_of(sheet[body_tag])
     # one plan per action from its own frames (its head box and hands are tight there; one plan for all the actions
@@ -377,7 +382,7 @@ def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), b
             fr = sheet[root(tag)]
             if anchor:
                 refs[tag] = next((p for p in anchor_points(fr, anchor) if p is not None), None)
-            plans[tag] = plan_tag(fr, body, scale, keep_colours,
+            plans[tag] = plan_tag(fr, body, scale, (keep_by_tag or {}).get(tag, keep_colours),
                                   shifts=anchor_shifts(fr, anchor, refs[tag]) if anchor else None)
     for tag in todo:
         sheet[tag] = apply_tag(sheet[tag], plans[tag])
