@@ -27,18 +27,20 @@
   本包英雄来自各自的技能文件，`make_override.py` 生成），**35000 以上算远程**；查不到的英雄（别的 mod）按挂标记那一刻离凯隐
   多远猜（30000 以外算远程）。哪边先满就给凯隐挂准备标记，形态记在被动里（被动挂在玩家身上，阵亡不丢）：复活时、以及之后
   每 tick 发现凯隐身上没有形态 buff 也没有准备标记时，直接补上永久的形态 buff（变身动作只在第一次播）。
-- **完整变身**（`src/view.rs`，只在游戏 0.6.3 上）：游戏画单位时用画面实体里的名字现拼精灵路径
-  `asset/base/aseprite_resources/champions/{名字}`。凯隐名字 `league_kayn` 的最后一个字母改成 `d`（暗裔）、`s`（影流），在墙里是
-  `w` / `r` / `h`，`mod.override_info` 把这些名字送到主包的图集 `league_kayn_darkin` / `_shadow` / `_wall` / `_darkin_wall` /
-  `_shadow_wall`（`tools/art/rig_kayn_forms.py` 用定稿的部件摆出两种形态的待机、跑步、受击、阵亡，`tools/art/import_native.py` 合成）。
+- **完整变身**（`src/view.rs`，只在游戏 0.6.3 上）：照原版恶魔的做法换**正在播的动画名**。恶魔变身时，游戏的显示处理把
+  `run` 换成 `archfiend_run`，两套动作都在恶魔自己的图里。凯隐也一样：`tools/art/import_native.py` 把两种形态的待机、跑步、受击、
+  阵亡、R 钻入和变身后半段（`rh_*` / `sh_*`），以及墙里的暗影剪影（`w_*` / `rw_*` / `hw_*`，待机、跑步、受击、Q）放进凯隐自己的图
+  （`league_kayn`，原有动作逐像素不变）。
   - **在哪里换**：游戏的显示世界每帧调用显示处理表里的一个更新函数（rva 0x2808e30，原版恶魔的 run → archfiend_run 就在这里；
     函数指针存在 .rdata 的槽 rva 0x3c31358，群里的变身前置 tfm2_transform_core 也用它）。加载时核对函数开头 24 个字节，对得上才把槽
     换成本包的函数：先调用槽里原来的函数（原版的，或先装好的变身前置），再走一遍显示世界的实体表（+0x138，每格 0x1d0 字节，值从 +8
-    开始：+0x38 名字，+0xb8 / +0xc0 buff 列表），名字是 `league_kay?` 的实体按身上的 buff 选字母：形态 buff `league_kayn_form_d` /
-    `_s`，墙里的暗影雾 `league_kayn_in_wall*`。
+    开始：+0x38 名字，+0x68 正在播的动画名，+0xb8 / +0xc0 buff 列表），名字是 `league_kayn` 的实体按身上的 buff 换动画名：形态 buff
+    `league_kayn_form_d` / `_s` → `rh_idle` / `sh_idle` ……，墙里的暗影雾 `league_kayn_in_wall*` → `w_run` / `rw_run` / `hw_run` ……。
+    新名字用游戏同一个堆（GetProcessHeap）分配，旧的照游戏的做法释放。
   - 画面实体的 buff 就是屏幕上这一刻的，所以不用再读比赛时钟（0.6.2 版要等屏幕时钟走到后台记下的 tick）；两个凯隐各按各的 buff。
     形态是永久的：阵亡时 buff 清掉，按记下的形态画尸体。
-  - 0.6.2 版是给拼路径的函数（rva 0x1fbaa80）装钩子；0.6.3 把它并进了别的函数，按群里给的显示处理槽和探针（2026-10-08）改成现在这样。
+  - 先试过照 0.6.2 改名字的最后一个字母（`league_kayd` …，`mod.override_info` 里的这些映射和 `league_kayn_darkin` 等图集是 0.6.2
+    留下的）：日志里换上了，战场上的身体没跟着换（「不行还是会变回来」），0.6.3 画身体不再每帧按名字取图。
 - **掠影步穿墙**（`src/wall.rs`）：地图的墙是 30 × 30 的格子（同卡蜜尔附加包读的那份），Q 转完的 2 秒掠影步里，最近的敌方英雄在
   80000 以内、和凯隐之间隔着墙、离他 22000 以上时，用强制位移笔直穿过去（停在他前面 17600，即 22000 的 80%；落点在墙里就沿着这条线挪到墙的另一边）。只有
   这 2 秒里站在墙格上才算「在墙里」：平时贴着野区的墙走也会踩到墙格（格子很粗），第一版那样算，打野一两级就像变了身。
@@ -59,7 +61,8 @@
    - 每行开头是加载后的秒数，`[view m=… s=…]` 是画面那一侧、`[presim …]` 是服务器那一侧，`t=… (6:43) … Lv8` 是比赛的 tick、时间和凯隐的等级；
    - `full transform on: display slot … now calls this add-on, then the game's own handler`：完整变身装上了（`then another mod's
      handler (chained)` 是变身前置之类先装了，一起用；`off (…)` 就是游戏版本不对，只有出招是形态的）；
-   - `… drawn as league_kayd (Darkin)`：换成的样子（`kayw` / `kayr` / `kayh` 是墙里）；
+   - `world … Kayn #24: Darkin (playing idle; buffs [...])`：凯隐的样子变了（形态、墙里）；`form remembered` 是阵亡后按记下的形态画；
+   - `display handler: … calls, … animation names swapped in 10 s`：每 10 秒一行，显示处理调用了多少次、换了多少次动画名；
    - `shadow step through the wall: (…) -> (…), 34 ticks`：掠影步穿墙。
 
 ## 开发
@@ -72,6 +75,6 @@ CARGO_TARGET_DIR=%LOCALAPPDATA%/Temp/<x>/target cargo build --release -p league_
 python addons/league_kayn_form/make_override.py      # 主包的凯隐或别的英雄的攻击距离改了就重跑
 ```
 
-`src/view.rs`、`src/wall.rs` 的单元测试：只改凯隐的名字、buff 对应的字母、阵亡后形态还在、地图有 90 个墙格、
+`src/view.rs`、`src/wall.rs` 的单元测试：动画名按形态和墙换、buff 对应的样子、阵亡后形态还在、地图有 90 个墙格、
 只在隔着墙时穿。`tests/wiring.rs` 走真实的导出入口跑被动：近战 / 远程分边、门槛、队友身上的标记不算、阵亡复活补回形态、准备标记过期也补、
 查不到的英雄按距离猜。原生代码在 SDK 模拟里跑不了，平衡靠主包的数据部分和游戏日志。

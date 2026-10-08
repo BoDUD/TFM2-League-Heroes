@@ -835,6 +835,15 @@ WALL_SMOKE = [(0x2C, 0x22, 0x50), (0x46, 0x3A, 0x74), (0x6A, 0x5C, 0x9E), (0x9A,
 WALL_GLOW = (0xFF, 0x40, 0x58)
 
 
+# Game 0.6.3: the add-on (addons/league_kayn_form, view.rs) swaps the playing animation's NAME, as the game's own
+# demon does (run -> archfiend_run, both in the demon's sheet) - so the forms' bodies and the in-wall shadows also go
+# into the hero's own sheet under a prefix: rh_idle / sh_idle ..., w_run / rw_run / hw_run ... (the separate form and
+# wall sheets above stay for the 0.6.2 name swap).
+FORM_INTO_BASE = FORM_BODY + tuple(FORM_REVERSED) + tuple(FORM_RETIMED)
+WALL_PREFIX = {"kayn": "w_", "kayn_darkin": "rw_", "kayn_shadow": "hw_"}
+WALL_INTO_BASE = ("idle", "run", "hit", "skill")
+
+
 def shadow_frame(a):
     """One frame as the see-through in-wall shadow."""
     out = np.zeros_like(a)
@@ -1483,13 +1492,28 @@ def main():
             # a TIDY module's clean-up for the shrunk frames (tidy_shrunk): a removed row can take a tip's cap with
             # it (Xerath's far leg)
             tidy_frames(hero, sheet, "tidy_shrunk")
-        w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         forms = form_sheets(hero, sheet)
+        base_tags = dict(sheet)
+        for name, fsheet in forms.items():
+            prefix = FORM_SHEETS[hero][name]
+            for tag in FORM_INTO_BASE:
+                if tag in fsheet and prefix + tag not in sheet:
+                    sheet[prefix + tag] = fsheet[tag]
+        for name, s in [(hero, base_tags)] + list(forms.items()):
+            if name in WALL_PREFIX:
+                wall = wall_sheet({t: s[t] for t in WALL_INTO_BASE if t in s})
+                for tag, fr in wall.items():
+                    sheet[WALL_PREFIX[name] + tag] = fr
+        added = [t for t in sheet if t not in base_tags]
+        if added:
+            print(f"league/champions/league_{hero}: the forms' and in-wall tags added for the add-on's anim-name swap: "
+                  f"{', '.join(added)}")
+        w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         for name, fsheet in forms.items():
             fw, fh = G.write_sheet(os.path.join(MOD, "champions", f"league_{name}"), fsheet)
             print(f"league/champions/league_{name}#sheet.png {fw}x{fh}: {hero}'s sheet with the form's "
                   f"{', '.join(FORM_BODY)}")
-        for name, s in [(hero, sheet)] + list(forms.items()):
+        for name, s in [(hero, base_tags)] + list(forms.items()):
             if name in WALL_SHEETS:
                 ww, wh = G.write_sheet(os.path.join(MOD, "champions", f"league_{WALL_SHEETS[name]}"), wall_sheet(s))
                 print(f"league/champions/league_{WALL_SHEETS[name]}#sheet.png {ww}x{wh}: {name} as the in-wall shadow")
