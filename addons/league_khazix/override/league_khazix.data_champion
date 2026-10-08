@@ -67,6 +67,102 @@
         },
         {
           "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_rengar_rival_hit",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 60000
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_khazix_seen",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 60000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_khazix_near",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_khazix_met",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_rengar_near",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_khazix_met",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_khazix_k_meet"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_khazix_vo_rengar"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
           "effects": []
         },
         {
@@ -99,33 +195,39 @@
             {
               "casting_type": "Targeting",
               "effect": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_khazix_s2",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_khazix_k_a"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_khazix_k_a",
-                        "duration": {
-                          "Time": {
-                            "tick": 40
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_khazix_rival_hit",
+                  "duration": {
+                    "Time": {
+                      "tick": 40
                     }
-                  ]
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
+                  }
                 }
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_khazix_k_a"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_khazix_k_a",
+                      "duration": {
+                        "Time": {
+                          "tick": 40
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
               }
             },
             {
@@ -186,48 +288,48 @@
             {
               "casting_type": "Targeting",
               "effect": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_khazix_s2",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "AddCasted",
-                      "casted_type": "Heal",
-                      "duration": 3,
-                      "period": 1,
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_khazix_k_a"
-                        }
-                      ]
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 3,
+                    "period": 1,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_khazix_k_a"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
                     },
-                    {
-                      "type": "RangeEffect",
-                      "shape": {
-                        "Circle": {
-                          "radius": 1000
-                        }
-                      },
-                      "target": "AllyOnlySelf",
-                      "apply_type": "AroundCaster",
-                      "effects": [
-                        {
-                          "type": "Delayed",
-                          "tick": 4,
-                          "effects": [
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_khazix_k_a",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_khazix_k_a"
-                                  },
-                                  {
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Delayed",
+                        "tick": 4,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_khazix_k_a",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_khazix_k_a"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_khazix_s2",
+                                  "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
@@ -262,24 +364,107 @@
                                         "name": "league_khazix_e_reset"
                                       }
                                     ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
                                   }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_rengar_seen",
+                                  "effect_buff": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_khazix_rv_evo",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_khazix_rv_evo",
+                                            "duration": "Permanent",
+                                            "attack_mult": 10
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_khazix_s3",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_khazix_s2",
+                                            "effect_buff": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_khazix_s3",
+                                                "duration": "Permanent"
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_khazix_s1",
+                                              "effect_buff": {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_khazix_s2",
+                                                  "duration": "Permanent"
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              "effect_none": {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_khazix_s1",
+                                                  "duration": "Permanent",
+                                                  "range": 6000
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_khazix_evo"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_khazix_evo"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_khazix_vo_evo_x"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
                             }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
               }
             }
           ]
@@ -312,6 +497,102 @@
         {
           "type": "Combine",
           "effects": []
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_rengar_rival_hit",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 60000
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_khazix_seen",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 60000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_khazix_near",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_khazix_met",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_rengar_near",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_khazix_met",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_khazix_k_meet"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_khazix_vo_rengar"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
         },
         {
           "type": "ParabolicProjectile",
@@ -588,33 +869,39 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_khazix_s2",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_khazix_k_q"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_khazix_k_q",
-                            "duration": {
-                              "Time": {
-                                "tick": 40
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_khazix_rival_hit",
+                      "duration": {
+                        "Time": {
+                          "tick": 40
                         }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
+                      }
                     }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_khazix_k_q"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_khazix_k_q",
+                          "duration": {
+                            "Time": {
+                              "tick": 40
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
                   }
                 },
                 {
@@ -656,48 +943,48 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_khazix_s2",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "AddCasted",
-                          "casted_type": "Heal",
-                          "duration": 3,
-                          "period": 1,
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_khazix_k_q"
-                            }
-                          ]
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 3,
+                        "period": 1,
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_khazix_k_q"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
                         },
-                        {
-                          "type": "RangeEffect",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "target": "AllyOnlySelf",
-                          "apply_type": "AroundCaster",
-                          "effects": [
-                            {
-                              "type": "Delayed",
-                              "tick": 4,
-                              "effects": [
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_khazix_k_q",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_khazix_k_q"
-                                      },
-                                      {
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Delayed",
+                            "tick": 4,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_khazix_k_q",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_khazix_k_q"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_khazix_s2",
+                                      "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
@@ -732,24 +1019,107 @@
                                             "name": "league_khazix_e_reset"
                                           }
                                         ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
                                       }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  }
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rengar_seen",
+                                      "effect_buff": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_khazix_rv_evo",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_khazix_rv_evo",
+                                                "duration": "Permanent",
+                                                "attack_mult": 10
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_khazix_s3",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_khazix_s2",
+                                                "effect_buff": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_khazix_s3",
+                                                    "duration": "Permanent"
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_khazix_s1",
+                                                  "effect_buff": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_khazix_s2",
+                                                      "duration": "Permanent"
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_khazix_s1",
+                                                      "duration": "Permanent",
+                                                      "range": 6000
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_khazix_evo"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_khazix_evo"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_khazix_vo_evo_x"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
                                 }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
                 }
               ]
@@ -806,33 +1176,36 @@
                             "name": "league_khazix_a_hit"
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_khazix_k_a"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_khazix_k_a",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 40
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_khazix_rival_hit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 40
                                 }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
+                              }
                             }
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_khazix_k_a"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_khazix_k_a",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 40
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           },
                           {
                             "type": "SwitchByBuff",
@@ -887,48 +1260,48 @@
                             }
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasted",
-                                  "casted_type": "Heal",
-                                  "duration": 3,
-                                  "period": 1,
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_khazix_k_a"
-                                    }
-                                  ]
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 3,
+                                "period": 1,
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_khazix_k_a"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
                                 },
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 4,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_khazix_k_a",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_khazix_k_a"
-                                              },
-                                              {
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 4,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_khazix_k_a",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_khazix_k_a"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_khazix_s2",
+                                              "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
@@ -963,24 +1336,107 @@
                                                     "name": "league_khazix_e_reset"
                                                   }
                                                 ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
                                               }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rengar_seen",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_khazix_rv_evo",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_khazix_rv_evo",
+                                                        "duration": "Permanent",
+                                                        "attack_mult": 10
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_khazix_s3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_khazix_s2",
+                                                        "effect_buff": {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_khazix_s3",
+                                                            "duration": "Permanent"
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_khazix_s1",
+                                                          "effect_buff": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s2",
+                                                              "duration": "Permanent"
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s1",
+                                                              "duration": "Permanent",
+                                                              "range": 6000
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_vo_evo_x"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         ]
                       }
@@ -1019,6 +1475,102 @@
         {
           "type": "Combine",
           "effects": []
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_rengar_rival_hit",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 60000
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_khazix_seen",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 60000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_khazix_near",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_khazix_met",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_rengar_near",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_khazix_met",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_khazix_k_meet"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_khazix_vo_rengar"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
         },
         {
           "type": "CasterAnimation",
@@ -1133,77 +1685,80 @@
                   "apply_type": "AroundCaster",
                   "effects": [
                     {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_khazix_s2",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_khazix_k_e"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_khazix_k_e",
-                              "duration": {
-                                "Time": {
-                                  "tick": 40
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_khazix_rival_hit",
+                        "duration": {
+                          "Time": {
+                            "tick": 40
                           }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
+                        }
                       }
                     },
                     {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_khazix_s2",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "AddCasted",
-                            "casted_type": "Heal",
-                            "duration": 3,
-                            "period": 1,
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_khazix_k_e"
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_khazix_k_e"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_khazix_k_e",
+                            "duration": {
+                              "Time": {
+                                "tick": 40
                               }
-                            ]
+                            }
                           },
-                          {
-                            "type": "RangeEffect",
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "target": "AllyOnlySelf",
-                            "apply_type": "AroundCaster",
-                            "effects": [
-                              {
-                                "type": "Delayed",
-                                "tick": 4,
-                                "effects": [
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_khazix_k_e",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_khazix_k_e"
-                                        },
-                                        {
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasted",
+                          "casted_type": "Heal",
+                          "duration": 3,
+                          "period": 1,
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_khazix_k_e"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "Delayed",
+                              "tick": 4,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_khazix_k_e",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_khazix_k_e"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_khazix_s2",
+                                        "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
@@ -1238,24 +1793,107 @@
                                               "name": "league_khazix_e_reset"
                                             }
                                           ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_rengar_seen",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_khazix_rv_evo",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_khazix_rv_evo",
+                                                  "duration": "Permanent",
+                                                  "attack_mult": 10
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_khazix_s3",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_khazix_s2",
+                                                  "effect_buff": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_khazix_s3",
+                                                      "duration": "Permanent"
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_khazix_s1",
+                                                    "effect_buff": {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_khazix_s2",
+                                                        "duration": "Permanent"
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_khazix_s1",
+                                                        "duration": "Permanent",
+                                                        "range": 6000
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_khazix_evo"
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_khazix_evo"
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_khazix_vo_evo_x"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
                                   }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 },
@@ -1358,33 +1996,36 @@
                         "from_projectile": true,
                         "effects": [
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_khazix_k_w"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_khazix_k_w",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 40
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_khazix_rival_hit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 40
                                 }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
+                              }
                             }
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_khazix_k_w"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_khazix_k_w",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 40
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           }
                         ]
                       }
@@ -1460,48 +2101,48 @@
                         "from_projectile": true,
                         "effects": [
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasted",
-                                  "casted_type": "Heal",
-                                  "duration": 3,
-                                  "period": 1,
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_khazix_k_w"
-                                    }
-                                  ]
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 3,
+                                "period": 1,
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_khazix_k_w"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
                                 },
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 4,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_khazix_k_w",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_khazix_k_w"
-                                              },
-                                              {
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 4,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_khazix_k_w",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_khazix_k_w"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_khazix_s2",
+                                              "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
@@ -1536,24 +2177,107 @@
                                                     "name": "league_khazix_e_reset"
                                                   }
                                                 ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
                                               }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rengar_seen",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_khazix_rv_evo",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_khazix_rv_evo",
+                                                        "duration": "Permanent",
+                                                        "attack_mult": 10
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_khazix_s3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_khazix_s2",
+                                                        "effect_buff": {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_khazix_s3",
+                                                            "duration": "Permanent"
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_khazix_s1",
+                                                          "effect_buff": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s2",
+                                                              "duration": "Permanent"
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s1",
+                                                              "duration": "Permanent",
+                                                              "range": 6000
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_vo_evo_x"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         ]
                       }
@@ -1623,33 +2347,36 @@
                             "name": "league_khazix_a_hit"
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_khazix_k_a"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_khazix_k_a",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 40
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_khazix_rival_hit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 40
                                 }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
+                              }
                             }
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_khazix_k_a"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_khazix_k_a",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 40
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           },
                           {
                             "type": "SwitchByBuff",
@@ -1704,48 +2431,48 @@
                             }
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasted",
-                                  "casted_type": "Heal",
-                                  "duration": 3,
-                                  "period": 1,
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_khazix_k_a"
-                                    }
-                                  ]
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 3,
+                                "period": 1,
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_khazix_k_a"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
                                 },
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 4,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_khazix_k_a",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_khazix_k_a"
-                                              },
-                                              {
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 4,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_khazix_k_a",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_khazix_k_a"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_khazix_s2",
+                                              "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
@@ -1780,24 +2507,107 @@
                                                     "name": "league_khazix_e_reset"
                                                   }
                                                 ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
                                               }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rengar_seen",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_khazix_rv_evo",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_khazix_rv_evo",
+                                                        "duration": "Permanent",
+                                                        "attack_mult": 10
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_khazix_s3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_khazix_s2",
+                                                        "effect_buff": {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_khazix_s3",
+                                                            "duration": "Permanent"
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_khazix_s1",
+                                                          "effect_buff": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s2",
+                                                              "duration": "Permanent"
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s1",
+                                                              "duration": "Permanent",
+                                                              "range": 6000
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_vo_evo_x"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         ]
                       }
@@ -1832,6 +2642,102 @@
         {
           "type": "Combine",
           "effects": []
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_rengar_rival_hit",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 60000
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_khazix_seen",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 60000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_khazix_near",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_khazix_met",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_rengar_near",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_khazix_met",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_khazix_k_meet"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_khazix_vo_rengar"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
         },
         {
           "type": "CasterAnimation",
@@ -2170,33 +3076,36 @@
                             "name": "league_khazix_a_hit"
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_khazix_k_a"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_khazix_k_a",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 40
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_khazix_rival_hit",
+                              "duration": {
+                                "Time": {
+                                  "tick": 40
                                 }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
+                              }
                             }
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_khazix_k_a"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_khazix_k_a",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 40
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           },
                           {
                             "type": "SwitchByBuff",
@@ -2251,48 +3160,48 @@
                             }
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_khazix_s2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasted",
-                                  "casted_type": "Heal",
-                                  "duration": 3,
-                                  "period": 1,
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_khazix_k_a"
-                                    }
-                                  ]
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 3,
+                                "period": 1,
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_khazix_k_a"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
                                 },
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 4,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_khazix_k_a",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_khazix_k_a"
-                                              },
-                                              {
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 4,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_khazix_k_a",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_khazix_k_a"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_khazix_s2",
+                                              "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
@@ -2327,24 +3236,107 @@
                                                     "name": "league_khazix_e_reset"
                                                   }
                                                 ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
                                               }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rengar_seen",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_khazix_rv_evo",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_khazix_rv_evo",
+                                                        "duration": "Permanent",
+                                                        "attack_mult": 10
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_khazix_s3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_khazix_s2",
+                                                        "effect_buff": {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_khazix_s3",
+                                                            "duration": "Permanent"
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_khazix_s1",
+                                                          "effect_buff": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s2",
+                                                              "duration": "Permanent"
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_khazix_s1",
+                                                              "duration": "Permanent",
+                                                              "range": 6000
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_evo"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_khazix_vo_evo_x"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
                                         }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         ]
                       }
@@ -2467,6 +3459,14 @@
       "anim": "asset/league/effects/league_khazix_big",
       "tag": "evo",
       "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_khazix_k_meet",
+      "anim": "asset/league/effects/league_rengar_fx",
+      "tag": "k_meet",
+      "z": 4,
       "is_follow": false
     }
   ],

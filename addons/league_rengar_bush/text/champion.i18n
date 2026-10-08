@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_rengar_bush": {
+        "attack": "【草丛测试版】<#ff9028ff>无形掠食者<>：在草丛里、复活或R后，下次攻击扑向目标造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>伤害。技能和扑击各得1点<#ff9028ff>残暴<>，满4点强化下个技能。<#ff9028ff>残忍无情<>（自动，<#ffb900ff>5秒<>）：攻击造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>伤害，攻速+40%；强化时<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>连招<>：空中Q、三Q。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_rengar_bush": {
+        "attack": "【草叢測試版】<#ff9028ff>潛行怒獅<>：在草叢裡、復活或R後，下次攻擊撲向目標造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>傷害。技能和撲擊各得1點<#ff9028ff>兇殘<>，滿4點強化下個技能。<#ff9028ff>兇殘打擊<>（自動，<#ffb900ff>5秒<>）：攻擊造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>傷害，攻速+40%；強化時<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>連招<>：空中Q、三Q。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_rengar_bush": {
+        "attack": "[Bush test build] Blade swings. <#ff9028ff>Unseen Predator<>: in a bush, on respawn or after R, his next attack leaps at a distant target for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>. Skills and leaps give 1 <#ff9028ff>Ferocity<>; at 4 his next skill is empowered. <#ff9028ff>Savagery<> (automatic, <#ffb900ff>5s<>): an attack for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> and +40% attack speed; empowered <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>. <#ff9028ff>Combos<>: air Q, triple Q."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_rengar_bush": {
+        "attack": "[수풀 테스트판] <#ff9028ff>보이지 않는 포식자<>: 수풀 안, 부활 또는 R 후 다음 공격은 멀리 도약해 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>의 피해. 스킬과 도약마다 <#ff9028ff>흉포<> 1, 4가 되면 다음 스킬 강화. <#ff9028ff>포악함<>(자동, <#ffb900ff>5초<>): 공격이 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>의 피해, 공격 속도 +40%; 강화 시 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>. <#ff9028ff>연계<>: 공중 Q, 트리플 Q."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_rengar_bush": {
+        "attack": "【茂みテスト版】刃で攻撃。<#ff9028ff>見えざる襲撃者<>：茂みの中、復活時またはR後、次の攻撃で遠くの敵に飛びかかり<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>。スキルと跳躍ごとに<#ff9028ff>獰猛<>1、4で次のスキル強化。<#ff9028ff>逆上<>（自動、<#ffb900ff>5秒<>）：攻撃が<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、攻撃速度+40%；強化時<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>コンボ<>：空中Q、トリプルQ。"
+      }
+    }
+  }
+}

@@ -370,7 +370,7 @@ fn clip(s: &str, n: usize) -> String {
     }
 }
 
-struct WallReader;
+pub struct WallReader;
 impl StableMapCustomizer for WallReader {
     fn customize(&self, mode: Option<GameModeKindV1>, doc: &mut StableJsonDoc<'_>) {
         let code = mode.map_or(MODE_UNKNOWN, |m| m.code());

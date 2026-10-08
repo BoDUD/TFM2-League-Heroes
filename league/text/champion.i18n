@@ -532,6 +532,13 @@
         "skill": "抽取目标的血，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<><#a974ffff>魔法伤害<>，血回到身上时回复<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。每第2次为<#ff9028ff>猩红冲刺<>：伤害180%、回血翻倍、移速+30%。<#ff9028ff>连招E→Q<>：潮汐命中英雄后<#ffb900ff>2.5秒<>内的Q直接为猩红冲刺。",
         "skill2": "蓄力<#ffb900ff>0.97秒<>，向周围每个敌人射出血弹，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>。<#ff9028ff>连招E-W<>：血池结束时若E已就绪，钻出时放出一圈70%伤害的潮汐。",
         "ult": "在敌方英雄中降下瘟疫：范围内敌人<#ffb900ff>3秒<>内受到伤害+10%，随后爆发<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>6%<><#a974ffff>魔法伤害<>，每命中一名英雄回复<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。<#ff9028ff>连招闪R E<>：若E已就绪，先化作血雾闪入敌群，再放出一圈70%伤害的潮汐。"
+      },
+      "league_rengar": {
+        "name": "雷恩加尔",
+        "attack": "<#ff9028ff>无形掠食者<>：复活、脱战<#ffb900ff>3秒<>或R后，下次攻击扑向目标造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>伤害。技能和扑击各得1点<#ff9028ff>残暴<>，满4点强化下个技能。<#ff9028ff>残忍无情<>（自动，<#ffb900ff>5秒<>）：攻击造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>伤害，攻速+40%；强化时<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>连招<>：空中Q、三Q。",
+        "skill": "咆哮，对周围敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>伤害，回复<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。<#ff9028ff>强化<>：回复200%，<#ffb900ff>1.5秒<>内<#ef5350ff>免疫控制<>。",
+        "skill2": "掷出套索，命中首个敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害并<#ef5350ff>减速40%<><#ffb900ff>1.75秒<>。<#ff9028ff>强化<>：<#ef5350ff>禁锢1.75秒<>。<#ff9028ff>连招扑脸定身<>：扑击命中英雄后<#ffb900ff>1.5秒<>内的E必中，<#ef5350ff>禁锢1秒<>。",
+        "ult": "对交战中的英雄发动：伪装<#ffb900ff>5秒<>，移速+40%，下次攻击为扑击，额外造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害，<#ef5350ff>护甲-25%<><#ffb900ff>4秒<>。<#ff9028ff>连招R一套<>：R→扑击→E禁锢→Q。"
       }
     },
     "skill_name": {
@@ -914,6 +921,11 @@
         "skill1": "鲜血转换",
         "skill2": "血之潮汐",
         "ult": "血之瘟疫"
+      },
+      "league_rengar": {
+        "skill1": "战争咆哮",
+        "skill2": "套索打击",
+        "ult": "狩猎律动"
       }
     }
   },
@@ -1450,6 +1462,13 @@
         "skill": "抽取目標的血，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<><#a974ffff>魔法傷害<>，血回到身上時回復<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。每第2次為<#ff9028ff>猩紅衝刺<>：傷害180%、回血加倍、跑速+30%。<#ff9028ff>連招E→Q<>：潮汐命中英雄後<#ffb900ff>2.5秒<>內的Q直接為猩紅衝刺。",
         "skill2": "蓄力<#ffb900ff>0.97秒<>，向周圍每個敵人射出血彈，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>。<#ff9028ff>連招E-W<>：血池結束時若E已就緒，鑽出時放出一圈70%傷害的潮汐。",
         "ult": "在敵方英雄中降下瘟疫：範圍內敵人<#ffb900ff>3秒<>內受到傷害+10%，隨後爆發<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>6%<><#a974ffff>魔法傷害<>，每命中一名英雄回復<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。<#ff9028ff>連招閃R E<>：若E已就緒，先化作血霧閃入敵群，再放出一圈70%傷害的潮汐。"
+      },
+      "league_rengar": {
+        "name": "雷葛爾",
+        "attack": "<#ff9028ff>潛行怒獅<>：復活、脫戰<#ffb900ff>3秒<>或R後，下次攻擊撲向目標造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>傷害。技能和撲擊各得1點<#ff9028ff>兇殘<>，滿4點強化下個技能。<#ff9028ff>兇殘打擊<>（自動，<#ffb900ff>5秒<>）：攻擊造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>傷害，攻速+40%；強化時<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>連招<>：空中Q、三Q。",
+        "skill": "咆哮，對周圍敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>傷害，回復<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>生命。<#ff9028ff>強化<>：回復200%，<#ffb900ff>1.5秒<>內<#ef5350ff>免疫控場<>。",
+        "skill2": "擲出拋繩，命中首個敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害並<#ef5350ff>緩速40%<><#ffb900ff>1.75秒<>。<#ff9028ff>強化<>：<#ef5350ff>定身1.75秒<>。<#ff9028ff>連招撲臉定身<>：撲擊命中英雄後<#ffb900ff>1.5秒<>內的E必中，<#ef5350ff>定身1秒<>。",
+        "ult": "對交戰中的英雄發動：偽裝<#ffb900ff>5秒<>，跑速+40%，下次攻擊為撲擊，額外造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害，<#ef5350ff>護甲-25%<><#ffb900ff>4秒<>。<#ff9028ff>連招R一套<>：R→撲擊→E定身→Q。"
       }
     },
     "skill_name": {
@@ -1832,6 +1851,11 @@
         "skill1": "鮮血轉換",
         "skill2": "血之潮汐",
         "ult": "血之瘟疫"
+      },
+      "league_rengar": {
+        "skill1": "怒獅戰吼",
+        "skill2": "狩獵拋繩",
+        "ult": "血性獵殺"
       }
     }
   },
@@ -2368,6 +2392,13 @@
         "skill": "Drains the target for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<> <#a974ffff>magic damage<>; the blood heals him <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<> when it returns. Every 2nd cast is <#ff9028ff>Crimson Rush<>: 180% damage, double heal, +30% move speed. <#ff9028ff>Combo E-Q<>: a Q within <#ffb900ff>2.5s<> of Tides hitting a champion is Crimson Rush at once.",
         "skill2": "Charges for <#ffb900ff>0.97s<>, then fires a bolt at every enemy around for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<> <#a974ffff>magic damage<> and a <#ef5350ff>40% slow<>. <#ff9028ff>Combo E-W<>: if E is ready when Sanguine Pool ends, he rises with a 70% Tides of Blood.",
         "ult": "Infects enemy champions' area: enemies take 10% more damage for <#ffb900ff>3s<>, then burst for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>6%<> <#a974ffff>magic damage<>; each champion hit heals him <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>. <#ff9028ff>Combo Flash-R-E<>: with E ready he first blinks into them as a blood mist, then casts a 70% Tides of Blood."
+      },
+      "league_rengar": {
+        "name": "Rengar",
+        "attack": "Blade swings. <#ff9028ff>Unseen Predator<>: on respawn, after <#ffb900ff>3s<> out of combat or after R, his next attack leaps at a distant target for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>. Skills and leaps give 1 <#ff9028ff>Ferocity<>; at 4 his next skill is empowered. <#ff9028ff>Savagery<> (automatic, <#ffb900ff>5s<>): an attack for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> and +40% attack speed; empowered <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>. <#ff9028ff>Combos<>: air Q, triple Q.",
+        "skill": "Roars, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> to enemies around him and healing <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>. <#ff9028ff>Empowered<>: 200% heal and <#ef5350ff>immune to crowd control<> for <#ffb900ff>1.5s<>.",
+        "skill2": "Throws a bola: the first enemy hit takes <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> and is <#ef5350ff>slowed 40%<> for <#ffb900ff>1.75s<>. <#ff9028ff>Empowered<>: <#ef5350ff>rooted 1.75s<>. <#ff9028ff>Combo leap-E<>: within <#ffb900ff>1.5s<> of a leap onto a champion the bola cannot miss and <#ef5350ff>roots 1s<>.",
+        "ult": "On a champion in a fight: camouflaged for <#ffb900ff>5s<>, +40% move speed; his next attack is a leap for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> more and <#ef5350ff>-25% armour<> for <#ffb900ff>4s<>. <#ff9028ff>Combo R one-shot<>: R, leap, rooting E, Savagery."
       }
     },
     "skill_name": {
@@ -2750,6 +2781,11 @@
         "skill1": "Transfusion",
         "skill2": "Tides of Blood",
         "ult": "Hemoplague"
+      },
+      "league_rengar": {
+        "skill1": "Battle Roar",
+        "skill2": "Bola Strike",
+        "ult": "Thrill of the Hunt"
       }
     }
   },
@@ -3286,6 +3322,13 @@
         "skill": "대상의 피를 빨아 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<>의 <#a974ffff>마법 피해<>, 피가 돌아오면 <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<> 회복. 두 번째마다 <#ff9028ff>진홍빛 쇄도<>: 피해 180%, 회복 2배, 이동 속도 +30%. <#ff9028ff>연계 E→Q<>: 파도가 챔피언에게 적중한 후 <#ffb900ff>2.5초<> 안의 Q는 바로 진홍빛 쇄도.",
         "skill2": "<#ffb900ff>0.97초<> 충전 후 주변 모든 적에게 피의 탄환을 쏘아 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>40% 둔화<>. <#ff9028ff>연계 E-W<>: 웅덩이가 끝날 때 E가 준비되어 있으면 70% 피해의 파도를 일으킵니다.",
         "ult": "적 챔피언 무리에 역병을 퍼뜨려 <#ffb900ff>3초<> 동안 받는 피해 +10%, 이후 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>6%<>의 <#a974ffff>마법 피해<>, 맞힌 챔피언마다 <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<> 회복. <#ff9028ff>연계 점멸-R-E<>: E가 준비되면 피안개로 점멸해 들어간 뒤 70% 파도."
+      },
+      "league_rengar": {
+        "name": "렝가",
+        "attack": "<#ff9028ff>보이지 않는 포식자<>: 부활, <#ffb900ff>3초<> 비전투 또는 R 후 다음 공격은 멀리 도약해 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>의 피해. 스킬과 도약마다 <#ff9028ff>흉포<> 1, 4가 되면 다음 스킬 강화. <#ff9028ff>포악함<>(자동, <#ffb900ff>5초<>): 공격이 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>의 피해, 공격 속도 +40%; 강화 시 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>. <#ff9028ff>연계<>: 공중 Q, 트리플 Q.",
+        "skill": "포효해 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 피해를 주고 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<> 회복. <#ff9028ff>강화<>: 회복 200%, <#ffb900ff>1.5초<> 동안 <#ef5350ff>군중 제어 면역<>.",
+        "skill2": "올가미를 던져 처음 맞힌 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 피해와 <#ffb900ff>1.75초<> <#ef5350ff>40% 둔화<>. <#ff9028ff>강화<>: <#ef5350ff>1.75초 속박<>. <#ff9028ff>연계 도약-E<>: 챔피언에게 도약한 뒤 <#ffb900ff>1.5초<> 안의 E는 반드시 맞고 <#ef5350ff>1초 속박<>.",
+        "ult": "교전 중인 챔피언에게: <#ffb900ff>5초<> 위장, 이동 속도 +40%, 다음 공격은 도약으로 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 추가 피해와 <#ffb900ff>4초<> <#ef5350ff>방어력 -25%<>. <#ff9028ff>연계 R 원콤<>: R→도약→E 속박→Q."
       }
     },
     "skill_name": {
@@ -3668,6 +3711,11 @@
         "skill1": "수혈",
         "skill2": "선혈의 파도",
         "ult": "혈사병"
+      },
+      "league_rengar": {
+        "skill1": "전투의 포효",
+        "skill2": "올가미 투척",
+        "ult": "사냥의 전율"
       }
     }
   },
@@ -4204,6 +4252,13 @@
         "skill": "対象から吸血し<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<>の<#a974ffff>魔法ダメージ<>、血が戻ると<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>回復。2回ごとに<#ff9028ff>真紅の奔流<>：ダメージ180%、回復2倍、移動速度+30%。<#ff9028ff>コンボE→Q<>：血液奔流がチャンピオンに当たって<#ffb900ff>2.5秒<>以内のQは即奔流。",
         "skill2": "<#ffb900ff>0.97秒<>溜めた後、周囲の敵全員に血の弾を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>5%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%スロウ<>。<#ff9028ff>コンボE-W<>：沼の終わりにEが使えれば70%の血液奔流を放つ。",
         "ult": "敵チャンピオンの群れに呪いを放ち、<#ffb900ff>3秒<>被ダメージ+10%、その後<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>6%<>の<#a974ffff>魔法ダメージ<>、命中したチャンピオンごとに<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>回復。<#ff9028ff>コンボ閃光R E<>：Eが使えれば血霧で飛び込み、70%の血液奔流。"
+      },
+      "league_rengar": {
+        "name": "レンガー",
+        "attack": "刃で攻撃。<#ff9028ff>見えざる襲撃者<>：復活時、<#ffb900ff>3秒<>非戦闘またはR後、次の攻撃で遠くの敵に飛びかかり<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>。スキルと跳躍ごとに<#ff9028ff>獰猛<>1、4で次のスキル強化。<#ff9028ff>逆上<>（自動、<#ffb900ff>5秒<>）：攻撃が<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、攻撃速度+40%；強化時<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>。<#ff9028ff>コンボ<>：空中Q、トリプルQ。",
+        "skill": "咆哮し周囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>、自身は<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>50%<>回復。<#ff9028ff>強化<>：回復200%、<#ffb900ff>1.5秒<><#ef5350ff>行動妨害無効<>。",
+        "skill2": "投げ縄を投げ最初の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>と<#ffb900ff>1.75秒<><#ef5350ff>40%スロウ<>。<#ff9028ff>強化<>：<#ef5350ff>1.75秒スネア<>。<#ff9028ff>コンボ跳躍E<>：チャンピオンへの跳躍後<#ffb900ff>1.5秒<>以内のEは必中で<#ef5350ff>1秒スネア<>。",
+        "ult": "交戦中のチャンピオンに：<#ffb900ff>5秒<>カモフラージュ、移動速度+40%、次の攻撃は跳躍で<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>追加、<#ffb900ff>4秒<><#ef5350ff>物理防御-25%<>。<#ff9028ff>コンボR一撃<>：R→跳躍→Eスネア→Q。"
       }
     },
     "skill_name": {
@@ -4586,6 +4641,11 @@
         "skill1": "吸血",
         "skill2": "血液奔流",
         "ult": "呪血の渦"
+      },
+      "league_rengar": {
+        "skill1": "狩りの雄叫び",
+        "skill2": "鉄球の投げ縄",
+        "ult": "狩猟本能"
       }
     }
   }

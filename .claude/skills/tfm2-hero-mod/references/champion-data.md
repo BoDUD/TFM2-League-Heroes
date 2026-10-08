@@ -1393,6 +1393,8 @@ control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.6
 league_xayah (bottom, --lane 3, 2026-10-08, Bladecaller's 1.25 s root from the third champion hit of one recall): 0.25
 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_vladimir (top, 2026-10-08): slows only (Tides of Blood, Sanguine Pool) - not the crowd control R reads, not simulated.
+league_rengar (jungle, --lane 1, 2026-10-09, the empowered Bola's 1.75 s root and the leap combo's 1 s root): 1.17 a
+game; the base ninja 0.58 and league_khazix 0.35 in the same batch - no change.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
 Skewer's pull): 1.88 a game; league_thresh 1.40 and league_leona 2.33 in the same batch - no change.
 league_seraphine (support, --lane 4, 2026-10-07, Beat Drop's 0.75 s root from the echoed wave and stun on the crowd-
@@ -3801,6 +3803,20 @@ every E for its cooldown) is off. Flash R E: R with `e_cd` off adds a hidden `Li
 radius stops it r_stop short of the first champion; its end_effects `Teleport` him there (league_lissandra E), and a
 `Delayed` nova follows the cloud. None of them spends E's cooldown (league_leesin_combos: an empty branch cannot hold a
 slot).
+
+**An empowered attack that runs itself, and its triple (league_rengar Q, Savagery).** No slot: the attack's tree picks
+`ready` (the pounce) > `f4` (four Ferocity: the empowered Savagery, which spends them) > `q_cd` off (Savagery: the Q
+strip, the slam and rip as homing hits, then attack speed) > the plain swing. The Savagery that fills Ferocity puts its
+cooldown on `q_hold` instead of `q_cd`: `q_hold` stops only a plain Savagery, so the next attack is the empowered one at
+once (League's triple Q) and the empowered Savagery appears once in the tree (twice it cost 60 nodes; one kill read for
+all the attack's branches cut the tree from 351 to 242).
+
+**Two kits that talk (league_rengar <-> league_khazix, the rivals' easter egg).** A `SwitchByBuff` reads only the
+caster's own buffs and nothing tells which unit died, so each kit marks what it hits (`AddBuff league_rengar_rival_hit`
+on champions) and each action of the other answers when it finds the mark on itself, by marking every enemy champion
+near it (`league_khazix_seen`); a kill check (league_jinx's) that fires while the caster holds the answer is the rival's
+death. First sight: each action marks the enemy champions near it (`league_khazix_near`), the other plays its line once
+a life. A teamfight kill of someone else in the 1-second window counts too - fine for an easter egg.
 
 ## 8. Gotchas
 

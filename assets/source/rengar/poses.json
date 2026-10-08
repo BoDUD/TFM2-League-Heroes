@@ -1,0 +1,387 @@
+{
+ "hero": "rengar",
+ "champ": "Rengar",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  112,
+  96,
+  14
+ ],
+ "design": "Rengar_Idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Rengar_Idle1@0",
+     200
+    ],
+    [
+     "Rengar_Idle1@0",
+     200
+    ],
+    [
+     "Rengar_Idle1@0",
+     200
+    ],
+    [
+     "Rengar_Idle1@0",
+     200
+    ],
+    [
+     "Rengar_Idle1@0",
+     200
+    ],
+    [
+     "Rengar_Idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "Rengar_Idle1@0",
+   "frames": [
+    [
+     "Rengar_run1@0",
+     120
+    ],
+    [
+     "Rengar_run1@121",
+     120
+    ],
+    [
+     "Rengar_run1@242",
+     120
+    ],
+    [
+     "Rengar_run1@363",
+     120
+    ],
+    [
+     "Rengar_run1@484",
+     120
+    ],
+    [
+     "Rengar_run1@605",
+     120
+    ],
+    [
+     "Rengar_run1@726",
+     120
+    ],
+    [
+     "Rengar_run1@847",
+     120
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "Rengar_Idle1@0>Rengar_attack1@500:0.6",
+     60
+    ],
+    [
+     "Rengar_attack1@700",
+     60
+    ],
+    [
+     "Rengar_attack1@800",
+     60
+    ],
+    [
+     "Rengar_attack1@900",
+     70
+    ],
+    [
+     "Rengar_attack1@1000",
+     80
+    ],
+    [
+     "Rengar_attack1@1300>Rengar_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "leap": {
+   "lunge": 0.6,
+   "rise": 0.5,
+   "release": 6,
+   "frames": [
+    [
+     "Rengar_Idle1@0>Rengar_dash1@0:0.5",
+     50
+    ],
+    [
+     "Rengar_dash1@0",
+     50
+    ],
+    [
+     "Rengar_dash1@167",
+     60
+    ],
+    [
+     "Rengar_dash1@333",
+     60
+    ],
+    [
+     "Rengar_dash1@500",
+     60
+    ],
+    [
+     "Rengar_dash1@667",
+     70
+    ],
+    [
+     "Rengar_dash1@833",
+     80
+    ],
+    [
+     "Rengar_dash1@1167>Rengar_Idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.5,
+   "rise": 0.3,
+   "release": 6,
+   "frames": [
+    [
+     "Rengar_Idle1@0>Rengar_spell1@0:0.6",
+     50
+    ],
+    [
+     "Rengar_spell1@50",
+     50
+    ],
+    [
+     "Rengar_spell1@125",
+     60
+    ],
+    [
+     "Rengar_spell1@175",
+     50
+    ],
+    [
+     "Rengar_spell1@225",
+     50
+    ],
+    [
+     "Rengar_spell1@300",
+     70
+    ],
+    [
+     "Rengar_spell1@375",
+     70
+    ],
+    [
+     "Rengar_spell1@450>Rengar_Idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Rengar_Idle1@0>Rengar_spell3@187:0.6",
+     70
+    ],
+    [
+     "Rengar_spell3@280",
+     70
+    ],
+    [
+     "Rengar_spell3@373",
+     80
+    ],
+    [
+     "Rengar_spell3@467",
+     70,
+     {
+      "turn": -30
+     }
+    ],
+    [
+     "Rengar_spell3@560",
+     80,
+     {
+      "turn": -45
+     }
+    ],
+    [
+     "Rengar_spell3@747>Rengar_Idle1@0:0.5",
+     90,
+     {
+      "turn": -30
+     }
+    ]
+   ]
+  },
+  "skill_w": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Rengar_Idle1@0>Rengar_spell2@0:0.6",
+     60
+    ],
+    [
+     "Rengar_spell2@100",
+     70
+    ],
+    [
+     "Rengar_spell2@200",
+     80,
+     {
+      "turn": -30
+     }
+    ],
+    [
+     "Rengar_spell2@350",
+     120,
+     {
+      "turn": -45
+     }
+    ],
+    [
+     "Rengar_spell2@550",
+     120,
+     {
+      "turn": -45
+     }
+    ],
+    [
+     "Rengar_spell2@750",
+     90,
+     {
+      "turn": -30
+     }
+    ],
+    [
+     "Rengar_spell2@900>Rengar_Idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Rengar_Idle1@0>Rengar_spell3@187:0.5",
+     70
+    ],
+    [
+     "Rengar_spell3@187",
+     90
+    ],
+    [
+     "Rengar_spell3@187",
+     150
+    ],
+    [
+     "Rengar_spell3@187>Rengar_Idle1@0:0.4",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Rengar_Idle1@0>Rengar_death@223:0.35",
+     120
+    ],
+    [
+     "Rengar_Idle1@0>Rengar_death@223:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.2,
+   "frames": [
+    [
+     "Rengar_death@0",
+     100
+    ],
+    [
+     "Rengar_death@223",
+     100
+    ],
+    [
+     "Rengar_death@447",
+     100,
+     {
+      "hide": [
+       "^Weapon$"
+      ]
+     }
+    ],
+    [
+     "Rengar_death@560",
+     120,
+     {
+      "hide": [
+       "^Weapon$"
+      ]
+     }
+    ],
+    [
+     "Rengar_death@670",
+     120,
+     {
+      "hide": [
+       "^Weapon$"
+      ]
+     }
+    ],
+    [
+     "Rengar_death@893",
+     150,
+     {
+      "hide": [
+       "^Weapon$"
+      ]
+     }
+    ],
+    [
+     "Rengar_death@1340",
+     200,
+     {
+      "hide": [
+       "^Weapon$"
+      ]
+     }
+    ],
+    [
+     "Rengar_death@2000",
+     500,
+     {
+      "hide": [
+       "^Weapon$"
+      ]
+     }
+    ]
+   ]
+  }
+ }
+}

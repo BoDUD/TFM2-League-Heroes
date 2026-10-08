@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.81.0"
+    }
+  ],
+  "description": "Test build of Rengar's Unseen Predator from the map's bushes (needs League of Legends Heroes): replaces the main pack's Rengar so his next attack is the leap whenever he stands in a bush, read from the map, and the leap is lost again once he walks out, instead of the data pack's stand-in (ready after 3 s without acting), which cannot read the map. The respawn and his R still ready it. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-09",
+  "mod_id": "league_rengar_bush",
+  "mod_type": "native",
+  "name": "League Heroes: Rengar's leap from the bushes (test)",
+  "version": "0.1.0"
+}

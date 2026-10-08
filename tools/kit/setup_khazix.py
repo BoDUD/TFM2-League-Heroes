@@ -153,6 +153,9 @@ SOUNDS = {
     "league_khazix_vo_evo_q": [(V + "evo_q", 0.9, 0.3)],
     "league_khazix_vo_evo_e": [(V + "evo_e", 0.9, 0.3)],
     "league_khazix_vo_evo_r": [(V + "evo_r", 0.9, 0.3)],
+    # the Rengar easter egg (build_khazix.py): the extra evolution's line, the laugh when he first meets Rengar
+    "league_khazix_vo_evo_x": [(V + "evo_x", 0.9, 0.3)],
+    "league_khazix_vo_rengar": [(V + "rengar", 0.9, 0.0)],
 }
 CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 
