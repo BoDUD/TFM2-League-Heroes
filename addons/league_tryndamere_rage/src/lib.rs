@@ -460,14 +460,15 @@ fn log_key_once(sim: &StableSim<'_>, id: usize, side: usize) {
 fn ready_saw(sim: &StableSim<'_>, id: usize, free: bool) {
     log_key_once(sim, id, 0);
     let key = sim_key(sim, id);
+    // only written, never removed: the record runs out READY_T ticks after the last "ready" - the tick R is pressed its
+    // cooldown starts while the armed buff comes a tick or two later, and removing it on "not ready" then let the guard
+    // drink Bloodlust in between (the fifth log: 193 of 262 presses, no drink with R ready)
     let mut map = READY.lock().unwrap_or_else(|e| e.into_inner());
     if free {
         if map.len() > 4096 {
             map.clear();
         }
         map.insert(key, sim.tick());
-    } else {
-        map.remove(&key);
     }
 }
 
