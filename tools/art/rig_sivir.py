@@ -398,7 +398,7 @@ def fill_back(a, shift=0, vshift=0, keep=()):
 
 
 class Parts:
-    def __init__(self):
+    def __init__(self, no_blade=False):
         d = design()
         front, unit, slv = masks(d)
         self.d = d
@@ -410,6 +410,9 @@ class Parts:
                     hand[y, x] = True
         self.hand = sprite_of(d, hand)
         self.blade = small_blade()
+        if no_blade:                                       # the body layer of a shrunk build (build_shrunk)
+            bs, bo = self.blade
+            self.blade = (np.zeros_like(bs), bo)
         self.unit = joined(self.blade, self.hand)          # the glove over the crossblade it holds
         self.front = sprite_of(d, front)
         nu, nb, fu, fb = leg_masks(d)
@@ -865,10 +868,11 @@ def dead_frame(P, i):
         bs, bo = P.blade
         flat = squash(bs)
         ys, xs = np.nonzero(flat[..., 3] > 0)
-        bx = int(round(DEAD_BLADE_AT[0] - (xs.min() + xs.max()) / 2))
-        by = DEAD_BLADE_AT[1] - ys.max()
-        for y, x in zip(ys, xs):
-            out[by + y, bx + x] = flat[y, x]
+        if len(xs):                             # (none in the body layer of a shrunk build)
+            bx = int(round(DEAD_BLADE_AT[0] - (xs.min() + xs.max()) / 2))
+            by = DEAD_BLADE_AT[1] - ys.max()
+            for y, x in zip(ys, xs):
+                out[by + y, bx + x] = flat[y, x]
         body = lying(P)
         if lift:
             body = np.roll(body, -lift, 0)
@@ -937,14 +941,86 @@ def frames_of(P, tag, n):
     return [frame(P, p) for p in POSES[tag]]
 
 
+# 90% (players: 「希维尔体型偏大」, 2026-10-08). Every frame is drawn twice - as it is, and with the crossblade left out
+# (the body fills behind it as in any frame where the blade moves away). The body layer loses whole rows and columns
+# (shrink_frames.py: never through her hands or her face, the soles on their row), the same lines of HER in every
+# frame of an action (anchored on her eyes' mint: cut at fixed canvas lines, a cast that moves her took different
+# lines in each frame - Xerath's 「放技能的时候模型有点变形」). The crossblade is never cut (cut, its blades changed shape
+# from frame to frame - Xin Zhao's 「武器也变形」): its squares from the full drawing go back onto the shrunk body,
+# moved as the squares where it touches her moved (the far glove).
+SCALE = 0.9
+SHRINK_KEEP = ["D58A5C", "F4B888", "9A5434", "!4FE6D2", "!A0302A"]   # skin (hands), the face box from eyes to lips
+EYE = "4FE6D2"
+
+
+def _pivot_frame(c):
+    f = np.zeros((2 * PIVOT[1] + 1, 2 * PIVOT[0] + 1, 4), np.uint8)
+    f[:c.shape[0], :c.shape[1]] = c
+    return f
+
+
+def _canvas_of(f):
+    """A frame centred on its pivot (shrink_frames' output) back on the 128 canvas, pivot at PIVOT."""
+    c = np.zeros((128, 128, 4), np.uint8)
+    h, w = f.shape[0] // 2, f.shape[1] // 2
+    for y, x in zip(*np.nonzero(f[..., 3] > 0)):
+        cy, cx = y - h + PIVOT[1], x - w + PIVOT[0]
+        if 0 <= cy < 128 and 0 <= cx < 128:
+            c[cy, cx] = f[y, x]
+    return c
+
+
+def shrunk_tags(full, bare):
+    """{tag: frames} at SCALE: the bare (no crossblade) frames shrunk, the crossblade layer put back uncut."""
+    import shrink_frames as SF
+    body = SF.body_of([(_pivot_frame(full["idle"][0]), 0)])
+    out = {}
+    for tag in full:
+        fb = [(_pivot_frame(a), 0) for a in bare[tag]]
+        shifts = SF.anchor_shifts(fb, EYE)
+        plan = SF.plan_tag(fb, body, SCALE, SHRINK_KEEP, shifts=shifts)
+        small = [_canvas_of(f) for f, _ in SF.apply_tag(fb, plan)]
+        res = []
+        for k, (a1, a0, s0) in enumerate(zip(full[tag], bare[tag], small)):
+            diff = (a1 != a0).any(-1) & (a1[..., 3] > 0)
+            if not diff.any():
+                res.append(s0)
+                continue
+            op0 = (a0[..., 3] > 0) & ~diff
+            near = np.zeros_like(op0)
+            near[1:] |= op0[:-1]; near[:-1] |= op0[1:]; near[:, 1:] |= op0[:, :-1]; near[:, :-1] |= op0[:, 1:]
+            ys, xs = np.nonzero(diff & near)
+            if not len(ys):
+                ys, xs = np.nonzero(diff)
+            px, py = float(xs.mean()) + 0.5 - PIVOT[0], float(ys.mean()) + 0.5 - PIVOT[1]
+            dy, dx = shifts[k]
+            moved_plan = {"rows": [r + dy for r in plan["rows"]], "cols": [c + dx for c in plan["cols"]]}
+            nx, ny = SF.move_point(moved_plan, px, py)
+            mx, my = int(round(nx - px)), int(round(ny - py))
+            c = s0.copy()
+            for y, x in zip(*np.nonzero(diff)):
+                if 0 <= y + my < 128 and 0 <= x + mx < 128:
+                    c[y + my, x + mx] = a1[y, x]
+            c, _, _ = G.complete_outline(c, color=OUT, feet=99)
+            res.append(c)
+        out[tag] = res
+        print(f"{tag}: -{len(plan['rows'])}r -{len(plan['cols'])}c")
+    return out
+
+
 def build():
     cells = json.load(open(CELLS_JSON, encoding="utf-8"))
     CW, CH = cells["cell"]
     P = Parts()
     os.makedirs(OUT_DIR, exist_ok=True)
     idle_head = cells["tags"]["idle"][0]["head"]
+    full = {tag: frames_of(P, tag, len(rows)) for tag, rows in cells["tags"].items()}
+    if SCALE != 1:
+        P0 = Parts(no_blade=True)
+        bare = {tag: frames_of(P0, tag, len(rows)) for tag, rows in cells["tags"].items()}
+        full = shrunk_tags(full, bare)
     for tag, rows in cells["tags"].items():
-        fr = frames_of(P, tag, len(rows))
+        fr = full[tag]
         assert len(fr) == len(rows), (tag, len(fr), len(rows))
         c, r = layout(len(fr))
         sheet = np.zeros((r * CH, c * CW, 4), np.uint8)
