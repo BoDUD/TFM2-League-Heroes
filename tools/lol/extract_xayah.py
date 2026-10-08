@@ -52,6 +52,7 @@ CLIPS = {
     "league_xayah_vo_e": ("Play_vo_Xayah_XayahE_cast3D", 894359086, 0.8, -4),
     "league_xayah_vo_r": ("Play_vo_Xayah_XayahR_cast3D", 1517303110, 1.8, -3),
     "league_xayah_vo_root": ("Play_vo_Xayah_Spell3DERoot", 935485957, 0.8, -4),
+    "league_xayah_vo_shield_rakan": ("Play_vo_Xayah_Receive3DShieldRakan", 633311043, 1.2, -4),  # the duo
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_xayah_skill": "ASSETS/Characters/Xayah/HUD/Icons2D/XayahQ.dds",

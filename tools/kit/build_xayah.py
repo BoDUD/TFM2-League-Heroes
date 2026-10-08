@@ -44,6 +44,9 @@ BIG = "asset/league/effects/league_xayah_big"
 # league_varus +2.11 / +2.15, league_jhin +1.92 / +2.01 in the same batches). The draft was -0.68: the empowered attack
 # as a bare line missed walking targets (a_mode 1: a homing blade gives the target its 100%, +0.85), then attack 100 /
 # interval 50 / range 57500, Q 60 + 80%, feathers 50 + 60%, W every 8 s with 50% attack speed, hp 980 and defence 24.
+# R (the user: 「霞的大招逻辑要注意 别乱放」): on EnemyChampionRecentlyAttacked within 60000 - a fight on - instead of any
+# enemy champion within 85000: 3.3 casts a game, 1 of 40 with no champion under the rain (6 of 58 before), 1.5 champions
+# a cast; +2.12 on seeds 1-24 (the old R +1.31, 85000 on the same target +1.77).
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Xayah: 525 range
     "hp": 980, "hp_g": 88, "atk": 100, "atk_g": 19, "def": 24, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 910, "ms_g": 9,
@@ -62,8 +65,12 @@ P = {
     "q_speed": 6000, "q_rad": 5500, "q_y": -3000, "q_dmg": 60, "q_ratio": 80, "q_fall": 50, "q_recall": 70,
     "e_t": 20,
     # ult: R Featherstorm (League: 100-300 + 100% bonus AD, untargetable 1.25 s, a cone of daggers, cd 160-100 s)
-    "r_cd": 3600, "r_range": 85000, "r_dur": 70, "r_air": 66, "r_hit": 48, "r_dmg": 160, "r_ratio": 100,
+    "r_cd": 3600, "r_target": "EnemyChampionRecentlyAttacked", "r_range": 60000, "r_dur": 70, "r_air": 66, "r_hit": 48, "r_dmg": 160, "r_ratio": 100,
     "r_len": 90000, "r_width": 40000, "r_n": 5, "r_near": 40000, "r_far": 95000, "r_recall": 40,
+    # the Rakan duo (the user's option 1): every attack marks the allies within duo_r for duo_t ticks (Rakan's E reaches
+    # duo_r while he has it), W marks those within duo_w_r for w_t (Rakan takes W's attack speed, move speed and second
+    # feather); his E shield on her plays her line, once per vo_cd ticks
+    "duo_r": 130000, "duo_t": 120, "duo_w_r": 70000, "vo_cd": 600,
 }
 
 
@@ -246,8 +253,12 @@ def build(p):
     mark = flag("p_any", 1)
     any_p = combine(*rm("p_any"), sw("p1", mark, sw("p2", mark, sw("p3", mark, sw("p4", mark, sw("p5", mark))))),
                     sw("p_any", strong, plain))
+    # the duo: nothing here reads Rakan; his kit (tools/fix/rakan_xayah_duo.py) reads these marks
+    duo = around(p["duo_r"], "AllyNotSelf", [buff("duo", p["duo_t"])])
+    shielded = {"type": "SwitchByBuff", "buff_name": "league_rakan_e_on", "effect_none": NONE,
+                "effect_buff": sw("vo_cd", NONE, combine(sfx("shield_rakan"), flag("vo_cd", p["vo_cd"])))}
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
-                      combine(any_p, sw("w_on", second)), atype="BaseAttack", cancel=True)
+                      combine(any_p, sw("w_on", second), duo, shielded), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Double Daggers -> E Bladecaller
     flight = p["q_reach"] // p["q_speed"]
@@ -278,7 +289,8 @@ def build(p):
     # ------------------------------------------------------------------ skill2: W Deadly Plumage
     skill2 = action("skill2", 12, p["w_cd"], 2, p["atk_range"], "None", "EnemyWithoutTower",
                     combine(anim("skill2", 24), refresh("w_on", p["w_t"], attack_speed_mult=p["w_as"]),
-                            cview("w_cast"), sfx("w_cast"), arm()))
+                            cview("w_cast"), sfx("w_cast"), arm(),
+                            around(p["duo_w_r"], "AllyNotSelf", [buff("duo_w", p["w_t"])])))
 
     # ------------------------------------------------------------------ ult: R Featherstorm
     guard = flag("r_air", p["r_air"], damaged_reduce=100, cc_immune=True)
@@ -292,7 +304,7 @@ def build(p):
         end = [view("f_drop")] + lying(rest // p["f_step"])
         rows.append(line(f"r_feather", p["q_speed"], reach, 1000, 0, "Enemy", True, [],
                          end=[delayed(rest % p["f_step"], *end)] if rest % p["f_step"] else end))
-    ult = action("ult", p["r_dur"], p["r_cd"], 2, p["r_range"], "Direction", "EnemyChampion",
+    ult = action("ult", p["r_dur"], p["r_cd"], 2, p["r_range"], "Direction", p["r_target"],
                  combine(anim("ult", p["r_dur"]), {"type": "CasterInvisible", "tick": p["r_air"]}, guard,
                          cview("r_cast"), sfx("r_cast"), arm(),
                          delayed(p["r_hit"], sfx("r_rain"), rain, *rows),
@@ -347,7 +359,7 @@ def main():
         k, v = kv.split("=", 1)
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
-        p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+        p[k] = v if isinstance(p[k], str) else type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):

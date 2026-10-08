@@ -52,6 +52,7 @@ CLIPS = {
     "league_rakan_vo_w": ("Play_vo_Rakan_RakanW_cast3D", 228451665, 1.4, -3),
     "league_rakan_vo_e": ("Play_vo_Rakan_RakanE_hit3D", 2016895425, 1.4, -3),
     "league_rakan_vo_r": ("Play_vo_Rakan_RakanR_cast3D", 1809680582, 2.2, -2),
+    "league_rakan_vo_e_xayah": ("Play_vo_Rakan_RakanE_hit3DXayah", 1636478794, 1.1, -3),  # the Xayah duo
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_rakan_skill": "ASSETS/Characters/Rakan/HUD/Icons2D/Rakan_Q.dds",

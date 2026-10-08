@@ -383,7 +383,7 @@
         "name": "洛",
         "attack": "掷出羽毛攻击。被动<#ff9028ff>异色羽裳<>：获得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>，破掉<#ffb900ff>12秒<>后再生；攻击和技能每命中一名敌方英雄，再生快<#ffb900ff>1秒<>。",
         "skill": "掷出羽毛，第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法强<>的<#a974ffff>魔法伤害<>。命中英雄后，<#ffb900ff>3秒<>后或碰到友方英雄时，为自己和身边的友方英雄<#6aff55ff>回复<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 法强<>生命值。",
-        "skill2": "<#ff9028ff>盛大登场<>：冲向一名敌方英雄，旋上空中，<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.8秒<>并造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>；随后<#ff9028ff>轻舞成双<>：飞到最近的友方英雄身边，给他<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>（<#ffb900ff>3秒<>）。",
+        "skill2": "<#ff9028ff>盛大登场<>：冲向一名敌方英雄，旋上空中，<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.8秒<>并造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>；随后<#ff9028ff>轻舞成双<>：飞到最近的友方英雄身边，给他<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>（<#ffb900ff>3秒<>）。霞在附近时飞得更远。",
         "ult": "<#ffb900ff>4秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭于敌人之间：碰到的每个敌人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>魅惑1.25秒<>（每个敌人一次）；碰到第一个英雄后更快。"
       },
       "league_evelynn": {
@@ -516,7 +516,7 @@
         "name": "霞",
         "attack": "甩出羽刃攻击。被动<#ff9028ff>锐切<>：每放一个技能，之后<#ffb900ff>3次<>普攻（最多存5次）穿透直线，其他目标受到50%伤害，并在目标身后留下一根<#ff9028ff>羽毛<>（6秒）。",
         "skill": "扔出两把穿透匕首，各造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>（后续目标50%），各留一根羽毛；随后<#ff9028ff>倒钩<>收回所有羽毛，每根对路过的敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害，一次收回命中英雄第3次起<#ef5350ff>禁锢1.25秒<>。",
-        "skill2": "攻速+<#ffb900ff>50%<>，持续4秒；期间每次普攻再甩出一片25%伤害的羽刃，命中英雄时移速+30%。",
+        "skill2": "攻速+<#ffb900ff>50%<>，持续4秒；期间每次普攻再甩出一片25%伤害的羽刃，命中英雄时移速+30%。<#ff9028ff>洛<>在附近时，他也获得这些效果。",
         "ult": "跃向空中，<#ffb900ff>1.1秒<>内不受伤害和控制，再向前方降下匕首雨，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，留下一排羽毛并随即收回。"
       }
     },
@@ -1277,7 +1277,7 @@
         "name": "銳空",
         "attack": "擲出羽毛攻擊。被動<#ff9028ff>奇異羽篷<>：獲得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>，破掉<#ffb900ff>12秒<>後再生；攻擊和技能每命中一名敵方英雄，再生快<#ffb900ff>1秒<>。",
         "skill": "擲出羽毛，第一個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄後，<#ffb900ff>3秒<>後或碰到友方英雄時，為自身和身邊友方英雄<#6aff55ff>回復<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 魔法強度<>生命。",
-        "skill2": "<#ff9028ff>盛大登場<>：衝向一名敵方英雄並旋上空中，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.8秒<>，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；隨後<#ff9028ff>戰鬥舞踊<>：飛到最近的友方英雄身邊，提供<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>（<#ffb900ff>3秒<>）。",
+        "skill2": "<#ff9028ff>盛大登場<>：衝向一名敵方英雄並旋上空中，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.8秒<>，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；隨後<#ff9028ff>戰鬥舞踊<>：飛到最近的友方英雄身邊，提供<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>（<#ffb900ff>3秒<>）。剎雅在附近時飛得更遠。",
         "ult": "<#ffb900ff>4秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭於敵人之間：碰到的每個敵人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並被<#ef5350ff>魅惑1.25秒<>（每個敵人一次）；碰到第一名英雄後更快。"
       },
       "league_evelynn": {
@@ -1410,7 +1410,7 @@
         "name": "剎雅",
         "attack": "甩出羽刃攻擊。被動<#ff9028ff>一翦兩斷<>：每施放一個技能，之後<#ffb900ff>3次<>普攻（最多存5次）貫穿直線，其他目標受到50%傷害，並在目標身後留下一根<#ff9028ff>羽毛<>（6秒）。",
         "skill": "擲出兩把貫穿匕首，各造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>（後續目標50%），各留一根羽毛；隨後<#ff9028ff>漫天血刃<>收回所有羽毛，每根對經過的敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害，一次收回命中英雄第3次起<#ef5350ff>定身1.25秒<>。",
-        "skill2": "攻速+<#ffb900ff>50%<>，持續4秒；期間每次普攻再甩出一片25%傷害的羽刃，命中英雄時跑速+30%。",
+        "skill2": "攻速+<#ffb900ff>50%<>，持續4秒；期間每次普攻再甩出一片25%傷害的羽刃，命中英雄時跑速+30%。<#ff9028ff>銳空<>在附近時，他也獲得這些效果。",
         "ult": "躍向空中，<#ffb900ff>1.1秒<>內不受傷害和控制，再向前方降下匕首雨，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，留下一排羽毛並隨即收回。"
       }
     },
@@ -2171,7 +2171,7 @@
         "name": "Rakan",
         "attack": "Throws a feather. Passive <#ff9028ff>Fey Feathers<>: Rakan holds a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<>; <#ffb900ff>12s<> after it breaks it comes back, <#ffb900ff>1s<> sooner for every attack or ability that hits an enemy champion.",
         "skill": "Rakan flings a feather: the first enemy hit takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<>. After a champion hit he <#6aff55ff>heals<> himself and nearby allied champions for <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% AP<> after <#ffb900ff>3s<>, or as soon as he touches an ally.",
-        "skill2": "<#ff9028ff>Grand Entrance<>: Rakan dashes onto an enemy champion and spirals up, <#ef5350ff>knocking up<> the enemies around him for <#ffb900ff>0.8s<> and dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>; then <#ff9028ff>Battle Dance<>: he flies to the nearest allied champion and gives him a <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<> for <#ffb900ff>3s<>.",
+        "skill2": "<#ff9028ff>Grand Entrance<>: Rakan dashes onto an enemy champion and spirals up, <#ef5350ff>knocking up<> the enemies around him for <#ffb900ff>0.8s<> and dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>; then <#ff9028ff>Battle Dance<>: he flies to the nearest allied champion and gives him a <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<> for <#ffb900ff>3s<>. With Xayah near he flies farther.",
         "ult": "For <#ffb900ff>4s<> Rakan <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>darts<> through the enemy team: every enemy he touches takes <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<> and is <#ef5350ff>charmed for 1.25s<> (once each). The first champion he touches speeds him up."
       },
       "league_evelynn": {
@@ -2304,7 +2304,7 @@
         "name": "Xayah",
         "attack": "Flings blades. Passive <#ff9028ff>Clean Cuts<>: after each spell her next <#ffb900ff>3<> attacks (up to 5 stored) pierce in a line, 50% to other targets, and leave a <#ff9028ff>Feather<> behind the target for 6s.",
         "skill": "Throws two piercing daggers, each <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> (50% after the first target), each leaving a Feather; then <#ff9028ff>Bladecaller<> calls every Feather back, each dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> to enemies it passes. From the third champion hit of one recall, <#ef5350ff>roots<> for <#ffb900ff>1.25s<>.",
-        "skill2": "Gains <#ffb900ff>50%<> attack speed for 4s; each attack throws a second blade for 25% damage, and a champion hit gives 30% move speed.",
+        "skill2": "Gains <#ffb900ff>50%<> attack speed for 4s; each attack throws a second blade for 25% damage, and a champion hit gives 30% move speed. If <#ff9028ff>Rakan<> is nearby, he gains these too.",
         "ult": "Leaps up, taking no damage or crowd control for <#ffb900ff>1.1s<>, then rains daggers ahead for <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, leaving a row of Feathers she calls back at once."
       }
     },
@@ -3065,7 +3065,7 @@
         "name": "라칸",
         "attack": "깃털을 던져 공격합니다. 기본 지속 효과 <#ff9028ff>요술 망토<>: <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 얻고, 깨지면 <#ffb900ff>12초<> 뒤 다시 생깁니다. 기본 공격과 스킬이 적 챔피언에게 맞을 때마다 <#ffb900ff>1초<> 빨라집니다.",
         "skill": "깃털을 던져 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<>의 <#a974ffff>마법 피해<>를 입힙니다. 챔피언에게 맞으면 <#ffb900ff>3초<> 뒤 또는 아군에게 닿는 즉시 자신과 주변 아군 챔피언의 체력을 <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 50%<> <#6aff55ff>회복<>합니다.",
-        "skill2": "<#ff9028ff>화려한 등장<>: 적 챔피언에게 돌진해 회전하며 솟아올라 주변 적을 <#ffb900ff>0.8초<> 동안 <#ef5350ff>에어본<>시키고 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. 이어서 <#ff9028ff>전쟁무도<>: 가장 가까운 아군 챔피언에게 날아가 <#ffb900ff>3초<> 동안 <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 씌웁니다.",
+        "skill2": "<#ff9028ff>화려한 등장<>: 적 챔피언에게 돌진해 회전하며 솟아올라 주변 적을 <#ffb900ff>0.8초<> 동안 <#ef5350ff>에어본<>시키고 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. 이어서 <#ff9028ff>전쟁무도<>: 가장 가까운 아군 챔피언에게 날아가 <#ffb900ff>3초<> 동안 <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 씌웁니다. 자야가 가까이 있으면 더 멀리 날아갑니다.",
         "ult": "<#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>빠르게<> 적진을 누빕니다. 닿은 적마다 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1.25초 동안 매혹<>합니다(적마다 한 번). 처음 닿은 챔피언이 그를 더 빠르게 합니다."
       },
       "league_evelynn": {
@@ -3198,7 +3198,7 @@
         "name": "자야",
         "attack": "깃날을 던져 공격합니다. 기본 지속 효과 <#ff9028ff>관통상<>: 스킬을 쓸 때마다 다음 <#ffb900ff>3회<> 공격(최대 5회 저장)이 직선으로 관통해 다른 대상에게 50% 피해를 주고, 대상 뒤에 <#ff9028ff>깃털<>을 남깁니다(6초).",
         "skill": "관통하는 단검 두 개를 던져 각각 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>(다음 대상 50%), 깃털을 남깁니다. 이어서 <#ff9028ff>깃부르미<>로 깃털을 모두 회수해 지나가는 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 피해, 한 번의 회수에서 세 번째 챔피언 적중부터 <#ffb900ff>1.25초<> <#ef5350ff>속박<>.",
-        "skill2": "공격 속도 <#ffb900ff>+50%<> (4초). 공격마다 25% 피해의 깃날을 하나 더 던지고, 챔피언 적중 시 이동 속도 +30%.",
+        "skill2": "공격 속도 <#ffb900ff>+50%<> (4초). 공격마다 25% 피해의 깃날을 하나 더 던지고, 챔피언 적중 시 이동 속도 +30%. 근처에 <#ff9028ff>라칸<>이 있으면 라칸도 같은 효과를 얻습니다.",
         "ult": "공중으로 도약해 <#ffb900ff>1.1초<> 동안 피해와 군중 제어를 받지 않고, 앞쪽에 단검 비를 내려 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>를 입히며 깃털 한 줄을 남겨 바로 회수합니다."
       }
     },
@@ -3959,7 +3959,7 @@
         "name": "ラカン",
         "attack": "羽根を投げて攻撃。パッシブ<#ff9028ff>神秘の翼<>：<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>を得て、壊れると<#ffb900ff>12秒<>後に再生。通常攻撃とスキルが敵チャンピオンに当たるたび<#ffb900ff>1秒<>短縮。",
         "skill": "羽根を投げ、最初の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>3秒<>後か味方に触れた時、自身と周囲の味方チャンピオンを<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の50%<><#6aff55ff>回復<>。",
-        "skill2": "<#ff9028ff>華麗なる登場<>：敵チャンピオンへ突進して舞い上がり、周囲の敵を<#ffb900ff>0.8秒<><#ef5350ff>ノックアップ<>し<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。続いて<#ff9028ff>バトルダンス<>：最も近い味方チャンピオンへ飛び、<#ffb900ff>3秒<>間<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>。",
+        "skill2": "<#ff9028ff>華麗なる登場<>：敵チャンピオンへ突進して舞い上がり、周囲の敵を<#ffb900ff>0.8秒<><#ef5350ff>ノックアップ<>し<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。続いて<#ff9028ff>バトルダンス<>：最も近い味方チャンピオンへ飛び、<#ffb900ff>3秒<>間<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>。ザヤが近くにいればより遠くへ飛ぶ。",
         "ult": "<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>素早く<>敵陣を駆け抜け、触れた敵に<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.25秒の魅了<>（各1回）。最初に触れたチャンピオンでさらに加速。"
       },
       "league_evelynn": {
@@ -4092,7 +4092,7 @@
         "name": "ザヤ",
         "attack": "羽刃を投げて攻撃。パッシブ <#ff9028ff>クリーンカット<>：スキル使用後の<#ffb900ff>3回<>の攻撃（最大5回）が直線を貫通し、他の対象に50%、対象の後ろに<#ff9028ff>羽根<>を残す（6秒）。",
         "skill": "貫通する短剣を2本投げ、各<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>（後続50%）、羽根を残す。続けて<#ff9028ff>ブレードコーラー<>で全羽根を回収、通過した敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>、1回の回収で3回目以降のチャンピオン命中は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>。",
-        "skill2": "攻撃速度<#ffb900ff>+50%<>（4秒）。攻撃ごとに25%ダメージの羽刃をもう1本投げ、チャンピオン命中で移動速度+30%。",
+        "skill2": "攻撃速度<#ffb900ff>+50%<>（4秒）。攻撃ごとに25%ダメージの羽刃をもう1本投げ、チャンピオン命中で移動速度+30%。近くに<#ff9028ff>ラカン<>がいれば彼も同じ効果を得る。",
         "ult": "空中に跳び<#ffb900ff>1.1秒<>ダメージと行動妨害を受けず、前方に短剣の雨で<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、羽根の列を残してすぐ回収。"
       }
     },

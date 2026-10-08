@@ -8863,6 +8863,14 @@
     "remapping": "asset/league/sound/sfx/league_viktor_sfx_w_stun",
     "type": "override"
   },
+  "asset/base/sound/sfx/league_rakan_e_xayah": {
+    "remapping": "asset/league/sound/sfx/league_rakan_e_xayah",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_rakan_vo_e_xayah": {
+    "remapping": "asset/league/sound/sfx/league_rakan_vo_e_xayah",
+    "type": "override"
+  },
   "asset/base/sound/sfx/league_xayah_a_shot": {
     "remapping": "asset/league/sound/sfx/league_xayah_a_shot",
     "type": "override"
@@ -8921,6 +8929,10 @@
   },
   "asset/base/sound/sfx/league_xayah_r_hit": {
     "remapping": "asset/league/sound/sfx/league_xayah_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_xayah_shield_rakan": {
+    "remapping": "asset/league/sound/sfx/league_xayah_shield_rakan",
     "type": "override"
   },
   "asset/base/sound/sfx/league_xayah_sfx_attack": {
@@ -8985,6 +8997,10 @@
   },
   "asset/base/sound/sfx/league_xayah_vo_root": {
     "remapping": "asset/league/sound/sfx/league_xayah_vo_root",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_xayah_vo_shield_rakan": {
+    "remapping": "asset/league/sound/sfx/league_xayah_vo_shield_rakan",
     "type": "override"
   }
 }

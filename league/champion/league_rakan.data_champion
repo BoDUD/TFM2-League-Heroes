@@ -52,6 +52,70 @@
       "effects": [
         {
           "type": "SwitchByBuff",
+          "buff_name": "league_xayah_duo_w",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_rakan_duo_w"
+              },
+              {
+                "type": "AddCasterBuff",
+                "only_to_enemy": false,
+                "buff_state": {
+                  "name": "league_rakan_duo_w",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "attack_speed_mult": 50,
+                  "move_speed_mult": 30
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 6,
+                "effects": [
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_rakan_a_feather",
+                    "speed": 6000,
+                    "y_offset": 0,
+                    "applied_target": "Enemy",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 25,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_rakan_a_hit"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "SwitchByBuff",
           "buff_name": "league_rakan_pc3",
           "effect_buff": {
             "type": "Combine",
@@ -2864,8 +2928,16 @@
                       "name": "league_rakan_e_shield"
                     },
                     {
-                      "type": "Sfx",
-                      "name": "league_rakan_e_cast"
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_xayah_duo",
+                      "effect_buff": {
+                        "type": "Sfx",
+                        "name": "league_rakan_e_xayah"
+                      },
+                      "effect_none": {
+                        "type": "Sfx",
+                        "name": "league_rakan_e_cast"
+                      }
                     },
                     {
                       "type": "CasterAnimation",
@@ -2985,8 +3057,16 @@
                             "name": "league_rakan_e_shield"
                           },
                           {
-                            "type": "Sfx",
-                            "name": "league_rakan_e_cast"
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_xayah_duo",
+                            "effect_buff": {
+                              "type": "Sfx",
+                              "name": "league_rakan_e_xayah"
+                            },
+                            "effect_none": {
+                              "type": "Sfx",
+                              "name": "league_rakan_e_cast"
+                            }
                           },
                           {
                             "type": "CasterAnimation",
@@ -3106,8 +3186,16 @@
                                   "name": "league_rakan_e_shield"
                                 },
                                 {
-                                  "type": "Sfx",
-                                  "name": "league_rakan_e_cast"
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_xayah_duo",
+                                  "effect_buff": {
+                                    "type": "Sfx",
+                                    "name": "league_rakan_e_xayah"
+                                  },
+                                  "effect_none": {
+                                    "type": "Sfx",
+                                    "name": "league_rakan_e_cast"
+                                  }
                                 },
                                 {
                                   "type": "CasterAnimation",
@@ -3188,38 +3276,208 @@
                                 "effects": []
                               },
                               "effect_none": {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_xayah_duo",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 130000,
+                                      "casting_target": "AllyNotSelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_rakan_e_got",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Shield",
+                                          "amount": 90,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 70,
+                                          "tick": 180
+                                        },
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_rakan_e_on",
+                                            "duration": "WithShield"
+                                          }
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_rakan_e_shield"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_xayah_duo",
+                                          "effect_buff": {
+                                            "type": "Sfx",
+                                            "name": "league_rakan_e_xayah"
+                                          },
+                                          "effect_none": {
+                                            "type": "Sfx",
+                                            "name": "league_rakan_e_cast"
+                                          }
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "e_dash",
+                                          "tick": 24
+                                        },
+                                        {
+                                          "type": "MoveToTarget",
+                                          "speed": 4000,
+                                          "range": 150000,
+                                          "end_effects": [
+                                            {
+                                              "type": "CasterAnimation",
+                                              "name": "e_land",
+                                              "tick": 14
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_rakan_e_land"
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_rakan_q_heal",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_rakan_q_heal"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_rakan_q_heal"
+                                                  },
+                                                  {
+                                                    "type": "CasterViewEffect",
+                                                    "name": "league_rakan_q_burst"
+                                                  },
+                                                  {
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 40000
+                                                      }
+                                                    },
+                                                    "target": "AllyChampion",
+                                                    "apply_type": "AroundCaster",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Heal",
+                                                        "amount": 70,
+                                                        "attack_ratio": 0,
+                                                        "ap_ratio": 50,
+                                                        "heal_type": "Ally"
+                                                      },
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_rakan_q_healed"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_rakan_e_got",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Shield",
+                                            "amount": 90,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 70,
+                                            "tick": 180
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_rakan_e_on",
+                                              "duration": "WithShield"
+                                            }
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_rakan_e_shield"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_rakan_e_cast"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
                                 },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "Shield",
-                                    "amount": 90,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 70,
-                                    "tick": 180
-                                  },
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_rakan_e_on",
-                                      "duration": "WithShield"
+                                "effect_none": {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
                                     }
                                   },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_rakan_e_shield"
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_rakan_e_cast"
-                                  }
-                                ]
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Shield",
+                                      "amount": 90,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 70,
+                                      "tick": 180
+                                    },
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_rakan_e_on",
+                                        "duration": "WithShield"
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_rakan_e_shield"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_rakan_e_cast"
+                                    }
+                                  ]
+                                }
                               }
                             }
                           ]

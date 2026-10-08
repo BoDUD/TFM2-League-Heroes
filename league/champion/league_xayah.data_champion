@@ -3093,6 +3093,66 @@
             "type": "Combine",
             "effects": []
           }
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 130000
+            }
+          },
+          "target": "AllyNotSelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "league_xayah_duo",
+                "duration": {
+                  "Time": {
+                    "tick": 120
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_rakan_e_on",
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_xayah_vo_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_xayah_shield_rakan"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_xayah_vo_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 600
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          }
         }
       ]
     }
@@ -4766,6 +4826,29 @@
               }
             }
           }
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 70000
+            }
+          },
+          "target": "AllyNotSelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "league_xayah_duo_w",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              }
+            }
+          ]
         }
       ]
     }
@@ -4777,9 +4860,9 @@
     "cooltime": 3600,
     "start_timing": 2,
     "cancelable": false,
-    "range": 85000,
+    "range": 60000,
     "casting_type": "Direction",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyChampionRecentlyAttacked",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",

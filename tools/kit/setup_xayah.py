@@ -48,7 +48,7 @@ TEXT = {
         "skill": "扔出两把穿透匕首，各造成" + phy("q_dmg", "q_ratio") + O + "物理伤害" + E + "（后续目标{q_fall}%），各留一根羽毛；随后" +
                  O + "倒钩" + E + "收回所有羽毛，每根对路过的敌人造成" + phy("e_dmg", "e_ratio") + "伤害，一次收回命中英雄第3次起" + R +
                  "禁锢{e_root}秒" + E + "。",
-        "skill2": "攻速+" + A + "{w_as}%" + E + "，持续{w_t}秒；期间每次普攻再甩出一片{w_pct}%伤害的羽刃，命中英雄时移速+{w_ms}%。",
+        "skill2": "攻速+" + A + "{w_as}%" + E + "，持续{w_t}秒；期间每次普攻再甩出一片{w_pct}%伤害的羽刃，命中英雄时移速+{w_ms}%。" + O + "洛" + E + "在附近时，他也获得这些效果。",
         "ult": "跃向空中，" + A + "{r_air}秒" + E + "内不受伤害和控制，再向前方降下匕首雨，造成" + phy("r_dmg", "r_ratio") + O + "物理伤害" + E +
                "，留下一排羽毛并随即收回。",
         "names": ("双刃·倒钩", "致死羽衣", "暴风羽刃"),
@@ -60,7 +60,7 @@ TEXT = {
         "skill": "擲出兩把貫穿匕首，各造成" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E + "（後續目標{q_fall}%），各留一根羽毛；隨後" +
                  O + "漫天血刃" + E + "收回所有羽毛，每根對經過的敵人造成" + phy("e_dmg", "e_ratio") + "傷害，一次收回命中英雄第3次起" + R +
                  "定身{e_root}秒" + E + "。",
-        "skill2": "攻速+" + A + "{w_as}%" + E + "，持續{w_t}秒；期間每次普攻再甩出一片{w_pct}%傷害的羽刃，命中英雄時跑速+{w_ms}%。",
+        "skill2": "攻速+" + A + "{w_as}%" + E + "，持續{w_t}秒；期間每次普攻再甩出一片{w_pct}%傷害的羽刃，命中英雄時跑速+{w_ms}%。" + O + "銳空" + E + "在附近時，他也獲得這些效果。",
         "ult": "躍向空中，" + A + "{r_air}秒" + E + "內不受傷害和控制，再向前方降下匕首雨，造成" + phy("r_dmg", "r_ratio") + O + "物理傷害" + E +
                "，留下一排羽毛並隨即收回。",
         "names": ("赤落連匕·漫天血刃", "奪命疾翼", "驟羽暴風"),
@@ -75,7 +75,7 @@ TEXT = {
                  phy("e_dmg", "e_ratio") + " to enemies it passes. From the third champion hit of one recall, " + R + "roots" + E +
                  " for " + A + "{e_root}s" + E + ".",
         "skill2": "Gains " + A + "{w_as}%" + E + " attack speed for {w_t}s; each attack throws a second blade for {w_pct}% damage, "
-                  "and a champion hit gives {w_ms}% move speed.",
+                  "and a champion hit gives {w_ms}% move speed. If " + O + "Rakan" + E + " is nearby, he gains these too.",
         "ult": "Leaps up, taking no damage or crowd control for " + A + "{r_air}s" + E + ", then rains daggers ahead for " +
                phy("r_dmg", "r_ratio") + " " + O + "physical damage" + E + ", leaving a row of Feathers she calls back at once.",
         "names": ("Double Daggers + Bladecaller", "Deadly Plumage", "Featherstorm"),
@@ -88,7 +88,7 @@ TEXT = {
                  "깃털을 남깁니다. 이어서 " + O + "깃부르미" + E + "로 깃털을 모두 회수해 지나가는 적에게 " + phy("e_dmg", "e_ratio") +
                  "의 피해, 한 번의 회수에서 세 번째 챔피언 적중부터 " + A + "{e_root}초" + E + " " + R + "속박" + E + ".",
         "skill2": "공격 속도 " + A + "+{w_as}%" + E + " ({w_t}초). 공격마다 {w_pct}% 피해의 깃날을 하나 더 던지고, 챔피언 적중 시 이동 속도 "
-                  "+{w_ms}%.",
+                  "+{w_ms}%. 근처에 " + O + "라칸" + E + "이 있으면 라칸도 같은 효과를 얻습니다.",
         "ult": "공중으로 도약해 " + A + "{r_air}초" + E + " 동안 피해와 군중 제어를 받지 않고, 앞쪽에 단검 비를 내려 " + phy("r_dmg", "r_ratio") +
                "의 " + O + "물리 피해" + E + "를 입히며 깃털 한 줄을 남겨 바로 회수합니다.",
         "names": ("깃털 연타·깃부르미", "죽음의 깃", "저항의 비상"),
@@ -100,7 +100,7 @@ TEXT = {
         "skill": "貫通する短剣を2本投げ、各" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "（後続{q_fall}%）、羽根を残す。続けて" +
                  O + "ブレードコーラー" + E + "で全羽根を回収、通過した敵に" + phy("e_dmg", "e_ratio") + "、1回の回収で3回目以降のチャンピオン命中は" +
                  A + "{e_root}秒" + E + R + "スネア" + E + "。",
-        "skill2": "攻撃速度" + A + "+{w_as}%" + E + "（{w_t}秒）。攻撃ごとに{w_pct}%ダメージの羽刃をもう1本投げ、チャンピオン命中で移動速度+{w_ms}%。",
+        "skill2": "攻撃速度" + A + "+{w_as}%" + E + "（{w_t}秒）。攻撃ごとに{w_pct}%ダメージの羽刃をもう1本投げ、チャンピオン命中で移動速度+{w_ms}%。近くに" + O + "ラカン" + E + "がいれば彼も同じ効果を得る。",
         "ult": "空中に跳び" + A + "{r_air}秒" + E + "ダメージと行動妨害を受けず、前方に短剣の雨で" + phy("r_dmg", "r_ratio") + "の" + O + "物理ダメージ" + E +
                "、羽根の列を残してすぐ回収。",
         "names": ("ダブルダガー・ブレードコーラー", "デッドリープルーム", "フェザーストーム"),
@@ -126,6 +126,7 @@ SOUNDS = {
     "league_xayah_r_cast": [(C + "r", 0.6, 0.0), (V + "r", 0.9, 0.05)],
     "league_xayah_r_rain": [(C + "r_rain", 0.6, 0.0)],
     "league_xayah_r_hit": [(C + "attack_hit", 0.45, 0.0)],
+    "league_xayah_shield_rakan": [(V + "shield_rakan", 0.85, 0.0)],      # the duo: Rakan's E shield on her
 }
 CLIPS = sorted({c for plays in SOUNDS.values() for c, _, _ in plays})
 
