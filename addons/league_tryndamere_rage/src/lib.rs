@@ -9,8 +9,11 @@
 //!   只剩 `burst_left`% 以下——爆发（每 tick 看一次，挨打时 `on_damaged` 当场再看一次）。
 //! - 爆发：去掉待命，`r_t` tick 的「不死」（`league_tryndamere_r_rage`，生命最低停在 1，同主包），怒气加满
 //!   （`f_1`..`f_n`，同主包的叠法），播 R 的动作、画面和声音；`r_q_at` tick 后喝嗜血杀戮。
-//! - R 不在待命（冷却中、5 级以前）、Q 不在冷却（`league_tryndamere_q_cd`）、身上有怒气、身边有敌方英雄、
+//! - R 在冷却（或 5 级以前）、不在待命，Q 不在冷却（`league_tryndamere_q_cd`）、身上有怒气、身边有敌方英雄、
 //!   生命不到 `q_hp`% 时：喝嗜血杀戮，`q_cd` tick 冷却。
+//! - 什么时候按 R（AI 钩子 `league_tryndamere_rage:ult`）：主包的 R 一看到敌方英雄就放出、待命 15 秒，游戏里显示为
+//!   「开大」，满血时一次次放（用户：「再检查一下蛮王总是满血开大的问题」）。AI 想放 R 而没到上面的危险时改成普攻
+//!   （打不到就走过去）；到了危险、R 冷却好、身边有敌方英雄时由它按下 R，下一 tick 被动就爆发——显示的「开大」就是爆发那一刻。
 //! - 嗜血杀戮：按身上的怒气层数回血（`q_heal` + `q_per` x 层数，加 `q_heal_ratio` + `q_per_ratio` x 层数 % 攻击力），
 //!   怒气清空，播 Q 的动作、画面和声音。
 //!
@@ -176,6 +179,8 @@ pub struct Now {
     pub top: f64,
     pub enemy_near: bool,
     pub armed: bool,
+    /// R 冷却好了（5 级以后）：留给 R，不喝 Q。
+    pub r_free: bool,
     pub raging: bool,
     pub q_cd: bool,
     pub fury: usize,
@@ -188,16 +193,20 @@ pub enum Move {
     Drink,
 }
 
+/// 快死了：生命不到 `r_hp`%，或 `burst_t` 内从 `top` 掉了 `burst`% 以上、只剩 `burst_left`% 以下。
+pub fn about_to_die(p: &Params, hp: f64, top: f64) -> bool {
+    hp <= p.r_hp as f64 || (top - hp >= p.burst as f64 && hp <= p.burst_left as f64)
+}
+
 /// 开 R、喝 Q，还是什么都不做。
 pub fn decide(p: &Params, n: &Now) -> Option<Move> {
     if n.raging || n.controlled || !n.enemy_near {
         return None;
     }
-    let low = |pct: usize| n.hp <= pct as f64;
-    if n.armed && (low(p.r_hp) || (n.top - n.hp >= p.burst as f64 && low(p.burst_left))) {
+    if n.armed && about_to_die(p, n.hp, n.top) {
         return Some(Move::Rage);
     }
-    if !n.armed && !n.q_cd && n.fury > 0 && low(p.q_hp) {
+    if !n.armed && !n.r_free && !n.q_cd && n.fury > 0 && n.hp <= p.q_hp as f64 {
         return Some(Move::Drink);
     }
     None
@@ -222,6 +231,13 @@ const NO_CAST: [CcKindV1; 7] =
 fn controlled(sim: &StableSim<'_>, id: usize) -> bool {
     sim.get_entity(id)
         .is_some_and(|e| (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_CAST.iter().any(|k| k.code() == c.kind))))
+}
+
+/// 他的 R 冷却好了（5 级以后、冷却为 0）。
+fn r_free(sim: &StableSim<'_>, me: usize) -> bool {
+    (0..sim.player_count()).filter_map(|i| sim.player_at(i)).any(|pl| {
+        pl.champion().is_some_and(|c| c.id() == me) && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0)
+    })
 }
 
 fn enemy_near(sim: &StableSim<'_>, me: usize, team: usize, near: usize) -> bool {
@@ -325,6 +341,7 @@ impl Guard {
             top,
             enemy_near: enemy_near(sim, me, team, self.p.near),
             armed: has("r_armed"),
+            r_free: r_free(sim, me),
             raging: has("r_rage"),
             q_cd: has("q_cd"),
             fury: fury_of(&names, self.p.f_n),
@@ -396,6 +413,120 @@ fn rage_with_mark(sim: &mut StableSim<'_>, me: usize, p: &Params, why: &str) {
     rage(sim, me, p, why);
 }
 
+// ===================== AI 钩子 =====================
+
+/// 主包蛮王的英雄名。
+const HERO: &str = "league_tryndamere";
+/// 主包 R 的射程（`ult.range`）：按 R 时的目标在这么近。
+const R_RANGE: usize = 60_000;
+/// 同一句日志隔这么多 tick 才再记。
+const LOG_EVERY: usize = 120;
+
+/// AI 的大招：`wants_ult` AI 原来的输入是 R；`danger` 快死了、身边有敌方英雄；`free` R 冷却好、不在待命和爆发里。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum UltPlan {
+    /// 照 AI 原来的输入。
+    Keep,
+    /// 按下 R（待命，被动下一 tick 爆发）。
+    Cast,
+    /// AI 想放 R 但还没到危险：改成打 / 走向它的目标。
+    Hold,
+}
+
+pub fn ult_plan(wants_ult: bool, danger: bool, free: bool) -> UltPlan {
+    match (wants_ult, danger && free) {
+        (_, true) => UltPlan::Cast,
+        (true, false) => UltPlan::Hold,
+        (false, false) => UltPlan::Keep,
+    }
+}
+
+#[derive(Clone, Default)]
+struct UltAi {
+    p: Params,
+    seen: Vec<(usize, f64)>,
+    last_hold: Option<usize>,
+}
+
+impl StablePlayerAi for UltAi {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:ult")
+    }
+
+    fn priority(&self) -> i32 {
+        100
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.champion_name == HERO
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        let player = ctx.player_id();
+        let tick = ctx.tick();
+        let wants_ult = base.is_some_and(|b| b.kind == InputKindV1::Ult.code());
+        let base_target = base.and_then(|b| {
+            (InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target)).then_some(b.target.target_id)
+        });
+        let (hp, free, danger_near, target, target_pos, line) = {
+            let sim = ctx.sim()?;
+            let pl = sim.get_player(player)?;
+            let me = pl.champion()?;
+            if !me.is_alive() {
+                self.seen.clear();
+                return None;
+            }
+            let (now, max) = me.hp();
+            let hp = if max > 0 { now as f64 * 100.0 / max as f64 } else { 100.0 };
+            let names = buff_names(&sim, me.id());
+            let busy = names.iter().any(|b| *b == tr("r_armed") || *b == tr("r_rage"));
+            // `is_valid_input` does not look at cooldowns (league_pyke): the slot's own state decides
+            let free = !busy && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0);
+            let (id, team) = (me.id(), me.team());
+            let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
+            let target = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .filter(|e| e.is_champion() && e.is_alive() && e.team() != team && sim.distance_sq(id, e.id()) <= r2)
+                .min_by_key(|e| sim.distance_sq(id, e.id()))
+                .map(|e| e.id());
+            let target_pos = base_target.and_then(|t| sim.get_entity(t)).map(|e| e.pos());
+            (hp, free, enemy_near(&sim, id, team, self.p.near), target, target_pos, head(&sim, id))
+        };
+        self.seen.retain(|(t, _)| t + self.p.burst_t >= tick);
+        self.seen.push((tick, hp));
+        let top = self.seen.iter().map(|s| s.1).fold(hp, f64::max);
+        let danger = danger_near && about_to_die(&self.p, hp, top);
+        match ult_plan(wants_ult, danger, free) {
+            UltPlan::Keep => None,
+            UltPlan::Cast => {
+                let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(target?));
+                if !ctx.is_valid_input(&input) {
+                    return None;
+                }
+                wlog(format!("{line} R CAST: hp {hp:.0}% (top {top:.0}% in {} ticks)", self.p.burst_t));
+                Some(input)
+            }
+            UltPlan::Hold => {
+                if self.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
+                    self.last_hold = Some(tick);
+                    wlog(format!("{line} R HELD: hp {hp:.0}%, not about to die"));
+                }
+                let t = base_target?;
+                let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+                if ctx.is_valid_input(&attack) {
+                    return Some(attack);
+                }
+                let (x, y) = target_pos?;
+                Some(InputV1::move_to(x, y))
+            }
+        }
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -403,7 +534,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (Undying Rage at low health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v2 (Undying Rage at low health, R pressed only then) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -412,7 +543,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:rage_end"), RageEnd);
     module.add_native_passive(format!("{ID}:guard"), Guard::default());
-    host.log(LogLevel::Info, "league_tryndamere_rage v1 loaded (Tryndamere's R at low health, Q when hurt).");
+    module.add_player_input_ai(UltAi::default());
+    host.log(LogLevel::Info, "league_tryndamere_rage v2 loaded (Tryndamere's R pressed and fired at low health, Q when hurt).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -431,7 +563,7 @@ mod tests {
     use super::*;
 
     fn now(hp: f64) -> Now {
-        Now { hp, top: hp, enemy_near: true, armed: true, raging: false, q_cd: false, fury: 3, controlled: false }
+        Now { hp, top: hp, enemy_near: true, armed: true, r_free: false, raging: false, q_cd: false, fury: 3, controlled: false }
     }
 
     #[test]
@@ -464,8 +596,38 @@ mod tests {
         assert_eq!(decide(&p, &q(25.0, 0, false)), None);
         assert_eq!(decide(&p, &q(25.0, 2, true)), None);
         assert_eq!(decide(&p, &q(45.0, 5, false)), None);
-        // R 在待命时留给 R
+        // R 在待命、或冷却好了（还没按）时留给 R
         assert_eq!(decide(&p, &Now { fury: 2, ..now(25.0) }), None);
+        assert_eq!(decide(&p, &Now { r_free: true, ..q(25.0, 2, false) }), None);
+    }
+
+    #[test]
+    fn r_is_pressed_only_about_to_die() {
+        // 满血看到敌人：AI 想放 R 也拦下
+        assert_eq!(ult_plan(true, false, true), UltPlan::Hold);
+        assert_eq!(ult_plan(false, false, true), UltPlan::Keep);
+        // 快死了、R 好了：按 R（AI 没想放也按）
+        assert_eq!(ult_plan(false, true, true), UltPlan::Cast);
+        assert_eq!(ult_plan(true, true, true), UltPlan::Cast);
+        // R 没好：照 AI（它放不出来）
+        assert_eq!(ult_plan(false, true, false), UltPlan::Keep);
+        let p = Params::default();
+        assert!(about_to_die(&p, 14.0, 14.0));
+        assert!(!about_to_die(&p, 100.0, 100.0));
+        assert!(about_to_die(&p, 38.0, 75.0));
+        assert!(!about_to_die(&p, 38.0, 60.0));
+    }
+
+    #[test]
+    fn the_ai_hook_uses_the_champion_datas_numbers() {
+        // UltAi has no configure(): its Params::default() must be the override's passive.params
+        let text = include_str!("../override/league_tryndamere.data_champion");
+        let at = text.find("\"params\"").expect("passive.params in the override");
+        let body = &text[at..];
+        let json = &body[body.find('{').unwrap()..=body.find('}').unwrap()];
+        let p = parse_params(json);
+        let d = Params::default();
+        assert_eq!((p.r_hp, p.burst, p.burst_left, p.burst_t, p.near), (d.r_hp, d.burst, d.burst_left, d.burst_t, d.near));
     }
 
     #[test]
