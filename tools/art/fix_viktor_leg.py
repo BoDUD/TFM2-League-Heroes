@@ -2,8 +2,9 @@
 """Viktor's rear shin coloured in (the user: 「这里是不是少色素了啊」「腿上」, 2026-10-08).
 
 His rear leg runs down-left from the thigh (navy #3e4270 at rows 67-68) to the foot (rows 72-73), but the three shin rows
-between were drawn as bare outline with a transparent hole at (70, 49): the leg read as missing a piece. This gives the
-shin two squares of the leg's own navy along its slant (the shadow #3a2c40 under the thigh as in row 68), outlines kept,
+between were drawn as bare outline with a transparent hole at (70, 49): the leg read as missing a piece. A first fill of
+plain navy left the two legs unalike (「不是两条腿能不一样的啊？」); the shin now copies the front leg's own: a row of
+shadow #3a2c40, the glowing joint orange #ff8a1e / gold #f7d04a / orange, two squares of shadow, along the slant,
 in every cell of every viktor strip whose shin still matches idle frame 1's hollow one (searched 4 squares around:
 29 cells - attack, hit, idle, skill, skill2, skill2_e, ult and dead 1).
 
@@ -20,11 +21,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 Z = 8
-N = (0x3E, 0x42, 0x70)      # the leg's navy
-S = (0x3A, 0x2C, 0x40)      # its shadow
+S = (0x3A, 0x2C, 0x40)      # the shin's shadow
+E = (0xFF, 0x8A, 0x1E)      # the joint's orange
+G = (0xF7, 0xD0, 0x4A)      # the joint's gold
 O = (0x0B, 0x09, 0x10)      # outline
-# (row, col, colour) in idle frame 1's cell coordinates
-EDITS = [(69, 48, N), (69, 49, S), (70, 48, N), (70, 49, N), (71, 48, N), (71, 49, O)]
+# (row, col, colour) in idle frame 1's cell coordinates: the front shin's rows 69-71 (shadow / orange gold orange /
+# shadow shadow) laid on the rear leg's slant
+EDITS = [(69, 48, S), (69, 49, S), (70, 48, E), (70, 49, G), (70, 50, E), (71, 47, S), (71, 48, S), (71, 49, O)]
 REGION = (67, 73, 46, 52)   # rows, cols of the hollow shin itself (the cloak and staff around it move per action)
 
 
