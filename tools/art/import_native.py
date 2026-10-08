@@ -63,7 +63,8 @@ UNSTEADY = {("rakan", "run")}
 # 2026-10-08), NO_NOD breathes without the head's late nod
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}
+BREATHE_SKIP = {"sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# hips or her slanted boots
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -72,10 +73,7 @@ BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "al
 # (「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
 # Kennen's went lower still, to his boots (0.08): at 0.18 the cut ran through the gold bar on his coat's hem
 # (「凯南待机时武器也变形」)
-BREATHE_OPTS = {"sivir": {"zone": (0.50, 11), "sway": [0] * 8},   # shrunk to 90% the default zone's cheapest seam
-                # ran through her hips and skirt plates (「希维尔上下摆动模型严重变形」), lower ones and the lean's ankle
-                # hinge through her boots (「上下摆动时 希维尔的鞋变形了吧」): the seam over the boots, no lean
-                "kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
+BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
