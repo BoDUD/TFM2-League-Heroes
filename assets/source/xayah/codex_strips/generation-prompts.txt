@@ -1,0 +1,63 @@
+Generation tool: built-in image_gen. Eight generated sheets retained in raw/ as motion references. They were rejected as direct final sprites because generated scale and head varied. Final art is articulated from the supplied approved native design, with native arm/bracer and held-feather cleanup in the same palette. No generated image was shrunk or had rows deleted to fit the approved character.
+
+=== run ===
+参考图1是动作骨架，图2是已批准的霞定稿。请精准换皮：保留图1的3列2行六帧布局、每帧大小和站位，人物耳尖到脚底约44个大像素格，不要放大人物。输出1536x1024，每格512x512，对应64x64个8像素方块。两腿按参考1交替迈步，后腿弯膝；手臂前后摆动，近侧手持两片紫红羽刃；身体略前倾，头的横向位置每帧一样、上下只1格。造型和色板严格照图2：紫兜帽、白尖粉耳朵、粉红头发、金眼睛，骨白鸟头骨和橙羽肩饰，红胸衣前摆，深蓝灰紫条纹腿，鸟爪脚，紫蓝上层深红下层橙金羽尖大斗篷挂肩向左后飘。头是图2的正面头只平移，不旋转不变形；所有帧同一模型，只改变身体动作。粗大方块、少色、清晰轮廓，不要高精细插画。真透明背景，无绿底，无文字编号网格阴影特效。完整六帧，一帧一角色。
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/run/1_动作骨架_oppi跑步.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/run/2_角色_霞定稿.png
+
+=== attack ===
+Create Xayah BASIC ATTACK 6 frame pixel sprite sheet,3columns2rows,3072x1536,each cell1024x768 representing128x96 native pixels enlarged8x. Reference1 is APPROVED final model, each sprite ONLY44 native rows tall, same original chibi shape, head, palette and pixel squares. Reference2 dictates positions/frame layout, reference3 arm and cloak motion only. Most of each cell stays transparent; DO NOT enlarge character. Six frames:1 near arm draws across body holding feathers;2 cocks arm back;3 RELEASE both arms wide, near arm straight to RIGHT at chest height, fingers open and empty;4 followthrough open empty hand;5 arm returns holding two fresh magenta feathers;6 original idle. Legs must copy reference1 unchanged square for square in all six frames, stripe wraps and talon stance, no crossed legs. Head exactly reference1, face3/4 right frontal, no rotation or back view. Shoulder skull and rope stay, pale arms2pixels thick crimson bracers. Cloak always present from both shoulders trails LEFT purple-blue upper crimson lower orange-gold tips, flares at release. Feather blades in fingers1pixelwide4-5long, NEVER draw airborne blade or any effects. Frame standing pivots x62,62,64,60,57,67 and y69; foot bottomrow80. Strict coarse8x8flat pixel cells, only reference1palette, no gradients antialias blur. True transparent background, no labels, grids or shadows.
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/design/xayah_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/now/xayah_now_attack.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/pose/lol_pose_attack.png
+
+=== skill ===
+Produce approved Xayah clean pixel GAME sprite sheet. Reference1 exact final44-row-tall character, do not redesign. Ref2 frame poses, ref3 arm/cloak motion only. Frontal3/4 facingright ALL frames, NEVER back or upside down. Purple hood white tipped pink feather ears pink hair gold eyes unchanged; bone shoulder skull+orange tuft, rope, crimson bodice/tabard, navy mauve stripedlegs birdtalons. Large shoulder cloak purple blue upper red lower orange gold tips trailsLEFT always. Arms pale2pixelthick crimson bracers attached, feathers1pixelwide4-5long heldinfingers. Only approved28colors and SAME coarse8px squares. No illustration, antialias blur glow shadow effects flyingblades text grids. TRUE transparent background. Sprite SMALL44logicalrows in128x96nativepixel cell, footbottomrow80.
+Q DOUBLE DAGGERS,4frames:1knees bend BOTHarms HIGH ABOVEHEAD holdingfeathers;2wholefigure rises3rows arms CROSS chest;3RELEASE botharms sweep RIGHT/DOWN bothopen emptyhands;4landing hands stillempty. Head SAME uprightfrontdesign. Bodycloak connected crouchednavylegs. Use2columns2rows2048x1536(each1024x768cell),4frames readingLtoR topbottom. Finalatlas will rearrange4x1: ref2/3are4x1 posesonly.
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/design/xayah_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/now/xayah_now_skill.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/pose/lol_pose_skill.png
+
+=== skill_e ===
+Produce approved Xayah clean pixel GAME sprite sheet. Reference1 exact final44-row-tall character, do not redesign. Ref2 frame poses, ref3 arm/cloak motion only. Frontal3/4 facingright ALL frames, NEVER back or upside down. Purple hood white tipped pink feather ears pink hair gold eyes unchanged; bone shoulder skull+orange tuft, rope, crimson bodice/tabard, navy mauve stripedlegs birdtalons. Large shoulder cloak purple blue upper red lower orange gold tips trailsLEFT always. Arms pale2pixelthick crimson bracers attached, feathers1pixelwide4-5long heldinfingers. Only approved28colors and SAME coarse8px squares. No illustration, antialias blur glow shadow effects flyingblades text grids. TRUE transparent background. Sprite SMALL44logicalrows in128x96nativepixel cell, footbottomrow80.
+E BLADECALLER,4frames:1CAST botharmswide openpalms cloaklikeWINGS;2quickcrouch pullarms chest;3low armscatch feathersat chest cloakfolds;4risesoriginalidle twofeathersin nearhand. NEVERflyingfeathers onlyheld. Use2columns2rows2048x1536(each1024x768cell),4frames readingLtoR topbottom. Ref2/3are4x1posesonly finalatlas rearranged.
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/design/xayah_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/now/xayah_now_skill_e.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/pose/lol_pose_skill_e.png
+
+=== skill2 ===
+Produce approved Xayah clean pixel GAME sprite sheet. Reference1 exact final44-row-tall character, do not redesign. Ref2 frame poses, ref3 arm/cloak motion only. Frontal3/4 facingright ALL frames, NEVER back or upside down. Purple hood white tipped pink feather ears pink hair gold eyes unchanged; bone shoulder skull+orange tuft, rope, crimson bodice/tabard, navy mauve stripedlegs birdtalons. Large shoulder cloak purple blue upper red lower orange gold tips trailsLEFT always. Arms pale2pixelthick crimson bracers attached, feathers1pixelwide4-5long heldinfingers. Only approved28colors and SAME coarse8px squares. No illustration, antialias blur glow shadow effects flyingblades text grids. TRUE transparent background. Sprite SMALL44logicalrows in128x96nativepixel cell, footbottomrow80.
+W DEADLY PLUMAGE,4frames:1CAST neararmsweeps infront feathercloakwideleft;2cloakwidestwing botharmsout;3cloaksettles bladesineachhand;4originalidle. StandingLEGS MUSTstayexactapprovedimagelegs squareforsquare widthstripes feetstance. Headcopy. Use2columns2rows2048x1536(each1024x768cell),4frames readingLtoR topbottom. Ref2/3are4x1posesonly finalatlas rearranged.
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/design/xayah_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/now/xayah_now_skill2.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/pose/lol_pose_skill2.png
+
+=== ult ===
+Clean LOW RES pixel sprite animation of EXACT approved Xayah. Ref1 definitive44pixel-tallmodel samefacehoodpink-whitefeatherears crimsonhair gold eyes shoulderbirdskull rope crimsonbodicetabard navy-mauvebandlegs birdtalons feathercloak purpleupperredlowerorangegoldtips trailsLEFT. Ref2 framePOSE/layout ref3motiononly. Keep same smallpixelbody/proportions inallframes. Head3/4FRONT facingright UNROTATED inALLframes even death. Both slim2pixelthickarms crimsonbracers. Never back or upside down. Wholefigure SMALL44nativepixels in128x96nativecell magnified8. Onlyapproved28flatcolors, strictlargepixelblocks, no glowgradient antialiasing. Cloak attached shoulders inEVERYframe. Heldmagenta1x5featherblades except justthrownordead. TrueTRANSPARENT background, no floorparticlesairborneweapons effects labelsgrids. Footbaseline native80,noartbelow.
+R FEATHERSTORM8frames4columns2rows4096x1536 each1024x768.1deepcrouch cloakwide;2risesup10pixelrows kneestuck;3highaboveground15rows, cloaklikehangingwings;4-5highinair armsRAISED withfeathers kneestuck;6RELEASE armsFORWARD/DOWNRIGHT bothhandsempty cloakwidest;7descending handsstillempty;8LANDoriginalstance. Keep headsALLupright identical. Do not drawdaggerrain. Frame6isthrow, armsRIGHTDOWN.
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/design/xayah_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/now/xayah_now_ult.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/pose/lol_pose_ult.png
+
+=== hit ===
+Clean LOW RES pixel sprite animation of EXACT approved Xayah. Ref1 definitive44pixel-tallmodel samefacehoodpink-whitefeatherears crimsonhair gold eyes shoulderbirdskull rope crimsonbodicetabard navy-mauvebandlegs birdtalons feathercloak purpleupperredlowerorangegoldtips trailsLEFT. Ref2 framePOSE/layout ref3motiononly. Keep same smallpixelbody/proportions inallframes. Head3/4FRONT facingright UNROTATED inALLframes even death. Both slim2pixelthickarms crimsonbracers. Never back or upside down. Wholefigure SMALL44nativepixels in128x96nativecell magnified8. Onlyapproved28flatcolors, strictlargepixelblocks, no glowgradient antialiasing. Cloak attached shoulders inEVERYframe. Heldmagenta1x5featherblades except justthrownordead. TrueTRANSPARENT background, no floorparticlesairborneweapons effects labelsgrids. Footbaseline native80,noartbelow.
+HIT2frames2columns1row2048x768,each1024x768cell.1wholefigurejolts2nativepixelstoleft;2returnsoriginalpose. BOTHframes useAPPROVEDownlegs squareforsquare stripeandtalonstance, NEVER changelegpose. Shoulderscloakmoves, head translated nevertilted. Bothhands intactholdingfeathers. EXACTsame44nativepixelheight.
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/design/xayah_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/now/xayah_now_hit.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/pose/lol_pose_hit.png
+
+=== dead ===
+Clean LOW RES pixel sprite animation of EXACT approved Xayah. Ref1 definitive44pixel-tallmodel samefacehoodpink-whitefeatherears crimsonhair gold eyes shoulderbirdskull rope crimsonbodicetabard navy-mauvebandlegs birdtalons feathercloak purpleupperredlowerorangegoldtips trailsLEFT. Ref2 framePOSE/layout ref3motiononly. Keep same smallpixelbody/proportions inallframes. Head3/4FRONT facingright UNROTATED inALLframes even death. Both slim2pixelthickarms crimsonbracers. Never back or upside down. Wholefigure SMALL44nativepixels in128x96nativecell magnified8. Onlyapproved28flatcolors, strictlargepixelblocks, no glowgradient antialiasing. Cloak attached shoulders inEVERYframe. Heldmagenta1x5featherblades except justthrownordead. TrueTRANSPARENT background, no floorparticlesairborneweapons effects labelsgrids. Footbaseline native80,noartbelow.
+DEATH8frames4columns2rows4096x1536 each1024x768.1-2staggersbacktowardLEFT;3-4bodyfallingback cloakspreadsunderher;5-6lyingonBACKonfloor headonLEFT feettowardRIGHT cloakbrokenwingsunderbody, one droppedpurplebladebesidehand;7-8lyingSTILL identicalfinalpose. HEADMUSTremainapprovedupright3/4FRONT; doNOTrotatehead evenwhilebodylieshorizontal. Designhead19pixelsincludingears distinctfrombody. Flooratrow80 noartbelow. Bodyprogressivelylowers, connectedhipskneesarms. No extra floatingweapons.
+References:
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/design/xayah_design.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/now/xayah_now_dead.png
+C:/Users/OWNER/Documents/Codex/2026-10-08/new-chat-3/work/xayah-strips/xayah_strips_pack/pose/lol_pose_dead.png
+

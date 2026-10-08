@@ -1,0 +1,2404 @@
+{
+  "scale": 8,
+  "coordinate_units": "native pixels unless *_8x",
+  "approved_model": "44 rows / supplied design",
+  "final_route": "approved native pixel layers articulated into key poses; generated sheets retained as motion references only",
+  "actions": {
+    "run": {
+      "file": "xayah_run.png",
+      "size_8x": [
+        1536,
+        1024
+      ],
+      "cell": [
+        64,
+        64
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 135,
+          "rect": [
+            0,
+            0,
+            64,
+            64
+          ],
+          "rect_8x": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            35
+          ],
+          "baseline": 47,
+          "bbox": [
+            10,
+            4,
+            52,
+            47
+          ],
+          "head_rect": [
+            23,
+            4,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            50,
+            35
+          ],
+          "hand_far": [
+            29,
+            34
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            32,
+            35
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 135,
+          "rect": [
+            64,
+            0,
+            64,
+            64
+          ],
+          "rect_8x": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            35
+          ],
+          "baseline": 47,
+          "bbox": [
+            9,
+            5,
+            50,
+            48
+          ],
+          "head_rect": [
+            23,
+            5,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            47,
+            37
+          ],
+          "hand_far": [
+            33,
+            36
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            32,
+            35
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 135,
+          "rect": [
+            128,
+            0,
+            64,
+            64
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            35
+          ],
+          "baseline": 47,
+          "bbox": [
+            8,
+            4,
+            48,
+            47
+          ],
+          "head_rect": [
+            23,
+            4,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            43,
+            35
+          ],
+          "hand_far": [
+            37,
+            34
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            32,
+            35
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 135,
+          "rect": [
+            0,
+            64,
+            64,
+            64
+          ],
+          "rect_8x": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            35
+          ],
+          "baseline": 47,
+          "bbox": [
+            9,
+            4,
+            48,
+            46
+          ],
+          "head_rect": [
+            23,
+            4,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            41,
+            35
+          ],
+          "hand_far": [
+            38,
+            34
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            32,
+            35
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 135,
+          "rect": [
+            64,
+            64,
+            64,
+            64
+          ],
+          "rect_8x": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            35
+          ],
+          "baseline": 47,
+          "bbox": [
+            10,
+            5,
+            50,
+            48
+          ],
+          "head_rect": [
+            23,
+            5,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            45,
+            37
+          ],
+          "hand_far": [
+            35,
+            36
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            32,
+            35
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 135,
+          "rect": [
+            128,
+            64,
+            64,
+            64
+          ],
+          "rect_8x": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "pivot": [
+            32,
+            35
+          ],
+          "baseline": 47,
+          "bbox": [
+            11,
+            4,
+            52,
+            47
+          ],
+          "head_rect": [
+            23,
+            4,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            49,
+            35
+          ],
+          "hand_far": [
+            31,
+            34
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            32,
+            35
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "release_tick": null
+    },
+    "attack": {
+      "file": "xayah_attack.png",
+      "size_8x": [
+        3072,
+        1536
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": 3,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 70,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            48,
+            37,
+            78,
+            81
+          ],
+          "head_rect": [
+            53,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            69,
+            66
+          ],
+          "hand_far": [
+            64,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            62,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            45,
+            37,
+            78,
+            81
+          ],
+          "head_rect": [
+            53,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            70,
+            56
+          ],
+          "hand_far": [
+            63,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            62,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 80,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            38,
+            37,
+            87,
+            81
+          ],
+          "head_rect": [
+            55,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            86,
+            61
+          ],
+          "hand_far": [
+            58,
+            60
+          ],
+          "release": true,
+          "held_blades": 0,
+          "reference_pivot": [
+            64,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ],
+          "release_hand": [
+            86,
+            61
+          ],
+          "release_hand_8x": [
+            688,
+            488
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 70,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            35,
+            37,
+            83,
+            81
+          ],
+          "head_rect": [
+            51,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            82,
+            61
+          ],
+          "hand_far": [
+            55,
+            64
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            60,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 60,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            35,
+            37,
+            78,
+            81
+          ],
+          "head_rect": [
+            48,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            76,
+            68
+          ],
+          "hand_far": [
+            60,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            57,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 50,
+          "rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            53,
+            37,
+            85,
+            81
+          ],
+          "head_rect": [
+            58,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            81,
+            69
+          ],
+          "hand_far": [
+            69,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            67,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "release_tick": 8
+    },
+    "skill": {
+      "file": "xayah_skill.png",
+      "size_8x": [
+        4096,
+        768
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "release_frame": 3,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 70,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            48,
+            40,
+            89,
+            81
+          ],
+          "head_rect": [
+            56,
+            40,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            85,
+            50
+          ],
+          "hand_far": [
+            54,
+            51
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            65,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            72,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            48,
+            34,
+            91,
+            77
+          ],
+          "head_rect": [
+            63,
+            34,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            79,
+            61
+          ],
+          "hand_far": [
+            82,
+            59
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            72,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 80,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            74,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            48,
+            38,
+            97,
+            81
+          ],
+          "head_rect": [
+            65,
+            38,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            95,
+            65
+          ],
+          "hand_far": [
+            83,
+            65
+          ],
+          "release": true,
+          "held_blades": 0,
+          "reference_pivot": [
+            74,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ],
+          "release_hand": [
+            95,
+            65
+          ],
+          "release_hand_8x": [
+            760,
+            520
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 80,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            52,
+            37,
+            87,
+            81
+          ],
+          "head_rect": [
+            60,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            84,
+            69
+          ],
+          "hand_far": [
+            71,
+            68
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            69,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "release_tick": 8
+    },
+    "skill_e": {
+      "file": "xayah_skill_e.png",
+      "size_8x": [
+        4096,
+        768
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "release_frame": 1,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 80,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            41,
+            37,
+            89,
+            81
+          ],
+          "head_rect": [
+            57,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            88,
+            61
+          ],
+          "hand_far": [
+            60,
+            60
+          ],
+          "release": true,
+          "held_blades": 0,
+          "reference_pivot": [
+            66,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ],
+          "release_hand": [
+            88,
+            61
+          ],
+          "release_hand_8x": [
+            704,
+            488
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 80,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            33,
+            42,
+            77,
+            81
+          ],
+          "head_rect": [
+            49,
+            42,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            64,
+            68
+          ],
+          "hand_far": [
+            68,
+            67
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            58,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            45,
+            42,
+            85,
+            81
+          ],
+          "head_rect": [
+            57,
+            42,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            72,
+            67
+          ],
+          "hand_far": [
+            76,
+            66
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            66,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 83,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            52,
+            37,
+            84,
+            81
+          ],
+          "head_rect": [
+            57,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            80,
+            69
+          ],
+          "hand_far": [
+            68,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            66,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "release_tick": 0
+    },
+    "skill2": {
+      "file": "xayah_skill2.png",
+      "size_8x": [
+        4096,
+        768
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "release_frame": 1,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            46,
+            37,
+            87,
+            81
+          ],
+          "head_rect": [
+            62,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            79,
+            67
+          ],
+          "hand_far": [
+            68,
+            67
+          ],
+          "release": true,
+          "held_blades": 2,
+          "reference_pivot": [
+            71,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ],
+          "release_hand": [
+            79,
+            67
+          ],
+          "release_hand_8x": [
+            632,
+            536
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            68,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            43,
+            37,
+            91,
+            81
+          ],
+          "head_rect": [
+            59,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            90,
+            61
+          ],
+          "hand_far": [
+            62,
+            60
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            68,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            34,
+            37,
+            76,
+            81
+          ],
+          "head_rect": [
+            49,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            73,
+            69
+          ],
+          "hand_far": [
+            59,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            58,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            51,
+            37,
+            83,
+            81
+          ],
+          "head_rect": [
+            56,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            79,
+            69
+          ],
+          "hand_far": [
+            67,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            65,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "release_tick": 0
+    },
+    "ult": {
+      "file": "xayah_ult.png",
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "release_frame": 6,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 120,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            37,
+            43,
+            82,
+            81
+          ],
+          "head_rect": [
+            54,
+            43,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            71,
+            73
+          ],
+          "hand_far": [
+            71,
+            72
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            63,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 130,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            42,
+            27,
+            93,
+            68
+          ],
+          "head_rect": [
+            57,
+            27,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            89,
+            39
+          ],
+          "hand_far": [
+            55,
+            38
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            66,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 150,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            44,
+            20,
+            84,
+            63
+          ],
+          "head_rect": [
+            51,
+            20,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            80,
+            30
+          ],
+          "hand_far": [
+            49,
+            31
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            60,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 200,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            53,
+            20,
+            95,
+            61
+          ],
+          "head_rect": [
+            62,
+            20,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            91,
+            30
+          ],
+          "hand_far": [
+            60,
+            31
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            71,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 200,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            49,
+            20,
+            95,
+            61
+          ],
+          "head_rect": [
+            62,
+            20,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            91,
+            30
+          ],
+          "hand_far": [
+            60,
+            31
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            71,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 150,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            46,
+            23,
+            94,
+            65
+          ],
+          "head_rect": [
+            62,
+            23,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            92,
+            51
+          ],
+          "hand_far": [
+            80,
+            49
+          ],
+          "release": true,
+          "held_blades": 0,
+          "reference_pivot": [
+            71,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ],
+          "release_hand": [
+            92,
+            51
+          ],
+          "release_hand_8x": [
+            736,
+            408
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 120,
+          "rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            51,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            25,
+            29,
+            74,
+            72
+          ],
+          "head_rect": [
+            42,
+            29,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            73,
+            52
+          ],
+          "hand_far": [
+            48,
+            58
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            51,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 97,
+          "rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            52,
+            37,
+            84,
+            81
+          ],
+          "head_rect": [
+            57,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            80,
+            69
+          ],
+          "hand_far": [
+            68,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            66,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "release_tick": 48
+    },
+    "hit": {
+      "file": "xayah_hit.png",
+      "size_8x": [
+        2048,
+        768
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            50,
+            37,
+            86,
+            81
+          ],
+          "head_rect": [
+            60,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            82,
+            69
+          ],
+          "hand_far": [
+            72,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            71,
+            69
+          ],
+          "actor_translation": [
+            -2,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            71,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            57,
+            37,
+            89,
+            81
+          ],
+          "head_rect": [
+            62,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            85,
+            69
+          ],
+          "hand_far": [
+            73,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            71,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "release_tick": null
+    },
+    "dead": {
+      "file": "xayah_dead.png",
+      "size_8x": [
+        4096,
+        1536
+      ],
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            51,
+            37,
+            87,
+            81
+          ],
+          "head_rect": [
+            60,
+            37,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            82,
+            69
+          ],
+          "hand_far": [
+            71,
+            68
+          ],
+          "release": false,
+          "held_blades": 2,
+          "reference_pivot": [
+            69,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 110,
+          "rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            37,
+            39,
+            87,
+            81
+          ],
+          "head_rect": [
+            49,
+            39,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            79,
+            68
+          ],
+          "hand_far": [
+            63,
+            70
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            58,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 110,
+          "rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            50,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            26,
+            43,
+            79,
+            81
+          ],
+          "head_rect": [
+            41,
+            43,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            67,
+            61
+          ],
+          "hand_far": [
+            53,
+            74
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            50,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 120,
+          "rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            51,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            25,
+            47,
+            81,
+            81
+          ],
+          "head_rect": [
+            42,
+            47,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            68,
+            63
+          ],
+          "hand_far": [
+            51,
+            77
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            51,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "duration_ms": 130,
+          "rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            46,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            21,
+            51,
+            75,
+            81
+          ],
+          "head_rect": [
+            37,
+            51,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            63,
+            67
+          ],
+          "hand_far": [
+            45,
+            80
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            46,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "duration_ms": 150,
+          "rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            40,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            16,
+            53,
+            69,
+            81
+          ],
+          "head_rect": [
+            31,
+            53,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            57,
+            71
+          ],
+          "hand_far": [
+            37,
+            80
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            40,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 7,
+          "duration_ms": 200,
+          "rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            50,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            26,
+            53,
+            79,
+            81
+          ],
+          "head_rect": [
+            41,
+            53,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            67,
+            71
+          ],
+          "hand_far": [
+            47,
+            80
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            50,
+            69
+          ],
+          "actor_translation": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 8,
+          "duration_ms": 300,
+          "rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            50,
+            69
+          ],
+          "baseline": 80,
+          "bbox": [
+            26,
+            53,
+            79,
+            81
+          ],
+          "head_rect": [
+            41,
+            53,
+            22,
+            19
+          ],
+          "head_mask_sha256": "019c67df9d3ce0407ae6c199c3787c58ecb21cb775d6054571b712a81ad5391f",
+          "hand_near": [
+            67,
+            71
+          ],
+          "hand_far": [
+            47,
+            80
+          ],
+          "release": false,
+          "held_blades": 0,
+          "reference_pivot": [
+            49,
+            69
+          ],
+          "actor_translation": [
+            1,
+            0
+          ]
+        }
+      ],
+      "release_tick": null
+    },
+    "idle": {
+      "file": "xayah_idle.png",
+      "source": "supplied completed idle, copied unchanged",
+      "cell": [
+        128,
+        96
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "durations_ms": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    }
+  }
+}
