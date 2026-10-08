@@ -63,8 +63,9 @@ UNSTEADY = {("rakan", "run")}
 # 2026-10-08), NO_NOD breathes without the head's late nod
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
-BREATHE_SKIP = {"sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
+# renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -76,9 +77,6 @@ BREATHE_SKIP = {"sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "ka
 BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "vayne": {"zone": (0.20, 1)},
-                # Renekton shrunk to 90% (「鳄鱼体型也偏大了」): his old (0.15, 1) zone lay on his feet and the lean's
-                # ankle hinge moved them - the seam in his shins, no lean
-                "renekton": {"zone": (0.20, 2), "sway": [0] * 8},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
 # hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
 # reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
