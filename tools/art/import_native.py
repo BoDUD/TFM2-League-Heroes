@@ -62,56 +62,85 @@ BREATHE_SKIP = {"brand"}
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
-BREATHE_OPTS = {"alistar": {"zone": (0.20, 1)}}   # cuts in his legs, not his flat belt (the fists must breathe too)
-# hero: (colour set, seed corner) of a weapon resting on or near the ground. idle_breathe would cut or hinge THROUGH
-# a blade that spans the legs' columns (Garen's and Aatrox's swords bent: 「剑魔和盖伦武器有点变形」), so the weapon is
-# lifted out before the breath and stamped back unmoved on every frame: the sword stands planted, the hands slide 1-2
-# px along the hilt. The mask floods the weapon's own colours from its lowest pixel on the named side, then takes the
-# outline squares that ring only the weapon.
-WEAPON_FREEZE = {"garen": ({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65),
-                            (0x29, 0x63, 0x80), (0xFC, 0xFC, 0xFC)}, "right"),
-                 "aatrox": ({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A),
-                             (0x27, 0x0D, 0x28)}, "left")}
+# cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Alistar's flat belt (only his
+# hump breathed, 「牛头有点怪」); Kennen, Jax, LeBlanc, Janna, Twisted Fate and Tristana are short or skirted (the zone
+# rows landed in the skirt or the weapon); Renekton, Pyke and Vayne crouch, their figure is squat and the 30% band
+# started in the torso (「派克手臂有点变形」「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
+BREATHE_OPTS = {"alistar": {"zone": (0.20, 1)},
+                "kennen": {"zone": (0.18, 1)}, "leblanc": {"zone": (0.18, 1)},
+                "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
+                "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
+                # crouched or propped on the weapon: the cut line sits at the waist over the pinned prop, dip only
+                # (a 1-column lean on a wide hunched figure read as a jerk; 「派克 贾克斯 小炮还是不对」 2026-10-08)
+                "jax": {"zone": (0.45, 1), "sway": [0] * 8},
+                "tristana": {"zone": (0.60, 1), "sway": [0] * 8},
+                "pyke": {"zone": (0.45, 1), "sway": [0] * 8},
+                "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
+# hero: [(colour set, box)] of a weapon resting on or near the ground. idle_breathe would cut or hinge THROUGH a blade
+# that spans the legs' columns (「剑魔和盖伦武器有点变形」「格温天使武器变形」「锐雯武器变形」「永恩武器变形」, 2026-10-08), so
+# the weapon is lifted out before the breath and stamped back unmoved on every frame: the blade stands planted, the
+# hands slide 1-2 px along the hilt. The box is (row0, row1, col0, col1) relative to (the soles' row, the frame's
+# centre), None = the whole frame; colours were read from the design's own bottom rows (charmaps.txt).
+WEAPON_FREEZE = {
+    "garen": [({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65), (0x29, 0x63, 0x80),
+                (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
+    "aatrox": [({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A), (0x27, 0x0D, 0x28),
+                 (0x42, 0x22, 0x4C), (0x68, 0x40, 0x7A)}, (-14, 0, -99, -10))],
+    "gwen": [({(0x8F, 0xF2, 0xFE), (0x28, 0xDD, 0xFC), (0x01, 0x87, 0xFA)}, (-13, -1, -99, -5)),
+             ({(0x8F, 0xF2, 0xFE), (0x28, 0xDD, 0xFC), (0x01, 0x87, 0xFA), (0x1D, 0x14, 0x44), (0x3C, 0x2A, 0x71),
+               (0xAA, 0x93, 0xF3), (0x02, 0x03, 0x75), (0x45, 0x16, 0xEB)}, (-26, -6, 7, 99))],
+    "riven": [({(0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69), (0x43, 0x4A, 0x46),
+                (0x27, 0x27, 0x20), (0xF6, 0xEA, 0xDB), (0x24, 0x18, 0x1F)}, (-12, -1, 1, 99))],
+    "yone": [({(0xFA, 0xFA, 0xFA), (0xAB, 0xB2, 0xC6), (0x94, 0x9B, 0xB6), (0x49, 0x51, 0x6E)}, (-12, 0, 8, 99)),
+              ({(0xCB, 0x07, 0x27), (0x2A, 0x00, 0x04), (0x59, 0x0D, 0x25)}, (-14, -5, -99, -9))],
+}
+# hero: [(colour set, box)] of a weapon the hero GRIPS or leans on. Freezing one and stamping it back hid the gripping
+# hand behind it (Tristana's forearm vanished into the cannon, 「小炮还是不对」); instead the weapon is pinned: it keeps
+# standing with the legs and the cuts go ABOVE it (oppi's Jax breathes over a planted lamppost the same way), so the
+# grip stays drawn exactly as the design laid it.
+WEAPON_PIN = {
+    "jax": [({(0x28, 0x33, 0x54), (0x8A, 0x29, 0x01), (0xE4, 0xBE, 0x6A)}, (-11, -4, -99, 99))],
+    "tristana": [({(0x73, 0x97, 0xC3), (0xB9, 0xDD, 0xED), (0xBF, 0xCC, 0xD8), (0x44, 0x5E, 0x80), (0x7E, 0x87, 0x9E),
+                   (0x28, 0x34, 0x47), (0xC8, 0x99, 0x4E), (0xE6, 0xBF, 0x86), (0xCE, 0x95, 0x60), (0x87, 0x60, 0x2E)},
+                  (-14, -3, 2, 99))],
+}
 
 
-def weapon_mask(a, colours, side):
-    """The weapon as one piece: its colours flooded (8-connected) from the lowest such pixel on the given half of the
-    figure, plus the outline squares that touch it and nothing else but it, outline or air."""
+def weapon_mask(a, colours, box):
+    """The weapon's pixels: every pixel of the weapon's own colours inside `box` (rows/columns relative to (the soles'
+    row, the frame's centre), None = the whole frame), plus the dark outline squares that ring them. No flooding: a
+    blade is colour patches split by its own outline, and a seed flood dies at the first outline it meets."""
     op = a[..., 3] > 0
-    H, W = a.shape[:2]
-    cols = {tuple(int(v) for v in a[y, x, :3]) for y, x in zip(*np.nonzero(op))}
-    is_w = np.zeros((H, W), bool)
-    for y, x in zip(*np.nonzero(op)):
-        is_w[y, x] = tuple(int(v) for v in a[y, x, :3]) in colours
-    xs0 = np.nonzero(op.any(0))[0]
-    mid = (xs0.min() + xs0.max()) // 2
-    half = is_w.copy()
-    if side == "left":
-        half[:, mid:] = False
+    sole = int(np.nonzero(op.any(1))[0].max())
+    cx = a.shape[1] // 2
+    ins = np.zeros(op.shape, bool)
+    if box is None:
+        ins[:] = True
     else:
-        half[:, :mid] = False
-    ys, xs = np.nonzero(half)
-    k = int(np.argmax(ys))
-    m = np.zeros((H, W), bool)
-    st = [(int(ys[k]), int(xs[k]))]
-    while st:
-        y, x = st.pop()
-        if not (0 <= y < H and 0 <= x < W) or m[y, x] or not is_w[y, x]:
-            continue
-        m[y, x] = True
-        st += [(y + dy, x + dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1)]
-    dark = min(cols, key=lambda c: 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2])
-    ring = np.zeros_like(m)
-    for y, x in zip(*np.nonzero(m)):
-        for ny in (y - 1, y, y + 1):
-            for nx in (x - 1, x, x + 1):
-                if 0 <= ny < H and 0 <= nx < W and op[ny, nx] and not m[ny, nx] and                         tuple(int(v) for v in a[ny, nx, :3]) == dark:
-                    good = all(not op[qy, qx] or m[qy, qx] or tuple(int(v) for v in a[qy, qx, :3]) == dark
-                               for qy in (ny - 1, ny, ny + 1) for qx in (nx - 1, nx, nx + 1)
-                               if 0 <= qy < H and 0 <= qx < W)
-                    if good:
-                        ring[ny, nx] = True
-    return m | ring
+        r0, r1, c0, c1 = box
+        ins[max(0, sole + r0):sole + r1 + 1, max(0, cx + c0):cx + c1 + 1] = True
+    m = np.zeros(op.shape, bool)
+    for y, x in zip(*np.nonzero(op & ins)):
+        if (int(a[y, x, 0]), int(a[y, x, 1]), int(a[y, x, 2])) in colours:
+            m[y, x] = True
+    dark = (a[..., :3].astype(int).sum(-1) < 210) & op
+    air = ~op
+    for _ in range(4):                                       # the outline ring, grown to outline that belongs only to
+        near = np.zeros(op.shape, bool)                      # the weapon (a blade tip is 1-2 bare outline pixels)
+        near[1:] |= m[:-1]; near[:-1] |= m[1:]; near[:, 1:] |= m[:, :-1]; near[:, :-1] |= m[:, 1:]
+        near[1:, 1:] |= m[:-1, :-1]; near[1:, :-1] |= m[:-1, 1:]; near[:-1, 1:] |= m[1:, :-1]; near[:-1, :-1] |= m[1:, 1:]
+        grow = np.zeros(op.shape, bool)
+        for y, x in zip(*np.nonzero(near & dark & ins & ~m)):
+            if all(m[qy, qx] or dark[qy, qx] or air[qy, qx]
+                   for qy in (y - 1, y, y + 1) for qx in (x - 1, x, x + 1)
+                   if 0 <= qy < op.shape[0] and 0 <= qx < op.shape[1]):
+                grow[y, x] = True
+        if not grow.any():
+            break
+        m = m | grow
+    return m
+
+
 NO_NOD = set()
     # the piece took his upper body
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
@@ -816,12 +845,18 @@ def breathe_idle(hero, sheet):
     else:
         ys, xs = np.nonzero(a[..., 3])
         head = (float(np.median(xs[ys < ys.min() + 8])), float(ys.min() + 7))
-    frozen = None
+    frozen = pin = None
     if hero in WEAPON_FREEZE:
-        frozen = weapon_mask(a, *WEAPON_FREEZE[hero])
+        frozen = np.zeros(a.shape[:2], bool)
+        for colours, box in WEAPON_FREEZE[hero]:
+            frozen |= weapon_mask(a, colours, box)
         a = a.copy()
         a[frozen] = 0
-    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **BREATHE_OPTS.get(hero, {}))
+    if hero in WEAPON_PIN:
+        pin = np.zeros(a.shape[:2], bool)
+        for colours, box in WEAPON_PIN[hero]:
+            pin |= weapon_mask(a, colours, box)
+    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, keep=pin, **BREATHE_OPTS.get(hero, {}))
     if frozen is not None:
         src = sheet["idle"][0][0]
         fy, fx = np.nonzero(frozen)

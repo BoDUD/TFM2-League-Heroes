@@ -23,9 +23,10 @@ SWAY = [0, 0, 0, 0, 1, 1, 1, 0]     # columns the body leans forward, a frame af
 MS = 140
 
 
-def merge_cost(a, lo, hi, feet=None):
-    """(rows lo..hi) x columns: the visible pixels of taking row y out (rows y and y+1 meet): a colour change or an
-    opacity change there, and 100 from row `feet` down in the columns standing on the soles' row (never cut a foot)."""
+def merge_cost(a, lo, hi, feet=None, keep=None):
+    """(rows lo..hi) x columns: the visible pixels of taking row y out (rows y and y + 1 meet): a colour change or an
+    opacity change there, 100 from row `feet` down in the columns standing on the soles' row (never cut a foot), and
+    100 where the seam touches `keep` (a weapon the hero grips or leans on: the cut goes round it, never through)."""
     op = a[..., 3] > 0
     c = np.zeros((hi - lo + 1, a.shape[1]))
     sole = int(np.nonzero(op.any(1))[0].max())
@@ -36,6 +37,8 @@ def merge_cost(a, lo, hi, feet=None):
         c[i] = diff * 1.0 + (op[y] != op[y + 1]) * 2.0
         if feet is not None and y + 1 >= feet:
             c[i] += (op[y] | op[y + 1]) * standing * 100.0
+        if keep is not None:                                 # a cut moves everything above it down: a weapon pixel
+            c[i] += keep[:y + 2].any(0) * 100.0              # at or above the seam would move, so the cut goes below
     return c
 
 
@@ -87,15 +90,25 @@ def pick(cost, gs, lo, k, W, gap=2):
     worst = 0.0
     for g in gs:
         tot = cost[:, g].sum(1)
-        order = list(np.argsort(tot, kind="stable"))
-        chosen = []
-        for r in order:
-            if all(abs(r - c) >= gap for c in chosen):
-                chosen.append(r)
-            if len(chosen) == k:
-                break
-        while len(chosen) < k:
-            chosen.append(chosen[-1])
+        if k == 2:                                           # the best pair outright: greedy locked Pyke out of the
+            n = len(tot)                                     # only free pair his 7-row zone had and cut his boot
+            best, chosen = None, [0, min(gap, n - 1)]
+            for i in range(n):
+                for j in range(i + gap, n):
+                    c = max(tot[i], tot[j])
+                    key = (c, tot[i] + tot[j])
+                    if best is None or key < best:
+                        best, chosen = key, [i, j]
+        else:
+            order = list(np.argsort(tot, kind="stable"))
+            chosen = []
+            for r in order:
+                if all(abs(r - c) >= gap for c in chosen):
+                    chosen.append(r)
+                if len(chosen) == k:
+                    break
+            while len(chosen) < k:
+                chosen.append(chosen[-1])
         worst = max(worst, float(tot[chosen[k - 1]]))
         for j, r in enumerate(chosen):
             rows[j, g] = lo + r
@@ -162,7 +175,7 @@ def pieces(op):
     return lab, n
 
 
-def breathe(design, head, body=BODY, lag=LAG, nod=True, sway=SWAY, nod_max=6.0, zone=(0.30, 2), **_):
+def breathe(design, head, body=BODY, lag=LAG, nod=True, sway=SWAY, nod_max=6.0, zone=(0.30, 2), keep=None, **_):
     """8 frames from one design frame: (frames, report). head = (x, y) head point in the frame's coordinates.
     The frames come 2 squares bigger all round (a pivot-centred frame stays centred), so the lean is never cut."""
     a0 = np.pad(design, ((2, 2), (2, 2), (0, 0)))
@@ -178,7 +191,9 @@ def breathe(design, head, body=BODY, lag=LAG, nod=True, sway=SWAY, nod_max=6.0, 
     # flat dark belt was the cheapest row of the default zone, so only his hump breathed while the fists stood
     # (「牛头有点怪」): his zone is forced into the legs, zone=(0.20, 1)
     lo, hi = int(sole - zone[0] * h), sole - zone[1]
-    dip, dip_cost = pick(merge_cost(a0, lo, hi, feet=sole - 3), groups(a0, lo, hi), lo, 2, W)
+    if keep is not None:
+        keep = np.pad(keep, ((2, 2), (2, 2)))
+    dip, dip_cost = pick(merge_cost(a0, lo, hi, feet=sole - 3, keep=keep), groups(a0, lo, hi), lo, 2, W)
     # the lean's hinge, per group: a standing shape (feet on the soles' row) hinges at the ankle - below its own cut
     # rows, above the boot's last two rows; a hanging shape (a fist, a tail off the ground) moves whole (hinge = sole)
     standing = op[sole]
