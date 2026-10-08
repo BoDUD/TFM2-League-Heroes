@@ -16,9 +16,11 @@
 //!   视野，所以黑暗里每个敌方英雄要攻击、施放到的魔腾一方单位（英雄、小兵）离他超过 `SIGHT`，这一下就换成
 //!   朝它走过去；走到 `SIGHT` 以内照常出手。指向点的技能看点附近 `AIM_POS` 内的单位，指方向的看方向两侧
 //!   `AIM_DEG` 度、`AIM_REACH` 内离方向线最近的。
-//! - 画面：R 出手时在地图中心播 `VEIL_LAYERS` 层铺满整张地图的半透明暗色（`VEIL`，副本里加的特效，
-//!   贴图在 `effects/`），错开 `VEIL_STEP` tick 叠上去，各播 3 秒，所以渐入、渐出。特效画在单位下面
-//!   （z −2）：地面变黑，英雄和技能特效照样看得清。它是普通的特效事件，跟着比赛画面同步播。
+//! - 画面：R 出手时在魔腾身上（不跟随）播 `VEIL_LAYERS` 层 1280 × 1280 的半透明暗色（`VEIL`，副本里加的特效，
+//!   贴图在 `effects/`；镜头一般跟着他，盖满整屏），错开 `VEIL_STEP` tick 叠上去，所以渐入、渐出。特效画在单位
+//!   下面（z −1）：地面变黑，英雄和技能特效照样看得清。它是普通的特效事件，跟着比赛画面同步播。
+//!   （v0.4.1：原来播在地图中心的坐标上，游戏里看不到变暗——播在坐标上的画面从没确认过能显示，离镜头远的中心
+//!   点也可能被裁掉；播在英雄身上的画面（基兰、卡兹克的附加包）都确认过。每次播放的结果写进日志。）
 //!   （v1 用客户端每帧叠一层暗色、跟着模拟的「黑暗还在」走；可游戏先在后台快速算完比赛再按正常
 //!   速度播给你看，暗色和画面对不上，不放大也一闪一闪地黑——已去掉。）
 //!
@@ -54,10 +56,9 @@ pub const AIM_REACH: f64 = 150_000.0;
 /// 同一个敌人被拦下，这么多 tick 内只记一行日志。
 const LOG_EVERY: usize = 30;
 
-/// 铺满地图的暗色特效（副本的 view_effects 里加的，贴图 `effects/league_nocturne_dark`）、播在哪（地图中心）、
+/// 盖满整屏的暗色特效（副本的 view_effects 里加的，贴图 `effects/league_nocturne_dark`，播在魔腾身上）、
 /// 叠几层、每层隔几 tick。
 pub const VEIL: &str = "league_nocturne_dark_veil";
-pub const MAP_CENTER: (u64, u64) = (480_000, 480_000);
 pub const VEIL_LAYERS: usize = 3;
 pub const VEIL_STEP: usize = 4;
 
@@ -152,10 +153,11 @@ fn queue(sim: &mut StableSim<'_>, step: &str, nocturne: usize, delay: usize) {
     }
 }
 
-/// 在地图中心播一层暗色。
+/// 在魔腾身上播一层暗色（不跟随：留在出手的地方），日志记下游戏收没收。
 fn dark_layer(sim: &mut StableSim<'_>, nocturne: usize) {
-    let at = InputTargetV1::pos(MAP_CENTER.0, MAP_CENTER.1);
-    sim.play_view_effect(VEIL, nocturne, &at, 0, 0, 0);
+    let at = InputTargetV1::target(nocturne);
+    let ok = sim.play_view_effect(VEIL, nocturne, &at, 0, 0, 0);
+    wlog(format!("{} veil layer on Nocturne: {}", head(sim, nocturne), if ok { "played" } else { "REFUSED by the game" }));
 }
 
 /// R 出手：黑暗到落地（最长 `FLY_T` tick），画面暗色叠 `VEIL_LAYERS` 层。
