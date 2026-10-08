@@ -684,7 +684,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "ahri": (233, 162, 34),           # the same for Ahri: her amber eyes (her outfit has the amber too), eye-only
         "lux": (45, 111, 184),            # the same for Lux: her blue eyes (the pair the user picked), eye-only shade
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
-        "morgana": (200, 60, 166),        # the redesign A: only her face is pasted, its pink-violet is the eyes'
+        "morgana": (0x8A, 0x4F, 0xE0),    # the redesign A: only her face is pasted; the eyes' deep violet (fix_morgana_eyes.py,
+                                          # each eye's inner square: the old pink's columns and first square in every frame)
         "riven": (62, 142, 72),           # the design's green eyes (#3E8E48), used nowhere else
         "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
         "vayne": (248, 48, 60),           # the crossbow on her back tops the frame; the lenses' red is used nowhere else
