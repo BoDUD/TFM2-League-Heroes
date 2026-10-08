@@ -27,7 +27,22 @@ at 46 and 52) went to the user, who picked the region cut at 52 (「E 分区删�
      (the head 18 of them), 6 columns from the back hair and 2 a side from the shoulders down, the crown rounded (DOME),
      the stage drawn again at 24 x 6; old_to_new() maps a point of step 8 for tools/art/rig_seraphine.py;
  10. the jaw tapered over three rows and the crown drawn again with the picture's curl (JAW, CROWN, head_fix).
---check compares the result with the committed seraphine_native.png instead of writing it.
+ 11. a smaller head with a new face, the hairstyle kept (2026-10-09, the user: 「萨勒芬妮应该是头过大 发型太少」; after my
+     hair drafts 「做的太怪了 整个头部你都能改 包括眼睛」, their reference picture 「照着这个画」, then 「五官和头及格了」 and
+     「用我之前的发型 但是脸换了」「保留粉色」): the old head (rows 50-71) cleared but the far arm's squares at her ear
+     (rig_seraphine.FAR_OFF) and the back hair from row 66; HEAD2 drawn - a 15-row head (the old one 18), a round crown
+     in the old pinks lit from the upper left, swept bangs, big lashed violet-blue eyes with a white catch-light, a small
+     open mouth, blush; the old curl on top (CURL2), the blue ornaments at the sides (ORNAMENTS2), a lock behind the
+     raised hand (it was left a square off the face), the hair behind the head's left side widening into the kept back
+     hair (JOIN2), the old ear's skin squares left in that hair made hair and the pockets of ground the narrower jaw
+     left beside it filled with dark hair (head2). The jaw narrows over its last two rows (11 -> 8 -> 5 squares, the
+     near side two squares a row as on the old head) so the chin sits on the neck: 「脖子和脸连接那里有点怪吧」 - an
+     8-square chin rested on the bare shoulder with no outline between them, two squares left of the neck (A of three).
+ 12. the shoulders slimmer (「身体也调一调吧 肩膀啥的 手臂也有点粗」): the near side's two columns of bare shoulder out
+     (rows 72-76, NEAR_CUT2) - the near puffed sleeve and the near arm with its glove two squares in (the far side, the
+     raised arm at her ear, stays: tools/art/rig_seraphine.py lifts its squares for every cast and they touch the
+     face); what the sleeve and the arm left takes the back hair beside it; the near glove's outer column off; the
+     outline closed (body2).
 """
 import argparse
 import math
@@ -343,7 +358,120 @@ def shrink(can, outline):
     out, _, _ = strips.complete_outline(out, color=outline, feet=SOLE_ROW)
     for (x, y), c in SOCK.items():
         out[y, x] = (int(c[1:3], 16), int(c[3:5], 16), int(c[5:7], 16), 255)
-    return head_fix(out)
+    return body2(head2(head_fix(out)))
+
+
+# step 11 ------------------------------------------------------------------------------------------------------------
+HEAD2_C = {"0": "#0d0222", "1": "#fc4187", "2": "#fc3581", "3": "#e62574", "4": "#d31865", "5": "#c81260",
+           "6": "#5f0033", "J": "#fddab8", "F": "#f2b89a", "C": "#f8a0a8", "x": "#e8506e",
+           "w": "#ffffff", "E": "#4a5ad8", "e": "#2a2a8e", "L": "#8fa8f8",                 # the eyes
+           "A": "#01bffa", "D": "#80d4f2", "d": "#001d45", "f": "#13136e"}                  # the ornaments' blues
+# (first column, squares) per row; '0' outline, 1-6 the hair from light to dark, J/F skin, C blush, x mouth, eyes w E e L
+HEAD2 = {57: [(63, "00000000")],
+         58: [(62, "0"), (63, "22112233"), (71, "0")],
+         59: [(61, "0"), (62, "1122223334"), (72, "40")],
+         60: [(61, "0"), (62, "1222333344"), (72, "440")],
+         61: [(59, "0021"), (63, "2223333444455"), (76, "0")],
+         62: [(58, "0211"), (62, "2233334444455"), (75, "50")],
+         63: [(58, "023322"), (64, "334433445"), (73, "5550")],
+         64: [(58, "03344"), (63, "4434J44J4454"), (75, "50")],
+         65: [(58, "0455"), (62, "0000JJJ0000J"), (74, "50")],
+         66: [(58, "0456"), (62, "JwEeJJJwEeJJ"), (74, "50")],
+         67: [(58, "0456"), (62, "JELEJJJELEJJ"), (74, "0")],
+         68: [(58, "0456"), (62, "JeLeJJJeLeJJ"), (74, "0")],
+         69: [(59, "056"), (62, "CJJJJJJJJCJ"), (73, "0")],
+         70: [(60, "06"), (62, "00JJxxJJJJ"), (72, "0")],
+         71: [(61, "00000"), (66, "JJJJJ"), (71, "0")]}
+CURL2 = {54: [(64, "0000")], 55: [(63, "012210")], 56: [(63, "050020")], 57: [(64, "0"), (66, "0"), (67, "2")]}
+ORNAMENTS2 = {(57, 62): "0", (57, 63): "0", (57, 64): "0", (57, 65): "0", (58, 62): "D", (58, 63): "D", (58, 64): "A",
+              (58, 65): "d", (75, 61): "0", (76, 61): "0", (75, 62): "A", (76, 62): "0", (75, 63): "A", (76, 63): "0",
+              (75, 64): "f", (76, 64): "0"}
+LOCK2 = {65: "5", 66: "5", 67: "6", 68: "5", 69: "6", 70: "6", 71: "0"}          # column 75, behind the raised hand
+JOIN2 = {63: (57, "012"), 64: (55, "01234"), 65: (53, "0123445"), 66: (52, "012345623")}
+FAR_ARM2 = {67: (75, 76), 68: (76, 77), 69: (76, 77), 70: (76, 77), 71: (77, 77)}   # rig_seraphine.FAR_OFF's head rows
+BACK_HAIR2 = (66, 57)              # the old back hair kept: from this row, left of (and at) this column
+
+
+def head2(out):
+    rgb = {k: (int(v[1:3], 16), int(v[3:5], 16), int(v[5:7], 16), 255) for k, v in HEAD2_C.items()}
+    far = np.zeros(out.shape[:2], bool)
+    for y, (c0, c1) in FAR_ARM2.items():
+        far[y, c0:c1 + 1] = True
+    r0, c1 = BACK_HAIR2
+    clear = np.zeros_like(far)
+    clear[50:72, 46:82] = True
+    clear[r0:72, :c1 + 1] = False
+    out[clear & ~far] = 0
+    for table in (HEAD2, CURL2):
+        for y, segs in table.items():
+            for x0, sq in segs:
+                for i, ch in enumerate(sq):
+                    if not far[y, x0 + i]:
+                        out[y, x0 + i] = rgb[ch]
+    for (x, y), ch in ORNAMENTS2.items():
+        out[y, x] = rgb[ch]
+    for y, ch in LOCK2.items():
+        if not far[y, 75]:
+            out[y, 75] = rgb[ch]
+    for y, (x0, sq) in JOIN2.items():
+        for i, ch in enumerate(sq):
+            if not out[y, x0 + i, 3]:
+                out[y, x0 + i] = rgb[ch]
+    # the old ear's skin and ornament squares left in the kept back hair: hair
+    hair = {tuple(rgb[k][:3]) for k in "0123456"} | {hx(h) for h in ("#d11563", "#d61565", "#fb2f7d", "#fb327e",
+                                                                      "#fc3280", "#fc3380", "#fc3480", "#5e0333",
+                                                                      "#130327")}
+    for y in range(r0, 72):
+        for x in range(52, c1 + 1):
+            if out[y, x, 3] and tuple(int(v) for v in out[y, x, :3]) not in hair:
+                out[y, x] = rgb["5"]
+    # the narrower jaw left pockets of ground between it and the hair beside it (they were hair): dark hair
+    op = out[..., 3] > 0
+    lab, n = strips.label(~op)
+    for i in range(1, n + 1):
+        ys, xs = np.nonzero(lab == i)
+        if len(ys) <= 8 and ys.min() >= 54 and ys.max() <= 72 and xs.min() >= 56 and xs.max() <= 78:
+            out[ys, xs] = rgb["5"]
+    return out
+
+
+# step 12 ------------------------------------------------------------------------------------------------------------
+NEAR_CUT2 = (63, 64)                # the near side's bare shoulder columns (rows 72-76) the moved sleeve covers
+NEAR_PART2 = (72, 85, 58, 62)       # rows, columns of the near sleeve, arm and glove (and their outline) moved in
+HAIR_PINKS2 = ("#d31865", "#d61565", "#d11563", "#c81260", "#fc3581", "#fc4187", "#e62574", "#5f0033", "#5e0333",
+               "#fb2f7d", "#fb327e", "#fc3280", "#fc3380", "#fc3480")
+
+
+def body2(out):
+    a = out.copy()
+    hair = {hx(h) for h in HAIR_PINKS2}
+    ink = hx("#0d0222")
+    dx = len(NEAR_CUT2)
+
+    def is_hair(y, x):
+        return a[y, x, 3] and tuple(int(v) for v in a[y, x, :3]) in hair
+    res = a.copy()
+    r0, r1, c0, c1 = NEAR_PART2
+    for y in range(r0, r1 + 1):
+        part = [(x, a[y, x].copy()) for x in range(c0, c1 + 1) if a[y, x, 3] and not is_hair(y, x)]
+        if not part:
+            continue
+        for x, _ in part:                                           # lifted: the hair beside it fills in, else clear
+            res[y, x] = 0
+        for x, px in part:
+            res[y, x + dx] = px
+        fill = next((a[y, x] for x in range(c0 - 1, c0 - 6, -1) if is_hair(y, x)), None)
+        for x in range(c0, min(x for x, _ in part) + dx):
+            if not res[y, x, 3] and fill is not None:
+                res[y, x] = fill
+    # the near glove's outer column (now at c0 + dx)
+    for y in range(82, 86):
+        x = c0 + dx
+        if res[y, x, 3] and tuple(int(v) for v in res[y, x, :3]) not in hair:
+            res[y, x] = next((res[y, xx] for xx in range(x - 1, x - 5, -1)
+                              if res[y, xx, 3] and tuple(int(v) for v in res[y, xx, :3]) in hair), (*ink, 255))
+    res, _, _ = strips.complete_outline(res, color=ink, feet=SOLE_ROW)
+    return res
 
 
 def main():
