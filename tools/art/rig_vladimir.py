@@ -149,7 +149,7 @@ def finish_near(a, ref, pinholes=4):
 # ------------------------------------------------------------------------------------------------ standing actions
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill_w", "ult", "hit", "dead"]
 MS = {"idle": [200] * 6, "run": [120] * 8, "attack": [60, 60, 70, 70, 80, 80], "skill": [60, 60, 70, 70, 90, 90],
-      "skill2": [80, 100, 120, 150, 60, 80, 90], "skill_w": [60, 60, 70, 600, 600, 70, 70, 80],
+      "skill2": [80, 100, 120, 600, 60, 80, 90], "skill_w": [60, 60, 70, 800, 790, 70, 70, 80],
       "ult": [60, 60, 70, 80, 80, 80], "hit": [120, 120], "dead": [100, 100, 100, 120, 120, 150, 200, 500]}
 # per frame: (near arm, far arm, whole-figure dx, sink of everything above the shoes, near arm dy, coat-tails' hem dx
 # (left, right)); None = the design. The tails stream back on a throw / lunge, flare out on the wide casts.
