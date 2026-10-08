@@ -45,6 +45,27 @@ and feet) stay, and the rows the move covers vanish inside the legs. Do not move
 over a still pelvis: the seam then sits at the waist and the belt slides over the hips (Lee
 Sin's first idle, fixed in `leesin_retouch.json`).
 
+**Idle and run are animations, never the design repeated (user rule, 2026-10-08).** Players saw the pack's heroes in
+ban/pick 「清一色的不动 不然就是动两个像素点」: 73 idles were the design six times plus a 1-row bob at 1.2 s, 14 of them fully
+still. Measured: oppi's idles are 5-7 hand-redrawn frames at ~100 ms (feet planted, the upper body rises 1-3 rows and
+leans 1-2 columns with the breath, weapon / hair / cape trail half a beat); base idles 4 frames at 140-200 ms.
+- **The idle** is made automatically from the design's own pixels: `tools/art/idle_breathe.py`, run last by
+  `import_native.py` on every hero (`breathe_idle`). 8 frames x 110 ms: the body sinks 0-0-1-2-2-2-1-0 rows by removing
+  rows through the thighs where the colours repeat most (a horizontal seam per removed row, columns at most a row
+  apart: a straight shaft or a flat area loses a row unseen, nothing under the knees moves), leans a column forward
+  as it sinks (a step at the thigh row where it shows least), and the head - hair, skin and eyes grown from the head
+  point (the eye-only colour, else the cells' head point), with its outline ring - follows a frame late as one piece.
+  `NO_NOD` for heads the piece cannot isolate (a small head inside armour, wings or a hump caught, half a head found):
+  look at every hero's head piece in magenta (`IDLE_DEBUG=<folder>`) before shipping. `BREATHE_SKIP` keeps an idle
+  that is already drawn as an animation (Brand's fire).
+- Image-model idles were tried and rejected (the user: 「感觉不太自然」「模型有变形和不干净的地方」): a Codex skin swap on
+  oppi's idles redraws every frame, so armour turns to specks after the palette snap, swords and capes change shape
+  from frame to frame and the loop jumps. Don't send idles to an image model.
+- **The run** still comes from an image model on a motion skeleton: oppi's run of the same champion (LoL Reborn
+  `champions/*.aseprite`, read with `tfm2_ase.load_sprite`) as image 1 of a skin swap, the design as image 2 (Alistar's
+  run); then key, regrid on the drawing's grid, snap to the design's colours, zoom 8x next to the design and fix every
+  speck and seam before showing. Never commit oppi's frames; keep only our prompt and design image.
+
 ## Canvas and anchoring
 
 - Base exported frames are cropped with odd sizes so the pivot pixel sits in the middle; the

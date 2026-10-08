@@ -45,6 +45,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
+import idle_breathe as IB  # noqa: E402
 from native_refs import CELL, Z, layout  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "native")
@@ -55,6 +56,97 @@ STEADY = ("idle", "run")
 # (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
 UNSTEADY = {("rakan", "run")}
+# idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
+# (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
+# wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
+# back too: 「永恩 格温 凯尔 恢复到之前的」, then Alistar, Soraka, Blitzcrank: 「牛头 / 索拉卡 / 机器人恢复到之前的」,
+# 2026-10-08), NO_NOD breathes without the head's late nod
+BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank"}
+# idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
+# Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
+# rows come from down to the shins
+# cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Kennen, LeBlanc, Janna and Twisted Fate are short or skirted (the zone rows landed in
+# the skirt or the weapon); Renekton and Vayne crouch, their figure is squat and the 30% band started in the torso
+# (「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
+BREATHE_OPTS = {"kennen": {"zone": (0.18, 1)}, "leblanc": {"zone": (0.18, 1)},
+                "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
+                "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
+                "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
+# hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
+# reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
+# 金克丝的武器也有点变形」「维鲁斯武器变形」, then 「小鱼人 凯隐 蛮王 艾希 烬武器变形」), so the weapon's pixels are lifted out
+# before the breath and stamped back moved with the body, rigid: each frame's dip and lean. Frozen in place instead (the
+# first try for the planted swords), the hands slid along the hilt and the blade kinked where it met them (「盖伦手拿武器
+# 变形」「锐雯手拿武器变形」「莎米拉现在太怪异」); carried, a planted tip just dips 1-2 rows as the hero leans on it.
+# The box is (row0, row1, col0, col1) relative to (the soles' row, the frame's centre); colours are the weapon's own,
+# read from the design (charmaps), and the box keeps out the body parts that share them (Varus's trousers are his bow's
+# violets, Jinx's boots her gun's greys, Kayn's sash his scythe's red).
+WEAPON_CARRY = {
+    "garen": [({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65), (0x29, 0x63, 0x80),
+                (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
+    "riven": [({(0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69), (0x43, 0x4A, 0x46),
+                (0x27, 0x27, 0x20), (0xF6, 0xEA, 0xDB), (0x24, 0x18, 0x1F)}, (-12, -1, 1, 99))],
+    "samira": [({(0xE9, 0xEB, 0xF2), (0xB5, 0xBA, 0xD2), (0x77, 0x7B, 0x90)}, (-14, 0, 5, 99))],
+    "aatrox": [({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A), (0x27, 0x0D, 0x28),
+                 (0x42, 0x22, 0x4C), (0x68, 0x40, 0x7A)}, (-14, 0, -99, -10))],
+    "leblanc": [({(0xF4, 0xAA, 0x45), (0xDE, 0x8D, 0x36), (0xFC, 0xC9, 0x67), (0xF9, 0xB9, 0x54), (0xFD, 0xE5, 0x9B),
+                  (0x2B, 0x01, 0x0E), (0xC9, 0x0D, 0x33), (0xAA, 0x01, 0x1B), (0x7F, 0x00, 0x15), (0x39, 0x0C, 0x20),
+                  (0xB8, 0x66, 0x2B), (0x2C, 0x40, 0xA3)}, (-40, 0, 10, 99))],
+    "varus": [({(0xE8, 0x38, 0xF3), (0x3B, 0x18, 0x5F), (0xCA, 0x2B, 0xFB), (0xA1, 0x12, 0xF7), (0xD3, 0x20, 0x87),
+                (0x65, 0x24, 0x93), (0x52, 0x04, 0xBA)}, (-34, -2, 4, 99))],
+    "jinx": [({(0xBB, 0x21, 0x70), (0xFB, 0x95, 0xD7), (0x5A, 0x18, 0x41), (0x45, 0x3F, 0x51), (0xC7, 0xAA, 0x64),
+               (0xCC, 0x94, 0x3A), (0x8B, 0x5E, 0x29), (0x31, 0x29, 0x33), (0x1B, 0x14, 0x20)}, (-16, -8, 3, 99))],
+    "fizz": [({(0x81, 0x1C, 0x2C), (0xC5, 0x9B, 0x4C), (0x3D, 0x32, 0x23), (0x8A, 0x64, 0x31), (0x4C, 0x20, 0x29), (0x0A, 0x5B, 0x4A), (0x07, 0x8E, 0x76), (0x96, 0xB9, 0xC6)}, (-12, -10, -99, 99)),                # the shaft, across her
+             ({(0x81, 0x1C, 0x2C), (0xC5, 0x9B, 0x4C), (0x3D, 0x32, 0x23), (0x8A, 0x64, 0x31), (0x4C, 0x20, 0x29), (0x0A, 0x5B, 0x4A), (0x07, 0x8E, 0x76), (0x96, 0xB9, 0xC6), (0xDE, 0xDF, 0xD5), (0x0F, 0x3B, 0x3C)}, (-18, -4, 16, 99)),   # the prongs
+             ({(0x81, 0x1C, 0x2C), (0xC5, 0x9B, 0x4C), (0x3D, 0x32, 0x23), (0x8A, 0x64, 0x31), (0x4C, 0x20, 0x29), (0x0A, 0x5B, 0x4A), (0x07, 0x8E, 0x76), (0x96, 0xB9, 0xC6)}, (-14, -8, -99, -19))],                # the butt's ring
+    "kayn": [({(0x38, 0xB1, 0xFD), (0xC6, 0x0F, 0x3E), (0x6E, 0x1F, 0x33), (0xFD, 0x20, 0x5B), (0x3A, 0x2C, 0x66), (0x5B, 0x3A, 0x8A), (0x14, 0x18, 0x26)}, (-25, -1, -99, -8)),
+             ({(0x5B, 0x3A, 0x8A), (0xC6, 0x0F, 0x3E)}, (-13, -1, 9, 99))],     # the blade, and the haft's foot with its spike
+    "tryndamere": [({(0xF5, 0xF6, 0xF8), (0xB9, 0xC2, 0xD8), (0x9A, 0xA5, 0xC2), (0x66, 0x6E, 0x90), (0x1F, 0x20, 0x30), (0x44, 0x4B, 0x6C), (0x81, 0x86, 0xA4), (0x2F, 0x34, 0x4C)},
+                    (-16, 0, -99, -11))],
+    "ashe": [({(0x00, 0x47, 0x84), (0x81, 0xDD, 0xEF), (0x03, 0x7C, 0xB4), (0x0F, 0xB3, 0xEB), (0x00, 0x18, 0x40), (0x28, 0x1E, 0x19), (0x01, 0x21, 0x55), (0x00, 0x14, 0x37)},
+              (-25, -3, 5, 99))],
+    "jhin": [({(0x26, 0x2A, 0x3A), (0x4A, 0x54, 0x70), (0xD8, 0x90, 0x2C), (0xA0, 0x58, 0x1A), (0xFF, 0xD8, 0x78), (0x74, 0x85, 0x9E), (0x5A, 0x2E, 0x10), (0xD2, 0xCA, 0xB0)},
+              (-13, -1, 6, 99))],
+}
+
+
+def weapon_mask(a, colours, box):
+    """The weapon's pixels: every pixel of the weapon's own colours inside `box` (rows/columns relative to (the soles'
+    row, the frame's centre), None = the whole frame), plus the dark outline squares that ring them. No flooding: a
+    blade is colour patches split by its own outline, and a seed flood dies at the first outline it meets."""
+    op = a[..., 3] > 0
+    sole = int(np.nonzero(op.any(1))[0].max())
+    cx = a.shape[1] // 2
+    ins = np.zeros(op.shape, bool)
+    if box is None:
+        ins[:] = True
+    else:
+        r0, r1, c0, c1 = box
+        ins[max(0, sole + r0):sole + r1 + 1, max(0, cx + c0):cx + c1 + 1] = True
+    m = np.zeros(op.shape, bool)
+    for y, x in zip(*np.nonzero(op & ins)):
+        if (int(a[y, x, 0]), int(a[y, x, 1]), int(a[y, x, 2])) in colours:
+            m[y, x] = True
+    dark = (a[..., :3].astype(int).sum(-1) < 210) & op
+    air = ~op
+    for _ in range(4):                                       # the outline ring, grown to outline that belongs only to
+        near = np.zeros(op.shape, bool)                      # the weapon (a blade tip is 1-2 bare outline pixels)
+        near[1:] |= m[:-1]; near[:-1] |= m[1:]; near[:, 1:] |= m[:, :-1]; near[:, :-1] |= m[:, 1:]
+        near[1:, 1:] |= m[:-1, :-1]; near[1:, :-1] |= m[:-1, 1:]; near[:-1, 1:] |= m[1:, :-1]; near[:-1, :-1] |= m[1:, 1:]
+        grow = np.zeros(op.shape, bool)
+        for y, x in zip(*np.nonzero(near & dark & ins & ~m)):
+            if all(m[qy, qx] or dark[qy, qx] or air[qy, qx]
+                   for qy in (y - 1, y, y + 1) for qx in (x - 1, x, x + 1)
+                   if 0 <= qy < op.shape[0] and 0 <= qx < op.shape[1]):
+                grow[y, x] = True
+        if not grow.any():
+            break
+        m = m | grow
+    return m
+
+
+NO_NOD = {"kayn"}   # with his scythe carried a cheap neck row turned up and his head began to nod; nobody else nods
+    # the piece took his upper body
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
 # line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
@@ -731,7 +823,52 @@ def build(hero):
         sheet[tag] = [(G.centre_frame(fr[k], dx[k] - rows[k]["pivot"][0], sunk(hero, fr[k], rows[k]["pivot"][1])),
                        rows[slot]["ms"]) for slot, k in enumerate(order)]
         report[tag] = [(None if hx[k] is None else hx[k] + dx[k], dx[k]) for k in order]
+        if tag == "idle" and rows[order[0]].get("head"):         # the head point in idle slot 1's centred frame
+            k, a = order[0], sheet[tag][0][0]
+            u0, r0 = dx[k] - rows[k]["pivot"][0], sunk(hero, fr[k], rows[k]["pivot"][1])
+            HEAD_AT[hero] = (a.shape[1] // 2 + rows[k]["head"][0] + u0, a.shape[0] // 2 + rows[k]["head"][1] + r0)
     return sheet, report
+
+
+HEAD_AT = {}
+
+
+def breathe_idle(hero, sheet):
+    """idle_breathe.py: the idle becomes 8 frames of the design breathing (feet still, the body down 2 rows through
+    the thighs and back, leaning a column, the head a frame late), drawn from idle slot 1 after every other step. The
+    head point: the eye-only colour (EYES), else the cells' head point, else the middle of the top rows. Returns the
+    rows used, or None."""
+    if hero in BREATHE_SKIP or "idle" not in sheet:
+        return None
+    a = sheet["idle"][0][0]
+    e = eye_at(hero, a) if hero in EYES else None
+    if e is not None:
+        head = (e[1] + 1.0, float(e[0]))
+    elif hero in HEAD_AT:
+        head = HEAD_AT[hero]
+    else:
+        ys, xs = np.nonzero(a[..., 3])
+        head = (float(np.median(xs[ys < ys.min() + 8])), float(ys.min() + 7))
+    carried = None
+    if hero in WEAPON_CARRY:
+        carried = np.zeros(a.shape[:2], bool)
+        for colours, box in WEAPON_CARRY[hero]:
+            carried |= weapon_mask(a, colours, box)
+        a = a.copy()
+        a[carried] = 0
+    opts = BREATHE_OPTS.get(hero, {})
+    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **opts)
+    if carried is not None:
+        src = sheet["idle"][0][0]
+        cy, cx = np.nonzero(carried)
+        body, sway = opts.get("body", IB.BODY), opts.get("sway", IB.SWAY)
+        for k, f in enumerate(frames):
+            f[cy + 2 + body[k], cx + 2 + sway[k]] = src[cy, cx]   # breathe pads its frames by 2 all round
+        rows["carried"] = int(carried.sum())
+    if os.environ.get("IDLE_DEBUG"):                     # the frames, for review sheets
+        np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}.npy"), np.stack(frames))
+    sheet["idle"] = [(f, IB.MS) for f in frames]
+    return rows
 
 
 def sunk(hero, frame, py):
@@ -1184,6 +1321,11 @@ def main():
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
+        rows = breathe_idle(hero, sheet)
+        if rows is not None:
+            print(f"{hero}: idle breathes from the design ({len(sheet['idle'])} frames x {IB.MS} ms; cut px "
+                  f"{rows['dip_cost']:.0f}, lean px {rows['lean_cost']:.0f}, "
+                  f"nod {'px %.0f' % rows['neck_cost'] if rows['neck'] is not None else 'OFF'})")
         for tag, fx in bake(hero, sheet).items():
             print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
