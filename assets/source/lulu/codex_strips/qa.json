@@ -1,0 +1,204 @@
+{
+  "technical_checks": [
+    {
+      "animation": "idle",
+      "frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 1
+    },
+    {
+      "animation": "run",
+      "frames": 7,
+      "size": [
+        2048,
+        1024
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 7
+    },
+    {
+      "animation": "attack",
+      "frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 6
+    },
+    {
+      "animation": "skill",
+      "frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 6
+    },
+    {
+      "animation": "skill2",
+      "frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 6
+    },
+    {
+      "animation": "ult",
+      "frames": 6,
+      "size": [
+        2304,
+        1536
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 6
+    },
+    {
+      "animation": "hit",
+      "frames": 2,
+      "size": [
+        1536,
+        768
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 2
+    },
+    {
+      "animation": "dead",
+      "frames": 8,
+      "size": [
+        3072,
+        1536
+      ],
+      "strict_8x8_grid": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "below_baseline_pixels": 0,
+      "canonical_head_pixel_match": true,
+      "unique_frames": 6
+    }
+  ],
+  "limitations": [
+    {
+      "animation": "attack",
+      "criterion": "standing boots exactly identical to approved design",
+      "frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "not_met"
+    },
+    {
+      "animation": "skill",
+      "criterion": "standing boots exactly identical to approved design",
+      "frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "not_met"
+    },
+    {
+      "animation": "skill2",
+      "criterion": "standing boots exactly identical to approved design",
+      "frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "not_met"
+    },
+    {
+      "animation": "ult",
+      "criterion": "standing boots exactly identical to approved design",
+      "frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "not_met"
+    },
+    {
+      "animation": "hit",
+      "criterion": "standing boots exactly identical to approved design",
+      "frames": [
+        1,
+        2
+      ],
+      "status": "not_met"
+    },
+    {
+      "criterion": "staff tip coordinates",
+      "status": "manual_check_needed",
+      "detail": "Manifest stores a measured rightmost-hook candidate, not an engine-tested projectile origin."
+    },
+    {
+      "criterion": "standing body proportions and arm density",
+      "status": "manual_check_needed",
+      "detail": "Head is exact; generated torso, sleeves, gloves, shaft and boots are not bitwise copies of the design."
+    },
+    {
+      "criterion": "Pix wing-up/down alternation and seamless run loop",
+      "status": "manual_check_needed",
+      "detail": "Seven generated run frames are distinct; strict wing alternation and loop continuity not proven."
+    },
+    {
+      "criterion": "game playback",
+      "status": "not_tested",
+      "detail": "No mod files were changed or imported in this projectless task."
+    }
+  ],
+  "provided_idle_unchanged": true,
+  "run_constant_head_x": true,
+  "death_frames_6_7_8_identical": true,
+  "technical_checks_passed": true,
+  "full_visual_acceptance": false
+}
