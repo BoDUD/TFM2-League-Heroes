@@ -59,17 +59,16 @@ UNSTEADY = {("rakan", "run")}
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
 # (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
-# back too: 「永恩 格温 凯尔 恢复到之前的」, 2026-10-08), NO_NOD breathes without the head's late nod
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle"}
+# back too: 「永恩 格温 凯尔 恢复到之前的」, then Alistar and Soraka: 「牛头恢复到之前的」「索拉卡恢复到之前的」,
+# 2026-10-08), NO_NOD breathes without the head's late nod
+BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka"}
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
-# cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Alistar's flat belt (only his
-# hump breathed, 「牛头有点怪」); Kennen, LeBlanc, Janna and Twisted Fate are short or skirted (the zone rows landed in
+# cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Kennen, LeBlanc, Janna and Twisted Fate are short or skirted (the zone rows landed in
 # the skirt or the weapon); Renekton and Vayne crouch, their figure is squat and the 30% band started in the torso
 # (「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
-BREATHE_OPTS = {"alistar": {"zone": (0.20, 1)},
-                "kennen": {"zone": (0.18, 1)}, "leblanc": {"zone": (0.18, 1)},
+BREATHE_OPTS = {"kennen": {"zone": (0.18, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
@@ -90,9 +89,19 @@ WEAPON_FREEZE = {
 # hero: [(colour set, box)] of a weapon HELD off the ground (its tip clear of the soles). Frozen like a planted one, the
 # hand dropped along the hilt and the blade kinked there (Aatrox: 「剑魔还是有不对的地方 变形了 手拿武器的时候」,
 # 2026-10-08); it is lifted out the same way and stamped back moved with the body, rigid: each frame's dip and lean
+# (「妖姬和金克丝的武器也有点变形」: LeBlanc's staff, planted but gripped mid-shaft - carried, its foot dips 2 rows as
+# she leans on it; Jinx's gun, the cut rows ran through its barrel; Varus's bow, its lower limb in the shins:
+# 「维鲁斯武器变形」 - right of column +3 only, his trousers are the bow's violets)
 WEAPON_CARRY = {
     "aatrox": [({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A), (0x27, 0x0D, 0x28),
                  (0x42, 0x22, 0x4C), (0x68, 0x40, 0x7A)}, (-14, 0, -99, -10))],
+    "leblanc": [({(0xF4, 0xAA, 0x45), (0xDE, 0x8D, 0x36), (0xFC, 0xC9, 0x67), (0xF9, 0xB9, 0x54), (0xFD, 0xE5, 0x9B),
+                  (0x2B, 0x01, 0x0E), (0xC9, 0x0D, 0x33), (0xAA, 0x01, 0x1B), (0x7F, 0x00, 0x15), (0x39, 0x0C, 0x20),
+                  (0xB8, 0x66, 0x2B), (0x2C, 0x40, 0xA3)}, (-40, 0, 10, 99))],
+    "varus": [({(0xE8, 0x38, 0xF3), (0x3B, 0x18, 0x5F), (0xCA, 0x2B, 0xFB), (0xA1, 0x12, 0xF7), (0xD3, 0x20, 0x87),
+                (0x65, 0x24, 0x93), (0x52, 0x04, 0xBA)}, (-34, -2, 4, 99))],
+    "jinx": [({(0xBB, 0x21, 0x70), (0xFB, 0x95, 0xD7), (0x5A, 0x18, 0x41), (0x45, 0x3F, 0x51), (0xC7, 0xAA, 0x64),
+               (0xCC, 0x94, 0x3A), (0x8B, 0x5E, 0x29), (0x31, 0x29, 0x33), (0x1B, 0x14, 0x20)}, (-16, -8, 3, 99))],
 }
 
 
