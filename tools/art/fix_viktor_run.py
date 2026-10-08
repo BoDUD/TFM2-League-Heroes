@@ -15,7 +15,9 @@ a cycle after the near one - planted in frames 1-4 sliding back 2.3-2.5 columns 
 past the planted leg in 7, reaching in 8. LIFT keeps the lifted foot up through the pass (2, 3, 3, 2 rows), so it
 steps over the planted one; League kicks it higher behind (4-5 rows at this size), where the staff and the cape would
 hide it. Everything else is run v8's: the same leg drawn twice (bent2, the hips drawn in to HIP_X, the knee bend), the
-design's body bobbing as Codex's (upper_shift), the cells' pivots.
+design's body bobbing as Codex's (upper_shift), the cells' pivots - except that a lifted leg's rows are kept within a
+column of each other (bent_joined): bent2's three-square knee row and the shin under it jumped 2-3 columns a row, so
+knee and shin met at a corner (the user: 「就是膝盖和腿感觉是脱节的」).
 
 The leg parts taken out of the body also took the cape's inner edge by the staff (the pivot's column -5, the six leg
 rows: outline, four dark reds, outline): the far leg's part reaches under it, and with the hips drawn in nothing
@@ -56,7 +58,11 @@ import fix_viktor_strips as S  # noqa: E402
 Z = 8
 # League's run, frames 1-8: a foot's centre in columns from its hip (+ = forward) and the rows it is off the ground
 TRAJ = [5.0, 2.5, 0.2, -2.15, -4.45, -5.45, -2.1, 1.5]
-LIFT = [0, 0, 0, 0, 2, 3, 3, 2]
+# League's ankle heights over its swing (5.6, 7.1, 4.4, 1.9 rows on legs 20 rows tall) scaled to our 12-row legs
+# (~x0.6, the pass a row higher so the two 10-px boots never stack): a first [2, 3, 3, 2] kept the boot skimming 1-2
+# rows over the ground as it slid back and put the swinging boot directly on the planted one in the passing frames,
+# one navy lump (the user: 「感觉还是有点奇怪」)
+LIFT = [0, 0, 0, 0, 3, 4, 4, 2]
 HIP = 1               # both hips' column from the pivot, as HIP_X draws them in
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
 TORSO = 30            # design rows 0..29 (from the design's top) are in every run cell as they are
@@ -84,6 +90,48 @@ def feet():
     return {"near": near, "far": [near[(k + 4) % 8] for k in range(8)]}
 
 
+def bent_joined(part, hip, ankle, lift, bend):
+    """fix_viktor_strips.bent2 with every drawn row at most one column off the row under it: bent2's knee row (three
+    squares wide) and the shin under it jumped 2-3 columns a row on a lifted leg and met only at a corner."""
+    knee = (hip + ankle) / 2 + bend
+    rows = list(range(S.LEG_TOP + lift, S.SOLES + 1))       # the rows left after the thigh's top folds away
+    want = []
+    for y in rows:
+        if y <= S.KNEE_ROW:
+            dx = hip + (knee - hip) * (y - S.LEG_TOP) / (S.KNEE_ROW - S.LEG_TOP)
+        elif y < S.BOOT_ROW:
+            dx = knee + (ankle - knee) * (y - S.KNEE_ROW) / (S.BOOT_ROW - S.KNEE_ROW)
+        else:
+            dx = ankle
+        want.append(int(np.floor(dx + 0.5)))
+    got = want[:]
+    for i in range(len(rows) - 2, -1, -1):                   # from the boot up
+        got[i] = min(max(want[i], got[i + 1] - 1), got[i + 1] + 1)
+    out = np.zeros_like(part)
+    for y, dx in zip(rows, got):
+        row = np.roll(part[y], dx, axis=0)
+        m = row[:, 3] > 0
+        out[y - lift][m] = row[m]
+    if lift:
+        shin(out)
+    return out
+
+
+def shin(leg):
+    """The design's shin is one dark square between the knee and the gold ankle ring ('O s O'); stacked straight in
+    the idle it reads, but on a bent lifted leg the three dark squares in a row read as outline - the knee hanging
+    loose over the boot (the user: 「就是膝盖和腿感觉是脱节的」「感觉还是有点奇怪」). On lifted legs that row is
+    widened to three squares of the leg's own navy round the shadow, as wide as the knee above and the ring below."""
+    for y in range(S.LEG_TOP, S.BOOT_ROW):
+        xs = [x for x in np.nonzero(leg[y, :, 3])[0] if tuple(int(v) for v in leg[y, x, :3]) != OUT]
+        if len(xs) == 1:
+            x = xs[0]
+            leg[y, x - 1] = leg[y, x + 1] = (0x3E, 0x42, 0x70, 255)
+            for e in (x - 2, x + 2):
+                if not leg[y, e, 3]:
+                    leg[y, e] = (*OUT, 255)
+
+
 def run_frames(design, bob):
     """The design's body over its near leg drawn twice (fix_viktor_strips.run_frames_codex), the feet from feet()."""
     near, far = S.legs()
@@ -97,11 +145,11 @@ def run_frames(design, bob):
     for k in range(8):
         leg = {side: (S.HIP_X[side], at[side][k][0] - S.FOOT_X[side], at[side][k][1],
                       S.KNEE_BEND if at[side][k][1] else 0) for side in at}
-        c = S.bent2(far, *leg["far"])
+        c = bent_joined(far, *leg["far"])
         b = np.roll(body, bob[k], axis=0)
         m = b[..., 3] > 0
         c[m] = b[m]
-        n = S.bent2(near, *leg["near"])
+        n = bent_joined(near, *leg["near"])
         m = n[..., 3] > 0
         c[m] = n[m]
         out.append(c)
