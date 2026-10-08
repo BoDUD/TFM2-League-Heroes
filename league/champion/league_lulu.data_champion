@@ -101,100 +101,40 @@
                     "name": "league_lulu_r_cast"
                   },
                   {
-                    "type": "TargetSfx",
-                    "name": "league_lulu_r_grow"
-                  },
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_lulu_r_on",
-                      "duration": {
-                        "Time": {
-                          "tick": 420
-                        }
-                      },
-                      "hp": 350,
-                      "radius_mult": 30
-                    }
-                  },
-                  {
-                    "type": "Heal",
-                    "amount": 350,
-                    "attack_ratio": 0,
-                    "ap_ratio": 50,
-                    "heal_type": "Ally"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_lulu_r_burst"
-                  },
-                  {
-                    "type": "ParabolicProjectile",
-                    "name": "league_lulu_r_lob",
-                    "travel_time": 1,
-                    "range": 400000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "applied_target": "AllyChampion",
-                    "applied_effects": [],
-                    "end_effects": [
-                      {
-                        "type": "RangeProjectile",
-                        "name": "league_lulu_r_up",
-                        "shape": {
-                          "Circle": {
-                            "radius": 22000
-                          }
-                        },
-                        "delay": 1,
-                        "apply": 1,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Airborne",
-                              "duration": 60
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_lulu_r_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_lulu_r_slow",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 17
-                                  }
-                                },
-                                "move_speed_mult": -30
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "AddCasted",
-                    "casted_type": "Heal",
-                    "duration": 420,
-                    "period": 15,
+                    "type": "Delayed",
+                    "tick": 7,
                     "effects": [
                       {
+                        "type": "TargetSfx",
+                        "name": "league_lulu_r_grow"
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_lulu_r_on",
+                          "duration": {
+                            "Time": {
+                              "tick": 420
+                            }
+                          },
+                          "hp": 350,
+                          "radius_mult": 30
+                        }
+                      },
+                      {
+                        "type": "Heal",
+                        "amount": 350,
+                        "attack_ratio": 0,
+                        "ap_ratio": 50,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_lulu_r_burst"
+                      },
+                      {
                         "type": "ParabolicProjectile",
-                        "name": "league_lulu_r_aura",
+                        "name": "league_lulu_r_lob",
                         "travel_time": 1,
                         "range": 400000,
                         "shape": {
@@ -207,7 +147,7 @@
                         "end_effects": [
                           {
                             "type": "RangeProjectile",
-                            "name": "league_lulu_r_slow",
+                            "name": "league_lulu_r_up",
                             "shape": {
                               "Circle": {
                                 "radius": 22000
@@ -217,6 +157,20 @@
                             "apply": 1,
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Airborne",
+                                  "duration": 60
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_lulu_r_hit"
+                                }
+                              },
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
@@ -231,6 +185,58 @@
                                     "move_speed_mult": -30
                                   }
                                 }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 420,
+                        "period": 15,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_lulu_r_aura",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_lulu_r_slow",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 22000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_lulu_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 17
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -306,100 +312,40 @@
                                         "name": "league_lulu_r_cast"
                                       },
                                       {
-                                        "type": "TargetSfx",
-                                        "name": "league_lulu_r_grow"
-                                      },
-                                      {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_lulu_r_on",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 420
-                                            }
-                                          },
-                                          "hp": 350,
-                                          "radius_mult": 30
-                                        }
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 350,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 50,
-                                        "heal_type": "Ally"
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_lulu_r_burst"
-                                      },
-                                      {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_lulu_r_lob",
-                                        "travel_time": 1,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "applied_target": "AllyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_lulu_r_up",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 22000
-                                              }
-                                            },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "EnemyWithoutTower",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Airborne",
-                                                  "duration": 60
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_lulu_r_hit"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "AddBuff",
-                                                  "buff_state": {
-                                                    "name": "league_lulu_r_slow",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 17
-                                                      }
-                                                    },
-                                                    "move_speed_mult": -30
-                                                  }
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "AddCasted",
-                                        "casted_type": "Heal",
-                                        "duration": 420,
-                                        "period": 15,
+                                        "type": "Delayed",
+                                        "tick": 7,
                                         "effects": [
                                           {
+                                            "type": "TargetSfx",
+                                            "name": "league_lulu_r_grow"
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_lulu_r_on",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 420
+                                                }
+                                              },
+                                              "hp": 350,
+                                              "radius_mult": 30
+                                            }
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 350,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 50,
+                                            "heal_type": "Ally"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_lulu_r_burst"
+                                          },
+                                          {
                                             "type": "ParabolicProjectile",
-                                            "name": "league_lulu_r_aura",
+                                            "name": "league_lulu_r_lob",
                                             "travel_time": 1,
                                             "range": 400000,
                                             "shape": {
@@ -412,7 +358,7 @@
                                             "end_effects": [
                                               {
                                                 "type": "RangeProjectile",
-                                                "name": "league_lulu_r_slow",
+                                                "name": "league_lulu_r_up",
                                                 "shape": {
                                                   "Circle": {
                                                     "radius": 22000
@@ -422,6 +368,20 @@
                                                 "apply": 1,
                                                 "applied_target": "EnemyWithoutTower",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Airborne",
+                                                      "duration": 60
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_lulu_r_hit"
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
@@ -436,6 +396,58 @@
                                                         "move_speed_mult": -30
                                                       }
                                                     }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "AddCasted",
+                                            "casted_type": "Heal",
+                                            "duration": 420,
+                                            "period": 15,
+                                            "effects": [
+                                              {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_lulu_r_aura",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "applied_target": "AllyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "RangeProjectile",
+                                                    "name": "league_lulu_r_slow",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 22000
+                                                      }
+                                                    },
+                                                    "delay": 1,
+                                                    "apply": 1,
+                                                    "applied_target": "EnemyWithoutTower",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_lulu_r_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 17
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -30
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
                                                   }
                                                 ]
                                               }
@@ -525,7 +537,7 @@
           "type": "TargetProjectile",
           "name": "league_lulu_a_bolt",
           "speed": 5000,
-          "y_offset": 0,
+          "y_offset": -1000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -563,7 +575,7 @@
               "type": "TargetProjectile",
               "name": "league_lulu_p_bolt",
               "speed": 5500,
-              "y_offset": -3000,
+              "y_offset": -4000,
               "applied_target": "Enemy",
               "applied_effects": [
                 {
@@ -595,7 +607,7 @@
               "type": "TargetProjectile",
               "name": "league_lulu_p_bolt",
               "speed": 5500,
-              "y_offset": -3000,
+              "y_offset": -4000,
               "applied_target": "Enemy",
               "applied_effects": [
                 {
@@ -627,7 +639,7 @@
               "type": "TargetProjectile",
               "name": "league_lulu_p_bolt",
               "speed": 5500,
-              "y_offset": -3000,
+              "y_offset": -4000,
               "applied_target": "Enemy",
               "applied_effects": [
                 {
@@ -718,100 +730,40 @@
                     "name": "league_lulu_r_cast"
                   },
                   {
-                    "type": "TargetSfx",
-                    "name": "league_lulu_r_grow"
-                  },
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_lulu_r_on",
-                      "duration": {
-                        "Time": {
-                          "tick": 420
-                        }
-                      },
-                      "hp": 350,
-                      "radius_mult": 30
-                    }
-                  },
-                  {
-                    "type": "Heal",
-                    "amount": 350,
-                    "attack_ratio": 0,
-                    "ap_ratio": 50,
-                    "heal_type": "Ally"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_lulu_r_burst"
-                  },
-                  {
-                    "type": "ParabolicProjectile",
-                    "name": "league_lulu_r_lob",
-                    "travel_time": 1,
-                    "range": 400000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "applied_target": "AllyChampion",
-                    "applied_effects": [],
-                    "end_effects": [
-                      {
-                        "type": "RangeProjectile",
-                        "name": "league_lulu_r_up",
-                        "shape": {
-                          "Circle": {
-                            "radius": 22000
-                          }
-                        },
-                        "delay": 1,
-                        "apply": 1,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Airborne",
-                              "duration": 60
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_lulu_r_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_lulu_r_slow",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 17
-                                  }
-                                },
-                                "move_speed_mult": -30
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "AddCasted",
-                    "casted_type": "Heal",
-                    "duration": 420,
-                    "period": 15,
+                    "type": "Delayed",
+                    "tick": 7,
                     "effects": [
                       {
+                        "type": "TargetSfx",
+                        "name": "league_lulu_r_grow"
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_lulu_r_on",
+                          "duration": {
+                            "Time": {
+                              "tick": 420
+                            }
+                          },
+                          "hp": 350,
+                          "radius_mult": 30
+                        }
+                      },
+                      {
+                        "type": "Heal",
+                        "amount": 350,
+                        "attack_ratio": 0,
+                        "ap_ratio": 50,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_lulu_r_burst"
+                      },
+                      {
                         "type": "ParabolicProjectile",
-                        "name": "league_lulu_r_aura",
+                        "name": "league_lulu_r_lob",
                         "travel_time": 1,
                         "range": 400000,
                         "shape": {
@@ -824,7 +776,7 @@
                         "end_effects": [
                           {
                             "type": "RangeProjectile",
-                            "name": "league_lulu_r_slow",
+                            "name": "league_lulu_r_up",
                             "shape": {
                               "Circle": {
                                 "radius": 22000
@@ -834,6 +786,20 @@
                             "apply": 1,
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Airborne",
+                                  "duration": 60
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_lulu_r_hit"
+                                }
+                              },
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
@@ -848,6 +814,58 @@
                                     "move_speed_mult": -30
                                   }
                                 }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 420,
+                        "period": 15,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_lulu_r_aura",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_lulu_r_slow",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 22000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_lulu_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 17
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -923,100 +941,40 @@
                                         "name": "league_lulu_r_cast"
                                       },
                                       {
-                                        "type": "TargetSfx",
-                                        "name": "league_lulu_r_grow"
-                                      },
-                                      {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_lulu_r_on",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 420
-                                            }
-                                          },
-                                          "hp": 350,
-                                          "radius_mult": 30
-                                        }
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 350,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 50,
-                                        "heal_type": "Ally"
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_lulu_r_burst"
-                                      },
-                                      {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_lulu_r_lob",
-                                        "travel_time": 1,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "applied_target": "AllyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_lulu_r_up",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 22000
-                                              }
-                                            },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "EnemyWithoutTower",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Airborne",
-                                                  "duration": 60
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_lulu_r_hit"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "AddBuff",
-                                                  "buff_state": {
-                                                    "name": "league_lulu_r_slow",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 17
-                                                      }
-                                                    },
-                                                    "move_speed_mult": -30
-                                                  }
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "AddCasted",
-                                        "casted_type": "Heal",
-                                        "duration": 420,
-                                        "period": 15,
+                                        "type": "Delayed",
+                                        "tick": 7,
                                         "effects": [
                                           {
+                                            "type": "TargetSfx",
+                                            "name": "league_lulu_r_grow"
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_lulu_r_on",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 420
+                                                }
+                                              },
+                                              "hp": 350,
+                                              "radius_mult": 30
+                                            }
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 350,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 50,
+                                            "heal_type": "Ally"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_lulu_r_burst"
+                                          },
+                                          {
                                             "type": "ParabolicProjectile",
-                                            "name": "league_lulu_r_aura",
+                                            "name": "league_lulu_r_lob",
                                             "travel_time": 1,
                                             "range": 400000,
                                             "shape": {
@@ -1029,7 +987,7 @@
                                             "end_effects": [
                                               {
                                                 "type": "RangeProjectile",
-                                                "name": "league_lulu_r_slow",
+                                                "name": "league_lulu_r_up",
                                                 "shape": {
                                                   "Circle": {
                                                     "radius": 22000
@@ -1039,6 +997,20 @@
                                                 "apply": 1,
                                                 "applied_target": "EnemyWithoutTower",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Airborne",
+                                                      "duration": 60
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_lulu_r_hit"
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
@@ -1053,6 +1025,58 @@
                                                         "move_speed_mult": -30
                                                       }
                                                     }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "AddCasted",
+                                            "casted_type": "Heal",
+                                            "duration": 420,
+                                            "period": 15,
+                                            "effects": [
+                                              {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_lulu_r_aura",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "applied_target": "AllyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "RangeProjectile",
+                                                    "name": "league_lulu_r_slow",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 22000
+                                                      }
+                                                    },
+                                                    "delay": 1,
+                                                    "apply": 1,
+                                                    "applied_target": "EnemyWithoutTower",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_lulu_r_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 17
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -30
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
                                                   }
                                                 ]
                                               }
@@ -1292,100 +1316,40 @@
                     "name": "league_lulu_r_cast"
                   },
                   {
-                    "type": "TargetSfx",
-                    "name": "league_lulu_r_grow"
-                  },
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_lulu_r_on",
-                      "duration": {
-                        "Time": {
-                          "tick": 420
-                        }
-                      },
-                      "hp": 350,
-                      "radius_mult": 30
-                    }
-                  },
-                  {
-                    "type": "Heal",
-                    "amount": 350,
-                    "attack_ratio": 0,
-                    "ap_ratio": 50,
-                    "heal_type": "Ally"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_lulu_r_burst"
-                  },
-                  {
-                    "type": "ParabolicProjectile",
-                    "name": "league_lulu_r_lob",
-                    "travel_time": 1,
-                    "range": 400000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "applied_target": "AllyChampion",
-                    "applied_effects": [],
-                    "end_effects": [
-                      {
-                        "type": "RangeProjectile",
-                        "name": "league_lulu_r_up",
-                        "shape": {
-                          "Circle": {
-                            "radius": 22000
-                          }
-                        },
-                        "delay": 1,
-                        "apply": 1,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Airborne",
-                              "duration": 60
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_lulu_r_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_lulu_r_slow",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 17
-                                  }
-                                },
-                                "move_speed_mult": -30
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "AddCasted",
-                    "casted_type": "Heal",
-                    "duration": 420,
-                    "period": 15,
+                    "type": "Delayed",
+                    "tick": 7,
                     "effects": [
                       {
+                        "type": "TargetSfx",
+                        "name": "league_lulu_r_grow"
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_lulu_r_on",
+                          "duration": {
+                            "Time": {
+                              "tick": 420
+                            }
+                          },
+                          "hp": 350,
+                          "radius_mult": 30
+                        }
+                      },
+                      {
+                        "type": "Heal",
+                        "amount": 350,
+                        "attack_ratio": 0,
+                        "ap_ratio": 50,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_lulu_r_burst"
+                      },
+                      {
                         "type": "ParabolicProjectile",
-                        "name": "league_lulu_r_aura",
+                        "name": "league_lulu_r_lob",
                         "travel_time": 1,
                         "range": 400000,
                         "shape": {
@@ -1398,7 +1362,7 @@
                         "end_effects": [
                           {
                             "type": "RangeProjectile",
-                            "name": "league_lulu_r_slow",
+                            "name": "league_lulu_r_up",
                             "shape": {
                               "Circle": {
                                 "radius": 22000
@@ -1408,6 +1372,20 @@
                             "apply": 1,
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Airborne",
+                                  "duration": 60
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_lulu_r_hit"
+                                }
+                              },
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
@@ -1422,6 +1400,58 @@
                                     "move_speed_mult": -30
                                   }
                                 }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 420,
+                        "period": 15,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_lulu_r_aura",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_lulu_r_slow",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 22000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_lulu_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 17
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -1497,100 +1527,40 @@
                                         "name": "league_lulu_r_cast"
                                       },
                                       {
-                                        "type": "TargetSfx",
-                                        "name": "league_lulu_r_grow"
-                                      },
-                                      {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_lulu_r_on",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 420
-                                            }
-                                          },
-                                          "hp": 350,
-                                          "radius_mult": 30
-                                        }
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 350,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 50,
-                                        "heal_type": "Ally"
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_lulu_r_burst"
-                                      },
-                                      {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_lulu_r_lob",
-                                        "travel_time": 1,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "applied_target": "AllyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_lulu_r_up",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 22000
-                                              }
-                                            },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "EnemyWithoutTower",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Airborne",
-                                                  "duration": 60
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_lulu_r_hit"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "AddBuff",
-                                                  "buff_state": {
-                                                    "name": "league_lulu_r_slow",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 17
-                                                      }
-                                                    },
-                                                    "move_speed_mult": -30
-                                                  }
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "AddCasted",
-                                        "casted_type": "Heal",
-                                        "duration": 420,
-                                        "period": 15,
+                                        "type": "Delayed",
+                                        "tick": 7,
                                         "effects": [
                                           {
+                                            "type": "TargetSfx",
+                                            "name": "league_lulu_r_grow"
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_lulu_r_on",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 420
+                                                }
+                                              },
+                                              "hp": 350,
+                                              "radius_mult": 30
+                                            }
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 350,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 50,
+                                            "heal_type": "Ally"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_lulu_r_burst"
+                                          },
+                                          {
                                             "type": "ParabolicProjectile",
-                                            "name": "league_lulu_r_aura",
+                                            "name": "league_lulu_r_lob",
                                             "travel_time": 1,
                                             "range": 400000,
                                             "shape": {
@@ -1603,7 +1573,7 @@
                                             "end_effects": [
                                               {
                                                 "type": "RangeProjectile",
-                                                "name": "league_lulu_r_slow",
+                                                "name": "league_lulu_r_up",
                                                 "shape": {
                                                   "Circle": {
                                                     "radius": 22000
@@ -1613,6 +1583,20 @@
                                                 "apply": 1,
                                                 "applied_target": "EnemyWithoutTower",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Airborne",
+                                                      "duration": 60
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_lulu_r_hit"
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
@@ -1627,6 +1611,58 @@
                                                         "move_speed_mult": -30
                                                       }
                                                     }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "AddCasted",
+                                            "casted_type": "Heal",
+                                            "duration": 420,
+                                            "period": 15,
+                                            "effects": [
+                                              {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_lulu_r_aura",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "applied_target": "AllyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "RangeProjectile",
+                                                    "name": "league_lulu_r_slow",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 22000
+                                                      }
+                                                    },
+                                                    "delay": 1,
+                                                    "apply": 1,
+                                                    "applied_target": "EnemyWithoutTower",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_lulu_r_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 17
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -30
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
                                                   }
                                                 ]
                                               }
@@ -1716,7 +1752,7 @@
           "type": "TargetProjectile",
           "name": "league_lulu_w_bolt",
           "speed": 5000,
-          "y_offset": 0,
+          "y_offset": -4000,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -1797,7 +1833,7 @@
               "type": "TargetProjectile",
               "name": "league_lulu_e_pix",
               "speed": 4500,
-              "y_offset": -3000,
+              "y_offset": -4000,
               "applied_target": "AllyChampion",
               "applied_effects": [
                 {
@@ -1883,7 +1919,7 @@
                     "type": "TargetProjectile",
                     "name": "league_lulu_e_pix",
                     "speed": 4500,
-                    "y_offset": -3000,
+                    "y_offset": -4000,
                     "applied_target": "AllyChampion",
                     "applied_effects": [
                       {
@@ -2079,100 +2115,40 @@
                     "name": "league_lulu_r_cast"
                   },
                   {
-                    "type": "TargetSfx",
-                    "name": "league_lulu_r_grow"
-                  },
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_lulu_r_on",
-                      "duration": {
-                        "Time": {
-                          "tick": 420
-                        }
-                      },
-                      "hp": 350,
-                      "radius_mult": 30
-                    }
-                  },
-                  {
-                    "type": "Heal",
-                    "amount": 350,
-                    "attack_ratio": 0,
-                    "ap_ratio": 50,
-                    "heal_type": "Ally"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_lulu_r_burst"
-                  },
-                  {
-                    "type": "ParabolicProjectile",
-                    "name": "league_lulu_r_lob",
-                    "travel_time": 1,
-                    "range": 400000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "applied_target": "AllyChampion",
-                    "applied_effects": [],
-                    "end_effects": [
-                      {
-                        "type": "RangeProjectile",
-                        "name": "league_lulu_r_up",
-                        "shape": {
-                          "Circle": {
-                            "radius": 22000
-                          }
-                        },
-                        "delay": 1,
-                        "apply": 1,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Airborne",
-                              "duration": 60
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_lulu_r_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_lulu_r_slow",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 17
-                                  }
-                                },
-                                "move_speed_mult": -30
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "AddCasted",
-                    "casted_type": "Heal",
-                    "duration": 420,
-                    "period": 15,
+                    "type": "Delayed",
+                    "tick": 7,
                     "effects": [
                       {
+                        "type": "TargetSfx",
+                        "name": "league_lulu_r_grow"
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_lulu_r_on",
+                          "duration": {
+                            "Time": {
+                              "tick": 420
+                            }
+                          },
+                          "hp": 350,
+                          "radius_mult": 30
+                        }
+                      },
+                      {
+                        "type": "Heal",
+                        "amount": 350,
+                        "attack_ratio": 0,
+                        "ap_ratio": 50,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_lulu_r_burst"
+                      },
+                      {
                         "type": "ParabolicProjectile",
-                        "name": "league_lulu_r_aura",
+                        "name": "league_lulu_r_lob",
                         "travel_time": 1,
                         "range": 400000,
                         "shape": {
@@ -2185,7 +2161,7 @@
                         "end_effects": [
                           {
                             "type": "RangeProjectile",
-                            "name": "league_lulu_r_slow",
+                            "name": "league_lulu_r_up",
                             "shape": {
                               "Circle": {
                                 "radius": 22000
@@ -2195,6 +2171,20 @@
                             "apply": 1,
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Airborne",
+                                  "duration": 60
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_lulu_r_hit"
+                                }
+                              },
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
@@ -2209,6 +2199,58 @@
                                     "move_speed_mult": -30
                                   }
                                 }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 420,
+                        "period": 15,
+                        "effects": [
+                          {
+                            "type": "ParabolicProjectile",
+                            "name": "league_lulu_r_aura",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "applied_target": "AllyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_lulu_r_slow",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 22000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_lulu_r_slow",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 17
+                                          }
+                                        },
+                                        "move_speed_mult": -30
+                                      }
+                                    }
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -2284,100 +2326,40 @@
                                         "name": "league_lulu_r_cast"
                                       },
                                       {
-                                        "type": "TargetSfx",
-                                        "name": "league_lulu_r_grow"
-                                      },
-                                      {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_lulu_r_on",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 420
-                                            }
-                                          },
-                                          "hp": 350,
-                                          "radius_mult": 30
-                                        }
-                                      },
-                                      {
-                                        "type": "Heal",
-                                        "amount": 350,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 50,
-                                        "heal_type": "Ally"
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_lulu_r_burst"
-                                      },
-                                      {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_lulu_r_lob",
-                                        "travel_time": 1,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "applied_target": "AllyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_lulu_r_up",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 22000
-                                              }
-                                            },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "EnemyWithoutTower",
-                                            "applied_effects": [
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Airborne",
-                                                  "duration": 60
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_lulu_r_hit"
-                                                }
-                                              },
-                                              {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "AddBuff",
-                                                  "buff_state": {
-                                                    "name": "league_lulu_r_slow",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 17
-                                                      }
-                                                    },
-                                                    "move_speed_mult": -30
-                                                  }
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "AddCasted",
-                                        "casted_type": "Heal",
-                                        "duration": 420,
-                                        "period": 15,
+                                        "type": "Delayed",
+                                        "tick": 7,
                                         "effects": [
                                           {
+                                            "type": "TargetSfx",
+                                            "name": "league_lulu_r_grow"
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_lulu_r_on",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 420
+                                                }
+                                              },
+                                              "hp": 350,
+                                              "radius_mult": 30
+                                            }
+                                          },
+                                          {
+                                            "type": "Heal",
+                                            "amount": 350,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 50,
+                                            "heal_type": "Ally"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_lulu_r_burst"
+                                          },
+                                          {
                                             "type": "ParabolicProjectile",
-                                            "name": "league_lulu_r_aura",
+                                            "name": "league_lulu_r_lob",
                                             "travel_time": 1,
                                             "range": 400000,
                                             "shape": {
@@ -2390,7 +2372,7 @@
                                             "end_effects": [
                                               {
                                                 "type": "RangeProjectile",
-                                                "name": "league_lulu_r_slow",
+                                                "name": "league_lulu_r_up",
                                                 "shape": {
                                                   "Circle": {
                                                     "radius": 22000
@@ -2400,6 +2382,20 @@
                                                 "apply": 1,
                                                 "applied_target": "EnemyWithoutTower",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Airborne",
+                                                      "duration": 60
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_lulu_r_hit"
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
@@ -2414,6 +2410,58 @@
                                                         "move_speed_mult": -30
                                                       }
                                                     }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "AddCasted",
+                                            "casted_type": "Heal",
+                                            "duration": 420,
+                                            "period": 15,
+                                            "effects": [
+                                              {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_lulu_r_aura",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "applied_target": "AllyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "RangeProjectile",
+                                                    "name": "league_lulu_r_slow",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 22000
+                                                      }
+                                                    },
+                                                    "delay": 1,
+                                                    "apply": 1,
+                                                    "applied_target": "EnemyWithoutTower",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_lulu_r_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 17
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -30
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
                                                   }
                                                 ]
                                               }

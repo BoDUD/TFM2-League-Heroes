@@ -108,8 +108,10 @@ WEAPON_CARRY = {
     "jhin": [({(0x26, 0x2A, 0x3A), (0x4A, 0x54, 0x70), (0xD8, 0x90, 0x2C), (0xA0, 0x58, 0x1A), (0xFF, 0xD8, 0x78), (0x74, 0x85, 0x9E), (0x5A, 0x2E, 0x10), (0xD2, 0xCA, 0xB0)},
               (-13, -1, 6, 99))],
     # Lulu's staff runs from over her hat down across her body to its foot between her boots (cols 0..+3): its three
-    # woods in the shins' rows; the boots' plum (#4E3040) and the hat's dark gold stay out
-    "lulu": [({(0xB4, 0x7A, 0x4E), (0x5A, 0x2E, 0x1A), (0x2E, 0x16, 0x0E)}, (-20, 0, -3, 99))],
+    # woods carried down to the robe's hem only (rows -20..-4) - the foot stays planted between the boots, which share
+    # the staff's darkest brown (carried, the foot and a square of the far boot sank under the soles: the boot came
+    # apart, 2026-10-08); the boots' plum (#4E3040) and the hat's dark gold stay out
+    "lulu": [({(0xB4, 0x7A, 0x4E), (0x5A, 0x2E, 0x1A), (0x2E, 0x16, 0x0E)}, (-20, -4, -3, 99))],
 }
 
 
@@ -146,6 +148,43 @@ def weapon_mask(a, colours, box):
             break
         m = m | grow
     return m
+
+
+# heroes whose carried weapon crosses IN FRONT of the body: the squares behind it were never drawn, so once the body
+# dips under the stamped-back weapon they showed as see-through slits (Lulu's staff over her robe, 2026-10-08: 「像素
+# 缺失」). For them the lifted weapon's squares that lie inside the body are first filled with the body's own colour
+# round them (fill_behind), then the body breathes.
+CARRY_FILL = {"lulu"}
+
+
+def fill_behind(a, carried):
+    """The lifted weapon's squares that lie inside the figure (drawn squares within 3 on both sides, across or up and
+    down) take the most common non-outline colour among their drawn neighbours, a ring at a time."""
+    a = a.copy()
+    op = a[..., 3] > 0
+    H, W = op.shape
+    todo = {(int(y), int(x)) for y, x in zip(*np.nonzero(carried))}
+    dark = lambda c: sum(c) < 120                                   # noqa: E731 - the outline
+    for _ in range(8):
+        done = []
+        for y, x in sorted(todo):
+            row, col = op[y], op[:, x]
+            inside = ((row[max(0, x - 3):x].any() and row[x + 1:x + 4].any()) or
+                      (col[max(0, y - 3):y].any() and col[y + 1:y + 4].any()))
+            if not inside:
+                continue
+            cols = [tuple(int(v) for v in a[v_, u_, :3]) for v_ in (y - 1, y, y + 1) for u_ in (x - 1, x, x + 1)
+                    if (v_, u_) != (y, x) and 0 <= v_ < H and 0 <= u_ < W and op[v_, u_]]
+            body = [c for c in cols if not dark(c)]
+            if len(body) >= 2:
+                done.append((y, x, max(set(body), key=body.count)))
+        if not done:
+            break
+        for y, x, c in done:
+            a[y, x] = (*c, 255)
+            op[y, x] = True
+            todo.discard((y, x))
+    return a
 
 
 NO_NOD = {"kayn"}   # with his scythe carried a cheap neck row turned up and his head began to nod; nobody else nods
@@ -861,6 +900,8 @@ def breathe_idle(hero, sheet):
             carried |= weapon_mask(a, colours, box)
         a = a.copy()
         a[carried] = 0
+        if hero in CARRY_FILL:
+            a = fill_behind(a, carried)
     opts = BREATHE_OPTS.get(hero, {})
     frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **opts)
     if carried is not None:
