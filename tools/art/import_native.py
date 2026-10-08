@@ -58,9 +58,9 @@ STEADY = ("idle", "run")
 UNSTEADY = {("rakan", "run")}
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
 # (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
-# wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」, 2026-10-08), NO_NOD
-# breathes without the head's late nod
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke"}
+# wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
+# back too: 「永恩 格温 凯尔 恢复到之前的」, 2026-10-08), NO_NOD breathes without the head's late nod
+BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle"}
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -74,7 +74,7 @@ BREATHE_OPTS = {"alistar": {"zone": (0.20, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
 # hero: [(colour set, box)] of a weapon resting on or near the ground. idle_breathe would cut or hinge THROUGH a blade
-# that spans the legs' columns (「剑魔和盖伦武器有点变形」「格温天使武器变形」「锐雯武器变形」「永恩武器变形」, 2026-10-08), so
+# that spans the legs' columns (「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形的要修改」, 2026-10-08), so
 # the weapon is lifted out before the breath and stamped back unmoved on every frame: the blade stands planted, the
 # hands slide 1-2 px along the hilt. The box is (row0, row1, col0, col1) relative to (the soles' row, the frame's
 # centre), None = the whole frame; colours were read from the design's own bottom rows (charmaps.txt).
@@ -83,13 +83,9 @@ WEAPON_FREEZE = {
                 (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
     "aatrox": [({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A), (0x27, 0x0D, 0x28),
                  (0x42, 0x22, 0x4C), (0x68, 0x40, 0x7A)}, (-14, 0, -99, -10))],
-    "gwen": [({(0x8F, 0xF2, 0xFE), (0x28, 0xDD, 0xFC), (0x01, 0x87, 0xFA)}, (-13, -1, -99, -5)),
-             ({(0x8F, 0xF2, 0xFE), (0x28, 0xDD, 0xFC), (0x01, 0x87, 0xFA), (0x1D, 0x14, 0x44), (0x3C, 0x2A, 0x71),
-               (0xAA, 0x93, 0xF3), (0x02, 0x03, 0x75), (0x45, 0x16, 0xEB)}, (-26, -6, 7, 99))],
+    "samira": [({(0xE9, 0xEB, 0xF2), (0xB5, 0xBA, 0xD2), (0x77, 0x7B, 0x90)}, (-14, 0, 11, 99))],   # the sword, not the hilt
     "riven": [({(0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69), (0x43, 0x4A, 0x46),
                 (0x27, 0x27, 0x20), (0xF6, 0xEA, 0xDB), (0x24, 0x18, 0x1F)}, (-12, -1, 1, 99))],
-    "yone": [({(0xFA, 0xFA, 0xFA), (0xAB, 0xB2, 0xC6), (0x94, 0x9B, 0xB6), (0x49, 0x51, 0x6E)}, (-12, 0, 8, 99)),
-              ({(0xCB, 0x07, 0x27), (0x2A, 0x00, 0x04), (0x59, 0x0D, 0x25)}, (-14, -5, -99, -9))],
 }
 
 
