@@ -40,8 +40,10 @@ PAL = {
     'v': (150, 108, 150),                                                           # mauve anti-alias mud
     'g': (209, 169, 105), 'G': (211, 173, 110), 'L': (231, 192, 138),               # gold
     'b': (157, 115, 71), 'B': (129, 91, 67), 'd': (93, 62, 49),                     # dark gold / brown
-    'E': (200, 60, 166),                                                            # eyes
+    'E': (200, 60, 166),                                                            # eyes (old pink)
+    'V': (201, 166, 255), 'D': (138, 79, 224),                                      # eyes (violet glow, deep)
 }
+EYES = ('E', 'V', 'D')
 CH = {v: c for c, v in PAL.items()}
 OUTLINE = PAL['K']
 BLACK = set('Kkj')
@@ -55,7 +57,8 @@ for _c in 'SWn':
 for _c in 'gGLbBd':
     MAT[_c] = 'gold'
 MAT['v'] = 'mud'
-MAT['E'] = 'eye'
+for _c in EYES:
+    MAT[_c] = 'eye'
 for _c in BLACK:
     MAT[_c] = 'black'
 DARKEST = {'skin': 'n', 'gold': 'b', 'magenta': 'm'}
@@ -68,7 +71,9 @@ def lum(c):
 
 # ------------------------------------------------------------------------------- the clean head
 # The approved idle head (idle 0: left eye's top-left pixel at (-2,-18)), tidied by hand.
-# x = -11..7, y = -33..-14.  '.' = clear the frame there, '?' = keep the frame's pixel, else paint.
+# x = -11..7, y = -33..-12.  '.' = clear the frame there, '?' = keep the frame's pixel, else paint.
+# 2026-10-09 the face is the design's new one (fix_morgana_eyes.py A: one violet row, the lids' outer corners up;
+# fix_morgana_face.py A: the lower face narrowing to a pointed chin, rows -15..-12), so every pasted frame gets it.
 HEAD_X0, HEAD_Y0 = -11, -33
 HEAD_EYE = (-2, -18)
 HEAD = [
@@ -85,13 +90,15 @@ HEAD = [
     ".K332bg1ppp11bb11K.",  # -23
     ".K332221pp4412213K.",  # -22
     "?K33222ppp1SS1122K?",  # -21
-    "?K32222ppSSSSSS12K?",  # -20
-    "?K2SSS2pSKKSSKK11??",  # -19
-    "?K23nS2pSWESSWE12??",  # -18
-    "?K44222pSEESSEE2p??",  # -17
+    "?K32222pKSSSSSK12K?",  # -20
+    "?K2SSS2pKKKSSKK11??",  # -19
+    "?K23nS2pSVDSSDV12??",  # -18
+    "?K44222pSSSSSSS2p??",  # -17
     "?K411pp1SSSSSSS41??",  # -16
-    "?K1ppp1p1SSSmSS11??",  # -15
-    "?Kpp111411SSSS112??",  # -14
+    "?K1ppp1p1SSSmS111??",  # -15
+    "?Kpp111411SSS1112??",  # -14
+    "??????????1S1??????",  # -13
+    "???????????1???????",  # -12
 ]
 assert all(len(r) == 19 for r in HEAD)
 
@@ -118,9 +125,9 @@ FACE_KEEP = {
 # speck-rule zones for frames that keep their own head: (x0, y0, x1, y1)
 SPECK_ZONE = {('dead', 0): (-18, -34, 6, -17), ('dead', 1): (-11, -31, 9, -14), ('dead', 2): (-6, -25, 14, -5)}
 # explicit per-frame edits: (x, y, expected chars or None for "any", new char or '.' to clear)
-_NECK = [(-3, -13, 'j', '1'), (-2, -13, 'n', '1'), (-1, -13, 'v', 'n'), (0, -13, 'K', 'n'), (1, -13, 'j', '1')]
+_NECK = [(-3, -13, 'j', '1')]
 EDITS = {
-    # idle: the design's muddy neck -> skin shade under the chin, hair either side, the gold collar below
+    # idle: the design's muddy neck -> hair beside the chin (the pointed chin itself is in HEAD since 2026-10-09)
     ('idle', 0): _NECK, ('idle', 1): _NECK, ('idle', 5): _NECK,
     ('idle', 2): [(x, y + 1, w, n) for x, y, w, n in _NECK],
     ('idle', 3): [(x, y + 1, w, n) for x, y, w, n in _NECK],
@@ -152,11 +159,19 @@ HEAD_OFF = {}
 HAIRISH = set('Kkj1234wpqu')            # hair / outline colours (not the wing's r, s, m, M)
 
 
+def _eyes(a):
+    """The eye pixels: the violet ones (fix_morgana_eyes.py: one row, its first square where the old pink eye's
+    top-left was) or the old pink a frame still has."""
+    m = np.zeros(a.shape[:2], bool)
+    for c in EYES:
+        m |= (a[..., :3] == np.array(PAL[c], a.dtype)).all(-1)
+    return m & (a[..., 3] > 0)
+
+
 def _eye(a):
     """Top-left pixel of the left eye (pivot-relative), or None."""
     cy, cx = a.shape[0] // 2, a.shape[1] // 2
-    m = (a[..., 3] > 0) & (a[..., 0] == 200) & (a[..., 1] == 60) & (a[..., 2] == 166)
-    ys, xs = np.nonzero(m)
+    ys, xs = np.nonzero(_eyes(a))
     if not len(xs):
         return None
     pts = sorted(zip((xs - cx).tolist(), (ys - cy).tolist()))
@@ -424,7 +439,7 @@ def _head_zone(a, tag, k):
 def _face_protect(a, tag, k):
     H, W = a.shape[:2]
     cy, cx = H // 2, W // 2
-    m = (a[..., 3] > 0) & (a[..., 0] == 200) & (a[..., 1] == 60) & (a[..., 2] == 166)
+    m = _eyes(a)
     for x0, y0, x1, y1 in FACE_KEEP.get((tag, k), []):
         m[max(0, cy + y0):cy + y1 + 1, max(0, cx + x0):cx + x1 + 1] = True
     return m
