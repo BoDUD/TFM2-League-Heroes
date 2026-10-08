@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -141,6 +141,8 @@
 ![璐璐演示：她跑到盖伦身后，法杖平举打德莱厄斯，魔法弹沿着法杖飞出去，皮克斯跟着射出三发小弹；Q 闪耀长枪：她和皮克斯各射一道粉紫长枪穿过德莱厄斯，他脚下亮起减速光圈；W 奇思妙想把德莱厄斯变成一团粉色烟雾里的小松鼠，同时皮克斯飞到盖伦身上，给他护盾光环和金色加速；变身结束烟雾散开；R 狂野生长：她举起法杖，盖伦身上冲起绿色光柱，德莱厄斯被击飞，盖伦脚下留下生长光环](docs/preview/league_lulu_showcase.gif?v=1008lu)
 
 ![弗拉基米尔演示：他射出血弹打德莱厄斯；Q 鲜血转换：从德莱厄斯身上抽出一团血，血球飞回来给他回血，脚下亮起半满的血环；第二次 Q 是猩红冲刺，血球更大更亮；E 血之潮汐：蓄力时身边绕着血珠，地上炸开一圈血浪，向两人各射一颗血弹；连招 E→Q：潮汐打中英雄后马上接的 Q 直接是猩红冲刺；连招闪 R E：化成血雾闪到敌人身边，血之瘟疫的血云落在德莱厄斯身上，两人挂上瘟疫印记，再炸一圈血浪，3 秒后瘟疫爆开、血回到他身上；血红之池：化成一滩血 2 秒，站在上面的两人被吸血，钻出来时 E 正好好了，直接甩出一圈血浪（连招 E-W）](docs/preview/league_vladimir_showcase.gif?v=1008vl)
+
+![雷恩加尔演示：头顶亮着金色的猎人之眼，他从远处飞扑到德莱厄斯身上，落地三道爪痕，Q 已就绪直接上挑（空中 Q），脚下亮起金色刀光圈；普攻一刀；W 战争咆哮：地上炸开金色冲击波，两人受伤，他身上冒出绿色回血；E 甩出套索，德莱厄斯腿上缠住绳子减速；Q 砸地再上挑，凶残值攒满（头顶四颗红牙），下一刀直接是强化 Q，身上燃起红橙火光；他后撤开 R：一团蓝灰烟雾，德莱厄斯头顶亮起猎人红眼，他扑出去打出暴击爪痕，随即甩出必中的套索把德莱厄斯定住](docs/preview/league_rengar_showcase.gif)
 
 ## 英雄：盖伦
 
@@ -2820,6 +2822,7 @@ python tools/art/preview_gwen.py
 | 大招 | R「虚空来袭」：冷却 3000 tick（50 秒），射程 70000。隐身 1.25 秒、移速 +40%，被动就绪；第一次放完 2 秒后能再放一次，第二次放完才进完整冷却。进化动态遮蔽（11 级）：隐身 2 秒，共 3 次。隐身只让远处的敌人看不见、选不中，贴身的照样能打他（游戏的规则） |
 | 进化 | 数据只读得到「是否到 3 级」。他每级 +1 法强（他不出法强装，技能也不吃法强），普攻时用凯尔的探测量法强：2 tick 减伤 99%、无视魔抗，按 100 倍法强打自己一下，打一层设在两级之间的护盾，打碎了就是到级了，隔 30 tick 再测一次确认。踩过的两个坑：探测自伤放在普攻里会吃暴击（出了暴击装后翻倍、提前进化）；拿最大生命当等级尺会被装备的生命带偏（模拟里 8 级时装备生命 0–800 不等，E、R 最多提前 3 级进化）。模拟里每次都在升级后 1–5 秒进化；死了以后复活第一次普攻静默补回，不再重播进化的光效和台词 |
 | 连招 | 用户：「另外加入高手的连招」。照盲僧的做法，每个连招都是后一个技能自己打出来的，不占别的技能冷却：**E→Q→A**：跳到英雄身边后 2.5 秒内放 Q，爪完直接接一刀普攻；**Q→R→A**：Q 打中英雄后 2.5 秒内放 R，隐身的同时出一刀（吃到被动）；**R→E→W→A**：隐身中放 E，甩完尖刺再补一刀 |
+| 雷恩加尔彩蛋 | 和雷恩加尔（第 77 位）的双向彩蛋：他的命中给对方挂 `league_khazix_rival_hit`，出手时看到自己身上有雷恩加尔的标记就给身边敌方英雄挂 `league_khazix_seen`；带着雷恩加尔回的 `league_rengar_seen` 击杀英雄就是杀了雷恩加尔：额外进化（马上得到下一阶段，攻击 +10%，直到死亡，W 进化的台词）。为此击杀判定不再等进化虫翼，一直开着（击杀刷新 E 仍要虫翼）。第一次碰面时笑一声、头顶冒出怒气符号（雷恩加尔的特效表 `league_rengar_fx`）。详见雷恩加尔一节 |
 | 视野与进化附加包 | 附加包 [`addons/league_khazix`](addons/league_khazix/README.md)（在附加包合集里）用原生代码：被动每 tick 看敌方队伍看不看得见他（草丛、战争迷雾、R 的隐身都算），看不见就就绪；进化直接读等级，到 5/8/11 级就进化。主包不装附加包也完整可玩；附加包只做了单元测试，要在游戏里看日志确认 |
 | 数值 | 攻击 88（+16）、生命 880（+84）、护甲 26（+8）、魔抗 18（+4）、移速 1100（+13）。数值是自己设计的，用 SDK 对战模拟调：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），3 套阵容、两边各打，10 分钟。初稿 +6.96（一局 15788 伤害，是凯隐的两倍：Q 打英雄 12 次、打野怪 46 次，大多是孤立无援）；攻击 106 +25 → 85 +16、Q 40 + 100%（孤立 84 + 200%）→ 25 + 65%（40 + 115%）、E 40 + 50% → 25 + 35%、W 50 + 80% → 30 + 50%（回血 40 + 25% → 30 + 15%）、被动 30 + 40% → 15 + 25%、生命 920 → 880 后 +1.18 / +1.11。配上动作条的出手时间（Q 第 12 tick 才爪中）后掉到 +0.62 / +0.57，再把攻击 85 → 88、Q 25 + 65% → 30 + 70%（孤立 40 + 115% → 45 + 125%），+0.98 / +1.48（同批种子凯隐 +1.38 / +1.33、赵信 +1.02 / +1.54） |
 | 亚索联动 | 卡兹克的技能只有减速，没有击飞和眩晕，亚索大招不受影响，不用调 |
@@ -3224,6 +3227,50 @@ python tools/art/preview_vladimir.py
 - 红色方：飞行的血弹、血球（画面跟着方向转）严格上下对称；命中、回血、血环、蓄力、血浪、血池、吸血、血云、瘟疫印记、闪烁严格左右对称，不需要画进动作帧。
 
 逐帧预览：[`docs/preview/league_vladimir_frames.png`](docs/preview/league_vladimir_frames.png)，特效：[`docs/preview/league_vladimir_effects.png`](docs/preview/league_vladimir_effects.png)。
+
+## 英雄：雷恩加尔
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 打野（刺客，分类 Assassin），第 77 位英雄。傲之追猎者 雷恩加尔：藏在草丛里扑向猎物，攒满凶残值放强化技能。用户选打野、刺客、方案 A（完整还原）；另外：「还有草丛可以跳跃 你要记住这游戏地图的草丛 还有狮子狗螳螂碰到后的彩蛋」（选了主包替代 + 扩展包读真草丛、彩蛋双向还原）、「加入高手连招」 |
+| 普攻 / 被动 | 弯刀近战，射程 23000，攻击间隔 55 tick，第 11 tick 砍中。被动「无形掠食者」：就绪时（头顶一只金色的眼）攻击距离 +25000，下一次攻击是飞扑：第 5 tick 冲向目标（`MoveToTarget`），第 17 tick 落地，20 + 150% 攻击力，起跳和落地扬起尘土。数据读不到地形，主包在每条命开始时、约 3 秒没出手后（伊芙琳脱战的做法）和 R 之后就绪 |
+| 凶残值 | 每次 Q、W、E 和飞扑各得 1 点（头顶亮起几颗红牙，12 秒不再得就清空），满 4 点时下一个 Q / W / E 是强化版并清空 |
+| Q（自动） | 「残忍无情」没有技能位，冷却 300 tick（5 秒），冷却好后的第一次攻击换成 Q 的动作：第 13 tick 砸地 10 + 30% 攻击力，第 16 tick 上挑 30 + 90% 攻击力，之后 3 秒攻速 +40%（脚下一圈金色刀光）。强化：上挑 50 + 140% 攻击力，5 秒攻速 +80%（身上红橙火光），不进冷却 |
+| 技能1 | W「战争咆哮」：冷却 540 tick（9 秒），身边 22000 内有敌人（小兵、野怪也算）时放。第 8 tick 咆哮，周围敌人受到 40 + 50% 攻击力，他回复 40 + 50% 攻击力（英雄联盟回复刚受到伤害的一部分，数据读不到，改成固定回复）。强化：回复翻倍，1.5 秒免疫控制（英雄联盟是解控；数据去不掉身上的控制，改成免控） |
+| 技能2 | E「套索打击」：冷却 600 tick（10 秒），射程 50000，也对小兵和野怪放。第 13 tick 朝目标甩出套索（直线，打中第一个单位，躲得开），40 + 60% 攻击力，减速 40% 1.75 秒。强化：定身 1.75 秒 |
+| 大招 | R「狩猎律动」：冷却 3600 tick（60 秒），只对正在交战的敌方英雄放（`EnemyChampionRecentlyAttacked`，90000 内）。第 10 tick 隐身 5 秒（一团蓝灰烟雾）、移速 +40%，飞扑就绪，目标头顶亮起猎人的红眼；从 R 里扑出去的那一下额外 60 + 80% 攻击力，目标护甲 −25% 4 秒 |
+| 高手连招 | 用户：「加入高手连招」。和李青、弗拉基米尔一样，每个连招只由它自己那个技能放出来，不占用别的技能的冷却：**空中 Q**：飞扑时 Q 已就绪，落地直接上挑并开攻速；**三 Q**：攒满凶残值的那次 Q 把冷却记在 `q_hold` 上（只挡普通 Q），下一刀直接是强化 Q；**扑脸定身**：飞扑落在英雄身上后 1.5 秒内的 E 立刻甩出、追踪必中，定身 1 秒（强化 1.75 秒）；**R 一套**：R → 飞扑 → E 定身 → Q |
+| 卡兹克彩蛋 | 用户：「狮子狗螳螂碰到后的彩蛋」，选了双向还原。数据只读得到自己身上的 buff，所以两个英雄互相传话：他打中英雄会给对方挂 `league_rengar_rival_hit`；卡兹克出手时发现自己身上有这个标记，就给身边的敌方英雄挂 `league_khazix_seen`；雷恩加尔带着它击杀英雄（金克丝的击杀判定）就是杀了卡兹克：拿到战利品「卡兹克的头颅」（头顶弹出紫色虫首，攻击 +15% 直到死亡，配一句台词）。反过来卡兹克的命中挂 `league_khazix_rival_hit`，雷恩加尔出手时回 `league_rengar_seen`，卡兹克带着它击杀就是杀了雷恩加尔：额外进化（马上得到下一阶段进化，攻击 +10%，直到死亡，配 W 进化的台词）。两人第一次在 60000 内碰面时各放一次怒气符号，雷恩加尔说初遇卡兹克的台词，卡兹克笑一声（每条命一次）。团战里同时击杀别的英雄可能误判，作为彩蛋可以接受 |
+| 草丛附加包 | 附加包 [`addons/league_rengar_bush`](addons/league_rengar_bush/README.md)（在附加包合集里）用原生代码读地图的草丛格子：他站在草丛里就给飞扑就绪，走出草丛 20 tick 后收回（复活和 R 给的不收）；主包「没出手就绪」去掉。地图钩子一个 mod 只能有一个，合集用 `MapReaders` 先调卡密尔的读墙、再调读草丛。草丛的键名（`bushes`）没在游戏里确认过：读不到时退回「敌方看不见他」，日志写明。主包不装附加包也完整可玩；附加包只做了单元测试，要在游戏里看日志确认 |
+| 数值 | 攻击 100（+16）、生命 950（+88）、护甲 28（+8）、魔抗 18（+4）、移速 1100（+13）。数值是自己设计的，用 SDK 对战模拟调：打野，对 3 个原版打野（`ninja`、`hunter`、`demon`），3 套阵容、两边各打，10 分钟。初稿 −1.43（同一批卡兹克 +1.60、伊芙琳 +1.55）；攻击 90 → 100、生命 900 → 950，Q 上挑 60% → 90%（强化 100% → 140%）、砸地 20% → 30%，飞扑 120% → 150%，W 回复 35% → 50%：种子 1–12 +1.35、25–36 +1.92（同一批卡兹克 +1.30）。Q 冷却 4 秒那组 +3.11，偏强 |
+| 亚索联动 | 强化 E 的定身是硬控。重跑亚索的模拟（亚索上单，候选打野，24 个种子两边各打）：雷恩加尔同队时亚索大招每局 1.17 次，原版忍者 0.58、卡兹克 0.35（凯隐 1.00、李青 1.67）。不用调 |
+| 精灵图 | 10 个动作 65 帧：待机 8、移动 8、普攻 6、飞扑（`leap`）8、Q（`skill`）8、E（`skill2`）6、W（`skill_w`）7、R（`ult`）4、受击 2、死亡 8。高 40 px，25 色。头像截取点 (4, −36)；待机最高到 −29（角尖），`banpick_center` −10 |
+| 特效 | Codex 生图的 20 张（`import_rengar.py` 缩成游戏像素）：`league_rengar_fx` 普攻划痕、飞扑的尘土和三道爪痕、被动的金眼、凶残值的四个状态、Q 的砸地和上挑、Q 攻速的刀光圈、W 回血、套索（朝飞行方向转，上下对称）、减速和定身的绳圈、猎人红眼、战利品、怒气符号；`league_rengar_big` W 的冲击波、强化 Q / W 的火光、R 的烟雾和暴击爪痕 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_rengar.py`）：普攻挥砍和命中、飞扑和落地、Q 出手 / 命中 / 强化命中、W / 强化 W、E 出手 / 命中 / 定身、R 出手和暴击；Q、W、E、R、满凶残值和初遇卡兹克的中文配音（卡兹克那边的彩蛋台词在 `tools/lol/extract_khazix.py`）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（W / E / R），从本地客户端提取，缩到 64×64；Q 自动，没有技能位 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_rengar.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_rengar.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_rengar.py --face 4,-36 --banpick -10   # 五种语言的文字、音效配置、共享文件里他的键
+python addons/league_rengar_bush/make_override.py   # 附加包的副本（去掉没出手就绪，被动读草丛）
+python tools/art/design_rengar.py --rebuild   # 造型：41 行的字母格子 -> 8 倍原尺寸图
+python tools/art/rig_rengar.py          # 动作：造型自己的零件无损摆姿势（整格平移、90° 旋转、翻转、整行移动、叠放）
+python tools/art/import_native.py --hero rengar
+python tools/art/import_rengar.py       # 特效；--raw assets/source/rengar/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+```
+
+美术（动作的提示词见 [`assets/source/rengar/MODEL_STRIPS.md`](assets/source/rengar/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/rengar/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/rengar/codex_model/)、[`codex_strips/`](assets/source/rengar/codex_strips/)、[`codex_fx/`](assets/source/rengar/codex_fx/)）：
+
+- 原画：Codex 画了几版，用户选 A；然后：「按做吸血鬼的方法 慢慢做成这样吧」。造型读回游戏尺寸后给了两版缩法，用户：「B吧」。
+- 造型：按游戏尺寸读回格子后，各部件均匀删行删列（`cut3.py`，角、脸、肩甲、爪刃的硬行不删），用户：「可以了」。鼻子按用户「鼻子也有点怪？」改成三角猫鼻（`design_rengar.py` 的 POLISH）。
+- 动作：Codex 第 2 步的动作条用户让我修（「有问题的地方你帮忙修复」），按弗拉基米尔的做法全部用造型自己的零件重摆（`rig_rengar.py`）：弯刀手、爪手、尾巴按格子切出，只做平移、90° 旋转、翻转和叠放；下蹲帧脚画在身体上面，脚趾不被吃掉；死亡先卸下手臂再侧倒。跑步用户先选交叉步，又改回 A：「不用交叉步」（小跑）。待机呼吸由 rig 自己做（共享的呼吸会把弯刀拖到脚底下面）。
+- 特效：Codex 第 3 步的 20 张（`import_rengar.py --raw`：按交付的 `manifest.json` 切帧，颜色归到包里给每张的色阶：金、凶残红橙、骨色、尘土、烟雾、猎眼红、治疗绿、虚空紫）。
+- 红色方：飞行的套索严格上下对称；其余命中、地面圈、头顶标记、烟雾严格左右对称，不需要画进动作帧。
+
+逐帧预览：[`docs/preview/league_rengar_frames.png`](docs/preview/league_rengar_frames.png)，特效：[`docs/preview/league_rengar_effects.png`](docs/preview/league_rengar_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
