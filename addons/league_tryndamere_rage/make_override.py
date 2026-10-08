@@ -7,7 +7,9 @@ pack's league/champion/league_tryndamere.data_champion byte for byte (so the cop
 and writes addons/league_tryndamere_rage/override/league_tryndamere.data_champion and .../text/champion.i18n:
 the same kit with three changes -
   * the main pack's danger check in his attack (two enemy champions on him, or hit at five checks in a row, while R
-    is armed) is dropped; R still arms when the AI casts it (900 ticks, refunded when unused);
+    is armed) is dropped; R still arms when cast (900 ticks, refunded when unused) - and the add-on's AI hook
+    league_tryndamere_rage:ult presses R only when he is about to die (the AI armed it at full health on sight of an
+    enemy, and the game shows every cast as an ult: 「蛮王总是满血开大」);
   * passive = the add-on's league_tryndamere_rage:guard with the numbers from P as its params: while R is armed it
     starts Undying Rage when his health drops low or a burst lands (an enemy champion close), and with R not armed it
     drinks Bloodlust when he is hurt;

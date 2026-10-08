@@ -61,14 +61,18 @@ UNSTEADY = {("rakan", "run")}
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
 # back too: 「永恩 格温 凯尔 恢复到之前的」, then Alistar, Soraka, Blitzcrank: 「牛头 / 索拉卡 / 机器人恢复到之前的」,
 # 2026-10-08), NO_NOD breathes without the head's late nod
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank"}
+# Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
+# shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
+BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
 # cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Kennen, LeBlanc, Janna and Twisted Fate are short or skirted (the zone rows landed in
 # the skirt or the weapon); Renekton and Vayne crouch, their figure is squat and the 30% band started in the torso
 # (「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
-BREATHE_OPTS = {"kennen": {"zone": (0.18, 1)}, "leblanc": {"zone": (0.18, 1)},
+# Kennen's went lower still, to his boots (0.08): at 0.18 the cut ran through the gold bar on his coat's hem
+# (「凯南待机时武器也变形」)
+BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
@@ -105,14 +109,42 @@ WEAPON_CARRY = {
                     (-16, 0, -99, -11))],
     "ashe": [({(0x00, 0x47, 0x84), (0x81, 0xDD, 0xEF), (0x03, 0x7C, 0xB4), (0x0F, 0xB3, 0xEB), (0x00, 0x18, 0x40), (0x28, 0x1E, 0x19), (0x01, 0x21, 0x55), (0x00, 0x14, 0x37)},
               (-25, -3, 5, 99))],
+    "viktor": [({(0xF7, 0xD0, 0x4A), (0xC8, 0x40, 0x0A), (0xA8, 0x66, 0x2E), (0xD4, 0x9A, 0x1E), (0xFF, 0x8A, 0x1E), (0x1E, 0x86, 0xE0), (0x4A, 0xD8, 0xF8), (0x8A, 0x5A, 0x10), (0x5B, 0x61, 0x94), (0xA3, 0xAA, 0xD6), (0x6A, 0x4A, 0x5A), (0x7E, 0x86, 0xB8), (0x6F, 0x86, 0xAE), (0xA0, 0x20, 0x2A), (0x5A, 0x0A, 0x1E)},
+                (-41, 0, -99, -6))],   # his staff, head to foot, left of his cloak's red (「维克托武器也变形」)
     "jhin": [({(0x26, 0x2A, 0x3A), (0x4A, 0x54, 0x70), (0xD8, 0x90, 0x2C), (0xA0, 0x58, 0x1A), (0xFF, 0xD8, 0x78), (0x74, 0x85, 0x9E), (0x5A, 0x2E, 0x10), (0xD2, 0xCA, 0xB0)},
               (-13, -1, 6, 99))],
+    # Xayah's two feather blades hanging from the near hand (rig_xayah BLADES: rows -10..-5, columns +14..+19)
+    "xayah": [({(0x5F, 0x0A, 0x3D), (0x76, 0x14, 0x81), (0xB2, 0x15, 0x90), (0xF0, 0x2D, 0x71)}, (-11, -4, 13, 20))],
+    # 「诺手待机动作武器变形」: the haft's top (the ball and the brown shaft over his pauldron) and the axe's head by his
+    # feet, carried whole with his hands (the haft between runs behind his arm); the head dips like LeBlanc's staff foot
+    "darius": [({(0x0B, 0x03, 0x12), (0x06, 0x02, 0x0B), (0x08, 0x03, 0x0E), (0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x4F, 0x3C, 0x3A)},
+                (-42, -30, -18, -14)),
+               ({(0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x38, 0x3B, 0x46), (0x22, 0x24, 0x2D), (0x7D, 0x10, 0x27), (0x55, 0x5B, 0x6C), (0x63, 0x68, 0x7C), (0x7A, 0x80, 0x91), (0x14, 0x14, 0x1C)},
+                (-12, 0, -24, -10))],
     # Lulu's staff runs from over her hat down across her body to its foot between her boots (cols 0..+3): its three
     # woods carried down to the robe's hem only (rows -20..-4) - the foot stays planted between the boots, which share
     # the staff's darkest brown (carried, the foot and a square of the far boot sank under the soles: the boot came
     # apart, 2026-10-08); the boots' plum (#4E3040) and the hat's dark gold stay out
     "lulu": [({(0xB4, 0x7A, 0x4E), (0x5A, 0x2E, 0x1A), (0x2E, 0x16, 0x0E)}, (-20, -4, -3, 99))],
 }
+
+
+CARRY_FILL = {"darius"}
+
+
+def shut_in(op):
+    """The see-through squares of a frame no path through other see-through squares joins to its border."""
+    h, w = op.shape
+    out = np.zeros(op.shape, bool)
+    out[0], out[-1], out[:, 0], out[:, -1] = ~op[0], ~op[-1], ~op[:, 0], ~op[:, -1]
+    stack = list(zip(*np.nonzero(out)))
+    while stack:
+        y, x = stack.pop()
+        for yy, xx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= yy < h and 0 <= xx < w and not op[yy, xx] and not out[yy, xx]:
+                out[yy, xx] = True
+                stack.append((yy, xx))
+    return list(zip(*np.nonzero(~op & ~out)))
 
 
 def weapon_mask(a, colours, box):
@@ -154,7 +186,7 @@ def weapon_mask(a, colours, box):
 # dips under the stamped-back weapon they showed as see-through slits (Lulu's staff over her robe, 2026-10-08: 「像素
 # 缺失」). For them the lifted weapon's squares that lie inside the body are first filled with the body's own colour
 # round them (fill_behind), then the body breathes.
-CARRY_FILL = {"lulu"}
+CARRY_FILL |= {"lulu"}
 
 
 def fill_behind(a, carried):
@@ -240,7 +272,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "lulu"}
+            "lillia", "viktor", "xayah", "lulu"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -424,6 +456,7 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("seraphine", "idle"): [0, 1, 2, 3, 4, 5],
          # Lillia (design_lillia.py step 10; rig_lillia.py writes the design six times, BOB breathes it)
          ("lillia", "idle"): [0, 0, 0, 0, 0, 0],
+
          # Viktor (Codex's design B, the staff straightened, design_viktor.py; Codex's idle is the design six times)
          ("viktor", "idle"): [0, 0, 0, 0, 0, 0],
          # Lulu (Codex's design version 2 + the user's round face C3; the pack's idle is the design six times)
@@ -908,8 +941,21 @@ def breathe_idle(hero, sheet):
         src = sheet["idle"][0][0]
         cy, cx = np.nonzero(carried)
         body, sway = opts.get("body", IB.BODY), opts.get("sway", IB.SWAY)
+        near = carried.copy()                                     # within 2 squares of the weapon
+        for _ in range(2):
+            g = near.copy()
+            g[1:] |= near[:-1]; g[:-1] |= near[1:]; g[:, 1:] |= near[:, :-1]; g[:, :-1] |= near[:, 1:]
+            near = g
         for k, f in enumerate(frames):
             f[cy + 2 + body[k], cx + 2 + sway[k]] = src[cy, cx]   # breathe pads its frames by 2 all round
+            # a weapon moved off the standing legs (league_darius's axe head beside his shin) leaves see-through
+            # squares shut in between them: the design's own squares there fill them (its own holes stay); only for
+            # CARRY_FILL - the approved heroes keep their frames as they are
+            for y, x in (shut_in(f[..., 3] > 0) if hero in CARRY_FILL else []):
+                sy, sx = y - 2 - body[k], x - 2 - sway[k]
+                if (0 <= sy < src.shape[0] and 0 <= sx < src.shape[1] and near[sy, sx]
+                        and 0 <= y - 2 < src.shape[0] and 0 <= x - 2 < src.shape[1] and src[y - 2, x - 2, 3]):
+                    f[y, x] = src[y - 2, x - 2]
         rows["carried"] = int(carried.sum())
     if os.environ.get("IDLE_DEBUG"):                     # the frames, for review sheets
         np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}.npy"), np.stack(frames))

@@ -1390,6 +1390,8 @@ league_viktor (mid, --lane 2, 2026-10-07, Gravity Field's 1.25 s stun after 1.25
 1.35 a game; the base lightning mage 3.40 and league_brand 1.58 in the same batch - no change.
 league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only onto a champion already in crowd
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
+league_xayah (bottom, --lane 3, 2026-10-08, Bladecaller's 1.25 s root from the third champion hit of one recall): 0.25
+a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
 Skewer's pull): 1.88 a game; league_thresh 1.40 and league_leona 2.33 in the same batch - no change.
 league_seraphine (support, --lane 4, 2026-10-07, Beat Drop's 0.75 s root from the echoed wave and stun on the crowd-
@@ -3753,6 +3755,30 @@ R is on and the unit hit carries the mark; Vayne's native `bolt` counts `league_
 hit and adds `sb_r1` / `sb_r2` / `sb_go`. The data reads the flag in the same `Combine` and, when it was not there yet,
 once more a tick later (a `Delayed 1`): whether a buff the native adds is visible to the data in the same tick is not
 proven in game. The data halves were checked in the classic sim with the `Native` node swapped for the flags it sets.
+
+**Feathers that lie where a blade stopped and fly back on a recall (league_xayah Q, passive, E).** A feather is the
+stop point of a penetrating `LinearProjectile` (a dagger or an empowered attack's line): its `end_effects` stamp a
+`ViewEffect` there every f_step ticks (so it vanishes the moment it flies) and poll a caster flag `rc`; the only
+projectile that leaves from a point is a `BackToCasterLinearProjectile` in a projectile's end_effects or a `Delayed`
+there (league_ekko Q, league_pyke E), so that is the flight back. Nothing waits for an on-demand E: the recall is a fixed
+moment - Q sets `rc` (f_step + 1 ticks) q_recall ticks after its release, R r_recall ticks after the rain. League roots
+an enemy hit by three feathers; nothing counts hits per target, so the count is hers: caster flags rh1, rh2 climb on
+each champion hit of one recall and the third hit onwards roots.
+
+**A spell that empowers the next attacks (league_xayah Clean Cuts).** Every spell climbs a caster-flag ladder p1..p5
+(League's store of five, p_t ticks); the attack's `SwitchByBuff` on p1 fires a homing blade for the target's 100% (a bare
+line missed walking targets: -0.68 -> +0.85 in the sim) plus a penetrating line a_reach long that hits the others for
+a_pierce% and drops a feather where it stops, then steps the ladder down.
+
+**A duo read off buffs the partner puts on you (league_xayah + league_rakan).** No selector picks an ally by who he is
+and `SwitchByBuff` reads only the caster's own buffs - but a buff another hero's kit adds to him is his own buff:
+Xayah's attack adds `league_xayah_duo` (duo_t ticks) to allies within duo_r and her W `league_xayah_duo_w` within
+duo_w_r; Rakan's kit (patched by tools/fix/rakan_xayah_duo.py) branches on them: W's attack speed and second feather,
+a fourth E ring that reaches her, his Xayah voice line. Without her the buffs never exist, so his games are unchanged
+(checked in the sim). lint_mod.py reports a buff added by another hero as info, not as a missing buff.
+
+**An ult held for a fight (league_xayah R).** `EnemyChampionRecentlyAttacked` within 60000 instead of any enemy champion
+within 85000: 3.3 casts a game, 1 of 40 with no champion under the rain (6 of 58 before), 1.5 champions a cast.
 
 ## 8. Gotchas
 

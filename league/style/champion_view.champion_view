@@ -742,8 +742,8 @@
     },
     "league_xinzhao": {
       "face": {
-        "x": 12,
-        "y": -36
+        "x": 2,
+        "y": -38
       },
       "center": {
         "x": 0,
@@ -851,7 +851,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -5
       }
     },
     "league_lillia": {
@@ -880,6 +880,20 @@
       "banpick_center": {
         "x": 0,
         "y": -8
+      }
+    },
+    "league_xayah": {
+      "face": {
+        "x": 1,
+        "y": -41
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
       }
     },
     "league_lulu": {
