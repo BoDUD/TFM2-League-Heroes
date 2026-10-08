@@ -57,24 +57,21 @@ STEADY = ("idle", "run")
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
 UNSTEADY = {("rakan", "run")}
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
-# (Brand's idle is already six drawings of his burning body), NO_NOD breathes without the head's late nod
-BREATHE_SKIP = {"brand"}
+# (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
+# wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」, 2026-10-08), NO_NOD
+# breathes without the head's late nod
+BREATHE_SKIP = {"brand", "tristana", "jax", "pyke"}
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
 # cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Alistar's flat belt (only his
-# hump breathed, 「牛头有点怪」); Kennen, Jax, LeBlanc, Janna, Twisted Fate and Tristana are short or skirted (the zone
-# rows landed in the skirt or the weapon); Renekton, Pyke and Vayne crouch, their figure is squat and the 30% band
-# started in the torso (「派克手臂有点变形」「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
+# hump breathed, 「牛头有点怪」); Kennen, LeBlanc, Janna and Twisted Fate are short or skirted (the zone rows landed in
+# the skirt or the weapon); Renekton and Vayne crouch, their figure is squat and the 30% band started in the torso
+# (「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
 BREATHE_OPTS = {"alistar": {"zone": (0.20, 1)},
                 "kennen": {"zone": (0.18, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
-                # crouched or propped on the weapon: the cut line sits at the waist over the pinned prop, dip only
-                # (a 1-column lean on a wide hunched figure read as a jerk; 「派克 贾克斯 小炮还是不对」 2026-10-08)
-                "jax": {"zone": (0.45, 1), "sway": [0] * 8},
-                "tristana": {"zone": (0.60, 1), "sway": [0] * 8},
-                "pyke": {"zone": (0.45, 1), "sway": [0] * 8},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
 # hero: [(colour set, box)] of a weapon resting on or near the ground. idle_breathe would cut or hinge THROUGH a blade
 # that spans the legs' columns (「剑魔和盖伦武器有点变形」「格温天使武器变形」「锐雯武器变形」「永恩武器变形」, 2026-10-08), so
@@ -93,16 +90,6 @@ WEAPON_FREEZE = {
                 (0x27, 0x27, 0x20), (0xF6, 0xEA, 0xDB), (0x24, 0x18, 0x1F)}, (-12, -1, 1, 99))],
     "yone": [({(0xFA, 0xFA, 0xFA), (0xAB, 0xB2, 0xC6), (0x94, 0x9B, 0xB6), (0x49, 0x51, 0x6E)}, (-12, 0, 8, 99)),
               ({(0xCB, 0x07, 0x27), (0x2A, 0x00, 0x04), (0x59, 0x0D, 0x25)}, (-14, -5, -99, -9))],
-}
-# hero: [(colour set, box)] of a weapon the hero GRIPS or leans on. Freezing one and stamping it back hid the gripping
-# hand behind it (Tristana's forearm vanished into the cannon, 「小炮还是不对」); instead the weapon is pinned: it keeps
-# standing with the legs and the cuts go ABOVE it (oppi's Jax breathes over a planted lamppost the same way), so the
-# grip stays drawn exactly as the design laid it.
-WEAPON_PIN = {
-    "jax": [({(0x28, 0x33, 0x54), (0x8A, 0x29, 0x01), (0xE4, 0xBE, 0x6A)}, (-11, -4, -99, 99))],
-    "tristana": [({(0x73, 0x97, 0xC3), (0xB9, 0xDD, 0xED), (0xBF, 0xCC, 0xD8), (0x44, 0x5E, 0x80), (0x7E, 0x87, 0x9E),
-                   (0x28, 0x34, 0x47), (0xC8, 0x99, 0x4E), (0xE6, 0xBF, 0x86), (0xCE, 0x95, 0x60), (0x87, 0x60, 0x2E)},
-                  (-14, -3, 2, 99))],
 }
 
 
@@ -845,18 +832,14 @@ def breathe_idle(hero, sheet):
     else:
         ys, xs = np.nonzero(a[..., 3])
         head = (float(np.median(xs[ys < ys.min() + 8])), float(ys.min() + 7))
-    frozen = pin = None
+    frozen = None
     if hero in WEAPON_FREEZE:
         frozen = np.zeros(a.shape[:2], bool)
         for colours, box in WEAPON_FREEZE[hero]:
             frozen |= weapon_mask(a, colours, box)
         a = a.copy()
         a[frozen] = 0
-    if hero in WEAPON_PIN:
-        pin = np.zeros(a.shape[:2], bool)
-        for colours, box in WEAPON_PIN[hero]:
-            pin |= weapon_mask(a, colours, box)
-    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, keep=pin, **BREATHE_OPTS.get(hero, {}))
+    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **BREATHE_OPTS.get(hero, {}))
     if frozen is not None:
         src = sheet["idle"][0][0]
         fy, fx = np.nonzero(frozen)
