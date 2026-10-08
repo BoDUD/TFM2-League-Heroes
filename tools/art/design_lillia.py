@@ -11,7 +11,8 @@ bough, 72 rows), 07 = version B (the shorter bough, 65 rows), 06 = another B (59
         costing its difference from the nearer neighbour; the face rows and columns kept), then the outline closed;
   vote  each 42-row cell the colour most of its source block shows (ink only over half the block), then the outline
         closed (league_gwen's route).
-Step 10 (B46_rig, the design now): step 9 with the defects the action strips showed (rig_lillia.py, FIX10): the waist's
+Step 11 (B46_body, the design now): step 10 with the 10-08 deer, its rump raised behind the hair, the tail tuft on
+its top and the leaf skirt back round the waist (BODY11, 「莉莉娅上半身和下半身做的更自然点」). Step 10 (B46_rig): step 9 with the defects the action strips showed (rig_lillia.py, FIX10): the waist's
 forearm two rows with the bracer round it (「手臂这里不改吗 空这么大」), the bough's outline square on row 67, the hem's gaps,
 the chest ended at the bough. Step 9 (B46_final): step 8 without the black hole by the elbow. Step 8 (B46_seam): the bough upright, the waist seam redrawn. Step 7 (B46_straight): step 6 with the bough straight. Step 6 (B46_slim): step 5 slimmed. Step 5 (B46_fixed): raw 07 cut gently to 46 rows and fixed by hand, square by square (see
 FIXES46). Steps 2-4 (B_polish, the user's 「你选一个吧 ... 需要调用工具修复」): crumbs and lone ink cleaned, the face and the bough's
@@ -610,6 +611,39 @@ def final10():
     return apply_letters(final(), FIX10)
 
 
+# step 11 (2026-10-09, the user: 「莉莉娅上半身和下半身做的更自然点」; C of three): the deer the strips got on 10-08 (the
+# rump and the raised tail behind the torso, the cream chest and belly; it had dropped the leaf skirt, so the bare waist
+# sat on a flat-topped barrel - a horizontal seam) with the rump raised behind the hair as in the picture (its top ~6
+# rows above the waist, the tail tuft standing on its top-left corner, two purple spots), and the leaf skirt back round
+# the waist: a band of leaves lit from the upper left over the deer's top, their tips hanging onto the barrel. The
+# bough ends at the hands (as on 10-08).
+BODY11 = {
+    72: [(49, "KK")],
+    73: [(48, "KlK")],
+    74: [(48, "KCCK")],
+    75: [(48, "KCCK")],
+    76: [(48, "KCCKKKKKKhhKFKFFfKKssKKfFfK.")],
+    77: [(48, "KCCoooOOKhKOOKsFfFdssdfFfFK.")],
+    78: [(49, "KCooOOOO")],
+    79: [(49, "KoOOOOeO")],
+    80: [(49, "KOOOOeOOKHHHHsdfFfhFfssddKK")],
+    81: [(49, "KOOOOOOOO")],
+    82: [(49, "KbOOOOO")],
+    83: [(49, "KbOOOOOOOOKLfFLfFLfFLfFLfFK.")],
+    84: [(49, "KbbOObbooKFfFFffFFffFFffFFK.")],
+    85: [(49, "KbbOOOOOOKFbFfFbFfFbFfFbFfK")],
+    86: [(49, "KKbOOOOOeeOFObOFObOFObOFCbC")],
+    87: [(51, "KbbOOOOOOOOOOOOOOOOOOCCCK.")],
+    88: [(52, "bbOOOOOOOOOOOObOOOOCCCK")],
+    89: [(51, "KboOObOCCCCCcbbOOObCCKK.")],
+    90: [(51, "KKKbaKKObKKKKKKObKKK")],
+}
+
+
+def final11():
+    return apply_letters(final10(), BODY11)
+
+
 CANDIDATES = {
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
@@ -620,7 +654,7 @@ CANDIDATES = {
     "B46_fixed": design46, "B46_cut": lambda: to_canvas(cut("07", 45)), "B46_slim": lambda: slim(design46()),
     "B46_straight": lambda: straighten(slim(design46())),
     "B46_seam": lambda: seam(straighten(slim(design46()))),
-    "B46_final": final, "B46_rig": final10,
+    "B46_final": final, "B46_rig": final10, "B46_body": final11,
 }
 
 
