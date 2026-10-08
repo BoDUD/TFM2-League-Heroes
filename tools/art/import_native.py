@@ -74,18 +74,25 @@ BREATHE_OPTS = {"alistar": {"zone": (0.20, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
 # hero: [(colour set, box)] of a weapon resting on or near the ground. idle_breathe would cut or hinge THROUGH a blade
-# that spans the legs' columns (「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形的要修改」, 2026-10-08), so
+# that spans the legs' columns (「盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形的要修改」, 2026-10-08), so
 # the weapon is lifted out before the breath and stamped back unmoved on every frame: the blade stands planted, the
 # hands slide 1-2 px along the hilt. The box is (row0, row1, col0, col1) relative to (the soles' row, the frame's
 # centre), None = the whole frame; colours were read from the design's own bottom rows (charmaps.txt).
 WEAPON_FREEZE = {
     "garen": [({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65), (0x29, 0x63, 0x80),
                 (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
-    "aatrox": [({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A), (0x27, 0x0D, 0x28),
-                 (0x42, 0x22, 0x4C), (0x68, 0x40, 0x7A)}, (-14, 0, -99, -10))],
     "samira": [({(0xE9, 0xEB, 0xF2), (0xB5, 0xBA, 0xD2), (0x77, 0x7B, 0x90)}, (-14, 0, 11, 99))],   # the sword, not the hilt
     "riven": [({(0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69), (0x43, 0x4A, 0x46),
                 (0x27, 0x27, 0x20), (0xF6, 0xEA, 0xDB), (0x24, 0x18, 0x1F)}, (-12, -1, 1, 99))],
+}
+
+
+# hero: [(colour set, box)] of a weapon HELD off the ground (its tip clear of the soles). Frozen like a planted one, the
+# hand dropped along the hilt and the blade kinked there (Aatrox: 「剑魔还是有不对的地方 变形了 手拿武器的时候」,
+# 2026-10-08); it is lifted out the same way and stamped back moved with the body, rigid: each frame's dip and lean
+WEAPON_CARRY = {
+    "aatrox": [({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A), (0x27, 0x0D, 0x28),
+                 (0x42, 0x22, 0x4C), (0x68, 0x40, 0x7A)}, (-14, 0, -99, -10))],
 }
 
 
@@ -835,7 +842,22 @@ def breathe_idle(hero, sheet):
             frozen |= weapon_mask(a, colours, box)
         a = a.copy()
         a[frozen] = 0
-    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **BREATHE_OPTS.get(hero, {}))
+    carried = None
+    if hero in WEAPON_CARRY:
+        carried = np.zeros(a.shape[:2], bool)
+        for colours, box in WEAPON_CARRY[hero]:
+            carried |= weapon_mask(a, colours, box)
+        a = a.copy()
+        a[carried] = 0
+    opts = BREATHE_OPTS.get(hero, {})
+    frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **opts)
+    if carried is not None:
+        src = sheet["idle"][0][0]
+        cy, cx = np.nonzero(carried)
+        body, sway = opts.get("body", IB.BODY), opts.get("sway", IB.SWAY)
+        for k, f in enumerate(frames):
+            f[cy + 2 + body[k], cx + 2 + sway[k]] = src[cy, cx]
+        rows["carried"] = int(carried.sum())
     if frozen is not None:
         src = sheet["idle"][0][0]
         fy, fx = np.nonzero(frozen)
