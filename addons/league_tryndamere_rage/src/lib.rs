@@ -26,6 +26,7 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
 use std::collections::HashMap;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -352,7 +353,8 @@ impl Guard {
             fury: fury_of(&names, self.p.f_n),
             controlled: controlled(sim, me),
         };
-        let why = format!("hp {hp:.0}% (top {top:.0}% in {} ticks){}", self.p.burst_t, if from_hit { " on a hit" } else { "" });
+        let why = format!("hp {hp:.0}% (top {top:.0}% in {} ticks){}{}", self.p.burst_t, if from_hit { " on a hit" } else { "" },
+                          if n.r_free { ", R ready" } else { "" });
         if n.armed && !self.was_armed {
             wlog(format!("{} ARMED: {why}", head(sim, me)));
         }
@@ -435,17 +437,28 @@ const READY_T: usize = 3;
 
 /// AI 钩子看到的「R 好了」：(这场模拟, 蛮王) -> 最近一次看到的 tick。被动在自己的模拟里读不到玩家（也就读不到 R 的冷却），
 /// AI 钩子又加不上 buff（日志：could not add），所以经由这张表告诉被动。键里有模拟的来历（预模拟 / 观看 / 回放、比赛、局），
-/// 几场模拟同时跑也各算各的。
-type SimKey = (u32, u64, u64, u64, usize);
+/// 几场模拟同时跑也各算各的：来历常常都是「未知、没有比赛号」、蛮王的编号也一样（第四局日志：按 R 的下一 tick
+/// 照样喝 Q——别的模拟里 R 没好的蛮王把记录删了），所以键里还有模拟的随机种子。
+type SimKey = (u64, u32, u64, u64, u64, usize);
 static READY: LazyLock<Mutex<HashMap<SimKey, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn sim_key(sim: &StableSim<'_>, id: usize) -> SimKey {
     let o = sim.sim_origin().unwrap_or_default();
-    (o.kind, o.match_id, o.replay_id, o.set_index, id)
+    (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index, id)
+}
+
+/// The first key each side computes goes to the log once (both must agree for the guard to see the hook's record).
+static KEY_LOGGED: [AtomicBool; 2] = [AtomicBool::new(false), AtomicBool::new(false)];
+
+fn log_key_once(sim: &StableSim<'_>, id: usize, side: usize) {
+    if !KEY_LOGGED[side].swap(true, Ordering::Relaxed) {
+        wlog(format!("{} KEY ({}): {:?}", head(sim, id), ["AI hook", "guard"][side], sim_key(sim, id)));
+    }
 }
 
 /// AI 钩子记下这一 tick R 好没好。
 fn ready_saw(sim: &StableSim<'_>, id: usize, free: bool) {
+    log_key_once(sim, id, 0);
     let key = sim_key(sim, id);
     let mut map = READY.lock().unwrap_or_else(|e| e.into_inner());
     if free {
@@ -460,6 +473,7 @@ fn ready_saw(sim: &StableSim<'_>, id: usize, free: bool) {
 
 /// 被动：AI 钩子最近 `READY_T` tick 内看到 R 好了。
 fn ready_seen(sim: &StableSim<'_>, id: usize) -> bool {
+    log_key_once(sim, id, 1);
     let tick = sim.tick();
     let map = READY.lock().unwrap_or_else(|e| e.into_inner());
     map.get(&sim_key(sim, id)).is_some_and(|&t| t <= tick + READY_T && tick <= t + READY_T)
