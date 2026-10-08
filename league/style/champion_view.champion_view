@@ -829,15 +829,15 @@
     "league_renekton": {
       "face": {
         "x": 12,
-        "y": -24
+        "y": -22
       },
       "center": {
         "x": 0,
-        "y": -12
+        "y": -11
       },
       "banpick_center": {
         "x": 0,
-        "y": -10
+        "y": -14
       }
     },
     "league_seraphine": {
