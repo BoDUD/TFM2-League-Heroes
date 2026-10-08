@@ -637,6 +637,10 @@ TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
 SHRINK = {"xerath": 0.9}      # players: 「泽拉斯 ... 体型偏大」 (2026-10-08)
 SHRINK_KEEP = {"xerath": ["!FBFCFC"]}   # his eyes' white-hot core: no line through his face
+# the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
+# a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
+# 「攻击时候也是」
+SHRINK_ANCHOR = {"xerath": "FBFCFC"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -1435,7 +1439,7 @@ def main():
             body0 = SF.body_of(sheet["idle"])
             a0 = sheet["idle"][0][0]
             idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), body=body0,
-                                        tags=["idle"])["idle"]
+                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero))["idle"]
             if hero in HEAD_AT:
                 hx, hy = HEAD_AT[hero]
                 nx, ny = SF.move_point(idle_plan, hx - a0.shape[1] // 2, hy - a0.shape[0] // 2)
@@ -1457,7 +1461,8 @@ def main():
                     copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
             plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
                                                          keep_colours=SHRINK_KEEP.get(hero, ()),
-                                                         tags=[t for t in sheet if t != "idle"])}
+                                                         tags=[t for t in sheet if t != "idle"],
+                                                         anchor=SHRINK_ANCHOR.get(hero))}
             SHRUNK[hero] = plans
             print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
                 f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
