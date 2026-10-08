@@ -518,6 +518,13 @@
         "skill": "扔出两把穿透匕首，各造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>（后续目标50%），各留一根羽毛；随后<#ff9028ff>倒钩<>收回所有羽毛，每根对路过的敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害，一次收回命中英雄第3次起<#ef5350ff>禁锢1.25秒<>。",
         "skill2": "攻速+<#ffb900ff>50%<>，持续4秒；期间每次普攻再甩出一片25%伤害的羽刃，命中英雄时移速+30%。<#ff9028ff>洛<>在附近时，他也获得这些效果。",
         "ult": "跃向空中，<#ffb900ff>1.1秒<>内不受伤害和控制，再向前方降下匕首雨，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，留下一排羽毛并随即收回。"
+      },
+      "league_lulu": {
+        "name": "璐璐",
+        "attack": "射出魔弹。被动<#ff9028ff>皮克斯，仙灵伙伴<>：皮克斯朝同一目标射出<#ffb900ff>3颗<>飞弹，每颗造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>。",
+        "skill": "璐璐和皮克斯各射出一道贯穿魔弹，直线上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速80%<>，<#ffb900ff>1.5秒<>内逐渐减弱。",
+        "skill2": "<#ff9028ff>奇思妙想<>：把敌方英雄<#ef5350ff>变形1.75秒<>（无法攻击和施法、减速），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>；<#ff9028ff>帮忙，皮克斯！<>：附近友方英雄获得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>护盾<>和<#ffb900ff>25%<>移速、攻速（<#ffb900ff>3.5秒<>）。",
+        "ult": "交战时让被控制或被敌人贴身的友方英雄（或自己）变大：<#7cfc00ff>生命+350<>，周围敌人<#ef5350ff>击飞1秒<>，<#ffb900ff>7秒<>内身边敌人<#ef5350ff>减速30%<>。"
       }
     },
     "skill_name": {
@@ -890,6 +897,11 @@
         "skill1": "双刃·倒钩",
         "skill2": "致死羽衣",
         "ult": "暴风羽刃"
+      },
+      "league_lulu": {
+        "skill1": "闪耀长枪",
+        "skill2": "奇思妙想",
+        "ult": "狂野生长"
       }
     }
   },
@@ -1412,6 +1424,13 @@
         "skill": "擲出兩把貫穿匕首，各造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>（後續目標50%），各留一根羽毛；隨後<#ff9028ff>漫天血刃<>收回所有羽毛，每根對經過的敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害，一次收回命中英雄第3次起<#ef5350ff>定身1.25秒<>。",
         "skill2": "攻速+<#ffb900ff>50%<>，持續4秒；期間每次普攻再甩出一片25%傷害的羽刃，命中英雄時跑速+30%。<#ff9028ff>銳空<>在附近時，他也獲得這些效果。",
         "ult": "躍向空中，<#ffb900ff>1.1秒<>內不受傷害和控制，再向前方降下匕首雨，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，留下一排羽毛並隨即收回。"
+      },
+      "league_lulu": {
+        "name": "露璐",
+        "attack": "射出魔彈。被動<#ff9028ff>皮克斯，守護妖精<>：皮克斯朝同一目標射出<#ffb900ff>3顆<>飛彈，每顆造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>。",
+        "skill": "露璐和皮克斯各射出一道貫穿魔彈，直線上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速80%<>，<#ffb900ff>1.5秒<>內逐漸減弱。",
+        "skill2": "<#ff9028ff>幻想曲<>：把敵方英雄<#ef5350ff>變形1.75秒<>（無法攻擊和施法、緩速），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>；<#ff9028ff>帥啊小皮！<>：附近友方英雄獲得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>護盾<>和<#ffb900ff>25%<>移速、攻速（<#ffb900ff>3.5秒<>）。",
+        "ult": "交戰時讓被控制或被敵人貼身的友方英雄（或自己）變大：<#7cfc00ff>生命+350<>，周圍敵人<#ef5350ff>擊飛1秒<>，<#ffb900ff>7秒<>內身邊敵人<#ef5350ff>緩速30%<>。"
       }
     },
     "skill_name": {
@@ -1784,6 +1803,11 @@
         "skill1": "赤落連匕·漫天血刃",
         "skill2": "奪命疾翼",
         "ult": "驟羽暴風"
+      },
+      "league_lulu": {
+        "skill1": "閃耀雙重奏",
+        "skill2": "幻想曲",
+        "ult": "究極鍊化"
       }
     }
   },
@@ -2306,6 +2330,13 @@
         "skill": "Throws two piercing daggers, each <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> (50% after the first target), each leaving a Feather; then <#ff9028ff>Bladecaller<> calls every Feather back, each dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> to enemies it passes. From the third champion hit of one recall, <#ef5350ff>roots<> for <#ffb900ff>1.25s<>.",
         "skill2": "Gains <#ffb900ff>50%<> attack speed for 4s; each attack throws a second blade for 25% damage, and a champion hit gives 30% move speed. If <#ff9028ff>Rakan<> is nearby, he gains these too.",
         "ult": "Leaps up, taking no damage or crowd control for <#ffb900ff>1.1s<>, then rains daggers ahead for <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, leaving a row of Feathers she calls back at once."
+      },
+      "league_lulu": {
+        "name": "Lulu",
+        "attack": "Fires a bolt. Passive <#ff9028ff>Pix, Faerie Companion<>: Pix fires <#ffb900ff>3 bolts<> at the same target, each dealing <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<>.",
+        "skill": "Lulu and Pix each fire a piercing bolt: enemies in the line take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed by 80%<>, decaying over <#ffb900ff>1.5s<>.",
+        "skill2": "<#ff9028ff>Whimsy<>: <#ef5350ff>polymorphs<> an enemy champion for <#ffb900ff>1.75s<> (no attacks or spells, slowed) and deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; <#ff9028ff>Help, Pix!<>: a nearby allied champion gets a <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<> <#9fd8ffff>shield<> and <#ffb900ff>25%<> move and attack speed for <#ffb900ff>3.5s<>.",
+        "ult": "In a fight, an allied champion in crowd control or with enemies on him (or Lulu) grows: <#7cfc00ff>+350 health<>, nearby enemies are <#ef5350ff>knocked up for 1s<> and <#ef5350ff>slowed by 30%<> around him for <#ffb900ff>7s<>."
       }
     },
     "skill_name": {
@@ -2678,6 +2709,11 @@
         "skill1": "Double Daggers + Bladecaller",
         "skill2": "Deadly Plumage",
         "ult": "Featherstorm"
+      },
+      "league_lulu": {
+        "skill1": "Glitterlance",
+        "skill2": "Whimsy",
+        "ult": "Wild Growth"
       }
     }
   },
@@ -3200,6 +3236,13 @@
         "skill": "관통하는 단검 두 개를 던져 각각 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>(다음 대상 50%), 깃털을 남깁니다. 이어서 <#ff9028ff>깃부르미<>로 깃털을 모두 회수해 지나가는 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 피해, 한 번의 회수에서 세 번째 챔피언 적중부터 <#ffb900ff>1.25초<> <#ef5350ff>속박<>.",
         "skill2": "공격 속도 <#ffb900ff>+50%<> (4초). 공격마다 25% 피해의 깃날을 하나 더 던지고, 챔피언 적중 시 이동 속도 +30%. 근처에 <#ff9028ff>라칸<>이 있으면 라칸도 같은 효과를 얻습니다.",
         "ult": "공중으로 도약해 <#ffb900ff>1.1초<> 동안 피해와 군중 제어를 받지 않고, 앞쪽에 단검 비를 내려 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>를 입히며 깃털 한 줄을 남겨 바로 회수합니다."
+      },
+      "league_lulu": {
+        "name": "룰루",
+        "attack": "마법탄을 쏩니다. 기본 지속 효과 <#ff9028ff>요정 친구 픽스<>: 픽스가 같은 대상에게 <#ffb900ff>3발<>을 쏘아 한 발마다 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 <#a974ffff>마법 피해<>를 입힙니다.",
+        "skill": "룰루와 픽스가 관통하는 마법탄을 하나씩 쏩니다. 직선상의 적은 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>를 입고 <#ef5350ff>80% 둔화<>되며, <#ffb900ff>1.5초<>에 걸쳐 약해집니다.",
+        "skill2": "<#ff9028ff>변덕쟁이<>: 적 챔피언을 <#ffb900ff>1.75초<> <#ef5350ff>변이<>시키고(공격·스킬 불가, 둔화) <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>; <#ff9028ff>도와줘, 픽스!<>: 근처 아군 챔피언에게 <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>의 <#9fd8ffff>보호막<>과 <#ffb900ff>3.5초<> 동안 이동·공격 속도 <#ffb900ff>25%<>.",
+        "ult": "교전 중 군중 제어에 걸렸거나 적에게 붙잡힌 아군 챔피언(또는 룰루)을 키웁니다: <#7cfc00ff>체력 +350<>, 주변 적 <#ef5350ff>1초 띄워 올림<>, <#ffb900ff>7초<> 동안 주변 적 <#ef5350ff>30% 둔화<>."
       }
     },
     "skill_name": {
@@ -3572,6 +3615,11 @@
         "skill1": "깃털 연타·깃부르미",
         "skill2": "죽음의 깃",
         "ult": "저항의 비상"
+      },
+      "league_lulu": {
+        "skill1": "반짝반짝 창",
+        "skill2": "변덕쟁이",
+        "ult": "급성장"
       }
     }
   },
@@ -4094,6 +4142,13 @@
         "skill": "貫通する短剣を2本投げ、各<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>（後続50%）、羽根を残す。続けて<#ff9028ff>ブレードコーラー<>で全羽根を回収、通過した敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>、1回の回収で3回目以降のチャンピオン命中は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>。",
         "skill2": "攻撃速度<#ffb900ff>+50%<>（4秒）。攻撃ごとに25%ダメージの羽刃をもう1本投げ、チャンピオン命中で移動速度+30%。近くに<#ff9028ff>ラカン<>がいれば彼も同じ効果を得る。",
         "ult": "空中に跳び<#ffb900ff>1.1秒<>ダメージと行動妨害を受けず、前方に短剣の雨で<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、羽根の列を残してすぐ回収。"
+      },
+      "league_lulu": {
+        "name": "ルル",
+        "attack": "魔法弾を撃つ。パッシブ <#ff9028ff>仲良し妖精ピックス<>：ピックスが同じ対象に<#ffb900ff>3発<>撃ち、1発ごとに<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill": "ルルとピックスが貫通弾を1発ずつ撃つ。直線上の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>80%スロウ<>（<#ffb900ff>1.5秒<>で弱まる）。",
+        "skill2": "<#ff9028ff>イタズラ<>：敵チャンピオンを<#ffb900ff>1.75秒<><#ef5350ff>変身<>させ（攻撃・スキル不可、スロウ）<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ピックス、おねがい！<>：近くの味方に<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>の<#9fd8ffff>シールド<>と移動・攻撃速度<#ffb900ff>25%<>（<#ffb900ff>3.5秒<>）。",
+        "ult": "戦闘中、行動妨害中か敵に張り付かれた味方（またはルル）を巨大化：<#7cfc00ff>体力+350<>、周囲の敵を<#ef5350ff>1秒ノックアップ<>、<#ffb900ff>7秒<>周囲の敵に<#ef5350ff>30%スロウ<>。"
       }
     },
     "skill_name": {
@@ -4466,6 +4521,11 @@
         "skill1": "ダブルダガー・ブレードコーラー",
         "skill2": "デッドリープルーム",
         "ult": "フェザーストーム"
+      },
+      "league_lulu": {
+        "skill1": "ぴかぴかビーム",
+        "skill2": "イタズラ",
+        "ult": "おおきくなぁれ！"
       }
     }
   }

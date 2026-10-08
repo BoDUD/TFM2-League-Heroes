@@ -1,0 +1,264 @@
+{
+ "hero": "lulu",
+ "champ": "Lulu",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 37,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "lulu_idle0@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "lulu_idle0@0",
+     200
+    ],
+    [
+     "lulu_idle0@0",
+     200
+    ],
+    [
+     "lulu_idle0@0",
+     200
+    ],
+    [
+     "lulu_idle0@0",
+     200
+    ],
+    [
+     "lulu_idle0@0",
+     200
+    ],
+    [
+     "lulu_idle0@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "lulu_idle0@0",
+   "frames": [
+    [
+     "lulu_run@0",
+     125
+    ],
+    [
+     "lulu_run@125",
+     125
+    ],
+    [
+     "lulu_run@250",
+     125
+    ],
+    [
+     "lulu_run@375",
+     125
+    ],
+    [
+     "lulu_run@500",
+     125
+    ],
+    [
+     "lulu_run@625",
+     125
+    ],
+    [
+     "lulu_run@750",
+     125
+    ],
+    [
+     "lulu_run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "lulu_idle0@0>lulu_attack1@60:0.6",
+     60
+    ],
+    [
+     "lulu_attack1@120",
+     60
+    ],
+    [
+     "lulu_attack1@160",
+     70
+    ],
+    [
+     "lulu_attack1@189",
+     70
+    ],
+    [
+     "lulu_attack1@300",
+     70
+    ],
+    [
+     "lulu_attack1@600>lulu_idle0@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "rise": 0.15,
+   "release": 4,
+   "frames": [
+    [
+     "lulu_idle0@0>lulu_spell1@100:0.6",
+     55
+    ],
+    [
+     "lulu_spell1@150",
+     55
+    ],
+    [
+     "lulu_spell1@185",
+     57
+    ],
+    [
+     "lulu_spell1@211",
+     60
+    ],
+    [
+     "lulu_spell1@230",
+     70
+    ],
+    [
+     "lulu_spell1@250>lulu_idle0@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.4,
+   "rise": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "lulu_idle0@0>lulu_spell3@80:0.6",
+     55
+    ],
+    [
+     "lulu_spell3@161",
+     55
+    ],
+    [
+     "lulu_spell3@323",
+     57
+    ],
+    [
+     "lulu_spell3@484",
+     55
+    ],
+    [
+     "lulu_spell3@645",
+     55
+    ],
+    [
+     "lulu_spell3@806>lulu_idle0@0:0.5",
+     56
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.4,
+   "rise": 0.25,
+   "release": 3,
+   "frames": [
+    [
+     "lulu_idle0@0>lulu_spell4@80:0.6",
+     60
+    ],
+    [
+     "lulu_spell4@161",
+     60
+    ],
+    [
+     "lulu_spell4@240",
+     70
+    ],
+    [
+     "lulu_spell4@323",
+     70
+    ],
+    [
+     "lulu_spell4@645",
+     70
+    ],
+    [
+     "lulu_spell4@806>lulu_idle0@0:0.5",
+     70
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "lulu_idle0@0>lulu_death@150:0.35",
+     120
+    ],
+    [
+     "lulu_idle0@0>lulu_death@150:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "lulu_death@0",
+     100
+    ],
+    [
+     "lulu_death@150",
+     100
+    ],
+    [
+     "lulu_death@300",
+     100
+    ],
+    [
+     "lulu_death@450",
+     100
+    ],
+    [
+     "lulu_death@694",
+     120
+    ],
+    [
+     "lulu_death@1389",
+     150
+    ],
+    [
+     "lulu_death@2778",
+     200
+    ],
+    [
+     "lulu_death@3472",
+     500
+    ]
+   ]
+  }
+ }
+}

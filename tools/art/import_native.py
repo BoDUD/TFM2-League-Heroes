@@ -121,6 +121,11 @@ WEAPON_CARRY = {
                 (-42, -30, -18, -14)),
                ({(0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x38, 0x3B, 0x46), (0x22, 0x24, 0x2D), (0x7D, 0x10, 0x27), (0x55, 0x5B, 0x6C), (0x63, 0x68, 0x7C), (0x7A, 0x80, 0x91), (0x14, 0x14, 0x1C)},
                 (-12, 0, -24, -10))],
+    # Lulu's staff runs from over her hat down across her body to its foot between her boots (cols 0..+3): its three
+    # woods carried down to the robe's hem only (rows -20..-4) - the foot stays planted between the boots, which share
+    # the staff's darkest brown (carried, the foot and a square of the far boot sank under the soles: the boot came
+    # apart, 2026-10-08); the boots' plum (#4E3040) and the hat's dark gold stay out
+    "lulu": [({(0xB4, 0x7A, 0x4E), (0x5A, 0x2E, 0x1A), (0x2E, 0x16, 0x0E)}, (-20, -4, -3, 99))],
 }
 
 
@@ -177,6 +182,43 @@ def weapon_mask(a, colours, box):
     return m
 
 
+# heroes whose carried weapon crosses IN FRONT of the body: the squares behind it were never drawn, so once the body
+# dips under the stamped-back weapon they showed as see-through slits (Lulu's staff over her robe, 2026-10-08: 「像素
+# 缺失」). For them the lifted weapon's squares that lie inside the body are first filled with the body's own colour
+# round them (fill_behind), then the body breathes.
+CARRY_FILL |= {"lulu"}
+
+
+def fill_behind(a, carried):
+    """The lifted weapon's squares that lie inside the figure (drawn squares within 3 on both sides, across or up and
+    down) take the most common non-outline colour among their drawn neighbours, a ring at a time."""
+    a = a.copy()
+    op = a[..., 3] > 0
+    H, W = op.shape
+    todo = {(int(y), int(x)) for y, x in zip(*np.nonzero(carried))}
+    dark = lambda c: sum(c) < 120                                   # noqa: E731 - the outline
+    for _ in range(8):
+        done = []
+        for y, x in sorted(todo):
+            row, col = op[y], op[:, x]
+            inside = ((row[max(0, x - 3):x].any() and row[x + 1:x + 4].any()) or
+                      (col[max(0, y - 3):y].any() and col[y + 1:y + 4].any()))
+            if not inside:
+                continue
+            cols = [tuple(int(v) for v in a[v_, u_, :3]) for v_ in (y - 1, y, y + 1) for u_ in (x - 1, x, x + 1)
+                    if (v_, u_) != (y, x) and 0 <= v_ < H and 0 <= u_ < W and op[v_, u_]]
+            body = [c for c in cols if not dark(c)]
+            if len(body) >= 2:
+                done.append((y, x, max(set(body), key=body.count)))
+        if not done:
+            break
+        for y, x, c in done:
+            a[y, x] = (*c, 255)
+            op[y, x] = True
+            todo.discard((y, x))
+    return a
+
+
 NO_NOD = {"kayn"}   # with his scythe carried a cheap neck row turned up and his head began to nod; nobody else nods
     # the piece took his upper body
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
@@ -230,7 +272,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah"}
+            "lillia", "viktor", "xayah", "lulu"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -416,7 +458,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("lillia", "idle"): [0, 0, 0, 0, 0, 0],
 
          # Viktor (Codex's design B, the staff straightened, design_viktor.py; Codex's idle is the design six times)
-         ("viktor", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("viktor", "idle"): [0, 0, 0, 0, 0, 0],
+         # Lulu (Codex's design version 2 + the user's round face C3; the pack's idle is the design six times)
+         ("lulu", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -889,6 +933,8 @@ def breathe_idle(hero, sheet):
             carried |= weapon_mask(a, colours, box)
         a = a.copy()
         a[carried] = 0
+        if hero in CARRY_FILL:
+            a = fill_behind(a, carried)
     opts = BREATHE_OPTS.get(hero, {})
     frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **opts)
     if carried is not None:

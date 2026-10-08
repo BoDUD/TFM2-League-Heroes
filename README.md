@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动；辅助以后做）。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -138,6 +138,7 @@
 ![维克托演示：他用奥术光弹打德莱厄斯；Q 虹吸能量：法杖射出金色海克斯光弹，打中后他身上亮起青色护盾、身边绕着两颗金色光点，下一下普攻变成金色光弹；W 重力场：德莱厄斯脚下展开蓝紫色引力场，两人减速；E 海克斯射线：从德莱厄斯脚下往身后扫出一道金光，穿过盖伦；1.25 秒后引力场爆开，两人头顶冒出引力环晕住，余波沿射线再炸一遍；他走到两人右边、转身朝左（红色方的样子）放 R 奥术风暴：风暴落在德莱厄斯身上，每秒劈下闪电；最后身上亮起光荣进化的金光](docs/preview/league_viktor_showcase.gif?v=1008vk5)
 
 ![霞演示：洛站在她身后，她跑进场，甩出两片羽刃打德莱厄斯；Q 双刃：两把匕首穿过德莱厄斯和盖伦，在盖伦身后各留一根羽毛；被动锐切：两下强化普攻穿过德莱厄斯，羽毛落在他身后；E 倒钩：四根羽毛一起飞回来，再穿过两人，第三次命中把德莱厄斯定在原地；W 致死羽衣：脚下卷起羽刃风暴，每次普攻多甩一片羽刃，命中后脚下拖出加速的羽流；R 暴风羽刃：跃起展开羽翼，向前降下一片匕首雨打中两人，留下一排羽毛，随即收回，德莱厄斯倒下](docs/preview/league_xayah_showcase.gif?v=1008xy2)
+![璐璐演示：她跑到盖伦身后，法杖平举打德莱厄斯，魔法弹沿着法杖飞出去，皮克斯跟着射出三发小弹；Q 闪耀长枪：她和皮克斯各射一道粉紫长枪穿过德莱厄斯，他脚下亮起减速光圈；W 奇思妙想把德莱厄斯变成一团粉色烟雾里的小松鼠，同时皮克斯飞到盖伦身上，给他护盾光环和金色加速；变身结束烟雾散开；R 狂野生长：她举起法杖，盖伦身上冲起绿色光柱，德莱厄斯被击飞，盖伦脚下留下生长光环](docs/preview/league_lulu_showcase.gif?v=1008lu)
 
 ## 英雄：盖伦
 
@@ -3142,6 +3143,42 @@ python tools/art/preview_xayah.py
 - 红色方（用户：「蓝色方红色方特效不要颠倒」）：Q、W、E、R 出手时有前后之分的画面（Q 手上的闪光，E、W、R 胸前的光）画进她自己的动作帧，跟着她一起翻转（`bake_caster_fx.py`，`build_xayah.py` 每次生成都会重新套上）；W 第二片羽刃出手时手上的小闪光去掉了：它要在普攻中途插一段动作帧，模拟里这让她的击杀差两批都低了约 0.5（其余画进帧的画面对模拟没有任何影响）；被动的光在每个技能的五档层数里都会播，画进帧要复制太多动作，改成放在身体中间、左右对称；飞行的羽刃、匕首、羽毛和匕首雨（画面跟着方向转）严格上下对称；命中、插在地上的羽毛、定身、风暴圈、加速羽流严格左右对称。
 
 逐帧预览：[`docs/preview/league_xayah_frames.png`](docs/preview/league_xayah_frames.png)，特效：[`docs/preview/league_xayah_effects.png`](docs/preview/league_xayah_effects.png)。
+
+## 英雄：璐璐
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 辅助（远程，分类 Util），用户排的第十五组的辅助（同组：上单雷克顿、打野莉莉娅、中单维克托、ADC 霞），第 75 位英雄。仙灵女巫 璐璐：约德尔人，带着仙灵皮克斯。用户选的方案 A（全是推荐项） |
+| 普攻 / 被动 | 普攻是追踪的魔法弹，100% 攻击力，射程 55000，攻击间隔 90 tick（第 11 tick 出手）。被动「皮克斯，仙灵伙伴」：每次普攻皮克斯朝同一目标再射 3 发追踪小弹（间隔 4 tick），每发 12 + 8% 法强的魔法伤害 |
+| 技能1 | Q「闪耀长枪」：冷却 360 tick（6 秒），对 60000 内的敌人放（小兵、野怪也算），出手那一刻锁定方向，可以躲。她和皮克斯各射一道长枪（穿透，飞 70000）；她那道对路上所有敌人造成 80 + 60% 法强的魔法伤害，减速 30%（30 tick）叠加 50%（90 tick），模拟英雄联盟 80% 逐渐减弱；皮克斯那道只是画面（英雄联盟里一个敌人只吃一道的伤害） |
+| 技能2 | W「奇思妙想」+ E「帮忙，皮克斯！」一起放：冷却 540 tick（9 秒），对 55000 内的敌方英雄放。魔法弹把他变身 105 tick（1.75 秒）：不能普攻、不能放技能、减速 30%，并受到 70 + 40% 法强的魔法伤害；引擎换不了他的贴图，所以在他身上盖一团烟雾和小松鼠。同时皮克斯飞到附近的友方英雄身上（先找 30000 内，再找 60000 内，都没有就给自己）：护盾 110 + 50% 法强（150 tick），移速 +25%、攻速 +25%（210 tick） |
+| 大招 | R「狂野生长」：冷却 3600 tick（60 秒），先「上膛」15 秒，之后她每次普攻、Q、W 都检查一次：射程 50000 内被控住的友方英雄优先，否则随机挑一个身边 25000 内有敌方英雄的友方英雄（她自己也算）。被选中的英雄生命 +350（同时回 350 + 50% 法强），碰撞半径变大，身边 22000 内的敌人被击飞 1 秒，之后 7 秒光环每 15 tick 让附近敌人减速 30%。效果在大招动作第 3 帧（举杖那一刻，7 tick 后）生效；15 秒都没用上就退还冷却 |
+| 数值 | 攻击 75（+6）、法强 30（+15）、生命 880（+90）、护甲 22（+7）、魔抗 24（+4）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：辅助位，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），3 套阵容、两边各打，10 分钟。初稿 +0.13；Q、护盾、变身时间、皮克斯伤害、大招生命上调后，种子 13–36 上 +0.48（同一批迦娜 −0.24） |
+| 亚索联动 | R 的击飞算控制：璐璐在亚索队里打辅助时，亚索每局对英雄放 R 0.65 次（原版 `priest` 0.58、迦娜 1.27、蕾欧娜 2.12），不用调 |
+| 精灵图 | 8 个动作 49 帧：待机 8、移动 7、普攻 6、Q（`skill`）6、W+E（`skill2`）6、R（`ult`）6、受击 2、死亡 8（她消失，帽子落在法杖上）。约德尔人，按用户要求整体缩到 90%：待机 39 行（原来 44 行）。头像截取点 (2, −22) |
+| 特效 | Codex 画的 21 张（`import_lulu.py` 缩成游戏像素），两张表：`league_lulu_fx` 普攻魔法弹和命中、皮克斯的小弹和命中，Q 的两道长枪、命中、减速光圈，W 的魔法球、变身烟雾和小松鼠（出现 / 循环 / 散开三段），E 皮克斯的光球、落到队友身上的闪光、护盾光环（皮克斯在上面）、金色加速；`league_lulu_big` R 的绿色光柱和地面生长光环（三段） |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_lulu.py`）：普攻、Q、W、E、R 和变身、护盾、变大的声音，W、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，本机用脚本重新生成 |
+| 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_lulu.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_lulu.py           # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_lulu.py           # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/import_native.py --hero lulu
+python tools/art/import_lulu.py          # 特效；--raw <Codex 交付目录> 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/preview_lulu.py
+```
+
+美术（动作的提示词见 [`assets/source/lulu/MODEL_STRIPS.md`](assets/source/lulu/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/lulu/PROMPTS_FX.md)；Codex 的动作交付说明在 [`codex_strips/`](assets/source/lulu/codex_strips/)）：
+
+- 原画：用户选 A；造型：用户觉得脸太方，照原画描出圆脸，选了 v2 + C3。
+- 动作：Codex 第 2 步的动作条贴了造型的头，但多擦了几行（胸口一道透明缝）、旧靴子留在旁边（「第三条腿」）、法杖每帧画得歪。按用户的反馈逐条修：缝用 Codex 自己的原稿补回，法杖全部换成造型自己的法杖（只平移或转 90°，不变形），靴子换成造型的两只，皮克斯换成造型的，帽子残线、断腿、黑线逐个清掉。
+- 缩小：用户「露露是约德尔人」，整体缩到 90%（以脚底为基准，描边优先）；缩小时每帧丢的行列不同、五官每帧都变，所以每帧贴回同一张造型原样的脸。
+- 特效：Codex 第 3 步的 21 张（`import_lulu.py --raw`：按交付清单切帧，颜色归到每张的色阶）；原地播放的特效整条用一个锚点（不然每帧会滑），小松鼠单独按 18 px 宽取样、描边优先，脸才看得清。魔法弹按出手帧法杖的高度抬起，在她身前出现、沿着法杖飞出去。
+
+逐帧预览：[`docs/preview/league_lulu_frames.png`](docs/preview/league_lulu_frames.png)，特效：[`docs/preview/league_lulu_effects.png`](docs/preview/league_lulu_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
