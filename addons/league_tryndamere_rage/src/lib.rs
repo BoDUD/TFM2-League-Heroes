@@ -25,7 +25,7 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::collections::HashMap;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -344,9 +344,9 @@ impl Guard {
             top,
             enemy_near: enemy_near(sim, me, team, self.p.near),
             armed: has("r_armed"),
-            // the AI hook's mark (a passive's sim has no players to read the cooldown from: the log of 2026-10-08 -
+            // what the AI hook saw (a passive's sim has no players to read the cooldown from: the log of 2026-10-08 -
             // he drank Bloodlust at 5-13% in the very tick the hook pressed R, healed past the threshold, no rage)
-            r_free: has("r_ready") || r_free(sim, me),
+            r_free: ready_seen(sim, me) || r_free(sim, me),
             raging: has("r_rage"),
             q_cd: has("q_cd"),
             fury: fury_of(&names, self.p.f_n),
@@ -430,10 +430,40 @@ const HERO: &str = "league_tryndamere";
 const R_RANGE: usize = 60_000;
 /// 同一句日志隔这么多 tick 才再记。
 const LOG_EVERY: usize = 120;
-/// 「R 好了」标记的时长：AI 每次思考都续上。
+/// 「R 好了」的记录在这么多 tick 内算数（AI 每次思考都更新）。
 const READY_T: usize = 3;
-/// 标记加不上时只记一次。
-static MARK_FAILED: AtomicBool = AtomicBool::new(false);
+
+/// AI 钩子看到的「R 好了」：(这场模拟, 蛮王) -> 最近一次看到的 tick。被动在自己的模拟里读不到玩家（也就读不到 R 的冷却），
+/// AI 钩子又加不上 buff（日志：could not add），所以经由这张表告诉被动。键里有模拟的来历（预模拟 / 观看 / 回放、比赛、局），
+/// 几场模拟同时跑也各算各的。
+type SimKey = (u32, u64, u64, u64, usize);
+static READY: LazyLock<Mutex<HashMap<SimKey, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn sim_key(sim: &StableSim<'_>, id: usize) -> SimKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (o.kind, o.match_id, o.replay_id, o.set_index, id)
+}
+
+/// AI 钩子记下这一 tick R 好没好。
+fn ready_saw(sim: &StableSim<'_>, id: usize, free: bool) {
+    let key = sim_key(sim, id);
+    let mut map = READY.lock().unwrap_or_else(|e| e.into_inner());
+    if free {
+        if map.len() > 4096 {
+            map.clear();
+        }
+        map.insert(key, sim.tick());
+    } else {
+        map.remove(&key);
+    }
+}
+
+/// 被动：AI 钩子最近 `READY_T` tick 内看到 R 好了。
+fn ready_seen(sim: &StableSim<'_>, id: usize) -> bool {
+    let tick = sim.tick();
+    let map = READY.lock().unwrap_or_else(|e| e.into_inner());
+    map.get(&sim_key(sim, id)).is_some_and(|&t| t <= tick + READY_T && tick <= t + READY_T)
+}
 
 /// AI 的大招：`wants_ult` AI 原来的输入是 R；`danger` 快死了、身边有敌方英雄；`free` R 冷却好、不在待命和爆发里。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -494,7 +524,7 @@ impl StablePlayerAi for UltAi {
             Some(InputV1::move_to(x, y))
         };
         let Some((hp, free, danger_near, cc, target, target_pos, near_pos, line)) = (|| {
-            let mut sim = ctx.sim()?;
+            let sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
             let me = pl.champion()?;
             if !me.is_alive() {
@@ -507,17 +537,7 @@ impl StablePlayerAi for UltAi {
             // `is_valid_input` does not look at cooldowns (league_pyke): the slot's own state decides
             let free = !busy && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0);
             let (id, team) = (me.id(), me.team());
-            if free {
-                // tell the guard R is ready (it keeps Bloodlust for after R): a 3-tick mark, renewed every think
-                let mut mark = BuffV1::timed(&tr("r_ready"), READY_T);
-                mark.duration_kind = BuffDurationV1::Time.code();
-                sim.entity_remove_buff(id, &tr("r_ready"));
-                sim.add_buff(id, &mark);
-                if !buff_names(&sim, id).iter().any(|b| *b == tr("r_ready")) && !MARK_FAILED.swap(true, Ordering::Relaxed) {
-                    wlog(format!("{} the AI hook could not add {} (the guard falls back to the player's cooldown)",
-                                 head(&sim, id), tr("r_ready")));
-                }
-            }
+            ready_saw(&sim, id, free);
             let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
             let target = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
