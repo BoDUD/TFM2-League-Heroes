@@ -178,13 +178,18 @@ def _pick(cost, lo, hi, k, avoid=(), keep=None):
     return out
 
 
-def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), hard_frames=None):
+def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), hard_frames=None, shifts=None):
     """The rows and columns (canvas lines, from the pivot) the hero loses. body = (top, bottom, left, right) of the
     idle's body from the pivot (bottom = the soles' row): of its rows and columns 1 - scale go; of what lies beyond
     it (a raised or held-out weapon) the same share. One plan serves every action (shrink_sheet passes all their
     frames together), so the body loses the same lines in each - an action one row taller than the idle would pop at
-    every animation change. edge_rows / edge_cols: every action's own outermost two lines (pivot-relative), kept."""
+    every animation change. edge_rows / edge_cols: every action's own outermost two lines (pivot-relative), kept.
+    shifts: per frame (dy, dx) of the body against the action's first frame (anchor_shifts): the lines are chosen on
+    the frames moved back onto the first and removed at that much offset in each, so every frame loses the same lines
+    of HIM, not of the canvas."""
     st, H, W = _canvas(frames)
+    if shifts is not None:
+        st = np.stack([_moved(f, -dy, -dx) for f, (dy, dx) in zip(st, shifts)])
     occ = (st[..., 3] > 0).any(0)
     rows, cols = np.nonzero(occ.any(1))[0], np.nonzero(occ.any(0))[0]
     top, bottom, left, right = body
@@ -258,7 +263,53 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
     r_pick = move_off(r_pick, hr, rc, rows.min(), H + bottom + 1, (), False)
     c_pick = move_off(c_pick, hc, cc, cols.min(), cols.max() + 1, (W,), True)
     return {"rows": sorted(i - H for i in r_pick), "cols": sorted(i - W for i in c_pick),       # from the pivot
-            "lost": int(rc[r_pick].sum() + cc[c_pick].sum()) if r_pick or c_pick else 0}
+            "lost": int(rc[r_pick].sum() + cc[c_pick].sum()) if r_pick or c_pick else 0,
+            "shifts": [tuple(int(v) for v in d) for d in shifts] if shifts is not None else None}
+
+
+def _moved(a, dy, dx):
+    """A canvas moved by (dy, dx), what leaves it dropped, the rest empty."""
+    out = np.zeros_like(a)
+    H, W = a.shape[:2]
+    ys, yd = (slice(0, H - dy), slice(dy, H)) if dy >= 0 else (slice(-dy, H), slice(0, H + dy))
+    xs, xd = (slice(0, W - dx), slice(dx, W)) if dx >= 0 else (slice(-dx, W), slice(0, W + dx))
+    out[yd, xd] = a[ys, xs]
+    return out
+
+
+def anchor_points(frames, colour, near=None):
+    """Per frame the centre of `colour` (a colour only one feature has: Xerath's eye core) from the pivot, or None.
+    near: start point of a track - each frame keeps only the squares within 10 of the last centre found (an effect
+    baked into the frame may carry the colour too)."""
+    st, H, W = _canvas(frames)
+    rgb = tuple(int(colour[i:i + 2], 16) for i in (0, 2, 4))
+    pts, last = [], near
+    for f in st:
+        m = (f[..., 3] > 0) & (f[..., :3] == rgb).all(-1)
+        ys, xs = np.nonzero(m)
+        ys, xs = ys - H, xs - W
+        if last is not None and len(ys):
+            ok = (np.abs(ys - last[0]) <= 10) & (np.abs(xs - last[1]) <= 10)
+            ys, xs = ys[ok], xs[ok]
+        p = (float(ys.mean()), float(xs.mean())) if len(ys) else None
+        if p is not None and near is not None:
+            last = p
+        pts.append(p)
+    return pts
+
+
+def anchor_shifts(frames, colour, ref=None):
+    """Per frame (dy, dx) of the anchor against `ref` (default: the first frame that shows it); a frame without it
+    takes the last one's."""
+    pts = anchor_points(frames, colour, near=ref)
+    if ref is None:
+        ref = next((p for p in pts if p is not None), None)
+    out, last = [], (0, 0)
+    for p in pts:
+        if p is not None and ref is not None:
+            last = (int(round(p[0] - ref[0])), int(round(p[1] - ref[1])))
+        out.append(last)
+    return out
 
 
 def move_point(plan, dx, dy):
@@ -275,13 +326,18 @@ def apply_tag(frames, plan):
     every removed row (all lie above the soles, so the soles keep their place under the pivot) and its column by the
     removed columns left of it."""
     st, H, W = _canvas(frames)
-    gone_r = {H + i for i in plan["rows"] if 0 <= H + i < st.shape[1]}
-    gone_c = {W + i for i in plan["cols"] if 0 <= W + i < st.shape[2]}
-    keep_r = [i for i in range(st.shape[1]) if i not in gone_r]
-    keep_c = [i for i in range(st.shape[2]) if i not in gone_c]
-    pr = H - len(gone_r)
-    pc = W - sum(1 for i in gone_c if i < W)
-    return [(G.centre_frame(st[k][np.ix_(keep_r, keep_c)], -pc, -pr), ms) for k, (_, ms) in enumerate(frames)]
+    shifts = plan.get("shifts") or [(0, 0)] * len(frames)
+    out = []
+    for k, (_, ms) in enumerate(frames):
+        dy, dx = shifts[k] if k < len(shifts) else (0, 0)
+        gone_r = {H + i + dy for i in plan["rows"] if 0 <= H + i + dy < st.shape[1]}
+        gone_c = {W + i + dx for i in plan["cols"] if 0 <= W + i + dx < st.shape[2]}
+        keep_r = [i for i in range(st.shape[1]) if i not in gone_r]
+        keep_c = [i for i in range(st.shape[2]) if i not in gone_c]
+        pr = H - len(gone_r)
+        pc = W - sum(1 for i in gone_c if i < W)
+        out.append((G.centre_frame(st[k][np.ix_(keep_r, keep_c)], -pc, -pr), ms))
+    return out
 
 
 def body_of(frames):
@@ -292,10 +348,11 @@ def body_of(frames):
     return (ys.min() - H, ys.max() - H, xs.min() - W, xs.max() - W)
 
 
-def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None):
+def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None, anchor=None):
     """Every action of the sheet (or only `tags`) made `scale` as big; returns {tag: plan}. same_as {tag: source tag}: a
     copy of another action's frames (import_native's bake: the attack with a flash drawn in) takes its source's plan.
-    body: the range the counts come from (body_of the idle as drawn), when the idle has been shrunk already."""
+    body: the range the counts come from (body_of the idle as drawn), when the idle has been shrunk already.
+    anchor: a colour only one feature has; the lines then follow the body from frame to frame (anchor_shifts)."""
     if body is None:
         body = body_of(sheet[body_tag])
     # one plan per action from its own frames (its head box and hands are tight there; one plan for all the actions
@@ -308,11 +365,20 @@ def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), b
 
     def root(t):
         return root(same_as[t]) if t in same_as and same_as[t] in sheet else t
+    refs = {}
     for tag in sorted(todo, key=lambda t: t != root(t)):
         if root(tag) != tag and root(tag) in plans:
-            plans[tag] = plans[root(tag)]
+            plans[tag] = dict(plans[root(tag)])
+            if anchor:
+                # a copy is a slice of its source with an effect drawn in (attack_fx1 = the attack from 183 ms): its
+                # own frames' offsets, against its source's first frame
+                plans[tag]["shifts"] = anchor_shifts(sheet[tag], anchor, refs[root(tag)])
         else:
-            plans[tag] = plan_tag(sheet[root(tag)], body, scale, keep_colours)
+            fr = sheet[root(tag)]
+            if anchor:
+                refs[tag] = next((p for p in anchor_points(fr, anchor) if p is not None), None)
+            plans[tag] = plan_tag(fr, body, scale, keep_colours,
+                                  shifts=anchor_shifts(fr, anchor, refs[tag]) if anchor else None)
     for tag in todo:
         sheet[tag] = apply_tag(sheet[tag], plans[tag])
     return plans
