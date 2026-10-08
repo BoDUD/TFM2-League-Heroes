@@ -63,8 +63,9 @@ UNSTEADY = {("rakan", "run")}
 # 2026-10-08), NO_NOD breathes without the head's late nod
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
-BREATHE_SKIP = {"sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
+# renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -75,7 +76,7 @@ BREATHE_SKIP = {"sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "ka
 # (「凯南待机时武器也变形」)
 BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
-                "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
+                "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
 # hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
 # reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
@@ -637,12 +638,17 @@ TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
-SHRINK = {"xerath": 0.9}      # players: 「泽拉斯 ... 体型偏大」 (2026-10-08)
-SHRINK_KEEP = {"xerath": ["!FBFCFC"]}   # his eyes' white-hot core: no line through his face
+SHRINK = {"xerath": 0.9, "renekton": 0.9}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」
+# no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
+# "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
+# and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
+# every low row "knee" and the cut fell on his head
+SHRINK_KEEP = {"xerath": ["!FBFCFC"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP_TAG = {"renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
-SHRINK_ANCHOR = {"xerath": "FBFCFC"}
+SHRINK_ANCHOR = {"xerath": "FBFCFC", "renekton": "F9D206"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -1442,7 +1448,7 @@ def main():
             import shrink_frames as SF
             body0 = SF.body_of(sheet["idle"])
             a0 = sheet["idle"][0][0]
-            idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), body=body0,
+            idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero), body=body0,
                                         tags=["idle"], anchor=SHRINK_ANCHOR.get(hero))["idle"]
             if hero in HEAD_AT:
                 hx, hy = HEAD_AT[hero]
@@ -1464,7 +1470,7 @@ def main():
                 with open(bake_path, encoding="utf-8") as f:
                     copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
             plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
-                                                         keep_colours=SHRINK_KEEP.get(hero, ()),
+                                                         keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
                                                          tags=[t for t in sheet if t != "idle"],
                                                          anchor=SHRINK_ANCHOR.get(hero))}
             SHRUNK[hero] = plans

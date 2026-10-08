@@ -35,7 +35,8 @@ def extract(name,poly=None,mask=None):
     for yy,xx in component:mask[yy,xx]=0
  if name in ['rearleg','frontleg']:
   yy,xx=np.indices(mask.shape)
-  foot=((yy>=94)&(xx>=43)&(xx<=60)) if name=='rearleg' else ((yy>=93)&(xx>=71)&(xx<=88))
+  # Claude, 2026-10-08: the rear foot drawn as the front one reaches column 62 (tools/art/fix_renekton_foot.py)
+  foot=(((yy>=94)&(xx>=43)&(xx<=60))|((yy>=96)&(xx>=61)&(xx<=62))) if name=='rearleg' else ((yy>=93)&(xx>=71)&(xx<=88))
   mask |= foot & (arr[:,:,3]>0) & ~used
  used|=mask
  data=np.zeros_like(arr);data[mask]=arr[mask];layers[name]=Image.fromarray(data)
