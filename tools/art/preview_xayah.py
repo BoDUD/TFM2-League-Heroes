@@ -164,7 +164,7 @@ def showcase(out, z=3, step=40):
     on(me, small, "w_on", w0 + 200, until=w0 + tick(240), ground=True)
     a("skill2_fx1")
     for _ in range(3):
-        blade(d, "attack_fx1", second=True)
+        blade(d, second=True)
         a("idle", tick(33 - 24), loop=True)
     a("idle", 300, loop=True)
     # Featherstorm: the leap (untargetable), the rain at tick 48 on the 90-px line, five feathers along it, the recall

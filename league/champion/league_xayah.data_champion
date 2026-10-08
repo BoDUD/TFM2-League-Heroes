@@ -3017,11 +3017,6 @@
                 "tick": 6,
                 "effects": [
                   {
-                    "type": "CasterAnimation",
-                    "name": "attack_fx1",
-                    "tick": 9
-                  },
-                  {
                     "type": "Sfx",
                     "name": "league_xayah_w_blade"
                   },

@@ -74,7 +74,7 @@ RAW = {
     "e_bind": dict(n=4, size=16, measure="w", anchor=("fixed", "low", 0), ramps="INK MAGENTA CRIMSON"),
     "w_cast": dict(n=5, size=26, measure="m", anchor=("fixed", "box", 1), ramps="INK MAGENTA VIOLET"),
     "w_on": dict(n=4, size=22, measure="w", anchor="ellipse", ramps="MAGENTA VIOLET"),
-    "w_flash": dict(n=3, size=10, measure="m", anchor=("fixed", "box", 1), ramps="VIOLET MAGENTA"),
+    "w_flash": dict(n=3, size=10, measure="m", anchor=("fixed", "box", 1), ramps="VIOLET MAGENTA"),   # unused (below)
     "w_ms": dict(n=4, size=18, measure="w", anchor=("fixed", "low", 0), ramps="MAGENTA GOLD"),
     "r_cast": dict(n=5, size=28, measure="m", anchor=("fixed", "box", 2), ramps="INK MAGENTA VIOLET GOLD"),
     "r_rain": dict(n=6, size=90, measure="w", anchor="apex", ramps="INK MAGENTA VIOLET CRIMSON"),
@@ -125,7 +125,6 @@ def cells(name, n):
 
 
 # spots from the pivot (game px, x right, y down), measured on the finished strips (fx_pack_xy.hand_at / chest_at)
-HAND_OUT = (19, -4)         # the out-flung hand in attack 3-4 (the blade leaves it; W's second blade at tick 14)
 HAND_Q = (19, -5)           # the out-flung hand in Q 3 (a row up: the hop)
 GLOW = (0, -6)              # the passive's glow as a spell starts: on her middle, both ways the same (it plays in
                             # each spell's five charge branches - too many to draw into her frames)
@@ -152,7 +151,8 @@ FX = {
     "r_hit": [("r_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "p_on": [("p_on", seq(range(4), [50, 60, 70, 80]), [GLOW])],
     "q_flash": [("q_flash", seq(range(3), [30, 40, 50]), [HAND_Q])],
-    "w_flash": [("w_flash", seq(range(3), [30, 40, 50]), [HAND_OUT])],
+    # W's second-blade flash is not used: drawn into her frames it needs a CasterAnimation in the middle of the attack,
+    # and that cost her ~0.5 kill difference in both sim batches (league_xayah, 2026-10-08)
     # a feather lands where its blade stopped, then is re-stamped every f_step (20 ticks) while it lies
     "f_drop": [("f_drop", seq(range(3), [50, 80, 140]), [SOLES])],
     "f_lie": [("f_lie", seq([0, 1], [170, 163]), [SOLES])],

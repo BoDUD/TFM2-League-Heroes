@@ -244,7 +244,7 @@ def build(p):
     blade = homing("a_blade", p["a_speed"], p["a_y"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")])
     w_hit = [attack(0, p["w_pct"]), view("a_hit")]
     w_ms = [refresh("w_ms", p["w_ms_t"], move_speed_mult=p["w_ms"])]
-    second = combine(delayed(p["w_blade"], cview("w_flash"), sfx("w_blade"),
+    second = combine(delayed(p["w_blade"], sfx("w_blade"),
                              homing("w_blade", p["a_speed"], p["a_y"], "Enemy", w_hit),
                              homing("w_blade_c", p["a_speed"], p["a_y"], "EnemyChampion", w_ms)))
     # a_mode 0: the line alone, its first unit 100%; 1: a homing blade gives the target its 100% (a line can miss a
@@ -324,7 +324,7 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
     views_p = [P_("a_blade"), P_("w_blade"), P_("a_pierce"), P_("q_dagger"), P_("feather"), P_("r_rain", BIG, 2, False)]
-    views_e = [E("a_hit", FX, 2), E("w_flash", FX, 2, **LATE), E("q_flash", FX, 2, **LATE), E("q_hit", FX, 2),
+    views_e = [E("a_hit", FX, 2), E("q_flash", FX, 2, **LATE), E("q_hit", FX, 2),
                E("f_drop", FX, 0, False), E("f_lie", FX, 0, False), E("e_cast", FX, 2, **LATE), E("e_hit", FX, 2),
                E("e_root", FX, 2), E("w_cast"), E("p_on", FX, 2, **LATE), E("r_cast"), E("r_hit", FX, 2)]
     views_b = [B_("e_bind", FX, 2), B_("w_on", FX, -1), B_("w_ms", FX, -1)]

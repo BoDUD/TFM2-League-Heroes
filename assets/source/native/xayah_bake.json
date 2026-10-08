@@ -1,7 +1,6 @@
 {
   "fx": "league_xayah_fx",
   "items": [
-    {"tag": "w_flash", "into": "attack_fx1", "from": "attack", "slice_ms": 250, "length_ms": 150, "at_ms": 0},
     {"tag": "q_flash", "into": "skill_fx1", "from": "skill", "slice_ms": 0, "length_ms": 300, "at_ms": 0},
     {"tag": "e_cast", "into": "skill_e_fx1", "from": "skill_e", "slice_ms": 0, "length_ms": 333, "at_ms": 0},
     {"tag": "w_cast", "into": "skill2_fx1", "from": "skill2", "slice_ms": 0, "length_ms": 400, "at_ms": 0},
