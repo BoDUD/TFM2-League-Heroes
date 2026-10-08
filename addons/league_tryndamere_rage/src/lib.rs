@@ -25,6 +25,8 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::collections::HashMap;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -343,13 +345,16 @@ impl Guard {
             top,
             enemy_near: enemy_near(sim, me, team, self.p.near),
             armed: has("r_armed"),
-            r_free: r_free(sim, me),
+            // what the AI hook saw (a passive's sim has no players to read the cooldown from: the log of 2026-10-08 -
+            // he drank Bloodlust at 5-13% in the very tick the hook pressed R, healed past the threshold, no rage)
+            r_free: ready_seen(sim, me) || r_free(sim, me),
             raging: has("r_rage"),
             q_cd: has("q_cd"),
             fury: fury_of(&names, self.p.f_n),
             controlled: controlled(sim, me),
         };
-        let why = format!("hp {hp:.0}% (top {top:.0}% in {} ticks){}", self.p.burst_t, if from_hit { " on a hit" } else { "" });
+        let why = format!("hp {hp:.0}% (top {top:.0}% in {} ticks){}{}", self.p.burst_t, if from_hit { " on a hit" } else { "" },
+                          if n.r_free { ", R ready" } else { "" });
         if n.armed && !self.was_armed {
             wlog(format!("{} ARMED: {why}", head(sim, me)));
         }
@@ -427,6 +432,53 @@ const HERO: &str = "league_tryndamere";
 const R_RANGE: usize = 60_000;
 /// 同一句日志隔这么多 tick 才再记。
 const LOG_EVERY: usize = 120;
+/// 「R 好了」的记录在这么多 tick 内算数（AI 每次思考都更新）。
+const READY_T: usize = 3;
+
+/// AI 钩子看到的「R 好了」：(这场模拟, 蛮王) -> 最近一次看到的 tick。被动在自己的模拟里读不到玩家（也就读不到 R 的冷却），
+/// AI 钩子又加不上 buff（日志：could not add），所以经由这张表告诉被动。键里有模拟的来历（预模拟 / 观看 / 回放、比赛、局），
+/// 几场模拟同时跑也各算各的：来历常常都是「未知、没有比赛号」、蛮王的编号也一样（第四局日志：按 R 的下一 tick
+/// 照样喝 Q——别的模拟里 R 没好的蛮王把记录删了），所以键里还有模拟的随机种子。
+type SimKey = (u64, u32, u64, u64, u64, usize);
+static READY: LazyLock<Mutex<HashMap<SimKey, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn sim_key(sim: &StableSim<'_>, id: usize) -> SimKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index, id)
+}
+
+/// The first key each side computes goes to the log once (both must agree for the guard to see the hook's record).
+static KEY_LOGGED: [AtomicBool; 2] = [AtomicBool::new(false), AtomicBool::new(false)];
+
+fn log_key_once(sim: &StableSim<'_>, id: usize, side: usize) {
+    if !KEY_LOGGED[side].swap(true, Ordering::Relaxed) {
+        wlog(format!("{} KEY ({}): {:?}", head(sim, id), ["AI hook", "guard"][side], sim_key(sim, id)));
+    }
+}
+
+/// AI 钩子记下这一 tick R 好没好。
+fn ready_saw(sim: &StableSim<'_>, id: usize, free: bool) {
+    log_key_once(sim, id, 0);
+    let key = sim_key(sim, id);
+    // only written, never removed: the record runs out READY_T ticks after the last "ready" - the tick R is pressed its
+    // cooldown starts while the armed buff comes a tick or two later, and removing it on "not ready" then let the guard
+    // drink Bloodlust in between (the fifth log: 193 of 262 presses, no drink with R ready)
+    let mut map = READY.lock().unwrap_or_else(|e| e.into_inner());
+    if free {
+        if map.len() > 4096 {
+            map.clear();
+        }
+        map.insert(key, sim.tick());
+    }
+}
+
+/// 被动：AI 钩子最近 `READY_T` tick 内看到 R 好了。
+fn ready_seen(sim: &StableSim<'_>, id: usize) -> bool {
+    log_key_once(sim, id, 1);
+    let tick = sim.tick();
+    let map = READY.lock().unwrap_or_else(|e| e.into_inner());
+    map.get(&sim_key(sim, id)).is_some_and(|&t| t <= tick + READY_T && tick <= t + READY_T)
+}
 
 /// AI 的大招：`wants_ult` AI 原来的输入是 R；`danger` 快死了、身边有敌方英雄；`free` R 冷却好、不在待命和爆发里。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -500,6 +552,7 @@ impl StablePlayerAi for UltAi {
             // `is_valid_input` does not look at cooldowns (league_pyke): the slot's own state decides
             let free = !busy && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0);
             let (id, team) = (me.id(), me.team());
+            ready_saw(&sim, id, free);
             let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
             let target = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
