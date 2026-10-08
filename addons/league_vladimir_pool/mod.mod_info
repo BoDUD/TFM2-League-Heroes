@@ -11,10 +11,10 @@
       "version": ">=0.80.0"
     }
   ],
-  "description": "Test build of Vladimir's Sanguine Pool at low health (needs League of Legends Heroes): replaces the main pack's Vladimir so he turns into the pool when his health drops below 35% with an enemy champion close, as a League player would press W, instead of the data pack's crowded-or-pressed guess, which cannot read his health. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Vladimir's Sanguine Pool at low health (needs League of Legends Heroes): replaces the main pack's Vladimir so he turns into the pool when his health drops below 35% with an enemy champion close, as a League player would press W, instead of the data pack's crowded-or-pressed guess, which cannot read his health; the pool costs 20% of his current health as in League (the data pack can only take 5% of his max health). Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-08",
   "mod_id": "league_vladimir_pool",
   "mod_type": "native",
   "name": "League Heroes: Vladimir's Sanguine Pool at low health (test)",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

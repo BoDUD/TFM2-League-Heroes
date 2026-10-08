@@ -76,8 +76,10 @@ P = {
     "w_heal": 15, "w_heal_ap": 8, "w_cost": 5, "poll": 3, "poll_t": 36000,
     # the main pack's danger check (in his attack): two enemy champions within d_near, or hit at h_n checks in a row
     "d_near": 30000, "h_n": 2, "h_t": 150,
-    # the native add-on (addons/league_vladimir_pool): the pool below n_hp% health with an enemy champion within n_near
-    "n_hp": 35, "n_near": 60000,
+    # the native add-on (addons/league_vladimir_pool): the pool below n_hp% health with an enemy champion within n_near;
+    # it pays League's cost itself, n_cost% of his current health (the data reads only max health: w_cost% of it, which
+    # took a 3% Vladimir to 1 health in the add-on's first log, 2026-10-08)
+    "n_hp": 35, "n_near": 60000, "n_cost": 20,
     # ult: R Hemoplague (League: 700 range, 375 radius, +10% damage taken 4 s, then 150-350 + 70% AP, heal 150-250
     # (+ per champion), cd 120-80 s)
     "r_cd": 3600, "r_range": 60000, "r_dur": 26, "r_st": 11, "r_rad": 26000, "r_amp": 10, "r_t": 180, "r_dmg": 200,
@@ -222,8 +224,10 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p, native=False):
-    """native: the add-on's copy - no danger check in the attack, the add-on's passive sets `w_go` by his health."""
+def build(p, native=False, pay=None):
+    """native: the add-on's copy - no danger check in the attack, the add-on's passive sets `w_go` by his health and
+    pays the pool's cost (pay: the data's w_cost% of max health, default: not native)."""
+    pay = not native if pay is None else pay
     # ------------------------------------------------------------------ E's nova (E, and the E-W / R E combos)
     def nova(pct, pic):
         hit = [ap(p["e_dmg"], p["e_ap"], p["e_hp"], pct), buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
@@ -243,9 +247,9 @@ def build(p, native=False):
     step = p["w_t"] // p["w_n"]
     pool = combine(
         *rm("w_go"), flag("w_cd", p["w_cd"]),
-        flag("w_pay", 2, undying=True),
-        on_me({"type": "FixedAttack", "damage": 0, "attack_ratio": 0, "hp_ratio": p["w_cost"], "target_hp_ratio": 0,
-               "attack_effect_type": "Target"}),
+        *([flag("w_pay", 2, undying=True),
+           on_me({"type": "FixedAttack", "damage": 0, "attack_ratio": 0, "hp_ratio": p["w_cost"], "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"})] if pay else []),
         {"type": "CasterInvisible", "tick": p["w_t"]},
         flag("w_in", p["w_t"], damaged_reduce=100, cc_immune=True),
         anim("skill_w", p["w_t"]), cview("w_splash"), sfx("w_cast"),
@@ -343,7 +347,8 @@ def build(p, native=False):
     }
     if native:
         kit["passive"] = {"passive_ref": "league_vladimir_pool:guard",
-                          "params": {"hp": int(p["n_hp"]), "near": int(p["n_near"])}}
+                          "params": {"hp": int(p["n_hp"]), "near": int(p["n_near"]),
+                                     "cost": int(p["n_cost"])}}
     return kit
 
 

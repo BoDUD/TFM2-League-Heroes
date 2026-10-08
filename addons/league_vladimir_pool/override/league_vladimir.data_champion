@@ -180,39 +180,6 @@
                                 "only_to_enemy": false
                               },
                               {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_vladimir_w_pay",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  },
-                                  "undying": true
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "FixedAttack",
-                                    "damage": 0,
-                                    "attack_ratio": 0,
-                                    "hp_ratio": 5,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                ]
-                              },
-                              {
                                 "type": "CasterInvisible",
                                 "tick": 120
                               },
@@ -1076,39 +1043,6 @@
                                 "only_to_enemy": false
                               },
                               {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_vladimir_w_pay",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  },
-                                  "undying": true
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "FixedAttack",
-                                    "damage": 0,
-                                    "attack_ratio": 0,
-                                    "hp_ratio": 5,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                ]
-                              },
-                              {
                                 "type": "CasterInvisible",
                                 "tick": 120
                               },
@@ -1675,39 +1609,6 @@
                                   }
                                 },
                                 "only_to_enemy": false
-                              },
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_vladimir_w_pay",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  },
-                                  "undying": true
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "FixedAttack",
-                                    "damage": 0,
-                                    "attack_ratio": 0,
-                                    "hp_ratio": 5,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                ]
                               },
                               {
                                 "type": "CasterInvisible",
@@ -2542,39 +2443,6 @@
                                 "only_to_enemy": false
                               },
                               {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_vladimir_w_pay",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  },
-                                  "undying": true
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "FixedAttack",
-                                    "damage": 0,
-                                    "attack_ratio": 0,
-                                    "hp_ratio": 5,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                ]
-                              },
-                              {
                                 "type": "CasterInvisible",
                                 "tick": 120
                               },
@@ -3286,7 +3154,8 @@
     "passive_ref": "league_vladimir_pool:guard",
     "params": {
       "hp": 35,
-      "near": 60000
+      "near": 60000,
+      "cost": 20
     }
   }
 }

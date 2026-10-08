@@ -8,9 +8,12 @@
 //!
 //! - 活着、没被控住、身边 `near` 内有敌方英雄、血池不在冷却（`w_cd`）、不在池里（`w_in`）、生命低于 `hp`%——
 //!   加上 `w_go`（30 tick），数据的轮询最多 3 tick 后开池（每 tick 看一次，挨打时 `on_damaged` 当场再看一次）。
+//! - 血池的代价按英雄联盟：扣**当前**生命的 `cost`%（默认 20），在加上 `w_go` 的同一刻扣（还没进池，不受池里的 100% 减伤），
+//!   永远不会扣死。主包的数据读不到当前生命，只能扣 5% 最大生命值——第一份日志里 3% 血开池被扣到 1 点（用户：「改吧」），
+//!   所以本包的副本去掉了数据里的那一下，由这里来扣。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从 tools/kit/build_vladimir.py 的参数表 P 写进去：
-//! `n_hp`、`n_near`），本包不另记一份。不用全局变量，服务端预模拟和你看的那场各算各的。
+//! `n_hp`、`n_near`、`n_cost`），本包不另记一份。不用全局变量，服务端预模拟和你看的那场各算各的。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_vladimir_pool.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
@@ -78,11 +81,13 @@ pub struct Params {
     pub hp: usize,
     /// 身边这么近有敌方英雄才开。
     pub near: usize,
+    /// 开池扣当前生命的 `cost`%。
+    pub cost: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { hp: 35, near: 60_000 }
+        Self { hp: 35, near: 60_000, cost: 20 }
     }
 }
 
@@ -97,6 +102,7 @@ pub fn parse_params(json: &str) -> Params {
         let slot = match k {
             "hp" => &mut p.hp,
             "near" => &mut p.near,
+            "cost" => &mut p.cost,
             _ => continue,
         };
         *slot = v;
@@ -119,6 +125,11 @@ pub struct Now {
 /// 现在该不该开池。
 pub fn want_pool(p: &Params, n: &Now) -> bool {
     !n.busy && !n.controlled && n.enemy_near && n.hp < p.hp as f64
+}
+
+/// 开池扣的血：当前生命的 `cost`%，至少留 1 点。
+pub fn cost_of(p: &Params, now: usize) -> usize {
+    (now * p.cost / 100).min(now.saturating_sub(1))
 }
 
 // ===================== 小工具 =====================
@@ -178,12 +189,20 @@ impl Guard {
             busy: inside || has("w_cd") || has("w_go"),
         };
         if want_pool(&self.p, &n) {
+            // the flag first: the cost below is damage, and on_damaged looks again (busy by then)
             let mut go = BuffV1::timed(&vl("w_go"), 30);
             go.duration_kind = BuffDurationV1::Time.code();
             sim.add_buff(me, &go);
+            let cost = cost_of(&self.p, now);
+            if cost > 0 {
+                sim.deal_damage_raw(me, me, cost, 0, AttackTypeV1::Skill);
+            }
+            let after = sim.get_entity(me).map_or(now, |e| e.hp().0);
+            let left = if max > 0 { after as f64 * 100.0 / max as f64 } else { 100.0 };
             self.calls += 1;
             if self.calls <= 20 || self.calls % 50 == 0 {
-                wlog(format!("{} GO #{}: hp {hp:.0}%{}", head(sim, me), self.calls, if from_hit { " on a hit" } else { "" }));
+                wlog(format!("{} GO #{}: hp {hp:.0}% -> {left:.0}% (cost {cost} of {now}){}", head(sim, me), self.calls,
+                             if from_hit { " on a hit" } else { "" }));
             }
         }
     }
@@ -220,7 +239,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (Sanguine Pool at low health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v2 (Sanguine Pool at low health, 20% of current health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -228,7 +247,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:guard"), Guard::default());
-    host.log(LogLevel::Info, "league_vladimir_pool v1 loaded (Vladimir's Sanguine Pool at low health).");
+    host.log(LogLevel::Info, "league_vladimir_pool v2 loaded (Vladimir's Sanguine Pool at low health, costing 20% of current health).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -252,7 +271,7 @@ mod tests {
 
     #[test]
     fn params_come_from_the_champion_data() {
-        assert_eq!(parse_params(r#"{"hp":30,"near":50000,"x":1}"#), Params { hp: 30, near: 50_000 });
+        assert_eq!(parse_params(r#"{"hp":30,"near":50000,"cost":15,"x":1}"#), Params { hp: 30, near: 50_000, cost: 15 });
         assert_eq!(parse_params("{}"), Params::default());
     }
 
@@ -270,6 +289,16 @@ mod tests {
         let p = Params::default();
         assert!(!want_pool(&p, &Now { busy: true, ..now(10.0) }));
         assert!(!want_pool(&p, &Now { controlled: true, ..now(10.0) }));
+    }
+
+    #[test]
+    fn the_cost_is_a_share_of_current_health_and_never_kills() {
+        let p = Params::default();
+        assert_eq!(cost_of(&p, 1000), 200);
+        assert_eq!(cost_of(&p, 30), 6);
+        assert_eq!(cost_of(&p, 4), 0);
+        assert_eq!(cost_of(&p, 1), 0);
+        assert_eq!(cost_of(&Params { cost: 100, ..p }, 50), 49);
     }
 
     #[test]

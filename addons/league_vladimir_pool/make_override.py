@@ -7,8 +7,9 @@ pack's league/champion/league_vladimir.data_champion byte for byte (so the copy 
 writes addons/league_vladimir_pool/override/league_vladimir.data_champion and .../text/champion.i18n: the same kit with
   * the main pack's danger check in his attack (two enemy champions on him, or hit at two checks in a row) left out;
   * passive = the add-on's league_vladimir_pool:guard with the numbers from P as its params (hp = n_hp, near =
-    n_near): below hp% health with an enemy champion close it sets league_vladimir_w_go, and the data's own poll turns
-    him into the pool;
+    n_near, cost = n_cost): below hp% health with an enemy champion close it takes League's cost (cost% of his
+    current health) and sets league_vladimir_w_go, and the data's own poll turns him into the pool;
+  * the data's pool cost (w_cost% of max health, which took a 3% Vladimir to 1 health) is left out of the copy;
   * the attack's tooltip (the passive and the pool) points to description.league_vladimir_pool.attack with a "test
     build" lead and "below n_hp% health" for "in danger", so the tooltip in game shows whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Vladimir changes.
@@ -57,9 +58,11 @@ def main():
         sys.exit("the native build has no league_vladimir_pool:guard passive: update this script")
     if "league_vladimir_sense" in json.dumps(champion["attack"]):
         sys.exit("the danger check is still in the attack: update this script")
-    plain = kit.build(p)
+    plain = kit.build(p, pay=False)          # the main pack's spells without the data's pool cost (the add-on pays it)
     if any(champion[k] != plain[k] for k in ("skill", "skill2", "ult")):
-        sys.exit("the native build changes a spell: update this script")
+        sys.exit("the native build changes a spell beyond the pool's cost: update this script")
+    if "league_vladimir_w_pay" in json.dumps(champion):
+        sys.exit("the data's pool cost is still in the add-on's copy: update this script")
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
 
     values = setup.values(p)
