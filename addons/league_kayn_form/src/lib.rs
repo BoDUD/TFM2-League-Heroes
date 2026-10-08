@@ -310,8 +310,6 @@ impl StablePassive for Orbs {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some(k) = sim.get_entity(me) else { return };
         if !k.is_alive() {
-            // dead: his form, never the in-wall shadow (struck down mid Shadow Step, he lay there as one)
-            view::report(sim, has_buff(sim, me, FORM_D), has_buff(sim, me, FORM_S), false);
             return;
         }
         let team = k.team();
@@ -381,7 +379,6 @@ impl StablePassive for Orbs {
         let ghost = has_buff(sim, me, wall::GHOST);
         let in_wall = self.walker.update(sim, me, ghost, &|sim, msg| wlog(format!("{} {msg}", head(sim, me))));
         self.wall_fx(sim, me, in_wall);
-        view::report(sim, has_buff(sim, me, FORM_D), has_buff(sim, me, FORM_S), in_wall);
     }
 }
 
@@ -391,7 +388,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v0.2 (melee hits charge the Darkin, ranged the Shadow Assassin; the form stays; the whole body transforms) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v0.3 (melee hits charge the Darkin, ranged the Shadow Assassin; the form stays; the whole body transforms) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -400,8 +397,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:orbs"), Orbs::default());
     view::install_once();
-    module.set_extension(view::Swap::new());
-    host.log(LogLevel::Info, "league_kayn_form loaded (Kayn's Darkin Scythe as in League: melee/ranged hits, the form survives death, the whole body transforms on game 0.6.2).");
+    host.log(LogLevel::Info, "league_kayn_form loaded (Kayn's Darkin Scythe as in League: melee/ranged hits, the form survives death, the whole body transforms on game 0.6.3).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

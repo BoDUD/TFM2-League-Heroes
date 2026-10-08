@@ -35,8 +35,9 @@ A = "<#ffb900ff>"      # durations, counts, invisibility
 R = "<#ef5350ff>"      # crowd control
 W = "<#f5f5f5ff>"      # true damage
 E = "<>"
-# champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 2, "y": -38}, "center": {"x": 0, "y": -12}}
+# champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28) - the round
+# crown of design_gwen's step 16 (2026-10-09) tops the idle at -29: face -39, the card -39 - (-29) = -10
+VIEW = {"face": {"x": 2, "y": -39}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

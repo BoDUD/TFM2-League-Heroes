@@ -88,7 +88,9 @@ class Parts:
     def __init__(self):
         D = K.Design(DESIGN)
         self.D = D
-        self.L = L = D.letters()
+        # the letters pinned to design_gwen.PAL (rigkit's are the design's colours by brightness: step 16's teal eyes
+        # would have moved every letter after them)
+        self.L = L = {k: DG.hx(v) for k, v in DG.PAL.items()}
         self.rgba = {k: np.array(tuple(c) + (255,), np.uint8) for k, c in L.items()}
         canvas, sc = DG.build(with_mask=True)
         if not np.array_equal(canvas, D.a):
@@ -106,6 +108,11 @@ class Parts:
         for y, x in zip(ys, xs):
             if HAIR_ROWS[0] <= y <= HAIR_ROWS[1] and (inv.get(tuple(body[y, x, :3])) in HAIR or x > TORSO_RIGHT):
                 self.hair[y, x] = True
+        # step 16's ringlets hang over her shoulders, in front of the arms as drawn: hair with their outline, never
+        # taken off or filled over when an arm moves (DRILL_KEEP), the left one the run's trailing curl
+        self.drill_left, self.drill_right = DG.drills()
+        self.drills = self.drill_left | self.drill_right
+        self.hair |= self.drills
 
 
 # the idle's handle (design_gwen.LEAGUE) measured from the midpoint of its two rings: x along the handle away from the
@@ -212,15 +219,18 @@ def put_cells(c, cells, ok=None):
             c[y, x] = v
 
 
-def fill(P, a, spec):
+def fill(P, a, spec, keep=None):
     for y, (x0, s) in spec.items():
         for i, ch in enumerate(s):
-            a[y, x0 + i] = P.rgba[ch]
+            if keep is None or not keep[y, x0 + i]:
+                a[y, x0 + i] = P.rgba[ch]
 
 
-def clear(a, spec):
+def clear(a, spec, keep=None):
     for y, (x0, x1) in spec.items():
-        a[y, x0:x1 + 1] = 0
+        for x in range(x0, x1 + 1):
+            if keep is None or not keep[y, x]:
+                a[y, x] = 0
 
 
 def shifted(a, dx, dy):
@@ -301,11 +311,11 @@ def stand(P, pose):
     if far is None:
         K.put(a, P.scissors, 0, 0, under=True)
     if far is not None or throw is not None:
-        clear(a, FAR_OFF)
-        fill(P, a, FAR_FILL)
+        clear(a, FAR_OFF, P.drills)
+        fill(P, a, FAR_FILL, P.drills)
     if near is not None:
-        clear(a, NEAR_OFF)
-        fill(P, a, NEAR_FILL)
+        clear(a, NEAR_OFF, P.drills)
+        fill(P, a, NEAR_FILL, P.drills)
     body = a[..., 3] > 0
     ink = (a[..., :3] == P.rgba["0"][:3]).all(-1) & body
     hair = P.hair
@@ -440,8 +450,8 @@ def run_parts(P):
 # it from the head)
 RUN_HOLD = {}                          # stand()'s pose: {} = the scissors behind her as drawn, the arms as drawn
 SWAY = [0, -1, -1, 0, 0, -1, -1, 0]
-DRILLS = ((R(64), R(73)), (61, 200))         # the trailing curl: the back (left) spiral curl whole (a part of it moved cut
-                                       # its spiral; the right one swung into her neck: 「头发上 有点变形」)
+# the trailing curl: the back (left) ringlet whole (Parts.drill_left; the old spiral curl moved in part cut its spiral,
+# the right one swung into her neck: 「头发上 有点变形」)
 
 
 def run_frame(P, k, hold=None):
@@ -457,10 +467,7 @@ def run_frame(P, k, hold=None):
         sc_only = (P.scissors[..., 3] > 0) & (P.body[..., 3] == 0) & (top == P.scissors).all(-1)
         top[sc_only] = 0                               # the scissors ride separately, under everything
     top[LEG_TOP:] = 0
-    (r0, r1), (cl, cr) = DRILLS
-    drill = np.zeros(top.shape[:2], bool)
-    drill[r0:r1 + 1] = P.hair[r0:r1 + 1] & (top[r0:r1 + 1] == P.body[r0:r1 + 1]).all(-1)
-    drill[:, cl + 1:cr] = False
+    drill = P.drill_left & (top == P.body).all(-1)          # step 16's left ringlet, where no arm covers it
     tails = np.zeros_like(top)
     tails[drill] = top[drill]
     top[drill] = 0

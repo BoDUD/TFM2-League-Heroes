@@ -78,7 +78,10 @@ BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone",
 BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "vayne": {"zone": (0.20, 1)},
-                "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
+                "aatrox": {"sway": [0] * 8},   # his hand left the planted sword's hilt when the body leant
+                # Samira's second design (2026-10-09): a wide stance - the lean moved her shins and boots (Sivir's
+                # 「上下摆动时 希维尔的鞋变形了吧」); only the dip, the legs stand still
+                "samira": {"sway": [0] * 8}}
 # hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
 # reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
 # 金克丝的武器也有点变形」「维鲁斯武器变形」, then 「小鱼人 凯隐 蛮王 艾希 烬武器变形」), so the weapon's pixels are lifted out
@@ -100,7 +103,9 @@ WEAPON_CARRY = {
                 (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
     "riven": [({(0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69), (0x43, 0x4A, 0x46),
                 (0x27, 0x27, 0x20), (0xF6, 0xEA, 0xDB), (0x24, 0x18, 0x1F)}, (-12, -1, 1, 99))],
-    "samira": [({(0xE9, 0xEB, 0xF2), (0xB5, 0xBA, 0xD2), (0x77, 0x7B, 0x90)}, (-14, 0, 5, 99))],
+    # Samira (second design, 2026-10-09): the greatsword's lower blade by the far boot and the far holster's pistol
+    "samira": [({(0xB0, 0xB2, 0xBB), (0xC2, 0xC5, 0xD4), (0x34, 0x37, 0x43), (0x7E, 0x80, 0x86), (0xE6, 0xE5, 0xE0)},
+                (-13, 0, 5, 99))],
     "aatrox": [({(0xBF, 0x16, 0x30), (0x8F, 0x0E, 0x2B), (0xF2, 0x32, 0x3B), (0xFF, 0x7A, 0x2A), (0x27, 0x0D, 0x28),
                  (0x42, 0x22, 0x4C), (0x68, 0x40, 0x7A)}, (-14, 0, -99, -10))],
     "leblanc": [({(0xF4, 0xAA, 0x45), (0xDE, 0x8D, 0x36), (0xFC, 0xC9, 0x67), (0xF9, 0xB9, 0x54), (0xFD, 0xE5, 0x9B),
@@ -680,7 +685,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "ahri": (233, 162, 34),           # the same for Ahri: her amber eyes (her outfit has the amber too), eye-only
         "lux": (45, 111, 184),            # the same for Lux: her blue eyes (the pair the user picked), eye-only shade
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
-        "morgana": (200, 60, 166),        # the redesign A: only her face is pasted, its pink-violet is the eyes'
+        "morgana": (0x8A, 0x4F, 0xE0),    # the redesign A: only her face is pasted; the eyes' deep violet (fix_morgana_eyes.py,
+                                          # each eye's inner square: the old pink's columns and first square in every frame)
         "riven": (62, 142, 72),           # the design's green eyes (#3E8E48), used nowhere else
         "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
         "vayne": (248, 48, 60),           # the crossbow on her back tops the frame; the lenses' red is used nowhere else
@@ -834,6 +840,15 @@ FORM_RETIMED = {"transform": "idle", "skill2_fx1": "skill2"}
 WALL_SHEETS = {"kayn": "kayn_wall", "kayn_darkin": "kayn_darkin_wall", "kayn_shadow": "kayn_shadow_wall"}
 WALL_SMOKE = [(0x2C, 0x22, 0x50), (0x46, 0x3A, 0x74), (0x6A, 0x5C, 0x9E), (0x9A, 0x8E, 0xC8)]
 WALL_GLOW = (0xFF, 0x40, 0x58)
+
+
+# Game 0.6.3: the add-on (addons/league_kayn_form, view.rs) swaps the playing animation's NAME, as the game's own
+# demon does (run -> archfiend_run, both in the demon's sheet) - so the forms' bodies and the in-wall shadows also go
+# into the hero's own sheet under a prefix: rh_idle / sh_idle ..., w_run / rw_run / hw_run ... (the separate form and
+# wall sheets above stay for the 0.6.2 name swap).
+FORM_INTO_BASE = FORM_BODY + tuple(FORM_REVERSED) + tuple(FORM_RETIMED)
+WALL_PREFIX = {"kayn": "w_", "kayn_darkin": "rw_", "kayn_shadow": "hw_"}
+WALL_INTO_BASE = ("idle", "run", "hit", "skill")
 
 
 def shadow_frame(a):
@@ -1484,13 +1499,28 @@ def main():
             # a TIDY module's clean-up for the shrunk frames (tidy_shrunk): a removed row can take a tip's cap with
             # it (Xerath's far leg)
             tidy_frames(hero, sheet, "tidy_shrunk")
-        w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         forms = form_sheets(hero, sheet)
+        base_tags = dict(sheet)
+        for name, fsheet in forms.items():
+            prefix = FORM_SHEETS[hero][name]
+            for tag in FORM_INTO_BASE:
+                if tag in fsheet and prefix + tag not in sheet:
+                    sheet[prefix + tag] = fsheet[tag]
+        for name, s in [(hero, base_tags)] + list(forms.items()):
+            if name in WALL_PREFIX:
+                wall = wall_sheet({t: s[t] for t in WALL_INTO_BASE if t in s})
+                for tag, fr in wall.items():
+                    sheet[WALL_PREFIX[name] + tag] = fr
+        added = [t for t in sheet if t not in base_tags]
+        if added:
+            print(f"league/champions/league_{hero}: the forms' and in-wall tags added for the add-on's anim-name swap: "
+                  f"{', '.join(added)}")
+        w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         for name, fsheet in forms.items():
             fw, fh = G.write_sheet(os.path.join(MOD, "champions", f"league_{name}"), fsheet)
             print(f"league/champions/league_{name}#sheet.png {fw}x{fh}: {hero}'s sheet with the form's "
                   f"{', '.join(FORM_BODY)}")
-        for name, s in [(hero, sheet)] + list(forms.items()):
+        for name, s in [(hero, base_tags)] + list(forms.items()):
             if name in WALL_SHEETS:
                 ww, wh = G.write_sheet(os.path.join(MOD, "champions", f"league_{WALL_SHEETS[name]}"), wall_sheet(s))
                 print(f"league/champions/league_{WALL_SHEETS[name]}#sheet.png {ww}x{wh}: {name} as the in-wall shadow")
