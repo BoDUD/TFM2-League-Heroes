@@ -204,4 +204,8 @@ def main():
 
 
 if __name__ == "__main__":
+    # superseded 2026-10-09: the second design (tools/art/design_samira2.py, the user's ChatGPT picture) writes
+    # samira_native.png now; running this would put the first design back
+    if "--check" not in sys.argv:
+        raise SystemExit("design_samira.py is superseded by tools/art/design_samira2.py (the second design)")
     main()
