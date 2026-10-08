@@ -68,6 +68,8 @@ BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "al
 # cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Kennen, LeBlanc, Janna and Twisted Fate are short or skirted (the zone rows landed in
 # the skirt or the weapon); Renekton and Vayne crouch, their figure is squat and the 30% band started in the torso
 # (「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
+# Kennen's went lower still, to his boots (0.08): at 0.18 the cut ran through the gold bar on his coat's hem
+# (「凯南待机时武器也变形」)
 BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
