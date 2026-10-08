@@ -63,7 +63,9 @@ UNSTEADY = {("rakan", "run")}
 # 2026-10-08), NO_NOD breathes without the head's late nod
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# hips or her slanted boots
+# renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -74,7 +76,7 @@ BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "al
 # (「凯南待机时武器也变形」)
 BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
-                "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
+                "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
 # hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
 # reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
@@ -86,6 +88,13 @@ BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
 # read from the design (charmaps), and the box keeps out the body parts that share them (Varus's trousers are his bow's
 # violets, Jinx's boots her gun's greys, Kayn's sash his scythe's red).
 WEAPON_CARRY = {
+    # Xin Zhao's spear, held low across him: the head left of his back leg (all its colours there), the shaft's browns
+    # between the head and his face (his belt's browns start a row lower), the butt by his head (「怎么武器也变形」)
+    "xinzhao": [({(0xA7, 0xA5, 0xC0), (0xA7, 0x2D, 0xE2), (0x2A, 0x09, 0x41), (0x43, 0x0F, 0x67), (0x1E, 0x09, 0x2F), (0x34, 0x16, 0x20), (0x7F, 0x1B, 0xB5), (0xA4, 0x6E, 0x21), (0xEA, 0xB2, 0x41), (0x6E, 0x6A, 0x82), (0x0D, 0x0A, 0x19), (0x86, 0x52, 0x3F), (0x61, 0x32, 0x31)},
+                 (-17, -1, -44, -19)),
+                ({(0x86, 0x52, 0x3F), (0x61, 0x32, 0x31)}, (-32, -13, -21, 16)),
+                ({(0xA7, 0xA5, 0xC0), (0xA7, 0x2D, 0xE2), (0x2A, 0x09, 0x41), (0x43, 0x0F, 0x67), (0x1E, 0x09, 0x2F), (0x34, 0x16, 0x20), (0x7F, 0x1B, 0xB5), (0xA4, 0x6E, 0x21), (0xEA, 0xB2, 0x41), (0x6E, 0x6A, 0x82), (0x0D, 0x0A, 0x19), (0x86, 0x52, 0x3F), (0x61, 0x32, 0x31)},
+                 (-37, -27, 13, 23))],
     "garen": [({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65), (0x29, 0x63, 0x80),
                 (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
     "riven": [({(0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69), (0x43, 0x4A, 0x46),
@@ -125,6 +134,11 @@ WEAPON_CARRY = {
                 (-42, -30, -18, -14)),
                ({(0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x38, 0x3B, 0x46), (0x22, 0x24, 0x2D), (0x7D, 0x10, 0x27), (0x55, 0x5B, 0x6C), (0x63, 0x68, 0x7C), (0x7A, 0x80, 0x91), (0x14, 0x14, 0x1C)},
                 (-12, 0, -24, -10))],
+    # Lulu's staff runs from over her hat down across her body to its foot between her boots (cols 0..+3): its three
+    # woods carried down to the robe's hem only (rows -20..-4) - the foot stays planted between the boots, which share
+    # the staff's darkest brown (carried, the foot and a square of the far boot sank under the soles: the boot came
+    # apart, 2026-10-08); the boots' plum (#4E3040) and the hat's dark gold stay out
+    "lulu": [({(0xB4, 0x7A, 0x4E), (0x5A, 0x2E, 0x1A), (0x2E, 0x16, 0x0E)}, (-20, -4, -3, 99))],
 }
 
 
@@ -181,7 +195,44 @@ def weapon_mask(a, colours, box):
     return m
 
 
-NO_NOD = {"kayn"}   # with his scythe carried a cheap neck row turned up and his head began to nod; nobody else nods
+# heroes whose carried weapon crosses IN FRONT of the body: the squares behind it were never drawn, so once the body
+# dips under the stamped-back weapon they showed as see-through slits (Lulu's staff over her robe, 2026-10-08: 「像素
+# 缺失」). For them the lifted weapon's squares that lie inside the body are first filled with the body's own colour
+# round them (fill_behind), then the body breathes.
+CARRY_FILL |= {"lulu"}
+
+
+def fill_behind(a, carried):
+    """The lifted weapon's squares that lie inside the figure (drawn squares within 3 on both sides, across or up and
+    down) take the most common non-outline colour among their drawn neighbours, a ring at a time."""
+    a = a.copy()
+    op = a[..., 3] > 0
+    H, W = op.shape
+    todo = {(int(y), int(x)) for y, x in zip(*np.nonzero(carried))}
+    dark = lambda c: sum(c) < 120                                   # noqa: E731 - the outline
+    for _ in range(8):
+        done = []
+        for y, x in sorted(todo):
+            row, col = op[y], op[:, x]
+            inside = ((row[max(0, x - 3):x].any() and row[x + 1:x + 4].any()) or
+                      (col[max(0, y - 3):y].any() and col[y + 1:y + 4].any()))
+            if not inside:
+                continue
+            cols = [tuple(int(v) for v in a[v_, u_, :3]) for v_ in (y - 1, y, y + 1) for u_ in (x - 1, x, x + 1)
+                    if (v_, u_) != (y, x) and 0 <= v_ < H and 0 <= u_ < W and op[v_, u_]]
+            body = [c for c in cols if not dark(c)]
+            if len(body) >= 2:
+                done.append((y, x, max(set(body), key=body.count)))
+        if not done:
+            break
+        for y, x, c in done:
+            a[y, x] = (*c, 255)
+            op[y, x] = True
+            todo.discard((y, x))
+    return a
+
+
+NO_NOD = {"kayn", "xinzhao"}   # with his scythe carried a cheap neck row turned up and his head began to nod; nobody else nods
     # the piece took his upper body
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
@@ -234,7 +285,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "vladimir"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -420,7 +471,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("lillia", "idle"): [0, 0, 0, 0, 0, 0],
 
          # Viktor (Codex's design B, the staff straightened, design_viktor.py; Codex's idle is the design six times)
-         ("viktor", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("viktor", "idle"): [0, 0, 0, 0, 0, 0],
+         # Lulu (Codex's design version 2 + the user's round face C3; the pack's idle is the design six times)
+         ("lulu", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -583,7 +636,23 @@ BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
-TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"}
+TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana",
+        "xerath": "clean_xerath"}   # 「顺便把泽拉斯脚上的黑边清理干净」: bare outline stalks under his leg tips
+# heroes made smaller from their finished frames: whole rows and columns out, never resampled (shrink_frames.py); the idle
+# before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
+# SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
+# no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
+SHRINK = {"xerath": 0.9, "renekton": 0.9}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」
+# no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
+# "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
+# and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
+# every low row "knee" and the cut fell on his head
+SHRINK_KEEP = {"xerath": ["!FBFCFC"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP_TAG = {"renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
+# the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
+# a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
+# 「攻击时候也是」
+SHRINK_ANCHOR = {"xerath": "FBFCFC", "renekton": "F9D206"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -868,6 +937,7 @@ def build(hero):
 
 
 HEAD_AT = {}
+SHRUNK = {}
 
 
 def breathe_idle(hero, sheet):
@@ -893,6 +963,8 @@ def breathe_idle(hero, sheet):
             carried |= weapon_mask(a, colours, box)
         a = a.copy()
         a[carried] = 0
+        if hero in CARRY_FILL:
+            a = fill_behind(a, carried)
     opts = BREATHE_OPTS.get(hero, {})
     frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **opts)
     if carried is not None:
@@ -1144,16 +1216,18 @@ def head_move(hero, sheet):
     return done
 
 
-def tidy_frames(hero, sheet):
-    """TIDY: the hero's own clean-up module on every finished frame; the pixels it changed."""
+def tidy_frames(hero, sheet, step="tidy"):
+    """TIDY: the hero's own clean-up module on every finished frame (its function `step`); the pixels it changed."""
     if hero not in TIDY:
         return 0
     mod = importlib.import_module(TIDY[hero])
+    if not hasattr(mod, step):
+        return 0
     n = 0
     for tag, frames in sheet.items():
         for k, (a, ms) in enumerate(frames):
             p = np.pad(a, ((6, 6), (6, 6), (0, 0)))      # room round the frame (Morgana's pasted head template)
-            b = mod.tidy(tag, k, p.copy())
+            b = getattr(mod, step)(tag, k, p.copy())
             n += int((b != p).any(-1).sum())
             frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -(b.shape[0] // 2)), ms)
     return n
@@ -1371,6 +1445,20 @@ def main():
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
+        if hero in SHRINK:
+            # the idle shrinks as drawn, BEFORE it breathes: shrunk after, the body sat 0-2 rows lower in each
+            # breathing frame, so one removed row ran through a different part of him in every frame and the face and
+            # shoulders changed shape as he bobbed (「怎么上下摆动模型变形？」)
+            import shrink_frames as SF
+            body0 = SF.body_of(sheet["idle"])
+            a0 = sheet["idle"][0][0]
+            idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero), body=body0,
+                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero))["idle"]
+            if hero in HEAD_AT:
+                hx, hy = HEAD_AT[hero]
+                nx, ny = SF.move_point(idle_plan, hx - a0.shape[1] // 2, hy - a0.shape[0] // 2)
+                a1 = sheet["idle"][0][0]
+                HEAD_AT[hero] = (a1.shape[1] // 2 + nx, a1.shape[0] // 2 + ny)
         rows = breathe_idle(hero, sheet)
         if rows is not None:
             print(f"{hero}: idle breathes from the design ({len(sheet['idle'])} frames x {IB.MS} ms; cut px "
@@ -1378,6 +1466,23 @@ def main():
                   f"nod {'px %.0f' % rows['neck_cost'] if rows['neck'] is not None else 'OFF'})")
         for tag, fx in bake(hero, sheet).items():
             print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
+        if hero in SHRINK:
+            import shrink_frames as SF
+            bake_path = os.path.join(SRC, f"{hero}_bake.json")
+            copies = {}
+            if os.path.exists(bake_path):
+                with open(bake_path, encoding="utf-8") as f:
+                    copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
+            plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
+                                                         keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
+                                                         tags=[t for t in sheet if t != "idle"],
+                                                         anchor=SHRINK_ANCHOR.get(hero))}
+            SHRUNK[hero] = plans
+            print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
+                f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
+            # a TIDY module's clean-up for the shrunk frames (tidy_shrunk): a removed row can take a tip's cap with
+            # it (Xerath's far leg)
+            tidy_frames(hero, sheet, "tidy_shrunk")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         forms = form_sheets(hero, sheet)
         for name, fsheet in forms.items():
