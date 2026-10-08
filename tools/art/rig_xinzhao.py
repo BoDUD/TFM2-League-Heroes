@@ -52,6 +52,7 @@ BUTT_ROW = 68                          # the design's shaft enters the ring on r
 SHAFT_X0, SHAFT_Y0, SHAFT_RUN = 43, 83, 2
 TIP, BUTT_TIP = (15.5, 91.0), (85.5, 63.5)     # the spear's axis (the slide through the hand follows it)
 GRIP = (47.5, 82.0)                    # where the back hand holds it (on the drawn shaft)
+SPEAR_GRIP = GRIP                      # the same on the spear part, which is never shrunk (GRIP follows the hand)
 SHAFT_LIT, SHAFT_DARK = "#86523F", "#613231"
 # the back arm: the hand on the grip and the forearm up to the gold shoulder guard; it turns about SHOULDER
 BACK_ARM = {80: (47, 51), 81: (46, 52), 82: (47, 52), 83: (47, 50), 84: (47, 50), 85: (48, 50)}
@@ -103,7 +104,7 @@ class Parts:
         # the butt end moved along so the shaft enters its ring on the drawn shaft's row
         butt = np.where(butt_keep[..., None], a, 0).astype(np.uint8)
         K.put(sp, butt, 0, top(BUTT_KEEP) - BUTT_ROW)
-        self.spear = K.Part.from_canvas(sp, sp[..., 3] > 0, GRIP)
+        self.spear = K.Part.from_canvas(sp, sp[..., 3] > 0, SPEAR_GRIP)
         s = self.spear
         self.spears = {"dl": s, "ul": K.rot90(s, 1), "ur": K.rot90(s, 2), "dr": K.rot90(s, 3),
                        "dl_m": s.flip_h(), "ul_m": s.flip_v(), "ur_m": s.flip_h().flip_v(), "dr_m": K.rot90(s, 3).flip_h()}
