@@ -284,24 +284,35 @@ def apply_tag(frames, plan):
     return [(G.centre_frame(st[k][np.ix_(keep_r, keep_c)], -pc, -pr), ms) for k, (_, ms) in enumerate(frames)]
 
 
-def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=()):
-    """Every action of the sheet made `scale` as big; returns {tag: plan}. same_as {tag: source tag}: a copy of
-    another action's frames (import_native's bake: the attack with a flash drawn in) takes its source's plan."""
-    st, H, W = _canvas(sheet[body_tag][:1])
-    occ = st[0, ..., 3] > 0
-    ys, xs = np.nonzero(occ)
-    body = (ys.min() - H, ys.max() - H, xs.min() - W, xs.max() - W)
+def body_of(frames):
+    """(top, bottom, left, right) of the first frame's figure from its pivot: the body range every action's counts come
+    from."""
+    st, H, W = _canvas(frames[:1])
+    ys, xs = np.nonzero(st[0, ..., 3] > 0)
+    return (ys.min() - H, ys.max() - H, xs.min() - W, xs.max() - W)
+
+
+def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None):
+    """Every action of the sheet (or only `tags`) made `scale` as big; returns {tag: plan}. same_as {tag: source tag}: a
+    copy of another action's frames (import_native's bake: the attack with a flash drawn in) takes its source's plan.
+    body: the range the counts come from (body_of the idle as drawn), when the idle has been shrunk already."""
+    if body is None:
+        body = body_of(sheet[body_tag])
     # one plan per action from its own frames (its head box and hands are tight there; one plan for all the actions
     # at once made the lying death frames and the jumps protect every standing row and the whole cut fell on the legs)
     # - but the counts come from the idle's body range for all, and no pick is ever dropped, so every action loses
     # the same number of body rows and columns: the same height, no pop at an animation change
     plans = {}
     same_as = same_as or {}
+    todo = [t for t in sheet if tags is None or t in tags]
 
     def root(t):
         return root(same_as[t]) if t in same_as and same_as[t] in sheet else t
-    for tag in sorted(sheet, key=lambda t: t != root(t)):
-        plans[tag] = plans[root(tag)] if root(tag) != tag else plan_tag(sheet[tag], body, scale, keep_colours)
-    for tag in list(sheet):
+    for tag in sorted(todo, key=lambda t: t != root(t)):
+        if root(tag) != tag and root(tag) in plans:
+            plans[tag] = plans[root(tag)]
+        else:
+            plans[tag] = plan_tag(sheet[root(tag)], body, scale, keep_colours)
+    for tag in todo:
         sheet[tag] = apply_tag(sheet[tag], plans[tag])
     return plans

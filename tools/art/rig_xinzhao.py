@@ -109,6 +109,13 @@ class Parts:
                        "dl_m": s.flip_h(), "ul_m": s.flip_v(), "ur_m": s.flip_h().flip_v(), "dr_m": K.rot90(s, 3).flip_h()}
         self.body = a.copy()
         self.body[head_m | butt_m] = 0
+        if SHRUNK_PLAN is not None:
+            # 90%: everything but the spear from the design made smaller by whole lines (shrink_frames.py); the spear
+            # stays as drawn - its straight 1:2 shaft and its head - and goes into the shrunk hand
+            self.body = shrunk(self.body)
+            a = self.body.copy()
+            D.a = a
+            D.soles = SOLES
         # the back arm with the whole spear in its hand: one rigid unit about the shoulder
         arm_m = K.mask_rows(BACK_ARM) & (a[..., 3] > 0)
         unit = np.zeros_like(a)
@@ -459,6 +466,87 @@ def dead(P, k):
         K.place(c, P.spears["dl"], (LIE_X - 6.0, float(soles) - 1), under=True)
     c[soles + 1:] = 0
     return c
+
+
+# 90% (players: 「赵信 ... 体型偏大」, 2026-10-08): the design loses whole rows and columns ONCE (tools/art/shrink_frames.py,
+# never through his hands or his face), before any action is posed from it - cut afterwards from the finished frames,
+# one cut ran through a different part of him in every frame: the face changed as the idle breathed (「怎么上下摆动模
+# 型变形？」) and the spear's 1:2 shaft got steps of 1 and 3 (「怎么武器也变形 不会做成笔直的？」). Every point and mask
+# above that is read on the design moves with it; the spear part is the design's, as drawn.
+SCALE = 0.9
+SHRINK_KEEP = ["F3B786", "BB7656", "!D5C9C6+6,4,9,8"]     # his skin (hands), the face box grown from the eye glint
+SOLES = 99
+SHRUNK_PLAN = None
+
+
+def _pivot_frame(c):
+    f = np.zeros((2 * PIVOT[1] + 1, 2 * PIVOT[0] + 1, 4), np.uint8)
+    f[:c.shape[0], :c.shape[1]] = c
+    return f
+
+
+def map_x(x):
+    """A canvas column (or point) on the shrunk design: the removed columns between it and the pivot close in."""
+    cs = [PIVOT[0] + c for c in SHRUNK_PLAN["cols"]]
+    if x < PIVOT[0]:
+        return x + sum(1 for c in cs if x < c < PIVOT[0])
+    return x - sum(1 for c in cs if PIVOT[0] < c <= x)
+
+
+def map_y(y):
+    """A canvas row (or point): down one for every removed row under it (all above the soles, which stay)."""
+    return y + sum(1 for r in SHRUNK_PLAN["rows"] if PIVOT[1] + r > y)
+
+
+def shrunk(c):
+    """A 128x128 canvas (image or mask) without the plan's rows and columns, the soles on their row."""
+    gone_r = {PIVOT[1] + r for r in SHRUNK_PLAN["rows"]}
+    gone_c = {PIVOT[0] + q for q in SHRUNK_PLAN["cols"]}
+    out = np.zeros_like(c)
+    for y in range(c.shape[0]):
+        if y in gone_r:
+            continue
+        ny = map_y(y)
+        for x in range(c.shape[1]):
+            if x not in gone_c and 0 <= ny < c.shape[0]:
+                nx = map_x(x)
+                if 0 <= nx < c.shape[1]:
+                    out[ny, nx] = c[y, x]
+    return out
+
+
+def map_rows(spec):
+    m = shrunk(K.mask_rows(spec))
+    out = {}
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if len(xs):
+            out[y] = (int(xs.min()), int(xs.max()))
+    return out
+
+
+def _shrink_globals():
+    import shrink_frames as SF
+    global SHRUNK_PLAN, FRONT_ARM, FRONT_PIVOT, HIP_ROW, NECK_ROW, BACK_ARM, SHOULDER, GRIP, LEG_L, LEG_R, HIP, ANKLE
+    global WAIST, RUN_HIPS, RUN_HIP_ROW, TABARD_END, HEM_ROW, TABARD_COLS, KNEES, LIE_X, THIGH, SHIN
+    D = K.Design(DESIGN)
+    a = D.a.copy()
+    a[(K.mask_box(*HEAD_BOX) | K.mask_box(*BUTT_BOX) | K.mask_rows(BUTT_SHAFT)) & (a[..., 3] > 0)] = 0
+    frame = [(_pivot_frame(a), 0)]
+    SHRUNK_PLAN = SF.plan_tag(frame, SF.body_of(frame), SCALE, SHRINK_KEEP)
+    FRONT_ARM, BACK_ARM, LEG_L, LEG_R = (map_rows(r) for r in (FRONT_ARM, BACK_ARM, LEG_L, LEG_R))
+    FRONT_PIVOT, SHOULDER, GRIP = ((map_x(x), map_y(y)) for x, y in (FRONT_PIVOT, SHOULDER, GRIP))
+    HIP_ROW, NECK_ROW, HIP, ANKLE, TABARD_END, HEM_ROW, KNEES = (
+        map_y(v) for v in (HIP_ROW, NECK_ROW, HIP, ANKLE, TABARD_END, HEM_ROW, KNEES))
+    RUN_HIP_ROW = map_y(RUN_HIP_ROW)
+    WAIST, TABARD_COLS = (map_x(WAIST[0]), map_x(WAIST[1])), (map_x(TABARD_COLS[0]), map_x(TABARD_COLS[1]))
+    RUN_HIPS = {k: map_x(v) for k, v in RUN_HIPS.items()}
+    LIE_X = map_x(LIE_X)
+    THIGH, SHIN = THIGH * SCALE, SHIN * SCALE
+
+
+if SCALE != 1:
+    _shrink_globals()
 
 
 MS = {"idle": [200] * 6, "run": [130] * 8, "attack": [60, 60, 60, 100, 100, 120], "attack_p": [70, 70, 70, 100, 100, 100],
