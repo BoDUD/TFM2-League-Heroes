@@ -21,7 +21,8 @@ Vladimir's first round). The user sent that draft back: 「按做吸血鬼的方
   4. strips.complete_outline;
   5. POLISH by hand, every square traced to base53: the tall horn redrawn at its full width (its light column was
      dropped), the mane's top highlights, the pauldron rivet, three chest-strap studs, the left knee pad's bottom, a
-     tail ring, 14 outline squares on dropped lines (dark reds are not ringed by complete_outline); the outline again;
+     tail ring, 14 outline squares on dropped lines (dark reds are not ringed by complete_outline); the nose a cat's
+     nose (the user picked option A); the outline again;
   6. on the 128 x 128 canvas at 8x: the soles on row 99, the middle of the feet on column 64.
 The user approved it (「可以了」, 2026-10-09): 40 x 41, one piece, 25 colours, the outline closed.
 """
@@ -93,6 +94,9 @@ POLISH = [
     (5, 31, "0"), (22, 14, "0"), (28, 33, "0"), (31, 15, "0"), (32, 31, "0"), (32, 40, "0"),
     (33, 14, "0"), (33, 19, "0"), (34, 28, "0"), (34, 39, "0"), (35, 12, "0"), (35, 38, "0"),
     (36, 33, "0"), (37, 33, "0"),
+    # the nose (the user, 2026-10-09: 「鼻子也有点怪？」 - a magenta 3x1 bar read as a mouth): option A, a cat's nose -
+    # three pink squares with a light middle over a magenta tip
+    (18, 29, "QPQ"), (19, 30, "N"),
 ]
 
 
