@@ -3,29 +3,28 @@
 
     python tools/art/rig_samira.py [--check] [--review DIR] [--tags attack,skill]
 
-Codex's step-2 round (assets/source/samira/codex_strips/) redrew her in every strip and passed none of its own checks;
-the user picked posing her from the design (rig_tryndamere's way). v1 was rejected: 「手变形 走路没交叉步 死亡动画完全错误
-模型变形」; v2 (two-bone arms, League's run joints) too: 「手臂对吗 走路对吗？」「你看了不奇怪吗 没违和感吗」 - its arms grew
-out of her chest (the far shoulder put by the neck and the arm drawn over the corset and the hair; in R both arms one bar
-through her), and its run legs were not her legs (a bare-skin thigh she does not have, the red band at the hip instead
-of the knee, both legs drawn in to one column so they made a V). v3 learns from oppi's Samira (the shooting arm straight
-and level at the shoulder, three squares thick, lit on top) and the accepted Varus / Kai'Sa runs:
-- arms: straight, three squares thick in the design's skin (lit, lit, shade toward the bottom / the back), the dark
-  green glove's two squares at the hand, one outline ring, as long as the design's akimbo arm; an arm leaves the torso
-  at a top corner - the near arm at the near shoulder's outer edge, drawn over the body; the far arm at the torso's
-  upper right corner (right of the corset), drawn under the torso and over the hair falling behind the far shoulder.
-  Where an arm leaves the hip, what it covered is filled in: the torso's near side (NEAR_FILL), the hair behind the far
-  forearm (FAR_FILL). A hand that does not move stays on the hip as drawn.
-- weapons: the long revolver level in the glove; the greatsword (taken off her back: the hilt over the near shoulder,
-  the blade by the far boot) in eight exact orientations (level, upright, 45 degrees; never RotSprite), in the far hand.
-- the run (League's 8 frames): the upper body the idle's (both hands at the waist, as League's run carries them), a row
-  lower at each contact; each leg made of the design's own leg rows (green: two shade, two lit; the red band at the knee;
-  the far boot's foot, toe forward, its gold heel) laid along hip -> knee -> ankle from the design's hips; the near boot
-  crosses in front of the far one, the swinging foot is lifted up to 3 rows.
+Second design (2026-10-09, tools/art/design_samira2.py: the user's ChatGPT picture cut to game size): the same pose
+family as the first - both hands on her hips, the greatsword slung behind her (the hilt with its red tassel up at the
+near shoulder, the blade's point out at the lower right), the braid at image right, a pistol in each gold holster - so
+every action is built the way the first design's v3 was (the user's notes on v1/v2 still hold: 「手变形 走路没交叉步
+死亡动画完全错误 模型变形」「手臂对吗 走路对吗？」), with the new design's own squares (the user: 「OK 动作帧全要大改吧」):
+- arms: straight, three squares thick in the design's skin (lit, lit, shade toward the bottom / the back), a gold cuff
+  step, the dark brown glove's two squares at the hand, one outline ring; the near arm leaves the near shoulder at its
+  outer edge and is drawn over the body, the far arm leaves the torso's upper right corner, under the torso and over
+  the braid. Where an arm leaves the hip, what it covered is filled in (NEAR_FILL: the belt under the near hand).
+- weapons: the long revolver level in the glove; the greatsword (taken off her back: the hilt, tassel and guard at the
+  near shoulder, the blade's point at the lower right) in eight exact orientations (level, upright, 45 degrees; never
+  RotSprite), in the far hand. What the blade hid of the hair by the near shoulder is filled in (SWORD_FILL).
+- the run (League's 8 frames): the upper body the idle's (both hands at the waist, as League's run carries them, the
+  holsters and pistols with it), a row lower at each contact; each leg the design's own trouser rows (3 wide) laid
+  along hip -> knee -> ankle, then the boot (red cuff, white buckle, the toe forward); the near boot crosses in front of
+  the far one (the far leg a shade darker), the swinging foot lifted up to 3 rows; the greatsword's lower blade bobs
+  with the body under the legs.
 - the death (league_sivir's): struck back, knocked, falling (the whole figure turned 45 degrees), lying on her back (a
   quarter turn), the greatsword on the ground by her head.
 Every frame is finished alike (rigkit.finish: pinholes, the outline closed round moved edges, crumbs dropped).
 Writes assets/source/native/samira_<tag>.png (8x, 128x96 cells) and samira_cells.json; then tools/art/import_native.py.
+The first design's version of this script is in git history (before 2026-10-09).
 """
 import argparse
 import math
@@ -53,43 +52,53 @@ MS = {"idle": [200] * 6, "run": [133] * 8, "attack": [60, 60, 60, 70, 80, 100], 
       "dead": [100, 110, 110, 120, 130, 150, 200, 300]}
 TAGS = list(MS)
 
-# the design's palette by letter (rigkit.Design.letters: dark to light), as the grid prints it
-#   0 ink  a #440B13  b #6E020F  d #232B29 (green shade)  e #262936 (navy)  f #3B241D  g #B20413 (red)  h #951517
-#   i #38433D (green lit)  l #2B5664 (teal)  m #94510B  o #777B90  p #D47603 (gold shade)  q #DA6D40 (skin mid)
-#   u #F1955D (skin lit)  v #F6B205 (gold)  w #B5BAD2  A #E9EBF2
-SKIN_LIT, SKIN_SHADE, GLOVE_LIT, GLOVE_SHADE = "u", "q", "i", "d"
+# the design's 25 colours, dark to light, pinned (rigkit.Design.letters gives them these letters)
+PALETTE = ["050206", "2A0109", "101624", "0C231E", "291E22", "0F3627", "173343", "930222", "343743", "48312F", "1B4E3B",
+           "B9112A", "714638", "7E4924", "9D5D40", "B47128", "7E8086", "C37950", "CD8B30", "E5A742", "B0B2BB", "C2C5D4",
+           "FBCC51", "E6E5E0", "F3F2EF"]
+#   0 ink  a #2A0109  b #101624 (hair dark)  c #0C231E (green dark)  d #291E22 (glove dark)  e #0F3627 (green)
+#   f #173343 (hair)  g #930222 (red dark)  h #343743 (steel dark)  i #48312F (glove)  j #1B4E3B (green lit)
+#   k #B9112A (red)  l #714638 (skin dark)  m #7E4924  n #9D5D40 (skin shade)  o #B47128 (gold dark)  p #7E8086 (steel)
+#   q #C37950 (skin)  r #CD8B30 (gold)  s #E5A742 (gold lit)  t #B0B2BB (silver)  u #C2C5D4 (silver lit)
+#   v #FBCC51 (gold bright)  w #E6E5E0 (white)  x #F3F2EF (white bright)
+SKIN_LIT, SKIN_SHADE, GLOVE_LIT, GLOVE_SHADE, CUFF_LIT, CUFF_SHADE = "q", "n", "i", "d", "s", "o"
 
 # ------------------------------------------------------------------------------------------------ the design's parts
 # the arms on the hips taken off when an arm moves (rows: (first, last) column): the near arm under its shoulder (the
-# elbow, the forearm, the glove on the hip), the far forearm and glove on the hip
-NEAR_OFF = {78: (53, 58), 79: (53, 59), 80: (54, 60), 81: (55, 60), 82: (56, 60)}
-FAR_OFF = {79: (70, 72), 80: (71, 73), 81: (71, 72), 82: (70, 70)}
-# what they covered, filled in (first column, letters): the torso's near side - the red top down the side, the corset,
-# its outline a column inside the shoulder's; the hair behind the far forearm (navy), the torso's outline on column 70
-NEAR_FILL = {78: (57, "0q"), 79: (57, "0ggdd"), 80: (57, "0hgd0"), 81: (57, "0dih0"), 82: (57, "0dii0")}
-FAR_FILL = {79: (70, "0ee"), 80: (71, "eee"), 81: (71, "ee"), 82: (70, "0")}
-NEAR_SH = (55.0, 77.0)                 # the near shoulder's outer edge: the arm's first step
-FAR_SH = (71.0, 78.0)                  # the torso's upper right corner, right of the corset's edge (column 70)
-ARM_STEPS, GLOVE_STEPS = 6, 2          # skin steps along the arm, then the glove: the design's akimbo arm's length
-# the hair falling behind the far shoulder (the far arm and what it holds pass over it, under everything else)
-HAIR_BOX = (66, 90, 71, 79)            # rows r0..r1, columns c0..c1
-# the greatsword on her back: the hilt and its ribbon over the near shoulder, the blade under the hip by the far boot
-BACK_HILT = {61: (52, 54), 62: (52, 54), 63: (52, 54), 64: (52, 54), 65: (52, 55), 66: (52, 55), 67: (52, 55),
-             68: (52, 55), 69: (52, 55), 70: (52, 55), 71: (53, 56), 72: (54, 56), 73: (54, 55), 74: (54, 55)}
-BLADE_ROWS = {**{r: (76, 84) for r in range(86, 97)}, 97: (78, 84), 98: (78, 84)}
+# upper arm, the elbow, the gold cuff, the glove on the hip), the far arm under its shoulder (to the glove on the hip)
+NEAR_OFF = {79: (52, 56), 80: (51, 57), 81: (51, 54), 82: (50, 54), 83: (51, 54), 84: (52, 56), 85: (53, 57)}
+FAR_OFF = {80: (67, 69), 81: (67, 70), 82: (67, 71), 83: (67, 72), 84: (67, 70), 85: (67, 68)}
+# what the near glove covered, filled in (first column, letters): the belt at the hip down to the holster's top
+NEAR_FILL = {84: (55, "0dd"), 85: (55, "0dd")}
+NEAR_SH = (55.0, 79.0)                 # the near shoulder's outer edge: the arm's first step
+FAR_SH = (67.0, 80.0)                  # the torso's upper right corner, under the far shoulder
+ARM_STEPS, GLOVE_STEPS = 5, 2          # skin steps along the arm (the last a gold cuff), then the glove
+# the braid behind the far shoulder (the far arm and what it holds pass over it, under everything else)
+HAIR_BOX = (76, 86, 69, 75)            # rows r0..r1, columns c0..c1
+# the greatsword on her back: the upper part as design_samira2.SWORD lists it (pommel, tassel, grip, guard, the blade
+# down to the near shoulder) and the lower blade by the far boot (the far holster's pistol barrel beside it stays)
+SWORD_UP = [(46, 64), (47, 64), (46, 65), (47, 65), (48, 65), (46, 66), (47, 66), (48, 66), (45, 67), (46, 67), (47, 67),
+            (48, 67), (45, 68), (49, 68), (49, 69), (51, 69), (50, 70), (51, 70), (49, 71), (50, 71), (49, 72), (50, 72),
+            (51, 72), (50, 73), (51, 73), (50, 74), (51, 74), (52, 74), (51, 75), (52, 75), (53, 75), (52, 76), (53, 76),
+            (54, 76), (55, 76), (52, 77), (53, 77), (54, 77), (53, 78)]
+BLADE_LOW = [(70, 88), (71, 89), (71, 90), (72, 90), (71, 91), (72, 91), (70, 92), (71, 92), (72, 92), (73, 92),
+             (72, 93), (73, 93), (74, 93), (73, 94), (74, 94), (75, 94), (73, 95), (74, 95), (75, 95), (74, 96),
+             (75, 96), (75, 97)]
+# what the blade hid by the near shoulder once it is off her back: the hair falling onto the shoulder
+SWORD_FILL = {75: (54, "b"), 76: (53, "bbb"), 77: (53, "bb")}
 
-# the long revolver, pointing right, the grip in the hand at GUN_GRIP (letters: rigkit.Design.letters)
+# the long revolver, pointing right, the grip in the hand at GUN_GRIP (letters: the pinned palette's)
 GUN = [
     "....000000000",
-    "...0vpAAAAAA0",
-    "..0oooowwwww0",
-    ".0ff00000000.",
-    "0ff0.........",
+    "...0voxxxxxx0",
+    "..0ppppttttt0",
+    ".0dd00000000.",
+    "0dd0.........",
     "000..........",
 ]
 GUN_GRIP = (2.0, 3.5)
-BLADE = 22                             # the held greatsword's blade (level), squares
-DIAG_BLADE = 14                        # the same at 45 degrees, steps
+BLADE = 20                             # the held greatsword's blade (level), squares
+DIAG_BLADE = 13                        # the same at 45 degrees, steps
 
 
 def unit_from(rows, letters, joint):
@@ -118,18 +127,18 @@ def sword_rows(blade=BLADE):
     guard 4 tall, the blade 3 tall (silver edge on top, steel, dark back) tapering to the point, one outline ring."""
     W = 6 + blade + 1
     g = [["."] * W for _ in range(7)]
-    g[3][1], g[4][1] = "k", "b"
-    g[3][2], g[4][2] = "f", "f"
-    g[3][3], g[4][3] = "f", "f"
-    for y, ch in zip(range(2, 6), "vppv"):
+    g[3][1], g[4][1] = "k", "g"
+    g[3][2], g[4][2] = "h", "h"
+    g[3][3], g[4][3] = "h", "h"
+    for y, ch in zip(range(2, 6), "vrrv"):
         g[y][4] = ch
     for x in range(5, 5 + blade):
         left = 5 + blade - 1 - x
-        g[3][x] = "A"
+        g[3][x] = "u"
         if left >= 1:
-            g[4][x] = "o"
+            g[4][x] = "t"
         if left >= 2:
-            g[5][x] = "e"
+            g[5][x] = "h"
     return outlined(g)
 
 
@@ -148,20 +157,28 @@ def diag_rows(blade=DIAG_BLADE):
     for t in range(n):
         x, y = x0 - t, y0 + t
         if t < 2:
-            put(x, y, "f"), put(x + 1, y, "f")
+            put(x, y, "h"), put(x + 1, y, "h")
         elif t == 2:
-            put(x - 1, y - 1, "v"), put(x, y, "p"), put(x + 1, y, "p"), put(x + 2, y + 1, "v")
+            put(x - 1, y - 1, "v"), put(x, y, "r"), put(x + 1, y, "r"), put(x + 2, y + 1, "v")
         else:
             left = n - 1 - t
-            mats = ("e", "o", "A") if left >= 2 else (("o", "A") if left == 1 else ("A",))
+            mats = ("h", "t", "u") if left >= 2 else (("t", "u") if left == 1 else ("u",))
             for k, ch in enumerate(mats):
                 put(x - 1 + k + (3 - len(mats)), y, ch)
     return outlined(g), (x0 + 0.5, y0 + 0.5)
 
 
+def mask_of(cells, shape=(128, 128)):
+    m = np.zeros(shape, bool)
+    for x, y in cells:
+        m[y, x] = True
+    return m
+
+
 class Parts:
     def __init__(self):
         D = K.Design(DESIGN)
+        D.palette = [tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) for h in PALETTE]
         self.D = D
         a = D.a
         self.L = L = D.letters()
@@ -172,27 +189,27 @@ class Parts:
         rows, joint = diag_rows()
         dg = K.orientations(unit_from(rows, L, joint))
         self.sword = {"r": lvl, "l": lvl.flip_h(), "u": K.rot90(lvl, 3), "d": K.rot90(lvl, 1), **dg}
-        self.sword_m = K.mask_rows(BACK_HILT) | K.mask_rows(BLADE_ROWS)
+        self.sword_m = mask_of(SWORD_UP) | mask_of(BLADE_LOW)
+        self.blade_low = mask_of(BLADE_LOW)
         r0, r1, c0, c1 = HAIR_BOX
-        skin = K.colour_mask(a, [L["u"], L["q"]])
+        skin = K.colour_mask(a, [L["q"], L["n"], L["l"]])
         self.hair = np.zeros(a.shape[:2], bool)
         self.hair[r0:r1 + 1, c0:c1 + 1] = True
-        self.hair &= ~skin & ~K.mask_rows(BLADE_ROWS)
-        self.hair |= K.mask_rows(FAR_OFF)                       # the far forearm's place: the hair once it moves
+        self.hair &= ~skin & ~self.blade_low
+        self.hair |= K.mask_rows(FAR_OFF)                       # the far forearm's place: free once it moves
 
 
 # ------------------------------------------------------------------------------------------------ drawing
 def arm_layers(P, sh, deg, steps=ARM_STEPS, glove=GLOVE_STEPS):
     """A straight arm from the shoulder square `sh`, `deg` from hanging (+90 image right, -90 left, 180 up): each step
     along it a cross-section of 3 squares (skin lit, lit, shade - the shade toward the bottom, or the back when it
-    hangs), the glove's last two steps (lit, lit, shade); returns its outline ring, skin, glove ({(x, y): rgba}) and
-    the hand (the glove's first middle square)."""
+    hangs), the last skin step a gold cuff, the glove's last two steps (lit, lit, shade); returns its outline ring,
+    skin, glove ({(x, y): rgba}) and the hand (the glove's first middle square)."""
     t = math.radians(deg)
     dx, dy = math.sin(t), math.cos(t)
     horiz = abs(dx) >= abs(dy)
     cells, hand, glove_q = {}, None, set()
     # near 45 degrees a cross-section of 3 squares a step is thinner across the arm than the level arm: one more
-    # (the design's own slanted upper arm is 4 squares a row)
     across = (-1, 0, 1, 2) if min(abs(dx), abs(dy)) / max(abs(dx), abs(dy)) > 0.5 else (-1, 0, 1)
     for i in range(steps + glove):
         if horiz:
@@ -204,12 +221,17 @@ def arm_layers(P, sh, deg, steps=ARM_STEPS, glove=GLOVE_STEPS):
             xc = sh[0] + i * dx / abs(dy)
             sq = [(int(math.floor(xc + 0.5)) + k, y) for k in across]
         g = i >= steps
+        cuff = i == steps - 1
         n = len(sq)
         for k, q in enumerate(sq):
             lit = k < n - 1
-            cells[q] = (GLOVE_LIT if lit else GLOVE_SHADE) if g else (SKIN_LIT if lit else SKIN_SHADE)
             if g:
+                cells[q] = GLOVE_LIT if lit else GLOVE_SHADE
                 glove_q.add(q)
+            elif cuff:
+                cells[q] = CUFF_LIT if lit else CUFF_SHADE
+            else:
+                cells[q] = SKIN_LIT if lit else SKIN_SHADE
         if i == steps:
             hand = sq[1]
     # a slanted arm's steps meet at corners: the square between two of one colour two apart takes it (3 thick stays)
@@ -269,6 +291,13 @@ def shifted(a, dx, dy):
     return K.shifted(a, dx, dy) if (dx or dy) else a
 
 
+def sword_off(P, a):
+    """The greatsword taken off her back: its squares cleared, the hair it hid by the near shoulder filled in."""
+    a[P.sword_m] = 0
+    fill(P, a, SWORD_FILL)
+    return a
+
+
 # ------------------------------------------------------------------------------------------------ standing actions
 # per frame: "far" / "near": (degrees from hanging, weapon, way) - weapon "gun" (way "r" / "l") or "sword" (way r l u d
 # ur dr dl ul); an arm not given stays on the hip as drawn. "move": the whole frame (dx, dy); "sword_off": the sword
@@ -316,7 +345,7 @@ STAND = {
 def stand(P, pose):
     a = P.D.a.copy()
     if pose.get("sword_off"):
-        a[P.sword_m] = 0
+        sword_off(P, a)
     near, far = pose.get("near"), pose.get("far")
     if near is not None:
         for y, (x0, x1) in NEAR_OFF.items():
@@ -325,10 +354,9 @@ def stand(P, pose):
     if far is not None:
         for y, (x0, x1) in FAR_OFF.items():
             a[y, x0:x1 + 1] = 0
-        fill(P, a, FAR_FILL)
     body = a[..., 3] > 0
     ink = (a[..., :3] == P.rgba["0"][:3]).all(-1) & body
-    behind = lambda x, y: not body[y, x] or P.hair[y, x]          # the far arm: over the hair, under the rest
+    behind = lambda x, y: not body[y, x] or P.hair[y, x]          # the far arm: over the braid, under the rest
     clear = lambda x, y: not body[y, x] or ink[y, x]               # the near arm's outline: never over the body's
     c = a.copy()                                                   # colours (the shoulder runs into the arm)
     for key, sh, ok, ok_ring in (("far", FAR_SH, behind, behind), ("near", NEAR_SH, None, clear)):
@@ -346,16 +374,18 @@ def stand(P, pose):
 
 
 # ------------------------------------------------------------------------------------------------ the run
-LEG_TOP = 89                           # the body keeps the rows above (the belt, the holster, the thigh tops)
-HOLSTER_TIP = {89: (53, 55), 90: (53, 55)}      # the near holster's tip under the belt stays with the body
-HIPS = {"near": 61.5, "far": 67.5}     # the leg tops' middles on row 89: under the hips, 6 apart (the A-stance's
-                                       # are 10: the feet met and the legs made a lump instead of crossing)
-LEG_ROW, BAND_ROW = "ddii", "bggg"      # a leg row (two shade, two lit), the red band at the knee
-FOOT = ["dddiii", "pdddiiii"]          # the far boot's foot as drawn (toe forward), from the shin's first column
-FOOT_UP = ["ddii", "pdii"]             # a lifted foot, toe down
-# the far leg a shade darker (the design's own darker squares: the green's shade for its lit, the navy for its shade,
-# the band's dark reds) - drawn alike, the two crossing legs were one dark lump
-FAR_SHADE = {"d": "e", "i": "d", "g": "b", "b": "a"}
+LEG_TOP = 88                           # the body keeps the rows above (the belt, the holsters' tops)
+# the holsters and their pistols under LEG_TOP stay with the body
+HOLSTERS = {88: [(52, 57), (66, 69)], 89: [(52, 57), (66, 70)], 90: [(52, 57), (67, 70)], 91: [(52, 56), (67, 70)],
+            92: [(52, 55), (68, 69)], 93: [(53, 54)]}
+HIPS = {"near": 60.0, "far": 64.5}     # the leg tops' middles on row 88 (the trousers' own columns)
+LEG_ROW = "cjc"                        # a trouser row (shade, lit, shade)
+# the boot under the trousers, from the ankle's middle (column offset of the first letter, letters): the red cuff, the
+# dark red and white buckle, the boot and the white buckle, the foot (heel to toe, the toe forward)
+BOOT = [(-1, "kck"), (-1, "ggw"), (0, "cx"), (-1, "ecjj")]
+BOOT_UP = [(-1, "kck"), (-1, "ggw"), (0, "cx"), (0, "cjj")]     # a lifted foot, toe down
+# the far leg a shade darker (the design's own darker squares) - drawn alike, the two crossing legs were one dark lump
+FAR_SHADE = {"j": "e", "e": "c", "k": "g", "g": "a", "w": "t", "x": "u"}
 # one leg's cycle (8 frames): the knee's and the ankle's columns from the hip (+ forward = image right), the foot's
 # lift (rows): contact, loading, mid-stance, push, toe-off, kick, passing, reach
 CYCLE = [(2, 5, 0), (2, 2, 0), (1, -1, 0), (-1, -4, 0), (-2, -5, 1), (-1, -5, 3), (2, -1, 3), (3, 4, 1)]
@@ -363,12 +393,14 @@ BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact a
 
 
 def leg_cells(P, hip_x, top, knee_dx, ankle_dx, lift, far=False):
-    """A leg of the design's rows: thigh rows, the band, shin rows, the foot (its last row on 98 - lift), each row's
-    middle on the line hip -> knee -> ankle (the far leg a shade darker); one outline ring."""
+    """A leg of the design's rows: trouser rows along hip -> knee -> ankle, then the boot (its last row on 98 - lift),
+    each row's middle on the line; one outline ring (the far leg a shade darker)."""
+    boot = BOOT_UP if lift >= 2 else BOOT
     bottom = (SOLES - 1) - lift
-    rows = bottom - top + 1 - 2
-    nt = max(1, min(3, rows - 3))
-    ns = rows - nt - 1
+    first_boot = bottom - len(boot) + 1
+    rows = first_boot - top
+    nt = max(1, rows // 2)
+    ns = rows - nt
     cells = {}
 
     def row(y, xm, pat):
@@ -380,15 +412,13 @@ def leg_cells(P, hip_x, top, knee_dx, ankle_dx, lift, far=False):
     for i in range(nt):
         row(y, hip_x + (kx - hip_x) * i / nt, LEG_ROW)
         y += 1
-    row(y, kx, BAND_ROW)
-    y += 1
-    for i in range(1, ns + 1):
-        row(y, kx + (ax - kx) * i / (ns + 1), LEG_ROW)
+    for i in range(ns):
+        row(y, kx + (ax - kx) * (i + 1) / ns, LEG_ROW)
         y += 1
-    x0 = int(math.floor(ax - 2 + 0.5))
-    for i, pat in enumerate(FOOT_UP if lift >= 2 else FOOT):
+    x_mid = int(math.floor(ax + 0.5))
+    for i, (off, pat) in enumerate(boot):
         for j, ch in enumerate(pat):
-            cells[(x0 + j, y + i)] = ch
+            cells[(x_mid + off + j, first_boot + i)] = ch
     out = {}
     for (x, y) in cells:
         for ox, oy in K.N4:
@@ -403,11 +433,11 @@ def run_parts(P):
     a = P.D.a
     body = a.copy()
     body[LEG_TOP:] = 0
-    tip = K.mask_rows(HOLSTER_TIP)
-    body[tip] = a[tip]
+    for y, spans in HOLSTERS.items():
+        for x0, x1 in spans:
+            body[y, x0:x1 + 1] = a[y, x0:x1 + 1]
     blade = np.zeros_like(a)
-    m = K.mask_rows(BLADE_ROWS)
-    blade[m] = a[m]
+    blade[P.blade_low] = a[P.blade_low]
     return body, blade
 
 
@@ -449,15 +479,16 @@ def laid_out(P):
     straight under the hips (the design's A-stance turned a quarter would raise one leg), both arms down along her
     sides - so the turned figure lies flat."""
     a = P.D.a.copy()
-    a[P.sword_m] = 0
+    sword_off(P, a)
     a[LEG_TOP:] = 0
-    tip = K.mask_rows(HOLSTER_TIP)
-    a[tip] = P.D.a[tip]
+    for y, spans in HOLSTERS.items():
+        for x0, x1 in spans:
+            a[y, x0:x1 + 1] = P.D.a[y, x0:x1 + 1]
+    a[P.blade_low] = 0
     for y, (x0, x1) in list(NEAR_OFF.items()) + list(FAR_OFF.items()):
         a[y, x0:x1 + 1] = 0
     fill(P, a, NEAR_FILL)
-    fill(P, a, FAR_FILL)
-    for hip, far in ((66.5, True), (61.5, False)):      # the far leg first, the near one in front of it
+    for hip, far in ((HIPS["far"], True), (HIPS["near"], False)):      # the far leg first, the near one in front
         put_cells(a, leg_cells(P, hip, LEG_TOP, 0, 0, 0, far))
     body = a[..., 3] > 0
     ink = (a[..., :3] == P.rgba["0"][:3]).all(-1) & body
@@ -516,9 +547,8 @@ def dead_frame(P, i):
 
 # ------------------------------------------------------------------------------------------------ build
 def finish(P, raw):
-    """rigkit.finish, then the open gaps the raw frame has (2+ squares: between the legs, the design's own beside the
-    far hand) cleared again where the finish filled them with a colour (its pinhole fill takes them for pinholes - the
-    run's legs had a lilac patch between them)."""
+    """rigkit.finish, then the open gaps the raw frame has (2+ squares: between the legs, beside the hands on the
+    hips) cleared again where the finish filled them with a colour (its pinhole fill takes them for pinholes)."""
     f = K.finish(raw, P.D.outline, SOLES, pinholes=1)
     ink = np.array(P.D.outline, np.uint8)
     for comp in K.holes(raw):

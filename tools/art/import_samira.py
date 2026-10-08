@@ -21,8 +21,8 @@ frames with her facing and never an effect picture, so
 - what plays on her whichever way she faces - the whirl ring, R's storm, the reset and Style flashes - is mirrored
   left to right about its middle; the Style letters are never mirrored (they read the same both ways round).
 Spots (game px from the pivot, x forward, y down; her soles 11 under it) come from the finished strips
-(tools/art/rig_samira.py; pack_samira_fx.SHOTS): the muzzle in the attack's firing frame (+23, -11.5), Q's (+23, -12.5),
-R's pistols (+24 / -26.5, by frame). Times from the strips (rig_samira.MS) and the kit (60 ticks a second).
+(tools/art/rig_samira.py; measured again on the second design's strips, 2026-10-09): the muzzle in the attack's and
+Q's firing frames (+16, -9.5), R's pistols (+17 / -24, by frame). Times from the strips (rig_samira.MS) and the kit (60 ticks a second).
 """
 import argparse
 import json
@@ -131,21 +131,21 @@ def cells(name, n):
 
 
 # spots from the pivot (game px, x forward, y down), measured on the finished strips (pack_samira_fx.SHOTS)
-MUZZLE_A = (23, -11.5)          # the attack's muzzle in its firing frame (frame 4: the hand at +12, the barrel 9 on): the
+MUZZLE_A = (16, -9.5)           # the attack's muzzle in its firing frame (frame 4; the second design, 2026-10-09): the
                                 # flash's bright left end on the barrel's last square
-MUZZLE_Q = (22, -12.5)          # Q's firing frame (frame 3)
+MUZZLE_Q = (16, -9.5)           # Q's firing frame (frame 3)
 # R: the far pistol (right) and the near one (left) in the firing frames 2-9; three poses (the arms see-saw)
-R_POSES = {"rf_a": ((23, -11.5), (-25.5, -12.5)), "rf_b": ((23, -13.5), (-25.5, -10.5)),
-           "rf_c": ((23, -9.5), (-25.5, -14.5))}
+R_POSES = {"rf_a": ((17, -9.5), (-24, -10.5)), "rf_b": ((17, -11.5), (-24, -8.5)),
+           "rf_c": ((17, -7.5), (-24, -12.5))}
 R_FRAMES = ["rf_a", "rf_b", "rf_a", "rf_c", "rf_a", "rf_b", "rf_a", "rf_c"]     # ult frames 2-9
-SLASH = (19, -10)               # the chop arc's box middle in front of her (attack_m 4: the hand at +15, -6)
-Q_SWEEP = (23, -9)              # the half-moon's box middle: its inner edge 6 in front of her, from over her head to
+SLASH = (14, -8)                # the chop arc's box middle in front of her (attack_m 4: the hand at +10, -4)
+Q_SWEEP = (18, -6)              # the half-moon's box middle: its inner edge 6 in front of her, from over her head to
                                 # the ground
 DASH = (-14, 4)                 # E's trail: its box middle behind her, low
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
 WAIST = (0, -3)                 # the whirl ring round her waist
 BODY = (0, -8)                  # R's storm round her
-OVER = (0, -36)                 # the Style letters and flashes over her head (her crown 28 over the pivot)
+OVER = (0, -33)                 # the Style letters and flashes over her head (her crown 25 over the pivot)
 SOLES = (0, 11)                 # what stands on the ground: its lowest row there
 EMPTY = J.EMPTY
 seq = J.seq
