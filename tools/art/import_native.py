@@ -81,7 +81,6 @@ BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
 # The box is (row0, row1, col0, col1) relative to (the soles' row, the frame's centre); colours are the weapon's own,
 # read from the design (charmaps), and the box keeps out the body parts that share them (Varus's trousers are his bow's
 # violets, Jinx's boots her gun's greys, Kayn's sash his scythe's red).
-PLANTED = "planted"     # a carried part's third field: it stands on the ground and stays where the design has it
 WEAPON_CARRY = {
     "garen": [({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65), (0x29, 0x63, 0x80),
                 (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
@@ -110,13 +109,16 @@ WEAPON_CARRY = {
                 (-41, 0, -99, -6))],   # his staff, head to foot, left of his cloak's red (「维克托武器也变形」)
     "jhin": [({(0x26, 0x2A, 0x3A), (0x4A, 0x54, 0x70), (0xD8, 0x90, 0x2C), (0xA0, 0x58, 0x1A), (0xFF, 0xD8, 0x78), (0x74, 0x85, 0x9E), (0x5A, 0x2E, 0x10), (0xD2, 0xCA, 0xB0)},
               (-13, -1, 6, 99))],
-    # 「诺手待机动作武器变形」: the haft's top (the ball and the brown shaft over his pauldron) goes with his hands; the
-    # axe's head stands on the ground by his feet, so it stays planted (PLANTED) - the haft between runs behind his arm
+    # 「诺手待机动作武器变形」: the haft's top (the ball and the brown shaft over his pauldron) and the axe's head by his
+    # feet, carried whole with his hands (the haft between runs behind his arm); the head dips like LeBlanc's staff foot
     "darius": [({(0x0B, 0x03, 0x12), (0x06, 0x02, 0x0B), (0x08, 0x03, 0x0E), (0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x4F, 0x3C, 0x3A)},
                 (-42, -30, -18, -14)),
                ({(0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x38, 0x3B, 0x46), (0x22, 0x24, 0x2D), (0x7D, 0x10, 0x27), (0x55, 0x5B, 0x6C), (0x63, 0x68, 0x7C), (0x7A, 0x80, 0x91), (0x14, 0x14, 0x1C)},
-                (-12, 0, -24, -10), PLANTED)],
+                (-12, 0, -24, -10))],
 }
+
+
+CARRY_FILL = {"darius"}
 
 
 def shut_in(op):
@@ -876,37 +878,32 @@ def breathe_idle(hero, sheet):
     carried = None
     if hero in WEAPON_CARRY:
         carried = np.zeros(a.shape[:2], bool)
-        planted = np.zeros(a.shape[:2], bool)
-        for colours, box, *how in WEAPON_CARRY[hero]:
-            m = weapon_mask(a, colours, box)
-            (planted if PLANTED in how else carried).__ior__(m)
-        carried &= ~planted
+        for colours, box in WEAPON_CARRY[hero]:
+            carried |= weapon_mask(a, colours, box)
         a = a.copy()
-        a[carried | planted] = 0
+        a[carried] = 0
     opts = BREATHE_OPTS.get(hero, {})
     frames, rows = IB.breathe(a, head, nod=hero not in NO_NOD, **opts)
     if carried is not None:
         src = sheet["idle"][0][0]
         cy, cx = np.nonzero(carried)
         body, sway = opts.get("body", IB.BODY), opts.get("sway", IB.SWAY)
-        py, px = np.nonzero(planted)
-        near = planted.copy()                        # within 2 squares of the planted part
+        near = carried.copy()                                     # within 2 squares of the weapon
         for _ in range(2):
             g = near.copy()
             g[1:] |= near[:-1]; g[:-1] |= near[1:]; g[:, 1:] |= near[:, :-1]; g[:, :-1] |= near[:, 1:]
             near = g
         for k, f in enumerate(frames):
             f[cy + 2 + body[k], cx + 2 + sway[k]] = src[cy, cx]   # breathe pads its frames by 2 all round
-            if len(py):
-                f[py + 2, px + 2] = src[py, px]
-                # the body leaning away from a planted part opens see-through squares between them: the design's own
-                # squares there (the figure as it stands) fill them
-                for y, x in shut_in(f[..., 3] > 0):
-                    if (2 <= y < src.shape[0] + 2 and 2 <= x < src.shape[1] + 2 and src[y - 2, x - 2, 3]
-                            and near[y - 2, x - 2]):
-                        f[y, x] = src[y - 2, x - 2]
+            # a weapon moved off the standing legs (league_darius's axe head beside his shin) leaves see-through
+            # squares shut in between them: the design's own squares there fill them (its own holes stay); only for
+            # CARRY_FILL - the approved heroes keep their frames as they are
+            for y, x in (shut_in(f[..., 3] > 0) if hero in CARRY_FILL else []):
+                sy, sx = y - 2 - body[k], x - 2 - sway[k]
+                if (0 <= sy < src.shape[0] and 0 <= sx < src.shape[1] and near[sy, sx]
+                        and 0 <= y - 2 < src.shape[0] and 0 <= x - 2 < src.shape[1] and src[y - 2, x - 2, 3]):
+                    f[y, x] = src[y - 2, x - 2]
         rows["carried"] = int(carried.sum())
-        rows["planted"] = int(planted.sum())
     if os.environ.get("IDLE_DEBUG"):                     # the frames, for review sheets
         np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}.npy"), np.stack(frames))
     sheet["idle"] = [(f, IB.MS) for f in frames]
