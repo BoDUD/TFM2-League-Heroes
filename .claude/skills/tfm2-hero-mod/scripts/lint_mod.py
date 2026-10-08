@@ -606,6 +606,24 @@ def main(argv=None):
     champ_files = sorted(glob.glob(os.path.join(glob.escape(root), "**", "*.data_champion"), recursive=True))
     if not champ_files:
         rep.warn("champion/", "no *.data_champion files found")
+    # who adds which buff, across the pack: a duo reads the buff another hero's kit puts on it (league_rakan's E reads
+    # league_xayah_duo, which Xayah's attacks put on her allies; her attack reads league_rakan_e_on, his E shield)
+    added_by = {}
+    for path in champ_files:
+        try:
+            dd = json.loads(open(path, "rb").read().decode("utf-8-sig"))
+        except (OSError, ValueError):
+            continue
+        stack = [dd]
+        while stack:
+            n = stack.pop()
+            if isinstance(n, dict):
+                bs = n.get("buff_state")
+                if isinstance(bs, dict) and bs.get("name"):
+                    added_by.setdefault(bs["name"], dd.get("id", "?"))
+                stack.extend(n.values())
+            elif isinstance(n, list):
+                stack.extend(n)
     for path in champ_files:
         where_file = mod.rel(path)
         d = load_json(path, rep, where_file)
@@ -858,7 +876,11 @@ def main(argv=None):
         for nm in sorted(found["projectiles"] - vp - ve):
             rep.info(W, f"projectile '{nm}' has no view_projectiles entry (invisible; fine for hidden helpers)")
         for nm in sorted(found["switch_buffs"] - found["buffs"]):
-            rep.warn(W, f"SwitchByBuff checks '{nm}' but this kit never adds that buff")
+            if nm in added_by and added_by[nm] != cid:
+                rep.info(W, f"SwitchByBuff checks '{nm}', which {added_by[nm]}'s kit adds (a duo: a buff another "
+                            f"hero puts on this one)")
+            else:
+                rep.warn(W, f"SwitchByBuff checks '{nm}' but this kit never adds that buff")
 
         # sfx
         for nm in sorted(found["sfx"]):

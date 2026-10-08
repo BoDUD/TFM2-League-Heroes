@@ -451,9 +451,16 @@ def crumbs_l(a, keep, fam_of, size=2):
 HEAD_TOP = {62: (65, "77o77"), 63: (71, "7"), 64: (70, "k75"), 65: (69, "74"), 66: (67, "5")}
 
 
+# step 7 (the user, reviewing the strips: 「仔细排查问题」「不要有任何模型变形的问题」「像素缺失也是」): the design's own two
+# defects - a see-through square shut in by outline between the near shoulder and the skull (80, 77: a hole showing the
+# ground) gets the outline colour, and a lone outline square floating right of the blades' tips (93, 83) goes
+HOLES = {80: (77, "0"), 93: (83, ".")}
+
+
 def picked():
     can = regional(6, 13, 25).copy()
     paint(can, HEAD_TOP)
+    paint(can, HOLES)
     return can
 
 

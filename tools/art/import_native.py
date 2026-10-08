@@ -61,7 +61,9 @@ UNSTEADY = {("rakan", "run")}
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
 # back too: 「永恩 格温 凯尔 恢复到之前的」, then Alistar, Soraka, Blitzcrank: 「牛头 / 索拉卡 / 机器人恢复到之前的」,
 # 2026-10-08), NO_NOD breathes without the head's late nod
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank"}
+# Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
+# shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
+BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -384,8 +386,7 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("seraphine", "idle"): [0, 1, 2, 3, 4, 5],
          # Lillia (design_lillia.py step 10; rig_lillia.py writes the design six times, BOB breathes it)
          ("lillia", "idle"): [0, 0, 0, 0, 0, 0],
-         # Xayah (design_xayah.py picked(); rig_xayah.py writes the design six times, idle_breathe breathes it)
-         ("xayah", "idle"): [0, 0, 0, 0, 0, 0],
+
          # Viktor (Codex's design B, the staff straightened, design_viktor.py; Codex's idle is the design six times)
          ("viktor", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
