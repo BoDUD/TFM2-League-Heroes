@@ -623,11 +623,11 @@
     "league_sivir": {
       "face": {
         "x": 0,
-        "y": -37
+        "y": -34
       },
       "center": {
         "x": 0,
-        "y": -12
+        "y": -11
       }
     },
     "league_twistedfate": {

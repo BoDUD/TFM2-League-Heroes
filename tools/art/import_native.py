@@ -63,7 +63,8 @@ UNSTEADY = {("rakan", "run")}
 # 2026-10-08), NO_NOD breathes without the head's late nod
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead)
-BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}
+BREATHE_SKIP = {"sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# hips or her slanted boots
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
 # Ezreal "有问题"): mode "seam" nods with a full-width row under the chin instead of the head piece, deep lets the body's
 # rows come from down to the shins
@@ -630,7 +631,8 @@ BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
-TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"}
+TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana",
+        "xerath": "clean_xerath"}   # 「顺便把泽拉斯脚上的黑边清理干净」: bare outline stalks under his leg tips
 # heroes made smaller from their finished frames: whole rows and columns out, never resampled (shrink_frames.py); the idle
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
@@ -1204,16 +1206,18 @@ def head_move(hero, sheet):
     return done
 
 
-def tidy_frames(hero, sheet):
-    """TIDY: the hero's own clean-up module on every finished frame; the pixels it changed."""
+def tidy_frames(hero, sheet, step="tidy"):
+    """TIDY: the hero's own clean-up module on every finished frame (its function `step`); the pixels it changed."""
     if hero not in TIDY:
         return 0
     mod = importlib.import_module(TIDY[hero])
+    if not hasattr(mod, step):
+        return 0
     n = 0
     for tag, frames in sheet.items():
         for k, (a, ms) in enumerate(frames):
             p = np.pad(a, ((6, 6), (6, 6), (0, 0)))      # room round the frame (Morgana's pasted head template)
-            b = mod.tidy(tag, k, p.copy())
+            b = getattr(mod, step)(tag, k, p.copy())
             n += int((b != p).any(-1).sum())
             frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -(b.shape[0] // 2)), ms)
     return n
@@ -1466,6 +1470,9 @@ def main():
             SHRUNK[hero] = plans
             print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
                 f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
+            # a TIDY module's clean-up for the shrunk frames (tidy_shrunk): a removed row can take a tip's cap with
+            # it (Xerath's far leg)
+            tidy_frames(hero, sheet, "tidy_shrunk")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         forms = form_sheets(hero, sheet)
         for name, fsheet in forms.items():
