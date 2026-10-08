@@ -61,14 +61,16 @@ HOOK_END = (78.5, 62.5)               # the gold link the lantern hangs from
 LANTERN_BOX = (63, 78, 76, 84)
 LANTERN_JOINT = (79.0, 63.0)          # the top of its cap
 TOP_LEN, BOTTOM_LEN = 18, 7           # squares from the grip to the top part's joint / to the tip at the bottom
-DESIGN_FIX = DL.FIX10                  # in the design since step 10 (applying it again changes nothing)
+DESIGN_FIX = (DL.FIX10, DL.BODY11)     # in the design since steps 10-11 (applying them again changes nothing)
 
 
 class Parts:
     def __init__(self):
         D = K.Design(DESIGN)
         self.D = D
-        a = DL.apply_letters(D.a.copy(), DESIGN_FIX)
+        a = D.a.copy()
+        for fix in DESIGN_FIX:
+            a = DL.apply_letters(a, fix)
         self.full = a
         r0, r1, c0, c1 = TOP_BOX
         top = K.mask_box(r0, r1, c0, c1)
@@ -95,9 +97,12 @@ def rotate_offset(off, deg):
     return (x * math.cos(th) - y * math.sin(th), x * math.sin(th) + y * math.cos(th))
 
 
-def bough(dst, P, grip, deg, rest=None, behind=False, flip=False):
+def bough(dst, P, grip, deg, rest=None, behind=False, flip=False, over=None):
     """The bough drawn into dst: the line from the grip, the top part at its end, the lantern hanging from the hook (or
-    resting with its bottom on row `rest`); behind=True draws it under the figure. Returns the unit vector up the
+    resting with its bottom on row `rest`); behind=True draws it under the figure, but over the squares of `over` (the
+    deer's back half: she holds the bough at her near side, so its back end - the line, the blossom and the gold hook -
+    passes in front of the raised rump and its tail, behind her own hair and arms; the lantern hanging from the hook
+    stays behind the deer as before). Returns the unit vector up the
     bough (from the tip toward the top)."""
     dx, dy = DIRS[deg]
     diag = dx != 0 and dy != 0
@@ -115,6 +120,9 @@ def bough(dst, P, grip, deg, rest=None, behind=False, flip=False):
     bx, by = line[0]
     layer[by, bx] = C("q")
     out = K.put(dst.copy(), layer, 0, 0, under=behind)
+    if behind and over is not None:
+        sel = over & (layer[..., 3] > 0)
+        out[sel] = layer[sel]
     # the line's outline where it stands free (over the body it is drawn bare, as on the design's chest)
     ring = np.zeros(dst.shape[:2], bool)
     for x, y in line[:-1]:
@@ -255,9 +263,9 @@ def trot_spec(i):
 
 
 # the girl above her waist follows the deer a frame late (the user: 「莉莉娅移动时上半身有点僵硬」): one row down on
-# the frame after each landing, over the deer's own bob; the leaf skirt (rows 84-85) takes the seam
+# the frame after each landing, over the deer's own bob; the leaf skirt (rows 83-86, design_lillia step 11) takes the seam
 GIRL_BOB = [0, 1, 0, 0, 0, 1, 0, 0]
-GIRL_ROWS = 84                        # the girl: rows above this, right of the deer's raised tail
+GIRL_ROWS = 84                        # the girl: rows above this, right of the deer's raised rump and tail
 TAIL_COLS = 57
 
 
@@ -311,10 +319,35 @@ def upper(P, deg=None, slide=0.0, rest=None, lantern_dx=0):
     dx, dy = DIRS[deg]
     n = math.hypot(dx, dy)
     g = (GRIP[0] + dx / n * slide, GRIP[1] + dy / n * slide)
-    bough(a, P, g, deg, rest=rest, behind=True)
+    bough(a, P, g, deg, rest=rest, behind=True, over=deer_back(a))
     for y, x in HANDS:
         a[y, x] = P.full[y, x]
     return a
+
+
+DEER = {DL.hx(DL.LETTERS[k]) for k in "OobaClce"}
+DEER_BACK = (66, 88, 40, 61)          # rows, columns of the deer's back half on the design: the rump, the tail, the spots
+
+
+def deer_back(a):
+    """The deer's squares behind the girl (the raised rump and its tail, design_lillia step 11) with the outline that
+    rings only them - the bough held at her side passes in front of these."""
+    r0, r1, c0, c1 = DEER_BACK
+    col = {(y, x): tuple(int(v) for v in a[y, x, :3]) for y in range(r0 - 1, r1 + 2) for x in range(c0 - 1, c1 + 2)
+           if a[y, x, 3]}
+    m = np.zeros(a.shape[:2], bool)
+    for y in range(r0, r1 + 1):
+        for x in range(c0, c1 + 1):
+            c = col.get((y, x))
+            if c is None:
+                continue
+            if c in DEER:
+                m[y, x] = True
+            elif c == OUTLINE:
+                nb = [col.get((y + dy, x + dx)) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+                if any(n in DEER for n in nb) and all(n is None or n in DEER or n == OUTLINE for n in nb):
+                    m[y, x] = True
+    return m
 
 
 def outside(a):
