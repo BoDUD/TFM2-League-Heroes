@@ -70,7 +70,9 @@ BREATHE_SKIP = {"brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "al
 # cut zones forced into the shins where the default zone found a cheaper seam elsewhere: Kennen, LeBlanc, Janna and Twisted Fate are short or skirted (the zone rows landed in
 # the skirt or the weapon); Renekton and Vayne crouch, their figure is squat and the 30% band started in the torso
 # (「鳄鱼的脚有点怪」「薇恩有点怪」, 2026-10-08)
-BREATHE_OPTS = {"kennen": {"zone": (0.18, 1)}, "leblanc": {"zone": (0.18, 1)},
+# Kennen's went lower still, to his boots (0.08): at 0.18 the cut ran through the gold bar on his coat's hem
+# (「凯南待机时武器也变形」)
+BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "janna": {"zone": (0.18, 1)}, "twistedfate": {"zone": (0.18, 1)},
                 "renekton": {"zone": (0.15, 1)}, "vayne": {"zone": (0.20, 1)},
                 "aatrox": {"sway": [0] * 8}}   # his hand left the planted sword's hilt when the body leant
@@ -113,7 +115,31 @@ WEAPON_CARRY = {
               (-13, -1, 6, 99))],
     # Xayah's two feather blades hanging from the near hand (rig_xayah BLADES: rows -10..-5, columns +14..+19)
     "xayah": [({(0x5F, 0x0A, 0x3D), (0x76, 0x14, 0x81), (0xB2, 0x15, 0x90), (0xF0, 0x2D, 0x71)}, (-11, -4, 13, 20))],
+    # 「诺手待机动作武器变形」: the haft's top (the ball and the brown shaft over his pauldron) and the axe's head by his
+    # feet, carried whole with his hands (the haft between runs behind his arm); the head dips like LeBlanc's staff foot
+    "darius": [({(0x0B, 0x03, 0x12), (0x06, 0x02, 0x0B), (0x08, 0x03, 0x0E), (0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x4F, 0x3C, 0x3A)},
+                (-42, -30, -18, -14)),
+               ({(0xF2, 0xF3, 0xF4), (0xBA, 0xBF, 0xC9), (0x94, 0x9B, 0xAD), (0x32, 0x26, 0x2B), (0x37, 0x39, 0x44), (0x38, 0x3B, 0x46), (0x22, 0x24, 0x2D), (0x7D, 0x10, 0x27), (0x55, 0x5B, 0x6C), (0x63, 0x68, 0x7C), (0x7A, 0x80, 0x91), (0x14, 0x14, 0x1C)},
+                (-12, 0, -24, -10))],
 }
+
+
+CARRY_FILL = {"darius"}
+
+
+def shut_in(op):
+    """The see-through squares of a frame no path through other see-through squares joins to its border."""
+    h, w = op.shape
+    out = np.zeros(op.shape, bool)
+    out[0], out[-1], out[:, 0], out[:, -1] = ~op[0], ~op[-1], ~op[:, 0], ~op[:, -1]
+    stack = list(zip(*np.nonzero(out)))
+    while stack:
+        y, x = stack.pop()
+        for yy, xx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= yy < h and 0 <= xx < w and not op[yy, xx] and not out[yy, xx]:
+                out[yy, xx] = True
+                stack.append((yy, xx))
+    return list(zip(*np.nonzero(~op & ~out)))
 
 
 def weapon_mask(a, colours, box):
@@ -869,8 +895,21 @@ def breathe_idle(hero, sheet):
         src = sheet["idle"][0][0]
         cy, cx = np.nonzero(carried)
         body, sway = opts.get("body", IB.BODY), opts.get("sway", IB.SWAY)
+        near = carried.copy()                                     # within 2 squares of the weapon
+        for _ in range(2):
+            g = near.copy()
+            g[1:] |= near[:-1]; g[:-1] |= near[1:]; g[:, 1:] |= near[:, :-1]; g[:, :-1] |= near[:, 1:]
+            near = g
         for k, f in enumerate(frames):
             f[cy + 2 + body[k], cx + 2 + sway[k]] = src[cy, cx]   # breathe pads its frames by 2 all round
+            # a weapon moved off the standing legs (league_darius's axe head beside his shin) leaves see-through
+            # squares shut in between them: the design's own squares there fill them (its own holes stay); only for
+            # CARRY_FILL - the approved heroes keep their frames as they are
+            for y, x in (shut_in(f[..., 3] > 0) if hero in CARRY_FILL else []):
+                sy, sx = y - 2 - body[k], x - 2 - sway[k]
+                if (0 <= sy < src.shape[0] and 0 <= sx < src.shape[1] and near[sy, sx]
+                        and 0 <= y - 2 < src.shape[0] and 0 <= x - 2 < src.shape[1] and src[y - 2, x - 2, 3]):
+                    f[y, x] = src[y - 2, x - 2]
         rows["carried"] = int(carried.sum())
     if os.environ.get("IDLE_DEBUG"):                     # the frames, for review sheets
         np.save(os.path.join(os.environ["IDLE_DEBUG"], f"{hero}.npy"), np.stack(frames))
