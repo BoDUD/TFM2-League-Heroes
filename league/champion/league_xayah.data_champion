@@ -3017,8 +3017,9 @@
                 "tick": 6,
                 "effects": [
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_xayah_w_flash"
+                    "type": "CasterAnimation",
+                    "name": "attack_fx1",
+                    "tick": 9
                   },
                   {
                     "type": "Sfx",
@@ -3475,8 +3476,9 @@
                       "name": "league_xayah_q_h1"
                     },
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_xayah_q_flash"
+                      "type": "CasterAnimation",
+                      "name": "skill_fx1",
+                      "tick": 18
                     },
                     {
                       "type": "Sfx",
@@ -3973,8 +3975,9 @@
                         "name": "league_xayah_q_h1"
                       },
                       {
-                        "type": "CasterViewEffect",
-                        "name": "league_xayah_q_flash"
+                        "type": "CasterAnimation",
+                        "name": "skill_fx1",
+                        "tick": 18
                       },
                       {
                         "type": "Sfx",
@@ -4498,8 +4501,9 @@
                   "tick": 20
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_xayah_e_cast"
+                  "type": "CasterAnimation",
+                  "name": "skill_e_fx1",
+                  "tick": 20
                 },
                 {
                   "type": "Sfx",
@@ -4554,8 +4558,9 @@
           ]
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_xayah_w_cast"
+          "type": "CasterAnimation",
+          "name": "skill2_fx1",
+          "tick": 24
         },
         {
           "type": "Sfx",
@@ -4891,8 +4896,9 @@
           "only_to_enemy": false
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_xayah_r_cast"
+          "type": "CasterAnimation",
+          "name": "ult_fx1",
+          "tick": 70
         },
         {
           "type": "Sfx",
@@ -6037,8 +6043,9 @@
                   "tick": 20
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_xayah_e_cast"
+                  "type": "CasterAnimation",
+                  "name": "skill_e_fx1",
+                  "tick": 20
                 },
                 {
                   "type": "Sfx",
@@ -6112,22 +6119,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_xayah_w_flash",
-      "anim": "asset/league/effects/league_xayah_fx",
-      "tag": "w_flash",
-      "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_xayah_q_flash",
-      "anim": "asset/league/effects/league_xayah_fx",
-      "tag": "q_flash",
-      "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_xayah_q_hit",
       "anim": "asset/league/effects/league_xayah_fx",
       "tag": "q_hit",
@@ -6152,14 +6143,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_xayah_e_cast",
-      "anim": "asset/league/effects/league_xayah_fx",
-      "tag": "e_cast",
-      "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_xayah_e_hit",
       "anim": "asset/league/effects/league_xayah_fx",
       "tag": "e_hit",
@@ -6176,27 +6159,11 @@
     },
     {
       "type": "Animation",
-      "name": "league_xayah_w_cast",
-      "anim": "asset/league/effects/league_xayah_fx",
-      "tag": "w_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_xayah_p_on",
-      "anim": "asset/league/effects/league_xayah_fx",
+      "anim": "asset/league/effects/league_xayah_sym",
       "tag": "p_on",
       "z": 2,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_xayah_r_cast",
-      "anim": "asset/league/effects/league_xayah_fx",
-      "tag": "r_cast",
-      "z": 1,
-      "is_follow": true
     },
     {
       "type": "Animation",

@@ -31,6 +31,10 @@ Kit (the user's pick B, 2026-10-08; the Rakan duo is added afterwards, on buffs 
 import argparse
 import json
 import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fix"))
+import red_side  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -65,7 +69,8 @@ P = {
     "q_speed": 6000, "q_rad": 5500, "q_y": -5000, "q_dmg": 60, "q_ratio": 80, "q_fall": 50, "q_recall": 70,
     "e_t": 20,
     # ult: R Featherstorm (League: 100-300 + 100% bonus AD, untargetable 1.25 s, a cone of daggers, cd 160-100 s)
-    "r_cd": 3600, "r_target": "EnemyChampionRecentlyAttacked", "r_range": 60000, "r_dur": 70, "r_air": 66, "r_hit": 48, "r_dmg": 160, "r_ratio": 100,
+    "r_cd": 3600, "r_target": "EnemyChampionRecentlyAttacked", "r_range": 60000, "r_dur": 70, "r_air": 66, "r_hit": 48,
+    "r_dmg": 160, "r_ratio": 100,
     "r_len": 90000, "r_width": 40000, "r_n": 5, "r_near": 40000, "r_far": 95000, "r_recall": 40,
     # the Rakan duo (the user's option 1): every attack marks the allies within duo_r for duo_t ticks (Rakan's E reaches
     # duo_r while he has it), W marks those within duo_w_r for w_t (Rakan takes W's attack speed, move speed and second
@@ -323,7 +328,7 @@ def build(p):
                E("f_drop", FX, 0, False), E("f_lie", FX, 0, False), E("e_cast", FX, 2, **LATE), E("e_hit", FX, 2),
                E("e_root", FX, 2), E("w_cast"), E("p_on", FX, 2, **LATE), E("r_cast"), E("r_hit", FX, 2)]
     views_b = [B_("e_bind", FX, 2), B_("w_on", FX, -1), B_("w_ms", FX, -1)]
-    return {
+    kit = {
         "id": ID, "category": "Range", "tags": ["AD", "Range", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
@@ -334,6 +339,10 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    # the red side (tools/fix/red_side.py): Q's, W's, E's and R's casting pictures have a front and a back - drawn
+    # into her frames (assets/source/native/xayah_bake.json); the passive's glow plays in five charge branches of
+    # every spell, so it sits on her middle, made symmetric (xayah_sym.json)
+    return red_side.apply(kit, "xayah")
 
 
 def nodes(o):
