@@ -31,7 +31,7 @@
     "#F9D206",
     "#F9EEDB"
   ],
-  "source_model_sha256": "b790d0e756c843f85fb2802fa0bfa154e61f82dba744771f1d806ccdd683ff1b",
+  "source_model_sha256": "60288be02c20303d3b881ad2cf64c638c1cba0f236f7449b660e039db2cec43a",
   "animations": {
     "run": {
       "frames": [
@@ -854,13 +854,13 @@
             560
           ],
           "bbox_local_1x": [
-            27,
+            28,
             34,
             87,
             82
           ],
           "bbox_local_8x": [
-            216,
+            224,
             272,
             696,
             656
@@ -940,13 +940,13 @@
             560
           ],
           "bbox_local_1x": [
-            39,
+            43,
             41,
             101,
             82
           ],
           "bbox_local_8x": [
-            312,
+            344,
             328,
             808,
             656
@@ -1032,15 +1032,15 @@
             1328
           ],
           "bbox_local_1x": [
-            36,
+            40,
             41,
-            101,
+            100,
             82
           ],
           "bbox_local_8x": [
-            288,
+            320,
             328,
-            808,
+            800,
             656
           ],
           "head_transform": {
@@ -1309,13 +1309,13 @@
             560
           ],
           "bbox_local_1x": [
-            32,
+            33,
             34,
             92,
             82
           ],
           "bbox_local_8x": [
-            256,
+            264,
             272,
             736,
             656
@@ -1395,13 +1395,13 @@
             560
           ],
           "bbox_local_1x": [
-            35,
+            39,
             41,
             97,
             82
           ],
           "bbox_local_8x": [
-            280,
+            312,
             328,
             776,
             656
@@ -1487,15 +1487,15 @@
             1328
           ],
           "bbox_local_1x": [
-            46,
+            50,
             41,
-            111,
+            110,
             82
           ],
           "bbox_local_8x": [
-            368,
+            400,
             328,
-            888,
+            880,
             656
           ],
           "head_transform": {
@@ -1629,7 +1629,7 @@
             ],
             "tailshift": 0
           },
-          "isolated_border_pixels_removed": 5
+          "isolated_border_pixels_removed": 3
         },
         {
           "index": 6,
@@ -1820,7 +1820,7 @@
             ],
             "tailshift": 0
           },
-          "isolated_border_pixels_removed": 5
+          "isolated_border_pixels_removed": 3
         },
         {
           "index": 2,
@@ -1850,15 +1850,15 @@
             560
           ],
           "bbox_local_1x": [
-            44,
+            47,
             43,
-            110,
+            109,
             82
           ],
           "bbox_local_8x": [
-            352,
+            376,
             344,
-            880,
+            872,
             656
           ],
           "head_transform": {
@@ -2133,13 +2133,13 @@
             560
           ],
           "bbox_local_1x": [
-            34,
+            35,
             34,
             94,
             82
           ],
           "bbox_local_8x": [
-            272,
+            280,
             272,
             752,
             656
@@ -2219,15 +2219,15 @@
             560
           ],
           "bbox_local_1x": [
-            31,
+            35,
             41,
-            96,
+            95,
             82
           ],
           "bbox_local_8x": [
-            248,
+            280,
             328,
-            768,
+            760,
             656
           ],
           "head_transform": {
@@ -2311,13 +2311,13 @@
             560
           ],
           "bbox_local_1x": [
-            27,
+            28,
             34,
             87,
             82
           ],
           "bbox_local_8x": [
-            216,
+            224,
             272,
             696,
             656
@@ -2397,15 +2397,15 @@
             560
           ],
           "bbox_local_1x": [
-            31,
+            35,
             41,
-            96,
+            95,
             82
           ],
           "bbox_local_8x": [
-            248,
+            280,
             328,
-            768,
+            760,
             656
           ],
           "head_transform": {
@@ -2489,13 +2489,13 @@
             1328
           ],
           "bbox_local_1x": [
-            27,
+            28,
             34,
             87,
             82
           ],
           "bbox_local_8x": [
-            216,
+            224,
             272,
             696,
             656
@@ -2575,15 +2575,15 @@
             1328
           ],
           "bbox_local_1x": [
-            31,
+            35,
             41,
-            96,
+            95,
             82
           ],
           "bbox_local_8x": [
-            248,
+            280,
             328,
-            768,
+            760,
             656
           ],
           "head_transform": {
@@ -2918,7 +2918,7 @@
             ],
             "tailshift": 0
           },
-          "isolated_border_pixels_removed": 5
+          "isolated_border_pixels_removed": 3
         },
         {
           "index": 3,
@@ -3010,7 +3010,7 @@
             ],
             "tailshift": 0
           },
-          "isolated_border_pixels_removed": 5
+          "isolated_border_pixels_removed": 3
         },
         {
           "index": 4,
@@ -3096,7 +3096,7 @@
             ],
             "tailshift": 0
           },
-          "isolated_border_pixels_removed": 5
+          "isolated_border_pixels_removed": 3
         },
         {
           "index": 5,
@@ -3182,7 +3182,7 @@
             ],
             "tailshift": 0
           },
-          "isolated_border_pixels_removed": 5
+          "isolated_border_pixels_removed": 3
         },
         {
           "index": 6,
@@ -3592,13 +3592,13 @@
             560
           ],
           "bbox_local_1x": [
-            35,
+            36,
             34,
             95,
             82
           ],
           "bbox_local_8x": [
-            280,
+            288,
             272,
             760,
             656
@@ -3678,21 +3678,21 @@
             560
           ],
           "bbox_local_1x": [
-            20,
-            30,
+            22,
+            33,
             89,
             82
           ],
           "bbox_local_8x": [
-            160,
-            240,
+            176,
+            264,
             712,
             656
           ],
           "head_transform": {
             "translation_from_design": [
               0,
-              -28
+              -25
             ],
             "rotation_deg": 45
           },
@@ -3702,7 +3702,7 @@
           ],
           "placement_translation_from_design": [
             0,
-            -28
+            -25
           ],
           "arm_blade_angle_deg": -90,
           "body_rotation_deg": 45,
@@ -3765,20 +3765,20 @@
           ],
           "bbox_local_1x": [
             32,
-            30,
+            32,
             80,
             82
           ],
           "bbox_local_8x": [
             256,
-            240,
+            256,
             640,
             656
           ],
           "head_transform": {
             "translation_from_design": [
               4,
-              -29
+              -27
             ],
             "rotation_deg": 90
           },
@@ -3788,7 +3788,7 @@
           ],
           "placement_translation_from_design": [
             4,
-            -29
+            -27
           ],
           "arm_blade_angle_deg": -90,
           "body_rotation_deg": 90,
@@ -3851,20 +3851,20 @@
           ],
           "bbox_local_1x": [
             29,
-            30,
+            32,
             77,
             82
           ],
           "bbox_local_8x": [
             232,
-            240,
+            256,
             616,
             656
           ],
           "head_transform": {
             "translation_from_design": [
               1,
-              -29
+              -27
             ],
             "rotation_deg": 90
           },
@@ -3874,7 +3874,7 @@
           ],
           "placement_translation_from_design": [
             1,
-            -29
+            -27
           ],
           "arm_blade_angle_deg": -90,
           "body_rotation_deg": 90,
@@ -3937,20 +3937,20 @@
           ],
           "bbox_local_1x": [
             25,
-            30,
+            32,
             73,
             82
           ],
           "bbox_local_8x": [
             200,
-            240,
+            256,
             584,
             656
           ],
           "head_transform": {
             "translation_from_design": [
               -3,
-              -29
+              -27
             ],
             "rotation_deg": 90
           },
@@ -3960,7 +3960,7 @@
           ],
           "placement_translation_from_design": [
             -3,
-            -29
+            -27
           ],
           "arm_blade_angle_deg": -90,
           "body_rotation_deg": 90,
@@ -4023,20 +4023,20 @@
           ],
           "bbox_local_1x": [
             24,
-            30,
+            32,
             72,
             82
           ],
           "bbox_local_8x": [
             192,
-            240,
+            256,
             576,
             656
           ],
           "head_transform": {
             "translation_from_design": [
               -4,
-              -29
+              -27
             ],
             "rotation_deg": 90
           },
@@ -4046,7 +4046,7 @@
           ],
           "placement_translation_from_design": [
             -4,
-            -29
+            -27
           ],
           "arm_blade_angle_deg": -90,
           "body_rotation_deg": 90,
@@ -4109,20 +4109,20 @@
           ],
           "bbox_local_1x": [
             29,
-            30,
+            32,
             77,
             82
           ],
           "bbox_local_8x": [
             232,
-            240,
+            256,
             616,
             656
           ],
           "head_transform": {
             "translation_from_design": [
               1,
-              -29
+              -27
             ],
             "rotation_deg": 90
           },
@@ -4132,7 +4132,7 @@
           ],
           "placement_translation_from_design": [
             1,
-            -29
+            -27
           ],
           "arm_blade_angle_deg": -90,
           "body_rotation_deg": 90,
