@@ -511,6 +511,13 @@
         "skill": "能量弹造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，获得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<><#e8d44dff>护盾<>；<#ffb900ff>4秒<>内下次普攻额外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>。",
         "skill2": "先在敌方英雄脚下放<#ff9028ff>重力场<>：<#ef5350ff>减速35%<>，<#ffb900ff>1.25秒<>后场内敌人<#ef5350ff>晕眩1.25秒<>。再从目标处向后方射出海克斯射线，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。",
         "ult": "风暴落在敌方英雄身上，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，之后<#ffb900ff>6秒<>每秒对周围敌人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法伤害<>，目标阵亡就转移到附近英雄。"
+      },
+      "league_lulu": {
+        "name": "璐璐",
+        "attack": "射出魔弹。被动<#ff9028ff>皮克斯，仙灵伙伴<>：皮克斯朝同一目标射出<#ffb900ff>3颗<>飞弹，每颗造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>。",
+        "skill": "璐璐和皮克斯各射出一道贯穿魔弹，直线上的敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速80%<>，<#ffb900ff>1.5秒<>内逐渐减弱。",
+        "skill2": "<#ff9028ff>奇思妙想<>：把敌方英雄<#ef5350ff>变形1.75秒<>（无法攻击和施法、减速），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>；<#ff9028ff>帮忙，皮克斯！<>：附近友方英雄获得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>护盾<>和<#ffb900ff>25%<>移速、攻速（<#ffb900ff>3.5秒<>）。",
+        "ult": "交战时让被控制或被敌人贴身的友方英雄（或自己）变大：<#7cfc00ff>生命+350<>，周围敌人<#ef5350ff>击飞1秒<>，<#ffb900ff>7秒<>内身边敌人<#ef5350ff>减速30%<>。"
       }
     },
     "skill_name": {
@@ -878,6 +885,11 @@
         "skill1": "虹吸能量",
         "skill2": "海克斯射线",
         "ult": "奥术风暴"
+      },
+      "league_lulu": {
+        "skill1": "闪耀长枪",
+        "skill2": "奇思妙想",
+        "ult": "狂野生长"
       }
     }
   },
@@ -1393,6 +1405,13 @@
         "skill": "能量彈造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，獲得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<><#e8d44dff>護盾<>；<#ffb900ff>4秒<>內下次普攻額外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>。",
         "skill2": "先在敵方英雄腳下放<#ff9028ff>萬有引力產生裝置<>：<#ef5350ff>緩速35%<>，<#ffb900ff>1.25秒<>後場內敵人<#ef5350ff>暈眩1.25秒<>。再從目標處向後方射出海克斯科技射線，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。",
         "ult": "風暴落在敵方英雄身上，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，之後<#ffb900ff>6秒<>每秒對周圍敵人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法傷害<>，目標陣亡就轉移到附近英雄。"
+      },
+      "league_lulu": {
+        "name": "露璐",
+        "attack": "射出魔彈。被動<#ff9028ff>皮克斯，守護妖精<>：皮克斯朝同一目標射出<#ffb900ff>3顆<>飛彈，每顆造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>。",
+        "skill": "露璐和皮克斯各射出一道貫穿魔彈，直線上的敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速80%<>，<#ffb900ff>1.5秒<>內逐漸減弱。",
+        "skill2": "<#ff9028ff>幻想曲<>：把敵方英雄<#ef5350ff>變形1.75秒<>（無法攻擊和施法、緩速），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>；<#ff9028ff>帥啊小皮！<>：附近友方英雄獲得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>護盾<>和<#ffb900ff>25%<>移速、攻速（<#ffb900ff>3.5秒<>）。",
+        "ult": "交戰時讓被控制或被敵人貼身的友方英雄（或自己）變大：<#7cfc00ff>生命+350<>，周圍敵人<#ef5350ff>擊飛1秒<>，<#ffb900ff>7秒<>內身邊敵人<#ef5350ff>緩速30%<>。"
       }
     },
     "skill_name": {
@@ -1760,6 +1779,11 @@
         "skill1": "能量守恆",
         "skill2": "海克斯科技射線",
         "ult": "奧術風暴"
+      },
+      "league_lulu": {
+        "skill1": "閃耀雙重奏",
+        "skill2": "幻想曲",
+        "ult": "究極鍊化"
       }
     }
   },
@@ -2275,6 +2299,13 @@
         "skill": "A bolt deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and gives him a <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<> <#e8d44dff>shield<>; his next attack within <#ffb900ff>4s<> deals <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> bonus <#a974ffff>magic damage<>.",
         "skill2": "First a <#ff9028ff>Gravity Field<> under an enemy champion <#ef5350ff>slows 35%<> and <#ef5350ff>stuns<> enemies still inside after <#ffb900ff>1.25s<> for <#ffb900ff>1.25s<>. Then a Hextech Ray from the target on away from him deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>.",
         "ult": "A storm lands on an enemy champion for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, then deals <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> a second round him for <#ffb900ff>6s<>, moving on to a champion near when he dies."
+      },
+      "league_lulu": {
+        "name": "Lulu",
+        "attack": "Fires a bolt. Passive <#ff9028ff>Pix, Faerie Companion<>: Pix fires <#ffb900ff>3 bolts<> at the same target, each dealing <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<>.",
+        "skill": "Lulu and Pix each fire a piercing bolt: enemies in the line take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed by 80%<>, decaying over <#ffb900ff>1.5s<>.",
+        "skill2": "<#ff9028ff>Whimsy<>: <#ef5350ff>polymorphs<> an enemy champion for <#ffb900ff>1.75s<> (no attacks or spells, slowed) and deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; <#ff9028ff>Help, Pix!<>: a nearby allied champion gets a <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<> <#9fd8ffff>shield<> and <#ffb900ff>25%<> move and attack speed for <#ffb900ff>3.5s<>.",
+        "ult": "In a fight, an allied champion in crowd control or with enemies on him (or Lulu) grows: <#7cfc00ff>+350 health<>, nearby enemies are <#ef5350ff>knocked up for 1s<> and <#ef5350ff>slowed by 30%<> around him for <#ffb900ff>7s<>."
       }
     },
     "skill_name": {
@@ -2642,6 +2673,11 @@
         "skill1": "Siphon Power",
         "skill2": "Hextech Ray",
         "ult": "Arcane Storm"
+      },
+      "league_lulu": {
+        "skill1": "Glitterlance",
+        "skill2": "Whimsy",
+        "ult": "Wild Growth"
       }
     }
   },
@@ -3157,6 +3193,13 @@
         "skill": "에너지 탄이 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>, <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<>의 <#e8d44dff>보호막<>. <#ffb900ff>4초<> 안의 다음 기본 공격이 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 추가 <#a974ffff>마법 피해<>.",
         "skill2": "먼저 적 챔피언 발밑에 <#ff9028ff>중력장<>: <#ef5350ff>35% 둔화<>, <#ffb900ff>1.25초<> 뒤 안에 남은 적 <#ef5350ff>기절 1.25초<>. 이어서 대상에서 뒤쪽으로 마법공학 광선이 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>.",
         "ult": "적 챔피언에게 폭풍을 떨어뜨려 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>, 이후 <#ffb900ff>6초<> 동안 매초 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>의 <#a974ffff>마법 피해<>. 대상이 죽으면 근처 챔피언에게 옮겨 감."
+      },
+      "league_lulu": {
+        "name": "룰루",
+        "attack": "마법탄을 쏩니다. 기본 지속 효과 <#ff9028ff>요정 친구 픽스<>: 픽스가 같은 대상에게 <#ffb900ff>3발<>을 쏘아 한 발마다 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>의 <#a974ffff>마법 피해<>를 입힙니다.",
+        "skill": "룰루와 픽스가 관통하는 마법탄을 하나씩 쏩니다. 직선상의 적은 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>를 입고 <#ef5350ff>80% 둔화<>되며, <#ffb900ff>1.5초<>에 걸쳐 약해집니다.",
+        "skill2": "<#ff9028ff>변덕쟁이<>: 적 챔피언을 <#ffb900ff>1.75초<> <#ef5350ff>변이<>시키고(공격·스킬 불가, 둔화) <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>; <#ff9028ff>도와줘, 픽스!<>: 근처 아군 챔피언에게 <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>의 <#9fd8ffff>보호막<>과 <#ffb900ff>3.5초<> 동안 이동·공격 속도 <#ffb900ff>25%<>.",
+        "ult": "교전 중 군중 제어에 걸렸거나 적에게 붙잡힌 아군 챔피언(또는 룰루)을 키웁니다: <#7cfc00ff>체력 +350<>, 주변 적 <#ef5350ff>1초 띄워 올림<>, <#ffb900ff>7초<> 동안 주변 적 <#ef5350ff>30% 둔화<>."
       }
     },
     "skill_name": {
@@ -3524,6 +3567,11 @@
         "skill1": "힘의 흡수",
         "skill2": "마법공학 광선",
         "ult": "아케인 폭풍"
+      },
+      "league_lulu": {
+        "skill1": "반짝반짝 창",
+        "skill2": "변덕쟁이",
+        "ult": "급성장"
       }
     }
   },
@@ -4039,6 +4087,13 @@
         "skill": "エネルギー弾が<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>、<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>20%<>の<#e8d44dff>シールド<>。<#ffb900ff>4秒<>以内の次の通常攻撃が<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の追加<#a974ffff>魔法ダメージ<>。",
         "skill2": "まず敵チャンピオンの足元に<#ff9028ff>グラビティフィールド<>：<#ef5350ff>35%スロウ<>、<#ffb900ff>1.25秒<>後に中の敵を<#ef5350ff>1.25秒スタン<>。続けて対象から奥へレイが<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "敵チャンピオンに嵐を落とし<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>6秒<>毎秒周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の<#a974ffff>魔法ダメージ<>。対象が倒れると近くのチャンピオンへ移る。"
+      },
+      "league_lulu": {
+        "name": "ルル",
+        "attack": "魔法弾を撃つ。パッシブ <#ff9028ff>仲良し妖精ピックス<>：ピックスが同じ対象に<#ffb900ff>3発<>撃ち、1発ごとに<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill": "ルルとピックスが貫通弾を1発ずつ撃つ。直線上の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>80%スロウ<>（<#ffb900ff>1.5秒<>で弱まる）。",
+        "skill2": "<#ff9028ff>イタズラ<>：敵チャンピオンを<#ffb900ff>1.75秒<><#ef5350ff>変身<>させ（攻撃・スキル不可、スロウ）<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ピックス、おねがい！<>：近くの味方に<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>の<#9fd8ffff>シールド<>と移動・攻撃速度<#ffb900ff>25%<>（<#ffb900ff>3.5秒<>）。",
+        "ult": "戦闘中、行動妨害中か敵に張り付かれた味方（またはルル）を巨大化：<#7cfc00ff>体力+350<>、周囲の敵を<#ef5350ff>1秒ノックアップ<>、<#ffb900ff>7秒<>周囲の敵に<#ef5350ff>30%スロウ<>。"
       }
     },
     "skill_name": {
@@ -4406,6 +4461,11 @@
         "skill1": "パワーブラスト",
         "skill2": "ヘクステック レイ",
         "ult": "アーケインストーム"
+      },
+      "league_lulu": {
+        "skill1": "ぴかぴかビーム",
+        "skill2": "イタズラ",
+        "ult": "おおきくなぁれ！"
       }
     }
   }
