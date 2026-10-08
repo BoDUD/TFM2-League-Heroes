@@ -51,7 +51,7 @@ P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Xayah: 525 range
     "hp": 980, "hp_g": 88, "atk": 100, "atk_g": 19, "def": 24, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 910, "ms_g": 9,
     # attack: the blade leaves her hand on atk_st
-    "atk_range": 57500, "atk_dur": 24, "atk_cd": 50, "atk_st": 8, "a_speed": 7000, "a_y": -3000,
+    "atk_range": 57500, "atk_dur": 24, "atk_cd": 50, "atk_st": 8, "a_speed": 7000, "a_y": -4000,
     # passive Clean Cuts (League: 3 a spell, store 5, 8 s; other targets on the path take ~50%)
     "p_t": 480, "a_reach": 72000, "a_rad": 5000, "a_pierce": 50, "a_mode": 1,
     # feathers (League: 6 s on the ground)
@@ -62,7 +62,7 @@ P = {
     "w_cd": 480, "w_t": 240, "w_as": 50, "w_blade": 6, "w_pct": 25, "w_ms": 30, "w_ms_t": 90,
     # skill: Q Double Daggers (League: 2 x 45-125 + 50% bonus AD, 1100 range, later targets 50%, cd 10-6 s)
     "q_cd": 420, "q_range": 75000, "q_dur": 18, "q_st": 8, "q_gap": 6, "q_aim": 90000, "q_reach": 95000,
-    "q_speed": 6000, "q_rad": 5500, "q_y": -3000, "q_dmg": 60, "q_ratio": 80, "q_fall": 50, "q_recall": 70,
+    "q_speed": 6000, "q_rad": 5500, "q_y": -5000, "q_dmg": 60, "q_ratio": 80, "q_fall": 50, "q_recall": 70,
     "e_t": 20,
     # ult: R Featherstorm (League: 100-300 + 100% bonus AD, untargetable 1.25 s, a cone of daggers, cd 160-100 s)
     "r_cd": 3600, "r_target": "EnemyChampionRecentlyAttacked", "r_range": 60000, "r_dur": 70, "r_air": 66, "r_hit": 48, "r_dmg": 160, "r_ratio": 100,
