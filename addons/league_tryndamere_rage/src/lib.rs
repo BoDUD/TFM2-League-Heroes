@@ -25,6 +25,7 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -343,7 +344,9 @@ impl Guard {
             top,
             enemy_near: enemy_near(sim, me, team, self.p.near),
             armed: has("r_armed"),
-            r_free: r_free(sim, me),
+            // the AI hook's mark (a passive's sim has no players to read the cooldown from: the log of 2026-10-08 -
+            // he drank Bloodlust at 5-13% in the very tick the hook pressed R, healed past the threshold, no rage)
+            r_free: has("r_ready") || r_free(sim, me),
             raging: has("r_rage"),
             q_cd: has("q_cd"),
             fury: fury_of(&names, self.p.f_n),
@@ -427,6 +430,10 @@ const HERO: &str = "league_tryndamere";
 const R_RANGE: usize = 60_000;
 /// 同一句日志隔这么多 tick 才再记。
 const LOG_EVERY: usize = 120;
+/// 「R 好了」标记的时长：AI 每次思考都续上。
+const READY_T: usize = 3;
+/// 标记加不上时只记一次。
+static MARK_FAILED: AtomicBool = AtomicBool::new(false);
 
 /// AI 的大招：`wants_ult` AI 原来的输入是 R；`danger` 快死了、身边有敌方英雄；`free` R 冷却好、不在待命和爆发里。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -487,7 +494,7 @@ impl StablePlayerAi for UltAi {
             Some(InputV1::move_to(x, y))
         };
         let Some((hp, free, danger_near, cc, target, target_pos, near_pos, line)) = (|| {
-            let sim = ctx.sim()?;
+            let mut sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
             let me = pl.champion()?;
             if !me.is_alive() {
@@ -500,6 +507,17 @@ impl StablePlayerAi for UltAi {
             // `is_valid_input` does not look at cooldowns (league_pyke): the slot's own state decides
             let free = !busy && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0);
             let (id, team) = (me.id(), me.team());
+            if free {
+                // tell the guard R is ready (it keeps Bloodlust for after R): a 3-tick mark, renewed every think
+                let mut mark = BuffV1::timed(&tr("r_ready"), READY_T);
+                mark.duration_kind = BuffDurationV1::Time.code();
+                sim.entity_remove_buff(id, &tr("r_ready"));
+                sim.add_buff(id, &mark);
+                if !buff_names(&sim, id).iter().any(|b| *b == tr("r_ready")) && !MARK_FAILED.swap(true, Ordering::Relaxed) {
+                    wlog(format!("{} the AI hook could not add {} (the guard falls back to the player's cooldown)",
+                                 head(&sim, id), tr("r_ready")));
+                }
+            }
             let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
             let target = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
