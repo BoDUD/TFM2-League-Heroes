@@ -86,6 +86,13 @@ BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
 # read from the design (charmaps), and the box keeps out the body parts that share them (Varus's trousers are his bow's
 # violets, Jinx's boots her gun's greys, Kayn's sash his scythe's red).
 WEAPON_CARRY = {
+    # Xin Zhao's spear, held low across him: the head left of his back leg (all its colours there), the shaft's browns
+    # between the head and his face (his belt's browns start a row lower), the butt by his head (「怎么武器也变形」)
+    "xinzhao": [({(0xA7, 0xA5, 0xC0), (0xA7, 0x2D, 0xE2), (0x2A, 0x09, 0x41), (0x43, 0x0F, 0x67), (0x1E, 0x09, 0x2F), (0x34, 0x16, 0x20), (0x7F, 0x1B, 0xB5), (0xA4, 0x6E, 0x21), (0xEA, 0xB2, 0x41), (0x6E, 0x6A, 0x82), (0x0D, 0x0A, 0x19), (0x86, 0x52, 0x3F), (0x61, 0x32, 0x31)},
+                 (-17, -1, -44, -19)),
+                ({(0x86, 0x52, 0x3F), (0x61, 0x32, 0x31)}, (-32, -13, -21, 16)),
+                ({(0xA7, 0xA5, 0xC0), (0xA7, 0x2D, 0xE2), (0x2A, 0x09, 0x41), (0x43, 0x0F, 0x67), (0x1E, 0x09, 0x2F), (0x34, 0x16, 0x20), (0x7F, 0x1B, 0xB5), (0xA4, 0x6E, 0x21), (0xEA, 0xB2, 0x41), (0x6E, 0x6A, 0x82), (0x0D, 0x0A, 0x19), (0x86, 0x52, 0x3F), (0x61, 0x32, 0x31)},
+                 (-37, -27, 13, 23))],
     "garen": [({(0x9B, 0xAB, 0xC3), (0xA9, 0xB7, 0xCB), (0x8A, 0x8A, 0xA3), (0x28, 0x49, 0x65), (0x29, 0x63, 0x80),
                 (0xFC, 0xFC, 0xFC)}, (-13, 0, -99, 99))],
     "riven": [({(0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69), (0x43, 0x4A, 0x46),
@@ -219,7 +226,7 @@ def fill_behind(a, carried):
     return a
 
 
-NO_NOD = {"kayn"}   # with his scythe carried a cheap neck row turned up and his head began to nod; nobody else nods
+NO_NOD = {"kayn", "xinzhao"}   # with his scythe carried a cheap neck row turned up and his head began to nod; nobody else nods
     # the piece took his upper body
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
@@ -624,6 +631,12 @@ BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
 TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"}
+# heroes made smaller from their finished frames: whole rows and columns out, never resampled (shrink_frames.py); the idle
+# before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
+# SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
+# no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
+SHRINK = {}
+SHRINK_KEEP = {}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -908,6 +921,7 @@ def build(hero):
 
 
 HEAD_AT = {}
+SHRUNK = {}
 
 
 def breathe_idle(hero, sheet):
@@ -1413,6 +1427,20 @@ def main():
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
+        if hero in SHRINK:
+            # the idle shrinks as drawn, BEFORE it breathes: shrunk after, the body sat 0-2 rows lower in each
+            # breathing frame, so one removed row ran through a different part of him in every frame and the face and
+            # shoulders changed shape as he bobbed (「怎么上下摆动模型变形？」)
+            import shrink_frames as SF
+            body0 = SF.body_of(sheet["idle"])
+            a0 = sheet["idle"][0][0]
+            idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), body=body0,
+                                        tags=["idle"])["idle"]
+            if hero in HEAD_AT:
+                hx, hy = HEAD_AT[hero]
+                nx, ny = SF.move_point(idle_plan, hx - a0.shape[1] // 2, hy - a0.shape[0] // 2)
+                a1 = sheet["idle"][0][0]
+                HEAD_AT[hero] = (a1.shape[1] // 2 + nx, a1.shape[0] // 2 + ny)
         rows = breathe_idle(hero, sheet)
         if rows is not None:
             print(f"{hero}: idle breathes from the design ({len(sheet['idle'])} frames x {IB.MS} ms; cut px "
@@ -1420,6 +1448,19 @@ def main():
                   f"nod {'px %.0f' % rows['neck_cost'] if rows['neck'] is not None else 'OFF'})")
         for tag, fx in bake(hero, sheet).items():
             print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
+        if hero in SHRINK:
+            import shrink_frames as SF
+            bake_path = os.path.join(SRC, f"{hero}_bake.json")
+            copies = {}
+            if os.path.exists(bake_path):
+                with open(bake_path, encoding="utf-8") as f:
+                    copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
+            plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
+                                                         keep_colours=SHRINK_KEEP.get(hero, ()),
+                                                         tags=[t for t in sheet if t != "idle"])}
+            SHRUNK[hero] = plans
+            print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
+                f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         forms = form_sheets(hero, sheet)
         for name, fsheet in forms.items():

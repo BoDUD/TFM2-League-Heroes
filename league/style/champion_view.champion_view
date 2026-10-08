@@ -742,16 +742,16 @@
     },
     "league_xinzhao": {
       "face": {
-        "x": 2,
-        "y": -38
+        "x": 3,
+        "y": -36
       },
       "center": {
         "x": 0,
-        "y": -12
+        "y": -11
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -13
       }
     },
     "league_samira": {
