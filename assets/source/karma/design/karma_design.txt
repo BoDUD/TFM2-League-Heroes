@@ -1,0 +1,43 @@
+# x0 50
+ 58         0000000000
+ 59        0mJJJJJlejl0
+ 60       0mJj000mllxxl0
+ 61        nJJ0000mmn00
+ 62         njJJjj0000
+ 63         k00000hhk00
+ 64    0  00khhhhhhhh0000  0
+ 65   0x00khhGgkhhhkgmg00h0x0
+ 66  0ii0kkhhhzgggggmeegk00j0
+ 67  0iJ0hhhhhhhhhhhgmghhh000
+ 68  0i0hhhkhhhhhhhhhsskkhh00
+ 69   00hhhh0hhhzzsssszz0kh0
+ 70   0hhhhss000000sss0000hh
+ 71   0hhkkss0hPpw0ssspwP0kh
+ 72   0hhhhSshhPpPssssPpSShh
+ 73    0khh0g0hS0sssssSs0g0h
+ 74     khh0G0hSzsssPPss0p00
+ 75     00khp0hksssssss0pp0
+ 76    0n 00p000SsS0000 hPn0
+ 77   0i0   zzvvvGGs000  00i0
+ 78   0ijnn0sssuvvvuggw00jji0
+ 79    0xxj0sssHvvgwwww00ii0
+ 80     0000ss0uugwwWwW0s00
+ 81       0ss0z000000000sss000
+ 82       0ssh0vvuvgsguu0000ss0
+ 83       0ssh00000kgk000   00
+ 84      0ss0WWwwww0g0www0
+ 85      0sS0Wwwww0v0gwww0
+ 86     0ss0H00Hvvvv0ggww0
+ 87     0s0Huvvvvvg0uv0gww0
+ 88      0uuvvvvvg0SSs0v0g0
+ 89     0uHvvvvvgG0Sss0vv00
+ 90     Hvvvvvvg0hH0sss0pvv0
+ 91   0Hvvvvvvg0hHh0sssz0puv
+ 92  0uvuvvvvg0HHh0sSsSz00pv
+ 93 vvuppppppp0hHH0ssss0HH0p0
+ 940pppp000vpp000H0Ssss0000p0
+ 950ppp0 0SS000  0h00000  00p0
+ 96 000  0gb0      0bbg0    0
+ 97      0bb0      0bbbb0
+ 98     0bbh0      0hhbbb0
+ 99     00000      0000000
