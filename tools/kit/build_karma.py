@@ -51,7 +51,7 @@ BIG = "asset/league/effects/league_karma_big"
 # the same batch), +0.08 on seeds 25-36. The draft c1 was -3.38: E never fired (its ally check too short: the ADC stands
 # beyond 30000 of the enemies), W spent on minions (16 of 22 casts; League's W cannot target minions: on champions it went
 # 6 -> 13 a game, the lever: -0.6 -> +0.7), attack 76 -> 90, hp 900 -> 1000, Q 80+55% -> 100+70% / 6 s, W 45+30% -> 60+40%
-# / 7 s, the root 1 -> 1.67 s after 1.33 s of tether. Timings from rig_karma.py's strips (release frames: attack 4 =
+# / 7 s, the root 1 -> 1.67 s after 1.33 s of tether. Timings from fix_karma_strips.py's strips (release frames: attack 4 =
 # tick 11, Q 4 = tick 10, W 4 = tick 10, E 3 = tick 6, R 3 = tick 6).
 P = {
     # stats (the pack's ranged supports: Janna/Nami/Sona/Lulu hp 880-950 +80-95, atk 75-80, ap 30 +15, def 20-24,
