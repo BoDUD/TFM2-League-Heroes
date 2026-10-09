@@ -238,7 +238,7 @@ def join_legs(up, low, spans, most=9):
     return out
 
 
-def frame(P, bough=None, tilt=0.0, pivot=MIDDLE, move=(0, 0), legs=None, sink=0):
+def frame(P, bough=None, tilt=0.0, pivot=MIDDLE, move=(0, 0), legs=None, sink=0, join=9):
     """One frame: the upper figure (the bough turned per (deg, slide), or the design's own when None) leaned `tilt`
     about `pivot` and moved whole, over the legs swung per `legs` and moved with it; `sink` lowers the upper body
     onto the legs (a crouch)."""
@@ -254,7 +254,7 @@ def frame(P, bough=None, tilt=0.0, pivot=MIDDLE, move=(0, 0), legs=None, sink=0)
     if move != (0, 0):
         low = K.shifted(low, int(move[0]), int(move[1]))
     spans = [(s[0] + int(move[0]) - 3, s[1] + int(move[0]) + 3) for s in LEGS.values()]
-    low = join_legs(up, low, spans)
+    low = join_legs(up, low, spans, join)
     out = low.copy()
     K.put(out, up, 0, 0)
     out[SOLES + 1:] = 0
@@ -348,11 +348,11 @@ def fall(P, deg, bough_x=62.5):
 
 # ------------------------------------------------------------------------------------------------ the actions
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_w", "ult", "hit", "dead"]
-HOP = {"A": (-3, 1), "B": (-3, 1), "C": (1, 4), "D": (1, 4)}        # hind legs back, front legs tucked up
+HOP = {"A": (-2, 1), "B": (-2, 1), "C": (1, 2), "D": (1, 2)}        # hind legs back, front legs tucked up a little
 REACH = {"A": (-2, 0), "B": (-2, 0), "C": (2, 0), "D": (2, 0)}
 BENT = {"A": (-1, 0), "B": (-1, 0), "C": (1, 0), "D": (1, 0)}
-REAR = {"C": (0, 5), "D": (0, 5)}
-REAR7 = {"C": (0, 7), "D": (0, 7)}
+REAR = {"C": (-3, 4), "D": (-3, 4)}                                  # rearing: the front legs folded back under the
+REAR7 = {"C": (-4, 6), "D": (-4, 6)}                                 # raised chest (hidden behind the body)
 LIFT2 = {"C": (0, 2), "D": (0, 2)}
 
 
@@ -372,9 +372,9 @@ def build(P):
     F["skill2"] = [frame(P, (-90, 0), tilt=-3, sink=2, legs=BENT), frame(P, (-45, 2), tilt=8),
                    frame(P, (45, 3), tilt=-6, move=(1, -1), legs=REACH), P.full.copy()]
     # W: crouch, rear up with the bough raised high, hold, slam it down in front, recover
-    F["skill2_w"] = [frame(P, (-90, 0), tilt=-4, sink=2, legs=BENT), frame(P, (0, 5), tilt=20, pivot=HIND_HOOVES, legs=REAR),
-                     frame(P, (0, 7), tilt=28, pivot=HIND_HOOVES, legs=REAR7),
-                     frame(P, (0, 7), tilt=28, pivot=HIND_HOOVES, legs=REAR7),
+    F["skill2_w"] = [frame(P, (-90, 0), tilt=-4, sink=2, legs=BENT), frame(P, (0, 5), tilt=20, pivot=HIND_HOOVES, legs=REAR, join=1),
+                     frame(P, (0, 7), tilt=28, pivot=HIND_HOOVES, legs=REAR7, join=1),
+                     frame(P, (0, 7), tilt=28, pivot=HIND_HOOVES, legs=REAR7, join=1),
                      frame(P, (135, -5), tilt=-6, move=(1, 1), legs=REACH), frame(P, (135, -4), tilt=-4, legs=BENT),
                      P.full.copy()]
     # R: gather, rise with the bough up, the lullaby swung over her head
@@ -385,7 +385,7 @@ def build(P):
     F["hit"] = [frame(P, None, tilt=6, pivot=HIND_HOOVES, legs=LIFT2), P.full.copy()]
     lie = fall(P, 80)
     F["dead"] = [frame(P, None, tilt=8, pivot=HIND_HOOVES, legs=LIFT2),
-                 frame(P, None, tilt=22, pivot=HIND_HOOVES, legs=REAR),
+                 frame(P, None, tilt=22, pivot=HIND_HOOVES, legs=REAR, join=1),
                  fall(P, 45, bough_x=66.5), lie, lie.copy(), lie.copy(), lie.copy(), lie.copy()]
     return F
 
