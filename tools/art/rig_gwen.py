@@ -11,8 +11,8 @@ her from the design instead:
 - the body: the design with League's scissors lifted off (design_gwen.build(with_mask=True)) wherever she holds them;
 - arms: straight, two squares thick in the design's own materials (fair skin lit / shade, the purple glove's two steps
   at the hand), one outline ring, as long as the design's hanging arm (3 skin steps, 2 glove steps); the far arm (image
-  right) leaves the far shoulder and is drawn under the body (it shows where it comes out), the near arm (image left)
-  over it, its outline never over the body's colours. Where an arm leaves her side what it covered is filled
+  right) leaves the far shoulder and is drawn under the body and the ringlets (it shows where it comes out), the near
+  arm (image left) over it, its outline never over the body's colours. Where an arm leaves her side what it covered is filled
   (FAR_FILL / NEAR_FILL).
 - the scissors in her hand: drawn with design_gwen's own blade and ring recipe (the same colours and shading as the
   design's scissors), closed (one long blade) or, to snip, opened into two blades; the grip between the rings in the
@@ -109,10 +109,12 @@ class Parts:
             if HAIR_ROWS[0] <= y <= HAIR_ROWS[1] and (inv.get(tuple(body[y, x, :3])) in HAIR or x > TORSO_RIGHT):
                 self.hair[y, x] = True
         # step 16's ringlets hang over her shoulders, in front of the arms as drawn: hair with their outline, never
-        # taken off or filled over when an arm moves (DRILL_KEEP), the left one the run's trailing curl
+        # taken off or filled over when an arm moves (DRILL_KEEP), the left one the run's trailing curl. The far arm,
+        # its glove and the scissors it holds pass behind them as in the idle, so they are not hair the arm goes over
+        # (drawn over the right ringlet, the arm and the rings sat in it: 「攻击或者放技能的时候 剪刀和头发互卡了」)
         self.drill_left, self.drill_right = DG.drills()
         self.drills = self.drill_left | self.drill_right
-        self.hair |= self.drills
+        self.hair &= ~self.drills
 
 
 # the idle's handle (design_gwen.LEAGUE) measured from the midpoint of its two rings: x along the handle away from the
@@ -320,7 +322,7 @@ def stand(P, pose):
     ink = (a[..., :3] == P.rgba["0"][:3]).all(-1) & body
     hair = P.hair
     under = lambda x, y: not body[y, x] or hair[y, x]              # the far arm and its scissors: over the hair,
-                                                                   # behind the body
+                                                                   # behind the body and the ringlets
     clear_ok = lambda x, y: not body[y, x] or ink[y, x]            # the near arm's outline: never over body colours
     c = a.copy()
     keep = np.zeros(a.shape[:2], bool)                            # the weapon's and the needle's outline stays black
@@ -338,7 +340,7 @@ def stand(P, pose):
         put_cells(c, col, under)
         glove = {q: v for q, v in col.items() if (v[:3] == P.rgba[GLOVE_LIT][:3]).all()
                  or (v[:3] == P.rgba[GLOVE_SHADE][:3]).all()}
-        put_cells(c, glove)                                         # the hand on the grip, in sight
+        put_cells(c, glove, lambda x, y: not P.drills[y, x])        # the hand on the grip, in sight (but behind a ringlet)
     if throw is not None:
         deg, held = throw
         ring, col, hand = arm_cells(P, FAR_SH, deg)
