@@ -37,7 +37,7 @@ S = "<#9fd8ffff>"      # shields
 G = "<#7cfc00ff>"      # health
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 1, "y": -35}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 1, "y": -31}, "center": {"x": 0, "y": -11}}
 
 
 def mag(d, r):

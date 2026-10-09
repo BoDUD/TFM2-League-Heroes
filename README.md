@@ -3417,7 +3417,7 @@ python tools/art/import_zed.py          # 特效；--raw assets/source/zed/codex
 | 高手连招 | **连线护体（W → E）**：连线连上英雄且鼓舞就绪时立刻给自己套盾加速（保留梵咒给下一个技能）；**定身接灵光闪耀（W → RQ）**：禁锢落下时梵咒和 Q 都就绪，就朝被定住的英雄扔灵光闪耀（抛物线落点锁定，必中）；**梵咒救人（RE）**：队友被控或被贴身时梵咒直接变蔑视 |
 | 数值 | 攻击 90（+6）、法强 32（+15）、生命 1000（+92）、护甲 22（+7）、魔抗 24（+4）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：辅助，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），3 套阵容、两边各打，10 分钟。初稿 −3.38：鼓舞从没放出来（检查距离太短，ADC 站得比 30000 远）、W 多半连在小兵上；鼓舞检查放宽、W 只连英雄 7 秒一次、射程 60000、禁锢 1 → 1.67 秒、攻击 76 → 90、生命 900 → 1000 后：种子 1–12 +0.71、25–36 +0.08（同期璐璐 +1.00、娜美 +0.96、迦娜 +0.62） |
 | 亚索联动 | 卡尔玛只有减速和禁锢，没有击飞，亚索大招不受影响，不用调 |
-| 精灵图 | 9 个动作 52 帧：待机 6（玉环和骨翅上下浮动）、移动 8（英雄联盟原版 1 秒一圈）、普攻 6、Q（`skill`）6、W（`skill2`）6、E（`skill_e`）5、R（`ult`）5、受击 2、死亡 8。高 42 px（含玉环），24 色。头像截取点 (1, −35)（发顶，不是浮着的玉环），选人卡片 −7 |
+| 精灵图 | 9 个动作 52 帧：待机 6（玉环和骨翅上下浮动）、移动 8（英雄联盟原版 1 秒一圈）、普攻 6、Q（`skill`）6、W（`skill2`）6、E（`skill_e`）5、R（`ult`）5、受击 2、死亡 8。高 38 px（含玉环），24 色：用户「卡尔玛体型可以变小一点」，在 90% / 85% 里选了 90%（`import_native.py` 的 SHRINK：整行整列删、不重采样，眼睛到下巴和手不删）。头像截取点 (1, −31)（发顶，不是浮着的玉环），选人卡片 −10 |
 | 特效 | Codex 生图的 24 张，按游戏尺寸交付（`import_karma.py` 按锚点摆放、按技能时长定帧）：`league_karma_fx` 灵弹和命中、灵火 / 灵光闪耀火球（带粉色火舌）、Q 命中和减速、W 光束头、连线光段、命中、腰间灵光、锁扣、定身光环、焕发治疗光、鼓舞护盾罩上 / 护盾 / 加速、梵咒开启和准备中的光环；`league_karma_big` Q 和灵光闪耀的爆开、地上火环和整圈爆发、蔑视扩散的灵光圈。配色照英雄联盟的技能图标：翡翠青绿灵光 + 白芯，Q 带洋红粉色火舌。飞行的上下对称，其余左右对称 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_karma.py`）：灵弹出手和命中、Q 出手 / 爆开、灵光闪耀爆开 / 火环、W 出手 / 禁锢、E 出手、蔑视、R；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64；E 自动，没有技能位 |
@@ -3427,10 +3427,10 @@ python tools/art/import_zed.py          # 特效；--raw assets/source/zed/codex
 ```bash
 python tools/lol/extract_karma.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
 python tools/kit/build_karma.py         # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
-python tools/kit/setup_karma.py --face 1,-35 --banpick -7   # 五种语言的文字、音效配置、共享文件里她的键
+python tools/kit/setup_karma.py --face 1,-31 --banpick -10   # 五种语言的文字、音效配置、共享文件里她的键
 python tools/art/design_karma.py --rebuild --final   # 造型：Codex 原稿按格读回、删到 42 行，加上脸和眼睛的修改
 python tools/art/fix_karma_strips.py    # 动作：Codex 照英雄联盟原版整人重画的动作条 + 定稿的头
-python tools/art/import_native.py --hero karma
+python tools/art/import_native.py --hero karma   # 也把她缩到 90%
 python tools/art/import_karma.py        # 特效
 ```
 
