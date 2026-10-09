@@ -653,7 +653,7 @@ SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85}      # players (2026-1
 # "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
 # and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
 # every low row "knee" and the cut fell on his head
-SHRINK_KEEP = {"xerath": ["!FBFCFC"], "twitch": ["!FBFDF7+1,1,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP = {"xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
 SHRINK_KEEP_TAG = {"renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
