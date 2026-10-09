@@ -1,0 +1,82 @@
+{
+  "source_native_shape": [
+    42,
+    46
+  ],
+  "source_grid": {
+    "origin": [
+      205,
+      379
+    ],
+    "cell_step": 18.25,
+    "method": "one central sample per authored source square, no averaging"
+  },
+  "design1_deleted_source_rows": [
+    6,
+    7,
+    13,
+    40
+  ],
+  "design2_deleted_antenna_rows": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "body_identical_below_native_y": 74,
+  "designs": [
+    {
+      "file": "kogmaw_design_1.png",
+      "canvas": [
+        1024,
+        1024
+      ],
+      "native_canvas": [
+        128,
+        128
+      ],
+      "bbox_1x": [
+        38,
+        62,
+        84,
+        100
+      ],
+      "height_cells": 38,
+      "width_cells": 46,
+      "opaque_colors": 19,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid_px": 8,
+      "feet_bottom_row": 99
+    },
+    {
+      "file": "kogmaw_design_2.png",
+      "canvas": [
+        1024,
+        1024
+      ],
+      "native_canvas": [
+        128,
+        128
+      ],
+      "bbox_1x": [
+        38,
+        66,
+        84,
+        100
+      ],
+      "height_cells": 34,
+      "width_cells": 46,
+      "opaque_colors": 18,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid_px": 8,
+      "feet_bottom_row": 99
+    }
+  ],
+  "limitation": "Version2 shortens the two tallest stalks by four cells. Side antenna lengths remain unchanged to preserve their tips and the shell silhouette."
+}
