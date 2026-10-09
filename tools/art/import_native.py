@@ -645,7 +645,7 @@ BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
 TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana",
-        "xerath": "clean_xerath"}   # 「顺便把泽拉斯脚上的黑边清理干净」: bare outline stalks under his leg tips
+        "xerath": "clean_xerath", "gwen": "clean_gwen"}   # gwen: heart-hole marker -> transparent (clean_gwen); 「顺便把泽拉斯脚上的黑边清理干净」: bare outline stalks under his leg tips
 # heroes made smaller from their finished frames: whole rows and columns out, never resampled (shrink_frames.py); the idle
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
