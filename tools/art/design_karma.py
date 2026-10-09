@@ -166,7 +166,12 @@ PICK = "2_42"          # the user's pick (「那就2-42吧」)
 # hand edits on the picked cut, in FINAL's coordinates: (canvas row, column from x0, letters; '.' clears).
 # Tried 2026-10-09 and withdrawn: (82, 23, "ss"), (83, 23, "00") joined the far forearm to the hand (「你把这个色素缺失
 # 的补上就行了」), then the user kept the cut as it was (「算了就用这个吧」, pointing at the "before" picture).
-POLISH = []
+# 1. 「可以优化一下眼睛这个五官 做精致点」 -> the user's 「眼睛用A」 (legs left as they are: 「腿不用换」): both eyes a 2x2
+#    magenta iris (P / p) with a white glint up-right under a lash row, the far eye moved onto the face (cols 69-70,
+#    col 71 skin), a nose shade, plum lips, thinner brows (work/kr/edit/face_legs_kr.py option A without LEG)
+POLISH = [(69, 12, "zS"), (69, 19, "z"),
+          (70, 12, "0000   000"), (71, 13, "Pw0   Pws"), (72, 13, "pPs   pPS"),
+          (73, 19, "S"), (74, 17, "PP")]
 
 
 def rebuild():
