@@ -19,8 +19,8 @@ rule: translation, quarter turns, mirrors, whole-row shifts, layering):
   layering), the lower legs swung back or tucked (rigkit.swing_leg: whole rows);
 - the death: struck back, sunk to his knees, then the figure turned exactly a quarter clockwise about the feet (face
   down, the head to the right, League's fall forward);
-- the run: each whole leg (thigh, greave, boot) swung from its hip, the boots stepping in turn beside each other
-  (run_frames); the forearms pump opposite the legs, the body drops a row at each contact.
+- the run: a cross-step after League's Zed_run on two-part legs (thigh, shin, the boot whole), the near forearm
+  swung back whole with its own edge (run_frames); the body drops a row at each mid-stance.
 Writes assets/source/native/zed_<tag>.png (8x, 112x96 cells, soles on cell row 81) and zed_cells.json; then
 tools/art/import_native.py. --check compares instead of writing; --review writes a review sheet and GIF.
 """
@@ -60,11 +60,9 @@ R_ELBOW = (74.5, 78.0)           # the top of the image-right bracer
 KNEE_ROW, FEET_ROW = 90, 95      # the lower legs: the greaves (93-95) and the boots (96-98)
 TABARD = set()   # the tabard's hem squares among the near leg's rows
 # the run's whole legs (rows from, first and last column; never a forearm or the tabard's reds and golds) and their
-# hips, the rows the forearms' swings shear between, the rows kept whole over the dropped body - all on the full design
+# hips (the thighs lean from there) - all on the full design
 RUN_LEGS = {"far": (77, 56, 63), "near": (85, 64, 75)}
 RUN_HIPS = {"far": 77, "near": 80}               # the near hip under the tabard
-RUN_ARM_ROWS = {"l": (81, 94), "r": (83, 95)}
-RUN_KEEP_ROW = 80
 
 # Smaller (the user, 2026-10-10: 「做的挺好的 劫 就是有点太大了」, then 「还可继续缩一点」): the design loses whole rows
 # and columns ONCE (as rig_xinzhao.py's SCALE: cut afterwards from the finished frames, one cut would run through a
@@ -440,43 +438,89 @@ def dead(P, k):
     return lying(P, [3, 0, 0][k - len(steps)])
 
 
-# the run (League's pace: Zed_run cycles in 0.968 s -> 8 x 120 ms; tools/lol/pose_joints.py: League's feet swing about
-# six columns either side of the hips and kick up behind). 2026-10-10 the user, of the 90% run: 「走路也有点奇怪」. Its
-# crossing variant (the user's pick for design B, 「用B吧」) swung only the lower legs, from row 88 under thighs that
-# stayed put - nine rows for up to eight columns, legs at 40 degrees - and at each pass the two silver legs and boots
-# stacked into one lump. Now each WHOLE leg (thigh, greave, boot) swings from its hip (whole-row shifts,
-# rigkit.swing_leg): each boot is planted forward, slides back a column a frame under the body, lifts 2 at the toe-off,
-# 4 at the kick behind, 3 as it swings through and 1 as it reaches; one boot is always on the ground, the boots stand
-# 4-12 columns apart and never stack. They step beside each other rather than across: with the design's boots nine
-# apart, a cross laid the near boot over the far leg (one leg with a boot floating on it). The forearms pump opposite
-# the legs, the near claws lifting as they swing back so they clear the near boot; the body drops a row at each contact.
-FAR_DX = [2, 1, 0, -1, -1, -1, 1, 2]
-FAR_LIFT = [0, 0, 0, 0, 2, 4, 3, 1]
-NEAR_DX = [-1, -2, 0, 1, 2, 1, 0, -1]
-NEAR_LIFT = [2, 4, 3, 1, 0, 0, 0, 0]
+# the run (League's pace: Zed_run cycles in 0.968 s -> 8 x 120 ms), a cross-step (the user, 2026-10-10: 「走路有交叉步没」,
+# then 「像奥拉夫那样给 Codex 准备一个跑步腿部的素材包，照英雄联盟的跑姿画交叉步」). Codex's redraw on the guide
+# (assets/source/zed/RUN_CROSS.md) kept the image-right boot planted in 7 of 8 frames, creeping forward from +2 to +5
+# while the other leg kicked - a skate - and added squares beside the right claw; the user: 「灵活利用工具吧 还有走路别
+# 导致武器变形 codex已经犯了这个问题」, 「修复到完美版本再喊我review」. So the legs are the design's own again, each as a
+# two-part leg per frame (knee_dx, boot_dx, lift): the thigh's rows shifted in proportion from the hip down to knee_dx
+# at the knee, the shin's rows leaning on from knee_dx to boot_dx, the boot's rows (BOOT_TOP down) moved whole -
+# unbent - and the shin + boot raised `lift` rows behind the thigh (a bent knee: its top hides behind the thigh).
+# League's phase (tools/lol/pose_joints.py): the near (image-right) boot planted in frames 7, 8, 1, 2 sliding back
+# 2 a frame, pushed off behind the far leg in 3 and kicked up behind it in 4 - the cross: the near leg in front of
+# the far one, its boot behind the far boot - then the knee comes through in 5 and the foot reaches in 6; the far
+# boot planted in 3-6 sliding back 2 a frame, pushed off in 7, kicked up behind the claws in 8, through in 1 and
+# reaching in 2. The boots change order twice a cycle (the far one ahead in 2-4), stand at most 12 apart, one is
+# always on the ground, and no two boots stack. The near forearm swings a column back over the tabard while the near
+# leg is forward (6-8, 1), whole (run_fore: the claws exactly as drawn - the old run sheared their rows) and with its
+# own edge; it never swings forward or the far one at all: either opened a gap at the tabard's / torso's edge that
+# only made-up squares could fill (an extra square beside the first claw, a red tabard column, a dark blot at the far
+# elbow). The body drops a row at each mid-stance.
+RUN_STEPS = {
+    "near": [(-1, -2, 0), (-2, -4, 0), (-2, -8, 2), (-1, -10, 4), (0, -3, 3), (2, 0, 1), (1, 2, 0), (0, 0, 0)],
+    "far": [(3, 3, 4), (4, 6, 3), (4, 8, 0), (3, 6, 0), (2, 4, 0), (1, 2, 0), (-1, 0, 1), (0, -1, 4)],
+}
+BOOT_TOP = 97                    # the boots' top row (full design): rows from here move whole
 DROP = [1, 0, 0, 0, 1, 0, 0, 0]
-FAR_ARM = [-2, -1, 0, 1, 2, 1, 0, -1]            # columns at the claw tips, + forward
-NEAR_ARM = [2, 1, 0, -1, -2, -1, 0, 1]
-NEAR_ARM_LIFT = [0, 0, 0, 1, 2, 1, 0, 0]
+RUN_ARM = [-1, 0, 0, 0, 0, -1, -1, -1]         # the near forearm's column per frame
+
+
+def run_leg(P, side, knee_dx, boot_dx, lift):
+    """One leg of the run: the thigh leaning to knee_dx at the knee, the shin on to boot_dx, the boot whole, the shin
+    + boot raised `lift` rows behind the thigh."""
+    d = P.design
+    hip = RUN_HIPS[side]
+    thigh = np.zeros_like(d)
+    low = np.zeros_like(d)
+    for r, c in zip(*np.nonzero(P.run[side] & (d[..., 3] > 0))):
+        if r < KNEE_ROW:
+            sh = int(np.floor(knee_dx * max(0, r - hip) / max(1, KNEE_ROW - hip) + 0.5))
+            if 0 <= c + sh < 128:
+                thigh[r, c + sh] = d[r, c]
+        else:
+            t = min(1.0, (r - KNEE_ROW) / max(1, BOOT_TOP - KNEE_ROW))
+            sh = int(np.floor(knee_dx + (boot_dx - knee_dx) * t + 0.5))
+            if 0 <= c + sh < 128 and 0 <= r - lift < 128:
+                low[r - lift, c + sh] = d[r, c]
+    return K.put(thigh, low, 0, 0, under=True)
+
+
+def run_fore(P):
+    """The near forearm whole for the run: its squares, the body squares it walls in (the dark red under the bracer)
+    and copies of the outline squares beside it that it shares with the body (the body keeps its own), so a column
+    back over the tabard it brings its own edge and leaves no hole."""
+    d = P.design
+    m = P.masks["rfore"].copy()
+    op = d[..., 3] > 0
+    ink = op & (d[..., :3] == np.array(OUT, np.uint8)).all(-1)
+    walled = op & ~m
+    for dy, dx in N4:
+        walled &= np.roll(np.roll(m, -dy, 0), -dx, 1)
+    m |= walled
+    beside = np.roll(m & ~ink, 1, 1) | np.roll(m & ~ink, -1, 1)
+    whole = m | (ink & beside)
+    part = np.zeros_like(d)
+    part[whole] = d[whole]
+    return part, walled
 
 
 def run_frames(P):
     out = []
+    fore, walled = run_fore(P)
     for k in range(8):
         legs = np.zeros_like(P.design)
         # the far (image-left) leg drawn first, the near one over it, both under the body (the tabard's hem and the
         # claws hang in front of them)
-        K.put(legs, K.swing_leg(P.design, P.run["far"], RUN_HIPS["far"], FEET_ROW, FAR_DX[k], FAR_LIFT[k]), 0, 0)
-        K.put(legs, K.swing_leg(P.design, P.run["near"], RUN_HIPS["near"], FEET_ROW, NEAR_DX[k], NEAR_LIFT[k]), 0, 0)
+        K.put(legs, run_leg(P, "far", *RUN_STEPS["far"][k]), 0, 0)
+        K.put(legs, run_leg(P, "near", *RUN_STEPS["near"][k]), 0, 0)
         top = P.body.copy()
-        top[P.run["far"] | P.run["near"]] = 0
-        K.put(top, K.swing_leg(P.design, P.masks["lfore"], *RUN_ARM_ROWS["l"], FAR_ARM[k]), 0, 0, under=True)
-        K.put(top, K.swing_leg(P.design, P.masks["rfore"], *RUN_ARM_ROWS["r"], NEAR_ARM[k], NEAR_ARM_LIFT[k]), 0, 0)
+        top[P.run["far"] | P.run["near"] | walled] = 0
+        K.place(top, P.lfore, L_ELBOW, under=True)
+        K.put(top, fore, RUN_ARM[k], 0)
         c = K.put(K.shifted(top, 0, DROP[k]), legs, 0, 0, under=True)
         c[SOLES + 1:] = 0
-        keep = np.zeros((128, 128), bool)
-        keep[:RUN_KEEP_ROW + DROP[k]] = True
-        out.append(K.finish(c, OUT, SOLES, keep=keep, pinholes=4, dark=DARK))
+        # finished only near what moved, as the actions (the old run kept every row above the hips as drawn)
+        out.append(finish_near(c, K.shifted(P.design, 0, DROP[k])))
     return out
 
 
@@ -498,13 +542,12 @@ def frames(P, tag):
 
 
 def _shrink_globals():
-    global SHRUNK_PLAN, L_ELBOW, R_ELBOW, KNEE_ROW, FEET_ROW, RUN_ARM_ROWS, RUN_KEEP_ROW, RUN_HIPS
+    global SHRUNK_PLAN, L_ELBOW, R_ELBOW, KNEE_ROW, FEET_ROW, RUN_HIPS, BOOT_TOP
     SHRUNK_PLAN = {"rows": [r - PIVOT[1] for r in CUT_ROWS], "cols": [c - PIVOT[0] for c in CUT_COLS]}
     L_ELBOW, R_ELBOW = ((map_x(x), map_y(y)) for x, y in (L_ELBOW, R_ELBOW))
     KNEE_ROW, FEET_ROW = map_y(KNEE_ROW), map_y(FEET_ROW)
-    RUN_ARM_ROWS = {k: (map_y(a), map_y(b)) for k, (a, b) in RUN_ARM_ROWS.items()}
-    RUN_KEEP_ROW = map_y(RUN_KEEP_ROW)
     RUN_HIPS = {k: map_y(r) for k, r in RUN_HIPS.items()}
+    BOOT_TOP = map_y(BOOT_TOP)
 
 
 if SCALE != 1:
