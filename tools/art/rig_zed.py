@@ -84,9 +84,15 @@ class Parts:
         ink = op & (d[..., :3] == np.array(OUT, np.uint8)).all(-1)
         colour = op & ~ink
         R, C = np.mgrid[0:128, 0:128]
-        lfore_c = colour & (R >= 76) & (R <= 94) & (C <= 57)
-        # the tabard hem reaches column 71 from row 89 down: the forearm keeps to 72+ there
-        rfore_c = colour & (R >= 78) & (R <= 97) & (C >= 72)
+        # design C (Codex's flat redraw of B, design_zed2.py): the claws hang in columns 51-54; columns 56-57 under the
+        # bracer are the thigh's outer edge (they had travelled with the forearm: a notch in the thigh)
+        lfore_c = colour & (R >= 76) & (R <= 94) & (((C <= 57) & (R <= 82)) | (C <= 55))
+        # the tabard hem reaches column 72 at rows 87-89 (its red travelled with the forearm as a red bar under the
+        # blades): the forearm keeps to 72+ and never takes the tabard's reds
+        red = np.zeros((128, 128), bool)
+        for col in ("#AA1027", "#470C1A"):
+            red |= (d[..., :3] == np.array(K.rgb(col), np.uint8)).all(-1)
+        rfore_c = colour & (R >= 78) & (R <= 97) & (C >= 72) & ~red
         tab = np.zeros((128, 128), bool)
         for y, x in TABARD:
             tab[y, x] = True
@@ -228,7 +234,7 @@ TAGS = ["idle", "run", "attack", "skill", "skill2", "skill_e", "ult", "hit", "de
 MS = {"idle": [140] * 8, "run": [120] * 8, "attack": [60, 50, 40, 80, 100, 110], "skill": [50, 60, 80, 90],
       "skill2": [60, 50, 60, 80, 100, 120], "skill_e": [50, 40, 43, 70, 70, 100],
       "ult": [50, 50, 80, 80, 80, 90, 110], "hit": [120, 120], "dead": [100, 100, 120, 150, 200, 150, 150, 500]}
-TUCK = ((-2, 1), (-1, 1))        # the lower legs trailing back in the dash (design B: a boot swung 3 came off the shin)
+TUCK = ((-1, 1), (-1, 1))        # the lower legs trailing back in the dash (design B: a boot swung 3 came off the shin)
 LUNGE = ((-3, 0), (1, 0))        # the back leg swung back, the front one a column forward
 POSES = {
     # League's attack1 (head +9 rows at the stab): coiled low, the stab a low lunge forward, rising back
