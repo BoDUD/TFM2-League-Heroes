@@ -68,7 +68,7 @@ HEAD = {**{y: (55, 89) for y in range(66, 76)}, **{y: (62, 89) for y in range(76
 TAIL = {85: (44, 48), 86: (44, 49), 87: (44, 50), 88: (45, 50), 89: (46, 50), 90: (48, 50), 91: (50, 54)}
 TAIL_ROOT_ROW = 91
 ANTENNA_ROWS = (66, 72)          # rows that hold only the antennae (above the short right one): rows shifted sway them
-MOUTH = (73.5, 88.5)             # the middle of the open mouth: where the tube leaves
+MOUTH = (73.5, 89.5)             # the thin tube rows 86-92: the upper lip (85-86) shows             # the middle of the open mouth: where the tube leaves
 
 
 def design():
@@ -149,31 +149,33 @@ class Parts:
 
 # ------------------------------------------------------------------------------------------------ the tube
 def tube(n):
-    """The spit tube pointing right, n squares of shaft before its open end: 8 rows (a spike row, the outline, the
-    lit row s, two mid rows R, the shadow row r, the outline, a spike row), joint = the left end's middle."""
+    """The spit tube pointing right, n squares of shaft before its open end: 7 rows (a spike row, the outline, the
+    lit row s, the mid row R, the shadow row r, the outline, a spike row), joint = the left end's middle. One row
+    thinner since the 34-row design (the user: 「缩小后伸舌头的时候模型有点变形了吧」 - the 8-row tube of the 38-row
+    design covered the smaller mouth whole: the upper lip, its olive rim and the fangs were gone)."""
     w = n + 3
-    g = np.full((8, w), " ", "U1")
-    shaft = ["0", "s", "R", "R", "r", "0"]
-    groove = ["b", "R", "r", "r", "q", "b"]          # a ring: darker band, a bone spike over and under it
+    g = np.full((7, w), " ", "U1")
+    shaft = ["0", "s", "R", "r", "0"]
+    groove = ["b", "R", "r", "q", "b"]               # a ring: darker band, a bone spike over and under it
     for x in range(n):
         ring = x >= 2 and (n - x) % 4 == 2
         for k, ch in enumerate(groove if ring else shaft):
             g[1 + k, x] = ch
         if ring:
             g[0, x] = "0"
-            g[7, x] = "0"
-    end = [["0", "c", "s", "q", "q", "r", "c", "0"],      # the rim: fangs at the top and the bottom, the dark throat
-           [" ", "0", "c", "q", "q", "c", "0", " "],
-           [" ", " ", "0", "0", "0", "0", " ", " "]]
+            g[6, x] = "0"
+    end = [["0", "c", "s", "q", "r", "c", "0"],      # the rim: fangs at the top and the bottom, the dark throat
+           [" ", "0", "c", "q", "c", "0", " "],
+           [" ", " ", "0", "0", "0", " ", " "]]
     for i, col in enumerate(end):
         for k, ch in enumerate(col):
             g[k, n + i] = ch
-    s = np.zeros((8, w, 4), np.uint8)
-    for y in range(8):
+    s = np.zeros((7, w, 4), np.uint8)
+    for y in range(7):
         for x in range(w):
             if g[y, x] != " ":
                 s[y, x] = rgba(g[y, x])
-    return K.Part(s, (0.0, 4.0))
+    return K.Part(s, (0.0, 3.5))
 
 
 def with_tube(c, n, dx=0):
