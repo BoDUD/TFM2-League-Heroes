@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Karma's action strips posed from the approved design's own parts (2026-10-09): the casting body = the idle's.
+"""Karma's design parts and her idle (the ring and the prongs bobbing). SUPERSEDED for the actions: the user on these
+rig strips (only the arms moved): 「你好好修吧 这像英雄联盟里面的吗」 -> Codex redrew every action from League's poses
+(assets/source/karma/codex_strips_v2) and tools/art/fix_karma_strips.py writes all the strips now (the idle from
+idle_frames() here). The rest of this file is the 2026-10-09 rig, kept for reference; `--review` still renders it.
+Its first docstring follows.
+
+Karma's action strips posed from the approved design's own parts (2026-10-09): the casting body = the idle's.
 
     python tools/art/rig_karma.py [--parts PNG] [--check] [--review DIR] [--no-write]
 
@@ -479,9 +485,8 @@ def main():
         rows = K.audit(built[tag], P.design, OUT, SOLES)
         print(f"{tag:8s}", " ".join(f"{r['pieces']}p{r['holes']}h{r['orphans']}o{r['below']}b{r['area']}" for r in rows))
     if not a.no_write:
-        bad = K.write_strips("karma", built, MS, NATIVE, CELL, CELL_PIVOT, PIVOT, check=a.check)
-        if a.check:
-            print("differs:", bad or "nothing")
+        raise SystemExit("the strips come from tools/art/fix_karma_strips.py now (Codex's whole-figure redraw); "
+                         "run with --no-write / --review to look at the old rig")
     if a.review:
         os.makedirs(a.review, exist_ok=True)
         K.review_sheet([(t, built[t]) for t in TAGS], os.path.join(a.review, "karma_rig_review.png"), z=4, soles=SOLES)

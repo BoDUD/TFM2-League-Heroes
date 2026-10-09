@@ -57,7 +57,8 @@ STEADY = ("idle", "run")
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
 UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "idle"), ("karma", "run")}   # kogmaw: his antennae sway in both (rig_kogmaw.py), so
 # his top rows are no fixed head to steady on - steadied, the sway would turn into the whole body sliding
-# karma: her jade ring floats above her head in both (rig_karma.py idle bob, the run's hop), the same reason
+# karma: her jade ring floats above her head in the idle (rig_karma.py's bob), the same reason; her run is steadied on
+# League's head track already (fix_karma_strips.py STEADY), which keeps League's 1-2 column sway
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
 # (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
