@@ -1,0 +1,236 @@
+{
+  "files": 19,
+  "frames": 82,
+  "size_grid_alpha_palette_checks": "passed",
+  "engine_tested": false,
+  "comparison_other_champions": "unavailable: no other champion VFX provided",
+  "assets": [
+    {
+      "file": "zed_fx_a_hit.png",
+      "frame_count": 4,
+      "size": [
+        768,
+        192
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_cw_hit.png",
+      "frame_count": 5,
+      "size": [
+        1440,
+        288
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_cw_ready.png",
+      "frame_count": 4,
+      "size": [
+        640,
+        128
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ]
+    },
+    {
+      "file": "zed_fx_q_star.png",
+      "frame_count": 4,
+      "size": [
+        1280,
+        192
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ]
+    },
+    {
+      "file": "zed_fx_sh_star.png",
+      "frame_count": 4,
+      "size": [
+        1280,
+        192
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ]
+    },
+    {
+      "file": "zed_fx_q_hit.png",
+      "frame_count": 4,
+      "size": [
+        896,
+        224
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_e_spin.png",
+      "frame_count": 5,
+      "size": [
+        3840,
+        352
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_sh_spin.png",
+      "frame_count": 5,
+      "size": [
+        3840,
+        352
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_e_hit.png",
+      "frame_count": 3,
+      "size": [
+        480,
+        160
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_e_slow.png",
+      "frame_count": 4,
+      "size": [
+        1152,
+        128
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ]
+    },
+    {
+      "file": "zed_fx_w_dash.png",
+      "frame_count": 4,
+      "size": [
+        1024,
+        224
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_sh_in.png",
+      "frame_count": 5,
+      "size": [
+        2400,
+        704
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Shadow identity matches prompt approximately; cross-strip identical silhouette is not verified."
+      ]
+    },
+    {
+      "file": "zed_fx_sh_stand.png",
+      "frame_count": 4,
+      "size": [
+        1920,
+        672
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Shadow identity matches prompt approximately; cross-strip identical silhouette is not verified.",
+        "Loop seam and rotational cadence require engine playback review."
+      ]
+    },
+    {
+      "file": "zed_fx_sh_throw.png",
+      "frame_count": 3,
+      "size": [
+        864,
+        288
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_sh_out.png",
+      "frame_count": 4,
+      "size": [
+        1920,
+        672
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Shadow identity matches prompt approximately; cross-strip identical silhouette is not verified."
+      ]
+    },
+    {
+      "file": "zed_fx_w_swap.png",
+      "frame_count": 5,
+      "size": [
+        1920,
+        640
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_r_hit.png",
+      "frame_count": 5,
+      "size": [
+        1920,
+        384
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    },
+    {
+      "file": "zed_fx_r_mark.png",
+      "frame_count": 4,
+      "size": [
+        896,
+        224
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ]
+    },
+    {
+      "file": "zed_fx_r_pop.png",
+      "frame_count": 6,
+      "size": [
+        3456,
+        576
+      ],
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ]
+    }
+  ],
+  "technical_checks": [
+    "19 expected filenames, 82 frames",
+    "Requested full-strip dimensions",
+    "16 x 16 constant pixel blocks",
+    "Binary alpha with zero RGB in transparent pixels",
+    "Visible colours restricted to each supplied palette",
+    "Every converted frame contains visible pixels"
+  ],
+  "visual_status": "Generated artwork supplied for import review. Exact symmetry, constant shadow silhouette and seamless loops are not certified."
+}

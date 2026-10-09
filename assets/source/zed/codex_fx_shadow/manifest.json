@@ -1,0 +1,174 @@
+{
+  "assets": [
+    {
+      "file": "zed_fx_sh_q.png",
+      "size": [
+        1836,
+        857
+      ],
+      "requested_size": [
+        1440,
+        672
+      ],
+      "status": "generated raw raster; use actual frame rects",
+      "frame_count": 3,
+      "total_duration_ms": 200,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            612,
+            857
+          ],
+          "bbox_in_frame": [
+            25,
+            9,
+            612,
+            831
+          ],
+          "duration_ms": 66,
+          "mean_visible_luma": 73.07,
+          "brightest_decile_luma": 221.63
+        },
+        {
+          "index": 2,
+          "rect": [
+            612,
+            0,
+            612,
+            857
+          ],
+          "bbox_in_frame": [
+            11,
+            39,
+            610,
+            836
+          ],
+          "duration_ms": 67,
+          "mean_visible_luma": 83.29,
+          "brightest_decile_luma": 233.13
+        },
+        {
+          "index": 3,
+          "rect": [
+            1224,
+            0,
+            612,
+            857
+          ],
+          "bbox_in_frame": [
+            5,
+            58,
+            588,
+            857
+          ],
+          "duration_ms": 67,
+          "mean_visible_luma": 74.3,
+          "brightest_decile_luma": 228.03
+        }
+      ],
+      "binding": "league_zed_sh_q",
+      "game_size_from_brief": [
+        30,
+        42
+      ],
+      "requested_authoring_cell": [
+        480,
+        672
+      ],
+      "limitations": [
+        "Native generated size and spacing differ from requested equal cells.",
+        "Strict pixel symmetry and identical standing-shadow silhouette are not certified.",
+        "Use one shared scale and consistent foot anchor when importing; do not scale each frame independently."
+      ]
+    },
+    {
+      "file": "zed_fx_sh_e.png",
+      "size": [
+        2117,
+        743
+      ],
+      "requested_size": [
+        1920,
+        672
+      ],
+      "status": "generated raw raster; use actual frame rects",
+      "frame_count": 3,
+      "total_duration_ms": 200,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            558,
+            743
+          ],
+          "bbox_in_frame": [
+            0,
+            33,
+            558,
+            723
+          ],
+          "duration_ms": 66,
+          "mean_visible_luma": 85.19,
+          "brightest_decile_luma": 221.42
+        },
+        {
+          "index": 2,
+          "rect": [
+            558,
+            0,
+            990,
+            743
+          ],
+          "bbox_in_frame": [
+            0,
+            19,
+            990,
+            727
+          ],
+          "duration_ms": 67,
+          "mean_visible_luma": 94.96,
+          "brightest_decile_luma": 223.79
+        },
+        {
+          "index": 3,
+          "rect": [
+            1548,
+            0,
+            569,
+            743
+          ],
+          "bbox_in_frame": [
+            1,
+            26,
+            553,
+            719
+          ],
+          "duration_ms": 67,
+          "mean_visible_luma": 73.35,
+          "brightest_decile_luma": 210.54
+        }
+      ],
+      "binding": "league_zed_sh_e",
+      "game_size_from_brief": [
+        30,
+        42
+      ],
+      "requested_authoring_cell": [
+        640,
+        672
+      ],
+      "limitations": [
+        "Native generated size and spacing differ from requested equal cells.",
+        "Strict pixel symmetry and identical standing-shadow silhouette are not certified.",
+        "Use one shared scale and consistent foot anchor when importing; do not scale each frame independently."
+      ]
+    }
+  ],
+  "coordinate_convention": "rect=[x,y,width,height] in original PNG pixels",
+  "engine_integrated": false
+}
