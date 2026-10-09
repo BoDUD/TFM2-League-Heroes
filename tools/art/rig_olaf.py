@@ -42,7 +42,8 @@ import design_olaf as DO  # noqa: E402
 import rigkit as K  # noqa: E402
 
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
-FINAL = os.path.join(ROOT, "assets", "source", "olaf", "design", "olaf_design_42.txt")
+FINAL = DO.FINAL                  # the design now (43 x 36, slimmer: version B)
+FINAL_42 = DO.FINAL_42            # the first approved design: its head is the head pasted on every frame
 POSES_JSON = os.path.join(ROOT, "assets", "source", "olaf", "poses.json")
 Z = 8
 PIVOT = (64, 88)                 # the design's standing point (the soles on row 99, the feet's middle on column 64)
@@ -97,9 +98,13 @@ FAR_FIST = ["0000", "0SK0", "0Kk0", "0000"]
 
 
 # ------------------------------------------------------------------------------------------------ the design's parts
-def grid():
-    rows = [r.rstrip("\r\n") for r in open(K.lp(FINAL), encoding="utf-8") if not r.startswith("#")]
-    return {(y + 58, x + 45): c for y, r in enumerate(rows) for x, c in enumerate(r) if c != "."}
+def grid(path=None):
+    """A letter grid on the canvas, placed as design_olaf.on_canvas places it (the soles on row 99, the feet's middle
+    on column 64; the 42-row grid lands on rows 58-99, columns 45-83 as before)."""
+    rows = [r.rstrip("\r\n") for r in open(K.lp(path or FINAL), encoding="utf-8") if not r.startswith("#")]
+    feet = [x for r in rows[-3:] for x, c in enumerate(r) if c != "."]
+    y0, x0 = SOLES + 1 - len(rows), int(round(PIVOT[0] - (min(feet) + max(feet)) / 2))
+    return {(y + y0, x + x0): c for y, r in enumerate(rows) for x, c in enumerate(r) if c != "."}
 
 
 def to_rgba(g):
@@ -147,8 +152,8 @@ def ring(a):
 
 
 class Parts:
-    def __init__(self):
-        g = grid()
+    def __init__(self, final=None):
+        g = grid(final)
         self.g = g
         self.design = to_rgba(g)
         nk, fk = near_arm_keys(g), far_arm_keys(g)

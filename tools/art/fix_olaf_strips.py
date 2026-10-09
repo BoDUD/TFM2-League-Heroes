@@ -298,12 +298,13 @@ def main():
     ap.add_argument("--no-write", action="store_true")
     ap.add_argument("--heads", action="store_true", help="print where each frame's head went")
     a = ap.parse_args()
-    P = RO.Parts()
+    P = RO.Parts()                     # the design now: the idle breathes it
+    H = RO.Parts(RO.FINAL_42)          # the head pasted on every frame is the first approved design's (unchanged)
     built = {"idle": [RO.breath(P, n) for n in RO.BREATH]}
     ms = {"idle": RO.ms_of("idle")}
     report = []
     for tag in CODEX_TAGS:
-        built[tag], ms[tag] = build(P, tag, report)
+        built[tag], ms[tag] = build(H, tag, report)
     if a.heads:
         for r in report:
             print(r)

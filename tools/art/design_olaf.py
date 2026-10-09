@@ -20,7 +20,9 @@ The user then asked 「再精修一下吧 有点模糊啊」: the curated ramps 
 the hair's dark orange and kept 9 near-blacks), the lone near-duplicate squares merged (despeckle), and by hand on the
 letter grid (work/ol/polish_ol.py): both horns lit on their upper edge, the helmet as one clean dome with a swirl and a
 lit brim, both eyes (e, E) round the nose guard; the mouth back as the route drew it (「用之前的嘴」, with the tongue
-colour p). Approved 「用右边」 (2026-10-09): FINAL, 42 x 39, 21 colours.
+colour p). Approved 「用右边」 (2026-10-09): FINAL_42, 42 x 39, 21 colours. Then 「奥拉夫稍微瘦一点 肌肉明显点」: Codex
+redrew the body slimmer with clearer muscles (assets/source/olaf/codex_slim), the user picked B: FINAL, 43 x 36
+(the approved head pasted back on it, tools/art/fix_olaf_strips.with_head).
 
     python tools/art/design_olaf.py --final     # FINAL (the approved letter grid) -> OUT
 """
@@ -39,7 +41,9 @@ from regrid import regrid  # noqa: E402
 
 RAW = os.path.join(ROOT, "assets", "source", "olaf", "codex_model", "raw", "olaf_design_raw.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "olaf_native.png")
-FINAL = os.path.join(ROOT, "assets", "source", "olaf", "design", "olaf_design_42.txt")
+FINAL_42 = os.path.join(ROOT, "assets", "source", "olaf", "design", "olaf_design_42.txt")   # approved first (ab01f4b8)
+# slimmer (the user 2026-10-09: 「奥拉夫稍微瘦一点 肌肉明显点」): Codex's version B with the approved head pasted back
+FINAL = os.path.join(ROOT, "assets", "source", "olaf", "design", "olaf_design_43.txt")
 SOLE_ROW, MID_COL = 99, 64
 OUTLINE = (0x2A, 0x12, 0x08)
 # the palette: 3-4 shades a material (a median cut of the read-back merged the skin's shadows into the hair's dark
