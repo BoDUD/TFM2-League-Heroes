@@ -1,0 +1,173 @@
+[
+  {
+    "tag": "run",
+    "actual_size": [
+      1942,
+      809
+    ],
+    "target_size": [
+      3840,
+      1600
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 393277,
+    "visible_rgb_colors": 74990,
+    "visible_pixels_outside_16_palette": 250249,
+    "nonuniform_8x8_blocks": 8943,
+    "canvas_remainder_px": [
+      6,
+      1
+    ],
+    "production_checks_pass": false
+  },
+  {
+    "tag": "attack",
+    "actual_size": [
+      1681,
+      936
+    ],
+    "target_size": [
+      2880,
+      1600
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 338940,
+    "visible_rgb_colors": 97232,
+    "visible_pixels_outside_16_palette": 282391,
+    "nonuniform_8x8_blocks": 6232,
+    "canvas_remainder_px": [
+      1,
+      0
+    ],
+    "production_checks_pass": false
+  },
+  {
+    "tag": "skill",
+    "actual_size": [
+      1942,
+      809
+    ],
+    "target_size": [
+      3840,
+      1600
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 344290,
+    "visible_rgb_colors": 54275,
+    "visible_pixels_outside_16_palette": 214219,
+    "nonuniform_8x8_blocks": 6604,
+    "canvas_remainder_px": [
+      6,
+      1
+    ],
+    "unused_cell_alpha_ge128_pixels": 0,
+    "production_checks_pass": false
+  },
+  {
+    "tag": "skill2",
+    "actual_size": [
+      1942,
+      809
+    ],
+    "target_size": [
+      3840,
+      1600
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 314893,
+    "visible_rgb_colors": 52549,
+    "visible_pixels_outside_16_palette": 232700,
+    "nonuniform_8x8_blocks": 5912,
+    "canvas_remainder_px": [
+      6,
+      1
+    ],
+    "unused_cell_alpha_ge128_pixels": 0,
+    "production_checks_pass": false
+  },
+  {
+    "tag": "skill2_hit",
+    "actual_size": [
+      2172,
+      724
+    ],
+    "target_size": [
+      3840,
+      800
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 215301,
+    "visible_rgb_colors": 36281,
+    "visible_pixels_outside_16_palette": 149262,
+    "nonuniform_8x8_blocks": 4264,
+    "canvas_remainder_px": [
+      4,
+      4
+    ],
+    "production_checks_pass": false
+  },
+  {
+    "tag": "ult",
+    "actual_size": [
+      1942,
+      809
+    ],
+    "target_size": [
+      3840,
+      1600
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 327334,
+    "visible_rgb_colors": 49671,
+    "visible_pixels_outside_16_palette": 224589,
+    "nonuniform_8x8_blocks": 6040,
+    "canvas_remainder_px": [
+      6,
+      1
+    ],
+    "unused_cell_alpha_ge128_pixels": 1946,
+    "production_checks_pass": false
+  },
+  {
+    "tag": "hit",
+    "actual_size": [
+      1942,
+      809
+    ],
+    "target_size": [
+      1920,
+      800
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 267979,
+    "visible_rgb_colors": 34634,
+    "visible_pixels_outside_16_palette": 227039,
+    "nonuniform_8x8_blocks": 4833,
+    "canvas_remainder_px": [
+      6,
+      1
+    ],
+    "production_checks_pass": false
+  },
+  {
+    "tag": "dead",
+    "actual_size": [
+      1942,
+      809
+    ],
+    "target_size": [
+      3840,
+      1600
+    ],
+    "size_pass": false,
+    "intermediate_alpha_pixels": 622623,
+    "visible_rgb_colors": 48275,
+    "visible_pixels_outside_16_palette": 219723,
+    "nonuniform_8x8_blocks": 15877,
+    "canvas_remainder_px": [
+      6,
+      1
+    ],
+    "production_checks_pass": false
+  }
+]
