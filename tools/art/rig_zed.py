@@ -233,6 +233,7 @@ class Parts:
             d = fin
             self.design = d
             self.blades()
+            self.legs_alike()
             d = self.design
         self.lfore = K.Part.from_canvas(d, self.masks["lfore"], L_ELBOW)
         self.rfore = K.Part.from_canvas(d, self.masks["rfore"], R_ELBOW)
@@ -257,6 +258,35 @@ class Parts:
                     else:
                         self.body[y, x] = 0
                         self.masks[key][y, x] = True
+
+    def legs_alike(self):
+        """The far lower leg becomes a copy of the near one (the user, 10-10: 「腿左右也要一样吧」 - C drew the far shin
+        as a light 2-wide greave with a 3-wide boot and the near one as a dark trouser leg with a 9-wide toed boot):
+        every square of the near leg part from the knee row down, LEG_COPY columns left, in place of everything in
+        the far leg's columns there (the old greave, boot and its outline column the box mask had left to the body);
+        the part masks and the run's far leg follow."""
+        d = self.design
+        R, C = np.mgrid[0:128, 0:128]
+        old = (R >= KNEE_ROW) & (C >= LEG_FAR_COLS[0]) & (C <= LEG_FAR_COLS[1]) & ~self.masks["lfore"]   # not the claw tips
+        src = self.masks["rleg"] & (R >= KNEE_ROW) & (d[..., 3] > 0)
+        new = np.zeros_like(src)
+        ys, xs = np.nonzero(src)
+        new[ys, xs - LEG_COPY] = True
+        assert not (new & ~old).any(), "the copy leaves the far leg's columns"
+        for m in list(self.masks.values()) + list(self.run.values()):
+            m[old] = False
+        d[old] = 0
+        self.body[old] = 0
+        d[ys, xs - LEG_COPY] = self.design[ys, xs]
+        # the shin's right outline at the knee row was the tabard hem's on the near side: closed here, not at import
+        ink = np.zeros_like(new)
+        for dy, dx in N4:
+            ink |= np.roll(np.roll(new & (d[..., :3] != np.array(OUT, np.uint8)).any(-1), dy, 0), dx, 1)
+        ink &= old & (d[..., 3] == 0)
+        d[ink, :3], d[ink, 3] = OUT, 255
+        new |= ink
+        self.masks["lleg"] |= new
+        self.run["far"] |= new
 
     def overlay(self, path, z=12):
         """The design with every part tinted (forearms red / green, legs cyan / magenta, head blue)."""
@@ -457,14 +487,16 @@ def dead(P, k):
 # only made-up squares could fill (an extra square beside the first claw, a red tabard column, a dark blot at the far
 # elbow). The body drops a row at each mid-stance.
 RUN_STEPS = {
-    # the near leg's kick stays mostly behind the far shin (a boot peeping out on both sides of it read as a second
-    # far boot), heel up 2-3
-    "near": [(-1, -2, 0), (-2, -4, 0), (-2, -5, 2), (-1, -5, 3), (0, -3, 3), (2, 0, 1), (1, 2, 0), (0, 0, 0)],
-    # the far leg (the user, 10-10: 「左腿完全变形」 at knee 4 / boot 8 / lift 4 - a 45-degree shin and a boot hidden
-    # behind the thigh): the thigh leans at most 2, the shin at most 1 more, the boot lifts at most 2 - stays visible
-    "far": [(1, 0, 2), (2, 2, 1), (2, 3, 0), (2, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 1), (0, -2, 2)],
+    # each leg strides in its own lane (the user, 10-10: 「右腿看起来像撞了左腿」 when the near kick went behind the far
+    # shin) and both the same way half a cycle apart (「腿左右也要一样吧」): planted 4 frames sliding back a column a
+    # frame, heel up 2, swung through at 3, reaching down at 2 and 1; the near boot never left of its idle place, the
+    # far one never right of it
+    "near": [(0, 1, 0), (0, 0, 0), (1, 0, 2), (2, 1, 3), (2, 2, 2), (2, 3, 1), (2, 3, 0), (1, 2, 0)],
+    "far": [(2, -1, 2), (2, 0, 1), (2, 0, 0), (1, -1, 0), (0, -2, 0), (-1, -3, 0), (-1, -3, 2), (1, -2, 3)],
 }
 BOOT_TOP = 97                    # the boots' top row (full design): rows from here move whole
+LEG_COPY = 10                    # the far lower leg = the near one this many columns left (85% canvas, legs_alike)
+LEG_FAR_COLS = (54, 62)          # the far lower leg's columns on the 85% canvas (cleared before the copy)
 DROP = [1, 0, 0, 0, 1, 0, 0, 0]
 RUN_ARM = [-1, 0, 0, 0, 0, -1, -1, -1]         # the near forearm's column per frame
 
