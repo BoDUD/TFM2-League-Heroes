@@ -42,7 +42,11 @@ import rigkit as K  # noqa: E402
 import strips as G  # noqa: E402
 import rig_olaf as RO  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_v2")
+# Codex's League-driven redraw (approved with the design's head 2026-10-09): where every frame's head goes
+SRC_V2 = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_v2")
+# the same frames redrawn with the slimmer, more muscular body (「奥拉夫稍微瘦一点 肌肉明显点」, design B): the frames
+SRC = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_slim")
+REFINE = 1                         # squares the head may move from its approved place on the slim frames
 NATIVE = RO.NATIVE
 C = RO.C
 OUT = RO.OUT
@@ -96,12 +100,14 @@ def kind(a):
     return k
 
 
-def codex(tag):
-    """Codex's frames of a tag on 128 canvases (pivot on PIVOT), their durations and Codex's eye estimates there."""
-    man = json.load(open(K.lp(os.path.join(SRC, "manifest.json")), encoding="utf-8"))["animations"][tag]["frames"]
+def codex(tag, src=None):
+    """Codex's frames of a tag on 128 canvases (pivot on PIVOT), their durations and Codex's eye estimates there (the
+    eyes' middle, else 3 rows over the mouth, else None)."""
+    src = src or SRC
+    man = json.load(open(K.lp(os.path.join(src, "manifest.json")), encoding="utf-8"))["animations"][tag]["frames"]
     out, ms, eyes = [], [], []
     for f in man:
-        cell = np.asarray(Image.open(K.lp(os.path.join(SRC, "native", f"olaf_{tag}_{f['frame']:02d}.png")))
+        cell = np.asarray(Image.open(K.lp(os.path.join(src, "native", f"olaf_{tag}_{f['frame']:02d}.png")))
                           .convert("RGBA")).copy()
         cell[cell[..., 3] < 128] = 0
         c = np.zeros((128, 128, 4), np.uint8)
@@ -111,11 +117,16 @@ def codex(tag):
         out.append(c)
         ms.append(f["ms"])
         h = f["head"]
-        eyes.append(((h["eye_left"][0] + h["eye_right"][0]) / 2 + ox, h["eye_left"][1] + oy))
+        if h.get("eye_left") and h.get("eye_right"):
+            eyes.append(((h["eye_left"][0] + h["eye_right"][0]) / 2 + ox, h["eye_left"][1] + oy))
+        elif h.get("mouth"):
+            eyes.append((h["mouth"][0] + ox, h["mouth"][1] - 3 + oy))
+        else:
+            eyes.append(None)
     return out, ms, eyes
 
 
-def head_place(c, des, hm, guess):
+def head_place(c, des, hm, guess, at=None, search=None):
     """(score, dx, dy): where the design's head piece sits best in c, searched round Codex's eye estimate. The helmet
     and horns should land on Codex's helmet (steel on steel; on the mane is fair, on the body or on nothing is wrong),
     the face on Codex's face or beard; where Codex drew eyes or a mouth, the design's go on them."""
@@ -125,10 +136,14 @@ def head_place(c, des, hm, guess):
     face = (want >= 5) & ~steel
     have = kind(c)
     ex = (EYES[0][1] + EYES[1][1]) / 2
-    gx, gy = int(round(guess[0] - ex)), int(round(guess[1] - EYES[0][0]))
+    if at is not None:                  # round a known place (the approved frame's head)
+        gx, gy = at
+    else:
+        gx, gy = int(round(guess[0] - ex)), int(round(guess[1] - EYES[0][0]))
+    r = SEARCH if search is None else search
     best = (-9.0, gx, gy)
-    for dy in range(gy - SEARCH, gy + SEARCH + 1):
-        for dx in range(gx - SEARCH, gx + SEARCH + 1):
+    for dy in range(gy - r, gy + r + 1):
+        for dx in range(gx - r, gx + r + 1):
             yy, xx = ys + dy, xs + dx
             ok = (yy >= 0) & (yy < 128) & (xx >= 0) & (xx < 128)
             h = np.zeros(len(ys), np.int8)
@@ -267,26 +282,45 @@ def drop_orphans(f):
     return out
 
 
-def build(P, tag, report=None):
-    frames, ms, eyes = codex(tag)
+def places(P, tag):
+    """Where the design's head went on the approved frames (Codex's v2 redraw): (dx, dy) per frame, None where the
+    frame keeps Codex's own head."""
+    frames, ms, eyes = codex(tag, SRC_V2)
     hm = head_piece(P)
     mid = face_spot(P.design)
     out = []
     for i, c in enumerate(frames):
         k = i + 1
         if (tag, k) in KEEP_HEAD:
-            out.append(tidy(c))
+            out.append(None)
             continue
         spot = face_spot(c)
         s, dx, dy = head_place(c, P.design, hm, eyes[i])
         if (tag, k) in HEAD_AT:
-            s, (dx, dy) = None, HEAD_AT[(tag, k)]
+            dx, dy = HEAD_AT[(tag, k)]
         elif spot is not None:                          # the design's face on Codex's face, near the helmet's match
             fx, fy = int(round(spot[1] - mid[1])), int(round(spot[0] - mid[0]))
             if max(abs(fx - dx), abs(fy - dy)) <= FACE_OFF:
-                s, dx, dy = "face", fx, fy
+                dx, dy = fx, fy
+        out.append((dx, dy))
+    return out
+
+
+def build(P, tag, report=None):
+    """The slim frames with the design's head where the approved frame had it, moved at most REFINE squares to sit on
+    the slim body's own helmet."""
+    at = places(P, tag)
+    frames, ms, _ = codex(tag)
+    hm = head_piece(P)
+    out = []
+    for i, c in enumerate(frames):
+        k = i + 1
+        if at[i] is None:
+            out.append(tidy(c))
+            continue
+        s, dx, dy = head_place(c, P.design, hm, None, at=at[i], search=REFINE)
         if report is not None:
-            report.append((tag, k, dx, dy, s if s is None or isinstance(s, str) else round(s, 2)))
+            report.append((tag, k, at[i], (dx, dy), round(s, 2)))
         out.append(tidy(with_head(P, c, hm, (dx, dy), FRONT.get((tag, k), ()))))
     return out, ms
 
