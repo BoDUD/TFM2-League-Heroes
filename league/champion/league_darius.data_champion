@@ -1016,6 +1016,22 @@
           "tick": 22,
           "effects": [
             {
+              "type": "RemoveCasterBuff",
+              "name": "league_darius_r_kill"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_darius_r_kill",
+                "duration": {
+                  "Time": {
+                    "tick": 40
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
               "type": "SwitchByBuff",
               "buff_name": "league_darius_might",
               "effect_buff": {
@@ -1078,6 +1094,84 @@
             {
               "type": "TargetSfx",
               "name": "league_darius_r_hit"
+            },
+            {
+              "type": "Delayed",
+              "tick": 1,
+              "effects": [
+                {
+                  "type": "AddCasted",
+                  "casted_type": "Heal",
+                  "duration": 3,
+                  "period": 1,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_darius_r_kill"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 4,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_darius_r_kill",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_darius_r_kill"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_darius_r_reset"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_darius_r_reset",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
+                                }
+                              },
+                              "ult_cooldown_mult": 10000
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_darius_might"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_darius_might_vo"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
