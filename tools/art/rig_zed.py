@@ -35,6 +35,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import rigkit as K  # noqa: E402
 
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
@@ -59,6 +60,66 @@ L_ELBOW = (53.5, 76.0)           # (x, y): the top of the image-left bracer
 R_ELBOW = (74.5, 78.0)           # the top of the image-right bracer
 KNEE_ROW, FEET_ROW = 90, 95      # the lower legs: the greaves (93-95) and the boots (96-98)
 TABARD = set()   # the tabard's hem squares among the near leg's rows
+# the crossing run's far leg (rows from, first and last column) and the rows its forearm swings swing between, the rows
+# kept whole over the dropped body - all read on the full design
+RUN_LEG_BOX = (89, 55, 61)
+RUN_ARM_ROWS = {"l": (81, 94), "r": (83, 95)}
+RUN_KEEP_ROW, RUN_HIP = 80, 88
+
+# 90% (the user, 2026-10-10: 「做的挺好的 劫 就是有点太大了」): the design loses whole rows and columns ONCE
+# (tools/art/shrink_frames.py, as rig_xinzhao.py's SCALE: cut afterwards from the finished frames, one cut would run
+# through a different part of him in every frame as he breathes and crouches), never through his eyes or the mask
+# round them, before any action is posed from it. Every part is cut on the full design and shrunk with it; every point
+# and row above is read on the full design and moved with it (_shrink_globals).
+SCALE = 0.9
+SHRINK_KEEP = ["!FF281D+4,3,4,4"]          # the red eyes and a box round them: the mask, the hood's sides
+# the claws hang as one-square blades in these columns: a column out of them cut a blade off its bracer (the first
+# plan took column 76, and the right claw's lower blade fell away) - the columns go from the body instead
+CLAW_COLS = tuple(range(49, 56)) + tuple(range(74, 79))
+SHRUNK_PLAN = None
+FULL_KNEE_ROW = KNEE_ROW
+
+
+def _pivot_frame(c):
+    f = np.zeros((2 * PIVOT[1] + 1, 2 * PIVOT[0] + 1, 4), np.uint8)
+    f[:c.shape[0], :c.shape[1]] = c
+    return f
+
+
+def map_x(x):
+    """A canvas column (or point) on the shrunk design: the removed columns between it and the pivot close in."""
+    if SHRUNK_PLAN is None:
+        return x
+    cs = [PIVOT[0] + c for c in SHRUNK_PLAN["cols"]]
+    if x < PIVOT[0]:
+        return x + sum(1 for c in cs if x < c < PIVOT[0])
+    return x - sum(1 for c in cs if PIVOT[0] < c <= x)
+
+
+def map_y(y):
+    """A canvas row (or point): down one for every removed row under it (all above the soles, which stay)."""
+    if SHRUNK_PLAN is None:
+        return y
+    return y + sum(1 for r in SHRUNK_PLAN["rows"] if PIVOT[1] + r > y)
+
+
+def shrunk(c):
+    """A 128x128 canvas (image or mask) without the plan's rows and columns, the soles on their row."""
+    if SHRUNK_PLAN is None:
+        return c
+    gone_r = {PIVOT[1] + r for r in SHRUNK_PLAN["rows"]}
+    gone_c = {PIVOT[0] + q for q in SHRUNK_PLAN["cols"]}
+    out = np.zeros_like(c)
+    for y in range(c.shape[0]):
+        if y in gone_r:
+            continue
+        ny = map_y(y)
+        for x in range(c.shape[1]):
+            if x not in gone_c and 0 <= ny < c.shape[0]:
+                nx = map_x(x)
+                if 0 <= nx < c.shape[1]:
+                    out[ny, nx] = c[y, x]
+    return out
 
 
 def design():
@@ -96,8 +157,8 @@ class Parts:
         tab = np.zeros((128, 128), bool)
         for y, x in TABARD:
             tab[y, x] = True
-        lleg_c = colour & (R >= KNEE_ROW) & (C >= 57) & (C <= 64) & ~lfore_c
-        rleg_c = colour & (R >= KNEE_ROW) & (C >= 65) & (C <= 74) & ~tab & ~rfore_c
+        lleg_c = colour & (R >= FULL_KNEE_ROW) & (C >= 57) & (C <= 64) & ~lfore_c
+        rleg_c = colour & (R >= FULL_KNEE_ROW) & (C >= 65) & (C <= 74) & ~tab & ~rfore_c
         head_c = colour & region(HEAD)
         silver = np.zeros((128, 128), bool)        # the back ornament's prongs above the brows ride on the body
         for y, x in zip(*np.nonzero(head_c)):
@@ -127,6 +188,24 @@ class Parts:
         self.body = d.copy()
         for k in ("lfore", "rfore", "lleg", "rleg"):
             self.body[self.masks[k]] = 0
+        r0, c0, c1 = RUN_LEG_BOX
+        self.run_lm = op & (R >= r0) & (C >= c0) & (C <= c1) & ~self.masks["lfore"]
+        if SHRUNK_PLAN is not None:            # everything cut on the full design, then made smaller as one
+            d = shrunk(d)
+            self.colour = shrunk(colour)
+            self.masks = {k: shrunk(m) for k, m in self.masks.items()}
+            self.body = shrunk(self.body)
+            self.run_lm = shrunk(self.run_lm)
+            # a removed line at a turn of the outline opens it: closed once here (and the notches that walls in
+            # filled), so the idle's copies and the posed frames leave the import alike
+            fin = K.finish(d, OUT, SOLES, pinholes=2)
+            new = (fin != d).any(-1)
+            part = np.zeros_like(new)
+            for k in ("lfore", "rfore", "lleg", "rleg"):
+                part |= self.masks[k]
+            self.body[new & ~part] = fin[new & ~part]
+            d = fin
+            self.design = d
         self.lfore = K.Part.from_canvas(d, self.masks["lfore"], L_ELBOW)
         self.rfore = K.Part.from_canvas(d, self.masks["rfore"], R_ELBOW)
 
@@ -294,18 +373,14 @@ L_LIFT = [0, 2, 3, 2, 0, 0, 0, 0]
 DROP = [1, 0, 0, 0, 1, 0, 0, 0]
 ARM = [-2, -1, 0, 1, 2, 1, 0, -1]
 RUN = {"trot": dict(hip=KNEE_ROW - 1, l_in=0, r_in=0, stride=0.5, full=False),
-       "cross": dict(hip=88, l_in=4, r_in=-5, stride=1.0, full=True)}
+       "cross": dict(hip=RUN_HIP, l_in=4, r_in=-5, stride=1.0, full=True)}
 RUN_VARIANT = "cross"         # the user (2026-10-09): 「用B吧」
 
 
 def leg_masks(P, full):
     if not full:
         return P.masks["lleg"], P.masks["rleg"]
-    R, C = np.mgrid[0:128, 0:128]
-    op = P.design[..., 3] > 0
-    lm = op & (R >= 89) & (C >= 55) & (C <= 61) & ~P.masks["lfore"]
-    rm = P.masks["rleg"]
-    return lm, rm
+    return P.run_lm, P.masks["rleg"]
 
 
 def run_frames(P, variant=None):
@@ -320,12 +395,12 @@ def run_frames(P, variant=None):
         K.put(legs, K.swing_leg(P.design, rm, v["hip"], FEET_ROW, v["r_in"] + st, R_LIFT[k]), 0, 0)
         top = P.body.copy()
         top[lm | rm] = 0
-        K.put(top, K.swing_leg(P.design, P.masks["lfore"], 81, 94, -ARM[k]), 0, 0, under=True)
-        K.put(top, K.swing_leg(P.design, P.masks["rfore"], 83, 95, ARM[k]), 0, 0)
+        K.put(top, K.swing_leg(P.design, P.masks["lfore"], *RUN_ARM_ROWS["l"], -ARM[k]), 0, 0, under=True)
+        K.put(top, K.swing_leg(P.design, P.masks["rfore"], *RUN_ARM_ROWS["r"], ARM[k]), 0, 0)
         c = K.put(K.shifted(top, 0, DROP[k]), legs, 0, 0, under=True)
         c[SOLES + 1:] = 0
         keep = np.zeros((128, 128), bool)
-        keep[:80 + DROP[k]] = True
+        keep[:RUN_KEEP_ROW + DROP[k]] = True
         out.append(K.finish(c, OUT, SOLES, keep=keep, pinholes=4))
     return out
 
@@ -345,6 +420,24 @@ def frames(P, tag, run=None):
     if tag == "dead":
         return [dead(P, k) for k in range(len(MS["dead"]))]
     return [frame(P, f) for f in POSES[tag]]
+
+
+def _shrink_globals():
+    import shrink_frames as SF
+    global SHRUNK_PLAN, L_ELBOW, R_ELBOW, KNEE_ROW, FEET_ROW, RUN_ARM_ROWS, RUN_KEEP_ROW, RUN_HIP
+    frame = [(_pivot_frame(design()), 0)]
+    SHRUNK_PLAN = SF.plan_tag(frame, SF.body_of(frame), SCALE, SHRINK_KEEP,
+                              edge_cols=tuple(c - PIVOT[0] for c in CLAW_COLS))
+    L_ELBOW, R_ELBOW = ((map_x(x), map_y(y)) for x, y in (L_ELBOW, R_ELBOW))
+    KNEE_ROW, FEET_ROW = map_y(KNEE_ROW), map_y(FEET_ROW)
+    RUN_ARM_ROWS = {k: (map_y(a), map_y(b)) for k, (a, b) in RUN_ARM_ROWS.items()}
+    RUN_KEEP_ROW, RUN_HIP = map_y(RUN_KEEP_ROW), map_y(RUN_HIP)
+    RUN["trot"]["hip"] = KNEE_ROW - 1
+    RUN["cross"]["hip"] = RUN_HIP
+
+
+if SCALE != 1:
+    _shrink_globals()
 
 
 def main():

@@ -33,7 +33,7 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control, untargetable
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": -1, "y": -42}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -6}}   # 10-09 design B: the hood point 45 over the feet (the back blades at the crown), the idle top -35
+VIEW = {"face": {"x": 0, "y": -40}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}   # 10-10 design C at 90% (rig_zed SCALE): the crown 40 over the feet, the idle top -30
 
 
 def phy(k):
