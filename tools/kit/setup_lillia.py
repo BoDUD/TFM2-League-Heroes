@@ -37,7 +37,7 @@ H = "<#6aff55ff>"      # heals
 Wh = "<#ffffffff>"     # move speed
 E = "<>"
 # champion_view: placeholder until the sprite is in (tfm2_ase.py face)
-VIEW = {"face": {"x": 0, "y": -38}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 2, "y": -41}, "center": {"x": 0, "y": -12}}   # 10-09 grid design: the hair crown 42 over the hooves (the bud above it), the idle top -41
 
 
 def mag(d, r):
