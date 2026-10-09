@@ -16,7 +16,14 @@ piece at the place Codex drew its head - the head stays where the body puts it:
 4. the design's ring and the head's prongs go behind (onto empty squares only: a raised hand stays in front), the bob
    and the face (the C2 eyes) over;
 5. finished only round what changed (rig_karma.finish_near), stray outline squares dropped.
-The idle is rig_karma's (the design with the ring and the prongs bobbing). Writes assets/source/native/karma_<tag>.png
+The idle is rig_karma's (the design with the ring and the prongs bobbing).
+Her size (the user 10-09: 「卡尔玛体型可以变小一点」, then 「缩小模型后有点奇怪了啊整体」): the first 90% took four rows and two to
+six columns out of the finished frames with the face kept - every cut fell under the chin (the boots, the waist, the
+shoulders, a different line in each action) and the head kept its size: a big head on a squat body. Now the head is
+made smaller here, the same in every frame (HEAD_CUT: one row of the ring, one of the forehead, one column of the bob's
+left curtain, taken out of the design before anything is built), and import_native.py takes only two body rows (SHRINK
+0.95, the head and the boots kept) - head and body both about 90%.
+Writes assets/source/native/karma_<tag>.png
 (8x, 96x80 cells, soles on cell row 65) and karma_cells.json; then tools/art/import_native.py.
 """
 import argparse
@@ -43,7 +50,14 @@ CELL = RK.CELL
 CELL_PIVOT = RK.CELL_PIVOT
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill_e", "ult", "hit", "dead"]
 CODEX_TAGS = TAGS[1:]
-FACE_ROWS = (63, 75)              # the design's bob, circlet and face: what the head's place is matched on
+FACE_ROWS = (64, 75)              # the (cut) design's bob, circlet and face: what the head's place is matched on
+# the head made smaller in the design itself: rows of the head band (<= BAND) out, what lies over them moving down (the
+# chin stays on the neck); columns of the head band out, what lies left of them moving right. Row 61: the ring's lower
+# band (its hole keeps a row, the gem and the highlight stay); row 68: the forehead (the circlet, the eyes and the
+# left prong's outline stay); column 56: the inside of the bob's left curtain (the right side carries the eye's corner,
+# the earring, the prong: any column there breaks one)
+HEAD_CUT = {"rows": (61, 68), "cols": (56,), "band": 75}
+RING_LAST = 63                     # the ring's bottom row after the cut (58-62 before)
 HEAD_PIECE = RK.RUN_HEAD           # the ring, the bob with its sides, the face, the earrings, the head's prongs
 ARM = 5                            # a piece outside the design's head with this many skin squares is an arm, it stays
 SKIN = ("s", "S", "z")
@@ -130,7 +144,7 @@ def with_head(P, c, at, ring=True):
     des = P.design
     dx, dy = at
     hp = RK.head_mask(des, HEAD_PIECE)
-    rings = hp & (np.arange(128)[:, None] <= RK.RING_ROWS[1])
+    rings = hp & (np.arange(128)[:, None] <= RING_LAST)
     behind = rings | (hp & ~RK.head_mask(des))         # the ring and the head's prongs
     if not ring:
         hp &= ~behind
@@ -199,6 +213,33 @@ def ground_ring(c):
     return m
 
 
+def cut_head(a):
+    """HEAD_CUT applied to a design-canvas image or mask (rows and columns of the head band only)."""
+    out = a.copy()
+    band = out[:HEAD_CUT["band"] + 1].copy()
+    for r in sorted(HEAD_CUT["rows"], reverse=True):
+        band[1:r + 1] = band[0:r].copy()
+        band[0] = 0
+    for c in sorted(HEAD_CUT["cols"]):
+        band[:, 1:c + 1] = band[:, 0:c].copy()
+        band[:, 0] = 0
+    out[:HEAD_CUT["band"] + 1] = band
+    return out
+
+
+def small_head(P):
+    """rig_karma's parts with the design's head cut (HEAD_CUT): the design, every part's mask and the body under them
+    (the arms' units start under the head band and stay as they are)."""
+    P.design = cut_head(P.design)
+    P.ink = cut_head(P.ink)
+    for k in P.masks:
+        P.masks[k] = cut_head(P.masks[k])
+    P.body = P.design.copy()
+    for m in P.masks.values():
+        P.body[m] = 0
+    return P
+
+
 def build(P, tag, report=None):
     frames, ms = codex(tag)
     for i, c in enumerate(frames):
@@ -264,7 +305,7 @@ def main():
     ap.add_argument("--no-write", action="store_true")
     ap.add_argument("--heads", action="store_true", help="print where each frame's head went")
     a = ap.parse_args()
-    P = RK.Parts()
+    P = small_head(RK.Parts())
     built = {"idle": RK.idle_frames(P)}
     ms = {"idle": RK.MS["idle"]}
     report = []

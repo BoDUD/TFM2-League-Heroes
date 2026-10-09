@@ -26,7 +26,7 @@ from build_karma import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_karma"
-VERSION = "0.84.0"
+VERSION = "0.84.9"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage / AP
@@ -37,7 +37,7 @@ S = "<#9fd8ffff>"      # shields
 G = "<#7cfc00ff>"      # health
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 1, "y": -31}, "center": {"x": 0, "y": -11}}
+VIEW = {"face": {"x": 1, "y": -32}, "center": {"x": 0, "y": -11}}
 
 
 def mag(d, r):

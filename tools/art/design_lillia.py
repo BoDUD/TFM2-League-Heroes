@@ -644,7 +644,29 @@ def final11():
     return apply_letters(final10(), BODY11)
 
 
+# step 12 (2026-10-09, the user: 「眼睛做的像英雄联盟一点」「把形状也换了」「人形和身体连接也不像英雄联盟」): Codex redrew
+# its picture A ON THE GAME GRID (26-px squares, 46 rows bud to hooves; assets/source/lillia/codex_grid/, the 1x file one
+# pixel per square) with the girl growing from the deer's withers as in League and League's ice-blue eyes; read square
+# for square onto the canvas: the hooves' bottom on row 99, the hooves' middle on column 64.
+GRID12 = os.path.join(ROOT, "assets", "source", "lillia", "codex_grid", "lillia-grid-A_1x.png")
+
+
+def grid12():
+    a = np.asarray(Image.open(lp(GRID12)).convert("RGBA")).copy()
+    a[a[..., 3] < 128] = 0
+    a[a[..., 3] > 0, 3] = 255
+    ys, xs = np.nonzero(a[..., 3] > 0)
+    low = ys.max()
+    hx = np.nonzero(a[low, :, 3] > 0)[0]
+    mid = (hx.min() + hx.max()) / 2.0
+    dy, dx = 99 - low, int(round(64 - mid))
+    can = np.zeros((128, 128, 4), np.uint8)
+    can[dy:dy + a.shape[0], dx:dx + a.shape[1]] = a
+    return can
+
+
 CANDIDATES = {
+    "grid12": grid12,
     "codex_A": lambda: codex("A"), "codex_B": lambda: codex("B"),
     "A_cut": lambda: to_canvas(cut("05")), "A_vote": lambda: to_canvas(vote("05")),
     "B_cut": lambda: to_canvas(cut("07")), "B_vote": lambda: to_canvas(vote("07")),
