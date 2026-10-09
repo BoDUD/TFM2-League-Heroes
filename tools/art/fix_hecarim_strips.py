@@ -16,7 +16,8 @@ design's 18 colours. Here, per frame:
 4. its place: the lowest square on League's lowest row for that frame (on the soles when League stands), the centre of
    mass on League's;
 5. the design's helm and horn pasted where Codex drew its helm (the two teal eyes and the horn matched), Codex's own
-   helm under it cleared;
+   helm under it cleared - round 1 only: round 2 (one 1024 picture a frame on the game grid, codex_strips_v2) drew
+   the helm like the design's in every pose and keeps it;
 6. finished: pinholes filled, the outline closed, crumbs and stray outline squares gone (rigkit.finish).
 Writes assets/source/native/hecarim_<tag>.png (8x, 128x112 cells, the hooves on cell row 101) and hecarim_cells.json;
 the idle is the design (import_native.py's idle_breathe animates it). Then tools/art/import_native.py.
@@ -36,6 +37,7 @@ import rigkit as K  # noqa: E402
 import design_rengar as R  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "hecarim", "codex_strips")
+SRC2 = os.path.join(ROOT, "assets", "source", "hecarim", "codex_strips_v2", "frames")   # round 2: one image a frame
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 DESIGN = os.path.join(NATIVE, "hecarim_native.png")
 PIVOT = (64, 88)                  # the standing point on the 128 canvas (the hooves on row 99)
@@ -52,6 +54,8 @@ EYES = (72.5, 65)                 # the middle of the design's two eye squares (
 EYE_REACH = (9, 10, 6)            # Codex's eyes are looked for this far from League's head (across, above, below)
 GLOW = ("k", "m")                 # the bright teals of the eyes
 CLEAR = (3, 3, 1)                 # Codex's helm and horn cleared this far round the pasted head (up, left, right)
+CLEAR_V2 = (0, 1, 1)              # round 2's helms are drawn like the design's: only the piece's own box (a raised
+                                  # glaive or hand right over the helm stays)
 SPARE = {}                        # (tag, frame): [(row0, row1, col0, col1)] kept from the clearing (a raised hand)
 KEEP_COLOURS = ("n", "o", "l")    # the blade and the copper: Codex's glaive stays where it crosses the head's box
 # frames whose head stays Codex's own: the death's thrown-back, falling and lying heads
@@ -199,6 +203,37 @@ def bridge(c):
     return out
 
 
+def v2_frame(tag, k, pal, sk):
+    """Round 2's drawing of a frame (one 1024 image on the 128x128 grid at 8x, drawn over the skeleton `sk`), read on
+    its own squares (regrid at the canvas pitch), snapped to the palette and set where the skeleton stands (its lowest
+    row on the skeleton's, its centre of mass on the skeleton's); None when the picture is not there."""
+    from regrid import regrid
+    path = os.path.join(SRC2, f"{tag}_{k}.png")
+    if not os.path.exists(lp(path)):
+        return None
+    a = np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
+    if (a[..., 3] == 255).all():                     # a magenta background instead of alpha
+        key = np.abs(a[..., :3].astype(int) - (255, 0, 255)).sum(-1) < 90
+        a[key, 3] = 0
+    pitch = a.shape[1] / 128
+    g, _, _ = regrid(a, size=pitch)
+    m = g[..., 3] >= 128
+    idx = pal.snap(g, m)
+    ys, xs = np.nonzero(idx >= 0)
+    idx = idx[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    sy, sx = np.nonzero(sk[..., 3] > 0)
+    gy, gx = np.nonzero(idx >= 0)
+    oy = sy.max() - (idx.shape[0] - 1)
+    ox = int(round(sx.mean() - gx.mean()))
+    c = np.zeros((128, 128, 4), np.uint8)
+    for y, x in zip(gy, gx):
+        Y, X = oy + y, ox + x
+        if 0 <= Y < 128 and 0 <= X < 128:
+            c[Y, X, :3] = pal.rgb[idx[y, x]]
+            c[Y, X, 3] = 255
+    return c
+
+
 def build(design, pal, tag, report):
     lol, ms = league_frames(tag)
     lol_idle = league_frames("idle")[0][0]
@@ -228,8 +263,14 @@ def build(design, pal, tag, report):
                 c[Y, X, :3] = pal.rgb[g[y, x]]
                 c[Y, X, 3] = 255
         c = K.finish(bridge(c), design.outline, SOLES)
+        v2 = v2_frame(tag, i + 1, pal, c)
+        frame_key[1] = v2 is not None
+        if v2 is not None:
+            c = K.finish(bridge(v2), design.outline, SOLES)
         at = None
-        if (tag, i + 1) not in KEEP_HEAD:
+        # round 2's helms are drawn like the design's (small, the horn, the eye squares) and move with each pose; a
+        # pasted design head sat on the raised hands in attack 2-3 - they keep their own unless HEAD_AT names one
+        if (tag, i + 1) not in KEEP_HEAD and (v2 is None or (tag, i + 1) in HEAD_AT):
             at = HEAD_AT.get((tag, i + 1)) or head_place(design, c, lol_head(tag, i))
             frame_key[0] = (tag, i + 1)
             c = with_head(design, c, at)
@@ -276,7 +317,7 @@ def head_place(design, c, guess):
     return int(round(cx - EYES[0])), int(round(cy - EYES[1]))
 
 
-frame_key = [None]
+frame_key = [None, False]          # (tag, frame), drawn in round 2
 
 
 def with_head(design, c, at):
@@ -290,7 +331,7 @@ def with_head(design, c, at):
     put = piece[..., 3] > 0
     r0, r1, c0, c1 = HEAD_BOX
     box = np.zeros((128, 128), bool)
-    u, l, r = CLEAR
+    u, l, r = CLEAR_V2 if frame_key[1] else CLEAR
     box[max(0, r0 + dy - u):r1 + dy + 1, max(0, c0 + dx - l):c1 + dx + 1 + r] = True
     for (y0, y1, x0, x1) in SPARE.get(frame_key[0], []):
         box[y0:y1 + 1, x0:x1 + 1] = False

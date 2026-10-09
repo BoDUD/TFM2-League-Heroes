@@ -41,16 +41,18 @@ ID = "league_hecarim"
 FX = "asset/league/effects/league_hecarim_fx"
 BIG = "asset/league/effects/league_hecarim_big"
 
-# Timings are placeholders until the strips exist (assets/source/native/hecarim_cells.json).
+# Timings from the strips (assets/source/hecarim/poses.json, MODEL_STRIPS.md): the chop on tick 11 (attack frame 4), the
+# Rampage sweep on tick 9 (skill frame 4), the charge's smash 5 ticks into skill2_hit (frame 3 starts on tick 6), the
+# rear-up that sends the riders on tick 7 (ult frame 3).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, cd 65); League's
     # Hecarim: 625 +110 hp, 66 AD +3.2, 32 armour, 345 move (fast), 175 range
     "hp": 1050, "hp_g": 100, "atk": 95, "atk_g": 17, "def": 32, "def_g": 8, "mr": 22, "mr_g": 4, "ms": 1080,
     "ms_g": 12,
     # attack: the glaive swing
-    "atk_range": 25000, "atk_dur": 25, "atk_cd": 62, "a_st": 12,
+    "atk_range": 25000, "atk_dur": 25, "atk_cd": 62, "a_st": 11,
     # skill: Q Rampage (League: 375 radius, 60-140 + 90% bonus AD, a stack 8 s, up to 2: +? damage, cd 4 s)
-    "q_cd": 240, "q_dur": 24, "q_at": 9, "q_r": 26000, "q_dmg": 40, "q_ratio": 80, "q_stk": 20, "q_stk_t": 480,
+    "q_cd": 240, "q_dur": 24, "q_at": 9, "q_r": 26000, "q_dmg": 45, "q_ratio": 85, "q_stk": 20, "q_stk_t": 480,
     # W Spirit of Dread (League: 4 s, 525 radius, 20-80 + 20% AP magic over 4 s, +armour / mr, heals 25% of his
     # damage to enemies round him, cd 14-10 s)
     "w_cd": 840, "w_t": 240, "w_r": 30000, "w_dmg": 14, "w_heal": 12, "w_def": 20, "w_mr": 20,
@@ -58,9 +60,9 @@ P = {
     # a knockback; cd 20-16 s)
     "e_cd": 600, "e_dur": 30, "e_go": 4, "e_range": 60000, "e_speed": 2500, "e_t2": 8, "e_t3": 16,
     "e_dmg": 30, "e_ratio": 60, "e_mid": 150, "e_max": 200, "e_kb_speed": 2000, "e_kb_t": 10, "e_warp": 8,
-    "e_haste": 25, "e_haste_t": 120, "e_land_r": 20000,
+    "e_haste": 25, "e_haste_t": 120, "e_land_r": 20000, "e_smash": 5,
     # ult: R Onslaught of Shadows (League: 1000 range, 150-350 + 100% bonus AD, fear 0.75-1.5 s by distance, cd 140 s)
-    "r_cd": 3000, "r_dur": 30, "r_go": 6, "r_range": 70000, "r_speed": 3000, "r_dmg": 70, "r_ratio": 100,
+    "r_cd": 3000, "r_dur": 30, "r_go": 7, "r_range": 70000, "r_speed": 3000, "r_dmg": 70, "r_ratio": 100,
     "r_rad": 12000, "r_len": 75000, "r_r": 26000, "r_fear": 45, "r_fear_far": 80, "r_far_t": 12, "r_warp": 20,
     "r_warp_t": 180, "r_cc": 30,
     # combos: the free spin on landing, % of a Rampage
@@ -252,7 +254,10 @@ def build(p):
     e_to_r = sw("r_open", sw("r_cd", NONE, combine(flag("r_cd", p["r_cd"]), refresh("r_far", 2), cview("r_riders"),
                                                    sfx("r"), voice("vo_r", p), land)))
     e_land = combine(anim("skill2_hit", 14), *rm("e_ride"),
-                     sw("e3", combine(*e_hit(p["e_max"])), sw("e2", combine(*e_hit(p["e_mid"])), combine(*e_hit(100)))),
+                     # the blow on the smash frame (queued on the target: end_effects run on it); the rung is read
+                     # now - the flags go below, before the delay ends
+                     sw("e3", delayed(p["e_smash"], *e_hit(p["e_max"])),
+                        sw("e2", delayed(p["e_smash"], *e_hit(p["e_mid"])), delayed(p["e_smash"], *e_hit(100)))),
                      *rm("e1", "e2", "e3"),
                      refresh("e_haste", p["e_haste_t"], move_speed_mult=p["e_haste"], attack_mult=p["e_warp"]),
                      # a champion where he lands (a projectile from the dash's end_effects is removed unflown)
