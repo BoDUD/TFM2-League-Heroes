@@ -1,0 +1,4212 @@
+{
+  "status": "generated asset delivery; engine integration not performed",
+  "generator": "built-in image_gen",
+  "coordinate_convention": "rect = [x,y,width,height] in the named sheet pixels; bbox edges exclusive",
+  "timing": "Source brief specifies no per-frame timing. duration_ms=null; GIF uses 100ms only for review. Importer must choose engine timing.",
+  "assets": [
+    {
+      "file": "zed_fx_a_hit.png",
+      "prompt_number": 1,
+      "frame_count": 4,
+      "size": [
+        768,
+        192
+      ],
+      "native_cell": [
+        12,
+        12
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_a_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_a_hit`（跟随，画在人物上面）",
+      "target_game_size": "12",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "native_rect": [
+            0,
+            0,
+            12,
+            12
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            2,
+            2,
+            10,
+            10
+          ],
+          "metrics": {
+            "mean_luma_0_255": 179.03,
+            "brightest_decile_mean_0_255": 242.6,
+            "symmetry_difference_fraction": 0.625
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "native_rect": [
+            12,
+            0,
+            12,
+            12
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            11,
+            10
+          ],
+          "metrics": {
+            "mean_luma_0_255": 151.15,
+            "brightest_decile_mean_0_255": 214.64,
+            "symmetry_difference_fraction": 0.444
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "native_rect": [
+            24,
+            0,
+            12,
+            12
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            11,
+            10
+          ],
+          "metrics": {
+            "mean_luma_0_255": 156.2,
+            "brightest_decile_mean_0_255": 231.19,
+            "symmetry_difference_fraction": 0.735
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "native_rect": [
+            36,
+            0,
+            12,
+            12
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            10,
+            10
+          ],
+          "metrics": {
+            "mean_luma_0_255": 130.07,
+            "brightest_decile_mean_0_255": 210.97,
+            "symmetry_difference_fraction": 0.889
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#3A4258",
+        "#5E6A84",
+        "#7A0808",
+        "#8FA0B7",
+        "#C01410",
+        "#C6D0E0",
+        "#EEF2FA",
+        "#F23A24",
+        "#F59A3A",
+        "#FF8A6A",
+        "#FFD08A",
+        "#FFD8C8",
+        "#FFF2D8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          489,
+          451
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            88,
+            175,
+            466,
+            545
+          ],
+          [
+            29,
+            146,
+            518,
+            587
+          ],
+          [
+            46,
+            137,
+            522,
+            588
+          ],
+          [
+            77,
+            146,
+            493,
+            587
+          ]
+        ],
+        "isotropic_scale": 0.02044989775051125,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "293d3b52642701aca51f39d204df1d2d04260f33342d126195bc5eac26f00f30"
+    },
+    {
+      "file": "zed_fx_cw_hit.png",
+      "prompt_number": 2,
+      "frame_count": 5,
+      "size": [
+        1440,
+        288
+      ],
+      "native_cell": [
+        18,
+        18
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_cw_hit.png",
+      "raw_size": [
+        2103,
+        748
+      ],
+      "binding": "view_effects `league_zed_cw_hit`（跟随，画在人物上面；对残血英雄的那一下普攻）",
+      "target_game_size": "18",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            0,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            0,
+            0,
+            421,
+            748
+          ],
+          "bbox_native": [
+            5,
+            5,
+            12,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 91.2,
+            "brightest_decile_mean_0_255": 230.89,
+            "symmetry_difference_fraction": 1.0
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            18,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            421,
+            0,
+            401,
+            748
+          ],
+          "bbox_native": [
+            2,
+            2,
+            16,
+            16
+          ],
+          "metrics": {
+            "mean_luma_0_255": 75.59,
+            "brightest_decile_mean_0_255": 188.37,
+            "symmetry_difference_fraction": 0.157
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            36,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            822,
+            0,
+            440,
+            748
+          ],
+          "bbox_native": [
+            1,
+            1,
+            17,
+            17
+          ],
+          "metrics": {
+            "mean_luma_0_255": 64.05,
+            "brightest_decile_mean_0_255": 162.45,
+            "symmetry_difference_fraction": 0.837
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            54,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            1262,
+            0,
+            430,
+            748
+          ],
+          "bbox_native": [
+            1,
+            1,
+            16,
+            16
+          ],
+          "metrics": {
+            "mean_luma_0_255": 68.33,
+            "brightest_decile_mean_0_255": 173.79,
+            "symmetry_difference_fraction": 0.953
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1152,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            72,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            1692,
+            0,
+            411,
+            748
+          ],
+          "bbox_native": [
+            3,
+            3,
+            15,
+            15
+          ],
+          "metrics": {
+            "mean_luma_0_255": 90.42,
+            "brightest_decile_mean_0_255": 160.56,
+            "symmetry_difference_fraction": 1.0
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          415,
+          426
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            114,
+            289,
+            290,
+            472
+          ],
+          [
+            8,
+            191,
+            383,
+            563
+          ],
+          [
+            8,
+            160,
+            423,
+            586
+          ],
+          [
+            21,
+            186,
+            423,
+            575
+          ],
+          [
+            49,
+            221,
+            368,
+            549
+          ]
+        ],
+        "isotropic_scale": 0.03755868544600939,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "a4a55f5487ef4ffa54789cb60ca7b8e363d56e38227c38dd36ca3bd01c12fa81"
+    },
+    {
+      "file": "zed_fx_cw_ready.png",
+      "prompt_number": 3,
+      "frame_count": 4,
+      "size": [
+        640,
+        128
+      ],
+      "native_cell": [
+        10,
+        8
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_cw_ready.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "binding": "view_buffs `league_zed_cw_ready`（循环，跟随；技能刚打中英雄、下一次普攻会触发被动的时候）",
+      "target_game_size": "10 × 8",
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            160,
+            128
+          ],
+          "native_rect": [
+            0,
+            0,
+            10,
+            8
+          ],
+          "raw_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            8,
+            7
+          ],
+          "metrics": {
+            "mean_luma_0_255": 51.77,
+            "brightest_decile_mean_0_255": 160.56,
+            "symmetry_difference_fraction": 0.083
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            160,
+            0,
+            160,
+            128
+          ],
+          "native_rect": [
+            10,
+            0,
+            10,
+            8
+          ],
+          "raw_rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            7,
+            7
+          ],
+          "metrics": {
+            "mean_luma_0_255": 56.69,
+            "brightest_decile_mean_0_255": 160.56,
+            "symmetry_difference_fraction": 1.0
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            320,
+            0,
+            160,
+            128
+          ],
+          "native_rect": [
+            20,
+            0,
+            10,
+            8
+          ],
+          "raw_rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            8,
+            7
+          ],
+          "metrics": {
+            "mean_luma_0_255": 36.1,
+            "brightest_decile_mean_0_255": 56.28,
+            "symmetry_difference_fraction": 0.083
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            480,
+            0,
+            160,
+            128
+          ],
+          "native_rect": [
+            30,
+            0,
+            10,
+            8
+          ],
+          "raw_rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            7,
+            6
+          ],
+          "metrics": {
+            "mean_luma_0_255": 48.24,
+            "brightest_decile_mean_0_255": 160.56,
+            "symmetry_difference_fraction": 0.778
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          377,
+          402
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            63,
+            195,
+            435,
+            597
+          ],
+          [
+            71,
+            206,
+            422,
+            575
+          ],
+          [
+            61,
+            201,
+            438,
+            589
+          ],
+          [
+            70,
+            213,
+            425,
+            575
+          ]
+        ],
+        "isotropic_scale": 0.014925373134328358,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ],
+      "raw_sha256": "8e76df1da560fc41a931556aa28112bbd9a24da415548ba196a76178753755d7"
+    },
+    {
+      "file": "zed_fx_q_star.png",
+      "prompt_number": 4,
+      "frame_count": 4,
+      "size": [
+        1280,
+        192
+      ],
+      "native_cell": [
+        20,
+        12
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_q_star.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "binding": "view_projectiles `league_zed_q_star`（劫自己扔的手里剑，朝飞行方向转）",
+      "target_game_size": "12 × 12（拖尾向左）",
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            0,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            17,
+            11
+          ],
+          "metrics": {
+            "mean_luma_0_255": 137.7,
+            "brightest_decile_mean_0_255": 222.17,
+            "symmetry_difference_fraction": 0.741
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            320,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            20,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            18,
+            11
+          ],
+          "metrics": {
+            "mean_luma_0_255": 143.25,
+            "brightest_decile_mean_0_255": 237.08,
+            "symmetry_difference_fraction": 0.784
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            640,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            40,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            17,
+            11
+          ],
+          "metrics": {
+            "mean_luma_0_255": 141.43,
+            "brightest_decile_mean_0_255": 236.4,
+            "symmetry_difference_fraction": 0.745
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            960,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            60,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            2,
+            1,
+            18,
+            11
+          ],
+          "metrics": {
+            "mean_luma_0_255": 141.93,
+            "brightest_decile_mean_0_255": 229.33,
+            "symmetry_difference_fraction": 0.709
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#3A4258",
+        "#5E6A84",
+        "#7A0808",
+        "#8FA0B7",
+        "#C01410",
+        "#C6D0E0",
+        "#EEF2FA",
+        "#F23A24",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          445,
+          283
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            30,
+            271,
+            461,
+            554
+          ],
+          [
+            26,
+            272,
+            471,
+            554
+          ],
+          [
+            37,
+            272,
+            475,
+            554
+          ],
+          [
+            28,
+            272,
+            469,
+            554
+          ]
+        ],
+        "isotropic_scale": 0.0353356890459364,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ],
+      "raw_sha256": "2787a6ebe89cb9afb73c2e2a9ca7201242b1d20823297e126e23b20f8d1f7139"
+    },
+    {
+      "file": "zed_fx_sh_star.png",
+      "prompt_number": 5,
+      "frame_count": 4,
+      "size": [
+        1280,
+        192
+      ],
+      "native_cell": [
+        20,
+        12
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_sh_star.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "binding": "view_projectiles `league_zed_sh_star`（影子扔的手里剑：从影子飞回劫，穿过目标）",
+      "target_game_size": "12 × 12（拖尾向左）",
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            0,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            1,
+            2,
+            19,
+            10
+          ],
+          "metrics": {
+            "mean_luma_0_255": 86.57,
+            "brightest_decile_mean_0_255": 188.87,
+            "symmetry_difference_fraction": 0.706
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            320,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            20,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "bbox_native": [
+            1,
+            1,
+            18,
+            11
+          ],
+          "metrics": {
+            "mean_luma_0_255": 78.11,
+            "brightest_decile_mean_0_255": 177.3,
+            "symmetry_difference_fraction": 0.688
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            640,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            40,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            1,
+            1,
+            18,
+            10
+          ],
+          "metrics": {
+            "mean_luma_0_255": 86.92,
+            "brightest_decile_mean_0_255": 193.85,
+            "symmetry_difference_fraction": 0.75
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            960,
+            0,
+            320,
+            192
+          ],
+          "native_rect": [
+            60,
+            0,
+            20,
+            12
+          ],
+          "raw_rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox_native": [
+            1,
+            1,
+            19,
+            11
+          ],
+          "metrics": {
+            "mean_luma_0_255": 81.64,
+            "brightest_decile_mean_0_255": 188.87,
+            "symmetry_difference_fraction": 0.707
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          444,
+          251
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            27,
+            294,
+            471,
+            504
+          ],
+          [
+            35,
+            268,
+            472,
+            519
+          ],
+          [
+            32,
+            279,
+            468,
+            504
+          ],
+          [
+            27,
+            268,
+            467,
+            515
+          ]
+        ],
+        "isotropic_scale": 0.0398406374501992,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ],
+      "raw_sha256": "7bdd1b90b322bf38bff022b88f3784f0db922666f317b303697e9aa8e83c0574"
+    },
+    {
+      "file": "zed_fx_q_hit.png",
+      "prompt_number": 6,
+      "frame_count": 4,
+      "size": [
+        896,
+        224
+      ],
+      "native_cell": [
+        14,
+        14
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_q_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_q_hit`（跟随，画在人物上面）",
+      "target_game_size": "14",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            0,
+            0,
+            525,
+            724
+          ],
+          "bbox_native": [
+            3,
+            3,
+            10,
+            10
+          ],
+          "metrics": {
+            "mean_luma_0_255": 198.71,
+            "brightest_decile_mean_0_255": 255.0,
+            "symmetry_difference_fraction": 0.913
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            224,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            14,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            525,
+            0,
+            561,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            13,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 174.76,
+            "brightest_decile_mean_0_255": 241.73,
+            "symmetry_difference_fraction": 0.627
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            448,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            28,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            549,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            13,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 157.73,
+            "brightest_decile_mean_0_255": 241.73,
+            "symmetry_difference_fraction": 0.807
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            672,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            42,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            1635,
+            0,
+            537,
+            724
+          ],
+          "bbox_native": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 141.72,
+            "brightest_decile_mean_0_255": 235.53,
+            "symmetry_difference_fraction": 0.775
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#3A4258",
+        "#5E6A84",
+        "#7A0808",
+        "#8FA0B7",
+        "#C01410",
+        "#C6D0E0",
+        "#EEF2FA",
+        "#F23A24",
+        "#F59A3A",
+        "#FF8A6A",
+        "#FFD08A",
+        "#FFD8C8",
+        "#FFF2D8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          513,
+          487
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            130,
+            224,
+            437,
+            522
+          ],
+          [
+            10,
+            128,
+            513,
+            610
+          ],
+          [
+            27,
+            123,
+            540,
+            610
+          ],
+          [
+            42,
+            143,
+            477,
+            580
+          ]
+        ],
+        "isotropic_scale": 0.023391812865497075,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "244e631284f057625e641e5b37f41e9bbc4a440b51e495d8c3a271c0be7e260b"
+    },
+    {
+      "file": "zed_fx_e_spin.png",
+      "prompt_number": 7,
+      "frame_count": 5,
+      "size": [
+        3840,
+        352
+      ],
+      "native_cell": [
+        48,
+        22
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_e_spin.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_e_spin`（不跟随，画在人物下面；半径约 24 格）",
+      "target_game_size": "48 × 22",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            0,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            0,
+            0,
+            360,
+            724
+          ],
+          "bbox_native": [
+            19,
+            7,
+            29,
+            14
+          ],
+          "metrics": {
+            "mean_luma_0_255": 62.44,
+            "brightest_decile_mean_0_255": 146.71,
+            "symmetry_difference_fraction": 0.448
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            48,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            360,
+            0,
+            426,
+            724
+          ],
+          "bbox_native": [
+            9,
+            3,
+            39,
+            18
+          ],
+          "metrics": {
+            "mean_luma_0_255": 70.86,
+            "brightest_decile_mean_0_255": 200.18,
+            "symmetry_difference_fraction": 0.913
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            96,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            786,
+            0,
+            547,
+            724
+          ],
+          "bbox_native": [
+            3,
+            1,
+            44,
+            21
+          ],
+          "metrics": {
+            "mean_luma_0_255": 67.57,
+            "brightest_decile_mean_0_255": 207.54,
+            "symmetry_difference_fraction": 0.894
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            144,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            1333,
+            0,
+            434,
+            724
+          ],
+          "bbox_native": [
+            8,
+            2,
+            39,
+            19
+          ],
+          "metrics": {
+            "mean_luma_0_255": 48.36,
+            "brightest_decile_mean_0_255": 111.93,
+            "symmetry_difference_fraction": 0.704
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            3072,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            192,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            1767,
+            0,
+            405,
+            724
+          ],
+          "bbox_native": [
+            10,
+            4,
+            38,
+            18
+          ],
+          "metrics": {
+            "mean_luma_0_255": 48.61,
+            "brightest_decile_mean_0_255": 52.16,
+            "symmetry_difference_fraction": 0.644
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#3A4258",
+        "#44287E",
+        "#5E6A84",
+        "#6A48B8",
+        "#8FA0B7",
+        "#9A7AE0",
+        "#C6D0E0",
+        "#C8B4F4",
+        "#EEF2FA",
+        "#F2ECFF",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          532,
+          258
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            124,
+            341,
+            259,
+            433
+          ],
+          [
+            8,
+            285,
+            396,
+            477
+          ],
+          [
+            8,
+            255,
+            540,
+            513
+          ],
+          [
+            27,
+            278,
+            427,
+            496
+          ],
+          [
+            22,
+            293,
+            387,
+            475
+          ]
+        ],
+        "isotropic_scale": 0.07751937984496124,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "91b839a9e294aaa40db41ba7b76975beb4e090162bd61bbfb06f63fee904e7c0"
+    },
+    {
+      "file": "zed_fx_sh_spin.png",
+      "prompt_number": 8,
+      "frame_count": 5,
+      "size": [
+        3840,
+        352
+      ],
+      "native_cell": [
+        48,
+        22
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_sh_spin.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_sh_spin`（不跟随，画在影子下面）",
+      "target_game_size": "48 × 22",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            0,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            0,
+            0,
+            315,
+            724
+          ],
+          "bbox_native": [
+            16,
+            6,
+            32,
+            15
+          ],
+          "metrics": {
+            "mean_luma_0_255": 50.62,
+            "brightest_decile_mean_0_255": 156.45,
+            "symmetry_difference_fraction": 0.63
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            48,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            315,
+            0,
+            454,
+            724
+          ],
+          "bbox_native": [
+            9,
+            3,
+            38,
+            19
+          ],
+          "metrics": {
+            "mean_luma_0_255": 44.02,
+            "brightest_decile_mean_0_255": 135.68,
+            "symmetry_difference_fraction": 0.632
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            96,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            769,
+            0,
+            556,
+            724
+          ],
+          "bbox_native": [
+            5,
+            1,
+            43,
+            21
+          ],
+          "metrics": {
+            "mean_luma_0_255": 48.31,
+            "brightest_decile_mean_0_255": 154.15,
+            "symmetry_difference_fraction": 0.545
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            144,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            1325,
+            0,
+            444,
+            724
+          ],
+          "bbox_native": [
+            9,
+            3,
+            38,
+            19
+          ],
+          "metrics": {
+            "mean_luma_0_255": 43.07,
+            "brightest_decile_mean_0_255": 125.94,
+            "symmetry_difference_fraction": 0.71
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            3072,
+            0,
+            768,
+            352
+          ],
+          "native_rect": [
+            192,
+            0,
+            48,
+            22
+          ],
+          "raw_rect": [
+            1769,
+            0,
+            403,
+            724
+          ],
+          "bbox_native": [
+            12,
+            4,
+            36,
+            18
+          ],
+          "metrics": {
+            "mean_luma_0_255": 40.72,
+            "brightest_decile_mean_0_255": 106.31,
+            "symmetry_difference_fraction": 0.794
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          541,
+          284
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            30,
+            306,
+            261,
+            437
+          ],
+          [
+            8,
+            252,
+            419,
+            485
+          ],
+          [
+            8,
+            229,
+            549,
+            513
+          ],
+          [
+            25,
+            255,
+            437,
+            488
+          ],
+          [
+            25,
+            271,
+            371,
+            469
+          ]
+        ],
+        "isotropic_scale": 0.07042253521126761,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "35028f290bd68e9cd721392df5ca0acbe5aaf7997e2c0c9b460950d9ffe4e35a"
+    },
+    {
+      "file": "zed_fx_e_hit.png",
+      "prompt_number": 9,
+      "frame_count": 3,
+      "size": [
+        480,
+        160
+      ],
+      "native_cell": [
+        10,
+        10
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_e_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_e_hit`（跟随）",
+      "target_game_size": "10",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            160,
+            160
+          ],
+          "native_rect": [
+            0,
+            0,
+            10,
+            10
+          ],
+          "raw_rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "bbox_native": [
+            1,
+            4,
+            9,
+            5
+          ],
+          "metrics": {
+            "mean_luma_0_255": 88.06,
+            "brightest_decile_mean_0_255": 136.17,
+            "symmetry_difference_fraction": 0.25
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            160,
+            0,
+            160,
+            160
+          ],
+          "native_rect": [
+            10,
+            0,
+            10,
+            10
+          ],
+          "raw_rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "bbox_native": [
+            1,
+            3,
+            9,
+            7
+          ],
+          "metrics": {
+            "mean_luma_0_255": 105.84,
+            "brightest_decile_mean_0_255": 188.87,
+            "symmetry_difference_fraction": 0.571
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            320,
+            0,
+            160,
+            160
+          ],
+          "native_rect": [
+            20,
+            0,
+            10,
+            10
+          ],
+          "raw_rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "bbox_native": [
+            1,
+            3,
+            9,
+            6
+          ],
+          "metrics": {
+            "mean_luma_0_255": 99.21,
+            "brightest_decile_mean_0_255": 238.65,
+            "symmetry_difference_fraction": 0.818
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#9A7AE0",
+        "#C8B4F4",
+        "#F2ECFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          604,
+          331
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            60,
+            345,
+            664,
+            438
+          ],
+          [
+            67,
+            227,
+            660,
+            558
+          ],
+          [
+            53,
+            271,
+            655,
+            505
+          ]
+        ],
+        "isotropic_scale": 0.013245033112582781,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "28cb277cccbbed64c5a9a13fd4e9ef99f078ec3e6aff6b8ed99135462429ef5c"
+    },
+    {
+      "file": "zed_fx_e_slow.png",
+      "prompt_number": 10,
+      "frame_count": 4,
+      "size": [
+        1152,
+        128
+      ],
+      "native_cell": [
+        18,
+        8
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_e_slow.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_buffs `league_zed_e_slow`（循环，跟随，画在人物下面）",
+      "target_game_size": "16 × 6",
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            128
+          ],
+          "native_rect": [
+            0,
+            0,
+            18,
+            8
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            3,
+            1,
+            14,
+            7
+          ],
+          "metrics": {
+            "mean_luma_0_255": 79.66,
+            "brightest_decile_mean_0_255": 188.87,
+            "symmetry_difference_fraction": 0.667
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            128
+          ],
+          "native_rect": [
+            18,
+            0,
+            18,
+            8
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            3,
+            1,
+            14,
+            7
+          ],
+          "metrics": {
+            "mean_luma_0_255": 81.6,
+            "brightest_decile_mean_0_255": 171.3,
+            "symmetry_difference_fraction": 0.682
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            128
+          ],
+          "native_rect": [
+            36,
+            0,
+            18,
+            8
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            3,
+            1,
+            14,
+            6
+          ],
+          "metrics": {
+            "mean_luma_0_255": 76.97,
+            "brightest_decile_mean_0_255": 171.3,
+            "symmetry_difference_fraction": 0.682
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            128
+          ],
+          "native_rect": [
+            54,
+            0,
+            18,
+            8
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            3,
+            1,
+            14,
+            7
+          ],
+          "metrics": {
+            "mean_luma_0_255": 74.07,
+            "brightest_decile_mean_0_255": 188.87,
+            "symmetry_difference_fraction": 0.783
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#9A7AE0",
+        "#C8B4F4",
+        "#F2ECFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          475,
+          271
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            40,
+            249,
+            515,
+            504
+          ],
+          [
+            36,
+            233,
+            511,
+            504
+          ],
+          [
+            32,
+            257,
+            507,
+            504
+          ],
+          [
+            28,
+            240,
+            503,
+            504
+          ]
+        ],
+        "isotropic_scale": 0.02214022140221402,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ],
+      "raw_sha256": "5ce50eb36d2609d90f3c4951e9ba031ed9fa8d318adc06cef3cfbce71b427116"
+    },
+    {
+      "file": "zed_fx_w_dash.png",
+      "prompt_number": 11,
+      "frame_count": 4,
+      "size": [
+        1024,
+        224
+      ],
+      "native_cell": [
+        16,
+        14
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_w_dash.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_w_dash`（不跟随；扔出影子那一下，在劫身上）",
+      "target_game_size": "16 × 14",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            256,
+            224
+          ],
+          "native_rect": [
+            0,
+            0,
+            16,
+            14
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "metrics": {
+            "mean_luma_0_255": 62.36,
+            "brightest_decile_mean_0_255": 153.74,
+            "symmetry_difference_fraction": 0.152
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            256,
+            0,
+            256,
+            224
+          ],
+          "native_rect": [
+            16,
+            0,
+            16,
+            14
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            14,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 55.59,
+            "brightest_decile_mean_0_255": 150.54,
+            "symmetry_difference_fraction": 0.714
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            512,
+            0,
+            256,
+            224
+          ],
+          "native_rect": [
+            32,
+            0,
+            16,
+            14
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            14,
+            13
+          ],
+          "metrics": {
+            "mean_luma_0_255": 56.24,
+            "brightest_decile_mean_0_255": 142.02,
+            "symmetry_difference_fraction": 0.867
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            768,
+            0,
+            256,
+            224
+          ],
+          "native_rect": [
+            48,
+            0,
+            16,
+            14
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            2,
+            1,
+            14,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 59.66,
+            "brightest_decile_mean_0_255": 153.74,
+            "symmetry_difference_fraction": 0.784
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#9A7AE0",
+        "#C8B4F4",
+        "#F2ECFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          513,
+          458
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            47,
+            260,
+            494,
+            583
+          ],
+          [
+            11,
+            155,
+            524,
+            583
+          ],
+          [
+            27,
+            138,
+            528,
+            596
+          ],
+          [
+            52,
+            173,
+            507,
+            589
+          ]
+        ],
+        "isotropic_scale": 0.026200873362445413,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "84e3b769b97e9dae5fa6b1581e93f3e13aa224c1ed5a70a0bde12331a399d27e"
+    },
+    {
+      "file": "zed_fx_sh_in.png",
+      "prompt_number": 12,
+      "frame_count": 5,
+      "size": [
+        2400,
+        704
+      ],
+      "native_cell": [
+        30,
+        44
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_sh_in.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_sh_in`（不跟随；影子落到目标脚下时）",
+      "target_game_size": "30 × 44",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            480,
+            704
+          ],
+          "native_rect": [
+            0,
+            0,
+            30,
+            44
+          ],
+          "raw_rect": [
+            0,
+            0,
+            454,
+            724
+          ],
+          "bbox_native": [
+            2,
+            24,
+            27,
+            39
+          ],
+          "metrics": {
+            "mean_luma_0_255": 77.64,
+            "brightest_decile_mean_0_255": 191.49,
+            "symmetry_difference_fraction": 0.754
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            480,
+            0,
+            480,
+            704
+          ],
+          "native_rect": [
+            30,
+            0,
+            30,
+            44
+          ],
+          "raw_rect": [
+            454,
+            0,
+            415,
+            724
+          ],
+          "bbox_native": [
+            4,
+            1,
+            26,
+            39
+          ],
+          "metrics": {
+            "mean_luma_0_255": 71.24,
+            "brightest_decile_mean_0_255": 191.19,
+            "symmetry_difference_fraction": 0.788
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            480,
+            704
+          ],
+          "native_rect": [
+            60,
+            0,
+            30,
+            44
+          ],
+          "raw_rect": [
+            869,
+            0,
+            434,
+            724
+          ],
+          "bbox_native": [
+            4,
+            5,
+            26,
+            39
+          ],
+          "metrics": {
+            "mean_luma_0_255": 73.35,
+            "brightest_decile_mean_0_255": 182.36,
+            "symmetry_difference_fraction": 0.68
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1440,
+            0,
+            480,
+            704
+          ],
+          "native_rect": [
+            90,
+            0,
+            30,
+            44
+          ],
+          "raw_rect": [
+            1303,
+            0,
+            435,
+            724
+          ],
+          "bbox_native": [
+            3,
+            7,
+            26,
+            39
+          ],
+          "metrics": {
+            "mean_luma_0_255": 74.94,
+            "brightest_decile_mean_0_255": 189.83,
+            "symmetry_difference_fraction": 0.794
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1920,
+            0,
+            480,
+            704
+          ],
+          "native_rect": [
+            120,
+            0,
+            30,
+            44
+          ],
+          "raw_rect": [
+            1738,
+            0,
+            434,
+            724
+          ],
+          "bbox_native": [
+            5,
+            9,
+            25,
+            39
+          ],
+          "metrics": {
+            "mean_luma_0_255": 69.73,
+            "brightest_decile_mean_0_255": 190.03,
+            "symmetry_difference_fraction": 0.658
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          407,
+          621
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            40,
+            432,
+            447,
+            683
+          ],
+          [
+            44,
+            56,
+            399,
+            677
+          ],
+          [
+            37,
+            121,
+            396,
+            683
+          ],
+          [
+            15,
+            156,
+            385,
+            676
+          ],
+          [
+            44,
+            169,
+            372,
+            660
+          ]
+        ],
+        "isotropic_scale": 0.061191626409017714,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Shadow identity matches prompt approximately; cross-strip identical silhouette is not verified."
+      ],
+      "raw_sha256": "31408b744cb2526edc8f6f06f12c846c7ccab84f415d0e4a9408dbacd78d95ce"
+    },
+    {
+      "file": "zed_fx_sh_stand.png",
+      "prompt_number": 13,
+      "frame_count": 4,
+      "size": [
+        1920,
+        672
+      ],
+      "native_cell": [
+        30,
+        42
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_sh_stand.png",
+      "raw_size": [
+        2115,
+        743
+      ],
+      "binding": "view_effects `league_zed_sh_stand`（每 0.75 秒播一次，一共 5 秒）；R 留下的影子也用这张",
+      "target_game_size": "30 × 42",
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            0,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            0,
+            0,
+            529,
+            743
+          ],
+          "bbox_native": [
+            2,
+            4,
+            28,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 68.73,
+            "brightest_decile_mean_0_255": 176.05,
+            "symmetry_difference_fraction": 0.511
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            480,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            30,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            529,
+            0,
+            528,
+            743
+          ],
+          "bbox_native": [
+            2,
+            1,
+            28,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 71.44,
+            "brightest_decile_mean_0_255": 187.8,
+            "symmetry_difference_fraction": 0.77
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            60,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            1057,
+            0,
+            529,
+            743
+          ],
+          "bbox_native": [
+            1,
+            2,
+            29,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 72.53,
+            "brightest_decile_mean_0_255": 191.06,
+            "symmetry_difference_fraction": 0.765
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1440,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            90,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            529,
+            743
+          ],
+          "bbox_native": [
+            2,
+            3,
+            27,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 68.08,
+            "brightest_decile_mean_0_255": 184.16,
+            "symmetry_difference_fraction": 0.714
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          466,
+          598
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            62,
+            123,
+            503,
+            666
+          ],
+          [
+            44,
+            76,
+            477,
+            674
+          ],
+          [
+            32,
+            91,
+            498,
+            667
+          ],
+          [
+            38,
+            101,
+            446,
+            666
+          ]
+        ],
+        "isotropic_scale": 0.060085836909871244,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Shadow identity matches prompt approximately; cross-strip identical silhouette is not verified.",
+        "Loop seam and rotational cadence require engine playback review."
+      ],
+      "raw_sha256": "21051566325ecd5a01cf6131ad5d82886a27c86603586ca0d2f25e02882c6671"
+    },
+    {
+      "file": "zed_fx_sh_throw.png",
+      "prompt_number": 14,
+      "frame_count": 3,
+      "size": [
+        864,
+        288
+      ],
+      "native_cell": [
+        18,
+        18
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_sh_throw.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_sh_throw`（不跟随；影子模仿手里剑那一下）",
+      "target_game_size": "18",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            0,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "bbox_native": [
+            4,
+            4,
+            13,
+            13
+          ],
+          "metrics": {
+            "mean_luma_0_255": 161.94,
+            "brightest_decile_mean_0_255": 200.29,
+            "symmetry_difference_fraction": 0.826
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            18,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            724,
+            0,
+            751,
+            724
+          ],
+          "bbox_native": [
+            1,
+            2,
+            17,
+            16
+          ],
+          "metrics": {
+            "mean_luma_0_255": 83.44,
+            "brightest_decile_mean_0_255": 188.87,
+            "symmetry_difference_fraction": 0.589
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            288
+          ],
+          "native_rect": [
+            36,
+            0,
+            18,
+            18
+          ],
+          "raw_rect": [
+            1475,
+            0,
+            697,
+            724
+          ],
+          "bbox_native": [
+            1,
+            3,
+            16,
+            14
+          ],
+          "metrics": {
+            "mean_luma_0_255": 76.64,
+            "brightest_decile_mean_0_255": 175.21,
+            "symmetry_difference_fraction": 0.806
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          727,
+          648
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            165,
+            160,
+            561,
+            578
+          ],
+          [
+            13,
+            38,
+            740,
+            686
+          ],
+          [
+            12,
+            109,
+            672,
+            624
+          ]
+        ],
+        "isotropic_scale": 0.02200825309491059,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "de3cbc632ed44011d0e90a08675c8578d79a649bb15e62e5dc9c95108a7e7333"
+    },
+    {
+      "file": "zed_fx_sh_out.png",
+      "prompt_number": 15,
+      "frame_count": 4,
+      "size": [
+        1920,
+        672
+      ],
+      "native_cell": [
+        30,
+        42
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_sh_out.png",
+      "raw_size": [
+        2117,
+        743
+      ],
+      "binding": "view_effects `league_zed_sh_out`（不跟随；影子时间到了）",
+      "target_game_size": "30 × 42",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            0,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            0,
+            0,
+            529,
+            743
+          ],
+          "bbox_native": [
+            2,
+            6,
+            27,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 42.53,
+            "brightest_decile_mean_0_255": 98.28,
+            "symmetry_difference_fraction": 0.719
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            480,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            30,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            529,
+            0,
+            529,
+            743
+          ],
+          "bbox_native": [
+            2,
+            1,
+            27,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 38.19,
+            "brightest_decile_mean_0_255": 81.65,
+            "symmetry_difference_fraction": 0.744
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            60,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            1058,
+            0,
+            530,
+            743
+          ],
+          "bbox_native": [
+            2,
+            1,
+            27,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 44.73,
+            "brightest_decile_mean_0_255": 90.8,
+            "symmetry_difference_fraction": 0.743
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1440,
+            0,
+            480,
+            672
+          ],
+          "native_rect": [
+            90,
+            0,
+            30,
+            42
+          ],
+          "raw_rect": [
+            1588,
+            0,
+            529,
+            743
+          ],
+          "bbox_native": [
+            3,
+            5,
+            26,
+            37
+          ],
+          "metrics": {
+            "mean_luma_0_255": 61.36,
+            "brightest_decile_mean_0_255": 95.46,
+            "symmetry_difference_fraction": 0.806
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          469,
+          665
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            35,
+            127,
+            490,
+            700
+          ],
+          [
+            38,
+            35,
+            506,
+            700
+          ],
+          [
+            37,
+            51,
+            506,
+            709
+          ],
+          [
+            56,
+            103,
+            489,
+            703
+          ]
+        ],
+        "isotropic_scale": 0.05413533834586466,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Shadow identity matches prompt approximately; cross-strip identical silhouette is not verified."
+      ],
+      "raw_sha256": "c3e7a407446755202e81daec4912a88c964c51e38a4d5c965a9681a21ad4c963"
+    },
+    {
+      "file": "zed_fx_w_swap.png",
+      "prompt_number": 16,
+      "frame_count": 5,
+      "size": [
+        1920,
+        640
+      ],
+      "native_cell": [
+        24,
+        40
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_w_swap.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_w_swap`（不跟随；W 二段 / R 二段换位时）",
+      "target_game_size": "24 × 40",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            384,
+            640
+          ],
+          "native_rect": [
+            0,
+            0,
+            24,
+            40
+          ],
+          "raw_rect": [
+            0,
+            0,
+            431,
+            724
+          ],
+          "bbox_native": [
+            5,
+            13,
+            18,
+            35
+          ],
+          "metrics": {
+            "mean_luma_0_255": 145.54,
+            "brightest_decile_mean_0_255": 238.65,
+            "symmetry_difference_fraction": 0.864
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            384,
+            0,
+            384,
+            640
+          ],
+          "native_rect": [
+            24,
+            0,
+            24,
+            40
+          ],
+          "raw_rect": [
+            431,
+            0,
+            393,
+            724
+          ],
+          "bbox_native": [
+            5,
+            11,
+            19,
+            35
+          ],
+          "metrics": {
+            "mean_luma_0_255": 67.34,
+            "brightest_decile_mean_0_255": 198.39,
+            "symmetry_difference_fraction": 0.717
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            384,
+            640
+          ],
+          "native_rect": [
+            48,
+            0,
+            24,
+            40
+          ],
+          "raw_rect": [
+            824,
+            0,
+            573,
+            724
+          ],
+          "bbox_native": [
+            1,
+            12,
+            23,
+            35
+          ],
+          "metrics": {
+            "mean_luma_0_255": 79.9,
+            "brightest_decile_mean_0_255": 202.15,
+            "symmetry_difference_fraction": 0.812
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1152,
+            0,
+            384,
+            640
+          ],
+          "native_rect": [
+            72,
+            0,
+            24,
+            40
+          ],
+          "raw_rect": [
+            1397,
+            0,
+            355,
+            724
+          ],
+          "bbox_native": [
+            5,
+            12,
+            19,
+            35
+          ],
+          "metrics": {
+            "mean_luma_0_255": 67.17,
+            "brightest_decile_mean_0_255": 164.32,
+            "symmetry_difference_fraction": 0.91
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1536,
+            0,
+            384,
+            640
+          ],
+          "native_rect": [
+            96,
+            0,
+            24,
+            40
+          ],
+          "raw_rect": [
+            1752,
+            0,
+            420,
+            724
+          ],
+          "bbox_native": [
+            6,
+            21,
+            18,
+            35
+          ],
+          "metrics": {
+            "mean_luma_0_255": 62.02,
+            "brightest_decile_mean_0_255": 163.48,
+            "symmetry_difference_fraction": 0.655
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#9A7AE0",
+        "#C8B4F4",
+        "#F2ECFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          565,
+          612
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            43,
+            111,
+            380,
+            670
+          ],
+          [
+            8,
+            58,
+            378,
+            670
+          ],
+          [
+            8,
+            70,
+            573,
+            670
+          ],
+          [
+            0,
+            77,
+            348,
+            670
+          ],
+          [
+            55,
+            316,
+            373,
+            670
+          ]
+        ],
+        "isotropic_scale": 0.03893805309734513,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "c6eb814ea88141c6efef892794c2f5398c547535b7c87b82339c8817eb508f2b"
+    },
+    {
+      "file": "zed_fx_r_hit.png",
+      "prompt_number": 17,
+      "frame_count": 5,
+      "size": [
+        1920,
+        384
+      ],
+      "native_cell": [
+        24,
+        24
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_r_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_r_hit`（跟随，画在人物上面）",
+      "target_game_size": "24",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            384,
+            384
+          ],
+          "native_rect": [
+            0,
+            0,
+            24,
+            24
+          ],
+          "raw_rect": [
+            0,
+            0,
+            403,
+            724
+          ],
+          "bbox_native": [
+            6,
+            7,
+            17,
+            17
+          ],
+          "metrics": {
+            "mean_luma_0_255": 92.57,
+            "brightest_decile_mean_0_255": 204.31,
+            "symmetry_difference_fraction": 0.839
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            384,
+            0,
+            384,
+            384
+          ],
+          "native_rect": [
+            24,
+            0,
+            24,
+            24
+          ],
+          "raw_rect": [
+            403,
+            0,
+            423,
+            724
+          ],
+          "bbox_native": [
+            3,
+            4,
+            20,
+            20
+          ],
+          "metrics": {
+            "mean_luma_0_255": 48.3,
+            "brightest_decile_mean_0_255": 130.55,
+            "symmetry_difference_fraction": 0.823
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            384,
+            384
+          ],
+          "native_rect": [
+            48,
+            0,
+            24,
+            24
+          ],
+          "raw_rect": [
+            826,
+            0,
+            501,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            22,
+            23
+          ],
+          "metrics": {
+            "mean_luma_0_255": 48.98,
+            "brightest_decile_mean_0_255": 147.94,
+            "symmetry_difference_fraction": 0.787
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1152,
+            0,
+            384,
+            384
+          ],
+          "native_rect": [
+            72,
+            0,
+            24,
+            24
+          ],
+          "raw_rect": [
+            1327,
+            0,
+            433,
+            724
+          ],
+          "bbox_native": [
+            3,
+            2,
+            21,
+            22
+          ],
+          "metrics": {
+            "mean_luma_0_255": 34.96,
+            "brightest_decile_mean_0_255": 65.89,
+            "symmetry_difference_fraction": 0.75
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1536,
+            0,
+            384,
+            384
+          ],
+          "native_rect": [
+            96,
+            0,
+            24,
+            24
+          ],
+          "raw_rect": [
+            1760,
+            0,
+            412,
+            724
+          ],
+          "bbox_native": [
+            4,
+            3,
+            20,
+            20
+          ],
+          "metrics": {
+            "mean_luma_0_255": 38.0,
+            "brightest_decile_mean_0_255": 56.28,
+            "symmetry_difference_fraction": 0.907
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          486,
+          499
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            71,
+            234,
+            331,
+            468
+          ],
+          [
+            8,
+            168,
+            387,
+            531
+          ],
+          [
+            8,
+            93,
+            494,
+            592
+          ],
+          [
+            16,
+            126,
+            426,
+            585
+          ],
+          [
+            9,
+            200,
+            361,
+            576
+          ]
+        ],
+        "isotropic_scale": 0.04408817635270541,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "00f56fb9fc30416f5abd5b2a5cb0b3046818e28d7521139bff700e7d5e8b5e3c"
+    },
+    {
+      "file": "zed_fx_r_mark.png",
+      "prompt_number": 18,
+      "frame_count": 4,
+      "size": [
+        896,
+        224
+      ],
+      "native_cell": [
+        14,
+        14
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_r_mark.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_buffs `league_zed_r_mark`（循环，跟随；印记期间一直在）",
+      "target_game_size": "14 × 14",
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            2,
+            1,
+            12,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 84.99,
+            "brightest_decile_mean_0_255": 185.68,
+            "symmetry_difference_fraction": 0.837
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            224,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            14,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            2,
+            1,
+            12,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 79.51,
+            "brightest_decile_mean_0_255": 189.72,
+            "symmetry_difference_fraction": 0.795
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            448,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            28,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            12,
+            13
+          ],
+          "metrics": {
+            "mean_luma_0_255": 86.67,
+            "brightest_decile_mean_0_255": 197.44,
+            "symmetry_difference_fraction": 0.9
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            672,
+            0,
+            224,
+            224
+          ],
+          "native_rect": [
+            42,
+            0,
+            14,
+            14
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox_native": [
+            2,
+            1,
+            12,
+            12
+          ],
+          "metrics": {
+            "mean_luma_0_255": 81.06,
+            "brightest_decile_mean_0_255": 189.72,
+            "symmetry_difference_fraction": 0.756
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          492,
+          525
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            69,
+            98,
+            511,
+            601
+          ],
+          [
+            40,
+            110,
+            478,
+            602
+          ],
+          [
+            27,
+            89,
+            519,
+            614
+          ],
+          [
+            61,
+            110,
+            505,
+            602
+          ]
+        ],
+        "isotropic_scale": 0.022857142857142857,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame.",
+        "Loop seam and rotational cadence require engine playback review."
+      ],
+      "raw_sha256": "55aa9fd5ec076df6face324155e6840c4969c19f57b6d99d48c5b6db9def45dd"
+    },
+    {
+      "file": "zed_fx_r_pop.png",
+      "prompt_number": 19,
+      "frame_count": 6,
+      "size": [
+        3456,
+        576
+      ],
+      "native_cell": [
+        36,
+        36
+      ],
+      "pixel_scale": 16,
+      "raw_file": "raw/zed_fx_r_pop.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "binding": "view_effects `league_zed_r_pop`（跟随，画在人物上面；3 秒后爆发）",
+      "target_game_size": "36",
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            576,
+            576
+          ],
+          "native_rect": [
+            0,
+            0,
+            36,
+            36
+          ],
+          "raw_rect": [
+            0,
+            0,
+            282,
+            724
+          ],
+          "bbox_native": [
+            12,
+            12,
+            24,
+            24
+          ],
+          "metrics": {
+            "mean_luma_0_255": 68.33,
+            "brightest_decile_mean_0_255": 196.32,
+            "symmetry_difference_fraction": 0.139
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            576,
+            0,
+            576,
+            576
+          ],
+          "native_rect": [
+            36,
+            0,
+            36,
+            36
+          ],
+          "raw_rect": [
+            282,
+            0,
+            292,
+            724
+          ],
+          "bbox_native": [
+            8,
+            8,
+            28,
+            28
+          ],
+          "metrics": {
+            "mean_luma_0_255": 100.58,
+            "brightest_decile_mean_0_255": 231.75,
+            "symmetry_difference_fraction": 0.568
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1152,
+            0,
+            576,
+            576
+          ],
+          "native_rect": [
+            72,
+            0,
+            36,
+            36
+          ],
+          "raw_rect": [
+            574,
+            0,
+            400,
+            724
+          ],
+          "bbox_native": [
+            4,
+            3,
+            32,
+            33
+          ],
+          "metrics": {
+            "mean_luma_0_255": 73.29,
+            "brightest_decile_mean_0_255": 174.47,
+            "symmetry_difference_fraction": 0.89
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1728,
+            0,
+            576,
+            576
+          ],
+          "native_rect": [
+            108,
+            0,
+            36,
+            36
+          ],
+          "raw_rect": [
+            974,
+            0,
+            472,
+            724
+          ],
+          "bbox_native": [
+            1,
+            1,
+            35,
+            35
+          ],
+          "metrics": {
+            "mean_luma_0_255": 69.25,
+            "brightest_decile_mean_0_255": 178.55,
+            "symmetry_difference_fraction": 0.777
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            2304,
+            0,
+            576,
+            576
+          ],
+          "native_rect": [
+            144,
+            0,
+            36,
+            36
+          ],
+          "raw_rect": [
+            1446,
+            0,
+            364,
+            724
+          ],
+          "bbox_native": [
+            4,
+            3,
+            31,
+            32
+          ],
+          "metrics": {
+            "mean_luma_0_255": 40.06,
+            "brightest_decile_mean_0_255": 83.89,
+            "symmetry_difference_fraction": 0.818
+          },
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            2880,
+            0,
+            576,
+            576
+          ],
+          "native_rect": [
+            180,
+            0,
+            36,
+            36
+          ],
+          "raw_rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "bbox_native": [
+            7,
+            6,
+            29,
+            29
+          ],
+          "metrics": {
+            "mean_luma_0_255": 65.95,
+            "brightest_decile_mean_0_255": 153.09,
+            "symmetry_difference_fraction": 0.85
+          },
+          "duration_ms": null
+        }
+      ],
+      "palette": [
+        "#120A22",
+        "#261447",
+        "#44287E",
+        "#6A48B8",
+        "#7A0808",
+        "#9A7AE0",
+        "#C01410",
+        "#C8B4F4",
+        "#F23A24",
+        "#F2ECFF",
+        "#FF8A6A",
+        "#FFD8C8",
+        "#FFFFFF"
+      ],
+      "conversion": {
+        "maximum_raw_occupied_size": [
+          444,
+          445
+        ],
+        "raw_frame_occupied_boxes": [
+          [
+            62,
+            287,
+            222,
+            443
+          ],
+          [
+            7,
+            233,
+            269,
+            501
+          ],
+          [
+            7,
+            159,
+            372,
+            547
+          ],
+          [
+            7,
+            137,
+            451,
+            582
+          ],
+          [
+            7,
+            174,
+            358,
+            560
+          ],
+          [
+            27,
+            222,
+            317,
+            521
+          ]
+        ],
+        "isotropic_scale": 0.07640449438202247,
+        "method": "Transparent valley segmentation, occupied crop, shared scale, BOX reduction, nearest palette, binary alpha, nearest 16x expansion; no synthetic artwork"
+      },
+      "limitations": [
+        "Exact pixel symmetry not achieved; measured in each frame."
+      ],
+      "raw_sha256": "15a4c73808b78e16f645a3243f913c749488459bd6b5789dfd608bc7525088cb"
+    }
+  ],
+  "aliases": [
+    {
+      "tag": "r_shadow",
+      "source": "zed_fx_sh_stand.png",
+      "total_duration_ms": 6000,
+      "frame_duration_ms": [
+        1500,
+        1500,
+        1500,
+        1500
+      ],
+      "status": "import proposal, not installed"
+    }
+  ]
+}
