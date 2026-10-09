@@ -385,35 +385,37 @@ LIFT2 = {"C": (0, 2), "D": (0, 2)}
 
 
 def build(P):
+    """Every pose lossless (the user on the 28-degree rear: 「这还是不对啊」): no RotSprite lean of the body at all -
+    the figure moves whole (up / forward / sunk), the legs fold or reach, the bough turns; only the death's fall
+    turns the whole figure."""
     F = {}
     F["idle"] = [P.full.copy() for _ in range(6)]
     F["run"] = [run_frame(P, i) for i in range(8)]
-    # the basic attack: lean back with the bough over her shoulder, hop forward, the swing lands, the landing
-    F["attack"] = [frame(P, (-45, 0), tilt=5), frame(P, (0, 3), tilt=-10, move=(1, -4), legs=HOP),
-                   frame(P, (90, 0), tilt=-6, move=(1, -2), legs=REACH), frame(P, (135, -3), tilt=-3, sink=1, legs=BENT),
+    # the basic attack: the bough back over her shoulder, the hop forward with the front legs tucked, the swing down
+    # as she lands reaching, the landing crouch
+    F["attack"] = [frame(P, (-45, 0), move=(-1, 0)), frame(P, (0, 3), move=(1, -4), legs=HOP),
+                   frame(P, (90, 0), move=(2, -2), legs=REACH), frame(P, (135, -3), sink=1, legs=BENT),
                    P.full.copy()]
     # Q: the bough spun round her - back, overhead with a hop, swept forward (the hit), low, back
-    F["skill"] = [frame(P, (-90, 0), tilt=4, sink=1, legs=BENT), frame(P, (0, 3), tilt=-4, move=(0, -3), legs=HOP),
-                  frame(P, (90, 0), tilt=-3, move=(1, -2), legs=REACH), frame(P, (135, -3), tilt=-4, move=(1, 0)),
-                  frame(P, (-90, 0), tilt=3), P.full.copy()]
-    # E: a crouch with the bough low behind, up leaning back, the throw up and forward
-    F["skill2"] = [frame(P, (-90, 0), tilt=-3, sink=2, legs=BENT), frame(P, (-45, 2), tilt=8),
-                   frame(P, (45, 3), tilt=-6, move=(1, -1), legs=REACH), P.full.copy()]
-    # W: crouch, rear up with the bough raised high, hold, slam it down in front, recover
-    F["skill2_w"] = [frame(P, (-90, 0), tilt=-4, sink=2, legs=BENT), frame(P, (0, 5), tilt=20, pivot=HIND_HOOVES, legs=REAR, join=1),
-                     frame(P, (0, 7), tilt=28, pivot=HIND_HOOVES, legs=REAR7, join=1),
-                     frame(P, (0, 7), tilt=28, pivot=HIND_HOOVES, legs=REAR7, join=1),
-                     frame(P, (135, -5), tilt=-6, move=(1, 1), legs=REACH), frame(P, (135, -4), tilt=-4, legs=BENT),
+    F["skill"] = [frame(P, (-90, 0), sink=1, legs=BENT), frame(P, (0, 3), move=(0, -3), legs=HOP),
+                  frame(P, (90, 0), move=(1, -2), legs=REACH), frame(P, (135, -3), move=(1, 0)),
+                  frame(P, (-90, 0)), P.full.copy()]
+    # E: a crouch with the bough low behind, rising, the throw up and forward
+    F["skill2"] = [frame(P, (-90, 0), sink=2, legs=BENT), frame(P, (-45, 2), move=(0, -1)),
+                   frame(P, (45, 3), move=(1, -1), legs=REACH), P.full.copy()]
+    # W: crouch, rear up - the whole figure rises with the front legs folded under the chest and the bough raised
+    # high - hold, slam it down in front, recover
+    F["skill2_w"] = [frame(P, (-90, 0), sink=2, legs=BENT), frame(P, (0, 5), move=(0, -3), legs=REAR, join=1),
+                     frame(P, (0, 7), move=(0, -5), legs=REAR7, join=1), frame(P, (0, 7), move=(0, -5), legs=REAR7, join=1),
+                     frame(P, (135, -5), move=(1, 1), legs=REACH), frame(P, (135, -4), legs=BENT),
                      P.full.copy()]
     # R: gather, rise with the bough up, the lullaby swung over her head
-    F["ult"] = [frame(P, (0, 0), sink=1, legs=BENT), frame(P, (0, 3), tilt=8, pivot=HIND_HOOVES, legs=LIFT2),
-                frame(P, (45, 3), tilt=6, pivot=HIND_HOOVES, legs=LIFT2),
-                frame(P, (-45, 3), tilt=4, pivot=HIND_HOOVES, legs={"C": (0, 1), "D": (0, 1)}),
-                frame(P, (45, 2), tilt=2, pivot=HIND_HOOVES), P.full.copy()]
-    F["hit"] = [frame(P, None, tilt=6, pivot=HIND_HOOVES, legs=LIFT2), P.full.copy()]
+    F["ult"] = [frame(P, (0, 0), sink=1, legs=BENT), frame(P, (0, 3), move=(0, -2), legs=LIFT2),
+                frame(P, (45, 3), move=(0, -3), legs=LIFT2), frame(P, (-45, 3), move=(0, -2), legs=LIFT2),
+                frame(P, (45, 2), move=(0, -1)), P.full.copy()]
+    F["hit"] = [frame(P, None, move=(-2, 0), legs={"A": (-1, 0), "B": (-1, 0)}), P.full.copy()]
     lie = fall(P, 80)
-    F["dead"] = [frame(P, None, tilt=8, pivot=HIND_HOOVES, legs=LIFT2),
-                 frame(P, None, tilt=22, pivot=HIND_HOOVES, legs=REAR, join=1),
+    F["dead"] = [frame(P, None, move=(-1, 0), legs=LIFT2), frame(P, None, move=(0, -2), legs=REAR, join=1),
                  fall(P, 45, bough_x=66.5), lie, lie.copy(), lie.copy(), lie.copy(), lie.copy()]
     return F
 
