@@ -45,8 +45,9 @@ BIG = "asset/league/effects/league_olaf_big"
 # lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-09): +1.28 on seeds 1-12 (the same batch:
 # league_tryndamere +1.34, league_darius +1.71); +1.71 on seeds 13-24 (league_tryndamere +1.24). The draft c0 was -1.20 (attack 90, hp 1020, Rage 12% / 6%, E 70 + 60% at
 # 6 s, Q 70, W shield 60, R +20%); c4 halfway +0.58.
-# Timings provisional until the strips exist: the swing's hit on tick 12, the axe leaves on 12 (skill), Reckless Swing
-# lands on 10 (skill2), the roar 20 ticks (ult).
+# Timings from the strips (Codex's redraw of League's frames, 2026-10-09): the swing's hit on tick 12 (attack frame 4),
+# the axe leaves on 12 (Q frame 4), Reckless Swing slams on 14 (E frame 5 - League's 0.25 s cast), the roar 28 ticks
+# (the R strip, 460 ms).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Olaf: 645 +119
     # hp, 68 AD +4.7, 35 armour, 350 move, 125 range
@@ -62,7 +63,7 @@ P = {
     "q_rad": 7000, "q_y": 4000, "q_dmg": 100, "q_ratio": 100, "q_slow": 30, "q_slow_t": 90, "q_shred": 20,
     "q_shred_t": 240, "q_life": 300, "pick_r": 9000, "q_pick": 120, "axe_step": 15,
     # E Reckless Swing (League: 325 range, 70-250 + 50% AD true damage, 30% of it to himself, cd 9-5 s cut by attacks)
-    "e_cd": 300, "e_range": 28000, "e_dur": 22, "e_st": 10, "e_dmg": 110, "e_ratio": 90, "e_self": 30,
+    "e_cd": 300, "e_range": 28000, "e_dur": 22, "e_st": 14, "e_dmg": 110, "e_ratio": 90, "e_self": 30,
     # R Ragnarok (League: 10-30 armour / mr passive; 3 s, extended by champion hits, CC immune, AD, haste; cd 100-80 s)
     "r_cd": 3000, "r_range": 40000, "r_dur": 28, "r_t": 180, "r_max": 600, "r_atk": 30, "r_ms": 20, "r_def": 12,
     "r_mr": 12,

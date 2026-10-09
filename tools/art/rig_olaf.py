@@ -505,9 +505,9 @@ def main():
         rows = K.audit(built[tag], d, OUT, SOLES)
         print(f"{tag:8s}", " ".join(f"{r['pieces']}p{r['holes']}h{r['orphans']}o{r['below']}b{r['area']}" for r in rows))
     if not a.no_write:
-        bad = K.write_strips("olaf", built, ms, NATIVE, CELL, CELL_PIVOT, PIVOT, check=a.check)
-        if a.check:
-            print("differs:", bad or "nothing")
+        # the strips are fix_olaf_strips.py's since 2026-10-09 (Codex's League-driven redraw): this rig only reviews
+        raise SystemExit("rig_olaf.py no longer writes the strips (the user rejected them: 「身体太奇怪了吧」) - "
+                         "run tools/art/fix_olaf_strips.py; use --no-write --review here")
     if a.review:
         os.makedirs(a.review, exist_ok=True)
         K.review_sheet([(t, built[t]) for t in TAGS], os.path.join(a.review, "olaf_strips_review.png"), z=4,

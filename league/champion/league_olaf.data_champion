@@ -1742,7 +1742,7 @@
     "description": "#asset/base/text/champion?description.league_olaf.skill2",
     "duration": 22,
     "cooltime": 300,
-    "start_timing": 10,
+    "start_timing": 14,
     "cancelable": false,
     "range": 28000,
     "casting_type": "Targeting",
