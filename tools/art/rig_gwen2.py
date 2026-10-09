@@ -54,7 +54,7 @@ HANDLE_COL = 70
 SHAFT = [(76, 72), (76, 73)]                          # (row, column) of the shaft squares left of HANDLE_COL
 FAR_OFF = {75: (69, 70), 76: (67, 73), 77: (63, 73), 78: (63, 73), 79: (66, 73)}   # the far arm, the glove, the shaft, and the
 # ringlet's tail on the shoulder (hidden by the handle in the idle; alone over the moved arm it hung oddly: 「头发这里要好好处理」)
-FAR_FILL = {77: (63, "CC"), 78: (63, "C")}            # the bodice's edge under it
+FAR_FILL = {77: (63, "CCE"), 78: (63, "CWE")}         # the bodice's edge and the puff sleeve under it
 FAR_SH = (65, 77)                                     # the far arm's first square (top-left of its cross-section)
 NEAR_OFF = {80: (56, 60), 81: (56, 60), 82: (56, 60), 83: (56, 60), 84: (56, 60)}   # the akimbo arm
 NEAR_FILL = {80: (61, "C"), 81: (61, "C"), 82: (61, "C"), 83: (61, "C")}
