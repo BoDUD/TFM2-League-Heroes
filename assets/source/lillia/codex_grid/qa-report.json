@@ -1,0 +1,53 @@
+{
+  "native_size": [
+    39,
+    59
+  ],
+  "large_size": [
+    1024,
+    1536
+  ],
+  "grid": 26,
+  "opaque_colors": 26,
+  "alpha_values": [
+    0,
+    255
+  ],
+  "opaque_bbox": [
+    2,
+    1,
+    37,
+    54
+  ],
+  "row_53_columns": [
+    5,
+    6,
+    7,
+    8,
+    14,
+    15,
+    16,
+    17,
+    21,
+    22,
+    23,
+    24,
+    27,
+    28,
+    29,
+    30
+  ],
+  "face_patch_columns": [
+    19,
+    24
+  ],
+  "face_patch_rows": [
+    15,
+    21
+  ],
+  "cells_changed": 13,
+  "nonface_cells_preserved": true,
+  "all_2301_cells_correspond_exactly": true,
+  "four_hoof_bottoms_row_53": true,
+  "eye_glints": 2
+}
