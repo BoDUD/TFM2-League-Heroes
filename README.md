@@ -2,9 +2,9 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、劫（`league_zed`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。
 
-对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
+对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
 待机动画（0.77.0，0.77.3 补了维克托的法杖，0.77.4 补了诺手的斧子、凯南腰下的金边）：玩家反映选人界面里英雄「清一色的不动 不然就是动两个像素点」。现在每个英雄的待机都是用定稿自己的像素做的呼吸：脚不动，小腿以上整体下沉 0、1、2 行再回来，身体跟着向前偏 1 列，8 帧 × 140 毫秒（1.12 秒一个循环，和原版英雄的节奏一样）。切掉的行只选在小腿上看不出来的地方，手里的武器（盖伦、锐雯、莎米拉、剑魔、蛮王的剑，凯隐的镰刀，菲兹的三叉戟，妖姬、维克托的法杖，诺手的斧子，金克丝、烬的枪，韦鲁斯、艾希的弓）跟着身体整体移动，不会被压弯（`tools/art/idle_breathe.py`，由 `import_native.py` 最后一步生成）。布兰德、小炮、贾克斯、派克、永恩、格温、凯尔、牛头、索拉卡、机器人保留原来画好的待机。每组左边是原来的，右边是现在的：
 
@@ -143,6 +143,8 @@
 ![弗拉基米尔演示：他射出血弹打德莱厄斯；Q 鲜血转换：从德莱厄斯身上抽出一团血，血球飞回来给他回血，脚下亮起半满的血环；第二次 Q 是猩红冲刺，血球更大更亮；E 血之潮汐：蓄力时身边绕着血珠，地上炸开一圈血浪，向两人各射一颗血弹；连招 E→Q：潮汐打中英雄后马上接的 Q 直接是猩红冲刺；连招闪 R E：化成血雾闪到敌人身边，血之瘟疫的血云落在德莱厄斯身上，两人挂上瘟疫印记，再炸一圈血浪，3 秒后瘟疫爆开、血回到他身上；血红之池：化成一滩血 2 秒，站在上面的两人被吸血，钻出来时 E 正好好了，直接甩出一圈血浪（连招 E-W）](docs/preview/league_vladimir_showcase.gif?v=1009head)
 
 ![雷恩加尔演示：头顶亮着金色的猎人之眼，他从远处飞扑到德莱厄斯身上，落地三道爪痕，Q 已就绪直接上挑（空中 Q），脚下亮起金色刀光圈；普攻一刀；W 战争咆哮：地上炸开金色冲击波，两人受伤，他身上冒出绿色回血；E 甩出套索，德莱厄斯腿上缠住绳子减速；Q 砸地再上挑，凶残值攒满（头顶四颗红牙），下一刀直接是强化 Q，身上燃起红橙火光；他后撤开 R：一团蓝灰烟雾，德莱厄斯头顶亮起猎人红眼，他扑出去打出暴击爪痕，随即甩出必中的套索把德莱厄斯定住](docs/preview/league_rengar_showcase.gif)
+
+![劫演示：W 甩出影子落到德莱厄斯脚下，劫和影子同时旋身鬼斩，两枚手里剑一枚从劫、一枚从影子飞出，在德莱厄斯身上交汇；他换位到影子那里，补一刀打出暗红的灭魂劫；后撤开大：原地留下影子，他冲过德莱厄斯，德莱厄斯头顶挂上红色死亡印记，劫接着刺、旋斩，3 秒后印记炸开，他换回影子](docs/preview/league_zed_showcase.gif)
 
 ## 英雄：盖伦
 
@@ -3302,6 +3304,49 @@ python tools/art/import_rengar.py       # 特效；--raw assets/source/rengar/co
 - 红色方：飞行的套索严格上下对称；其余命中、地面圈、头顶标记、烟雾严格左右对称，不需要画进动作帧。
 
 逐帧预览：[`docs/preview/league_rengar_frames.png`](docs/preview/league_rengar_frames.png)，特效：[`docs/preview/league_rengar_effects.png`](docs/preview/league_rengar_effects.png)。
+
+## 英雄：劫
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 中单（刺客，分类 Assassin），第 78 位英雄。影流之主 劫：把影子甩到敌人身边，和影子一起出招，再换位追杀。用户选中单、刺客、完整还原 + 高手连招；被动和大招的读血、读伤害：「这个改成用 rust 附加包」 |
+| 普攻 / 被动 | 腕刃近战，射程 23000，攻击间隔 55 tick，第 9 tick 刺中。被动「影忍法！灭魂劫」：英雄联盟里攻击生命低于 50% 的英雄时附加其最大生命的伤害；数据读不到生命，主包改成**技能刚打中过英雄**（`cw_ready`，4 秒）后的下一次普攻打英雄时附加其 6% 最大生命真实伤害，10 秒一次（附加包读真实生命，见下） |
+| 鬼斩（自动） | E「影奥义！鬼斩」没有技能位，冷却 240 tick（4 秒）：身边 24000 内有敌人（小兵、野怪也算）时普攻换成原地旋斩，第 8 tick 斩中周围敌人 50 + 75% 攻击力，英雄减速 25% 1.5 秒 |
+| 技能1 | W「影奥义！分身」：冷却 720 tick（12 秒），射程 55000，只对敌方英雄放。第 3 tick 甩出影子（一个隐形的抛物线投射物落到英雄脚下，4 tick 落地），影子站 5 秒；**同一次施放接着三影齐发**：第 8 tick 鬼斩（若就绪），第 6 + 10 tick 诸刃（若就绪），影子各晚一 tick 模仿（它的鬼斩是落点的范围伤害，它的手里剑从影子飞回劫、穿过它脚下的目标）。落地 90 tick 内、影子旁边只有一名敌方英雄而劫身边没有时，换到影子那里追击（W 二段） |
+| 技能2 | Q「影奥义！诸刃」：冷却 240 tick（4 秒），射程 55000，也对小兵和野怪放。第 10 tick 朝 6 tick 前目标所在的位置掷出手里剑（凯特琳的锁定瞄准，躲得开），速度 10000、长 70000，贯穿：第一个单位 60 + 100% 攻击力，之后的 60% |
+| 大招 | R「禁奥义！瞬狱影杀阵」：冷却 3000 tick（50 秒），只对正在交战的敌方英雄放（`EnemyChampionRecentlyAttacked`，60000 内）。24 tick 无法选中（100% 减伤 + 免控 + 隐身），第 6 tick 冲过目标（`RushMoveToBack`），挂上死亡印记，原地留下影子（6 秒）。3 秒后印记爆发 80 + 100% 攻击力，期间他每命中一次 +35（最多 3 次；数据读不到伤害，附加包按真实伤害，见下）。爆发时身边 40000 内有两名以上敌方英雄就换回影子（R 二段） |
+| 高手连招 | 用户选了「完整还原 + 高手连招」。**三影齐发（W-E-Q）**：W 一次施放里放完影子、鬼斩、诸刃，影子同时模仿；**换位追击（W 二段）**；**R-W-E-Q**：印记期间 W 就绪时，Q 的技能位是空分支（AI 不放），AI 先开 W 连招；**R 二段撤退** |
+| 引擎限制 | 投射物都从施法者身上出发；从影子位置的区域里再发投射物或范围伤害不会生成（`work/zd/test_echo.py` 测过）。所以影子是一个落点：它要做的事都排在落点上的延迟效果里，只能模仿**同一次 W 连招**里的鬼斩和诸刃，之后单独放的 Q、E 不模仿（每多一个模仿检查点就多一组节点，超过 300 节点的上限） |
+| 读血附加包 | 附加包 [`addons/league_zed_mark`](addons/league_zed_mark/README.md)（在附加包合集里）用原生代码：被动读目标真实生命，**低于 50%** 时普攻附加其最大生命的 6% / 8% / 10%（1–6 / 7–12 / 13 级起）魔法伤害，同一目标 10 秒一次；大招记下印记期间他打到目标的伤害，爆发时追加其中的 **35%**。主包不装附加包也完整可玩；附加包只做了单元测试，要在游戏里看日志确认 |
+| 数值 | 攻击 125（+26）、生命 920（+86）、护甲 26（+8）、魔抗 18（+4）、移速 1100（+13）。数值是自己设计的，用 SDK 对战模拟调：中单，对 5 个原版法师（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），3 套阵容、两边各打，10 分钟。初稿 −3.82：技能位冷却只有 60 tick、真冷却放在标记里，AI 每秒都去「放」空的 W，一直往敌方英雄身上走；W 连招从甩影子到出手里剑 46 tick，73 发手里剑只有 5 发打中英雄；换位追击常把他送进人堆。改成技能位冷却等于真冷却、连招压到 15 tick、手里剑提速、换位只在落地 90 tick 内且影子旁只有一名敌人时，攻击 102 → 125：种子 1–12 +1.16、25–36 +0.41（同期阿卡丽 +0.48、乐芙兰 +0.93） |
+| 亚索联动 | 劫只有减速，没有击飞和眩晕，亚索大招不受影响，不用调 |
+| 精灵图 | 9 个动作 55 帧：待机 8、移动 8（交叉步）、普攻 6、W（`skill`）4、Q（`skill2`）6、E（`skill_e`）6、R（`ult`）7、受击 2、死亡 8。高 40 px，19 色。头像截取点 (−1, −36) |
+| 特效 | Codex 生图的 19 张（`import_zed.py` 缩成游戏像素）：`league_zed_fx` 普攻刺击、灭魂劫的暗红爆裂和就绪印记、劫和影子的两枚手里剑（朝飞行方向转，上下对称）、Q 命中、鬼斩命中和减速、影子甩出的烟、影子成形 / 站立 / 出手 / 消散（从正面画的黑紫影子）、换位烟柱、R 留下的影子（6 秒）、死亡印记；`league_zed_big` 劫和影子的鬼斩圈、R 突刺斩痕、印记爆发 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_zed.py`）：普攻刺击和命中、被动的暴击命中、Q 出手 / 飞行 / 命中、W 影子飞出 / 落地 / 换位、E 旋斩和命中、R 出手 / 命中 / 印记 / 爆发；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（W / Q / R），从本地客户端提取，缩到 64×64；E 自动，没有技能位 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_zed.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_zed.py           # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_zed.py           # 五种语言的文字、音效配置、共享文件里他的键
+python addons/league_zed_mark/make_override.py   # 附加包的副本（去掉数据替代，被动读血、大招读伤害）
+python tools/art/design_zed.py --rebuild   # 造型：Codex 原稿按格读回、均匀删到 40 行
+python tools/art/rig_zed.py             # 动作：造型自己的零件无损摆姿势（整格平移、90° 旋转、翻转、整行移动、叠放）
+python tools/art/import_native.py --hero zed
+python tools/art/import_zed.py          # 特效；--raw assets/source/zed/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+```
+
+美术（动作的提示词见 [`assets/source/zed/MODEL_STRIPS.md`](assets/source/zed/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/zed/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/zed/codex_model/)、[`codex_strips/`](assets/source/zed/codex_strips/)、[`codex_fx/`](assets/source/zed/codex_fx/)）：
+
+- 原画：Codex 画了待机（A）和大招突刺（B）两版，用户：「用A」。
+- 造型：Codex 自己整理的两版把金面甲调成了一团暗红；它的生图原稿本身很好，按原稿的格子读回、各部件均匀删到 40 行（`design_zed.py`，头盔的行列和脚底不删），给了 5 版，用户选「3」；删列删掉了两边护臂外侧的银钩刺，把那两列设成不删找了回来，用户：「可以了」。
+- 动作：Codex 第 2 步画的身体比待机大、腿不是造型的腿（它自己的交付说明也这么写），用户：「有问题的地方帮我修复」。全部用造型自己的零件重摆（`rig_zed.py`）：两只前臂（金护臂 + 两根腕刃）按肘部整块转向，小腿整行平移，下蹲时靴子画在身体上面；死亡先单膝跪地，再整个人转 90° 向前扑倒。跑步给了两种，用户：「用B吧」（交叉步）。待机呼吸由 rig 自己做（共享的呼吸会切短腕刃）。
+- 特效：Codex 第 3 步的 19 张（`import_zed.py --raw`），颜色归到包里给每张的色阶：银、影子黑紫、红、火星。
+- 红色方：两枚手里剑严格上下对称；其余命中、地面圈、头顶标记、影子人形（从正面画）严格左右对称，不需要画进动作帧。
+
+逐帧预览：[`docs/preview/league_zed_frames.png`](docs/preview/league_zed_frames.png)，特效：[`docs/preview/league_zed_effects.png`](docs/preview/league_zed_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
