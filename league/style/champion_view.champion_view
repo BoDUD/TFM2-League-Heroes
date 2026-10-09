@@ -856,16 +856,12 @@
     },
     "league_lillia": {
       "face": {
-        "x": 3,
+        "x": 2,
         "y": -41
       },
       "center": {
         "x": 0,
         "y": -12
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -5
       }
     },
     "league_viktor": {
@@ -957,11 +953,11 @@
     "league_karma": {
       "face": {
         "x": 1,
-        "y": -31
+        "y": -32
       },
       "center": {
         "x": 0,
-        "y": -12
+        "y": -11
       },
       "banpick_center": {
         "x": 0,
