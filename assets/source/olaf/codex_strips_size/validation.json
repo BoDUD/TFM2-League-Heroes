@@ -1,0 +1,1266 @@
+{
+  "animations": {
+    "run": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            36,
+            39,
+            90,
+            82
+          ],
+          "new_bbox": [
+            39,
+            42,
+            74,
+            82
+          ],
+          "height_delta": -3,
+          "width_delta": -19,
+          "skin_area_old": 139,
+          "skin_area_new": 80,
+          "opacity_area_ratio": 0.758,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            30,
+            41,
+            80,
+            82
+          ],
+          "new_bbox": [
+            40,
+            42,
+            72,
+            82
+          ],
+          "height_delta": -1,
+          "width_delta": -18,
+          "skin_area_old": 114,
+          "skin_area_new": 79,
+          "opacity_area_ratio": 0.75,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            25,
+            38,
+            73,
+            81
+          ],
+          "new_bbox": [
+            40,
+            42,
+            72,
+            81
+          ],
+          "height_delta": -4,
+          "width_delta": -16,
+          "skin_area_old": 106,
+          "skin_area_new": 83,
+          "opacity_area_ratio": 0.791,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            16,
+            42,
+            73,
+            82
+          ],
+          "new_bbox": [
+            40,
+            45,
+            72,
+            82
+          ],
+          "height_delta": -3,
+          "width_delta": -25,
+          "skin_area_old": 164,
+          "skin_area_new": 87,
+          "opacity_area_ratio": 0.657,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            38,
+            34,
+            98,
+            82
+          ],
+          "new_bbox": [
+            39,
+            42,
+            73,
+            82
+          ],
+          "height_delta": -8,
+          "width_delta": -26,
+          "skin_area_old": 169,
+          "skin_area_new": 86,
+          "opacity_area_ratio": 0.683,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            29,
+            38,
+            88,
+            82
+          ],
+          "new_bbox": [
+            40,
+            41,
+            72,
+            82
+          ],
+          "height_delta": -3,
+          "width_delta": -27,
+          "skin_area_old": 153,
+          "skin_area_new": 85,
+          "opacity_area_ratio": 0.738,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 7,
+          "reference_bbox": [
+            32,
+            43,
+            94,
+            82
+          ],
+          "new_bbox": [
+            40,
+            42,
+            73,
+            81
+          ],
+          "height_delta": 0,
+          "width_delta": -29,
+          "skin_area_old": 123,
+          "skin_area_new": 93,
+          "opacity_area_ratio": 0.72,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 8,
+          "reference_bbox": [
+            25,
+            31,
+            82,
+            78
+          ],
+          "new_bbox": [
+            40,
+            44,
+            73,
+            82
+          ],
+          "height_delta": -9,
+          "width_delta": -24,
+          "skin_area_old": 162,
+          "skin_area_new": 87,
+          "opacity_area_ratio": 0.673,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            41,
+            42,
+            98,
+            82
+          ],
+          "new_bbox": [
+            40,
+            44,
+            99,
+            82
+          ],
+          "height_delta": -2,
+          "width_delta": 2,
+          "skin_area_old": 122,
+          "skin_area_new": 93,
+          "opacity_area_ratio": 0.935,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            33,
+            16,
+            80,
+            82
+          ],
+          "new_bbox": [
+            33,
+            18,
+            79,
+            82
+          ],
+          "height_delta": -2,
+          "width_delta": -1,
+          "skin_area_old": 160,
+          "skin_area_new": 115,
+          "opacity_area_ratio": 0.945,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            39,
+            32,
+            86,
+            82
+          ],
+          "new_bbox": [
+            39,
+            34,
+            85,
+            82
+          ],
+          "height_delta": -2,
+          "width_delta": -1,
+          "skin_area_old": 111,
+          "skin_area_new": 85,
+          "opacity_area_ratio": 0.864,
+          "mouth_delta": [
+            2,
+            2
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            35,
+            44,
+            73,
+            82
+          ],
+          "new_bbox": [
+            34,
+            44,
+            74,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 2,
+          "skin_area_old": 84,
+          "skin_area_new": 85,
+          "opacity_area_ratio": 0.899,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            23,
+            36,
+            73,
+            82
+          ],
+          "new_bbox": [
+            22,
+            38,
+            74,
+            82
+          ],
+          "height_delta": -2,
+          "width_delta": 2,
+          "skin_area_old": 53,
+          "skin_area_new": 63,
+          "opacity_area_ratio": 0.973,
+          "mouth_delta": [
+            2,
+            -1
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            41,
+            46,
+            82,
+            82
+          ],
+          "new_bbox": [
+            41,
+            41,
+            83,
+            82
+          ],
+          "height_delta": 5,
+          "width_delta": 1,
+          "skin_area_old": 110,
+          "skin_area_new": 70,
+          "opacity_area_ratio": 1.045,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "skill": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            33,
+            42,
+            82,
+            82
+          ],
+          "new_bbox": [
+            35,
+            40,
+            80,
+            82
+          ],
+          "height_delta": 2,
+          "width_delta": -4,
+          "skin_area_old": 133,
+          "skin_area_new": 107,
+          "opacity_area_ratio": 0.924,
+          "mouth_delta": [
+            3,
+            -1
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            32,
+            15,
+            74,
+            82
+          ],
+          "new_bbox": [
+            34,
+            14,
+            72,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": -4,
+          "skin_area_old": 168,
+          "skin_area_new": 164,
+          "opacity_area_ratio": 0.919,
+          "mouth_delta": [
+            1,
+            1
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            40,
+            35,
+            89,
+            82
+          ],
+          "new_bbox": [
+            40,
+            33,
+            89,
+            82
+          ],
+          "height_delta": 2,
+          "width_delta": 0,
+          "skin_area_old": 108,
+          "skin_area_new": 108,
+          "opacity_area_ratio": 0.988,
+          "mouth_delta": [
+            -3,
+            -2
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            39,
+            43,
+            92,
+            82
+          ],
+          "new_bbox": [
+            40,
+            41,
+            91,
+            82
+          ],
+          "height_delta": 2,
+          "width_delta": -2,
+          "skin_area_old": 171,
+          "skin_area_new": 156,
+          "opacity_area_ratio": 0.991,
+          "mouth_delta": [
+            0,
+            -1
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            34,
+            46,
+            87,
+            82
+          ],
+          "new_bbox": [
+            33,
+            43,
+            88,
+            82
+          ],
+          "height_delta": 3,
+          "width_delta": 2,
+          "skin_area_old": 125,
+          "skin_area_new": 155,
+          "opacity_area_ratio": 1.041,
+          "mouth_delta": [
+            0,
+            -2
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            40,
+            39,
+            84,
+            82
+          ],
+          "new_bbox": [
+            40,
+            36,
+            84,
+            82
+          ],
+          "height_delta": 3,
+          "width_delta": 0,
+          "skin_area_old": 145,
+          "skin_area_new": 125,
+          "opacity_area_ratio": 1.09,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "skill2": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            33,
+            46,
+            86,
+            82
+          ],
+          "new_bbox": [
+            32,
+            44,
+            86,
+            82
+          ],
+          "height_delta": 2,
+          "width_delta": 1,
+          "skin_area_old": 98,
+          "skin_area_new": 108,
+          "opacity_area_ratio": 1.063,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            42,
+            7,
+            88,
+            74
+          ],
+          "new_bbox": [
+            40,
+            6,
+            89,
+            74
+          ],
+          "height_delta": 1,
+          "width_delta": 3,
+          "skin_area_old": 189,
+          "skin_area_new": 218,
+          "opacity_area_ratio": 1.023,
+          "mouth_delta": [
+            -1,
+            2
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            30,
+            7,
+            76,
+            66
+          ],
+          "new_bbox": [
+            31,
+            3,
+            75,
+            66
+          ],
+          "height_delta": 4,
+          "width_delta": -2,
+          "skin_area_old": 204,
+          "skin_area_new": 235,
+          "opacity_area_ratio": 1.119,
+          "mouth_delta": [
+            2,
+            -1
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            36,
+            16,
+            76,
+            82
+          ],
+          "new_bbox": [
+            35,
+            16,
+            76,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 1,
+          "skin_area_old": 208,
+          "skin_area_new": 249,
+          "opacity_area_ratio": 1.067,
+          "mouth_delta": [
+            -2,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            47,
+            43,
+            106,
+            82
+          ],
+          "new_bbox": [
+            47,
+            45,
+            106,
+            82
+          ],
+          "height_delta": -2,
+          "width_delta": 0,
+          "skin_area_old": 140,
+          "skin_area_new": 130,
+          "opacity_area_ratio": 0.985,
+          "mouth_delta": [
+            2,
+            2
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            41,
+            39,
+            93,
+            82
+          ],
+          "new_bbox": [
+            40,
+            39,
+            94,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 2,
+          "skin_area_old": 115,
+          "skin_area_new": 122,
+          "opacity_area_ratio": 1.009,
+          "mouth_delta": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "ult": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            40,
+            38,
+            92,
+            82
+          ],
+          "new_bbox": [
+            41,
+            40,
+            92,
+            82
+          ],
+          "height_delta": -2,
+          "width_delta": -1,
+          "skin_area_old": 155,
+          "skin_area_new": 144,
+          "opacity_area_ratio": 0.912,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            40,
+            21,
+            110,
+            82
+          ],
+          "new_bbox": [
+            43,
+            28,
+            108,
+            82
+          ],
+          "height_delta": -7,
+          "width_delta": -5,
+          "skin_area_old": 235,
+          "skin_area_new": 236,
+          "opacity_area_ratio": 0.836,
+          "mouth_delta": [
+            3,
+            7
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            41,
+            19,
+            89,
+            82
+          ],
+          "new_bbox": [
+            43,
+            26,
+            87,
+            82
+          ],
+          "height_delta": -7,
+          "width_delta": -4,
+          "skin_area_old": 232,
+          "skin_area_new": 202,
+          "opacity_area_ratio": 0.836,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            38,
+            17,
+            88,
+            82
+          ],
+          "new_bbox": [
+            39,
+            22,
+            86,
+            82
+          ],
+          "height_delta": -5,
+          "width_delta": -3,
+          "skin_area_old": 292,
+          "skin_area_new": 249,
+          "opacity_area_ratio": 0.842,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            39,
+            26,
+            93,
+            82
+          ],
+          "new_bbox": [
+            41,
+            30,
+            91,
+            82
+          ],
+          "height_delta": -4,
+          "width_delta": -4,
+          "skin_area_old": 272,
+          "skin_area_new": 240,
+          "opacity_area_ratio": 0.866,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            35,
+            37,
+            89,
+            82
+          ],
+          "new_bbox": [
+            37,
+            38,
+            88,
+            82
+          ],
+          "height_delta": -1,
+          "width_delta": -3,
+          "skin_area_old": 165,
+          "skin_area_new": 135,
+          "opacity_area_ratio": 0.904,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "hit": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            20,
+            29,
+            88,
+            82
+          ],
+          "new_bbox": [
+            28,
+            42,
+            80,
+            82
+          ],
+          "height_delta": -13,
+          "width_delta": -16,
+          "skin_area_old": 185,
+          "skin_area_new": 92,
+          "opacity_area_ratio": 0.534,
+          "mouth_delta": [
+            -2,
+            9
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            31,
+            35,
+            91,
+            82
+          ],
+          "new_bbox": [
+            38,
+            46,
+            83,
+            82
+          ],
+          "height_delta": -11,
+          "width_delta": -15,
+          "skin_area_old": 168,
+          "skin_area_new": 91,
+          "opacity_area_ratio": 0.559,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "dead": {
+      "grid8": true,
+      "binary_alpha": true,
+      "palette_only": true,
+      "below_floor_empty": true,
+      "frames": [
+        {
+          "frame": 1,
+          "reference_bbox": [
+            30,
+            38,
+            79,
+            82
+          ],
+          "new_bbox": [
+            29,
+            38,
+            80,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 2,
+          "skin_area_old": 160,
+          "skin_area_new": 182,
+          "opacity_area_ratio": 1.088,
+          "mouth_delta": [
+            0,
+            1
+          ]
+        },
+        {
+          "frame": 2,
+          "reference_bbox": [
+            9,
+            22,
+            101,
+            82
+          ],
+          "new_bbox": [
+            9,
+            23,
+            102,
+            82
+          ],
+          "height_delta": -1,
+          "width_delta": 1,
+          "skin_area_old": 271,
+          "skin_area_new": 296,
+          "opacity_area_ratio": 1.049,
+          "mouth_delta": [
+            2,
+            1
+          ]
+        },
+        {
+          "frame": 3,
+          "reference_bbox": [
+            26,
+            23,
+            86,
+            82
+          ],
+          "new_bbox": [
+            26,
+            24,
+            87,
+            82
+          ],
+          "height_delta": -1,
+          "width_delta": 1,
+          "skin_area_old": 284,
+          "skin_area_new": 301,
+          "opacity_area_ratio": 1.046,
+          "mouth_delta": null
+        },
+        {
+          "frame": 4,
+          "reference_bbox": [
+            36,
+            38,
+            93,
+            82
+          ],
+          "new_bbox": [
+            35,
+            38,
+            94,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 2,
+          "skin_area_old": 260,
+          "skin_area_new": 268,
+          "opacity_area_ratio": 1.047,
+          "mouth_delta": [
+            1,
+            1
+          ]
+        },
+        {
+          "frame": 5,
+          "reference_bbox": [
+            23,
+            18,
+            83,
+            82
+          ],
+          "new_bbox": [
+            23,
+            17,
+            83,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 0,
+          "skin_area_old": 287,
+          "skin_area_new": 322,
+          "opacity_area_ratio": 1.069,
+          "mouth_delta": null
+        },
+        {
+          "frame": 6,
+          "reference_bbox": [
+            18,
+            41,
+            92,
+            82
+          ],
+          "new_bbox": [
+            17,
+            40,
+            93,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 2,
+          "skin_area_old": 212,
+          "skin_area_new": 244,
+          "opacity_area_ratio": 1.07,
+          "mouth_delta": [
+            0,
+            0
+          ]
+        },
+        {
+          "frame": 7,
+          "reference_bbox": [
+            13,
+            49,
+            96,
+            82
+          ],
+          "new_bbox": [
+            12,
+            49,
+            98,
+            82
+          ],
+          "height_delta": 0,
+          "width_delta": 3,
+          "skin_area_old": 198,
+          "skin_area_new": 227,
+          "opacity_area_ratio": 1.08,
+          "mouth_delta": null
+        },
+        {
+          "frame": 8,
+          "reference_bbox": [
+            11,
+            54,
+            100,
+            82
+          ],
+          "new_bbox": [
+            9,
+            53,
+            101,
+            82
+          ],
+          "height_delta": 1,
+          "width_delta": 3,
+          "skin_area_old": 229,
+          "skin_area_new": 265,
+          "opacity_area_ratio": 1.081,
+          "mouth_delta": null
+        }
+      ]
+    }
+  },
+  "format_pass": true,
+  "master": {
+    "bbox": [
+      48,
+      57,
+      84,
+      100
+    ],
+    "width": 36,
+    "height": 43,
+    "opaque_pixels": 1144
+  },
+  "size_checks": {
+    "run": {
+      "widths": [
+        35,
+        32,
+        32,
+        32,
+        34,
+        32,
+        33,
+        33
+      ],
+      "heights": [
+        40,
+        40,
+        39,
+        37,
+        40,
+        41,
+        39,
+        38
+      ],
+      "opaque_area_ratios_to_idle": [
+        0.749,
+        0.735,
+        0.751,
+        0.712,
+        0.751,
+        0.76,
+        0.781,
+        0.735
+      ],
+      "part_dimensions_certified": false,
+      "target_width_max": 42,
+      "target_height_range": [
+        42,
+        44
+      ],
+      "bbox_size_pass": false
+    },
+    "attack": {
+      "widths": [
+        59,
+        46,
+        46,
+        40,
+        52,
+        42
+      ],
+      "heights": [
+        38,
+        64,
+        48,
+        38,
+        44,
+        41
+      ],
+      "opaque_area_ratios_to_idle": [
+        0.884,
+        1.003,
+        0.836,
+        0.749,
+        0.829,
+        0.827
+      ],
+      "part_dimensions_certified": false
+    },
+    "skill": {
+      "widths": [
+        45,
+        38,
+        49,
+        51,
+        55,
+        44
+      ],
+      "heights": [
+        42,
+        68,
+        49,
+        41,
+        39,
+        46
+      ],
+      "opaque_area_ratios_to_idle": [
+        0.923,
+        1.095,
+        1.007,
+        0.981,
+        0.959,
+        1.049
+      ],
+      "part_dimensions_certified": false
+    },
+    "skill2": {
+      "widths": [
+        54,
+        49,
+        44,
+        41,
+        59,
+        54
+      ],
+      "heights": [
+        38,
+        68,
+        63,
+        66,
+        37,
+        43
+      ],
+      "opaque_area_ratios_to_idle": [
+        1.105,
+        1.275,
+        1.339,
+        1.43,
+        1.105,
+        1.222
+      ],
+      "part_dimensions_certified": false
+    },
+    "ult": {
+      "widths": [
+        51,
+        65,
+        44,
+        47,
+        50,
+        51
+      ],
+      "heights": [
+        42,
+        54,
+        56,
+        60,
+        52,
+        44
+      ],
+      "opaque_area_ratios_to_idle": [
+        1.21,
+        1.482,
+        1.272,
+        1.405,
+        1.378,
+        1.232
+      ],
+      "part_dimensions_certified": false
+    },
+    "hit": {
+      "widths": [
+        52,
+        45
+      ],
+      "heights": [
+        40,
+        36
+      ],
+      "opaque_area_ratios_to_idle": [
+        0.701,
+        0.677
+      ],
+      "part_dimensions_certified": false
+    },
+    "dead": {
+      "widths": [
+        51,
+        93,
+        61,
+        59,
+        60,
+        76,
+        86,
+        92
+      ],
+      "heights": [
+        44,
+        59,
+        58,
+        44,
+        65,
+        42,
+        33,
+        29
+      ],
+      "opaque_area_ratios_to_idle": [
+        1.26,
+        1.744,
+        1.562,
+        1.389,
+        1.621,
+        1.456,
+        1.386,
+        1.464
+      ],
+      "part_dimensions_certified": false
+    }
+  },
+  "art_approval": false
+}

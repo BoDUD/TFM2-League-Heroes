@@ -45,8 +45,44 @@ import rig_olaf as RO  # noqa: E402
 # Codex's League-driven redraw (approved with the design's head 2026-10-09): where every frame's head goes
 SRC_V2 = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_v2")
 # the same frames redrawn with the slimmer, more muscular body (「奥拉夫稍微瘦一点 肌肉明显点」, design B): the frames
-SRC = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_slim")
-REFINE = 1                         # squares the head may move from its approved place on the slim frames
+SRC_SLIM = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_slim")
+# every action redrawn at the slim idle's size and a calm run (the user: 「跑动时为什么变大一圈」「跑动姿势太浮夸了吧」,
+# then 「新版做完了 奇怪的地方你帮我调吧」): the frames
+SRC = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_size")
+# ... except the hit: Codex redrew it thin (narrow limbs and torso, its own head smaller), a big head on a small body
+# once the design's head is on it - the approved slim hit instead, made smaller in import_native (SHRINK_TAGS)
+TAG_SRC = {"hit": SRC_SLIM}
+REFINE = 7                        # squares the head may move from its approved place (the bodies shrank: heads sit lower)
+NEW_POSE = {"run"}                 # tags drawn anew (the calm run): the head goes where Codex drew it
+RUN_AT, RUN_SEARCH = (0, 1), 3     # ... found within RUN_SEARCH squares of RUN_AT (the design's head, a row down)
+# Codex's calm run keeps its image-right boot planted in all 8 frames and steps on the spot with the other (kicked
+# back in 1/5, down in 3/4/7/8): no boot moves back under the walking body, so he slid over the ground (the user:
+# 「走路对吗？ 感觉像在平移」). Its legs are redrawn on a step cycle (run_steps), both from Codex's frame 3 (both boots
+# down): a planted boot slides back 2 columns a frame for 4 frames, then lifts and swings forward for 4, the legs half
+# a cycle apart and landing on the frames where Codex's body dips (4 and 8); each leg leans with its boot (sheared
+# from the hip), the boot moves whole and covers the greave's lowest rows when it lifts or the body dips (lossless).
+# The legs stay apart under the wide 3/4 body: brought in to cross like a side view, they stood on one post.
+RUN_BASE = 2                                   # Codex's frame 3
+RUN_HIP = 86                                   # the legs' top row there
+RUN_LEGS = {"L": [(86, 86, 55, 60), (87, 89, 51, 60), (90, 98, 47, 58)],     # (row0, row1, col0, col1) boxes
+            "R": [(86, 89, 66, 71), (90, 98, 62, 74)]}
+RUN_ANKLES = {"L": 94, "R": 95}                # each leg's first boot row there
+RUN_FLAP = (86, 89, 60, 65)                    # the loincloth's flap between the thighs
+RUN_SINK = 1                                   # every frame a row lower: frame 3's legs (13 rows) reach the ground
+RUN_UP = [0, 0, 0, 1, 0, 0, 0, 0]              # frame 4 dips 3 rows, frame 8 two: frame 4's body lifted 1
+RUN_DIP = [0, 0, 0, 2, 0, 0, 0, 2]             # the body's dip per frame (the legs' top follows it)
+# a boot's place on its cycle: (columns from its frame-3 place, + = forward; rows off the ground) - planted 4 frames
+# sliding back, then toe-off, through, reach. The image-right boot steps ahead of its frame-3 place and the image-left
+# one behind (Codex's front and back legs): one cycle for both, the near one meeting the far one's heel at the pass,
+# put the two boots side by side in one dark block (frames 7-8)
+RUN_CYCLE = {"R": [(4, 0), (2, 0), (0, 0), (-1, 0), (-1, 2), (1, 3), (3, 3), (4, 1)],
+             "L": [(1, 0), (0, 0), (-2, 0), (-4, 0), (-4, 2), (-2, 3), (0, 3), (1, 1)]}
+RUN_LAND = {"R": 3, "L": 7}                    # the frame (0-based) each leg lands on
+# Codex's own legs go: every square from the legs' top row down in columns up to RUN_CLEAR[0], and from row
+# RUN_CLEAR[2] in columns up to RUN_CLEAR[1] (the image-right boot's toe) - not the axe held low at the right; the
+# left fist hanging into the dipped frames' cut stays (RUN_KEEP boxes, on the frame as shifted)
+RUN_CLEAR = (72, 75, 91)
+RUN_KEEP = {3: [(85, 89, 48, 55)], 7: [(84, 90, 48, 56)]}
 NATIVE = RO.NATIVE
 C = RO.C
 OUT = RO.OUT
@@ -65,6 +101,10 @@ FACE_OFF = 9                       # Codex's face is trusted this near the helme
 LEFTOVER = 14                      # a steel piece this small round the pasted head is Codex's helmet, it goes
 KEEP_HEAD = {("ult", 3), ("ult", 4), ("dead", 3), ("dead", 5), ("dead", 6), ("dead", 7), ("dead", 8)}
 HEAD_AT = {}                       # (tag, frame): (dx, dy) of the design's head on the canvas, where the match misses
+# the run's heads ride its torsos: frame 3's head place (0, 2) moved as each torso (rows 66-86) sits against frame 3's -
+# searched per frame, the head rose a row alone in frame 6 and slid a column against the body in 1, 2 and 7
+for _k, _at in enumerate([(2, 2), (0, 2), (0, 2), (0, 4), (0, 2), (0, 2), (1, 2), (0, 4)], 1):
+    HEAD_AT[("run", _k)] = _at
 FRONT = {}                         # (tag, frame): [(row0, row1, col0, col1)] boxes where Codex's squares stay on top
 
 
@@ -255,6 +295,59 @@ def notches(f, rounds=2):
     return out
 
 
+def run_leg(base, m, ankle, dip, dx, lift):
+    """One leg of the base frame posed: the rows above its ankle dropped with the body (dip + RUN_SINK) and shifted in
+    proportion to dx from the hip, the boot moved dx whole with its sole on the ground row less `lift`."""
+    shin = np.zeros_like(base)
+    boot = np.zeros_like(base)
+    sole = np.nonzero(m.any(1))[0].max()
+    for r, c in zip(*np.nonzero(m)):
+        if r < ankle:
+            sh = int(np.floor(dx * max(0, r - RUN_HIP) / max(1, ankle - RUN_HIP) + 0.5))
+            rr, tgt = r + dip + RUN_SINK, shin
+        else:
+            sh = dx
+            rr, tgt = r + (SOLES - sole) - lift, boot
+        if 0 <= rr <= SOLES and 0 <= c + sh < base.shape[1]:
+            tgt[rr, c + sh] = base[r, c]
+    return K.put(shin, boot, 0, 0)
+
+
+def run_steps(frames):
+    """Codex's run frames with the legs on the step cycle (RUN_CYCLE), drawn from its frame 3: the far (image-right)
+    leg, the flap, the near (image-left) leg over them."""
+    base = frames[RUN_BASE]
+    op = base[..., 3] > 0
+    parts = {}
+    for name, boxes in RUN_LEGS.items():
+        m = np.zeros(op.shape, bool)
+        for r0, r1, c0, c1 in boxes:
+            m[r0:r1 + 1, c0:c1 + 1] = True
+        parts[name] = m & op
+    r0, r1, c0, c1 = RUN_FLAP
+    flap = np.zeros(op.shape, bool)
+    flap[r0:r1 + 1, c0:c1 + 1] = True
+    flap = np.where((flap & op)[..., None], base, 0).astype(np.uint8)
+    out = []
+    for i, c in enumerate(frames):
+        body = K.shifted(c, 0, RUN_SINK - RUN_UP[i])
+        cut = RUN_HIP + RUN_DIP[i] + RUN_SINK
+        gone = np.zeros(op.shape, bool)
+        gone[cut:, :RUN_CLEAR[0] + 1] = True
+        gone[RUN_CLEAR[2]:, :RUN_CLEAR[1] + 1] = True
+        for k0, k1, j0, j1 in RUN_KEEP.get(i, ()):
+            gone[k0:k1 + 1, j0:j1 + 1] = False
+        body[gone] = 0
+        for name in ("R", "flap", "L"):
+            if name == "flap":
+                body = K.put(body, K.shifted(flap, 0, RUN_DIP[i] + RUN_SINK), 0, 0)
+                continue
+            dx, lift = RUN_CYCLE[name][(i - RUN_LAND[name]) % 8]
+            body = K.put(body, run_leg(base, parts[name], RUN_ANKLES[name], RUN_DIP[i], dx, lift), 0, 0)
+        out.append(body)
+    return out
+
+
 def tidy(f):
     """Leather, pinholes, nicks; then the outline closed here as import_native's COMPLETE pass would (strips.
     complete_outline) and the pinholes that closing makes filled, so the import finds nothing left to close."""
@@ -282,10 +375,10 @@ def drop_orphans(f):
     return out
 
 
-def places(P, tag):
-    """Where the design's head went on the approved frames (Codex's v2 redraw): (dx, dy) per frame, None where the
-    frame keeps Codex's own head."""
-    frames, ms, eyes = codex(tag, SRC_V2)
+def places(P, tag, src=None):
+    """Where the design's head went on the approved frames (Codex's v2 redraw, or `src`): (dx, dy) per frame, None
+    where the frame keeps Codex's own head."""
+    frames, ms, eyes = codex(tag, src or SRC_V2)
     hm = head_piece(P)
     mid = face_spot(P.design)
     out = []
@@ -295,6 +388,9 @@ def places(P, tag):
             out.append(None)
             continue
         spot = face_spot(c)
+        if eyes[i] is None:                             # Codex found no eye or mouth: the frame's middle top
+            ys, xs = np.nonzero(c[..., 3] > 0)
+            eyes[i] = ((xs.min() + xs.max()) / 2, ys.min() + 13)
         s, dx, dy = head_place(c, P.design, hm, eyes[i])
         if (tag, k) in HEAD_AT:
             dx, dy = HEAD_AT[(tag, k)]
@@ -309,18 +405,31 @@ def places(P, tag):
 def build(P, tag, report=None):
     """The slim frames with the design's head where the approved frame had it, moved at most REFINE squares to sit on
     the slim body's own helmet."""
-    at = places(P, tag)
-    frames, ms, _ = codex(tag)
+    new = tag in NEW_POSE
+    # the calm run is upright: Codex's head sits near the design's place, bobbing - searched round it (a free search
+    # took the mane beside the helmet for the helmet and left two heads)
+    frames, ms, _ = codex(tag, TAG_SRC.get(tag))
+    if tag == "run":
+        frames = run_steps(frames)
+    at = [None if (tag, i + 1) in KEEP_HEAD else RUN_AT for i in range(len(frames))] if new else places(P, tag)
     hm = head_piece(P)
+    mid = face_spot(P.design)
     out = []
     for i, c in enumerate(frames):
         k = i + 1
         if at[i] is None:
             out.append(tidy(c))
             continue
-        s, dx, dy = head_place(c, P.design, hm, None, at=at[i], search=REFINE)
+        s, dx, dy = head_place(c, P.design, hm, None, at=at[i], search=RUN_SEARCH if new else REFINE)
+        spot = None if new else face_spot(c)
+        if spot is not None:                            # Codex drew eyes and a mouth: the design's face on them
+            fx, fy = int(round(spot[1] - mid[1])), int(round(spot[0] - mid[0]))
+            if max(abs(fx - at[i][0]), abs(fy - at[i][1])) <= REFINE + 2:
+                s, dx, dy = "face", fx, fy
+        if (tag, k) in HEAD_AT:
+            s, (dx, dy) = None, HEAD_AT[(tag, k)]
         if report is not None:
-            report.append((tag, k, at[i], (dx, dy), round(s, 2)))
+            report.append((tag, k, at[i], (dx, dy), s if s is None or isinstance(s, str) else round(s, 2)))
         out.append(tidy(with_head(P, c, hm, (dx, dy), FRONT.get((tag, k), ()))))
     return out, ms
 
