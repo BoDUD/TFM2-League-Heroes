@@ -50,8 +50,7 @@ TEXT = {
                   "，每命中一个回复" + G + "{w_heal}" + E + "生命。",
         "skill": "回旋横扫，周围敌人受到" + phy("q") + "伤害。命中后获得一层" + O + "暴走" + E + "（最多2层，" + A + "{q_stk_t}秒" + E +
                  "），每层伤害+{q_stk}%。刷野叠的层数可以带进团战。",
-        "skill2": "冲向目标，冲得越久伤害越高（最多{e_max}%），造成" + phy("e") + "伤害并" + R + "击退" + E + "，之后移速+{e_haste}%。" + O +
-                  "连招" + E + "：撞上英雄且大招就绪时直接接" + O + "暗影冲击" + E + "。",
+        "skill2": "冲向目标，冲得越久伤害越高（最多{e_max}%），造成" + phy("e") + "伤害并" + R + "击退" + E + "，之后移速+{e_haste}%。",
         "ult": "带幽灵骑兵冲向敌方英雄，沿途敌人受到" + phy("r") + "伤害；落地使周围敌人" + R + "恐惧{r_fear}秒" + E + "（冲得远" + R +
                "{r_fear_far}秒" + E + "），顺势" + O + "暴走" + E + "一圈并开启" + O + "恐惧之灵" + E + "。",
         "names": ("暴走", "毁灭冲锋", "暗影冲击"),
@@ -63,8 +62,7 @@ TEXT = {
                   "，每命中一個回復" + G + "{w_heal}" + E + "生命。",
         "skill": "迴旋橫掃，周圍敵人受到" + phy("q") + "傷害。命中後獲得一層" + O + "逸騎刃擊" + E + "（最多2層，" + A + "{q_stk_t}秒" + E +
                  "），每層傷害+{q_stk}%。打野疊的層數可以帶進團戰。",
-        "skill2": "衝向目標，衝得越久傷害越高（最多{e_max}%），造成" + phy("e") + "傷害並" + R + "擊退" + E + "，之後跑速+{e_haste}%。" + O +
-                  "連招" + E + "：撞上英雄且大招就緒時直接接" + O + "暗影的逆襲" + E + "。",
+        "skill2": "衝向目標，衝得越久傷害越高（最多{e_max}%），造成" + phy("e") + "傷害並" + R + "擊退" + E + "，之後跑速+{e_haste}%。",
         "ult": "帶幽靈騎兵衝向敵方英雄，沿途敵人受到" + phy("r") + "傷害；落地使周圍敵人" + R + "恐懼{r_fear}秒" + E + "（衝得遠" + R +
                "{r_fear_far}秒" + E + "），順勢" + O + "逸騎刃擊" + E + "一圈並開啟" + O + "靈魂恐懼" + E + "。",
         "names": ("逸騎刃擊", "毀滅衝刺", "暗影的逆襲"),
@@ -78,8 +76,7 @@ TEXT = {
         "skill": "Spins the glaive: enemies around take " + phy("q") + " damage. A hit gives a " + O + "Rampage" + E + " stack (up "
                  "to 2, " + A + "{q_stk_t}s" + E + "), each +{q_stk}% damage - stacks built on camps carry into a gank.",
         "skill2": "Charges the target, harder the longer he rides (up to {e_max}%): " + phy("e") + " damage and a " + R +
-                  "knockback" + E + ", then +{e_haste}% move speed. " + O + "Combo" + E + ": a charge into a champion with the ult "
-                  "ready ends in " + O + "Onslaught of Shadows" + E + " at once.",
+                  "knockback" + E + ", then +{e_haste}% move speed.",
         "ult": "Rides at an enemy champion with spectral riders: enemies in the path take " + phy("r") + " damage; on landing "
                "enemies around are " + R + "feared {r_fear}s" + E + " (" + R + "{r_fear_far}s" + E + " after a long ride), and he "
                "spins a " + O + "Rampage" + E + " and starts " + O + "Spirit of Dread" + E + ".",
@@ -93,8 +90,7 @@ TEXT = {
         "skill": "언월도를 휘둘러 주변 적에게 " + phy("q") + "의 피해. 적중 시 " + O + "회오리 베기" + E + " 중첩(최대 2, " + A +
                  "{q_stk_t}초" + E + "), 중첩당 피해 +{q_stk}%. 정글에서 쌓은 중첩을 갱킹에 가져갑니다.",
         "skill2": "대상에게 돌격하며 오래 달릴수록 강해집니다(최대 {e_max}%): " + phy("e") + "의 피해와 " + R + "밀어내기" + E +
-                  ", 이후 이동 속도 +{e_haste}%. " + O + "연계" + E + ": 궁극기가 준비된 상태로 챔피언에게 부딪히면 바로 " + O +
-                  "그림자의 맹습" + E + ".",
+                  ", 이후 이동 속도 +{e_haste}%.",
         "ult": "유령 기병과 함께 적 챔피언에게 돌진: 경로의 적에게 " + phy("r") + "의 피해, 착지 시 주변 적 " + R + "{r_fear}초 공포" + E +
                "(멀리 달리면 " + R + "{r_fear_far}초" + E + "), 이어서 " + O + "회오리 베기" + E + "와 " + O + "공포의 망령" + E + ".",
         "names": ("회오리 베기", "파멸의 돌격", "그림자의 맹습"),
@@ -106,8 +102,7 @@ TEXT = {
                   "{w_dmg}の魔法ダメージ" + E + "、1体ごとに" + G + "{w_heal}" + E + "回復。",
         "skill": "グレイブを振り回し周囲の敵に" + phy("q") + "のダメージ。命中で" + O + "ランページ" + E + "スタック（最大2、" + A +
                  "{q_stk_t}秒" + E + "）、1つごとにダメージ+{q_stk}%。",
-        "skill2": "対象へ突進、長く走るほど強力（最大{e_max}%）：" + phy("e") + "のダメージと" + R + "ノックバック" + E + "、その後移動速度+{e_haste}%。" +
-                  O + "コンボ" + E + "：アルティメット準備中にチャンピオンへ突撃すると即" + O + "スペクターズ・オンスロート" + E + "。",
+        "skill2": "対象へ突進、長く走るほど強力（最大{e_max}%）：" + phy("e") + "のダメージと" + R + "ノックバック" + E + "、その後移動速度+{e_haste}%。",
         "ult": "亡霊騎兵と共に敵チャンピオンへ突撃：経路の敵に" + phy("r") + "のダメージ、着地で周囲の敵に" + R + "{r_fear}秒フィアー" + E +
                "（遠くからなら" + R + "{r_fear_far}秒" + E + "）、続けて" + O + "ランページ" + E + "と" + O + "ソウルドレイン" + E + "。",
         "names": ("ランページ", "チャージ", "スペクターズ・オンスロート"),
