@@ -114,6 +114,11 @@ class Parts:
         self.drill_r[r0:r1 + 1, c0:c1 + 1] = self.hair[r0:r1 + 1, c0:c1 + 1]
         self.hair &= ~self.drill_r                      # the right ringlet hangs in front of the far shoulder
         self.keep = None
+        dh = np.zeros(can.shape[:2], bool)              # the design's enclosed clear squares, a row up and down too
+        for comp in K.holes(can):                       # (the breathing idle sinks the top a row)
+            for y, x in comp:
+                dh[max(y - 1, 0):y + 2, x] = True
+        self.design_hole = dh
 
 
 # ------------------------------------------------------------------------------------------------ the scissors
@@ -313,7 +318,8 @@ def stand(P, pose):
     ink = (a[..., :3] == P.rgba["A"][:3]).all(-1) & body
     hair = P.hair
     under = lambda x, y: not body[y, x] or hair[y, x]              # noqa: E731
-    clear_ok = lambda x, y: not body[y, x] or ink[y, x]            # noqa: E731
+    clear_ok = lambda x, y: not body[y, x] or ink[y, x] or hair[y, x]   # noqa: E731  (the near arm's ring: over
+    #                                                                  the hair too, never over the body's colours)
     c = a.copy()
     keep = np.zeros(a.shape[:2], bool)
     if far is None:
@@ -526,10 +532,11 @@ def finish(P, raw):
     f = K.finish(raw, P.D.outline, SOLES, pinholes=1)
     ink = np.array(P.D.outline, np.uint8)
     for comp in K.holes(raw):
-        if len(comp) < 2:
-            continue
+        own = all(P.design_hole[y, x] for y, x in comp)             # the design's own pinholes (between the boots, by
+        if len(comp) < 2 and not own:                                 # the loop) stay open: filled in some frames they
+            continue                                                  # blinked
         for y, x in comp:
-            if f[y, x, 3] and not (f[y, x, :3] == ink).all():
+            if f[y, x, 3] and (own or not (f[y, x, :3] == ink).all()):
                 f[y, x] = 0
     while True:
         gone = K.orphan_outline(f, P.D.outline)
@@ -539,7 +546,12 @@ def finish(P, raw):
     keep = getattr(P, "keep", None)
     P.keep = None
     soften_inner_ink(P, f, keep)
-    return K.fill_pinholes(f, 1, P.D.outline)
+    f = K.fill_pinholes(f, 1, P.D.outline)
+    while True:                                                   # a pinhole filled with outline can leave a lone
+        gone = K.orphan_outline(f, P.D.outline)                   # outline square (the run's swung ringlet)
+        if not gone.any():
+            return f
+        f[gone] = 0
 
 
 def soften_inner_ink(P, f, keep=None):
