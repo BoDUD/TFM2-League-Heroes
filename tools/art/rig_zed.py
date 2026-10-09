@@ -85,6 +85,18 @@ FULL_KNEE_ROW = KNEE_ROW
 # the outline closed from this luminance up in every frame (design_zed2.DARK): his blue steel, reds and dark red edge
 # the silhouette too
 DARK = 30
+# the wrist blades redrawn on the 85% design (2026-10-10, the user: 「武器做的太长了吧」, then 「只能说武器形状做的不像」).
+# League's Zed (tools/lol/native_pose.py at game size) hangs two straight parallel blades from each bracer, their points
+# by the knees; C drew the near (image-right) one as a single one-square line that kinked into a fork and hung to the
+# boot, and the far one's two points split apart. Now each arm has two straight blades a column apart, silver with white
+# points: the near ones from under the bracer in columns 73 and 75 to rows 92-93 (three rows shorter), the far ones'
+# points straight down in columns 52 and 54. Rows top to bottom from (row, first column); "." clears a square; every
+# square goes with that forearm, but BLADES_BODY (the tabard's hem square the near blade passes in front of: its
+# outline now) stays the body's.
+BLADES = {"rfore": (88, 72, ["06060.", "06060.", "06060.", "08060.", "08080.", ".0080.", "...0..", "......", "......",
+                             "......"]),
+          "lfore": (91, 51, ["08080", ".0.0..", "......"])}
+BLADES_BODY = {(92, 72)}
 
 
 def map_x(x):
@@ -222,8 +234,31 @@ class Parts:
             self.body[new & ~part] = fin[new & ~part]
             d = fin
             self.design = d
+            self.blades()
+            d = self.design
         self.lfore = K.Part.from_canvas(d, self.masks["lfore"], L_ELBOW)
         self.rfore = K.Part.from_canvas(d, self.masks["rfore"], R_ELBOW)
+
+    def blades(self):
+        """BLADES painted on the 85% design, each square given to its forearm (or kept by the body)."""
+        colour = {"0": OUT, "6": K.rgb("#9DAAC4"), "8": K.rgb("#DFE9F4")}
+        d = self.design
+        for key, (r0, c0, rows) in BLADES.items():
+            for dy, line in enumerate(rows):
+                for dx, ch in enumerate(line):
+                    y, x = r0 + dy, c0 + dx
+                    for m in self.masks.values():
+                        m[y, x] = False
+                    if ch == ".":
+                        d[y, x] = 0
+                        self.body[y, x] = 0
+                        continue
+                    d[y, x, :3], d[y, x, 3] = colour[ch], 255
+                    if (y, x) in BLADES_BODY:
+                        self.body[y, x] = d[y, x]
+                    else:
+                        self.body[y, x] = 0
+                        self.masks[key][y, x] = True
 
     def overlay(self, path, z=12):
         """The design with every part tinted (forearms red / green, legs cyan / magenta, head blue)."""
