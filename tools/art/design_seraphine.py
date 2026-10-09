@@ -478,20 +478,20 @@ def body2(out):
 # (2026-10-09, 「格温和萨勒芬妮的脸部立绘可以修好看一点」「像莎弥拉脸部修改后就很有个性」; the user picked Codex's
 # star-wink picture, assets/source/seraphine/codex_face/seraphine-face-B-initial.png, drawn on this design's own grid:
 # read back on its 27.6-px squares it is 46 x 31 like the design): its face square by square - the near eye a lash
-# row over a white outer corner, a blue iris with a white glint and cyan under it; the far eye winking (an arch); the
-# open mouth's dark-red rim over a pink tongue; a two-square blush under each eye; the forehead a row taller with the
-# dark lock over the near eye. The hair, the ornaments and the body stay this design's.
+# row over a white outer corner, a blue iris with a white glint and cyan under it; the far eye winking (an arch); a
+# two-square blush under each eye; the forehead a row taller with the dark lock over the near eye. The mouth stays the
+# old small one (the picture's open mouth with a tongue: 「嘴用之前的其他都很好」); the hair, the ornaments and the
+# body stay this design's.
 FACE3_C = {"0": "#0d0222", "4": "#d31865", "5": "#c81260", "6": "#5f0033", "J": "#fddab8", "C": "#f8a0a8",
-           "w": "#ffffff", "B": "#1438a8", "q": "#180f3b", "K": "#10b0f4", "V": "#0e8edc", "r": "#a5193a",
-           "p": "#f84a76"}
+           "w": "#ffffff", "B": "#1438a8", "q": "#180f3b", "K": "#10b0f4", "V": "#0e8edc", "x": "#e8506e"}
 # (first column, squares) per row; '-' keeps the square
 FACE3 = {65: [(62, "566JJJJ44J4J")],
          66: [(62, "J000JJJJJJJJ")],
          67: [(62, "0wBwqJJJ00JJ0")],
          68: [(62, "JwKBVJJ0JJ0J0")],
          69: [(62, "JCCJJJJJCCJ0")],
-         70: [(62, "0JJJrprJJJ0")],
-         71: [(61, "0000JJpJJJ0")]}
+         70: [(62, "0JJJxxJJJJ0")],          # the mouth stays the old one (「嘴用之前的其他都很好」)
+         71: [(61, "0000JJJJJJ0")]}
 
 
 def face3(out):
