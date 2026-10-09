@@ -532,7 +532,7 @@ def finish(P, raw):
     f = K.finish(raw, P.D.outline, SOLES, pinholes=1)
     ink = np.array(P.D.outline, np.uint8)
     for comp in K.holes(raw):
-        own = all(P.design_hole[y, x] for y, x in comp)             # the design's own pinholes (between the boots, by
+        own = own_hole(P, raw, comp)                                  # the design's own pinholes (between the boots, by
         if len(comp) < 2 and not own:                                 # the loop) stay open: filled in some frames they
             continue                                                  # blinked
         for y, x in comp:
@@ -547,11 +547,38 @@ def finish(P, raw):
     P.keep = None
     soften_inner_ink(P, f, keep)
     f = K.fill_pinholes(f, 1, P.D.outline)
-    while True:                                                   # a pinhole filled with outline can leave a lone
-        gone = K.orphan_outline(f, P.D.outline)                   # outline square (the run's swung ringlet)
+    for _ in range(4):                                            # a lone outline square inside the figure (the
+        gone = K.orphan_outline(f, P.D.outline)                   # run's swung ringlet): its neighbours' colour
+        gone &= ~(keep if keep is not None else np.zeros_like(gone))
         if not gone.any():
-            return f
-        f[gone] = 0
+            break
+        ink8 = np.array(P.D.outline, np.uint8)
+        for y, x in zip(*np.nonzero(gone)):
+            n8 = [tuple(int(v) for v in f[y + dy, x + dx, :3]) for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+                  if (dy or dx) and f[y + dy, x + dx, 3] and not (f[y + dy, x + dx, :3] == ink8).all()]
+            op4 = sum(1 for dy, dx in K.N4 if f[y + dy, x + dx, 3])
+            if n8:
+                f[y, x, :3] = max(set(n8), key=n8.count)
+            elif op4 < 4:
+                f[y, x] = 0                                       # (inside a black corner it stays black)
+    for comp in K.holes(raw):                                     # the design's own pinholes, open again after the
+        if own_hole(P, raw, comp):                                # last fill
+            for y, x in comp:
+                if f[y, x, 3] and not raw[y, x, 3]:
+                    f[y, x] = 0
+    return f
+
+
+def own_hole(P, raw, comp):
+    """A hole of the raw frame that is the design's own: the design (as is, or sunk a row) has the same squares in
+    the 3 x 3 round every square of it (a pinhole between moved boots is not one: filled in some frames and open in
+    others it blinked)."""
+    D = P.D.a
+    for dy in (0, 1, 2):                                            # (the top sinks a row breathing, two at a crouch)
+        s = K.shifted(D, 0, dy) if dy else D
+        if all(np.array_equal(s[y - 1:y + 2, x - 1:x + 2], raw[y - 1:y + 2, x - 1:x + 2]) for y, x in comp):
+            return True
+    return False
 
 
 def soften_inner_ink(P, f, keep=None):
@@ -571,6 +598,7 @@ def soften_inner_ink(P, f, keep=None):
     r0, r1, c0, c1 = FACE_BOX
     face[r0 + best[3]:r1 + best[3], c0 + best[2]:c1 + best[2]] = True
     was = (s[..., 3] > 0) & (s[..., :3] == ink).all(-1)
+    was |= (idle[..., 3] > 0) & (idle[..., :3] == ink).all(-1)       # the legs stay where they are when the top sinks
     op = f[..., 3] > 0
     isk = op & (f[..., :3] == ink).all(-1)
     lum = lambda c: 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]  # noqa: E731
