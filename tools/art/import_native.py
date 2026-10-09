@@ -55,10 +55,12 @@ SURE = 0.9                      # share of the head's pixels that must match exa
 STEADY = ("idle", "run")
 # (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
-UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "idle"), ("karma", "run")}   # kogmaw: his antennae sway in both (rig_kogmaw.py), so
+UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "idle"), ("karma", "run"),
+            ("hecarim", "run")}   # kogmaw: his antennae sway in both (rig_kogmaw.py), so
 # his top rows are no fixed head to steady on - steadied, the sway would turn into the whole body sliding
 # karma: her jade ring floats above her head in the idle (rig_karma.py's bob), the same reason; her run is steadied on
-# League's head track already (fix_karma_strips.py STEADY), which keeps League's 1-2 column sway
+# League's head track already (fix_karma_strips.py STEADY), which keeps League's 1-2 column sway; hecarim: his run is
+# steadied on the rider's eyes along League's head track (fix_hecarim_strips.py STEADY), each frame's helm his own
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
 # (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
@@ -295,7 +297,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "olaf"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "olaf", "hecarim"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
