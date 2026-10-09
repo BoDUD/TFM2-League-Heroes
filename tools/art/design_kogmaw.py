@@ -14,7 +14,8 @@ Here, as for league_rengar:
   3. whole rows and columns deleted EVENLY per part to the size the user picks (never two neighbours, never the
      face's rows and columns, the soles kept);
   4. strips.complete_outline; 5. on the 128 x 128 canvas: the soles on row 99, the middle of the feet on column 64.
-The user picked 38 rows x 43 columns (「38 行 × 43 列」, 2026-10-09; options 44 / 40 / 38 / 34): FINAL.
+The user picked 38 rows x 43 columns (「38 行 × 43 列」, 2026-10-09; options 44 / 40 / 38 / 34); after the strips and effects
+were in, 「大嘴的模型可以缩小一点」 -> 34s (34 x 41: the mouth's lower rows and the skull's right side give too) - FINAL.
 """
 import argparse
 import os
@@ -111,22 +112,30 @@ CUTS = {
     "40": ([(0, 14, 3), (36, 41, 1)], [(1, 25, 3)]),
     "38": ([(0, 14, 4), (16, 18, 1), (36, 41, 1)], [(1, 25, 4)]),
     "34": ([(0, 14, 7), (16, 18, 1), (36, 41, 2)], [(1, 25, 5)]),
+    # the user, 2026-10-09: 「大嘴的模型可以缩小一点」 - the eyes' rows (19-24) and columns (28-37, 43-46) kept, the
+    # mouth's lower rows and the skull's right side give a little too (antennae alone squashed the 34 above)
+    "36s": ([(0, 14, 4), (16, 18, 1), (26, 33, 2), (36, 41, 1)], [(1, 25, 4), (38, 42, 1)],
+            {19, 20, 21, 22, 23, 24, 42, 43}, set(range(28, 38)) | {43, 44, 45, 46}),
+    "34s": ([(0, 14, 5), (16, 18, 1), (26, 33, 3), (36, 41, 1)], [(1, 25, 5), (38, 42, 1)],
+            {19, 20, 21, 22, 23, 24, 42, 43}, set(range(28, 38)) | {43, 44, 45, 46}),
 }
 
 
-def cut(rows, row_parts, col_parts):
+def cut(rows, row_parts, col_parts, hard_rows=None, hard_cols=None):
     R.JITTER = 1
     idx = np.array([[ord(c) for c in r.ljust(len(rows[0]))] for r in rows])
     w = np.vectorize(lambda v: WEIGHT.get(chr(v), 1))(idx)
     H, W = idx.shape
     dr = []
     for lo, hi, q in row_parts:
-        dr += R.even_drop([idx[y] for y in range(H)], [w[y] for y in range(H)], lo, hi, q, HARD_ROWS | FACE_ROWS)
+        dr += R.even_drop([idx[y] for y in range(H)], [w[y] for y in range(H)], lo, hi, q,
+                          HARD_ROWS | FACE_ROWS if hard_rows is None else hard_rows)
     kr = [y for y in range(H) if y not in dr]
     sub, ws = idx[kr], w[kr]
     dc = []
     for lo, hi, q in col_parts:
-        dc += R.even_drop([sub[:, x] for x in range(W)], [ws[:, x] for x in range(W)], lo, hi, q, FACE_COLS)
+        dc += R.even_drop([sub[:, x] for x in range(W)], [ws[:, x] for x in range(W)], lo, hi, q,
+                          FACE_COLS if hard_cols is None else hard_cols)
     kc = [x for x in range(W) if x not in dc]
     return ["".join(chr(v) for v in r) for r in sub[:, kc]], dr, dc
 
@@ -143,8 +152,8 @@ def on_canvas(fig):
 def options(out_dir):
     b = base()
     figs = {}
-    for name, (rp, cp) in CUTS.items():
-        rows, dr, dc = cut(b, rp, cp)
+    for name, spec in CUTS.items():
+        rows, dr, dc = cut(b, *spec)
         fig = close_outline(to_rgba(rows))
         figs[name] = fig
         Image.fromarray(fig).save(os.path.join(out_dir, f"kogmaw_cut{name}.png"))
@@ -184,9 +193,8 @@ def read_letters(path):
     return can
 
 
-def rebuild(name="38"):
-    rp, cp = CUTS[name]
-    rows, _, _ = cut(base(), rp, cp)
+def rebuild(name="34s"):
+    rows, _, _ = cut(base(), *CUTS[name])
     return on_canvas(close_outline(to_rgba(rows)))
 
 

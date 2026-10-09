@@ -35,7 +35,7 @@ R = "<#ef5350ff>"      # crowd control, shred
 T = "<#f5f5f5ff>"      # true damage
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 0, "y": -24}, "center": {"x": 0, "y": -10}}
+VIEW = {"face": {"x": 8, "y": -23}, "center": {"x": 0, "y": -10}}
 
 
 def phy(k):

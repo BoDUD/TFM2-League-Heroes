@@ -62,13 +62,13 @@ N8 = tuple((a, b) for a in (-1, 0, 1) for b in (-1, 0, 1) if a or b)
 FEET_ROW = 95                    # the feet: rows 95-99
 MID = 64                         # the far foot left of this column, the near foot from it
 # the head piece: per row (first, last) column on the design canvas (= work/km/head_km.py)
-HEAD = {**{y: (55, 90) for y in range(62, 73)}, **{y: (62, 90) for y in range(73, 82)}}
+# (the design is the 34 x 41 cut since 「大嘴的模型可以缩小一点」, 2026-10-09; the 38-row coordinates moved with it)
+HEAD = {**{y: (55, 89) for y in range(66, 76)}, **{y: (62, 89) for y in range(76, 85)}}
 # the tail: per row (first, last) column - the bony tail from its tip (rows 82-89) to where it leaves the hip (90-91)
-TAIL = {82: (43, 47), 83: (43, 48), 84: (43, 49), 85: (44, 50), 86: (45, 50), 87: (46, 49), 88: (46, 49),
-        89: (47, 50), 90: (48, 55), 91: (49, 55)}
+TAIL = {85: (44, 48), 86: (44, 49), 87: (44, 50), 88: (45, 50), 89: (46, 50), 90: (48, 50), 91: (50, 54)}
 TAIL_ROOT_ROW = 91
-ANTENNA_ROWS = (62, 68)          # rows that hold only the antennae (above the short right one): rows shifted sway them
-MOUTH = (73.5, 87.5)             # the middle of the open mouth: where the tube leaves
+ANTENNA_ROWS = (66, 72)          # rows that hold only the antennae (above the short right one): rows shifted sway them
+MOUTH = (73.5, 88.5)             # the middle of the open mouth: where the tube leaves
 
 
 def design():
