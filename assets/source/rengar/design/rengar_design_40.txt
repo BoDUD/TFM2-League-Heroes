@@ -15,10 +15,10 @@
  73         00ajyj0y0cj0vvwwnnwvww0v000
  74         0bb0000s0bc0000twwww0ww000s0
  75        000cjsj0s0bj00PQm00000w0x00s0
- 76        0tt0jnl0s0bc0t0PQ0jj0nnnn0a00
- 77       0ttttb000s0bc0tt00v00vvwwv0jaa0
- 78     000tttt0cj0s0bjantnww0vwwwNN0i00
- 79    0f0d00ttm0b0s0c0mttvw00wwwwNw00a0
+ 76        0tt0jnl0s0bc0t0PQ0jj0nntt0a00
+ 77       0ttttb000s0bc0tt00v00vwwtn0jaa0
+ 78     000tttt0cj0s0bjantnww0vwwNNn0i00
+ 79    0f0d00ttm0b0s0c0mttvw00wwwNwn00a0
  80    000ccc0000bs0aj0mttwwmw0000000nt00
  81   0f0bbbbc0  0x0cb00mtwnww0w00w00tt000
  82   00c0000c0  0baaa0b0mm0wmwwwm00n0c0f00
