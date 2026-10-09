@@ -652,13 +652,13 @@ TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
-SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.9}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」; karma: the user 10-09 「卡尔玛体型可以变小一点」 (90% of 90/85)
+SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.95}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」; karma: 「卡尔玛体型可以变小一点」 -> 90%, then 「缩小模型后有点奇怪了啊整体」: the head is cut in fix_karma_strips.py (HEAD_CUT, the same in every frame) and only two body rows go here (0.95, the head box and the boots kept)
 # no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
 # "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
 # and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
 # every low row "knee" and the cut fell on his head
-SHRINK_KEEP = {"karma": ["!1BB663+-10,9,8,8", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
-SHRINK_KEEP_TAG = {"karma": {"dead": ["!1BB663+-3,9,8,8", "C4815A", "825238"]}, "renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
+SHRINK_KEEP = {"karma": ["!1BB663+1,9,16,10", "=222048", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP_TAG = {"karma": {"dead": ["!1BB663+3,9,16,10", "=222048", "C4815A", "825238"]}, "renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
