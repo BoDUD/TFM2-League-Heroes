@@ -1,0 +1,55 @@
+# x0 38
+ 46        0000000
+ 47       0EWggfWW0
+ 48        0ddggeWW0
+ 49         0ddgcEWW0
+ 50     00 0d0g00EEW0
+ 51    0bg0eeg0  0eW0
+ 52   0WEGeDDDe0  0W0
+ 53  0WWEdd00DE0   0
+ 54 0WWdde0  0de0
+ 550WWddde000g0d
+ 560EEccdgee00ss0
+ 570EWmmg0000ss0
+ 580EWee0  0sK00
+ 59 0WWW0   00cc0
+ 60  00WW0   0mcg0     0mm  mmm
+ 61    0WW0  0mm00     00mm0umm0
+ 62     00    0bss0    mmm0mm0gm0
+ 63           0KsKK0  000umgggTg0
+ 64           00KssK00Wd0gG0KKKK0
+ 65            0KsKTTtEw00sW0ss0
+ 66            0KstTTwwwF0Ksuuuut00
+ 67            0KKKTTEww00suuWWuTww0
+ 68             0KTTwww0cmK0Kuu0wwTT00
+ 69              0TwEEwFmcmKmcWwwFwwwT0
+ 70               0TtEw00KmcmwwwwwEETTT0
+ 71             00m0TTFbbsKss0bwtETTtK00
+ 72            0ccm00TKbbbKsbb0wTTT0ssss0        00
+ 73            0cmm000Kssbsb0sK0T0BKsssK0       0WW0
+ 74           0cmmc00 0KKs0sssKK00bKssKKs0      0EWW0
+ 75          0cc0cc0  0KsbsbsKKK0 0bKKKsss00     0EWW0
+ 76         0ccc0c0    0bKssbKk0    00Kssmcc00   0gmdW0
+ 77         0cc000    0c00ggg00c0     0KKmcccg0  0gcmW0
+ 78          0c0      0mccg0gccc0      00mccgk0 0gdccE0
+ 79           00     0ccuuggguccc0       0mgG0s00EddgE0
+ 80            0    0cc0Tmcm0T000c00      0G0s00ededdE0
+ 81                00dd0TmccTtDeW000       00K0gd0dEdg0
+ 82               00ddd0Tmcc0t0EEEed00       0gk0 0Ed00
+ 83             00ddd0d0Tmcc0t00d00EEE0       00   de0
+ 84             00dddd00tTcc0T0ddd000e0    00 0e0 0ED0
+ 85             0EE0d0000Tmc0TT0dddd00000  0W00De0dDd0
+ 86             0WD0000  0mc00T000ddd000E0 0WW0Fucg0
+ 87             0E0000    0cH00 000d0EWWE0  0WEEmmgd0
+ 88            0EDe000    0cc0   000EDDDe0  0WWEdmgBd0
+ 89            0DDeEE0     0c0    0EDDDDED0  0WEEEWgyW0
+ 90            0DDDED0     0cm0    0000eeW0  0WWWE0WW0
+ 91            0DeE0D0      0c0     0DD0eW0   00WW000
+ 92            0W0000        0       000DeE0    00
+ 93            0e00                   0000E00
+ 94             bEe0                     0DeE0
+ 95            0e0E0                     0eDee0
+ 96           0bEe00                    0b0ed00
+ 97          0bbbe0                     000dbbb
+ 98         0bbb000                     00 00bb0
+ 99         00000                           0000
