@@ -1,0 +1,335 @@
+{
+  "asset_count": 13,
+  "frame_count": 56,
+  "assets": [
+    {
+      "id": "a_hit",
+      "count": 4,
+      "actual_size": [
+        2076,
+        757
+      ],
+      "requested_size": [
+        1024,
+        288
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 181.18,
+      "brightest_10_percent_luminance": 253.51,
+      "semi_alpha_pixel_count": 237409,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "q_fly",
+      "count": 4,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1152,
+        288
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 154.59,
+      "brightest_10_percent_luminance": 253.2,
+      "semi_alpha_pixel_count": 510950,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "q_land",
+      "count": 5,
+      "actual_size": [
+        2103,
+        748
+      ],
+      "requested_size": [
+        1920,
+        256
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 98.87,
+      "brightest_10_percent_luminance": 250.29,
+      "semi_alpha_pixel_count": 317203,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "q_axe",
+      "count": 3,
+      "actual_size": [
+        1916,
+        821
+      ],
+      "requested_size": [
+        672,
+        288
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 91.99,
+      "brightest_10_percent_luminance": 248.48,
+      "semi_alpha_pixel_count": 340539,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "q_hit",
+      "count": 4,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1024,
+        256
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 187.17,
+      "brightest_10_percent_luminance": 253.07,
+      "semi_alpha_pixel_count": 265876,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.00092,
+        0.00079,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "q_slow",
+      "count": 4,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        1280,
+        128
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 184.75,
+      "brightest_10_percent_luminance": 253.0,
+      "semi_alpha_pixel_count": 203666,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "q_pick",
+      "count": 4,
+      "actual_size": [
+        2103,
+        748
+      ],
+      "requested_size": [
+        1920,
+        544
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 192.51,
+      "brightest_10_percent_luminance": 253.83,
+      "semi_alpha_pixel_count": 513793,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.00113,
+        0.00085,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "e_hit",
+      "count": 5,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        2560,
+        512
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 164.34,
+      "brightest_10_percent_luminance": 253.53,
+      "semi_alpha_pixel_count": 436626,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.00419,
+        0.00571,
+        0.00516,
+        0.0
+      ]
+    },
+    {
+      "id": "w_cast",
+      "count": 5,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        3680,
+        800
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 141.89,
+      "brightest_10_percent_luminance": 252.11,
+      "semi_alpha_pixel_count": 195592,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "w_on",
+      "count": 4,
+      "actual_size": [
+        2126,
+        740
+      ],
+      "requested_size": [
+        2944,
+        800
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 71.86,
+      "brightest_10_percent_luminance": 215.08,
+      "semi_alpha_pixel_count": 666518,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "r_cast",
+      "count": 6,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        4992,
+        864
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 136.89,
+      "brightest_10_percent_luminance": 250.7,
+      "semi_alpha_pixel_count": 281633,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "r_on",
+      "count": 4,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        2560,
+        576
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 131.04,
+      "brightest_10_percent_luminance": 250.6,
+      "semi_alpha_pixel_count": 505615,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "p_4",
+      "count": 4,
+      "actual_size": [
+        1881,
+        836
+      ],
+      "requested_size": [
+        2304,
+        704
+      ],
+      "all_frames_nonempty": true,
+      "has_transparent_background": true,
+      "has_bright_core": true,
+      "mean_core_luminance_0_255": 114.55,
+      "brightest_10_percent_luminance": 245.9,
+      "semi_alpha_pixel_count": 142566,
+      "palette_exact": false,
+      "frame_edge_content_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}
