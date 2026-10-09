@@ -171,7 +171,9 @@ PICK = "2_42"          # the user's pick (「那就2-42吧」)
 #    col 71 skin), a nose shade, plum lips, thinner brows (work/kr/edit/face_legs_kr.py option A without LEG)
 POLISH = [(69, 12, "zS"), (69, 19, "z"),
           (70, 12, "0000   000"), (71, 13, "Pw0   Pws"), (72, 13, "pPs   pPS"),
-          (73, 19, "S"), (74, 17, "PP")]
+          (73, 19, "S"), (74, 17, "PP"),
+          # 2. 「把腿上绿色的点删了吧」: the leg's one jade tattoo square becomes skin (its neighbours above and below)
+          (92, 18, "s")]
 
 
 def rebuild():
