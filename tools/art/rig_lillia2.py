@@ -180,21 +180,23 @@ def legs_layer(P, spec=None):
     for name in ("A", "C", "B", "D"):
         dx, lift = spec.get(name, (0, 0))
         m = P.legs_m[name]
-        K.put(out, leg_pose(P, m, dx, lift), 0, 0)
+        K.put(out, leg_pose(P, m, dx, lift, JOINT[name]), 0, 0)
     return out
 
 
-SHEAR_ROWS = 3
+JOINT = {"A": 93, "B": 93, "C": 92, "D": 92}     # the hock (hind) / the knee (front): where the design's legs bend
 
 
-def leg_pose(P, m, dx, lift):
-    """The leg moved whole by (dx, -lift) - every square of it kept (「腿部有点失去像素和变形」: the progressive
-    swing broke the outlined deer legs into staircases); only its top SHEAR_ROWS rows at the hip step over from the
-    body's column to dx, one whole row each."""
+def leg_pose(P, m, dx, lift, joint=93):
+    """The leg's lower part (from the joint row down) moved dx whole, the upper part in place, the whole leg lifted
+    `lift` rows: every square kept (「腿部有点失去像素和变形」, then 「还是有点断腿的感觉」 at a hip-side shear) and the one
+    step falls on the joint where the leg bends anyway."""
     leg = np.zeros_like(P.full)
+    dx = max(-2, min(2, dx))                       # a stride of two: one column at the hip, one at the joint - a
+    up = max(-1, min(1, dx))                       # jog of one square each, never a two-square break
+    low = dx - up
     for r, c in zip(*np.nonzero(m & (P.full[..., 3] > 0))):
-        k = r - LEG_TOP
-        sh = dx if k >= SHEAR_ROWS else int(round(dx * (k + 1) / (SHEAR_ROWS + 1)))
+        sh = up + (low if r >= joint else 0)
         rr, cc = r - lift, c + sh
         if 0 <= rr < 128 and 0 <= cc < 128:
             leg[rr, cc] = P.full[r, c]
