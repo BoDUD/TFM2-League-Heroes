@@ -341,7 +341,12 @@ def build(p):
                             delayed(p["e_at"] - 1, sw("f4", throw(True), throw(False)))))
 
     # ------------------------------------------------------------------ ult: R Thrill of the Hunt
+    # the camouflage: one CasterInvisible for the whole stalk AND, as league_twitch's Q does, re-applied every 6 ticks
+    # while r_on lasts - in game a single application showed him opaque (the user: 「狮子狗开大应该是隐身的 现在不隐身」;
+    # the simulator sends EntityInvisibled true/false just as for Twitch, so the client loses the one-shot state,
+    # most likely at the leap's animation) while Twitch's periodic one shows him translucent
     stalk = combine({"type": "CasterInvisible", "tick": p["r_inv"]},
+                    on_me(casted(p["r_inv"], 6, sw("r_on", {"type": "CasterInvisible", "tick": 8}))),
                     refresh("r_on", p["r_inv"], move_speed_mult=p["r_ms"]),
                     refresh("r_hunt", p["r_inv"] + 60), *rm("ready"),
                     flag("ready", None, range=p["leap_range"]), cview("r_smoke"), sfx("r"), voice("vo_r", p),

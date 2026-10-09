@@ -560,6 +560,13 @@
         "skill": "向目标所在处掷斧，沿途造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>伤害，<#ef5350ff>减速30%<>、护甲-20%。斧头插地<#ffb900ff>5秒<>，走过去捡起则冷却大幅缩短。",
         "skill2": "鲁莽挥击，造成<#f5f5f5ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>90%<><#f5f5f5ff>真实伤害<>，自己承受其中30%；击杀则返还。",
         "ult": "<#ef5350ff>免疫控制<>，攻击力+30%、移速+20%，持续<#ffb900ff>3秒<>；攻击英雄时延续（最多<#ffb900ff>10秒<>）。<#ff9028ff>连招<>：R冲入→E→捡斧再投。"
+      },
+      "league_karma": {
+        "name": "卡尔玛",
+        "attack": "射出灵能飞弹。<#ff9028ff>聚能之炎<>：技能命中英雄，梵咒冷却最多缩短<#ffb900ff>60%<>。<#ff9028ff>鼓舞<>（自动，<#ffb900ff>9秒<>）：给被控或交战中的队友（或自己）<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>护盾<>，移速+<#ffb900ff>35%<>。",
+        "skill": "射出灵火，命中首个敌人爆炸，周围敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速35%<>。<#ff9028ff>灵光闪耀<>（梵咒）：额外<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>伤害并留下火环，<#ffb900ff>1.5秒<>后爆发造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>伤害、<#ef5350ff>减速50%<>。",
+        "skill2": "连住敌方英雄，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>；<#ffb900ff>1.33秒<>未挣脱则再次受伤并<#ef5350ff>禁锢1.67秒<>。<#ff9028ff>焕发<>（梵咒，被围攻时）：回复<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>生命，<#ef5350ff>禁锢2.33秒<>。<#ff9028ff>连招<>：禁锢时梵咒Q随即跟上。",
+        "ult": "强化<#ffb900ff>6秒<>内的下一个技能：队友危险时立即<#ff9028ff>蔑视<>（附近队友都获得<#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<><#9fd8ffff>护盾<>和加速），否则强化Q或被围攻时的W。未使用则返还冷却。"
       }
     },
     "skill_name": {
@@ -962,6 +969,11 @@
         "skill1": "逆流投掷",
         "skill2": "鲁莽挥击",
         "ult": "诸神黄昏"
+      },
+      "league_karma": {
+        "skill1": "心灵烈焰",
+        "skill2": "坚定不移",
+        "ult": "梵咒"
       }
     }
   },
@@ -1526,6 +1538,13 @@
         "skill": "向目標所在處擲斧，沿途造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>傷害，<#ef5350ff>緩速30%<>、護甲-20%。斧頭插地<#ffb900ff>5秒<>，走過去撿起則冷卻大幅縮短。",
         "skill2": "魯莽揮擊，造成<#f5f5f5ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>90%<><#f5f5f5ff>真實傷害<>，自己承受其中30%；擊殺則返還。",
         "ult": "<#ef5350ff>免疫控場<>，攻擊力+30%、移速+20%，持續<#ffb900ff>3秒<>；攻擊英雄時延續（最多<#ffb900ff>10秒<>）。<#ff9028ff>連招<>：R衝入→E→撿斧再擲。"
+      },
+      "league_karma": {
+        "name": "卡瑪",
+        "attack": "射出靈能飛彈。<#ff9028ff>炎靈融合<>：技能命中英雄，真言符印冷卻最多縮短<#ffb900ff>60%<>。<#ff9028ff>靈能啟示<>（自動，<#ffb900ff>9秒<>）：給被控或交戰中的隊友（或自己）<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>護盾<>，跑速+<#ffb900ff>35%<>。",
+        "skill": "射出靈火，命中首個敵人爆炸，周圍敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速35%<>。<#ff9028ff>真言加持<>：額外<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>傷害並留下火環，<#ffb900ff>1.5秒<>後爆發造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>傷害、<#ef5350ff>緩速50%<>。",
+        "skill2": "連住敵方英雄，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>；<#ffb900ff>1.33秒<>未掙脫則再次受傷並<#ef5350ff>定身1.67秒<>。<#ff9028ff>真言加持<>（被圍攻時）：回復<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>生命，<#ef5350ff>定身2.33秒<>。<#ff9028ff>連招<>：定身時真言Q隨即跟上。",
+        "ult": "強化<#ffb900ff>6秒<>內的下一項技能：隊友危險時立即強化靈能啟示（附近隊友都獲得<#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<><#9fd8ffff>護盾<>和跑速），否則強化Q或被圍攻時的W。未使用則返還冷卻。"
       }
     },
     "skill_name": {
@@ -1928,6 +1947,11 @@
         "skill1": "逆流投擲",
         "skill2": "魯莽揮擊",
         "ult": "諸神黃昏"
+      },
+      "league_karma": {
+        "skill1": "輪迴怒火",
+        "skill2": "特化鏈結",
+        "ult": "真言符印"
       }
     }
   },
@@ -2492,6 +2516,13 @@
         "skill": "Throws an axe at the target's spot: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> to every enemy on the way, <#ef5350ff>slowed 30%<>, armour -20%. The axe stays <#ffb900ff>5s<>; walking over it picks it up and cuts the cooldown short.",
         "skill2": "A reckless blow for <#f5f5f5ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>90%<><#f5f5f5ff> true damage<>; he takes 30% of it himself, refunded on a kill.",
         "ult": "<#ef5350ff>Immune to crowd control<>, +30% attack and +20% move speed for <#ffb900ff>3s<>; hitting champions keeps it going (up to <#ffb900ff>10s<>). <#ff9028ff>Combo<>: R in, E, pick up the axe, throw again."
+      },
+      "league_karma": {
+        "name": "Karma",
+        "attack": "Fires a spirit bolt. <#ff9028ff>Gathering Fire<>: spell hits on champions cut Mantra's cooldown by up to <#ffb900ff>60%<>. <#ff9028ff>Inspire<> (automatic, <#ffb900ff>9s<>): an ally in crowd control or in a fight (or Karma) gets a <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<> <#9fd8ffff>shield<> and <#ffb900ff>+35%<> move speed.",
+        "skill": "Fires a spirit flame that bursts on the first enemy hit: enemies around take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed by 35%<>. <#ff9028ff>Soulflare<> (Mantra): <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> more and a circle of flame that blows <#ffb900ff>1.5s<> later for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, <#ef5350ff>slowing 50%<>.",
+        "skill2": "Tethers an enemy champion for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; unbroken for <#ffb900ff>1.33s<> it deals the damage again and <#ef5350ff>roots for 1.67s<>. <#ff9028ff>Renewal<> (Mantra, when crowded): heals <#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<> and <#ef5350ff>roots for 2.33s<>. <#ff9028ff>Combo<>: a root is followed by a Soulflare.",
+        "ult": "Empowers her next spell within <#ffb900ff>6s<>: with an ally in danger, <#ff9028ff>Defiance<> at once (allies around him get a <#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<> <#9fd8ffff>shield<> and the haste); else the next Q, or W when crowded. Unused, the cooldown comes back."
       }
     },
     "skill_name": {
@@ -2894,6 +2925,11 @@
         "skill1": "Undertow",
         "skill2": "Reckless Swing",
         "ult": "Ragnarok"
+      },
+      "league_karma": {
+        "skill1": "Inner Flame",
+        "skill2": "Focused Resolve",
+        "ult": "Mantra"
       }
     }
   },
@@ -3458,6 +3494,13 @@
         "skill": "대상 위치로 도끼를 던져 지나는 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 피해, <#ef5350ff>30% 둔화<>, 방어력 -20%. 도끼는 <#ffb900ff>5초<> 꽂혀 있고, 주우면 재사용 대기시간이 크게 줄어듦.",
         "skill2": "무모한 강타로 <#f5f5f5ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>90%<><#f5f5f5ff> 고정 피해<>, 자신도 그 30%를 받음; 처치 시 돌려받음.",
         "ult": "<#ef5350ff>군중 제어 면역<>, 공격력 +30%, 이동 속도 +20%, <#ffb900ff>3초<>; 챔피언 공격 시 연장(최대 <#ffb900ff>10초<>). <#ff9028ff>연계<>: R 돌진→E→도끼 줍고 재투척."
+      },
+      "league_karma": {
+        "name": "카르마",
+        "attack": "영혼의 탄을 쏩니다. <#ff9028ff>열정 응집<>: 스킬이 챔피언에게 맞으면 만트라 재사용 대기시간이 최대 <#ffb900ff>60%<> 줄어듭니다. <#ff9028ff>고무<>(자동, <#ffb900ff>9초<>): 군중 제어에 걸렸거나 교전 중인 아군(또는 카르마)에게 <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>의 <#9fd8ffff>보호막<>과 이동 속도 <#ffb900ff>+35%<>.",
+        "skill": "영혼의 불꽃을 쏘아 처음 맞힌 적에게서 터뜨려 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>35% 둔화<>. <#ff9028ff>만트라<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 추가 피해와 불꽃 원을 남기고, <#ffb900ff>1.5초<> 뒤 터져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 피해와 <#ef5350ff>50% 둔화<>.",
+        "skill2": "적 챔피언과 연결해 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>; <#ffb900ff>1.33초<> 동안 끊어지지 않으면 피해를 다시 입히고 <#ef5350ff>1.67초 속박<>. <#ff9028ff>만트라<>(포위됐을 때): <#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>의 체력 회복, <#ef5350ff>2.33초 속박<>. <#ff9028ff>연계<>: 속박되면 강화된 Q가 이어서 나감.",
+        "ult": "<#ffb900ff>6초<> 안에 쓰는 다음 스킬을 강화합니다: 아군이 위험하면 바로 강화된 고무(주변 아군 모두 <#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<>의 <#9fd8ffff>보호막<>과 이동 속도), 아니면 다음 Q나 포위됐을 때의 W. 쓰지 않으면 재사용 대기시간을 돌려받습니다."
       }
     },
     "skill_name": {
@@ -3860,6 +3903,11 @@
         "skill1": "역류",
         "skill2": "무모한 강타",
         "ult": "라그나로크"
+      },
+      "league_karma": {
+        "skill1": "내면의 열정",
+        "skill2": "굳은 결의",
+        "ult": "만트라"
       }
     }
   },
@@ -4424,6 +4472,13 @@
         "skill": "対象の位置へ斧を投げ、通過した敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>、<#ef5350ff>30%スロウ<>、物防-20%。斧は<#ffb900ff>5秒<>地面に残り、拾うとクールダウンが大きく短縮。",
         "skill2": "捨て身の一撃で<#f5f5f5ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>90%<><#f5f5f5ff>確定ダメージ<>、自身もその30%を受ける；倒せば返還。",
         "ult": "<#ef5350ff>行動妨害無効<>、攻撃力+30%、移動速度+20%、<#ffb900ff>3秒<>；チャンピオンを攻撃すると延長（最大<#ffb900ff>10秒<>）。<#ff9028ff>コンボ<>：Rで突入→E→斧を拾って再投擲。"
+      },
+      "league_karma": {
+        "name": "カルマ",
+        "attack": "霊弾を撃つ。<#ff9028ff>寄せ火<>：スキルがチャンピオンに当たるとマントラのクールダウンが最大<#ffb900ff>60%<>短縮。<#ff9028ff>激励<>（自動、<#ffb900ff>9秒<>）：行動妨害中か交戦中の味方（または自身）に<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>の<#9fd8ffff>シールド<>と移動速度<#ffb900ff>+35%<>。",
+        "skill": "霊炎を放ち最初の敵で炸裂、周囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>35%スロウ<>。<#ff9028ff>マントラ<>：追加<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>、炎の輪が<#ffb900ff>1.5秒<>後に爆発し<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>と<#ef5350ff>50%スロウ<>。",
+        "skill2": "敵チャンピオンと鎖で繋ぎ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>1.33秒<>切れなければ再度ダメージと<#ef5350ff>1.67秒スネア<>。<#ff9028ff>マントラ<>（囲まれた時）：<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>回復、<#ef5350ff>2.33秒スネア<>。<#ff9028ff>コンボ<>：スネアに強化Qが続く。",
+        "ult": "<#ffb900ff>6秒<>以内の次のスキルを強化：味方が危険なら即座に強化激励（周囲の味方にも<#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<>の<#9fd8ffff>シールド<>と移動速度）、それ以外は次のQか囲まれた時のW。使わなければクールダウンが戻る。"
       }
     },
     "skill_name": {
@@ -4826,6 +4881,11 @@
         "skill1": "斧投げ",
         "skill2": "捨て身切り",
         "ult": "ラグナロク"
+      },
+      "league_karma": {
+        "skill1": "心炎",
+        "skill2": "魂縛",
+        "ult": "マントラ"
       }
     }
   }
