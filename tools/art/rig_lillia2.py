@@ -55,6 +55,7 @@ GRIP = (72.5, 73.5)                    # between her hands on the shaft
 SHAFT_UP = (TOP_JOINT[0] - GRIP[0], TOP_JOINT[1] - GRIP[1])          # from the grip to the top's joint (design pose)
 SHAFT_DOWN = 5.0                       # squares of shaft below the grip
 MIDDLE = (64.0, 90.0)                  # a lean's pivot: the middle of the body
+HEAD_BOX = (54, 69, 56, 72)            # rows, columns: the bud, the hair and the face - pasted back whole after a lean
 HIND_HOOVES = (56.0, 98.0)             # a rear's / the fall's pivot
 N4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
 N8 = tuple((a, b) for a in (-1, 0, 1) for b in (-1, 0, 1) if a or b)
@@ -250,6 +251,8 @@ def frame(P, bough=None, tilt=0.0, pivot=MIDDLE, move=(0, 0), legs=None, sink=0,
         up = P.upper.copy()
         K.put(up, bough_layer(P, deg, slide), 0, 0)
     up = turned(up, tilt, pivot, (move[0], move[1] + sink))
+    if tilt:                                       # the face never resampled (「眼睛位置对吗 大招的时候」): the design's
+        up = paste_head(P, up, tilt, pivot, (move[0], move[1] + sink))   # head goes back whole where the turn put it
     low = legs_layer(P, legs)
     if move != (0, 0):
         low = K.shifted(low, int(move[0]), int(move[1]))
@@ -259,6 +262,31 @@ def frame(P, bough=None, tilt=0.0, pivot=MIDDLE, move=(0, 0), legs=None, sink=0,
     K.put(out, up, 0, 0)
     out[SOLES + 1:] = 0
     return finish(P, out, move)
+
+
+def turn_point(q, pivot, deg):
+    th = math.radians(deg)
+    dx, dy = q[0] - pivot[0], q[1] - pivot[1]
+    return (pivot[0] + dx * math.cos(th) + dy * math.sin(th), pivot[1] - dx * math.sin(th) + dy * math.cos(th))
+
+
+def paste_head(P, up, tilt, pivot, move):
+    r0, r1, c0, c1 = HEAD_BOX
+    head = np.zeros_like(P.full)
+    head[r0:r1 + 1, c0:c1 + 1] = P.body[r0:r1 + 1, c0:c1 + 1]
+    cx, cy = (c0 + c1 + 1) / 2.0, (r0 + r1 + 1) / 2.0
+    tx, ty = turn_point((cx, cy), pivot, tilt)
+    dx, dy = int(round(tx - cx + move[0])), int(round(ty - cy + move[1]))
+    # the turned head's squares cleared first (its resampled remains would show round the pasted one)
+    turned_head = np.zeros_like(P.full)
+    turned_head[r0:r1 + 1, c0:c1 + 1] = 255
+    th = K.Part.from_canvas(turned_head, turned_head[..., 3] > 0, pivot)
+    wipe = np.zeros_like(P.full)
+    K.place(wipe, K.turn(th, tilt), (pivot[0] + move[0], pivot[1] + move[1]))
+    out = up.copy()
+    out[wipe[..., 3] > 0] = 0
+    K.put(out, K.shifted(head, dx, dy), 0, 0)
+    return out
 
 
 def finish(P, a, move=(0, 0)):
