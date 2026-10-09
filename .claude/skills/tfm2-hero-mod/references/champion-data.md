@@ -1395,6 +1395,7 @@ a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change
 league_vladimir (top, 2026-10-08): slows only (Tides of Blood, Sanguine Pool) - not the crowd control R reads, not simulated.
 league_rengar (jungle, --lane 1, 2026-10-09, the empowered Bola's 1.75 s root and the leap combo's 1 s root): 1.17 a
 game; the base ninja 0.58 and league_khazix 0.35 in the same batch - no change.
+league_zed (mid, 2026-10-09): slows only (Shadow Slash) - not the crowd control R reads, not simulated.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
 Skewer's pull): 1.88 a game; league_thresh 1.40 and league_leona 2.33 in the same batch - no change.
 league_seraphine (support, --lane 4, 2026-10-07, Beat Drop's 0.75 s root from the echoed wave and stun on the crowd-
@@ -3819,6 +3820,25 @@ death. First sight: each action marks the enemy champions near it (`league_khazi
 a life. A teamfight kill of someone else in the 1-second window counts too - fine for an easter egg.
 
 **Something that happens when he dies (league_kogmaw passive, Icathian Surprise).** No data effect runs on a death. Each life's first action (a `Permanent` caster flag death clears) starts a whole-game `AddCasted` on him (period P) that lobs a hidden `ParabolicProjectile` onto himself (`applied_target: AllyOnlySelf`, no applied effects) flying P + 1 ticks; its `end_effects` ask `RandomTarget {range: 1, casting_target: AllyOnlySelf}` for a 1-tick flag (no dead caster is found) and, without it, start the death effect. The `AddCasted` stops with him, so exactly one lob in the air finds him dead; travel P (not P + 1) missed the deaths on the landing tick (the check ran before the death, 6 of 14 lost), P + 1 caught 14 of 14 with no double. A burst where he fell hit nobody: a ranged hero dies 20000-150000 from the enemies. The void form is a visible `TargetProjectile` (1800 a tick) plus a hidden `TargetSplashProjectile` at the same speed for the burst (league_jinx's rocket), both in a `RandomTarget {EnemyChampion, from_projectile: true}` within 70000 of the landing: projectiles started from another projectile's `end_effects` spawn after the caster's death, also in the SDK (12 of 14 reached a champion and burst; the two lost ones were out of sight when they arrived).
+
+**A shadow that copies the combo (league_zed W, Living Shadow).** Every projectile leaves from the caster, and a zone's
+applied effects cannot start anything at the zone's point (measured 2026-10-09 with work/zd/test_echo.py: a
+`BackToCasterLinearProjectile` and a `RangeProjectile` in the applications of a `RangePeriodProjectile` on `AllyOnlySelf`
+never spawned; a lob there left from the caster). Only a projectile's own `end_effects` act at its point, and a `Delayed`
+among them keeps the point. So the shadow is a hidden lob (`travel_time` 4) onto the champion's spot: its `end_effects`
+hold the picture's pieces, the copies of the same cast's slash (a zone on the spot) and shuriken (a
+`BackToCasterLinearProjectile` from the spot back to Zed, through the champion standing on it), each gated by a 3-tick
+flag his own slash / shuriken set a tick before, and the checkpoints of the swap (`Teleport`). The user then asked for League's shadow (「你可以增加节点 实现成原样的」): every later Q / E is copied at the
+next checkpoint, a `Delayed` every 12 ticks (W) / 6 ticks (R); his slash and shuriken set the shadow's flag for
+exactly one step, so exactly one checkpoint copies each and nothing has to spend it; the combo's own copies use
+their own flags (`ec_echo`, `qc_echo`). W's tree is 593 nodes (the engine copies it every tick); the R shadow's
+checkpoints sit in the ult's tree, which it does not copy. In the SDK 56 of 58 later shurikens and 55 of 58 slashes
+were copied, most within a tick, the last 12 ticks late.
+
+**Slots whose cooldown is a flag cost the AI's walk (league_zed draft, 2026-10-09).** W and Q started as 60-tick slots
+with their real cooldowns in caster flags (empty branches while a flag ran, league_leblanc's way): the AI cast the
+ready slot every second, walked at the enemy champion to cast W, farmed 58 attacks a game and went -3.8. Give a slot
+its real `cooltime`; keep a flag only where another action must know it (Q's slot under the mark with W ready).
 
 ## 8. Gotchas
 

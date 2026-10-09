@@ -1,0 +1,23 @@
+{
+  "a_hit": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "cw_hit": {"cell": [21, 21], "anchor": [10, 10], "frames": 5},
+  "cw_ready": {"cell": [13, 13], "anchor": [6, 6], "frames": 4},
+  "q_star": {"cell": [37, 15], "anchor": [18, 7], "frames": 4},
+  "sh_star": {"cell": [37, 15], "anchor": [18, 7], "frames": 4},
+  "q_hit": {"cell": [21, 17], "anchor": [10, 8], "frames": 4},
+  "e_spin": {"cell": [51, 29], "anchor": [25, 14], "frames": 5},
+  "sh_spin": {"cell": [51, 31], "anchor": [25, 15], "frames": 5},
+  "e_hit": {"cell": [17, 9], "anchor": [8, 4], "frames": 3},
+  "e_slow": {"cell": [19, 17], "anchor": [9, 8], "frames": 4},
+  "w_dash": {"cell": [19, 19], "anchor": [9, 9], "frames": 4},
+  "sh_in": {"cell": [31, 87], "anchor": [15, 43], "frames": 5},
+  "sh_stand": {"cell": [37, 87], "anchor": [18, 43], "frames": 4},
+  "sh_throw": {"cell": [23, 25], "anchor": [11, 12], "frames": 3},
+  "sh_out": {"cell": [33, 87], "anchor": [16, 43], "frames": 4},
+  "w_swap": {"cell": [41, 83], "anchor": [20, 41], "frames": 5},
+  "r_hit": {"cell": [25, 27], "anchor": [12, 13], "frames": 5},
+  "r_mark": {"cell": [19, 19], "anchor": [9, 9], "frames": 4},
+  "r_pop": {"cell": [55, 51], "anchor": [27, 25], "frames": 6},
+  "sh_q": {"cell": [35, 89], "anchor": [17, 44], "frames": 3},
+  "sh_e": {"cell": [71, 87], "anchor": [35, 43], "frames": 3}
+}

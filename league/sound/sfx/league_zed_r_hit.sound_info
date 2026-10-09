@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_zed_sfx_r_hit",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_zed_sfx_r_mark",
+      "volume": 0.45
+    }
+  ]
+}

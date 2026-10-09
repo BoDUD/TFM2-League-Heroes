@@ -1,0 +1,288 @@
+{
+ "hero": "zed",
+ "champ": "Zed",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  112,
+  96,
+  14
+ ],
+ "design": "Zed_idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Zed_idle1@0",
+     200
+    ],
+    [
+     "Zed_idle1@0",
+     200
+    ],
+    [
+     "Zed_idle1@0",
+     200
+    ],
+    [
+     "Zed_idle1@0",
+     200
+    ],
+    [
+     "Zed_idle1@0",
+     200
+    ],
+    [
+     "Zed_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "Zed_idle1@0",
+   "frames": [
+    [
+     "Zed_run@0",
+     120
+    ],
+    [
+     "Zed_run@121",
+     120
+    ],
+    [
+     "Zed_run@242",
+     120
+    ],
+    [
+     "Zed_run@363",
+     120
+    ],
+    [
+     "Zed_run@484",
+     120
+    ],
+    [
+     "Zed_run@605",
+     120
+    ],
+    [
+     "Zed_run@726",
+     120
+    ],
+    [
+     "Zed_run@847",
+     120
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "Zed_idle1@0>Zed_attack1@90:0.6",
+     60
+    ],
+    [
+     "Zed_attack1@180",
+     50
+    ],
+    [
+     "Zed_attack1@270",
+     40
+    ],
+    [
+     "Zed_attack1@360",
+     80
+    ],
+    [
+     "Zed_attack1@540",
+     100
+    ],
+    [
+     "Zed_attack1@810>Zed_idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "Zed_idle1@0>Zed_spell2_cast@110:0.5",
+     50
+    ],
+    [
+     "Zed_spell2_cast@274",
+     60
+    ],
+    [
+     "Zed_spell2_cast@384",
+     80
+    ],
+    [
+     "Zed_spell2_cast@494>Zed_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "Zed_idle1@0>Zed_spell1@90:0.6",
+     60
+    ],
+    [
+     "Zed_spell1@180",
+     50
+    ],
+    [
+     "Zed_spell1@230",
+     60
+    ],
+    [
+     "Zed_spell1@300",
+     80
+    ],
+    [
+     "Zed_spell1@450",
+     100
+    ],
+    [
+     "Zed_spell1@700>Zed_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "skill_e": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Zed_idle1@0>Zed_spell3@140:0.6",
+     50
+    ],
+    [
+     "Zed_spell3@280",
+     40
+    ],
+    [
+     "Zed_spell3@350",
+     43
+    ],
+    [
+     "Zed_spell3@420",
+     70
+    ],
+    [
+     "Zed_spell3@490",
+     70
+    ],
+    [
+     "Zed_spell3@630>Zed_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "Zed_idle1@0>Zed_spell4_leadin@0:0.6",
+     50
+    ],
+    [
+     "Zed_spell4_leadin@160",
+     50
+    ],
+    [
+     "Zed_spell4_strike@0",
+     80
+    ],
+    [
+     "Zed_spell4_strike@180",
+     80
+    ],
+    [
+     "Zed_spell4_strike@360",
+     80
+    ],
+    [
+     "Zed_spell4_strike@450",
+     90
+    ],
+    [
+     "Zed_spell4_strike@630>Zed_idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Zed_idle1@0>Zed_death@200:0.35",
+     120
+    ],
+    [
+     "Zed_idle1@0>Zed_death@200:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.2,
+   "frames": [
+    [
+     "Zed_death@0",
+     100
+    ],
+    [
+     "Zed_death@200",
+     100
+    ],
+    [
+     "Zed_death@400",
+     120
+    ],
+    [
+     "Zed_death@1000",
+     150
+    ],
+    [
+     "Zed_death@2200",
+     200
+    ],
+    [
+     "Zed_death@4300",
+     150
+    ],
+    [
+     "Zed_death@4500",
+     150
+    ],
+    [
+     "Zed_death@4500",
+     500
+    ]
+   ]
+  }
+ }
+}
