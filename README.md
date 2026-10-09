@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -147,6 +147,8 @@
 ![克格莫演示：他吐出一团绿色酸液打德莱厄斯，生化弹幕自动开启：身上一圈绿光爆开，脚下亮起绿色电弧圈；开 W 接 Q：一大口黄绿色腐蚀唾液，德莱厄斯身上滋滋冒酸泡（护甲魔抗被腐蚀）；再吐两口酸液；E 虚空淤泥：紫色淤泥穿过德莱厄斯和盖伦，地上留下一长条紫色淤泥带，两人脚下黏着淤泥减速，紧接着一发活体大炮落在德莱厄斯身上；R：他后腿站起、嘴管朝天，盖伦脚下出现黄绿警告圈，酸液炮弹从天上落下炸开，连发两炮；最后他倒下，尸体上冲起紫色虚空光柱，虚空分身飞向德莱厄斯，追上后炸开，盖伦也被波及](docs/preview/league_kogmaw_showcase.gif?v=3)
 
 ![劫演示：W 甩出影子落到德莱厄斯脚下，劫和影子同时旋身鬼斩（影子展臂旋斩），两枚手里剑一枚从劫、一枚从影子飞出（影子举刃甩出），在德莱厄斯身上交汇；德莱厄斯后退，影子站在原地；他换位到影子那里，补一刀打出暗红的灭魂劫；后撤开大：原地留下影子，他冲过德莱厄斯，德莱厄斯头顶挂上红色死亡印记，劫接着刺、旋斩，影子跟着旋斩，3 秒后印记炸开，他换回影子](docs/preview/league_zed_showcase.gif?v=1009poses)
+
+![卡尔玛演示：她掌心射出一道翠绿灵弹打德莱厄斯，鼓舞自动给自己套上翠绿护盾、脚下生风；Q 心灵烈焰：带粉色火舌的灵火撞上德莱厄斯炸开，脚下一圈小灵火减速；W 坚定不移：一道光束射中他，腰间亮起灵光，连线一节节流回她身边，1.3 秒后灵光锁扣紧把他定住；她双手合十开梵咒，身边绕起灵光，定身接灵光闪耀：更大的灵火炸开，地上留下灵火圈，1.5 秒后整圈爆发](docs/preview/league_karma_showcase.gif)
 
 ## 英雄：盖伦
 
@@ -3402,6 +3404,45 @@ python tools/art/import_zed.py          # 特效；--raw assets/source/zed/codex
 - 红色方：两枚手里剑严格上下对称；其余命中、地面圈、头顶标记、影子人形（从正面画，包括它的出手）严格左右对称，不需要画进动作帧；R 留下的影子画在落点上，不再跟着施法者。
 
 逐帧预览：[`docs/preview/league_zed_frames.png`](docs/preview/league_zed_frames.png)，特效：[`docs/preview/league_zed_effects.png`](docs/preview/league_zed_effects.png)。
+
+## 英雄：卡尔玛
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 辅助（功能型，分类 Util），第 80 位英雄。天启者 卡尔玛：灵火、连线定身、护盾，梵咒强化下一个技能。用户选辅助、完整还原 + 高手连招 |
+| 普攻 / 被动 | 掌心射出追踪的灵能飞弹，射程 55000，攻击间隔 90 tick，第 11 tick 出手。被动「聚能之炎」：英雄联盟里技能命中英雄缩短梵咒冷却；数据只能给冷却设上限（`ult_cooldown_mult`），所以命中英雄一次爬一级（最多 5 级），每级把梵咒剩余冷却压到冷却的 88% / 76% / … / 40% |
+| 鼓舞（自动） | E「鼓舞」没有技能位，冷却 540 tick（9 秒）：每次普攻、Q、W、R 后检查——先给 50000 内被控制的友方英雄，再给身边 55000 内有敌方英雄的一名队友（璐璐大招的探测写法），最后给被敌方英雄贴身（40000）的自己：110 + 50% 法强护盾 2.5 秒、移速 +35% 1.5 秒 |
+| 技能1 | Q「心灵烈焰」：冷却 360 tick（6 秒），射程 62000，也对小兵和野怪放（`Direction`，出手时锁定方向，躲得开）。灵火速度 5500、长 70000，碰到第一个敌人或飞到尽头时爆开：半径 14000 内 100 + 70% 法强魔法伤害、减速 35% 1.5 秒。**梵咒 → 灵光闪耀**：爆开多 50 + 30%，地上留下半径 20000 的火环，90 tick 后爆发 70 + 50%、减速 50% 1 秒 |
+| 技能2 | W「坚定不移」：冷却 420 tick（7 秒），射程 60000，只对敌方英雄放（英雄联盟的 W 不能连小兵：改前 22 次里 16 次连在小兵上）。60 + 40% 法强，连线 80 tick 内她留在 80000 内就再造成一次伤害并禁锢 100 tick（乐芙兰 E 的连线写法：连线是一节节从目标飞回她的光段）。**梵咒 → 焕发**：她身边 35000 内有两名敌方英雄时，立刻回复 110 + 40% 法强生命，禁锢延长到 140 tick |
+| 大招 | R「梵咒」：冷却 2100 tick（35 秒），交战时放，强化 6 秒内的下一个技能：队友危险（被控或被贴身）时立即 **蔑视**（被保护的队友周围 30000 内的友方英雄都加 60 + 30% 法强护盾和加速），否则下一个 Q 变灵光闪耀、被围攻时的 W 变焕发；6 秒内没用掉就返还冷却（璐璐大招的写法） |
+| 高手连招 | **连线护体（W → E）**：连线连上英雄且鼓舞就绪时立刻给自己套盾加速（保留梵咒给下一个技能）；**定身接灵光闪耀（W → RQ）**：禁锢落下时梵咒和 Q 都就绪，就朝被定住的英雄扔灵光闪耀（抛物线落点锁定，必中）；**梵咒救人（RE）**：队友被控或被贴身时梵咒直接变蔑视 |
+| 数值 | 攻击 90（+6）、法强 32（+15）、生命 1000（+92）、护甲 22（+7）、魔抗 24（+4）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：辅助，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），3 套阵容、两边各打，10 分钟。初稿 −3.38：鼓舞从没放出来（检查距离太短，ADC 站得比 30000 远）、W 多半连在小兵上；鼓舞检查放宽、W 只连英雄 7 秒一次、射程 60000、禁锢 1 → 1.67 秒、攻击 76 → 90、生命 900 → 1000 后：种子 1–12 +0.71、25–36 +0.08（同期璐璐 +1.00、娜美 +0.96、迦娜 +0.62） |
+| 亚索联动 | 卡尔玛只有减速和禁锢，没有击飞，亚索大招不受影响，不用调 |
+| 精灵图 | 9 个动作 52 帧：待机 6（玉环和骨翅上下浮动）、移动 8（英雄联盟原版 1 秒一圈）、普攻 6、Q（`skill`）6、W（`skill2`）6、E（`skill_e`）5、R（`ult`）5、受击 2、死亡 8。高 38 px（含玉环），24 色：用户「卡尔玛体型可以变小一点」，在 90% / 85% 里选了 90%（`import_native.py` 的 SHRINK：整行整列删、不重采样，眼睛到下巴和手不删）。头像截取点 (1, −31)（发顶，不是浮着的玉环），选人卡片 −10 |
+| 特效 | Codex 生图的 24 张，按游戏尺寸交付（`import_karma.py` 按锚点摆放、按技能时长定帧）：`league_karma_fx` 灵弹和命中、灵火 / 灵光闪耀火球（带粉色火舌）、Q 命中和减速、W 光束头、连线光段、命中、腰间灵光、锁扣、定身光环、焕发治疗光、鼓舞护盾罩上 / 护盾 / 加速、梵咒开启和准备中的光环；`league_karma_big` Q 和灵光闪耀的爆开、地上火环和整圈爆发、蔑视扩散的灵光圈。配色照英雄联盟的技能图标：翡翠青绿灵光 + 白芯，Q 带洋红粉色火舌。飞行的上下对称，其余左右对称 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_karma.py`）：灵弹出手和命中、Q 出手 / 爆开、灵光闪耀爆开 / 火环、W 出手 / 禁锢、E 出手、蔑视、R；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64；E 自动，没有技能位 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_karma.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_karma.py         # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_karma.py --face 1,-31 --banpick -10   # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/design_karma.py --rebuild --final   # 造型：Codex 原稿按格读回、删到 42 行，加上脸和眼睛的修改
+python tools/art/fix_karma_strips.py    # 动作：Codex 照英雄联盟原版整人重画的动作条 + 定稿的头
+python tools/art/import_native.py --hero karma   # 也把她缩到 90%
+python tools/art/import_karma.py        # 特效
+```
+
+美术（动作的提示词见 [`assets/source/karma/MODEL_STRIPS_v2.md`](assets/source/karma/MODEL_STRIPS_v2.md)，特效的见 [`PROMPTS_FX.md`](assets/source/karma/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/karma/codex_model/)、[`codex_strips_v2/`](assets/source/karma/codex_strips_v2/)、[`codex_fx/`](assets/source/karma/codex_fx/)）：
+
+- 原画：Codex 画了待机（A）和 Q 推掌（B）两版，用户：「选A」。
+- 造型：Codex 的生图原稿按格读回，给了几档尺寸，用户：「那就2-42吧」；眼睛先换成 A，后来又照莎弥拉的眼睛做得更有特色（睫毛、眼线上挑、高光、泪痕），腿上的翡翠点按用户的话删掉。
+- 动作：第一版是 Codex 把头贴在身体上、身体另画，跑步时头不动身体晃（用户：「头和身体移动时还是脱节的啊」）；改成用造型零件重摆后只有手臂在动（用户：「你好好修吧 这像英雄联盟里面的吗」）。最后让 Codex 照英雄联盟原版每帧的姿势把整个人一起画（第二版提示词按原版骨骼量了每帧的腿、胯、身体、手：Q 大弓步双掌前推、W 前俯身再伸掌、E 单手直举、R 交叉站合十、跑步原版 1 秒一圈），`fix_karma_strips.py` 再在 Codex 画头的位置换上定稿的头（新眼睛）、把举过头的手臂放回头前、把 Q 前腿的深蓝长袜改回光腿、把跑步按原版头的轨迹稳住（Codex 让身体绕着脚左右晃了 12 格）、固定死亡时掉在地上的玉环。用户：「完美」。
+- 特效：Codex 第 3 步的 24 张，已是游戏尺寸，不再缩放。
+
+逐帧预览：[`docs/preview/league_karma_frames.png`](docs/preview/league_karma_frames.png)，特效：[`docs/preview/league_karma_effects.png`](docs/preview/league_karma_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
