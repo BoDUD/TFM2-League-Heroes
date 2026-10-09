@@ -229,10 +229,10 @@ def build(p):
     # ------------------------------------------------------------------ passive: Icathian Surprise
     # the void form: a visible homing form at a champion near the body, and a hidden splash beside it at the same
     # speed for the burst (league_jinx's rocket: a projectile cannot start a zone from its hit)
-    burst = [true_dmg(p["p_dmg"], p["p_ratio"]), view("p_hit"), tsfx("p_hit")]
+    burst = [true_dmg(p["p_dmg"], p["p_ratio"]), view("p_hit")]
     splash = {"type": "TargetSplashProjectile", "name": n("p_burst"), "speed": p["p_speed"], "range": p["p_r"],
               "y_offset": 5000, "applied_target": "EnemyWithoutTower", "applied_effects": [T(e) for e in burst]}
-    wake = combine(view("p_wake"), sfx("p_wake"),
+    wake = combine(view("p_wake"), sfx("p_wake"), sfx("vo_p"),
                    pick(p["p_seek"], "EnemyChampion",
                         homing("p_form", p["p_speed"], 5000, "EnemyChampion", [view("p_boom"), tsfx("p_boom")]),
                         splash, fp=True))
@@ -272,11 +272,11 @@ def build(p):
     def shell(travel=1):
         """A lob onto the target's spot; the mark there, the burst r_delay ticks later."""
         return lob("r_lob", travel, "EnemyWithoutTower", [
-            view("r_mark"), sfx("r_land"),
+            view("r_mark"), sfx("r_fall"),          # the whistle peaks ~0.56 s later: about when it lands
             zone("r_blast", p["r_r"], p["r_delay"], p["r_delay"], "EnemyWithoutTower",
                  [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit")]),
             zone("r_exec", p["r_r"], p["r_delay"], p["r_delay"], "EnemyChampion", execute),
-            delayed(p["r_delay"] - 8, view("r_fall"), sfx("r_fall"))])
+            delayed(p["r_delay"] - 8, view("r_fall"))])
 
     def volley(fire):
         """Shell 1 locks the ult and opens the volley, shell 2 counts, shell 3 ends it; outside a volley while the
@@ -285,7 +285,7 @@ def build(p):
         inside = sw("r_c1", combine(*rm("r_c1", "r_vol"), fire), combine(refresh("r_c1", p["r_win"]), fire))
         return sw("r_lock", sw("r_vol", inside), combine(*rm("r_c1"), first))
 
-    r_cast = combine(anim("ult", p["r_dur"]), sfx("r_cast"), voice("vo_r", p),
+    r_cast = combine(anim("ult", p["r_dur"]), voice("vo_r", p),
                      delayed(p["r_rel"], sfx("r_shot"), shell()))
     ult = action("ult", p["r_dur"], p["r_gap"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
                  combine(life, volley(r_cast)))
