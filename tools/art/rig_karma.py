@@ -334,6 +334,8 @@ def find_head(c, old, hm):
 
 
 WHITE = ("w", "W", "x")                            # the wrap: the torso's front, the body's own centre
+NECK_ROW, NECK_COLS = 76, (57, 72)                 # the design's neck row: the neck 'SsS' (63-65) and the tassels
+RUN_HOP = [0, 0, 1, 1, 0, 0]                       # oppi's Ahri run rises at its frames 3-5 (tops 21 21 20 19 20 21)
 HEAD_BOTTOM = 75                                   # the design's head ends here; the run's body starts under it
 
 
@@ -379,11 +381,22 @@ def run_frames(P):
                 skin = [q for q in nb if q[:3] in (L["s"], L["S"], L["z"])]
                 if skin:
                     body[y, x] = max(set(skin), key=skin.count)
+        # Codex's run body has no neck: its shoulders and chest start right under the chin (row 76), a row higher than
+        # the design's (row 77 under the neck row 76), so the head pasted at its own place sat ON the chest (「头和身体
+        # ... 合并在一起了」). The head goes a row up and the design's own neck row (the neck, the outline round it and
+        # the earrings' tassels; not the prongs' tops) is laid between it and the body.
         c = body
         ys, xs = np.nonzero(hm)
-        c[ys, xs] = P.design[ys, xs]
+        c[ys - 1, xs] = P.design[ys, xs]
+        for x in range(NECK_COLS[0], NECK_COLS[1] + 1):
+            if P.design[NECK_ROW, x, 3] and not P.masks["ll"][NECK_ROW, x] and not P.masks["lr"][NECK_ROW, x]:
+                c[NECK_ROW - 1, x] = P.design[NECK_ROW, x]
+            elif c[NECK_ROW - 1, x, 3] and x in range(NECK_COLS[0] + 3, NECK_COLS[1] - 2):
+                c[NECK_ROW - 1, x] = 0
         ref = c.copy()
-        out.append(drop_orphans(finish_near(c, ref), np.zeros_like(c)))
+        c = drop_orphans(finish_near(c, ref), np.zeros_like(c))
+        # the run's bob: the whole figure (head, body and feet together) a row up while the feet pass
+        out.append(K.shifted(c, 0, -RUN_HOP[k]) if RUN_HOP[k] else c)
     return out
 
 
