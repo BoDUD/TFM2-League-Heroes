@@ -2102,7 +2102,7 @@
       "type": "Animated",
       "name": "league_olaf_q_axe",
       "anim": "asset/league/effects/league_olaf_fx",
-      "tag": "q_axe",
+      "tag": "q_fly",
       "repeat": true,
       "z": 1
     }

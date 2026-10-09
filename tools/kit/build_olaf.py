@@ -306,7 +306,8 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("q_axe")]
+    # the flying axe spins (tag q_fly); q_axe is the axe stuck in the ground (a view_effect replayed every axe_step)
+    views_p = [dict(P_("q_axe"), tag="q_fly")]
     views_e = [E("a_hit"), E("q_hit"), E("q_land", FX, -1, False), E("q_axe", FX, -1, False), E("q_pick", FX, 3),
                E("e_hit", BIG, 3), E("w_cast", FX, 3), E("r_cast", BIG, 3)]
     views_b = [B_("r_on", BIG, -1), B_("w_on", FX, -1), B_("q_slow", FX, -1), B_(f"p_{N}", FX, 3)]
