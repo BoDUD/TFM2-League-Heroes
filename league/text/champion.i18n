@@ -553,6 +553,13 @@
         "skill": "影子落到敌方英雄脚下（<#ffb900ff>5秒<>），接着鬼斩和诸刃；影子在时模仿他的每次诸刃和鬼斩。<#ff9028ff>连招<>：三影齐发，随后影子旁只有一名敌人时换位追击。",
         "skill2": "掷出手里剑，贯穿一条直线：首个敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>伤害，之后的受到60%。",
         "ult": "对交战中的英雄发动：<#ef5350ff>无法选中<>，突进穿过并留下影子（模仿诸刃和鬼斩）与印记，<#ffb900ff>3秒<>后爆发<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，期间每次命中+<#ff9028ff>35<>（最多3次）。击杀、被包围或被控时换回影子。<#ff9028ff>连招<>：R→W→E→Q。"
+      },
+      "league_karma": {
+        "name": "卡尔玛",
+        "attack": "射出灵能飞弹。<#ff9028ff>聚能之炎<>：技能命中英雄，梵咒冷却最多缩短<#ffb900ff>60%<>。<#ff9028ff>鼓舞<>（自动，<#ffb900ff>9秒<>）：给被控或交战中的队友（或自己）<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>护盾<>，移速+<#ffb900ff>35%<>。",
+        "skill": "射出灵火，命中首个敌人爆炸，周围敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速35%<>。<#ff9028ff>灵光闪耀<>（梵咒）：额外<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>伤害并留下火环，<#ffb900ff>1.5秒<>后爆发造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>伤害、<#ef5350ff>减速50%<>。",
+        "skill2": "连住敌方英雄，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>；<#ffb900ff>1.33秒<>未挣脱则再次受伤并<#ef5350ff>禁锢1.67秒<>。<#ff9028ff>焕发<>（梵咒，被围攻时）：回复<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>生命，<#ef5350ff>禁锢2.33秒<>。<#ff9028ff>连招<>：禁锢时梵咒Q随即跟上。",
+        "ult": "强化<#ffb900ff>6秒<>内的下一个技能：队友危险时立即<#ff9028ff>蔑视<>（附近队友都获得<#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<><#9fd8ffff>护盾<>和加速），否则强化Q或被围攻时的W。未使用则返还冷却。"
       }
     },
     "skill_name": {
@@ -950,6 +957,11 @@
         "skill1": "影奥义！分身",
         "skill2": "影奥义！诸刃",
         "ult": "禁奥义！瞬狱影杀阵"
+      },
+      "league_karma": {
+        "skill1": "心灵烈焰",
+        "skill2": "坚定不移",
+        "ult": "梵咒"
       }
     }
   },
@@ -1507,6 +1519,13 @@
         "skill": "影子落到敵方英雄腳下（<#ffb900ff>5秒<>），接著影斬和風魔手裡劍；影子在時模仿他的每次手裡劍和影斬。<#ff9028ff>連招<>：三影齊發，隨後影子旁只有一名敵人時換位追擊。",
         "skill2": "擲出手裡劍，貫穿一條直線：首個敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>傷害，之後的受到60%。",
         "ult": "對交戰中的英雄發動：<#ef5350ff>無法選取<>，突進穿過並留下影子（模仿手裡劍和影斬）與印記，<#ffb900ff>3秒<>後爆發<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，期間每次命中+<#ff9028ff>35<>（最多3次）。擊殺、被包圍或被控時換回影子。<#ff9028ff>連招<>：R→W→E→Q。"
+      },
+      "league_karma": {
+        "name": "卡瑪",
+        "attack": "射出靈能飛彈。<#ff9028ff>炎靈融合<>：技能命中英雄，真言符印冷卻最多縮短<#ffb900ff>60%<>。<#ff9028ff>靈能啟示<>（自動，<#ffb900ff>9秒<>）：給被控或交戰中的隊友（或自己）<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<><#9fd8ffff>護盾<>，跑速+<#ffb900ff>35%<>。",
+        "skill": "射出靈火，命中首個敵人爆炸，周圍敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速35%<>。<#ff9028ff>真言加持<>：額外<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>傷害並留下火環，<#ffb900ff>1.5秒<>後爆發造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>傷害、<#ef5350ff>緩速50%<>。",
+        "skill2": "連住敵方英雄，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>；<#ffb900ff>1.33秒<>未掙脫則再次受傷並<#ef5350ff>定身1.67秒<>。<#ff9028ff>真言加持<>（被圍攻時）：回復<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>生命，<#ef5350ff>定身2.33秒<>。<#ff9028ff>連招<>：定身時真言Q隨即跟上。",
+        "ult": "強化<#ffb900ff>6秒<>內的下一項技能：隊友危險時立即強化靈能啟示（附近隊友都獲得<#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<><#9fd8ffff>護盾<>和跑速），否則強化Q或被圍攻時的W。未使用則返還冷卻。"
       }
     },
     "skill_name": {
@@ -1904,6 +1923,11 @@
         "skill1": "疾風殘影",
         "skill2": "風魔手裡劍",
         "ult": "死亡印記"
+      },
+      "league_karma": {
+        "skill1": "輪迴怒火",
+        "skill2": "特化鏈結",
+        "ult": "真言符印"
       }
     }
   },
@@ -2461,6 +2485,13 @@
         "skill": "Sends his shadow onto an enemy champion (<#ffb900ff>5s<>), then Shadow Slash and Razor Shuriken if ready; while it stands it copies every shuriken and slash of his. <#ff9028ff>Combo<>: the triple strike; then, with one enemy near the shadow, he swaps to it to chase.",
         "skill2": "Throws a shuriken through a line: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> to the first enemy, 60% to the rest.",
         "ult": "On a champion in a fight: <#ef5350ff>untargetable<>, he dashes through him, leaving a shadow (it copies his shuriken and slash) and a mark that bursts after <#ffb900ff>3s<> for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> plus <#ff9028ff>35<> per hit meanwhile (up to 3). On a kill, outnumbered or crowd-controlled, he swaps back to the shadow. <#ff9028ff>Combo<>: R, W, E, Q."
+      },
+      "league_karma": {
+        "name": "Karma",
+        "attack": "Fires a spirit bolt. <#ff9028ff>Gathering Fire<>: spell hits on champions cut Mantra's cooldown by up to <#ffb900ff>60%<>. <#ff9028ff>Inspire<> (automatic, <#ffb900ff>9s<>): an ally in crowd control or in a fight (or Karma) gets a <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<> <#9fd8ffff>shield<> and <#ffb900ff>+35%<> move speed.",
+        "skill": "Fires a spirit flame that bursts on the first enemy hit: enemies around take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed by 35%<>. <#ff9028ff>Soulflare<> (Mantra): <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> more and a circle of flame that blows <#ffb900ff>1.5s<> later for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>, <#ef5350ff>slowing 50%<>.",
+        "skill2": "Tethers an enemy champion for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>; unbroken for <#ffb900ff>1.33s<> it deals the damage again and <#ef5350ff>roots for 1.67s<>. <#ff9028ff>Renewal<> (Mantra, when crowded): heals <#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<> and <#ef5350ff>roots for 2.33s<>. <#ff9028ff>Combo<>: a root is followed by a Soulflare.",
+        "ult": "Empowers her next spell within <#ffb900ff>6s<>: with an ally in danger, <#ff9028ff>Defiance<> at once (allies around him get a <#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<> <#9fd8ffff>shield<> and the haste); else the next Q, or W when crowded. Unused, the cooldown comes back."
       }
     },
     "skill_name": {
@@ -2858,6 +2889,11 @@
         "skill1": "Living Shadow",
         "skill2": "Razor Shuriken",
         "ult": "Death Mark"
+      },
+      "league_karma": {
+        "skill1": "Inner Flame",
+        "skill2": "Focused Resolve",
+        "ult": "Mantra"
       }
     }
   },
@@ -3415,6 +3451,13 @@
         "skill": "그림자를 적 챔피언 발밑에 보내고(<#ffb900ff>5초<>) 그림자 베기와 예리한 표창을 이어서, 그림자가 있는 동안 표창과 베기를 따라 함. <#ff9028ff>연계<>: 삼중 공격, 그림자 곁에 적이 하나면 위치를 바꿔 추격.",
         "skill2": "표창을 던져 직선을 관통: 처음 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 피해, 이후 적에게 60%.",
         "ult": "교전 중인 챔피언에게: <#ef5350ff>대상 지정 불가<>, 관통 돌진해 그림자(표창·베기 따라 함)와 표식을 남김. <#ffb900ff>3초<> 뒤 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 폭발, 그동안 적중마다 +<#ff9028ff>35<>(최대 3). 처치·포위·군중 제어 시 그림자로 복귀. <#ff9028ff>연계<>: R→W→E→Q."
+      },
+      "league_karma": {
+        "name": "카르마",
+        "attack": "영혼의 탄을 쏩니다. <#ff9028ff>열정 응집<>: 스킬이 챔피언에게 맞으면 만트라 재사용 대기시간이 최대 <#ffb900ff>60%<> 줄어듭니다. <#ff9028ff>고무<>(자동, <#ffb900ff>9초<>): 군중 제어에 걸렸거나 교전 중인 아군(또는 카르마)에게 <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>의 <#9fd8ffff>보호막<>과 이동 속도 <#ffb900ff>+35%<>.",
+        "skill": "영혼의 불꽃을 쏘아 처음 맞힌 적에게서 터뜨려 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>35% 둔화<>. <#ff9028ff>만트라<>: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 추가 피해와 불꽃 원을 남기고, <#ffb900ff>1.5초<> 뒤 터져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 피해와 <#ef5350ff>50% 둔화<>.",
+        "skill2": "적 챔피언과 연결해 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#a974ffff>마법 피해<>; <#ffb900ff>1.33초<> 동안 끊어지지 않으면 피해를 다시 입히고 <#ef5350ff>1.67초 속박<>. <#ff9028ff>만트라<>(포위됐을 때): <#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>의 체력 회복, <#ef5350ff>2.33초 속박<>. <#ff9028ff>연계<>: 속박되면 강화된 Q가 이어서 나감.",
+        "ult": "<#ffb900ff>6초<> 안에 쓰는 다음 스킬을 강화합니다: 아군이 위험하면 바로 강화된 고무(주변 아군 모두 <#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<>의 <#9fd8ffff>보호막<>과 이동 속도), 아니면 다음 Q나 포위됐을 때의 W. 쓰지 않으면 재사용 대기시간을 돌려받습니다."
       }
     },
     "skill_name": {
@@ -3812,6 +3855,11 @@
         "skill1": "살아있는 그림자",
         "skill2": "예리한 표창",
         "ult": "죽음의 표식"
+      },
+      "league_karma": {
+        "skill1": "내면의 열정",
+        "skill2": "굳은 결의",
+        "ult": "만트라"
       }
     }
   },
@@ -4369,6 +4417,13 @@
         "skill": "影を敵チャンピオンの足元に送り（<#ffb900ff>5秒<>）、影薙ぎと手裏剣を続け、影がいる間は手裏剣と影薙ぎを毎回真似る。<#ff9028ff>コンボ<>：三連撃、影の近くの敵が一人なら入れ替わって追撃。",
         "skill2": "手裏剣を投げ直線を貫通：最初の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>、以降の敵に60%。",
         "ult": "交戦中のチャンピオンに：<#ef5350ff>対象指定不可<>で突き抜け、影（手裏剣と影薙ぎを真似る）と刻印を残す。<#ffb900ff>3秒<>後<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>炸裂、その間の命中ごとに+<#ff9028ff>35<>（最大3）。撃破・包囲・行動妨害で影に戻る。<#ff9028ff>コンボ<>：R→W→E→Q。"
+      },
+      "league_karma": {
+        "name": "カルマ",
+        "attack": "霊弾を撃つ。<#ff9028ff>寄せ火<>：スキルがチャンピオンに当たるとマントラのクールダウンが最大<#ffb900ff>60%<>短縮。<#ff9028ff>激励<>（自動、<#ffb900ff>9秒<>）：行動妨害中か交戦中の味方（または自身）に<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>50%<>の<#9fd8ffff>シールド<>と移動速度<#ffb900ff>+35%<>。",
+        "skill": "霊炎を放ち最初の敵で炸裂、周囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>35%スロウ<>。<#ff9028ff>マントラ<>：追加<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>、炎の輪が<#ffb900ff>1.5秒<>後に爆発し<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>と<#ef5350ff>50%スロウ<>。",
+        "skill2": "敵チャンピオンと鎖で繋ぎ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>1.33秒<>切れなければ再度ダメージと<#ef5350ff>1.67秒スネア<>。<#ff9028ff>マントラ<>（囲まれた時）：<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>回復、<#ef5350ff>2.33秒スネア<>。<#ff9028ff>コンボ<>：スネアに強化Qが続く。",
+        "ult": "<#ffb900ff>6秒<>以内の次のスキルを強化：味方が危険なら即座に強化激励（周囲の味方にも<#9fd8ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>30%<>の<#9fd8ffff>シールド<>と移動速度）、それ以外は次のQか囲まれた時のW。使わなければクールダウンが戻る。"
       }
     },
     "skill_name": {
@@ -4766,6 +4821,11 @@
         "skill1": "影分身",
         "skill2": "風魔手裏剣",
         "ult": "死の刻印"
+      },
+      "league_karma": {
+        "skill1": "心炎",
+        "skill2": "魂縛",
+        "ult": "マントラ"
       }
     }
   }

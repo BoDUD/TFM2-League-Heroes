@@ -55,8 +55,10 @@ SURE = 0.9                      # share of the head's pixels that must match exa
 STEADY = ("idle", "run")
 # (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
-UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run")}   # kogmaw: his antennae sway in both (rig_kogmaw.py), so
+UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "idle"), ("karma", "run")}   # kogmaw: his antennae sway in both (rig_kogmaw.py), so
 # his top rows are no fixed head to steady on - steadied, the sway would turn into the whole body sliding
+# karma: her jade ring floats above her head in the idle (rig_karma.py's bob), the same reason; her run is steadied on
+# League's head track already (fix_karma_strips.py STEADY), which keeps League's 1-2 column sway
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
 # (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
@@ -66,7 +68,7 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run")}   # kogmaw:
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead); Rengar too (rig_rengar BREATH:
 # the shared lean smeared his toes, his carried blade went under the soles); Zed too (rig_zed BREATH: the shared cut ran
 # through his wrist blades and shortened them)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -293,7 +295,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -650,17 +652,17 @@ TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
-SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」
+SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.9}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」; karma: the user 10-09 「卡尔玛体型可以变小一点」 (90% of 90/85)
 # no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
 # "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
 # and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
 # every low row "knee" and the cut fell on his head
-SHRINK_KEEP = {"xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
-SHRINK_KEEP_TAG = {"renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
+SHRINK_KEEP = {"karma": ["!1BB663+-10,9,8,8", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP_TAG = {"karma": {"dead": ["!1BB663+-3,9,8,8", "C4815A", "825238"]}, "renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
-SHRINK_ANCHOR = {"xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
+SHRINK_ANCHOR = {"karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
