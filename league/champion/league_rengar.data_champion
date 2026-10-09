@@ -3276,6 +3276,38 @@
                   "tick": 300
                 },
                 {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "AddCasted",
+                      "casted_type": "Heal",
+                      "duration": 300,
+                      "period": 6,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_rengar_r_on",
+                          "effect_buff": {
+                            "type": "CasterInvisible",
+                            "tick": 8
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
                   "type": "Combine",
                   "effects": [
                     {
