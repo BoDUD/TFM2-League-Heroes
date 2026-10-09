@@ -46,7 +46,8 @@ FX = "asset/league/effects/league_kogmaw_fx"
 BIG = "asset/league/effects/league_kogmaw_big"
 
 # Numbers = candidate c7 of the 10-min classic-SDK simulations (km_sim/sim/kd.py --lane 3 against archer, gunner,
-# boomerang_hunter, poison_dart_hunter and bomber, three lineups, both sides, 2026-10-09): +1.67 on seeds 1-12
+# boomerang_hunter, poison_dart_hunter and bomber, three lineups, both sides, 2026-10-09): +1.67 on seeds 1-12, +1.69 on
+# 25-36 (league_twitch +1.18 there)
 # (league_twitch +1.79, league_varus +1.51 on the same seeds). The first draft was -1.01 (deal 7274 against ~11000):
 # attack 90 -> 106, Q's attack speed 15 -> 35%, W every 12 s (17) with 5% (4), Q / E / R +20 base, 950 health and
 # the pack's 55000 range.
