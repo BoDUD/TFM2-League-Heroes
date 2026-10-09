@@ -55,7 +55,7 @@ TEXT = {
                  "{q_life}秒" + E + "，走过去捡起则冷却大幅缩短。",
         "skill2": "鲁莽挥击，造成" + tru("e") + W + "真实伤害" + E + "，自己承受其中{e_self}%；击杀则返还。",
         "ult": R + "免疫控制" + E + "，攻击力+{r_atk}%、移速+{r_ms}%，持续" + A + "{r_t}秒" + E + "；攻击英雄时延续（最多" + A + "{r_max}秒" + E +
-               "）。" + O + "连招" + E + "：R冲入→E→捡斧再投。",
+               "）。",
         "names": ("逆流投掷", "鲁莽挥击", "诸神黄昏"),
     },
     "zh-hant": {
@@ -67,7 +67,7 @@ TEXT = {
                  "{q_life}秒" + E + "，走過去撿起則冷卻大幅縮短。",
         "skill2": "魯莽揮擊，造成" + tru("e") + W + "真實傷害" + E + "，自己承受其中{e_self}%；擊殺則返還。",
         "ult": R + "免疫控場" + E + "，攻擊力+{r_atk}%、移速+{r_ms}%，持續" + A + "{r_t}秒" + E + "；攻擊英雄時延續（最多" + A + "{r_max}秒" + E +
-               "）。" + O + "連招" + E + "：R衝入→E→撿斧再擲。",
+               "）。",
         "names": ("逆流投擲", "魯莽揮擊", "諸神黃昏"),
     },
     "en": {
@@ -82,8 +82,7 @@ TEXT = {
         "skill2": "A reckless blow for " + tru("e") + W + " true damage" + E + "; he takes {e_self}% of it himself, refunded on a "
                   "kill.",
         "ult": R + "Immune to crowd control" + E + ", +{r_atk}% attack and +{r_ms}% move speed for " + A + "{r_t}s" + E + "; hitting "
-               "champions keeps it going (up to " + A + "{r_max}s" + E + "). " + O + "Combo" + E + ": R in, E, pick up the axe, "
-               "throw again.",
+               "champions keeps it going (up to " + A + "{r_max}s" + E + ").",
         "names": ("Undertow", "Reckless Swing", "Ragnarok"),
     },
     "ko": {
@@ -95,7 +94,7 @@ TEXT = {
                  A + "{q_life}초" + E + " 꽂혀 있고, 주우면 재사용 대기시간이 크게 줄어듦.",
         "skill2": "무모한 강타로 " + tru("e") + W + " 고정 피해" + E + ", 자신도 그 {e_self}%를 받음; 처치 시 돌려받음.",
         "ult": R + "군중 제어 면역" + E + ", 공격력 +{r_atk}%, 이동 속도 +{r_ms}%, " + A + "{r_t}초" + E + "; 챔피언 공격 시 연장(최대 " + A +
-               "{r_max}초" + E + "). " + O + "연계" + E + ": R 돌진→E→도끼 줍고 재투척.",
+               "{r_max}초" + E + ").",
         "names": ("역류", "무모한 강타", "라그나로크"),
     },
     "ja": {
@@ -107,7 +106,7 @@ TEXT = {
                  "{q_life}秒" + E + "地面に残り、拾うとクールダウンが大きく短縮。",
         "skill2": "捨て身の一撃で" + tru("e") + W + "確定ダメージ" + E + "、自身もその{e_self}%を受ける；倒せば返還。",
         "ult": R + "行動妨害無効" + E + "、攻撃力+{r_atk}%、移動速度+{r_ms}%、" + A + "{r_t}秒" + E + "；チャンピオンを攻撃すると延長（最大" + A +
-               "{r_max}秒" + E + "）。" + O + "コンボ" + E + "：Rで突入→E→斧を拾って再投擲。",
+               "{r_max}秒" + E + "）。",
         "names": ("斧投げ", "捨て身切り", "ラグナロク"),
     },
 }
