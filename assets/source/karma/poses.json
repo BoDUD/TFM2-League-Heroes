@@ -54,69 +54,71 @@
    "frames": [
     [
      "karma_2012_run@0",
-     100
+     125
     ],
     [
-     "karma_2012_run@100",
-     100
+     "karma_2012_run@125",
+     125
     ],
     [
-     "karma_2012_run@200",
-     100
+     "karma_2012_run@250",
+     125
     ],
     [
-     "karma_2012_run@300",
-     100
-    ],
-    [
-     "karma_2012_run@400",
-     100
+     "karma_2012_run@375",
+     125
     ],
     [
      "karma_2012_run@500",
-     100
+     125
     ],
     [
-     "karma_2012_run@600",
-     100
+     "karma_2012_run@625",
+     125
     ],
     [
-     "karma_2012_run@700",
-     100
+     "karma_2012_run@750",
+     125
+    ],
+    [
+     "karma_2012_run@875",
+     125
     ]
    ]
   },
   "attack": {
+   "flat": true,
    "lunge": 0.5,
    "release": 4,
    "frames": [
     [
-     "karma_2012_idle1@0>karma_2012_attack1@200:0.6",
+     "karma_2012_idle1@0>karma_2012_attack1@0:0.6",
      60
     ],
     [
-     "karma_2012_attack1@333",
+     "karma_2012_attack1@100",
      60
+    ],
+    [
+     "karma_2012_attack1@200",
+     70
+    ],
+    [
+     "karma_2012_attack1@300",
+     70
     ],
     [
      "karma_2012_attack1@500",
      70
     ],
     [
-     "karma_2012_attack1@667",
-     70
-    ],
-    [
-     "karma_2012_attack1@833",
-     70
-    ],
-    [
-     "karma_2012_attack1@1167>karma_2012_idle1@0:0.5",
+     "karma_2012_attack1@1100>karma_2012_idle1@0:0.5",
      70
     ]
    ]
   },
   "skill": {
+   "flat": true,
    "lunge": 0.5,
    "release": 4,
    "frames": [
@@ -129,33 +131,34 @@
      55
     ],
     [
-     "karma_2012_spell1@300",
+     "karma_2012_spell1@250",
      60
     ],
     [
-     "karma_2012_spell1@400",
+     "karma_2012_spell1@350",
      60
     ],
     [
-     "karma_2012_spell1@500",
+     "karma_2012_spell1@600",
      70
     ],
     [
-     "karma_2012_spell1@700>karma_2012_idle1@0:0.5",
+     "karma_2012_spell1@850>karma_2012_idle1@0:0.5",
      70
     ]
    ]
   },
   "skill2": {
+   "flat": true,
    "lunge": 0.5,
    "release": 4,
    "frames": [
     [
-     "karma_2012_idle1@0>karma_2012_spell2@0:0.6",
+     "karma_2012_idle1@0>karma_2012_spell2@100:0.6",
      55
     ],
     [
-     "karma_2012_spell2@150",
+     "karma_2012_spell2@250",
      55
     ],
     [
@@ -177,6 +180,7 @@
    ]
   },
   "skill_e": {
+   "flat": true,
    "lunge": 0.5,
    "release": 3,
    "frames": [
@@ -197,12 +201,13 @@
      60
     ],
     [
-     "karma_2012_spell3@800>karma_2012_idle1@0:0.5",
+     "karma_2012_spell3@850>karma_2012_idle1@0:0.5",
      55
     ]
    ]
   },
   "ult": {
+   "flat": true,
    "lunge": 0.5,
    "release": 3,
    "frames": [
@@ -229,6 +234,7 @@
    ]
   },
   "hit": {
+   "flat": true,
    "frames": [
     [
      "karma_2012_idle1@0>karma_2012_death@283:0.35",
