@@ -34,7 +34,7 @@ W_ = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: the face point on his head - the ears' tips 22 over the pivot, the head's middle column 4 ahead (tfm2_ase.py
 # face suggests -36, the backpack's top); the idle's top is 26 over the pivot, so no banpick_center (only tops above -28)
-VIEW = {"face": {"x": 4, "y": -22}, "center": {"x": 0, "y": -11}}
+VIEW = {"face": {"x": 1, "y": -30}, "center": {"x": 0, "y": -11}}   # 10-09 shrunk to 85%: the crown 30 over the feet (tfm2_ase.py face)
 
 
 def phy(d, r):
