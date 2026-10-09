@@ -45,10 +45,10 @@ TEXT = {
         "name": "劫",
         "attack": O + "影忍法！灭魂劫" + E + "：技能命中英雄后，下次攻击英雄附加其{cw_pct}%最大生命真实伤害（" + A + "{cw_cd}秒" + E + "）。" +
                   O + "影奥义！鬼斩" + E + "（自动，" + A + "{e_cd}秒" + E + "）：旋斩周围，造成" + phy("e") + "伤害，" + R + "减速{e_slow}%" + E + "。",
-        "skill": "影子落到敌方英雄脚下（" + A + "{w_life}秒" + E + "），接着鬼斩和诸刃，影子同时模仿。" + O + "连招" + E +
+        "skill": "影子落到敌方英雄脚下（" + A + "{w_life}秒" + E + "），接着鬼斩和诸刃；影子在时模仿他的每次诸刃和鬼斩。" + O + "连招" + E +
                  "：三影齐发，随后影子旁只有一名敌人时换位追击。",
         "skill2": "掷出手里剑，贯穿一条直线：首个敌人受到" + phy("q") + "伤害，之后的受到{q_pen}%。",
-        "ult": "对交战中的英雄发动：" + R + "无法选中" + E + "，突进穿过并留下影子与印记，" + A + "{r_pop}秒" + E + "后爆发" + phy("r") +
+        "ult": "对交战中的英雄发动：" + R + "无法选中" + E + "，突进穿过并留下影子（模仿诸刃和鬼斩）与印记，" + A + "{r_pop}秒" + E + "后爆发" + phy("r") +
                "，期间每次命中+" + O + "{r_per}" + E + "（最多3次）。被包围时换回影子。" + O + "连招" + E + "：R→W→E→Q。",
         "names": ("影奥义！分身", "影奥义！诸刃", "禁奥义！瞬狱影杀阵"),
     },
@@ -56,10 +56,10 @@ TEXT = {
         "name": "劫",
         "attack": O + "強者特權" + E + "：技能命中英雄後，下次攻擊英雄附加其{cw_pct}%最大生命真實傷害（" + A + "{cw_cd}秒" + E + "）。" +
                   O + "影斬" + E + "（自動，" + A + "{e_cd}秒" + E + "）：旋斬周圍，造成" + phy("e") + "傷害，" + R + "緩速{e_slow}%" + E + "。",
-        "skill": "影子落到敵方英雄腳下（" + A + "{w_life}秒" + E + "），接著影斬和風魔手裡劍，影子同時模仿。" + O + "連招" + E +
+        "skill": "影子落到敵方英雄腳下（" + A + "{w_life}秒" + E + "），接著影斬和風魔手裡劍；影子在時模仿他的每次手裡劍和影斬。" + O + "連招" + E +
                  "：三影齊發，隨後影子旁只有一名敵人時換位追擊。",
         "skill2": "擲出手裡劍，貫穿一條直線：首個敵人受到" + phy("q") + "傷害，之後的受到{q_pen}%。",
-        "ult": "對交戰中的英雄發動：" + R + "無法選取" + E + "，突進穿過並留下影子與印記，" + A + "{r_pop}秒" + E + "後爆發" + phy("r") +
+        "ult": "對交戰中的英雄發動：" + R + "無法選取" + E + "，突進穿過並留下影子（模仿手裡劍和影斬）與印記，" + A + "{r_pop}秒" + E + "後爆發" + phy("r") +
                "，期間每次命中+" + O + "{r_per}" + E + "（最多3次）。被包圍時換回影子。" + O + "連招" + E + "：R→W→E→Q。",
         "names": ("疾風殘影", "風魔手裡劍", "死亡印記"),
     },
@@ -69,11 +69,11 @@ TEXT = {
                   "adds {cw_pct}% of its max health as true damage (" + A + "{cw_cd}s" + E + "). " + O + "Shadow Slash" + E +
                   " (automatic, " + A + "{e_cd}s" + E + "): a spin for " + phy("e") + " around him, " + R + "slowing champions {e_slow}%" +
                   E + ".",
-        "skill": "Sends his shadow onto an enemy champion (" + A + "{w_life}s" + E + "), then Shadow Slash and Razor Shuriken if ready - the "
-                 "shadow copies both. " + O + "Combo" + E + ": the triple strike; then, with one enemy near the shadow, he swaps to it to "
+        "skill": "Sends his shadow onto an enemy champion (" + A + "{w_life}s" + E + "), then Shadow Slash and Razor Shuriken if ready; while it "
+                 "stands it copies every shuriken and slash of his. " + O + "Combo" + E + ": the triple strike; then, with one enemy near the shadow, he swaps to it to "
                  "chase.",
         "skill2": "Throws a shuriken through a line: " + phy("q") + " to the first enemy, {q_pen}% to the rest.",
-        "ult": "On a champion in a fight: " + R + "untargetable" + E + ", he dashes through him, leaving a shadow and a mark that bursts "
+        "ult": "On a champion in a fight: " + R + "untargetable" + E + ", he dashes through him, leaving a shadow (it copies his shuriken and slash) and a mark that bursts "
                "after " + A + "{r_pop}s" + E + " for " + phy("r") + " plus " + O + "{r_per}" + E + " per hit meanwhile (up to 3). "
                "Outnumbered, he swaps back to the shadow. " + O + "Combo" + E + ": R, W, E, Q.",
         "names": ("Living Shadow", "Razor Shuriken", "Death Mark"),
@@ -83,10 +83,10 @@ TEXT = {
         "attack": O + "약자 멸시" + E + ": 스킬이 챔피언에게 적중한 뒤 다음 챔피언 공격은 대상 최대 체력의 {cw_pct}% 고정 피해(" + A + "{cw_cd}초" +
                   E + "). " + O + "그림자 베기" + E + "(자동, " + A + "{e_cd}초" + E + "): 주변을 베어 " + phy("e") + "의 피해, " + R +
                   "{e_slow}% 둔화" + E + ".",
-        "skill": "그림자를 적 챔피언 발밑에 보내고(" + A + "{w_life}초" + E + ") 그림자 베기와 예리한 표창을 이어서, 그림자도 따라 함. " + O +
+        "skill": "그림자를 적 챔피언 발밑에 보내고(" + A + "{w_life}초" + E + ") 그림자 베기와 예리한 표창을 이어서, 그림자가 있는 동안 표창과 베기를 따라 함. " + O +
                  "연계" + E + ": 삼중 공격, 그림자 곁에 적이 하나면 위치를 바꿔 추격.",
         "skill2": "표창을 던져 직선을 관통: 처음 적에게 " + phy("q") + "의 피해, 이후 적에게 {q_pen}%.",
-        "ult": "교전 중인 챔피언에게: " + R + "대상 지정 불가" + E + ", 관통 돌진해 그림자와 표식을 남김. " + A + "{r_pop}초" + E + " 뒤 " +
+        "ult": "교전 중인 챔피언에게: " + R + "대상 지정 불가" + E + ", 관통 돌진해 그림자(표창·베기 따라 함)와 표식을 남김. " + A + "{r_pop}초" + E + " 뒤 " +
                phy("r") + " 폭발, 그동안 적중마다 +" + O + "{r_per}" + E + "(최대 3). 포위되면 그림자로 복귀. " + O + "연계" + E +
                ": R→W→E→Q.",
         "names": ("살아있는 그림자", "예리한 표창", "죽음의 표식"),
@@ -96,10 +96,10 @@ TEXT = {
         "attack": O + "弱者必衰" + E + "：スキルがチャンピオンに命中後、次のチャンピオンへの攻撃が最大体力の{cw_pct}%確定ダメージ（" + A + "{cw_cd}秒" +
                   E + "）。" + O + "影薙ぎ" + E + "（自動、" + A + "{e_cd}秒" + E + "）：周囲を斬り" + phy("e") + "、" + R + "{e_slow}%スロウ" +
                   E + "。",
-        "skill": "影を敵チャンピオンの足元に送り（" + A + "{w_life}秒" + E + "）、影薙ぎと手裏剣を続け、影も真似る。" + O + "コンボ" + E +
+        "skill": "影を敵チャンピオンの足元に送り（" + A + "{w_life}秒" + E + "）、影薙ぎと手裏剣を続け、影がいる間は手裏剣と影薙ぎを毎回真似る。" + O + "コンボ" + E +
                  "：三連撃、影の近くの敵が一人なら入れ替わって追撃。",
         "skill2": "手裏剣を投げ直線を貫通：最初の敵に" + phy("q") + "、以降の敵に{q_pen}%。",
-        "ult": "交戦中のチャンピオンに：" + R + "対象指定不可" + E + "で突き抜け、影と刻印を残す。" + A + "{r_pop}秒" + E + "後" + phy("r") +
+        "ult": "交戦中のチャンピオンに：" + R + "対象指定不可" + E + "で突き抜け、影（手裏剣と影薙ぎを真似る）と刻印を残す。" + A + "{r_pop}秒" + E + "後" + phy("r") +
                "炸裂、その間の命中ごとに+" + O + "{r_per}" + E + "（最大3）。囲まれると影に戻る。" + O + "コンボ" + E + "：R→W→E→Q。",
         "names": ("影分身", "風魔手裏剣", "死の刻印"),
     },

@@ -13,21 +13,26 @@ inside the attack (league_rengar's Savagery way).
   The shadow (影分身). Projectiles leave from the caster and nothing started from a zone at a point spawns (measured
           2026-10-09, work/zd/test_echo.py), so a shadow is league_ekko's anchor - a hidden lob that lands on the
           target's spot - whose `end_effects` hold everything it does, each a `Delayed` there (it keeps the point):
-          its picture in pieces, the copies of the combo's slash and shuriken (its shuriken flies from it back toward
-          him - a `BackToCasterLinearProjectile` through the target it stands on - and its slash rings it; a checkpoint
-          for every later cast cost too many nodes) and swap him onto it to chase (one champion near it, none near him, soon after the combo).
+          its picture in pieces, the copies of his slash and shuriken (its shuriken flies from it back toward him - a
+          `BackToCasterLinearProjectile` through what stands between - and its slash rings it): the W combo's exactly a
+          tick after him (`ec_echo` / `qc_echo`), every later one at the next checkpoint (every echo_step ticks for the W
+          shadow, r_echo_step for the R shadow; his slash and shuriken set `e_echo` / `q_echo` and `er_echo` / `qr_echo`
+          for exactly one step, so one checkpoint copies each) - the user: 「你可以增加节点 实现成原样的」 (W's tree 593
+          nodes: the engine copies it every tick; the R shadow's checkpoints sit in the ult, which it does not copy) -
+          and the swap onto it to chase (one champion near it, none near him, soon after the combo).
   attack  The wrist-blade swing, the hit on tick a_st. Shadow Slash (影奔, automatic): with e_cd off and an enemy
-          within e_r, the attack is the E spin instead - e_dmg + e_ratio% AD round him (the shadow copies it only inside the combo), the
+          within e_r, the attack is the E spin instead - e_dmg + e_ratio% AD round him (a live shadow copies it), the
           champions slowed e_slow% for e_slow_t ticks.
   skill   W Living Shadow (影分身): on an enemy champion within w_range: the shadow lands on his spot and stays w_life
           ticks. The cast goes straight on (the pros' W-E-Q, 三影齐发): Shadow Slash if it is ready, then Razor
-          Shuriken if it is ready - both copied by the shadow. Within chase_t of the landing, one enemy champion near it and
+          Shuriken if it is ready - both copied by the shadow, as every later one while it stands. Within chase_t of the landing, one enemy champion near it and
           none near him: he swaps onto it (W2 chase).
   skill2  Q Razor Shuriken (影奥义！诸刃): a shuriken thrown on tick q_at toward where the target stood 8 ticks before
           (dodgeable, league_caitlyn's lock), through everything on the line: q_dmg + q_ratio% AD to the first unit,
           q_pen% of that to the rest. A live shadow throws one too.
   ult     R Death Mark (禁奥义！瞬狱影杀阵): on `EnemyChampionRecentlyAttacked` within r_range: untargetable, he dashes
-          through the champion (`RushMoveToBack`), marks him and leaves a shadow where he stood. r_pop ticks later the
+          through the champion (`RushMoveToBack`), marks him and leaves a shadow where he stood (it copies his
+          shurikens and slashes too). r_pop ticks later the
           mark bursts: r_dmg + r_ratio% AD plus r_per for each of his hits on the marked champion meanwhile (League adds
           a share of the damage dealt; nothing reads damage, so it counts the hits, up to three; the add-on
           adds r_pct% of the damage he dealt). Outnumbered when it
@@ -62,6 +67,10 @@ P = {
     "q_y": 3000, "q_dmg": 60, "q_ratio": 100, "q_pen": 60,
     # W Living Shadow (League: 650 range, 5.25 s, cd 20-16 s)
     "w_cd": 720, "w_dur": 6, "w_at": 3, "w_fly": 4, "c_e": 8, "w_range": 55000, "w_life": 300, "swap_step": 45, "chase_t": 90,
+    # every later Q / E he casts while a shadow stands is copied at its next checkpoint: the W shadow's every echo_step
+    # ticks (in W's tree, which the engine copies each tick), the R shadow's every r_echo_step (in the ult's, which it
+    # does not)
+    "echo_step": 12, "r_echo_step": 6,
     "sh_near_r": 25000, "near_r": 30000,
     # R Death Mark (League: 625 range, 3 s mark, 25-55% of the damage dealt, cd 120-80 s; shadow 6 s)
     "r_cd": 3000, "r_dur": 24, "r_go": 6, "r_speed": 6000, "r_range": 60000, "r_pop": 180, "r_dmg": 80, "r_ratio": 100,
@@ -221,13 +230,15 @@ def build(p):
     def slash_hits():
         return [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")]
 
-    def slash():
-        """His ring (the cast's tick is e_at - 1 before)."""
+    def slash(echo="e_echo"):
+        """His ring (the cast's tick is e_at - 1 before); `echo` tells the W shadow (W's combo copies it exactly with
+        its own flag, its checkpoints the later ones), er_echo the R shadow."""
         return combine(cview("e_spin"), sfx("e"),
                        around(p["e_r"], "EnemyWithoutTower", slash_hits()),
                        around(p["e_r"], "EnemyChampion", [buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
                                                           *([] if p["native"] else [spell_mark])]),
-                       refresh("e_echo", 3), flag("e_cd", p["e_cd"]))
+                       refresh(echo, p["echo_step"]), refresh("er_echo", p["r_echo_step"]),
+                       flag("e_cd", p["e_cd"]))
 
     # ------------------------------------------------------------------ Razor Shuriken
     def q_hit():
@@ -237,8 +248,8 @@ def build(p):
                    combine(attack(p["q_dmg"], p["q_ratio"]), view("q_hit"), flag("q_first", p["q_dur"] + 10))),
                 tsfx("q_hit")]
 
-    def shuriken(lead):
-        """Lock the aim q_lock ticks before the throw on tick lead + q_at."""
+    def shuriken(lead, echo="q_echo"):
+        """Lock the aim q_lock ticks before the throw on tick lead + q_at; `echo` as slash()'s."""
         star = line("q_star", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyWithoutTower", True, q_hit())
         twin = [] if p["native"] else             [line("q_twin", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyChampion", False, [spell_mark])]
         aimed = {"type": "RandomTarget", "range": p["q_range"] + 10000, "casting_target": "EnemyChampion",
@@ -246,28 +257,38 @@ def build(p):
                  "effects": [flag("q_aim", p["q_lock"] + 2), lob("q_aim", p["q_lock"], "EnemyChampion", [star, *twin])]}
         return combine(delayed(lead + p["q_at"] - p["q_lock"] - 1, *rm("q_first"), aimed),
                        delayed(lead + p["q_at"] - 1, sfx("q"), sw("q_aim", NONE, star),
-                               refresh("q_echo", 3)),
+                               refresh(echo, p["echo_step"]), refresh("qr_echo", p["r_echo_step"])),
                        flag("q_cd", p["q_cd"]))
 
-    # ------------------------------------------------------------------ the shadow (league_ekko's anchor on a lob)
+    # ------------------------------------------------------------------ the shadows (league_ekko's anchor)
+    def echoes(qf, ef):
+        """What a shadow copies at a checkpoint: his shuriken - flown from the shadow back toward him, through what
+        stands between - and his slash round it. Each flag lasts exactly one checkpoint step, so exactly one checkpoint
+        sees it (no copy twice, nothing to spend)."""
+        pen = p["q_pen"]           # the shadow's shuriken: q_pen% to all (the first-hit flag per copy cost 6 nodes)
+        star = back("sh_star", p["q_speed"], p["q_rad"], "EnemyWithoutTower",
+                    [attack(p["q_dmg"] * pen // 100, p["q_ratio"] * pen // 100), view("q_hit"), tsfx("q_hit")])
+        return [sw(qf, star),
+                sw(ef, combine(view("sh_spin"), zone("sh_slash", p["e_r"], "EnemyWithoutTower", slash_hits())))]
+
     def shadow(life, live, d_e, d_q):
-        """The anchor's end_effects (ticks from the landing): the copies of the combo's slash (d_e) and shuriken (d_q) -
-        its shuriken flies from it back toward him, through the target it stands on - the picture and the chase swap
-        every swap_step ticks, the end."""
-        star = back("sh_star", p["q_speed"], p["q_rad"], "EnemyWithoutTower", q_hit())
-        # chase: exactly one enemy champion near the shadow (sn1 without sn2; sn_t marks this tick's first) and none
-        # near him, only within chase_t of the landing - a swap into two or later on was a dive (deaths 1.9 -> 2.9)
+        """The W shadow's end_effects (ticks from the landing): the copies of the combo's slash (d_e) and shuriken
+        (d_q) a tick after him, then a checkpoint every echo_step ticks copying every later Q / E of his, the picture
+        every swap_step and the chase swap (within chase_t), the end."""
         swap = sw("sn2", NONE, sw("sn1", sw("zn", NONE, combine(*rm(live), cview("w_swap"), {"type": "Teleport"},
                                                                sfx("w2")))))
         count = sw("sn_t", refresh("sn2", 7), combine(flag("sn_t", 1), refresh("sn1", 7)))
         out = [view("sh_in"), sfx("w_land"),
                pzone("sh_near", p["sh_near_r"], life, 6, "EnemyChampion", [on_me(count)]),
-               delayed(d_e, sw(live, sw("e_echo", combine(view("sh_spin"),
-                                                          zone("sh_slash", p["e_r"], "EnemyWithoutTower",
-                                                               slash_hits()))))),
-               delayed(d_q, sw(live, sw("q_echo", combine(view("sh_throw"), star))))]
-        for t in range(p["swap_step"], life, p["swap_step"]):
-            out.append(delayed(t, sw(live, combine(view("sh_stand"), *([swap] if t <= p["chase_t"] else [])))))
+               delayed(d_e, sw(live, echoes("q_none", "ec_echo")[1])),
+               delayed(d_q, sw(live, sw("qc_echo", combine(view("sh_throw"), echoes("qc_echo", "e_none")[0]["effect_buff"]))))]
+        for t in range(p["echo_step"], life, p["echo_step"]):
+            step = echoes("q_echo", "e_echo")
+            if t % p["swap_step"] == 0:
+                step.append(view("sh_stand"))
+                if t <= p["chase_t"]:
+                    step.append(swap)
+            out.append(delayed(t, sw(live, combine(*step))))
         out.append(delayed(life, sw(live, combine(*rm(live), view("sh_out")))))
         return out
 
@@ -284,8 +305,8 @@ def build(p):
                         on_me(refresh("w_live", p["w_life"] + p["w_fly"])),
                         lob("w_lob", p["w_fly"], "EnemyChampion", shadow(p["w_life"], "w_live", d_e, d_q)))
         return combine(anim("skill", p["w_dur"]), throw, flag("w_cd", p["w_cd"]),
-                       sw("e_cd", NONE, delayed(lead + p["c_e"] - 1, slash())),
-                       sw("q_cd", NONE, combine(delayed(q_go - 1, anim("skill2", p["q_dur"])), shuriken(q_go))))
+                       sw("e_cd", NONE, delayed(lead + p["c_e"] - 1, slash("ec_echo"))),
+                       sw("q_cd", NONE, combine(delayed(q_go - 1, anim("skill2", p["q_dur"])), shuriken(q_go, "qc_echo"))))
 
     # ------------------------------------------------------------------ the attack (Shadow Slash folded in)
     # the add-on reads the probe on the champion it hit (health below cw_hp%: its native Contempt)
@@ -340,7 +361,9 @@ def build(p):
                          line("r_anchor", 1, 1, 1, 5000, "EnemyWithoutTower", True, [],
                               [delayed(p["r_go"] + p["r_pop"] + 2,
                                        sw("r_live", sw("rn2", combine(*rm("r_live"), cview("w_swap"),
-                                                                     {"type": "Teleport"}, view("w_swap"), sfx("w2")))))]),
+                                                                     {"type": "Teleport"}, view("w_swap"), sfx("w2")))))] +
+                              [delayed(t, sw("r_live", combine(*echoes("qr_echo", "er_echo"))))
+                               for t in range(p["r_echo_step"], p["r_life"], p["r_echo_step"])]),
                          delayed(p["r_go"] - 1, {"type": "RushMoveToBack", "speed": p["r_speed"], "applied_effects": [
                              buff("r_mark", p["r_pop"]), view("r_hit"), tsfx("r_hit"), attack(0, 100),
                              casted(p["r_pop"] + 1, p["r_pop"], sw("r_on", combine(pop, *rm("r_on", *([] if p["native"] else ["r_1", "r_2", "r_3"])))))]},

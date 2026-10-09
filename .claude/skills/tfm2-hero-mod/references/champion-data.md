@@ -3826,9 +3826,12 @@ never spawned; a lob there left from the caster). Only a projectile's own `end_e
 among them keeps the point. So the shadow is a hidden lob (`travel_time` 4) onto the champion's spot: its `end_effects`
 hold the picture's pieces, the copies of the same cast's slash (a zone on the spot) and shuriken (a
 `BackToCasterLinearProjectile` from the spot back to Zed, through the champion standing on it), each gated by a 3-tick
-flag his own slash / shuriken set a tick before, and the checkpoints of the swap (`Teleport`). Copying every later
-cast would need a checkpoint every few ticks for 5 s: 750 nodes for W and 850 for R, so the W slot is the whole W-E-Q
-in one cast (the AI casts W only on champions; League's players open with it too).
+flag his own slash / shuriken set a tick before, and the checkpoints of the swap (`Teleport`). The user then asked for League's shadow (「你可以增加节点 实现成原样的」): every later Q / E is copied at the
+next checkpoint, a `Delayed` every 12 ticks (W) / 6 ticks (R); his slash and shuriken set the shadow's flag for
+exactly one step, so exactly one checkpoint copies each and nothing has to spend it; the combo's own copies use
+their own flags (`ec_echo`, `qc_echo`). W's tree is 593 nodes (the engine copies it every tick); the R shadow's
+checkpoints sit in the ult's tree, which it does not copy. In the SDK 56 of 58 later shurikens and 55 of 58 slashes
+were copied, most within a tick, the last 12 ticks late.
 
 **Slots whose cooldown is a flag cost the AI's walk (league_zed draft, 2026-10-09).** W and Q started as 60-tick slots
 with their real cooldowns in caster flags (empty branches while a flag ran, league_leblanc's way): the AI cast the
