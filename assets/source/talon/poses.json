@@ -1,0 +1,337 @@
+{
+ "hero": "talon",
+ "champ": "Talon",
+ "camera": {
+  "yaw": 45,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.6,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 42,
+ "cell": [
+  120,
+  112,
+  14
+ ],
+ "design": "talon_idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "talon_idle1@0",
+   "frames": [
+    [
+     "talon_run@0",
+     121
+    ],
+    [
+     "talon_run@121",
+     121
+    ],
+    [
+     "talon_run@242",
+     121
+    ],
+    [
+     "talon_run@363",
+     121
+    ],
+    [
+     "talon_run@484",
+     121
+    ],
+    [
+     "talon_run@605",
+     121
+    ],
+    [
+     "talon_run@726",
+     121
+    ],
+    [
+     "talon_run@847",
+     121
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>talon_attack1@110:0.6",
+     60
+    ],
+    [
+     "talon_attack1@170",
+     50
+    ],
+    [
+     "talon_attack1@222",
+     80
+    ],
+    [
+     "talon_attack1@300",
+     80
+    ],
+    [
+     "talon_attack1@1100>talon_idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>talon_spell2@97:0.6",
+     50
+    ],
+    [
+     "talon_spell2@194",
+     50
+    ],
+    [
+     "talon_spell2@290",
+     80
+    ],
+    [
+     "talon_spell2@387",
+     70
+    ],
+    [
+     "talon_spell2@580",
+     70
+    ],
+    [
+     "talon_spell2@870>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.5,
+   "rise": 0.6,
+   "release": 4,
+   "frames": [
+    [
+     "talon_spell1_leap@0",
+     60
+    ],
+    [
+     "talon_spell1_leap@73",
+     50
+    ],
+    [
+     "talon_spell1_leap@147",
+     60
+    ],
+    [
+     "talon_spell1_leap@220",
+     80
+    ],
+    [
+     "talon_spell1_leap@293",
+     70
+    ],
+    [
+     "talon_spell1_leap@440",
+     80
+    ],
+    [
+     "talon_spell1_leap@660>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2_stab": {
+   "lunge": 0.4,
+   "rise": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>Talon_Crit@0:0.6",
+     50
+    ],
+    [
+     "Talon_Crit@133",
+     50
+    ],
+    [
+     "Talon_Crit@266",
+     70
+    ],
+    [
+     "Talon_Crit@400",
+     70
+    ],
+    [
+     "Talon_Crit@533",
+     70
+    ],
+    [
+     "Talon_Crit@800>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill_e": {
+   "lunge": 0.6,
+   "rise": 0.4,
+   "release": 5,
+   "frames": [
+    [
+     "talon_spell3_jump@0",
+     60
+    ],
+    [
+     "talon_spell3_jump@77",
+     60
+    ],
+    [
+     "talon_spell3_jump@153",
+     60
+    ],
+    [
+     "talon_spell3_jump@230",
+     60
+    ],
+    [
+     "talon_spell3_jump@383",
+     60
+    ],
+    [
+     "talon_spell3_jump@537",
+     70
+    ],
+    [
+     "talon_spell3_jump@690>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.4,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>talon_spell4@0:0.6",
+     50
+    ],
+    [
+     "talon_spell4@97",
+     50
+    ],
+    [
+     "talon_spell4@194",
+     60
+    ],
+    [
+     "talon_spell4@290",
+     60
+    ],
+    [
+     "talon_spell4@387",
+     60
+    ],
+    [
+     "talon_spell4@484",
+     60
+    ],
+    [
+     "talon_spell4@580",
+     60
+    ],
+    [
+     "talon_spell4@774>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "talon_idle1@0>talon_death@200:0.35",
+     120
+    ],
+    [
+     "talon_idle1@0>talon_death@200:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.2,
+   "frames": [
+    [
+     "talon_death@0",
+     100
+    ],
+    [
+     "talon_death@127",
+     100
+    ],
+    [
+     "talon_death@253",
+     100
+    ],
+    [
+     "talon_death@380",
+     120
+    ],
+    [
+     "talon_death@507",
+     120
+    ],
+    [
+     "talon_death@633",
+     150
+    ],
+    [
+     "talon_death@1013",
+     200
+    ],
+    [
+     "talon_death@1267",
+     500
+    ]
+   ]
+  }
+ }
+}
