@@ -649,17 +649,17 @@ TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
-SHRINK = {"xerath": 0.9, "renekton": 0.9}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」
+SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」
 # no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
 # "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
 # and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
 # every low row "knee" and the cut fell on his head
-SHRINK_KEEP = {"xerath": ["!FBFCFC"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP = {"xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
 SHRINK_KEEP_TAG = {"renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
-SHRINK_ANCHOR = {"xerath": "FBFCFC", "renekton": "F9D206"}
+SHRINK_ANCHOR = {"xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -1369,13 +1369,21 @@ def overlay(frames, pic, t0, under=False):
     return [(a[my:a.shape[0] - my, mx:a.shape[1] - mx], ms) for a, ms in out]
 
 
+def offset(a, dx, dy):
+    """The picture a moved dx columns right and dy rows down from the pivot it is centred on (padded on the far side)."""
+    if not dx and not dy:
+        return a
+    return np.pad(a, ((2 * max(dy, 0), 2 * max(-dy, 0)), (2 * max(dx, 0), 2 * max(-dx, 0)), (0, 0)))
+
+
 def bake(hero, sheet):
     """Apply <hero>_bake.json: draw effect pictures into the hero's own action frames. The client never mirrors a
     data effect picture (ViewEffect, CasterViewEffect: game_view's generate copies the view system's flip, which
     register_data_champion_views sets to false), but it mirrors the hero's frames with his facing, so a picture with
     a front and a back that rides on the hero belongs in his frames. {"fx": effect sheet, "items": [...]}, applied in
     order; an item {"tag", "into", "at_ms", "under", "fx"} draws the effect tag into the action tag from at_ms on,
-    centred on the pivot as a CasterViewEffect is (both are drawn centred on the unit), under the body when "under";
+    centred on the pivot as a CasterViewEffect is (both are drawn centred on the unit), under the body when "under",
+    moved "dx" columns / "dy" rows when given (a picture drawn for a hand that a smaller body moved: league_gwen);
     with {"from", "slice_ms", "length_ms"} the tag `into` is made first as `from`'s frames from slice_ms on (for
     length_ms, looping, when given) - a copy a
     CasterAnimation plays from the moment the picture played, when only some plays of the action carry it
@@ -1408,7 +1416,8 @@ def bake(hero, sheet):
                 sheet[e["into"]] = slice_ms(sheet[e["from"]], int(round(e["slice_ms"])), e.get("length_ms"))
         elif e.get("length_ms") and sum(ms for _, ms in sheet[e["into"]]) < e["length_ms"]:
             sheet[e["into"]] = slice_ms(sheet[e["into"]], 0, e["length_ms"])     # a held loop drawn out first
-        pic = [(np.asarray(fx.frames[i]), fx.durations[i]) for i in ids]
+        dx, dy = e.get("dx", 0), e.get("dy", 0)
+        pic = [(offset(np.asarray(fx.frames[i]), dx, dy), fx.durations[i]) for i in ids]
         sheet[e["into"]] = overlay(sheet[e["into"]], pic, int(round(e["at_ms"])), e.get("under", False))
         done.setdefault(e["into"], []).append(e["tag"])
     return done
