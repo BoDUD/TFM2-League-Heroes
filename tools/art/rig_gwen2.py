@@ -52,7 +52,8 @@ SCREW = (72, 75, 71, 73)                              # rows, columns of the piv
 HANDLE_ROWS = (75, 91)                                # the handle: these rows, columns >= HANDLE_COL
 HANDLE_COL = 70
 SHAFT = [(76, 72), (76, 73)]                          # (row, column) of the shaft squares left of HANDLE_COL
-FAR_OFF = {76: (70, 73), 77: (63, 73), 78: (63, 73), 79: (66, 73)}   # the far arm, the glove, the shaft (rows: cols)
+FAR_OFF = {75: (69, 70), 76: (67, 73), 77: (63, 73), 78: (63, 73), 79: (66, 73)}   # the far arm, the glove, the shaft, and the
+# ringlet's tail on the shoulder (hidden by the handle in the idle; alone over the moved arm it hung oddly: 「头发这里要好好处理」)
 FAR_FILL = {77: (63, "CC"), 78: (63, "C")}            # the bodice's edge under it
 FAR_SH = (65, 77)                                     # the far arm's first square (top-left of its cross-section)
 NEAR_OFF = {80: (56, 60), 81: (56, 60), 82: (56, 60), 83: (56, 60), 84: (56, 60)}   # the akimbo arm
@@ -511,9 +512,11 @@ def dead_frame(P, i):
     if deg == 20:
         gx, gy = about_feet(GRIP, deg)
         mx, my = int(round(gx - GRIP[0])) + dx, int(round(gy - GRIP[1])) + sy
-        K.put(out, shifted(P.scissors, mx, my), 0, 0, under=True)
+        s4 = shifted(P.scissors, mx, my)
     else:
-        K.put(out, scissors_on_ground(P, 76), 0, 0, under=True)
+        s4 = scissors_on_ground(P, 76)
+    K.put(out, s4, 0, 0, under=True)
+    P.keep = (s4[..., 3] > 0) & (out == s4).all(-1)                 # the scissors' outline stays as drawn
     return out
 
 
@@ -571,9 +574,9 @@ def soften_inner_ink(P, f, keep=None):
             change[(y, x)] = min(cols, key=lum)
     for (y, x), c in change.items():
         f[y, x, :3] = c
-    off = face | (keep if keep is not None else np.zeros_like(face))
-    isk = op & (f[..., :3] == ink).all(-1)
-    for y, x in zip(*np.nonzero(isk & ~off)):
+    off = face | was | (keep if keep is not None else np.zeros_like(face))   # the design's own lone dots stay
+    isk = op & (f[..., :3] == ink).all(-1)                                      # (seven of them went in every frame:
+    for y, x in zip(*np.nonzero(isk & ~off)):                                   # 「脸上还有一些黑的像素丢失」)
         if y >= SOLES:
             continue
         n4 = [(y + dy, x + dx) for dy, dx in K.N4]
