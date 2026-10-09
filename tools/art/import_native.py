@@ -65,8 +65,8 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run")}   # kogmaw:
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead); Rengar too (rig_rengar BREATH:
 # the shared lean smeared his toes, his carried blade went under the soles); Zed too (rig_zed BREATH: the shared cut ran
-# through his wrist blades and shortened them)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# through his wrist blades and shortened them); Olaf too (rig_olaf BREATH: the shared cut ran through his spiked greaves)
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "olaf"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -293,7 +293,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "olaf"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
