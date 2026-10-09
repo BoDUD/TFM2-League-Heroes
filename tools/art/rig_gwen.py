@@ -77,7 +77,7 @@ ARM_STEPS, GLOVE_STEPS = 3, 2         # the design's arm: 3 skin steps and the g
 STRAY = [(58, R(86)), (58, R(87)), (58, R(88))] # squares left of the old small scissors under the skirt's left edge
 LEG_TOP, LEG_SPLIT = R(87), 66            # the legs' rows (to the soles) and the column between them; the skirt's hem
                                        # (row 86) stays on the body (a lifted leg took its piece of it up)
-SC_LEN, SC_OPEN = 27, 44               # the held scissors: blade (squares; 30 before step 15), the snip's opening (degrees)
+SC_LEN, SC_OPEN = 25, 44               # the held scissors: blade (squares; 30 before step 15, 27 before step 17), the snip's opening (degrees)
 IDLE_DEG = 155                         # the design's blade points 155 degrees (down and back)
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
 HAIR_ROWS = (R(56), R(80))                   # hang behind her shoulders), under everything else; right of the torso's edge

@@ -57,6 +57,10 @@ at one scale), then for the face 「脸部五官太奇怪了」「改不好就�
      blues. HEAD2 is drawn on the finished canvas from the pivot (64, 88), columns x -12..13, rows -31..-6: '-' keeps
      the square, '.' clears the old hair (its blues, the outline, the old bows over row -22), never the scissors or
      the body; drills() gives tools/art/rig_gwen.py the two ringlets' squares.
+ 17. smaller again (2026-10-09, 「格温好像也偏大」, A of two): 41 -> 38 rows by three more whole rows of the body
+     (SHRINK2_DROP: a skirt row, a stocking row, a shin row - the head, the ringlets and the arms untouched), the
+     scissors taken off and drawn again 38 / 41 as long with the handle moved with her hip, the point kept above the
+     soles; old_to_new() now maps step 14's points through steps 15 and 17, drills() its ringlets through step 17.
 --check compares the result with the committed gwen_native.png instead of writing it.
 """
 import argparse
@@ -144,6 +148,11 @@ SHRINK_DROP = [61, 83, 84, 89]
 SC_AT = (47, 56)
 HANDLE = (32.25, 25.5)
 SC_SCALE = 42 / 46
+# step 17 (2026-10-09, 「格温好像也偏大」, A of two: 41 -> 38 rows): three more whole rows of step 16's canvas, each like a
+# neighbour - a skirt row, a stocking row, a shin row - never the head (drawn in step 16), the ringlets or the arms; the
+# scissors taken off and drawn again as much shorter as she is, the point kept two rows above the soles
+SHRINK2_DROP = [82, 89, 96]
+SC_SCALE2 = SC_SCALE * 38 / 41
 TORSO_KEYS = {"B": "A", "D": "G", "P": "N", "I": "I", "a": "Ad", "Q": "U", "k": "Kp", "h": "h", "H": "H",
               "l": "Lb", "T": "T", "R": "R", "X": "S2"}
 
@@ -671,9 +680,20 @@ def polish(canvas, mask):
         put(x, y, c)
 
 
-def old_to_new(x, y):
+def old_to_new15(x, y):
     """Where step 14's canvas point (x, y) is after step 15 (rows over a cut row move down one per cut under them)."""
     return x, y + sum(1 for d in SHRINK_DROP if d > y)
+
+
+def cut17(y):
+    """Where step 16's canvas row y is after step 17 (the same rule)."""
+    return y + sum(1 for d in SHRINK2_DROP if d > y)
+
+
+def old_to_new(x, y):
+    """Where step 14's canvas point (x, y) is now - after steps 15 and 17 (tools/art/rig_gwen.py's R)."""
+    x, y = old_to_new15(x, y)
+    return x, cut17(y)
 
 
 def scissors_at(layer, handle, scale=SC_SCALE):
@@ -699,7 +719,32 @@ def shrink(canvas, mask):
     out[SOLE_ROW + 1 - len(keep):SOLE_ROW + 1] = body[keep]
     layer = np.zeros_like(out)
     h = (HANDLE[0] + SC_AT[0], HANDLE[1] + SC_AT[1])
-    scissors_at(layer, old_to_new(*h))
+    scissors_at(layer, old_to_new15(*h))
+    can, _, _ = strips.complete_outline(np.pad(layer, ((1, 1), (1, 1), (0, 0))), color=C["I"], feet=SOLE_ROW + 1)
+    layer = can[1:-1, 1:-1]
+    behind = (layer[..., 3] > 0) & (out[..., 3] == 0)
+    out[behind] = layer[behind]
+    was = out[..., 3] > 0
+    can, _, _ = strips.complete_outline(np.pad(out, ((1, 1), (1, 1), (0, 0))), color=C["I"], feet=SOLE_ROW + 1)
+    out = can[1:-1, 1:-1]
+    return out, behind | ((out[..., 3] > 0) & ~was)
+
+
+def shrink2(canvas, mask):
+    """Step 17: three body rows cut, the scissors drawn again behind her, shorter. (canvas, scissors mask)"""
+    body = canvas.copy()
+    body[mask] = 0
+    keep = [y for y in range(128) if y not in SHRINK2_DROP and y <= SOLE_ROW]
+    out = np.zeros_like(canvas)
+    out[SOLE_ROW + 1 - len(keep):SOLE_ROW + 1] = body[keep]
+    hx_, hy_ = old_to_new15(HANDLE[0] + SC_AT[0], HANDLE[1] + SC_AT[1])
+    handle, scale = (hx_, cut17(hy_)), SC_SCALE2
+    while True:                                        # the blade's point a row above the soles' outline even when the
+        layer = np.zeros_like(out)                     # idle's breath sinks the scissors a row (rig_gwen.breathe)
+        scissors_at(layer, handle, scale)
+        if np.nonzero(layer[..., 3] > 0)[0].max() <= SOLE_ROW - 2:
+            break
+        scale -= 0.01
     can, _, _ = strips.complete_outline(np.pad(layer, ((1, 1), (1, 1), (0, 0))), color=C["I"], feet=SOLE_ROW + 1)
     layer = can[1:-1, 1:-1]
     behind = (layer[..., 3] > 0) & (out[..., 3] == 0)
@@ -749,6 +794,7 @@ def build(with_mask=False):
     polish(canvas, mask)                               # step 14 (supersedes step 13's recolouring)
     canvas, mask = shrink(canvas, mask)                # step 15
     head2(canvas, mask)                                # step 16
+    canvas, mask = shrink2(canvas, mask)               # step 17
     if with_mask:
         return canvas, mask
     return canvas
@@ -815,7 +861,8 @@ def head2(canvas, mask):
 
 
 def drills():
-    """The two ringlets' squares on the canvas (rows -21..-7 from the pivot, left of the face / right of it):
+    """The two ringlets' squares on the canvas (step 16's rows -21..-7 from the pivot, moved by step 17; left of the face /
+    right of it):
     (left, right) bool masks - tools/art/rig_gwen.py moves and layers them as hair."""
     left, right = np.zeros((128, 128), bool), np.zeros((128, 128), bool)
     for j, row in enumerate(HEAD2):
@@ -827,9 +874,9 @@ def drills():
             if ch in "-.":
                 continue
             if x <= -3:
-                left[88 + y, 64 + x] = True
+                left[cut17(88 + y), 64 + x] = True
             elif x >= 5:
-                right[88 + y, 64 + x] = True
+                right[cut17(88 + y), 64 + x] = True
     return left, right
 
 
