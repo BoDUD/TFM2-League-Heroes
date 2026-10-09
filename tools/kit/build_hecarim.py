@@ -287,9 +287,9 @@ def build(p):
                                       "z": z}
     B_ = lambda name, tag=None, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    views_p = [P_("r_riders", BIG, 2)]
+    views_p = [P_("r_riders", BIG, -1)]
     views_e = [E("a_hit"), E("q_spin", BIG, 3, False), E("q_hit"), E("w_start", BIG, -1, False), E("w_hit"),
-               E("e_dust", FX, -1, False), E("e_hit"), E("r_cast", BIG, 3, False), E("r_land", BIG, -1, False),
+               E("e_dust", FX, -1, False), E("e_hit"), E("r_cast", BIG, -1, False), E("r_land", BIG, -1, False),
                E("r_hit"), E("r_fear")]
     views_b = [B_("q1", "q1", FX, 4), B_("q2", "q2", FX, 4), B_("w_on", "w_aura", BIG, -1),
                B_("e_ride", "e_ride", FX, -1), B_("e_haste", "e_haste", FX, -1)]
