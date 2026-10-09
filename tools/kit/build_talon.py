@@ -40,28 +40,30 @@ ID = "league_talon"
 FX = "asset/league/effects/league_talon_fx"
 BIG = "asset/league/effects/league_talon_big"
 
-# Timings provisional until the strips: the slash hits on tick 9, Rake's blades leave on tick 6, the leap from tick 3.
+# Timings from the strips (assets/source/talon/poses.json): the stab hits on tick 7 (attack frame 3), Rake's blades
+# leave on tick 6 (skill frame 3), the melee spin slash on tick 6 (skill2_stab frame 3), the blades fly out on tick 6
+# (ult frame 3); the vault plays 20 ticks.
 P = {
     # stats (Assassin base: attack 120 +30, hp 900 +80, defence 25, mr 15, move 1100, range 23000); League's Talon:
     # 658 +109 hp, 68 AD +3.1, 30 armour, 335 move, 125 range
     "hp": 930, "hp_g": 88, "atk": 122, "atk_g": 25, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
     # attack: the wrist blade
-    "atk_range": 23000, "atk_dur": 25, "atk_cd": 55, "a_st": 9,
+    "atk_range": 23000, "atk_dur": 25, "atk_cd": 55, "a_st": 7,
     # passive Blade's End (League: 75-160 + 210% bonus AD bleed over 2 s, 10 s per target)
     "p_t": 300, "p_dmg": 40, "p_ratio": 120, "p_bleed": 120, "p_period": 20, "p_cd": 600,
     # Q Noxian Diplomacy (League: 575 leap range, 65-165 + 110% bonus AD, melee crit, cd 8-6 s; a kill heals and
     # refunds 50%)
-    "q_cd": 300, "q_dur": 18, "q_go": 3, "q_range": 40000, "q_melee": 26000, "q_speed": 6000, "q_dmg": 55,
+    "q_cd": 300, "q_dur": 18, "q_go": 5, "q_range": 40000, "q_melee": 26000, "q_speed": 6000, "q_dmg": 48,
     "q_ratio": 100, "q_crit": 150, "q_heal": 60, "q_reset": 100,
     # W Rake (League: 900 range, out 50-90 + 40% bonus AD, back 50-130 + 90% bonus AD, 40-60% slow 1 s, cd 9 s)
     "w_cd": 540, "w_dur": 18, "w_at": 6, "w_range": 50000, "w_len": 55000, "w_speed": 5000, "w_back_speed": 5000,
-    "w_rad": 12000, "w_y": 3000, "w_wait": 6, "w_dmg": 30, "w_ratio": 40, "w2_dmg": 45, "w2_ratio": 70, "w_slow": 40,
+    "w_rad": 12000, "w_y": 3000, "w_wait": 6, "w_dmg": 30, "w_ratio": 40, "w2_dmg": 40, "w2_ratio": 70, "w_slow": 40,
     "w_slow_t": 60,
     # E Assassin's Path (League: a vault, cd 2 s per wall; here the way out)
-    "e_on": 1, "e_cd": 600, "e_safe_r": 40000, "e_crowd": 2, "e_speed": 6000, "e_tick": 6, "e_haste": 30,
+    "e_on": 1, "e_cd": 600, "e_safe_r": 40000, "e_crowd": 2, "e_speed": 3000, "e_tick": 12, "e_anim": 20, "e_haste": 30,
     "e_haste_t": 90,
     # R Shadow Assault (League: 550 radius, 90-270 + 100% bonus AD out and back, 2.5 s stealth, 40-60% haste, cd 100 s)
-    "r_cd": 3000, "r_dur": 12, "r_range": 30000, "r_r": 30000, "r_dmg": 55, "r_ratio": 75, "r_inv": 150,
+    "r_cd": 3000, "r_dur": 20, "r_at": 6, "r_range": 30000, "r_r": 30000, "r_dmg": 55, "r_ratio": 75, "r_inv": 150,
     "r_haste": 40,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -221,7 +223,7 @@ def build(p):
                                                   [on_me(sw("en1", flag("en2", 2), flag("en1", 2)))]))
         hop = pick(p["e_safe_r"], "EnemyChampion",
                    {"type": "MoveBack", "speed": p["e_speed"], "tick": p["e_tick"]})
-        go = combine(flag("e_cd", p["e_cd"]), anim("skill_e", p["e_tick"] + 4), cview("e_vault"), sfx("e"),
+        go = combine(flag("e_cd", p["e_cd"]), anim("skill_e", p["e_anim"]), cview("e_vault"), sfx("e"),
                      voice("vo_e", p), hop, refresh("e_haste", p["e_haste_t"], move_speed_mult=p["e_haste"]))
         crowd = "en2" if p["e_crowd"] >= 2 else "en1"
         return sw("e_cd", NONE, combine(count, sw(crowd, go)))
@@ -292,10 +294,11 @@ def build(p):
 
     # ------------------------------------------------------------------ R Shadow Assault
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p), cview("r_out"),
-                         around(p["r_r"], "EnemyWithoutTower", [attack(p["r_dmg"], p["r_ratio"]), view("r_hit"),
-                                                                tsfx("r_hit")]),
-                         around(p["r_r"], "EnemyChampion", wound()),
+                 combine(anim("ult", p["r_dur"]), voice("vo_r", p),
+                         delayed(p["r_at"] - 1, sfx("r"), cview("r_out"),
+                                 around(p["r_r"], "EnemyWithoutTower", [attack(p["r_dmg"], p["r_ratio"]),
+                                                                        view("r_hit"), tsfx("r_hit")]),
+                                 around(p["r_r"], "EnemyChampion", wound())),
                          {"type": "CasterInvisible", "tick": p["r_inv"]},
                          refresh("r_on", p["r_inv"] + 2, move_speed_mult=p["r_haste"]),
                          on_me(*rm("r_brk"), casted(p["r_inv"], 2, sw("r_on", sw("r_brk", converge))),
@@ -312,7 +315,7 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_p = [P_("w_out"), P_("w_back")]
     views_e = [E("a_hit"), E("q_hit"), E("q_leap", FX, -1, False), E("q_heal", FX, 3, False), E("w_hit"),
-               E("e_vault", FX, -1, False), E("r_out", BIG, 3), E("r_back", BIG, 3, False), E("r_hit"),
+               E("e_vault", FX, -1, False), E("r_out", BIG, 3, False), E("r_back", BIG, 3, False), E("r_hit"),
                E("p_bleed", FX, 3)]
     views_b = [B_("p_wound", "p_wound", FX, 4), B_("w_slow", "w_slow", FX, 3), B_("e_haste", "e_haste", FX, -1),
                B_("r_on", "r_on", FX, -1)]
