@@ -14,9 +14,9 @@
     "asset/league/icons/league_kogmaw_ult"
   ],
   "stat": {
-    "attack": 90,
+    "attack": 106,
     "magic_power": 0,
-    "hp": 880,
+    "hp": 950,
     "defence": 20,
     "magic_resistance": 15,
     "move_speed": 870,
@@ -42,7 +42,7 @@
     "cooltime": 54,
     "start_timing": 1,
     "cancelable": true,
-    "range": 50000,
+    "range": 55000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
@@ -72,7 +72,7 @@
                 "buff_state": {
                   "name": "league_kogmaw_q_pas",
                   "duration": "Permanent",
-                  "attack_speed_mult": 15
+                  "attack_speed_mult": 35
                 },
                 "only_to_enemy": false
               },
@@ -252,7 +252,7 @@
                       "name": "league_kogmaw_w_cd",
                       "duration": {
                         "Time": {
-                          "tick": 1020
+                          "tick": 720
                         }
                       }
                     },
@@ -277,7 +277,7 @@
                         }
                       },
                       "range": 18000,
-                      "base_attack_enemy_max_hp_damage": 4
+                      "base_attack_enemy_max_hp_damage": 5
                     },
                     "only_to_enemy": false
                   }
@@ -333,7 +333,7 @@
                   "effects": [
                     {
                       "type": "RandomTarget",
-                      "range": 68000,
+                      "range": 73000,
                       "casting_target": "EnemyChampion",
                       "from_projectile": false,
                       "effects": [
@@ -417,7 +417,7 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "Attack",
-                                        "damage": 60,
+                                        "damage": 80,
                                         "attack_ratio": 70,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
@@ -566,7 +566,7 @@
                 "buff_state": {
                   "name": "league_kogmaw_q_pas",
                   "duration": "Permanent",
-                  "attack_speed_mult": 15
+                  "attack_speed_mult": 35
                 },
                 "only_to_enemy": false
               },
@@ -810,7 +810,7 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "Attack",
-                          "damage": 60,
+                          "damage": 80,
                           "attack_ratio": 70,
                           "hp_ratio": 0,
                           "target_hp_ratio": 0,
@@ -903,7 +903,7 @@
                 "buff_state": {
                   "name": "league_kogmaw_q_pas",
                   "duration": "Permanent",
-                  "attack_speed_mult": 15
+                  "attack_speed_mult": 35
                 },
                 "only_to_enemy": false
               },
@@ -1129,7 +1129,7 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "Attack",
-                        "damage": 50,
+                        "damage": 70,
                         "attack_ratio": 60,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
@@ -1253,7 +1253,7 @@
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "Attack",
-                                                    "damage": 70,
+                                                    "damage": 90,
                                                     "attack_ratio": 65,
                                                     "hp_ratio": 0,
                                                     "target_hp_ratio": 0,
@@ -1402,7 +1402,7 @@
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "Attack",
-                                                    "damage": 70,
+                                                    "damage": 90,
                                                     "attack_ratio": 65,
                                                     "hp_ratio": 0,
                                                     "target_hp_ratio": 0,
@@ -1585,7 +1585,7 @@
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "Attack",
-                                                    "damage": 70,
+                                                    "damage": 90,
                                                     "attack_ratio": 65,
                                                     "hp_ratio": 0,
                                                     "target_hp_ratio": 0,
@@ -2014,7 +2014,7 @@
                 "buff_state": {
                   "name": "league_kogmaw_q_pas",
                   "duration": "Permanent",
-                  "attack_speed_mult": 15
+                  "attack_speed_mult": 35
                 },
                 "only_to_enemy": false
               },
@@ -2274,7 +2274,7 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 70,
+                                      "damage": 90,
                                       "attack_ratio": 65,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
@@ -2463,7 +2463,7 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 70,
+                                      "damage": 90,
                                       "attack_ratio": 65,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
@@ -2686,7 +2686,7 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 70,
+                                      "damage": 90,
                                       "attack_ratio": 65,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
