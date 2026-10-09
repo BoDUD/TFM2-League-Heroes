@@ -148,8 +148,9 @@
   },
   "skill2": {
    "lunge": 0.5,
-   "release": 4,
+   "release": 5,
    "flat": true,
+   "rise": 0.5,
    "frames": [
     [
      "Olaf_Idle1@0>Olaf_Spell3@100:0.6",
