@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_zed_mark": {
+        "attack": "【读血测试版】<#ff9028ff>影忍法！灭魂劫<>：攻击生命低于50%的英雄时附加其6/8/10%最大生命魔法伤害（同一目标<#ffb900ff>10秒<>）。<#ff9028ff>影奥义！鬼斩<>（自动，<#ffb900ff>4秒<>）：旋斩周围，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>伤害，<#ef5350ff>减速25%<>。",
+        "ult": "对交战中的英雄发动：<#ef5350ff>无法选中<>，突进穿过并留下影子与印记，<#ffb900ff>3秒<>后爆发<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，外加期间所造成伤害的<#ff9028ff>35%<>。被包围时换回影子。<#ff9028ff>连招<>：R→W→E→Q。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_zed_mark": {
+        "attack": "【讀血測試版】<#ff9028ff>強者特權<>：攻擊生命低於50%的英雄時附加其6/8/10%最大生命魔法傷害（同一目標<#ffb900ff>10秒<>）。<#ff9028ff>影斬<>（自動，<#ffb900ff>4秒<>）：旋斬周圍，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>傷害，<#ef5350ff>緩速25%<>。",
+        "ult": "對交戰中的英雄發動：<#ef5350ff>無法選取<>，突進穿過並留下影子與印記，<#ffb900ff>3秒<>後爆發<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，外加期間所造成傷害的<#ff9028ff>35%<>。被包圍時換回影子。<#ff9028ff>連招<>：R→W→E→Q。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_zed_mark": {
+        "attack": "[Health-reading test build] Wrist blades. <#ff9028ff>Contempt for the Weak<>: his attacks on a champion below 50% health add 6/8/10% of its max health as magic damage (<#ffb900ff>10s<> per target). <#ff9028ff>Shadow Slash<> (automatic, <#ffb900ff>4s<>): a spin for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> around him, <#ef5350ff>slowing champions 25%<>.",
+        "ult": "On a champion in a fight: <#ef5350ff>untargetable<>, he dashes through him, leaving a shadow and a mark that bursts after <#ffb900ff>3s<> for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> plus <#ff9028ff>35%<> of the damage he dealt meanwhile. Outnumbered, he swaps back to the shadow. <#ff9028ff>Combo<>: R, W, E, Q."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_zed_mark": {
+        "attack": "[체력 판정 테스트판] <#ff9028ff>약자 멸시<>: 체력 50% 미만 챔피언 공격 시 최대 체력의 6/8/10% 마법 피해(대상마다 <#ffb900ff>10초<>). <#ff9028ff>그림자 베기<>(자동, <#ffb900ff>4초<>): 주변을 베어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 피해, <#ef5350ff>25% 둔화<>.",
+        "ult": "교전 중인 챔피언에게: <#ef5350ff>대상 지정 불가<>, 관통 돌진해 그림자와 표식을 남김. <#ffb900ff>3초<> 뒤 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 폭발, 그동안 준 피해의 <#ff9028ff>35%<> 추가. 포위되면 그림자로 복귀. <#ff9028ff>연계<>: R→W→E→Q."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_zed_mark": {
+        "attack": "【体力判定テスト版】<#ff9028ff>弱者必衰<>：体力50%未満のチャンピオンへの攻撃が最大体力の6/8/10%魔法ダメージ（同じ対象<#ffb900ff>10秒<>）。<#ff9028ff>影薙ぎ<>（自動、<#ffb900ff>4秒<>）：周囲を斬り<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>、<#ef5350ff>25%スロウ<>。",
+        "ult": "交戦中のチャンピオンに：<#ef5350ff>対象指定不可<>で突き抜け、影と刻印を残す。<#ffb900ff>3秒<>後<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>炸裂、その間に与えたダメージの<#ff9028ff>35%<>を追加。囲まれると影に戻る。<#ff9028ff>コンボ<>：R→W→E→Q。"
+      }
+    }
+  }
+}

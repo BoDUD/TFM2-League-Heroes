@@ -8,7 +8,8 @@ inside the attack (league_rengar's Savagery way).
   passive Contempt for the Weak (影忍法·灭魂劫): League hits a champion below 50% health for a share of his max health.
           Nothing reads health, so it counts his own work (league_akali R2's way): a spell of his that hits a champion
           (shuriken, slash, the mark) readies `cw_ready` (cw_t ticks); his next attack on a champion adds cw_pct% of
-          its max health (true damage, `FixedAttack target_hp_ratio`) and starts cw_cd.
+          its max health (true damage, `FixedAttack target_hp_ratio`) and starts cw_cd. The add-on
+          addons/league_zed_mark (native=1) reads health instead: below cw_hp% his attack adds 6/8/10% of the max.
   The shadow (影分身). Projectiles leave from the caster and nothing started from a zone at a point spawns (measured
           2026-10-09, work/zd/test_echo.py), so a shadow is league_ekko's anchor - a hidden lob that lands on the
           target's spot - whose `end_effects` hold everything it does, each a `Delayed` there (it keeps the point):
@@ -28,7 +29,8 @@ inside the attack (league_rengar's Savagery way).
   ult     R Death Mark (禁奥义！瞬狱影杀阵): on `EnemyChampionRecentlyAttacked` within r_range: untargetable, he dashes
           through the champion (`RushMoveToBack`), marks him and leaves a shadow where he stood. r_pop ticks later the
           mark bursts: r_dmg + r_ratio% AD plus r_per for each of his hits on the marked champion meanwhile (League adds
-          a share of the damage dealt; nothing reads damage, so it counts the hits, up to five). Outnumbered when it
+          a share of the damage dealt; nothing reads damage, so it counts the hits, up to three; the add-on
+          adds r_pct% of the damage he dealt). Outnumbered when it
           bursts (two enemy champions within r_safe_r) he swaps back to the shadow (R2). The pros' R-W-E-Q: under the
           mark with W ready, Razor Shuriken's slot is an empty branch, so the AI opens Living Shadow's combo.
 """
@@ -64,8 +66,12 @@ P = {
     # R Death Mark (League: 625 range, 3 s mark, 25-55% of the damage dealt, cd 120-80 s; shadow 6 s)
     "r_cd": 3000, "r_dur": 24, "r_go": 6, "r_speed": 6000, "r_range": 60000, "r_pop": 180, "r_dmg": 80, "r_ratio": 100,
     "r_per": 35, "r_inv": 24, "r_life": 360, "r_safe_r": 40000,
-    # takedowns: league_jinx's kill check (unused yet)
+    # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the copy for addons/league_zed_mark: its native passive reads health (Contempt below cw_hp%, cw_lo/mid/hi% of
+    # max health by his level, cw_cd per target) and the damage dealt under the mark (r_pct% of it at the burst); the
+    # data stand-ins (cw_ready after a spell hit, the r_1..r_3 hit ladder) go
+    "native": 0, "cw_hp": 50, "cw_lo": 6, "cw_mid": 8, "cw_hi": 10, "r_pct": 35,
 }
 
 
@@ -170,9 +176,9 @@ def line(name, speed, rng, radius, y, target, penetrate, effects, end=()):
             "shape": circle(radius), "y_offset": y}
 
 
-def back(name, speed, radius, y, target, effects):
+def back(name, speed, radius, target, effects):
     return {"type": "BackToCasterLinearProjectile", "name": n(name), "speed": speed, "range": 400000,
-            "penetrate": True, "shape": circle(radius), "y_offset": y, "applied_target": target,
+            "penetrate": True, "shape": circle(radius), "applied_target": target,
             "applied_effects": [T(e) for e in effects], "end_effects": []}
 
 
@@ -184,7 +190,7 @@ def lob(name, travel, target, end):
 
 def zone(name, r, target, effects):
     return {"type": "RangeProjectile", "name": n(name), "shape": circle(r), "delay": 1, "apply": 1,
-            "applied_target": target, "applied_effects": [T(e) for e in effects], "end_effects": []}
+            "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
 def pzone(name, r, tick, period, target, effects):
@@ -209,11 +215,7 @@ def build(p):
     climb = sw("r_on", sw("r_3", NONE, sw("r_2", combine(*rm("r_2"), flag("r_3", p["r_pop"] + 10)),
                                          sw("r_1", combine(*rm("r_1"), flag("r_2", p["r_pop"] + 10)),
                                             flag("r_1", p["r_pop"] + 10)))))
-    spell_mark = on_me(sw("cw_cd", NONE, refresh("cw_ready", p["cw_t"])), climb)
-
-    def champ_twin(name, extra=()):
-        """An invisible twin of a hit that reaches only champions (lands the next tick)."""
-        return homing(name, 100000, 0, "EnemyChampion", [spell_mark, *extra])
+    spell_mark = NONE if p["native"] else on_me(sw("cw_cd", NONE, refresh("cw_ready", p["cw_t"])), climb)
 
     # ------------------------------------------------------------------ Shadow Slash
     def slash_hits():
@@ -224,7 +226,7 @@ def build(p):
         return combine(cview("e_spin"), sfx("e"),
                        around(p["e_r"], "EnemyWithoutTower", slash_hits()),
                        around(p["e_r"], "EnemyChampion", [buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"]),
-                                                          spell_mark]),
+                                                          *([] if p["native"] else [spell_mark])]),
                        refresh("e_echo", 3), flag("e_cd", p["e_cd"]))
 
     # ------------------------------------------------------------------ Razor Shuriken
@@ -238,10 +240,10 @@ def build(p):
     def shuriken(lead):
         """Lock the aim q_lock ticks before the throw on tick lead + q_at."""
         star = line("q_star", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyWithoutTower", True, q_hit())
-        twin = line("q_twin", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyChampion", False, [spell_mark])
+        twin = [] if p["native"] else             [line("q_twin", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyChampion", False, [spell_mark])]
         aimed = {"type": "RandomTarget", "range": p["q_range"] + 10000, "casting_target": "EnemyChampion",
                  "from_projectile": False,
-                 "effects": [flag("q_aim", p["q_lock"] + 2), lob("q_aim", p["q_lock"], "EnemyChampion", [star, twin])]}
+                 "effects": [flag("q_aim", p["q_lock"] + 2), lob("q_aim", p["q_lock"], "EnemyChampion", [star, *twin])]}
         return combine(delayed(lead + p["q_at"] - p["q_lock"] - 1, *rm("q_first"), aimed),
                        delayed(lead + p["q_at"] - 1, sfx("q"), sw("q_aim", NONE, star),
                                refresh("q_echo", 3)),
@@ -252,7 +254,7 @@ def build(p):
         """The anchor's end_effects (ticks from the landing): the copies of the combo's slash (d_e) and shuriken (d_q) -
         its shuriken flies from it back toward him, through the target it stands on - the picture and the chase swap
         every swap_step ticks, the end."""
-        star = back("sh_star", p["q_speed"], p["q_rad"], p["q_y"], "EnemyWithoutTower", q_hit())
+        star = back("sh_star", p["q_speed"], p["q_rad"], "EnemyWithoutTower", q_hit())
         # chase: exactly one enemy champion near the shadow (sn1 without sn2; sn_t marks this tick's first) and none
         # near him, only within chase_t of the landing - a swap into two or later on was a dive (deaths 1.9 -> 2.9)
         swap = sw("sn2", NONE, sw("sn1", sw("zn", NONE, combine(*rm(live), cview("w_swap"), {"type": "Teleport"},
@@ -281,12 +283,14 @@ def build(p):
         throw = delayed(lead + p["w_at"] - 1, sfx("w"), cview("w_dash"),
                         on_me(refresh("w_live", p["w_life"] + p["w_fly"])),
                         lob("w_lob", p["w_fly"], "EnemyChampion", shadow(p["w_life"], "w_live", d_e, d_q)))
-        return combine(anim("skill", p["w_dur"]), throw,
+        return combine(anim("skill", p["w_dur"]), throw, flag("w_cd", p["w_cd"]),
                        sw("e_cd", NONE, delayed(lead + p["c_e"] - 1, slash())),
                        sw("q_cd", NONE, combine(delayed(q_go - 1, anim("skill2", p["q_dur"])), shuriken(q_go))))
 
     # ------------------------------------------------------------------ the attack (Shadow Slash folded in)
-    contempt = sw("cw_ready", sw("cw_cd", NONE,
+    # the add-on reads the probe on the champion it hit (health below cw_hp%: its native Contempt)
+    probe = homing("cw_probe", 100000, 0, "EnemyChampion", [buff("cw_probe", 2)])
+    contempt = probe if p["native"] else sw("cw_ready", sw("cw_cd", NONE,
                                  homing("cw_hit", 100000, 0, "EnemyChampion",
                                         [{"type": "FixedAttack", "damage": 0, "attack_ratio": 0, "hp_ratio": 0,
                                           "target_hp_ratio": p["cw_pct"], "attack_effect_type": "Target"},
@@ -295,8 +299,9 @@ def build(p):
     swing = combine(sfx("a_swing"),
                     delayed(p["a_st"] - 1, homing("a_hit", 100000, 0, "EnemyWithoutTower",
                                                  [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
-                            homing("a_twin", 100000, 0, "EnemyChampion", [on_me(climb)]), contempt))
-    spin = combine(anim("skill_e", p["e_dur"]), delayed(p["e_at"] - 1, slash()))
+                            *([] if p["native"] else [homing("a_twin", 100000, 0, "EnemyChampion", [on_me(climb)])]),
+                            contempt))
+    spin = combine(anim("skill_e", p["e_dur"]), voice("vo_e", p), delayed(p["e_at"] - 1, slash()))
     near = {"type": "RandomTarget", "range": p["near_r"], "casting_target": "EnemyChampion", "from_projectile": False,
             "effects": [refresh("zn", 40)]}
     e_ready = {"type": "RandomTarget", "range": p["e_r"], "casting_target": "EnemyWithoutTower", "from_projectile": False,
@@ -322,7 +327,7 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: R Death Mark
     pop_dmg = [attack(p["r_dmg"], p["r_ratio"])]
-    for k in range(1, 4):
+    for k in range(1, 1 if p["native"] else 4):       # the add-on adds r_pct% of the damage dealt instead
         pop_dmg.append(sw(f"r_{k}", attack(p["r_per"] * k, 0)))
     pop = combine(view("r_pop"), tsfx("r_pop"), *pop_dmg)
     count = combine(*rm("rn1", "rn2"), around(p["r_safe_r"], "EnemyChampion",
@@ -338,7 +343,7 @@ def build(p):
                                                                      {"type": "Teleport"}, view("w_swap"), sfx("w2")))))]),
                          delayed(p["r_go"] - 1, {"type": "RushMoveToBack", "speed": p["r_speed"], "applied_effects": [
                              buff("r_mark", p["r_pop"]), view("r_hit"), tsfx("r_hit"), attack(0, 100),
-                             casted(p["r_pop"] + 1, p["r_pop"], sw("r_on", combine(pop, *rm("r_on", "r_1", "r_2", "r_3"))))]},
+                             casted(p["r_pop"] + 1, p["r_pop"], sw("r_on", combine(pop, *rm("r_on", *([] if p["native"] else ["r_1", "r_2", "r_3"])))))]},
                                  refresh("r_on", p["r_pop"] + 2), spell_mark),
                          delayed(p["r_go"] + p["r_pop"] + 1, count)))
 
@@ -354,9 +359,13 @@ def build(p):
                E("w_dash", FX, 2, False), E("sh_in", FX, 1, False), E("sh_stand", FX, 1, False),
                E("sh_out", FX, 1, False), E("sh_throw", FX, 1, False), E("sh_spin", BIG, -1, False),
                E("w_swap", FX, 3, False), E("r_shadow", FX, 1, False), E("r_hit", BIG), E("r_pop", BIG, 3)]
-    views_b = [B_("e_slow", "e_slow", FX, 3), B_("r_mark", "r_mark", FX, 4), B_("cw_ready", "cw_ready", FX, 4)]
+    views_b = [B_("e_slow", "e_slow", FX, 3), B_("r_mark", "r_mark", FX, 4), *([] if p["native"] else [B_("cw_ready", "cw_ready", FX, 4)])]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": "league_zed_mark:edge",
+                            "params": {k: p[k] for k in ("cw_hp", "cw_lo", "cw_mid", "cw_hi", "cw_cd", "r_pct")}}
     return {
-        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"],
+        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
@@ -383,6 +392,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy (health and damage read natively)")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -392,6 +402,8 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
+    if a.native:
+        p["native"] = 1
     kit = build(p)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
