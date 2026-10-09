@@ -180,13 +180,25 @@ def legs_layer(P, spec=None):
     for name in ("A", "C", "B", "D"):
         dx, lift = spec.get(name, (0, 0))
         m = P.legs_m[name]
-        if dx == 0 and lift == 0:
-            leg = np.zeros_like(P.full)
-            leg[m] = P.full[m]
-        else:
-            leg = K.swing_leg(P.full, m, LEG_TOP - 1, HOOF_ROW, dx, lift)
-        K.put(out, leg, 0, 0)
+        K.put(out, leg_pose(P, m, dx, lift), 0, 0)
     return out
+
+
+SHEAR_ROWS = 3
+
+
+def leg_pose(P, m, dx, lift):
+    """The leg moved whole by (dx, -lift) - every square of it kept (「腿部有点失去像素和变形」: the progressive
+    swing broke the outlined deer legs into staircases); only its top SHEAR_ROWS rows at the hip step over from the
+    body's column to dx, one whole row each."""
+    leg = np.zeros_like(P.full)
+    for r, c in zip(*np.nonzero(m & (P.full[..., 3] > 0))):
+        k = r - LEG_TOP
+        sh = dx if k >= SHEAR_ROWS else int(round(dx * (k + 1) / (SHEAR_ROWS + 1)))
+        rr, cc = r - lift, c + sh
+        if 0 <= rr < 128 and 0 <= cc < 128:
+            leg[rr, cc] = P.full[r, c]
+    return leg
 
 
 def turned(a, deg, pivot, move=(0, 0)):
