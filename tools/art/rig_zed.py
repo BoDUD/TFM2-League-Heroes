@@ -42,19 +42,23 @@ DESIGN = os.path.join(NATIVE, "zed_native.png")
 Z = 8
 PIVOT = (64, 88)                 # the design's standing point (the soles on row 99, the feet's middle on column 64)
 SOLES = 99
-OUT = K.rgb("#020206")
+OUT = K.rgb("#100F19")               # the grid design's outline
 CELL = (112, 96)
 CELL_PIVOT = (56, 70)            # the soles on cell row 81 (the references' feet line)
 N4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
 N8 = tuple((a, b) for a in (-1, 0, 1) for b in (-1, 0, 1) if a or b)
 
 # the head piece: per row (first, last) column on the design canvas (= work/zd/head_zd.py)
-HEAD = {64: (60, 62), 65: (60, 62), 66: (59, 63), **{y: (59, 70) for y in range(67, 70)},
-        **{y: (59, 71) for y in range(70, 77)}, 77: (60, 70)}
-L_ELBOW = (53.5, 81.0)           # (x, y): the top of the image-left bracer
-R_ELBOW = (73.0, 83.0)           # the top of the image-right bracer
-KNEE_ROW, FEET_ROW = 93, 96      # the lower legs: the greaves (93-95) and the boots (96-98)
-TABARD = {(93, 70), (93, 71), (94, 71)}   # the tabard's hem squares among the near leg's rows
+# 2026-10-09 design B (Codex's grid redraw after picture A, assets/source/zed/codex_grid/zed-grid-B_1x.png, de-speckled by
+# work/zd4/polish_b_zd.py): the hood's point row 54, the mask rows 62-66 with the eyes at (66,64) (68,64), the scarf
+# rows 65-70, the back blades rows 56-66 (part of the body), bracers rows 73-80, claws down to row 92, legs from
+# row 81, boots rows 95-99
+HEAD = {54: (62, 64), 55: (61, 65), 56: (61, 65), 57: (60, 66), 58: (60, 66), **{y: (59, 70) for y in range(59, 70)},
+        70: (60, 69)}
+L_ELBOW = (53.5, 76.0)           # (x, y): the top of the image-left bracer
+R_ELBOW = (74.5, 78.0)           # the top of the image-right bracer
+KNEE_ROW, FEET_ROW = 90, 95      # the lower legs: the greaves (93-95) and the boots (96-98)
+TABARD = set()   # the tabard's hem squares among the near leg's rows
 
 
 def design():
@@ -80,19 +84,18 @@ class Parts:
         ink = op & (d[..., :3] == np.array(OUT, np.uint8)).all(-1)
         colour = op & ~ink
         R, C = np.mgrid[0:128, 0:128]
-        lfore_c = colour & (R >= 81) & (R <= 94) & (C <= 56) & ~((R == 81) & (C == 56))
+        lfore_c = colour & (R >= 76) & (R <= 94) & (C <= 57)
         # the tabard hem reaches column 71 from row 89 down: the forearm keeps to 72+ there
-        rfore_c = colour & (R >= 83) & (R <= 95) & (C <= 76) & (((C >= 71) & (R <= 88)) | ((C >= 72) & (R >= 89)))
+        rfore_c = colour & (R >= 78) & (R <= 97) & (C >= 72)
         tab = np.zeros((128, 128), bool)
         for y, x in TABARD:
             tab[y, x] = True
-        lleg_c = colour & (R >= KNEE_ROW) & (C >= 55) & (C <= 61) & ~lfore_c
-        rleg_c = colour & (R >= KNEE_ROW) & (C >= 65) & (C <= 73) & ~tab & ~rfore_c
+        lleg_c = colour & (R >= KNEE_ROW) & (C >= 57) & (C <= 64) & ~lfore_c
+        rleg_c = colour & (R >= KNEE_ROW) & (C >= 65) & (C <= 74) & ~tab & ~rfore_c
         head_c = colour & region(HEAD)
         silver = np.zeros((128, 128), bool)        # the back ornament's prongs above the brows ride on the body
         for y, x in zip(*np.nonzero(head_c)):
-            if y < 69 and tuple(int(v) for v in d[y, x, :3]) in {(215, 222, 240), (230, 235, 248), (163, 171, 198),
-                                                                 (137, 145, 177), (90, 93, 128), (104, 107, 139)}:
+            if False:
                 silver[y, x] = True
         head_c &= ~silver
         self.colour = colour
@@ -225,7 +228,7 @@ TAGS = ["idle", "run", "attack", "skill", "skill2", "skill_e", "ult", "hit", "de
 MS = {"idle": [140] * 8, "run": [120] * 8, "attack": [60, 50, 40, 80, 100, 110], "skill": [50, 60, 80, 90],
       "skill2": [60, 50, 60, 80, 100, 120], "skill_e": [50, 40, 43, 70, 70, 100],
       "ult": [50, 50, 80, 80, 80, 90, 110], "hit": [120, 120], "dead": [100, 100, 120, 150, 200, 150, 150, 500]}
-TUCK = ((-3, 1), (-2, 1))        # the lower legs trailing back in the dash
+TUCK = ((-2, 1), (-1, 1))        # the lower legs trailing back in the dash (design B: a boot swung 3 came off the shin)
 LUNGE = ((-3, 0), (1, 0))        # the back leg swung back, the front one a column forward
 POSES = {
     # League's attack1 (head +9 rows at the stab): coiled low, the stab a low lunge forward, rising back
