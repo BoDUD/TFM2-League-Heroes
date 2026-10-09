@@ -51,7 +51,10 @@ SRC_SLIM = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_slim")
 SRC = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_size")
 # ... except the hit: Codex redrew it thin (narrow limbs and torso, its own head smaller), a big head on a small body
 # once the design's head is on it - the approved slim hit instead, made smaller in import_native (SHRINK_TAGS)
-TAG_SRC = {"hit": SRC_SLIM}
+# ... and the run: Codex's cross-step on the guide (codex_run_cross: 「你看看对吗 交叉步都没有？」, then 「Codex 重画跑步」)
+SRC_CROSS = os.path.join(ROOT, "assets", "source", "olaf", "codex_run_cross")
+TAG_SRC = {"hit": SRC_SLIM, "run": SRC_CROSS}
+RUN_DROP = {6}                     # Codex's cross-step frames left out (1-based)
 REFINE = 7                        # squares the head may move from its approved place (the bodies shrank: heads sit lower)
 NEW_POSE = {"run"}                 # tags drawn anew (the calm run): the head goes where Codex drew it
 RUN_AT, RUN_SEARCH = (0, 1), 3     # ... found within RUN_SEARCH squares of RUN_AT (the design's head, a row down)
@@ -103,8 +106,9 @@ KEEP_HEAD = {("ult", 3), ("ult", 4), ("dead", 3), ("dead", 5), ("dead", 6), ("de
 HEAD_AT = {}                       # (tag, frame): (dx, dy) of the design's head on the canvas, where the match misses
 # the run's heads ride its torsos: frame 3's head place (0, 2) moved as each torso (rows 66-86) sits against frame 3's -
 # searched per frame, the head rose a row alone in frame 6 and slid a column against the body in 1, 2 and 7
-for _k, _at in enumerate([(2, 2), (0, 2), (0, 2), (0, 4), (0, 2), (0, 2), (1, 2), (0, 4)], 1):
-    HEAD_AT[("run", _k)] = _at
+if "run" not in TAG_SRC:         # (the stepping run's torsos only; Codex's cross-step heads are searched)
+    for _k, _at in enumerate([(2, 2), (0, 2), (0, 2), (0, 4), (0, 2), (0, 2), (1, 2), (0, 4)], 1):
+        HEAD_AT[("run", _k)] = _at
 FRONT = {}                         # (tag, frame): [(row0, row1, col0, col1)] boxes where Codex's squares stay on top
 
 
@@ -409,8 +413,17 @@ def build(P, tag, report=None):
     # the calm run is upright: Codex's head sits near the design's place, bobbing - searched round it (a free search
     # took the mane beside the helmet for the helmet and left two heads)
     frames, ms, _ = codex(tag, TAG_SRC.get(tag))
-    if tag == "run":
+    if tag == "run" and "run" not in TAG_SRC:
         frames = run_steps(frames)
+    elif tag == "run":
+        # Codex's cross-step stood frames 5-8 two rows off the ground (its own frame calibration); one boot is down
+        # in every frame of the cycle, so each frame's lowest square goes on the soles' row
+        frames = [K.shifted(c, 0, SOLES - int(np.nonzero((c[..., 3] > 0).any(1))[0].max())) for c in frames]
+        # its frame 6 lifts the boot that landed in 4 to the knee and puts the other one down early, then frame 7 has
+        # them back (a hop): frame 7 is what 6 should be, so 6 goes - the planted boot slides +8.5, +6.5, +4 over
+        # frames 4, 5 and 7, the other passes and lands in 8
+        frames = [c for k, c in enumerate(frames) if k + 1 not in RUN_DROP]
+        ms = [m for k, m in enumerate(ms) if k + 1 not in RUN_DROP]
     at = [None if (tag, i + 1) in KEEP_HEAD else RUN_AT for i in range(len(frames))] if new else places(P, tag)
     hm = head_piece(P)
     mid = face_spot(P.design)
