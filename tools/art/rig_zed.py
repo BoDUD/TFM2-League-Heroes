@@ -198,16 +198,24 @@ def build(P, f):
             top[feet_m] = 0
         c = K.put(K.shifted(top, 0, n), feet, 0, 0)     # the boots in front of the sunk greaves: the toes stay
         c[SOLES + 1:] = 0
+    if f.get("mirror"):                     # the whole figure turned to face left (League's Q wind-up turns his
+        c = mirrored(c)                      # back, E spins): a lossless flip about the standing column
     if f.get("dx") or f.get("dy"):
         c = K.shifted(c, f.get("dx", 0), f.get("dy", 0))
     return c
+
+
+def mirrored(c):
+    m = c[:, ::-1].copy()                    # x -> 127 - x: the standing column 64 lands on 63
+    return K.shifted(m, 1, 0)
 
 
 def frame(P, f):
     if f is None:
         return P.design.copy()
     c = build(P, f)
-    return finish_near(c, K.shifted(P.design, f.get("dx", 0), f.get("dy", 0)))
+    ref = mirrored(P.design) if f.get("mirror") else P.design
+    return finish_near(c, K.shifted(ref, f.get("dx", 0), f.get("dy", 0)))
 
 
 # ------------------------------------------------------------------------------------------------ the actions
@@ -220,22 +228,26 @@ MS = {"idle": [140] * 8, "run": [120] * 8, "attack": [60, 50, 40, 80, 100, 110],
 TUCK = ((-3, 1), (-2, 1))        # the lower legs trailing back in the dash
 LUNGE = ((-3, 0), (1, 0))        # the back leg swung back, the front one a column forward
 POSES = {
-    # League's attack1: the near arm drawn back, coiled, the stab straight forward to the right (frame 4), back
-    "attack": [dict(r="in", sink=1), dict(r="in", dx=-1, sink=1), dict(r="out", dx=1),
-               dict(r="out", dx=2, legs=LUNGE), dict(r="out", dx=1), None],
-    # W: the near arm raised by the head, flung forward (the shadow leaves on frame 2), the follow-through low
-    "skill": [dict(r="up"), dict(r="out", dx=1), dict(r="low", dx=1), None],
-    # Q: the hand to the ornament on his back, raised, wound down, the low throw (frame 4) bent forward, recovering
-    "skill2": [dict(r="up", sink=1), dict(r="up", dy=-1), dict(r="in", sink=1),
-               dict(r="low", l="out", sink=2, dx=2, legs=LUNGE), dict(r="low", sink=1, dx=1), None],
-    # E: the arms pulled in, opening, the slash with both arms flung straight out (frame 4), held, back
-    "skill_e": [dict(r="in", l="in"), dict(r="in", l="in", sink=1), dict(r="out", l="hang"),
-                dict(r="out", l="out"), dict(r="out", l="out", ldy=-1), None],
-    # R: a quick crouch, the spring, the dash with both blades forward (frame 3), still dashing, the cut, the landing
-    # crouch, rising
-    "ult": [dict(r="in", l="in", sink=1), dict(r="in", l="in", dy=-2, legs=((-1, 1), (-1, 1))),
-            dict(r="out", l="fwd", dx=3, dy=-1, legs=TUCK), dict(r="out", l="fwd", dx=4, legs=TUCK),
-            dict(r="low", l="out", dx=3, sink=1), dict(r="out", l="out", dx=2, sink=2), None],
+    # League's attack1 (head +9 rows at the stab): coiled low, the stab a low lunge forward, rising back
+    "attack": [dict(r="in", sink=1), dict(r="in", dx=-1, sink=2), dict(r="out", dx=1, sink=1),
+               dict(r="out", dx=3, sink=4, legs=LUNGE), dict(r="out", dx=2, sink=3, legs=LUNGE), dict(sink=1)],
+    # W: the near arm raised by the head with a small rise, flung forward, the follow-through low
+    "skill": [dict(r="up"), dict(r="out", dx=1, dy=-1), dict(r="low", dx=1, sink=1), None],
+    # Q (League turns his back winding up, then throws from a deep crouch, head +23): the hand to the ornament, the
+    # wind-up turned away (mirrored), the throw crouched low and lunging, rising
+    "skill2": [dict(r="up", sink=1), dict(r="up", mirror=True, sink=1), dict(r="in", mirror=True, sink=2, dx=1),
+               dict(r="low", l="out", sink=5, dx=3, legs=LUNGE), dict(r="low", sink=3, dx=2, legs=LUNGE), dict(sink=1)],
+    # E (a leaping spin, both blades out): pulled in, the crouch, the leap forward with the blades out, mid-spin
+    # turned away in the air, facing again, the landing crouch
+    "skill_e": [dict(r="in", l="in"), dict(r="in", l="in", sink=2), dict(r="out", l="out", dx=2, dy=-2, legs=TUCK),
+                dict(r="out", l="out", mirror=True, dy=-3, legs=TUCK), dict(r="out", l="out", dx=-1, dy=-1, legs=TUCK),
+                dict(r="out", l="hang", sink=2)],
+    # R (the lead-in coils back, the dash, the strike a deep lunging crouch, head +12): the crouch, the coil back,
+    # the dash with both blades forward, still dashing, the low strike, the landing crouch, rising
+    "ult": [dict(r="in", l="in", sink=1), dict(r="in", l="in", dx=-2, sink=2),
+            dict(r="out", l="fwd", dx=3, dy=-2, legs=TUCK), dict(r="out", l="fwd", dx=5, dy=-1, legs=TUCK),
+            dict(r="out", l="fwd", dx=4, sink=4, legs=LUNGE), dict(r="low", l="out", dx=3, sink=3, legs=LUNGE),
+            dict(r="out", l="out", dx=1, sink=1)],
     "hit": [dict(l="out", r="back", dx=-2), dict(dx=-1)],
 }
 
