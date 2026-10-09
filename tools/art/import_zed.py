@@ -16,9 +16,10 @@ pack's, the slash rings the kit's radius (e_r 24000 -> 48 px across), the shadow
 Anchors (source pixels): the shurikens on their front, the hits on their white core, the rings on their widest row, the
 shadow figure and the swap column on their lowest row (the feet), the rest on the middle of their box.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; the soles 11 under
-the pivot, his crown 28 over it) and times it by the kit (tools/kit/build_zed.py, 60 ticks a second): the standing
-shadow's piece lasts swap_step (45 ticks), its forming the same, the R shadow (r_shadow) forms, stands and fades over
-r_life (360 ticks).
+the pivot, his crown 28 over it) and times it by the kit (tools/kit/build_zed.py, 60 ticks a second): the shadows'
+pictures are one checkpoint long (W echo_step 12 ticks, R r_echo_step 6) - a standing frame, or the shadow's own throw /
+spin (sh_q / sh_e, Codex's later delivery assets/source/zed/codex_fx_shadow) where the checkpoint copies his cast.
+sh_throw's strip stays from the first delivery; the shadow's throw (sh_q) replaced it in the game.
 The red side: the client never mirrors a data picture. The shurikens are turned to their flight - drawn over their own
 top-bottom flip; everything on a unit or on the ground is drawn as stored whichever way he faces - drawn over its own
 left-right flip (league_xayah's FLIP_TB / FLIP_LR). Every frame is centred on the pivot, so the flips are about it.
@@ -72,11 +73,28 @@ RAW = {
     "sh_stand": dict(n=4, size=42, measure="h", anchor=("fixed", "low", 0), ramps="SHADOW RED"),
     "sh_throw": dict(n=3, size=18, measure="m", anchor="core", ramps="SHADOW RED"),
     "sh_out": dict(n=4, size=42, measure="h", anchor=("fixed", "low", 0), ramps="SHADOW RED"),
+    # the shadow's own casts (assets/source/zed/codex_fx_shadow): sized so their last frame (arms down, nothing raised)
+    # stands as tall as the standing shadow (41 px; Q's first frame lifts the crossed blades over the hood); each frame
+    # on its own box's middle over its soles (Codex drew E's spread frame ~15 px right of the others in its cell)
+    "sh_q": dict(n=3, size=43, measure="h", anchor="boxlow", ramps="SHADOW RED"),
+    "sh_e": dict(n=3, size=42, measure="h", anchor="boxlow", ramps="SHADOW RED"),
     "w_swap": dict(n=5, size=40, measure="h", anchor=("fixed", "low", 0), ramps="SHADOW"),
     "r_hit": dict(n=5, size=24, measure="m", anchor="core", ramps="SHADOW RED"),
     "r_mark": dict(n=4, size=14, measure="w", anchor=("fixed", "box", 0), ramps="SHADOW RED"),
     "r_pop": dict(n=6, size=36, measure="m", anchor="core", ramps="SHADOW RED"),
 }
+
+
+def anchor(how, k, a, solid, rects, s=1.0):
+    """import_varus's anchors plus `boxlow`: the middle of frame k's box, on its lowest row."""
+    if how == "boxlow":
+        x, y, w, h = rects[k]
+        ys, xs = np.nonzero(solid[y:y + h, x:x + w])
+        return x + (xs.min() + xs.max() + 1) / 2, y + ys.max() + 1
+    return VARUS_ANCHOR(how, k, a, solid, rects, s)
+
+
+VARUS_ANCHOR = V.anchor
 
 
 def from_raw(folder):
@@ -88,9 +106,16 @@ def from_raw(folder):
         manifest = {os.path.basename(x["file"]): x for x in m.get("assets", [])}
     V.RAMPS = RAMPS
     V.RIM = RIM
+    V.anchor = anchor
+    apath = os.path.join(SRC, "zed_fx_anchors.json")
     anchors = {}
+    if os.path.exists(G.lp(apath)):
+        with open(G.lp(apath), encoding="utf-8") as f:
+            anchors = json.load(f)
     for name, spec in RAW.items():
         fn = f"zed_fx_{name}.png"
+        if not os.path.exists(G.lp(os.path.join(folder, fn))):
+            continue                    # a later delivery holds only its own sheets; the others keep their strips
         hexes_, pal = V.palette(spec["ramps"])
         a = np.asarray(Image.open(G.lp(os.path.join(folder, fn))).convert("RGBA")).copy()
         solid = a[..., 3] >= 100
@@ -107,7 +132,8 @@ def from_raw(folder):
         print(f"{fn}  {len(rects)} cells of {cell[0]}x{cell[1]}, anchor {anc[0]},{anc[1]}, scale "
               f"{s:.4f} ({spec['size']} px over {ext}), {len(np.unique(out[out[..., 3] > 0][:, :3], axis=0))} colours")
     text = "{\n" + ",\n".join(f'  "{k}": {json.dumps(v)}' for k, v in anchors.items()) + "\n}\n"
-    with open(G.lp(os.path.join(SRC, "zed_fx_anchors.json")), "w", encoding="utf-8", newline="\n") as f:
+    anchors = {k: anchors[k] for k in RAW if k in anchors}
+    with open(G.lp(apath), "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
 
 
@@ -130,26 +156,13 @@ OVER = (0, -34)             # over a head: the Death Mark, the passive's sigil
 EMPTY = J.EMPTY
 seq = J.seq
 flight = J.flight
-# the standing shadow: 4 frames over swap_step (45 ticks = 750 ms); its forming the same, the last frame held longest
-STAND = [190, 190, 185, 185]
-FORM = [80, 90, 100, 120, 360]
+# The shadows are drawn in pieces, one checkpoint long, so a checkpoint that copies his shuriken or slash plays the
+# shadow's own cast (sh_q / sh_e) in place of its standing frame - two pictures never overlap: the W shadow's pieces
+# last echo_step (12 ticks = 200 ms), the R shadow's r_echo_step (6 ticks = 100 ms; a cast covers two of them).
+# The W shadow forms over the 10 ticks before its first checkpoint: 2 ticks, then the combo's slash copy (sh_e8) or the
+# rest of the forming; the R shadow forms in one piece.
 FADE = [90, 100, 110, 120]
-
-
-def r_shadow():
-    """The R shadow over r_life (360 ticks = 6 s): it forms, stands (the loop repeated) and fades."""
-    parts = [("sh_in", seq(range(5), FORM), [GROUND])]
-    left = 6000 - sum(FORM) - sum(FADE)
-    k = 0
-    stand = []
-    while left > 0:
-        ms = min(STAND[k % 4], left)
-        stand.append((k % 4, ms))
-        left -= ms
-        k += 1
-    parts.append(("sh_stand", stand, [GROUND]))
-    parts.append(("sh_out", seq(range(4), FADE), [GROUND]))
-    return parts
+CAST = [66, 67, 67]
 
 
 FX = {
@@ -161,12 +174,16 @@ FX = {
     "q_hit": [("q_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "e_hit": [("e_hit", seq(range(3), [40, 60, 80]), [HIT])],
     "w_dash": [("w_dash", seq(range(4), [50, 60, 70, 90]), [BODY])],
-    "sh_in": [("sh_in", seq(range(5), FORM), [GROUND])],
-    "sh_stand": [("sh_stand", seq(range(4), STAND), [GROUND])],
-    "sh_throw": [("sh_throw", seq(range(3), [40, 60, 80]), [BODY])],
+    "sh_in_a": [("sh_in", seq(range(2), [16, 17]), [GROUND])],
+    "sh_in_b": [("sh_in", seq(range(2, 5), [40, 45, 48]), [GROUND])],
+    "sh_in_r": [("sh_in", seq(range(5), [20] * 5), [GROUND])],
+    **{f"sh_st{k}": [("sh_stand", [(k, 200)], [GROUND])] for k in range(4)},
+    **{f"sh_sr{k}": [("sh_stand", [(k, 100)], [GROUND])] for k in range(4)},
+    "sh_q": [("sh_q", seq(range(3), CAST), [GROUND])],
+    "sh_e": [("sh_e", seq(range(3), CAST), [GROUND])],
+    "sh_e8": [("sh_e", seq(range(3), [40, 45, 48]), [GROUND])],
     "sh_out": [("sh_out", seq(range(4), FADE), [GROUND])],
     "w_swap": [("w_swap", seq(range(5), [40, 60, 70, 80, 90]), [GROUND])],
-    "r_shadow": r_shadow(),
     # the buffs' loops
     "cw_ready": [("cw_ready", seq(range(4), [120] * 4), [OVER])],
     "e_slow": [("e_slow", seq(range(4), [110] * 4), [FEET])],

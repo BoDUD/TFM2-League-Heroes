@@ -67,6 +67,19 @@ def showcase(out, z=3, step=40):
         (layer if layer is not None else over).append(an)
         return an
 
+    def pieces(spot, start, end, step, stand, casts=()):
+        """The shadow's one-checkpoint pictures (tools/kit/build_zed.py checkpoint()): from start until end (the swap
+        that ends it, cutting its last piece) a standing frame every step ticks, or its own cast where it copies one
+        (casts: (when, tag) on a checkpoint; R's casts cover two steps)."""
+        when, j = start, 0
+        casts = dict(casts)
+        while when < end - 1:
+            cast = next((tg for w, tg in casts.items() if abs(w - when) < 1), None)
+            k = 12 // step if cast else 1
+            at(small, cast or stand(j), when, spot, until=min(end, when + tick(step) * k), layer=under)
+            when += tick(step) * k
+            j += k
+
     def fly(tag, when, x_from, x_to, left=False):
         dur = tick(max(1, abs(x_to - x_from) / STAR))
         fr = frames_of(small, tag)
@@ -80,23 +93,23 @@ def showcase(out, z=3, step=40):
     at(small, "w_dash", t0 + tick(P["w_at"] - 1), me.pos(t0)[0])
     land = t0 + tick(P["w_at"] - 1 + P["w_fly"])
     spot = d.pos(land)[0]
-    at(small, "sh_in", land, spot, layer=under)
+    at(small, "sh_in_a", land, spot, layer=under)
     e = t0 + tick(P["c_e"])
     at(big, "e_spin", e, me.pos(e)[0], layer=under)
     at(big, "sh_spin", e + tick(1), spot, layer=under)
+    at(small, "sh_e8", e + tick(1), spot, layer=under)
     hit(d, "e_hit", e + tick(1))
     q = t0 + tick(P["w_dur"] + P["q_at"])
     arrive = fly("q_star", q, me.pos(q)[0] + 10, d.pos(q)[0])
     hit(d, "q_hit", arrive)
-    at(small, "sh_throw", q + tick(1), spot)
+    d.walks.append((arrive + 60, arrive + 460, 28))           # he backs off toward Garen: the shadow stands clear
     fly("sh_star", q + tick(1), spot + 4, me.pos(q)[0] + 6, left=True)
     hit(d, "q_hit", q + tick(2))
     a("skill", tick(P["w_dur"]))
     a("skill2", tick(P["q_dur"]))
     # the shadow stands; the W2 swap onto it (one enemy near it, none near him)
-    stand_from = land + 750
     swap = land + tick(P["swap_step"])
-    at(small, "sh_stand", stand_from, spot, until=swap, loop=True, layer=under)
+    pieces(spot, q + tick(1), swap, P["echo_step"], lambda j: f"sh_st{j % 4}", [(q + tick(1), "sh_q")])
     a("idle", max(0, swap - t), loop=True)
     at(small, "w_swap", swap, me.pos(swap)[0])
     at(small, "w_swap", swap, spot)
@@ -115,7 +128,8 @@ def showcase(out, z=3, step=40):
     face[0] = False
     r0 = t
     rx = me.pos(r0)[0]
-    r_shadow = at(small, "r_shadow", r0 + tick(1), rx, layer=under)
+    at(small, "sh_in_r", r0 + tick(1), rx, layer=under)
+    r_casts = []
     go = r0 + tick(P["r_go"])
     behind = d.pos(go)[0] + 16
     me.moves.append((go, go + tick(8), rx, behind))
@@ -129,6 +143,11 @@ def showcase(out, z=3, step=40):
     e2 = t + tick(P["e_at"])
     at(big, "e_spin", e2, me.pos(e2)[0], layer=under)
     hit(d, "e_hit", e2)
+    # the R shadow copies it on its next checkpoint (every r_echo_step from the anchor)
+    step = tick(P["r_echo_step"])
+    copy = r0 + tick(1) + step * -(-(e2 - r0 - tick(1)) // step)
+    at(big, "sh_spin", copy, rx, layer=under)
+    r_casts.append((copy, "sh_e"))
     a("skill_e", tick(P["e_dur"]))
     hit(d, "a_hit", t + tick(P["a_st"]))
     a("attack", tick(P["atk_dur"]))
@@ -139,7 +158,7 @@ def showcase(out, z=3, step=40):
     s2 = t
     at(small, "w_swap", s2, me.pos(s2)[0])
     at(small, "w_swap", s2, rx)
-    r_shadow.until = s2
+    pieces(rx, r0 + tick(1) + step, s2, P["r_echo_step"], lambda j: f"sh_sr{(j // 2) % 4}", r_casts)
     me.moves.append((s2, s2 + 1, me.pos(s2)[0], rx))
     face[0] = False
     a("idle", 900, loop=True)

@@ -17,5 +17,7 @@
   "w_swap": {"cell": [41, 83], "anchor": [20, 41], "frames": 5},
   "r_hit": {"cell": [25, 27], "anchor": [12, 13], "frames": 5},
   "r_mark": {"cell": [19, 19], "anchor": [9, 9], "frames": 4},
-  "r_pop": {"cell": [55, 51], "anchor": [27, 25], "frames": 6}
+  "r_pop": {"cell": [55, 51], "anchor": [27, 25], "frames": 6},
+  "sh_q": {"cell": [35, 89], "anchor": [17, 44], "frames": 3},
+  "sh_e": {"cell": [71, 87], "anchor": [35, 43], "frames": 3}
 }
