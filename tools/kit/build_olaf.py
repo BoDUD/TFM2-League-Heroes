@@ -43,7 +43,7 @@ BIG = "asset/league/effects/league_olaf_big"
 
 # Numbers = candidate c3 of the 10-min classic-SDK simulations (ol_sim/sim/kd.py, top lane against fighter, executioner,
 # lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-09): +1.28 on seeds 1-12 (the same batch:
-# league_tryndamere +1.34, league_darius +1.71). The draft c0 was -1.20 (attack 90, hp 1020, Rage 12% / 6%, E 70 + 60% at
+# league_tryndamere +1.34, league_darius +1.71); +1.71 on seeds 13-24 (league_tryndamere +1.24). The draft c0 was -1.20 (attack 90, hp 1020, Rage 12% / 6%, E 70 + 60% at
 # 6 s, Q 70, W shield 60, R +20%); c4 halfway +0.58.
 # Timings provisional until the strips exist: the swing's hit on tick 12, the axe leaves on 12 (skill), Reckless Swing
 # lands on 10 (skill2), the roar 20 ticks (ult).
