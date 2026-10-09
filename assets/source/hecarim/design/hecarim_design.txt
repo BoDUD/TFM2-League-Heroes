@@ -1,0 +1,46 @@
+# x0 34
+ 55                                  0000
+ 56                                00AWxx0
+ 57                                  0kaaW00
+ 58                                   00aAax0
+ 59                            00      00aaW0                      00
+ 60                           0W0     0000aa0  0                  000
+ 61                           0WW0   0kAW0a0   0                00Bx0
+ 62                       0   0AW0 00AAAAW00  0W0              0WWxS0
+ 63                       00  0AAW00a0kAABW0 0WW0           000BBxSS0
+ 64                       0W0000AA000Wa00aW000WA0          0WBWBxxS0
+ 65                       0AW0000AW00Wa0U00U0WAa000      00BwBBxxxS0
+ 66                        0aaAAA0aAW00kaAA00a000W0     0BWx000xxS0
+ 67                        000AAAA0aW000U0U00000WA0    0BBx0  0WS0
+ 68                       00AaW0AA0aW0a00000a0WWAA0    0xxx0  0WS0
+ 69                      0AAAAW00W0W0AAWW000aaaaA0    00x00   0x0
+ 70                       00WW0000000aaaaWW0aa0000   0BB0     00
+ 71                        00WAaa0a0U00kAA0a00000  00B00     0B0
+ 72                        000aa000UUaUk00U000WW000BB0      000
+ 73                         00a00 00UUUaUaU00WW0WWA00
+ 74                         0AAW0 0a000UU0000W0AAA0
+ 75               000    0  00AW00a0aa0U000WW00AA00
+ 76             000UU0000000 0AAW00aa0000WW0000000
+ 77          tt0U0WWW0uu0aa0000A0000AA000AA00
+ 78         ttuU000WWAu0aaaAWW00AWW0000BB000A0
+ 79        ttTU0AAA0WW0aWaAAAW00Aa00a0000WWAa0
+ 80     t 0tTUU0AAAA000AAAAWw0o0000aau00000WWa0
+ 81     ttutUU00AAAAW00AAA0W0o00aW00uuu0RRR00A0
+ 82      tttUU0W00AWWW0U0000oo0AaaW00uuukrRR0000
+ 83   ttttTUU0W00kaaaW0UuTTu0a00aaaWW00ukrRRR00W0
+ 84   tTUUTUT0A00UaaU00UU0uu0a000aaaaW0ukrRRR00W0
+ 85  tTUUUUUTT00A0aa0A0UU0uuu00a00k0Uk0u00RRR000W0
+ 86 tttUUTTT00  0aAaA0000U00uuu0BWAA0AA0u0RRRR000u0
+ 87tt tTTTTU0  000a000  00000uu000W0AaA0000RRR00uu0
+ 88t  tTTTUT0 00a000A0   000000000W0AA0  00RRR0uu0A0
+ 89   ttuUUt  0u00AAA0   000a00  000Aa0  00RRR000AA0
+ 90     tUut  0uu00A00  0AA0aa0  0AAW0    0RRR00AAA0
+ 91      tt    00U00    000000    0000    00R00A000
+ 92          00000       0aA00    00U0     00 0000W0
+ 93         0AWW0        0AAA0    0UAU0     0 000AW0
+ 94          0000         0000    000000        0000
+ 95         00AW00        0AWW0   00WWW0         0WW0
+ 96         0aBWA0       0AAAW0  0AAAAWW0       00AAW0
+ 97         0WWWA0       0AAAW00 0AAAAWW00      0AAAW0
+ 98         000AAA0      0AAAWW0  aAaaWWW0      0AAAW0
+ 99         0000000      0000000  00000000      000000
