@@ -333,37 +333,57 @@ def find_head(c, old, hm):
     raise SystemExit("the old head is not in a Codex run frame")
 
 
+WHITE = ("w", "W", "x")                            # the wrap: the torso's front, the body's own centre
+HEAD_BOTTOM = 75                                   # the design's head ends here; the run's body starts under it
+
+
 def run_frames(P):
+    """Codex's run with its body centred under the design's head: Codex pasted the old head at one place and drew the
+    body swaying 3.5-4.6 columns off it (the wrap's centre 60.9-66.6 against the design's 65.5) - the user: 「头和身体协
+    调吗」. So every frame's body (everything under row HEAD_BOTTOM: torso, arms, skirt, legs) is moved whole so its wrap
+    sits where the design's does, and the design's head (RUN_HEAD: the ring, the bob with its sides, the face, the
+    head's prongs) is put back on top at the design's own place - the head keeps one column, as the run rule asks, and
+    the planted boot stays as steady as Codex drew it (63-67.5 before, 64.7-68 after)."""
     old = np.asarray(Image.open(K.lp(os.path.join(CODEX, "design", "karma_design_1x.png"))).convert("RGBA"))
     hm_old = head_mask(old)
-    hm = head_mask(old, RUN_HEAD) | head_mask(P.design, RUN_HEAD)
+    hm = head_mask(P.design, RUN_HEAD)
     jade = [np.array(L[k], np.uint8) for k in JADE]
+    white = [np.array(L[k], np.uint8) for k in WHITE]
+    dm = np.zeros((128, 128), bool)
+    for col in white:
+        dm |= (P.design[..., :3] == col).all(-1) & (P.design[..., 3] > 0)
+    dm[:HEAD_BOTTOM + 1] = False
+    dm[87:] = False
+    centre = np.nonzero(dm)[1].mean()
     out = []
     for k in range(6):
         f = np.asarray(Image.open(K.lp(os.path.join(CODEX, "native", f"karma_run_{k + 1:02d}.png"))).convert("RGBA"))
         c = np.zeros_like(P.design)
         K.put(c, f, PIVOT[0] - RUN_PIVOT[0], PIVOT[1] - RUN_PIVOT[1])
         oy, ox = find_head(c, old, hm_old)
-        before = c.copy()
-        # Codex's own ring / prong / tattoo squares outside the head go (the design's prongs come back below)
-        head_here = np.zeros((128, 128), bool)
-        ys, xs = np.nonzero(hm)
-        head_here[ys + oy, xs + ox] = True
-        for col in jade:
-            hit = (c[..., :3] == col).all(-1) & (c[..., 3] > 0) & ~head_here
-            c[hit] = 0
-        for y, x in zip(ys, xs):
-            c[y + oy, x + ox] = P.design[y, x]
-        # the waist's prongs are left out of the run, as Codex drew it: the pumping arms pass where they float, and
-        # partly hidden they read as specks (one frame here, one there - a blink)
-        # the squares the tattoo left: the leg's skin round them
-        for y, x in zip(*np.nonzero((before[..., 3] > 0) & (c[..., 3] == 0) & ~head_here)):
-            if y >= 86 + oy:
-                nb = [tuple(int(v) for v in c[y + a_, x + b_]) for a_, b_ in N4 if c[y + a_, x + b_, 3]]
+        assert (oy, ox) == (0, 0), (k, oy, ox)        # Codex pasted the head where the design has it
+        body = c.copy()
+        body[:HEAD_BOTTOM + 1] = 0
+        m = np.zeros((128, 128), bool)
+        for col in white:
+            m |= (body[..., :3] == col).all(-1) & (body[..., 3] > 0)
+        m[87:] = False
+        dx = int(round(centre - np.nonzero(m)[1].mean()))
+        body = K.shifted(body, dx, 0)
+        before = body.copy()
+        for col in jade:                               # Codex's prong bits and the leg's tattoo
+            body[(body[..., :3] == col).all(-1) & (body[..., 3] > 0)] = 0
+        for y, x in zip(*np.nonzero((before[..., 3] > 0) & (body[..., 3] == 0))):
+            if y >= 86:                                # the tattoo's squares: the leg's skin round them
+                nb = [tuple(int(v) for v in body[y + a_, x + b_]) for a_, b_ in N4 if body[y + a_, x + b_, 3]]
                 skin = [q for q in nb if q[:3] in (L["s"], L["S"], L["z"])]
                 if skin:
-                    c[y, x] = max(set(skin), key=skin.count)
-        out.append(drop_orphans(finish_near(c, before), np.zeros_like(c)))
+                    body[y, x] = max(set(skin), key=skin.count)
+        c = body
+        ys, xs = np.nonzero(hm)
+        c[ys, xs] = P.design[ys, xs]
+        ref = c.copy()
+        out.append(drop_orphans(finish_near(c, ref), np.zeros_like(c)))
     return out
 
 
