@@ -30,9 +30,9 @@
  69      0pq0mhjjikkkkki0beq0
  70       0pe0hmjjjkckki0beq0
  71        0qahajjikkki0bebqa
- 72        0qahaajikki0aaiabba
- 73       00bbhabpaiiqabaa00
- 74      0ss0bhbbqqiiqbbppaa00
+ 72        0qahaajikki0aababba
+ 73       00bbbabbbbbbabaa00
+ 74      0ss0bbbbbbbbbbbppaa00
  75       0tsuppeeebaa0epp0
  76      0sttuuape0tsst0p0t0
  77     0tu00uacbq0uttuq0us0
