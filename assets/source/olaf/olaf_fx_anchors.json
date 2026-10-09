@@ -1,0 +1,15 @@
+{
+  "a_hit": {"cell": [15, 21], "anchor": [7, 10], "frames": 4},
+  "q_fly": {"cell": [37, 23], "anchor": [18, 11], "frames": 4},
+  "q_land": {"cell": [25, 35], "anchor": [12, 17], "frames": 5},
+  "q_axe": {"cell": [21, 43], "anchor": [10, 21], "frames": 3},
+  "q_hit": {"cell": [21, 13], "anchor": [10, 6], "frames": 4},
+  "q_slow": {"cell": [19, 11], "anchor": [9, 5], "frames": 4},
+  "q_pick": {"cell": [27, 35], "anchor": [13, 17], "frames": 4},
+  "e_hit": {"cell": [33, 35], "anchor": [16, 17], "frames": 5},
+  "w_cast": {"cell": [33, 39], "anchor": [16, 19], "frames": 5},
+  "w_on": {"cell": [37, 47], "anchor": [18, 23], "frames": 4},
+  "r_cast": {"cell": [41, 91], "anchor": [20, 45], "frames": 6},
+  "r_on": {"cell": [39, 65], "anchor": [19, 32], "frames": 4},
+  "p_4": {"cell": [41, 43], "anchor": [20, 21], "frames": 4}
+}

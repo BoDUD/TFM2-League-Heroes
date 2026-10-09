@@ -1,0 +1,264 @@
+{
+ "hero": "olaf",
+ "champ": "Olaf",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 42,
+ "cell": [
+  112,
+  96,
+  14
+ ],
+ "design": "Olaf_Idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Olaf_Idle1@0",
+     200
+    ],
+    [
+     "Olaf_Idle1@0",
+     200
+    ],
+    [
+     "Olaf_Idle1@0",
+     200
+    ],
+    [
+     "Olaf_Idle1@0",
+     200
+    ],
+    [
+     "Olaf_Idle1@0",
+     200
+    ],
+    [
+     "Olaf_Idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "Olaf_Idle1@0",
+   "frames": [
+    [
+     "Olaf_Run@0",
+     120
+    ],
+    [
+     "Olaf_Run@121",
+     120
+    ],
+    [
+     "Olaf_Run@242",
+     120
+    ],
+    [
+     "Olaf_Run@363",
+     120
+    ],
+    [
+     "Olaf_Run@484",
+     120
+    ],
+    [
+     "Olaf_Run@605",
+     120
+    ],
+    [
+     "Olaf_Run@726",
+     120
+    ],
+    [
+     "Olaf_Run@847",
+     120
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "Olaf_Idle1@0>Olaf_Attack1@100:0.6",
+     60
+    ],
+    [
+     "Olaf_Attack1@220",
+     70
+    ],
+    [
+     "Olaf_Attack1@300",
+     70
+    ],
+    [
+     "Olaf_Attack1@400",
+     80
+    ],
+    [
+     "Olaf_Attack1@530",
+     60
+    ],
+    [
+     "Olaf_Attack1@800>Olaf_Idle1@0:0.5",
+     60
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "Olaf_Idle1@0>Olaf_Spell1@90:0.6",
+     60
+    ],
+    [
+     "Olaf_Spell1@200",
+     70
+    ],
+    [
+     "Olaf_Spell1@290",
+     70
+    ],
+    [
+     "Olaf_Spell1@380",
+     80
+    ],
+    [
+     "Olaf_Spell1@500",
+     60
+    ],
+    [
+     "Olaf_Spell1@800>Olaf_Idle1@0:0.5",
+     60
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.5,
+   "release": 5,
+   "flat": true,
+   "rise": 0.5,
+   "frames": [
+    [
+     "Olaf_Idle1@0>Olaf_Spell3@100:0.6",
+     50
+    ],
+    [
+     "Olaf_Spell3@300",
+     60
+    ],
+    [
+     "Olaf_Spell3@400",
+     57
+    ],
+    [
+     "Olaf_Spell3@480",
+     70
+    ],
+    [
+     "Olaf_Spell3@600",
+     70
+    ],
+    [
+     "Olaf_Spell3@1000>Olaf_Idle1@0:0.5",
+     60
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.2,
+   "release": 3,
+   "frames": [
+    [
+     "Olaf_Idle1@0>Olaf_Spell4@100:0.6",
+     60
+    ],
+    [
+     "Olaf_Spell4@250",
+     60
+    ],
+    [
+     "Olaf_Spell4@350",
+     70
+    ],
+    [
+     "Olaf_Spell4@450",
+     80
+    ],
+    [
+     "Olaf_Spell4@550",
+     90
+    ],
+    [
+     "Olaf_Spell4@640>Olaf_Idle1@0:0.4",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Olaf_Idle1@0>Olaf_Death@200:0.35",
+     120
+    ],
+    [
+     "Olaf_Idle1@0>Olaf_Death@200:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.2,
+   "frames": [
+    [
+     "Olaf_Death@0",
+     100
+    ],
+    [
+     "Olaf_Death@300",
+     100
+    ],
+    [
+     "Olaf_Death@700",
+     120
+    ],
+    [
+     "Olaf_Death@1300",
+     150
+    ],
+    [
+     "Olaf_Death@2200",
+     150
+    ],
+    [
+     "Olaf_Death@2450",
+     150
+    ],
+    [
+     "Olaf_Death@2800",
+     150
+    ],
+    [
+     "Olaf_Death@3200",
+     500
+    ]
+   ]
+  }
+ }
+}

@@ -69,8 +69,8 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead); Rengar too (rig_rengar BREATH:
 # the shared lean smeared his toes, his carried blade went under the soles); Zed too (rig_zed BREATH: the shared cut ran
-# through his wrist blades and shortened them)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# through his wrist blades and shortened them); Olaf too (rig_olaf BREATH: the shared cut ran through his spiked greaves)
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -297,7 +297,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "hecarim"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "olaf", "hecarim"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -659,16 +659,22 @@ SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.95}      # 
 # "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
 # and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
 # every low row "knee" and the cut fell on his head
-SHRINK_KEEP = {"karma": ["!1BB663+1,9,16,10", "=222048", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP = {"olaf": ["!0455A6+13,6,11,11"], "karma": ["!1BB663+1,9,16,10", "=222048", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
 SHRINK_KEEP_TAG = {"karma": {"dead": ["!1BB663+3,9,16,10", "=222048", "C4815A", "825238"]}, "renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
-SHRINK_ANCHOR = {"karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
+SHRINK_ANCHOR = {"olaf": "0455A6", "karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
 # actions whose body stands still while something over it floats: their lines are taken at the same place in every frame
 # (shrink_frames' still) - Karma's ring bobs in her idle and carries a square of the anchor's gem green, so the anchor
 # moved with it and her legs lost a row one higher in frames 3-4 (「待机动画效果的时候腿部变形啊」)
 SHRINK_STILL = {"karma": ["idle"]}
+# single actions made smaller (the idle untouched), {hero: {scale: [tags]}}, with SHRINK_KEEP / SHRINK_ANCHOR as above:
+# Olaf's idle is the slim design B, and Codex's redraw of his R, E and death kept bulkier bodies (area 1.2-1.7x the
+# idle's) - after 「奥拉夫跑动时为什么变大一圈 好违和」 the user picked 「一起改」 (every action at the idle's size); his hit
+# is the slim strips' (Codex's size redraw drew it thin: fix_olaf_strips TAG_SRC), eyes 33-39 rows over the soles
+# against the idle's 28
+SHRINK_TAGS = {"olaf": {0.85: ["ult", "dead"], 0.9: ["skill2"], 0.8: ["hit"]}}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -1518,6 +1524,16 @@ def main():
             # a TIDY module's clean-up for the shrunk frames (tidy_shrunk): a removed row can take a tip's cap with
             # it (Xerath's far leg)
             tidy_frames(hero, sheet, "tidy_shrunk")
+        if hero in SHRINK_TAGS:
+            import shrink_frames as SF
+            body0 = SF.body_of(sheet["idle"])
+            done = []
+            for scale, tags in SHRINK_TAGS[hero].items():
+                plans = SF.shrink_sheet(sheet, scale, body=body0, keep_colours=SHRINK_KEEP.get(hero, ()),
+                                        keep_by_tag=SHRINK_KEEP_TAG.get(hero), tags=[t for t in tags if t in sheet],
+                                        anchor=SHRINK_ANCHOR.get(hero))
+                done += [f"{t} {scale:.0%} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()]
+            print(f"{hero}: actions shrunk without resampling: " + ", ".join(done))
         forms = form_sheets(hero, sheet)
         base_tags = dict(sheet)
         for name, fsheet in forms.items():
