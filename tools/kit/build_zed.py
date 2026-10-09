@@ -268,7 +268,7 @@ def build(p):
         pen = p["q_pen"]           # the shadow's shuriken: q_pen% to all (the first-hit flag per copy cost 6 nodes)
         star = back("sh_star", p["q_speed"], p["q_rad"], "EnemyWithoutTower",
                     [attack(p["q_dmg"] * pen // 100, p["q_ratio"] * pen // 100), view("q_hit"), tsfx("q_hit")])
-        return [sw(qf, star),
+        return [sw(qf, combine(view("sh_throw"), star)),
                 sw(ef, combine(view("sh_spin"), zone("sh_slash", p["e_r"], "EnemyWithoutTower", slash_hits())))]
 
     def shadow(life, live, d_e, d_q):
@@ -281,9 +281,13 @@ def build(p):
         out = [view("sh_in"), sfx("w_land"),
                pzone("sh_near", p["sh_near_r"], life, 6, "EnemyChampion", [on_me(count)]),
                delayed(d_e, sw(live, echoes("q_none", "ec_echo")[1])),
-               delayed(d_q, sw(live, sw("qc_echo", combine(view("sh_throw"), echoes("qc_echo", "e_none")[0]["effect_buff"]))))]
-        for t in range(p["echo_step"], life, p["echo_step"]):
-            step = echoes("q_echo", "e_echo")
+               delayed(d_q, sw(live, echoes("qc_echo", "e_none")[0]))]
+        # the copies at every echo_step; the picture's 45-tick pieces (and the chase swap) at every swap_step on their
+        # own - tied to the checkpoints, a piece played only where both steps met (tick 180): the shadow vanished after
+        # forming and blinked back once (「会突然出现然后消失了再出现」)
+        ticks = sorted(set(range(p["echo_step"], life, p["echo_step"])) | set(range(p["swap_step"], life, p["swap_step"])))
+        for t in ticks:
+            step = echoes("q_echo", "e_echo") if t % p["echo_step"] == 0 else []
             if t % p["swap_step"] == 0:
                 step.append(view("sh_stand"))
                 if t <= p["chase_t"]:
