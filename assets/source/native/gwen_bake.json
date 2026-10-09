@@ -4,22 +4,30 @@
   {
    "tag": "a_snip",
    "into": "attack",
-   "at_ms": 190
+   "at_ms": 190,
+   "dx": -2,
+   "dy": 3
   },
   {
    "tag": "q_snip",
    "into": "skill",
-   "at_ms": 110
+   "at_ms": 110,
+   "dx": -2,
+   "dy": 3
   },
   {
    "tag": "q_snip",
    "into": "skill",
-   "at_ms": 230
+   "at_ms": 230,
+   "dx": -2,
+   "dy": 3
   },
   {
    "tag": "q_final",
    "into": "skill",
-   "at_ms": 360
+   "at_ms": 360,
+   "dx": -2,
+   "dy": 3
   },
   {
    "tag": "e_dash",

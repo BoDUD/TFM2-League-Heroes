@@ -781,15 +781,11 @@
     "league_gwen": {
       "face": {
         "x": 2,
-        "y": -39
+        "y": -36
       },
       "center": {
         "x": 0,
         "y": -12
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -10
       }
     },
     "league_khazix": {
@@ -818,8 +814,8 @@
     },
     "league_twitch": {
       "face": {
-        "x": 0,
-        "y": -36
+        "x": 1,
+        "y": -30
       },
       "center": {
         "x": 0,
