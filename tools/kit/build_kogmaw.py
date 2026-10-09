@@ -45,27 +45,29 @@ ID = "league_kogmaw"
 FX = "asset/league/effects/league_kogmaw_fx"
 BIG = "asset/league/effects/league_kogmaw_big"
 
+# Timings from the strips (rig_kogmaw.py MS): the glob leaves on tick 7 (attack frame 3), the spittle on 16 (skill
+# frame 5), the ooze on 13 (skill2 frame 4), the shell on 17 (ult frame 5); the casts last 37 / 39 / 37 ticks.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Kog'Maw: 500
     # range, 61 AD +3.1, 635 +99 hp, 32 armour, 330 move (slow), attack speed 0.665
     "hp": 880, "hp_g": 88, "atk": 90, "atk_g": 18, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 870, "ms_g": 9,
     # attack: the glob leaves the mouth on a_st (retimed to the strips later)
-    "atk_range": 50000, "atk_dur": 24, "atk_cd": 54, "a_st": 8, "glob_speed": 6500, "glob_y": 0,
+    "atk_range": 50000, "atk_dur": 24, "atk_cd": 54, "a_st": 7, "glob_speed": 6500, "glob_y": 0,
     # passive: Icathian Surprise (League: 4 s, 125 + 25 a level true damage, radius ~?)
     "p_watch": 6, "p_life": 216000, "p_seek": 70000, "p_speed": 1800, "p_r": 12000, "p_dmg": 80, "p_ratio": 100,
     # W Bio-Arcane Barrage (League: 8 s, +130-210 range, 3-7% max health on-hit, cd 17 s)
     "w_t": 480, "w_cd": 1020, "w_range": 18000, "w_hp": 4,
     # skill: Q Caustic Spittle (League: 1200 range, 90-290 + 70% AP magic, shred 16-24% 4 s, cd 8 s; passive
     # +15-35% attack speed)
-    "q_cd": 480, "q_range": 95000, "q_dur": 24, "q_rel": 9, "q_speed": 5000, "q_len": 105000, "q_rad": 5000,
+    "q_cd": 480, "q_range": 95000, "q_dur": 37, "q_rel": 16, "q_speed": 5000, "q_len": 105000, "q_rad": 5000,
     "q_y": 0, "q_dmg": 60, "q_ratio": 70, "q_shred": 20, "q_shred_t": 240, "q_as": 15,
     # skill2: E Void Ooze (League: 1360 range, 75-255 + 50% AP magic, slow 20-40% decaying, trail 4 s, cd 12 s)
-    "e_cd": 720, "e_range": 100000, "e_dur": 30, "e_rel": 12, "e_speed": 4000, "e_len": 110000, "e_rad": 7000,
+    "e_cd": 720, "e_range": 100000, "e_dur": 39, "e_rel": 13, "e_speed": 4000, "e_len": 110000, "e_rad": 7000,
     "e_y": 0, "e_dmg": 50, "e_ratio": 60, "e_slow": 35, "e_slow_t": 60, "e_trail": 240, "e_zone_r": 9000,
     "e_step": 20000,
     # ult: R Living Artillery (League: 1300-1800 range, 1.1 s delay, radius 240, 100-180 + 65% bonus AD + 35% AP,
     # x2 below 40% health, cd 2-1.5 s with a growing mana cost)
-    "r_lock": 1200, "r_gap": 50, "r_win": 360, "r_range": 130000, "r_dur": 24, "r_rel": 10, "r_delay": 40,
+    "r_lock": 1200, "r_gap": 50, "r_win": 360, "r_range": 130000, "r_dur": 37, "r_rel": 17, "r_delay": 40,
     "r_r": 15000, "r_dmg": 70, "r_ratio": 65, "r_x": 50, "r_x_ratio": 35,
     # combos
     "e_r_wait": 10,
