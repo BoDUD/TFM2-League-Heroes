@@ -1,0 +1,296 @@
+[
+ {
+  "tag": "run",
+  "frame": 1,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "run",
+  "frame": 2,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "run",
+  "frame": 3,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "run",
+  "frame": 4,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "run",
+  "frame": 5,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "run",
+  "frame": 6,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "run",
+  "frame": 7,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "run",
+  "frame": 8,
+  "of": 8,
+  "ms": 85
+ },
+ {
+  "tag": "attack",
+  "frame": 1,
+  "of": 6,
+  "ms": 60
+ },
+ {
+  "tag": "attack",
+  "frame": 2,
+  "of": 6,
+  "ms": 60
+ },
+ {
+  "tag": "attack",
+  "frame": 3,
+  "of": 6,
+  "ms": 70
+ },
+ {
+  "tag": "attack",
+  "frame": 4,
+  "of": 6,
+  "ms": 70
+ },
+ {
+  "tag": "attack",
+  "frame": 5,
+  "of": 6,
+  "ms": 70
+ },
+ {
+  "tag": "attack",
+  "frame": 6,
+  "of": 6,
+  "ms": 80
+ },
+ {
+  "tag": "skill",
+  "frame": 1,
+  "of": 7,
+  "ms": 50
+ },
+ {
+  "tag": "skill",
+  "frame": 2,
+  "of": 7,
+  "ms": 50
+ },
+ {
+  "tag": "skill",
+  "frame": 3,
+  "of": 7,
+  "ms": 55
+ },
+ {
+  "tag": "skill",
+  "frame": 4,
+  "of": 7,
+  "ms": 55
+ },
+ {
+  "tag": "skill",
+  "frame": 5,
+  "of": 7,
+  "ms": 60
+ },
+ {
+  "tag": "skill",
+  "frame": 6,
+  "of": 7,
+  "ms": 60
+ },
+ {
+  "tag": "skill",
+  "frame": 7,
+  "of": 7,
+  "ms": 70
+ },
+ {
+  "tag": "skill2",
+  "frame": 1,
+  "of": 7,
+  "ms": 60
+ },
+ {
+  "tag": "skill2",
+  "frame": 2,
+  "of": 7,
+  "ms": 75
+ },
+ {
+  "tag": "skill2",
+  "frame": 3,
+  "of": 7,
+  "ms": 75
+ },
+ {
+  "tag": "skill2",
+  "frame": 4,
+  "of": 7,
+  "ms": 75
+ },
+ {
+  "tag": "skill2",
+  "frame": 5,
+  "of": 7,
+  "ms": 75
+ },
+ {
+  "tag": "skill2",
+  "frame": 6,
+  "of": 7,
+  "ms": 75
+ },
+ {
+  "tag": "skill2",
+  "frame": 7,
+  "of": 7,
+  "ms": 75
+ },
+ {
+  "tag": "skill2_hit",
+  "frame": 1,
+  "of": 4,
+  "ms": 50
+ },
+ {
+  "tag": "skill2_hit",
+  "frame": 2,
+  "of": 4,
+  "ms": 50
+ },
+ {
+  "tag": "skill2_hit",
+  "frame": 3,
+  "of": 4,
+  "ms": 60
+ },
+ {
+  "tag": "skill2_hit",
+  "frame": 4,
+  "of": 4,
+  "ms": 70
+ },
+ {
+  "tag": "ult",
+  "frame": 1,
+  "of": 7,
+  "ms": 50
+ },
+ {
+  "tag": "ult",
+  "frame": 2,
+  "of": 7,
+  "ms": 60
+ },
+ {
+  "tag": "ult",
+  "frame": 3,
+  "of": 7,
+  "ms": 60
+ },
+ {
+  "tag": "ult",
+  "frame": 4,
+  "of": 7,
+  "ms": 80
+ },
+ {
+  "tag": "ult",
+  "frame": 5,
+  "of": 7,
+  "ms": 80
+ },
+ {
+  "tag": "ult",
+  "frame": 6,
+  "of": 7,
+  "ms": 80
+ },
+ {
+  "tag": "ult",
+  "frame": 7,
+  "of": 7,
+  "ms": 90
+ },
+ {
+  "tag": "hit",
+  "frame": 1,
+  "of": 2,
+  "ms": 120
+ },
+ {
+  "tag": "hit",
+  "frame": 2,
+  "of": 2,
+  "ms": 120
+ },
+ {
+  "tag": "dead",
+  "frame": 1,
+  "of": 8,
+  "ms": 100
+ },
+ {
+  "tag": "dead",
+  "frame": 2,
+  "of": 8,
+  "ms": 100
+ },
+ {
+  "tag": "dead",
+  "frame": 3,
+  "of": 8,
+  "ms": 100
+ },
+ {
+  "tag": "dead",
+  "frame": 4,
+  "of": 8,
+  "ms": 120
+ },
+ {
+  "tag": "dead",
+  "frame": 5,
+  "of": 8,
+  "ms": 150
+ },
+ {
+  "tag": "dead",
+  "frame": 6,
+  "of": 8,
+  "ms": 150
+ },
+ {
+  "tag": "dead",
+  "frame": 7,
+  "of": 8,
+  "ms": 200
+ },
+ {
+  "tag": "dead",
+  "frame": 8,
+  "of": 8,
+  "ms": 500
+ }
+]

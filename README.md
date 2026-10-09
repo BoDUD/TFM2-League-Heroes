@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -152,6 +152,8 @@
 ![卡尔玛演示：她掌心射出一道翠绿灵弹打德莱厄斯，鼓舞自动给自己套上翠绿护盾、脚下生风；Q 心灵烈焰：带粉色火舌的灵火撞上德莱厄斯炸开，脚下一圈小灵火减速；W 坚定不移：一道光束射中他，腰间亮起灵光，连线一节节流回她身边，1.3 秒后灵光锁扣紧把他定住；她双手合十开梵咒，身边绕起灵光，定身接灵光闪耀：更大的灵火炸开，地上留下灵火圈，1.5 秒后整圈爆发](docs/preview/league_karma_showcase.gif?v=1009idle)
 
 ![奥拉夫演示：他仰头怒吼开诸神黄昏，脚下烧起怒火；冲到德莱厄斯面前掷出逆流投掷：斧头翻滚着飞过去，砍中的地方冒出冰蓝寒气减速，斧头插进地里；双斧跃起鲁莽挥击砸下，冰蓝 X 形劈痕；普攻劈砍时怒吼挺过去，身后亮起血气；德莱厄斯后退，他走过去捡回斧头；残血时狂战之怒满层，肩上冒出红色怒气](docs/preview/league_olaf_showcase.gif?v=1010run)
+
+![赫卡里姆演示：他从远处毁灭冲锋，起步扬起尘土、蹄下燃着幽灵火，冲满三段一刀砸在德莱厄斯身上把他撞退，撞完蹄下生风；他跟上挥戟，Q 暴走：身边转出一圈幽灵刀光，身边有敌方英雄，恐惧之灵自动开启：地上炸开一圈幽灵、脚下绕着幽灵圈、每秒从德莱厄斯身上抽出一缕灵魂，马身两侧亮起暴走层数的幽灵火；R 暗影冲击：他扬蹄召出暗影，带着幽灵骑兵冲向盖伦，骑兵穿过德莱厄斯砍出暗影刀光，落地冲击波裂开地面，盖伦头顶冒出幽灵骷髅被吓跑](docs/preview/league_hecarim_showcase.gif)
 
 ## 英雄：盖伦
 
@@ -3492,6 +3494,47 @@ python tools/art/preview_olaf.py        # 逐帧预览、特效表、演示 GIF
 逐帧预览：[`docs/preview/league_olaf_frames.png`](docs/preview/league_olaf_frames.png)，特效：[`docs/preview/league_olaf_effects.png`](docs/preview/league_olaf_effects.png)。
 
 可选的扩展包 [`addons/league_olaf_rage`](addons/league_olaf_rage/README.md)（原生代码，主包不装它也完整）：读真实的生命，已损失 15% 起一层狂怒，之后每多 17% 再一层，和英雄联盟一样按血量给攻速和吸血。
+
+## 英雄：赫卡里姆
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 打野（战士，分类 Melee），第 82 位英雄。战争之影 赫卡里姆：冲锋撞人、带幽灵骑兵开团恐惧。用户选打野、完整还原 + 高手连招 |
+| 普攻 / 被动 | 挥戟砍，射程 25000，攻击间隔 62 tick，第 11 tick 砍中。被动「征战之路」：英雄联盟里额外移速转成攻击力；数据读不到移速，所以他的每段加速都带攻击：冲锋每段 +8%、冲锋后 +8%、大招落地后 +20% 3 秒 |
+| 恐惧之灵（自动） | W 没有技能位，冷却 840 tick（14 秒）：Q 扫中、E 落地或 R 落地时 30000 内有敌方英雄就开启 4 秒：护甲、魔抗 +20，每秒对周围敌人造成 14 魔法伤害、每命中一个回复 12 生命（英雄联盟按造成的伤害回血；数据读不到伤害，按命中个数） |
+| 技能1 | Q「暴走」：冷却 240 tick（4 秒），对周围 26000 内的敌人（也对小兵和野怪放）造成 45 + 85% 攻击力物理伤害；命中后叠一层暴走（最多 2 层，8 秒，再命中刷新），每层伤害 +20%，刷野叠的层数可以带进团战 |
+| 技能2 | E「毁灭冲锋」：冷却 600 tick（10 秒），射程 60000，冲向目标（速度 2500），冲得越久越疼：8 / 16 tick 后升到第二 / 三段，伤害 30 + 60% 攻击力 ×1 / ×1.5 / ×2，砍中时击退；之后移速 +25% 2 秒 |
+| 大招 | R「暗影冲击」：冷却 3000 tick（50 秒），射程 70000，只对敌方英雄放：幽灵骑兵（穿透的直线，沿途 70 + 100% 攻击力）和他一起冲过去，冲锋时免控；落地时 26000 内的敌人恐惧 45 tick，冲了 12 tick 以上恐惧 80 tick（英雄联盟按冲锋距离变长） |
+| 高手连招 | **冲锋接大招（E → R）**：冲锋撞上英雄时大招已解锁且就绪，直接接暗影冲击落地（恐惧 + 击退，凯南 E → R 的写法，大招位之后空放）；**落地回旋（R → Q）**：每次大招落地顺势暴走一圈（60% 伤害，叠一层，不占冷却）；**开团回血**：冲锋和大招落地都会开启恐惧之灵 |
+| 数值 | 攻击 95（+17）、生命 1050（+100）、护甲 32（+8）、魔抗 22（+4）、移速 1080（+12）。数值是自己设计的，用 SDK 对战模拟调：打野，对 3 个原版打野（`ninja`、`demon`、`hunter`），种子 1–12 和 25–36 各 12 局、10 分钟。初稿 +0.91；Q 40 + 80% 后 +1.50 / +2.53；按动作条对准出手时间（普攻第 11 tick、E 落地 5 tick 后砸中、R 第 7 tick 出发）后掉到约 −0.2，Q 加到 45 + 85%：+1.69 / +1.59（同期雷恩加尔 +1.6、赵信 +1.2、蔚 +2.4） |
+| 亚索联动 | E 的击退不是击飞，亚索大招不受影响，不用调 |
+| 精灵图 | 9 个动作 57 帧：待机 8（呼吸）、移动 8（定稿的身体每帧不变、只颠一格，四条腿按奔跑的落蹄顺序错开，85 ms 一帧）、普攻 6、Q（`skill`）7、E 冲锋（`skill2`）7、E 砸下（`skill2_hit`）4、R（`ult`）7（扬蹄 + 冲锋）、受击 2、死亡 8。45×67 px（含长戟和尾巴），16 色。第一版造型的头盔是大头 Q 版（用户：「学别人那种画法啊 头这么大干嘛」），照 oppi 的赫卡里姆改成小头盔（头盔约 8 行）。头像截取点 (9, −36)，选人卡片 −6（角尖在 −33） |
+| 特效 | Codex 生图的 17 张原稿（没有游戏尺寸版），`import_hecarim.py` 按格读回、按技能范围定大小：`league_hecarim_fx` 普攻刀光、Q 命中、暴走层数（马身两侧的幽灵火）、W 抽魂、E 起步尘土 / 冲锋蹄下幽灵火 / 砸中 / 加速、R 骑兵刀光、恐惧骷髅；`league_hecarim_big` Q 的一圈刀光、W 炸开的幽灵圈和持续的幽灵圈、R 起手的暗影、幽灵骑兵、落地冲击波。配色照英雄联盟的技能图标：幽灵青绿 + 白芯，暗影烟和尘土点缀。骑兵从上往下看画（会转到冲锋方向，上下对称），其余左右对称；R 的暗影和骑兵画在人物下面，不挡住他 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_hecarim.py`）：挥戟和命中、Q 出手 / 命中、W、E 出手 / 撞击、R 出手 / 落地 / 骑兵穿过；Q、W、R 的中文配音（原版 E 没有配音）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_hecarim.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_hecarim.py         # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_hecarim.py --face 9,-36 --banpick -6   # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/design_hecarim.py        # 造型：Codex 原稿按格读回、删到 45 行（2_45）
+python tools/art/fix_hecarim_strips.py    # 动作：Codex 照英雄联盟原版逐帧整个重画的动作条
+python tools/art/import_native.py --hero hecarim
+python tools/art/import_hecarim.py --raw assets/source/hecarim/codex_fx   # 特效：原稿读回成游戏尺寸，再拼成特效表
+python tools/art/preview_hecarim.py       # 预览和演示 GIF
+```
+
+美术（特效的提示词见 [`PROMPTS_FX.md`](assets/source/hecarim/PROMPTS_FX.md)；Codex 的交付在 [`codex_model_v2/`](assets/source/hecarim/codex_model_v2/)、[`codex_strips_v2/`](assets/source/hecarim/codex_strips_v2/)、[`codex_fx/`](assets/source/hecarim/codex_fx/)）：
+
+- 原画：Codex 画了待机（A）和冲锋（B）两版，用户选 A。
+- 造型：第一版脸太差、头太大（用户：「脸部质量太差了 去参考oppi怎么弄得吧」「学别人那种画法啊 头这么大干嘛」），照 oppi 的头盔比例重画，用户选 2_45（45 行，浅灰盔甲）。
+- 动作：第一轮 Codex 一张图画一整条，读回来糊成色块；第二轮每帧单独一张、直接画在 8 倍游戏格上，`fix_hecarim_strips.py` 按格读回、接回读断的刀刃、两格粗的描边削成一格、跑步和冲锋按原版头的轨迹稳住骑士、受击用干净的第 2 帧、死亡停在第 6 帧。用户：「完美」。
+- 跑步：照原版逐帧重画的奔跑每帧形状都不一样（用户：「人马移动有点不自然啊 参考下oppi怎么移动的」「而且移动时模型有点变形」「四个脚都要有明显错开并且自然的感觉」），Codex 另画的侧面奔跑接上来又成了另一匹马（「模型变形了啊」「武器断了啊」「这腿对吗 残疾了？」）。现在照 oppi 的思路一点都不重画：身体就是定稿（和待机逐像素相同，只颠一格，尾巴摆一下），四条腿也是定稿自己的腿，每条按大腿、小腿、马蹄三段整块移动；按奔跑的落蹄顺序（后、后、前、前）各差两帧，着地 5 帧往后滑、腾空 3 帧收蹄往前迈（抬 2 → 5 → 2 格）；中间两条腿挨着，步子小一点，蹄子不会叠成一块（`fix_hecarim_strips.py` 的 run_rig）。
+- 特效：Codex 第 3 步的 17 张生图原稿，读回成游戏尺寸；暴走层数的火苗画得太大，只取每帧左半边的一团放在马身侧面，翻转补出另一边。
+
+逐帧预览：[`docs/preview/league_hecarim_frames.png`](docs/preview/league_hecarim_frames.png)，特效：[`docs/preview/league_hecarim_effects.png`](docs/preview/league_hecarim_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
