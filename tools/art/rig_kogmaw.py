@@ -17,18 +17,20 @@ resampled (the no-deformation rule: translation, quarter turns, whole-row shifts
   shades (a lit top row, two mid rows, a shadow row, one outline ring), a ring groove with a bone spike above and below
   every four squares, and an open end - a rim with fang squares round the dark throat. It leaves the middle of the
   mouth; its length per frame is in POSES;
-- whole-figure moves: a lunge / recoil (columns), a crouch (everything above the feet sunk over them: the feet in front,
-  the body's lowest rows behind them), a rise (the row over the feet repeated: the stubby legs show);
+- whole-figure moves only: a lunge / recoil (columns), a hop (rows, the feet with it); the body never sinks over the
+  feet or stretches its legs in an action (the user, 2026-10-09: 「攻击和放技能的时候模型有点变形 身体压到腿了」,
+  「移动的时候也是」 - the first version crouched by sinking the body behind the feet and rose by repeating the legs' row);
 - R stands up: the figure without the feet and the tail, with the tube already out of the mouth, turned exactly a
   quarter counter-clockwise (the tube straight up, the face up, the belly to the right, the antennae swept back to the
   left) and stood on the design's own feet; the tail lies on the ground behind him;
 - the death: struck back, then the body sinks over the feet until it lies flat on the ground (the rows under the soles
   cut), the eyes closed (each eye's squares the skull's bone, one dark lid row); the void form that leaves the body is
   an effect (step 3);
-- the run (League's pace, 8 x 89 ms): a waddle - the two feet step in turn (the swinging foot lifted and carried
-  forward, the planted one sliding back), the body dropping a row at each contact, the tail and the antennae swaying;
-- the idle breathes here (as league_rengar's): everything but the feet sinks 0 0 1 2 2 2 1 0 rows over the feet, the
-  antennae a column behind; import_native skips him (BREATHE_SKIP).
+- the run (League's pace, 8 x 89 ms): a waddle - the two feet step in turn (the swinging foot lifted a row and carried
+  forward, the planted one sliding back), the whole figure hopping a row while a foot passes, the tail and the
+  antennae swaying;
+- the idle: the antennae and the tail sway a column, a beat apart (no breathing sink - it pressed the body on the feet);
+  import_native skips him (BREATHE_SKIP).
 Writes assets/source/native/kogmaw_<tag>.png (8x, 96x80 cells, the soles on cell row 65) and kogmaw_cells.json; then
 tools/art/import_native.py. --check compares instead of writing; --review writes a review sheet and a GIF.
 """
@@ -231,7 +233,8 @@ def feet_part(P, l=(0, 0), r=(0, 0)):
 
 
 def build(P, f):
-    """One frame from a pose dict: sink / rise (rows: the body over the feet), dx (the whole figure), tube (squares),
+    """One frame from a pose dict: sink / rise (rows: the body over the feet - only the death uses them now: the user,
+    「攻击和放技能的时候模型有点变形 身体压到腿了」「移动的时候也是」), dx / hop (the whole figure, feet included), tube (squares),
     tail (the tip's columns), ant (the antennae's columns), feet ((dx, lift) far, (dx, lift) near), closed (eyes)."""
     top = P.body.copy()
     if f.get("closed"):
@@ -255,8 +258,8 @@ def build(P, f):
     lf, rf = f.get("feet", ((0, 0), (0, 0)))
     c = K.put(top, feet_part(P, lf, rf), 0, 0)      # the feet in front of the sunk body
     c[SOLES + 1:] = 0
-    if f.get("dx"):
-        c = K.shifted(c, f["dx"], 0)
+    if f.get("dx") or f.get("hop"):
+        c = K.shifted(c, f.get("dx", 0), -f.get("hop", 0))
     return c
 
 
@@ -273,7 +276,7 @@ def frame(P, f):
     if f is None:
         return P.design.copy()
     c = build(P, f)
-    ref = K.shifted(P.design, f.get("dx", 0), 0)
+    ref = K.shifted(P.design, f.get("dx", 0), -f.get("hop", 0))
     own = {p for h in K.holes(ref) for p in h}
     c = leg_gaps(finish_near(c, ref), own)
     return drop_orphans(c, ref)
@@ -356,22 +359,22 @@ MS = {"idle": [140] * 8, "run": [89] * 8, "attack": [60, 60, 70, 70, 70, 70],
       "ult": [70, 70, 70, 70, 80, 90, 90, 80], "hit": [120, 120], "dead": [100, 100, 120, 120, 150, 150, 200, 500]}
 POSES = {
     # League's attack1: a crouch, rearing back, the head thrust forward with the tube out (the glob on frame 3)
-    "attack": [dict(sink=1, ant=-1), dict(dx=-1, rise=1, ant=-1), dict(dx=1, tube=16, ant=1),
+    "attack": [dict(dx=-1, ant=-1), dict(dx=-1, ant=-1, tail=1), dict(dx=1, tube=16, ant=1),
                dict(dx=1, tube=13, ant=1), dict(tube=7), None],
     # Q: rearing up, drawn back, coiled low, the lunge, the long tube (the spittle on frame 5), recoiling
-    "skill": [dict(rise=1, ant=-1), dict(dx=-1, rise=2, ant=-1), dict(sink=2), dict(dx=1, sink=1, ant=1),
+    "skill": [dict(ant=-1), dict(dx=-1, ant=-1, tail=1), dict(dx=-2, ant=-1, tail=1), dict(dx=1, ant=1),
               dict(dx=2, tube=22, ant=1), dict(dx=2, tube=18, ant=1), dict(dx=1, tube=8), None],
-    # E: hunching low and pushed forward, the mouth at the ground (the ooze on frame 4), rising again
-    "skill2": [dict(sink=1), dict(sink=2, ant=1), dict(sink=3, dx=1, ant=1), dict(sink=3, dx=2, ant=1),
-               dict(sink=3, dx=2), dict(sink=2, dx=1, ant=-1), dict(rise=1, ant=-1), None],
-    "hit": [dict(dx=-2, sink=1, ant=-1, tail=1), dict(dx=-1, ant=-1)],
+    # E: drawn back, then pushed forward spewing (a short tube; the ooze leaves on frame 4), back again
+    "skill2": [dict(ant=-1), dict(dx=-1, ant=-1, tail=1), dict(dx=1, tube=6, ant=1), dict(dx=2, tube=11, ant=1),
+               dict(dx=2, tube=11, ant=1, tail=-1), dict(dx=1, tube=5), dict(ant=-1), None],
+    "hit": [dict(dx=-2, ant=-1, tail=1), dict(dx=-1, ant=-1)],
 }
 
 
 def ult_frames(P):
     """R: crouch, rise, stand up with the tube growing (the shell on frame 5), the tube shrinking, back down."""
-    return [frame(P, dict(sink=1)), frame(P, dict(rise=2, ant=-1)), standing(P, 6), standing(P, 12),
-            standing(P, 16), standing(P, 10), frame(P, dict(rise=1, ant=1)), P.design.copy()]
+    return [frame(P, dict(ant=-1)), frame(P, dict(dx=-1, ant=-1, tail=1)), standing(P, 6), standing(P, 12),
+            standing(P, 16), standing(P, 10), frame(P, dict(ant=1)), P.design.copy()]
 
 
 def dead_frames(P):
@@ -384,11 +387,10 @@ def dead_frames(P):
 
 # the run (League's pace: kogmaw_run cycles in 0.71 s -> 8 x 89 ms): a waddle on the two big feet
 L_STEP = [3, 2, 0, -2, -3, -2, 0, 2]
-L_LIFT = [0, 0, 0, 0, 0, 2, 3, 2]
+L_LIFT = [0, 0, 0, 0, 0, 1, 1, 1]
 R_STEP = [-3, -2, 0, 2, 3, 2, 0, -2]
-R_LIFT = [0, 2, 3, 2, 0, 0, 0, 0]
-DROP = [1, 0, 0, 0, 1, 0, 0, 0]
-RISE = [0, 0, 1, 0, 0, 0, 1, 0]                  # the body a row up while a foot passes high
+R_LIFT = [0, 1, 1, 1, 0, 0, 0, 0]
+HOP = [0, 0, 1, 0, 0, 0, 1, 0]                   # the whole waddle off the ground a row while a foot passes
 TAIL_SW = [-1, 0, 1, 0, -1, 0, 1, 0]
 ANT_SW = [0, -1, 0, 1, 0, -1, 0, 1]
 
@@ -412,7 +414,7 @@ def fill_dents(c, r0, r1):
 def run_frames(P):
     out = []
     for k in range(8):
-        f = dict(sink=DROP[k], rise=RISE[k], tail=TAIL_SW[k], ant=ANT_SW[k],
+        f = dict(hop=HOP[k], tail=TAIL_SW[k], ant=ANT_SW[k],
                  feet=((L_STEP[k], L_LIFT[k]), (R_STEP[k], R_LIFT[k])))
         c = fill_dents(frame(P, f), 88, SOLES - 1)
         zone = np.zeros((128, 128), bool)
@@ -426,14 +428,14 @@ def run_frames(P):
     return out
 
 
-BREATH = [0, 0, 1, 2, 2, 2, 1, 0]
-BREATH_ANT = [0, 0, 0, 1, 1, 1, 1, 0]
+IDLE_ANT = [0, 0, 1, 1, 1, 0, -1, 0]
+IDLE_TAIL = [0, 0, 0, 1, 1, 1, 0, 0]
 
 
 def frames(P, tag):
     if tag == "idle":
-        return [P.design.copy() if n == 0 and a == 0 else frame(P, dict(sink=n, ant=a))
-                for n, a in zip(BREATH, BREATH_ANT)]
+        return [P.design.copy() if a == 0 and t == 0 else frame(P, dict(ant=a, tail=t))
+                for a, t in zip(IDLE_ANT, IDLE_TAIL)]
     if tag == "run":
         return run_frames(P)
     if tag == "ult":
