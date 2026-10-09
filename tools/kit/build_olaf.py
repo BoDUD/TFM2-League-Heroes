@@ -64,7 +64,7 @@ P = {
     # E Reckless Swing (League: 325 range, 70-250 + 50% AD true damage, 30% of it to himself, cd 9-5 s cut by attacks)
     "e_cd": 300, "e_range": 28000, "e_dur": 22, "e_st": 10, "e_dmg": 110, "e_ratio": 90, "e_self": 30,
     # R Ragnarok (League: 10-30 armour / mr passive; 3 s, extended by champion hits, CC immune, AD, haste; cd 100-80 s)
-    "r_cd": 3000, "r_range": 40000, "r_dur": 20, "r_t": 180, "r_max": 600, "r_atk": 30, "r_ms": 20, "r_def": 12,
+    "r_cd": 3000, "r_range": 40000, "r_dur": 28, "r_t": 180, "r_max": 600, "r_atk": 30, "r_ms": 20, "r_def": 12,
     "r_mr": 12,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

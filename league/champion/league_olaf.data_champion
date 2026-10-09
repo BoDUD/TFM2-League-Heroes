@@ -1992,7 +1992,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_olaf.ult",
-    "duration": 20,
+    "duration": 28,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -2006,7 +2006,7 @@
         {
           "type": "CasterAnimation",
           "name": "ult",
-          "tick": 20
+          "tick": 28
         },
         {
           "type": "Sfx",
