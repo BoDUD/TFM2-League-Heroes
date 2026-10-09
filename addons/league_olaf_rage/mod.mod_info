@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.85.0"
+    }
+  ],
+  "description": "Test build of Olaf's Berserker Rage from his real missing health (needs League of Legends Heroes): replaces the main pack's Olaf so his Rage levels (attack speed, life steal at the top two) follow the health he has lost - a level from 15% missing, one more every 17% - as in League, instead of the data pack's stand-in (a level for every hit taken, dropping out of combat), which cannot read health. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-09",
+  "mod_id": "league_olaf_rage",
+  "mod_type": "native",
+  "name": "League Heroes: Olaf's Berserker Rage from missing health (test)",
+  "version": "0.1.0"
+}
