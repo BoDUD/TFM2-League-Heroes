@@ -457,8 +457,12 @@ def dead(P, k):
 # only made-up squares could fill (an extra square beside the first claw, a red tabard column, a dark blot at the far
 # elbow). The body drops a row at each mid-stance.
 RUN_STEPS = {
-    "near": [(-1, -2, 0), (-2, -4, 0), (-2, -8, 2), (-1, -10, 4), (0, -3, 3), (2, 0, 1), (1, 2, 0), (0, 0, 0)],
-    "far": [(3, 3, 4), (4, 6, 3), (4, 8, 0), (3, 6, 0), (2, 4, 0), (1, 2, 0), (-1, 0, 1), (0, -1, 4)],
+    # the near leg's kick stays mostly behind the far shin (a boot peeping out on both sides of it read as a second
+    # far boot), heel up 2-3
+    "near": [(-1, -2, 0), (-2, -4, 0), (-2, -5, 2), (-1, -5, 3), (0, -3, 3), (2, 0, 1), (1, 2, 0), (0, 0, 0)],
+    # the far leg (the user, 10-10: 「左腿完全变形」 at knee 4 / boot 8 / lift 4 - a 45-degree shin and a boot hidden
+    # behind the thigh): the thigh leans at most 2, the shin at most 1 more, the boot lifts at most 2 - stays visible
+    "far": [(1, 0, 2), (2, 2, 1), (2, 3, 0), (2, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 1), (0, -2, 2)],
 }
 BOOT_TOP = 97                    # the boots' top row (full design): rows from here move whole
 DROP = [1, 0, 0, 0, 1, 0, 0, 0]
