@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -143,6 +143,8 @@
 ![弗拉基米尔演示：他射出血弹打德莱厄斯；Q 鲜血转换：从德莱厄斯身上抽出一团血，血球飞回来给他回血，脚下亮起半满的血环；第二次 Q 是猩红冲刺，血球更大更亮；E 血之潮汐：蓄力时身边绕着血珠，地上炸开一圈血浪，向两人各射一颗血弹；连招 E→Q：潮汐打中英雄后马上接的 Q 直接是猩红冲刺；连招闪 R E：化成血雾闪到敌人身边，血之瘟疫的血云落在德莱厄斯身上，两人挂上瘟疫印记，再炸一圈血浪，3 秒后瘟疫爆开、血回到他身上；血红之池：化成一滩血 2 秒，站在上面的两人被吸血，钻出来时 E 正好好了，直接甩出一圈血浪（连招 E-W）](docs/preview/league_vladimir_showcase.gif?v=1009head)
 
 ![雷恩加尔演示：头顶亮着金色的猎人之眼，他从远处飞扑到德莱厄斯身上，落地三道爪痕，Q 已就绪直接上挑（空中 Q），脚下亮起金色刀光圈；普攻一刀；W 战争咆哮：地上炸开金色冲击波，两人受伤，他身上冒出绿色回血；E 甩出套索，德莱厄斯腿上缠住绳子减速；Q 砸地再上挑，凶残值攒满（头顶四颗红牙），下一刀直接是强化 Q，身上燃起红橙火光；他后撤开 R：一团蓝灰烟雾，德莱厄斯头顶亮起猎人红眼，他扑出去打出暴击爪痕，随即甩出必中的套索把德莱厄斯定住](docs/preview/league_rengar_showcase.gif)
+
+![克格莫演示：他吐出一团绿色酸液打德莱厄斯，生化弹幕自动开启：身上一圈绿光爆开，脚下亮起绿色电弧圈；开 W 接 Q：一大口黄绿色腐蚀唾液，德莱厄斯身上滋滋冒酸泡（护甲魔抗被腐蚀）；再吐两口酸液；E 虚空淤泥：紫色淤泥穿过德莱厄斯和盖伦，地上留下一长条紫色淤泥带，两人脚下黏着淤泥减速，紧接着一发活体大炮落在德莱厄斯身上；R：他后腿站起、嘴管朝天，盖伦脚下出现黄绿警告圈，酸液炮弹从天上落下炸开，连发两炮；最后他倒下，尸体上冲起紫色虚空光柱，虚空分身飞向德莱厄斯，追上后炸开，盖伦也被波及](docs/preview/league_kogmaw_showcase.gif?v=3)
 
 ## 英雄：盖伦
 
@@ -3309,6 +3311,47 @@ python tools/art/import_rengar.py       # 特效；--raw assets/source/rengar/co
 - 红色方：飞行的套索严格上下对称；其余命中、地面圈、头顶标记、烟雾严格左右对称，不需要画进动作帧。
 
 逐帧预览：[`docs/preview/league_rengar_frames.png`](docs/preview/league_rengar_frames.png)，特效：[`docs/preview/league_rengar_effects.png`](docs/preview/league_rengar_effects.png)。
+
+## 英雄：克格莫
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | ADC（射手，分类 Range），第 79 位英雄。深渊巨口 克格莫：短腿的虚空小怪兽，嘴管里吐酸液，开了生化弹幕打得又远又痛，死了还会化成虚空分身追人自爆。用户选 ADC、射手、方案 A（完整还原）、「加入高手连招」 |
+| 普攻 | 嘴管吐一团绿色酸液（追踪，100% 攻击力），射程 55000，攻击间隔 54 tick，第 7 tick 吐出 |
+| W（自动） | 「生化弹幕」没有技能位（英雄联盟的 W 没有施法动作）：冷却 720 tick（12 秒），攻击时自动开启 480 tick（8 秒）：射程 +18000，普攻附带目标 5% 最大生命值伤害（`base_attack_enemy_max_hp_damage`）。开启时身上一圈绿光，开着时脚下一圈绿色电弧 |
+| 技能1 | Q「腐蚀唾液」：冷却 480 tick（8 秒），射程 95000，也对小兵和野怪放。第 16 tick 朝目标当时的位置吐出（直线，打中第一个单位，躲得开），80 + 70% 攻击力，护甲和魔抗 −20% 4 秒。被动：攻速 +35%（每条命开始时加上） |
+| 技能2 | E「虚空淤泥」：冷却 720 tick（12 秒），射程 100000，朝目标方向（`Direction`）吐出穿透的淤泥，70 + 60% 攻击力，减速 35% 1 秒；地上留下 4 秒的淤泥带（魔腾 Q 的做法：几段隐藏的直线停在路上各开一个减速区，画面是一条 `LineRangeProjectile`） |
+| 大招 | R「活体大炮」：只对正在交战的敌方英雄放（`EnemyChampionRecentlyAttacked`，130000 内）。第 17 tick 嘴管朝天开炮，目标脚下出现警告圈，40 tick 后炮弹落下炸开（半径 15000，躲得开）：90 + 65% 攻击力；对英雄另加斩杀：50 + 35% 攻击力真实伤害，一 tick 后没死的回血回来（派克 R 的做法，只在能击杀时生效）。英雄联盟的 R 冷却很短、越放越贵；这里一轮最多连发三炮：第一炮锁住大招 1200 tick（20 秒），技能位自己的冷却只有 50 tick，三炮打完或窗口过去就空转（空分支 AI 不放） |
+| 被动 | 「来自艾卡西亚的惊喜」：数据里没有"死亡时"的触发。每条命第一次出手时在他身上挂一个整局的 `AddCasted`，每 6 tick 往自己身上抛一个隐藏的抛物物，飞 7 tick（比间隔多 1，死在落地那一 tick 也不漏）；落地时问 `RandomTarget {range: 1, AllyOnlySelf}`（找不到死掉的施法者）他还活着吗。他一死 `AddCasted` 就停了，所以正好有一个抛物物发现他死了：尸体上冲起紫色虚空光，虚空分身（追踪弹，速度 1800）飞向 70000 内随机一个敌方英雄，追上后爆炸，12000 内的敌人受到 80 + 100% 攻击力真实伤害。原地爆炸试过：他死的时候敌人一般在 20000–150000 外，一个都炸不到；追人版 14 次死亡 12 次炸到人 |
+| 高手连招 | 用户：「加入高手连招」。**开 W 接 Q**：生化弹幕开启时，Q 好了就在这一下普攻后对弹幕射程内的英雄补一发腐蚀唾液（先减甲再打 %生命伤害）；**减速接大炮**：淤泥命中英雄 10 tick 后补一发活体大炮（按 R 的连发规则算一发）；**大炮收割**：R 的斩杀线。连招只用自己那个技能的冷却，不占别的技能 |
+| 数值 | 攻击 106（+18）、生命 950（+88）、护甲 20（+7）、魔抗 15（+3）、移速 870（+9）。数值是自己设计的，用 SDK 对战模拟调：ADC，对 5 个原版射手（`archer`、`gunner`、`boomerang_hunter`、`poison_dart_hunter`、`bomber`），3 套阵容、两边各打，10 分钟。初稿 −1.01（输出 7274，同一批图奇 +1.79、韦鲁斯 +1.51、金克丝 +4.46）；攻击 90 → 106、Q 攻速 15% → 35%、W 冷却 17 → 12 秒、%生命 4 → 5、Q / E / R 基础 +20、生命 950、射程 55000：种子 1–12 +1.67、25–36 +1.69（同一批图奇 +1.18）。再加 W 6% 和 R 110 那组 +2.23，偏强 |
+| 精灵图 | 8 个动作 56 帧：待机 8、移动 8、普攻 6、Q（`skill`）8、E（`skill2`）8、R（`ult`）8、受击 2、死亡 8。高 34 px，41 px 宽，20 色。头像截取点 (8, −23)（眼睛在骨板中下部，比头顶低 4 行）；待机最高到 −23.5，不用 `banpick_center` |
+| 特效 | Codex 生图的 18 张（`import_kogmaw.py` 缩成游戏像素）：`league_kogmaw_fx` 酸液弹和命中、W 开启和脚下电弧、腐蚀唾液和命中、减甲酸泡、淤泥弹和命中、减速淤泥、炮弹命中、虚空分身命中；`league_kogmaw_big` 淤泥带、虚空分身、警告圈、落下的炮弹、尸体上的虚空爆发、分身爆炸。飞行的和淤泥带朝飞行方向转（上下对称），其余左右对称 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_kogmaw.py`）：吐酸和命中、W 开启、Q 出手 / 发射 / 命中、E 出手 / 发射 / 命中、R 发射 / 下落哨声（警告圈出现时就开始，最响处正好在落地前后）/ 爆炸、被动爆发和爆炸；Q、W、E、R 和死亡的配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_kogmaw.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_kogmaw.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_kogmaw.py --face 8,-23   # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/design_kogmaw.py --rebuild   # 造型：从生图原稿读回 44 行再均匀删到 34 行，和定稿的字母格子比对
+python tools/art/design_kogmaw.py --final     # 字母格子 -> 8 倍原尺寸图
+python tools/art/rig_kogmaw.py          # 动作：造型自己的零件无损摆姿势（整格平移、90° 旋转、整行移动、叠放）
+python tools/art/import_native.py --hero kogmaw
+python tools/art/import_kogmaw.py       # 特效；--raw assets/source/kogmaw/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+```
+
+美术（动作的提示词见 [`assets/source/kogmaw/MODEL_STRIPS.md`](assets/source/kogmaw/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/kogmaw/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/kogmaw/codex_model/)、[`codex_strips/`](assets/source/kogmaw/codex_strips/)、[`codex_fx/`](assets/source/kogmaw/codex_fx/)）：
+
+- 原画：Codex 画了待机（A）和普攻嘴管（B）两版，用户：「选A」。
+- 造型：Codex 第 1 步的生图原稿按自己的格子读回是 44 行 × 47 列（Codex 自己按中心取样的 38 行把脚和描边弄碎了，没用），脸（第 19–35 行、第 26–46 列）不动，只在触角、腿和背甲尾巴的列里均匀删整行整列，给了 44 / 40 / 38 / 34 四个尺寸，用户：「38 行 × 43 列」。动作和特效都做完后用户：「大嘴的模型可以缩小一点」——再给 36 和 34 两档（嘴巴下半和骨板右侧也各让一点，眼睛的行列不动），用户：「34 行 × 41 列」；动作工具的部件坐标跟着换算，所有动作按新造型重摆。缩小后嘴变矮了，原来 8 行的嘴管把整张嘴盖住（上嘴唇和獠牙都没了），用户：「缩小后伸舌头的时候模型有点变形了吧」——嘴管细一档（7 行），往下半格对准嘴中间。
+- 动作：Codex 第 2 步的动作条（背甲画成一片鳍、R 换了画风、嘴管是碎点）用户让我修（「有问题的地方帮我修复」），全部用造型自己的零件重摆（`rig_kogmaw.py`）：两只脚、尾巴、头（触角 + 骨板 + 眼睛）按格子切出；嘴管是唯一新画的东西（嘴里一样的深红色，亮边、暗边、骨刺环、末端獠牙开口），普攻伸出 16 格、Q 22 格；R 把伸着嘴管的整个身体转 90°（嘴管朝天、触角甩到身后）站在定稿的脚上，尾巴拖在地上。第一版用"身体沉到脚上"表示蹲和跑步落地，用户：「攻击和放技能的时候模型有点变形 身体压到腿了」「移动的时候也是」——改成只有整体平移、小跳（连脚一起离地 1 行）、嘴管、触角和尾巴摆动；待机去掉呼吸下沉，触角和尾巴错开一拍摆动。死亡是瘫倒闭眼（虚空分身离体是特效）。
+- 特效：Codex 第 3 步的 18 张（`import_kogmaw.py --raw`：按交付的 `manifest.json` 切帧，颜色归到包里给每张的色阶：绿色酸液、黄绿唾液、紫色虚空、黄绿警告；Codex 是按 4 像素一格画在 16 像素一格的画布上的，按每张的游戏尺寸缩放，不按格子取色；炮弹和虚空爆发用交付标好的落地点对齐）。
+- 红色方：飞行的酸液弹、唾液、淤泥、虚空分身和淤泥带上下对称；其余命中、地面圈、身上的光、炮弹和光柱左右对称，不需要画进动作帧。
+
+逐帧预览：[`docs/preview/league_kogmaw_frames.png`](docs/preview/league_kogmaw_frames.png)，特效：[`docs/preview/league_kogmaw_effects.png`](docs/preview/league_kogmaw_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
