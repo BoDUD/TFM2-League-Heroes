@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_olaf_rage": {
+        "attack": "【读血测试版】<#ff9028ff>狂战之怒<>：已损失生命越多攻速越高（损失15%起一层，每多17%再一层，每层+20%，共4层），最高两层吸血12%。<#ff9028ff>挺过去<>（自动，<#ffb900ff>13秒<>）：交战时攻速+40%并获得护盾。<#ff9028ff>诸神黄昏<>被动：护甲、魔抗+12。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_olaf_rage": {
+        "attack": "【讀血測試版】<#ff9028ff>狂戰之怒<>：已損失生命越多攻速越高（損失15%起一層，每多17%再一層，每層+20%，共4層），最高兩層吸血12%。<#ff9028ff>咬牙苦撐<>（自動，<#ffb900ff>13秒<>）：交戰時攻速+40%並獲得護盾。<#ff9028ff>諸神黃昏<>被動：護甲、魔抗+12。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_olaf_rage": {
+        "attack": "[Health-read test build] <#ff9028ff>Berserker Rage<>: the more health he has lost, the faster he attacks (a level from 15% missing, one more every 17%; +20% a level, 4 levels; the top two also 12% life steal). <#ff9028ff>Tough It Out<> (automatic, <#ffb900ff>13s<>): in a fight +40% attack speed and a shield. <#ff9028ff>Ragnarok<> passive: +12 armour and magic resistance."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_olaf_rage": {
+        "attack": "[체력 판독 테스트판] <#ff9028ff>광전사의 분노<>: 잃은 체력이 많을수록 공격 속도 증가(15%부터 1단계, 17%마다 1단계 더, 단계당 +20%, 4단계, 상위 두 단계 생명력 흡수 12%). <#ff9028ff>버티기<>(자동, <#ffb900ff>13초<>): 교전 시 공격 속도 +40%와 보호막. <#ff9028ff>라그나로크<> 기본 지속 효과: 방어력·마법 저항력 +12."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_olaf_rage": {
+        "attack": "【体力判定テスト版】<#ff9028ff>狂戦士の怒り<>：失った体力が多いほど攻撃速度上昇（15%で1段階、17%ごとに1段階、1段階+20%、4段階、上位2段階はライフスティール12%）。<#ff9028ff>根性比べ<>（自動、<#ffb900ff>13秒<>）：交戦時に攻撃速度+40%とシールド。<#ff9028ff>ラグナロク<>自動効果：物防・魔防+12。"
+      }
+    }
+  }
+}

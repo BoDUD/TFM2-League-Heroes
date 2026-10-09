@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -150,6 +150,8 @@
 ![劫演示：W 甩出影子落到德莱厄斯脚下，劫和影子同时旋身鬼斩（影子展臂旋斩），两枚手里剑一枚从劫、一枚从影子飞出（影子举刃甩出），在德莱厄斯身上交汇；德莱厄斯后退，影子站在原地；他换位到影子那里，补一刀打出暗红的灭魂劫；后撤开大：原地留下影子，他冲过德莱厄斯，德莱厄斯头顶挂上红色死亡印记，劫接着刺、旋斩，影子跟着旋斩，3 秒后印记炸开，他换回影子](docs/preview/league_zed_showcase.gif?v=1009poses)
 
 ![卡尔玛演示：她掌心射出一道翠绿灵弹打德莱厄斯，鼓舞自动给自己套上翠绿护盾、脚下生风；Q 心灵烈焰：带粉色火舌的灵火撞上德莱厄斯炸开，脚下一圈小灵火减速；W 坚定不移：一道光束射中他，腰间亮起灵光，连线一节节流回她身边，1.3 秒后灵光锁扣紧把他定住；她双手合十开梵咒，身边绕起灵光，定身接灵光闪耀：更大的灵火炸开，地上留下灵火圈，1.5 秒后整圈爆发](docs/preview/league_karma_showcase.gif?v=1009idle)
+
+![奥拉夫演示：他仰头怒吼开诸神黄昏，脚下烧起怒火；冲到德莱厄斯面前掷出逆流投掷：斧头翻滚着飞过去，砍中的地方冒出冰蓝寒气减速，斧头插进地里；双斧跃起鲁莽挥击砸下，冰蓝 X 形劈痕；普攻劈砍时怒吼挺过去，身后亮起血气；德莱厄斯后退，他走过去捡回斧头；残血时狂战之怒满层，肩上冒出红色怒气](docs/preview/league_olaf_showcase.gif?v=1010run)
 
 ## 英雄：盖伦
 
@@ -3448,6 +3450,48 @@ python tools/art/import_karma.py        # 特效
 - 特效：Codex 第 3 步的 24 张，已是游戏尺寸，不再缩放。
 
 逐帧预览：[`docs/preview/league_karma_frames.png`](docs/preview/league_karma_frames.png)，特效：[`docs/preview/league_karma_effects.png`](docs/preview/league_karma_effects.png)。
+
+## 英雄：奥拉夫
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（近战，分类 Melee），第 81 位英雄。狂战士 奥拉夫：掷斧捡斧、真实伤害、免控冲锋。用户选上单、完整还原 + 高手连招 |
+| 普攻 / 被动 | 双斧劈砍，射程 25000，攻击间隔 64 tick，第 12 tick 命中。被动「狂战之怒」：英雄联盟里已损失生命越多攻速越高、还有吸血；数据读不到生命，改成挨打计数（蛮王的受击探测：普攻时发现 1 点护盾被打破就升一层），最多 4 层，每层攻速 +20%，最高两层再吸血 12%，离开战斗每 90 tick 掉一层。可选的扩展包 `league_olaf_rage` 按真实的已损失生命给层数（见下） |
+| 挺过去（自动） | W「挺过去」没有技能位，冷却 780 tick（13 秒）：普攻时 30000 内有敌方英雄就怒吼一声，攻速 +40% 4 秒，护盾 100 + 40% 攻击力 2.5 秒 |
+| 技能1 | Q「逆流投掷」：冷却 480 tick（8 秒），射程 50000，也对小兵和野怪放。第 12 tick 把斧头抛向目标所在处（飞 10 tick，躲得开），同时一道看不见的刃光沿途穿过：100 + 100% 攻击力物理伤害、减速 30% 1.5 秒、护甲 −20% 4 秒。斧头插在落点 5 秒，他走到 9000 内就捡起来：Q 和 E 的冷却压到 45%（英雄联盟的捡斧刷新），大招不受影响；地上最多同时两把 |
+| 技能2 | E「鲁莽挥击」：冷却 300 tick（5 秒），射程 28000：110 + 90% 攻击力真实伤害，自己承受其中 30%（真实伤害），打死目标就返还。第 14 tick 砸中（动作里双斧落地那一帧，英雄联盟施法 0.25 秒） |
+| 大招 | R「诸神黄昏」：冷却 3000 tick（50 秒），40000 内有敌方英雄时放：3 秒免疫控制、攻击力 +30%、移速 +20%；普攻或 E 打中英雄就延续，最多 10 秒。被动：没开大时护甲、魔抗 +12（3 级起） |
+| 高手连招 | R 冲入（免控）→ E → 捡斧再投：捡起斧头压低冷却，马上再掷，E 也跟着刷新 |
+| 数值 | 攻击 100（+18）、生命 1100（+108）、护甲 34（+8）、魔抗 25（+4）、移速 1000（+11）。数值是自己设计的，用 SDK 对战模拟调：上单，对 6 个原版上单（`fighter`、`executioner`、`lancer`、`pole_warrior`、`knight`、`berserker`），3 套阵容、两边各打，10 分钟。初稿 −1.20；攻击 90 → 100、生命 1020 → 1100、狂战之怒每层 12% → 20%、吸血 6% → 12%、E 70 + 60% → 110 + 90%、冷却 6 → 5 秒、Q 70 → 100、挺过去护盾 60 → 100、大招攻击 +20% → +30% 后：种子 1–12 +1.28（同期蛮王 +1.34、德莱厄斯 +1.71），13–24 +1.71（蛮王 +1.24） |
+| 亚索联动 | 奥拉夫只有减速，没有击飞，亚索大招不受影响，不用调 |
+| 精灵图 | 8 个动作 50 帧：待机 8（身体在靴子上呼吸）、移动 8（英雄联盟原版 0.97 秒一圈，8 × 120 毫秒）、普攻 6、Q（`skill`）6、E（`skill2`）6、R（`ult`）6、受击 2、死亡 8。高 43 px、宽 36 px，21 色。头像截取点 (3, −41)，选人卡片 −8（待机最高点在站位点上方 31.5 px） |
+| 特效 | Codex 生图的 13 张（`import_olaf.py --raw`，按技能范围缩到游戏尺寸、颜色归到包里给的色阶）：`league_olaf_fx` 普攻劈痕、翻滚的飞斧、斧头落地的冲击、插在地上的斧头（每 0.25 秒重放，等他来捡）、Q 命中和脚下寒气减速、捡斧的冰蓝光环、挺过去开启和身后的血气、满层狂怒的红色怒气；`league_olaf_big` E 双斧砸中的 X 形劈痕和闪电、R 怒吼和脚下的怒火。配色照英雄联盟的技能图标：冰蓝钢光 + 白芯，怒火红橙。飞斧随飞行方向转，插地的斧头是地上的实物，其余左右对称 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_olaf.py`）：挥斧和命中、Q 掷出 / 命中 / 斧头落地 / 捡斧、W、E 出手和命中、R；Q、W、E、R 的配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_olaf.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_olaf.py          # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_olaf.py --face 3,-41 --banpick -8   # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/design_olaf.py --final  # 造型：瘦身后的定稿（olaf_design_43.txt）
+python tools/art/fix_olaf_strips.py     # 动作：Codex 改回待机大小的重画 + 交叉步跑步 + 定稿的头
+python tools/art/import_native.py --hero olaf
+python tools/art/import_olaf.py         # 特效（--raw assets/source/olaf/codex_fx：从 Codex 的原稿重做）
+python tools/art/preview_olaf.py        # 逐帧预览、特效表、演示 GIF
+```
+
+美术（动作的提示词见 [`assets/source/olaf/MODEL_STRIPS_v2.md`](assets/source/olaf/MODEL_STRIPS_v2.md)，瘦身见 [`SLIM_PACK.md`](assets/source/olaf/SLIM_PACK.md) 和 [`SLIM_STRIPS.md`](assets/source/olaf/SLIM_STRIPS.md)，大小和跑步见 [`SIZE_RUN.md`](assets/source/olaf/SIZE_RUN.md) 和 [`RUN_CROSS.md`](assets/source/olaf/RUN_CROSS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/olaf/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/olaf/codex_model/)、[`codex_strips_v2/`](assets/source/olaf/codex_strips_v2/)、[`codex_slim/`](assets/source/olaf/codex_slim/)、[`codex_strips_slim/`](assets/source/olaf/codex_strips_slim/)、[`codex_strips_size/`](assets/source/olaf/codex_strips_size/)、[`codex_run_cross/`](assets/source/olaf/codex_run_cross/)、[`codex_fx/`](assets/source/olaf/codex_fx/)）：
+
+- 原画：Codex 画了待机（A，两手各一把斧）和 Q 举斧蓄力（B）两版，A 用作造型，B 给 Q 的动作参考。
+- 造型：Codex 第二轮的生图原稿按格读回（48 × 45），用户选 42 行；删行时头上的角整只保留（「头上的角要完整」），再按材质归色精修（「再精修一下吧 有点模糊啊」），嘴用之前那版。之后用户「奥拉夫稍微瘦一点 肌肉明显点」：Codex 在定稿上画了 A / B 两版瘦身，用户选 B（肩那一段 37 → 32 格，手臂、肩膀、大腿的肌肉用皮肤三档颜色分块），头换回定稿的头，43 × 36。
+- 动作：Codex 第一版的身体比造型大、头整块贴上去带着一条肩毛；用造型零件重摆的版本被退回（用户：「身体太奇怪了吧。。。和英雄联盟也不一样啊」）。第二版让 Codex 照英雄联盟原版逐帧把整个人一起画（提示词按原版骨骼量了每帧的腿、胯、身体、手：跑步弓身冲锋后脚高踢、普攻右手举斧下劈、Q 左手高举再弓步掷斧、E 下蹲跃起双斧砸地、R 仰头怒吼双斧交叉、死亡跪下再向前扑倒），`fix_olaf_strips.py` 在 Codex 画头的位置换上定稿的头、把用描边色画的黑靴子和背心改回深棕皮革、补掉漏光的小孔；瘦身后 Codex 再拿通过的动作条当骨架换成新身材（`codex_strips_slim`），头沿用通过那版每帧的位置。用户：「非常好」。进游戏后用户：「奥拉夫跑动时为什么变大一圈 好违和」「还有跑动姿势太浮夸了吧」——Codex 把所有动作照待机的大小重画（`codex_strips_size`）；仍偏大的 R、死亡缩到 85%、E 到 90%，画瘦了的受击改用瘦身版缩到 80%（整行整列删除，不重新采样，头不动：`import_native.py` 的 `SHRINK_TAGS`）。跑步先是两只脚都钉在原地（「感觉像在平移」），再让 Codex 照逐帧的腿部引导图画交叉步（`codex_run_cross`：着地的脚往后蹬，另一条腿后踢再越过去）；它第 6 帧把刚落地的脚又抬起来，去掉这帧，跑步 7 帧；每帧落到地面线上，头跟着躯干起伏。
+- 特效：Codex 第 3 步的 13 张生图原稿；挺过去的血气光环原稿是一整圈很厚的火，和大招的火分不开，只留亮边。
+
+逐帧预览：[`docs/preview/league_olaf_frames.png`](docs/preview/league_olaf_frames.png)，特效：[`docs/preview/league_olaf_effects.png`](docs/preview/league_olaf_effects.png)。
+
+可选的扩展包 [`addons/league_olaf_rage`](addons/league_olaf_rage/README.md)（原生代码，主包不装它也完整）：读真实的生命，已损失 15% 起一层狂怒，之后每多 17% 再一层，和英雄联盟一样按血量给攻速和吸血。
 
 ## 选人卡片位置（`banpick_center`）
 
