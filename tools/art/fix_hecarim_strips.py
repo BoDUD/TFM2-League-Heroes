@@ -61,6 +61,15 @@ KEEP_COLOURS = ("n", "o", "l")    # the blade and the copper: Codex's glaive sta
 # frames whose head stays Codex's own: the death's thrown-back, falling and lying heads
 KEEP_HEAD = {("dead", k) for k in range(2, 9)}
 HEAD_AT = {}                      # (tag, frame): (dx, dy) of the design's head where the search misses
+# frames drawn from another frame of round 2: the hit's first picture came out with a smeared torso (grey patches,
+# see-through holes in the read), so the hit shows the clean second picture twice (the base game's hit is one frame)
+# - the death's last two pictures lay the body down as a long mound of plates (it read as a heap of stones) and lifted
+#   the dropped glaive off the ground onto it: the death ends on its sixth picture (collapsed, the helm up, the glaive
+#   where it fell)
+SAME_AS = {("hit", 1): ("hit", 2), ("dead", 7): ("dead", 6), ("dead", 8): ("dead", 6)}
+STEADY = {"run", "skill2"}         # loops whose rider must not wander across (see steady)
+JOIN = 3                          # a loose piece this near the figure is joined back (a blade whose 1-square neck the
+                                  # read lost: Q 2-3); the death's dropped glaive stays apart
 
 
 def lp(p):
@@ -203,6 +212,80 @@ def bridge(c):
     return out
 
 
+def finish_v2(c, outline):
+    """rigkit.finish without its stray-outline pass: round 2's thin black lines (the glaive's 1-square shaft) are
+    drawing, and dropping them as stray outline cut the blade off (Q 2-3). Pinholes filled, the outline closed (never
+    under the soles), crumbs under 3 squares gone."""
+    import strips
+    a = K.fill_pinholes(c.copy(), 3, outline)
+    low = int(np.nonzero(a[..., 3].any(1))[0].max())
+    a, _, _ = strips.complete_outline(a, color=tuple(outline), feet=max(SOLES, low))
+    for comp in K.pieces(a)[1:]:
+        if len(comp) < 3:
+            for y, x in comp:
+                a[y, x] = 0
+    a = thin_ring(a, outline)
+    return K.fill_pinholes(a, 2, outline)
+
+
+def thin_ring(a, outline):
+    """The outer square of a 2-square outline goes: an outline square touching the clear outside on exactly one side
+    (a 1-square line - the shaft - touches it on two and stays), with no colour among its 8 neighbours, lying on
+    another outline square that has colour beside it. The design's outline is one square (oppi's way)."""
+    H, W = a.shape[:2]
+    op = a[..., 3] > 0
+    ink = op & (a[..., :3] == np.array(outline, np.uint8)).all(-1)
+    col = op & ~ink
+    pc = np.pad(col, 1)
+    near_col = np.zeros((H, W), bool)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            if dy or dx:
+                near_col |= pc[1 + dy:1 + dy + H, 1 + dx:1 + dx + W]
+    po, pk = np.pad(op, 1), np.pad(ink & near_col, 1)
+    gone = np.zeros((H, W), bool)
+    for y, x in zip(*np.nonzero(ink & ~near_col)):
+        clear = [(dy, dx) for dy, dx in K.N4 if not po[1 + y + dy, 1 + x + dx]]
+        if len(clear) != 1:
+            continue
+        dy, dx = clear[0]
+        if pk[1 + y - dy, 1 + x - dx]:                 # the square behind it, away from the outside
+            gone[y, x] = True
+    out = a.copy()
+    out[gone] = 0
+    return out
+
+
+def join(c, reach=JOIN):
+    """Loose pieces (6+ squares) within `reach` of the largest one joined to it by a line of the colour where the
+    line meets the figure."""
+    comps = K.pieces(c)
+    if len(comps) < 2:
+        return c
+    main = np.zeros(c.shape[:2], bool)
+    for y, x in comps[0]:
+        main[y, x] = True
+    my, mx = np.nonzero(main)
+    out = c.copy()
+    for comp in comps[1:]:
+        if len(comp) < 6:
+            continue
+        best = None
+        for y, x in comp:
+            d = np.maximum(np.abs(my - y), np.abs(mx - x))
+            j = int(d.argmin())
+            if best is None or d[j] < best[0]:
+                best = (int(d[j]), (y, x), (int(my[j]), int(mx[j])))
+        if best[0] > reach:
+            continue
+        (y0, x0), (y1, x1) = best[1], best[2]
+        col = c[y1, x1].copy()
+        n = max(abs(y1 - y0), abs(x1 - x0))
+        for t in range(1, n):
+            out[int(round(y0 + (y1 - y0) * t / n)), int(round(x0 + (x1 - x0) * t / n))] = col
+    return out
+
+
 def v2_frame(tag, k, pal, sk):
     """Round 2's drawing of a frame (one 1024 image on the 128x128 grid at 8x, drawn over the skeleton `sk`), read on
     its own squares (regrid at the canvas pitch), snapped to the palette and set where the skeleton stands (its lowest
@@ -263,10 +346,13 @@ def build(design, pal, tag, report):
                 c[Y, X, :3] = pal.rgb[g[y, x]]
                 c[Y, X, 3] = 255
         c = K.finish(bridge(c), design.outline, SOLES)
-        v2 = v2_frame(tag, i + 1, pal, c)
+        src = SAME_AS.get((tag, i + 1), (tag, i + 1))
+        v2 = v2_frame(src[0], src[1], pal, c)
+        if v2 is not None and tag != "dead":
+            v2 = join(v2)
         frame_key[1] = v2 is not None
         if v2 is not None:
-            c = K.finish(bridge(v2), design.outline, SOLES)
+            c = finish_v2(bridge(v2), design.outline)
         at = None
         # round 2's helms are drawn like the design's (small, the horn, the eye squares) and move with each pose; a
         # pasted design head sat on the raised hands in attack 2-3 - they keep their own unless HEAD_AT names one
@@ -276,7 +362,43 @@ def build(design, pal, tag, report):
             c = with_head(design, c, at)
         report.append((tag, i + 1, round(s, 4), round(med, 4), g.shape, int(bottom), at))
         out.append(c)
+    if tag in STEADY:
+        out = steady(design, tag, out)
     return out, ms
+
+
+def rider_eyes(design, f):
+    """(x, y) of the rider's eyes: the topmost bright teal squares in the upper 14 rows of the figure, right of its
+    middle (the tail's flames are at the left, the blade is not teal)."""
+    m = np.zeros(f.shape[:2], bool)
+    for k in GLOW:
+        m |= (f[..., :3] == np.array(design.letters()[k], np.uint8)).all(-1) & (f[..., 3] > 0)
+    ys, xs = np.nonzero(f[..., 3] > 0)
+    top, mid = ys.min(), (xs.min() + xs.max()) / 2
+    ty, tx = np.nonzero(m)
+    keep = (ty <= top + 14) & (tx >= mid)
+    if not keep.any():
+        return None
+    ty, tx = ty[keep], tx[keep]
+    sel = ty <= ty.min() + 1
+    return float(tx[sel].mean()), float(ty[sel].min())
+
+
+def steady(design, tag, frames):
+    """A loop's frames moved whole across so the rider's eyes follow League's head across (its offset from the
+    strip's mean): Codex placed each frame by its own centre of mass, and the tail and the glaive swing that - the
+    rider wandered 9 columns in the run (League's head 3.4)."""
+    cells = league()
+    li = cells["tags"]["idle"][0]
+    lx = [fr["head"][0] - fr["pivot"][0] - (li["head"][0] - li["pivot"][0]) for fr in cells["tags"][tag]]
+    ex = [rider_eyes(design, f) for f in frames]
+    pairs = [(e[0], l) for e, l in zip(ex, lx) if e is not None]
+    c = float(np.mean([e - l for e, l in pairs]))
+    out = []
+    for f, e, l in zip(frames, ex, lx):
+        dx = 0 if e is None else int(round(c + l - e[0]))
+        out.append(K.shifted(f, dx, 0))
+    return out
 
 
 def head_mask(design):
