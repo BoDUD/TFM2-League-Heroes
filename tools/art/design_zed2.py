@@ -20,6 +20,23 @@ finish does the same to every posed frame, so the idle would otherwise blink aga
     of the design and the posed frames (rigkit.finish) leave the import the same figure (it had walled in five
     pinholes in the copies only).
 design_zed.py (the first design, from the generator draft) is superseded.
+
+2026-10-10, the user: 「另外模型说不出来的糊 相比其他英雄角色 你看一下什么原因吧」. Measured against the 82 other heroes'
+idles on the arena colour (the skill's olive-grey ARENA_BG): C's two armour greys sat on the floor's own colour -
+#788393 (CIE Lab distance 20 from the floor) and #3A3D4E (23, and 22 from the outline as well) - so 45-47% of his
+coloured squares were within 25 of the floor (the other heroes' median: 3%; only Amumu and Malphite more), and a
+fifth of his silhouette's edge was those greys and his reds instead of the outline (the median hero: 4%), so his
+legs, arms and blades melted into the floor and only scattered gold, white and red stayed. The fix keeps every
+square where it is: the two greys become a cool silver and a deep blue steel (PALETTE: 34 and 36 from the floor, the
+steel 25 from the outline), and the outline is closed round every edge square from luminance DARK up (complete_outline
+counts a square from 70 up as needing one, which skipped his steel, reds and dark red): 0% near the floor, 98% of the
+edge black.
+
+2026-10-10, the user on the chest under the mask: 「这是什么 这么奇怪 红色方框？？」. It is the red cowl's front, which in
+picture A falls from round the gold visor to a V on the chest between silver plates; C drew it as a red block with two
+dark-red squares in its middle (a fold's shadow), and at game size the red ringed them like a square frame. CHEST: those
+two squares red, and the row under them narrowed to two red squares between silver (the plates either side), so the
+red ends in the V.
 """
 import argparse
 import os
@@ -33,6 +50,11 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, "assets", "source", "zed", "codex_grid", "zed-grid-C_1x.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "zed_native.png")
 SOLE_ROW, MID_COL, Z = 99, 64, 8
+# the armour greys off the arena floor's colour (2026-10-10): the light grey -> silver, the dark grey -> deep blue steel
+PALETTE = {"#788393": "#9DAAC4", "#3A3D4E": "#2C3458"}
+DARK = 30          # the outline closed round every edge square from this luminance up (his dark red is 31)
+# the cowl's V on the chest (canvas row, column): colour - after PALETTE
+CHEST = {(69, 65): "#AA1027", (69, 66): "#AA1027", (70, 64): "#9DAAC4", (70, 67): "#9DAAC4"}
 
 
 def lp(path):
@@ -52,10 +74,20 @@ def build():
     can = np.zeros((128, 128, 4), np.uint8)
     can[dy:dy + a.shape[0], dx:dx + a.shape[1]] = a
     can = orphans(pinholes(can))
+    for old, new in PALETTE.items():
+        m = (can[..., 3] > 0) & (can[..., :3] == rgb(old)).all(-1)
+        can[m, :3] = rgb(new)
+    for (y, x), col in CHEST.items():
+        assert can[y, x, 3], (y, x)
+        can[y, x, :3] = rgb(col)
     sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
     import strips
-    can, _, _ = strips.complete_outline(can, color=outline_of(can), feet=SOLE_ROW)
+    can, _, _ = strips.complete_outline(can, color=outline_of(can), dark=DARK, feet=SOLE_ROW)
     return orphans(pinholes(can))
+
+
+def rgb(h):
+    return np.frombuffer(bytes.fromhex(h.lstrip("#")), np.uint8)
 
 
 N4 = ((1, 0), (-1, 0), (0, 1), (0, -1))

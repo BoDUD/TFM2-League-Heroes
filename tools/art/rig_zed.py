@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Zed's action strips posed from the approved design's own parts (2026-10-09): the casting body = the idle's.
 
-    python tools/art/rig_zed.py [--check] [--review DIR] [--parts PNG] [--run trot|cross]
+    python tools/art/rig_zed.py [--check] [--review DIR] [--parts PNG]
 
 Codex's step-2 delivery (assets/source/zed/codex_strips/) pasted the design's head on bodies it drew anew: bigger than
 the idle in W, Q and E, the legs not the design's (its own HANDOFF: design_legs_square_for_square false), the wrist
@@ -19,9 +19,8 @@ rule: translation, quarter turns, mirrors, whole-row shifts, layering):
   layering), the lower legs swung back or tucked (rigkit.swing_leg: whole rows);
 - the death: struck back, sunk to his knees, then the figure turned exactly a quarter clockwise about the feet (face
   down, the head to the right, League's fall forward);
-- the run: two variants for the user (run-crossing-root-causes: his boots stand 11-12 columns apart) - TROT, the
-  design's own lower legs swung about the knees in place, and CROSS, the whole legs from the hips brought in and swung
-  so the boots pass each other; the forearms swing opposite the legs, the body drops a row at each contact.
+- the run: each whole leg (thigh, greave, boot) swung from its hip, the boots stepping in turn beside each other
+  (run_frames); the forearms pump opposite the legs, the body drops a row at each contact.
 Writes assets/source/native/zed_<tag>.png (8x, 112x96 cells, soles on cell row 81) and zed_cells.json; then
 tools/art/import_native.py. --check compares instead of writing; --review writes a review sheet and GIF.
 """
@@ -60,30 +59,32 @@ L_ELBOW = (53.5, 76.0)           # (x, y): the top of the image-left bracer
 R_ELBOW = (74.5, 78.0)           # the top of the image-right bracer
 KNEE_ROW, FEET_ROW = 90, 95      # the lower legs: the greaves (93-95) and the boots (96-98)
 TABARD = set()   # the tabard's hem squares among the near leg's rows
-# the crossing run's far leg (rows from, first and last column) and the rows its forearm swings swing between, the rows
-# kept whole over the dropped body - all read on the full design
-RUN_LEG_BOX = (89, 55, 61)
+# the run's whole legs (rows from, first and last column; never a forearm or the tabard's reds and golds) and their
+# hips, the rows the forearms' swings shear between, the rows kept whole over the dropped body - all on the full design
+RUN_LEGS = {"far": (77, 56, 63), "near": (85, 64, 75)}
+RUN_HIPS = {"far": 77, "near": 80}               # the near hip under the tabard
 RUN_ARM_ROWS = {"l": (81, 94), "r": (83, 95)}
-RUN_KEEP_ROW, RUN_HIP = 80, 88
+RUN_KEEP_ROW = 80
 
-# 90% (the user, 2026-10-10: 「做的挺好的 劫 就是有点太大了」): the design loses whole rows and columns ONCE
-# (tools/art/shrink_frames.py, as rig_xinzhao.py's SCALE: cut afterwards from the finished frames, one cut would run
-# through a different part of him in every frame as he breathes and crouches), never through his eyes or the mask
-# round them, before any action is posed from it. Every part is cut on the full design and shrunk with it; every point
-# and row above is read on the full design and moved with it (_shrink_globals).
-SCALE = 0.9
-SHRINK_KEEP = ["!FF281D+4,3,4,4"]          # the red eyes and a box round them: the mask, the hood's sides
-# the claws hang as one-square blades in these columns: a column out of them cut a blade off its bracer (the first
-# plan took column 76, and the right claw's lower blade fell away) - the columns go from the body instead
-CLAW_COLS = tuple(range(49, 56)) + tuple(range(74, 79))
+# Smaller (the user, 2026-10-10: 「做的挺好的 劫 就是有点太大了」, then 「还可继续缩一点」): the design loses whole rows
+# and columns ONCE (as rig_xinzhao.py's SCALE: cut afterwards from the finished frames, one cut would run through a
+# different part of him in every frame as he breathes and crouches) before any action is posed from it. Every part is
+# cut on the full design and shrunk with it; every point and row above is read on the full design and moved with it
+# (_shrink_globals). The first cut (90%, tools/art/shrink_frames.py's plan_tag) took column 58 through the far shin:
+# its one-square ankle row lost its colour (「腿部有点奇怪吧？没改好？模型丢失」). So the lines are picked by hand
+# (85%, 47 -> 40 rows, 31 -> 28 columns), each where the rows or columns on both sides already draw the same:
+#   rows    57 (the back blades' diagonal, one step steeper), 67 and 73 (the chest, the elbows), 84 (= row 83), 87
+#           (= 86), 91 (the claw tips' middle row) and 94 (the far shin's narrow ankle row: the shin stays two wide);
+#   columns 59 (the far boot one square shorter), 70 and 73 (the near side of the chest and the near boot) -
+# never the hood's point (61-63), the eyes and mask (64-68), the claws (49-55, 74-78) or the far shin (56-58).
+SCALE = 0.85
+CUT_ROWS = (57, 67, 73, 84, 87, 91, 94)
+CUT_COLS = (59, 70, 73)
 SHRUNK_PLAN = None
 FULL_KNEE_ROW = KNEE_ROW
-
-
-def _pivot_frame(c):
-    f = np.zeros((2 * PIVOT[1] + 1, 2 * PIVOT[0] + 1, 4), np.uint8)
-    f[:c.shape[0], :c.shape[1]] = c
-    return f
+# the outline closed from this luminance up in every frame (design_zed2.DARK): his blue steel, reds and dark red edge
+# the silhouette too
+DARK = 30
 
 
 def map_x(x):
@@ -188,18 +189,33 @@ class Parts:
         self.body = d.copy()
         for k in ("lfore", "rfore", "lleg", "rleg"):
             self.body[self.masks[k]] = 0
-        r0, c0, c1 = RUN_LEG_BOX
-        self.run_lm = op & (R >= r0) & (C >= c0) & (C <= c1) & ~self.masks["lfore"]
+        # the run's whole legs: the far one from its hip between the claws and the tabard, the near one below the
+        # tabard's hem (the lower legs with them)
+        cloth = red.copy()
+        for col in ("#D4A64B", "#A17231"):
+            cloth |= (d[..., :3] == np.array(K.rgb(col), np.uint8)).all(-1)
+        run_c = {}
+        for k, fore, low in (("far", "lfore", lleg_c), ("near", "rfore", rleg_c)):
+            r0, c0, c1 = RUN_LEGS[k]
+            run_c[k] = (colour & (R >= r0) & (C >= c0) & (C <= c1) & ~self.masks[fore] & ~cloth) | low
+        run_c["near"] &= ~run_c["far"]
+        rest = colour & ~run_c["far"] & ~run_c["near"]
+        self.run = {k: run_c[k] | ring(run_c[k], rest | run_c[o]) for k, o in (("far", "near"), ("near", "far"))}
         if SHRUNK_PLAN is not None:            # everything cut on the full design, then made smaller as one
             d = shrunk(d)
             self.colour = shrunk(colour)
             self.masks = {k: shrunk(m) for k, m in self.masks.items()}
             self.body = shrunk(self.body)
-            self.run_lm = shrunk(self.run_lm)
+            self.run = {k: shrunk(m) for k, m in self.run.items()}
             # a removed line at a turn of the outline opens it: closed once here (and the notches that walls in
-            # filled), so the idle's copies and the posed frames leave the import alike
-            fin = K.finish(d, OUT, SOLES, pinholes=2)
+            # filled), so the idle's copies and the posed frames leave the import alike; a square it adds goes with
+            # the one part whose colour alone it touches (the far shin lost its outline column with column 59: the new
+            # one would have stayed behind in the body when the leg moved), any other with the body
+            fin = K.finish(d, OUT, SOLES, pinholes=2, dark=DARK)
             new = (fin != d).any(-1)
+            col = (fin[..., 3] > 0) & ~(fin[..., :3] == np.array(OUT, np.uint8)).all(-1)
+            claim(self.masks, ("lfore", "rfore", "lleg", "rleg"), new, col)
+            claim(self.run, ("far", "near"), new, col)
             part = np.zeros_like(new)
             for k in ("lfore", "rfore", "lleg", "rleg"):
                 part |= self.masks[k]
@@ -222,6 +238,18 @@ class Parts:
         Image.fromarray(sub).resize((sub.shape[1] * z, sub.shape[0] * z), Image.NEAREST).save(path)
 
 
+def claim(masks, keys, new, col):
+    """Each `new` square whose coloured 8-neighbours all belong to one of masks[keys] joins that mask."""
+    for y, x in zip(*np.nonzero(new)):
+        owners = set()
+        for a, b in N8:
+            q = (y + a, x + b)
+            if col[q]:
+                owners.add(next((k for k in keys if masks[k][q]), None))
+        if len(owners) == 1 and None not in owners:
+            masks[owners.pop()][y, x] = True
+
+
 def finish_near(a, ref, pinholes=4):
     """rigkit.finish, but every square more than 2 from a square that differs from `ref` keeps ref's (the design's own
     gaps stay open, the untouched body stays the design's square for square)."""
@@ -232,8 +260,23 @@ def finish_near(a, ref, pinholes=4):
         for dy, dx in N8:
             g |= np.roll(np.roll(near, dy, 0), dx, 1)
         near = g
-    out = K.finish(a, OUT, SOLES, keep=~near, pinholes=pinholes)
-    out[~near] = a[~near]
+    # closed until nothing changes: a square the closure adds can give a one-square line a second side, which the
+    # import's own closing pass then outlined, walling in pinholes (the low forearm's frames at 85%)
+    out = a
+    for _ in range(4):
+        nxt = K.finish(out, OUT, SOLES, keep=~near, pinholes=pinholes, dark=DARK)
+        nxt[~near] = a[~near]
+        if np.array_equal(nxt, out):
+            break
+        out = nxt
+    # an outline square the move left touching no colour goes too (the design has none) - unless it is walled in by
+    # outline all round: then it is where three outlines meet (the crouch's 2-row sink brings the near claw's tip
+    # down onto the boot's toe and the shin's edge at 85%), and clearing it would open a pinhole
+    op = out[..., 3] > 0
+    walled = np.ones_like(op)
+    for dy, dx in N4:
+        walled &= np.roll(np.roll(op, dy, 0), dx, 1)
+    out[K.orphan_outline(out, OUT) & ~walled] = 0
     return out
 
 
@@ -350,7 +393,7 @@ def lying(P, above):
     low = int(np.nonzero(c[..., 3].any(1))[0].max())
     c = K.shifted(c, 0, SOLES - above - low)
     c[SOLES + 1:] = 0
-    return K.finish(c, OUT, SOLES, keep=None, pinholes=4)
+    return K.finish(c, OUT, SOLES, keep=None, pinholes=4, dark=DARK)
 
 
 def dead(P, k):
@@ -362,46 +405,43 @@ def dead(P, k):
     return lying(P, [3, 0, 0][k - len(steps)])
 
 
-# the run (League's pace: Zed_run cycles in 0.968 s -> 8 x 120 ms). The design's boots stand 11-12 columns apart:
-# swinging only the lower legs the near boot never passes the far one (run-crossing-root-causes), so two variants for
-# the user: TROT - the lower legs alternate forward and back in place (no crossing); CROSS - the whole legs (thigh,
-# greave, boot) brought in under the body and swung about the hip (whole-row shifts), the boots changing places twice a
-# cycle at most 12 apart.
-STRIDE = [4, 3, 0, -3, -4, -3, 0, 3]
-R_LIFT = [0, 0, 0, 0, 0, 2, 3, 2]
-L_LIFT = [0, 2, 3, 2, 0, 0, 0, 0]
+# the run (League's pace: Zed_run cycles in 0.968 s -> 8 x 120 ms; tools/lol/pose_joints.py: League's feet swing about
+# six columns either side of the hips and kick up behind). 2026-10-10 the user, of the 90% run: 「走路也有点奇怪」. Its
+# crossing variant (the user's pick for design B, 「用B吧」) swung only the lower legs, from row 88 under thighs that
+# stayed put - nine rows for up to eight columns, legs at 40 degrees - and at each pass the two silver legs and boots
+# stacked into one lump. Now each WHOLE leg (thigh, greave, boot) swings from its hip (whole-row shifts,
+# rigkit.swing_leg): each boot is planted forward, slides back a column a frame under the body, lifts 2 at the toe-off,
+# 4 at the kick behind, 3 as it swings through and 1 as it reaches; one boot is always on the ground, the boots stand
+# 4-12 columns apart and never stack. They step beside each other rather than across: with the design's boots nine
+# apart, a cross laid the near boot over the far leg (one leg with a boot floating on it). The forearms pump opposite
+# the legs, the near claws lifting as they swing back so they clear the near boot; the body drops a row at each contact.
+FAR_DX = [2, 1, 0, -1, -1, -1, 1, 2]
+FAR_LIFT = [0, 0, 0, 0, 2, 4, 3, 1]
+NEAR_DX = [-1, -2, 0, 1, 2, 1, 0, -1]
+NEAR_LIFT = [2, 4, 3, 1, 0, 0, 0, 0]
 DROP = [1, 0, 0, 0, 1, 0, 0, 0]
-ARM = [-2, -1, 0, 1, 2, 1, 0, -1]
-RUN = {"trot": dict(hip=KNEE_ROW - 1, l_in=0, r_in=0, stride=0.5, full=False),
-       "cross": dict(hip=RUN_HIP, l_in=4, r_in=-5, stride=1.0, full=True)}
-RUN_VARIANT = "cross"         # the user (2026-10-09): 「用B吧」
+FAR_ARM = [-2, -1, 0, 1, 2, 1, 0, -1]            # columns at the claw tips, + forward
+NEAR_ARM = [2, 1, 0, -1, -2, -1, 0, 1]
+NEAR_ARM_LIFT = [0, 0, 0, 1, 2, 1, 0, 0]
 
 
-def leg_masks(P, full):
-    if not full:
-        return P.masks["lleg"], P.masks["rleg"]
-    return P.run_lm, P.masks["rleg"]
-
-
-def run_frames(P, variant=None):
-    v = RUN[variant or RUN_VARIANT]
-    lm, rm = leg_masks(P, v["full"])
+def run_frames(P):
     out = []
     for k in range(8):
-        st = int(round(STRIDE[k] * v["stride"]))
         legs = np.zeros_like(P.design)
-        # the far (image-left) leg drawn first, the near one over it
-        K.put(legs, K.swing_leg(P.design, lm, v["hip"], FEET_ROW, v["l_in"] - st, L_LIFT[k]), 0, 0)
-        K.put(legs, K.swing_leg(P.design, rm, v["hip"], FEET_ROW, v["r_in"] + st, R_LIFT[k]), 0, 0)
+        # the far (image-left) leg drawn first, the near one over it, both under the body (the tabard's hem and the
+        # claws hang in front of them)
+        K.put(legs, K.swing_leg(P.design, P.run["far"], RUN_HIPS["far"], FEET_ROW, FAR_DX[k], FAR_LIFT[k]), 0, 0)
+        K.put(legs, K.swing_leg(P.design, P.run["near"], RUN_HIPS["near"], FEET_ROW, NEAR_DX[k], NEAR_LIFT[k]), 0, 0)
         top = P.body.copy()
-        top[lm | rm] = 0
-        K.put(top, K.swing_leg(P.design, P.masks["lfore"], *RUN_ARM_ROWS["l"], -ARM[k]), 0, 0, under=True)
-        K.put(top, K.swing_leg(P.design, P.masks["rfore"], *RUN_ARM_ROWS["r"], ARM[k]), 0, 0)
+        top[P.run["far"] | P.run["near"]] = 0
+        K.put(top, K.swing_leg(P.design, P.masks["lfore"], *RUN_ARM_ROWS["l"], FAR_ARM[k]), 0, 0, under=True)
+        K.put(top, K.swing_leg(P.design, P.masks["rfore"], *RUN_ARM_ROWS["r"], NEAR_ARM[k], NEAR_ARM_LIFT[k]), 0, 0)
         c = K.put(K.shifted(top, 0, DROP[k]), legs, 0, 0, under=True)
         c[SOLES + 1:] = 0
         keep = np.zeros((128, 128), bool)
         keep[:RUN_KEEP_ROW + DROP[k]] = True
-        out.append(K.finish(c, OUT, SOLES, keep=keep, pinholes=4))
+        out.append(K.finish(c, OUT, SOLES, keep=keep, pinholes=4, dark=DARK))
     return out
 
 
@@ -412,28 +452,24 @@ def run_frames(P, variant=None):
 BREATH = [0, 0, 1, 2, 2, 2, 1, 0]
 
 
-def frames(P, tag, run=None):
+def frames(P, tag):
     if tag == "idle":
         return [P.design.copy() if n == 0 else frame(P, dict(sink=n)) for n in BREATH]
     if tag == "run":
-        return run_frames(P, run)
+        return run_frames(P)
     if tag == "dead":
         return [dead(P, k) for k in range(len(MS["dead"]))]
     return [frame(P, f) for f in POSES[tag]]
 
 
 def _shrink_globals():
-    import shrink_frames as SF
-    global SHRUNK_PLAN, L_ELBOW, R_ELBOW, KNEE_ROW, FEET_ROW, RUN_ARM_ROWS, RUN_KEEP_ROW, RUN_HIP
-    frame = [(_pivot_frame(design()), 0)]
-    SHRUNK_PLAN = SF.plan_tag(frame, SF.body_of(frame), SCALE, SHRINK_KEEP,
-                              edge_cols=tuple(c - PIVOT[0] for c in CLAW_COLS))
+    global SHRUNK_PLAN, L_ELBOW, R_ELBOW, KNEE_ROW, FEET_ROW, RUN_ARM_ROWS, RUN_KEEP_ROW, RUN_HIPS
+    SHRUNK_PLAN = {"rows": [r - PIVOT[1] for r in CUT_ROWS], "cols": [c - PIVOT[0] for c in CUT_COLS]}
     L_ELBOW, R_ELBOW = ((map_x(x), map_y(y)) for x, y in (L_ELBOW, R_ELBOW))
     KNEE_ROW, FEET_ROW = map_y(KNEE_ROW), map_y(FEET_ROW)
     RUN_ARM_ROWS = {k: (map_y(a), map_y(b)) for k, (a, b) in RUN_ARM_ROWS.items()}
-    RUN_KEEP_ROW, RUN_HIP = map_y(RUN_KEEP_ROW), map_y(RUN_HIP)
-    RUN["trot"]["hip"] = KNEE_ROW - 1
-    RUN["cross"]["hip"] = RUN_HIP
+    RUN_KEEP_ROW = map_y(RUN_KEEP_ROW)
+    RUN_HIPS = {k: map_y(r) for k, r in RUN_HIPS.items()}
 
 
 if SCALE != 1:
@@ -446,14 +482,13 @@ def main():
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--review", help="write a review sheet and GIF into this folder")
     ap.add_argument("--no-write", action="store_true")
-    ap.add_argument("--run", choices=sorted(RUN), help="the run variant (default RUN_VARIANT)")
     a = ap.parse_args()
     P = Parts()
     if a.parts:
         P.overlay(a.parts)
         print({k: int(m.sum()) for k, m in P.masks.items()})
         return
-    built = {tag: frames(P, tag, a.run) for tag in TAGS}
+    built = {tag: frames(P, tag) for tag in TAGS}
     for tag in TAGS:
         rows = K.audit(built[tag], P.design, OUT, SOLES)
         print(f"{tag:8s}", " ".join(f"{r['pieces']}p{r['holes']}h{r['orphans']}o{r['below']}b{r['area']}" for r in rows))

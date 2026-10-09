@@ -942,16 +942,12 @@
     },
     "league_zed": {
       "face": {
-        "x": 0,
-        "y": -40
+        "x": -1,
+        "y": -37
       },
       "center": {
         "x": 0,
         "y": -12
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -9
       }
     },
     "league_karma": {

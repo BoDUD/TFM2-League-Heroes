@@ -33,7 +33,9 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control, untargetable
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 0, "y": -40}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}   # 10-10 design C at 90% (rig_zed SCALE): the crown 40 over the feet, the idle top -30
+# 10-10 design C at 85% (rig_zed SCALE): the crown 37 over the feet; the idle top -28 fits the ban/pick card's canvas
+# (base's rule sets banpick_center only above -28, as for Riven, Vayne and Akali at -28)
+VIEW = {"face": {"x": -1, "y": -37}, "center": {"x": 0, "y": -12}}
 
 
 def phy(k):
