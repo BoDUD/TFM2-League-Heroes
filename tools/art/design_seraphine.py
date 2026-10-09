@@ -479,19 +479,19 @@ def body2(out):
 # star-wink picture, assets/source/seraphine/codex_face/seraphine-face-B-initial.png, drawn on this design's own grid:
 # read back on its 27.6-px squares it is 46 x 31 like the design): its face square by square - the near eye a lash
 # row over a white outer corner, a blue iris with a white glint and cyan under it; the far eye winking (an arch); a
-# two-square blush under each eye; the forehead a row taller with the dark lock over the near eye. The mouth stays the
-# old small one (the picture's open mouth with a tongue: 「嘴用之前的其他都很好」); the hair, the ornaments and the
-# body stay this design's.
+# two-square blush under each eye; the forehead a row taller with the dark lock over the near eye; the picture's open
+# mouth without its tongue (three dark-red squares over one: the tongue read as stuck on, 「不要吐舌头了」). The hair,
+# the ornaments and the body stay this design's.
 FACE3_C = {"0": "#0d0222", "4": "#d31865", "5": "#c81260", "6": "#5f0033", "J": "#fddab8", "C": "#f8a0a8",
-           "w": "#ffffff", "B": "#1438a8", "q": "#180f3b", "K": "#10b0f4", "V": "#0e8edc", "x": "#e8506e"}
+           "w": "#ffffff", "B": "#1438a8", "q": "#180f3b", "K": "#10b0f4", "V": "#0e8edc", "r": "#a5193a"}
 # (first column, squares) per row; '-' keeps the square
 FACE3 = {65: [(62, "566JJJJ44J4J")],
          66: [(62, "J000JJJJJJJJ")],
          67: [(62, "0wBwqJJJ00JJ0")],
          68: [(62, "JwKBVJJ0JJ0J0")],
          69: [(62, "JCCJJJJJCCJ0")],
-         70: [(62, "0JJJxxJJJJ0")],          # the mouth stays the old one (「嘴用之前的其他都很好」)
-         71: [(61, "0000JJJJJJ0")]}
+         70: [(62, "0JJJrrrJJJ0")],          # an open smile, no tongue (「不要吐舌头了」)
+         71: [(61, "0000JJrJJJ0")]}
 
 
 def face3(out):
