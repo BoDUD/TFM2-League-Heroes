@@ -69,8 +69,9 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # Xayah breathes in her own strip (rig_xayah.breath_frames: her striped leg wraps have no invisible row to cut - the
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead); Rengar too (rig_rengar BREATH:
 # the shared lean smeared his toes, his carried blade went under the soles); Zed too (rig_zed BREATH: the shared cut ran
-# through his wrist blades and shortened them); Olaf too (rig_olaf BREATH: the shared cut ran through his spiked greaves)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# through his wrist blades and shortened them); Olaf too (rig_olaf BREATH: the shared cut ran through his spiked greaves);
+# Talon too (fix_talon_strips BREATH: the shared cut shortened his cape's diagonal spear blade and his shins)
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "talon"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and

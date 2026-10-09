@@ -1,0 +1,550 @@
+Native image generation prompts. One independent raw source per frame. Final frames are normalized from these sources.
+
+=== run_01 ===
+Create ONE independent tiny pixel-game animation frame: run_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: low sprint: near (image-left) foot planted in front, far foot pushing off behind
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x272..680, y488..768. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== run_02 ===
+Create ONE independent tiny pixel-game animation frame: run_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: near foot sliding back, far foot lifting and swinging forward
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x280..680, y472..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== run_03 ===
+Create ONE independent tiny pixel-game animation frame: run_03.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: legs passing under the body, the far foot raised to knee height
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x304..656, y520..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== run_04 ===
+Create ONE independent tiny pixel-game animation frame: run_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: far foot reaching forward to land, near foot pushing off behind
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x360..600, y520..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== run_05 ===
+Create ONE independent tiny pixel-game animation frame: run_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: far foot planted in front, near foot pushing off behind (frame 1 mirrored legs)
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x360..592, y496..776. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== run_06 ===
+Create ONE independent tiny pixel-game animation frame: run_06.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: far foot sliding back, near foot lifting and swinging forward
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x344..616, y488..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== run_07 ===
+Create ONE independent tiny pixel-game animation frame: run_07.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: legs passing under the body, the near foot raised to knee height
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x312..640, y536..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== run_08 ===
+Create ONE independent tiny pixel-game animation frame: run_08.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: near foot reaching forward to land, far foot pushing off behind
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x280..672, y520..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+RUN: fourth reference is upper-body template. Copy its head/shoulders/torso/upper cape EXACTLY with no redraw, at most1logical pixel bob. Animate only crossed legs and lower cape hem. Clearly separated one foot forward and other back. Palette is last reference.
+
+=== attack_01 ===
+Create ONE independent tiny pixel-game animation frame: attack_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: wind-up: the body draws back, the near hand pulls the wrist blade behind
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x344..616, y432..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== attack_02 ===
+Create ONE independent tiny pixel-game animation frame: attack_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: starting the lunge, the near hand coming forward
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x344..608, y448..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== attack_03 ===
+Draw ONE independent animation frame, attack_03, of the approved tiny Talon pixel-game sprite. FIRST reference is approved costume/colours/low-resolution pixel style. SECOND target gives precise silhouette, size and position; THIRD League render gives pose ONLY.
+THIS FRAME: THE HIT: body leaning forward, near arm straight forward, single long silver wrist blade stabbing horizontally at chest height, tip to image right. Far leg bent back, front boot planted. Maroon blade-tipped cape trails behind LEFT.
+Genuine primitive pixel GAME SPRITE, about42 logical pixels high standing, NOT detailed illustration. Target canvas960x896 =120x112 logical pixels at8x; each pixel one solid aligned8x8 block. Figure only about336px tall, around x272..712 y448..784. Leave most canvas empty. Use target exact pose/placement. Ground is y784, NOTHING at y784 or below, omit red line/cross. Actual alpha-transparent background.
+Preserve blue-violet hood, silver V blade crest, continuous black hood-shadow band with NO EYES, only tan lower face nose/mouth/chin visible. Three-tier silver shoulder plates, rust-red cape with4-6 attached silver triangular tips, long silver forearm blade, blue clothes, teal waist strip and gold buckle, dark gunmetal shin guards/silver knees. All simple chunky flats2-3 shades per material, exactly approved scale; ONE dark outline. Never draw eye glints, eye dots, flying blades, effects, motion trails, text, ground shadows, guides, gradients or fine pixels.
+ONLY palette: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC. Keep the pixel economy of the FIRST reference. One character only.
+
+=== attack_04 ===
+Create ONE independent tiny pixel-game animation frame: attack_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: follow-through: the arm starts to come back, the cape swings up
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x248..704, y456..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+CRITICAL pose: near arm pulling back to chest, far arm extended left/back, cape spreads SIDEWAYS horizontally left and right at shoulder level, NOT pointing high above head. Head at logical65, feet97. Full character remains about42rows, cape highest point at most2rows above hood. Match reference League pose exactly. No fan towering overhead.
+
+=== attack_05 ===
+Create ONE independent tiny pixel-game animation frame: attack_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: back to the idle pose
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x368..600, y440..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill_01 ===
+Create ONE independent tiny pixel-game animation frame: skill_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: both hands cross before the chest, gathering the blades
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x312..648, y416..768. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill_02 ===
+Create ONE independent tiny pixel-game animation frame: skill_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: the near hand draws back, the torso winds up
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x328..624, y352..744. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill_03 ===
+Create ONE independent tiny pixel-game animation frame: skill_03.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: THE THROW**: the near arm sweeps forward and out, straight; the cape flares to both sides (do NOT draw the flying blades - effects come later)
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x288..664, y424..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill_04 ===
+Create ONE independent tiny pixel-game animation frame: skill_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: the cape's blades fanned out behind, the hand still forward
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x344..608, y448..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill_05 ===
+Create ONE independent tiny pixel-game animation frame: skill_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: the cape settling, the hand coming back
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x320..632, y416..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill_06 ===
+Create ONE independent tiny pixel-game animation frame: skill_06.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: back to the idle pose
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x360..600, y440..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill2_01 ===
+Create ONE independent tiny pixel-game animation frame: skill2_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: leaping, high in the air, body tucked, the blade raised over the head
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x336..616, y264..704. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill2_02 ===
+Create ONE independent tiny pixel-game animation frame: skill2_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: still rising, leaning forward, the blade high, ready to strike down
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x376..576, y264..656. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill2_03 ===
+Create ONE independent tiny pixel-game animation frame: skill2_03.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: coming down, the blade pointing forward and down
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x272..680, y392..704. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill2_04 ===
+Create ONE independent tiny pixel-game animation frame: skill2_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: THE STRIKE (landing)**: landing in a crouch, the blade stabbed forward and down, the cape with all its blades fanned UP behind him
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x280..680, y424..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Landing frame: maintain LOW forward crouch, hood and face near knee height, NOT standing upright. Attached cloak strips and silver tips flare UP like reference, blade stabs forward-down. Place landing foot just above ground, retain full body, no impact FX.
+
+=== skill2_05 ===
+Create ONE independent tiny pixel-game animation frame: skill2_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: impact: the lowest crouch, the cape coming down
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x304..656, y408..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Landing frame: maintain LOW forward crouch, hood and face near knee height, NOT standing upright. Attached cloak strips and silver tips flare UP like reference, blade stabs forward-down. Place landing foot just above ground, retain full body, no impact FX.
+
+=== skill2_06 ===
+Create ONE independent tiny pixel-game animation frame: skill2_06.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: rising, the blade back at his side
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x224..736, y544..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill2_07 ===
+Create ONE independent tiny pixel-game animation frame: skill2_07.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: back to the idle pose
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x312..648, y440..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill2_stab_01 ===
+Create ONE independent tiny pixel-game animation frame: skill2_stab_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: crouching wind-up
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x352..600, y432..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== skill2_stab_02 ===
+Create ONE independent tiny pixel-game animation frame: skill2_stab_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: jumping into a spin, arms spread
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x264..688, y416..736. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Spinning/tucking affects pose and projected body height, NOT body scale. Head/armor pixel sizes remain the approved size; no tiny figure inside giant cape. Follow reference orientation and limb placement.
+
+=== skill2_stab_03 ===
+Create ONE independent tiny pixel-game animation frame: skill2_stab_03.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: THE SPIN SLASH**: spinning in the air, the blade sweeping across his front
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x216..736, y416..736. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Spinning/tucking affects pose and projected body height, NOT body scale. Head/armor pixel sizes remain the approved size; no tiny figure inside giant cape. Follow reference orientation and limb placement.
+
+=== skill2_stab_04 ===
+Create ONE independent tiny pixel-game animation frame: skill2_stab_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: the spin continues, the cape whirling round him
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x296..664, y400..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Spinning/tucking affects pose and projected body height, NOT body scale. Head/armor pixel sizes remain the approved size; no tiny figure inside giant cape. Follow reference orientation and limb placement.
+
+=== skill2_stab_05 ===
+Create ONE independent tiny pixel-game animation frame: skill2_stab_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: landing
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x304..648, y464..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Spinning/tucking affects pose and projected body height, NOT body scale. Head/armor pixel sizes remain the approved size; no tiny figure inside giant cape. Follow reference orientation and limb placement.
+
+=== skill2_stab_06 ===
+Create ONE independent tiny pixel-game animation frame: skill2_stab_06.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: back to the idle pose
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x384..568, y440..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Spinning/tucking affects pose and projected body height, NOT body scale. Head/armor pixel sizes remain the approved size; no tiny figure inside giant cape. Follow reference orientation and limb placement.
+
+=== skill_e_01 ===
+Create ONE independent tiny pixel-game animation frame: skill_e_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: crouching to jump, the cape's blades raised
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x336..616, y416..744. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Spinning/tucking affects pose and projected body height, NOT body scale. Head/armor pixel sizes remain the approved size; no tiny figure inside giant cape. Follow reference orientation and limb placement.
+
+=== skill_e_02 ===
+Create ONE independent tiny pixel-game animation frame: skill_e_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: springing up, one leg stretched
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x336..624, y208..704. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Use the EXACT inverted/tucked turning orientation shown by League reference, not an upright jump. Maintain head and armor pixel size while rotating pose. This is a vault somersault. Keep airborne gap. Whole cloak and blade visible.
+
+=== skill_e_03 ===
+Create ONE independent tiny pixel-game animation frame: skill_e_03.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: tucked, turning over in the air
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x336..616, y248..584. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Use the EXACT inverted/tucked turning orientation shown by League reference, not an upright jump. Maintain head and armor pixel size while rotating pose. This is a vault somersault. Keep airborne gap. Whole cloak and blade visible.
+
+=== skill_e_04 ===
+Create ONE independent tiny pixel-game animation frame: skill_e_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: turning over, head low
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x328..624, y256..624. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Use the EXACT inverted/tucked turning orientation shown by League reference, not an upright jump. Maintain head and armor pixel size while rotating pose. This is a vault somersault. Keep airborne gap. Whole cloak and blade visible.
+
+=== skill_e_05 ===
+Create ONE independent tiny pixel-game animation frame: skill_e_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: LANDING**: landing in a crouch, the cape trailing behind
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x296..664, y280..584. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Pose from League reference is authoritative: leaning forward with the cloak streaming behind, transitioning out of vault; no standing generic idle. No separate background terrain or wall.
+
+=== skill_e_06 ===
+Create ONE independent tiny pixel-game animation frame: skill_e_06.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: rising, the near blade pointing forward
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x272..688, y232..616. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Pose from League reference is authoritative: leaning forward with the cloak streaming behind, transitioning out of vault; no standing generic idle. No separate background terrain or wall.
+
+=== skill_e_07 ===
+Create ONE independent tiny pixel-game animation frame: skill_e_07.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: back to the idle pose
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x272..680, y376..728. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== ult_01 ===
+Create ONE independent tiny pixel-game animation frame: ult_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: a deep crouch, body coiled
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x272..680, y520..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== ult_02 ===
+Create ONE independent tiny pixel-game animation frame: ult_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: rising into a spin, the near blade swung behind
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x296..656, y384..768. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== ult_03 ===
+Create ONE independent tiny pixel-game animation frame: ult_03.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: THE BLADES OUT**: spinning, the cape fully spread, its blades fanned out all round him (do NOT draw flying blades)
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x272..680, y288..688. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+R spin: cape strips and their ATTACHED silver tips fan out around body as in reference. No separate flying knives or rings of magical knives. Preserve approved head/body pixel scale; cape can spread without shrinking actor.
+
+=== ult_04 ===
+Create ONE independent tiny pixel-game animation frame: ult_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: spinning on, back to the viewer
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x232..720, y312..600. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+R spin: cape strips and their ATTACHED silver tips fan out around body as in reference. No separate flying knives or rings of magical knives. Preserve approved head/body pixel scale; cape can spread without shrinking actor.
+BACK VIEW is mandatory this frame. Show blue hood back and cape attachment; do not show a frontal face or frontal V brow through back of head.
+
+=== ult_05 ===
+Create ONE independent tiny pixel-game animation frame: ult_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: spinning on, the cape flung out
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x264..688, y336..656. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+R spin: cape strips and their ATTACHED silver tips fan out around body as in reference. No separate flying knives or rings of magical knives. Preserve approved head/body pixel scale; cape can spread without shrinking actor.
+
+=== ult_06 ===
+Create ONE independent tiny pixel-game animation frame: ult_06.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: turning front again, the cape closing
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x312..648, y376..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+R spin: cape strips and their ATTACHED silver tips fan out around body as in reference. No separate flying knives or rings of magical knives. Preserve approved head/body pixel scale; cape can spread without shrinking actor.
+Turning back toward viewer/front after rotation. Cape begins closing.
+
+=== ult_07 ===
+Create ONE independent tiny pixel-game animation frame: ult_07.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: dropping into a deep crouch
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x328..624, y464..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+R spin: cape strips and their ATTACHED silver tips fan out around body as in reference. No separate flying knives or rings of magical knives. Preserve approved head/body pixel scale; cape can spread without shrinking actor.
+
+=== ult_08 ===
+Create ONE independent tiny pixel-game animation frame: ult_08.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: back to the idle pose
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x336..616, y440..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+R spin: cape strips and their ATTACHED silver tips fan out around body as in reference. No separate flying knives or rings of magical knives. Preserve approved head/body pixel scale; cape can spread without shrinking actor.
+
+=== hit_01 ===
+Create ONE independent tiny pixel-game animation frame: hit_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: hit: the body flinches back, head down
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x376..584, y368..736. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== hit_02 ===
+Create ONE independent tiny pixel-game animation frame: hit_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: recovering a little, lower than the idle
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x352..608, y408..768. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+
+=== dead_01 ===
+Create ONE independent tiny pixel-game animation frame: dead_01.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: struck, the body arching back
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x336..624, y448..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Death sequence, no gore. Body progressively recoils/back-arches/falls, as exact pose reference shows. Retain all armor/cape/wristblade. No fade, transparency changes or disintegration, no eye dots. When feet lift in falling pose, keep the air gap. Not an attack pose.
+
+=== dead_02 ===
+Create ONE independent tiny pixel-game animation frame: dead_02.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: staggering back, arms flung out
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x360..600, y408..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Death sequence, no gore. Body progressively recoils/back-arches/falls, as exact pose reference shows. Retain all armor/cape/wristblade. No fade, transparency changes or disintegration, no eye dots. When feet lift in falling pose, keep the air gap. Not an attack pose.
+
+=== dead_03 ===
+Create ONE independent tiny pixel-game animation frame: dead_03.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: feet leaving the ground, falling back
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x328..624, y392..768. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Death sequence, no gore. Body progressively recoils/back-arches/falls, as exact pose reference shows. Retain all armor/cape/wristblade. No fade, transparency changes or disintegration, no eye dots. When feet lift in falling pose, keep the air gap. Not an attack pose.
+
+=== dead_04 ===
+Create ONE independent tiny pixel-game animation frame: dead_04.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: the body tilted in the air
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x344..608, y408..760. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+Death sequence, no gore. Body progressively recoils/back-arches/falls, as exact pose reference shows. Retain all armor/cape/wristblade. No fade, transparency changes or disintegration, no eye dots. When feet lift in falling pose, keep the air gap. Not an attack pose.
+
+=== dead_05 ===
+Create ONE independent tiny pixel-game animation frame: dead_05.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: landing on his back
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x320..640, y432..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+IMPORTANT copy the supplied League reference EXACT body orientation: upright diagonal arched-back torso with head high at upper-left, hood leaning back, bent knees and boots to lower-right, long wrist blade points steeply UP-RIGHT from chest. Cape hangs steeply down-left touching ground. Not a flat reclining horizontal pose. Overall silhouette is about40 logical pixels wide and44 high; small character, same anatomy scale as approved sprite.
+
+=== dead_06 ===
+Create ONE independent tiny pixel-game animation frame: dead_06.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: lying flat, the cape spread
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x240..720, y488..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+IMPORTANT transitional fall frame: hood and upper torso at left; bent legs extend right; wristblade extends horizontally LEFT; rust-red cape is spread behind torso, with its upper blade tips reaching HIGH and its lower hem touching ground. Copy the source pose, keep cape as a large upward flared fan, not a flat horizontal ribbon. Overall silhouette60 logical pixels wide and37 high, not huge.
+
+=== dead_07 ===
+Create ONE independent tiny pixel-game animation frame: dead_07.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: lying still on the ground, the blade out to one side
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x200..760, y600..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+CRITICAL lying corpse pose: body horizontal across frame, hooded head to left, boots to right, face hidden under hood; long wrist blade extends sideways, rust-red cape flattened on ground. No blood. Preserve full body and weapon. Completely motionless flat final pose.
+
+=== dead_08 ===
+Create ONE independent tiny pixel-game animation frame: dead_08.
+References: approved low-res sprite is identity, palette, SCALE and simplification; target grey silhouette gives pose and placement; League image gives anatomy/pose ONLY. Never copy its 3D shading.
+THIS FRAME: the same (last frame, held)
+EXACT960x896 canvas, representing120x112 logical pixels enlarged8x. Only about42 pixel rows tall when standing; silhouette placed at x200..760, y616..784. Most canvas is transparent EMPTY. Every colored pixel one solid8x8 square, aligned to top-left grid. Very coarse game sprite like approved reference, not detailed illustration. Simple large flats,2-3shades per material, one logical pixel outline. Entire body and attached cloak/weapon, no cropping. Ground at y784; nothing below, omit cross/red line. If airborne, keep the reference's air gap.
+Identity unchanged: BLUE-VIOLET hood, sharp SILVER V brow crest, solid DARK HOOD SHADOW with NO EYES, only lower tan face. Three silver shoulder tiers. Long rust-red split cape with4-6 attached steel blade tips. Long straight silver wrist blade. Purple blue tunic/trousers, teal sash/gold buckle. Dark gunmetal greaves/boots, silver knees. Lean human, not chibi. Keep face masked by black hood shadow, no eye dots/glints.
+ONLY COLORS: #120E1A #4A0B15 #141250 #6E1219 #35343F #0A4A66 #221F7E #A01C24 #7A4A30 #55525E #3533AA #D82A2F #2A92A2 #4D4BD2 #7A7986 #C27E4E #D09A38 #7279F6 #A4A6B4 #ECB486 #CFD0DC #FAFAFC.
+True transparent alpha. No effects, flying blades, motion lines, trails, ground, shadow, grids, labels, gradients, blur, noisy texture or fine pixel detailing. One frame only.
+CRITICAL lying corpse pose: body horizontal across frame, hooded head to left, boots to right, face hidden under hood; long wrist blade extends sideways, rust-red cape flattened on ground. No blood. Preserve full body and weapon. Completely motionless flat final pose.
