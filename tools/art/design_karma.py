@@ -173,7 +173,13 @@ POLISH = [(69, 12, "zS"), (69, 19, "z"),
           (70, 12, "0000   000"), (71, 13, "Pw0   Pws"), (72, 13, "pPs   pPS"),
           (73, 19, "S"), (74, 17, "PP"),
           # 2. 「把腿上绿色的点删了吧」: the leg's one jade tattoo square becomes skin (its neighbours above and below)
-          (92, 18, "s")]
+          (92, 18, "s"),
+          # 3. 「眼睛要做的特色一点 比如莎米拉的眼睛就做的非常好」: Samira's framing (a lash row above, a lower lash, a coloured
+          #    liner flick at the outer corner, a white glint) with League Karma's own marks (glowing magenta irises, dark
+          #    winged liner, the dark tear streak under the near eye): the near eye 3 wide, thin brows, the dark square
+          #    between the brows gone (work/kr/edit/eyes2_kr.py option C2)
+          (69, 12, "hzzsssszz"), (70, 11, "00000"), (71, 12, "Ppw0"), (71, 19, "pwP"), (72, 12, "PpPs"),
+          (72, 19, "PpS"), (73, 12, "S0"), (74, 13, "z")]
 
 
 def rebuild():

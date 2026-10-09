@@ -55,8 +55,9 @@ SURE = 0.9                      # share of the head's pixels that must match exa
 STEADY = ("idle", "run")
 # (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
 # 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
-UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run")}   # kogmaw: his antennae sway in both (rig_kogmaw.py), so
+UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "idle"), ("karma", "run")}   # kogmaw: his antennae sway in both (rig_kogmaw.py), so
 # his top rows are no fixed head to steady on - steadied, the sway would turn into the whole body sliding
+# karma: her jade ring floats above her head in both (rig_karma.py idle bob, the run's hop), the same reason
 # idle_breathe.py makes every idle the design breathing (breathe_idle, run last); BREATHE_SKIP keeps an idle as drawn
 # (Brand's idle is already six drawings of his burning body; Tristana, Jax and Pyke hold or lean on their weapon in a
 # wide crouch, and after two rounds the user kept their old idles: 「小炮 夹克 派克 全用旧的吧」; Yone, Gwen and Kayle went
@@ -66,7 +67,7 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run")}   # kogmaw:
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead); Rengar too (rig_rengar BREATH:
 # the shared lean smeared his toes, his carried blade went under the soles); Zed too (rig_zed BREATH: the shared cut ran
 # through his wrist blades and shortened them)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -293,7 +294,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.

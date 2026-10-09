@@ -29,7 +29,8 @@ slots: Inner Flame is `skill`, Focused Resolve `skill2`, Mantra the `ult`; Inspi
           glow); her next spell is empowered - Defiance at once if an ally is in danger, else the next Q (Soulflare),
           or a W while she is crowded (Renewal). Left unused the cooldown is refunded (60 ticks, league_lulu R).
   combos (the pros' Karma, each in the slot it spends)
-          W -> E (连线加速): a tether on a champion with E ready shields and hastes her at once (she keeps the tether).
+          W -> E (连线加速): a tether on a champion with E ready shields and hastes her at once (she keeps the tether;
+                  the plain Inspire - a Mantra is left for the next spell).
           W -> RQ (定身接真言Q): the root lands on a champion while Mantra is armed and Q ready -> Soulflare thrown at
                   the rooted champion (a lob on his spot locks the aim: it lands).
           RE (真言E救人): Mantra armed while an ally is in crowd control or pressed -> Defiance for the whole group.
@@ -45,28 +46,34 @@ ID = "league_karma"
 FX = "asset/league/effects/league_karma_fx"
 BIG = "asset/league/effects/league_karma_big"
 
-# Draft numbers (c1). Timings are placeholders until the strips' release frames (assets/source/karma/poses.json).
+# Numbers = candidate c23 of the 10-min classic-SDK simulations (Temp/kr_sim, support lane against the five base supports,
+# both sides, 3 lineups, 2026-10-09): +0.71 on seeds 1-12 (league_lulu +1.00, league_nami +0.96, league_janna +0.62 in
+# the same batch), +0.08 on seeds 25-36. The draft c1 was -3.38: E never fired (its ally check too short: the ADC stands
+# beyond 30000 of the enemies), W spent on minions (16 of 22 casts; League's W cannot target minions: on champions it went
+# 6 -> 13 a game, the lever: -0.6 -> +0.7), attack 76 -> 90, hp 900 -> 1000, Q 80+55% -> 100+70% / 6 s, W 45+30% -> 60+40%
+# / 7 s, the root 1 -> 1.67 s after 1.33 s of tether. Timings from rig_karma.py's strips (release frames: attack 4 =
+# tick 11, Q 4 = tick 10, W 4 = tick 10, E 3 = tick 6, R 3 = tick 6).
 P = {
     # stats (the pack's ranged supports: Janna/Nami/Sona/Lulu hp 880-950 +80-95, atk 75-80, ap 30 +15, def 20-24,
     # mr 20-24, range 55000-60000, attack cooldown 90); League's Karma: 604 +109 hp, 525 range
-    "hp": 900, "hp_g": 92, "atk": 76, "atk_g": 6, "ap": 32, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
+    "hp": 1000, "hp_g": 92, "atk": 90, "atk_g": 6, "ap": 32, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 90, "atk_st": 11, "a_speed": 5000, "a_y": -1000,
     # passive Gathering Fire (League: 2.5 s per spell hit on a champion, 1.25 s per attack)
     "g_step": 12, "g_rungs": 5, "g_keep": 3600, "g_wait": 240,
     # skill: Q Inner Flame (League: 950 range at 1700/s, width 60, radius 280, 70-250 + 40% AP, slow 35% 1.5 s,
     # cd 9-5 s; Soulflare + 40-280 + 50% AP, the field 1.5 s later 40-280 + 60% AP? and 50% slow)
-    "q_cd": 420, "q_range": 62000, "q_dur": 22, "q_st": 10, "q_speed": 5500, "q_reach": 70000, "q_rad": 5000,
-    "q_y": -4000, "q_r": 14000, "q_dmg": 80, "q_ap": 55, "q_slow": 35, "q_slow_t": 90,
+    "q_cd": 360, "q_range": 62000, "q_dur": 22, "q_st": 10, "q_speed": 5500, "q_reach": 70000, "q_rad": 5000,
+    "q_y": -4000, "q_r": 14000, "q_dmg": 100, "q_ap": 70, "q_slow": 35, "q_slow_t": 90,
     "rq_dmg": 50, "rq_ap": 30, "rq_wait": 90, "rq_r": 20000, "rq_dmg2": 70, "rq_ap2": 50, "rq_slow": 50,
     "rq_slow_t": 60,
     # skill2: W Focused Resolve (League: 675 range, leash 1000, 40-160 + 45% AP twice, root 1-1.75 s after 2 s, cd 12 s;
     # Renewal: heal 20% missing hp, root +0.75 s)
-    "w_cd": 660, "w_range": 50000, "w_dur": 22, "w_st": 9, "w_speed": 100000, "w_hold": 120, "w_leash": 80000,
-    "w_champ_only": 1, "w_dmg": 45, "w_ap": 30, "w_root": 60, "w_crowd": 35000, "rw_heal": 110, "rw_ap": 40, "rw_root": 105,
+    "w_cd": 420, "w_range": 60000, "w_dur": 22, "w_st": 10, "w_speed": 100000, "w_hold": 80, "w_leash": 80000,
+    "w_champ_only": 1, "w_dmg": 60, "w_ap": 40, "w_root": 100, "w_crowd": 35000, "rw_heal": 110, "rw_ap": 40, "rw_root": 140,
     # E Inspire (League: 800 range, shield 80-200 + 50% AP 2.5 s, haste 40% decaying over 1.5 s, cd 10-9 s;
     # Defiance: allies within 650 of the target, +shield, haste)
-    "e_cd": 540, "e_range": 50000, "e_near": 55000, "e_self": 40000, "e_sh": 90, "e_ap": 50, "e_t": 150, "e_ms": 35,
+    "e_cd": 540, "e_range": 50000, "e_near": 55000, "e_self": 40000, "e_sh": 110, "e_ap": 50, "e_t": 150, "e_ms": 35,
     "e_ht": 90, "e_anim": 16, "re_r": 30000, "re_sh": 60, "re_ap": 30,
     # ult: R Mantra (League: next spell empowered within 8 s, cd 40-34 s)
     "r_cd": 2100, "r_range": 70000, "r_arm": 360, "r_anim": 18,
@@ -265,12 +272,12 @@ def build(p):
             buff("e_haste", p["e_ht"], move_speed_mult=p["e_ms"]), view("e_land")])], target="AllyChampion")
         return own + [wave]
 
-    def e_go(self_=False, pose=True):
-        """Spend E on the unit in hand (Defiance while Mantra is armed); `pose` plays her E strip."""
+    def e_go(self_=False, pose=True, mantra=True):
+        """Spend E on the unit in hand (Defiance while Mantra is armed, unless mantra=False); `pose` plays her E strip."""
         head = [flag("e_got", 3), refresh("e_cd", p["e_cd"])] + ([anim("skill_e", p["e_anim"])] if pose else [])
         plain = combine(*inspire(False), sfx("e_cast"), voice("vo_e", p))
         emp = combine(*rm("mantra"), *inspire(True), sfx("re_cast"), voice("vo_e", p))
-        body = sw("mantra", emp, plain)
+        body = sw("mantra", emp, plain) if mantra else plain
         return combine(*head, on_me(body) if self_ else body)
 
     probe = lob("e_probe", [zone("e_count", p["e_near"], 1, 1, "EnemyChampion", [flag("e_n1", 4)])],
@@ -340,7 +347,7 @@ def build(p):
     def resolve():
         """The tether on the unit; held for w_hold ticks it roots (Renewal, the caster flag w_renew: longer)."""
         champ = pick(1, "EnemyChampion", climb("w"), on_me(refresh("w_champ", p["w_hold"] + 8),
-                     sw("e_cd", NONE, e_go(self_=True, pose=False))), fp=True)
+                     sw("e_cd", NONE, e_go(self_=True, pose=False, mantra=False))), fp=True)
         snap = sw("w_held", combine(*rm("w_held"), sw("w_renew", combine(*root(p["rw_root"])), combine(*root(p["w_root"]))),
                                     rq_combo))
         return homing("w_beam", p["w_speed"], 0, "EnemyWithoutTower", [

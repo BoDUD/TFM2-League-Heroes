@@ -10,12 +10,12 @@
  66  0ii0kkhhhzgggggmeegk00j0
  67  0iJ0hhhhhhhhhhhgmghhh000
  68  0i0hhhkhhhhhhhhhsskkhh00
- 69   00hhhh0hhzSSsksszs0kh0
- 70   0hhhhss0h0000sss0000hh
- 71   0hhkkss0hkPw0sssPws0kh
- 72   0hhhhSshhSpPsssspPSShh
- 73    0khh0g0hSssssssSs0g0h
- 74     khh0G0hSssssPPss0p00
+ 69   00hhhh0hhhzzsssszz0kh0
+ 70   0hhhhss000000sss0000hh
+ 71   0hhkkss0hPpw0ssspwP0kh
+ 72   0hhhhSshhPpPssssPpSShh
+ 73    0khh0g0hS0sssssSs0g0h
+ 74     khh0G0hSzsssPPss0p00
  75     00khp0hksssssss0pp0
  76    0n 00p000SsS0000 hPn0
  77   0i0   zzvvvGGs000  00i0
