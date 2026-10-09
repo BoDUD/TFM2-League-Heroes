@@ -70,6 +70,30 @@ SAME_AS = {("hit", 1): ("hit", 2), ("dead", 7): ("dead", 6), ("dead", 8): ("dead
 STEADY = {"run", "skill2"}         # loops whose rider must not wander across (see steady)
 JOIN = 3                          # a loose piece this near the figure is joined back (a blade whose 1-square neck the
                                   # read lost: Q 2-3); the death's dropped glaive stays apart
+# the run: the DESIGN itself, the oppi way - one body picture in every frame and the legs stepping under it. Round 2's
+# per-frame gallop (League's) changed shape frame to frame (the user: 「人马移动有点不自然啊 参考下oppi怎么移动的」「而且
+# 移动时模型有点变形」); sliding only the shins in a trot did not read (「四个脚移动时看起来不太自然」「我是指移动的时候
+# 四个脚都要有明显错开并且自然的感觉」); Codex's own side-on redraw and its legs grafted under the design were another
+# horse (「模型变形了啊」「武器断了啊」「这腿对吗 残疾了？」). So nothing is redrawn: the design's four legs (LEGS: rows
+# 90-99, the tail's and the tabard's columns stay with the body) step in a four-beat gait (each a quarter cycle after the
+# last: the two hind legs, then the two fore legs), each leg moved whole in three blocks - the thigh band (rows 90-91)
+# under the hip, the cannon (92-94) half the hoof's way, the hoof (95-99): RUN_GROUND frames on the ground, the hoof
+# sliding evenly from RUN_REACH columns ahead to as far behind, then the rest in the air on an even arc (up and down
+# alike: 3, 5, 3 rows of RUN_LIFT) coming forward, folded up to RUN_FOLD columns (a fore hoof back, a hind one
+# forward). The legs are tidied alone and shown only under the belly line; the design's body goes over
+# them untouched (bobbing a row on RUN_BOB, the tail - columns up to RUN_TAIL - waving a row on RUN_WAVE).
+RUN_FRAMES = 8
+RUN_MS = 85
+RUN_TOP, RUN_CANNON, RUN_HOOF = 90, 92, 95
+RUN_LEGS = {"hind_in": (54, 63, "h"), "fore_in": (63, 73, "f"), "hind_out": (43, 54, "h"), "fore_out": (77, 88, "f")}
+# a gallop's footfalls: the two hind hooves, then the two fore hooves, a quarter cycle (2 frames) apart; the two middle
+# legs stand side by side, so they step less (RUN_REACH_IN: they are the far ones too) and never pile into one hoof
+RUN_OFFSET = {"hind_out": 0, "hind_in": 2, "fore_in": 4, "fore_out": 6}
+RUN_GROUND = 5                    # frames a hoof is on the ground (of RUN_FRAMES)
+RUN_REACH, RUN_REACH_IN, RUN_LIFT, RUN_FOLD = 3, 2, 5, 2
+RUN_BOB = [0, 0, 1, 0, 0, 0, 1, 0]
+RUN_TAIL = 40
+RUN_WAVE = [0, 0, -1, -1, 0, 0, 1, 1]
 
 
 def lp(p):
@@ -317,7 +341,52 @@ def v2_frame(tag, k, pal, sk):
     return c
 
 
+def run_rig(design):
+    """The run from the design's own body and legs (see RUN_LEGS)."""
+    import math
+    a = design.a
+    rnd = lambda v: int(math.floor(v + 0.5))
+
+    def pose(j, reach):
+        """(hoof across, share of the lift) in the leg's own frame j."""
+        if j < RUN_GROUND:
+            return reach - 2 * reach * j / (RUN_GROUND - 1), 0.0
+        q = (j - RUN_GROUND + 0.5) / (RUN_FRAMES - RUN_GROUND)
+        return -reach + 2 * reach * q, math.sin(math.pi * q)
+    body = a.copy()
+    for x0, x1, _ in RUN_LEGS.values():
+        body[RUN_TOP:, x0:x1] = 0
+    frames = []
+    for k in range(RUN_FRAMES):
+        c = np.zeros_like(a)
+        for name, (x0, x1, kind) in RUN_LEGS.items():          # the far legs first
+            d, up = pose((k + RUN_OFFSET[name]) % RUN_FRAMES, RUN_REACH_IN if name.endswith("in") else RUN_REACH)
+            lift = rnd(RUN_LIFT * up)
+            fold = rnd(RUN_FOLD * up) * (-1 if kind == "f" else 1)
+            for r0, r1, dx in ((RUN_TOP, RUN_CANNON, 0), (RUN_CANNON, RUN_HOOF, rnd(d / 2)), (RUN_HOOF, 128, rnd(d) + fold)):
+                seg = np.zeros_like(a)
+                seg[r0:r1, x0:x1] = a[r0:r1, x0:x1]
+                seg = K.shifted(seg, dx, -lift)
+                m = seg[..., 3] > 0
+                c[m] = seg[m]
+        c = finish_v2(c, design.outline)
+        c[:RUN_TOP + RUN_BOB[k]] = 0
+        b = K.shifted(body, 0, RUN_BOB[k])
+        if RUN_WAVE[k]:
+            tail = b.copy()
+            tail[:, RUN_TAIL + 1:] = 0
+            b[:, :RUN_TAIL + 1] = 0
+            tail = K.shifted(tail, 0, RUN_WAVE[k])
+            m = tail[..., 3] > 0
+            b[m] = tail[m]
+        m = b[..., 3] > 0
+        c[m] = b[m]
+        frames.append(c)
+    return frames
+
 def build(design, pal, tag, report):
+    if tag == "run":
+        return run_rig(design), [RUN_MS] * RUN_FRAMES
     lol, ms = league_frames(tag)
     lol_idle = league_frames("idle")[0][0]
     base = (design.a[..., 3] > 0).sum() / (lol_idle[..., 3] > 0).sum()
