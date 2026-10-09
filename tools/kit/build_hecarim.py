@@ -251,7 +251,7 @@ def build(p):
     e_rungs = on_me(delayed(p["e_t2"], sw("e_ride", combine(*rm("e1"), refresh("e2", 60, attack_mult=2 * p["e_warp"])))),
                     delayed(p["e_t3"], sw("e_ride", combine(*rm("e2"), refresh("e3", 60, attack_mult=3 * p["e_warp"])))))
     # E -> R: the landing on a champion with the ult ready plays the Onslaught's landing (a long ride: the long fear)
-    e_to_r = sw("r_open", sw("r_cd", NONE, combine(flag("r_cd", p["r_cd"]), refresh("r_far", 2), cview("r_riders"),
+    e_to_r = sw("r_open", sw("r_cd", NONE, combine(flag("r_cd", p["r_cd"]), refresh("r_far", 2), cview("r_cast"),
                                                    sfx("r"), voice("vo_r", p), land)))
     e_land = combine(anim("skill2_hit", 14), *rm("e_ride"),
                      # the blow on the smash frame (queued on the target: end_effects run on it); the rung is read
@@ -269,7 +269,7 @@ def build(p):
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower", charge)
 
     # ------------------------------------------------------------------ ult: R Onslaught of Shadows
-    ride = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p), cview("r_riders"),
+    ride = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p), cview("r_cast"),
                    refresh("r_ride", p["r_cc"], cc_immune=True),
                    on_me(delayed(p["r_go"] + p["r_far_t"], sw("r_ride", refresh("r_far", 60)))),
                    delayed(p["r_go"] - 1, riders,
@@ -289,7 +289,7 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_p = [P_("r_riders", BIG, 2)]
     views_e = [E("a_hit"), E("q_spin", BIG, 3, False), E("q_hit"), E("w_start", BIG, -1, False), E("w_hit"),
-               E("e_dust", FX, -1, False), E("e_hit"), E("r_riders", BIG, 3, False), E("r_land", BIG, -1, False),
+               E("e_dust", FX, -1, False), E("e_hit"), E("r_cast", BIG, 3, False), E("r_land", BIG, -1, False),
                E("r_hit"), E("r_fear")]
     views_b = [B_("q1", "q1", FX, 4), B_("q2", "q2", FX, 4), B_("w_on", "w_aura", BIG, -1),
                B_("e_ride", "e_ride", FX, -1), B_("e_haste", "e_haste", FX, -1)]
