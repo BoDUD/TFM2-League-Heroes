@@ -9,6 +9,9 @@
 //!   魔法伤害，播 `league_zed_cw_hit`（画面在数据里）。
 //! - **死亡印记**：目标身上有 `league_zed_r_mark`（数据加的，`r_pop` tick）时，他打到这个目标的伤害（`on_attack`，技能也算）
 //!   记下来；印记一消失（爆发那一刻），追加记下伤害的 `r_pct`%（物理）。数据的爆发（基础伤害、画面、声音）照旧。
+//! - **残血换回大招影子**（用户：「做第一和第二个」）：大招影子在场（劫身上有 `league_zed_r_live`）、劫**生命低于 `r_low`%** 时，
+//!   每 tick 给劫挂 `league_zed_r_back`；数据里大招影子的检查点（每 6 tick）看到它就把劫换回影子（击杀、被包围、被控也走这个标记，
+//!   那几种数据自己判断）。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zed_mark.log`，每次启动游戏重写。
@@ -84,11 +87,13 @@ pub struct Params {
     pub cw_cd: usize,
     /// 印记爆发追加记下伤害的百分比。
     pub r_pct: usize,
+    /// 大招影子在场时，劫生命低于 `r_low`% 就换回影子。
+    pub r_low: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { cw_hp: 50, cw_lo: 6, cw_mid: 8, cw_hi: 10, cw_cd: 600, r_pct: 35 }
+        Self { cw_hp: 50, cw_lo: 6, cw_mid: 8, cw_hi: 10, cw_cd: 600, r_pct: 35, r_low: 30 }
     }
 }
 
@@ -107,6 +112,7 @@ pub fn parse_params(json: &str) -> Params {
             "cw_hi" => &mut p.cw_hi,
             "cw_cd" => &mut p.cw_cd,
             "r_pct" => &mut p.r_pct,
+            "r_low" => &mut p.r_low,
             _ => continue,
         };
         *slot = v;
@@ -138,6 +144,11 @@ pub fn contempt_damage(max: usize, share: usize) -> usize {
 /// 印记爆发追加的伤害。
 pub fn mark_bonus(p: &Params, stored: usize) -> usize {
     stored * p.r_pct / 100
+}
+
+/// 大招影子在场时该不该换回去（生命低于 `r_low`%）。
+pub fn want_back(p: &Params, hp: usize, max: usize) -> bool {
+    max > 0 && hp * 100 < p.r_low * max
 }
 
 // ===================== 小工具 =====================
@@ -172,9 +183,30 @@ struct Edge {
     marks: BTreeMap<usize, Mark>,
     cw_count: usize,
     pops: usize,
+    /// 这一次大招影子已经因为残血挂过 r_back（日志只记一次）。
+    backed: bool,
 }
 
 impl Edge {
+    /// 残血换回：大招影子在场、生命低于 r_low% 时每 tick 续上 r_back（数据的检查点隔 6 tick 才看一次）。
+    fn low_back(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        if !has_buff(sim, me, &zd("r_live")) {
+            self.backed = false;
+            return;
+        }
+        let Some((hp, max)) = sim.get_entity(me).map(|e| e.hp()) else { return };
+        if !want_back(&self.p, hp, max) {
+            return;
+        }
+        let back = zd("r_back");
+        sim.entity_remove_buff(me, &back);
+        sim.add_buff(me, &BuffV1::timed(&back, 3));
+        if !self.backed {
+            self.backed = true;
+            wlog(format!("{} BACK: hp {hp}/{max} ({}%) under the R shadow -> r_back", head(sim, me), hp * 100 / max.max(1)));
+        }
+    }
+
     fn contempt(&mut self, sim: &mut StableSim<'_>, me: usize, enemies: &[usize]) {
         let probe = zd("cw_probe");
         let tick = sim.tick();
@@ -255,6 +287,7 @@ impl StablePassive for Edge {
         let enemies = enemy_champions(sim, team);
         self.contempt(sim, me, &enemies);
         self.marks(sim, me, &enemies);
+        self.low_back(sim, me);
     }
 
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
@@ -270,7 +303,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (Contempt for the Weak below 50% health, Death Mark from the damage dealt) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1 (Contempt for the Weak below 50% health, Death Mark from the damage dealt, R2 at low health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -328,6 +361,14 @@ mod tests {
         let p = Params::default();
         assert_eq!(mark_bonus(&p, 1000), 350);
         assert_eq!(mark_bonus(&p, 0), 0);
+    }
+
+    #[test]
+    fn back_only_below_the_line() {
+        let p = Params::default();
+        assert!(want_back(&p, 299, 1000));
+        assert!(!want_back(&p, 300, 1000));
+        assert!(!want_back(&p, 0, 0));
     }
 
     #[test]

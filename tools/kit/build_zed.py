@@ -36,8 +36,9 @@ inside the attack (league_rengar's Savagery way).
           shurikens and slashes too). r_pop ticks later the
           mark bursts: r_dmg + r_ratio% AD plus r_per for each of his hits on the marked champion meanwhile (League adds
           a share of the damage dealt; nothing reads damage, so it counts the hits, up to three; the add-on
-          adds r_pct% of the damage he dealt). Outnumbered when it
-          bursts (two enemy champions within r_safe_r) he swaps back to the shadow (R2). The pros' R-W-E-Q: under the
+          adds r_pct% of the damage he dealt). He swaps back to the shadow (R2) when the burst kills, when he is
+          outnumbered as it bursts (two enemy champions within r_safe_r), whenever he is in crowd control while the
+          shadow stands, and (the add-on) under r_low% health. The pros' R-W-E-Q: under the
           mark with W ready, Razor Shuriken's slot is an empty branch, so the AI opens Living Shadow's combo.
 """
 import argparse
@@ -80,8 +81,9 @@ P = {
     "vo_gap": 600,
     # 1 = the copy for addons/league_zed_mark: its native passive reads health (Contempt below cw_hp%, cw_lo/mid/hi% of
     # max health by his level, cw_cd per target) and the damage dealt under the mark (r_pct% of it at the burst); the
-    # data stand-ins (cw_ready after a spell hit, the r_1..r_3 hit ladder) go
-    "native": 0, "cw_hp": 50, "cw_lo": 6, "cw_mid": 8, "cw_hi": 10, "r_pct": 35,
+    # data stand-ins (cw_ready after a spell hit, the r_1..r_3 hit ladder) go; it also sends him back to the R shadow
+    # under r_low% health (the r_back flag)
+    "native": 0, "cw_hp": 50, "cw_lo": 6, "cw_mid": 8, "cw_hi": 10, "r_pct": 35, "r_low": 30,
 }
 
 
@@ -362,13 +364,22 @@ def build(p):
     def r_pieces():
         """The R shadow (league_ekko's anchor, left where he stood): formed in the first r_echo_step ticks, then a
         checkpoint every r_echo_step copying his Q / E with its picture (a cast is two steps long: r_pic keeps the
-        next standing frame off), faded before r_live runs out."""
+        next standing frame off) and swapping him back when r_back is up, faded before r_live runs out.
+        R2 (the user: 「做第一和第二个」): r_back comes from the pop when it killed (back to safety), from the
+        outnumbered count at the pop, from the checkpoint's own look at him in crowd control (league_missfortune R's
+        RandomTarget AllyChampionInCC of range 1 finds the caster: stunned, rooted, airborne, pulled, feared or charmed)
+        and, with addons/league_zed_mark, from his health under r_low%."""
         step = p["r_echo_step"]
         assert step == 6, "the pieces' lengths in tools/art/import_zed.py"
         busy = [refresh("r_pic", step + 2)]
         ticks = range(step, p["r_life"] - 2 * step + 1, step)
+        cc = {"type": "RandomTarget", "range": 1, "casting_target": "AllyChampionInCC", "from_projectile": False,
+              "effects": [refresh("r_back", 3)]}
+        back = sw("r_live", sw("r_back", combine(*rm("r_live", "r_back"), cview("w_swap"), {"type": "Teleport"},
+                                                view("w_swap"), sfx("w2"))))
         out = [delayed(t, sw("r_live", combine(*checkpoint("qr_echo", "er_echo",
-                                                           sw("r_pic", NONE, view(f"sh_sr{(j // 2) % 4}")), busy))))
+                                                           sw("r_pic", NONE, view(f"sh_sr{(j // 2) % 4}")), busy),
+                                               cc, delayed(1, back))))
                for j, t in enumerate(ticks)]
         fade = combine(*rm("r_live"), view("sh_out"))
         # a cast on the last checkpoint finishes first
@@ -377,7 +388,12 @@ def build(p):
     pop_dmg = [attack(p["r_dmg"], p["r_ratio"])]
     for k in range(1, 1 if p["native"] else 4):       # the add-on adds r_pct% of the damage dealt instead
         pop_dmg.append(sw(f"r_{k}", attack(p["r_per"] * k, 0)))
-    pop = combine(view("r_pop"), tsfx("r_pop"), *pop_dmg)
+    # the kill check (league_darius R reset): r_kill set before the blow; a tick later a Delayed on the target clears
+    # it - on a dead one nothing but pictures runs from a Delayed, so it stays - and 4 ticks after the blow a check on
+    # him turns a kept r_kill into r_back (the R shadow's next checkpoint swaps him there)
+    kill = [{"type": "Delayed", "tick": 1, "effects": [casted(3, 1, *rm("r_kill"))]},
+            on_me(delayed(4, sw("r_kill", combine(*rm("r_kill"), refresh("r_back", p["r_echo_step"] + 3)))))]
+    pop = combine(*rm("r_kill"), flag("r_kill", 40), view("r_pop"), tsfx("r_pop"), *pop_dmg, *kill)
     count = combine(*rm("rn1", "rn2"), around(p["r_safe_r"], "EnemyChampion",
                                              [on_me(sw("rn1", flag("rn2", 2), flag("rn1", 2)))]))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
@@ -386,15 +402,13 @@ def build(p):
                          {"type": "CasterInvisible", "tick": p["r_inv"]},
                          on_me(refresh("r_live", p["r_life"])),
                          line("r_anchor", 1, 1, 1, 5000, "EnemyWithoutTower", True, [],
-                              [view("sh_in_r")] + r_pieces() +
-                              [delayed(p["r_go"] + p["r_pop"] + 2,
-                                       sw("r_live", sw("rn2", combine(*rm("r_live"), cview("w_swap"),
-                                                                     {"type": "Teleport"}, view("w_swap"), sfx("w2")))))]),
+                              [view("sh_in_r")] + r_pieces()),
                          delayed(p["r_go"] - 1, {"type": "RushMoveToBack", "speed": p["r_speed"], "applied_effects": [
                              buff("r_mark", p["r_pop"]), view("r_hit"), tsfx("r_hit"), attack(0, 100),
                              casted(p["r_pop"] + 1, p["r_pop"], sw("r_on", combine(pop, *rm("r_on", *([] if p["native"] else ["r_1", "r_2", "r_3"])))))]},
                                  refresh("r_on", p["r_pop"] + 2), spell_mark),
-                         delayed(p["r_go"] + p["r_pop"] + 1, count)))
+                         delayed(p["r_go"] + p["r_pop"] + 1, count),
+                         delayed(p["r_go"] + p["r_pop"] + 2, sw("rn2", refresh("r_back", p["r_echo_step"] + 3)))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -413,7 +427,7 @@ def build(p):
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_zed_mark:edge",
-                            "params": {k: p[k] for k in ("cw_hp", "cw_lo", "cw_mid", "cw_hi", "cw_cd", "r_pct")}}
+                            "params": {k: p[k] for k in ("cw_hp", "cw_lo", "cw_mid", "cw_hi", "cw_cd", "r_pct", "r_low")}}
     return {
         "id": ID, "category": "Assassin", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

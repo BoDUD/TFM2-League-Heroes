@@ -33,26 +33,26 @@ NATIVE = {
     "zh-hans": ("【读血测试版】",
                 [("技能命中英雄后，下次攻击英雄附加其{cw_pct}%最大生命真实伤害（" + A + "{cw_cd}秒" + E + "）",
                   "攻击生命低于{cw_hp}%的英雄时附加其{cw_lo}/{cw_mid}/{cw_hi}%最大生命魔法伤害（同一目标" + A + "{cw_cd}秒" + E + "）")],
-                [("，期间每次命中+" + O + "{r_per}" + E + "（最多3次）", "，外加期间所造成伤害的" + O + "{r_pct}%" + E)]),
+                [("，期间每次命中+" + O + "{r_per}" + E + "（最多3次）", "，外加期间所造成伤害的" + O + "{r_pct}%" + E), ('击杀、被包围或被控时换回影子', '击杀、被包围、被控或生命低于{r_low}%时换回影子')]),
     "zh-hant": ("【讀血測試版】",
                 [("技能命中英雄後，下次攻擊英雄附加其{cw_pct}%最大生命真實傷害（" + A + "{cw_cd}秒" + E + "）",
                   "攻擊生命低於{cw_hp}%的英雄時附加其{cw_lo}/{cw_mid}/{cw_hi}%最大生命魔法傷害（同一目標" + A + "{cw_cd}秒" + E + "）")],
-                [("，期間每次命中+" + O + "{r_per}" + E + "（最多3次）", "，外加期間所造成傷害的" + O + "{r_pct}%" + E)]),
+                [("，期間每次命中+" + O + "{r_per}" + E + "（最多3次）", "，外加期間所造成傷害的" + O + "{r_pct}%" + E), ('擊殺、被包圍或被控時換回影子', '擊殺、被包圍、被控或生命低於{r_low}%時換回影子')]),
     "en": ("[Health-reading test build] ",
            [("after his spells hit a champion, his next attack on a champion adds {cw_pct}% of its max health as true damage (" +
              A + "{cw_cd}s" + E + ")",
              "his attacks on a champion below {cw_hp}% health add {cw_lo}/{cw_mid}/{cw_hi}% of its max health as magic damage "
              "(" + A + "{cw_cd}s" + E + " per target)")],
            [(" plus " + O + "{r_per}" + E + " per hit meanwhile (up to 3)", " plus " + O + "{r_pct}%" + E + " of the damage he dealt "
-             "meanwhile")]),
+             "meanwhile"), ('On a kill, outnumbered or crowd-controlled,', 'On a kill, outnumbered, crowd-controlled or below {r_low}% health,')]),
     "ko": ("[체력 판정 테스트판] ",
            [("스킬이 챔피언에게 적중한 뒤 다음 챔피언 공격은 대상 최대 체력의 {cw_pct}% 고정 피해(" + A + "{cw_cd}초" + E + ")",
              "체력 {cw_hp}% 미만 챔피언 공격 시 최대 체력의 {cw_lo}/{cw_mid}/{cw_hi}% 마법 피해(대상마다 " + A + "{cw_cd}초" + E + ")")],
-           [(", 그동안 적중마다 +" + O + "{r_per}" + E + "(최대 3)", ", 그동안 준 피해의 " + O + "{r_pct}%" + E + " 추가")]),
+           [(", 그동안 적중마다 +" + O + "{r_per}" + E + "(최대 3)", ", 그동안 준 피해의 " + O + "{r_pct}%" + E + " 추가"), ('처치·포위·군중 제어 시', '처치·포위·군중 제어·체력 {r_low}% 미만 시')]),
     "ja": ("【体力判定テスト版】",
            [("スキルがチャンピオンに命中後、次のチャンピオンへの攻撃が最大体力の{cw_pct}%確定ダメージ（" + A + "{cw_cd}秒" + E + "）",
              "体力{cw_hp}%未満のチャンピオンへの攻撃が最大体力の{cw_lo}/{cw_mid}/{cw_hi}%魔法ダメージ（同じ対象" + A + "{cw_cd}秒" + E + "）")],
-           [("、その間の命中ごとに+" + O + "{r_per}" + E + "（最大3）", "、その間に与えたダメージの" + O + "{r_pct}%" + E + "を追加")]),
+           [("、その間の命中ごとに+" + O + "{r_per}" + E + "（最大3）", "、その間に与えたダメージの" + O + "{r_pct}%" + E + "を追加"), ('撃破・包囲・行動妨害で', '撃破・包囲・行動妨害・体力{r_low}%未満で')]),
 }
 
 
@@ -81,7 +81,7 @@ def main():
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
     champion["ult"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".ult"
 
-    values = dict(setup.values(p), **{k: p[k] for k in ("cw_hp", "cw_lo", "cw_mid", "cw_hi", "r_pct")})
+    values = dict(setup.values(p), **{k: p[k] for k in ("cw_hp", "cw_lo", "cw_mid", "cw_hi", "r_pct", "r_low")})
     texts = {}
     for lang, (lead, att, ult) in NATIVE.items():
         out = {}

@@ -49,7 +49,7 @@ TEXT = {
                  "：三影齐发，随后影子旁只有一名敌人时换位追击。",
         "skill2": "掷出手里剑，贯穿一条直线：首个敌人受到" + phy("q") + "伤害，之后的受到{q_pen}%。",
         "ult": "对交战中的英雄发动：" + R + "无法选中" + E + "，突进穿过并留下影子（模仿诸刃和鬼斩）与印记，" + A + "{r_pop}秒" + E + "后爆发" + phy("r") +
-               "，期间每次命中+" + O + "{r_per}" + E + "（最多3次）。被包围时换回影子。" + O + "连招" + E + "：R→W→E→Q。",
+               "，期间每次命中+" + O + "{r_per}" + E + "（最多3次）。击杀、被包围或被控时换回影子。" + O + "连招" + E + "：R→W→E→Q。",
         "names": ("影奥义！分身", "影奥义！诸刃", "禁奥义！瞬狱影杀阵"),
     },
     "zh-hant": {
@@ -60,7 +60,7 @@ TEXT = {
                  "：三影齊發，隨後影子旁只有一名敵人時換位追擊。",
         "skill2": "擲出手裡劍，貫穿一條直線：首個敵人受到" + phy("q") + "傷害，之後的受到{q_pen}%。",
         "ult": "對交戰中的英雄發動：" + R + "無法選取" + E + "，突進穿過並留下影子（模仿手裡劍和影斬）與印記，" + A + "{r_pop}秒" + E + "後爆發" + phy("r") +
-               "，期間每次命中+" + O + "{r_per}" + E + "（最多3次）。被包圍時換回影子。" + O + "連招" + E + "：R→W→E→Q。",
+               "，期間每次命中+" + O + "{r_per}" + E + "（最多3次）。擊殺、被包圍或被控時換回影子。" + O + "連招" + E + "：R→W→E→Q。",
         "names": ("疾風殘影", "風魔手裡劍", "死亡印記"),
     },
     "en": {
@@ -75,7 +75,7 @@ TEXT = {
         "skill2": "Throws a shuriken through a line: " + phy("q") + " to the first enemy, {q_pen}% to the rest.",
         "ult": "On a champion in a fight: " + R + "untargetable" + E + ", he dashes through him, leaving a shadow (it copies his shuriken and slash) and a mark that bursts "
                "after " + A + "{r_pop}s" + E + " for " + phy("r") + " plus " + O + "{r_per}" + E + " per hit meanwhile (up to 3). "
-               "Outnumbered, he swaps back to the shadow. " + O + "Combo" + E + ": R, W, E, Q.",
+               "On a kill, outnumbered or crowd-controlled, he swaps back to the shadow. " + O + "Combo" + E + ": R, W, E, Q.",
         "names": ("Living Shadow", "Razor Shuriken", "Death Mark"),
     },
     "ko": {
@@ -87,7 +87,7 @@ TEXT = {
                  "연계" + E + ": 삼중 공격, 그림자 곁에 적이 하나면 위치를 바꿔 추격.",
         "skill2": "표창을 던져 직선을 관통: 처음 적에게 " + phy("q") + "의 피해, 이후 적에게 {q_pen}%.",
         "ult": "교전 중인 챔피언에게: " + R + "대상 지정 불가" + E + ", 관통 돌진해 그림자(표창·베기 따라 함)와 표식을 남김. " + A + "{r_pop}초" + E + " 뒤 " +
-               phy("r") + " 폭발, 그동안 적중마다 +" + O + "{r_per}" + E + "(최대 3). 포위되면 그림자로 복귀. " + O + "연계" + E +
+               phy("r") + " 폭발, 그동안 적중마다 +" + O + "{r_per}" + E + "(최대 3). 처치·포위·군중 제어 시 그림자로 복귀. " + O + "연계" + E +
                ": R→W→E→Q.",
         "names": ("살아있는 그림자", "예리한 표창", "죽음의 표식"),
     },
@@ -100,7 +100,7 @@ TEXT = {
                  "：三連撃、影の近くの敵が一人なら入れ替わって追撃。",
         "skill2": "手裏剣を投げ直線を貫通：最初の敵に" + phy("q") + "、以降の敵に{q_pen}%。",
         "ult": "交戦中のチャンピオンに：" + R + "対象指定不可" + E + "で突き抜け、影（手裏剣と影薙ぎを真似る）と刻印を残す。" + A + "{r_pop}秒" + E + "後" + phy("r") +
-               "炸裂、その間の命中ごとに+" + O + "{r_per}" + E + "（最大3）。囲まれると影に戻る。" + O + "コンボ" + E + "：R→W→E→Q。",
+               "炸裂、その間の命中ごとに+" + O + "{r_per}" + E + "（最大3）。撃破・包囲・行動妨害で影に戻る。" + O + "コンボ" + E + "：R→W→E→Q。",
         "names": ("影分身", "風魔手裏剣", "死の刻印"),
     },
 }
