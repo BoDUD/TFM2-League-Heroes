@@ -352,12 +352,16 @@ def body_of(frames):
 
 
 def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None, anchor=None,
-                 keep_by_tag=None):
+                 keep_by_tag=None, still=()):
     """Every action of the sheet (or only `tags`) made `scale` as big; returns {tag: plan}. same_as {tag: source tag}: a
     copy of another action's frames (import_native's bake: the attack with a flash drawn in) takes its source's plan.
     body: the range the counts come from (body_of the idle as drawn), when the idle has been shrunk already.
     anchor: a colour only one feature has; the lines then follow the body from frame to frame (anchor_shifts).
-    keep_by_tag: {tag: keep colours} for an action that needs other ones (a lying death)."""
+    keep_by_tag: {tag: keep colours} for an action that needs other ones (a lying death).
+    still: actions whose body stands still from frame to frame while something over it floats (Karma's idle: her ring
+    bobs, and the anchor colour is on the ring too) - the lines as chosen, taken at the same place in every frame: the
+    anchor read the ring's float as the body moving and cut her legs one row higher in two frames
+    (「待机动画效果的时候腿部变形啊」)."""
     if body is None:
         body = body_of(sheet[body_tag])
     # one plan per action from its own frames (its head box and hands are tight there; one plan for all the actions
@@ -384,6 +388,8 @@ def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), b
                 refs[tag] = next((p for p in anchor_points(fr, anchor) if p is not None), None)
             plans[tag] = plan_tag(fr, body, scale, (keep_by_tag or {}).get(tag, keep_colours),
                                   shifts=anchor_shifts(fr, anchor, refs[tag]) if anchor else None)
+            if tag in still:
+                plans[tag]["shifts"] = None
     for tag in todo:
         sheet[tag] = apply_tag(sheet[tag], plans[tag])
     return plans

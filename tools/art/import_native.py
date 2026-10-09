@@ -663,6 +663,10 @@ SHRINK_KEEP_TAG = {"karma": {"dead": ["!1BB663+3,9,16,10", "=222048", "C4815A", 
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
 SHRINK_ANCHOR = {"karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
+# actions whose body stands still while something over it floats: their lines are taken at the same place in every frame
+# (shrink_frames' still) - Karma's ring bobs in her idle and carries a square of the anchor's gem green, so the anchor
+# moved with it and her legs lost a row one higher in frames 3-4 (「待机动画效果的时候腿部变形啊」)
+SHRINK_STILL = {"karma": ["idle"]}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -1482,7 +1486,7 @@ def main():
             body0 = SF.body_of(sheet["idle"])
             a0 = sheet["idle"][0][0]
             idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero), body=body0,
-                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero))["idle"]
+                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()))["idle"]
             if hero in HEAD_AT:
                 hx, hy = HEAD_AT[hero]
                 nx, ny = SF.move_point(idle_plan, hx - a0.shape[1] // 2, hy - a0.shape[0] // 2)
@@ -1505,7 +1509,7 @@ def main():
             plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
                                                          keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
                                                          tags=[t for t in sheet if t != "idle"],
-                                                         anchor=SHRINK_ANCHOR.get(hero))}
+                                                         anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()))}
             SHRUNK[hero] = plans
             print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
                 f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
