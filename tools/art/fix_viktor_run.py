@@ -85,7 +85,14 @@ RUN_MS = 80
 # takes the weight (frames 1, 5) - the body never rises off the legs, so no gap opens at the waist and the design's
 # pelvis rows are not pasted back over the legs any more (seat() did that every frame: the thigh tops, rows 88-90,
 # stayed the idle's while the legs under them moved - 「只有脚动上面的腿不动」, and the joint looked broken)
-STEP3 = [(1, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 0), (-1, -2, 1), (0, -1, 2), (1, 1, 2), (1, 2, 1)]
+# The far leg is the near one mirrored (the user, 10-10: 「脚都穿模了」 - the far copy's long toe ran under the near
+# heel - then 「脚的方位是不是应该和头一个方向啊 这样看起来才不歪」 and of three standing versions picked B): a left leg
+# is a right leg mirrored, its shin FAR_SHIN columns left where the idle's far shin stands, the toes turned outward and
+# the far foot under the head; the two boots meet only heel to heel. In frames 5-6 the near boot rises 3 rows where it
+# stands instead of going back over the far heel (no square of it on the far boot); in frame 4 the far heel passes
+# behind the near one.
+FAR_SHIN = -8
+STEP3 = [(1, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 0), (0, 0, 3), (0, 0, 3), (1, 1, 2), (1, 2, 1)]
 BOB3 = [1, 0, 0, 0, 1, 0, 0, 0]
 SEAT = False
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
@@ -225,6 +232,19 @@ def fill_gaps(c, top):
                 c[q] = fill
 
 
+def mirrored_leg(near, shift):
+    """The near leg mirrored about its shin's middle (the narrowest leg row, under the knee), moved `shift` columns."""
+    row = S.KNEE_ROW + 1
+    xs = np.nonzero(near[row, :, 3])[0]
+    axis = int(round((xs.min() + xs.max()) / 2))
+    out = np.zeros_like(near)
+    ys, xs = np.nonzero(near[..., 3])
+    nx = 2 * axis - xs + shift
+    ok = (nx >= 0) & (nx < near.shape[1])
+    out[ys[ok], nx[ok]] = near[ys[ok], xs[ok]]
+    return out
+
+
 def run_frames(design, bob):
     """The design's body over its near leg drawn twice (fix_viktor_strips.run_frames_codex), the feet from feet()."""
     near, far = S.legs()
@@ -232,7 +252,7 @@ def run_frames(design, bob):
     body[(near[..., 3] > 0) | (far[..., 3] > 0)] = 0
     x, rows = S.PIVOT[0] + CAPE[0], slice(S.LEG_TOP, S.LEG_TOP + CAPE[1])
     body[rows, x] = design[rows, x]
-    far = np.roll(near, S.FAR_FROM, axis=1)
+    far = mirrored_leg(near, FAR_SHIN)
     at = feet()
     out = []
     for k in range(8):
