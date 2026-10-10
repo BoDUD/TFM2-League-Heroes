@@ -155,6 +155,9 @@ def make(name):
     return close_outline(to_rgba(rows)), dr, dc
 
 
+# 2026-10-11 the user's crops (Screenshots 002951 / 003003): 「眼睛旁边多了一块元素 左腿缺失了元素」 - a black square right
+# of the near eye and a black square where the image-left thigh meets its gold boot top: both the skin's colour
+FIXES = [(71, 64, "#FDC087"), (90, 63, "#FDC087")]       # (canvas row, column, colour) after tryn(*PICK)
 PICK = ("3", 42)       # the user's pick: draft 3 at 42 rows, league_tryndamere's way (「第三稿→42」, 2026-10-11); the
                        # even cuts (CUTS, 「3_42」 first) were dropped for their dirty black squares round the eyes
 
@@ -220,6 +223,9 @@ def main():
     a = ap.parse_args()
     if a.final:
         can, rows, cols, added = tryn(*PICK)
+        for y, x, col in FIXES:
+            can[y, x, :3] = R.hx(col)
+            can[y, x, 3] = 255
         bb = Image.fromarray(can).getbbox()
         info = f"{bb[2] - bb[0]} x {bb[3] - bb[1]} box {bb}, outline +{added}, rows kept {rows}, cols kept {cols}"
         if a.check:
