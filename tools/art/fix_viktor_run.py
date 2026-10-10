@@ -54,6 +54,9 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 sys.path.insert(0, HERE)
 import fix_viktor_strips as S  # noqa: E402
+sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+import strips as G  # noqa: E402
+import viktor_walk_legs as WL  # noqa: E402
 
 Z = 8
 # League's run, frames 1-8: a foot's centre in columns from its hip (+ = forward) and the rows it is off the ground
@@ -64,11 +67,56 @@ TRAJ = [5.0, 2.5, 0.2, -2.15, -4.45, -5.45, -2.1, 1.5]
 # one navy lump (the user: 「感觉还是有点奇怪」)
 LIFT = [0, 0, 0, 0, 3, 4, 4, 2]
 HIP = 1               # both hips' column from the pivot, as HIP_X draws them in
+# Run v10 (the user, 2026-10-10: 「维克托腿部走路好像有点变形的」): both feet had walked one line (each boot's centre at
+# the pivot + 1 + TRAJ) from hips drawn 3 in, so the two 10-px boots met at every pass, and a lifted leg folded its
+# thigh's top away and hung the boot under the knee. Now each leg is posed as league_zed's run legs: the thigh's rows
+# shifted in proportion from the hip down to the knee, the shin leaning on to the boot, the boot rows moved whole,
+# the shin + boot raised `lift` rows behind the thigh (a bent knee, the thigh kept whole). The hips come in 2 each; per
+# frame (boot_dx, lift) from the leg's own place, League's order (planted 1-4 sliding back, heel up 5, up 6, past the
+# planted boot a row clear of it in 7, reaching in 8); the far leg half a cycle later. The knee: half the boot's lean
+# when planted, a column ahead of the boot when lifted.
+# The pace (the user again: 「有点怪啊走路 你没感觉吗」): run v10 kept run v9's 8 x 133 ms, a slow shuffle whose small
+# steps slid along the ground. oppi's own Viktor walks 10 x 65 ms with feet lifted 1-2 px; at 80 ms a frame the same
+# steps come quick (a cycle in 0.64 s). Lifting higher stacks his two 10-px boots into two slabs (tried: heel kicks up
+# 2-3 behind the thigh).
+RUN_MS = 80
+# run v11 (the user picked C - each leg in its own lane - then: 「但是腿部模型变形问题没解决」): per frame (shin_dx,
+# boot_dx, lift) for the near leg, the far one half a cycle later: planted 4 frames sliding back a column a frame,
+# then heel up 1, the knee raised 2 while it swings forward, down again; BOB3 sinks the body + thighs a row as a foot
+# takes the weight (frames 1, 5) - the body never rises off the legs, so no gap opens at the waist and the design's
+# pelvis rows are not pasted back over the legs any more (seat() did that every frame: the thigh tops, rows 88-90,
+# stayed the idle's while the legs under them moved - 「只有脚动上面的腿不动」, and the joint looked broken)
+# The far leg is the near one mirrored (the user, 10-10: 「脚都穿模了」 - the far copy's long toe ran under the near
+# heel - then 「脚的方位是不是应该和头一个方向啊 这样看起来才不歪」 and of three standing versions picked B): a left leg
+# is a right leg mirrored, its shin FAR_SHIN columns left where the idle's far shin stands, the toes turned outward and
+# the far foot under the head. Then 「右脚的模型走路时还是会穿模变形」: with the shins 8 apart the heels stood one column
+# apart, so a lifted boot moving toward the other always touched it (the near boot, raised 3 to clear the far heel,
+# also crushed its 12-row leg). The far shin now stands FAR_SHIN = 10 columns left (the heels 3 apart, a gap between
+# the thighs as under the pelvis of the idle), the boots go up at most 2 rows, and every frame was checked: a lifted
+# boot never touches the other leg (both planted they may overlap - the near foot in front).
+FAR_SHIN = -10
+# per frame (dx, lift) of the near leg, the far one half a cycle later: planted 4 frames going back a column, then up
+# 1, 2, 2, 1 while it comes forward again
+STEP4 = [(1, 0), (1, 0), (0, 0), (-1, 0), (-1, 1), (0, 2), (1, 2), (1, 1)]
+BOB3 = [1, 0, 0, 0, 1, 0, 0, 0]
+SEAT = False
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
+# run v14 (viktor_walk_legs: the legs from the design's own rows): what stands in front of the legs - the staff under
+# the hip (rows, columns boxes; planted, it does not sink with the body: the hand slides down it, and its foot never
+# goes under the soles), the claw (columns from CLAW right) and the cape's inner edge by the staff (LINING box: its
+# dark red over the far thigh's outer side, as in the idle - without it the far leg stood against the staff and read
+# as part of it); the rest of the cape hangs behind. Between the two hip plates under the belt the dark under-robe
+# (CROTCH columns, two rows), as the idle's far thigh covered it
+STAFF = ((88, 97, 55, 58), (97, 100, 54, 58))
+CLAW = 72
+LINING = (89, 93, 58, 60)
+CROTCH = (63, 66)
+UNDER = (0x1A, 0x14, 0x20)
 TORSO = 30            # design rows 0..29 (from the design's top) are in every run cell as they are
 PELVIS = (30, 33)     # design rows 30..32: the pelvis armour put back
 BODY = (11, 24)       # design columns of the pelvis (from the design's left edge): right of the cape, left of the claw
 THIGHS = (33, 36)     # design rows under the pelvis: the design's thigh tops underlaid
+UNDERLAY = False      # run v10's legs keep their thighs whole: the design's still thigh tops would show beside them
 OUT = (0x0B, 0x09, 0x10)
 LEG = {(0x3E, 0x42, 0x70), (0x5B, 0x61, 0x94), (0x3A, 0x2C, 0x40), (0x7E, 0x86, 0xB8), (0x1A, 0x14, 0x20),
        (0x6A, 0x4A, 0x5A), (0x6F, 0x86, 0xAE)}   # the legs' navies, greys and shadows (not the cape's red)
@@ -132,28 +180,136 @@ def shin(leg):
                     leg[y, e] = (*OUT, 255)
 
 
-def run_frames(design, bob):
-    """The design's body over its near leg drawn twice (fix_viktor_strips.run_frames_codex), the feet from feet()."""
-    near, far = S.legs()
+def zleg(part, dx, lift):
+    """One leg of run v12, rigid: every square of it moved dx columns and up `lift` rows together - no joint of it
+    offset from another (the user, 10-10, at a shin block a column off its thigh: 「你是看不到这里有问题吗」 - the leg is
+    a stack of one-row pieces, the grey thigh, the navy knee cap, a one-square shin, the orange ring, the dark ankle
+    ring and the boot, and any two of them a column apart read as a broken knee). Drawn under the body, so a lifted
+    leg's top goes up behind the pelvis: the leg shorter, as raised from the hip."""
+    out = np.zeros_like(part)
+    ys, xs = np.nonzero(part[..., 3])
+    ny, nx = ys - lift, xs + dx
+    ok = (ny >= 0) & (nx >= 0) & (nx < part.shape[1])
+    out[ny[ok], nx[ok]] = part[ys[ok], xs[ok]]
+    return out
+
+
+def fill_gaps(c, top):
+    """A one- or two-square gap walled in (where the two legs cross, or between the pelvis and a thigh) from row
+    `top` down: filled with the commonest colour round it (the outline colour there would stand alone)."""
+    clear = c[..., 3] == 0
+    H, W = clear.shape
+    seen = np.zeros_like(clear)
+    stack = [(y, x) for y in range(H) for x in (0, W - 1)] + [(y, x) for x in range(W) for y in (0, H - 1)]
+    while stack:
+        y, x = stack.pop()
+        if 0 <= y < H and 0 <= x < W and clear[y, x] and not seen[y, x]:
+            seen[y, x] = True
+            stack += [(y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)]
+    hole = clear & ~seen
+    lab = np.zeros_like(hole)
+    for y, x in zip(*np.nonzero(hole)):
+        if lab[y, x] or y < top:
+            continue
+        comp, st = [], [(y, x)]
+        lab[y, x] = True
+        while st:
+            cy, cx = st.pop()
+            comp.append((cy, cx))
+            for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                q = (cy + a, cx + b)
+                if hole[q] and not lab[q]:
+                    lab[q] = True
+                    st.append(q)
+        if len(comp) <= 2:
+            cs = set(comp)
+            votes = {}
+            for cy, cx in comp:
+                for a in (-1, 0, 1):
+                    for b in (-1, 0, 1):
+                        q = (cy + a, cx + b)
+                        if q not in cs and c[q][3] and tuple(int(v) for v in c[q][:3]) != OUT:
+                            k3 = tuple(int(v) for v in c[q][:4])
+                            votes[k3] = votes.get(k3, 0) + 1
+            fill = max(votes, key=votes.get) if votes else (*OUT, 255)
+            for q in comp:
+                c[q] = fill
+
+
+def mirrored_leg(near, shift):
+    """The near leg mirrored about its shin's middle (the narrowest leg row, under the knee), moved `shift` columns."""
+    row = S.KNEE_ROW + 1
+    xs = np.nonzero(near[row, :, 3])[0]
+    axis = int(round((xs.min() + xs.max()) / 2))
+    out = np.zeros_like(near)
+    ys, xs = np.nonzero(near[..., 3])
+    nx = 2 * axis - xs + shift
+    ok = (nx >= 0) & (nx < near.shape[1])
+    out[ys[ok], nx[ok]] = near[ys[ok], xs[ok]]
+    return out
+
+
+def stray_outline(c, top):
+    """Outline squares from row `top` down that touch no colour (a leg moved off the outline it shared) - gone."""
+    op = c[..., 3] > 0
+    ink = op & (c[..., :3] == np.array(OUT, np.uint8)).all(-1)
+    col = np.pad(op & ~ink, 1)
+    near_col = np.zeros_like(op)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            near_col |= col[1 + dy:1 + dy + op.shape[0], 1 + dx:1 + dx + op.shape[1]]
+    stray = ink & ~near_col
+    stray[:top] = False
+    c[stray] = 0
+
+
+def layers(design):
+    """The design taken apart for the walk: (back, front, staff, near leg part, far leg part) - the cape behind the
+    legs; the staff, the claw and the cape's inner edge in front; the far leg the near one mirrored (viktor_walk_legs)."""
+    near, far0 = S.legs()
     body = design.copy()
-    body[(near[..., 3] > 0) | (far[..., 3] > 0)] = 0
+    body[(near[..., 3] > 0) | (far0[..., 3] > 0)] = 0
     x, rows = S.PIVOT[0] + CAPE[0], slice(S.LEG_TOP, S.LEG_TOP + CAPE[1])
     body[rows, x] = design[rows, x]
-    far = np.roll(near, S.FAR_FROM, axis=1)
-    at = feet()
-    out = []
-    for k in range(8):
-        leg = {side: (S.HIP_X[side], at[side][k][0] - S.FOOT_X[side], at[side][k][1],
-                      S.KNEE_BEND if at[side][k][1] else 0) for side in at}
-        c = bent_joined(far, *leg["far"])
-        b = np.roll(body, bob[k], axis=0)
-        m = b[..., 3] > 0
-        c[m] = b[m]
-        n = bent_joined(near, *leg["near"])
-        m = n[..., 3] > 0
-        c[m] = n[m]
-        out.append(c)
-    return out
+    staff = np.zeros_like(body)
+    for y0, y1, x0, x1 in STAFF:
+        staff[y0:y1, x0:x1] = body[y0:y1, x0:x1]
+    front = np.zeros_like(body)
+    front[:S.LEG_TOP] = body[:S.LEG_TOP]
+    front[S.LEG_TOP:, CLAW:] = body[S.LEG_TOP:, CLAW:]
+    y0, y1, x0, x1 = LINING
+    front[y0:y1, x0:x1] = body[y0:y1, x0:x1]
+    back = body.copy()
+    back[(front[..., 3] > 0) | (staff[..., 3] > 0)] = 0
+    return back, front, staff, near, WL.far_part(near)
+
+
+def legs_frame(parts, near_pose, far_pose, b):
+    """One whole figure on the legs in these poses (viktor_walk_legs (s1, s2, lift)), the body sunk b rows (the staff's
+    lower part planted), closed as the import will close it."""
+    back, front, staff, near, far = parts
+    c = np.roll(back, b, axis=0)
+    for y in (S.LEG_TOP + b, S.LEG_TOP + 1 + b):
+        for x in range(*CROTCH):
+            if not c[y, x, 3]:
+                c[y, x] = (*UNDER, 255)
+    for layer in (WL.leg(far, far_pose, b), WL.leg(near, near_pose, b), np.roll(front, b, axis=0), staff):
+        m = layer[..., 3] > 0
+        c[m] = layer[m]
+    stray_outline(c, S.LEG_TOP - 4)
+    # closed as the import will close it: the import adds nothing new
+    low = int(np.nonzero(c[..., 3].any(1))[0].max())
+    c = G.complete_outline(c, color=OUT, dark=70, feet=low)[0]
+    stray_outline(c, S.LEG_TOP - 4)
+    return c
+
+
+def run_frames(design, bob):
+    """Run v14: the design's body over legs put together from the design's own leg rows (viktor_walk_legs) - the
+    cape behind the legs, the staff, the claw and the cape's inner edge in front; the body sinks WL.BOB rows as a foot
+    lands, the staff's lower part staying planted."""
+    parts = layers(design)
+    return [legs_frame(parts, WL.NEAR[k], WL.FAR[(k + 4) % 8], WL.BOB[k]) for k in range(8)]
 
 
 def seat(a, cells):
@@ -186,13 +342,20 @@ def seat(a, cells):
                     cell[top + y + dy, x + dx] = design[top + y, x]
                     put += 1
         under = 0
-        for y in range(*THIGHS):
+        for y in range(*THIGHS) if UNDERLAY else ():
             for x in range(left + BODY[0], left + BODY[1]):
                 if design[top + y, x, 3] and tuple(int(v) for v in design[top + y, x, :3]) in LEG:
                     Y, X = top + y + dy, x + dx
                     if not cell[Y, X, 3] or tuple(int(v) for v in cell[Y, X, :3]) == OUT:
                         cell[Y, X] = design[top + y, x]
                         under += 1
+        fill_gaps(cell, top + PELVIS[0] + dy)
+        # the import closes the outline (complete_outline, dark 70): closed here first, so a gap that closure would
+        # wall in is filled too and the import adds nothing new under the pelvis
+        low = int(np.nonzero(cell[..., 3].any(1))[0].max())
+        closed = G.complete_outline(cell, color=OUT, dark=70, feet=low)[0]
+        fill_gaps(closed, top + PELVIS[0] + dy)
+        cell[...] = closed
         print(f"run cell {k + 1}: torso at dy {dy} dx {dx}, pelvis {put} px, thighs underlaid {under} px")
 
 
@@ -202,13 +365,17 @@ def main():
         cells = json.load(f)
     with open(lp(S.RUN_MANIFEST), encoding="utf-8") as f:
         bob = [fr["upper_shift"][1] for fr in json.load(f)["frames"]]
-    at = feet()
     for k in range(8):
-        print(f"frame {k + 1}: near {at['near'][k][0]:+.2f} up {at['near'][k][1]}, far {at['far'][k][0]:+.2f} up "
-              f"{at['far'][k][1]}")
+        print(f"frame {k + 1}: near foot {WL.foot('near', k)[0]:+d} up {WL.foot('near', k)[1]}, far foot "
+              f"{WL.foot('far', k)[0]:+d} up {WL.foot('far', k)[1]}, body down {WL.BOB[k]}")
+    for fr in cells["tags"]["run"]:
+        fr["ms"] = RUN_MS
+    with open(lp(os.path.join(NATIVE, "viktor_cells.json")), "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(cells, indent=1, ensure_ascii=False))
     a = load("viktor_run.png")
     S.place_run(a, cells, run_frames(design, bob))
-    seat(a, cells)
+    if SEAT:
+        seat(a, cells)
     Image.fromarray(a).resize((a.shape[1] * Z, a.shape[0] * Z), Image.NEAREST).save(lp(os.path.join(NATIVE, "viktor_run.png")))
 
 
