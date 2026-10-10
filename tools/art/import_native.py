@@ -302,7 +302,9 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
-DARK = {"fiora": 40}
+DARK = {"fiora": 40, "zed": 30}
+# Zed (2026-10-10, 「模型说不出来的糊」): his blue steel, reds and dark red edge the silhouette; from 30 they get the
+# outline too (design_zed2.DARK, rig_zed.DARK close it the same way), 98% of his edge black instead of 84%
 # heroes whose closed outline strips.clean_outline then tidies (one black ring, one pixel thick, no crumbs; the face
 # box round the EYES colour untouched). Fiora's Codex frames mixed black with her darkest teal, wine and brown on
 # the ring, doubled it inside and left loose black crumbs on the legs (the user: "黑色描边处理一下 弄干净点").

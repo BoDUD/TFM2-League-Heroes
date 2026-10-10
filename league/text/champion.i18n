@@ -550,9 +550,9 @@
       "league_zed": {
         "name": "劫",
         "attack": "<#ff9028ff>影忍法！灭魂劫<>：技能命中英雄后，下次攻击英雄附加其6%最大生命真实伤害（<#ffb900ff>10秒<>）。<#ff9028ff>影奥义！鬼斩<>（自动，<#ffb900ff>4秒<>）：旋斩周围，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>伤害，<#ef5350ff>减速25%<>。",
-        "skill": "影子落到敌方英雄脚下（<#ffb900ff>5秒<>），接着鬼斩和诸刃；影子在时模仿他的每次诸刃和鬼斩。<#ff9028ff>连招<>：三影齐发，随后影子旁只有一名敌人时换位追击。",
+        "skill": "影子落到敌方英雄脚下（<#ffb900ff>5秒<>），接着鬼斩和诸刃；影子在时模仿他的每次诸刃和鬼斩。影子旁只有一名敌人时，和影子互换位置追击。",
         "skill2": "掷出手里剑，贯穿一条直线：首个敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>伤害，之后的受到60%。",
-        "ult": "对交战中的英雄发动：<#ef5350ff>无法选中<>，突进穿过并留下影子（模仿诸刃和鬼斩）与印记，<#ffb900ff>3秒<>后爆发<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，期间每次命中+<#ff9028ff>35<>（最多3次）。击杀、被包围或被控时换回影子。<#ff9028ff>连招<>：R→W→E→Q。"
+        "ult": "对交战中的英雄发动：<#ef5350ff>无法选中<>，突进穿过并留下影子（模仿诸刃和鬼斩）与印记，<#ffb900ff>3秒<>后爆发<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，期间每次命中+<#ff9028ff>35<>（最多3次）。击杀、被包围或被控时，和影子互换位置。"
       },
       "league_olaf": {
         "name": "奥拉夫",
@@ -1552,9 +1552,9 @@
       "league_zed": {
         "name": "劫",
         "attack": "<#ff9028ff>強者特權<>：技能命中英雄後，下次攻擊英雄附加其6%最大生命真實傷害（<#ffb900ff>10秒<>）。<#ff9028ff>影斬<>（自動，<#ffb900ff>4秒<>）：旋斬周圍，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>傷害，<#ef5350ff>緩速25%<>。",
-        "skill": "影子落到敵方英雄腳下（<#ffb900ff>5秒<>），接著影斬和風魔手裡劍；影子在時模仿他的每次手裡劍和影斬。<#ff9028ff>連招<>：三影齊發，隨後影子旁只有一名敵人時換位追擊。",
+        "skill": "影子落到敵方英雄腳下（<#ffb900ff>5秒<>），接著影斬和風魔手裡劍；影子在時模仿他的每次手裡劍和影斬。影子旁只有一名敵人時，和影子互換位置追擊。",
         "skill2": "擲出手裡劍，貫穿一條直線：首個敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>傷害，之後的受到60%。",
-        "ult": "對交戰中的英雄發動：<#ef5350ff>無法選取<>，突進穿過並留下影子（模仿手裡劍和影斬）與印記，<#ffb900ff>3秒<>後爆發<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，期間每次命中+<#ff9028ff>35<>（最多3次）。擊殺、被包圍或被控時換回影子。<#ff9028ff>連招<>：R→W→E→Q。"
+        "ult": "對交戰中的英雄發動：<#ef5350ff>無法選取<>，突進穿過並留下影子（模仿手裡劍和影斬）與印記，<#ffb900ff>3秒<>後爆發<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>，期間每次命中+<#ff9028ff>35<>（最多3次）。擊殺、被包圍或被控時，和影子互換位置。"
       },
       "league_olaf": {
         "name": "歐拉夫",
@@ -2554,9 +2554,9 @@
       "league_zed": {
         "name": "Zed",
         "attack": "Wrist blades. <#ff9028ff>Contempt for the Weak<>: after his spells hit a champion, his next attack on a champion adds 6% of its max health as true damage (<#ffb900ff>10s<>). <#ff9028ff>Shadow Slash<> (automatic, <#ffb900ff>4s<>): a spin for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> around him, <#ef5350ff>slowing champions 25%<>.",
-        "skill": "Sends his shadow onto an enemy champion (<#ffb900ff>5s<>), then Shadow Slash and Razor Shuriken if ready; while it stands it copies every shuriken and slash of his. <#ff9028ff>Combo<>: the triple strike; then, with one enemy near the shadow, he swaps to it to chase.",
+        "skill": "Sends his shadow onto an enemy champion (<#ffb900ff>5s<>), then Shadow Slash and Razor Shuriken if ready; while it stands it copies every shuriken and slash of his. With one enemy near the shadow, he trades places with it to chase.",
         "skill2": "Throws a shuriken through a line: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> to the first enemy, 60% to the rest.",
-        "ult": "On a champion in a fight: <#ef5350ff>untargetable<>, he dashes through him, leaving a shadow (it copies his shuriken and slash) and a mark that bursts after <#ffb900ff>3s<> for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> plus <#ff9028ff>35<> per hit meanwhile (up to 3). On a kill, outnumbered or crowd-controlled, he swaps back to the shadow. <#ff9028ff>Combo<>: R, W, E, Q."
+        "ult": "On a champion in a fight: <#ef5350ff>untargetable<>, he dashes through him, leaving a shadow (it copies his shuriken and slash) and a mark that bursts after <#ffb900ff>3s<> for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> plus <#ff9028ff>35<> per hit meanwhile (up to 3). On a kill, outnumbered or crowd-controlled, he trades places with the shadow."
       },
       "league_olaf": {
         "name": "Olaf",
@@ -3556,9 +3556,9 @@
       "league_zed": {
         "name": "제드",
         "attack": "<#ff9028ff>약자 멸시<>: 스킬이 챔피언에게 적중한 뒤 다음 챔피언 공격은 대상 최대 체력의 6% 고정 피해(<#ffb900ff>10초<>). <#ff9028ff>그림자 베기<>(자동, <#ffb900ff>4초<>): 주변을 베어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 피해, <#ef5350ff>25% 둔화<>.",
-        "skill": "그림자를 적 챔피언 발밑에 보내고(<#ffb900ff>5초<>) 그림자 베기와 예리한 표창을 이어서, 그림자가 있는 동안 표창과 베기를 따라 함. <#ff9028ff>연계<>: 삼중 공격, 그림자 곁에 적이 하나면 위치를 바꿔 추격.",
+        "skill": "그림자를 적 챔피언 발밑에 보내고(<#ffb900ff>5초<>) 그림자 베기와 예리한 표창을 이어서, 그림자가 있는 동안 표창과 베기를 따라 함. 그림자 곁에 적이 하나면 그림자와 위치를 바꿔 추격.",
         "skill2": "표창을 던져 직선을 관통: 처음 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 피해, 이후 적에게 60%.",
-        "ult": "교전 중인 챔피언에게: <#ef5350ff>대상 지정 불가<>, 관통 돌진해 그림자(표창·베기 따라 함)와 표식을 남김. <#ffb900ff>3초<> 뒤 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 폭발, 그동안 적중마다 +<#ff9028ff>35<>(최대 3). 처치·포위·군중 제어 시 그림자로 복귀. <#ff9028ff>연계<>: R→W→E→Q."
+        "ult": "교전 중인 챔피언에게: <#ef5350ff>대상 지정 불가<>, 관통 돌진해 그림자(표창·베기 따라 함)와 표식을 남김. <#ffb900ff>3초<> 뒤 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 폭발, 그동안 적중마다 +<#ff9028ff>35<>(최대 3). 처치·포위·군중 제어 시 그림자와 위치를 바꿈."
       },
       "league_olaf": {
         "name": "올라프",
@@ -4558,9 +4558,9 @@
       "league_zed": {
         "name": "ゼド",
         "attack": "<#ff9028ff>弱者必衰<>：スキルがチャンピオンに命中後、次のチャンピオンへの攻撃が最大体力の6%確定ダメージ（<#ffb900ff>10秒<>）。<#ff9028ff>影薙ぎ<>（自動、<#ffb900ff>4秒<>）：周囲を斬り<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>、<#ef5350ff>25%スロウ<>。",
-        "skill": "影を敵チャンピオンの足元に送り（<#ffb900ff>5秒<>）、影薙ぎと手裏剣を続け、影がいる間は手裏剣と影薙ぎを毎回真似る。<#ff9028ff>コンボ<>：三連撃、影の近くの敵が一人なら入れ替わって追撃。",
+        "skill": "影を敵チャンピオンの足元に送り（<#ffb900ff>5秒<>）、影薙ぎと手裏剣を続け、影がいる間は手裏剣と影薙ぎを毎回真似る。影の近くの敵が一人なら影と入れ替わって追撃。",
         "skill2": "手裏剣を投げ直線を貫通：最初の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>、以降の敵に60%。",
-        "ult": "交戦中のチャンピオンに：<#ef5350ff>対象指定不可<>で突き抜け、影（手裏剣と影薙ぎを真似る）と刻印を残す。<#ffb900ff>3秒<>後<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>炸裂、その間の命中ごとに+<#ff9028ff>35<>（最大3）。撃破・包囲・行動妨害で影に戻る。<#ff9028ff>コンボ<>：R→W→E→Q。"
+        "ult": "交戦中のチャンピオンに：<#ef5350ff>対象指定不可<>で突き抜け、影（手裏剣と影薙ぎを真似る）と刻印を残す。<#ffb900ff>3秒<>後<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>炸裂、その間の命中ごとに+<#ff9028ff>35<>（最大3）。撃破・包囲・行動妨害で影と入れ替わる。"
       },
       "league_olaf": {
         "name": "オラフ",

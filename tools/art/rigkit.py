@@ -449,12 +449,13 @@ def orphan_outline(a, outline):
     return ink & ~near
 
 
-def finish(a, outline, soles, keep=None, pinholes=3):
+def finish(a, outline, soles, keep=None, pinholes=3, dark=70):
     """Pinholes filled, the outline closed round moved edges (never under the soles), stray outline squares and
-    crumbs under 3 squares gone, pinholes the completion shut filled. `keep` squares (a pasted head) never change."""
+    crumbs under 3 squares gone, pinholes the completion shut filled. `keep` squares (a pasted head) never change.
+    `dark`: complete_outline's luminance from which an edge square gets the outline (import_native.DARK's)."""
     a = fill_pinholes(a.copy(), pinholes, outline)
     low = int(np.nonzero(a[..., 3].any(1))[0].max())
-    a, _, _ = strips.complete_outline(a, color=tuple(outline), feet=max(soles, low), keep=keep)
+    a, _, _ = strips.complete_outline(a, color=tuple(outline), dark=dark, feet=max(soles, low), keep=keep)
     while True:
         gone = orphan_outline(a, outline)
         if keep is not None:

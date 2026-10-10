@@ -21,6 +21,14 @@ inside the attack (league_rengar's Savagery way).
           for exactly one step, so one checkpoint copies each) - the user: 「你可以增加节点 实现成原样的」 (W's tree 781
           nodes: the engine copies it every tick; the R shadow's checkpoints sit in the ult, which it does not copy) -
           and the swap onto it to chase (one champion near it, none near him, soon after the combo).
+  The swaps (2026-10-10, the user: 「这个改一改」 - of: two swaps due at once had no order, and a swap ended the
+          shadow where League's W2 / R2 trade places): he and the shadow trade places - the shadow goes on where he
+          stood for the rest of its time, copying him - and the escape (the R shadow) wins: no chase while an escape
+          is due or under way, nor for chase_t ticks after one. The moved shadow is spawned at his feet (a projectile
+          leaves from the caster, work/zd4/probe_swap.py) by a periodic AddCasted on him, two ticks before the
+          shadow's own Teleport: the W shadow's spawner hangs from his attacks and the R shadow's from the ult, so
+          neither chain sits in W's tree, which the engine copies every tick (tools/perf/tick.rs: a 660-node chain
+          in W's tree +35% CPU a tick, in an AddCasted nothing measurable).
   attack  The wrist-blade swing, the hit on tick a_st. Shadow Slash (影奔, automatic): with e_cd off and an enemy
           within e_r, the attack is the E spin instead - e_dmg + e_ratio% AD round him (a live shadow copies it), the
           champions slowed e_slow% for e_slow_t ticks.
@@ -288,8 +296,18 @@ def build(p):
         echo_step ticks copying every later Q / E of his, each with its picture; the chase swap (within chase_t), the
         end."""
         assert (d_e, d_q - d_e, p["echo_step"]) == (2, 8, 12), "the pieces' lengths in tools/art/import_zed.py"
-        swap = sw("sn2", NONE, sw("sn1", sw("zn", NONE, combine(*rm(live), cview("w_swap"), {"type": "Teleport"},
-                                                               sfx("w2")))))
+        def chase(late):
+            """One enemy champion by the shadow, none by him and no escape due (r_back), under way (r_go, r_tp) or
+            just made (no_chase): w_go asks the spawner his attacks hang on him (moved_w) for the shadow at his feet,
+            and two ticks later he takes the shadow's spot (still no escape under way). Without a spawner (no attack
+            for 10 s) w_go is still up then: he swaps and the shadow is gone, as before."""
+            hop = sw("r_go", NONE, sw("r_tp", NONE, combine(cview("w_swap"), {"type": "Teleport"}, sfx("w2"))))
+            go = combine(flag("w_go", 4), *([flag("w_late", 4)] if late else []),
+                         delayed(2, sw("w_tp", combine(*rm(live, "w_tp"), hop),
+                                       sw("w_go", combine(*rm(live, "w_go"), hop)))))
+            return sw("no_chase", NONE, sw("r_back", NONE, sw("r_go", NONE, sw("r_tp", NONE, sw(
+                "sn2", NONE, sw("sn1", sw("zn", NONE, go)))))))
+
         count = sw("sn_t", refresh("sn2", 7), combine(flag("sn_t", 1), refresh("sn1", 7)))
         out = [view("sh_in_a"), sfx("w_land"),
                pzone("sh_near", p["sh_near_r"], life, 6, "EnemyChampion", [on_me(count)]),
@@ -302,9 +320,26 @@ def build(p):
         for j, t in enumerate(ticks):
             out.append(delayed(t, sw(live, combine(*checkpoint("q_echo", "e_echo",
                                                                 view(f"sh_st{j % 4}"))))))
-        out += [delayed(t, sw(live, swap)) for t in range(p["swap_step"], p["chase_t"] + 1, p["swap_step"])]
+        out += [delayed(t, sw(live, chase(t > p["swap_step"])))
+                for t in range(p["swap_step"], p["chase_t"] + 1, p["swap_step"])]
         out.append(delayed(ticks[-1] + step, sw(live, combine(*rm(live), view("sh_out")))))
         return out
+
+    def moved_w():
+        """The W shadow where he stood when he took its spot (League's W2): a periodic AddCasted his attacks hang on
+        him (one at a time, 600 ticks) spawns it at his feet when w_go is up and lets the swap go on (w_tp); it lives
+        out the shadow's time - w_live2, the time left after the check at swap_step or 2 x swap_step (w_late) -
+        copying his shurikens and slashes every echo_step ticks with their pictures, then fades."""
+        step = p["echo_step"]
+        pieces = [view("w_swap")]
+        for j in range((p["w_life"] - p["swap_step"]) // step + 1):
+            pieces.append(delayed(1 + j * step, sw("w_live2", combine(*checkpoint("q_echo", "e_echo",
+                                                                                 view(f"sh_st{j % 4}"))),
+                                                   sw("w_out2", NONE, combine(flag("w_out2", 400), view("sh_out"))))))
+        left = sw("w_late", flag("w_live2", p["w_life"] - 2 * p["swap_step"]), flag("w_live2", p["w_life"] - p["swap_step"]))
+        spawn = sw("w_go", combine(*rm("w_go", "w_live2", "w_out2"), flag("w_tp", 4), left,
+                                   line("w_anchor2", 1, 1, 1, 5000, "EnemyWithoutTower", True, [], pieces)))
+        return on_me(sw("sp_on", NONE, combine(flag("sp_on", 590), casted(600, 1, spawn))))
 
     def combo(lead):
         """The pros' W-E-Q from tick lead, quick as League's (the first version took 46 ticks from the throw to the
@@ -342,7 +377,7 @@ def build(p):
     e_ready = {"type": "RandomTarget", "range": p["e_r"], "casting_target": "EnemyWithoutTower", "from_projectile": False,
                "effects": [flag("e_go", 1)]}
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(near, sw("e_cd", swing, combine(e_ready, sw("e_go", spin, swing)))),
+                      combine(near, sw("e_cd", swing, combine(e_ready, sw("e_go", spin, swing))), moved_w()),
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: W Living Shadow (+ W-E-Q)
@@ -375,15 +410,35 @@ def build(p):
         ticks = range(step, p["r_life"] - 2 * step + 1, step)
         cc = {"type": "RandomTarget", "range": 1, "casting_target": "AllyChampionInCC", "from_projectile": False,
               "effects": [refresh("r_back", 3)]}
-        back = sw("r_live", sw("r_back", combine(*rm("r_live", "r_back"), cview("w_swap"), {"type": "Teleport"},
-                                                view("w_swap"), sfx("w2"))))
-        out = [delayed(t, sw("r_live", combine(*checkpoint("qr_echo", "er_echo",
-                                                           sw("r_pic", NONE, view(f"sh_sr{(j // 2) % 4}")), busy),
-                                               cc, delayed(1, back))))
+        # the escape: r_go asks the spawner the ult hangs on him (moved_r) for the shadow at his feet, and two ticks
+        # later he takes this spot; from then on this spot's checkpoints stop (r_moved) and the moved shadow copies
+        # him till r_live runs out
+        hop = sw("r_tp", combine(*rm("r_tp"), cview("w_swap"), {"type": "Teleport"}, view("w_swap"), sfx("w2")))
+        back = sw("r_live", sw("r_moved", NONE, sw("r_back", combine(*rm("r_back"), flag("r_go", 4), delayed(2, hop)))))
+        out = [delayed(t, sw("r_live", sw("r_moved", NONE, combine(*checkpoint(
+                   "qr_echo", "er_echo", sw("r_pic", NONE, view(f"sh_sr{(j // 2) % 4}")), busy), cc, delayed(1, back)))))
                for j, t in enumerate(ticks)]
         fade = combine(*rm("r_live"), view("sh_out"))
-        # a cast on the last checkpoint finishes first
-        return out + [delayed(ticks[-1] + step, sw("r_live", sw("r_pic", delayed(step, fade), fade)))]
+        # a cast on the last checkpoint finishes first; a moved shadow fades on its own spot
+        return out + [delayed(ticks[-1] + step, sw("r_live", sw("r_moved", combine(*rm("r_live")),
+                                                               sw("r_pic", delayed(step, fade), fade))))]
+
+    def moved_r():
+        """The R shadow where he stood when he took its spot (League's R2): a periodic AddCasted the ult hangs on him
+        spawns it at his feet when r_go is up (r_tp lets the swap go on, r_moved stops the old spot, no_chase keeps
+        the W shadow from sending him back in); it copies his shurikens and slashes every r_echo_step ticks with their
+        pictures till r_live runs out, then fades."""
+        step = p["r_echo_step"]
+        busy = [refresh("r_pic", step + 2)]
+        pieces = [view("w_swap")]
+        for j, t in enumerate(range(step, p["r_life"] + 1, step)):
+            pieces.append(delayed(t, sw("r_live", combine(*checkpoint("qr_echo", "er_echo",
+                                                                      sw("r_pic", NONE, view(f"sh_sr{(j // 2) % 4}")), busy)),
+                                        sw("r_out2", NONE, combine(flag("r_out2", 400), view("sh_out"))))))
+        spawn = sw("r_go", combine(*rm("r_go", "r_out2"), flag("r_tp", 4), flag("r_moved", p["r_life"]),
+                                   flag("no_chase", p["chase_t"] + 10),
+                                   line("r_anchor2", 1, 1, 1, 5000, "EnemyWithoutTower", True, [], pieces)))
+        return on_me(casted(p["r_life"] + 4, 1, spawn))
 
     pop_dmg = [attack(p["r_dmg"], p["r_ratio"])]
     for k in range(1, 1 if p["native"] else 4):       # the add-on adds r_pct% of the damage dealt instead
@@ -400,7 +455,7 @@ def build(p):
                  combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                          buff("r_safe", p["r_inv"], damaged_reduce=100, cc_immune=True),
                          {"type": "CasterInvisible", "tick": p["r_inv"]},
-                         on_me(refresh("r_live", p["r_life"])),
+                         on_me(refresh("r_live", p["r_life"]), *rm("r_moved")), moved_r(),
                          line("r_anchor", 1, 1, 1, 5000, "EnemyWithoutTower", True, [],
                               [view("sh_in_r")] + r_pieces()),
                          delayed(p["r_go"] - 1, {"type": "RushMoveToBack", "speed": p["r_speed"], "applied_effects": [
