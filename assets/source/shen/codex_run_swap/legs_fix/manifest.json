@@ -1,0 +1,116 @@
+{
+  "grid": [
+    3,
+    3
+  ],
+  "logical_cell": [
+    60,
+    60
+  ],
+  "scale": 8,
+  "frame_edits": [
+    {
+      "frame": 4,
+      "edit_below_row": 37,
+      "native_crop": [
+        0,
+        676,
+        418,
+        816
+      ],
+      "ground_center_registration_delta": -4.5,
+      "original_ground_x": [
+        24,
+        33
+      ],
+      "final_ground_x": [
+        24,
+        34
+      ],
+      "protected_pixels_exact": true
+    },
+    {
+      "frame": 5,
+      "edit_below_row": 37,
+      "native_crop": [
+        418,
+        676,
+        836,
+        816
+      ],
+      "ground_center_registration_delta": 1.5,
+      "original_ground_x": [
+        23,
+        28
+      ],
+      "final_ground_x": [
+        21,
+        31
+      ],
+      "protected_pixels_exact": true
+    },
+    {
+      "frame": 6,
+      "edit_below_row": 37,
+      "native_crop": [
+        836,
+        676,
+        1254,
+        816
+      ],
+      "ground_center_registration_delta": 4.0,
+      "original_ground_x": [
+        25,
+        34
+      ],
+      "final_ground_x": [
+        25,
+        34
+      ],
+      "protected_pixels_exact": true
+    },
+    {
+      "frame": 7,
+      "edit_below_row": 37,
+      "native_crop": [
+        0,
+        1094,
+        418,
+        1227
+      ],
+      "ground_center_registration_delta": 5.0,
+      "original_ground_x": [
+        16,
+        24
+      ],
+      "final_ground_x": [
+        15,
+        25
+      ],
+      "protected_pixels_exact": true
+    },
+    {
+      "frame": 8,
+      "edit_below_row": 37,
+      "native_crop": [
+        418,
+        1094,
+        836,
+        1227
+      ],
+      "ground_center_registration_delta": 3.0,
+      "original_ground_x": [
+        16,
+        23
+      ],
+      "final_ground_x": [
+        15,
+        24
+      ],
+      "protected_pixels_exact": true
+    }
+  ],
+  "preview_frame_ms": 100,
+  "art_source": "built-in image_gen, exported with authorized pixel/palette/registration/protected-region restoration",
+  "visual_review": "Final green sheet inspected: frames4-8 show two broad purple trouser legs and two distinct brown boots. Preserve belt/upperbody and original sword/arm portions below belt. Running crossover follows reference approximately."
+}

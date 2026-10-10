@@ -595,6 +595,13 @@
         "skill": "遗物炮射出穿透目标的暗影光束：直线上的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害并<#ef5350ff>减速20%<><#ffb900ff>1.25秒<>，队友英雄回复<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>生命。",
         "skill2": "射出黑雾，附着在首个命中的敌人身上并造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害；<#ffb900ff>1秒<>后黑雾扩散，<#ef5350ff>禁锢<>它和周围的敌人<#ffb900ff>1.5秒<>。",
         "ult": "蓄力后朝远方交战中的英雄射出横贯战场的光束：中心对敌方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>物理伤害，两侧宽阔的光芒给她和沿途队友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%护盾<><#ffb900ff>3秒<>。"
+      },
+      "league_shen": {
+        "name": "慎",
+        "attack": "<#ff9028ff>忍法！气合盾<>：施放技能后获得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>护盾<#ffb900ff>2秒<>（<#ffb900ff>8秒<>一次，技能命中英雄则缩短）。强化普攻额外25伤害，对英雄再加其最大生命4%（刀穿过英雄则6%、攻速+50%）。",
+        "skill": "召回灵魂之刃，从目标身后飞回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并<#ef5350ff>减速25%<>，之后3次普攻强化。刀回手时附近有敌方英雄则施放<#ff9028ff>奥义！魂佑<>：<#ffb900ff>1.75秒<>内区域中的友方英雄不受普攻伤害（<#ffb900ff>15秒<>冷却）。",
+        "skill2": "向前突进，沿途敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并被<#ef5350ff>嘲讽1.17秒<>。嘲讽到英雄且暮临就绪时，灵魂之刃从突进起点飞回、穿过他们。",
+        "ult": "全图有友方英雄被控，或与敌方英雄缠斗且离慎较远时：给他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>护盾<#ffb900ff>5秒<>，慎引导<#ffb900ff>2.5秒<>后传送到他身边（被控则中断）。"
       }
     },
     "skill_name": {
@@ -1022,6 +1029,11 @@
         "skill1": "黑暗洞灭",
         "skill2": "无尽厮守",
         "ult": "暗影燎原"
+      },
+      "league_shen": {
+        "skill1": "奥义！暮临",
+        "skill2": "奥义！影缚",
+        "ult": "秘奥义！慈悲度魂落"
       }
     }
   },
@@ -1621,6 +1633,13 @@
         "skill": "聖物砲射出穿透目標的暗影光束：直線上的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害並<#ef5350ff>緩速20%<><#ffb900ff>1.25秒<>，隊友英雄回復<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>生命。",
         "skill2": "射出黑霧，附著在首個命中的敵人身上並造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害；<#ffb900ff>1秒<>後黑霧擴散，<#ef5350ff>定身<>它和周圍的敵人<#ffb900ff>1.5秒<>。",
         "ult": "蓄力後朝遠方交戰中的英雄射出橫貫戰場的光束：中心對敵方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>物理傷害，兩側寬闊的光芒給她和沿途隊友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%護盾<><#ffb900ff>3秒<>。"
+      },
+      "league_shen": {
+        "name": "慎",
+        "attack": "<#ff9028ff>凝氣盾<>：施放技能後獲得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>護盾<#ffb900ff>2秒<>（<#ffb900ff>8秒<>一次，技能命中英雄則縮短）。強化普攻額外25傷害，對英雄再加其最大生命4%（刀穿過英雄則6%、攻速+50%）。",
+        "skill": "召回靈魂之刃，從目標身後飛回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並<#ef5350ff>緩速25%<>，之後3次普攻強化。刀回手時附近有敵方英雄則施放<#ff9028ff>靈氣庇護<>：<#ffb900ff>1.75秒<>內區域中的友方英雄不受普攻傷害（<#ffb900ff>15秒<>冷卻）。",
+        "skill2": "向前突進，沿途敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並被<#ef5350ff>嘲諷1.17秒<>。嘲諷到英雄且暮光強襲就緒時，靈魂之刃從突進起點飛回、穿過他們。",
+        "ult": "全圖有友方英雄被控，或與敵方英雄纏鬥且離慎較遠時：給他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>護盾<#ffb900ff>5秒<>，慎引導<#ffb900ff>2.5秒<>後傳送到他身邊（被控則中斷）。"
       }
     },
     "skill_name": {
@@ -2048,6 +2067,11 @@
         "skill1": "刺骨幽闇",
         "skill2": "終末之擁",
         "ult": "黎明之影"
+      },
+      "league_shen": {
+        "skill1": "暮光強襲",
+        "skill2": "影襲",
+        "ult": "並肩作戰"
       }
     }
   },
@@ -2647,6 +2671,13 @@
         "skill": "The relic cannon fires a shadow beam through its target: enemies in the line take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage and are <#ef5350ff>slowed 20%<> for <#ffb900ff>1.25s<>; allied champions in it heal <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>.",
         "skill2": "Fires the Black Mist: it clings to the first enemy hit, dealing <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, and after <#ffb900ff>1s<> spreads, <#ef5350ff>rooting<> it and the enemies around it for <#ffb900ff>1.5s<>.",
         "ult": "Charges, then fires a beam of light across the battlefield at a fighting champion far away: its core deals <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> physical damage to enemy champions; its wide light gives her and the allied champions along it a <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% shield<> for <#ffb900ff>3s<>."
+      },
+      "league_shen": {
+        "name": "Shen",
+        "attack": "Sword strike. <#ff9028ff>Ki Barrier<>: every ability gives him a <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<> shield for <#ffb900ff>2s<> (once every <#ffb900ff>8s<>, sooner when abilities hit champions). Empowered attacks deal 25 more, and to champions 4% of their max health (6% and +50% attack speed if the blade passed one).",
+        "skill": "Recalls his spirit blade from behind the target: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> and <#ef5350ff>25% slow<> to enemies on its way; his next 3 attacks are empowered. With an enemy champion near on its return, <#ff9028ff>Spirit's Refuge<>: for <#ffb900ff>1.75s<> allied champions in the zone take no basic attack damage (<#ffb900ff>15s<> cooldown).",
+        "skill2": "Dashes forward: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> to enemies passed, <#ef5350ff>taunted 1.17s<>. Taunting a champion with Twilight Assault ready also pulls the blade from where the dash began, through them.",
+        "ult": "When an allied champion anywhere is crowd-controlled, or locked in a fight far from Shen: a <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> shield on it for <#ffb900ff>5s<>; Shen channels <#ffb900ff>2.5s<> and teleports to it (crowd control breaks it)."
       }
     },
     "skill_name": {
@@ -3074,6 +3105,11 @@
         "skill1": "Piercing Darkness",
         "skill2": "Last Embrace",
         "ult": "Dawning Shadow"
+      },
+      "league_shen": {
+        "skill1": "Twilight Assault",
+        "skill2": "Shadow Dash",
+        "ult": "Stand United"
       }
     }
   },
@@ -3673,6 +3709,13 @@
         "skill": "렐릭 캐논이 대상을 관통하는 어둠의 광선을 발사: 직선의 적은 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 물리 피해를 입고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>20% 둔화<>, 아군 챔피언은 <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<> 회복.",
         "skill2": "검은 안개를 발사해 처음 맞힌 적에게 달라붙어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 물리 피해. <#ffb900ff>1초<> 뒤 퍼지며 그 적과 주변 적을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>.",
         "ult": "기를 모은 뒤 멀리 교전 중인 챔피언에게 전장을 가로지르는 광선 발사: 중심은 적 챔피언에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 물리 피해, 넓은 빛은 자신과 경로의 아군 챔피언에게 <#ffb900ff>3초<> 동안 <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% 보호막<>."
+      },
+      "league_shen": {
+        "name": "쉔",
+        "attack": "<#ff9028ff>기 보호막<>: 스킬 사용 시 <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<> 보호막 <#ffb900ff>2초<>(<#ffb900ff>8초<>마다, 스킬이 챔피언 적중 시 단축). 강화 기본 공격은 추가 25 피해, 챔피언에게 최대 체력 4%(검이 챔피언을 관통했으면 6%, 공격 속도 +50%).",
+        "skill": "영혼의 검을 대상 뒤에서 회수해 지나는 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해와 <#ef5350ff>25% 둔화<>, 다음 기본 공격 3회 강화. 돌아올 때 근처에 적 챔피언이 있으면 <#ff9028ff>의지의 결계<>: <#ffb900ff>1.75초<> 동안 범위 안 아군 챔피언은 기본 공격 피해를 받지 않음(재사용 <#ffb900ff>15초<>).",
+        "skill2": "앞으로 돌진해 지나간 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해, <#ef5350ff>1.17초 도발<>. 챔피언을 도발했고 황혼 강습이 준비되어 있으면 검이 돌진 시작점에서 날아와 그들을 관통.",
+        "ult": "맵 어디서든 아군 챔피언이 군중 제어에 걸렸거나 쉔과 멀리서 교전 중이면: <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 보호막 <#ffb900ff>5초<>, 쉔이 <#ffb900ff>2.5초<> 정신 집중 후 그 곁으로 순간이동(군중 제어 시 취소)."
       }
     },
     "skill_name": {
@@ -4100,6 +4143,11 @@
         "skill1": "꿰뚫는 어둠",
         "skill2": "마지막 포옹",
         "ult": "여명의 그림자"
+      },
+      "league_shen": {
+        "skill1": "황혼 강습",
+        "skill2": "그림자 돌진",
+        "ult": "단결된 의지"
       }
     }
   },
@@ -4699,6 +4747,13 @@
         "skill": "レリックキャノンが対象を貫く闇の光線を放つ：直線上の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージと<#ffb900ff>1.25秒<><#ef5350ff>20%スロウ<>、味方チャンピオンは<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>回復。",
         "skill2": "黒き霧を放ち、最初に当たった敵に取り憑いて<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ。<#ffb900ff>1秒<>後に広がり、その敵と周りの敵を<#ffb900ff>1.5秒<><#ef5350ff>スネア<>。",
         "ult": "力を溜め、遠くで交戦中のチャンピオンへ戦場を貫く光線を放つ：中心は敵チャンピオンに<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の物理ダメージ、幅広い光は自身と通り道の味方チャンピオンに<#ffb900ff>3秒<><#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%のシールド<>。"
+      },
+      "league_shen": {
+        "name": "シェン",
+        "attack": "<#ff9028ff>内気功<>：スキル使用後に<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>のシールド<#ffb900ff>2秒<>（<#ffb900ff>8秒<>に1回、スキルがチャンピオンに当たると短縮）。強化通常攻撃は追加25ダメージ、チャンピオンには最大体力の4%（刀が貫いたら6%、攻撃速度+50%）。",
+        "skill": "霊刃を対象の背後から呼び戻し、通過した敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>25%スロウ<>、次の通常攻撃3回を強化。戻った時に敵チャンピオンが近くにいれば<#ff9028ff>防人の帳<>：<#ffb900ff>1.75秒<>間、範囲内の味方チャンピオンは通常攻撃のダメージを受けない（<#ffb900ff>15秒<>毎）。",
+        "skill2": "前方へ突進し、通過した敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>1.17秒の挑発<>。チャンピオンを挑発し護刃招来が使えるなら、霊刃が突進の起点から飛び戻り彼らを貫く。",
+        "ult": "マップのどこかで味方チャンピオンが行動妨害を受けるか、シェンから遠くで交戦中なら：<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>のシールドを<#ffb900ff>5秒<>、シェンは<#ffb900ff>2.5秒<>詠唱後その傍へテレポート（行動妨害で中断）。"
       }
     },
     "skill_name": {
@@ -5126,6 +5181,11 @@
         "skill1": "ピアシングダークネス",
         "skill2": "最期の抱擁",
         "ult": "ドーニングシャドウ"
+      },
+      "league_shen": {
+        "skill1": "護刃招来",
+        "skill2": "殺気駆け",
+        "ult": "瞬身護法"
       }
     }
   }

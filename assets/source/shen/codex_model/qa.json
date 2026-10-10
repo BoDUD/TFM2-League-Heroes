@@ -1,0 +1,42 @@
+[
+  {
+    "version": "v1",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "read_method": "64-cell center sample of generated pixel design; no source concept shrink",
+    "hood_source_row_estimate": 17,
+    "hood_export_row_estimate": 54,
+    "sole_export_row": 99,
+    "hood_to_sole_rows_estimate": 46,
+    "palette_colors": 28,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_8x8": true,
+    "original_unchanged": true,
+    "target_40_rows": false
+  },
+  {
+    "version": "v2",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "read_method": "64-cell center sample of generated pixel design; no source concept shrink",
+    "hood_source_row_estimate": 20,
+    "hood_export_row_estimate": 57,
+    "sole_export_row": 99,
+    "hood_to_sole_rows_estimate": 43,
+    "palette_colors": 28,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_8x8": true,
+    "original_unchanged": true,
+    "target_40_rows": false
+  }
+]
