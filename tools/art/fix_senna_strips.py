@@ -319,7 +319,11 @@ CANON_CLAW = {0: 99, 1: 99, 2: 99, 3: 25, 4: 24, 5: 23}
 # (row, column, letters) on run 6's read-back: the far eye's dark + white -> skin; the lash square between the eyes ->
 # skin; the brows apart (「眉毛连在一起不修吗」: the near brow ran on into the far one a row lower between the eyes, one
 # bar over both) - the near brow 3 squares over the near eye, the far one 2 over the far eye, skin between
-CANON_EDITS = [(13, 32, "KKPP"), (14, 32, "KK"), (15, 32, "K0"), (16, 35, "Kk0")]
+# Then (「眼睛上面的黑线有点奇怪啊 脸有点丑啊」) the dark line over the eyes gone - the near eye's wing, the far eye's
+# inner lash and the tail running to the face's edge -> skin - and the brows brown and short (2 squares over the near
+# eye, 1 over the far), the crease under them skin, the mouth the design's red (c over M)
+CANON_EDITS = [(13, 29, "KbbKKbK"), (14, 30, "k"), (14, 32, "KK"), (15, 29, "K"), (15, 32, "KK"), (15, 35, "Kk"),
+               (16, 35, "Kk0"), (19, 33, "cM")]
 HALO = 3                   # squares round the pasted head where the frame's own head may have left pieces
 HORN_TAGS = {"run"}        # the claw tips over the hood: the run's (the cannon on her back); the casts hold it
 # every frame wears it (2026-10-10): the fall's own heads (Codex drew each another size, tilt and eye - teal blocks, white
@@ -474,6 +478,98 @@ def onion(out, todo):
     return n
 
 
+# the boots (2026-10-10, 「脚还有变形的地方啊」): Codex drew each foot another way - 3-square wedges, a toe drawn as a
+# spike, a plum sole, a curled blob - and the row and column cuts thinned some more. Every foot standing on the soles'
+# row takes the idle's own far boot instead (the design's rows 97-99: gold over the instep, the light toe, the dark
+# sole; 5 squares), its last 3 rows placed under the leg (the leg's middle 3 rows up): the back foot's toe out to the
+# left like the idle's far foot, the front foot's (and every run step's) mirrored to the right. (row from the soles,
+# column from the leg's middle, letters)
+BOOT_BACK = [(-2, -4, "0Tyyy0"), (-1, -4, "0EEEq0"), (0, -3, "00000")]
+BOOT_FRONT = [(-2, -1, "0yyyT0"), (-1, -1, "0qEEE0"), (0, -1, "00000")]
+BOOT_SKIP = set()            # frames whose feet stay as drawn
+BOOT_FORCE = {"skill2_3"}    # frames whose boots the cannon's reading takes in (its band runs over the front foot)
+BOOT_KIND = {}               # {frame: ["back" | "front" per foot, left to right]} where the rule picks wrong
+
+
+def cannon_squares(g):
+    """The cannon: the maroon plates and the cannon-coloured squares hanging together with them in a band round their
+    axis (slide_cannon's reading, without its outline)."""
+    pts = np.argwhere(np.isin(g, ["m", "M"]))
+    if len(pts) < 8:
+        return np.zeros(g.shape, bool)
+    c = pts.mean(0)
+    _, _, vt = np.linalg.svd(pts - c)
+    u = vt[0]
+    nrm = np.array([-u[1], u[0]])
+    dmax = np.percentile(np.abs((pts - c) @ nrm), 95) + 2.5
+    t_m = (pts - c) @ u
+    allp = np.argwhere(g != " ")
+    t, d = (allp - c) @ u, np.abs((allp - c) @ nrm)
+    inb = (d <= dmax) & (t >= t_m.min() - 9) & (t <= t_m.max() + 12)
+    cand = np.zeros(g.shape, bool)
+    cand[allp[inb][:, 0], allp[inb][:, 1]] = True
+    cand &= np.isin(g, list(CANNON - {"0"}))
+    lab, _ = ndimage.label(cand, np.ones((3, 3)))
+    return np.isin(lab, list(set(lab[np.isin(g, ["m", "M"]) & cand].ravel()) - {0}))
+
+
+def stamp_boots(out, srow, piv, tag, name):
+    """Put BOOT_BACK / BOOT_FRONT on every foot standing on row `srow` of `out` (in place); the feet done, as
+    (leg column, kind)."""
+    if name in BOOT_SKIP:
+        return []
+    H, W = out.shape
+    cannon = cannon_squares(out)
+    row = out[srow]
+    xs = [x for x in range(W) if row[x] != " " and row[x] not in "mM" and abs(x - piv) <= 26]
+    groups = []
+    for x in xs:
+        if groups and x - groups[-1][-1] <= 2:
+            groups[-1].append(x)
+        else:
+            groups.append([x])
+    feet = []
+    for gr in groups:
+        a, b = gr[0], gr[-1]
+        if not 3 <= b - a + 1 <= 10:
+            continue
+        box = out[srow - 2:srow + 1, max(a - 1, 0):b + 2]
+        if np.isin(box, ["m", "M"]).any() or (box != " ").sum() < 6:
+            continue                                   # the cannon lying there, not a boot
+        if name not in BOOT_FORCE and cannon[srow - 2:srow + 1, a:b + 1].mean() > 0.3:
+            continue                                   # the cannon's blade tip on the ground
+        up = [x for x in range(a - 2, b + 3) if 0 <= x < W and out[srow - 3, x] != " "]
+        if up:
+            feet.append((a, b, int(round((min(up) + max(up)) / 2))))
+    if not feet:
+        return []
+    if name in BOOT_KIND:
+        kinds = BOOT_KIND[name]
+    elif tag == "run":
+        kinds = ["front"] * len(feet)
+    elif len(feet) >= 2:
+        kinds = ["back"] + [None] * (len(feet) - 2) + ["front"]
+    else:
+        kinds = ["back" if feet[0][2] < piv - 3 else "front"]
+    done = []
+    for (a, b, lc), kind in zip(feet, kinds):         # every old boot out first (feet close together)
+        if kind is None:
+            continue
+        for dy in (-2, -1, 0):
+            for x in range(max(a - 2, 0), min(b + 3, W)):
+                if out[srow + dy, x] not in "mM":
+                    out[srow + dy, x] = " "
+    for (a, b, lc), kind in zip(feet, kinds):
+        if kind is None:
+            continue
+        for dy, dx, text in (BOOT_BACK if kind == "back" else BOOT_FRONT):
+            for j, ch in enumerate(text):
+                if 0 <= lc + dx + j < W:
+                    out[srow + dy, lc + dx + j] = ch
+        done.append((lc, kind))
+    return done
+
+
 def frame(tag, k):
     """(finished frame letters, pivot column, soles row, info)."""
     name = f"{tag}_{k}"
@@ -581,10 +677,7 @@ def frame(tag, k):
     out = out[t:filled_rows.max() + 1, l:filled_cols.max() + 1]
     piv = at(kc, pivot) + sp + pad - l
     srow = at(kr, sole) + sp + pad - t
-    # 6. ground the figure encloses - Codex's gaps between plates, cloak and legs, now or once the import closes the
-    # outline (complete_outline puts the outline colour in clear squares by light ones, which can shut a narrow gap):
-    # filled like the swap's holes (Jax's rule, 2026-10-03: only gaps League has stay - none here so far)
-    # squares hanging on by one neighbour (a loc's or a claw's last outline square, a brown crumb by the muzzle): at
+    # 6. squares hanging on by one neighbour (a loc's or a claw's last outline square, a brown crumb by the muzzle): at
     # game size a speck off the outline
     for _ in range(3):
         op = out != " "
@@ -592,6 +685,11 @@ def frame(tag, k):
         if not lone.any():
             break
         out[lone] = " "
+    # 7. every foot standing on the soles' row in the idle's own boot (stamp_boots)
+    boots = stamp_boots(out, srow, piv, tag, name)
+    # 8. ground the figure encloses - Codex's gaps between plates, cloak and legs, now or once the import closes the
+    # outline (complete_outline puts the outline colour in clear squares by light ones, which can shut a narrow gap):
+    # filled like the swap's holes (Jax's rule, 2026-10-03: only gaps League has stay - none here so far)
     holes = 0
     for _ in range(6 if FILL_HOLES else 0):   # a filled gap moves the outline the import adds: again till none is shut
         a = np.pad(to_rgba(out), ((1, 1), (1, 1), (0, 0)))
@@ -612,7 +710,8 @@ def frame(tag, k):
     info = dict(square=sq, size=(H, W), scale=round(f, 3), dropped=(len(dr), len(dc)), face=fb,
                 head_col=int(ax1 + pad - l), chin=int(ay1 + pad - t),
                 head_sq=(ys - hy + ay1 + pad - t, xs - hx + ax1 + pad - l),
-                head=int(mask.sum()), filled=filled, cleared=cleared, holes=holes, out=out.shape, slid=slid, specks=dropped_px,
+                head=int(mask.sum()), filled=filled, cleared=cleared, holes=holes, boots=boots, out=out.shape, slid=slid,
+                specks=dropped_px,
                 pieces=int(ndimage.label(out != " ", np.ones((3, 3)))[1]))
     return out, piv, srow, info
 
