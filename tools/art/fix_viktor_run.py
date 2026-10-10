@@ -72,13 +72,13 @@ HIP = 1               # both hips' column from the pivot, as HIP_X draws them in
 # frame (boot_dx, lift) from the leg's own place, League's order (planted 1-4 sliding back, heel up 5, up 6, past the
 # planted boot a row clear of it in 7, reaching in 8); the far leg half a cycle later. The knee: half the boot's lean
 # when planted, a column ahead of the boot when lifted.
-HIPS2 = {"near": 0, "far": 0}
+HIPS2 = {"near": -2, "far": 2}         # in 2 each so the boots trade places front / back each half cycle
 # The pace (the user again: 「有点怪啊走路 你没感觉吗」): run v10 kept run v9's 8 x 133 ms, a slow shuffle whose small
 # steps slid along the ground. oppi's own Viktor walks 10 x 65 ms with feet lifted 1-2 px; at 80 ms a frame the same
 # steps come quick (a cycle in 0.64 s). Lifting higher stacks his two 10-px boots into two slabs (tried: heel kicks up
 # 2-3 behind the thigh).
 RUN_MS = 80
-STEP2 = [(3, 0), (2, 0), (0, 0), (-2, 0), (-3, 1), (-2, 1), (0, 1), (2, 0)]
+STEP2 = [(4, 0), (2, 0), (0, 0), (-2, 0), (-4, 1), (-2, 1), (0, 1), (2, 0)]
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
 TORSO = 30            # design rows 0..29 (from the design's top) are in every run cell as they are
 PELVIS = (30, 33)     # design rows 30..32: the pelvis armour put back
@@ -199,6 +199,43 @@ def run_frames(design, bob):
         stray = ink & ~near_col
         stray[:S.LEG_TOP] = False
         c[stray] = 0
+        # a one- or two-square gap walled in where the two legs cross: filled with the colour round it
+        clear = c[..., 3] == 0
+        seen = np.zeros_like(clear)
+        stack = [(0, 0)]
+        while stack:
+            y, x = stack.pop()
+            if 0 <= y < 128 and 0 <= x < 128 and clear[y, x] and not seen[y, x]:
+                seen[y, x] = True
+                stack += [(y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)]
+        hole = clear & ~seen
+        lab = np.zeros_like(hole)
+        for y, x in zip(*np.nonzero(hole)):
+            if lab[y, x] or y < S.LEG_TOP:
+                continue
+            comp, st = [], [(y, x)]
+            lab[y, x] = True
+            while st:
+                cy, cx = st.pop()
+                comp.append((cy, cx))
+                for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    q = (cy + a, cx + b)
+                    if hole[q] and not lab[q]:
+                        lab[q] = True
+                        st.append(q)
+            if len(comp) <= 2:
+                cs = set(comp)
+                votes = {}
+                for cy, cx in comp:
+                    for a in (-1, 0, 1):
+                        for b in (-1, 0, 1):
+                            q = (cy + a, cx + b)
+                            if q not in cs and c[q][3] and tuple(int(v) for v in c[q][:3]) != OUT:
+                                k3 = tuple(int(v) for v in c[q][:4])
+                                votes[k3] = votes.get(k3, 0) + 1
+                fill = max(votes, key=votes.get) if votes else (*OUT, 255)
+                for q in comp:
+                    c[q] = fill
         out.append(c)
     return out
 
