@@ -262,11 +262,32 @@ def raw_legs(d, k):
 # the far one lands in 3, pushes back in 4, kicks up in 1, swings in 2); frames 5-8 kept both feet where 1-4 had
 # them (no swap), so the run plays 1-4 twice (two legs alike: a stride and its half-cycle twin look the same)
 LEG_SRC = [0, 1, 2, 3, 0, 1, 2, 3]
+LEGS = "rig"                       # "rig": rig_draven_legs.py on League's skeleton; "raw": the generator's legs
+
+
+RIBBONS = (80, 93, 57, 67)          # rows, columns: the belt's ribbons hanging between the legs in the design
+RIBBON_COLOURS = {(0xCA, 0x22, 0x4A), (0x74, 0x23, 0x42), (0x9C, 0x34, 0x4C), (0x08, 0x70, 0x82), (0x06, 0x48, 0x53),
+                  (0x42, 0x1D, 0x30), (0x1A, 0x0E, 0x0E)}
+
+
+def ribbons(d):
+    """The design's ribbons under the belt (crimson, teal and their outline), drawn over the rigged legs."""
+    r0, r1, c0, c1 = RIBBONS
+    out = np.zeros_like(d)
+    for y in range(r0, r1 + 1):
+        for x in range(c0, c1 + 1):
+            if d[y, x, 3] and tuple(int(v) for v in d[y, x, :3]) in RIBBON_COLOURS:
+                out[y, x] = d[y, x]
+    return out
 
 
 def run_frame(d, k, variant):
     arm, body = run_upper(d, variant)
-    legs = raw_legs(d, LEG_SRC[k])
+    if LEGS == "rig":
+        import rig_draven_legs as RL
+        legs = over(RL.legs(k), shift(ribbons(d), 0, BOB[k]))
+    else:
+        legs = raw_legs(d, LEG_SRC[k])
     up = over(shift(arm, 0, BOB[k]), shift(body, 0, BOB[k]))   # the body over the far arm's root
     fr = over(legs, up)
     # Codex's hips were drawn for the raised-arm body: lowered, the far arm closes a pocket by the far hip in the
