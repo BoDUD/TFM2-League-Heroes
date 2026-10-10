@@ -74,7 +74,7 @@ HIP = 1               # both hips' column from the pivot, as HIP_X draws them in
 # frame (boot_dx, lift) from the leg's own place, League's order (planted 1-4 sliding back, heel up 5, up 6, past the
 # planted boot a row clear of it in 7, reaching in 8); the far leg half a cycle later. The knee: half the boot's lean
 # when planted, a column ahead of the boot when lifted.
-HIPS2 = {"near": -2, "far": 2}         # in 2 each so the boots trade places front / back each half cycle
+HIPS2 = {"near": -1, "far": 1}         # in a column each so the boots trade places front / back each half cycle
 # The pace (the user again: 「有点怪啊走路 你没感觉吗」): run v10 kept run v9's 8 x 133 ms, a slow shuffle whose small
 # steps slid along the ground. oppi's own Viktor walks 10 x 65 ms with feet lifted 1-2 px; at 80 ms a frame the same
 # steps come quick (a cycle in 0.64 s). Lifting higher stacks his two 10-px boots into two slabs (tried: heel kicks up
@@ -155,13 +155,16 @@ def zleg(part, hip_dx, boot_dx, lift):
     the shin leaning on to boot_dx at BOOT_ROW, the boot rows whole, the shin + boot `lift` rows up behind the thigh."""
     # the whole leg swings from the hip (the user: 「只有脚动上面的腿不动 不协调」 when the knee went half as far as the
     # boot): the knee as far as the boot, a column further when the leg is lifted
+    # and half of the step is the whole leg sliding under the pelvis armour (a thigh leaning the whole step over its five
+    # rows stood at ~40 degrees and the body looked tilted on two slanted sticks: 「走路的时候身体像是歪的」)
     knee_dx = hip_dx + boot_dx + (1 if lift else 0)
+    top_dx = hip_dx + int(np.floor(boot_dx / 2 + 0.5))
     boot_dx = hip_dx + boot_dx
     thigh = np.zeros_like(part)
     low = np.zeros_like(part)
     for r, c in zip(*np.nonzero(part[..., 3])):
         if r < S.KNEE_ROW:
-            sh = hip_dx + int(np.floor((knee_dx - hip_dx) * (r - S.LEG_TOP) / (S.KNEE_ROW - S.LEG_TOP) + 0.5))
+            sh = top_dx + int(np.floor((knee_dx - top_dx) * (r - S.LEG_TOP) / (S.KNEE_ROW - S.LEG_TOP) + 0.5))
             if 0 <= c + sh < part.shape[1]:
                 thigh[r, c + sh] = part[r, c]
         else:
