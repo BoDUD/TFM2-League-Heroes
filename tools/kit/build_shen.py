@@ -18,7 +18,7 @@ Refuge runs on its own when the spirit blade comes back with an enemy champion n
           and Spirit's Refuge is ready, the blade plants the refuge where he stands.
   W       Spirit's Refuge (奥义！魂佑, automatic): for w_t ticks a zone of w_r round his spot (where the blade came back)
           lets no basic attack hurt allied champions in it (`base_attack_damaged_reduce` 100); w_cd between.
-  skill2  E Shadow Dash (奥义！影缚): a `Direction` cast on `EnemyWithoutTower` (e_range): he dashes e_len, every enemy
+  skill2  E Shadow Dash (奥义！影缚): a `Targeting` cast on `EnemyChampion` (e_range; an engage): he dashes onto its spot, every enemy
           passed takes e_dmg + e_ratio% AD and is taunted e_taunt ticks. The pros' E -> Q: when the dash taunts a
           champion and the blade is ready, the blade is pulled from where the dash began back to him, through the
           taunted line (Q's own cast then goes out empty once and starts its cooldown).
@@ -42,23 +42,31 @@ ID = "league_shen"
 FX = "asset/league/effects/league_shen_fx"
 BIG = "asset/league/effects/league_shen_big"
 
+# Numbers = candidate c3 of the 10-min classic-SDK simulations (sn_sim/sim/kd.py, top lane against fighter, executioner,
+# lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-10): +0.41 on seeds 1-12, +0.89 on
+# 25-36 (league_malphite +1.06 / +0.74, league_sett +1.08 on 1-12). The draft c0 was -1.14 (attack 86, hp 1150, Q 50+60,
+# E 70+60): its E, a `Direction` cast, taunted champions 2 times in 27 - e_champ / e_len fixed that (+1.3 alone).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Shen: 610 +99 hp,
     # 64 AD +3, 34 armour, 32 mr, 340 move, 125 range - a tank: more health and resistances, less attack
-    "hp": 1150, "hp_g": 110, "atk": 86, "atk_g": 15, "def": 36, "def_g": 9, "mr": 30, "mr_g": 5, "ms": 1000, "ms_g": 11,
+    "hp": 1200, "hp_g": 110, "atk": 94, "atk_g": 15, "def": 38, "def_g": 9, "mr": 30, "mr_g": 5, "ms": 1000, "ms_g": 11,
     # attack: the sword
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 68, "atk_st": 12,
     # passive Ki Barrier (League: 50-101 + 14% bonus hp shield 2 s, cd 9-6 s, cut by abilities hitting champions)
     "p_sh": 90, "p_sh_ratio": 40, "p_sh_t": 120, "p_cd": 480, "p_cd_hit": 150,
     # Q Twilight Assault (League: 2-4% max hp per empowered hit, 5-7% + 50% attack speed after a champion; cd 8-4 s)
     "q_cd": 420, "q_range": 40000, "q_dur": 18, "q_at": 8, "q_out": 46000, "q_speed": 4000, "q_rad": 6000,
-    "q_y": 5000, "q_dmg": 50, "q_ratio": 60, "q_slow": 25, "q_slow_t": 90,
-    "q_n": 3, "q_t": 480, "q_a_dmg": 15, "q_a_hp": 3, "q_a_hp_big": 5, "q_as": 50,
+    "q_y": 5000, "q_dmg": 70, "q_ratio": 80, "q_slow": 25, "q_slow_t": 90,
+    "q_n": 3, "q_t": 480, "q_a_dmg": 25, "q_a_hp": 4, "q_a_hp_big": 6, "q_as": 50,
     # W Spirit's Refuge (League: 1.75 s, blocks basic attacks on allies in the zone; cd 18-14 s)
     "w_cd": 900, "w_r": 22000, "w_t": 105, "w_trig": 45000,
     # E Shadow Dash (League: 600 units, 70-150 + 15% bonus hp, taunt 1.25 s; cd 18-14 s)
-    "e_cd": 840, "e_range": 42000, "e_dur": 18, "e_len": 40000, "e_speed": 3500, "e_rad": 7000, "e_y": 4000,
-    "e_dmg": 70, "e_ratio": 60, "e_taunt": 70,
+    "e_cd": 840, "e_range": 42000, "e_dur": 18, "e_len": 66000, "e_speed": 3500, "e_rad": 7000, "e_y": 4000,
+    "e_dmg": 90, "e_ratio": 80, "e_taunt": 70,
+    # 1 = a `Targeting` cast at an enemy champion (an engage, like league_amumu Q): as a `Direction` cast on
+    # EnemyWithoutTower the AI spent 25 of 27 dashes on waves (log c2, seed 1), and a `Direction` cast on EnemyChampion
+    # still aimed at no one (1 champion in 22 dashes); `MoveTo` in a `Targeting` cast runs to the target's spot
+    "e_champ": 1,
     # R Stand United (League: shield 140-460 + 17.5% bonus hp for 5 s, 3 s channel, global; cd 200-160 s)
     "r_cd": 4200, "r_arm": 900, "r_poll": 10, "r_reset": 4900, "r_sur": 25000, "r_far": 60000, "r_seen": 25,
     "r_sh": 260, "r_sh_ratio": 60, "r_sh_t": 300, "r_ch": 150, "r_brk": 15,
@@ -261,7 +269,8 @@ def build(p):
     dash_t = -(-p["e_len"] // p["e_speed"])
     combo = sw("e_got", sw("q_cd", NONE, combine(*rm("e_got"), q_use, sfx("q"), *blades(p["e_len"] + 20000))))
     anchor = line("e_from", 1000, 1000, 1000, 0, "EnemyChampion", True, [], end=[delayed(dash_t + 1, combo)])
-    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Direction", "EnemyWithoutTower",
+    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting" if p["e_champ"] else "Direction",
+                    "EnemyChampion" if p["e_champ"] else "EnemyWithoutTower",
                     combine(anim("skill2", p["e_dur"]), sfx("e"), voice("vo_e", p), ki, anchor,
                             {"type": "MoveTo", "speed": p["e_speed"], "range": p["e_len"], "end_effects": []},
                             line("e_dash", p["e_speed"], p["e_len"], p["e_rad"], p["e_y"], "EnemyWithoutTower", True,
