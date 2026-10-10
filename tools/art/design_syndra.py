@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 """Syndra's game-size design (step 1) from Codex's generator drafts (assets/source/syndra/codex_model/raw).
 
-    python tools/art/design_syndra.py --base [1|2]        # print a draft's read-back as letters (row/column numbers)
-    python tools/art/design_syndra.py --cuts OUT_DIR      # the size options for the user (PNGs + letter files)
-    python tools/art/design_syndra.py --final             # the approved letter grid (FINAL) -> assets/source/native
+    python tools/art/design_syndra.py --final [--check]   # PICK -> assets/source/native/syndra_native.png
+    python tools/art/design_syndra.py --tryn 3 42 --tryn-out x.png   # one option, league_tryndamere's way
+    python tools/art/design_syndra.py --base 3             # a draft's read-back as letters (row/column numbers)
+    python tools/art/design_syndra.py --cuts OUT_DIR       # the first round of options (even cuts)
 
-How it came about (2026-10-10): the user picked Codex's picture A (the relic cannon resting on her shoulder). Codex's
-step 1 drew three generator drafts of 10 px squares (syndra-generation-01/02/03.png): 01 the picture's detail at 97 rows,
-02 redrawn to the pack's target silhouette at 67 rows (claws to soles), 03 a further low-detail redraw at ~46 rows that
-Codex sampled into its syndra_design.png - the face a blob, the claws and the body a jumble of gold specks. So here, as
-for league_draven, from draft 02 (01 is too big to cut):
-  1. read back on its own grid (the skill's regrid.py, --size 10);
-  2. every square to the nearest of PAL (CIELAB) - Codex's own 27-colour palette (codex_model/validation.json);
-  3. whole rows and columns deleted EVENLY per part to the size the user picks (never two neighbours, never the
-     face's rows and columns, the soles kept);
-  4. strips.complete_outline; 5. on the 128 x 128 canvas: the soles on row 99, the middle of the feet on column 64.
+How it came about (2026-10-11): the user picked Codex's picture A (League's idle1: floating, arms spread down, one knee
+bent). Codex's step 1 drew three generator drafts (raw/generation-1/2/3.png): 1 the picture's detail (109 x 83 on its
+10 px grid), 2 a chunkier redraw (67 x 44, 14 px), 3 a chibi redraw (53 x 33 on its 17 px grid); its own A / B were
+draft 3 cut by whole rows only (30 wide, squat). First round: draft 3 cut evenly per part (league_senna's way, CUTS) -
+the user picked 「3_42」, then 「眼睛上脏的黑色素清理掉 全身也是」 / 「还有缺失色素的地方补一补 精修一下」 and
+「之前蛮王什么的弄的不是挺好的吗 就按照那种方式」: so league_tryndamere's way (tryn()): draft 3 read on its own grid, its
+own 24 colours, whole rows and columns dropped where least is lost, the face kept, only the outline closed - 「第三稿→42」
+(26 x 42 on the 128 canvas: the lowest toe on row 99, column 64).
 """
 import argparse
 import os
@@ -33,7 +32,6 @@ import design_rengar as R  # noqa: E402
 
 RAW = {v: os.path.join(ROOT, "assets", "source", "syndra", "codex_model", "raw", f"generation-{v}.png")
        for v in "123"}
-FINAL = os.path.join(ROOT, "assets", "source", "syndra", "design", "syndra_design.txt")
 OUT = os.path.join(ROOT, "assets", "source", "native", "syndra_native.png")
 SQUARE = {"1": 10.0, "2": 14.0, "3": 17.0}       # the drafts' squares (regrid's own measure)
 
@@ -157,24 +155,46 @@ def make(name):
     return close_outline(to_rgba(rows)), dr, dc
 
 
-PICK = "3_42"          # the user's pick (「3_42」, 2026-10-11)
-POLISH = []
+PICK = ("3", 42)       # the user's pick: draft 3 at 42 rows, league_tryndamere's way (「第三稿→42」, 2026-10-11); the
+                       # even cuts (CUTS, 「3_42」 first) were dropped for their dirty black squares round the eyes
 
 
-def rebuild():
-    """The picked cut on the canvas with POLISH applied (what FINAL holds)."""
-    fig, _, _ = make(PICK)
-    can = on_canvas(fig)
-    ys, xs = np.nonzero(can[..., 3] > 0)
-    x0 = xs.min()
-    for y, c, text in POLISH:
-        for i, ch in enumerate(text):
-            if ch == ".":
-                can[y, x0 + c + i] = 0
-            elif ch != " ":
-                can[y, x0 + c + i, :3] = RGB[ch]
-                can[y, x0 + c + i, 3] = 255
-    return can
+# league_tryndamere's way (the user, 2026-10-11: 「之前蛮王什么的弄的不是挺好的吗 就按照那种方式」, design_tryndamere.py):
+# a draft read back on its own grid, every square one of K colours of the read-back's own (design_varus.kmeans), whole
+# rows then columns deleted by design_riven.keep_axis (in each group the line most like a neighbour goes, three offsets,
+# the least loss kept), the width in proportion, never the face's rows / columns nor row 0 (the horn tips), then only
+# strips.complete_outline (the face kept). Draft 1: 109 x 83 on its 10 px grid (the picture's detail); draft 2: 67 x 44.
+TRYN = {"1": (range(24, 33), range(43, 56)), "2": (range(21, 30), range(12, 24)), "3": (range(15, 23), range(11, 21))}
+K = 24
+
+
+def tryn(v, height):
+    import design_riven as DR
+    import design_varus as dv
+    raw, _, _ = regrid(np.asarray(Image.open(R.lp(RAW[v])).convert("RGBA")), SQUARE[v])
+    ys, xs = np.nonzero(raw[..., 3] >= 128)
+    raw = raw[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy()
+    raw[..., 3] = np.where(raw[..., 3] >= 128, 255, 0)
+    idx, pal = dv.kmeans(raw, K)
+    H, W = idx.shape
+    fr_, fc_ = TRYN[v]
+    face = range(fr_.start - 1, fr_.stop - 1)
+    rows = [0] + [r + 1 for r in DR.keep_axis([idx[y] for y in range(1, H)], height - 1, face)]
+    sub = idx[rows]
+    cols = DR.keep_axis([sub[:, x] for x in range(W)], round(W * height / H), fc_)
+    small = idx[np.ix_(rows, cols)]
+    fig = np.zeros(small.shape + (4,), np.uint8)
+    m = small >= 0
+    fig[m, :3] = pal[small[m]]
+    fig[m, 3] = 255
+    keep = np.zeros(m.shape, bool)
+    fr = [rows.index(r) for r in fr_]
+    fc = [cols.index(c) for c in fc_]
+    keep[fr[0]:fr[-1] + 1, fc[0]:fc[-1] + 1] = True
+    ink = tuple(int(c) for c in pal[int(np.argmin((pal * [0.299, 0.587, 0.114]).sum(1)))])
+    can = np.pad(fig, ((1, 1), (1, 1), (0, 0)))
+    can, added, _ = strips.complete_outline(can, color=ink, feet=fig.shape[0], keep=np.pad(keep, 1))
+    return on_canvas(R.crop(can)), rows, cols, added
 
 
 def options(out_dir):
@@ -189,58 +209,32 @@ def options(out_dir):
     return figs
 
 
-def write_letters(can, path):
-    ys, xs = np.nonzero(can[..., 3] > 0)
-    x0 = xs.min()
-    inv = {v: k for k, v in RGB.items()}
-    os.makedirs(os.path.dirname(R.lp(path)), exist_ok=True)
-    with open(R.lp(path), "w", encoding="utf-8", newline="\n") as f:
-        f.write(f"# x0 {x0}\n")
-        for y in range(ys.min(), ys.max() + 1):
-            f.write(f"{y:3d}" + "".join(inv[tuple(int(v) for v in can[y, x, :3])] if can[y, x, 3] else " "
-                                        for x in range(x0, xs.max() + 1)).rstrip() + "\n")
-
-
-def read_letters(path):
-    can = np.zeros((128, 128, 4), np.uint8)
-    x0 = 0
-    for line in open(R.lp(path), encoding="utf-8"):
-        line = line.rstrip("\r\n")
-        if line.startswith("# x0"):
-            x0 = int(line.split()[2])
-            continue
-        if len(line) < 4 or not line[:3].strip().isdigit():
-            continue
-        y = int(line[:3])
-        for i, ch in enumerate(line[3:]):
-            if ch not in " .":
-                can[y, x0 + i, :3] = RGB[ch]
-                can[y, x0 + i, 3] = 255
-    return can
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", nargs="?", const="2")
     ap.add_argument("--cuts", metavar="OUT_DIR")
-    ap.add_argument("--final", action="store_true", help="write FINAL to OUT")
-    ap.add_argument("--rebuild", action="store_true", help="PICK + POLISH, compared with FINAL")
-    ap.add_argument("--write-letters", action="store_true", help="with --rebuild: (re)write FINAL")
+    ap.add_argument("--final", action="store_true", help="write PICK to OUT (--check: compare instead)")
+    ap.add_argument("--check", action="store_true")
+    ap.add_argument("--tryn", nargs=2, metavar=("DRAFT", "ROWS"), help="league_tryndamere's way: write a PNG option")
+    ap.add_argument("--tryn-out")
     a = ap.parse_args()
-    if a.rebuild:
-        can = rebuild()
-        if a.write_letters:
-            write_letters(can, FINAL)
-            print("wrote", FINAL)
-        else:
-            old = read_letters(FINAL)
-            print("same as FINAL" if (old == can).all() else f"differs from FINAL in {int((old != can).any(-1).sum())} squares")
     if a.final:
-        can = read_letters(FINAL)
-        Image.fromarray(can).resize((1024, 1024), Image.NEAREST).save(R.lp(OUT))
-        print("wrote", OUT, "box", Image.fromarray(can).getbbox())
+        can, rows, cols, added = tryn(*PICK)
+        bb = Image.fromarray(can).getbbox()
+        info = f"{bb[2] - bb[0]} x {bb[3] - bb[1]} box {bb}, outline +{added}, rows kept {rows}, cols kept {cols}"
+        if a.check:
+            old = np.asarray(Image.open(R.lp(OUT)).convert("RGBA"))[4::8, 4::8]
+            print("identical" if np.array_equal(old, can) else "DIFFERENT", info)
+        else:
+            Image.fromarray(can).resize((1024, 1024), Image.NEAREST).save(R.lp(OUT))
+            print("wrote", OUT, info)
     if a.base:
         show(base(a.base))
+    if a.tryn:
+        can, rows, cols, added = tryn(a.tryn[0], int(a.tryn[1]))
+        Image.fromarray(can).save(R.lp(a.tryn_out))
+        bb = Image.fromarray(can).getbbox()
+        print(f"draft {a.tryn[0]}: {bb[2] - bb[0]} x {bb[3] - bb[1]}, outline +{added}, rows kept {rows}, cols kept {cols}")
     if a.cuts:
         os.makedirs(a.cuts, exist_ok=True)
         options(a.cuts)
