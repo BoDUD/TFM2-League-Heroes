@@ -235,6 +235,13 @@ def canon_head():
         lab, _ = ndimage.label(m, np.ones((3, 3)))          # the head's own piece (not the cannon's claws by the chin)
         ids, counts = np.unique(lab[fb[0]:fb[1] + 1, fb[2]:fb[3] + 1], return_counts=True)
         m = lab == max((c, i) for i, c in zip(ids, counts) if i)[1]
+        fg, _, _ = read(*FACE_SRC)
+        dy, dx = FACE_AT
+        for y in range(*FACE_ROWS):
+            for x in range(*FACE_COLS):
+                ch = FACE_EDITS.get((y, x), fg[y, x])
+                if ch != " ":
+                    g[y + dy, x + dx] = ch
         for y, x, text in CANON_EDITS:
             for i, ch in enumerate(text):
                 g[y, x + i] = ch
@@ -319,11 +326,16 @@ CANON_CLAW = {0: 99, 1: 99, 2: 99, 3: 25, 4: 24, 5: 23}
 # (row, column, letters) on run 6's read-back: the far eye's dark + white -> skin; the lash square between the eyes ->
 # skin; the brows apart (「眉毛连在一起不修吗」: the near brow ran on into the far one a row lower between the eyes, one
 # bar over both) - the near brow 3 squares over the near eye, the far one 2 over the far eye, skin between
-# Then (「眼睛上面的黑线有点奇怪啊 脸有点丑啊」) the dark line over the eyes gone - the near eye's wing, the far eye's
-# inner lash and the tail running to the face's edge -> skin - and the brows brown and short (2 squares over the near
-# eye, 1 over the far), the crease under them skin, the mouth the design's red (c over M)
-CANON_EDITS = [(13, 29, "KbbKKbK"), (14, 30, "k"), (14, 32, "KK"), (15, 29, "K"), (15, 32, "KK"), (15, 35, "Kk"),
-               (16, 35, "Kk0"), (19, 33, "cM")]
+# The FACE (2026-10-10, after 「这个脸画的对吗」 and Codex's grid redraw 「太诡异了 你还是自己画吧」「之前codex 第一版的脸
+# 就挺不错 只是细节差了点」): Codex's first-version attack 1 draft drew it best - big teal almond eyes with a winged dark
+# liner, brows, full crimson lips - so its face box (rows 11-18, cols 38-49 of the read-back) goes onto run 6's head
+# (eye row 14 -> 15, near-eye column 43 -> 30) with one detail fixed (FACE_EDITS: a yellow square between the eyes ->
+# skin). The design wears the same face (design_senna.POLISH, the same letters).
+FACE_SRC = ("attack", 1)
+FACE_ROWS, FACE_COLS = (11, 19), (38, 50)
+FACE_AT = (1, -13)
+FACE_EDITS = {(15, 47): "K"}
+CANON_EDITS = []
 HALO = 3                   # squares round the pasted head where the frame's own head may have left pieces
 HORN_TAGS = {"run"}        # the claw tips over the hood: the run's (the cannon on her back); the casts hold it
 # every frame wears it (2026-10-10): the fall's own heads (Codex drew each another size, tilt and eye - teal blocks, white

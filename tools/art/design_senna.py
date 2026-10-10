@@ -177,7 +177,10 @@ PICK = "2_40"            # the user's pick (「2_40」, 2026-10-10)
 # over the near eye, the far one 2 over the far eye, skin between (the near one had run on into the far one)
 # and (「眼睛上面的黑线有点奇怪啊 脸有点丑啊」) the dark line over the eyes gone, the brows brown and short, as on the
 # strips' head
-POLISH = [(69, 25, "KbbKKbK"), (70, 26, "k"), (70, 28, "KKk"), (71, 25, "KxEKKxKk"), (72, 30, "XKk"),
+# 2026-10-10 the face = Codex's first-version attack 1 face (fix_senna_strips FACE_SRC, the same letters; the user:
+# 「之前codex 第一版的脸就挺不错 只是细节差了点」), rows 68-75 cols 21-32
+POLISH = [(68, 21, "9MkKKKKKKKK0"), (69, 21, "mkKk000KKKKK"), (70, 21, "kkKkPP00PKK0"), (71, 21, "kkK0XXx0mK9X"),
+          (72, 21, "mkKKXXXkKKxX"), (73, 21, "MkKKKKKKKKKK"), (74, 21, "0PkKKKKKkMKk"), (75, 21, "W99kKKKccckP"),
           # the ground showing through her (「像素缺失」): a pinhole between the locs and the claws, the slit beside them,
           # the gaps round the hand at her hip - each the commonest colour round it (the claws' open prongs stay)
           (65, 37, "9"), (73, 38, "9"), (74, 38, "9"), (75, 38, "9"), (83, 18, "99"), (83, 22, "99"), (84, 22, "9"),
