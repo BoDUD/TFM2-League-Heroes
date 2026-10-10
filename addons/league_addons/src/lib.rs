@@ -74,6 +74,12 @@ mod olaf_rage;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_talon_vault/src/lib.rs"]
 mod talon_vault;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_senna_mist/src/lib.rs"]
+mod senna_mist;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_veigar_power/src/lib.rs"]
+mod veigar_power;
 
 pub const ID: &str = "league_addons";
 
@@ -110,10 +116,12 @@ fn init(host: &StableHost) -> StableMod {
     zed_mark::register(host, &mut module);
     olaf_rage::register(host, &mut module);
     talon_vault::register(host, &mut module);
+    senna_mist::register(host, &mut module);
+    veigar_power::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health, Rengar's leap from the map's bushes, Zed's Contempt and Death Mark from health and damage, Olaf's Berserker Rage from missing health, Talon's Assassin's Path over walls.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health, Rengar's leap from the map's bushes, Zed's Contempt and Death Mark from health and damage, Olaf's Berserker Rage from missing health, Talon's Assassin's Path over walls, Senna's Mist and Veigar's ability power kept through death.",
     );
     module
 }

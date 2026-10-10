@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.90.0"
+    }
+  ],
+  "description": "Optional add-on for League of Legends Heroes: Senna's Absolution as in League - the Mist she gathers (attack, range and critical chance) is kept through death. The data pack cannot carry anything over a death (the game clears every buff), so there her Mist starts again each life; this add-on remembers every Mist layer and puts them back the moment death clears them. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-10",
+  "mod_id": "league_senna_mist",
+  "mod_type": "native",
+  "name": "League Heroes: Senna's Mist kept through death",
+  "version": "0.1.0"
+}

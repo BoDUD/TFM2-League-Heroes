@@ -1,0 +1,278 @@
+{
+ "hero": "senna",
+ "champ": "Senna",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 2.0,
+  "legs": 0.85,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "senna_idle01@0",
+ "head_joint": "Head",
+ "weapon": "^Gun_Body$",
+ "hide_submeshes": [
+  "VFX_Arm",
+  "VFX_Body",
+  "LittleLegendA",
+  "Gun_AfterImage",
+  "Cloak"
+ ],
+ "submesh_textures": {
+  "Gun_Handle": "Gun_TX",
+  "Gun_Barrel_Black": "Gun_TX",
+  "Gun_Barrel_White": "Gun_TX"
+ },
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "senna_idle01@0",
+     140
+    ],
+    [
+     "senna_idle01@0",
+     140
+    ],
+    [
+     "senna_idle01@0",
+     140
+    ],
+    [
+     "senna_idle01@0",
+     140
+    ],
+    [
+     "senna_idle01@0",
+     140
+    ],
+    [
+     "senna_idle01@0",
+     140
+    ],
+    [
+     "senna_idle01@0",
+     140
+    ],
+    [
+     "senna_idle01@0",
+     140
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "frames": [
+    [
+     "senna_run01@0",
+     125
+    ],
+    [
+     "senna_run01@125",
+     125
+    ],
+    [
+     "senna_run01@250",
+     125
+    ],
+    [
+     "senna_run01@375",
+     125
+    ],
+    [
+     "senna_run01@500",
+     125
+    ],
+    [
+     "senna_run01@625",
+     125
+    ],
+    [
+     "senna_run01@750",
+     125
+    ],
+    [
+     "senna_run01@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "senna_attack01@0",
+     70
+    ],
+    [
+     "senna_attack01@200",
+     80
+    ],
+    [
+     "senna_attack01@380",
+     100
+    ],
+    [
+     "senna_attack01@500",
+     90
+    ],
+    [
+     "senna_attack01@700",
+     110
+    ],
+    [
+     "senna_attack01@1000",
+     120
+    ]
+   ],
+   "rise": 0
+  },
+  "skill": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "senna_spell1@0",
+     70
+    ],
+    [
+     "senna_spell1@150",
+     80
+    ],
+    [
+     "senna_spell1@250",
+     90
+    ],
+    [
+     "senna_spell1@330",
+     120
+    ],
+    [
+     "senna_spell1@500",
+     100
+    ],
+    [
+     "senna_spell1@800",
+     100
+    ]
+   ],
+   "rise": 0
+  },
+  "skill2": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "senna_spell2@0",
+     60
+    ],
+    [
+     "senna_spell2@150",
+     70
+    ],
+    [
+     "senna_spell2@250",
+     70
+    ],
+    [
+     "senna_spell2@320",
+     110
+    ],
+    [
+     "senna_spell2@450",
+     90
+    ],
+    [
+     "senna_spell2@700",
+     100
+    ]
+   ],
+   "rise": 0
+  },
+  "ult": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "senna_spell4@0",
+     120
+    ],
+    [
+     "senna_spell4@150",
+     120
+    ],
+    [
+     "senna_spell4@300",
+     150
+    ],
+    [
+     "senna_spell4@450",
+     160
+    ],
+    [
+     "senna_spell4@600",
+     200
+    ],
+    [
+     "senna_spell4@750",
+     120
+    ],
+    [
+     "senna_spell4@950",
+     120
+    ],
+    [
+     "senna_spell4@1150",
+     100
+    ]
+   ],
+   "rise": 0
+  },
+  "hit": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "senna_death01@150",
+     100
+    ]
+   ],
+   "rise": 0
+  },
+  "dead": {
+   "travel": 0.3,
+   "lunge": 0.5,
+   "frames": [
+    [
+     "senna_death01@0",
+     100
+    ],
+    [
+     "senna_death01@150",
+     100
+    ],
+    [
+     "senna_death01@300",
+     120
+    ],
+    [
+     "senna_death01@500",
+     150
+    ],
+    [
+     "senna_death01@800",
+     200
+    ],
+    [
+     "senna_death01@1500",
+     400
+    ]
+   ]
+  }
+ }
+}

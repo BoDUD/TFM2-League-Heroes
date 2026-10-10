@@ -1,0 +1,63 @@
+{
+  "size_1x": [
+    128,
+    128
+  ],
+  "size_8x": [
+    1024,
+    1024
+  ],
+  "visible_bbox_1x": [
+    36,
+    54,
+    81,
+    100
+  ],
+  "width_cells": 45,
+  "total_height_cells": 46,
+  "hood_outline_top_row": 60,
+  "sole_row": 99,
+  "hood_to_sole_cells": 40,
+  "boot_gap_center_x": 64.0,
+  "opaque_color_count": 27,
+  "palette": [
+    "#171721",
+    "#1E1424",
+    "#25564E",
+    "#2E293B",
+    "#34203F",
+    "#36434E",
+    "#42202D",
+    "#43344F",
+    "#4C6B73",
+    "#513057",
+    "#613329",
+    "#65828A",
+    "#6E2C38",
+    "#765025",
+    "#769BA1",
+    "#77E3B3",
+    "#8F4C36",
+    "#92ABB2",
+    "#97253F",
+    "#A34B4F",
+    "#AACDD0",
+    "#B38232",
+    "#B46C47",
+    "#D48B58",
+    "#EABA4E",
+    "#EAF5EB",
+    "#FFE59B"
+  ],
+  "alpha_values": [
+    0,
+    255
+  ],
+  "exact_8x8_grid": true,
+  "both_eyes_two_cells": true,
+  "raw_sha256": {
+    "senna-generation-01.png": "48addacff643b819bea490a7d78ed4bc1c9c4448ff92a2a22a86c53d62c7963a",
+    "senna-generation-02.png": "3f77cff8d4e77912db478e1b7009f8c8b91c157b35f558868817f74d2146224d",
+    "senna-generation-03.png": "d5f8cb109c93c65c292c12bba4d9a91ae32f46808d22fd35307bc2cb5b36dd36"
+  }
+}

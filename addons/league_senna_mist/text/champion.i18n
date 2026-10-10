@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_senna_mist": {
+        "attack": "<#ff9028ff>赦除<>：技能和普攻标记敌方英雄，下次普攻吸走：额外3%最大生命伤害+1层黑雾；每<#ffb900ff>6秒<>一次普攻和击杀英雄也+1层。每层攻击+1、射程略增，每2层暴击+1%（扩展包保留）。<#ff9028ff>黑雾咒附<>（自动）：英雄贴近时，她和身边队友隐身<#ffb900ff>4秒<>、移速+20%。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_senna_mist": {
+        "attack": "<#ff9028ff>赦罪<>：技能和普攻標記敵方英雄，下次普攻吸走：額外3%最大生命傷害+1層黑霧；每<#ffb900ff>6秒<>一次普攻和擊殺英雄也+1層。每層攻擊+1、射程略增，每2層暴擊+1%（擴充包保留）。<#ff9028ff>黯霧詛咒<>（自動）：英雄貼近時，她和身邊隊友隱形<#ffb900ff>4秒<>、移速+20%。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_senna_mist": {
+        "attack": "<#ff9028ff>Absolution<>: her hits mark an enemy champion; the next attack takes it: +3% max health damage, 1 Mist. +1 Mist per attack every <#ffb900ff>6s<> and per champion kill. Mist: +1 attack, some range, +1% crit per 2 (kept: add-on). <#ff9028ff>Curse of the Black Mist<> (auto): an enemy champion near, she and nearby allies are invisible <#ffb900ff>4s<>, +20% speed."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_senna_mist": {
+        "attack": "<#ff9028ff>면죄<>: 스킬·공격이 적 챔피언에 표식, 다음 공격이 거둠: 최대 체력 3% 추가 피해, 안개 1. <#ffb900ff>6초<>마다 공격 1회·처치도 안개 1. 안개당 공격력 +1, 사거리↑, 2개마다 치명타 +1%(확장팩: 유지). <#ff9028ff>검은 안개의 저주<>(자동): 적 챔피언 접근 시 자신과 주변 아군 <#ffb900ff>4초<> 투명, 이속 +20%."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_senna_mist": {
+        "attack": "<#ff9028ff>魂の赦し<>：スキルと攻撃で敵チャンピオンに印、次の攻撃で回収：最大体力3%追加ダメージと霧1。<#ffb900ff>6秒<>毎の攻撃1回とキルでも霧1。霧1つで攻撃力+1、射程微増、2つ毎にクリ+1%（拡張で保持）。<#ff9028ff>黒き霧の呪い<>（自動）：敵接近で自身と味方が<#ffb900ff>4秒<>インビジブル、移速+20%。"
+      }
+    }
+  }
+}

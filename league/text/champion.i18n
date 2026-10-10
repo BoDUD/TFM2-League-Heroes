@@ -589,6 +589,13 @@
         "skill2": "掷出一对贯穿的斧刃，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>伤害，<#ef5350ff>击退<>敌人并<#ef5350ff>减速30%<><#ffb900ff>2秒<>。",
         "ult": "向远处交战中的英雄掷出两把宽大的巨斧，飞得很远，贯穿路上的敌人造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害；碰到第一个英雄（或飞到尽头）后折返，回程再造成一次伤害。"
       },
+      "league_senna": {
+        "name": "赛娜",
+        "attack": "<#ff9028ff>赦除<>：技能和普攻标记敌方英雄，下次普攻吸走：额外3%最大生命伤害+1层黑雾；每<#ffb900ff>6秒<>一次普攻和击杀英雄也+1层。每层攻击+1、射程略增，每2层暴击+1%（死亡清空）。<#ff9028ff>黑雾咒附<>（自动）：英雄贴近时，她和身边队友隐身<#ffb900ff>4秒<>、移速+20%。",
+        "skill": "遗物炮射出穿透目标的暗影光束：直线上的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害并<#ef5350ff>减速20%<><#ffb900ff>1.25秒<>，队友英雄回复<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>生命。",
+        "skill2": "射出黑雾，附着在首个命中的敌人身上并造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害；<#ffb900ff>1秒<>后黑雾扩散，<#ef5350ff>禁锢<>它和周围的敌人<#ffb900ff>1.5秒<>。",
+        "ult": "蓄力后朝远方交战中的英雄射出横贯战场的光束：中心对敌方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>物理伤害，两侧宽阔的光芒给她和沿途队友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%护盾<><#ffb900ff>3秒<>。"
+      },
       "league_shen": {
         "name": "慎",
         "attack": "<#ff9028ff>忍法！气合盾<>：施放技能后获得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>护盾<#ffb900ff>2秒<>（<#ffb900ff>8秒<>一次，技能命中英雄则缩短）。强化普攻额外25伤害，对英雄再加其最大生命4%（刀穿过英雄则6%、攻速+50%）。",
@@ -1017,6 +1024,11 @@
         "skill1": "旋转飞斧",
         "skill2": "开道利斧",
         "ult": "冷血追命"
+      },
+      "league_senna": {
+        "skill1": "黑暗洞灭",
+        "skill2": "无尽厮守",
+        "ult": "暗影燎原"
       },
       "league_shen": {
         "skill1": "奥义！暮临",
@@ -1615,6 +1627,13 @@
         "skill2": "擲出一對貫穿的斧刃，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>傷害，<#ef5350ff>擊退<>敵人並<#ef5350ff>緩速30%<><#ffb900ff>2秒<>。",
         "ult": "向遠處交戰中的英雄擲出兩把寬大的巨斧，飛得很遠，貫穿路上的敵人造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害；碰到第一個英雄（或飛到盡頭）後折返，回程再造成一次傷害。"
       },
+      "league_senna": {
+        "name": "姍娜",
+        "attack": "<#ff9028ff>赦罪<>：技能和普攻標記敵方英雄，下次普攻吸走：額外3%最大生命傷害+1層黑霧；每<#ffb900ff>6秒<>一次普攻和擊殺英雄也+1層。每層攻擊+1、射程略增，每2層暴擊+1%（死亡清空）。<#ff9028ff>黯霧詛咒<>（自動）：英雄貼近時，她和身邊隊友隱形<#ffb900ff>4秒<>、移速+20%。",
+        "skill": "聖物砲射出穿透目標的暗影光束：直線上的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害並<#ef5350ff>緩速20%<><#ffb900ff>1.25秒<>，隊友英雄回復<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>生命。",
+        "skill2": "射出黑霧，附著在首個命中的敵人身上並造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害；<#ffb900ff>1秒<>後黑霧擴散，<#ef5350ff>定身<>它和周圍的敵人<#ffb900ff>1.5秒<>。",
+        "ult": "蓄力後朝遠方交戰中的英雄射出橫貫戰場的光束：中心對敵方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>物理傷害，兩側寬闊的光芒給她和沿途隊友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%護盾<><#ffb900ff>3秒<>。"
+      },
       "league_shen": {
         "name": "慎",
         "attack": "<#ff9028ff>凝氣盾<>：施放技能後獲得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>護盾<#ffb900ff>2秒<>（<#ffb900ff>8秒<>一次，技能命中英雄則縮短）。強化普攻額外25傷害，對英雄再加其最大生命4%（刀穿過英雄則6%、攻速+50%）。",
@@ -2043,6 +2062,11 @@
         "skill1": "迴旋飛斧",
         "skill2": "給我閃！",
         "ult": "迴轉死神"
+      },
+      "league_senna": {
+        "skill1": "刺骨幽闇",
+        "skill2": "終末之擁",
+        "ult": "黎明之影"
       },
       "league_shen": {
         "skill1": "暮光強襲",
@@ -2641,6 +2665,13 @@
         "skill2": "Throws a pair of piercing axes for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, <#ef5350ff>knocking enemies back<> and <#ef5350ff>slowing 30%<> for <#ffb900ff>2s<>.",
         "ult": "Hurls two huge, wide axes at a fighting champion far away; they fly a long way, dealing <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> to every enemy passed, turn at the first champion (or the end) and fly back, dealing it again."
       },
+      "league_senna": {
+        "name": "Senna",
+        "attack": "<#ff9028ff>Absolution<>: her hits mark an enemy champion; the next attack takes it: +3% max health damage, 1 Mist. +1 Mist per attack every <#ffb900ff>6s<> and per champion kill. Mist: +1 attack, some range, +1% crit per 2 (lost on death). <#ff9028ff>Curse of the Black Mist<> (auto): an enemy champion near, she and nearby allies are invisible <#ffb900ff>4s<>, +20% speed.",
+        "skill": "The relic cannon fires a shadow beam through its target: enemies in the line take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage and are <#ef5350ff>slowed 20%<> for <#ffb900ff>1.25s<>; allied champions in it heal <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>.",
+        "skill2": "Fires the Black Mist: it clings to the first enemy hit, dealing <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, and after <#ffb900ff>1s<> spreads, <#ef5350ff>rooting<> it and the enemies around it for <#ffb900ff>1.5s<>.",
+        "ult": "Charges, then fires a beam of light across the battlefield at a fighting champion far away: its core deals <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> physical damage to enemy champions; its wide light gives her and the allied champions along it a <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% shield<> for <#ffb900ff>3s<>."
+      },
       "league_shen": {
         "name": "Shen",
         "attack": "Sword strike. <#ff9028ff>Ki Barrier<>: every ability gives him a <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<> shield for <#ffb900ff>2s<> (once every <#ffb900ff>8s<>, sooner when abilities hit champions). Empowered attacks deal 25 more, and to champions 4% of their max health (6% and +50% attack speed if the blade passed one).",
@@ -3069,6 +3100,11 @@
         "skill1": "Spinning Axe",
         "skill2": "Stand Aside",
         "ult": "Whirling Death"
+      },
+      "league_senna": {
+        "skill1": "Piercing Darkness",
+        "skill2": "Last Embrace",
+        "ult": "Dawning Shadow"
       },
       "league_shen": {
         "skill1": "Twilight Assault",
@@ -3667,6 +3703,13 @@
         "skill2": "관통하는 도끼 한 쌍을 던져 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 피해, <#ef5350ff>밀쳐내고<> <#ffb900ff>2초<> 동안 <#ef5350ff>30% 둔화<>.",
         "ult": "멀리 교전 중인 챔피언에게 넓고 거대한 도끼 두 개를 던져 멀리까지 날아가며 지나는 적에게 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 피해. 첫 챔피언(또는 끝)에서 되돌아와 다시 피해."
       },
+      "league_senna": {
+        "name": "세나",
+        "attack": "<#ff9028ff>면죄<>: 스킬·공격이 적 챔피언에 표식, 다음 공격이 거둠: 최대 체력 3% 추가 피해, 안개 1. <#ffb900ff>6초<>마다 공격 1회·처치도 안개 1. 안개당 공격력 +1, 사거리↑, 2개마다 치명타 +1%(사망 시 소멸). <#ff9028ff>검은 안개의 저주<>(자동): 적 챔피언 접근 시 자신과 주변 아군 <#ffb900ff>4초<> 투명, 이속 +20%.",
+        "skill": "렐릭 캐논이 대상을 관통하는 어둠의 광선을 발사: 직선의 적은 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 물리 피해를 입고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>20% 둔화<>, 아군 챔피언은 <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<> 회복.",
+        "skill2": "검은 안개를 발사해 처음 맞힌 적에게 달라붙어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 물리 피해. <#ffb900ff>1초<> 뒤 퍼지며 그 적과 주변 적을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>.",
+        "ult": "기를 모은 뒤 멀리 교전 중인 챔피언에게 전장을 가로지르는 광선 발사: 중심은 적 챔피언에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 물리 피해, 넓은 빛은 자신과 경로의 아군 챔피언에게 <#ffb900ff>3초<> 동안 <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% 보호막<>."
+      },
       "league_shen": {
         "name": "쉔",
         "attack": "<#ff9028ff>기 보호막<>: 스킬 사용 시 <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<> 보호막 <#ffb900ff>2초<>(<#ffb900ff>8초<>마다, 스킬이 챔피언 적중 시 단축). 강화 기본 공격은 추가 25 피해, 챔피언에게 최대 체력 4%(검이 챔피언을 관통했으면 6%, 공격 속도 +50%).",
@@ -4095,6 +4138,11 @@
         "skill1": "회전 도끼",
         "skill2": "비켜서라",
         "ult": "죽음의 소용돌이"
+      },
+      "league_senna": {
+        "skill1": "꿰뚫는 어둠",
+        "skill2": "마지막 포옹",
+        "ult": "여명의 그림자"
       },
       "league_shen": {
         "skill1": "황혼 강습",
@@ -4693,6 +4741,13 @@
         "skill2": "貫通する斧を2本投げ<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>のダメージ、<#ef5350ff>ノックバック<>と<#ffb900ff>2秒<><#ef5350ff>30%スロウ<>。",
         "ult": "遠くで交戦中のチャンピオンへ幅広の巨大な斧を2本投げ、遠くまで飛んで通過した敵に<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>。最初のチャンピオン（または端）で折り返し、戻りでも同じダメージ。"
       },
+      "league_senna": {
+        "name": "セナ",
+        "attack": "<#ff9028ff>魂の赦し<>：スキルと攻撃で敵チャンピオンに印、次の攻撃で回収：最大体力3%追加ダメージと霧1。<#ffb900ff>6秒<>毎の攻撃1回とキルでも霧1。霧1つで攻撃力+1、射程微増、2つ毎にクリ+1%（デスで失う）。<#ff9028ff>黒き霧の呪い<>（自動）：敵接近で自身と味方が<#ffb900ff>4秒<>インビジブル、移速+20%。",
+        "skill": "レリックキャノンが対象を貫く闇の光線を放つ：直線上の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージと<#ffb900ff>1.25秒<><#ef5350ff>20%スロウ<>、味方チャンピオンは<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>回復。",
+        "skill2": "黒き霧を放ち、最初に当たった敵に取り憑いて<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ。<#ffb900ff>1秒<>後に広がり、その敵と周りの敵を<#ffb900ff>1.5秒<><#ef5350ff>スネア<>。",
+        "ult": "力を溜め、遠くで交戦中のチャンピオンへ戦場を貫く光線を放つ：中心は敵チャンピオンに<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の物理ダメージ、幅広い光は自身と通り道の味方チャンピオンに<#ffb900ff>3秒<><#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%のシールド<>。"
+      },
       "league_shen": {
         "name": "シェン",
         "attack": "<#ff9028ff>内気功<>：スキル使用後に<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>のシールド<#ffb900ff>2秒<>（<#ffb900ff>8秒<>に1回、スキルがチャンピオンに当たると短縮）。強化通常攻撃は追加25ダメージ、チャンピオンには最大体力の4%（刀が貫いたら6%、攻撃速度+50%）。",
@@ -5121,6 +5176,11 @@
         "skill1": "回転斬斧",
         "skill2": "薙ぎ払い",
         "ult": "死の車輪"
+      },
+      "league_senna": {
+        "skill1": "ピアシングダークネス",
+        "skill2": "最期の抱擁",
+        "ult": "ドーニングシャドウ"
       },
       "league_shen": {
         "skill1": "護刃招来",

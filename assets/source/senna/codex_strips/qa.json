@@ -1,0 +1,1154 @@
+{
+  "technical_checks": [
+    {
+      "name": "attack_1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        36,
+        60,
+        110,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "aa9181fcb4b04be98f92e2ff9100d8e7cc9ea7b9a3ef769224d62164d23d2a66",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        277,
+        642,
+        1170,
+        1124
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "attack_2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        34,
+        61,
+        117,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "e6599c3df94289776cbe3c2c8314fcb249d2d63a94f7b893e7c0f0ad5a77abc1",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        237,
+        665,
+        1234,
+        1133
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "attack_3",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        38,
+        62,
+        109,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "d60cd3b15515e7a45472c60027e6d6364bb9bed97fde27f210f96bce526958c5",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        247,
+        602,
+        1101,
+        1061
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "attack_4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        38,
+        66,
+        112,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "e63cfd22048604ece465a39b5ac10226780e8d6b4ac41178e76fe38f24a4a551",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        322,
+        638,
+        1206,
+        1050
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "attack_5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        54,
+        58,
+        99,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "8fe5ed94e4e87a33a69628e9b3205440708176044d2555bcdf98cbc6dd7ee630",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        422,
+        534,
+        959,
+        1038
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "attack_6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        37,
+        62,
+        117,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "514c54f1c99ebc3b79ec98a4675ef25b33a701cbbea9cca77ce6c72469f7365d",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        273,
+        643,
+        1226,
+        1097
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "dead_1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        41,
+        64,
+        116,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "2a5942a6edd796b5cd6254cb72054e8387db7c3a1cc2c3e3b9a3aaf752290ffb",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        289,
+        641,
+        1189,
+        1075
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "dead_2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        38,
+        71,
+        106,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "c7ec0f0758fa03c6fabb9fa2a06af5ebd3ad6eeaf9a4ce72709ad5451518f4a1",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        374,
+        704,
+        1185,
+        1053
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "dead_3",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        36,
+        67,
+        111,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "12dae8b9df2b82f431168dc02964a3feba56a611d901200f57dfeeb94e0373f6",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        305,
+        723,
+        1201,
+        1121
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "dead_4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        32,
+        70,
+        115,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "c2c4066edee4e9760b62f0325334dee240142c5463a81f6539cf5a0e1ab2833d",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        224,
+        740,
+        1217,
+        1096
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "dead_5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        32,
+        77,
+        106,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "86804d4d4c871b2d1511bf1613685ccce117e8493d510054682cc95cb09855de",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        263,
+        783,
+        1152,
+        1060
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "dead_6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        16,
+        82,
+        112,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "aff4dd06340c2d7987cf028bc1a92b65fcdfbc36b1cc98b2f2a335cde6da85b7",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        63,
+        902,
+        1217,
+        1121
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "hit_1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        52,
+        62,
+        99,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "1895700325b50d6519bc96d54d970df129ca63d6edc4a045d5331e6144954d2d",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        412,
+        588,
+        969,
+        1038
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        42,
+        62,
+        82,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "58b0b04789cb6e463c44271e6d5c4ec420dc228adebf8b990a8c264d60f971e3",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        432,
+        617,
+        912,
+        1076
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        42,
+        60,
+        82,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "3639b12cf15d52185dacccd7960e26fb8b88f1c73e01357e383b2f8305fea9c4",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        442,
+        579,
+        920,
+        1058
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_3",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        36,
+        63,
+        84,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "d179e844762db6ac269d078585c49c86863463779de2e99397571a5d74ae54f1",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        354,
+        628,
+        931,
+        1077
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        44,
+        65,
+        82,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "7303123e7a59842ce107c502deb01a45511d39b26d72fbf1c93a2135c8746077",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        467,
+        622,
+        925,
+        1037
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        43,
+        55,
+        90,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "272f350c340cf241b885451e38107281594196bfc315f6ca060a1ae4131dad07",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        422,
+        567,
+        980,
+        1106
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        43,
+        60,
+        91,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "0e620d6c34c90c6f192fbf5f1c0a7c6a07a230521bde0efda5d9c0fbfface9a8",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        431,
+        614,
+        1012,
+        1091
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_7",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        44,
+        60,
+        89,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "8366dcd7813d4d7cdaa857f2c73eac2003e3123a3fa34904f95494fb604a3df9",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        429,
+        581,
+        963,
+        1059
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "run_8",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        39,
+        60,
+        88,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "604047b650963ea8b743e3cce8f7bb2e4337b66813f55448204376a279d68239",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        375,
+        545,
+        961,
+        1028
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill2_1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        41,
+        62,
+        87,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "acc3f0dc8eebae480ee02996c53f4bc19beb06eb0d9cacbe362d037f0fdff803",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        354,
+        597,
+        911,
+        1048
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill2_2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        46,
+        62,
+        91,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "113e89f39a36ffe3ab62c31b9085a6d20c08787663df8deb38b23ce601ae4d41",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        426,
+        637,
+        971,
+        1087
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill2_3",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        45,
+        69,
+        98,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "89a57d42fa29bc0e5fc32ff614cb3e788733550fb209fe8817b52fcb068defea",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        430,
+        659,
+        1067,
+        1035
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill2_4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        47,
+        71,
+        108,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "cd91b11b5efc6e64ec9811c3b614a7ce41e43d5de09b1ca5e0ad0bf48abdec18",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        374,
+        666,
+        1106,
+        1018
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill2_5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        38,
+        57,
+        77,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "a876d27f349f9acb0b9e10aee4b4136ad6c4b06c953049ddd65d12346c91ccc0",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        362,
+        587,
+        834,
+        1107
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill2_6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        47,
+        61,
+        78,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "0f0ed000635c536c2b642fa662a4ab2ebf1fd8f86116dda55eb7fdd845043d2e",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        436,
+        600,
+        808,
+        1071
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill_1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        35,
+        63,
+        80,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "aad8739c408525447bdd71b96faeb3f29f721e51cc869046ef8f4eed9c657484",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        358,
+        674,
+        900,
+        1120
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill_2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        40,
+        60,
+        80,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "01afe57adeebbdc35ac53da23b3268d7abe60bd9be3548fbd7181315a4ce9712",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        374,
+        582,
+        853,
+        1068
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill_3",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        48,
+        58,
+        92,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "69e5b35f5ac4cd3263ebe7568961e6c68da957ff6ec28261b2c7374b83e2048e",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        451,
+        598,
+        981,
+        1098
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill_4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        48,
+        67,
+        107,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "50783564f33273dc975468696c521e66106664b353f404149d75802a56304d2b",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        431,
+        589,
+        1138,
+        991
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill_5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        53,
+        66,
+        105,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "8eb2d54e369ed98cb6b6f44477b2f375264e166b40438f6284f193a3f8a0edbe",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        405,
+        616,
+        1037,
+        1021
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "skill_6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        51,
+        66,
+        116,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "dd978c013dcf93abefeb4952a1c701998a60f41b2e8a5fc5a31b65536ef7c6c9",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        402,
+        623,
+        1171,
+        1034
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        40,
+        60,
+        103,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "068fd3d6c145800d9aac813310b545968fd4bdd671c0ad77e92cbe906ce3e275",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        344,
+        559,
+        1099,
+        1038
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        56,
+        51,
+        92,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "927655c8b7bfe0a2fd06782828945ebe590c4d3b8a2774f378cb5b91f663aa39",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        451,
+        430,
+        882,
+        1019
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_3",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        54,
+        61,
+        110,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "800e74b7bee917d17c1193189bd61d61b7910d9ac523c672e839033e7f6abc56",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        407,
+        574,
+        1086,
+        1049
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        50,
+        59,
+        117,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "03558afa49fa3f2269f97a4efddac41a3831e046eac1794dccba5e6089ace884",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        402,
+        569,
+        1206,
+        1058
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        46,
+        62,
+        91,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "901e8c3f716f089607e05af7daa4f06464c548e19fd30b42f2270eb664d28f0e",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        403,
+        580,
+        950,
+        1039
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        47,
+        67,
+        106,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "2c6d78adaf1cfbf907d2c09809ca7fd5cf8b16ef7636d8e0d11e43c5325dafb9",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        384,
+        593,
+        1096,
+        995
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_7",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        53,
+        63,
+        114,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "09380c8cac152ada92fd3fc6edbc3811331a3eddb735f9f70a7d054a6f6ba3e6",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        417,
+        609,
+        1152,
+        1045
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    },
+    {
+      "name": "ult_8",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "grid_exact": true,
+      "palette_exact": true,
+      "alpha_binary": true,
+      "bbox_logical": [
+        49,
+        65,
+        124,
+        100
+      ],
+      "below_row99_empty": true,
+      "raw_sha256": "a4db2abae1de121024aa903d9742a17126e2d2a2a7b0a635c9bc4b611fe3c7d4",
+      "lowest_logical_row": 99,
+      "lowest_point_at_row99": true,
+      "raw_bbox": [
+        310,
+        603,
+        1204,
+        1024
+      ],
+      "raw_touches_canvas_edge": false,
+      "export_touches_canvas_edge": false
+    }
+  ],
+  "palette_opaque_count": 25,
+  "visual_approval": "pending"
+}
