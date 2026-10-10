@@ -20,11 +20,12 @@ then made "final" copies itself by resizing and re-quantising them: those are bl
      its eyes on League's head column (else its middle on League's);
   4. clear specks (pieces of fewer than SPECK squares apart from the body) and close the outline.
 The idle is the design square for square, breathing (the body above the sash sinks over the legs); the run is a trot
-of the design's own legs moved whole (TROT). Q and R start from the design itself (League's casts start from the idle
+of the design's own legs moved whole (TROT) under its own upper body: leaning, the near fist up (run_upper). Q and R start from the design itself (League's casts start from the idle
 pose).
 """
 import argparse
 import json
+import math
 import os
 import sys
 
@@ -64,7 +65,26 @@ FAR_STEP = [(-2, 1), (-1, 2), (0, 2), (0, 1), (0, 0), (-1, 0), (-1, 0), (-2, 0)]
 TROT_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
 KNEE_ROW = 91                     # the lower leg's first row
 LEG_TOP = 85
+# The run's own upper body (the user, 2026-10-11, with Viego's: 「慎的待机和跑步应该也不一样 我意思你顺便处理」 - the trot
+# carried the idle's stance): he leans into the run, every row above the sash moved forward RUN_LEAN columns per row
+# up from it (whole rows), the hood, his raised far arm with the sword and the near forearm moved whole (a sheared
+# blade or hood gets steps) - the far arm with the hood it holds the hilt beside - and his near fist comes up before his
+# chest: the bracer and the fist turned a quarter turn back about the elbow (rigkit.rot90: lossless), as League's Shen
+# runs. Rows are the design's (before the 90% cut; run_upper maps them).
+RUN_LEAN = 0.35
+RUN_HEAD = {59: (60, 70), 60: (59, 71), 61: (59, 72), 62: (59, 73), 63: (60, 73), 64: (60, 72), 65: (60, 72),
+            66: (60, 72), 67: (60, 72), 68: (61, 72), 69: (61, 72), 70: (61, 71)}
+RUN_FAR = {54: (60, 62), 55: (59, 63), 56: (57, 63), 57: (55, 62), 58: (55, 62), 59: (54, 59), 60: (54, 58),
+           61: (54, 58), 62: (54, 58), 63: (53, 59), 64: (53, 59), 65: (53, 59), 66: (53, 59), 67: (53, 59),
+           68: (52, 59), 69: (51, 59), 70: (51, 58), 71: (50, 58), 72: (50, 57), 73: (49, 56), 74: (48, 55),
+           75: (48, 54), 76: (47, 53), 77: (47, 52), 78: (47, 51), 79: (47, 51), 80: (47, 51), 81: (47, 51),
+           82: (48, 51), 83: (48, 51), 84: (48, 50)}
+RUN_NEAR = {77: (75, 78), 78: (74, 78), 79: (74, 81), 80: (72, 81), 81: (74, 83), 82: (75, 83), 83: (78, 82),
+            84: (78, 82), 85: (80, 81)}           # the bracer and the fist (the bare upper arm ends on row 78)
+NECK_ROW = 70                     # the hood's chin: the hood and the far arm move with this row's shift
+NEAR_ELBOW = (74.5, 78.5)         # (x, y): the near forearm turns about it
 EYE = (239, 226, 246)
+OUTLINE = (11, 1, 15)              # the design's outline colour (palette()[0], its darkest)
 SPECK = 4
 
 # tag -> [(source, ms)]; a source is a Codex frame name (placed by ITS League frame) or ("sink", name, row, n): that
@@ -377,7 +397,14 @@ def trot_parts(des):
     tail_top, hem = tail.copy(), tail.copy()
     tail_top[KNEE_ROW:] = 0
     hem[:KNEE_ROW] = 0
-    parts = {"upper": upper, "tail_top": tail_top, "hem": hem, "apron": apron}
+    parts = {"tail_top": tail_top, "hem": hem, "apron": apron}
+    # the upper body in the run's pieces: the hood, the far arm with the sword, the near forearm, the torso (the rest)
+    torso = upper.copy()
+    for name, spec in (("head", RUN_HEAD), ("far_arm", RUN_FAR), ("near_fore", RUN_NEAR)):
+        piece = masked(torso, sorted(spec), lambda y: spec[y])
+        torso[piece[..., 3] > 0] = 0
+        parts[name] = piece
+    parts["torso"] = torso
     for name, leg in (("near", near), ("far", far)):
         thigh, low = leg.copy(), leg.copy()
         thigh[KNEE_ROW:] = 0
@@ -396,7 +423,52 @@ def trot_layers(parts, k):
     # lost its ankle): 「右腿好了 左腿还有一点」. The tail's upper half sinks with the body.
     return [(parts["far_low"], fdx, -fup), (parts["far_thigh"], fdx, bob), (parts["tail_top"], ndx, bob),
             (parts["hem"], ndx, -nup), (parts["near_low"], ndx, -nup), (parts["near_thigh"], ndx, bob),
-            (parts["apron"], 0, bob), (parts["upper"], 0, bob)]
+            (parts["apron"], 0, bob)] + [(c, 0, bob) for c in parts["run_upper"]]
+
+
+def bare_outline_gone(a):
+    """Outline squares with no colour beside them taken out (rigkit.orphan_outline, until none is left): the turned
+    forearm's lower edge (its outline on the bracer's side) hung under the elbow as a stalk."""
+    import rigkit as K
+    a = a.copy()
+    outline = tuple(int(v) for v in OUTLINE)
+    while True:
+        gone = K.orphan_outline(a, outline)
+        if not gone.any():
+            return a
+        a[gone] = 0
+
+
+def plan_point(plan, x, y):
+    """A design point (x, y) on the 90% canvas: down one for every removed row under it, the removed columns between
+    it and the pivot closing in."""
+    rows = [CH + r for r in plan["rows"]]
+    cols = [CW + c for c in plan["cols"]]
+    y2 = y + sum(1 for r in rows if r > y)
+    if x < CW:
+        return x + sum(1 for c in cols if x < c < CW), y2
+    return x - sum(1 for c in cols if CW < c <= x), y2
+
+
+def run_upper(parts, plan):
+    """The run's upper body on the 90% pieces, back to front: the far arm with the sword and the hood moved with the
+    neck's shift, the torso leant row by row (RUN_LEAN), the near forearm turned up about the elbow, moved with the
+    elbow's row."""
+    import rigkit as K
+    neck = plan_point(plan, CW, NECK_ROW)[1]
+    leg = plan_point(plan, CW, LEG_TOP)[1]
+
+    def lean(y):
+        return int(math.floor((leg - max(y, neck)) * RUN_LEAN + 0.5)) if y < leg else 0
+
+    torso = np.zeros_like(parts["torso"])
+    for y in range(128):
+        torso[y] = shift(parts["torso"][y:y + 1], lean(y), 0)[0]
+    ex, ey = plan_point(plan, *NEAR_ELBOW)
+    fore = parts["near_fore"]
+    near = np.zeros_like(fore)
+    K.place(near, K.rot90(K.Part.from_canvas(fore, fore[..., 3] > 0, (ex, ey)), 3), (ex + lean(int(ey)), ey))
+    return [shift(parts["far_arm"], lean(neck), 0), torso, shift(parts["head"], lean(neck), 0), near]
 
 
 SHRINK = 0.9                          # the user: 「慎的模型太大 缩小一点」 (46 rows -> 42, like Talon and Olaf)
@@ -518,13 +590,19 @@ def source_of(name):
 def build(only=None):
     des = design()
     pal = palette(des)
-    cells = json.load(open(os.path.join(POSE, "shen_cells.json"), encoding="utf-8"))
-    lols, cache, sheet, info = {}, {}, {}, {}
-    ref = place_ref(des, cells)
+    lols, cache, sheet, info, lol = {}, {}, {}, {}, {}
+
+    def league_cells():
+        """League's renders (POSE) are read only for a Codex frame: --only run / idle build without them."""
+        if not lol:
+            lol["cells"] = json.load(open(os.path.join(POSE, "shen_cells.json"), encoding="utf-8"))
+            lol["ref"] = place_ref(des, lol["cells"])
+        return lol["cells"], lol["ref"]
 
     def frame(name):
         if name not in cache:
             tag, k = source_of(name)
+            cells, ref = league_cells()
             if tag not in lols:
                 lols[tag] = league(tag, cells)
             a, s, f = action_frame(name, tag, k, pal, lols[tag], ref)
@@ -537,6 +615,7 @@ def build(only=None):
     up, low = breath_parts(des)
     up90, low90 = shrunk(up, plan), shrunk(low, plan)
     run_parts = {n: shrunk(p, plan) for n, p in trot_parts(des).items()}
+    run_parts["run_upper"] = run_upper(run_parts, plan)
     for tag, rows in TAGS.items():
         if only and tag not in only:
             continue
@@ -547,7 +626,7 @@ def build(only=None):
             elif isinstance(src, tuple) and src[0] == "breath":
                 a = compose([(low90, 0, 0), (up90, 0, src[1])])
             elif isinstance(src, tuple) and src[0] == "trot":
-                a = compose(trot_layers(run_parts, src[1]))
+                a = bare_outline_gone(compose(trot_layers(run_parts, src[1])))
             elif isinstance(src, tuple) and src[0] == "sink":
                 a = ("sink", src[1], src[2], src[3])
             else:
