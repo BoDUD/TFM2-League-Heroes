@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）、佛耶戈（`league_viego`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。第 88 位是打野佛耶戈（战士）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手；赛娜的 W 也一样，射程内有敌方英雄时朝英雄射）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -163,6 +163,8 @@
 ![慎演示：上路对德莱厄斯，Q 奥义！暮临：紫色灵剑从德莱厄斯身后飞回慎手里，穿过他时紫光一闪、脚下紫色波纹减速，慎身上亮起气合盾；灵剑回到身边时脚下展开蓝色结界（奥义！魂佑），腰间三团紫色灵气绕着转，接下来两刀是双弧光的强化普攻；E 奥义！影缚：身后拖着暗紫影子冲进德莱厄斯，炸开紫色冲击圈并嘲讽他；远处盖伦挨打时开 R 秘奥义！慈悲度魂落：盖伦身上罩起紫色护盾、头顶浮着朝下的紫色箭头，慎身边升起螺旋灵光和光柱，引导结束后一道紫色光柱落在盖伦身边，慎传送过去](docs/preview/league_shen_showcase.gif)
 
 ![赛娜演示：她一炮打在德莱厄斯身上，打上赦除印记（胸口一圈青绿光环）；Q 黑暗洞灭：一道黑雾光束从炮口穿过德莱厄斯，打中他、脚下黑雾减速，光束上的盖伦身上升起金色治疗光；下一炮收走印记，德莱厄斯身上抽出一缕亡魂，黑雾飞回她的炮上；W 无尽厮守：一团黑雾飞出去缠在德莱厄斯身上，1 秒后在地上炸开一圈触手，把他定在原地；E 黑雾咒附：她身边涌出一大片黑雾，她和盖伦脚下飘着黑雾加速；R 暗影燎原：蓄力后黑暗核心和一面金色圣光墙一起横扫过去，德莱厄斯被黑雾炸中，盖伦被金光罩住得到护盾](docs/preview/league_senna_showcase.gif?v=head)
+
+![佛耶戈演示：他一剑砍在德莱厄斯身上（X 形剑光）；Q 破败王剑：一道青绿剑气刺穿德莱厄斯和身后的盖伦，德莱厄斯头顶亮起荆棘王冠标记，下一剑斩两下、黑雾炸开回血；W+E：他退后放出一大片黑雾，脚边缭绕黑雾加速，冲刺吐出黑雾巨口咬住德莱厄斯（头顶晕眩环）；R 痛贯天灵：他跃到德莱厄斯身上一剑刺下，落地冲击波把盖伦击退，德莱厄斯倒下；他夺取灵魂：苍白的灵魂光从两边升起汇到头顶，1 秒无敌的外壳，然后附身的黑雾裹住他，最后黑雾散开](docs/preview/league_viego_showcase.gif?v=head)
 
 ## 英雄：盖伦
 
@@ -3734,6 +3736,46 @@ python addons/league_senna_mist/make_override.py   # 黑雾常驻附加包的副
 - 缩小：用户「模型太大了 能缩小点吗」，对比图里选 85%。`import_native.py` 的 SHRINK 整行整列删除、不重采样（`shrink_frames.py`）：脸逐像素不动；头在每个动作删同样的两行两列（以眼睛为基准，`SHRINK_HEAD`，不然换动作时兜帽形状会跳）；靴子三行不删；腿部的行跟着地面删、不跟着头（`SHRINK_GROUND`：按头的位置删时，身体上下晃的帧删到了脚底下面，脚低了 1–2 格）；大招第 1→2 帧眼睛一下移 13 列，按眼睛那一块的左上角定位（`SHRINK_ROBUST`）；倒地的死亡帧按自己的高度比例删（`SHRINK_GROUPS`）。用户：「这头太大了 跑动时特别违和」——头整块保护时只删 2 行 2 列，跑步时头占了全身近一半；改成头上删 6 行 6 列（兜帽和头发 4 行 6 列，额头、脸颊各一行纯皮肤，眼睛、眉毛、嘴不动），总高度仍是 85%，跑步时头 16 行 → 13 行。这些开关默认关闭，已缩过的图奇、卡尔玛、雷克顿重导结果不变。
 
 逐帧预览：[`docs/preview/league_senna_frames.png`](docs/preview/league_senna_frames.png)，特效：[`docs/preview/league_senna_effects.png`](docs/preview/league_senna_effects.png)。
+
+## 英雄：佛耶戈
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 打野（战士，分类 Melee，标签 AD / Melee / CC / Heal），第 88 位英雄。破败之王 佛耶戈：大剑刺客，打过的英雄一死就夺取它的灵魂附身，Q、W 冷却减半接着收割，大招跳到残血英雄身上一剑刺穿。用户选 Q 单独、W+E 合并、主包近似 + 附加包（「附加包一起做了」）、大招打正在交手的英雄、Melee 战士 |
+| 普攻 | 大剑挥砍，攻击距离 26000，攻击间隔 64 tick，第 14 tick 砍中（动作帧第 5 帧）。打英雄附加其最大生命 2%（英雄联盟是 Q 被动的当前生命 2–7%，数据读不到当前生命） |
+| 被动 | 「君命已决」：他打过的敌方英雄 3 秒（180 tick）内阵亡（谁杀的都算），他就夺取灵魂、附身 10 秒：1 秒无敌免控、回复 60 + 50% 攻击力，攻击 +20%、攻速 +30%、移速 +15%，Q、W 冷却减半；身上裹一圈亡魂黑雾，放大招结束附身。数据看不到谁死了：他每次打中英雄，就在对方身上挂一个每 tick 续命的计时（`AddCasted`），计时断了就是死了（[champion-data.md](.claude/skills/tfm2-hero-mod/references/champion-data.md)「A takedown window」）；同一时间打过两个英雄只看得到最后死的那个 |
+| 附身附加包 | 可选的附加包 [`addons/league_viego_soul`](addons/league_viego_soul/README.md)（在附加包合集里，原生代码，主包不装它也完整）照英雄联盟来：读每个敌方英雄的死亡，每次参与击杀都算；尸体处留下灵魂 8 秒，他走到 35000 以内才附身；附身时**整个身体变成那个英雄**（站、跑、出招、挨打都是那个英雄的图，只在游戏 0.6.3 上，和凯隐附加包共用同一个显示钩子），招式按那个英雄的类别换成五套之一（近战、射手、法师、辅助、刺客，远程三类攻击距离 +25000）。附加包里的佛耶戈是 `make_override.py` 从主包生成的副本 |
+| 技能1 | Q「破败王剑」：冷却 330 tick（5.5 秒），对 36000 内的敌人放（小兵野怪也算），第 8 tick 往前刺出一道 40000 长的剑气，路上每个敌人 50 + 70% 攻击力；刺中的英雄被标记 4 秒，他下一次普攻打它斩两下：6 tick 后再 20 + 60% 攻击力，回复 30 + 30% 攻击力 |
+| 技能2 | E「茫茫焦土」→ W「千载幽咽」：冷却 600 tick（10 秒），对 46000 内的敌方英雄放（开团）。先放黑雾：5 秒内移速 +30%、攻速 +40%，蓄力的 45 tick 里隐身；第 24 tick 冲刺 18000，吐出黑雾巨口（直线飞 42000，打中第一个敌人）：90 + 70% 攻击力、眩晕 1.1 秒。**高手连招 W 接 Q**：巨口晕住英雄时 Q 好着，落地马上朝它刺出 Q |
+| 大招 | R「痛贯天灵」：冷却 3000 tick（50 秒），对正在交手的敌方英雄放（`EnemyChampionRecentlyAttacked`，射程 42000，德莱厄斯 R 的做法，数据找不到「血最少的」），目标减速 99% 0.3 秒，他跳过去（`MoveToTarget`），第 18 tick 刺穿：120 + 120% 攻击力 + 目标最大生命 12%（英雄联盟是已损生命 12–20%），18000 内其他敌人被击退。放大招结束附身 |
+| 数值 | 攻击 92（+18）、生命 980（+105）、护甲 30（+8）、魔抗 26（+4）、移速 1010（+11）。数值是自己设计的，用 SDK 对战模拟调：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），3 套阵容、两边各打，10 分钟。初稿（二连击回血 40 + 40%、附身攻击 +25%、Q / W 冷却直接刷新）种子 1–12 +2.02、25–36 +1.92，太强；回血 30 + 30%、攻击 +20%、冷却减半后 +1.51 / +1.16（同一批凯隐 +1.76 / +1.23） |
+| 精灵图 | 9 个动作 57 帧：待机 8（他自己的呼吸）、移动 8、普攻 6（第 5 帧砍中）、Q（`skill`）6、W+E（`skill2`）7、R（`ult`）8、吸魂（`possess`）4、受击 2、死亡 8（跪在插地的剑旁）。王冠到脚底 42 行（连剑 51 行），27 色，大剑扛在肩上。头像截取点 (4, −43)，选人卡片 −8 |
+| 特效 | Codex 生图的 25 张（游戏尺寸版逐格切，`import_viego.py`；红色方的对称逐格检查）：`league_viego_fx` 普攻 X 形剑光、二连击、Q 剑气 / 刺中 / 王冠标记、W 黑雾巨口 / 咬中 / 晕眩、E 脚边黑雾、无敌外壳、附身结束、R 起跳 / 刺中，附加包的灵魂光弹、穿透射击、命中、减速、治疗、加速；`league_viego_big` E 的黑雾、夺魂、附身黑雾、R 刺中和落地冲击、附加包的灵魂爆裂和范围震荡。颜色照英雄联盟的破败黑雾：他剑上的青绿光（白芯），雾的深色只在里面、边缘是亮的，灵魂是苍白的青白色。地上的圈和两个爆裂 Codex 画满了整个格子（四四方方），按格子里的椭圆裁掉外面 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_viego.py`）：挥剑、砍中、二连击，Q 出手 / 刺中，W 蓄力 / 出手 / 咬中，E 黑雾，夺魂、附身结束，R 起跳 / 落地 / 刺中；Q、W、E、R、夺魂的配音（最多每 10 秒一句）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q 破败王剑 / W 千载幽咽 / R 痛贯天灵），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_viego.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_viego.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_viego.py --face 4,-43 --banpick -8   # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/design_viego.py --pick 42     # 造型：Codex 原稿按格读回、整行整列删到 42 行
+python tools/art/rig_viego.py          # 动作：用定稿自己的部件摆出来（见下）
+python tools/art/import_native.py --hero viego
+python tools/art/import_viego.py       # 特效：游戏尺寸版逐格切，拼成特效表
+python tools/art/preview_viego.py      # 预览和演示 GIF
+python addons/league_viego_soul/make_override.py   # 附身附加包的副本（主包的佛耶戈改了就重跑）
+```
+
+美术（原画、造型、动作、特效的提示词见 [`assets/source/viego/`](assets/source/viego/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`MODEL_STRIPS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_strips/`、`codex_fx/`）：
+
+- 原画：Codex 画了剑扛肩（A）和剑拖地（B）两版，用户选 A。
+- 造型：Codex 第 1 步交的成品脸糊成一块，用户：「按蛮王那种方法慢慢调吧 codex做的太差了」。改读它的第 2 张原稿（按自己的格子读回，王冠到脚底 65 行），整行整列删到几档（脸那几行几列不删），用户选 42 行。
+- 动作：Codex 把定稿切成部件、按任意角度转（最近邻，剑出锯齿、大衣歪斜），用户：「有问题的地方你帮我修复 完美版了喊我review」。`rig_viego.py` 只用不失真的操作重摆：剑、手套和前臂一整块绕手肘转 90° 的倍数或翻转（8 种朝向），被挡住的剑身按看得见的两列补齐；前倾是整行平移，下蹲是除靴子以外整个往下沉（大衣盖住小腿，大衣和腰带不被压扁），跳跃是整体平移。用户：「走路姿势太怪了」「上下摆动造成模型变形」——跑步改成两只靴子各走各的道（落地、往后滑、抬起往前送，另一只差半个周期），身体只在落脚时低一行；「脚移动时看起来有点变形」——只有靴子动（衣摆不跟着扯），抬脚时靴子整只画在衣摆上面、形状不变，最后「下一步吧」。
+- 特效：25 张用 Codex 的游戏尺寸版逐格切；地上的圈、两个爆裂裁成格子里的椭圆，E 的黑雾最后一帧是一整块，改成倒放自己的前两帧散去。
+
+逐帧预览：[`docs/preview/league_viego_frames.png`](docs/preview/league_viego_frames.png)，特效：[`docs/preview/league_viego_effects.png`](docs/preview/league_viego_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

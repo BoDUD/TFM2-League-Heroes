@@ -1452,6 +1452,15 @@ valid that tick), a `Delayed` effect on the target (it runs on the dead), and on
 so a survivor's check can hide the other's death. The same check could build other takedown effects
 (Darius's Noxian Guillotine reset).
 
+**A takedown window (league_viego Sovereign's Domination).** League gives Viego a soul when a champion he damaged
+dies within 3 s, by anyone's hand. The kill trigger stretched to a window: every champion hit (each slot's
+champion-only twin) puts an `AddCasted` (p_win ticks, period 1) on the champion whose effect keeps a 2-tick caster
+flag `p_alive` up, and one on him (p_win - 2 ticks) that reads the flag each tick: the flag lapsing inside the window =
+that champion died. The latest hit's casted on the champion always outlives his watcher, so a window running out is
+never read as a death. Two champions hit in the same window: only the last one to die is seen (the other keeps the
+flag up). The add-on (addons/league_viego_soul) reads deaths natively instead and sees each one; its copy of the kit
+swaps the casteds for a plain 3-s mark buff on the champion hit.
+
 **Bonus on a new target (league_missfortune Love Tap).** Nothing tells whether an attack's target is the
 last one (`SwitchByBuff` reads the caster, and a lasting `AddCasted` marker shows an icon, section 4). What
 can be known is when her last target is surely gone: an attack is Love Tap when her previous hit killed
