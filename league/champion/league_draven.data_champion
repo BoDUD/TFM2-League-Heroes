@@ -1,0 +1,2478 @@
+{
+  "id": "league_draven",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range"
+  ],
+  "sprite": "asset/league/champions/league_draven",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_draven_skill",
+    "asset/league/icons/league_draven_skill2",
+    "asset/league/icons/league_draven_ult"
+  ],
+  "stat": {
+    "attack": 104,
+    "magic_power": 0,
+    "hp": 930,
+    "defence": 22,
+    "magic_resistance": 15,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 19,
+    "magic_power": 0,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_draven.attack",
+    "duration": 24,
+    "cooltime": 60,
+    "start_timing": 11,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_draven_w_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "RandomTarget",
+            "range": 70000,
+            "casting_target": "EnemyChampion",
+            "from_projectile": false,
+            "effects": [
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_draven_w_cd"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_draven_w_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 720
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_draven_w_ms"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_draven_w_ms",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": 40
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_draven_w_as"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_draven_w_as",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "attack_speed_mult": 35
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_draven_w_cast"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_draven_w"
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_draven_vo_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_draven_vo_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 600
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_draven_vo_w"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_draven_ax1",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_draven_ax2",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_draven_ax2"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_draven_ax1"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Sfx",
+                "name": "league_draven_q_throw"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_draven_q_axe",
+                "speed": 6000,
+                "y_offset": 0,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 40,
+                      "attack_ratio": 155,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_draven_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_draven_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Delayed",
+                      "tick": 1,
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_draven_q_zone"
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_draven_q_fall"
+                            },
+                            {
+                              "type": "ParabolicProjectile",
+                              "name": "league_draven_q_drop",
+                              "travel_time": 42,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "range_effect_name": "",
+                              "applied_target": "AllyOnlySelf",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 12000,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": true,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_draven_q_got",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_draven_q_got",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_draven_q_got"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_draven_ax1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_draven_ax1"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_draven_ax1",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 348
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_draven_ax2"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_draven_ax2",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 348
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_draven_ax1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_draven_ax1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 348
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_draven_w_cd"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_draven_p_1",
+                                            "effect_buff": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_draven_p_2",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_draven_p_3",
+                                                "effect_buff": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_draven_p_4",
+                                                  "effect_buff": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_draven_p_5",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_draven_p_6",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_draven_p_6",
+                                                          "duration": "Permanent",
+                                                          "attack": 4
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_draven_p_5",
+                                                        "duration": "Permanent",
+                                                        "attack": 4
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_draven_p_4",
+                                                      "duration": "Permanent",
+                                                      "attack": 4
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                },
+                                                "effect_none": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_draven_p_3",
+                                                    "duration": "Permanent",
+                                                    "attack": 4
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              },
+                                              "effect_none": {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_draven_p_2",
+                                                  "duration": "Permanent",
+                                                  "attack": 4
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_draven_p_1",
+                                                "duration": "Permanent",
+                                                "attack": 4
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_draven_q_catch"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_draven_q_catch"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_draven_q_lost"
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_draven_q_lost"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_draven_a_throw"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_draven_a_axe",
+                "speed": 6000,
+                "y_offset": 0,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_draven_a_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_draven_a_hit"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_draven_a_twin",
+          "speed": 6000,
+          "y_offset": 0,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_draven_k_a"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_draven_k_a",
+                      "duration": {
+                        "Time": {
+                          "tick": 40
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 3,
+                    "period": 1,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_draven_k_a"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Delayed",
+                        "tick": 4,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_draven_k_a",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_draven_k_a"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_draven_p_6",
+                                          "effect_buff": {
+                                            "type": "Heal",
+                                            "amount": 150,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 0,
+                                            "heal_type": "Caster"
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_draven_p_5",
+                                            "effect_buff": {
+                                              "type": "Heal",
+                                              "amount": 125,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 0,
+                                              "heal_type": "Caster"
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_draven_p_4",
+                                              "effect_buff": {
+                                                "type": "Heal",
+                                                "amount": 100,
+                                                "attack_ratio": 0,
+                                                "ap_ratio": 0,
+                                                "heal_type": "Caster"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_draven_p_3",
+                                                "effect_buff": {
+                                                  "type": "Heal",
+                                                  "amount": 75,
+                                                  "attack_ratio": 0,
+                                                  "ap_ratio": 0,
+                                                  "heal_type": "Caster"
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_draven_p_2",
+                                                  "effect_buff": {
+                                                    "type": "Heal",
+                                                    "amount": 50,
+                                                    "attack_ratio": 0,
+                                                    "ap_ratio": 0,
+                                                    "heal_type": "Caster"
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_draven_p_1",
+                                                    "effect_buff": {
+                                                      "type": "Heal",
+                                                      "amount": 25,
+                                                      "attack_ratio": 0,
+                                                      "ap_ratio": 0,
+                                                      "heal_type": "Caster"
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_draven_p_1"
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_draven_p_2"
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_draven_p_3"
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_draven_p_4"
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_draven_p_5"
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_draven_p_6"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_draven_p_glory"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_draven_p_glory",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                },
+                                                "attack_speed_mult": 30
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_draven_p_cash"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_draven_p_cash"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_draven.skill",
+    "duration": 12,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "skill",
+          "tick": 12
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_draven_ax1",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_draven_ax1"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_draven_ax1",
+                      "duration": {
+                        "Time": {
+                          "tick": 348
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_draven_ax2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_draven_ax2",
+                      "duration": {
+                        "Time": {
+                          "tick": 348
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_draven_ax1"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_draven_ax1",
+                  "duration": {
+                    "Time": {
+                      "tick": 348
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_draven_q"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_draven_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_draven_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_draven_vo_q"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_draven.skill2",
+    "duration": 24,
+    "cooltime": 900,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 95000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "skill2",
+          "tick": 24
+        },
+        {
+          "type": "Sfx",
+          "name": "league_draven_e"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_draven_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_draven_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_draven_vo_e"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_draven_e_throw"
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "league_draven_e_axes",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 70,
+                    "attack_ratio": 50,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Knockback",
+                    "speed": 1800,
+                    "tick": 8
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_draven_e_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 120
+                        }
+                      },
+                      "move_speed_mult": -30
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_draven_e_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_draven_e_hit"
+                  }
+                }
+              ],
+              "end_effects": [],
+              "speed": 6000,
+              "range": 105000,
+              "shape": {
+                "Circle": {
+                  "radius": 8000
+                }
+              },
+              "y_offset": 0
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "league_draven_e_twin",
+              "penetrate": true,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_draven_e_up"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_draven_e_up",
+                              "duration": {
+                                "Time": {
+                                  "tick": 150
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": [],
+              "speed": 6000,
+              "range": 105000,
+              "shape": {
+                "Circle": {
+                  "radius": 8000
+                }
+              },
+              "y_offset": 0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_draven.ult",
+    "duration": 30,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 150000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampionRecentlyAttacked",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 30
+        },
+        {
+          "type": "Sfx",
+          "name": "league_draven_r"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_draven_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_draven_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_draven_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_draven_r_throw"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_draven_e_up",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_draven_e_up"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_draven_r_cut",
+                        "penetrate": true,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 110,
+                              "attack_ratio": 80,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_draven_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_draven_r_hit"
+                            }
+                          }
+                        ],
+                        "end_effects": [],
+                        "speed": 6500,
+                        "range": 200000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 9000
+                          }
+                        },
+                        "y_offset": 0
+                      },
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_draven_r_out",
+                        "penetrate": false,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_draven_k_r"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_draven_k_r",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasted",
+                                  "casted_type": "Heal",
+                                  "duration": 3,
+                                  "period": 1,
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_draven_k_r"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 4,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_draven_k_r",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_draven_k_r"
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "target": "AllyOnlySelf",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_draven_p_6",
+                                                        "effect_buff": {
+                                                          "type": "Heal",
+                                                          "amount": 150,
+                                                          "attack_ratio": 0,
+                                                          "ap_ratio": 0,
+                                                          "heal_type": "Caster"
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_draven_p_5",
+                                                          "effect_buff": {
+                                                            "type": "Heal",
+                                                            "amount": 125,
+                                                            "attack_ratio": 0,
+                                                            "ap_ratio": 0,
+                                                            "heal_type": "Caster"
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_draven_p_4",
+                                                            "effect_buff": {
+                                                              "type": "Heal",
+                                                              "amount": 100,
+                                                              "attack_ratio": 0,
+                                                              "ap_ratio": 0,
+                                                              "heal_type": "Caster"
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_draven_p_3",
+                                                              "effect_buff": {
+                                                                "type": "Heal",
+                                                                "amount": 75,
+                                                                "attack_ratio": 0,
+                                                                "ap_ratio": 0,
+                                                                "heal_type": "Caster"
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_draven_p_2",
+                                                                "effect_buff": {
+                                                                  "type": "Heal",
+                                                                  "amount": 50,
+                                                                  "attack_ratio": 0,
+                                                                  "ap_ratio": 0,
+                                                                  "heal_type": "Caster"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_draven_p_1",
+                                                                  "effect_buff": {
+                                                                    "type": "Heal",
+                                                                    "amount": 25,
+                                                                    "attack_ratio": 0,
+                                                                    "ap_ratio": 0,
+                                                                    "heal_type": "Caster"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_1"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_2"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_3"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_4"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_5"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_6"
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_glory"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_draven_p_glory",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 240
+                                                                }
+                                                              },
+                                                              "attack_speed_mult": 30
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "CasterViewEffect",
+                                                        "name": "league_draven_p_cash"
+                                                      },
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_draven_p_cash"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "end_effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_draven_r_turn"
+                          },
+                          {
+                            "type": "BackToCasterLinearProjectile",
+                            "name": "league_draven_r_back",
+                            "penetrate": true,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 110,
+                                  "attack_ratio": 80,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_draven_r_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_draven_r_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": [],
+                            "speed": 5000,
+                            "range": 300000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 9000
+                              }
+                            }
+                          },
+                          {
+                            "type": "BackToCasterLinearProjectile",
+                            "name": "league_draven_r_backk",
+                            "penetrate": true,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_draven_k_r"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_draven_k_r",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasted",
+                                      "casted_type": "Heal",
+                                      "duration": 3,
+                                      "period": 1,
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_draven_k_r"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 4,
+                                          "effects": [
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_draven_k_r",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_draven_k_r"
+                                                  },
+                                                  {
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 1000
+                                                      }
+                                                    },
+                                                    "target": "AllyOnlySelf",
+                                                    "apply_type": "AroundCaster",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_draven_p_6",
+                                                            "effect_buff": {
+                                                              "type": "Heal",
+                                                              "amount": 150,
+                                                              "attack_ratio": 0,
+                                                              "ap_ratio": 0,
+                                                              "heal_type": "Caster"
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_draven_p_5",
+                                                              "effect_buff": {
+                                                                "type": "Heal",
+                                                                "amount": 125,
+                                                                "attack_ratio": 0,
+                                                                "ap_ratio": 0,
+                                                                "heal_type": "Caster"
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_draven_p_4",
+                                                                "effect_buff": {
+                                                                  "type": "Heal",
+                                                                  "amount": 100,
+                                                                  "attack_ratio": 0,
+                                                                  "ap_ratio": 0,
+                                                                  "heal_type": "Caster"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_draven_p_3",
+                                                                  "effect_buff": {
+                                                                    "type": "Heal",
+                                                                    "amount": 75,
+                                                                    "attack_ratio": 0,
+                                                                    "ap_ratio": 0,
+                                                                    "heal_type": "Caster"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_draven_p_2",
+                                                                    "effect_buff": {
+                                                                      "type": "Heal",
+                                                                      "amount": 50,
+                                                                      "attack_ratio": 0,
+                                                                      "ap_ratio": 0,
+                                                                      "heal_type": "Caster"
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_draven_p_1",
+                                                                      "effect_buff": {
+                                                                        "type": "Heal",
+                                                                        "amount": 25,
+                                                                        "attack_ratio": 0,
+                                                                        "ap_ratio": 0,
+                                                                        "heal_type": "Caster"
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_1"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_2"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_3"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_4"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_5"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_6"
+                                                          },
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_draven_p_glory"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_draven_p_glory",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 240
+                                                                    }
+                                                                  },
+                                                                  "attack_speed_mult": 30
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "CasterViewEffect",
+                                                            "name": "league_draven_p_cash"
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_draven_p_cash"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "end_effects": [],
+                            "speed": 5000,
+                            "range": 300000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 9000
+                              }
+                            }
+                          }
+                        ],
+                        "speed": 6500,
+                        "range": 200000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 9000
+                          }
+                        },
+                        "y_offset": 0
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_draven_r_cut",
+                    "penetrate": true,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 110,
+                          "attack_ratio": 80,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_draven_r_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_draven_r_hit"
+                        }
+                      }
+                    ],
+                    "end_effects": [],
+                    "speed": 4500,
+                    "range": 200000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 9000
+                      }
+                    },
+                    "y_offset": 0
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_draven_r_out",
+                    "penetrate": false,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_draven_k_r"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_draven_k_r",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 40
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasted",
+                              "casted_type": "Heal",
+                              "duration": 3,
+                              "period": 1,
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_draven_k_r"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Delayed",
+                                  "tick": 4,
+                                  "effects": [
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_draven_k_r",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_draven_k_r"
+                                          },
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_draven_p_6",
+                                                    "effect_buff": {
+                                                      "type": "Heal",
+                                                      "amount": 150,
+                                                      "attack_ratio": 0,
+                                                      "ap_ratio": 0,
+                                                      "heal_type": "Caster"
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_draven_p_5",
+                                                      "effect_buff": {
+                                                        "type": "Heal",
+                                                        "amount": 125,
+                                                        "attack_ratio": 0,
+                                                        "ap_ratio": 0,
+                                                        "heal_type": "Caster"
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_draven_p_4",
+                                                        "effect_buff": {
+                                                          "type": "Heal",
+                                                          "amount": 100,
+                                                          "attack_ratio": 0,
+                                                          "ap_ratio": 0,
+                                                          "heal_type": "Caster"
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_draven_p_3",
+                                                          "effect_buff": {
+                                                            "type": "Heal",
+                                                            "amount": 75,
+                                                            "attack_ratio": 0,
+                                                            "ap_ratio": 0,
+                                                            "heal_type": "Caster"
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_draven_p_2",
+                                                            "effect_buff": {
+                                                              "type": "Heal",
+                                                              "amount": 50,
+                                                              "attack_ratio": 0,
+                                                              "ap_ratio": 0,
+                                                              "heal_type": "Caster"
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_draven_p_1",
+                                                              "effect_buff": {
+                                                                "type": "Heal",
+                                                                "amount": 25,
+                                                                "attack_ratio": 0,
+                                                                "ap_ratio": 0,
+                                                                "heal_type": "Caster"
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_draven_p_1"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_draven_p_2"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_draven_p_3"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_draven_p_4"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_draven_p_5"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_draven_p_6"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_glory"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_draven_p_glory",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 240
+                                                            }
+                                                          },
+                                                          "attack_speed_mult": 30
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "CasterViewEffect",
+                                                    "name": "league_draven_p_cash"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_draven_p_cash"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "end_effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_draven_r_turn"
+                      },
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_draven_r_back",
+                        "penetrate": true,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 110,
+                              "attack_ratio": 80,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_draven_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_draven_r_hit"
+                            }
+                          }
+                        ],
+                        "end_effects": [],
+                        "speed": 5000,
+                        "range": 300000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 9000
+                          }
+                        }
+                      },
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_draven_r_backk",
+                        "penetrate": true,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_draven_k_r"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_draven_k_r",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasted",
+                                  "casted_type": "Heal",
+                                  "duration": 3,
+                                  "period": 1,
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_draven_k_r"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 4,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_draven_k_r",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_draven_k_r"
+                                              },
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "target": "AllyOnlySelf",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_draven_p_6",
+                                                        "effect_buff": {
+                                                          "type": "Heal",
+                                                          "amount": 150,
+                                                          "attack_ratio": 0,
+                                                          "ap_ratio": 0,
+                                                          "heal_type": "Caster"
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_draven_p_5",
+                                                          "effect_buff": {
+                                                            "type": "Heal",
+                                                            "amount": 125,
+                                                            "attack_ratio": 0,
+                                                            "ap_ratio": 0,
+                                                            "heal_type": "Caster"
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_draven_p_4",
+                                                            "effect_buff": {
+                                                              "type": "Heal",
+                                                              "amount": 100,
+                                                              "attack_ratio": 0,
+                                                              "ap_ratio": 0,
+                                                              "heal_type": "Caster"
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_draven_p_3",
+                                                              "effect_buff": {
+                                                                "type": "Heal",
+                                                                "amount": 75,
+                                                                "attack_ratio": 0,
+                                                                "ap_ratio": 0,
+                                                                "heal_type": "Caster"
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_draven_p_2",
+                                                                "effect_buff": {
+                                                                  "type": "Heal",
+                                                                  "amount": 50,
+                                                                  "attack_ratio": 0,
+                                                                  "ap_ratio": 0,
+                                                                  "heal_type": "Caster"
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_draven_p_1",
+                                                                  "effect_buff": {
+                                                                    "type": "Heal",
+                                                                    "amount": 25,
+                                                                    "attack_ratio": 0,
+                                                                    "ap_ratio": 0,
+                                                                    "heal_type": "Caster"
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "Combine",
+                                                                    "effects": []
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_1"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_2"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_3"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_4"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_5"
+                                                      },
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_draven_p_6"
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_draven_p_glory"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_draven_p_glory",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 240
+                                                                }
+                                                              },
+                                                              "attack_speed_mult": 30
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "CasterViewEffect",
+                                                        "name": "league_draven_p_cash"
+                                                      },
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_draven_p_cash"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "end_effects": [],
+                        "speed": 5000,
+                        "range": 300000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 9000
+                          }
+                        }
+                      }
+                    ],
+                    "speed": 4500,
+                    "range": 200000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 9000
+                      }
+                    },
+                    "y_offset": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_draven_a_axe",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "a_axe",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_q_axe",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "q_axe",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_e_axes",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "e_axes",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_r_out",
+      "anim": "asset/league/effects/league_draven_big",
+      "tag": "r_axes",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_r_back",
+      "anim": "asset/league/effects/league_draven_big",
+      "tag": "r_axes",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_draven_a_hit",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_q_hit",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_q_zone",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "q_zone",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_q_fall",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "q_fall",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_q_catch",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "q_catch",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_q_lost",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "q_lost",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_w_cast",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "w_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_e_hit",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_r_hit",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_draven_p_cash",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "p_cash",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_draven_ax1",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "ax1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_ax2",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "ax2",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_w_ms",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "w_ms",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_e_slow",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_draven_p_6",
+      "anim": "asset/league/effects/league_draven_fx",
+      "tag": "p_6",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

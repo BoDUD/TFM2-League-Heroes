@@ -574,6 +574,13 @@
         "skill": "回旋横扫，周围敌人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>伤害。命中后获得一层<#ff9028ff>暴走<>（最多2层，<#ffb900ff>8秒<>），每层伤害+20%。刷野叠的层数可以带进团战。",
         "skill2": "冲向目标，冲得越久伤害越高（最多200%），造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害并<#ef5350ff>击退<>，之后移速+25%。",
         "ult": "带幽灵骑兵冲向敌方英雄，沿途敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>伤害；落地使周围敌人<#ef5350ff>恐惧0.75秒<>（冲得远<#ef5350ff>1.33秒<>），顺势<#ff9028ff>暴走<>一圈并开启<#ff9028ff>恐惧之灵<>。"
+      },
+      "league_draven": {
+        "name": "德莱文",
+        "attack": "<#ff9028ff>德莱文联盟<>：每接住一把斧头+1层崇拜（最多6层，每层攻击+4），用斧头击杀英雄时兑现：每层回复25生命，攻速+30%<#ffb900ff>4秒<>。<#ff9028ff>血性冲刺<>（自动，<#ffb900ff>12秒<>）：对英雄出手时移速+40%、攻速+35%，接住斧头即刷新。",
+        "skill": "手中转起一把飞斧（最多2把），下次攻击额外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>伤害。斧头弹回空中，<#ffb900ff>0.7秒<>后落进他脚下的圆圈，站在圈里就能接住继续旋转。",
+        "skill2": "掷出一对贯穿的斧刃，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>伤害，<#ef5350ff>击退<>敌人并<#ef5350ff>减速30%<><#ffb900ff>2秒<>。",
+        "ult": "向远处交战中的英雄掷出两把巨斧，贯穿路上的敌人造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害；碰到第一个英雄（或飞到尽头）后折返，回程再造成一次伤害。"
       }
     },
     "skill_name": {
@@ -986,6 +993,11 @@
         "skill1": "暴走",
         "skill2": "毁灭冲锋",
         "ult": "暗影冲击"
+      },
+      "league_draven": {
+        "skill1": "旋转飞斧",
+        "skill2": "开道利斧",
+        "ult": "冷血追命"
       }
     }
   },
@@ -1564,6 +1576,13 @@
         "skill": "迴旋橫掃，周圍敵人受到<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>傷害。命中後獲得一層<#ff9028ff>逸騎刃擊<>（最多2層，<#ffb900ff>8秒<>），每層傷害+20%。打野疊的層數可以帶進團戰。",
         "skill2": "衝向目標，衝得越久傷害越高（最多200%），造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害並<#ef5350ff>擊退<>，之後跑速+25%。",
         "ult": "帶幽靈騎兵衝向敵方英雄，沿途敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>傷害；落地使周圍敵人<#ef5350ff>恐懼0.75秒<>（衝得遠<#ef5350ff>1.33秒<>），順勢<#ff9028ff>逸騎刃擊<>一圈並開啟<#ff9028ff>靈魂恐懼<>。"
+      },
+      "league_draven": {
+        "name": "達瑞文",
+        "attack": "<#ff9028ff>瑞文聯盟<>：每接住一把斧頭+1層崇拜（最多6層，每層攻擊+4），用斧頭擊殺英雄時兌現：每層回復25生命，攻速+30%<#ffb900ff>4秒<>。<#ff9028ff>好戲上場<>（自動，<#ffb900ff>12秒<>）：對英雄出手時移速+40%、攻速+35%，接住斧頭即刷新。",
+        "skill": "手中轉起一把飛斧（最多2把），下次攻擊額外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>傷害。斧頭彈回空中，<#ffb900ff>0.7秒<>後落進他腳下的圓圈，站在圈裡就能接住繼續旋轉。",
+        "skill2": "擲出一對貫穿的斧刃，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>傷害，<#ef5350ff>擊退<>敵人並<#ef5350ff>緩速30%<><#ffb900ff>2秒<>。",
+        "ult": "向遠處交戰中的英雄擲出兩把巨斧，貫穿路上的敵人造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害；碰到第一個英雄（或飛到盡頭）後折返，回程再造成一次傷害。"
       }
     },
     "skill_name": {
@@ -1976,6 +1995,11 @@
         "skill1": "逸騎刃擊",
         "skill2": "毀滅衝刺",
         "ult": "暗影的逆襲"
+      },
+      "league_draven": {
+        "skill1": "迴旋飛斧",
+        "skill2": "給我閃！",
+        "ult": "迴轉死神"
       }
     }
   },
@@ -2554,6 +2578,13 @@
         "skill": "Spins the glaive: enemies around take <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> damage. A hit gives a <#ff9028ff>Rampage<> stack (up to 2, <#ffb900ff>8s<>), each +20% damage - stacks built on camps carry into a gank.",
         "skill2": "Charges the target, harder the longer he rides (up to 200%): <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> damage and a <#ef5350ff>knockback<>, then +25% move speed.",
         "ult": "Rides at an enemy champion with spectral riders: enemies in the path take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> damage; on landing enemies around are <#ef5350ff>feared 0.75s<> (<#ef5350ff>1.33s<> after a long ride), and he spins a <#ff9028ff>Rampage<> and starts <#ff9028ff>Spirit of Dread<>."
+      },
+      "league_draven": {
+        "name": "Draven",
+        "attack": "Throws axes. <#ff9028ff>League of Draven<>: each caught axe gives 1 Adoration (up to 6, +4 attack each); an axe kill on a champion cashes them in: 25 health each and +30% attack speed for <#ffb900ff>4s<>. <#ff9028ff>Blood Rush<> (automatic, <#ffb900ff>12s<>): attacking a champion gives +40% move speed and +35% attack speed; a catch resets it.",
+        "skill": "Spins an axe in his hand (up to 2): his next attack deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> bonus damage. The axe bounces up and lands in a circle at his feet after <#ffb900ff>0.7s<>; standing in it catches it, still spinning.",
+        "skill2": "Throws a pair of piercing axes for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, <#ef5350ff>knocking enemies back<> and <#ef5350ff>slowing 30%<> for <#ffb900ff>2s<>.",
+        "ult": "Hurls two huge axes at a fighting champion far away, dealing <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> to every enemy passed; they turn at the first champion (or the end) and fly back, dealing it again."
       }
     },
     "skill_name": {
@@ -2966,6 +2997,11 @@
         "skill1": "Rampage",
         "skill2": "Devastating Charge",
         "ult": "Onslaught of Shadows"
+      },
+      "league_draven": {
+        "skill1": "Spinning Axe",
+        "skill2": "Stand Aside",
+        "ult": "Whirling Death"
       }
     }
   },
@@ -3544,6 +3580,13 @@
         "skill": "언월도를 휘둘러 주변 적에게 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>의 피해. 적중 시 <#ff9028ff>회오리 베기<> 중첩(최대 2, <#ffb900ff>8초<>), 중첩당 피해 +20%. 정글에서 쌓은 중첩을 갱킹에 가져갑니다.",
         "skill2": "대상에게 돌격하며 오래 달릴수록 강해집니다(최대 200%): <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 피해와 <#ef5350ff>밀어내기<>, 이후 이동 속도 +25%.",
         "ult": "유령 기병과 함께 적 챔피언에게 돌진: 경로의 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 피해, 착지 시 주변 적 <#ef5350ff>0.75초 공포<>(멀리 달리면 <#ef5350ff>1.33초<>), 이어서 <#ff9028ff>회오리 베기<>와 <#ff9028ff>공포의 망령<>."
+      },
+      "league_draven": {
+        "name": "드레이븐",
+        "attack": "<#ff9028ff>드레이븐의 리그<>: 도끼를 받을 때마다 숭배 1중첩(최대 6, 중첩당 공격력 +4). 도끼로 챔피언을 처치하면 소모: 중첩당 체력 25 회복, <#ffb900ff>4초<> 동안 공격 속도 +30%. <#ff9028ff>광기의 피<>(자동, <#ffb900ff>12초<>): 챔피언 공격 시 이동 속도 +40%, 공격 속도 +35%, 도끼를 받으면 초기화.",
+        "skill": "손에서 도끼를 회전시킴(최대 2개): 다음 공격이 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>의 추가 피해. 도끼는 튕겨 올라 <#ffb900ff>0.7초<> 뒤 발밑의 원에 떨어지며, 원 안에 서 있으면 받아서 계속 회전.",
+        "skill2": "관통하는 도끼 한 쌍을 던져 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 피해, <#ef5350ff>밀쳐내고<> <#ffb900ff>2초<> 동안 <#ef5350ff>30% 둔화<>.",
+        "ult": "멀리 교전 중인 챔피언에게 거대한 도끼 두 개를 던져 지나는 적에게 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 피해. 첫 챔피언(또는 끝)에서 되돌아와 다시 피해."
       }
     },
     "skill_name": {
@@ -3956,6 +3999,11 @@
         "skill1": "회오리 베기",
         "skill2": "파멸의 돌격",
         "ult": "그림자의 맹습"
+      },
+      "league_draven": {
+        "skill1": "회전 도끼",
+        "skill2": "비켜서라",
+        "ult": "죽음의 소용돌이"
       }
     }
   },
@@ -4534,6 +4582,13 @@
         "skill": "グレイブを振り回し周囲の敵に<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>のダメージ。命中で<#ff9028ff>ランページ<>スタック（最大2、<#ffb900ff>8秒<>）、1つごとにダメージ+20%。",
         "skill2": "対象へ突進、長く走るほど強力（最大200%）：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>のダメージと<#ef5350ff>ノックバック<>、その後移動速度+25%。",
         "ult": "亡霊騎兵と共に敵チャンピオンへ突撃：経路の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>のダメージ、着地で周囲の敵に<#ef5350ff>0.75秒フィアー<>（遠くからなら<#ef5350ff>1.33秒<>）、続けて<#ff9028ff>ランページ<>と<#ff9028ff>ソウルドレイン<>。"
+      },
+      "league_draven": {
+        "name": "ドレイヴン",
+        "attack": "<#ff9028ff>リーグ・オブ・ドレイヴン<>：斧をキャッチするたび崇拝+1（最大6、1つにつき攻撃力+4）。斧でチャンピオンを倒すと換金：1つにつき体力25回復、<#ffb900ff>4秒<>攻撃速度+30%。<#ff9028ff>血の疼き<>（自動、<#ffb900ff>12秒<>）：チャンピオン攻撃時に移動速度+40%、攻撃速度+35%、キャッチでリセット。",
+        "skill": "手の中で斧を回す（最大2本）：次の攻撃が<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の追加ダメージ。斧は跳ね上がり<#ffb900ff>0.7秒<>後に足元の円に落ち、円の中にいればキャッチして回し続ける。",
+        "skill2": "貫通する斧を2本投げ<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>のダメージ、<#ef5350ff>ノックバック<>と<#ffb900ff>2秒<><#ef5350ff>30%スロウ<>。",
+        "ult": "遠くで交戦中のチャンピオンへ巨大な斧を2本投げ、通過した敵に<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>。最初のチャンピオン（または端）で折り返し、戻りでも同じダメージ。"
       }
     },
     "skill_name": {
@@ -4946,6 +5001,11 @@
         "skill1": "ランページ",
         "skill2": "チャージ",
         "ult": "スペクターズ・オンスロート"
+      },
+      "league_draven": {
+        "skill1": "回転斬斧",
+        "skill2": "薙ぎ払い",
+        "ult": "死の車輪"
       }
     }
   }
