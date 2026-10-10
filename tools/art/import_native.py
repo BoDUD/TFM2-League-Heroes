@@ -87,7 +87,10 @@ BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "aatrox": {"sway": [0] * 8},   # his hand left the planted sword's hilt when the body leant
                 # Samira's second design (2026-10-09): a wide stance - the lean moved her shins and boots (Sivir's
                 # 「上下摆动时 希维尔的鞋变形了吧」); only the dip, the legs stand still
-                "samira": {"sway": [0] * 8}}
+                "samira": {"sway": [0] * 8},
+                # Draven's League idle (90 %, both axes out wide): the lean swung the far axe and sheared him over his
+                # legs - 「游戏里左右晃动的太大了吧 模型都变形」; only the dip
+                "draven": {"sway": [0] * 8}}
 # hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
 # reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
 # 金克丝的武器也有点变形」「维鲁斯武器变形」, then 「小鱼人 凯隐 蛮王 艾希 烬武器变形」), so the weapon's pixels are lifted out

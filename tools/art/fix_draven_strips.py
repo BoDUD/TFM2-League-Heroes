@@ -581,6 +581,18 @@ def layout(n):
     return cols, -(-n // cols)
 
 
+# the user 10-10 on the 90 % build: 「游戏里左右晃动的太大了吧 模型都变形」 - Codex's attack frames put the head 57-65
+# (the idle's at 60) and the run's head stood 3 columns left of the new idle's: whole frames moved (lossless) so
+# the head keeps the idle's column, the release frame one column forward
+STEADY = {"attack": [0, 0, 0, 1, 0], "run": [0] * 8}
+
+
+def steady(sheet, d):
+    col = head_box(sheet["idle"][0][0], d)[2]
+    for tag, offs in STEADY.items():
+        sheet[tag] = [(shift(a, col + o - head_box(a, d)[2], 0), ms) for (a, ms), o in zip(sheet[tag], offs)]
+
+
 def build(variant="C", small=True):
     """Every tag's frames; small: the tags Codex drew at 40 rows made SCALE as big (all of them until codex_pose/ is
     in)."""
@@ -589,6 +601,8 @@ def build(variant="C", small=True):
     sheet = {tag: [(frame_of(d, src, variant), ms) for src, ms in rows] for tag, rows in tags.items()}
     if small and SCALE < 1:
         shrink(sheet, d, SHRINK_TAGS if os.path.isdir(lp(POSE)) else tuple(sheet))
+    if os.path.isdir(lp(POSE)):
+        steady(sheet, d)
     return sheet
 
 
