@@ -418,11 +418,69 @@ def run_frame(f, fr, ch, cw):
     return out
 
 
-def finish(f, fr, run=False):
+def finish(f, fr, run=False, force=False):
     f = drop_specks(f, 10 ** 6 if run else 8)
     f[fr["pivot"][1] + FEET + 1:] = 0
     f, _, _ = G.complete_outline(f, color=OUTLINE, feet=fr["pivot"][1] + FEET)
-    return close_all(f, fr["pivot"][1] + FEET)
+    f = close_all(f, fr["pivot"][1] + FEET)
+    for _ in range(4):                                  # filling a pocket can close a new hole: until stable
+        g = fill_holes(f, run=run, pocket_max=200 if force else (0 if run else 40), force=force)
+        if (g == f).all():
+            break
+        f = g
+    return f
+
+
+# frames whose open pockets are holes in the body all the same (reviewed at 10x): every pocket filled, whatever its
+# ring - the hips of attack 3 / skill2_stab 2, the slit between skill 3's hanging cape blade and its leg, the knee of
+# skill2 5, run 4's boot against the cape's spear tip. run 8's gap between the legs is a leg gap: kept.
+FILL_POCKETS = {("attack", 3), ("skill", 3), ("skill2", 5), ("skill2_stab", 2), ("run", 4)}
+
+
+def fill_holes(f, run=False, pocket_max=40, force=False):
+    """Holes read as holes (the user: 「这里留个大窟窿」): every transparent region the figure encloses, and every
+    region a 1-px opening leaves nearly enclosed (a 3x3 closing) when one material holds >= 60% of its ring, is
+    filled - pinholes (<= 2 px) and the run's leg gaps with the outline (a crease), the rest with the dark shade of the
+    material round it (a fold in the cape or the clothes)."""
+    from scipy import ndimage
+    out = f.copy()
+    op = f[..., 3] > 0
+    H, W = op.shape
+
+    def enclosed(mask):
+        lab, n = ndimage.label(~mask)
+        border = set(lab[0]) | set(lab[-1]) | set(lab[:, 0]) | set(lab[:, -1])
+        return [lab == k for k in range(1, n + 1) if k not in border]
+
+    regions = [(m, True) for m in enclosed(op)]
+    closed = ndimage.binary_closing(op, structure=np.ones((3, 3))) | op
+    hole_px = np.zeros_like(op)
+    for m, _ in regions:
+        hole_px |= m
+    for m in enclosed(closed):
+        m = m & ~op & ~hole_px
+        if 0 < m.sum() <= pocket_max:
+            regions.append((m, False))
+    DARK = {1: "b", 3: "v", 4: "u", 5: "q", 2: "f", 6: "m", 7: "o"}
+    for m, is_hole in regions:
+        ring = ndimage.binary_dilation(m, structure=np.ones((3, 3))) & op & ~m
+        cnt = {}
+        for y, x in zip(*np.nonzero(ring)):
+            l = LET_OF.get(tuple(int(v) for v in out[y, x, :3]), "k")
+            if l != "k":
+                cnt[CLASS[l]] = cnt.get(CLASS[l], 0) + 1
+        tot = sum(cnt.values())
+        top = max(cnt, key=cnt.get) if cnt else None
+        share = cnt[top] / tot if tot else 0
+        if not is_hole and share < 0.6 and not force:
+            continue                                   # an open gap between two different parts: kept
+        if m.sum() <= 2 or run or top is None:
+            l = "k"
+        else:
+            l = DARK.get(top, "k")
+        out[m, :3] = [int(D.PAL[l][i:i + 2], 16) for i in (1, 3, 5)]
+        out[m, 3] = 255
+    return out
 
 
 def close_all(f, sole):
@@ -498,7 +556,7 @@ def main():
                         note += f"head at {dy},{dx} ({sc:.2f})"
                     else:
                         note += f"own head (best {sc:.2f})"
-            f = finish(f, fr, run=tag == "run")
+            f = finish(f, fr, run=tag == "run", force=(tag, k) in FILL_POCKETS)
             out.append(f)
             print(f"{tag}_{k:02d}: grid {s} px, {int((f[..., 3] > 0).sum())} px {note}")
         built[tag] = out
