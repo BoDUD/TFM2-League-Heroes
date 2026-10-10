@@ -995,15 +995,11 @@
     "league_talon": {
       "face": {
         "x": 10,
-        "y": -41
+        "y": -39
       },
       "center": {
         "x": 0,
         "y": -14
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -9
       }
     }
   }

@@ -651,27 +651,34 @@ BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
-TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana",
+TIDY = {"talon": "clean_talon", "ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana",
         "xerath": "clean_xerath", "gwen": "clean_gwen"}   # gwen: heart-hole marker -> transparent (clean_gwen); 「顺便把泽拉斯脚上的黑边清理干净」: bare outline stalks under his leg tips
 # heroes made smaller from their finished frames: whole rows and columns out, never resampled (shrink_frames.py); the idle
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
-SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.95}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」; karma: 「卡尔玛体型可以变小一点」 -> 90%, then 「缩小模型后有点奇怪了啊整体」: the head is cut in fix_karma_strips.py (HEAD_CUT, the same in every frame) and only two body rows go here (0.95, the head box and the boots kept)
+SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.95, "talon": 0.95}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」; karma: 「卡尔玛体型可以变小一点」 -> 90%, then 「缩小模型后有点奇怪了啊整体」: the head is cut in fix_karma_strips.py (HEAD_CUT, the same in every frame) and only two body rows go here (0.95, the head box and the boots kept)
 # no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
 # "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
 # and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
 # every low row "knee" and the cut fell on his head
-SHRINK_KEEP = {"olaf": ["!0455A6+13,6,11,11"], "karma": ["!1BB663+1,9,16,10", "=222048", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP = {"talon": ["!4D4BD2", "!7279F6", "!ECB486+2,12,14,5", "=2A92A2", "=D09A38"], "olaf": ["!0455A6+13,6,11,11"], "karma": ["!1BB663+1,9,16,10", "=222048", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
 SHRINK_KEEP_TAG = {"karma": {"dead": ["!1BB663+3,9,16,10", "=222048", "C4815A", "825238"]}, "renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
-SHRINK_ANCHOR = {"olaf": "0455A6", "karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
+# the head alone, as "!" colours: no frame's removed line crosses it - an action's shared lines are moved off it in
+# the frames where the head has moved against the anchor (Talon ducks, leaps and falls under his sash)
+SHRINK_HEAD = {"talon": ["!7279F6", "!ECB486+2,1,6,3"]}
+SHRINK_ANCHOR = {"talon": "2A92A2", "olaf": "0455A6", "karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
 # actions whose body stands still while something over it floats: their lines are taken at the same place in every frame
 # (shrink_frames' still) - Karma's ring bobs in her idle and carries a square of the anchor's gem green, so the anchor
 # moved with it and her legs lost a row one higher in frames 3-4 (「待机动画效果的时候腿部变形啊」)
-SHRINK_STILL = {"karma": ["idle"]}
+SHRINK_STILL = {"karma": ["idle"], "talon": ["idle"]}
+# actions that are the idle's first frame moved sideways (Talon's hit: the design stepping back): after the shrink they
+# are rebuilt from the shrunk idle, {hero: {tag: [dx per frame]}} - shrunk on their own they lost another column
+# than the idle did, one through the hood (「确认模型没有变形」)
+SHRINK_FROM_IDLE = {"talon": {"hit": [-2, -1]}}
 # single actions made smaller (the idle untouched), {hero: {scale: [tags]}}, with SHRINK_KEEP / SHRINK_ANCHOR as above:
 # Olaf's idle is the slim design B, and Codex's redraw of his R, E and death kept bulkier bodies (area 1.2-1.7x the
 # idle's) - after 「奥拉夫跑动时为什么变大一圈 好违和」 the user picked 「一起改」 (every action at the idle's size); his hit
@@ -1497,7 +1504,8 @@ def main():
             body0 = SF.body_of(sheet["idle"])
             a0 = sheet["idle"][0][0]
             idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero), body=body0,
-                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()))["idle"]
+                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()),
+                                        head=SHRINK_HEAD.get(hero, ()))["idle"]
             if hero in HEAD_AT:
                 hx, hy = HEAD_AT[hero]
                 nx, ny = SF.move_point(idle_plan, hx - a0.shape[1] // 2, hy - a0.shape[0] // 2)
@@ -1520,13 +1528,28 @@ def main():
             plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
                                                          keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
                                                          tags=[t for t in sheet if t != "idle"],
-                                                         anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()))}
+                                                         anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()),
+                                        head=SHRINK_HEAD.get(hero, ()))}
             SHRUNK[hero] = plans
             print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
                 f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
             # a TIDY module's clean-up for the shrunk frames (tidy_shrunk): a removed row can take a tip's cap with
             # it (Xerath's far leg)
             tidy_frames(hero, sheet, "tidy_shrunk")
+            for tag, shifts in SHRINK_FROM_IDLE.get(hero, {}).items():
+                base = sheet["idle"][0][0]
+                out = []
+                for (_, ms), dx in zip(sheet[tag], shifts):
+                    f = np.zeros_like(base)
+                    if dx < 0:
+                        f[:, :dx] = base[:, -dx:]
+                    elif dx > 0:
+                        f[:, dx:] = base[:, :-dx]
+                    else:
+                        f = base.copy()
+                    out.append((f, ms))
+                sheet[tag] = out
+                print(f"{hero}: {tag} rebuilt from the shrunk idle (dx {shifts})")
         if hero in SHRINK_TAGS:
             import shrink_frames as SF
             body0 = SF.body_of(sheet["idle"])
