@@ -963,6 +963,12 @@ engine gives is taken between points at pivot height, so a raised start tilts it
 - `y_offset` on a `LineRangeProjectile` is ignored (the line does not move);
 - a `LineRangeProjectile` started in a projectile's `end_effects` is drawn at that point but points from the
   caster to it (from a point above him: straight north);
+- a `LineRangeProjectile` cast straight from the caster is drawn at the line's MIDDLE: its spawn event's `x, y` is
+  the midpoint of `from` (the caster's current position) and `to` (`length` along the cast direction), so a
+  140000-long line's picture sits 70000 in front of him. A picture that should start on the caster (a wave pushed
+  out from her) rides a short hitless line - league_syndra E: 1000 long, its picture drawn in the right half of its
+  cell from the centre *(SDK simulation log, 2026-10-11: 40 casts, `from` equal to her position in every one, the
+  pros' QE included)*;
 - a `TargetProjectile` (and a `TargetSplashProjectile`) is lifted `5000 - y_offset` above the caster's pivot
   and flies from there at its target's pivot *(its move events, league_lucian Q, 2026-10-01: 96 of 103 within 1
   degree of that line; this file used to say it stays on the pivot)*, so its picture runs nearly level with a
@@ -1413,6 +1419,8 @@ league_brand (mid, --lane 2, 2026-10-06, Sear's 0.83 s stun after Conflagration,
 1.73 a game; the base lightning mage 3.40, pyromancer 0.58 and league_xerath 1.17 in the same batch - no change.
 league_viktor (mid, --lane 2, 2026-10-07, Gravity Field's 1.25 s stun after 1.25 s inside, R fired on a crowd-controlled champion):
 1.35 a game; the base lightning mage 3.40 and league_brand 1.58 in the same batch - no change.
+league_syndra (mid, --lane 2, 2026-10-11, the pushed spheres' 1.25 s stun - QE and W -> E -, R fired on a
+crowd-controlled champion): 1.85 a game; the base lightning mage 3.40 and league_brand 1.58 in the same batch - no change.
 league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only onto a champion already in crowd
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_xayah (bottom, --lane 3, 2026-10-08, Bladecaller's 1.25 s root from the third champion hit of one recall): 0.25

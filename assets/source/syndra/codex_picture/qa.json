@@ -1,0 +1,32 @@
+[
+  {
+    "file": "syndra-model-A.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_fraction": 0.8293,
+    "body_bbox_alpha128": [
+      420,
+      14,
+      1153,
+      1009
+    ]
+  },
+  {
+    "file": "syndra-model-B.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_fraction": 0.8669,
+    "body_bbox_alpha128": [
+      525,
+      60,
+      982,
+      970
+    ]
+  }
+]

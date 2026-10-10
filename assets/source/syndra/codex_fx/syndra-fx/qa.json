@@ -1,0 +1,526 @@
+{
+  "passed": true,
+  "effects": [
+    {
+      "name": "a_bolt",
+      "frames": 4,
+      "nativeSize": [
+        40,
+        6
+      ],
+      "deliverySize": [
+        640,
+        96
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "tb",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        16,
+        18,
+        18,
+        12
+      ],
+      "rawUnmodified": true,
+      "sha256": "3149b5b4b7eeeda917579e6febbb45ed1c363a951f0b6abefa72b26359fff418"
+    },
+    {
+      "name": "a_hit",
+      "frames": 4,
+      "nativeSize": [
+        48,
+        12
+      ],
+      "deliverySize": [
+        768,
+        192
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        12,
+        30,
+        20,
+        2
+      ],
+      "rawUnmodified": true,
+      "sha256": "a5096cacf3b0d977a666270681edb9f0cb2b1ea50e0cd28dbda7931e65a9c06e"
+    },
+    {
+      "name": "q_form",
+      "frames": 6,
+      "nativeSize": [
+        252,
+        18
+      ],
+      "deliverySize": [
+        4032,
+        288
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "both",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        72,
+        212,
+        188,
+        236,
+        296,
+        416
+      ],
+      "rawUnmodified": true,
+      "sha256": "fd28a13decb5419d779ba6d90a7693a44ea59a33dfe0825302970419531f900f"
+    },
+    {
+      "name": "q_blast",
+      "frames": 5,
+      "nativeSize": [
+        210,
+        18
+      ],
+      "deliverySize": [
+        3360,
+        288
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "both",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        36,
+        316,
+        268,
+        172,
+        24
+      ],
+      "rawUnmodified": true,
+      "sha256": "9c5ca26bd2b7730855d2e41d51720a5d7bd4cfcd745aac2b1016b9bd9032b2bd"
+    },
+    {
+      "name": "q_hit",
+      "frames": 4,
+      "nativeSize": [
+        64,
+        16
+      ],
+      "deliverySize": [
+        1024,
+        256
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        22,
+        52,
+        60,
+        12
+      ],
+      "rawUnmodified": true,
+      "sha256": "ea8ccca136d198034e5b7e2e18bf4b4c265a7eef6672de4017ddb11da3fb85a1"
+    },
+    {
+      "name": "orb",
+      "frames": 12,
+      "nativeSize": [
+        216,
+        24
+      ],
+      "deliverySize": [
+        3456,
+        384
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        42,
+        84,
+        112,
+        110,
+        110,
+        112,
+        110,
+        110,
+        112,
+        110,
+        82,
+        44
+      ],
+      "rawUnmodified": true,
+      "sha256": "72f1f8b9b180e9e4980388fdf065a4da0718b8ba54f77584606ce5849c5bbecc"
+    },
+    {
+      "name": "w_throw",
+      "frames": 4,
+      "nativeSize": [
+        56,
+        12
+      ],
+      "deliverySize": [
+        896,
+        192
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "tb",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        58,
+        74,
+        52,
+        42
+      ],
+      "rawUnmodified": true,
+      "sha256": "e49a42dff2f93c65d8f34352b99874c190b4ba12130e311658d11ed59921c4db"
+    },
+    {
+      "name": "w_land",
+      "frames": 5,
+      "nativeSize": [
+        230,
+        20
+      ],
+      "deliverySize": [
+        3680,
+        320
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "both",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        96,
+        220,
+        352,
+        288,
+        32
+      ],
+      "rawUnmodified": true,
+      "sha256": "78b89fee8eff79f614dbdd19c4903b47021fd3df7057e18cc25911d820d7aa27"
+    },
+    {
+      "name": "w_hit",
+      "frames": 4,
+      "nativeSize": [
+        64,
+        16
+      ],
+      "deliverySize": [
+        1024,
+        256
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        22,
+        76,
+        40,
+        8
+      ],
+      "rawUnmodified": true,
+      "sha256": "6dd17a13104e42735445c25907d340ce49dc0d94a843a2fda4b37e7d6f195c04"
+    },
+    {
+      "name": "w_slow",
+      "frames": 4,
+      "nativeSize": [
+        72,
+        8
+      ],
+      "deliverySize": [
+        1152,
+        128
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        38,
+        30,
+        34,
+        30
+      ],
+      "rawUnmodified": true,
+      "sha256": "379dfa605be6fc93088fca6afb77e0ef2a9448aec51a6d7a60fb08dc042776e2"
+    },
+    {
+      "name": "e_wave",
+      "frames": 5,
+      "nativeSize": [
+        720,
+        66
+      ],
+      "deliverySize": [
+        11520,
+        1056
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "tb",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        52,
+        214,
+        542,
+        760,
+        302
+      ],
+      "rawUnmodified": true,
+      "sha256": "fd38fdd0f3d6f14d275503e1e4f05dab42facbb401e2397c87550a2fc9ebb773"
+    },
+    {
+      "name": "e_hit",
+      "frames": 4,
+      "nativeSize": [
+        56,
+        14
+      ],
+      "deliverySize": [
+        896,
+        224
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        12,
+        36,
+        24,
+        8
+      ],
+      "rawUnmodified": true,
+      "sha256": "b812eb7bb950d2eedebaedf7c2c46281d9f0b9c047f103cf04f4aa9c56df6194"
+    },
+    {
+      "name": "e_stun",
+      "frames": 8,
+      "nativeSize": [
+        160,
+        32
+      ],
+      "deliverySize": [
+        2560,
+        512
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        118,
+        160,
+        58,
+        88,
+        88,
+        98,
+        86,
+        36
+      ],
+      "rawUnmodified": true,
+      "sha256": "37bf4cd41836578d0456a710b85d2b4c56f02ba147af2dfcd5b85814bdaf035a"
+    },
+    {
+      "name": "r_cast",
+      "frames": 6,
+      "nativeSize": [
+        348,
+        50
+      ],
+      "deliverySize": [
+        5568,
+        800
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        114,
+        306,
+        484,
+        518,
+        816,
+        212
+      ],
+      "sevenOrbZones": [
+        [
+          8,
+          6,
+          29,
+          18,
+          6,
+          29,
+          18
+        ],
+        [
+          20,
+          20,
+          69,
+          54,
+          20,
+          69,
+          54
+        ],
+        [
+          24,
+          47,
+          96,
+          87,
+          47,
+          96,
+          87
+        ],
+        [
+          28,
+          58,
+          123,
+          64,
+          58,
+          123,
+          64
+        ],
+        [
+          32,
+          104,
+          146,
+          142,
+          104,
+          146,
+          142
+        ],
+        [
+          6,
+          25,
+          42,
+          36,
+          25,
+          42,
+          36
+        ]
+      ],
+      "rawUnmodified": true,
+      "sha256": "745165966031438031c22be56cc1123cb9ca93069001eef646889c16803e77c2"
+    },
+    {
+      "name": "r_orb",
+      "frames": 4,
+      "nativeSize": [
+        64,
+        12
+      ],
+      "deliverySize": [
+        1024,
+        192
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "tb",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        84,
+        86,
+        60,
+        56
+      ],
+      "rawUnmodified": true,
+      "sha256": "f4de93a24da9f0dce3ab7e84c97262081a38d47a26b77d287da0100c54e71ba8"
+    },
+    {
+      "name": "r_hit",
+      "frames": 5,
+      "nativeSize": [
+        100,
+        20
+      ],
+      "deliverySize": [
+        1600,
+        320
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        40,
+        132,
+        110,
+        62,
+        10
+      ],
+      "rawUnmodified": true,
+      "sha256": "ebe53d543cf40745110aa9e4186b3ed319bcee18d67579c50f9e4967e06be328"
+    },
+    {
+      "name": "evo",
+      "frames": 6,
+      "nativeSize": [
+        192,
+        46
+      ],
+      "deliverySize": [
+        3072,
+        736
+      ],
+      "binaryAlpha": true,
+      "perEffectPalette": true,
+      "exact16x": true,
+      "symmetry": "lr",
+      "symmetryMismatches": 0,
+      "protectedRegionPixels": 0,
+      "frameOpaquePixels": [
+        26,
+        60,
+        136,
+        216,
+        106,
+        42
+      ],
+      "rawUnmodified": true,
+      "sha256": "5493053a3e72239e9beead30dd4853e9acefa73c8598e6d47d1a53a5d875878d"
+    }
+  ],
+  "frames": 90
+}
