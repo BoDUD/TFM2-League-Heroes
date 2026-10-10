@@ -1040,6 +1040,20 @@
         "y": -9
       }
     },
+    "league_syndra": {
+      "face": {
+        "x": -1,
+        "y": -39
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
+      }
+    },
     "league_viego": {
       "face": {
         "x": 4,

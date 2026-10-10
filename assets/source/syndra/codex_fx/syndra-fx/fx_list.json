@@ -1,0 +1,87 @@
+[
+ {
+  "file": "syndra_fx_a_bolt.png",
+  "binding": "view_projectiles `league_syndra_a_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "8 × 5"
+ },
+ {
+  "file": "syndra_fx_a_hit.png",
+  "binding": "view_effects `league_syndra_a_hit`（跟随，画在人物上面；左右对称）",
+  "size": "10"
+ },
+ {
+  "file": "syndra_fx_q_form.png",
+  "binding": "view_effects `league_syndra_q_form`（Q 发出时在落点播放，不旋转，画在人物下面；上下左右都对称）",
+  "size": "40 × 16"
+ },
+ {
+  "file": "syndra_fx_q_blast.png",
+  "binding": "view_effects `league_syndra_q_blast`（落点上，不旋转，画在人物下面；上下左右都对称）",
+  "size": "40 × 16"
+ },
+ {
+  "file": "syndra_fx_q_hit.png",
+  "binding": "view_effects `league_syndra_q_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "syndra_fx_orb.png",
+  "binding": "view_effects `league_syndra_orb`（落点上，不旋转，画在人物上面；左右对称；12 帧共 6 秒）",
+  "size": "16 × 22"
+ },
+ {
+  "file": "syndra_fx_w_throw.png",
+  "binding": "view_projectiles `league_syndra_w_throw`（抛物线飞行、朝方向转；上下对称）",
+  "size": "12 × 10"
+ },
+ {
+  "file": "syndra_fx_w_land.png",
+  "binding": "view_effects `league_syndra_w_land`（落点上，不旋转，画在人物下面；上下左右都对称）",
+  "size": "44 × 18"
+ },
+ {
+  "file": "syndra_fx_w_hit.png",
+  "binding": "view_effects `league_syndra_w_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "syndra_fx_w_slow.png",
+  "binding": "view_buffs `league_syndra_w_slow`（画在脚下；左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "syndra_fx_e_wave.png",
+  "binding": "view_projectiles `league_syndra_e_wave`（线的画面：以辛德拉为中心、朝目标的方向转；**画在格子右半边**；上下对称）",
+  "size": "140 × 64"
+ },
+ {
+  "file": "syndra_fx_e_hit.png",
+  "binding": "view_effects `league_syndra_e_hit`（跟随；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "syndra_fx_e_stun.png",
+  "binding": "view_effects `league_syndra_e_stun`（跟随；左右对称；8 帧共约 1.25 秒）",
+  "size": "18 × 30"
+ },
+ {
+  "file": "syndra_fx_r_cast.png",
+  "binding": "view_effects `league_syndra_r_cast`（施法时、跟随她，画在人物上面；左右对称）",
+  "size": "56 × 48"
+ },
+ {
+  "file": "syndra_fx_r_orb.png",
+  "binding": "view_projectiles `league_syndra_r_orb`（追踪弹、朝方向转；上下对称）",
+  "size": "14 × 10"
+ },
+ {
+  "file": "syndra_fx_r_hit.png",
+  "binding": "view_effects `league_syndra_r_hit`（跟随；左右对称）",
+  "size": "18"
+ },
+ {
+  "file": "syndra_fx_evo.png",
+  "binding": "view_effects `league_syndra_evo`（施法后，不跟随，画在人物上面；左右对称）",
+  "size": "30 × 44"
+ }
+]
