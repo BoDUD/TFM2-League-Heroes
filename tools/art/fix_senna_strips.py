@@ -245,6 +245,10 @@ def canon_head():
         for y, x, text in CANON_EDITS:
             for i, ch in enumerate(text):
                 g[y, x + i] = ch
+        for y, x, text in CHIN_ADD:
+            for i, ch in enumerate(text):
+                g[y, x + i] = ch
+                m[y, x + i] = True
         _CANON["v"] = (g, m, (fb[1], (fb[2] + fb[3]) // 2))
     return _CANON["v"]
 
@@ -335,7 +339,10 @@ FACE_SRC = ("attack", 1)
 FACE_ROWS, FACE_COLS = (11, 19), (38, 50)
 FACE_AT = (1, -13)
 FACE_EDITS = {(15, 47): "K"}
-CANON_EDITS = []
+# the chin (the user, 10-10: 「赛娜最下面有一条黑线 要处理一下 不太自然」 - a straight 7-square outline right under the
+# lips): a row of skin under the lips, the outline turned down at both jaw corners and a 4-square chin tip under it
+CANON_EDITS = [(20, 29, "00kKKk0")]
+CHIN_ADD = [(21, 31, "0000")]          # squares added to the head under its chin row (pasted over the collar)
 HALO = 3                   # squares round the pasted head where the frame's own head may have left pieces
 HORN_TAGS = {"run"}        # the claw tips over the hood: the run's (the cannon on her back); the casts hold it
 # every frame wears it (2026-10-10): the fall's own heads (Codex drew each another size, tilt and eye - teal blocks, white
