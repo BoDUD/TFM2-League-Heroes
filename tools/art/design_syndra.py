@@ -160,7 +160,15 @@ def make(name):
 # and (rig_syndra's audit, 2026-10-11) three 1-square pinholes inside outline rings - between the image-right arm and
 # the body (83,68), (84,69) and in the hair at the left (88,52): the ground showed through them; the outline's colour
 FIXES = [(71, 64, "#FDC087"), (90, 63, "#FDC087"),
-         (83, 68, "#100117"), (84, 69, "#100117"), (88, 52, "#100117")]       # (canvas row, column, colour) after tryn(*PICK)
+         (83, 68, "#100117"), (84, 69, "#100117"), (88, 52, "#100117"),
+         # 2026-10-11 the user's crop of the hanging leg 「推上缺失的帮我补齐吧」: the thigh's notch (89,64) skin, the gold
+         # boot top's missing left square (91,62) gold (a second outline column beside the leg's own)
+         (89, 64, "#FDC087"), (91, 62, "#FCCD3D"),
+         # and 「顺便检查其他地方有没有漏的 补全」: black squares cutting a run of one colour - the helmet's gold band (64,67-68)
+         # (65,64) (66,69), the forehead under the gem (69,66), hair strands (71,60) (72,59) (78,69); the cheek's
+         # outline, the gaps between the claws and the line between the thighs are drawing and stay
+         (64, 67, "#FCCD3D"), (64, 68, "#FCCD3D"), (65, 64, "#FCCD3D"), (66, 69, "#FCCD3D"), (69, 66, "#FDC087"),
+         (71, 60, "#E3E5EE"), (72, 59, "#E3E5EE"), (78, 69, "#E3E5EE")]       # (canvas row, column, colour) after tryn(*PICK)
 PICK = ("3", 42)       # the user's pick: draft 3 at 42 rows, league_tryndamere's way (「第三稿→42」, 2026-10-11); the
                        # even cuts (CUTS, 「3_42」 first) were dropped for their dirty black squares round the eyes
 
