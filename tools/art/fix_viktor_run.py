@@ -64,6 +64,16 @@ TRAJ = [5.0, 2.5, 0.2, -2.15, -4.45, -5.45, -2.1, 1.5]
 # one navy lump (the user: 「感觉还是有点奇怪」)
 LIFT = [0, 0, 0, 0, 3, 4, 4, 2]
 HIP = 1               # both hips' column from the pivot, as HIP_X draws them in
+# Run v10 (the user, 2026-10-10: 「维克托腿部走路好像有点变形的」): both feet had walked one line (each boot's centre at
+# the pivot + 1 + TRAJ) from hips drawn 3 in, so the two 10-px boots met at every pass, and a lifted leg folded its
+# thigh's top away and hung the boot under the knee. Now each leg is posed as league_zed's run legs: the thigh's rows
+# shifted in proportion from the hip down to the knee, the shin leaning on to the boot, the boot rows moved whole,
+# the shin + boot raised `lift` rows behind the thigh (a bent knee, the thigh kept whole). The hips come in 2 each; per
+# frame (boot_dx, lift) from the leg's own place, League's order (planted 1-4 sliding back, heel up 5, up 6, past the
+# planted boot a row clear of it in 7, reaching in 8); the far leg half a cycle later. The knee: half the boot's lean
+# when planted, a column ahead of the boot when lifted.
+HIPS2 = {"near": 0, "far": 0}
+STEP2 = [(3, 0), (2, 0), (0, 0), (-2, 0), (-3, 1), (-2, 1), (0, 1), (2, 0)]
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
 TORSO = 30            # design rows 0..29 (from the design's top) are in every run cell as they are
 PELVIS = (30, 33)     # design rows 30..32: the pelvis armour put back
@@ -132,6 +142,28 @@ def shin(leg):
                     leg[y, e] = (*OUT, 255)
 
 
+def zleg(part, hip_dx, boot_dx, lift):
+    """league_zed's run_leg on Viktor's 12-row leg: thigh rows LEG_TOP..KNEE_ROW-1 shifted from hip_dx to the knee's,
+    the shin leaning on to boot_dx at BOOT_ROW, the boot rows whole, the shin + boot `lift` rows up behind the thigh."""
+    knee_dx = hip_dx + (boot_dx + 1 if lift else int(np.floor(boot_dx / 2 + 0.5)))
+    boot_dx = hip_dx + boot_dx
+    thigh = np.zeros_like(part)
+    low = np.zeros_like(part)
+    for r, c in zip(*np.nonzero(part[..., 3])):
+        if r < S.KNEE_ROW:
+            sh = hip_dx + int(np.floor((knee_dx - hip_dx) * (r - S.LEG_TOP) / (S.KNEE_ROW - S.LEG_TOP) + 0.5))
+            if 0 <= c + sh < part.shape[1]:
+                thigh[r, c + sh] = part[r, c]
+        else:
+            t = min(1.0, (r - S.KNEE_ROW) / (S.BOOT_ROW - S.KNEE_ROW))
+            sh = int(np.floor(knee_dx + (boot_dx - knee_dx) * t + 0.5))
+            if 0 <= c + sh < part.shape[1]:
+                low[r - lift, c + sh] = part[r, c]
+    m = (thigh[..., 3] == 0) & (low[..., 3] > 0)
+    thigh[m] = low[m]
+    return thigh
+
+
 def run_frames(design, bob):
     """The design's body over its near leg drawn twice (fix_viktor_strips.run_frames_codex), the feet from feet()."""
     near, far = S.legs()
@@ -143,15 +175,25 @@ def run_frames(design, bob):
     at = feet()
     out = []
     for k in range(8):
-        leg = {side: (S.HIP_X[side], at[side][k][0] - S.FOOT_X[side], at[side][k][1],
-                      S.KNEE_BEND if at[side][k][1] else 0) for side in at}
-        c = bent_joined(far, *leg["far"])
+        f = STEP2[(k + 4) % 8]
+        c = zleg(far, HIPS2["far"], *f)
         b = np.roll(body, bob[k], axis=0)
         m = b[..., 3] > 0
         c[m] = b[m]
-        n = bent_joined(near, *leg["near"])
+        n = zleg(near, HIPS2["near"], *STEP2[k])
         m = n[..., 3] > 0
         c[m] = n[m]
+        # the far boot's sole row left under the near boot raised over it: outline touching no colour - gone
+        op = c[..., 3] > 0
+        ink = op & (c[..., :3] == np.array(OUT, np.uint8)).all(-1)
+        col = np.pad(op & ~ink, 1)
+        near_col = np.zeros_like(op)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                near_col |= col[1 + dy:1 + dy + op.shape[0], 1 + dx:1 + dx + op.shape[1]]
+        stray = ink & ~near_col
+        stray[:S.LEG_TOP] = False
+        c[stray] = 0
         out.append(c)
     return out
 
