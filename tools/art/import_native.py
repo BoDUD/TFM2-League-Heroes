@@ -70,8 +70,9 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # shared cut shortened them, 「腿部还有变形」 - so the body sinks a row OVER the legs instead); Rengar too (rig_rengar BREATH:
 # the shared lean smeared his toes, his carried blade went under the soles); Zed too (rig_zed BREATH: the shared cut ran
 # through his wrist blades and shortened them); Olaf too (rig_olaf BREATH: the shared cut ran through his spiked greaves);
+# Viktor too (fix_viktor_stand BREATH: the shared cut and lean put an orange square in his mirrored far boot);
 # Talon too (his strips are League's own animation recoloured - tools/art/restyle_native.py - its idle moves already)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "talon"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -485,8 +486,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # Lillia (design_lillia.py step 10; rig_lillia.py writes the design six times, BOB breathes it)
          ("lillia", "idle"): [0, 0, 0, 0, 0, 0],
 
-         # Viktor (Codex's design B, the staff straightened, design_viktor.py; Codex's idle is the design six times)
-         ("viktor", "idle"): [0, 0, 0, 0, 0, 0],
+         # Viktor (Codex's design B, the staff straightened, design_viktor.py): fix_viktor_stand.py writes his breath, 8
+         ("viktor", "idle"): [0, 1, 2, 3, 4, 5, 6, 7],
          # Lulu (Codex's design version 2 + the user's round face C3; the pack's idle is the design six times)
          ("lulu", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under

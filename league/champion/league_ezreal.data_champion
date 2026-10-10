@@ -2811,7 +2811,7 @@
                     "type": "LinearProjectile",
                     "name": "league_ezreal_r_wave",
                     "speed": 3500,
-                    "range": 1000000,
+                    "range": 300000,
                     "shape": {
                       "Circle": {
                         "radius": 18000
@@ -2843,7 +2843,7 @@
                     "type": "LinearProjectile",
                     "name": "league_ezreal_r_champ",
                     "speed": 3500,
-                    "range": 1000000,
+                    "range": 300000,
                     "shape": {
                       "Circle": {
                         "radius": 18000
