@@ -10342,5 +10342,157 @@
   "asset/base/sound/sfx/league_draven_sfx_w": {
     "remapping": "asset/league/sound/sfx/league_draven_sfx_w",
     "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_attack": {
+    "remapping": "asset/league/sound/sfx/league_senna_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_a_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_p_take": {
+    "remapping": "asset/league/sound/sfx/league_senna_p_take",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_p_gain": {
+    "remapping": "asset/league/sound/sfx/league_senna_p_gain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_q": {
+    "remapping": "asset/league/sound/sfx/league_senna_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_q_heal": {
+    "remapping": "asset/league/sound/sfx/league_senna_q_heal",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_w": {
+    "remapping": "asset/league/sound/sfx/league_senna_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_w_root": {
+    "remapping": "asset/league/sound/sfx/league_senna_w_root",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_e": {
+    "remapping": "asset/league/sound/sfx/league_senna_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_senna_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_r_fire": {
+    "remapping": "asset/league/sound/sfx/league_senna_r_fire",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_r_sh": {
+    "remapping": "asset/league/sound/sfx/league_senna_r_sh",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_senna_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_vo_w": {
+    "remapping": "asset/league/sound/sfx/league_senna_vo_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_vo_e": {
+    "remapping": "asset/league/sound/sfx/league_senna_vo_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_senna_vo_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_a_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_attack": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_e": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_p_gain": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_p_gain",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_p_take": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_p_take",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_q": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_q_heal": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_q_heal",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_r_fire": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_r_fire",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_r_sh": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_r_sh",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_vo_e": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_vo_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_vo_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_vo_w": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_vo_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_w": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_senna_sfx_w_root": {
+    "remapping": "asset/league/sound/sfx/league_senna_sfx_w_root",
+    "type": "override"
   }
 }
