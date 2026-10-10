@@ -3911,6 +3911,9 @@ its real `cooltime`; keep a flag only where another action must know it (Q's slo
   an edge or a corner. League's global ults at `range` 1000000 (league_jinx R, league_ezreal R) turned 7.5-9 degrees
   in the median and up to 45-56; at 300000 six lines in seven fly true. A global skillshot cannot fly straight; a
   `Position` cast is straight but stops on the cast point.
+- **Keep a skillshot's damage where the enemy AI can see it** (same section): a line whose damage sits behind a
+  `SwitchByBuff` on a caster flag is not dodged - league_jinx R's blast gated that way struck 80% of the time instead
+  of 67%. Start a follow-up that must wait for the hit from the hit itself (a `Delayed` hidden lob onto the unit).
 - **A projectile must end** *(SDK simulation + stack sampling, league_fiora W, 2026-10-02)*. Her guard picture
   was a `TargetProjectile` at speed 100 with no `applied_effects`: it trailed its target for minutes (one lived
   11214 ticks). Each tick a projectile runs, `prepare_dead_caster_overlay` copies its caster's whole entity
