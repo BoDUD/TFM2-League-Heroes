@@ -101,7 +101,8 @@ twice, another material's when it holds `need` of the 8 - before the head goes o
 fill_holes once more after the head is pasted: a head turned a quarter (his vault and dive) left slits between it
 and the neck. "weapon_off": {"<tag>": [frame numbers]} drops the weapon part in those frames (his attack 4 and W 2,
 where League's blade hangs right under the face). "tilt": {"<tag>": {"<frame>": degrees}} sets a frame's head turn
-where League's head joint leans less than the body shows (his Q dive goes face-down).
+where League's head joint leans less than the body shows (his Q dive goes face-down). "head": {"front": true}
+pastes the head over the weapon as well, so a blade held at the chin never covers the face.
 """
 import argparse
 import json
@@ -710,7 +711,10 @@ def main():
                     left = int(round(cell[at][0] - jx)) + rs["head"].get("dx", 0)
                     shoulders(a, weapon, left + sh["x"], top, sh["widths"], pal.outline)
                 before = a.copy()
-                paste_head(a, weapon, head, (cell[at][0], cell[at][1], jx, jy), tilt, turn,
+                # "head_front": the drawn head over the weapon too (league_talon: his hand and blade in front of the
+                # bigger face hid its skin and mouth while he ran - 「移动时脸部还是哪里有点变形」)
+                cover = np.zeros_like(weapon) if rs["head"].get("front") else weapon
+                paste_head(a, cover, head, (cell[at][0], cell[at][1], jx, jy), tilt, turn,
                            rs["head"].get("dy", 0), rs["head"].get("dx", 0), rs["head"].get("forward", False))
                 if rs.get("weapon_edge"):      # the blade against a pasted face (league_talon)
                     edge_weapon(a, weapon, (a != before).any(-1), pal.outline)
