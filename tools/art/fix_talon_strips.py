@@ -221,6 +221,96 @@ def paste_head(f, piece, dy, dx):
     return out
 
 
+# the design's pelvis: the belt (row 18), the trousers and the teal sash with its gold edge (rows 19-24), columns 16-21
+WAIST_CELLS = [(18, c) for c in range(16, 21)] + [(r, c) for r in range(19, 25) for c in range(16, 22)]
+SASH = [(r, c) for r in range(19, 25) for c in (19, 20)]          # the teal sash: the anchor (teal is used by it alone)
+
+
+def waist_piece():
+    rows = D.grid()
+    return [(r, c, rows[r][c]) for r, c in WAIST_CELLS if rows[r][c] not in ".k"]
+
+
+def find_waist(f):
+    """The design sash's offset onto Codex's teal (the sash), or None when the frame shows too little teal."""
+    cl = classes(f)
+    ys, xs = np.nonzero(cl == 6)
+    if len(ys) < 4:
+        return None
+    best = None
+    for dy in range(ys.min() - 24, ys.max() - 18):
+        for dx in range(xs.min() - 21, xs.max() - 18):
+            hit = sum(1 for r, c in SASH if 0 <= r + dy < cl.shape[0] and 0 <= c + dx < cl.shape[1]
+                      and cl[r + dy, c + dx] == 6)
+            if best is None or hit > best[0]:
+                best = (hit, dy, dx)
+    return best if best[0] >= 4 else None
+
+
+def paste_waist(f, piece, dy, dx):
+    out = f.copy()
+    H, W = f.shape[:2]
+    for r, c, l in piece:
+        y, x = r + dy, c + dx
+        if 0 <= y < H and 0 <= x < W and out[y, x, 3]:
+            out[y, x, :3] = [int(D.PAL[l][i:i + 2], 16) for i in (1, 3, 5)]
+    return out
+
+
+def skin_off(f, head_mask):
+    """Skin is the face's alone (the design): skin pixels outside the pasted head take the commonest other
+    material's darkest shade round them (Codex painted belts and gloves in skin browns)."""
+    out = f.copy()
+    H, W = f.shape[:2]
+    lets = {}
+    for y, x in zip(*np.nonzero(f[..., 3] > 0)):
+        lets[(y, x)] = LET_OF.get(tuple(int(v) for v in f[y, x, :3]), "k")
+    DARK = {1: "b", 3: "x", 4: "v", 5: "q", 6: "m", 7: "o", 0: "k"}
+    for (y, x), l in lets.items():
+        if l in "fgh" and (y, x) not in head_mask:
+            cnt = {}
+            for a in (-1, 0, 1):
+                for b in (-1, 0, 1):
+                    m = lets.get((y + a, x + b))
+                    if m and m not in "fghk":
+                        cnt[CLASS[m]] = cnt.get(CLASS[m], 0) + 1
+            c_ = max(cnt, key=cnt.get) if cnt else 0
+            out[y, x, :3] = [int(D.PAL[DARK[c_]][i:i + 2], 16) for i in (1, 3, 5)]
+    return out
+
+
+def deblob(f):
+    """Black masses inside the figure (2x2 outline-coloured squares with every neighbour opaque) take the darkest shade
+    of the material round them - Codex filled whole pelvis areas with outline black."""
+    out = f.copy()
+    H, W = f.shape[:2]
+    op = f[..., 3] > 0
+    lets = np.full((H, W), ".", object)
+    for y, x in zip(*np.nonzero(op)):
+        lets[y, x] = LET_OF.get(tuple(int(v) for v in f[y, x, :3]), "k")
+    k = lets == "k"
+    inner = np.zeros_like(op)
+    inner[1:-1, 1:-1] = op[:-2, 1:-1] & op[2:, 1:-1] & op[1:-1, :-2] & op[1:-1, 2:] & op[:-2, :-2] & op[:-2, 2:] & op[2:, :-2] & op[2:, 2:]
+    blob = np.zeros_like(op)
+    for y in range(H - 1):
+        for x in range(W - 1):
+            if k[y:y + 2, x:x + 2].all() and inner[y:y + 2, x:x + 2].all():
+                blob[y:y + 2, x:x + 2] = True
+    DARK = {1: "a", 3: "x", 4: "u", 5: "p", 2: "f", 6: "m", 7: "o"}
+    for y, x in zip(*np.nonzero(blob)):
+        cnt = {}
+        for a in range(-2, 3):
+            for b in range(-2, 3):
+                yy, xx = y + a, x + b
+                if 0 <= yy < H and 0 <= xx < W and lets[yy, xx] not in ".k":
+                    c_ = CLASS[lets[yy, xx]]
+                    cnt[c_] = cnt.get(c_, 0) + 1
+        if cnt:
+            c_ = max(cnt, key=cnt.get)
+            out[y, x, :3] = [int(D.PAL[DARK[c_]][i:i + 2], 16) for i in (1, 3, 5)]
+    return out
+
+
 def despeckle(f):
     """A pixel whose colour none of its 8 neighbours has, with 5+ neighbours of one colour of its own material,
     takes that colour (Codex's checkered steel / cloth); outline and empty neighbours never vote."""
@@ -370,8 +460,9 @@ def main():
     a = ap.parse_args()
     cells = json.load(open(lp(CELLS), encoding="utf-8"))
     cw, ch = cells["cell"]
-    global PIECE
+    global PIECE, PELVIS
     PIECE = head_piece()
+    PELVIS = waist_piece()
     built = {}
     for tag in TAGS:
         frs = cells["tags"][tag]
@@ -393,14 +484,20 @@ def main():
             elif tag == "run":
                 f = run_rig(fr, ch, cw, k - 1) if RUN_MODE == "rig" else run_frame(despeckle(f), fr, ch, cw)
             else:
-                f = despeckle(f)
+                f = deblob(despeckle(f))
                 if (tag, k) not in KEEP_HEAD:
                     dy, dx, sc = find_head(f, PIECE)
+                    wz = find_waist(f)
+                    # the pelvis only on upright frames (the head fits) with a clear sash
+                    if wz and wz[0] >= 10 and (sc >= HEAD_SURE or (tag, k) in FORCE_HEAD):
+                        f = paste_waist(f, PELVIS, wz[1], wz[2])
+                        note += f"waist {wz[1]},{wz[2]} ({wz[0]}/12) "
                     if sc >= HEAD_SURE or (tag, k) in FORCE_HEAD:
                         f = paste_head(f, PIECE, dy, dx)
-                        note = f"head at {dy},{dx} ({sc:.2f})"
+                        f = skin_off(f, {(r + dy, c + dx) for r, c, _ in PIECE})
+                        note += f"head at {dy},{dx} ({sc:.2f})"
                     else:
-                        note = f"own head (best {sc:.2f})"
+                        note += f"own head (best {sc:.2f})"
             f = finish(f, fr, run=tag == "run")
             out.append(f)
             print(f"{tag}_{k:02d}: grid {s} px, {int((f[..., 3] > 0).sum())} px {note}")
