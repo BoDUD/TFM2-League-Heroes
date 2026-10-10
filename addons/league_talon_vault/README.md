@@ -1,4 +1,4 @@
-# 泰隆「刺客之道」翻墙附加包（v0.1.0，可选）
+# 泰隆「刺客之道」翻墙附加包（v0.1.1，可选）
 
 用户：「有墙啊 青钢影不是勾墙了？」——5v5 地图的野区里有引擎的碰撞墙（30 × 30 格、每格 32000，共 90 格，卡蜜尔钩墙附加包读的同一份），
 英雄联盟里泰隆的 E 就是翻过这种墙。主包是纯数据，读不到墙，所以主包里的刺客之道是空地上的撤离。
@@ -29,7 +29,7 @@
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.87 以上）要装着并启用。
+1. 主包（League of Legends Heroes 0.88.1 以上）要装着并启用。
 2. 玩家装的是附加包合集 `league_addons`（见 [`../league_addons/README.md`](../league_addons/README.md)），泰隆的部分和这里一样；
    单独测时把整个 `league_talon_vault` 文件夹放进 `<游戏目录>\mods\`（要有 `league_talon_vault.dll`、`mod.mod_info`、
    `mod.override_info`、`override\`、`text\`），在 MOD 菜单里启用、排在主包后面、关掉合集，重启游戏。
