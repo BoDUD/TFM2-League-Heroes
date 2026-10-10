@@ -487,20 +487,21 @@ def dead(P, k):
 # only made-up squares could fill (an extra square beside the first claw, a red tabard column, a dark blot at the far
 # elbow). The body drops a row at each mid-stance.
 RUN_STEPS = {
-    # the user, 10-10: 「这一版还是没有明显在走路的感觉」 - each boot had moved 3 columns in all and the body bobbed 1 row.
-    # Measured on oppi's Lee Sin run (a front-ish humanoid at our size): the feet open to 25 columns apart and close to 6,
-    # 2-3 columns a frame, the swinging foot 3-4 rows up, 3 rows of bob, and the feet never pass through each other (a
-    # crossing tried here tangled the two legs into one lump again). So each boot keeps to its own side and travels 6
-    # columns: planted 4 frames sliding back 2 a frame, then heel up, up 4 and swung forward over 4 (the knee a column
-    # ahead of the boot); the two half a cycle apart, so the feet open to 20 apart and close till they touch
-    "near": [(3, 5, 0), (2, 3, 0), (1, 1, 0), (0, -1, 0), (0, -1, 2), (2, 1, 4), (4, 3, 3), (4, 5, 1)],
-    "far": [(-4, -5, 2), (-2, -3, 4), (0, -1, 3), (1, 1, 1), (1, 1, 0), (0, -1, 0), (-2, -3, 0), (-3, -5, 0)],
+    # the user, 10-10: 「还是和英雄联盟那种小碎步跳跃的感觉不一样」 after the long lane strides. League's Zed_run
+    # (tools/lol/pose_joints.py, ~40 px, frames numbered as League's): the hip bobs ~5 px twice a cycle - high as a foot
+    # lands, dropping before the push-off - and a foot is planted 4 frames, then its heel kicks up behind ~8 px before it
+    # swings through: short steps, a big bounce. Here: each boot 4 columns on its own side (planted in 7, 8, 1, 2 for the
+    # near one, 3-6 for the far one, sliding back a column a frame), the heel kicked up behind the thigh (up 3, 5 - the
+    # shin hidden behind the thigh, the boot a column behind the knee) and swung forward (up 3, 1)
+    "near": [(1, 1, 0), (0, 0, 0), (1, -1, 3), (1, -1, 5), (2, 1, 3), (3, 3, 1), (2, 3, 0), (1, 2, 0)],
+    "far": [(0, -1, 3), (1, 1, 1), (1, 1, 0), (0, 0, 0), (0, -1, 0), (-1, -2, 0), (0, -3, 3), (0, -3, 5)],
 }
 BOOT_TOP = 97                    # the boots' top row (full design): rows from here move whole
 LEG_COPY = 10                    # the far lower leg = the near one this many columns left (85% canvas, legs_alike)
 LEG_FAR_COLS = (54, 62)          # the far lower leg's columns on the 85% canvas (cleared before the copy)
-DROP = [2, 1, 0, 1, 2, 1, 0, 1]           # oppi's Lee Sin: low at the wide and the crossed frames, 2 rows
-RUN_ARM = [-1, 0, 0, 0, 0, -1, -1, -1]         # the near forearm's column per frame
+DROP = [3, 4, 0, 0, 3, 4, 0, 0]           # the body (and the thighs) sunk: League's hip, high at a landing
+RUN_ARM_DY = [0, -1, 0, 0, 0, -1, 0, 0]  # the forearms a row behind the drop at its lowest (the claws off the ground)
+RUN_ARM = [0, 0, 0, 0, -1, -1, -1, -1]         # the near forearm's column per frame (back while its leg is ahead)
 
 
 def run_leg(P, side, knee_dx, boot_dx, lift, drop=0):
@@ -554,8 +555,8 @@ def run_frames(P):
         K.put(legs, run_leg(P, "near", *RUN_STEPS["near"][k], drop=DROP[k]), 0, 0)
         top = P.body.copy()
         top[P.run["far"] | P.run["near"] | walled] = 0
-        K.place(top, P.lfore, L_ELBOW, under=True)
-        K.put(top, fore, RUN_ARM[k], 0)
+        K.place(top, P.lfore, (L_ELBOW[0], L_ELBOW[1] + RUN_ARM_DY[k]), under=True)
+        K.put(top, fore, RUN_ARM[k], RUN_ARM_DY[k])
         c = K.put(K.shifted(top, 0, DROP[k]), legs, 0, 0, under=True)
         c[SOLES + 1:] = 0
         # finished only near what moved, as the actions (the old run kept every row above the hips as drawn)
