@@ -11,19 +11,24 @@ Spinning Axe is `skill`, Stand Aside `skill2`, Whirling Death the `ult`; Blood R
   attack  An axe thrown at the target (homing, physical 100% AD), released on tick a_st.
   skill   Q Spinning Axe (旋转飞斧): a `None` cast when an enemy is within attack range: one more axe spinning in his
           hands (two at most, each q_hold ticks). The next attack throws a spinning one: q_dmg + q_ratio% AD more.
-          It ricochets off the target up into the air and comes down where he stood when it hit, q_fly ticks later -
-          a catch circle there the whole time (a picture where he stands: a non-following caster picture, section 8's
-          rule). Standing in it (catch_r) when it lands = caught: back in his hands spinning, Blood Rush ready again
-          and one Adoration level; walked away = it falls and is gone.
+          It ricochets off the target up into the air and comes down q_fly ticks later on a spot near him, at random
+          (League: wherever the bounce sends it, near him): q_far toward a random enemy near him, every other bounce
+          q_far2 toward a random ally - a catch circle and the falling axe there from the bounce. He runs over at
+          once (the AI catches like the pros, the user: 「捡斧头不是随机掉落位置吗 然后AI可以熟练的捡斧头」) and is
+          on the spot two ticks before it lands: within catch_r then = caught: back in his hands spinning, Blood Rush
+          ready again and one Adoration level; stunned or knocked away on the way = it falls and is gone.
   W       Blood Rush (血性冲刺, automatic): with w_cd off and an enemy champion within w_r, the attack also rushes -
           w_ms% move speed for w_ms_t ticks and w_as% attack speed for w_as_t; w_cd after. A caught axe clears w_cd.
   skill2  E Stand Aside (开道利斧): a `Direction` cast on `EnemyWithoutTower` (e_range); at the release the axes fly
           down a line through everything: e_dmg + e_ratio% AD, knocked back (e_kb speed, e_kb_t ticks) and e_slow%
           slow for e_slow_t.
   ult     R Whirling Death (冷血追命): a `Direction` cast on `EnemyChampionRecentlyAttacked` (r_range: not wasted on a
-          champion at full health). Two axe blades fly down the line through every enemy (r_dmg + r_ratio% AD) and
-          turn back at the first champion they meet (or at the line's end), flying back to him through everything
-          again for the same damage.
+          champion at full health). Two wide axe blades (r_rad, League's 160 a side) fly far down the line (r_len,
+          r_range; the user: 「德莱文的大招范围应该挺广的」) through every enemy (r_dmg + r_ratio% AD) and turn back at
+          the first champion they meet (or at the line's end), flying back to him through everything again for the
+          same damage. League's are global, but a line's goal (its start + direction x range) is clamped to the map
+          one axis at a time, which bends the line when the goal falls off the map: 10-13 degrees at 1000000, the
+          target missed (SDK simulation, 2026-10-10); 400000 bent the casts measured by 0-4 degrees at most.
   combos  (「加入高手连招」)
           接斧连击 (Q-W juggling): every caught axe re-arms Blood Rush, so the next attack rushes again (above).
           E -> R (击退接大招): a champion Stand Aside hits is marked e_up ticks; R cast while the mark holds throws
@@ -44,6 +49,9 @@ BIG = "asset/league/effects/league_draven_big"
 # Numbers = candidate c0 of the 10-min classic-SDK simulations (dv_sim/sim/kd.py --lane 3 against archer, gunner,
 # boomerang_hunter, poison_dart_hunter and bomber, three lineups, both sides, 2026-10-10): +2.18 on seeds 1-12
 # (league_jinx +4.46, league_twitch +1.79, league_kogmaw +1.67), +1.70 on 25-36 (league_twitch +1.18, league_kogmaw +1.69).
+# Retimed to the strips (c1): +2.79 / +1.88. The run-to-catch Q (every axe caught, the fall 24 ticks) and the wider,
+# longer R (c3, the user's 10-10 asks): +3.04 / +3.17 (deal 12892 / 13264 against 11488) - still under league_jinx, the
+# numbers kept.
 # Timings from the strips (fix_draven_strips.py TAGS): the axe leaves on tick 11 (attack frame 3, 180 ms of 400), Stand
 # Aside's axes on 11 (skill2 frame 4), Whirling Death's on 16 (ult frame 5, 270 ms of 500); Q's twirl 200 ms.
 P = {
@@ -55,16 +63,17 @@ P = {
     # passive League of Draven (League: a stack a catch, cashed in on a champion kill for gold)
     "p_n": 6, "p_atk": 4, "p_heal": 25, "p_as": 30, "p_t": 240,
     # Q Spinning Axe (League: +40-60 + 75-115% bonus AD, 5.8 s in hand, two at most, cd 12-8 s)
-    "q_cd": 540, "q_range": 55000, "q_dur": 12, "q_hold": 348, "q_dmg": 40, "q_ratio": 55, "q_fly": 42,
-    "catch_r": 12000,
+    "q_cd": 540, "q_range": 55000, "q_dur": 12, "q_hold": 348, "q_dmg": 40, "q_ratio": 55, "q_fly": 24,
+    "catch_r": 4000, "q_far": 18000, "q_far2": 24000, "q_dir_r": 60000,
     # W Blood Rush (League: +50-70% decaying move speed 1.5 s, +30-50% attack speed 3 s, cd 12 s, reset by a catch)
     "w_cd": 720, "w_r": 70000, "w_ms": 40, "w_ms_t": 90, "w_as": 35, "w_as_t": 180,
     # E Stand Aside (League: 1050 range, 75-235 + 50% bonus AD, knocked aside, 20-40% slow 2 s, cd 18-14 s)
     "e_cd": 900, "e_range": 95000, "e_dur": 24, "e_rel": 11, "e_speed": 6000, "e_len": 105000, "e_rad": 8000,
     "e_y": 0, "e_dmg": 70, "e_ratio": 50, "e_kb": 1800, "e_kb_t": 8, "e_slow": 30, "e_slow_t": 120,
-    # R Whirling Death (League: global, 175-375 + 110% bonus AD a pass, turns on the first champion, cd 100-60 s)
-    "r_cd": 2700, "r_range": 150000, "r_dur": 30, "r_rel": 16, "r_speed": 4500, "r_fast": 6500, "r_len": 200000,
-    "r_rad": 9000, "r_back": 5000, "r_dmg": 110, "r_ratio": 80,
+    # R Whirling Death (League: global, 160 a side, 2000 a second, 175-375 + 110% bonus AD a pass, turns on the first
+    # champion, cd 100-60 s); r_len: the longest line the map's clamp leaves straight (the docstring)
+    "r_cd": 2700, "r_range": 250000, "r_dur": 30, "r_rel": 16, "r_speed": 7000, "r_fast": 9000, "r_len": 400000,
+    "r_rad": 16000, "r_back": 7000, "r_dmg": 110, "r_ratio": 80,
     # combos
     "e_up": 150,
     # his spoken lines, at most one every vo_gap ticks
@@ -250,12 +259,32 @@ def build(p):
 
     use_axe = sw("ax2", combine(*rm("ax2")), combine(*rm("ax1")))
     caught = combine(add_axe(), *rm("w_cd"), climb(), cview("q_catch"), sfx("q_catch"))
-    # the ricochet: from the hit, a hidden lob onto him lands where he stands q_fly ticks later; the circle and the
-    # falling axe are a non-following caster picture started on the same tick (a ViewEffect on his own spot is
-    # not shown in game)
-    drop = on_me(cview("q_zone"), cview("q_fall"), lob("q_drop", p["q_fly"], "AllyOnlySelf", [
-        pick(p["catch_r"], "AllyOnlySelf", flag("q_got", 2), fp=True),
-        sw("q_got", combine(*rm("q_got"), caught), combine(view("q_lost"), sfx("q_lost")))]))
+    land = [pick(p["catch_r"], "AllyOnlySelf", flag("q_got", 2), fp=True),
+            sw("q_got", combine(*rm("q_got"), caught), combine(view("q_lost"), sfx("q_lost")))]
+
+    def toss(far):
+        """The ricochet comes down `far` from him toward the unit picked (this context's target). A hidden line as
+        fast as it is long ends on the spot the same tick: the catch circle and the falling axe there, and he runs
+        over (`MoveTo` from a line's end goes to that point; the run tag, q_fly - 3 ticks) - so the AI catches like
+        a pro, in step with the fall. A hidden slow line down the same path gets there q_fly ticks after the bounce,
+        two ticks after him: within catch_r of it then = caught (a stun or a knock-back on the way can still cost
+        it)."""
+        walk_t = p["q_fly"] - 3
+        mark_end = [view("q_zone"), view("q_fall"), anim("run", walk_t),
+                    {"type": "MoveTo", "speed": -(-far // walk_t), "range": far, "end_effects": []}]
+        return combine(line("q_mark", far, far, 1000, 5000, "EnemyChampion", True, [], end=mark_end),
+                       line("q_spot", -(-far // p["q_fly"]), far, 1000, 5000, "EnemyChampion", True, [], end=land))
+
+    # where it comes down (League: near him, wherever the bounce sends it): toward a random enemy near him, every
+    # other bounce toward a random ally (q_alt; a 1-tick flag says one was found) and a little farther; with nobody
+    # near, onto his own spot as before (a hidden lob onto him, the circle a non-following caster picture: a
+    # ViewEffect on his own spot is not shown in game)
+    on_spot = on_me(cview("q_zone"), cview("q_fall"), lob("q_drop", p["q_fly"], "AllyOnlySelf", land))
+    to_enemy = lambda far: combine(pick(p["q_dir_r"], "EnemyWithoutTower", flag("q_dir", 1), toss(far)),
+                                   sw("q_dir", combine(*rm("q_dir")), on_spot))
+    to_ally = combine(pick(p["q_dir_r"], "AllyNotSelf", flag("q_dir", 1), toss(p["q_far2"])),
+                      sw("q_dir", combine(*rm("q_dir")), to_enemy(p["q_far2"])))
+    drop = sw("q_alt", combine(*rm("q_alt"), to_ally), combine(flag("q_alt", None), to_enemy(p["q_far"])))
     spin_hit = [attack(p["q_dmg"], 100 + p["q_ratio"]), view("q_hit"), tsfx("q_hit"), delayed(1, drop)]
     a_hit = [attack(0, 100), view("a_hit"), tsfx("a_hit")]
     twin = homing("a_twin", p["axe_speed"], p["axe_y"], "EnemyChampion", [k_set, k_read])

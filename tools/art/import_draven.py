@@ -129,9 +129,10 @@ FX = {
     "q_hit": ("q_hit", seq(range(5), [40, 60, 70, 80, 100]), [HIT]),
     "e_hit": ("e_hit", seq(range(4), [40, 50, 60, 80]), [HIT]),
     "r_hit": ("r_hit", seq(range(5), [40, 50, 60, 80, 100]), [HIT]),
-    # Spinning Axe: the catch circle and the axe falling into it play together for the lob's 42 ticks (700 ms)
-    "q_zone": ("q_zone", seq(range(7), [100] * 7), [FEET]),
-    "q_fall": ("q_fall", seq(range(7), [100] * 7), [FEET]),
+    # Spinning Axe: the catch circle and the axe falling into it play together on the spot it comes down, from the
+    # bounce to the landing (q_fly 24 ticks: lands on tick 23, 383 ms; he runs in on tick 21)
+    "q_zone": ("q_zone", seq(range(7), [55] * 7), [FEET]),
+    "q_fall": ("q_fall", seq(range(7), [55] * 7), [FEET]),
     "q_catch": ("q_catch", seq(range(4), [40, 60, 70, 80]), [FEET]),
     "q_lost": ("q_lost", seq(range(5), [80, 100, 120, 150, 150]), [FEET]),
     "w_cast": ("w_cast", seq(range(5), [50, 60, 70, 80, 100]), [FEET]),

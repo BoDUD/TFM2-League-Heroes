@@ -53,9 +53,9 @@ TEXT = {
                   "攻速+{p_as}%" + A + "{p_t}秒" + E + "。" + O + "血性冲刺" + E + "（自动，" + A + "{w_cd}秒" + E + "）：对英雄出手时移速+{w_ms}%、" +
                   "攻速+{w_as}%，接住斧头即刷新。",
         "skill": "手中转起一把飞斧（最多2把），下次攻击额外造成" + phy("q") + "伤害。斧头弹回空中，" + A + "{q_fly}秒" + E +
-                 "后落进他脚下的圆圈，站在圈里就能接住继续旋转。",
+                 "后落在他身边随机一处，他会跑进落点圈接住，继续旋转。",
         "skill2": "掷出一对贯穿的斧刃，造成" + phy("e") + "伤害，" + R + "击退" + E + "敌人并" + R + "减速{e_slow}%" + E + A + "{e_slow_t}秒" + E + "。",
-        "ult": "向远处交战中的英雄掷出两把巨斧，贯穿路上的敌人造成" + phy("r") + "伤害；碰到第一个英雄（或飞到尽头）后折返，回程再造成一次伤害。",
+        "ult": "向远处交战中的英雄掷出两把宽大的巨斧，飞得很远，贯穿路上的敌人造成" + phy("r") + "伤害；碰到第一个英雄（或飞到尽头）后折返，回程再造成一次伤害。",
         "names": ("旋转飞斧", "开道利斧", "冷血追命"),
     },
     "zh-hant": {
@@ -64,9 +64,9 @@ TEXT = {
                   "攻速+{p_as}%" + A + "{p_t}秒" + E + "。" + O + "好戲上場" + E + "（自動，" + A + "{w_cd}秒" + E + "）：對英雄出手時移速+{w_ms}%、" +
                   "攻速+{w_as}%，接住斧頭即刷新。",
         "skill": "手中轉起一把飛斧（最多2把），下次攻擊額外造成" + phy("q") + "傷害。斧頭彈回空中，" + A + "{q_fly}秒" + E +
-                 "後落進他腳下的圓圈，站在圈裡就能接住繼續旋轉。",
+                 "後落在他身邊隨機一處，他會跑進落點圈接住，繼續旋轉。",
         "skill2": "擲出一對貫穿的斧刃，造成" + phy("e") + "傷害，" + R + "擊退" + E + "敵人並" + R + "緩速{e_slow}%" + E + A + "{e_slow_t}秒" + E + "。",
-        "ult": "向遠處交戰中的英雄擲出兩把巨斧，貫穿路上的敵人造成" + phy("r") + "傷害；碰到第一個英雄（或飛到盡頭）後折返，回程再造成一次傷害。",
+        "ult": "向遠處交戰中的英雄擲出兩把寬大的巨斧，飛得很遠，貫穿路上的敵人造成" + phy("r") + "傷害；碰到第一個英雄（或飛到盡頭）後折返，回程再造成一次傷害。",
         "names": ("迴旋飛斧", "給我閃！", "迴轉死神"),
     },
     "en": {
@@ -75,12 +75,12 @@ TEXT = {
                   "axe kill on a champion cashes them in: {p_heal} health each and +{p_as}% attack speed for " + A + "{p_t}s" + E + ". " + O +
                   "Blood Rush" + E + " (automatic, " + A + "{w_cd}s" + E + "): attacking a champion gives +{w_ms}% move speed and +{w_as}% "
                   "attack speed; a catch resets it.",
-        "skill": "Spins an axe in his hand (up to 2): his next attack deals " + phy("q") + " bonus damage. The axe bounces up and lands in "
-                 "a circle at his feet after " + A + "{q_fly}s" + E + "; standing in it catches it, still spinning.",
+        "skill": "Spins an axe in his hand (up to 2): his next attack deals " + phy("q") + " bonus damage. The axe bounces up and lands "
+                 "at a random spot near him after " + A + "{q_fly}s" + E + "; he runs into the circle to catch it, still spinning.",
         "skill2": "Throws a pair of piercing axes for " + phy("e") + ", " + R + "knocking enemies back" + E + " and " + R + "slowing {e_slow}%" + E +
                   " for " + A + "{e_slow_t}s" + E + ".",
-        "ult": "Hurls two huge axes at a fighting champion far away, dealing " + phy("r") + " to every enemy passed; they turn at the "
-               "first champion (or the end) and fly back, dealing it again.",
+        "ult": "Hurls two huge, wide axes at a fighting champion far away; they fly a long way, dealing " + phy("r") + " to every "
+               "enemy passed, turn at the first champion (or the end) and fly back, dealing it again.",
         "names": ("Spinning Axe", "Stand Aside", "Whirling Death"),
     },
     "ko": {
@@ -89,11 +89,11 @@ TEXT = {
                   "중첩당 체력 {p_heal} 회복, " + A + "{p_t}초" + E + " 동안 공격 속도 +{p_as}%. " + O + "광기의 피" + E + "(자동, " + A + "{w_cd}초" + E +
                   "): 챔피언 공격 시 이동 속도 +{w_ms}%, 공격 속도 +{w_as}%, 도끼를 받으면 초기화.",
         "skill": "손에서 도끼를 회전시킴(최대 2개): 다음 공격이 " + phy("q") + "의 추가 피해. 도끼는 튕겨 올라 " + A + "{q_fly}초" + E +
-                 " 뒤 발밑의 원에 떨어지며, 원 안에 서 있으면 받아서 계속 회전.",
+                 " 뒤 주변 무작위 위치에 떨어지며, 원 안으로 달려가 받아서 계속 회전.",
         "skill2": "관통하는 도끼 한 쌍을 던져 " + phy("e") + "의 피해, " + R + "밀쳐내고" + E + " " + A + "{e_slow_t}초" + E + " 동안 " + R +
                   "{e_slow}% 둔화" + E + ".",
-        "ult": "멀리 교전 중인 챔피언에게 거대한 도끼 두 개를 던져 지나는 적에게 " + phy("r") + "의 피해. 첫 챔피언(또는 끝)에서 되돌아와 "
-               "다시 피해.",
+        "ult": "멀리 교전 중인 챔피언에게 넓고 거대한 도끼 두 개를 던져 멀리까지 날아가며 지나는 적에게 " + phy("r") + "의 피해. 첫 챔피언(또는 끝)에서 "
+               "되돌아와 다시 피해.",
         "names": ("회전 도끼", "비켜서라", "죽음의 소용돌이"),
     },
     "ja": {
@@ -102,10 +102,10 @@ TEXT = {
                   "1つにつき体力{p_heal}回復、" + A + "{p_t}秒" + E + "攻撃速度+{p_as}%。" + O + "血の疼き" + E + "（自動、" + A + "{w_cd}秒" + E +
                   "）：チャンピオン攻撃時に移動速度+{w_ms}%、攻撃速度+{w_as}%、キャッチでリセット。",
         "skill": "手の中で斧を回す（最大2本）：次の攻撃が" + phy("q") + "の追加ダメージ。斧は跳ね上がり" + A + "{q_fly}秒" + E +
-                 "後に足元の円に落ち、円の中にいればキャッチして回し続ける。",
+                 "後に周囲のランダムな位置に落ち、円に走り込んでキャッチし回し続ける。",
         "skill2": "貫通する斧を2本投げ" + phy("e") + "のダメージ、" + R + "ノックバック" + E + "と" + A + "{e_slow_t}秒" + E + R + "{e_slow}%スロウ" + E + "。",
-        "ult": "遠くで交戦中のチャンピオンへ巨大な斧を2本投げ、通過した敵に" + phy("r") + "。最初のチャンピオン（または端）で折り返し、"
-               "戻りでも同じダメージ。",
+        "ult": "遠くで交戦中のチャンピオンへ幅広の巨大な斧を2本投げ、遠くまで飛んで通過した敵に" + phy("r") + "。最初のチャンピオン（または端）で"
+               "折り返し、戻りでも同じダメージ。",
         "names": ("回転斬斧", "薙ぎ払い", "死の車輪"),
     },
 }

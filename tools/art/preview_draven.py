@@ -8,9 +8,11 @@
   league_draven_showcase.gif  a scripted fight with Darius in front and Garen behind him, timed like the kit
                               (tools/kit/build_draven.py, 60 ticks a second): Q - an axe spins up (the icon over his
                               head); the spinning axe flies at Darius (Blood Rush: the burst, the glow at his feet),
-                              bounces up, the catch circle and the axe falling into it, the catch; again; a plain axe;
-                              E - the pair of axes through both, the knock-back hits and the slows; R - the blades out
-                              to Darius and back; the cash-in (gold) and the full Adoration twinkles; 3x
+                              bounces up, the catch circle and the axe falling into it on a spot ahead of him (q_far:
+                              toward an enemy), he runs in and catches it as it lands; again, the spot behind him
+                              (q_far2: toward an ally) - he runs back; a plain axe; E - the pair of axes through both,
+                              the knock-back hits and the slows; R - the blades out to Darius and back; the cash-in
+                              (gold) and the full Adoration twinkles; 3x
 """
 import argparse
 import os
@@ -45,8 +47,8 @@ def showcase(out, z=3, step=40):
     W, H = 240, 110
     gy = 76
     x0 = 40
-    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), x0 + 70, gy)
-    g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), x0 + 150, gy)
+    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), x0 + 50, gy)
+    g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), x0 + 100, gy)
     me = Me(x0, gy)
     body, under, over = [], [], []
     t = 0.0
@@ -70,15 +72,22 @@ def showcase(out, z=3, step=40):
         over.append(Anim(frames_of(sheet, tag), when, sx, y, until=arrive, x1=x1, y1=y))
         return arrive
 
-    def spin_throw(icon_from):
-        """A spinning-axe attack: the icon goes, the axe flies, bounces, comes down in the circle, is caught."""
+    def spin_throw(icon_from, step):
+        """A spinning-axe attack: the icon goes, the axe flies and bounces; the circle and the axe falling into it
+        on a spot `step` px away, he runs in (the run tag, flipped going back) and catches it as it lands."""
         rel = t + tick(P["a_st"])
         land = fly("q_axe", small, rel, d.pos(rel)[0], AXE)
         hit(d, "q_hit", land)
-        drop = land + tick(1)
-        under.append(OnMe(frames_of(small, "q_zone"), drop, me))
-        over.append(OnMe(frames_of(small, "q_fall"), drop, me))
-        catch = drop + tick(P["q_fly"])
+        b = land + tick(1)                           # the bounce: the spot shows, he runs over from the next tick
+        x0_, px = me.pos(b)[0], me.pos(b)[0] + step
+        walk = tick(P["q_fly"] - 3)
+        under.append(Anim(frames_of(small, "q_zone"), b, px, gy))
+        over.append(Anim(frames_of(small, "q_fall"), b, px, gy))
+        me.moves.append((b + tick(1), b + tick(1) + walk, x0_, px))
+        run = Anim(frames_of(sp, "run"), b, 0, 0, loop=True, until=b + tick(1) + walk, flip=step < 0)
+        run.pos = me.pos
+        body.insert(0, run)                          # over the attack's tail, like the forced run in game
+        catch = b + tick(P["q_fly"] - 1)
         over.append(OnMe(frames_of(small, "q_catch"), catch, me))
         over.append(OnMe(frames_of(small, "ax1"), icon_from, me, until=rel, loop=True))
         return catch
@@ -91,12 +100,12 @@ def showcase(out, z=3, step=40):
     # the spinning axe at Darius; Blood Rush goes off with it
     over.append(OnMe(frames_of(small, "w_cast"), t, me))
     under.append(OnMe(frames_of(small, "w_ms"), t, me, until=t + tick(P["w_ms_t"]), loop=True))
-    catch = spin_throw(q0)
+    catch = spin_throw(q0, P["q_far"] // 1000)
     a("attack", tick(P["atk_dur"]))
     a("idle", max(120, catch - t + 60), loop=True)
     # caught: spinning again (the icon), thrown again
     q1 = catch
-    catch = spin_throw(q1)
+    catch = spin_throw(q1, -(P["q_far2"] // 1000))
     a("attack", tick(P["atk_dur"]))
     a("idle", max(120, catch - t + 60), loop=True)
     # a plain axe
