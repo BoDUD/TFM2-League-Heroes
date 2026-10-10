@@ -171,8 +171,15 @@ def make(name):
 
 PICK = "2_40"            # the user's pick (「2_40」, 2026-10-10)
 # (canvas row, column from the figure's left, letters): draft 02 shows only her near eye - the far eye added (a brow
-# square, a lash and a dark-over-bright green eye, 4 squares)
-POLISH = [(70, 30, "k"), (71, 29, "9x"), (72, 30, "X")]
+# square, a lash and a dark-over-bright green eye, 4 squares); 2026-10-10 (「眼睛有很多奇怪的地方」) the draft's dark +
+# white squares past that eye (a third eye on the face's edge) and the lash square between the eyes made skin, as on the
+# action strips' head (fix_senna_strips CANON_EDITS); then the brows apart (「眉毛连在一起不修吗」): the near brow 3 squares
+# over the near eye, the far one 2 over the far eye, skin between (the near one had run on into the far one)
+POLISH = [(69, 28, "KKPP"), (70, 28, "KKk"), (71, 28, "K9x"), (72, 30, "XKk"),
+          # the ground showing through her (「像素缺失」): a pinhole between the locs and the claws, the slit beside them,
+          # the gaps round the hand at her hip - each the commonest colour round it (the claws' open prongs stay)
+          (65, 37, "9"), (73, 38, "9"), (74, 38, "9"), (75, 38, "9"), (83, 18, "99"), (83, 22, "99"), (84, 22, "9"),
+          (85, 21, "9"), (90, 21, "r")]
 
 
 def rebuild():
