@@ -3821,6 +3821,19 @@ a life. A teamfight kill of someone else in the 1-second window counts too - fin
 
 **Something that happens when he dies (league_kogmaw passive, Icathian Surprise).** No data effect runs on a death. Each life's first action (a `Permanent` caster flag death clears) starts a whole-game `AddCasted` on him (period P) that lobs a hidden `ParabolicProjectile` onto himself (`applied_target: AllyOnlySelf`, no applied effects) flying P + 1 ticks; its `end_effects` ask `RandomTarget {range: 1, casting_target: AllyOnlySelf}` for a 1-tick flag (no dead caster is found) and, without it, start the death effect. The `AddCasted` stops with him, so exactly one lob in the air finds him dead; travel P (not P + 1) missed the deaths on the landing tick (the check ran before the death, 6 of 14 lost), P + 1 caught 14 of 14 with no double. A burst where he fell hit nobody: a ranged hero dies 20000-150000 from the enemies. The void form is a visible `TargetProjectile` (1800 a tick) plus a hidden `TargetSplashProjectile` at the same speed for the burst (league_jinx's rocket), both in a `RandomTarget {EnemyChampion, from_projectile: true}` within 70000 of the landing: projectiles started from another projectile's `end_effects` spawn after the caster's death, also in the SDK (12 of 14 reached a champion and burst; the two lost ones were out of sight when they arrived).
 
+**An axe he must catch (league_draven Q, Spinning Axe).** The empowered attack's hit runs, a tick later, `RangeEffect`
+on `AllyOnlySelf` with two things: the catch circle and the falling axe as `CasterViewEffect`s that do not follow
+(`is_follow` false: they stay where he stood - a `ViewEffect` on his own spot is not shown, section 4), and a hidden
+`ParabolicProjectile` on `AllyOnlySelf` (`travel_time` = the fall, 42 ticks) that lands where he stood when it was
+fired. Its `end_effects` ask `RandomTarget {range: catch_r, casting_target: AllyOnlySelf, from_projectile: true}`
+whether he is still within the circle (a 2-tick flag): caught - the spinning axe back (`ax1`/`ax2` caster flags,
+two at most), Blood Rush's cooldown flag removed, an Adoration level; missed - a `ViewEffect` of the axe dropping on
+that point. In the SDK (an ADC who stands still to attack and walks between targets) about 8 catches in 10. Blood Rush
+has no slot (League's W has no cast): the attack turns it on when its cooldown flag is off and an enemy champion is
+near, and a catch removes the flag - the juggling loop. Whirling Death turns back at the first champion: a
+non-penetrating line on `EnemyChampion` (seen) whose `end_effects` start the `BackToCasterLinearProjectile` back, beside
+a hidden penetrating line for the damage on the way out.
+
 **A shadow that copies the combo (league_zed W, Living Shadow).** Every projectile leaves from the caster, and a zone's
 applied effects cannot start anything at the zone's point (measured 2026-10-09 with work/zd/test_echo.py: a
 `BackToCasterLinearProjectile` and a `RangeProjectile` in the applications of a `RangePeriodProjectile` on `AllyOnlySelf`
