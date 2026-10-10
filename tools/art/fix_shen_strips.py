@@ -19,8 +19,9 @@ then made "final" copies itself by resizing and re-quantising them: those are bl
   3. stand it where League's frame stands: its lowest row on League's lowest row (the soles' row for a grounded frame),
      its eyes on League's head column (else its middle on League's);
   4. clear specks (pieces of fewer than SPECK squares apart from the body) and close the outline.
-The run keeps the design's upper body square for square (rows < HIP_ROW, bobbing as the pack gave it) over the legs
-of Codex's raw run frames, read the same way.
+The loops are the design square for square: the idle breathes (the body above the sash sinks over the legs), the run
+moves the design's own legs whole under its bobbing body (RIG; Codex's raw run legs were short and gapped). Q and R
+start from the design itself (League's casts start from the idle pose).
 """
 import argparse
 import json
@@ -81,16 +82,20 @@ TAGS = {
     "skill2": [(f"skill2_{k}", ms) for k, ms in zip(range(1, 5), (50, 50, 100, 100))],
     # R: Codex's four channel frames were four different drawings (they flickered as a loop): the wind-up ends on
     # ult_2 (sword down, hands together before the chest) and the channel is that drawing breathing
-    # (ult_3, the fists pushed forward, has a bare chest where the design wears its chest plate: left out)
-    "ult": [("ult_1", 150), ("ult_2", 150)],
+    # (ult_3, the fists pushed forward, has a bare chest where the design wears its chest plate: left out). League's
+    # R starts from the idle pose, and Codex's ult_1 was the idle redrawn (85 % on the design's squares, 15 % the same
+    # colour, a two-row eye slit): the design itself, as for Q
+    "ult": [("design", 150), ("ult_2", 150)],
     "ult_loop": [("ult_2", 300), (("sink", "ult_2", 84, 1), 300)],
     "hit": [("hit_1", 100)],
     "dead": [(f"dead_{k}", ms) for k, ms in zip(range(1, 9), (100, 100, 120, 150, 150, 200, 250, 400))],
 }
-# frames moved whole after placement (columns, rows): ult_1 starts from the idle pose, its best match with the design
-NUDGE = {"ult_1": (-1, 0)}
-# eyes painted where Codex's were too faint to read (canvas row, column after placement): Q's held palm frame
-EYES = {"skill_3": [(64, 67), (64, 68)]}
+# frames moved whole after placement (columns, rows)
+NUDGE = {}
+# eyes painted where Codex's glow did not survive the read (canvas row, column after placement): on the frame's skin
+# eye slit, where Codex's raw has them (two in a front view, one in a side view)
+EYES = {"skill_3": [(64, 67), (64, 68)], "attack_2": [(57, 58), (57, 60)], "skill2_3": [(77, 72)],
+        "skill2_4": [(72, 74)], "dead_4": [(66, 64)], "dead_6": [(76, 73)], "dead_7": [(79, 69)]}
 AIR = {"attack_3", "skill2_2", "skill2_3", "skill2_4"}   # off the ground: the lowest row stays where League's is
 SQUARE = {}          # name -> square size in raw px, when the outline measure is off
 # name -> extra scale factor: Codex drew these figures bigger on the canvas than the design (judged against the design's
