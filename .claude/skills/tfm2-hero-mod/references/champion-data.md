@@ -1662,6 +1662,19 @@ next `SwitchByBuff` reads), W opens with Soul Unbound; otherwise it is a plain W
 `z` 0, not following) - and 239 ticks later pulls him back with `Teleport` if the spirit buff is still there
 (death clears it). The spirit (a caster buff with `move_speed_mult` 25 and a `view_buffs` aura) dashes onto a
 champion (`RandomTarget` + `MoveToTarget`) and cleaves there.
+The tether between body and spirit (the user, 2026-10-11, 「永恩的E帮我加个连接线特效」, then 「你这个线弄直啊」) is league_fiddlesticks W's
+chain started from the body: the anchor's `end_effects` send a `BackToCasterLinearProjectile` (`e_link`, 15000 a
+tick, no radius, no effects) every 2 ticks until the return - 120 links, each drawn 40 px behind its head and 15 px
+ahead (view `repeat: false`, one frame a tick while it grows out of the body). In the SDK (2026-10-11) every link
+spawned on the anchor's point, also behind a `Delayed`, a `SwitchByBuff` and a `Combine` there, with `dir` the vector
+to Yone, and was removed on reaching him (at most 19 ticks at 6000 a tick). A homing link bends after a walking
+caster: the first version (2000 a tick every 16 ticks, 40 px links) made a curved chain stepped at its seams; links
+drawn back to the body fanned out; only fast, dense, overlapping links lie on the line (tools/art/yone_e_link.py). A
+`RangePeriodProjectile` on the body reaching him every few ticks spawns no `BackToCasterLinearProjectile` from its
+applications (straight or behind a `Delayed`), and a `LinearProjectile` there flies (0, 5000) from him, so every link
+is its own `Delayed`. The links go in four groups of 64 ticks, each behind league_ekko R's search guard (a dead Yone
+fires at most the rest of a group); skill2 660 -> 1175 nodes, about 10% more SDK time in a game with him
+(`tools/fix/yone_e_link.py`).
 League repeats a share of the damage dealt meanwhile; nothing reads the damage dealt, so every damaging hit
 has a champion-only twin (the attack's `TargetProjectile`, twins of Q's, Q3's and R's lines, W's champion cone)
 that, in spirit form, queues a `FixedAttack` of 25% of that hit's own numbers. The pop must land after the

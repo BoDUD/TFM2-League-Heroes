@@ -4028,6 +4028,2668 @@
                           }
                         }
                       ]
+                    },
+                    {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_yone_e_lives",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_yone_e_lives",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "BackToCasterLinearProjectile",
+                            "name": "league_yone_e_link",
+                            "speed": 15000,
+                            "range": 300000,
+                            "penetrate": true,
+                            "shape": {
+                              "Circle": {
+                                "radius": 0
+                              }
+                            },
+                            "applied_target": "AllyOnlySelf",
+                            "applied_effects": [],
+                            "end_effects": []
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 2,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 4,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 6,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 8,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 10,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 12,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 14,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 16,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 18,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 20,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 22,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 24,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 26,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 28,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 30,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 32,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 34,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 36,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 38,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 40,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 42,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 44,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 46,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 48,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 50,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 52,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 54,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 56,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 58,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 60,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 62,
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_yone_e_lives"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 64,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_yone_e_lives",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_yone_e_lives",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 2,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 6,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 8,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 10,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 12,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 14,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 16,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 18,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 20,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 22,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 24,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 26,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 28,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 30,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 32,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 34,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 36,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 38,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 40,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 42,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 44,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 46,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 48,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 50,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 52,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 54,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 56,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 58,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 60,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 62,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_yone_e_lives"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 128,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_yone_e_lives",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_yone_e_lives",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 2,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 6,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 8,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 10,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 12,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 14,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 16,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 18,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 20,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 22,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 24,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 26,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 28,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 30,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 32,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 34,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 36,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 38,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 40,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 42,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 44,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 46,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 48,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 50,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 52,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 54,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 56,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 58,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 60,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 62,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_yone_e_lives"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 192,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_yone_e_lives",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_yone_e_lives",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_yone_e_link",
+                                "speed": 15000,
+                                "range": 300000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "AllyOnlySelf",
+                                "applied_effects": [],
+                                "end_effects": []
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 2,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 6,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 8,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 10,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 12,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 14,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 16,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 18,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 20,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 22,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 24,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 26,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 28,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 30,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 32,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 34,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 36,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 38,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 40,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 42,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 44,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 46,
+                                "effects": [
+                                  {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_yone_e_link",
+                                    "speed": 15000,
+                                    "range": 300000,
+                                    "penetrate": true,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 0
+                                      }
+                                    },
+                                    "applied_target": "AllyOnlySelf",
+                                    "applied_effects": [],
+                                    "end_effects": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_yone_e_lives"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -7321,6 +9983,14 @@
       "name": "league_yone_r_line",
       "anim": "asset/league/effects/league_yone_big",
       "tag": "r_line",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_yone_e_link",
+      "anim": "asset/league/effects/league_yone_link",
+      "tag": "e_link",
       "repeat": false,
       "z": 1
     }
