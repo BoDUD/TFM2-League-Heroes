@@ -370,42 +370,87 @@ RUN_BOB = [0, 1, 1, 0, 0, 1, 1, 0]
 # "codex": Codex's first legs under the design's upper body
 RUN_MODE = "legs"
 
-# "legs": the cross-step from the design's own leg (the user on Codex's cross-step: 「有问题的地方你帮忙修复 codex实在太烂了」
-# 「而且模型又变形了」「请你好好修 不要有模型变形 还有姿势奇怪」 - its legs were 1-2 px threads under the coat's left half,
-# its skirt specks, and its body was not shrunk with the idle's columns). Nothing is drawn: both legs are the design's
-# far leg (thigh plate, knee, shin, boot - the near one a copy of it, legs alike as league_zed's run), each row of it
-# moved whole - the thigh's rows lean from the hip to the knee, the shin's on to the ankle, at most a column a row -
-# the boot moved whole, the leg lifted whole for a step (its thigh then hides under the coat: a bent knee); the near
-# leg over the far one, both under the body. The body is the design's: rows 0-21 as the idle, the cape on the left,
+# "legs": the cross-step (the user: 「走路有点奇怪啊 没有明显的腿部换位」; on Codex's redraw for it 「有问题的地方你帮忙修复
+# codex实在太烂了」「而且模型又变形了」「请你好好修 不要有模型变形 还有姿势奇怪」; on the design's leg leaned row by row
+# 「腿现在画的好奇怪啊 能不能精修啊」 - one rigid leaned leg kept the idle's knee bulge in every pose and its lifted legs
+# hung as stubs under the coat). The body is the design's, as the idle pixel for pixel: rows 0-21, the cape on the left,
 # the coat to its hem (row 25, the teal sash's end and the back flap a row lower) with the near steel plate cut at the
-# hem. The run is drawn at the idle's 95% already: the idle's cut (RUN_CUT_ROWS / RUN_CUT_COLS, the rows and columns
-# import_native's SHRINK takes out of the idle) is taken out of the design first and the import's shrink skips the run
-# (import_native SHRINK_SKIP), so the body is the shrunk idle's pixel for pixel and the legs the idle's legs.
+# hem - sunk RUN_DIP rows with the stride. Each leg is drawn from its joints - hip, knee, ankle - posed after League's
+# Talon_run (tools/lol/pose_joints.py, x 0.6, y 0.66): a thigh plate in the design's thigh steels (x y y x), a knee
+# band (v w w v), a shin in its shin steels (v w v), the design's own boot (a toe-down one at the push-off, a hanging
+# one at the kick), each leg outlined; both legs alike (league_zed's run), the near one over the far one, both under
+# the body. The run is drawn at the idle's 95% already: the idle's cut (RUN_CUT_ROWS / RUN_CUT_COLS, the rows and
+# columns import_native's SHRINK takes out of the idle) is taken out of the design first and the import's shrink skips
+# the run (import_native SHRINK_SKIP), so the body is the shrunk idle's pixel for pixel.
 RUN_CUT_ROWS, RUN_CUT_COLS = (35, 37), (1, 8)
 RUN_PIVOT_COL = 14             # the design column on the pivot (the idle's, kept by the shrink)
 RUN_KEEP_LOW = 21              # rows 0-21 of the design kept whole (as the idle)
 RUN_CAPE_COL = 11              # below that, the cape on the left (columns <= this)
 RUN_HEM = 25                   # the coat's hem row; the sash's end and the back flap one row lower
 STEEL = "uvwxyz"
-# the far leg's cells by design row (its own outline included): thigh plate 24-27, knee 28-30, shin 31-37, boot 38-40
-RUN_LEG = {24: range(24, 28), 25: range(23, 29), 26: range(23, 30), 27: range(23, 31), 28: range(25, 31),
-           29: range(25, 32), 30: range(24, 31), 31: range(24, 30), 32: range(24, 28), 33: range(23, 28),
-           34: range(23, 27), 35: range(23, 27), 36: range(22, 26), 37: range(22, 27), 38: range(21, 28),
-           39: range(21, 30), 40: range(21, 30)}
-LEG_HIP, LEG_KNEE, LEG_ANKLE, LEG_BOOT = 24, 30, 37, 38      # design rows; the hip's middle is column 26
-RUN_HIPS = {"near": 6, "far": 7}             # the hips from the pivot: under the coat's middle (columns +2..+9)
-RUN_FAR_BACK = -1                            # the far foot's path a column behind its hip's: both feet share one path
-# one leg's cycle, from the frame its foot lands: (knee lean, ankle lean, lift) - leans in columns from the design's
-# own leg (its shin already slants back 3), at most a column a row; lift in rows off the ground. League's Talon_run at
-# ~0.6: the foot lands ahead and slides back 3 a frame under him (planted 4 frames), pushes off behind, comes up under
-# him (lifted 5-6, clear of the planted leg's knee) and through past the planted leg, then reaches ahead; the far leg
-# half a cycle later. The feet
-# change order twice a cycle (10-11 apart at each landing, front and back swapped) and one is always on the ground.
-# Earlier cycles: the back leg leaned 8 columns (a long stick); both feet within 9 (the passing legs one dark lump);
-# the heel kicked back to the cape (a leg touching the cape walls in a hole between them, the coat's hem and the leg -
-# work/tl/rev/run_tune_tl.py tries cycles and counts those holes: none here).
-RUN_CYCLE = [(3, 6, 0), (2, 3, 0), (0, 0, 0), (-1, -3, 0), (-2, -5, 1), (0, -1, 5), (2, 1, 6), (4, 4, 2)]
-RUN_DIP = [0, 1, 2, 1, 0, 1, 2, 1]           # the body sunk: lowest at each mid-stance (2, 6)
+RUN_HIPS = {"near": 5, "far": 6}             # the hips from the pivot, under the coat's middle (columns +2..+9)
+RUN_HIP_Y = -4                               # the hip's row from the pivot (the coat's hem is row -3)
+# one leg's pose from the frame its foot lands: knee and ankle from its hip (x forward, y down; a planted ankle is 12
+# rows under the hip, its sole 3 under that) and the boot. Planted 4 frames sliding back 3 a frame, then off the toe
+# behind, the heel kicked up, the knee through with the foot tucked, reaching ahead; the far leg half a cycle later -
+# the feet change places twice a cycle and one is always on the ground. The passing leg's knee goes up and forward and
+# its foot tucks behind the planted shin (both legs had stacked into one grey column).
+RUN_POSE = [((4, 5), (5, 12), "flat"), ((4, 6), (3, 12), "flat"), ((2, 6), (0, 12), "flat"),
+            ((0, 6), (-3, 12), "flat"), ((-1, 5), (-5, 9), "toe"), ((0, 6), (-4, 9), "toe"),
+            ((4, 3), (-2, 7), "toe"), ((4, 4), (3, 9), "flat")]
+RUN_DIP = [0, 1, 2, 1, 0, 1, 2, 1]           # the body and hips sunk: lowest at each mid-stance (frames 3, 7)
+# boots: rows of letters ("." clear) and the ankle's column in them; the boot's top row lies under the ankle. "flat" is
+# the design's far boot (rows 38-40, columns 21-29: the heel spur, the w x w instep, the black sole)
+RUN_BOOTS = {"flat": (["kvkwxwk..", "kvkkwxwkk", "kkkkkkkkk"], 3),
+             "toe": (["kvkwk.", "kvkwxk", ".kkwxk", "..kkk."], 3),
+             "kick": (["kwk", "kxk", "kwk", "kkk"], 1)}
+THIGH, KNEE, SHIN = "xyx", "vwv", "vwv"      # 5 wide with the outline, as the design's shins (4-wide thighs were blocks)
+
+
+def limb(m, a, b, letters):
+    """The segment a-b ((x, y) squares) into m: rows across a steep one, columns across a flat one, len(letters)
+    squares wide with letters[i] at the i-th."""
+    (ax, ay), (bx, by) = a, b
+    w = len(letters)
+    if abs(by - ay) >= abs(bx - ax):
+        for y in range(min(ay, by), max(ay, by) + 1):
+            t = 0.0 if by == ay else (y - ay) / (by - ay)
+            x0 = int(np.floor(ax + (bx - ax) * t - (w - 1) / 2 + 0.5))
+            for i, l in enumerate(letters):
+                m[(y, x0 + i)] = l
+    else:
+        for x in range(min(ax, bx), max(ax, bx) + 1):
+            t = (x - ax) / (bx - ax)
+            y0 = int(np.floor(ay + (by - ay) * t - (w - 1) / 2 + 0.5))
+            for i, l in enumerate(letters):
+                m[(y0 + i, x)] = l
+
+
+def run_leg(hip, pose, ground):
+    """One leg's letters {(y, x): letter}: shin, thigh over it, the knee band, the boot, a black outline round all."""
+    (kx, ky), (ax, ay), boot = pose
+    knee = (hip[0] + kx, hip[1] + ky)
+    lift = 12 - ay
+    ank = (hip[0] + ax, ground - 3 - lift)
+    m = {}
+    limb(m, knee, ank, SHIN)
+    limb(m, hip, knee, THIGH)
+    limb(m, (knee[0], knee[1]), (knee[0], knee[1] + 1), KNEE)
+    rows, col = RUN_BOOTS[boot]
+    for r, row in enumerate(rows):
+        for c, l in enumerate(row):
+            if l != ".":
+                m[(ank[1] + 1 + r, ank[0] - col + c)] = l
+    ring = {}
+    for (y, x), l in m.items():
+        if l == "k":
+            continue
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (y + dy, x + dx)
+            if q not in m:
+                ring[q] = "k"
+    m.update(ring)
+    return m
 
 
 def run_legs(fr, ch, cw, k, only=None):
@@ -426,34 +471,13 @@ def run_legs(fr, ch, cw, k, only=None):
             out[y, x, :3] = rgb(l)
             out[y, x, 3] = 255
 
-    leg_rows = [r for r in sorted(RUN_LEG) if r not in RUN_CUT_ROWS]
-    i_knee = leg_rows.index(LEG_KNEE)
-    i_ank = max(i for i, r in enumerate(leg_rows) if r < LEG_BOOT)
-
-    def leg(side, phase):
-        sk, sa, lift = RUN_CYCLE[phase % 8]
-        if side == "far":
-            sa += RUN_FAR_BACK
-            sk += RUN_FAR_BACK // 2
-        base = RUN_HIPS[side] - (ncol[26] - piv)
-        sole = len(leg_rows) - 1
-        for i, r in enumerate(leg_rows):
-            if i <= i_knee:
-                sh = sk * i / i_knee
-            elif i <= i_ank:
-                sh = sk + (sa - sk) * (i - i_knee) / (i_ank - i_knee)
-            else:
-                sh = sa
-            y = ground - lift - (sole - i)
-            for c in RUN_LEG[r]:
-                l = g[r][c] if c < len(g[r]) else "."
-                if l != ".":
-                    put(y, px + ncol[c] - piv + base + int(np.floor(sh + 0.5)), l)
-
-    if only in (None, "far"):
-        leg("far", k + 4)
-    if only in (None, "near"):
-        leg("near", k)
+    for side, phase in (("far", k + 4), ("near", k)):
+        if only not in (None, side):
+            continue
+        hip = (px + RUN_HIPS[side], py + RUN_HIP_Y + dip)
+        for (y, x), l in run_leg(hip, RUN_POSE[phase % 8], ground).items():
+            if y <= ground:
+                put(y, x, l)
     if only is not None:
         return out                               # one leg alone (work/tl/rev/run_tune_tl.py measures overlaps)
     near = set(NEAR_LEG)
