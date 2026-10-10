@@ -178,8 +178,7 @@ def _pick(cost, lo, hi, k, avoid=(), keep=None):
     return out
 
 
-def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), hard_frames=None, shifts=None,
-             head=()):
+def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), hard_frames=None, shifts=None):
     """The rows and columns (canvas lines, from the pivot) the hero loses. body = (top, bottom, left, right) of the
     idle's body from the pivot (bottom = the soles' row): of its rows and columns 1 - scale go; of what lies beyond
     it (a raised or held-out weapon) the same share. One plan serves every action (shrink_sheet passes all their
@@ -187,11 +186,7 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
     every animation change. edge_rows / edge_cols: every action's own outermost two lines (pivot-relative), kept.
     shifts: per frame (dy, dx) of the body against the action's first frame (anchor_shifts): the lines are chosen on
     the frames moved back onto the first and removed at that much offset in each, so every frame loses the same lines
-    of HIM, not of the canvas.
-    head: "!" colours of the head alone (shrink_sheet's head): a frame where one of the action's lines still crosses
-    that box (the head moves against the anchor - Talon ducks, leaps and falls under his sash: 「我反正现在看的有点怪的」)
-    takes, in that frame only, the nearest line off it instead (frame_rows / frame_cols) - the same number, so the
-    frame stays as tall as the others."""
+    of HIM, not of the canvas."""
     st, H, W = _canvas(frames)
     if shifts is not None:
         st = np.stack([_moved(f, -dy, -dx) for f, (dy, dx) in zip(st, shifts)])
@@ -270,34 +265,9 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
             hc[edge] += big
     r_pick = move_off(r_pick, hr, rc, rows.min(), H + bottom + 1, (), False)
     c_pick = move_off(c_pick, hc, cc, cols.min(), cols.max() + 1, (W,), True)
-    plan = {"rows": sorted(i - H for i in r_pick), "cols": sorted(i - W for i in c_pick),       # from the pivot
+    return {"rows": sorted(i - H for i in r_pick), "cols": sorted(i - W for i in c_pick),       # from the pivot
             "lost": int(rc[r_pick].sum() + cc[c_pick].sum()) if r_pick or c_pick else 0,
             "shifts": [tuple(int(v) for v in d) for d in shifts] if shifts is not None else None}
-    if head:
-        own = _kept(st, list(head))
-        fr_r, fr_c = [], []
-        for k in range(st.shape[0]):
-            on_r, on_c = own[k].any(1), own[k].any(0)
-            occ_k = st[k][..., 3] > 0
-            fr_r.append(_frame_lines(r_pick, on_r, rc, edge_r | {H}, rows.min(), H + bottom, occ_k.any(1)) - H)
-            fr_c.append(_frame_lines(c_pick, on_c, cc, edge_c | {W}, cols.min(), cols.max(), occ_k.any(0)) - W)
-        plan["frame_rows"] = [sorted(int(v) for v in r) for r in fr_r]
-        plan["frame_cols"] = [sorted(int(v) for v in c) for c in fr_c]
-    return plan
-
-
-def _frame_lines(picks, on, cost, edges, lo, hi, filled):
-    """One frame's lines: the action's picks, each one crossing the head box (on) moved to the nearest line of the
-    figure that is off it, not an edge and not next to another pick - the cheapest of the nearest."""
-    out = list(picks)
-    for j, i in enumerate(out):
-        if not on[i]:
-            continue
-        free = [c for c in range(lo, hi + 1) if not on[c] and filled[c] and c not in edges and c not in out
-                and (c - 1) not in out and (c + 1) not in out]
-        if free:
-            out[j] = min(free, key=lambda c: (abs(c - i), cost[c]))
-    return np.array(out, int)
 
 
 def _moved(a, dy, dx):
@@ -363,10 +333,8 @@ def apply_tag(frames, plan):
     out = []
     for k, (_, ms) in enumerate(frames):
         dy, dx = shifts[k] if k < len(shifts) else (0, 0)
-        rows_k = plan["frame_rows"][k] if plan.get("frame_rows") and k < len(plan["frame_rows"]) else plan["rows"]
-        cols_k = plan["frame_cols"][k] if plan.get("frame_cols") and k < len(plan["frame_cols"]) else plan["cols"]
-        gone_r = {H + i + dy for i in rows_k if 0 <= H + i + dy < st.shape[1]}
-        gone_c = {W + i + dx for i in cols_k if 0 <= W + i + dx < st.shape[2]}
+        gone_r = {H + i + dy for i in plan["rows"] if 0 <= H + i + dy < st.shape[1]}
+        gone_c = {W + i + dx for i in plan["cols"] if 0 <= W + i + dx < st.shape[2]}
         keep_r = [i for i in range(st.shape[1]) if i not in gone_r]
         keep_c = [i for i in range(st.shape[2]) if i not in gone_c]
         pr = H - len(gone_r)
@@ -384,7 +352,7 @@ def body_of(frames):
 
 
 def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None, anchor=None,
-                 keep_by_tag=None, still=(), head=()):
+                 keep_by_tag=None, still=()):
     """Every action of the sheet (or only `tags`) made `scale` as big; returns {tag: plan}. same_as {tag: source tag}: a
     copy of another action's frames (import_native's bake: the attack with a flash drawn in) takes its source's plan.
     body: the range the counts come from (body_of the idle as drawn), when the idle has been shrunk already.
@@ -393,8 +361,7 @@ def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), b
     still: actions whose body stands still from frame to frame while something over it floats (Karma's idle: her ring
     bobs, and the anchor colour is on the ring too) - the lines as chosen, taken at the same place in every frame: the
     anchor read the ring's float as the body moving and cut her legs one row higher in two frames
-    (「待机动画效果的时候腿部变形啊」).
-    head: "!" colours of the head alone - no frame's line crosses it (plan_tag)."""
+    (「待机动画效果的时候腿部变形啊」)."""
     if body is None:
         body = body_of(sheet[body_tag])
     # one plan per action from its own frames (its head box and hands are tight there; one plan for all the actions
@@ -420,7 +387,7 @@ def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), b
             if anchor:
                 refs[tag] = next((p for p in anchor_points(fr, anchor) if p is not None), None)
             plans[tag] = plan_tag(fr, body, scale, (keep_by_tag or {}).get(tag, keep_colours),
-                                  shifts=anchor_shifts(fr, anchor, refs[tag]) if anchor else None, head=head)
+                                  shifts=anchor_shifts(fr, anchor, refs[tag]) if anchor else None)
             if tag in still:
                 plans[tag]["shifts"] = None
     for tag in todo:

@@ -89,6 +89,19 @@ Kayle (league_kayle) floats with her near arm held away from her waist, and at g
 was a few empty pixels in an outline ring: a black hole in her armour. "fill_holes": <pixels> fills every empty
 region the frame's edge cannot reach, up to that size, and its inner outline with the body colours beside it,
 before the head goes on.
+Talon (league_talon) carries knives on his cape and a blade in his right hand: "parts" in his poses.json votes the
+knife chains (knife_01..09) apart as a bright steel part, and the spec's "weapon" regex takes the right hand with
+the blade, so the glove ("weapon_materials": blue) and the blade are drawn over the pasted head like League's hand
+in front of his chin. His design head is bigger than League's chibi head, so the blade often starts on the face:
+"weapon_edge": true outlines the blade wherever it touches the pasted head (a light blade under the chin merged
+with it into a white "beard"). League's shading voted block by block left single squares of another shade or
+material inside his cloth and plates: "denoise": {"passes": 2, "need": 4} - per pass a body square whose colour
+none of its 8 neighbours shares takes the commonest colour round it, its own material's shade when that is there
+twice, another material's when it holds `need` of the 8 - before the head goes on. "fill_seams": <pixels> runs
+fill_holes once more after the head is pasted: a head turned a quarter (his vault and dive) left slits between it
+and the neck. "weapon_off": {"<tag>": [frame numbers]} drops the weapon part in those frames (his attack 4 and W 2,
+where League's blade hangs right under the face). "tilt": {"<tag>": {"<frame>": degrees}} sets a frame's head turn
+where League's head joint leans less than the body shows (his Q dive goes face-down).
 """
 import argparse
 import json
@@ -346,6 +359,53 @@ def body(pal, hi, pa, w, h):
     head_px = np.concatenate([(keep & (main == HEAD))[1:], np.zeros((1, w), bool)])
     body_px = np.concatenate([(keep & (main == BODY) & ~edge)[1:], np.zeros((1, w), bool)])
     return a, weapon, part == HEAD, head_px, body_px
+
+
+def denoise(a, weapon, pal, opts):
+    """Flatten single squares the block vote left (see "denoise" above); the outline and the weapon stay."""
+    passes, need = int(opts.get("passes", 2)), int(opts.get("need", 4))
+    fam = {}
+    for name, (idx, _) in pal.ramps.items():
+        for i in idx:
+            fam.setdefault(tuple(int(v) for v in pal.rgb[i]), name.split(":")[-1])
+    out_rgb = tuple(int(v) for v in pal.outline)
+    H, W = a.shape[:2]
+    for _ in range(passes):
+        b = a.copy()
+        for y in range(H):
+            for x in range(W):
+                if not a[y, x, 3] or weapon[y, x]:
+                    continue
+                me = tuple(int(v) for v in a[y, x, :3])
+                if me == out_rgb:
+                    continue
+                count = {}
+                for dy in (-1, 0, 1):
+                    for dx in (-1, 0, 1):
+                        yy, xx = y + dy, x + dx
+                        if (dy or dx) and 0 <= yy < H and 0 <= xx < W and a[yy, xx, 3]:
+                            c = tuple(int(v) for v in a[yy, xx, :3])
+                            if c != out_rgb:
+                                count[c] = count.get(c, 0) + 1
+                if not count or me in count:
+                    continue
+                same = {c: n for c, n in count.items() if fam.get(c) == fam.get(me)}
+                c, n = max((same or count).items(), key=lambda kv: kv[1])
+                if n >= (2 if same else need):
+                    b[y, x, :3] = c
+        a = b
+    return a
+
+
+def edge_weapon(a, weapon, pasted, outline):
+    """An outline square on the weapon's side wherever it touches the pasted head."""
+    near = np.zeros_like(pasted)
+    near[1:] |= pasted[:-1]
+    near[:-1] |= pasted[1:]
+    near[:, 1:] |= pasted[:, :-1]
+    near[:, :-1] |= pasted[:, 1:]
+    edge = weapon & near & ~pasted & (a[..., 3] > 0)
+    a[edge] = tuple(outline) + (255,)
 
 
 def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0, dx=0, forward=False):
@@ -624,8 +684,16 @@ def main():
             turn = rs.get("turn", TURN)
             if isinstance(turn, dict):         # per tag, "*" for the rest
                 turn = turn.get(tag, turn.get("*", TURN))
+            if k + 1 in rs.get("weapon_off", {}).get(tag, ()):
+                # League's blade hangs right under the pasted face here (league_talon's attack 4, W 2): drawn under
+                # his bigger head it read as a beard - this frame shows no blade, the body closes over its place
+                a[weapon] = 0
+                weapon = np.zeros_like(weapon)
+                a = fill_holes(a, weapon, pal.outline, max(rs.get("fill_holes", 0), 200))
             if rs.get("fill_holes"):           # small gaps inside the body (league_kayle's arm and waist)
                 a = fill_holes(a, weapon, pal.outline, rs["fill_holes"])
+            if rs.get("denoise"):              # the block vote's single squares (league_talon)
+                a = denoise(a, weapon, pal, rs["denoise"])
             if voted:
                 paste_face(a, weapon, head_px, feats, cell, pal, fs.get("min_facing", 0.05), profile=fs.get("profile"),
                            body_px=body_px, chin=fs.get("chin"), fallback=fs.get("fallback"), trim=fs.get("trim_front", 0),
@@ -634,12 +702,20 @@ def main():
                     scarf_neck(a, head_px, cell, pal, neck, fs.get("min_facing", 0.05))
             else:
                 tilt, sh = cell.get(tilt_key, 0), rs["head"].get("shoulders")
+                # "tilt": {"<tag>": {"<frame>": degrees}} where League's head joint misses the turn the body shows
+                # (league_talon's Q dive: the head bowed face-down past the joint's own lean)
+                tilt = rs.get("tilt", {}).get(tag, {}).get(str(k + 1), tilt)
                 if sh and -turn < tilt and not (rs["head"].get("forward", False) and tilt >= turn):
                     top = int(round(cell[at][1] - jy)) + rs["head"].get("dy", 0) + len(head)
                     left = int(round(cell[at][0] - jx)) + rs["head"].get("dx", 0)
                     shoulders(a, weapon, left + sh["x"], top, sh["widths"], pal.outline)
+                before = a.copy()
                 paste_head(a, weapon, head, (cell[at][0], cell[at][1], jx, jy), tilt, turn,
                            rs["head"].get("dy", 0), rs["head"].get("dx", 0), rs["head"].get("forward", False))
+                if rs.get("weapon_edge"):      # the blade against a pasted face (league_talon)
+                    edge_weapon(a, weapon, (a != before).any(-1), pal.outline)
+                if rs.get("fill_seams"):       # slits a quarter-turned head leaves against the neck (league_talon)
+                    a = fill_holes(a, weapon, pal.outline, rs["fill_seams"])
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))
         colours = len(np.unique(sheet[sheet[..., 3] > 0][:, :3], axis=0))
