@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_talon": {
+    "remapping": "asset/league_talon_vault/override/league_talon",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_talon_vault/text/champion",
+    "type": "merge"
+  }
+}

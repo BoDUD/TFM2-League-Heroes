@@ -62,6 +62,10 @@ P = {
     # E Assassin's Path (League: a vault, cd 2 s per wall; here the way out)
     "e_on": 1, "e_cd": 600, "e_safe_r": 40000, "e_crowd": 2, "e_speed": 3000, "e_tick": 12, "e_anim": 20, "e_haste": 30,
     "e_haste_t": 90,
+    # 1 = the copy for addons/league_talon_vault: its native passive vaults over the map's walls (League's E) - out
+    # when e_crowd enemy champions are within e_safe_r or he is below e_low% health with one near, after a champion
+    # within e_chase_r on the far side of a wall; a wall must start within e_reach and the landing lie within e_far
+    "native": 0, "e_low": 35, "e_reach": 16000, "e_far": 64000, "e_chase_r": 70000,
     # R Shadow Assault (League: 550 radius, 90-270 + 100% bonus AD out and back, 2.5 s stealth, 40-60% haste, cd 100 s)
     "r_cd": 3000, "r_dur": 20, "r_at": 6, "r_range": 30000, "r_r": 30000, "r_dmg": 55, "r_ratio": 75, "r_inv": 150,
     "r_haste": 40,
@@ -320,8 +324,17 @@ def build(p):
                E("p_bleed", FX, 3)]
     views_b = [B_("p_wound", "p_wound", FX, 4), B_("w_slow", "w_slow", FX, 3), B_("e_haste", "e_haste", FX, -1),
                B_("r_on", "r_on", FX, -1)]
+    extra = {}
+    if p["native"]:
+        # the add-on's wall vault: its native passive moves him; the arc under him is a buff picture (e_wall, the
+        # vault's own frames) the passive adds, as native view effects are not proven to show
+        views_b.append(B_("e_wall", "e_vault", FX, -1))
+        extra["passive"] = {"passive_ref": "league_talon_vault:path",
+                            "params": {k: p[k] for k in ("e_cd", "e_safe_r", "e_crowd", "e_speed", "e_anim", "e_haste",
+                                                         "e_haste_t", "e_low", "e_reach", "e_far", "e_chase_r",
+                                                         "vo_gap")}}
     return {
-        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"],
+        "id": ID, "category": "Assassin", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
