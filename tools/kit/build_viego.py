@@ -43,7 +43,9 @@ ID = "league_viego"
 FX = "asset/league/effects/league_viego_fx"
 BIG = "asset/league/effects/league_viego_big"
 
-# Timings: placeholders until the strips are in (assets/source/viego/poses.json).
+# Timings from the strips (tools/art/rig_viego.py, MS): the slash lands on attack frame 5 (240 ms, tick 14), Q thrusts on
+# frame 4 (tick 8 = q_at), the dash leaves on skill2 frame 5 (tick 24 = w_wind), R stabs on frame 6 (tick 18 = r_hit),
+# the soul is taken on possess frame 3 (tick 10); every strip lasts its action (24, 18, 46, 36 and 24 ticks).
 # Numbers = candidate c1 of the 10-min classic-SDK simulations (Temp/vy_sim, kd.py --lane 1 against demon, circus_blade,
 # hunter, inquisitor and ninja, three lineups, both sides, 2026-10-11): +1.51 on seeds 1-12 (league_kayn +1.76,
 # league_khazix +1.20), +1.16 on 25-36 (league_kayn +1.23). The draft c0 (double strike heal 40 + 40%, a soul +25% attack
@@ -53,7 +55,7 @@ P = {
     # hp, 57 AD +3.5, 34 armour, 32 mr, 345 move, 200 range - a skirmisher who lives on resets
     "hp": 980, "hp_g": 105, "atk": 92, "atk_g": 18, "def": 30, "def_g": 8, "mr": 26, "mr_g": 4, "ms": 1010, "ms_g": 11,
     # attack: the sword (League's Q passive: 2-7% current health on hit, at least 10-35; here % max health on champions)
-    "atk_range": 26000, "atk_dur": 24, "atk_cd": 64, "atk_st": 10, "a_pct": 2,
+    "atk_range": 26000, "atk_dur": 24, "atk_cd": 64, "atk_st": 14, "a_pct": 2,
     # the double strike after Q's mark (League: the second hit 20% AD + 15% AP, heals 145% of it on champions)
     "d_at": 6, "d_dmg": 20, "d_ratio": 60, "d_heal": 30, "d_heal_ratio": 30,
     # Q Blade of the Ruined King (League: 600 x 125 thrust, 10-100 + 70% AD, cd 5-3 s, mark 4 s)

@@ -602,6 +602,13 @@
         "skill": "召回灵魂之刃，从目标身后飞回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并<#ef5350ff>减速25%<>，之后3次普攻强化。刀回手时附近有敌方英雄则施放<#ff9028ff>奥义！魂佑<>：<#ffb900ff>1.75秒<>内区域中的友方英雄不受普攻伤害（<#ffb900ff>15秒<>冷却）。",
         "skill2": "向前突进，沿途敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并被<#ef5350ff>嘲讽1.17秒<>。嘲讽到英雄且暮临就绪时，灵魂之刃从突进起点飞回、穿过他们。",
         "ult": "全图有友方英雄被控，或与敌方英雄缠斗且离慎较远时：给他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>护盾<#ffb900ff>5秒<>，慎引导<#ffb900ff>2.5秒<>后传送到他身边（被控则中断）。"
+      },
+      "league_viego": {
+        "name": "佛耶戈",
+        "attack": "<#ff9028ff>君命已决<>：他伤过的敌方英雄3秒内阵亡则附身其灵魂<#ffb900ff>10秒<>：<#ef5350ff>1秒无敌<>，回复<#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>，攻击+20%、攻速+30%、移速+15%，Q、W冷却减半。普攻附加英雄最大生命2%。",
+        "skill": "向前刺出，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>伤害。刺中的英雄被标记<#ffb900ff>4秒<>，下次普攻对其斩两下：再造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害并回复<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>。",
+        "skill2": "<#ff9028ff>茫茫焦土<>：黑雾升起，<#ffb900ff>5秒<>内移速+30%、攻速+40%，蓄力时隐身。随后冲刺并吐出亡魂，第一个被击中的敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>伤害并<#ef5350ff>眩晕1.1秒<>。",
+        "ult": "跃向队伍正在交手的敌方英雄并<#ef5350ff>减速99%<>，落地刺穿它，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+其最大生命12%伤害，击退周围其他敌人。结束附身。"
       }
     },
     "skill_name": {
@@ -1034,6 +1041,11 @@
         "skill1": "奥义！暮临",
         "skill2": "奥义！影缚",
         "ult": "秘奥义！慈悲度魂落"
+      },
+      "league_viego": {
+        "skill1": "破败王剑",
+        "skill2": "千载幽咽",
+        "ult": "痛贯天灵"
       }
     }
   },
@@ -1640,6 +1652,13 @@
         "skill": "召回靈魂之刃，從目標身後飛回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並<#ef5350ff>緩速25%<>，之後3次普攻強化。刀回手時附近有敵方英雄則施放<#ff9028ff>靈氣庇護<>：<#ffb900ff>1.75秒<>內區域中的友方英雄不受普攻傷害（<#ffb900ff>15秒<>冷卻）。",
         "skill2": "向前突進，沿途敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並被<#ef5350ff>嘲諷1.17秒<>。嘲諷到英雄且暮光強襲就緒時，靈魂之刃從突進起點飛回、穿過他們。",
         "ult": "全圖有友方英雄被控，或與敵方英雄纏鬥且離慎較遠時：給他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>護盾<#ffb900ff>5秒<>，慎引導<#ffb900ff>2.5秒<>後傳送到他身邊（被控則中斷）。"
+      },
+      "league_viego": {
+        "name": "維爾戈",
+        "attack": "<#ff9028ff>王權統御<>：他傷過的敵方英雄3秒內陣亡則附身其靈魂<#ffb900ff>10秒<>：<#ef5350ff>1秒無敵<>，回復<#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>，攻擊+20%、攻速+30%、移速+15%，Q、W冷卻減半。普攻附加英雄最大生命2%。",
+        "skill": "向前刺出，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>傷害。刺中的英雄被標記<#ffb900ff>4秒<>，下次普攻對其斬兩下：再造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害並回復<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>。",
+        "skill2": "<#ff9028ff>幽影之徑<>：黑霧升起，<#ffb900ff>5秒<>內移速+30%、攻速+40%，蓄力時隱身。隨後衝刺並吐出亡魂，第一個被擊中的敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>傷害並<#ef5350ff>暈眩1.1秒<>。",
+        "ult": "躍向隊伍正在交手的敵方英雄並<#ef5350ff>緩速99%<>，落地刺穿它，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+其最大生命12%傷害，擊退周圍其他敵人。結束附身。"
       }
     },
     "skill_name": {
@@ -2072,6 +2091,11 @@
         "skill1": "暮光強襲",
         "skill2": "影襲",
         "ult": "並肩作戰"
+      },
+      "league_viego": {
+        "skill1": "殞落王者之劍",
+        "skill2": "冥魂之噬",
+        "ult": "破心者"
       }
     }
   },
@@ -2678,6 +2702,13 @@
         "skill": "Recalls his spirit blade from behind the target: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> and <#ef5350ff>25% slow<> to enemies on its way; his next 3 attacks are empowered. With an enemy champion near on its return, <#ff9028ff>Spirit's Refuge<>: for <#ffb900ff>1.75s<> allied champions in the zone take no basic attack damage (<#ffb900ff>15s<> cooldown).",
         "skill2": "Dashes forward: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> to enemies passed, <#ef5350ff>taunted 1.17s<>. Taunting a champion with Twilight Assault ready also pulls the blade from where the dash began, through them.",
         "ult": "When an allied champion anywhere is crowd-controlled, or locked in a fight far from Shen: a <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> shield on it for <#ffb900ff>5s<>; Shen channels <#ffb900ff>2.5s<> and teleports to it (crowd control breaks it)."
+      },
+      "league_viego": {
+        "name": "Viego",
+        "attack": "<#ff9028ff>Sovereign's Domination<>: an enemy champion he damaged dies within 3s - he possesses its soul for <#ffb900ff>10s<>: <#ef5350ff>untouchable 1s<>, heals <#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>, +20% attack, +30% attack speed, +15% move speed, Q and W cooldowns halved. Attacks deal 2% of a champion's max health.",
+        "skill": "Thrusts forward: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>. A champion hit is marked for <#ffb900ff>4s<>: his next attack on it strikes twice, <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more, and heals <#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>.",
+        "skill2": "<#ff9028ff>Harrowed Path<>: mist rises - <#ffb900ff>5s<> of +30% move speed and +40% attack speed, hidden while charging. Then he dashes and looses a wraith: the first enemy hit takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> and is <#ef5350ff>stunned 1.1s<>.",
+        "ult": "Leaps at an enemy champion his team is fighting, <#ef5350ff>slowing it 99%<>, and pierces it on landing: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 12% of its max health; other enemies near are knocked back. Ends a possession."
       }
     },
     "skill_name": {
@@ -3110,6 +3141,11 @@
         "skill1": "Twilight Assault",
         "skill2": "Shadow Dash",
         "ult": "Stand United"
+      },
+      "league_viego": {
+        "skill1": "Blade of the Ruined King",
+        "skill2": "Spectral Maw",
+        "ult": "Heartbreaker"
       }
     }
   },
@@ -3716,6 +3752,13 @@
         "skill": "영혼의 검을 대상 뒤에서 회수해 지나는 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해와 <#ef5350ff>25% 둔화<>, 다음 기본 공격 3회 강화. 돌아올 때 근처에 적 챔피언이 있으면 <#ff9028ff>의지의 결계<>: <#ffb900ff>1.75초<> 동안 범위 안 아군 챔피언은 기본 공격 피해를 받지 않음(재사용 <#ffb900ff>15초<>).",
         "skill2": "앞으로 돌진해 지나간 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해, <#ef5350ff>1.17초 도발<>. 챔피언을 도발했고 황혼 강습이 준비되어 있으면 검이 돌진 시작점에서 날아와 그들을 관통.",
         "ult": "맵 어디서든 아군 챔피언이 군중 제어에 걸렸거나 쉔과 멀리서 교전 중이면: <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 보호막 <#ffb900ff>5초<>, 쉔이 <#ffb900ff>2.5초<> 정신 집중 후 그 곁으로 순간이동(군중 제어 시 취소)."
+      },
+      "league_viego": {
+        "name": "비에고",
+        "attack": "<#ff9028ff>군주의 지배<>: 피해를 입힌 적 챔피언이 3초 안에 죽으면 영혼에 빙의 <#ffb900ff>10초<>: <#ef5350ff>1초 무적<>, <#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<> 회복, 공격력 +20%, 공격 속도 +30%, 이동 속도 +15%, Q·W 재사용 대기시간 절반. 기본 공격은 챔피언 최대 체력 2% 추가.",
+        "skill": "앞으로 찔러 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 피해. 맞은 챔피언은 <#ffb900ff>4초<> 표식: 다음 기본 공격이 두 번 베어 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 피해, <#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<> 회복.",
+        "skill2": "<#ff9028ff>안개의 길<>: 안개가 일어 <#ffb900ff>5초<> 동안 이동 속도 +30%, 공격 속도 +40%, 충전 중 은신. 이어서 돌진하며 망령을 날려 처음 맞은 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 피해와 <#ef5350ff>1.1초 기절<>.",
+        "ult": "아군이 교전 중인 적 챔피언에게 도약해 <#ef5350ff>99% 둔화<>, 착지하며 꿰뚫어 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 최대 체력 12% 피해, 주변의 다른 적은 밀쳐냄. 빙의 종료."
       }
     },
     "skill_name": {
@@ -4148,6 +4191,11 @@
         "skill1": "황혼 강습",
         "skill2": "그림자 돌진",
         "ult": "단결된 의지"
+      },
+      "league_viego": {
+        "skill1": "몰락한 왕의 검",
+        "skill2": "망령의 나락",
+        "ult": "심장 파괴자"
       }
     }
   },
@@ -4754,6 +4802,13 @@
         "skill": "霊刃を対象の背後から呼び戻し、通過した敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>25%スロウ<>、次の通常攻撃3回を強化。戻った時に敵チャンピオンが近くにいれば<#ff9028ff>防人の帳<>：<#ffb900ff>1.75秒<>間、範囲内の味方チャンピオンは通常攻撃のダメージを受けない（<#ffb900ff>15秒<>毎）。",
         "skill2": "前方へ突進し、通過した敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>1.17秒の挑発<>。チャンピオンを挑発し護刃招来が使えるなら、霊刃が突進の起点から飛び戻り彼らを貫く。",
         "ult": "マップのどこかで味方チャンピオンが行動妨害を受けるか、シェンから遠くで交戦中なら：<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>のシールドを<#ffb900ff>5秒<>、シェンは<#ffb900ff>2.5秒<>詠唱後その傍へテレポート（行動妨害で中断）。"
+      },
+      "league_viego": {
+        "name": "ヴィエゴ",
+        "attack": "<#ff9028ff>王の支配<>：ダメージを与えた敵チャンピオンが3秒以内に倒れると魂に憑依<#ffb900ff>10秒<>：<#ef5350ff>1秒無敵<>、<#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>回復、攻撃力+20%・攻撃速度+30%・移動速度+15%、QとWのクールダウン半減。通常攻撃はチャンピオンに最大体力の2%を追加。",
+        "skill": "前方へ突き、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>のダメージ。当たったチャンピオンに<#ffb900ff>4秒<>の刻印：次の通常攻撃が2回斬り、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の追加ダメージと<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>回復。",
+        "skill2": "<#ff9028ff>彷徨える苦悶<>：霧が立ちのぼり<#ffb900ff>5秒<>移動速度+30%・攻撃速度+40%、溜め中は透明。続けて突進し亡霊を放ち、最初に当たった敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>のダメージと<#ef5350ff>1.1秒スタン<>。",
+        "ult": "味方が交戦中の敵チャンピオンへ跳び<#ef5350ff>99%スロウ<>、着地で貫き<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+最大体力の12%のダメージ、周囲の他の敵はノックバック。憑依を終える。"
       }
     },
     "skill_name": {
@@ -5186,6 +5241,11 @@
         "skill1": "護刃招来",
         "skill2": "殺気駆け",
         "ult": "瞬身護法"
+      },
+      "league_viego": {
+        "skill1": "滅びの王剣",
+        "skill2": "亡霊の嘆き",
+        "ult": "ハートブレイカー"
       }
     }
   }

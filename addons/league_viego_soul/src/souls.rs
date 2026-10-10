@@ -117,6 +117,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_vayne", "range", &["attack", "attack_q", "dead", "hit", "idle", "run", "skill", "skill2", "skill_back", "ult"]),
     ("league_veigar", "mage", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_vi", "melee", &["attack", "attack_e", "dead", "hit", "idle", "run", "skill", "skill_dash", "skill_fx1", "ult", "ult_dash", "ult_fx1", "ult_slam"]),
+    ("league_viego", "melee", &["attack", "dead", "hit", "idle", "possess", "run", "skill", "skill2", "ult"]),
     ("league_viktor", "mage", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_e", "ult"]),
     ("league_vladimir", "mage", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "skill_w", "ult"]),
     ("league_xayah", "range", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_fx1", "skill_e", "skill_e_fx1", "skill_fx1", "ult", "ult_fx1"]),

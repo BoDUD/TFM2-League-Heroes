@@ -1,0 +1,2462 @@
+{
+  "schema_version": 1,
+  "scale": 8,
+  "cell_1x": [
+    128,
+    128
+  ],
+  "sole_row": 99,
+  "source_design_sha256": "338646b98b1cc8fe4bc0fe536719fca841eb4d5dfcfc80600a20f8556073533d",
+  "animations": {
+    "idle": {
+      "file": "viego_idle.png",
+      "size": [
+        3072,
+        2048
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "impact_frame": null,
+      "impact_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 160,
+          "bbox": [
+            44,
+            49,
+            95,
+            100
+          ],
+          "impact": false,
+          "source": "supplied_idle_unchanged"
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 160,
+          "bbox": [
+            44,
+            49,
+            95,
+            100
+          ],
+          "impact": false,
+          "source": "supplied_idle_unchanged"
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 160,
+          "bbox": [
+            44,
+            49,
+            95,
+            100
+          ],
+          "impact": false,
+          "source": "supplied_idle_unchanged"
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 160,
+          "bbox": [
+            44,
+            49,
+            95,
+            100
+          ],
+          "impact": false,
+          "source": "supplied_idle_unchanged"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 160,
+          "bbox": [
+            44,
+            49,
+            95,
+            100
+          ],
+          "impact": false,
+          "source": "supplied_idle_unchanged"
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 160,
+          "bbox": [
+            44,
+            49,
+            95,
+            100
+          ],
+          "impact": false,
+          "source": "supplied_idle_unchanged"
+        }
+      ]
+    },
+    "run": {
+      "file": "viego_run.png",
+      "size": [
+        4096,
+        2048
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "impact_frame": null,
+      "impact_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            60,
+            88
+          ],
+          "ms": 108,
+          "bbox": [
+            40,
+            49,
+            91,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -4,
+            0
+          ],
+          "gripping_hand": [
+            49.0,
+            69.0
+          ],
+          "sword_tip": [
+            89.0,
+            50.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run0",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            62,
+            88
+          ],
+          "ms": 108,
+          "bbox": [
+            42,
+            48,
+            93,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -2,
+            -1
+          ],
+          "gripping_hand": [
+            51.0,
+            68.0
+          ],
+          "sword_tip": [
+            91.0,
+            49.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run1",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            62,
+            88
+          ],
+          "ms": 108,
+          "bbox": [
+            42,
+            49,
+            93,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -2,
+            0
+          ],
+          "gripping_hand": [
+            51.0,
+            69.0
+          ],
+          "sword_tip": [
+            91.0,
+            50.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run2",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            61,
+            88
+          ],
+          "ms": 108,
+          "bbox": [
+            41,
+            48,
+            92,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -3,
+            -1
+          ],
+          "gripping_hand": [
+            50.0,
+            68.0
+          ],
+          "sword_tip": [
+            90.0,
+            49.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run3",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            60,
+            88
+          ],
+          "ms": 108,
+          "bbox": [
+            40,
+            49,
+            91,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -4,
+            0
+          ],
+          "gripping_hand": [
+            49.0,
+            69.0
+          ],
+          "sword_tip": [
+            89.0,
+            50.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run4",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            57,
+            88
+          ],
+          "ms": 108,
+          "bbox": [
+            37,
+            48,
+            88,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -7,
+            -1
+          ],
+          "gripping_hand": [
+            46.0,
+            68.0
+          ],
+          "sword_tip": [
+            86.0,
+            49.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run5",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            57,
+            88
+          ],
+          "ms": 108,
+          "bbox": [
+            37,
+            49,
+            88,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -7,
+            0
+          ],
+          "gripping_hand": [
+            46.0,
+            69.0
+          ],
+          "sword_tip": [
+            86.0,
+            50.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run6",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            384,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            58,
+            88
+          ],
+          "ms": 109,
+          "bbox": [
+            38,
+            48,
+            89,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -6,
+            -1
+          ],
+          "gripping_hand": [
+            47.0,
+            68.0
+          ],
+          "sword_tip": [
+            87.0,
+            49.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "run7",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        }
+      ]
+    },
+    "attack": {
+      "file": "viego_attack.png",
+      "size": [
+        3072,
+        2048
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "impact_frame": 5,
+      "impact_tick": 14,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            56,
+            88
+          ],
+          "ms": 60,
+          "bbox": [
+            36,
+            49,
+            87,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -8,
+            0
+          ],
+          "gripping_hand": [
+            45,
+            69
+          ],
+          "sword_tip": [
+            85,
+            50
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_exact_translation",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            57,
+            88
+          ],
+          "ms": 60,
+          "bbox": [
+            38,
+            36,
+            80,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -9,
+            0
+          ],
+          "gripping_hand": [
+            46.48,
+            68.62
+          ],
+          "sword_tip": [
+            78.12,
+            37.64
+          ],
+          "torso_lean_degrees": -5,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            57,
+            88
+          ],
+          "ms": 50,
+          "bbox": [
+            38,
+            23,
+            73,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -10,
+            0
+          ],
+          "gripping_hand": [
+            47.99,
+            68.66
+          ],
+          "sword_tip": [
+            52.31,
+            24.59
+          ],
+          "torso_lean_degrees": -8,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "ms": 70,
+          "bbox": [
+            55,
+            38,
+            100,
+            97
+          ],
+          "impact": false,
+          "head_translation": [
+            6,
+            -2
+          ],
+          "gripping_hand": [
+            72.14,
+            75.18
+          ],
+          "sword_tip": [
+            97.91,
+            39.17
+          ],
+          "torso_lean_degrees": 12,
+          "leg_pose": "jump",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            49,
+            88
+          ],
+          "ms": 80,
+          "bbox": [
+            33,
+            64,
+            102,
+            100
+          ],
+          "impact": true,
+          "head_translation": [
+            -9,
+            7
+          ],
+          "gripping_hand": [
+            56.0,
+            87.3
+          ],
+          "sword_tip": [
+            100.28,
+            87.76
+          ],
+          "torso_lean_degrees": 15,
+          "leg_pose": "lunge",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 80,
+          "bbox": [
+            44,
+            49,
+            95,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            0,
+            0
+          ],
+          "gripping_hand": [
+            53,
+            69
+          ],
+          "sword_tip": [
+            93,
+            50
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_exact_translation",
+          "grid_scale": 1
+        }
+      ]
+    },
+    "skill": {
+      "file": "viego_skill.png",
+      "size": [
+        3072,
+        2048
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "impact_frame": 4,
+      "impact_tick": 8,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "ms": 50,
+          "bbox": [
+            47,
+            41,
+            94,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            1,
+            0
+          ],
+          "gripping_hand": [
+            55.77,
+            68.14
+          ],
+          "sword_tip": [
+            91.87,
+            42.48
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            68,
+            88
+          ],
+          "ms": 50,
+          "bbox": [
+            7,
+            56,
+            84,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            1,
+            0
+          ],
+          "gripping_hand": [
+            51.65,
+            73.35
+          ],
+          "sword_tip": [
+            8.12,
+            65.21
+          ],
+          "torso_lean_degrees": -8,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            72,
+            88
+          ],
+          "ms": 40,
+          "bbox": [
+            12,
+            59,
+            91,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            5,
+            3
+          ],
+          "gripping_hand": [
+            56.59,
+            75.0
+          ],
+          "sword_tip": [
+            13.06,
+            66.86
+          ],
+          "torso_lean_degrees": -8,
+          "leg_pose": "crouch",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            58,
+            88
+          ],
+          "ms": 60,
+          "bbox": [
+            42,
+            58,
+            110,
+            100
+          ],
+          "impact": true,
+          "head_translation": [
+            0,
+            1
+          ],
+          "gripping_hand": [
+            64.47,
+            81.93
+          ],
+          "sword_tip": [
+            108.75,
+            82.39
+          ],
+          "torso_lean_degrees": 15,
+          "leg_pose": "lunge",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            57,
+            88
+          ],
+          "ms": 50,
+          "bbox": [
+            41,
+            58,
+            109,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -1,
+            1
+          ],
+          "gripping_hand": [
+            63.47,
+            81.93
+          ],
+          "sword_tip": [
+            107.75,
+            82.39
+          ],
+          "torso_lean_degrees": 15,
+          "leg_pose": "lunge",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            55,
+            88
+          ],
+          "ms": 50,
+          "bbox": [
+            38,
+            48,
+            89,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -9,
+            0
+          ],
+          "gripping_hand": [
+            47.04,
+            67.77
+          ],
+          "sword_tip": [
+            87.04,
+            48.77
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        }
+      ]
+    },
+    "skill2": {
+      "file": "viego_skill2.png",
+      "size": [
+        4096,
+        2048
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "impact_frame": 5,
+      "impact_tick": 24,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            60,
+            88
+          ],
+          "ms": 70,
+          "bbox": [
+            48,
+            56,
+            105,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -4,
+            0
+          ],
+          "gripping_hand": [
+            62.33,
+            81.43
+          ],
+          "sword_tip": [
+            103.78,
+            97.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            71,
+            88
+          ],
+          "ms": 80,
+          "bbox": [
+            18,
+            54,
+            85,
+            98
+          ],
+          "impact": false,
+          "head_translation": [
+            5,
+            -2
+          ],
+          "gripping_hand": [
+            56.69,
+            67.99
+          ],
+          "sword_tip": [
+            20.15,
+            93.01
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "jump",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            68,
+            88
+          ],
+          "ms": 120,
+          "bbox": [
+            56,
+            33,
+            84,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            4,
+            0
+          ],
+          "gripping_hand": [
+            71.19,
+            79.12
+          ],
+          "sword_tip": [
+            71.65,
+            34.84
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            72,
+            88
+          ],
+          "ms": 130,
+          "bbox": [
+            55,
+            35,
+            92,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            8,
+            2
+          ],
+          "gripping_hand": [
+            75.19,
+            81.12
+          ],
+          "sword_tip": [
+            75.65,
+            36.84
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "crouch",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "ms": 120,
+          "bbox": [
+            20,
+            47,
+            93,
+            100
+          ],
+          "impact": true,
+          "head_translation": [
+            10,
+            1
+          ],
+          "gripping_hand": [
+            61.19,
+            67.95
+          ],
+          "sword_tip": [
+            21.25,
+            48.82
+          ],
+          "torso_lean_degrees": 18,
+          "leg_pose": "lunge",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            60,
+            88
+          ],
+          "ms": 120,
+          "bbox": [
+            43,
+            56,
+            111,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            0,
+            0
+          ],
+          "gripping_hand": [
+            65.41,
+            80.97
+          ],
+          "sword_tip": [
+            109.69,
+            81.43
+          ],
+          "torso_lean_degrees": 8,
+          "leg_pose": "lunge",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            59,
+            88
+          ],
+          "ms": 130,
+          "bbox": [
+            41,
+            48,
+            92,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -5,
+            0
+          ],
+          "gripping_hand": [
+            50.24,
+            67.98
+          ],
+          "sword_tip": [
+            90.24,
+            48.98
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        }
+      ]
+    },
+    "ult": {
+      "file": "viego_ult.png",
+      "size": [
+        4096,
+        2048
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "impact_frame": 6,
+      "impact_tick": 19,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "ms": 60,
+          "bbox": [
+            47,
+            49,
+            98,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            3,
+            0
+          ],
+          "gripping_hand": [
+            56.0,
+            69.0
+          ],
+          "sword_tip": [
+            96.0,
+            50.0
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "ms": 60,
+          "bbox": [
+            50,
+            29,
+            87,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            1,
+            3
+          ],
+          "gripping_hand": [
+            58.18,
+            71.77
+          ],
+          "sword_tip": [
+            73.75,
+            30.32
+          ],
+          "torso_lean_degrees": -8,
+          "leg_pose": "crouch",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            63,
+            88
+          ],
+          "ms": 60,
+          "bbox": [
+            52,
+            54,
+            110,
+            98
+          ],
+          "impact": false,
+          "head_translation": [
+            2,
+            -2
+          ],
+          "gripping_hand": [
+            67.41,
+            78.97
+          ],
+          "sword_tip": [
+            108.86,
+            94.55
+          ],
+          "torso_lean_degrees": 8,
+          "leg_pose": "jump",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            71,
+            88
+          ],
+          "ms": 70,
+          "bbox": [
+            53,
+            40,
+            108,
+            95
+          ],
+          "impact": false,
+          "head_translation": [
+            8,
+            -5
+          ],
+          "gripping_hand": [
+            62.0,
+            50
+          ],
+          "sword_tip": [
+            106.28,
+            50.46
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "jump",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            64,
+            88
+          ],
+          "ms": 60,
+          "bbox": [
+            52,
+            56,
+            80,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            66.73462916354619,
+            123.4021339845188
+          ],
+          "head_translation": [
+            0,
+            0
+          ],
+          "gripping_hand": [
+            67.19,
+            79.12
+          ],
+          "sword_tip": [
+            66.73,
+            99
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "ms": 80,
+          "bbox": [
+            48,
+            64,
+            88,
+            100
+          ],
+          "impact": true,
+          "unclipped_sword_tip": [
+            70.29478631552067,
+            131.43248658380375
+          ],
+          "head_translation": [
+            6,
+            7
+          ],
+          "gripping_hand": [
+            70.75,
+            87.15
+          ],
+          "sword_tip": [
+            70.29,
+            99
+          ],
+          "torso_lean_degrees": 12,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            66,
+            88
+          ],
+          "ms": 100,
+          "bbox": [
+            48,
+            64,
+            88,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            70.29478631552067,
+            131.43248658380375
+          ],
+          "head_translation": [
+            6,
+            7
+          ],
+          "gripping_hand": [
+            70.75,
+            87.15
+          ],
+          "sword_tip": [
+            70.29,
+            99
+          ],
+          "torso_lean_degrees": 12,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            384,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            59,
+            88
+          ],
+          "ms": 110,
+          "bbox": [
+            42,
+            48,
+            94,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -5,
+            0
+          ],
+          "gripping_hand": [
+            51.85,
+            67.64
+          ],
+          "sword_tip": [
+            91.85,
+            48.64
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        }
+      ]
+    },
+    "possess": {
+      "file": "viego_possess.png",
+      "size": [
+        4096,
+        1024
+      ],
+      "layout": [
+        4,
+        1
+      ],
+      "impact_frame": 3,
+      "impact_tick": 10,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "ms": 80,
+          "bbox": [
+            49,
+            48,
+            100,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            3,
+            0
+          ],
+          "gripping_hand": [
+            58.24,
+            67.98
+          ],
+          "sword_tip": [
+            98.24,
+            48.98
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            74,
+            88
+          ],
+          "ms": 80,
+          "bbox": [
+            22,
+            56,
+            89,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            9,
+            0
+          ],
+          "gripping_hand": [
+            60.1,
+            70.57
+          ],
+          "sword_tip": [
+            23.56,
+            95.59
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            59,
+            88
+          ],
+          "ms": 120,
+          "bbox": [
+            42,
+            64,
+            82,
+            100
+          ],
+          "impact": true,
+          "unclipped_sword_tip": [
+            83.0515552578797,
+            127.47717647140865
+          ],
+          "head_translation": [
+            0,
+            7
+          ],
+          "gripping_hand": [
+            64.75,
+            87.15
+          ],
+          "sword_tip": [
+            83.05,
+            99
+          ],
+          "torso_lean_degrees": 12,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            56,
+            88
+          ],
+          "ms": 120,
+          "bbox": [
+            39,
+            48,
+            91,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -8,
+            0
+          ],
+          "gripping_hand": [
+            48.85,
+            67.64
+          ],
+          "sword_tip": [
+            88.85,
+            48.64
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        }
+      ]
+    },
+    "hit": {
+      "file": "viego_hit.png",
+      "size": [
+        2048,
+        1024
+      ],
+      "layout": [
+        2,
+        1
+      ],
+      "impact_frame": null,
+      "impact_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            67,
+            88
+          ],
+          "ms": 100,
+          "bbox": [
+            45,
+            49,
+            96,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            1,
+            0
+          ],
+          "gripping_hand": [
+            54,
+            69
+          ],
+          "sword_tip": [
+            94,
+            50
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_exact_translation",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            65,
+            88
+          ],
+          "ms": 100,
+          "bbox": [
+            45,
+            49,
+            96,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            1,
+            0
+          ],
+          "gripping_hand": [
+            54,
+            69
+          ],
+          "sword_tip": [
+            94,
+            50
+          ],
+          "torso_lean_degrees": 0,
+          "leg_pose": "stand",
+          "source": "approved_design_exact_translation",
+          "grid_scale": 1
+        }
+      ]
+    },
+    "dead": {
+      "file": "viego_dead.png",
+      "size": [
+        4096,
+        2048
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "impact_frame": null,
+      "impact_tick": null,
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            63,
+            88
+          ],
+          "ms": 100,
+          "bbox": [
+            42,
+            32,
+            79,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            -5,
+            0
+          ],
+          "gripping_hand": [
+            51.37,
+            68.95
+          ],
+          "sword_tip": [
+            77.15,
+            32.94
+          ],
+          "torso_lean_degrees": -8,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            69,
+            88
+          ],
+          "ms": 100,
+          "bbox": [
+            58,
+            47,
+            91,
+            100
+          ],
+          "impact": false,
+          "head_translation": [
+            8,
+            0
+          ],
+          "gripping_hand": [
+            74.75,
+            56.28
+          ],
+          "sword_tip": [
+            89.47,
+            98.04
+          ],
+          "torso_lean_degrees": 8,
+          "leg_pose": "stand",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            73,
+            88
+          ],
+          "ms": 100,
+          "bbox": [
+            55,
+            63,
+            95,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            77.12390536514684,
+            130.33937760777047
+          ],
+          "head_translation": [
+            12,
+            6
+          ],
+          "gripping_hand": [
+            77.58,
+            86.06
+          ],
+          "sword_tip": [
+            77.12,
+            99
+          ],
+          "torso_lean_degrees": 10,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            0,
+            1024,
+            1024
+          ],
+          "pivot": [
+            70,
+            88
+          ],
+          "ms": 120,
+          "bbox": [
+            52,
+            65,
+            92,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            74.46231371343451,
+            132.5315024995286
+          ],
+          "head_translation": [
+            10,
+            8
+          ],
+          "gripping_hand": [
+            74.92,
+            88.25
+          ],
+          "sword_tip": [
+            74.46,
+            99
+          ],
+          "torso_lean_degrees": 14,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            0,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            70,
+            88
+          ],
+          "ms": 150,
+          "bbox": [
+            52,
+            66,
+            92,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            74.62628345255966,
+            133.63630471930406
+          ],
+          "head_translation": [
+            11,
+            9
+          ],
+          "gripping_hand": [
+            75.08,
+            89.36
+          ],
+          "sword_tip": [
+            74.63,
+            99
+          ],
+          "torso_lean_degrees": 16,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            1024,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            69,
+            88
+          ],
+          "ms": 200,
+          "bbox": [
+            51,
+            67,
+            91,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            73.78649576102659,
+            134.74676555776875
+          ],
+          "head_translation": [
+            10,
+            10
+          ],
+          "gripping_hand": [
+            74.24,
+            90.47
+          ],
+          "sword_tip": [
+            73.79,
+            99
+          ],
+          "torso_lean_degrees": 18,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            2048,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            70,
+            88
+          ],
+          "ms": 300,
+          "bbox": [
+            52,
+            67,
+            92,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            74.78649576102659,
+            134.74676555776875
+          ],
+          "head_translation": [
+            11,
+            10
+          ],
+          "gripping_hand": [
+            75.24,
+            90.47
+          ],
+          "sword_tip": [
+            74.79,
+            99
+          ],
+          "torso_lean_degrees": 18,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            384,
+            128,
+            128,
+            128
+          ],
+          "rect_8x": [
+            3072,
+            1024,
+            1024,
+            1024
+          ],
+          "pivot": [
+            71,
+            88
+          ],
+          "ms": 400,
+          "bbox": [
+            53,
+            67,
+            93,
+            100
+          ],
+          "impact": false,
+          "unclipped_sword_tip": [
+            75.78649576102657,
+            134.74676555776875
+          ],
+          "head_translation": [
+            12,
+            10
+          ],
+          "gripping_hand": [
+            76.24,
+            90.47
+          ],
+          "sword_tip": [
+            75.79,
+            99
+          ],
+          "torso_lean_degrees": 18,
+          "leg_pose": "kneel",
+          "source": "approved_design_rigid_parts",
+          "grid_scale": 1
+        }
+      ]
+    }
+  }
+}
