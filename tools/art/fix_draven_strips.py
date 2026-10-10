@@ -582,15 +582,31 @@ def layout(n):
 
 
 # the user 10-10 on the 90 % build: 「游戏里左右晃动的太大了吧 模型都变形」 - Codex's attack frames put the head 57-65
-# (the idle's at 60) and the run's head stood 3 columns left of the new idle's: whole frames moved (lossless) so
-# the head keeps the idle's column, the release frame one column forward
-STEADY = {"attack": [0, 0, 0, 1, 0], "run": [0] * 8}
+# (the idle's at 60) and the run's head stood 3 columns left of the new idle's. Steadied on the head alone, the planted
+# feet then slid up to 5 columns under it (「左右晃动 头和身体不协调啊还是」): each attack frame now moves (whole,
+# lossless) by the shift that keeps both the head and the front sole nearest the idle's (the larger of the two
+# misses smallest): heads 57-61, front soles 77-80. The run (its head pasted on one column) moves onto the idle's.
+STEADY = {"attack": "head+foot", "run": "head"}
+
+
+def front_sole(a):
+    return int(np.nonzero((a[97:SOLES + 1, :, 3] > 0).any(0))[0].max())
 
 
 def steady(sheet, d):
-    col = head_box(sheet["idle"][0][0], d)[2]
-    for tag, offs in STEADY.items():
-        sheet[tag] = [(shift(a, col + o - head_box(a, d)[2], 0), ms) for (a, ms), o in zip(sheet[tag], offs)]
+    a0 = sheet["idle"][0][0]
+    col, foot = head_box(a0, d)[2], front_sole(a0)
+    for tag, how in STEADY.items():
+        out = []
+        for a, ms in sheet[tag]:
+            h = head_box(a, d)[2]
+            if how == "head":
+                s = col - h
+            else:
+                f = front_sole(a)
+                s = min(range(-6, 7), key=lambda v: (max(abs(col - h - v), abs(foot - f - v)), abs(v)))
+            out.append((shift(a, s, 0), ms))
+        sheet[tag] = out
 
 
 def build(variant="C", small=True):
