@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.92.0"
+    }
+  ],
+  "description": "Optional add-on for League of Legends Heroes: Viego's Sovereign's Domination as in League. When an enemy champion he damaged dies, its soul waits by the body; near it he possesses it - on game 0.6.3 his whole body becomes that champion - and fights with its class's moves (fighter, marksman, mage, support or assassin). The data pack sees deaths only roughly and keeps Viego's own look; this add-on reads every takedown and draws the possessed body. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-11",
+  "mod_id": "league_viego_soul",
+  "mod_type": "native",
+  "name": "League Heroes: Viego's possession",
+  "version": "0.1.2"
+}

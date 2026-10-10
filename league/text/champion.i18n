@@ -609,6 +609,13 @@
         "skill": "召唤暗黑法球，对周围敌人造成<#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<><#a974ffff>魔法伤害<>。法球留在原地<#ffb900ff>6秒<>。",
         "skill2": "先用<#ff9028ff>驱使念力<>把法球掷向敌方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。再锥形击退敌人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，被推开的法球使附近敌人<#ef5350ff>晕眩1.25秒<>。",
         "ult": "向一名敌方英雄发射<#ffb900ff>3颗+场上法球数<>（最多7颗），每颗造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<><#a974ffff>魔法伤害<>。"
+      },
+      "league_viego": {
+        "name": "佛耶戈",
+        "attack": "<#ff9028ff>君命已决<>：他伤过的敌方英雄3秒内阵亡则附身其灵魂<#ffb900ff>10秒<>：<#ef5350ff>1秒无敌<>，回复<#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>，攻击+20%、攻速+30%、移速+15%，Q、W冷却减半。普攻附加英雄最大生命2%。",
+        "skill": "向前刺出，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>伤害。刺中的英雄被标记<#ffb900ff>4秒<>，下次普攻对其斩两下：再造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害并回复<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>。",
+        "skill2": "<#ff9028ff>茫茫焦土<>：黑雾升起，<#ffb900ff>5秒<>内移速+30%、攻速+40%，蓄力时隐身。随后冲刺并吐出亡魂，第一个被击中的敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>伤害并<#ef5350ff>眩晕1.1秒<>。",
+        "ult": "跃向队伍正在交手的敌方英雄并<#ef5350ff>减速99%<>，落地刺穿它，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+其最大生命12%伤害，击退周围其他敌人。结束附身。"
       }
     },
     "skill_name": {
@@ -1046,6 +1053,11 @@
         "skill1": "暗黑法球",
         "skill2": "弱者退散",
         "ult": "能量倾泻"
+      },
+      "league_viego": {
+        "skill1": "破败王剑",
+        "skill2": "千载幽咽",
+        "ult": "痛贯天灵"
       }
     }
   },
@@ -1659,6 +1671,13 @@
         "skill": "召喚黑暗星體，對周圍敵人造成<#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<><#a974ffff>魔法傷害<>。星體留在原地<#ffb900ff>6秒<>。",
         "skill2": "先用<#ff9028ff>意志之力<>把星體擲向敵方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。再錐形擊退敵人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，被推開的星體使附近敵人<#ef5350ff>暈眩1.25秒<>。",
         "ult": "向一名敵方英雄發射<#ffb900ff>3顆+場上星體數<>（最多7顆），每顆造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<><#a974ffff>魔法傷害<>。"
+      },
+      "league_viego": {
+        "name": "維爾戈",
+        "attack": "<#ff9028ff>王權統御<>：他傷過的敵方英雄3秒內陣亡則附身其靈魂<#ffb900ff>10秒<>：<#ef5350ff>1秒無敵<>，回復<#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>，攻擊+20%、攻速+30%、移速+15%，Q、W冷卻減半。普攻附加英雄最大生命2%。",
+        "skill": "向前刺出，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>傷害。刺中的英雄被標記<#ffb900ff>4秒<>，下次普攻對其斬兩下：再造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害並回復<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>。",
+        "skill2": "<#ff9028ff>幽影之徑<>：黑霧升起，<#ffb900ff>5秒<>內移速+30%、攻速+40%，蓄力時隱身。隨後衝刺並吐出亡魂，第一個被擊中的敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>傷害並<#ef5350ff>暈眩1.1秒<>。",
+        "ult": "躍向隊伍正在交手的敵方英雄並<#ef5350ff>緩速99%<>，落地刺穿它，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+其最大生命12%傷害，擊退周圍其他敵人。結束附身。"
       }
     },
     "skill_name": {
@@ -2096,6 +2115,11 @@
         "skill1": "黑暗星體",
         "skill2": "虛弱潰散",
         "ult": "超能解放"
+      },
+      "league_viego": {
+        "skill1": "殞落王者之劍",
+        "skill2": "冥魂之噬",
+        "ult": "破心者"
       }
     }
   },
@@ -2709,6 +2733,13 @@
         "skill": "A Dark Sphere deals <#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<> <#a974ffff>magic damage<> around it and stays for <#ffb900ff>6s<>.",
         "skill2": "First <#ff9028ff>Force of Will<> throws a sphere at an enemy champion for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 30%<>. Then a cone deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and knocks enemies back; spheres pushed <#ef5350ff>stun<> enemies near them for <#ffb900ff>1.25s<>.",
         "ult": "Fires <#ffb900ff>3 + her spheres<> (up to 7) at an enemy champion, each dealing <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> <#a974ffff>magic damage<>."
+      },
+      "league_viego": {
+        "name": "Viego",
+        "attack": "<#ff9028ff>Sovereign's Domination<>: an enemy champion he damaged dies within 3s - he possesses its soul for <#ffb900ff>10s<>: <#ef5350ff>untouchable 1s<>, heals <#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>, +20% attack, +30% attack speed, +15% move speed, Q and W cooldowns halved. Attacks deal 2% of a champion's max health.",
+        "skill": "Thrusts forward: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>. A champion hit is marked for <#ffb900ff>4s<>: his next attack on it strikes twice, <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more, and heals <#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>.",
+        "skill2": "<#ff9028ff>Harrowed Path<>: mist rises - <#ffb900ff>5s<> of +30% move speed and +40% attack speed, hidden while charging. Then he dashes and looses a wraith: the first enemy hit takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> and is <#ef5350ff>stunned 1.1s<>.",
+        "ult": "Leaps at an enemy champion his team is fighting, <#ef5350ff>slowing it 99%<>, and pierces it on landing: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 12% of its max health; other enemies near are knocked back. Ends a possession."
       }
     },
     "skill_name": {
@@ -3146,6 +3177,11 @@
         "skill1": "Dark Sphere",
         "skill2": "Scatter the Weak",
         "ult": "Unleashed Power"
+      },
+      "league_viego": {
+        "skill1": "Blade of the Ruined King",
+        "skill2": "Spectral Maw",
+        "ult": "Heartbreaker"
       }
     }
   },
@@ -3759,6 +3795,13 @@
         "skill": "어둠 구체가 주변 적에게 <#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<>의 <#a974ffff>마법 피해<>. 구체는 <#ffb900ff>6초<> 동안 남음.",
         "skill2": "먼저 <#ff9028ff>의지의 힘<>으로 적 챔피언에게 구체를 던져 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>30% 둔화<>. 이어서 부채꼴로 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>와 밀쳐내기, 밀려난 구체 주변 적 <#ef5350ff>기절 1.25초<>.",
         "ult": "적 챔피언 하나에게 <#ffb900ff>구체 3개 + 남은 구체 수<>(최대 7개) 발사, 개당 <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>의 <#a974ffff>마법 피해<>."
+      },
+      "league_viego": {
+        "name": "비에고",
+        "attack": "<#ff9028ff>군주의 지배<>: 피해를 입힌 적 챔피언이 3초 안에 죽으면 영혼에 빙의 <#ffb900ff>10초<>: <#ef5350ff>1초 무적<>, <#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<> 회복, 공격력 +20%, 공격 속도 +30%, 이동 속도 +15%, Q·W 재사용 대기시간 절반. 기본 공격은 챔피언 최대 체력 2% 추가.",
+        "skill": "앞으로 찔러 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 피해. 맞은 챔피언은 <#ffb900ff>4초<> 표식: 다음 기본 공격이 두 번 베어 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 피해, <#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<> 회복.",
+        "skill2": "<#ff9028ff>안개의 길<>: 안개가 일어 <#ffb900ff>5초<> 동안 이동 속도 +30%, 공격 속도 +40%, 충전 중 은신. 이어서 돌진하며 망령을 날려 처음 맞은 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 피해와 <#ef5350ff>1.1초 기절<>.",
+        "ult": "아군이 교전 중인 적 챔피언에게 도약해 <#ef5350ff>99% 둔화<>, 착지하며 꿰뚫어 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 최대 체력 12% 피해, 주변의 다른 적은 밀쳐냄. 빙의 종료."
       }
     },
     "skill_name": {
@@ -4196,6 +4239,11 @@
         "skill1": "어둠 구체",
         "skill2": "적군 와해",
         "ult": "풀려난 힘"
+      },
+      "league_viego": {
+        "skill1": "몰락한 왕의 검",
+        "skill2": "망령의 나락",
+        "ult": "심장 파괴자"
       }
     }
   },
@@ -4809,6 +4857,13 @@
         "skill": "ダークスフィアが周囲の敵に<#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<>の<#a974ffff>魔法ダメージ<>。スフィアは<#ffb900ff>6秒<>残る。",
         "skill2": "まず<#ff9028ff>ダークフォース<>でスフィアを敵チャンピオンに投げ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。続けて扇状に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>とノックバック、押されたスフィアが周囲の敵を<#ef5350ff>1.25秒スタン<>。",
         "ult": "敵チャンピオン1体に<#ffb900ff>3個+残りのスフィア<>（最大7個）を放ち、1個ごとに<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>の<#a974ffff>魔法ダメージ<>。"
+      },
+      "league_viego": {
+        "name": "ヴィエゴ",
+        "attack": "<#ff9028ff>王の支配<>：ダメージを与えた敵チャンピオンが3秒以内に倒れると魂に憑依<#ffb900ff>10秒<>：<#ef5350ff>1秒無敵<>、<#ffb900ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>50%<>回復、攻撃力+20%・攻撃速度+30%・移動速度+15%、QとWのクールダウン半減。通常攻撃はチャンピオンに最大体力の2%を追加。",
+        "skill": "前方へ突き、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>のダメージ。当たったチャンピオンに<#ffb900ff>4秒<>の刻印：次の通常攻撃が2回斬り、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の追加ダメージと<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>回復。",
+        "skill2": "<#ff9028ff>彷徨える苦悶<>：霧が立ちのぼり<#ffb900ff>5秒<>移動速度+30%・攻撃速度+40%、溜め中は透明。続けて突進し亡霊を放ち、最初に当たった敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>のダメージと<#ef5350ff>1.1秒スタン<>。",
+        "ult": "味方が交戦中の敵チャンピオンへ跳び<#ef5350ff>99%スロウ<>、着地で貫き<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+最大体力の12%のダメージ、周囲の他の敵はノックバック。憑依を終える。"
       }
     },
     "skill_name": {
@@ -5246,6 +5301,11 @@
         "skill1": "ダークスフィア",
         "skill2": "闇の波導",
         "ult": "魔力の奔流"
+      },
+      "league_viego": {
+        "skill1": "滅びの王剣",
+        "skill2": "亡霊の嘆き",
+        "ult": "ハートブレイカー"
       }
     }
   }
