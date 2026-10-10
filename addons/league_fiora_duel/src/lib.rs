@@ -9,6 +9,10 @@
 //!   `league_fiora_r_on`、而且这个英雄身上有 `league_fiora_r_mark`，就给剑姬加 3 tick 的 `league_fiora_r_tgt`；
 //! - 数据读 `r_tgt`：有就刺大招的破绽，没有就是普通的被动破绽（League 里别的英雄身上照样会出被动破绽）。数据在同一 tick 读一次，
 //!   读不到再在下一 tick 读一次（本包加的 buff 什么时候能被数据读到，游戏里还没证实过）。
+//! - 拉回被挑战的人（v0.2.0，用户：「大招不打破绽 有bug」）：AI 选目标不认挑战，2026-10-11 游戏里一局 21 次大招期间的英雄命中
+//!   有 12 次打在别人身上，破绽一直留着。大招期间打中别的英雄时，被挑战的人还活着、看得见、在 `PULL_R` 内，就给剑姬挂
+//!   `PULL_T` tick 指向他的嘲讽（`CcKindV1::Taunt`），她接下来的普攻打他。嘲讽期间 AI 很少放技能（SDK：被嘲讽时约十下普攻一个
+//!   技能，平时约十下六个），所以只在打错人之后挂、挂得短，不一直锁着。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_fiora_duel.log`，每次启动游戏重写，上一次的留在 .prev.log。
@@ -29,6 +33,10 @@ pub const MARK: &str = "league_fiora_r_mark";
 pub const TGT: &str = "league_fiora_r_tgt";
 /// `r_tgt` 留几 tick：数据同一 tick 读，读不到下一 tick 再读。
 pub const TGT_T: usize = 3;
+/// 打错人后嘲讽她多久（tick）：约一下普攻（她的攻击间隔 62 tick）。
+pub const PULL_T: u64 = 70;
+/// 被挑战的人离她多远以内才拉回（再远就让她先打眼前的）。
+pub const PULL_R: u64 = 80_000;
 
 // ===================== 日志 =====================
 
@@ -78,6 +86,11 @@ pub fn is_duel_hit(r_on: bool, target_marked: bool) -> bool {
     r_on && target_marked
 }
 
+/// 打错人后拉不拉回：大招中、打中的不是被挑战的人，他活着、她看得见、在 `PULL_R` 内。
+pub fn should_pull(r_on: bool, target_marked: bool, challenged_seen: bool, dist_sq: u64) -> bool {
+    r_on && !target_marked && challenged_seen && dist_sq <= PULL_R * PULL_R
+}
+
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
@@ -97,11 +110,35 @@ fn vital(sim: &mut StableSim<'_>, fiora: usize, input: InputTargetV1) {
         b.duration_kind = BuffDurationV1::Time.code();
         sim.add_buff(fiora, &b);
     }
-    wlog(format!(
-        "{} R hit on #{target}: {}",
-        head(sim, fiora),
-        if marked { "the challenged champion - a Vital" } else { "another champion - the passive only" }
-    ));
+    if marked {
+        wlog(format!("{} R hit on #{target}: the challenged champion - a Vital", head(sim, fiora)));
+        return;
+    }
+    let Some(team) = sim.get_entity(fiora).map(|e| e.team()) else { return };
+    let challenged = (0..sim.champion_count()).map(|i| sim.champion_id_at(i)).find(|&id| {
+        sim.get_entity(id).is_some_and(|e| e.is_alive() && e.is_targetable() && e.team() != team) && has_buff(sim, id, MARK)
+    });
+    let Some(duel) = challenged else {
+        wlog(format!("{} R hit on #{target}: another champion - the passive only (no challenged champion left)", head(sim, fiora)));
+        return;
+    };
+    let d2 = sim.distance_sq(fiora, duel);
+    if should_pull(r_on, marked, sim.is_visible(team, duel), d2) {
+        let mut cc = CcV1::of_kind(CcKindV1::Taunt, PULL_T);
+        cc.target = duel;
+        sim.apply_cc(fiora, &cc);
+        wlog(format!(
+            "{} R hit on #{target}: another champion - the passive only; taunted onto the challenged #{duel} ({}) for {PULL_T} ticks",
+            head(sim, fiora),
+            (d2 as f64).sqrt() as u64
+        ));
+    } else {
+        wlog(format!(
+            "{} R hit on #{target}: another champion - the passive only; the challenged #{duel} is out of reach or sight ({})",
+            head(sim, fiora),
+            (d2 as f64).sqrt() as u64
+        ));
+    }
 }
 
 struct Vital;
@@ -118,7 +155,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Fiora: Grand Challenge's Vitals only on the challenged champion) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Fiora: Grand Challenge's Vitals only on the challenged champion, a wrong hit taunts her back onto him) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -151,5 +188,14 @@ mod tests {
         assert!(!is_duel_hit(true, false));
         assert!(!is_duel_hit(false, true));
         assert!(!is_duel_hit(false, false));
+    }
+
+    #[test]
+    fn a_wrong_hit_in_the_duel_pulls_her_back_when_he_is_near_and_seen() {
+        assert!(should_pull(true, false, true, 50_000 * 50_000));
+        assert!(!should_pull(true, true, true, 0), "she hit him: nothing to correct");
+        assert!(!should_pull(false, false, true, 0), "no duel");
+        assert!(!should_pull(true, false, false, 0), "he is not seen");
+        assert!(!should_pull(true, false, true, 90_000 * 90_000), "too far");
     }
 }

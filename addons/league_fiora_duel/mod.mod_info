@@ -11,10 +11,10 @@
       "version": ">=0.71.0"
     }
   ],
-  "description": "Test build of Fiora's Grand Challenge as in League (needs League of Legends Heroes): replaces the main pack's Fiora so R's four Vitals are only on the challenged champion, read from a mark on that champion, instead of the data pack's stand-in (any champion she hits during R strikes one). Hits on other champions keep the passive's Vital. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-07",
+  "description": "Test build of Fiora's Grand Challenge as in League (needs League of Legends Heroes): replaces the main pack's Fiora so R's four Vitals are only on the challenged champion, read from a mark on that champion, instead of the data pack's stand-in (any champion she hits during R strikes one). Hits on other champions keep the passive's Vital, and a hit on another champion taunts her back onto the challenged one for about one attack. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-11",
   "mod_id": "league_fiora_duel",
   "mod_type": "native",
   "name": "League Heroes: Fiora's Grand Challenge Vitals (test)",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
