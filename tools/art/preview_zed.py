@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Preview images for Zed, built from the exported game sprites (so they also prove the sheets load).
 
-    python tools/art/preview_zed.py [--out docs/preview] [--only frames|effects|showcase]
+    python tools/art/preview_zed.py [--out docs/preview] [--only frames|effects|showcase|combos]
 
   league_zed_frames.png    every animation, frame by frame, 3x on the arena colour
   league_zed_effects.png   every effect animation, 3x
@@ -10,12 +10,15 @@
                            slash rings, his shuriken and the shadow's crossing on Darius; the W2 swap onto the shadow; a stab with Contempt for the Weak; R - the shadow left behind, the dash
                            through Darius, the Death Mark over him, the automatic Shadow Slash and stabs meanwhile, the
                            burst, the R2 swap back to the shadow; 3x
+  league_zed_combos.gif    both shadows on the field, labelled: R (the shadow at his start, the dash through Darius,
+                           the mark), W flung back over Darius, his Q and E each copied by both shadows (three
+                           shurikens, three slash rings), the burst, the R2 swap - the R shadow stays where he stood; 3x
 """
 import argparse
 import os
 import sys
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -164,6 +167,143 @@ def showcase(out, z=3, step=40):
     a("idle", 900, loop=True)
     end = t
 
+    return film(out, W, H, end, (g, d), body, under, over, z=z, step=step)
+
+def combos(out, z=3, step=40):
+    """Both shadows on the field (the README's R-W-E-Q with the two shadows), labelled, timed like the kit: R leaves
+    the shadow at his start and dashes through Darius, the Death Mark over him; W flings the second shadow over
+    Darius to his near side; his Q and then his E, each copied by both shadows on their next checkpoint (W every 12
+    ticks, R every 6): three shurikens and three slash rings on Darius; a stab while Garen walks up; the burst, and,
+    two enemies on him, R2 - he trades places with the R shadow, which goes on standing where he stood."""
+    sp = load(CHAMP)
+    fx = {k: load(v) for k, v in FX.items()}
+    small, big = fx["league_zed_fx"], fx["league_zed_big"]
+    W, H = 260, 110
+    gy = 86
+    rx, wx = 52, 96                                 # the R shadow (his start) and where W's shadow lands
+    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 132, gy)
+    g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), 222, gy)
+    me = Me(rx, gy)
+    body, under, over, labels = [], [], [], []
+    face = [False]
+    t = 0.0
+
+    def a(tag, dur=None, loop=False):
+        nonlocal t
+        x, y = me.pos(t)
+        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
+        an.pos = me.pos
+        body.append(an)
+        t = an.until
+        return an
+
+    def hit(foe, tag, when, sheet=None):
+        over.append(OnFoe(frames_of(sheet or small, tag), when, foe))
+        foe.flinches.append(when)
+
+    def at(sheet, tag, when, x, until=None, layer=None, x1=None):
+        an = Anim(frames_of(sheet, tag), when, x, gy, loop=until is not None and x1 is None, until=until, x1=x1)
+        (layer if layer is not None else over).append(an)
+        return an
+
+    def fly(tag, when, x_from, x_to, left=False):
+        dur = tick(max(1, abs(x_to - x_from) / STAR))
+        fr = frames_of(small, tag)
+        over.append(Anim(mirrored(fr) if left else fr, when, x_from, gy - STAR_Y, until=when + dur, x1=x_to,
+                         y1=gy - STAR_Y))
+        return when + dur
+
+    def next_cp(anchor, every, when):
+        """The shadow's first checkpoint (anchor + k * every ticks) at or after when."""
+        k = max(0, -(-(when - anchor) // tick(every)))
+        return anchor + tick(every) * k
+
+    def pieces(spot, start, end, every, stand, casts, j=0):
+        """As showcase(): a standing frame a checkpoint, or the shadow's own cast where it copies one (12 ticks)."""
+        when = start
+        while when < end - 1:
+            cast = next((tg for w, tg in casts if abs(w - when) < 1), None)
+            k = 12 // every if cast else 1
+            at(small, cast or stand(j), when, spot, until=min(end, when + tick(every) * k), layer=under)
+            when += tick(every) * k
+            j += k
+        return j
+
+    a("idle", 500, loop=True)
+    # R: the shadow at his start, the dash through Darius, the mark
+    r0 = t
+    r_cp = r0 + tick(1)                             # the R shadow's checkpoints: every 6 ticks from here
+    at(small, "sh_in_r", r_cp, rx, layer=under)
+    go = r0 + tick(P["r_go"])
+    zx = d.pos(go)[0] + 24                         # behind him, clear of his body
+    me.moves.append((go, go + tick(8), rx, zx))
+    hit(d, "r_hit", go + tick(6), big)
+    mark_end = go + tick(6) + tick(P["r_pop"])
+    over.append(OnFoe(frames_of(small, "r_mark"), go + tick(6), d, until=mark_end))
+    a("ult", tick(P["r_dur"]))
+    face[0] = True
+    a("idle", 200, loop=True)
+    # W: the second shadow flung back over Darius to his near side
+    w0 = t
+    land = w0 + tick(P["w_at"] - 1 + P["w_fly"])
+    at(small, "w_dash", w0 + tick(P["w_at"] - 1), zx - 6, until=land, x1=wx)
+    at(small, "sh_in_a", land, wx, layer=under)
+    at(small, "sh_in_b", land + 33, wx, layer=under)
+    w_cp = land + tick(P["echo_step"])              # W's checkpoints: every 12 ticks after it lands
+    at(small, "sh_st0", land + 166, wx, until=w_cp, layer=under)
+    a("skill", tick(P["w_dur"]))
+    a("idle", 300, loop=True)
+    # Q: his shuriken, and one from each shadow on its next checkpoint
+    w_casts, r_casts = [], []
+    q0 = t
+    q = q0 + tick(P["q_at"])
+    hit(d, "q_hit", fly("q_star", q, zx - 10, d.pos(q)[0] + 4, left=True))
+    for spot, cp, every, casts in ((wx, w_cp, P["echo_step"], w_casts), (rx, r_cp, P["r_echo_step"], r_casts)):
+        c = next_cp(cp, every, q)
+        casts.append((c, "sh_q"))
+        hit(d, "q_hit", fly("sh_star", c, spot + 4, d.pos(c)[0] - 4))
+    a("skill2", tick(P["q_dur"]))
+    a("idle", 120, loop=True)
+    # E: his slash ring, and both shadows' rings on their next checkpoint (W's is close enough to cut Darius)
+    e0 = t
+    e = e0 + tick(P["e_at"])
+    at(big, "e_spin", e, zx, layer=under)
+    hit(d, "e_hit", e)
+    for spot, cp, every, casts in ((wx, w_cp, P["echo_step"], w_casts), (rx, r_cp, P["r_echo_step"], r_casts)):
+        c = next_cp(cp, every, e)
+        casts.append((c, "sh_e"))
+        at(big, "sh_spin", c, spot, layer=under)
+        if abs(d.pos(c)[0] - spot) <= 40:
+            hit(d, "e_hit", c + tick(1))
+    a("skill_e", tick(P["e_dur"]))
+    # a stab with Contempt for the Weak while the mark ticks; Garen walks up behind him
+    hit(d, "a_hit", t + tick(P["a_st"]))
+    hit(d, "cw_hit", t + tick(P["a_st"]) + 20)
+    a("attack", tick(P["atk_dur"]))
+    g.walks.append((t, t + 1000, -30))
+    a("idle", mark_end - t, loop=True)
+    hit(d, "r_pop", mark_end, big)
+    # R2 on the R shadow's checkpoint: they trade places, the shadow goes on standing where he stood
+    s2 = next_cp(r_cp, P["r_echo_step"], mark_end + 250)
+    a("idle", s2 - t, loop=True)
+    at(small, "w_swap", s2, zx)
+    at(small, "w_swap", s2, rx)
+    me.moves.append((s2, s2 + 1, zx, rx))
+    face[0] = False
+    a("idle", 1500, loop=True)
+    end = t
+    j = pieces(rx, r_cp + tick(P["r_echo_step"]), s2, P["r_echo_step"], lambda j: f"sh_sr{(j // 2) % 4}", r_casts)
+    pieces(zx, s2, end, P["r_echo_step"], lambda j: f"sh_sr{(j // 2) % 4}", r_casts, j)
+    pieces(wx, w_cp, end, P["echo_step"], lambda j: f"sh_st{j % 4}", w_casts)
+    labels += [(r0, w0, "R"), (w0, q0, "R W"), (q0, e0, "R W Q x3"), (e0, s2, "R W Q E x3"), (s2, end, "R2")]
+    return film(out, W, H, end, (g, d), body, under, over, labels=labels, z=z, step=step)
+
+
+def film(out, W, H, end, units, body, under, over, labels=(), z=3, step=40):
+    """Draw the clip: ground effects (the shadows), the units and Zed's first playing animation sorted by row, the
+    other effects; labels = [(t0, t1, text)] in a corner."""
+    font = ImageFont.load_default(size=8 * z) if labels else None
+
     def place(img, f, px, py):
         img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
 
@@ -174,20 +314,25 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        units = [(u.pos(tt)[1], u.frame(tt), u.pos(tt)) for u in (g, d)]
+        units_ = [(u.pos(tt)[1], u.frame(tt), u.pos(tt)) for u in units]
         for an in body:
             f = an.frame(tt)
             if f is not None:
-                units.append((an.pos(tt)[1] + 0.5, f, an.pos(tt)))
+                units_.append((an.pos(tt)[1] + 0.5, f, an.pos(tt)))
                 break
-        for _, f, p in sorted(units, key=lambda u: u[0]):
+        for _, f, p in sorted(units_, key=lambda u: u[0]):
             if f is not None:
                 place(img, f, *p)
         for an in over:
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        for t0, t1, text in labels:
+            if t0 <= tt < t1:
+                ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
+                                         stroke_width=z // 2 + 1, stroke_fill=(24, 20, 16))
+        frames.append(img)
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -202,7 +347,7 @@ def showcase(out, z=3, step=40):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
-    ap.add_argument("--only", choices=["frames", "effects", "showcase"])
+    ap.add_argument("--only", choices=["frames", "effects", "showcase", "combos"])
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
@@ -217,6 +362,8 @@ def main():
         print("effects", contact(rows, os.path.join(args.out, "league_zed_effects.png")))
     if args.only in (None, "showcase"):
         print("showcase frames/seconds", showcase(os.path.join(args.out, "league_zed_showcase.gif")))
+    if args.only in (None, "combos"):
+        print("combos frames/seconds", combos(os.path.join(args.out, "league_zed_combos.gif")))
 
 
 if __name__ == "__main__":

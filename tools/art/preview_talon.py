@@ -8,8 +8,9 @@
   league_talon_showcase.gif  a scripted gank on Darius with Garen behind him, timed like the kit
                              (tools/kit/build_talon.py, 60 ticks a second): W Rake - the fan of blades out through
                              Darius and back, the slow; the W -> Q leap as the blades turn back, the wounds over him;
-                             the stab that makes him bleed; R - the ring of blades, the stealth, the stab that brings
-                             the blades back; Assassin's Path - the vault away from Darius and Garen; 3x
+                             the stab that makes him bleed; R - the blades out to the ring round his cast point,
+                             hanging there through the stealth while he slips back and comes in, the stab that brings
+                             them in to him; Assassin's Path - the vault away from Darius and Garen; 3x
 """
 import argparse
 import os
@@ -120,10 +121,11 @@ def showcase(out, z=3, step=40):
     hit(d, "p_bleed", t + tick(P["a_st"]) + 20)
     a("attack", tick(P["atk_dur"]))
     a("idle", 400, loop=True)
-    # R: the ring out, the stealth, a stab brings the blades back
+    # R: the blades out to the ring, hanging on the cast point through the stealth, a stab brings them in to him
     r0 = t
     rx = me.pos(r0)[0]
     at(big, "r_out", r0 + tick(P["r_at"] - 1), rx)
+    ring0 = r0 + tick(P["r_at"] - 1 + P["r_fly"])          # the anchor's first ring piece, then one every r_step
     hit(d, "r_hit", r0 + tick(P["r_at"]) + 60)
     a("ult", tick(P["r_dur"]))
     stealth[0] = (t, t + 900)
@@ -145,6 +147,11 @@ def showcase(out, z=3, step=40):
     a("attack", tick(P["atk_dur"]))
     stealth[0] = None
     at(big, "r_back", stab, me.pos(stab)[0])
+    # the ring's pieces while r_on lasts: the stab's return takes it off, so the piece under way runs out
+    k, when = 0, ring0
+    while when < stab:
+        at(big, f"r_ring{k % 4}", when, rx)
+        k, when = k + 1, when + tick(P["r_step"])
     hit(d, "r_hit", stab + 120)
     a("idle", 300, loop=True)
     # Assassin's Path: two champions near - the vault away, then the haste
