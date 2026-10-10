@@ -56,6 +56,7 @@ sys.path.insert(0, HERE)
 import fix_viktor_strips as S  # noqa: E402
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips as G  # noqa: E402
+import viktor_walk_legs as WL  # noqa: E402
 
 Z = 8
 # League's run, frames 1-8: a foot's centre in columns from its hip (+ = forward) and the rows it is off the ground
@@ -100,6 +101,17 @@ STEP4 = [(1, 0), (1, 0), (0, 0), (-1, 0), (-1, 1), (0, 2), (1, 2), (1, 1)]
 BOB3 = [1, 0, 0, 0, 1, 0, 0, 0]
 SEAT = False
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
+# run v14 (viktor_walk_legs: the legs from the design's own rows): what stands in front of the legs - the staff under
+# the hip (rows, columns boxes; planted, it does not sink with the body: the hand slides down it, and its foot never
+# goes under the soles), the claw (columns from CLAW right) and the cape's inner edge by the staff (LINING box: its
+# dark red over the far thigh's outer side, as in the idle - without it the far leg stood against the staff and read
+# as part of it); the rest of the cape hangs behind. Between the two hip plates under the belt the dark under-robe
+# (CROTCH columns, two rows), as the idle's far thigh covered it
+STAFF = ((88, 97, 55, 58), (97, 100, 54, 58))
+CLAW = 72
+LINING = (89, 93, 58, 60)
+CROTCH = (63, 66)
+UNDER = (0x1A, 0x14, 0x20)
 TORSO = 30            # design rows 0..29 (from the design's top) are in every run cell as they are
 PELVIS = (30, 33)     # design rows 30..32: the pelvis armour put back
 BODY = (11, 24)       # design columns of the pelvis (from the design's left edge): right of the cape, left of the claw
@@ -237,41 +249,57 @@ def mirrored_leg(near, shift):
     return out
 
 
+def stray_outline(c, top):
+    """Outline squares from row `top` down that touch no colour (a leg moved off the outline it shared) - gone."""
+    op = c[..., 3] > 0
+    ink = op & (c[..., :3] == np.array(OUT, np.uint8)).all(-1)
+    col = np.pad(op & ~ink, 1)
+    near_col = np.zeros_like(op)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            near_col |= col[1 + dy:1 + dy + op.shape[0], 1 + dx:1 + dx + op.shape[1]]
+    stray = ink & ~near_col
+    stray[:top] = False
+    c[stray] = 0
+
+
 def run_frames(design, bob):
-    """The design's body over its near leg drawn twice (fix_viktor_strips.run_frames_codex), the feet from feet()."""
-    near, far = S.legs()
+    """Run v14: the design's body over legs put together from the design's own leg rows (viktor_walk_legs) - the
+    cape behind the legs, the staff, the claw and the cape's inner edge in front; the body sinks WL.BOB rows as a foot
+    lands, the staff's lower part staying planted."""
+    near, far0 = S.legs()
     body = design.copy()
-    body[(near[..., 3] > 0) | (far[..., 3] > 0)] = 0
+    body[(near[..., 3] > 0) | (far0[..., 3] > 0)] = 0
     x, rows = S.PIVOT[0] + CAPE[0], slice(S.LEG_TOP, S.LEG_TOP + CAPE[1])
     body[rows, x] = design[rows, x]
-    far = mirrored_leg(near, FAR_SHIN)
-    at = feet()
+    staff = np.zeros_like(body)
+    for y0, y1, x0, x1 in STAFF:
+        staff[y0:y1, x0:x1] = body[y0:y1, x0:x1]
+    front = np.zeros_like(body)
+    front[:S.LEG_TOP] = body[:S.LEG_TOP]
+    front[S.LEG_TOP:, CLAW:] = body[S.LEG_TOP:, CLAW:]
+    y0, y1, x0, x1 = LINING
+    front[y0:y1, x0:x1] = body[y0:y1, x0:x1]
+    back = body.copy()
+    back[(front[..., 3] > 0) | (staff[..., 3] > 0)] = 0
+    far = WL.far_part(near)
     out = []
     for k in range(8):
-        # both legs under the body (the near one over the far one); the body sinks BOB3 rows over them
-        c = zleg(far, *STEP4[(k + 4) % 8])
-        n = zleg(near, *STEP4[k])
-        m = n[..., 3] > 0
-        c[m] = n[m]
-        b = np.roll(body, BOB3[k], axis=0)
-        m = b[..., 3] > 0
-        c[m] = b[m]
-        # the far boot's sole row left under the near boot raised over it: outline touching no colour - gone
-        op = c[..., 3] > 0
-        ink = op & (c[..., :3] == np.array(OUT, np.uint8)).all(-1)
-        col = np.pad(op & ~ink, 1)
-        near_col = np.zeros_like(op)
-        for dy in (-1, 0, 1):
-            for dx in (-1, 0, 1):
-                near_col |= col[1 + dy:1 + dy + op.shape[0], 1 + dx:1 + dx + op.shape[1]]
-        stray = ink & ~near_col
-        stray[:S.LEG_TOP] = False
-        c[stray] = 0
-        fill_gaps(c, S.LEG_TOP - 4)
-        # closed as the import will close it, then any gap that walls in filled too: the import adds nothing new
+        b = WL.BOB[k]
+        c = np.roll(back, b, axis=0)
+        for y in (S.LEG_TOP + b, S.LEG_TOP + 1 + b):
+            for x in range(*CROTCH):
+                if not c[y, x, 3]:
+                    c[y, x] = (*UNDER, 255)
+        for layer in (WL.leg(far, WL.FAR[(k + 4) % 8], b), WL.leg(near, WL.NEAR[k], b), np.roll(front, b, axis=0),
+                      staff):
+            m = layer[..., 3] > 0
+            c[m] = layer[m]
+        stray_outline(c, S.LEG_TOP - 4)
+        # closed as the import will close it: the import adds nothing new
         low = int(np.nonzero(c[..., 3].any(1))[0].max())
         c = G.complete_outline(c, color=OUT, dark=70, feet=low)[0]
-        fill_gaps(c, S.LEG_TOP - 4)
+        stray_outline(c, S.LEG_TOP - 4)
         out.append(c)
     return out
 
@@ -330,7 +358,8 @@ def main():
     with open(lp(S.RUN_MANIFEST), encoding="utf-8") as f:
         bob = [fr["upper_shift"][1] for fr in json.load(f)["frames"]]
     for k in range(8):
-        print(f"frame {k + 1}: near {STEP4[k]}, far {STEP4[(k + 4) % 8]}, body down {BOB3[k]}")
+        print(f"frame {k + 1}: near foot {WL.foot('near', k)[0]:+d} up {WL.foot('near', k)[1]}, far foot "
+              f"{WL.foot('far', k)[0]:+d} up {WL.foot('far', k)[1]}, body down {WL.BOB[k]}")
     for fr in cells["tags"]["run"]:
         fr["ms"] = RUN_MS
     with open(lp(os.path.join(NATIVE, "viktor_cells.json")), "w", encoding="utf-8", newline="\n") as f:
