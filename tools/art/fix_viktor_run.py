@@ -54,6 +54,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 sys.path.insert(0, HERE)
 import fix_viktor_strips as S  # noqa: E402
+sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+import strips as G  # noqa: E402
 
 Z = 8
 # League's run, frames 1-8: a foot's centre in columns from its hip (+ = forward) and the rows it is off the ground
@@ -84,6 +86,7 @@ TORSO = 30            # design rows 0..29 (from the design's top) are in every r
 PELVIS = (30, 33)     # design rows 30..32: the pelvis armour put back
 BODY = (11, 24)       # design columns of the pelvis (from the design's left edge): right of the cape, left of the claw
 THIGHS = (33, 36)     # design rows under the pelvis: the design's thigh tops underlaid
+UNDERLAY = False      # run v10's legs keep their thighs whole: the design's still thigh tops would show beside them
 OUT = (0x0B, 0x09, 0x10)
 LEG = {(0x3E, 0x42, 0x70), (0x5B, 0x61, 0x94), (0x3A, 0x2C, 0x40), (0x7E, 0x86, 0xB8), (0x1A, 0x14, 0x20),
        (0x6A, 0x4A, 0x5A), (0x6F, 0x86, 0xAE)}   # the legs' navies, greys and shadows (not the cape's red)
@@ -150,7 +153,9 @@ def shin(leg):
 def zleg(part, hip_dx, boot_dx, lift):
     """league_zed's run_leg on Viktor's 12-row leg: thigh rows LEG_TOP..KNEE_ROW-1 shifted from hip_dx to the knee's,
     the shin leaning on to boot_dx at BOOT_ROW, the boot rows whole, the shin + boot `lift` rows up behind the thigh."""
-    knee_dx = hip_dx + (boot_dx + 1 if lift else int(np.floor(boot_dx / 2 + 0.5)))
+    # the whole leg swings from the hip (the user: 「只有脚动上面的腿不动 不协调」 when the knee went half as far as the
+    # boot): the knee as far as the boot, a column further when the leg is lifted
+    knee_dx = hip_dx + boot_dx + (1 if lift else 0)
     boot_dx = hip_dx + boot_dx
     thigh = np.zeros_like(part)
     low = np.zeros_like(part)
@@ -167,6 +172,48 @@ def zleg(part, hip_dx, boot_dx, lift):
     m = (thigh[..., 3] == 0) & (low[..., 3] > 0)
     thigh[m] = low[m]
     return thigh
+
+
+def fill_gaps(c, top):
+    """A one- or two-square gap walled in (where the two legs cross, or between the pelvis and a thigh) from row
+    `top` down: filled with the commonest colour round it (the outline colour there would stand alone)."""
+    clear = c[..., 3] == 0
+    H, W = clear.shape
+    seen = np.zeros_like(clear)
+    stack = [(y, x) for y in range(H) for x in (0, W - 1)] + [(y, x) for x in range(W) for y in (0, H - 1)]
+    while stack:
+        y, x = stack.pop()
+        if 0 <= y < H and 0 <= x < W and clear[y, x] and not seen[y, x]:
+            seen[y, x] = True
+            stack += [(y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)]
+    hole = clear & ~seen
+    lab = np.zeros_like(hole)
+    for y, x in zip(*np.nonzero(hole)):
+        if lab[y, x] or y < top:
+            continue
+        comp, st = [], [(y, x)]
+        lab[y, x] = True
+        while st:
+            cy, cx = st.pop()
+            comp.append((cy, cx))
+            for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                q = (cy + a, cx + b)
+                if hole[q] and not lab[q]:
+                    lab[q] = True
+                    st.append(q)
+        if len(comp) <= 2:
+            cs = set(comp)
+            votes = {}
+            for cy, cx in comp:
+                for a in (-1, 0, 1):
+                    for b in (-1, 0, 1):
+                        q = (cy + a, cx + b)
+                        if q not in cs and c[q][3] and tuple(int(v) for v in c[q][:3]) != OUT:
+                            k3 = tuple(int(v) for v in c[q][:4])
+                            votes[k3] = votes.get(k3, 0) + 1
+            fill = max(votes, key=votes.get) if votes else (*OUT, 255)
+            for q in comp:
+                c[q] = fill
 
 
 def run_frames(design, bob):
@@ -199,43 +246,7 @@ def run_frames(design, bob):
         stray = ink & ~near_col
         stray[:S.LEG_TOP] = False
         c[stray] = 0
-        # a one- or two-square gap walled in where the two legs cross: filled with the colour round it
-        clear = c[..., 3] == 0
-        seen = np.zeros_like(clear)
-        stack = [(0, 0)]
-        while stack:
-            y, x = stack.pop()
-            if 0 <= y < 128 and 0 <= x < 128 and clear[y, x] and not seen[y, x]:
-                seen[y, x] = True
-                stack += [(y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)]
-        hole = clear & ~seen
-        lab = np.zeros_like(hole)
-        for y, x in zip(*np.nonzero(hole)):
-            if lab[y, x] or y < S.LEG_TOP:
-                continue
-            comp, st = [], [(y, x)]
-            lab[y, x] = True
-            while st:
-                cy, cx = st.pop()
-                comp.append((cy, cx))
-                for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                    q = (cy + a, cx + b)
-                    if hole[q] and not lab[q]:
-                        lab[q] = True
-                        st.append(q)
-            if len(comp) <= 2:
-                cs = set(comp)
-                votes = {}
-                for cy, cx in comp:
-                    for a in (-1, 0, 1):
-                        for b in (-1, 0, 1):
-                            q = (cy + a, cx + b)
-                            if q not in cs and c[q][3] and tuple(int(v) for v in c[q][:3]) != OUT:
-                                k3 = tuple(int(v) for v in c[q][:4])
-                                votes[k3] = votes.get(k3, 0) + 1
-                fill = max(votes, key=votes.get) if votes else (*OUT, 255)
-                for q in comp:
-                    c[q] = fill
+        fill_gaps(c, S.LEG_TOP)
         out.append(c)
     return out
 
@@ -270,13 +281,20 @@ def seat(a, cells):
                     cell[top + y + dy, x + dx] = design[top + y, x]
                     put += 1
         under = 0
-        for y in range(*THIGHS):
+        for y in range(*THIGHS) if UNDERLAY else ():
             for x in range(left + BODY[0], left + BODY[1]):
                 if design[top + y, x, 3] and tuple(int(v) for v in design[top + y, x, :3]) in LEG:
                     Y, X = top + y + dy, x + dx
                     if not cell[Y, X, 3] or tuple(int(v) for v in cell[Y, X, :3]) == OUT:
                         cell[Y, X] = design[top + y, x]
                         under += 1
+        fill_gaps(cell, top + PELVIS[0] + dy)
+        # the import closes the outline (complete_outline, dark 70): closed here first, so a gap that closure would
+        # wall in is filled too and the import adds nothing new under the pelvis
+        low = int(np.nonzero(cell[..., 3].any(1))[0].max())
+        closed = G.complete_outline(cell, color=OUT, dark=70, feet=low)[0]
+        fill_gaps(closed, top + PELVIS[0] + dy)
+        cell[...] = closed
         print(f"run cell {k + 1}: torso at dy {dy} dx {dx}, pelvis {put} px, thighs underlaid {under} px")
 
 
