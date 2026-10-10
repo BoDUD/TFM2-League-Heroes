@@ -194,7 +194,7 @@ def back(name, speed, rng, radius, y, target, effects, end=()):
     """Flies from where it is started (a line's end) back to him, through everything; end_effects on him."""
     return {"type": "BackToCasterLinearProjectile", "name": n(name), "penetrate": True, "applied_target": target,
             "applied_effects": [T(e) for e in effects], "end_effects": list(end), "speed": speed, "range": rng,
-            "shape": circle(radius), "y_offset": y}
+            "shape": circle(radius)}          # (no y_offset: the engine has none on this projectile; `y` kept for calls)
 
 
 def pzone(name, r, tick, period, target, effects):
