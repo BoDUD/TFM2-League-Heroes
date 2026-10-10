@@ -487,23 +487,26 @@ def dead(P, k):
 # only made-up squares could fill (an extra square beside the first claw, a red tabard column, a dark blot at the far
 # elbow). The body drops a row at each mid-stance.
 RUN_STEPS = {
-    # each leg strides in its own lane (the user, 10-10: 「右腿看起来像撞了左腿」 when the near kick went behind the far
-    # shin) and both the same way half a cycle apart (「腿左右也要一样吧」): planted 4 frames sliding back a column a
-    # frame, heel up 2, swung through at 3, reaching down at 2 and 1; the near boot never left of its idle place, the
-    # far one never right of it
-    "near": [(0, 1, 0), (0, 0, 0), (1, 0, 2), (2, 1, 3), (2, 2, 2), (2, 3, 1), (2, 3, 0), (1, 2, 0)],
-    "far": [(2, -1, 2), (2, 0, 1), (2, 0, 0), (1, -1, 0), (0, -2, 0), (-1, -3, 0), (-1, -3, 2), (1, -2, 3)],
+    # the user, 10-10: 「这一版还是没有明显在走路的感觉」 - each boot had moved 3 columns in all and the body bobbed 1 row.
+    # Measured on oppi's Lee Sin run (a front-ish humanoid at our size): the feet open to 25 columns apart and close to 6,
+    # 2-3 columns a frame, the swinging foot 3-4 rows up, 3 rows of bob, and the feet never pass through each other (a
+    # crossing tried here tangled the two legs into one lump again). So each boot keeps to its own side and travels 6
+    # columns: planted 4 frames sliding back 2 a frame, then heel up, up 4 and swung forward over 4 (the knee a column
+    # ahead of the boot); the two half a cycle apart, so the feet open to 20 apart and close till they touch
+    "near": [(3, 5, 0), (2, 3, 0), (1, 1, 0), (0, -1, 0), (0, -1, 2), (2, 1, 4), (4, 3, 3), (4, 5, 1)],
+    "far": [(-4, -5, 2), (-2, -3, 4), (0, -1, 3), (1, 1, 1), (1, 1, 0), (0, -1, 0), (-2, -3, 0), (-3, -5, 0)],
 }
 BOOT_TOP = 97                    # the boots' top row (full design): rows from here move whole
 LEG_COPY = 10                    # the far lower leg = the near one this many columns left (85% canvas, legs_alike)
 LEG_FAR_COLS = (54, 62)          # the far lower leg's columns on the 85% canvas (cleared before the copy)
-DROP = [1, 0, 0, 0, 1, 0, 0, 0]
+DROP = [2, 1, 0, 1, 2, 1, 0, 1]           # oppi's Lee Sin: low at the wide and the crossed frames, 2 rows
 RUN_ARM = [-1, 0, 0, 0, 0, -1, -1, -1]         # the near forearm's column per frame
 
 
-def run_leg(P, side, knee_dx, boot_dx, lift):
+def run_leg(P, side, knee_dx, boot_dx, lift, drop=0):
     """One leg of the run: the thigh leaning to knee_dx at the knee, the shin on to boot_dx, the boot whole, the shin
-    + boot raised `lift` rows behind the thigh."""
+    + boot raised `lift` rows behind the thigh; the thigh sinks `drop` rows with the body over the shin's top (a bent
+    knee - left where it was, the hip end walled in the gap between the far forearm and the torso: a dark blot)."""
     d = P.design
     hip = RUN_HIPS[side]
     thigh = np.zeros_like(d)
@@ -512,7 +515,7 @@ def run_leg(P, side, knee_dx, boot_dx, lift):
         if r < KNEE_ROW:
             sh = int(np.floor(knee_dx * max(0, r - hip) / max(1, KNEE_ROW - hip) + 0.5))
             if 0 <= c + sh < 128:
-                thigh[r, c + sh] = d[r, c]
+                thigh[r + drop, c + sh] = d[r, c]
         else:
             t = min(1.0, (r - KNEE_ROW) / max(1, BOOT_TOP - KNEE_ROW))
             sh = int(np.floor(knee_dx + (boot_dx - knee_dx) * t + 0.5))
@@ -547,8 +550,8 @@ def run_frames(P):
         legs = np.zeros_like(P.design)
         # the far (image-left) leg drawn first, the near one over it, both under the body (the tabard's hem and the
         # claws hang in front of them)
-        K.put(legs, run_leg(P, "far", *RUN_STEPS["far"][k]), 0, 0)
-        K.put(legs, run_leg(P, "near", *RUN_STEPS["near"][k]), 0, 0)
+        K.put(legs, run_leg(P, "far", *RUN_STEPS["far"][k], drop=DROP[k]), 0, 0)
+        K.put(legs, run_leg(P, "near", *RUN_STEPS["near"][k], drop=DROP[k]), 0, 0)
         top = P.body.copy()
         top[P.run["far"] | P.run["near"] | walled] = 0
         K.place(top, P.lfore, L_ELBOW, under=True)
