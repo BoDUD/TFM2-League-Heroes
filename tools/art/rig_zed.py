@@ -487,15 +487,15 @@ def dead(P, k):
 # only made-up squares could fill (an extra square beside the first claw, a red tabard column, a dark blot at the far
 # elbow). The body drops a row at each mid-stance.
 RUN_STEPS = {
-    # the user, 10-10: 「还是和英雄联盟那种小碎步跳跃的感觉不一样」 after the long lane strides. League's Zed_run
-    # (tools/lol/pose_joints.py, ~40 px, frames numbered as League's): the hip bobs ~5 px twice a cycle - high as a foot
-    # lands, dropping before the push-off - and a foot is planted 4 frames, then its heel kicks up behind ~8 px before it
-    # swings through: short steps, a big bounce. Here: each boot 4 columns on its own side (planted in 7, 8, 1, 2 for the
-    # near one, 3-6 for the far one, sliding back a column a frame), the heel kicked up behind the thigh (up 3, 5 - the
-    # shin hidden behind the thigh, the boot a column behind the knee) and swung forward (up 3, 1)
-    "near": [(1, 1, 0), (0, 0, 0), (1, -1, 3), (1, -1, 5), (2, 1, 3), (3, 3, 1), (2, 3, 0), (1, 2, 0)],
-    "far": [(0, -1, 3), (1, 1, 1), (1, 1, 0), (0, 0, 0), (0, -1, 0), (-1, -2, 0), (0, -3, 3), (0, -3, 5)],
+    # (knee_dx, boot_dx, lift) from each leg's hip. The user, 10-10: 「交叉步还能明显一点吗」 - the near boot had stayed
+    # 8-16 columns ahead of the far one in every frame. League's Zed_run has the far foot ahead in frames 2-5; here in 3
+    # and 4 the far boot lands 1-3 columns ahead of the near one and the near heel is kicked up behind across the far
+    # leg (drawn over it, up 4-5). The hips stay put (moving the far one in tucked its thigh's top under the tabard:
+    # 「腿和腰这里有点变形」) - the legs lean in from the hip, the shin at most 3 columns more than the thigh
+    "near": [(0, 0, 0), (-1, -2, 0), (-3, -7, 4), (-3, -7, 5), (-1, -3, 3), (2, 2, 1), (2, 4, 0), (1, 2, 0)],
+    "far": [(1, -1, 3), (3, 5, 1), (3, 6, 0), (2, 4, 0), (1, 2, 0), (0, 0, 0), (0, -2, 3), (0, -3, 5)],
 }
+RUN_HIP_DX = {"near": [0] * 8, "far": [0] * 8}
 BOOT_TOP = 97                    # the boots' top row (full design): rows from here move whole
 LEG_COPY = 10                    # the far lower leg = the near one this many columns left (85% canvas, legs_alike)
 LEG_FAR_COLS = (54, 62)          # the far lower leg's columns on the 85% canvas (cleared before the copy)
@@ -504,7 +504,7 @@ RUN_ARM_DY = [0, -1, 0, 0, 0, -1, 0, 0]  # the forearms a row behind the drop at
 RUN_ARM = [0, 0, 0, 0, -1, -1, -1, -1]         # the near forearm's column per frame (back while its leg is ahead)
 
 
-def run_leg(P, side, knee_dx, boot_dx, lift, drop=0):
+def run_leg(P, side, knee_dx, boot_dx, lift, drop=0, hip_dx=0):
     """One leg of the run: the thigh leaning to knee_dx at the knee, the shin on to boot_dx, the boot whole, the shin
     + boot raised `lift` rows behind the thigh; the thigh sinks `drop` rows with the body over the shin's top (a bent
     knee - left where it was, the hip end walled in the gap between the far forearm and the torso: a dark blot)."""
@@ -514,12 +514,12 @@ def run_leg(P, side, knee_dx, boot_dx, lift, drop=0):
     low = np.zeros_like(d)
     for r, c in zip(*np.nonzero(P.run[side] & (d[..., 3] > 0))):
         if r < KNEE_ROW:
-            sh = int(np.floor(knee_dx * max(0, r - hip) / max(1, KNEE_ROW - hip) + 0.5))
+            sh = hip_dx + int(np.floor(knee_dx * max(0, r - hip) / max(1, KNEE_ROW - hip) + 0.5))
             if 0 <= c + sh < 128:
                 thigh[r + drop, c + sh] = d[r, c]
         else:
             t = min(1.0, (r - KNEE_ROW) / max(1, BOOT_TOP - KNEE_ROW))
-            sh = int(np.floor(knee_dx + (boot_dx - knee_dx) * t + 0.5))
+            sh = hip_dx + int(np.floor(knee_dx + (boot_dx - knee_dx) * t + 0.5))
             if 0 <= c + sh < 128 and 0 <= r - lift < 128:
                 low[r - lift, c + sh] = d[r, c]
     return K.put(thigh, low, 0, 0, under=True)
@@ -551,8 +551,8 @@ def run_frames(P):
         legs = np.zeros_like(P.design)
         # the far (image-left) leg drawn first, the near one over it, both under the body (the tabard's hem and the
         # claws hang in front of them)
-        K.put(legs, run_leg(P, "far", *RUN_STEPS["far"][k], drop=DROP[k]), 0, 0)
-        K.put(legs, run_leg(P, "near", *RUN_STEPS["near"][k], drop=DROP[k]), 0, 0)
+        K.put(legs, run_leg(P, "far", *RUN_STEPS["far"][k], drop=DROP[k], hip_dx=RUN_HIP_DX["far"][k]), 0, 0)
+        K.put(legs, run_leg(P, "near", *RUN_STEPS["near"][k], drop=DROP[k], hip_dx=RUN_HIP_DX["near"][k]), 0, 0)
         top = P.body.copy()
         top[P.run["far"] | P.run["near"] | walled] = 0
         K.place(top, P.lfore, (L_ELBOW[0], L_ELBOW[1] + RUN_ARM_DY[k]), under=True)
