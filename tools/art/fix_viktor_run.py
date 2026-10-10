@@ -73,6 +73,11 @@ HIP = 1               # both hips' column from the pivot, as HIP_X draws them in
 # planted boot a row clear of it in 7, reaching in 8); the far leg half a cycle later. The knee: half the boot's lean
 # when planted, a column ahead of the boot when lifted.
 HIPS2 = {"near": 0, "far": 0}
+# The pace (the user again: 「有点怪啊走路 你没感觉吗」): run v10 kept run v9's 8 x 133 ms, a slow shuffle whose small
+# steps slid along the ground. oppi's own Viktor walks 10 x 65 ms with feet lifted 1-2 px; at 80 ms a frame the same
+# steps come quick (a cycle in 0.64 s). Lifting higher stacks his two 10-px boots into two slabs (tried: heel kicks up
+# 2-3 behind the thigh).
+RUN_MS = 80
 STEP2 = [(3, 0), (2, 0), (0, 0), (-2, 0), (-3, 1), (-2, 1), (0, 1), (2, 0)]
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
 TORSO = 30            # design rows 0..29 (from the design's top) are in every run cell as they are
@@ -248,6 +253,10 @@ def main():
     for k in range(8):
         print(f"frame {k + 1}: near {at['near'][k][0]:+.2f} up {at['near'][k][1]}, far {at['far'][k][0]:+.2f} up "
               f"{at['far'][k][1]}")
+    for fr in cells["tags"]["run"]:
+        fr["ms"] = RUN_MS
+    with open(lp(os.path.join(NATIVE, "viktor_cells.json")), "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(cells, indent=1, ensure_ascii=False))
     a = load("viktor_run.png")
     S.place_run(a, cells, run_frames(design, bob))
     seat(a, cells)
