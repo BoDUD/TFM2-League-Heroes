@@ -492,7 +492,9 @@ RUN_STEPS = {
     # and 4 the far boot lands 1-3 columns ahead of the near one and the near heel is kicked up behind across the far
     # leg (drawn over it, up 4-5). The hips stay put (moving the far one in tucked its thigh's top under the tabard:
     # 「腿和腰这里有点变形」) - the legs lean in from the hip, the shin at most 3 columns more than the thigh
-    "near": [(0, 0, 0), (-1, -2, 0), (-3, -7, 4), (-3, -7, 5), (-1, -3, 3), (2, 2, 1), (2, 4, 0), (1, 2, 0)],
+    # the near boot stays left of the near blades until frame 7 (in 6, sunk 4 rows, its toe had met the blade tips:
+    # 「右手武器看起来有点变形」)
+    "near": [(0, 0, 0), (-1, -2, 0), (-3, -7, 4), (-3, -7, 5), (-1, -3, 3), (0, -3, 2), (1, 2, 0), (1, 1, 0)],
     "far": [(1, -1, 3), (3, 5, 1), (3, 6, 0), (2, 4, 0), (1, 2, 0), (0, 0, 0), (0, -2, 3), (0, -3, 5)],
 }
 RUN_HIP_DX = {"near": [0] * 8, "far": [0] * 8}
