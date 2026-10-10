@@ -1,0 +1,247 @@
+{
+ "hero": "draven",
+ "champ": "Draven",
+ "camera": {
+  "yaw": 40,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 38,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "draven_idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "draven_idle1@0",
+     140
+    ],
+    [
+     "draven_idle1@0",
+     140
+    ],
+    [
+     "draven_idle1@0",
+     140
+    ],
+    [
+     "draven_idle1@0",
+     140
+    ],
+    [
+     "draven_idle1@0",
+     140
+    ],
+    [
+     "draven_idle1@0",
+     140
+    ],
+    [
+     "draven_idle1@0",
+     140
+    ],
+    [
+     "draven_idle1@0",
+     140
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "frames": [
+    [
+     "draven_run@0",
+     100
+    ],
+    [
+     "draven_run@125",
+     100
+    ],
+    [
+     "draven_run@250",
+     100
+    ],
+    [
+     "draven_run@375",
+     100
+    ],
+    [
+     "draven_run@500",
+     100
+    ],
+    [
+     "draven_run@625",
+     100
+    ],
+    [
+     "draven_run@750",
+     100
+    ],
+    [
+     "draven_run@875",
+     100
+    ]
+   ]
+  },
+  "attack": {
+   "frames": [
+    [
+     "draven_attack1@0",
+     50
+    ],
+    [
+     "draven_attack1@100",
+     60
+    ],
+    [
+     "draven_attack1@190",
+     60
+    ],
+    [
+     "draven_attack1@270",
+     90
+    ],
+    [
+     "draven_attack1@420",
+     80
+    ],
+    [
+     "draven_attack1@700",
+     60
+    ]
+   ],
+   "lunge": 0.5
+  },
+  "skill": {
+   "frames": [
+    [
+     "draven_spell1_spin_left_right@0",
+     50
+    ],
+    [
+     "draven_spell1_spin_left_right@100",
+     50
+    ],
+    [
+     "draven_spell1_spin_left_right@200",
+     50
+    ],
+    [
+     "draven_spell1_spin_left_right@300",
+     50
+    ]
+   ]
+  },
+  "skill2": {
+   "frames": [
+    [
+     "draven_spell3@0",
+     60
+    ],
+    [
+     "draven_spell3@120",
+     60
+    ],
+    [
+     "draven_spell3@200",
+     60
+    ],
+    [
+     "draven_spell3@300",
+     80
+    ],
+    [
+     "draven_spell3@500",
+     80
+    ],
+    [
+     "draven_spell3@800",
+     60
+    ]
+   ],
+   "lunge": 0.5
+  },
+  "ult": {
+   "frames": [
+    [
+     "draven_spell4@0",
+     60
+    ],
+    [
+     "draven_spell4@130",
+     70
+    ],
+    [
+     "draven_spell4@260",
+     70
+    ],
+    [
+     "draven_spell4@390",
+     70
+    ],
+    [
+     "draven_spell4@470",
+     80
+    ],
+    [
+     "draven_spell4@600",
+     70
+    ],
+    [
+     "draven_spell4@900",
+     80
+    ]
+   ],
+   "lunge": 0.5
+  },
+  "hit": {
+   "frames": [
+    [
+     "draven_death@120",
+     100
+    ]
+   ],
+   "lunge": 0.5
+  },
+  "dead": {
+   "travel": 0.3,
+   "frames": [
+    [
+     "draven_death@0",
+     100
+    ],
+    [
+     "draven_death@200",
+     100
+    ],
+    [
+     "draven_death@400",
+     120
+    ],
+    [
+     "draven_death@700",
+     150
+    ],
+    [
+     "draven_death@1000",
+     200
+    ],
+    [
+     "draven_death@2000",
+     400
+    ]
+   ],
+   "lunge": 0.5
+  }
+ }
+}

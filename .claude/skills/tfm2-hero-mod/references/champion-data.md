@@ -3850,6 +3850,31 @@ a life. A teamfight kill of someone else in the 1-second window counts too - fin
 
 **Something that happens when he dies (league_kogmaw passive, Icathian Surprise).** No data effect runs on a death. Each life's first action (a `Permanent` caster flag death clears) starts a whole-game `AddCasted` on him (period P) that lobs a hidden `ParabolicProjectile` onto himself (`applied_target: AllyOnlySelf`, no applied effects) flying P + 1 ticks; its `end_effects` ask `RandomTarget {range: 1, casting_target: AllyOnlySelf}` for a 1-tick flag (no dead caster is found) and, without it, start the death effect. The `AddCasted` stops with him, so exactly one lob in the air finds him dead; travel P (not P + 1) missed the deaths on the landing tick (the check ran before the death, 6 of 14 lost), P + 1 caught 14 of 14 with no double. A burst where he fell hit nobody: a ranged hero dies 20000-150000 from the enemies. The void form is a visible `TargetProjectile` (1800 a tick) plus a hidden `TargetSplashProjectile` at the same speed for the burst (league_jinx's rocket), both in a `RandomTarget {EnemyChampion, from_projectile: true}` within 70000 of the landing: projectiles started from another projectile's `end_effects` spawn after the caster's death, also in the SDK (12 of 14 reached a champion and burst; the two lost ones were out of sight when they arrived).
 
+**An axe he runs to catch (league_draven Q, Spinning Axe).** The empowered attack's hit runs, a tick later (a
+projectile in a projectile's `applied_effects` needs the `Delayed`), `RandomTarget {range: 60000}` on
+`EnemyWithoutTower` - every other bounce on `AllyNotSelf` first (a toggle flag; a 1-tick flag says one was found) - and
+inside it two hidden penetrating `LinearProjectile`s at that unit with `y_offset` 5000 (so they leave from his own
+spot): one as fast as it is long (18000 or 24000), which ends the tick it starts, and one that takes the fall (24
+ticks). The fast one's `end_effects` run on its end point: the catch circle and the falling axe as `ViewEffect`s there
+(not his own spot, so they show), `CasterAnimation run` and `MoveTo {speed: far / 21}`: **`MoveTo` in a line's
+`end_effects` dashes the caster to that point** (ForceMove steps of exactly `speed` toward it, ending on it). The slow
+one's `end_effects` ask `RandomTarget {range: 4000, casting_target: AllyOnlySelf, from_projectile: true}` two ticks
+after he gets there: in the SDK 100 axes of 100 caught, standing on the spot (median 0 units off). Before
+(2026-10-10, first version) the axe fell where he stood when it hit and the AI never walked to it: 8 in 10 caught,
+most of them with him already out of the circle (13600 units off the centre, the check's range counting his body). A
+forced `CasterAnimation idle` holding him under a 42-tick fall kept him in the circle too, but it blocked his next
+attack by up to 20 ticks, so the fall became as long as the run. With nobody near, the old way: a lob onto himself, the
+circle a non-following `CasterViewEffect`. Measured on the way: a `LinearProjectile` in a `LinearProjectile`'s
+`end_effects` starts at the caster (heading for that end point), not at the end point - only the
+`BackToCasterLinearProjectile` starts there. Blood Rush has no slot (League's W has no cast): the attack turns it on
+when its cooldown flag is off and an enemy champion is near, and a catch removes the flag - the juggling loop.
+Whirling Death turns back at the first champion: a non-penetrating line on `EnemyChampion` (seen) whose `end_effects`
+start the `BackToCasterLinearProjectile` back, beside a hidden penetrating line for the damage on the way out. **A
+line's goal (its start + direction x `range`) is clamped to the map one axis at a time - `Targeting` casts too - so a
+line whose goal falls off the map bends**: League's global R at range 1000000 bent 9-13 degrees and missed its target
+(one went to the map's corner, 959999 x 0); at 400000 the casts measured bent 0-4 degrees, so the blades fly 400000
+(radius 16000, League's width) from casts on champions within 250000 *(SDK simulation, 2026-10-10)*.
+
 **A shadow that copies the combo (league_zed W, Living Shadow).** Every projectile leaves from the caster, and a zone's
 applied effects cannot start anything at the zone's point (measured 2026-10-09 with work/zd/test_echo.py: a
 `BackToCasterLinearProjectile` and a `RangeProjectile` in the applications of a `RangePeriodProjectile` on `AllyOnlySelf`

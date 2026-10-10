@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_draven_sfx_e_throw",
+      "volume": 0.5
+    }
+  ]
+}

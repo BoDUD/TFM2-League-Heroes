@@ -72,7 +72,7 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # through his wrist blades and shortened them); Olaf too (rig_olaf BREATH: the shared cut ran through his spiked greaves);
 # Viktor too (fix_viktor_stand BREATH: the shared cut and lean put an orange square in his mirrored far boot);
 # Talon too (his strips are League's own animation recoloured - tools/art/restyle_native.py - its idle moves already)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -89,7 +89,12 @@ BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "aatrox": {"sway": [0] * 8},   # his hand left the planted sword's hilt when the body leant
                 # Samira's second design (2026-10-09): a wide stance - the lean moved her shins and boots (Sivir's
                 # 「上下摆动时 希维尔的鞋变形了吧」); only the dip, the legs stand still
-                "samira": {"sway": [0] * 8}}
+                "samira": {"sway": [0] * 8},
+                # Draven's League idle (90 %, both axes out wide): the lean swung the far axe and sheared him over his
+                # legs - 「游戏里左右晃动的太大了吧 模型都变形」; only the dip
+                # and 「头和身体不协调」: his head no longer followed the dip a frame late (lag 0); then 「上下摆动武器变形」:
+                # the dip's shin rows cut the near axe hanging by his knee - he does not breathe (BREATHE_SKIP)
+                "draven": {"sway": [0] * 8, "lag": 0}}
 # hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
 # reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
 # 金克丝的武器也有点变形」「维鲁斯武器变形」, then 「小鱼人 凯隐 蛮王 艾希 烬武器变形」), so the weapon's pixels are lifted out
@@ -299,7 +304,8 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
-            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "olaf", "hecarim"}
+            "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "olaf", "hecarim",
+            "draven"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.

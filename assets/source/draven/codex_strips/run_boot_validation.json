@@ -1,0 +1,282 @@
+[
+  {
+    "file": "run_1.png",
+    "near": {
+      "source_side": "right",
+      "source_sole": 101,
+      "target_center": 70,
+      "target_sole": 99,
+      "source_center": 74.5,
+      "frame": "run_1.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        62,
+        81,
+        78,
+        100
+      ],
+      "measured_foot_center": 70.5
+    },
+    "far": {
+      "source_side": "left",
+      "source_sole": 92,
+      "target_center": 58,
+      "target_sole": 95,
+      "source_center": 55.0,
+      "frame": "run_1.png",
+      "visible_layer_bottom": 95,
+      "visible_layer_bbox": [
+        52,
+        81,
+        68,
+        96
+      ],
+      "measured_foot_center": 58.0
+    }
+  },
+  {
+    "file": "run_2.png",
+    "near": {
+      "source_side": "right",
+      "source_sole": 100,
+      "target_center": 67,
+      "target_sole": 99,
+      "source_center": 73.0,
+      "frame": "run_2.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        61,
+        82,
+        79,
+        100
+      ],
+      "measured_foot_center": 67.0
+    },
+    "far": {
+      "source_side": "left",
+      "source_sole": 95,
+      "target_center": 61,
+      "target_sole": 93,
+      "source_center": 55.0,
+      "frame": "run_2.png",
+      "visible_layer_bottom": 93,
+      "visible_layer_bbox": [
+        53,
+        82,
+        71,
+        94
+      ],
+      "measured_foot_center": 61.0
+    }
+  },
+  {
+    "file": "run_3.png",
+    "near": {
+      "source_side": "left",
+      "source_sole": 102,
+      "target_center": 64,
+      "target_sole": 99,
+      "source_center": 60.5,
+      "frame": "run_3.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        51,
+        82,
+        69,
+        100
+      ],
+      "measured_foot_center": 64.5
+    },
+    "far": {
+      "source_side": "right",
+      "source_sole": 96,
+      "target_center": 65,
+      "target_sole": 95,
+      "source_center": 71.0,
+      "frame": "run_3.png",
+      "visible_layer_bottom": 95,
+      "visible_layer_bbox": [
+        61,
+        82,
+        79,
+        96
+      ],
+      "measured_foot_center": 65.0
+    }
+  },
+  {
+    "file": "run_4.png",
+    "near": {
+      "source_side": "right",
+      "source_sole": 101,
+      "target_center": 61,
+      "target_sole": 99,
+      "source_center": 75.0,
+      "frame": "run_4.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        57,
+        81,
+        68,
+        100
+      ],
+      "measured_foot_center": 61.0
+    },
+    "far": {
+      "source_side": "left",
+      "source_sole": 97,
+      "target_center": 69,
+      "target_sole": 98,
+      "source_center": 57.5,
+      "frame": "run_4.png",
+      "visible_layer_bottom": 98,
+      "visible_layer_bbox": [
+        59,
+        81,
+        74,
+        99
+      ],
+      "measured_foot_center": 69.5
+    }
+  },
+  {
+    "file": "run_5.png",
+    "near": {
+      "source_side": "right",
+      "source_sole": 97,
+      "target_center": 58,
+      "target_sole": 95,
+      "source_center": 77.5,
+      "frame": "run_5.png",
+      "visible_layer_bottom": 95,
+      "visible_layer_bbox": [
+        51,
+        81,
+        73,
+        96
+      ],
+      "measured_foot_center": 57.5
+    },
+    "far": {
+      "source_side": "left",
+      "source_sole": 99,
+      "target_center": 70,
+      "target_sole": 99,
+      "source_center": 56.5,
+      "frame": "run_5.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        58,
+        81,
+        76,
+        100
+      ],
+      "measured_foot_center": 70.5
+    }
+  },
+  {
+    "file": "run_6.png",
+    "near": {
+      "source_side": "right",
+      "source_sole": 96,
+      "target_center": 61,
+      "target_sole": 93,
+      "source_center": 76.0,
+      "frame": "run_6.png",
+      "visible_layer_bottom": 93,
+      "visible_layer_bbox": [
+        55,
+        80,
+        73,
+        94
+      ],
+      "measured_foot_center": 61.0
+    },
+    "far": {
+      "source_side": "left",
+      "source_sole": 100,
+      "target_center": 67,
+      "target_sole": 99,
+      "source_center": 56.5,
+      "frame": "run_6.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        54,
+        80,
+        72,
+        100
+      ],
+      "measured_foot_center": 66.5
+    }
+  },
+  {
+    "file": "run_7.png",
+    "near": {
+      "source_side": "left",
+      "source_sole": 100,
+      "target_center": 65,
+      "target_sole": 95,
+      "source_center": 58.0,
+      "frame": "run_7.png",
+      "visible_layer_bottom": 95,
+      "visible_layer_bbox": [
+        55,
+        81,
+        70,
+        96
+      ],
+      "measured_foot_center": 65.0
+    },
+    "far": {
+      "source_side": "right",
+      "source_sole": 100,
+      "target_center": 64,
+      "target_sole": 99,
+      "source_center": 73.5,
+      "frame": "run_7.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        58,
+        82,
+        79,
+        100
+      ],
+      "measured_foot_center": 63.5
+    }
+  },
+  {
+    "file": "run_8.png",
+    "near": {
+      "source_side": "left",
+      "source_sole": 98,
+      "target_center": 69,
+      "target_sole": 98,
+      "source_center": 56.0,
+      "frame": "run_8.png",
+      "visible_layer_bottom": 98,
+      "visible_layer_bbox": [
+        55,
+        81,
+        73,
+        99
+      ],
+      "measured_foot_center": 69.0
+    },
+    "far": {
+      "source_side": "right",
+      "source_sole": 100,
+      "target_center": 61,
+      "target_sole": 99,
+      "source_center": 74.0,
+      "frame": "run_8.png",
+      "visible_layer_bottom": 99,
+      "visible_layer_bbox": [
+        56,
+        81,
+        75,
+        100
+      ],
+      "measured_foot_center": 61.0
+    }
+  }
+]

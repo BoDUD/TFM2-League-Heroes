@@ -1,0 +1,33 @@
+{
+  "idle": {
+    "frames": [
+      "idle_1.png"
+    ]
+  },
+  "attack": {
+    "frames": [
+      "attack_1.png",
+      "attack_2.png",
+      "attack_3.png",
+      "attack_4.png",
+      "attack_5.png"
+    ],
+    "durations_ms": [
+      50,
+      60,
+      73,
+      117,
+      100
+    ],
+    "total_ms": 400,
+    "release_frame": 4,
+    "release_time_ms": 183
+  },
+  "gif_durations_ms": [
+    50,
+    60,
+    70,
+    120,
+    100
+  ]
+}
