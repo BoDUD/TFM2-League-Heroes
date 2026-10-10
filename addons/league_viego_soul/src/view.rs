@@ -225,7 +225,9 @@ unsafe fn dress_viego(world: usize) {
         } else {
             Vec::new()
         };
-        if st.buff_lines < BUFF_LINES {
+        // the soul's buffs are logged whenever they change (the first BUFF_LINES other changes too)
+        let soulish = buffs.iter().any(|b| b.starts_with(b"league_viego_soul") || b.starts_with(b"league_viego_p_"));
+        if st.buff_lines < BUFF_LINES || soulish {
             let joined = buffs.join(&b", "[..]);
             if !st.buffsets.iter().any(|b| b.0 == world && b.1 == key && b.2 == joined) {
                 st.buffsets.retain(|b| !(b.0 == world && b.1 == key));
@@ -236,11 +238,13 @@ unsafe fn dress_viego(world: usize) {
         }
         let original = orig.get_or_keep(world, key, res);
         let soul = victim(buffs.iter().copied());
+        // the victim's body: its display entity's resource name while it is still in the display world; a soul is
+        // taken from a corpse the game may already have dropped, so else the champion id itself (every display entity
+        // seen - Viego's own "league_viego" - carries its id as the resource name)
         let target: Option<(Vec<u8>, &'static [&'static str])> = soul.and_then(|id| {
             let tags = tags_of(id)?;
-            let rec = recs.iter().find(|r| r.2 == id && r.0 != key)?;
-            let r = string_at(rec.1 + RES_CAP, 64)?;
-            Some((r.to_vec(), tags))
+            let live = recs.iter().find(|r| r.2 == id && r.0 != key).and_then(|rec| string_at(rec.1 + RES_CAP, 64));
+            Some((live.unwrap_or(id).to_vec(), tags))
         });
         let want_res: &[u8] = match &target {
             Some((r, _)) => r,
