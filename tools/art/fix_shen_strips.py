@@ -374,7 +374,10 @@ def trot_parts(des):
     upper = des.copy()
     upper[LEG_TOP:, :78] = 0
     upper[LEG_TOP + 2:] = 0
-    parts = {"upper": upper, "tail": tail, "apron": apron}
+    tail_top, hem = tail.copy(), tail.copy()
+    tail_top[KNEE_ROW:] = 0
+    hem[:KNEE_ROW] = 0
+    parts = {"upper": upper, "tail_top": tail_top, "hem": hem, "apron": apron}
     for name, leg in (("near", near), ("far", far)):
         thigh, low = leg.copy(), leg.copy()
         thigh[KNEE_ROW:] = 0
@@ -388,9 +391,12 @@ def trot_layers(parts, k):
     bob = TROT_BOB[k - 1]
     ndx, nup = NEAR_STEP[k - 1]
     fdx, fup = FAR_STEP[k - 1]
-    return [(parts["far_low"], fdx, -fup), (parts["far_thigh"], fdx, bob), (parts["tail"], ndx, bob),
-            (parts["near_low"], ndx, -nup), (parts["near_thigh"], ndx, bob), (parts["apron"], 0, bob),
-            (parts["upper"], 0, bob)]
+    # the tail hem's lower half (rows >= KNEE_ROW, beside the near boot) rises with the near lower leg, over the tail's
+    # upper half: the cloth lifted by the knee. Lifted alone, the near boot ran over the hem's corner (or, behind it,
+    # lost its ankle): 「右腿好了 左腿还有一点」. The tail's upper half sinks with the body.
+    return [(parts["far_low"], fdx, -fup), (parts["far_thigh"], fdx, bob), (parts["tail_top"], ndx, bob),
+            (parts["hem"], ndx, -nup), (parts["near_low"], ndx, -nup), (parts["near_thigh"], ndx, bob),
+            (parts["apron"], 0, bob), (parts["upper"], 0, bob)]
 
 
 SHRINK = 0.9                          # the user: 「慎的模型太大 缩小一点」 (46 rows -> 42, like Talon and Olaf)
