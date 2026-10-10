@@ -55,7 +55,7 @@
           "type": "TargetProjectile",
           "name": "league_senna_a_shot",
           "speed": 7000,
-          "y_offset": -2000,
+          "y_offset": 1000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -89,7 +89,7 @@
           "type": "TargetProjectile",
           "name": "league_senna_a_twin",
           "speed": 7000,
-          "y_offset": -2000,
+          "y_offset": 1000,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -1008,7 +1008,7 @@
                   "radius": 5000
                 }
               },
-              "y_offset": -2000
+              "y_offset": 1000
             }
           ]
         },
@@ -1193,7 +1193,7 @@
                 "radius": 5000
               }
             },
-            "y_offset": -2000
+            "y_offset": 1000
           }
         }
       ]

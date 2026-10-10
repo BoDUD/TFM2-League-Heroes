@@ -667,21 +667,41 @@ TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"
 # before it breathes. A hero whose strips a rig builds from the design shrinks the design there instead (rig_xinzhao.py
 # SCALE: cut from finished frames a diagonal spear's 1:2 shaft got uneven steps); SHRINK_KEEP: skin colours (hands)
 # no line may cross, "!RRGGBB+up,down,left,right" a box no line may cross
-SHRINK = {"xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.95}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」; karma: 「卡尔玛体型可以变小一点」 -> 90%, then 「缩小模型后有点奇怪了啊整体」: the head is cut in fix_karma_strips.py (HEAD_CUT, the same in every frame) and only two body rows go here (0.95, the head box and the boots kept)
+SHRINK = {"senna": 0.85, "xerath": 0.9, "renekton": 0.9, "twitch": 0.85, "karma": 0.95}      # players (2026-10-08): 「泽拉斯 ... 体型偏大」「鳄鱼体型也偏大了」; karma: 「卡尔玛体型可以变小一点」 -> 90%, then 「缩小模型后有点奇怪了啊整体」: the head is cut in fix_karma_strips.py (HEAD_CUT, the same in every frame) and only two body rows go here (0.95, the head box and the boots kept)
+# senna (2026-10-10): 「模型太大了 能缩小点吗」 -> 85% of the options (90 / 85; 46 -> 39 rows claws to soles), her face and
+# head the same squares in every frame (SHRINK_HEAD), the boots whole
 # no line through Xerath's face (his eyes' white-hot core) or Renekton's (his yellow eyes to his red jaw)
 # "=RRGGBB": no row through a square of that colour (Renekton's blue knee guards: a row through them halved the guard
 # and shifted his leg's stripes - 「这里是像素缺失吗」「在左脚啊」); not in his death, where the lying body's blue made
 # every low row "knee" and the cut fell on his head
-SHRINK_KEEP = {"olaf": ["!0455A6+13,6,11,11"], "karma": ["!1BB663+1,9,16,10", "=222048", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
+SHRINK_KEEP = {"senna": ["!77E3B3+12,5,11,11", "B46C47", "8F4C36"], "olaf": ["!0455A6+13,6,11,11"], "karma": ["!1BB663+1,9,16,10", "=222048", "C4815A", "825238"], "xerath": ["!FBFCFC"], "twitch": ["#FBFDF7", "!F94714+3,0,1,1"], "renekton": ["!F9D206+2,1,2,2", "!A8161F", "=0218B2", "=010E84"]}
 SHRINK_KEEP_TAG = {"karma": {"dead": ["!1BB663+3,9,16,10", "=222048", "C4815A", "825238"]}, "renekton": {"dead": ["!F9D206+2,1,2,2", "!A8161F"]}}
 # the lines follow the body from frame to frame, anchored on a colour only one feature has: cut at fixed canvas lines,
 # a cast or an attack that moves him took different lines of him in each frame - 「缩小后放技能的时候模型有点变形」
 # 「攻击时候也是」
-SHRINK_ANCHOR = {"olaf": "0455A6", "karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
+SHRINK_ANCHOR = {"senna": "77E3B3", "olaf": "0455A6", "karma": "1BB663", "xerath": "FBFCFC", "twitch": "FBFDF7", "renekton": "F9D206"}
 # actions whose body stands still while something over it floats: their lines are taken at the same place in every frame
 # (shrink_frames' still) - Karma's ring bobs in her idle and carries a square of the anchor's gem green, so the anchor
 # moved with it and her legs lost a row one higher in frames 3-4 (「待机动画效果的时候腿部变形啊」)
 SHRINK_STILL = {"karma": ["idle"]}
+# shrink_frames' ground: the rows under this one (from the pivot) follow the ground, not the anchor - Senna's head bobs
+# 6 rows in her run and 9 in her attack's lunge, and leg rows taken at the head's offset fell under her soles (a row or
+# two below the feet line in 9 frames)
+SHRINK_GROUND = {"senna": 0}
+# actions whose frames are planned in groups, each group's counts from its own first frame's size, not the idle's:
+# Senna's death crumples to 31-37 rows against the idle's 46, and the idle's 7 rows out of it squashed her hood and
+# cut her far boot off (dead 2: two pieces); the kneel she holds (frames 3-6) is one group, so it stays one shape
+SHRINK_GROUPS = {"senna": {"dead": [[0], [1], [2, 3, 4, 5]]}}
+# a head drawn the same on every frame loses the same lines in every action (shrink_frames.head_lines; window and keep
+# from the top-left square of the hero's SHRINK_ANCHOR colour, rows / (left, right) columns to take) - cut by each
+# action's own plan, Senna's hood lost other rows in each action and would change shape at every animation change;
+# her whole head is in SHRINK_KEEP, so no other line crosses it
+SHRINK_HEAD = {"senna": {"window": (-12, 6, -11, 18), "keep": (-4, 6, -4, 10), "rows": 2, "cols": (1, 1)}}
+# rows (from the pivot) no action loses: Senna's stamped boots are three rows, the soles' two are kept anyway
+SHRINK_KEEP_ROWS = {"senna": (9,)}
+# heroes whose anchor colour marks a feature drawn the same in every frame: shifts from its corner square
+# (shrink_frames.anchor_shifts robust) - Senna's eyes move 13 columns between two frames of her ult
+SHRINK_ROBUST = {"senna"}
 # single actions made smaller (the idle untouched), {hero: {scale: [tags]}}, with SHRINK_KEEP / SHRINK_ANCHOR as above:
 # Olaf's idle is the slim design B, and Codex's redraw of his R, E and death kept bulkier bodies (area 1.2-1.7x the
 # idle's) - after 「奥拉夫跑动时为什么变大一圈 好违和」 the user picked 「一起改」 (every action at the idle's size); his hit
@@ -1506,8 +1526,15 @@ def main():
             import shrink_frames as SF
             body0 = SF.body_of(sheet["idle"])
             a0 = sheet["idle"][0][0]
+            head = None
+            if hero in SHRINK_HEAD:
+                hs = SHRINK_HEAD[hero]
+                head = SF.head_lines(sheet, SHRINK_ANCHOR[hero], hs["window"], hs["rows"], hs["cols"], hs["keep"])
+                print(f"{hero}: head lines from the eyes' corner: rows {head['rows']}, columns {head['cols']}")
             idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero), body=body0,
-                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()))["idle"]
+                                        tags=["idle"], anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()),
+                                        head=head, keep_rows=SHRINK_KEEP_ROWS.get(hero, ()),
+                                        robust=hero in SHRINK_ROBUST)["idle"]
             if hero in HEAD_AT:
                 hx, hy = HEAD_AT[hero]
                 nx, ny = SF.move_point(idle_plan, hx - a0.shape[1] // 2, hy - a0.shape[0] // 2)
@@ -1527,10 +1554,29 @@ def main():
             if os.path.exists(bake_path):
                 with open(bake_path, encoding="utf-8") as f:
                     copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
+            groups = SHRINK_GROUPS.get(hero, {})
             plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
                                                          keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
-                                                         tags=[t for t in sheet if t != "idle"],
-                                                         anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()))}
+                                                         tags=[t for t in sheet if t != "idle" and t not in groups],
+                                                         anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()),
+                                                         ground=SHRINK_GROUND.get(hero), head=head,
+                                                         keep_rows=SHRINK_KEEP_ROWS.get(hero, ()),
+                                                         robust=hero in SHRINK_ROBUST)}
+            for tag, parts in groups.items():
+                if tag not in sheet:
+                    continue
+                frames = list(sheet[tag])
+                for part in parts:
+                    sub = {tag: [frames[i] for i in part]}
+                    plan = SF.shrink_sheet(sub, SHRINK[hero], body=SF.body_of(sub[tag]),
+                                           keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
+                                           tags=[tag], anchor=SHRINK_ANCHOR.get(hero), ground=SHRINK_GROUND.get(hero),
+                                           head=head, keep_rows=SHRINK_KEEP_ROWS.get(hero, ()),
+                                           robust=hero in SHRINK_ROBUST)[tag]
+                    for j, i in enumerate(part):
+                        frames[i] = sub[tag][j]
+                    plans[f"{tag}{'+'.join(str(i + 1) for i in part)}"] = plan
+                sheet[tag] = frames
             SHRUNK[hero] = plans
             print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
                 f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))

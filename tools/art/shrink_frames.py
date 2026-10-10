@@ -178,7 +178,8 @@ def _pick(cost, lo, hi, k, avoid=(), keep=None):
     return out
 
 
-def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), hard_frames=None, shifts=None):
+def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), hard_frames=None, shifts=None,
+             ground=None, fixed=None):
     """The rows and columns (canvas lines, from the pivot) the hero loses. body = (top, bottom, left, right) of the
     idle's body from the pivot (bottom = the soles' row): of its rows and columns 1 - scale go; of what lies beyond
     it (a raised or held-out weapon) the same share. One plan serves every action (shrink_sheet passes all their
@@ -186,10 +187,18 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
     every animation change. edge_rows / edge_cols: every action's own outermost two lines (pivot-relative), kept.
     shifts: per frame (dy, dx) of the body against the action's first frame (anchor_shifts): the lines are chosen on
     the frames moved back onto the first and removed at that much offset in each, so every frame loses the same lines
-    of HIM, not of the canvas."""
+    of HIM, not of the canvas.
+    ground: with shifts, the rows under this one (from the pivot) are judged on the frames as drawn and taken at the
+    same canvas line in every frame: the legs stand on the ground, not on the anchor. league_senna's head bobs 6 rows
+    in her run and 9 in her attack's lunge, and a leg row taken at the head's offset fell under her soles there - no
+    row of her went, and she stood a row (two) below the feet line in those frames.
+    fixed: {"rows": [...], "cols": [...]} lines (from the pivot, on the first frame) that go whatever they cost, in
+    place of as many of the chosen ones (the costliest): head_lines' cut of a head drawn the same in every frame."""
     st, H, W = _canvas(frames)
+    st0 = st
     if shifts is not None:
         st = np.stack([_moved(f, -dy, -dx) for f, (dy, dx) in zip(st, shifts)])
+    low = H + ground + 1 if ground is not None and shifts is not None else None     # first canvas row on the ground
     occ = (st[..., 3] > 0).any(0)
     rows, cols = np.nonzero(occ.any(1))[0], np.nonzero(occ.any(0))[0]
     top, bottom, left, right = body
@@ -199,6 +208,9 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
     cc = _diff(st, 2) + DETAIL_WEIGHT * det.sum((0, 1))
     kept = _kept(st, keep_colours)
     kr, kc = kept.sum((0, 2)), kept.sum((0, 1))        # kept squares on each line, over the frames
+    if low is not None:
+        rc[low:] = (_diff(st0, 1) + DETAIL_WEIGHT * _details(st0).sum((0, 2)))[low:]
+        kr[low:] = _kept(st0, keep_colours).sum((0, 2))[low:]
     # the figure's outermost lines on every side stay: they hold its tips and its outline (Sivir's first plan
     # took her hair's top row and both side columns - 「希维尔缩小后整体有点变形」); with a shared plan, every
     # action's own extremes are passed in too
@@ -255,6 +267,12 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
         # standing row "the head" and the whole cut fell on the legs (Samira: 「太怪了」) - they count as soft only
         hard[~np.asarray(hard_frames, bool)] = False
     hr, hc = hard.sum((0, 2)) + row_only.sum((0, 2)), hard.sum((0, 1))
+    if low is not None:
+        hard0 = _kept(st0, [c for c in keep_colours if c[0] in "!#"])
+        if hard_frames is not None:
+            hard0[~np.asarray(hard_frames, bool)] = False
+        row0 = _kept(st0, ["#" + c[1:] for c in keep_colours if c[0] == "="])
+        hr[low:] = (hard0.sum((0, 2)) + row0.sum((0, 2)))[low:]
     for edge in edge_r:
         if 0 <= edge < len(hr):
             hr[edge] += big
@@ -265,9 +283,28 @@ def plan_tag(frames, body, scale, keep_colours=(), edge_rows=(), edge_cols=(), h
             hc[edge] += big
     r_pick = move_off(r_pick, hr, rc, rows.min(), H + bottom + 1, (), False)
     c_pick = move_off(c_pick, hc, cc, cols.min(), cols.max() + 1, (W,), True)
+
+    def force(picks, lines, cost, keep, lo, hi, skip):
+        # the fixed lines in, the costliest picks out, the count unchanged (a pick beside a fixed line goes first)
+        lines = sorted(set(lines))
+        n = len(picks)
+        rest = sorted((i for i in picks if i not in lines and all(abs(i - f) > 1 for f in lines)), key=lambda i: cost[i])
+        rest = rest[:max(n - len(lines), 0)]
+        while len(rest) + len(lines) < n:
+            taken = set(rest) | set(lines)
+            free = [c for c in range(lo, hi) if keep[c] <= 0 and c not in skip and c not in taken
+                    and (c - 1) not in taken and (c + 1) not in taken]
+            if not free:
+                break
+            rest.append(min(free, key=lambda c: cost[c]))
+        return sorted(rest + lines)
+    if fixed:
+        r_pick = force(r_pick, [H + v for v in fixed.get("rows", ())], rc, hr, rows.min(), H + bottom + 1, ())
+        c_pick = force(c_pick, [W + v for v in fixed.get("cols", ())], cc, hc, cols.min(), cols.max() + 1, (W,))
     return {"rows": sorted(i - H for i in r_pick), "cols": sorted(i - W for i in c_pick),       # from the pivot
             "lost": int(rc[r_pick].sum() + cc[c_pick].sum()) if r_pick or c_pick else 0,
-            "shifts": [tuple(int(v) for v in d) for d in shifts] if shifts is not None else None}
+            "shifts": [tuple(int(v) for v in d) for d in shifts] if shifts is not None else None,
+            "ground": ground if low is not None else None}
 
 
 def _moved(a, dy, dx):
@@ -301,9 +338,21 @@ def anchor_points(frames, colour, near=None):
     return pts
 
 
-def anchor_shifts(frames, colour, ref=None):
+def anchor_shifts(frames, colour, ref=None, robust=False):
     """Per frame (dy, dx) of the anchor against `ref` (default: the first frame that shows it); a frame without it
-    takes the last one's."""
+    takes the last one's. robust: the anchor is the top-left square of the colour's main cluster (anchor_corner) - exact
+    for a feature drawn the same in every frame, and no step limit: league_senna's eyes jump 13 columns from her ult's
+    crouch to its raised cannon, past anchor_points' 10-square track, and that frame was cut through her face."""
+    if robust:
+        pts = [anchor_corner([(a, 0)], colour) for a, _ in frames]
+        if ref is None:
+            ref = next((p for p in pts if p is not None), None)
+        out, last = [], (0, 0)
+        for p in pts:
+            if p is not None and ref is not None:
+                last = (p[0] - ref[0], p[1] - ref[1])
+            out.append(last)
+        return out
     pts = anchor_points(frames, colour, near=ref)
     if ref is None:
         ref = next((p for p in pts if p is not None), None)
@@ -324,6 +373,60 @@ def move_point(plan, dx, dy):
     return dx - sum(1 for i in plan["cols"] if 0 < i < dx), ny
 
 
+def anchor_corner(frames, colour):
+    """The top-left square of `colour`'s main cluster (within 3 rows and 8 columns of its median: a lone glint of the
+    colour elsewhere is left out) in the first frame that shows it, from the pivot: (y, x), or None."""
+    st, H, W = _canvas(frames)
+    rgb = tuple(int(colour[i:i + 2], 16) for i in (0, 2, 4))
+    for f in st:
+        ys, xs = np.nonzero((f[..., 3] > 0) & (f[..., :3] == rgb).all(-1))
+        if not len(ys):
+            continue
+        ok = (np.abs(ys - np.median(ys)) <= 3) & (np.abs(xs - np.median(xs)) <= 8)
+        return int(ys[ok].min() - H), int(xs[ok].min() - W)
+    return None
+
+
+def head_lines(sheet, colour, window, rows, cols, keep):
+    """The lines a head drawn the same in every frame loses, the same ones in all of them (league_senna: one head on
+    every frame; cut by each action's own plan, her hood lost other rows in each action and changed shape at every
+    animation change). window (top, bottom, left, right) and keep (the face, the same) are from the top-left square
+    of `colour` (anchor_corner); of the window's rows `rows` go and of its columns cols = (left of keep, right of
+    keep): the ones most like a neighbour over every frame of every action laid on that square, none in keep, no two
+    side by side. Returns {"rows": [...], "cols": [...]} from that square."""
+    t, b, l, r = window
+    kt, kb, kl, kr_ = keep
+    wins = []
+    for frames in sheet.values():
+        for a, _ in frames:
+            c = anchor_corner([(a, 0)], colour)
+            if c is None:
+                continue
+            H, W = a.shape[0] // 2, a.shape[1] // 2
+            win = np.zeros((b - t + 1, r - l + 1, 4), np.uint8)
+            for y in range(t, b + 1):
+                for x in range(l, r + 1):
+                    yy, xx = H + c[0] + y, W + c[1] + x
+                    if 0 <= yy < a.shape[0] and 0 <= xx < a.shape[1]:
+                        win[y - t, x - l] = a[yy, xx]
+            wins.append(win)
+    st = np.stack(wins)
+    rc, cc = _diff(st, 1), _diff(st, 2)
+
+    def choose(cost, cands, n, base):
+        out = []
+        for _ in range(n):
+            free = [i for i in cands if i not in out and (i - 1) not in out and (i + 1) not in out]
+            if not free:
+                break
+            out.append(min(free, key=lambda i: cost[i - base]))
+        return sorted(out)
+    out_r = choose(rc, [y for y in range(t + 1, b) if not kt <= y <= kb], rows, t)
+    out_c = (choose(cc, [x for x in range(l + 1, kl)], cols[0], l)
+             + choose(cc, [x for x in range(kr_ + 1, r)], cols[1], l))
+    return {"rows": out_r, "cols": out_c}
+
+
 def apply_tag(frames, plan):
     """The frames without the plan's rows and columns, each centred on its pivot again: the pivot's row moves up by
     every removed row (all lie above the soles, so the soles keep their place under the pivot) and its column by the
@@ -333,7 +436,9 @@ def apply_tag(frames, plan):
     out = []
     for k, (_, ms) in enumerate(frames):
         dy, dx = shifts[k] if k < len(shifts) else (0, 0)
-        gone_r = {H + i + dy for i in plan["rows"] if 0 <= H + i + dy < st.shape[1]}
+        g = plan.get("ground")
+        lines = [H + i + (0 if g is not None and i > g else dy) for i in plan["rows"]]
+        gone_r = {r for r in lines if 0 <= r < st.shape[1]}
         gone_c = {W + i + dx for i in plan["cols"] if 0 <= W + i + dx < st.shape[2]}
         keep_r = [i for i in range(st.shape[1]) if i not in gone_r]
         keep_c = [i for i in range(st.shape[2]) if i not in gone_c]
@@ -352,7 +457,7 @@ def body_of(frames):
 
 
 def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), body=None, tags=None, anchor=None,
-                 keep_by_tag=None, still=()):
+                 keep_by_tag=None, still=(), ground=None, head=None, keep_rows=(), robust=False):
     """Every action of the sheet (or only `tags`) made `scale` as big; returns {tag: plan}. same_as {tag: source tag}: a
     copy of another action's frames (import_native's bake: the attack with a flash drawn in) takes its source's plan.
     body: the range the counts come from (body_of the idle as drawn), when the idle has been shrunk already.
@@ -361,7 +466,11 @@ def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), b
     still: actions whose body stands still from frame to frame while something over it floats (Karma's idle: her ring
     bobs, and the anchor colour is on the ring too) - the lines as chosen, taken at the same place in every frame: the
     anchor read the ring's float as the body moving and cut her legs one row higher in two frames
-    (「待机动画效果的时候腿部变形啊」)."""
+    (「待机动画效果的时候腿部变形啊」).
+    ground: plan_tag's - the rows under it follow the ground, not the anchor.
+    head: head_lines' {"rows", "cols"} (from the anchor's top-left square): those lines go in every action, on the
+    same squares of the head. keep_rows: rows (from the pivot) never taken - Senna's stamped boots' top row.
+    robust: anchor_shifts' - the anchor's corner square, not the mean of a 10-square track."""
     if body is None:
         body = body_of(sheet[body_tag])
     # one plan per action from its own frames (its head box and hands are tight there; one plan for all the actions
@@ -381,13 +490,20 @@ def shrink_sheet(sheet, scale, body_tag="idle", same_as=None, keep_colours=(), b
             if anchor:
                 # a copy is a slice of its source with an effect drawn in (attack_fx1 = the attack from 183 ms): its
                 # own frames' offsets, against its source's first frame
-                plans[tag]["shifts"] = anchor_shifts(sheet[tag], anchor, refs[root(tag)])
+                plans[tag]["shifts"] = anchor_shifts(sheet[tag], anchor, refs[root(tag)], robust)
         else:
             fr = sheet[root(tag)]
             if anchor:
-                refs[tag] = next((p for p in anchor_points(fr, anchor) if p is not None), None)
-            plans[tag] = plan_tag(fr, body, scale, (keep_by_tag or {}).get(tag, keep_colours),
-                                  shifts=anchor_shifts(fr, anchor, refs[tag]) if anchor else None)
+                refs[tag] = (anchor_corner(fr, anchor) if robust
+                             else next((p for p in anchor_points(fr, anchor) if p is not None), None))
+            fixed = None
+            if head and anchor:
+                c = anchor_corner(fr, anchor)
+                if c is not None:
+                    fixed = {"rows": [c[0] + v for v in head["rows"]], "cols": [c[1] + v for v in head["cols"]]}
+            plans[tag] = plan_tag(fr, body, scale, (keep_by_tag or {}).get(tag, keep_colours), edge_rows=keep_rows,
+                                  shifts=anchor_shifts(fr, anchor, refs[tag], robust) if anchor else None, ground=ground,
+                                  fixed=fixed)
             if tag in still:
                 plans[tag]["shifts"] = None
     for tag in todo:

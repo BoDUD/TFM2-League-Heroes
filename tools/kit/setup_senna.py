@@ -37,9 +37,10 @@ G = "<#7cfc00ff>"      # heals
 S = "<#9fd8ffff>"      # shields
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-# 2026-10-10 from the imported sprite: face = tfm2_ase.py face's suggestion (crown 42 px over the feet); the idle's
-# top (the cannon's claws) stands 34 px over the pivot -> banpick_center -39 + 34 = -5 (card-banpick rule)
-VIEW = {"face": {"x": 5, "y": -42}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -5}}
+# 2026-10-10 from the imported sprite: face = tfm2_ase.py face's suggestion; after the 85% shrink (「模型太大了」) the
+# crown stands 36 px over the feet and the idle's top (the cannon's claws) 27 px over the pivot - under the -28 line,
+# so the ban/pick card needs no banpick_center (card-banpick rule)
+VIEW = {"face": {"x": 3, "y": -36}, "center": {"x": 0, "y": -12}}
 DEATH = {"zh-hans": "（死亡清空）", "zh-hant": "（死亡清空）", "en": " (lost on death)", "ja": "（デスで失う）",
          "ko": "(사망 시 소멸)"}
 

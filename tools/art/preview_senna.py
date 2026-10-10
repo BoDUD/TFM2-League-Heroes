@@ -35,7 +35,7 @@ FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_senna_fx", "league
 SHOT = P["a_speed"] / 1000                       # px a tick
 MIST = P["w_speed"] / 1000
 LIGHT = P["r_speed"] / 1000
-LIFT = (5000 - P["a_y"]) // 1000                 # the shots fly 7 px over the pivot
+LIFT = (5000 - P["a_y"]) // 1000                 # how far over the pivot the shots fly
 
 
 def showcase(out, z=3, step=40):
