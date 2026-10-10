@@ -263,10 +263,9 @@ def stray_outline(c, top):
     c[stray] = 0
 
 
-def run_frames(design, bob):
-    """Run v14: the design's body over legs put together from the design's own leg rows (viktor_walk_legs) - the
-    cape behind the legs, the staff, the claw and the cape's inner edge in front; the body sinks WL.BOB rows as a foot
-    lands, the staff's lower part staying planted."""
+def layers(design):
+    """The design taken apart for the walk: (back, front, staff, near leg part, far leg part) - the cape behind the
+    legs; the staff, the claw and the cape's inner edge in front; the far leg the near one mirrored (viktor_walk_legs)."""
     near, far0 = S.legs()
     body = design.copy()
     body[(near[..., 3] > 0) | (far0[..., 3] > 0)] = 0
@@ -282,26 +281,35 @@ def run_frames(design, bob):
     front[y0:y1, x0:x1] = body[y0:y1, x0:x1]
     back = body.copy()
     back[(front[..., 3] > 0) | (staff[..., 3] > 0)] = 0
-    far = WL.far_part(near)
-    out = []
-    for k in range(8):
-        b = WL.BOB[k]
-        c = np.roll(back, b, axis=0)
-        for y in (S.LEG_TOP + b, S.LEG_TOP + 1 + b):
-            for x in range(*CROTCH):
-                if not c[y, x, 3]:
-                    c[y, x] = (*UNDER, 255)
-        for layer in (WL.leg(far, WL.FAR[(k + 4) % 8], b), WL.leg(near, WL.NEAR[k], b), np.roll(front, b, axis=0),
-                      staff):
-            m = layer[..., 3] > 0
-            c[m] = layer[m]
-        stray_outline(c, S.LEG_TOP - 4)
-        # closed as the import will close it: the import adds nothing new
-        low = int(np.nonzero(c[..., 3].any(1))[0].max())
-        c = G.complete_outline(c, color=OUT, dark=70, feet=low)[0]
-        stray_outline(c, S.LEG_TOP - 4)
-        out.append(c)
-    return out
+    return back, front, staff, near, WL.far_part(near)
+
+
+def legs_frame(parts, near_pose, far_pose, b):
+    """One whole figure on the legs in these poses (viktor_walk_legs (s1, s2, lift)), the body sunk b rows (the staff's
+    lower part planted), closed as the import will close it."""
+    back, front, staff, near, far = parts
+    c = np.roll(back, b, axis=0)
+    for y in (S.LEG_TOP + b, S.LEG_TOP + 1 + b):
+        for x in range(*CROTCH):
+            if not c[y, x, 3]:
+                c[y, x] = (*UNDER, 255)
+    for layer in (WL.leg(far, far_pose, b), WL.leg(near, near_pose, b), np.roll(front, b, axis=0), staff):
+        m = layer[..., 3] > 0
+        c[m] = layer[m]
+    stray_outline(c, S.LEG_TOP - 4)
+    # closed as the import will close it: the import adds nothing new
+    low = int(np.nonzero(c[..., 3].any(1))[0].max())
+    c = G.complete_outline(c, color=OUT, dark=70, feet=low)[0]
+    stray_outline(c, S.LEG_TOP - 4)
+    return c
+
+
+def run_frames(design, bob):
+    """Run v14: the design's body over legs put together from the design's own leg rows (viktor_walk_legs) - the
+    cape behind the legs, the staff, the claw and the cape's inner edge in front; the body sinks WL.BOB rows as a foot
+    lands, the staff's lower part staying planted."""
+    parts = layers(design)
+    return [legs_frame(parts, WL.NEAR[k], WL.FAR[(k + 4) % 8], WL.BOB[k]) for k in range(8)]
 
 
 def seat(a, cells):
