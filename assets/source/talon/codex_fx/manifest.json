@@ -1,0 +1,3354 @@
+{
+  "schema": "talon-fx-art-handoff-v1",
+  "assets_count": 16,
+  "frames_count": 72,
+  "rect_units": "image pixels; [x,y,width,height]",
+  "frame_order": "1-based, left to right in primary/pixel16; raw atlases row major",
+  "import_note": "Art handoff metadata only. Exact frame rects are supplied. Game scale, timing, anchor, draw order and bindings still require integration. Primary preserves generated details. pixel16 is strictly uniform 16px blocks but may simplify thin blades/crosses.",
+  "assets": [
+    {
+      "id": "a_hit",
+      "file": "talon_fx_a_hit.png",
+      "description": "普攻命中：腕刃刺击（目标身上），4 帧",
+      "binding_from_source": "view_effects `league_talon_a_hit`（跟随，画在人物上面）",
+      "reference_game_size": "12",
+      "frame_count": 4,
+      "cell_px": [
+        192,
+        192
+      ],
+      "image_px": [
+        768,
+        192
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "frame_file": "frames-native/a_hit/01.png",
+          "duration_ms": null,
+          "bbox": [
+            50,
+            58,
+            142,
+            136
+          ],
+          "sha256_rgba": "985e4967674096381d38841e588961d9296e12c2e6978e845333bfabe4b24064",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "frame_file": "frames-native/a_hit/02.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            20,
+            176,
+            171
+          ],
+          "sha256_rgba": "6482d08c01d00b484d73031ac9dba0253adeff81eafcc523a74fa50b54ba87e5",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "frame_file": "frames-native/a_hit/03.png",
+          "duration_ms": null,
+          "bbox": [
+            17,
+            23,
+            175,
+            163
+          ],
+          "sha256_rgba": "c466259f02fbe1c7288d9196e5bc59d6e3fcee3eff9deeb907fb5368fb213937",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "frame_file": "frames-native/a_hit/04.png",
+          "duration_ms": null,
+          "bbox": [
+            27,
+            30,
+            165,
+            155
+          ],
+          "sha256_rgba": "0b5511baaf35e8f1a62f37cbce612692084c884b527724fc93a24e4abe7a9766",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_a_hit.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#FFF2D8",
+            "#FFD08A",
+            "#F59A3A"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_a_hit.png",
+          "scale": 16,
+          "logical_cell": [
+            12,
+            12
+          ],
+          "logical_strip": "1x/talon_fx_a_hit.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#FFF2D8",
+            "#FFD08A",
+            "#F59A3A"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_a_hit.png",
+          "image_px": [
+            1254,
+            1254
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                627,
+                627
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                627,
+                0,
+                627,
+                627
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                627,
+                627,
+                627
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                627,
+                627,
+                627,
+                627
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "p_wound",
+      "file": "talon_fx_p_wound.png",
+      "description": "被动「刀锋之末」：伤口层数（敌人头顶，循环），4 帧",
+      "binding_from_source": "view_buffs `league_talon_p_wound`（循环，跟随；技能打中英雄后挂在他身上）",
+      "reference_game_size": "10 × 8",
+      "frame_count": 4,
+      "cell_px": [
+        160,
+        128
+      ],
+      "image_px": [
+        640,
+        128
+      ],
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            160,
+            128
+          ],
+          "frame_file": "frames-native/p_wound/01.png",
+          "duration_ms": null,
+          "bbox": [
+            42,
+            34,
+            118,
+            112
+          ],
+          "sha256_rgba": "8c556a20d7f7c85080be4b15a059c3f369f5b294339f7039800408fb7ad1a0bd",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            160,
+            0,
+            160,
+            128
+          ],
+          "frame_file": "frames-native/p_wound/02.png",
+          "duration_ms": null,
+          "bbox": [
+            44,
+            34,
+            116,
+            110
+          ],
+          "sha256_rgba": "e99bdd9f7bf2e0ec1b7089d16e09bbd923b5348dfc96d61a0a0a3af77a32961b",
+          "max_luminance": 243.5186
+        },
+        {
+          "index": 3,
+          "rect": [
+            320,
+            0,
+            160,
+            128
+          ],
+          "frame_file": "frames-native/p_wound/03.png",
+          "duration_ms": null,
+          "bbox": [
+            46,
+            16,
+            114,
+            100
+          ],
+          "sha256_rgba": "5c2b74cbec8092605076aa1e31e23da6585f7f8fb27f34a7999fb209ae24da0c",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            480,
+            0,
+            160,
+            128
+          ],
+          "frame_file": "frames-native/p_wound/04.png",
+          "duration_ms": null,
+          "bbox": [
+            42,
+            16,
+            118,
+            99
+          ],
+          "sha256_rgba": "08a424a49237d78a94f9a659ad5b24897f88ffb43d6bfdb4479b6d8f272a43db",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_p_wound.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_p_wound.png",
+          "scale": 16,
+          "logical_cell": [
+            10,
+            8
+          ],
+          "logical_strip": "1x/talon_fx_p_wound.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_p_wound.png",
+          "image_px": [
+            1983,
+            793
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                992,
+                396
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                992,
+                0,
+                991,
+                396
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                396,
+                992,
+                397
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                992,
+                396,
+                991,
+                397
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "p_bleed",
+      "file": "talon_fx_p_bleed.png",
+      "description": "被动触发：流血爆发（目标身上），6 帧",
+      "binding_from_source": "view_effects `league_talon_p_bleed`（跟随，画在人物上面）",
+      "reference_game_size": "20",
+      "frame_count": 6,
+      "cell_px": [
+        320,
+        320
+      ],
+      "image_px": [
+        1920,
+        320
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            320,
+            320
+          ],
+          "frame_file": "frames-native/p_bleed/01.png",
+          "duration_ms": null,
+          "bbox": [
+            39,
+            99,
+            281,
+            256
+          ],
+          "sha256_rgba": "4d291a3f014f6fbe83cb7ca08cad3a33caa20cf300d4ee09c1abee8b09912c24",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            320,
+            0,
+            320,
+            320
+          ],
+          "frame_file": "frames-native/p_bleed/02.png",
+          "duration_ms": null,
+          "bbox": [
+            28,
+            61,
+            292,
+            270
+          ],
+          "sha256_rgba": "80c09defd679f3f75bae3c789d5dd2240f78a85474fdaad4aa95ffab3ac223cf",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            640,
+            0,
+            320,
+            320
+          ],
+          "frame_file": "frames-native/p_bleed/03.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            50,
+            304,
+            270
+          ],
+          "sha256_rgba": "6cf699a482fe09658a466bc9b2104fa64c259689c39680e68607ebb931e89d9f",
+          "max_luminance": 230.01299999999998
+        },
+        {
+          "index": 4,
+          "rect": [
+            960,
+            0,
+            320,
+            320
+          ],
+          "frame_file": "frames-native/p_bleed/04.png",
+          "duration_ms": null,
+          "bbox": [
+            23,
+            55,
+            297,
+            252
+          ],
+          "sha256_rgba": "404ede90d24bc673ef768afee4f9bd4d4434efeb9dfb1827a4a82ee9c2e0a6ae",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            320,
+            320
+          ],
+          "frame_file": "frames-native/p_bleed/05.png",
+          "duration_ms": null,
+          "bbox": [
+            37,
+            72,
+            283,
+            228
+          ],
+          "sha256_rgba": "06c7735378815fa6fa1d53cef93f132a35423e9c7923540dcd1824dbcc84ccaf",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 6,
+          "rect": [
+            1600,
+            0,
+            320,
+            320
+          ],
+          "frame_file": "frames-native/p_bleed/06.png",
+          "duration_ms": null,
+          "bbox": [
+            68,
+            109,
+            252,
+            228
+          ],
+          "sha256_rgba": "899691b05391094cfcdd755da5df962cbc4a94d1270bd6ace6c36889273a69b3",
+          "max_luminance": 230.01299999999998
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_p_bleed.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408",
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_p_bleed.png",
+          "scale": 16,
+          "logical_cell": [
+            20,
+            20
+          ],
+          "logical_strip": "1x/talon_fx_p_bleed.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408",
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_p_bleed.png",
+          "image_px": [
+            1536,
+            1024
+          ],
+          "layout_columns_rows": [
+            3,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                512,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                1024,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                0,
+                512,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 5,
+              "rect": [
+                512,
+                512,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 6,
+              "rect": [
+                1024,
+                512,
+                512,
+                512
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "q_leap",
+      "file": "talon_fx_q_leap.png",
+      "description": "Q 跃击起跳：脚下的刀光和尘土（地上），4 帧",
+      "binding_from_source": "view_effects `league_talon_q_leap`（不跟随，画在人物下面；起跳的地方）",
+      "reference_game_size": "24 × 14",
+      "frame_count": 4,
+      "cell_px": [
+        384,
+        224
+      ],
+      "image_px": [
+        1536,
+        224
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            384,
+            224
+          ],
+          "frame_file": "frames-native/q_leap/01.png",
+          "duration_ms": null,
+          "bbox": [
+            137,
+            141,
+            247,
+            208
+          ],
+          "sha256_rgba": "b7cc291aa7026dd1996d00504293dbabff356b11ab386cad97451d86794266f6",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            384,
+            0,
+            384,
+            224
+          ],
+          "frame_file": "frames-native/q_leap/02.png",
+          "duration_ms": null,
+          "bbox": [
+            37,
+            49,
+            347,
+            208
+          ],
+          "sha256_rgba": "fd456c38efc9d85e7d8a90d8b7c96d83d4021656cd31ca30a3d387f6d41a09d7",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            384,
+            224
+          ],
+          "frame_file": "frames-native/q_leap/03.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            46,
+            368,
+            185
+          ],
+          "sha256_rgba": "c24f1724dfe66f58525264718fbb9d9df373d7eaa4f24a14707cb67a080b2142",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            1152,
+            0,
+            384,
+            224
+          ],
+          "frame_file": "frames-native/q_leap/04.png",
+          "duration_ms": null,
+          "bbox": [
+            56,
+            109,
+            328,
+            185
+          ],
+          "sha256_rgba": "d1b7a960c8a51ef130d71bddd81bdb8d53bfe60e9c32c57cfa38c324b0668b14",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_q_leap.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#E8DCC8",
+            "#B8A890",
+            "#807060"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_q_leap.png",
+          "scale": 16,
+          "logical_cell": [
+            24,
+            14
+          ],
+          "logical_strip": "1x/talon_fx_q_leap.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#E8DCC8",
+            "#B8A890",
+            "#807060"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_q_leap.png",
+          "image_px": [
+            1643,
+            957
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                822,
+                478
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                822,
+                0,
+                821,
+                478
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                478,
+                822,
+                479
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                822,
+                478,
+                821,
+                479
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "q_hit",
+      "file": "talon_fx_q_hit.png",
+      "description": "Q 命中：跃击刺中（目标身上），5 帧",
+      "binding_from_source": "view_effects `league_talon_q_hit`（跟随，画在人物上面）",
+      "reference_game_size": "18",
+      "frame_count": 5,
+      "cell_px": [
+        288,
+        288
+      ],
+      "image_px": [
+        1440,
+        288
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            288
+          ],
+          "frame_file": "frames-native/q_hit/01.png",
+          "duration_ms": null,
+          "bbox": [
+            126,
+            23,
+            162,
+            265
+          ],
+          "sha256_rgba": "d49d0686cb539ece889d346604f75b47640f466d1ff95bfc3119d9bbf577b7ea",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            288
+          ],
+          "frame_file": "frames-native/q_hit/02.png",
+          "duration_ms": null,
+          "bbox": [
+            38,
+            33,
+            250,
+            254
+          ],
+          "sha256_rgba": "40c77d0e4dafda9b60ec33e308ecbbf98df6959e222489b740dd31e1970debc0",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            288
+          ],
+          "frame_file": "frames-native/q_hit/03.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            38,
+            272,
+            265
+          ],
+          "sha256_rgba": "5238f67b4565d85e33b70678020658978ed61f5d31a9c435a2c184312f19192f",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            288
+          ],
+          "frame_file": "frames-native/q_hit/04.png",
+          "duration_ms": null,
+          "bbox": [
+            21,
+            23,
+            267,
+            252
+          ],
+          "sha256_rgba": "76b632d67d8571f611aa36b0742a290bea5ece4de4a9301e9d18cd7501181f78",
+          "max_luminance": 166.4154
+        },
+        {
+          "index": 5,
+          "rect": [
+            1152,
+            0,
+            288,
+            288
+          ],
+          "frame_file": "frames-native/q_hit/05.png",
+          "duration_ms": null,
+          "bbox": [
+            41,
+            45,
+            247,
+            242
+          ],
+          "sha256_rgba": "c355079a39b0287f46e0686fc2f8febf90e0fc1ad18ad80b832029c0502f28a2",
+          "max_luminance": 96.3964
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_q_hit.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408",
+            "#FFF2D8",
+            "#FFD08A",
+            "#F59A3A"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_q_hit.png",
+          "scale": 16,
+          "logical_cell": [
+            18,
+            18
+          ],
+          "logical_strip": "1x/talon_fx_q_hit.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408",
+            "#FFF2D8",
+            "#FFD08A",
+            "#F59A3A"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_q_hit.png",
+          "image_px": [
+            1536,
+            1024
+          ],
+          "layout_columns_rows": [
+            3,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                512,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                1024,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                0,
+                512,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 5,
+              "rect": [
+                512,
+                512,
+                512,
+                512
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "q_heal",
+      "file": "talon_fx_q_heal.png",
+      "description": "Q 击杀回血（泰隆身上），5 帧",
+      "binding_from_source": "view_effects `league_talon_q_heal`（不跟随，画在人物上面）",
+      "reference_game_size": "16 × 24",
+      "frame_count": 5,
+      "cell_px": [
+        256,
+        384
+      ],
+      "image_px": [
+        1280,
+        384
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            256,
+            384
+          ],
+          "frame_file": "frames-native/q_heal/01.png",
+          "duration_ms": null,
+          "bbox": [
+            21,
+            219,
+            235,
+            326
+          ],
+          "sha256_rgba": "0b2273062f09007a2b85ac2066ddd22fecfd3c7c5985d679b64db820fc12ec0f",
+          "max_luminance": 250.72799999999998
+        },
+        {
+          "index": 2,
+          "rect": [
+            256,
+            0,
+            256,
+            384
+          ],
+          "frame_file": "frames-native/q_heal/02.png",
+          "duration_ms": null,
+          "bbox": [
+            17,
+            108,
+            239,
+            325
+          ],
+          "sha256_rgba": "0924383ed235d892d97a01c43877238e08450ea9de798280e7c872494a5cbb0a",
+          "max_luminance": 250.72799999999998
+        },
+        {
+          "index": 3,
+          "rect": [
+            512,
+            0,
+            256,
+            384
+          ],
+          "frame_file": "frames-native/q_heal/03.png",
+          "duration_ms": null,
+          "bbox": [
+            18,
+            66,
+            238,
+            314
+          ],
+          "sha256_rgba": "895e712c4dd939ae056028959fd2d85a9172b04313ca4e8a7bd8c30234d0bdd0",
+          "max_luminance": 250.72799999999998
+        },
+        {
+          "index": 4,
+          "rect": [
+            768,
+            0,
+            256,
+            384
+          ],
+          "frame_file": "frames-native/q_heal/04.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            58,
+            240,
+            220
+          ],
+          "sha256_rgba": "dd2a8993ba0e772781162f6d2c3f54719e2adca4ccd7861e88d2730c99d998ba",
+          "max_luminance": 250.72799999999998
+        },
+        {
+          "index": 5,
+          "rect": [
+            1024,
+            0,
+            256,
+            384
+          ],
+          "frame_file": "frames-native/q_heal/05.png",
+          "duration_ms": null,
+          "bbox": [
+            30,
+            220,
+            226,
+            313
+          ],
+          "sha256_rgba": "fe6a8f15053b1d8bbaf300d9efb0d8d100c6f6faf9c24269cbbd52e3f3bf9d3b",
+          "max_luminance": 250.72799999999998
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_q_heal.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#F0FFF0",
+            "#B8F5B0",
+            "#6AD860",
+            "#2E9A3A"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_q_heal.png",
+          "scale": 16,
+          "logical_cell": [
+            16,
+            24
+          ],
+          "logical_strip": "1x/talon_fx_q_heal.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#F0FFF0",
+            "#B8F5B0",
+            "#6AD860",
+            "#2E9A3A"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_q_heal.png",
+          "image_px": [
+            1536,
+            1024
+          ],
+          "layout_columns_rows": [
+            3,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                512,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                1024,
+                0,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                0,
+                512,
+                512,
+                512
+              ]
+            },
+            {
+              "index": 5,
+              "rect": [
+                512,
+                512,
+                512,
+                512
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "w_out",
+      "file": "talon_fx_w_out.png",
+      "description": "W 斩草除根：飞出去的一扇刀刃（随飞行方向转），4 帧循环",
+      "binding_from_source": "view_projectiles `league_talon_w_out`（朝飞行方向转）",
+      "reference_game_size": "14 × 20",
+      "frame_count": 4,
+      "cell_px": [
+        288,
+        352
+      ],
+      "image_px": [
+        1152,
+        352
+      ],
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "symmetry": "top_bottom",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            352
+          ],
+          "frame_file": "frames-native/w_out/01.png",
+          "duration_ms": null,
+          "bbox": [
+            22,
+            69,
+            267,
+            283
+          ],
+          "sha256_rgba": "1851cd47b2468702698194f7ce5da74ed2a4dbd87bd9386881d9b6b9a1a1e83d",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            352
+          ],
+          "frame_file": "frames-native/w_out/02.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            87,
+            267,
+            265
+          ],
+          "sha256_rgba": "169ec3a8be2e10ecc41b9910af96b6bcebfc6dd5a9603070c9e6c2ed121d8fe7",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            352
+          ],
+          "frame_file": "frames-native/w_out/03.png",
+          "duration_ms": null,
+          "bbox": [
+            31,
+            74,
+            257,
+            278
+          ],
+          "sha256_rgba": "74b755fffa1af619042d13c74e24abf5c7402d38b305dfe6c71de7d34be40c3b",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            352
+          ],
+          "frame_file": "frames-native/w_out/04.png",
+          "duration_ms": null,
+          "bbox": [
+            29,
+            76,
+            252,
+            276
+          ],
+          "sha256_rgba": "cc3e6bcb94945f2232135c55c2d6f6096e2716a64ae055849ea8b48732f0308a",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_w_out.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_w_out.png",
+          "scale": 16,
+          "logical_cell": [
+            18,
+            22
+          ],
+          "logical_strip": "1x/talon_fx_w_out.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_w_out.png",
+          "image_px": [
+            1605,
+            980
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                802,
+                490
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                802,
+                0,
+                803,
+                490
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                490,
+                802,
+                490
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                802,
+                490,
+                803,
+                490
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "w_back",
+      "file": "talon_fx_w_back.png",
+      "description": "W 回程：飞回来的刀刃（随飞行方向转），4 帧循环",
+      "binding_from_source": "view_projectiles `league_talon_w_back`（朝飞行方向转；从远处飞回泰隆）",
+      "reference_game_size": "14 × 20",
+      "frame_count": 4,
+      "cell_px": [
+        352,
+        352
+      ],
+      "image_px": [
+        1408,
+        352
+      ],
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "symmetry": "top_bottom",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            352,
+            352
+          ],
+          "frame_file": "frames-native/w_back/01.png",
+          "duration_ms": null,
+          "bbox": [
+            20,
+            117,
+            332,
+            235
+          ],
+          "sha256_rgba": "ae89670b64bf570acd6eb3afea9f6c9dadbeccea578995a85c680213267c5ea8",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            352,
+            0,
+            352,
+            352
+          ],
+          "frame_file": "frames-native/w_back/02.png",
+          "duration_ms": null,
+          "bbox": [
+            18,
+            122,
+            334,
+            230
+          ],
+          "sha256_rgba": "86eb3b051e40b1f3f4760cc6a77b72074d8ed60c0f3d36e41c44f51721459b62",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            704,
+            0,
+            352,
+            352
+          ],
+          "frame_file": "frames-native/w_back/03.png",
+          "duration_ms": null,
+          "bbox": [
+            20,
+            109,
+            332,
+            243
+          ],
+          "sha256_rgba": "47b2b00b62bb25b72cd10930cf25a9ba735575e17c5be004af0ba696733f1fb0",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            1056,
+            0,
+            352,
+            352
+          ],
+          "frame_file": "frames-native/w_back/04.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            106,
+            336,
+            246
+          ],
+          "sha256_rgba": "4682714fff8286aeacc1a8e757e35bc67b0e719157b4c524aad1fbef7e05db4f",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_w_back.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_w_back.png",
+          "scale": 16,
+          "logical_cell": [
+            22,
+            22
+          ],
+          "logical_strip": "1x/talon_fx_w_back.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_w_back.png",
+          "image_px": [
+            1774,
+            887
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                887,
+                444
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                887,
+                0,
+                887,
+                444
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                444,
+                887,
+                443
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                887,
+                444,
+                887,
+                443
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "w_hit",
+      "file": "talon_fx_w_hit.png",
+      "description": "W 命中（目标身上），3 帧",
+      "binding_from_source": "view_effects `league_talon_w_hit`（跟随）",
+      "reference_game_size": "10",
+      "frame_count": 3,
+      "cell_px": [
+        160,
+        160
+      ],
+      "image_px": [
+        480,
+        160
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            160,
+            160
+          ],
+          "frame_file": "frames-native/w_hit/01.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            58,
+            144,
+            101
+          ],
+          "sha256_rgba": "4f556f3084cc2ed8e83286cfb8b3e1a42b6420e7188efbed1a61102cd4834da2",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            160,
+            0,
+            160,
+            160
+          ],
+          "frame_file": "frames-native/w_hit/02.png",
+          "duration_ms": null,
+          "bbox": [
+            20,
+            45,
+            140,
+            114
+          ],
+          "sha256_rgba": "15f8f311535176a7493bfdffcf0e11a263e5e41c961777be51ba71f25eb40725",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            320,
+            0,
+            160,
+            160
+          ],
+          "frame_file": "frames-native/w_hit/03.png",
+          "duration_ms": null,
+          "bbox": [
+            27,
+            58,
+            133,
+            104
+          ],
+          "sha256_rgba": "2cedf0afbb31310dd9f77444644f119dad91b2f11793d81298eb604dffff2be7",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_w_hit.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_w_hit.png",
+          "scale": 16,
+          "logical_cell": [
+            10,
+            10
+          ],
+          "logical_strip": "1x/talon_fx_w_hit.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_w_hit.png",
+          "image_px": [
+            2172,
+            724
+          ],
+          "layout_columns_rows": [
+            3,
+            1
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                724,
+                724
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                724,
+                0,
+                724,
+                724
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                1448,
+                0,
+                724,
+                724
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "w_slow",
+      "file": "talon_fx_w_slow.png",
+      "description": "W 回程减速（敌人脚下，循环），4 帧",
+      "binding_from_source": "view_buffs `league_talon_w_slow`（循环，跟随，画在人物上面）",
+      "reference_game_size": "16 × 6",
+      "frame_count": 4,
+      "cell_px": [
+        288,
+        128
+      ],
+      "image_px": [
+        1152,
+        128
+      ],
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            288,
+            128
+          ],
+          "frame_file": "frames-native/w_slow/01.png",
+          "duration_ms": null,
+          "bbox": [
+            21,
+            27,
+            267,
+            104
+          ],
+          "sha256_rgba": "a7cf97d0114625c6b8af532ed08ea1206ae088e27c2b9c6e6be8f95a9303df41",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            288,
+            0,
+            288,
+            128
+          ],
+          "frame_file": "frames-native/w_slow/02.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            39,
+            272,
+            107
+          ],
+          "sha256_rgba": "18b153409b8a9f17ab8772cc7e8d5b807fc4ee08f492b6d1ee2d5343767386ca",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            288,
+            128
+          ],
+          "frame_file": "frames-native/w_slow/03.png",
+          "duration_ms": null,
+          "bbox": [
+            21,
+            36,
+            267,
+            104
+          ],
+          "sha256_rgba": "b5bcdfad091031c3fc1f5b072bf3dc30e1ed5c6e826e1bd42ae3b0faad33ea15",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            864,
+            0,
+            288,
+            128
+          ],
+          "frame_file": "frames-native/w_slow/04.png",
+          "duration_ms": null,
+          "bbox": [
+            21,
+            20,
+            267,
+            99
+          ],
+          "sha256_rgba": "5c91273122edeb264c95d9f7c245c135cb7e87d6be7eaf46d59de8a9c3523f6a",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_w_slow.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_w_slow.png",
+          "scale": 16,
+          "logical_cell": [
+            18,
+            8
+          ],
+          "logical_strip": "1x/talon_fx_w_slow.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_w_slow.png",
+          "image_px": [
+            1881,
+            836
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                940,
+                418
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                940,
+                0,
+                941,
+                418
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                418,
+                940,
+                418
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                940,
+                418,
+                941,
+                418
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "e_vault",
+      "file": "talon_fx_e_vault.png",
+      "description": "E 刺客之道：翻越起跳（地上），5 帧",
+      "binding_from_source": "view_effects `league_talon_e_vault`（不跟随，画在人物下面）",
+      "reference_game_size": "26 × 18",
+      "frame_count": 5,
+      "cell_px": [
+        416,
+        288
+      ],
+      "image_px": [
+        2080,
+        288
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            416,
+            288
+          ],
+          "frame_file": "frames-native/e_vault/01.png",
+          "duration_ms": null,
+          "bbox": [
+            111,
+            191,
+            305,
+            272
+          ],
+          "sha256_rgba": "14039cdef1a569df06926b1133ba302d4260dc3ab3ce35326c755dec9675b799",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            416,
+            0,
+            416,
+            288
+          ],
+          "frame_file": "frames-native/e_vault/02.png",
+          "duration_ms": null,
+          "bbox": [
+            53,
+            63,
+            363,
+            271
+          ],
+          "sha256_rgba": "764fc2e09c556f9e958cae43ee84501173c923133fc833354ae0151232307197",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            832,
+            0,
+            416,
+            288
+          ],
+          "frame_file": "frames-native/e_vault/03.png",
+          "duration_ms": null,
+          "bbox": [
+            44,
+            28,
+            372,
+            272
+          ],
+          "sha256_rgba": "255fb438f43422a23a05142acf999c02c64939c947b2131cdfb0754cc82d64a2",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            1248,
+            0,
+            416,
+            288
+          ],
+          "frame_file": "frames-native/e_vault/04.png",
+          "duration_ms": null,
+          "bbox": [
+            59,
+            16,
+            357,
+            250
+          ],
+          "sha256_rgba": "fb652fd8462e382c801d01dfb920aca7a252d29967139609635a306653d50356",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 5,
+          "rect": [
+            1664,
+            0,
+            416,
+            288
+          ],
+          "frame_file": "frames-native/e_vault/05.png",
+          "duration_ms": null,
+          "bbox": [
+            53,
+            47,
+            363,
+            250
+          ],
+          "sha256_rgba": "a9ebdecd9a406a60e89f11817172957801b45b0c530ad2ff3a2509cf553b87c1",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_e_vault.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#E8DCC8",
+            "#B8A890",
+            "#807060"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_e_vault.png",
+          "scale": 16,
+          "logical_cell": [
+            26,
+            18
+          ],
+          "logical_strip": "1x/talon_fx_e_vault.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#E8DCC8",
+            "#B8A890",
+            "#807060"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_e_vault.png",
+          "image_px": [
+            1695,
+            928
+          ],
+          "layout_columns_rows": [
+            3,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                565,
+                464
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                565,
+                0,
+                565,
+                464
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                1130,
+                0,
+                565,
+                464
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                0,
+                464,
+                565,
+                464
+              ]
+            },
+            {
+              "index": 5,
+              "rect": [
+                565,
+                464,
+                565,
+                464
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "e_haste",
+      "file": "talon_fx_e_haste.png",
+      "description": "E 加速（脚下，循环），4 帧",
+      "binding_from_source": "view_buffs `league_talon_e_haste`（循环，跟随，画在人物下面）",
+      "reference_game_size": "18 × 8",
+      "frame_count": 4,
+      "cell_px": [
+        320,
+        144
+      ],
+      "image_px": [
+        1280,
+        144
+      ],
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            320,
+            144
+          ],
+          "frame_file": "frames-native/e_haste/01.png",
+          "duration_ms": null,
+          "bbox": [
+            73,
+            58,
+            247,
+            104
+          ],
+          "sha256_rgba": "fbbf815f0882f52da729e86a8b4ba5b9fc40ac807c6a41f03108f54f033db6cf",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            320,
+            0,
+            320,
+            144
+          ],
+          "frame_file": "frames-native/e_haste/02.png",
+          "duration_ms": null,
+          "bbox": [
+            32,
+            60,
+            288,
+            104
+          ],
+          "sha256_rgba": "09e3285e62210a6480487a1dc453b99a05e1d97e62d8a4dc5bedfa5330a3968d",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            640,
+            0,
+            320,
+            144
+          ],
+          "frame_file": "frames-native/e_haste/03.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            39,
+            304,
+            87
+          ],
+          "sha256_rgba": "cf5216b0d0a6d6d39a8755cc8a199905c67c267fe8cd9f95188919fe2a2abf8e",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            960,
+            0,
+            320,
+            144
+          ],
+          "frame_file": "frames-native/e_haste/04.png",
+          "duration_ms": null,
+          "bbox": [
+            53,
+            47,
+            267,
+            87
+          ],
+          "sha256_rgba": "cc623bdd7824231d9a6e2f0ebeca87295cfb293b7999aa286cd1d1d68713e4d8",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_e_haste.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_e_haste.png",
+          "scale": 16,
+          "logical_cell": [
+            20,
+            9
+          ],
+          "logical_strip": "1x/talon_fx_e_haste.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_e_haste.png",
+          "image_px": [
+            2089,
+            753
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                1044,
+                376
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                1044,
+                0,
+                1045,
+                376
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                376,
+                1044,
+                377
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                1044,
+                376,
+                1045,
+                377
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "r_out",
+      "file": "talon_fx_r_out.png",
+      "description": "R 暗影突袭：刀刃向四周甩出（地上，围着泰隆），6 帧",
+      "binding_from_source": "view_effects `league_talon_r_out`（不跟随，画在人物上面；半径约 30 格）",
+      "reference_game_size": "60 × 30",
+      "frame_count": 6,
+      "cell_px": [
+        1024,
+        512
+      ],
+      "image_px": [
+        6144,
+        512
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_out/01.png",
+          "duration_ms": null,
+          "bbox": [
+            398,
+            160,
+            626,
+            382
+          ],
+          "sha256_rgba": "6a07c7112bc2ce96466843c4d638adea826ee5cadc61ea1267d6194fd261b1a9",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_out/02.png",
+          "duration_ms": null,
+          "bbox": [
+            214,
+            137,
+            810,
+            410
+          ],
+          "sha256_rgba": "ebe107ebde0af543f9f08a0959219d4831aff7f0d6319e11d23d0c57f866a489",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            2048,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_out/03.png",
+          "duration_ms": null,
+          "bbox": [
+            46,
+            80,
+            978,
+            472
+          ],
+          "sha256_rgba": "890640ef5b8fdd71bfbef057da0e0d66897daa59794d81d73b3bf94b710aeca1",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_out/04.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            40,
+            1008,
+            462
+          ],
+          "sha256_rgba": "25425363df02d0c2e66c71818eb08cf9c5ff430ddb008e494d00fd398163cbaf",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 5,
+          "rect": [
+            4096,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_out/05.png",
+          "duration_ms": null,
+          "bbox": [
+            19,
+            40,
+            1005,
+            460
+          ],
+          "sha256_rgba": "eb11bc19f832d3fb830e1f0ce3990c120131f0b85496f1b80558a43154860afc",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 6,
+          "rect": [
+            5120,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_out/06.png",
+          "duration_ms": null,
+          "bbox": [
+            29,
+            40,
+            995,
+            460
+          ],
+          "sha256_rgba": "068e2256bf101d9122bf13c29c60aca45e4676e7111bdf5a16c9884e8026f1dd",
+          "max_luminance": 233.1198
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_r_out.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#C8D4FF",
+            "#8A9AF0",
+            "#5A5CC8",
+            "#3A3490",
+            "#241E5A",
+            "#140F30"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_r_out.png",
+          "scale": 16,
+          "logical_cell": [
+            64,
+            32
+          ],
+          "logical_strip": "1x/talon_fx_r_out.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78",
+            "#C8D4FF",
+            "#8A9AF0",
+            "#5A5CC8",
+            "#3A3490",
+            "#241E5A",
+            "#140F30"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_r_out.png",
+          "image_px": [
+            2172,
+            724
+          ],
+          "layout_columns_rows": [
+            3,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                724,
+                0,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                1448,
+                0,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                0,
+                362,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 5,
+              "rect": [
+                724,
+                362,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 6,
+              "rect": [
+                1448,
+                362,
+                724,
+                362
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "r_back",
+      "file": "talon_fx_r_back.png",
+      "description": "R 收刀：刀刃从四周飞回泰隆（地上），6 帧",
+      "binding_from_source": "view_effects `league_talon_r_back`（不跟随，画在人物上面）",
+      "reference_game_size": "60 × 30",
+      "frame_count": 6,
+      "cell_px": [
+        1024,
+        512
+      ],
+      "image_px": [
+        6144,
+        512
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_back/01.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            92,
+            1008,
+            458
+          ],
+          "sha256_rgba": "6ea105ba3b31bb46936cb0211fac340f842b1da5d88c756133c432e5a2c858dc",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_back/02.png",
+          "duration_ms": null,
+          "bbox": [
+            25,
+            90,
+            999,
+            465
+          ],
+          "sha256_rgba": "80409d505fa5d693759b6dee0f9ba20e066fdbd0e99d0de0ce20672f9eef8d47",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            2048,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_back/03.png",
+          "duration_ms": null,
+          "bbox": [
+            32,
+            82,
+            992,
+            467
+          ],
+          "sha256_rgba": "2943a967a4c649f0018d9f3775832891918543a3932d190f591f54672a3032bf",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            3072,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_back/04.png",
+          "duration_ms": null,
+          "bbox": [
+            80,
+            45,
+            944,
+            436
+          ],
+          "sha256_rgba": "f3a26dabf7c74cb8ae4c5882346f924dcd80461e0a05d7fc29bd9b2c194a5bdb",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 5,
+          "rect": [
+            4096,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_back/05.png",
+          "duration_ms": null,
+          "bbox": [
+            27,
+            61,
+            997,
+            420
+          ],
+          "sha256_rgba": "7414c02228604b5005bbd9ffe0148bfcb3edf5683870c1b4c111cb7ae6b5b7de",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 6,
+          "rect": [
+            5120,
+            0,
+            1024,
+            512
+          ],
+          "frame_file": "frames-native/r_back/06.png",
+          "duration_ms": null,
+          "bbox": [
+            66,
+            70,
+            958,
+            420
+          ],
+          "sha256_rgba": "090a4eb85c187050a7204ac26bd191d65b7e98b57dbf727aaf6ec096f722ad90",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_r_back.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_r_back.png",
+          "scale": 16,
+          "logical_cell": [
+            64,
+            32
+          ],
+          "logical_strip": "1x/talon_fx_r_back.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_r_back.png",
+          "image_px": [
+            2172,
+            724
+          ],
+          "layout_columns_rows": [
+            3,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                724,
+                0,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                1448,
+                0,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                0,
+                362,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 5,
+              "rect": [
+                724,
+                362,
+                724,
+                362
+              ]
+            },
+            {
+              "index": 6,
+              "rect": [
+                1448,
+                362,
+                724,
+                362
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "r_hit",
+      "file": "talon_fx_r_hit.png",
+      "description": "R 刀刃命中（目标身上），4 帧",
+      "binding_from_source": "view_effects `league_talon_r_hit`（跟随，画在人物上面）",
+      "reference_game_size": "14",
+      "frame_count": 4,
+      "cell_px": [
+        224,
+        224
+      ],
+      "image_px": [
+        896,
+        224
+      ],
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            224,
+            224
+          ],
+          "frame_file": "frames-native/r_hit/01.png",
+          "duration_ms": null,
+          "bbox": [
+            47,
+            55,
+            177,
+            175
+          ],
+          "sha256_rgba": "deea458ecb0b618e5292f445f4bc8dd6cedc8c1508a540b3d7fb65f1f6bf9829",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            224,
+            0,
+            224,
+            224
+          ],
+          "frame_file": "frames-native/r_hit/02.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            47,
+            208,
+            176
+          ],
+          "sha256_rgba": "d59be901836152a8b769e4aa0278161cbac64ae6d5e3b0324e45edcbe6b6c9d3",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            448,
+            0,
+            224,
+            224
+          ],
+          "frame_file": "frames-native/r_hit/03.png",
+          "duration_ms": null,
+          "bbox": [
+            21,
+            49,
+            203,
+            175
+          ],
+          "sha256_rgba": "6abca22e2d667347c3908ebb6ba7124621509c3b8d6c1ccf54e86dd4e99c50dc",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            672,
+            0,
+            224,
+            224
+          ],
+          "frame_file": "frames-native/r_hit/04.png",
+          "duration_ms": null,
+          "bbox": [
+            31,
+            53,
+            193,
+            164
+          ],
+          "sha256_rgba": "7cfd323ddeb50ecc3870494e4cdfba63158b4553777bfb8b3bc1ed1f305abee4",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_r_hit.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_r_hit.png",
+          "scale": 16,
+          "logical_cell": [
+            14,
+            14
+          ],
+          "logical_strip": "1x/talon_fx_r_hit.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#FFFFFF",
+            "#EEF4FF",
+            "#C9D4E8",
+            "#93A2BE",
+            "#63708C",
+            "#3C4560",
+            "#FFE0D8",
+            "#FF8A7A",
+            "#F23A30",
+            "#C0141C",
+            "#7A0810",
+            "#400408",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_r_hit.png",
+          "image_px": [
+            1774,
+            887
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                887,
+                444
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                887,
+                0,
+                887,
+                444
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                444,
+                887,
+                443
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                887,
+                444,
+                887,
+                443
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "r_on",
+      "file": "talon_fx_r_on.png",
+      "description": "R 隐身（泰隆脚下和身边，循环），4 帧",
+      "binding_from_source": "view_buffs `league_talon_r_on`（循环，跟随，画在人物下面）",
+      "reference_game_size": "24 × 34",
+      "frame_count": 4,
+      "cell_px": [
+        384,
+        544
+      ],
+      "image_px": [
+        1536,
+        544
+      ],
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "symmetry": "left_right",
+      "preview_frame_duration_ms": 100,
+      "engine_frame_duration_ms": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            384,
+            544
+          ],
+          "frame_file": "frames-native/r_on/01.png",
+          "duration_ms": null,
+          "bbox": [
+            22,
+            118,
+            362,
+            457
+          ],
+          "sha256_rgba": "85b511896caa1c6c01eb9d621b5fb153c6aff97b2720ddc8fa31dba9d8c0bd91",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 2,
+          "rect": [
+            384,
+            0,
+            384,
+            544
+          ],
+          "frame_file": "frames-native/r_on/02.png",
+          "duration_ms": null,
+          "bbox": [
+            27,
+            105,
+            357,
+            456
+          ],
+          "sha256_rgba": "6885a1eb834571650341d10cfd3076819e8de5adda20c2cccb20e74ac86918ba",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            384,
+            544
+          ],
+          "frame_file": "frames-native/r_on/03.png",
+          "duration_ms": null,
+          "bbox": [
+            28,
+            86,
+            356,
+            435
+          ],
+          "sha256_rgba": "102fc5b52bb8e91d299e384737de79b3fcd3549115b0ea87337f35ad0cf4c6bc",
+          "max_luminance": 254.99999999999997
+        },
+        {
+          "index": 4,
+          "rect": [
+            1152,
+            0,
+            384,
+            544
+          ],
+          "frame_file": "frames-native/r_on/04.png",
+          "duration_ms": null,
+          "bbox": [
+            16,
+            107,
+            368,
+            435
+          ],
+          "sha256_rgba": "da8e5fed53238becb5eeabd8a693859e03c58d8e03e8bfc695b6c73865918fc0",
+          "max_luminance": 254.99999999999997
+        }
+      ],
+      "variants": {
+        "primary": {
+          "file": "talon_fx_r_on.png",
+          "pixel_grid": "generated pixel detail; not uniform 16px blocks",
+          "binary_alpha": true,
+          "palette": [
+            "#C8D4FF",
+            "#8A9AF0",
+            "#5A5CC8",
+            "#3A3490",
+            "#241E5A",
+            "#140F30",
+            "#FFFFFF",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "pixel16": {
+          "file": "pixel16/talon_fx_r_on.png",
+          "scale": 16,
+          "logical_cell": [
+            24,
+            34
+          ],
+          "logical_strip": "1x/talon_fx_r_on.png",
+          "same_frame_rects_as_primary": true,
+          "binary_alpha": true,
+          "palette": [
+            "#C8D4FF",
+            "#8A9AF0",
+            "#5A5CC8",
+            "#3A3490",
+            "#241E5A",
+            "#140F30",
+            "#FFFFFF",
+            "#D8ECFF",
+            "#8EC4FF",
+            "#4A86F0",
+            "#2A4FC0",
+            "#1A2A78"
+          ]
+        },
+        "raw": {
+          "file": "raw/talon_fx_r_on.png",
+          "image_px": [
+            1217,
+            1293
+          ],
+          "layout_columns_rows": [
+            2,
+            2
+          ],
+          "frames": [
+            {
+              "index": 1,
+              "rect": [
+                0,
+                0,
+                608,
+                646
+              ]
+            },
+            {
+              "index": 2,
+              "rect": [
+                608,
+                0,
+                609,
+                646
+              ]
+            },
+            {
+              "index": 3,
+              "rect": [
+                0,
+                646,
+                608,
+                647
+              ]
+            },
+            {
+              "index": 4,
+              "rect": [
+                608,
+                646,
+                609,
+                647
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

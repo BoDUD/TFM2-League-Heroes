@@ -1,0 +1,714 @@
+{
+ "hero": "talon",
+ "champ": "Talon",
+ "camera": {
+  "yaw": 45,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.6,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  120,
+  112,
+  14
+ ],
+ "design": "talon_idle1@0",
+ "head_joint": "Head",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ],
+    [
+     "talon_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "talon_idle1@0",
+   "frames": [
+    [
+     "talon_run@0",
+     121
+    ],
+    [
+     "talon_run@121",
+     121
+    ],
+    [
+     "talon_run@242",
+     121
+    ],
+    [
+     "talon_run@363",
+     121
+    ],
+    [
+     "talon_run@484",
+     121
+    ],
+    [
+     "talon_run@605",
+     121
+    ],
+    [
+     "talon_run@726",
+     121
+    ],
+    [
+     "talon_run@847",
+     121
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>talon_attack1@110:0.6",
+     60
+    ],
+    [
+     "talon_attack1@170",
+     50
+    ],
+    [
+     "talon_attack1@222",
+     80
+    ],
+    [
+     "talon_attack1@300",
+     80
+    ],
+    [
+     "talon_attack1@1100>talon_idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>talon_spell2@97:0.6",
+     50
+    ],
+    [
+     "talon_spell2@194",
+     50
+    ],
+    [
+     "talon_spell2@290",
+     80
+    ],
+    [
+     "talon_spell2@387",
+     70
+    ],
+    [
+     "talon_spell2@580",
+     70
+    ],
+    [
+     "talon_spell2@870>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.5,
+   "rise": 0.6,
+   "release": 4,
+   "frames": [
+    [
+     "talon_spell1_leap@0",
+     60
+    ],
+    [
+     "talon_spell1_leap@73",
+     50
+    ],
+    [
+     "talon_spell1_leap@147",
+     60
+    ],
+    [
+     "talon_spell1_leap@220",
+     80
+    ],
+    [
+     "talon_spell1_leap@293",
+     70
+    ],
+    [
+     "talon_spell1_leap@440",
+     80
+    ],
+    [
+     "talon_spell1_leap@660>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2_stab": {
+   "lunge": 0.4,
+   "rise": 0.5,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>Talon_Crit@0:0.6",
+     50
+    ],
+    [
+     "Talon_Crit@133",
+     50
+    ],
+    [
+     "Talon_Crit@266",
+     70
+    ],
+    [
+     "Talon_Crit@400",
+     70
+    ],
+    [
+     "Talon_Crit@533",
+     70
+    ],
+    [
+     "Talon_Crit@800>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill_e": {
+   "lunge": 0.6,
+   "rise": 0.4,
+   "release": 5,
+   "frames": [
+    [
+     "talon_spell3_jump@0",
+     60
+    ],
+    [
+     "talon_spell3_jump@77",
+     60
+    ],
+    [
+     "talon_spell3_jump@153",
+     60
+    ],
+    [
+     "talon_spell3_jump@230",
+     60
+    ],
+    [
+     "talon_spell3_jump@383",
+     60
+    ],
+    [
+     "talon_spell3_jump@537",
+     70
+    ],
+    [
+     "talon_spell3_jump@690>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.4,
+   "release": 3,
+   "frames": [
+    [
+     "talon_idle1@0>talon_spell4@0:0.6",
+     50
+    ],
+    [
+     "talon_spell4@97",
+     50
+    ],
+    [
+     "talon_spell4@194",
+     60
+    ],
+    [
+     "talon_spell4@290",
+     60
+    ],
+    [
+     "talon_spell4@387",
+     60
+    ],
+    [
+     "talon_spell4@484",
+     60
+    ],
+    [
+     "talon_spell4@580",
+     60
+    ],
+    [
+     "talon_spell4@774>talon_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "talon_idle1@0>talon_death@200:0.35",
+     120
+    ],
+    [
+     "talon_idle1@0>talon_death@200:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.2,
+   "frames": [
+    [
+     "talon_death@0",
+     100
+    ],
+    [
+     "talon_death@127",
+     100
+    ],
+    [
+     "talon_death@253",
+     100
+    ],
+    [
+     "talon_death@380",
+     120
+    ],
+    [
+     "talon_death@507",
+     120
+    ],
+    [
+     "talon_death@633",
+     150
+    ],
+    [
+     "talon_death@1013",
+     200
+    ],
+    [
+     "talon_death@1267",
+     500
+    ]
+   ]
+  }
+ },
+ "weapon": "^(weapon|r_hand)$",
+ "parts": [
+  {
+   "name": "knives",
+   "joints": "^knife_0[1-9]$",
+   "outline": true,
+   "materials": [
+    {
+     "name": "edge",
+     "sat": [
+      0,
+      1
+     ],
+     "val": [
+      0.6,
+      1
+     ],
+     "ramp": [
+      [
+       "CFD0DC",
+       0.8
+      ],
+      [
+       "FAFAFC"
+      ]
+     ]
+    },
+    {
+     "name": "steel",
+     "ramp": [
+      [
+       "55525E",
+       0.3
+      ],
+      [
+       "7A7986",
+       0.42
+      ],
+      [
+       "A4A6B4",
+       0.55
+      ],
+      [
+       "CFD0DC"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "restyle": {
+  "head": {
+   "forward": true,
+   "rect": [
+    67,
+    58,
+    15,
+    12
+   ],
+   "cut": [
+    [
+     67,
+     68
+    ],
+    [
+     68,
+     68
+    ],
+    [
+     69,
+     68
+    ],
+    [
+     67,
+     69
+    ],
+    [
+     68,
+     69
+    ],
+    [
+     69,
+     69
+    ],
+    [
+     70,
+     69
+    ],
+    [
+     71,
+     69
+    ],
+    [
+     72,
+     69
+    ]
+   ],
+   "front": true
+  },
+  "outline": "120E1A",
+  "weapon": [
+   [
+    "35343F",
+    0.25
+   ],
+   [
+    "55525E",
+    0.42
+   ],
+   [
+    "7A7986",
+    0.62
+   ],
+   [
+    "A4A6B4"
+   ]
+  ],
+  "weapon_materials": [
+   {
+    "name": "glove",
+    "hue": [
+     205,
+     300
+    ],
+    "sat": [
+     0.38,
+     1
+    ],
+    "val": [
+     0.06,
+     1
+    ],
+    "ramp": [
+     [
+      "141250",
+      0.22
+     ],
+     [
+      "221F7E",
+      0.36
+     ],
+     [
+      "3533AA",
+      0.52
+     ],
+     [
+      "4D4BD2",
+      0.68
+     ],
+     [
+      "7279F6"
+     ]
+    ]
+   },
+   {
+    "name": "cuff",
+    "hue": [
+     330,
+     25
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "val": [
+     0.08,
+     1
+    ],
+    "ramp": [
+     [
+      "6E1219",
+      0.42
+     ],
+     [
+      "A01C24"
+     ]
+    ]
+   }
+  ],
+  "materials": [
+   {
+    "name": "red",
+    "hue": [
+     330,
+     25
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "val": [
+     0.08,
+     1
+    ],
+    "ramp": [
+     [
+      "4A0B15",
+      0.28
+     ],
+     [
+      "6E1219",
+      0.42
+     ],
+     [
+      "A01C24",
+      0.62
+     ],
+     [
+      "D82A2F"
+     ]
+    ]
+   },
+   {
+    "name": "teal",
+    "hue": [
+     160,
+     205
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "val": [
+     0.2,
+     1
+    ],
+    "ramp": [
+     [
+      "0A4A66",
+      0.5
+     ],
+     [
+      "2A92A2"
+     ]
+    ]
+   },
+   {
+    "name": "gold",
+    "hue": [
+     28,
+     62
+    ],
+    "sat": [
+     0.45,
+     1
+    ],
+    "val": [
+     0.45,
+     1
+    ],
+    "ramp": [
+     [
+      "D09A38"
+     ]
+    ]
+   },
+   {
+    "name": "skin",
+    "hue": [
+     8,
+     40
+    ],
+    "sat": [
+     0.18,
+     0.62
+    ],
+    "val": [
+     0.45,
+     1
+    ],
+    "ramp": [
+     [
+      "7A4A30",
+      0.55
+     ],
+     [
+      "C27E4E",
+      0.75
+     ],
+     [
+      "ECB486"
+     ]
+    ]
+   },
+   {
+    "name": "blue",
+    "hue": [
+     205,
+     300
+    ],
+    "sat": [
+     0.38,
+     1
+    ],
+    "val": [
+     0.06,
+     1
+    ],
+    "ramp": [
+     [
+      "141250",
+      0.22
+     ],
+     [
+      "221F7E",
+      0.36
+     ],
+     [
+      "3533AA",
+      0.52
+     ],
+     [
+      "4D4BD2",
+      0.68
+     ],
+     [
+      "7279F6"
+     ]
+    ]
+   },
+   {
+    "name": "steel",
+    "ramp": [
+     [
+      "35343F",
+      0.22
+     ],
+     [
+      "55525E",
+      0.36
+     ],
+     [
+      "7A7986",
+      0.5
+     ],
+     [
+      "A4A6B4",
+      0.66
+     ],
+     [
+      "CFD0DC",
+      0.84
+     ],
+     [
+      "FAFAFC"
+     ]
+    ]
+   }
+  ],
+  "weights": {
+   "A01C24": 1.2,
+   "D82A2F": 1.2,
+   "2A92A2": 1.4,
+   "D09A38": 1.4
+  },
+  "weapon_edge": true,
+  "denoise": {
+   "passes": 2,
+   "need": 4
+  },
+  "fill_holes": 60,
+  "fill_seams": 20,
+  "weapon_off": {
+   "attack": [
+    4
+   ],
+   "skill": [
+    2
+   ]
+  },
+  "tilt": {
+   "skill2": {
+    "4": 100,
+    "5": 100
+   }
+  }
+ }
+}
