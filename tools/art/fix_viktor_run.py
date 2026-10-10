@@ -94,7 +94,9 @@ RUN_MS = 80
 # the thighs as under the pelvis of the idle), the boots go up at most 2 rows, and every frame was checked: a lifted
 # boot never touches the other leg (both planted they may overlap - the near foot in front).
 FAR_SHIN = -10
-STEP3 = [(1, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 0), (0, 0, 1), (0, 1, 2), (1, 1, 2), (1, 1, 1)]
+# per frame (dx, lift) of the near leg, the far one half a cycle later: planted 4 frames going back a column, then up
+# 1, 2, 2, 1 while it comes forward again
+STEP4 = [(1, 0), (1, 0), (0, 0), (-1, 0), (-1, 1), (0, 2), (1, 2), (1, 1)]
 BOB3 = [1, 0, 0, 0, 1, 0, 0, 0]
 SEAT = False
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
@@ -166,30 +168,18 @@ def shin(leg):
                     leg[y, e] = (*OUT, 255)
 
 
-def zleg(part, shin_dx, boot_dx, lift, drop):
-    """One leg of run v11 in three rigid blocks, none of them bent or sheared (the user, 10-10: 「腿部模型变形问题没解决」
-    after the row-by-row leans): the thigh (LEG_TOP..KNEE_ROW-1) where the design has it, only sunk `drop` rows with
-    the body; the shin with its orange knee ring (KNEE_ROW..BOOT_ROW-1) shin_dx columns over; the boot (BOOT_ROW..)
-    boot_dx over. Neighbouring blocks are at most a column apart, so the leg stays joined. A swinging leg lifts shin +
-    boot `lift` rows in front of the thigh's lower rows (the knee raised); a sunk thigh goes over the shin's top."""
-    thigh = np.zeros_like(part)
-    low = np.zeros_like(part)
-    assert abs(shin_dx) <= 1 and abs(boot_dx - shin_dx) <= 1, (shin_dx, boot_dx)
-    for r, c in zip(*np.nonzero(part[..., 3])):
-        if r < S.KNEE_ROW:
-            if r + drop < part.shape[0]:
-                thigh[r + drop, c] = part[r, c]
-        else:
-            sh = shin_dx if r < S.BOOT_ROW else boot_dx
-            if 0 <= c + sh < part.shape[1]:
-                low[r - lift, c + sh] = part[r, c]
-    if lift:
-        m = low[..., 3] > 0
-        thigh[m] = low[m]
-    else:
-        m = (thigh[..., 3] == 0) & (low[..., 3] > 0)
-        thigh[m] = low[m]
-    return thigh
+def zleg(part, dx, lift):
+    """One leg of run v12, rigid: every square of it moved dx columns and up `lift` rows together - no joint of it
+    offset from another (the user, 10-10, at a shin block a column off its thigh: 「你是看不到这里有问题吗」 - the leg is
+    a stack of one-row pieces, the grey thigh, the navy knee cap, a one-square shin, the orange ring, the dark ankle
+    ring and the boot, and any two of them a column apart read as a broken knee). Drawn under the body, so a lifted
+    leg's top goes up behind the pelvis: the leg shorter, as raised from the hip."""
+    out = np.zeros_like(part)
+    ys, xs = np.nonzero(part[..., 3])
+    ny, nx = ys - lift, xs + dx
+    ok = (ny >= 0) & (nx >= 0) & (nx < part.shape[1])
+    out[ny[ok], nx[ok]] = part[ys[ok], xs[ok]]
+    return out
 
 
 def fill_gaps(c, top):
@@ -258,13 +248,14 @@ def run_frames(design, bob):
     at = feet()
     out = []
     for k in range(8):
-        c = zleg(far, *STEP3[(k + 4) % 8], BOB3[k])
+        # both legs under the body (the near one over the far one); the body sinks BOB3 rows over them
+        c = zleg(far, *STEP4[(k + 4) % 8])
+        n = zleg(near, *STEP4[k])
+        m = n[..., 3] > 0
+        c[m] = n[m]
         b = np.roll(body, BOB3[k], axis=0)
         m = b[..., 3] > 0
         c[m] = b[m]
-        n = zleg(near, *STEP3[k], BOB3[k])
-        m = n[..., 3] > 0
-        c[m] = n[m]
         # the far boot's sole row left under the near boot raised over it: outline touching no colour - gone
         op = c[..., 3] > 0
         ink = op & (c[..., :3] == np.array(OUT, np.uint8)).all(-1)
@@ -276,11 +267,11 @@ def run_frames(design, bob):
         stray = ink & ~near_col
         stray[:S.LEG_TOP] = False
         c[stray] = 0
-        fill_gaps(c, S.LEG_TOP)
+        fill_gaps(c, S.LEG_TOP - 4)
         # closed as the import will close it, then any gap that walls in filled too: the import adds nothing new
         low = int(np.nonzero(c[..., 3].any(1))[0].max())
         c = G.complete_outline(c, color=OUT, dark=70, feet=low)[0]
-        fill_gaps(c, S.LEG_TOP)
+        fill_gaps(c, S.LEG_TOP - 4)
         out.append(c)
     return out
 
@@ -339,7 +330,7 @@ def main():
     with open(lp(S.RUN_MANIFEST), encoding="utf-8") as f:
         bob = [fr["upper_shift"][1] for fr in json.load(f)["frames"]]
     for k in range(8):
-        print(f"frame {k + 1}: near {STEP3[k]}, far {STEP3[(k + 4) % 8]}, body down {BOB3[k]}")
+        print(f"frame {k + 1}: near {STEP4[k]}, far {STEP4[(k + 4) % 8]}, body down {BOB3[k]}")
     for fr in cells["tags"]["run"]:
         fr["ms"] = RUN_MS
     with open(lp(os.path.join(NATIVE, "viktor_cells.json")), "w", encoding="utf-8", newline="\n") as f:
