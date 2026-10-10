@@ -49,19 +49,20 @@ Z = 8
 SOLES, MID = 99, 64
 PIVOT = (MID, SOLES - 11)
 CANVAS_SQUARE = 1254 / 128
-# The run: a trot of the design's own legs, nothing redrawn (the user: 「腿别变形」「脚也别变形」「颜色都不一致」 after
-# Codex's two skin swaps and legs drawn from League's joints were all rejected). Each leg is the design's leg (rows
-# 85-99, the boot included) moved whole (NEAR_STEP / FAR_STEP); the two legs half a cycle apart; the body (rows <= 84) sinks 1 row as a foot lands; the
-# tail hem rides with the near leg (it hangs behind it), the apron stays with the body in front.
-# A scissor step (the user: 「好歹有点换脚的感觉啊 平行走路？？？？」 on legs lifting in place): the near leg swings
-# forward (+x, lifted) while the planted far leg slides back (-x), then the other way. Each travels 3 columns inwards
-# and back, so the feet close from 18 apart to 12 and the bulbs touch but never overlap (legs that passed each other
-# overlapped into one thick leg: 「别变形」); moving towards the apron never opens a slit beside it (a leg moved away from
-# it did: 「这对吗」). The near foot is mirrored to point forward.
-NEAR_STEP = [(0, 0), (2, 2), (3, 2), (3, 1), (3, 0), (2, 0), (1, 0), (0, 0)]        # (columns, rows up)
-FAR_STEP = [(0, 0), (-1, 0), (-2, 0), (-3, 0), (-3, 1), (-2, 2), (-1, 2), (0, 1)]
+# The run: a scissor step of the design's own legs, nothing redrawn (the user: 「腿别变形」「脚也别变形」「颜色都不一致」
+# after Codex's two skin swaps and legs drawn from League's joints were all rejected; 「好歹有点换脚的感觉啊 平行走路？？？？」
+# on legs lifting in place). Each leg is two rigid pieces of the design: the thigh (the hakama bulb, rows 85-90) and
+# the lower leg (cuff, shin and boot, rows 91-99). A leg moves sideways whole (both pieces, NEAR_STEP / FAR_STEP
+# columns: the near one forward while the planted far one slides back, then the other way, 2 columns inwards at most,
+# the thighs tucking under the apron's edges); a step lifts only the lower leg, BEHIND its own thigh (a bent knee: the
+# thigh never rises into the sash, nothing is cut but what goes behind). The tail hem moves with the near leg it hangs
+# beside, the near boot in front of it, so the two keep the idle's arrangement; the body sinks a row as a foot lands.
+# (Lifting the whole leg hid the bulb's top under the sash and ran the mirrored near boot through the tail hem:
+# 「你看不到变形吗」.)
+NEAR_STEP = [(2, 0), (1, 0), (1, 0), (0, 0), (0, 1), (1, 2), (2, 2), (2, 1)]        # (columns, lower leg rows up)
+FAR_STEP = [(-2, 1), (-1, 2), (0, 2), (0, 1), (0, 0), (-1, 0), (-1, 0), (-2, 0)]
 TROT_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
-NEAR_FOOT_TOP = 96
+KNEE_ROW = 91                     # the lower leg's first row
 LEG_TOP = 85
 EYE = (239, 226, 246)
 SPECK = 4
@@ -364,44 +365,32 @@ def masked(des, rows, cols_by_row):
 
 
 def trot_parts(des):
+    """The design's run pieces: upper body, tail hem, apron, and each leg as thigh + lower leg."""
     tail = masked(des, range(LEG_TOP, 95), lambda y: (46, 53 if y >= 91 else 52))
     apron = masked(des, range(LEG_TOP, 94), lambda y: (62, 65 if y >= 91 else 67))
     far = masked(des, range(LEG_TOP, 100), lambda y: (68, 75) if y <= 90 else (66, 77))
     near = masked(des, range(LEG_TOP, 100),
                   lambda y: (53, 61) if y <= 90 else ((54, 59) if y <= 92 else ((53, 58) if y <= 94 else (51, 57))))
-    # the idle's near foot points backwards (a turned-out stance): mirrored about its own middle so its toe leads
-    # when the leg swings forward (a mirror, nothing redrawn); the shaft above it stays
-    foot = near[NEAR_FOOT_TOP:100, 51:58]
-    near[NEAR_FOOT_TOP:100, 51:58] = foot[:, ::-1]
     upper = des.copy()
     upper[LEG_TOP:, :78] = 0
     upper[LEG_TOP + 2:] = 0
-    return upper, tail, apron, far, near
+    parts = {"upper": upper, "tail": tail, "apron": apron}
+    for name, leg in (("near", near), ("far", far)):
+        thigh, low = leg.copy(), leg.copy()
+        thigh[KNEE_ROW:] = 0
+        low[:KNEE_ROW] = 0
+        parts[name + "_thigh"], parts[name + "_low"] = thigh, low
+    return parts
 
 
-def trot_frame(k, des):
-    upper, tail, apron, far, near = trot_parts(des)
+def trot_layers(parts, k):
+    """Frame k's pieces with their moves, back to front."""
     bob = TROT_BOB[k - 1]
     ndx, nup = NEAR_STEP[k - 1]
     fdx, fup = FAR_STEP[k - 1]
-    can = np.zeros_like(des)
-    for part, dx, dy in ((tail, ndx, bob), (far, fdx, -fup), (near, ndx, -nup), (apron, 0, bob), (upper, 0, bob)):
-        p = shift(part, dx, dy)
-        m = p[..., 3] > 0
-        can[m] = p[m]
-    can[SOLES + 1:] = 0
-    # a leg moved away from the apron opens a slit between them (the idle's parts touch): closed in the apron's shade
-    op = can[..., 3] > 0
-    lab, n = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
-    for i in range(1, n + 1):
-        h = lab == i
-        if h[:LEG_TOP].any() or h.sum() > 24:
-            continue
-        ring = ndimage.binary_dilation(h, np.ones((3, 3))) & op
-        cols, counts = np.unique(can[ring][:, :3], axis=0, return_counts=True)
-        can[h, :3] = cols[counts.argmax()]
-        can[h, 3] = 255
-    return can
+    return [(parts["far_low"], fdx, -fup), (parts["far_thigh"], fdx, bob), (parts["tail"], ndx, bob),
+            (parts["near_low"], ndx, -nup), (parts["near_thigh"], ndx, bob), (parts["apron"], 0, bob),
+            (parts["upper"], 0, bob)]
 
 
 SHRINK = 0.9                          # the user: 「慎的模型太大 缩小一点」 (46 rows -> 42, like Talon and Olaf)
@@ -541,7 +530,7 @@ def build(only=None):
     des90 = shrunk(des, plan)
     up, low = breath_parts(des)
     up90, low90 = shrunk(up, plan), shrunk(low, plan)
-    upper, tail, apron, far, near = (shrunk(p, plan) for p in trot_parts(des))
+    run_parts = {n: shrunk(p, plan) for n, p in trot_parts(des).items()}
     for tag, rows in TAGS.items():
         if only and tag not in only:
             continue
@@ -552,10 +541,7 @@ def build(only=None):
             elif isinstance(src, tuple) and src[0] == "breath":
                 a = compose([(low90, 0, 0), (up90, 0, src[1])])
             elif isinstance(src, tuple) and src[0] == "trot":
-                kk = src[1]
-                bob, (ndx, nup), (fdx, fup) = TROT_BOB[kk - 1], NEAR_STEP[kk - 1], FAR_STEP[kk - 1]
-                a = pinholes(compose([(tail, ndx, bob), (far, fdx, -fup), (near, ndx, -nup), (apron, 0, bob),
-                                      (upper, 0, bob)]))
+                a = compose(trot_layers(run_parts, src[1]))
             elif isinstance(src, tuple) and src[0] == "sink":
                 a = ("sink", src[1], src[2], src[3])
             else:
