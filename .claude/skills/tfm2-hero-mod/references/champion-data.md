@@ -472,6 +472,31 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   with `speed` 1, `range` 1, section 7 "Back to where he stood"). `follow_caster: true` in a `Targeting`
   cast spawns on the caster and moves with her for its whole `tick`, each ally it touches hit once - League's
   Melodies (league_sona Q / W / E: 3 logged games, every buff once per ally per cast).
+- **Where a line ends: its goal is cut into the map one axis at a time** *(SDK simulation, league_jinx R and
+  league_ezreal R, 2026-10-10: 240 logged games each, the ult action's aimed direction against the line it spawned)*.
+  A `LinearProjectile` leaves `5000 - y_offset` north of the caster and flies straight to its goal, where it is
+  removed; the spawn event's `dir` is that goal minus the start. In a `Direction` cast (a `Targeting` one too) the goal
+  is the caster's pivot plus the cast direction x `range`, and then x and y are each cut to 0..959999 (the map is
+  960000 square) on their own, so a goal off the map slides back along one axis - or into a corner - and the whole
+  line turns toward it. In a `Position` cast the goal is the cast point, or `range` along the way when the point is
+  farther: always straight, never past the point. With `range` 1000000 (more than the map) nearly every goal fell
+  off: league_jinx R, cast on champions anywhere, turned 7.5 degrees in the median, 23 at the 90th percentile and up
+  to 45 (a third of the rockets flew at a corner), and 56% of them struck an enemy champion, 23% the one aimed at;
+  league_ezreal R, cast within 120000, turned 8.9 / 27 / 56 degrees and struck 24% (11%). At 300000 a line is cut
+  only when the caster stands near an edge (one cast in seven or eight): Jinx's rockets, now cast within 250000,
+  struck 67% (43%). Ezreal's waves struck no more champions than before (23%, 13% the aimed one), because **a line
+  that comes straight at a champion is dodged**: between the launch and the wave's arrival the aimed champion stepped
+  23400 units off the line (median), against 11400 while the waves went astray - 20100 against 3600 for those still
+  on the line at the launch (Jinx's faster rocket: 15700 against 4800). So the same casts replayed on a straight line
+  (44% for Ezreal) overrate it; measure the new kit's own logs. In the replay a champion counted as struck when its
+  centre came within the line's radius + 4000 of the logged projectile, which matched 1334 of the 1336 rockets and
+  1267 of the 1280 waves. Jinx's blast had been the rocket's `end_effects`, which run wherever it stops - with
+  nobody struck, the map's edge before, the middle of the fight at 300000 - so it now starts from the hit: a
+  `Delayed` 1 hidden lob (`travel_time` 1, league_brand's passive) onto the champion struck carries it, a tick after
+  the hit, and a miss blows nothing up. **Damage behind a caster flag is not dodged**: gating the end effects with
+  a flag the hit sets (or one the launch sets and the hit removes) also blew up only on champions, but the enemy
+  champions stopped dodging the rocket (4000-4400 units off the line instead of 15700) and 80% struck instead of
+  67% - while it flies, the flag's branch holds no damage.
 `ApplyInProjectile` has no `period` and `RangePeriodProjectile` no `follow_caster` (SDK), so an aura
 that ticks while it follows the hero is built from `Delayed` pulses of a `RangeEffect` around the
 caster (section 7, "Aura that runs while he fights").
@@ -934,7 +959,7 @@ engine gives is taken between points at pivot height, so a raised start tilts it
   `Direction` cast) or for the target's spot (`Targeting`), and is removed when it gets there. Raised 12000
   with the line's `range` it leaned 7 degrees onto the line's end (the user: "放出来的技能怎么是歪的");
   with `range` 15 it pointed nearly straight down; with `range` 1000000 its goal was cut to the map
-  (x at 960000), which turned it further;
+  (x at 960000), which turned it further (section 4, "Where a line ends");
 - `y_offset` on a `LineRangeProjectile` is ignored (the line does not move);
 - a `LineRangeProjectile` started in a projectile's `end_effects` is drawn at that point but points from the
   caster to it (from a point above him: straight north);
@@ -1413,10 +1438,14 @@ same batch - no change.
 3. A living target runs the casted effect and clears the flag; a dead one drops it, and the flag is
    still there when the delayed check reads it.
 
-Where the damage comes a tick later than the hit (league_jinx R: the blast is a `RangeProjectile` with
-`delay: 1` in the rocket's `end_effects`), add the casted effect from a `Delayed {tick: 2}` and read the
+Where the damage comes a tick later than the hit (league_jinx R until 0.86.12: the blast was a `RangeProjectile`
+with `delay: 1` in the rocket's `end_effects`), add the casted effect from a `Delayed {tick: 2}` and read the
 flag at tick 7, or it runs before the blast and clears the flag. In 10 simulated games every basic-attack
-kill (13) and every rocket kill of the champion it struck (3) was found, and no other hit set it off.
+kill (13) and every rocket kill of the champion it struck (3) was found, and no other hit set it off. Since
+0.86.12 the blast comes from a hidden lob a tick after the hit (section 4, "Where a line ends") and its zone hits
+a tick after that, so the flag lasts 12 ticks, the casted effect starts at tick 4 and the check reads it at tick 9:
+56 of 58 rocket kills found in 240 games (the other two died 7-8 ticks after the hit, after the casted effect had
+run: not from the blast).
 Rejected on the way: a `RandomTarget` from the hit point after the damage (the dying unit is still
 valid that tick), a `Delayed` effect on the target (it runs on the dead), and one twin for all targets
 (a minion dying next to an enemy champion set it off). A splash hitting two champions shares one flag,
@@ -3902,6 +3931,14 @@ its real `cooltime`; keep a flag only where another action must know it (Q's slo
   at all 6.40). On `applied_target: Ally` it draws the same and they moved 1800 (normal fighting), while her allies did
   not start dodging it (1600 -> 1700): 7.12 hits a cast with the 50 degree cone, 5.06 with the same cone on
   `EnemyWithoutTower`. Put a picture that stays while damage comes later on `Ally`.
+- **Keep a line's goal on the map** (section 4, "Where a line ends"): a `Direction` or `Targeting`
+  `LinearProjectile` whose goal (the caster + direction x `range`) falls off the 960000 x 960000 map is turned toward
+  an edge or a corner. League's global ults at `range` 1000000 (league_jinx R, league_ezreal R) turned 7.5-9 degrees
+  in the median and up to 45-56; at 300000 six lines in seven fly true. A global skillshot cannot fly straight; a
+  `Position` cast is straight but stops on the cast point.
+- **Keep a skillshot's damage where the enemy AI can see it** (same section): a line whose damage sits behind a
+  `SwitchByBuff` on a caster flag is not dodged - league_jinx R's blast gated that way struck 80% of the time instead
+  of 67%. Start a follow-up that must wait for the hit from the hit itself (a `Delayed` hidden lob onto the unit).
 - **A projectile must end** *(SDK simulation + stack sampling, league_fiora W, 2026-10-02)*. Her guard picture
   was a `TargetProjectile` at speed 100 with no `applied_effects`: it trailed its target for minutes (one lived
   11214 ticks). Each tick a projectile runs, `prepare_dead_caster_overlay` copies its caster's whole entity
