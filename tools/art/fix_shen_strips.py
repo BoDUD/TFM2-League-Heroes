@@ -19,9 +19,9 @@ then made "final" copies itself by resizing and re-quantising them: those are bl
   3. stand it where League's frame stands: its lowest row on League's lowest row (the soles' row for a grounded frame),
      its eyes on League's head column (else its middle on League's);
   4. clear specks (pieces of fewer than SPECK squares apart from the body) and close the outline.
-The idle is the design square for square, breathing (the body above the sash sinks over the legs); the run is the
-design's body over legs drawn from League's run joints (run_shen_legs.py). Q and R start from the design itself
-(League's casts start from the idle pose).
+The idle is the design square for square, breathing (the body above the sash sinks over the legs); the run is a trot
+of the design's own legs moved whole (TROT). Q and R start from the design itself (League's casts start from the idle
+pose).
 """
 import argparse
 import json
@@ -49,9 +49,15 @@ Z = 8
 SOLES, MID = 99, 64
 PIVOT = (MID, SOLES - 11)
 CANVAS_SQUARE = 1254 / 128
-# The run: the design's body over legs drawn from League's run joints (tools/art/run_shen_legs.py). Codex's two
-# skin-swap runs (assets/source/shen/codex_run_swap) were rejected: the passing frames squeezed both hakama legs into
-# one cone, the redo ballooned them into a squat; the first run (the design's own legs moved whole) could not cross.
+# The run: a trot of the design's own legs, nothing redrawn (the user: 「腿别变形」「脚也别变形」「颜色都不一致」 after
+# Codex's two skin swaps and legs drawn from League's joints were all rejected). Each leg is the design's leg (rows
+# 85-99, the boot included) moved whole: on its own side, planted 4 frames sliding back, then 4 frames swinging
+# forward lifted 1-2 rows; the two legs half a cycle apart; the body (rows <= 84) sinks 1 row as a foot lands; the
+# tail hem rides with the near leg (it hangs behind it), the apron stays with the body in front.
+TROT = [(3, 0), (1, 0), (-1, 0), (-3, 0), (-2, 1), (0, 2), (2, 2), (3, 1)]   # (columns from the stance, rows up)
+TROT_NEAR, TROT_FAR = 0, 4
+TROT_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+LEG_TOP = 85
 EYE = (239, 226, 246)
 SPECK = 4
 
@@ -61,7 +67,7 @@ TAGS = {
     # the idle breathes without a cut: the body above the sash (and the whole near hand) sinks over the legs, which stay
     # square for square (import_native's idle_breathe cut two rows out of the trousers, boots, apron and tail hem)
     "idle": [(("breath", n), 140) for n in (0, 0, 1, 2, 2, 2, 1, 0)],
-    "run": [(("legs", k), 100) for k in range(1, 9)],
+    "run": [(("trot", k), 100) for k in range(1, 9)],
     "attack": [(f"attack_{k}", ms) for k, ms in zip(range(1, 7), (50, 60, 60, 90, 80, 60))],
     # Q: Codex's four frames were four bodies (frame 4 tall and thin); the palm push is one drawing held
     # (League's Q starts from the idle pose: the design itself, so the cast starts without a jump)
@@ -343,11 +349,50 @@ def action_frame(name, tag, k, pal, lol, ref):
     return a, s, f
 
 
-def legs_frame(k):
-    import run_shen_legs as RL
-    if not hasattr(legs_frame, "cache"):
-        legs_frame.cache = RL.frames()
-    return legs_frame.cache[k - 1]
+def masked(des, rows, cols_by_row):
+    """The design's squares in the given rows, each row limited to its column range (inclusive)."""
+    out = np.zeros_like(des)
+    for y in rows:
+        c0, c1 = cols_by_row(y)
+        out[y, c0:c1 + 1] = des[y, c0:c1 + 1]
+    return out
+
+
+def trot_parts(des):
+    tail = masked(des, range(LEG_TOP, 95), lambda y: (46, 53 if y >= 91 else 52))
+    apron = masked(des, range(LEG_TOP, 94), lambda y: (62, 65 if y >= 91 else 67))
+    far = masked(des, range(LEG_TOP, 100), lambda y: (68, 75) if y <= 90 else (66, 77))
+    near = masked(des, range(LEG_TOP, 100),
+                  lambda y: (53, 61) if y <= 90 else ((54, 59) if y <= 92 else ((53, 58) if y <= 94 else (51, 57))))
+    upper = des.copy()
+    upper[LEG_TOP:, :78] = 0
+    upper[LEG_TOP + 2:] = 0
+    return upper, tail, apron, far, near
+
+
+def trot_frame(k, des):
+    upper, tail, apron, far, near = trot_parts(des)
+    bob = TROT_BOB[k - 1]
+    ndx, nup = TROT[(k - 1 + TROT_NEAR) % 8]
+    fdx, fup = TROT[(k - 1 + TROT_FAR) % 8]
+    can = np.zeros_like(des)
+    for part, dx, dy in ((tail, ndx, bob), (far, fdx, -fup), (near, ndx, -nup), (apron, 0, bob), (upper, 0, bob)):
+        p = shift(part, dx, dy)
+        m = p[..., 3] > 0
+        can[m] = p[m]
+    can[SOLES + 1:] = 0
+    # a leg moved away from the apron opens a slit between them (the idle's parts touch): closed in the apron's shade
+    op = can[..., 3] > 0
+    lab, n = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
+    for i in range(1, n + 1):
+        h = lab == i
+        if h[:LEG_TOP].any() or h.sum() > 24:
+            continue
+        ring = ndimage.binary_dilation(h, np.ones((3, 3))) & op
+        cols, counts = np.unique(can[ring][:, :3], axis=0, return_counts=True)
+        can[h, :3] = cols[counts.argmax()]
+        can[h, 3] = 255
+    return can
 
 
 def sink(a, row, n):
@@ -412,8 +457,8 @@ def build(only=None):
                 a = des.copy()
             elif isinstance(src, tuple) and src[0] == "breath":
                 a = breath(des, src[1])
-            elif isinstance(src, tuple) and src[0] == "legs":
-                a = pinholes(legs_frame(src[1]))
+            elif isinstance(src, tuple) and src[0] == "trot":
+                a = pinholes(trot_frame(src[1], des))
             elif isinstance(src, tuple) and src[0] == "sink":
                 a = sink(frame(src[1]), src[2], src[3])
             else:
