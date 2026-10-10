@@ -51,10 +51,10 @@ PIVOT = (MID, SOLES - 11)
 CANVAS_SQUARE = 1254 / 128
 # The run: a trot of the design's own legs, nothing redrawn (the user: 「腿别变形」「脚也别变形」「颜色都不一致」 after
 # Codex's two skin swaps and legs drawn from League's joints were all rejected). Each leg is the design's leg (rows
-# 85-99, the boot included) moved whole: on its own side, planted 4 frames sliding back, then 4 frames swinging
-# forward lifted 1-2 rows; the two legs half a cycle apart; the body (rows <= 84) sinks 1 row as a foot lands; the
+# 85-99, the boot included) moved whole: on its own side, planted 4 frames, then lifted 1-2 rows for 4 frames; the two legs half a cycle apart; the body (rows <= 84) sinks 1 row as a foot lands; the
 # tail hem rides with the near leg (it hangs behind it), the apron stays with the body in front.
-TROT = [(3, 0), (1, 0), (-1, 0), (-3, 0), (-2, 1), (0, 2), (2, 2), (3, 1)]   # (columns from the stance, rows up)
+TROT = [(0, 0), (0, 0), (0, 0), (0, 0), (0, 1), (0, 2), (0, 2), (0, 1)]   # (columns from the stance, rows up): a leg
+#       moved sideways opened a slit beside the apron (「这对吗」) - the legs lift in place, the game moves him
 TROT_NEAR, TROT_FAR = 0, 4
 TROT_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
 LEG_TOP = 85
