@@ -71,7 +71,7 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # the shared lean smeared his toes, his carried blade went under the soles); Zed too (rig_zed BREATH: the shared cut ran
 # through his wrist blades and shortened them); Olaf too (rig_olaf BREATH: the shared cut ran through his spiked greaves);
 # Viktor too (fix_viktor_stand BREATH: the shared cut and lean put an orange square in his mirrored far boot)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "draven"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -91,7 +91,8 @@ BREATHE_OPTS = {"kennen": {"zone": (0.08, 1)}, "leblanc": {"zone": (0.18, 1)},
                 "samira": {"sway": [0] * 8},
                 # Draven's League idle (90 %, both axes out wide): the lean swung the far axe and sheared him over his
                 # legs - 「游戏里左右晃动的太大了吧 模型都变形」; only the dip
-                # and 「头和身体不协调」: his head no longer follows the dip a frame late (lag 0)
+                # and 「头和身体不协调」: his head no longer followed the dip a frame late (lag 0); then 「上下摆动武器变形」:
+                # the dip's shin rows cut the near axe hanging by his knee - he does not breathe (BREATHE_SKIP)
                 "draven": {"sway": [0] * 8, "lag": 0}}
 # hero: [(colour set, box)] of the weapon in the hero's hands. idle_breathe would cut or hinge THROUGH a weapon that
 # reaches the shins (the user's reviews, 2026-10-08: 「剑魔和盖伦武器有点变形」「锐雯武器变形」「莎米拉武器变形」「妖姬和
