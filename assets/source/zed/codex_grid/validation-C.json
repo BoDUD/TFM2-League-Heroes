@@ -1,0 +1,27 @@
+{
+  "B_reference_exact_match": true,
+  "reference_crop_origin": [
+    2,
+    1
+  ],
+  "B_visible_pixels": 796,
+  "B_isolated": 338,
+  "generated_conversion_initial_isolated": 229,
+  "C_isolated": 134,
+  "palette_coalescing_passes": 1,
+  "C_visible_colours": 9,
+  "silhouette_changed_pixels": 0,
+  "grid": 26,
+  "canvas": [
+    1024,
+    1536
+  ],
+  "native": [
+    39,
+    59
+  ],
+  "binary_alpha": true,
+  "exact_grid_correspondence": true,
+  "eye_coordinates_preserved": true,
+  "engine_tested": false
+}

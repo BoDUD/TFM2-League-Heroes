@@ -1,0 +1,44 @@
+{
+  "size": [
+    1024,
+    1536
+  ],
+  "native": [
+    39,
+    59
+  ],
+  "grid": 26,
+  "bbox": [
+    5,
+    4,
+    34,
+    50
+  ],
+  "raw_crop": [
+    74,
+    49,
+    973,
+    1475
+  ],
+  "nearest_sample_offset": [
+    0.0,
+    0.0
+  ],
+  "eye_sample_count": 2,
+  "eye_bright_pixel_count": 2,
+  "colours": 17,
+  "grid_correspondence": true,
+  "engine_tested": false,
+  "eyes_xy": [
+    [
+      21,
+      14
+    ],
+    [
+      23,
+      14
+    ]
+  ],
+  "two_eyes_same_row_separated": true,
+  "both_boots_on_row49": true
+}
