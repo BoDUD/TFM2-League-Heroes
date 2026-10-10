@@ -157,7 +157,10 @@ def make(name):
 
 # 2026-10-11 the user's crops (Screenshots 002951 / 003003): 「眼睛旁边多了一块元素 左腿缺失了元素」 - a black square right
 # of the near eye and a black square where the image-left thigh meets its gold boot top: both the skin's colour
-FIXES = [(71, 64, "#FDC087"), (90, 63, "#FDC087")]       # (canvas row, column, colour) after tryn(*PICK)
+# and (rig_syndra's audit, 2026-10-11) three 1-square pinholes inside outline rings - between the image-right arm and
+# the body (83,68), (84,69) and in the hair at the left (88,52): the ground showed through them; the outline's colour
+FIXES = [(71, 64, "#FDC087"), (90, 63, "#FDC087"),
+         (83, 68, "#100117"), (84, 69, "#100117"), (88, 52, "#100117")]       # (canvas row, column, colour) after tryn(*PICK)
 PICK = ("3", 42)       # the user's pick: draft 3 at 42 rows, league_tryndamere's way (「第三稿→42」, 2026-10-11); the
                        # even cuts (CUTS, 「3_42」 first) were dropped for their dirty black squares round the eyes
 
