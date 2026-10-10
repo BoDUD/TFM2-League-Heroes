@@ -3042,6 +3042,437 @@
               "name": "league_talon_r_out"
             },
             {
+              "type": "LinearProjectile",
+              "name": "league_talon_r_anchor",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 11,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring0"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 17,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring1"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 23,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring2"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 29,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring3"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 35,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring0"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 41,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring1"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 47,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring2"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 53,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring3"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 59,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring0"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 65,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring1"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 71,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring2"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 77,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring3"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 83,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring0"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 89,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring1"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 95,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring2"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 101,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring3"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 107,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring0"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 113,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring1"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 119,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring2"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 125,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring3"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 131,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring0"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 137,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring1"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 143,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_talon_r_on",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_talon_r_ring2"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                }
+              ],
+              "speed": 1,
+              "range": 1,
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "y_offset": 5000
+            },
+            {
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
@@ -4141,6 +4572,38 @@
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_talon_r_ring0",
+      "anim": "asset/league/effects/league_talon_big",
+      "tag": "r_ring0",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_talon_r_ring1",
+      "anim": "asset/league/effects/league_talon_big",
+      "tag": "r_ring1",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_talon_r_ring2",
+      "anim": "asset/league/effects/league_talon_big",
+      "tag": "r_ring2",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_talon_r_ring3",
+      "anim": "asset/league/effects/league_talon_big",
+      "tag": "r_ring3",
+      "z": 3,
+      "is_follow": false
     },
     {
       "type": "Animation",

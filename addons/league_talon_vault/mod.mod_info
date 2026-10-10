@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.87.0"
+      "version": ">=0.88.1"
     }
   ],
   "description": "Test build of Talon's Assassin's Path over the map's walls (needs League of Legends Heroes): replaces the main pack's Talon so he vaults over a jungle wall to escape when outnumbered or low on health, or over one onto an enemy champion behind it, as in League. Where no wall is near, the main pack's open-ground vault stays. Other champions are untouched. Writes a log for testing.",
@@ -16,5 +16,5 @@
   "mod_id": "league_talon_vault",
   "mod_type": "native",
   "name": "League Heroes: Talon's Assassin's Path over walls (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
