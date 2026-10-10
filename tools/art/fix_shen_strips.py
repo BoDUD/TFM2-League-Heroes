@@ -56,6 +56,12 @@ CANVAS_SQUARE = 1254 / 128
 # bulbs hid behind the apron or rose into the sash; the user: 「腿变形严重了 交叉步也不对」.)
 RUN_SHEET = os.path.join(ROOT, "assets", "source", "shen", "codex_run_swap", "shen_run_3x3_1x.png")
 RUN_CELL, RUN_SOLES = 60, 55
+# The user kept Codex's legs and asked for the design's upper body (「腿部ok的 上半身用之前的」): the design's rows above
+# RUN_CUT (head, arms, sword, sash; its near hand down to row RUN_CUT + 1) square for square over Codex's legs and
+# hems below RUN_CUT, RUN_BOB rows lower per frame (down only).
+RUN_CUT = 85
+RUN_HAND_COL = 78
+RUN_BOB = [1, 1, 0, 0, 0, 0, 0, 1, 1]   # lowest in the wide strides (1-2, 8-9), up through the pass
 EYE = (239, 226, 246)
 SPECK = 4
 
@@ -385,7 +391,15 @@ def swap_frame(k, des):
     dy, dx = SOLES - RUN_SOLES, int(round(feet_mid(des, SOLES))) - RUN_CELL // 2
     ys, xs = np.nonzero(cell[..., 3] > 0)
     can[ys + dy, xs + dx] = cell[ys, xs]
-    return run_face(can)
+    bob = RUN_BOB[k - 1]
+    up = des.copy()
+    up[RUN_CUT:, :RUN_HAND_COL] = 0
+    up[RUN_CUT + 2:] = 0
+    up = shift(up, 0, bob)
+    can[:RUN_CUT + bob] = 0
+    m = up[..., 3] > 0
+    can[m] = up[m]
+    return can
 
 
 def sink(a, row, n):
