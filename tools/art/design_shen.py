@@ -14,6 +14,10 @@ head) and sampled them itself at a fixed 64 grid (46 / 43 rows hood to soles) - 
   3. whole rows and columns deleted EVENLY per part to the size the user picks (never two neighbours, never the
      eyes' rows and columns, the soles kept);
   4. strips.complete_outline; 5. on the 128 x 128 canvas: the soles on row 99, the middle of the feet on column 64.
+Round 1's drafts were 43 / 64 rows hood to soles; the user had Codex redraw draft 2 at 40 (round 2, codex_model_v2:
+six tries, none at 40-44 - draft 3 "redraw" ~60 rows, draft 4 "compact" 50 rows). The user picked draft 4 cut to 42
+(4_42), its face and hands brought back to the picture (POLISH: a skin slit with two glowing eyes; RECOLOR: brown
+gloves), then 「再帮我略微缩小点」 -> SHRINK s40: 40 rows hood to soles (46 x 37 with the raised pommel), 30 colours.
 """
 import argparse
 import os
@@ -32,9 +36,10 @@ import design_rengar as R  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "shen", "codex_model")
 RAW = {v: os.path.join(SRC, "raw", f"shen_design_{v}_generator.png") for v in "12"}
+RAW.update({v: os.path.join(SRC + "_v2", "raw", f"shen_design_{v}_generator.png") for v in "34"})
 FINAL = os.path.join(ROOT, "assets", "source", "shen", "design", "shen_design.txt")
 OUT = os.path.join(ROOT, "assets", "source", "native", "shen_native.png")
-SQUARE = {"1": 19.0, "2": 15.7}
+SQUARE = {"1": 19.0, "2": 15.7, "3": 17.0, "4": 10.0}
 CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
@@ -50,6 +55,13 @@ PALS = {
           "#45251D", "#421B70", "#272B6A", "#362E48", "#48394D", "#623827", "#4830AD", "#38429E", "#6C648D", "#B56243",
           "#847DA4", "#8E49D9", "#D87E53", "#938FB5", "#A7A3C4", "#96BEE8", "#E4A181", "#BAB6D5", "#FAA975", "#CCCBE4",
           "#EBBEFD", "#E1DFEF", "#F9F8FA"],
+    "3": ["#0E0212", "#0F0315", "#150C2F", "#230B3A", "#270C40", "#151743", "#2E1714", "#2F104F", "#1A1E51", "#381562",
+          "#391669", "#212663", "#46281B", "#232B75", "#431C82", "#462295", "#2C3897", "#613823", "#673572", "#534A67",
+          "#77739B", "#8E8CB4", "#A662F5", "#D28253", "#E0915F", "#A8A7CA", "#F8AD75", "#BCBEDC", "#CDCDE6", "#E2E2F4",
+          "#FCFBFD"],
+    "4": ["#0B010F", "#110218", "#0F0C30", "#120F3B", "#2B171A", "#231548", "#1B1B56", "#341E1A", "#202062", "#3D241E",
+          "#262676", "#302D47", "#2C2C8D", "#573327", "#514B50", "#583B95", "#593C9C", "#784630", "#686A81", "#6066D7",
+          "#767A8B", "#B67346", "#8A8D98", "#98A1BA", "#61BCDB", "#A3A5AB", "#EEA96D", "#C3C3C5", "#DEE0E3", "#EFE2F6"],
 }
 
 
@@ -109,8 +121,9 @@ def keys_of(v, hexes):
     return {k for k, c in pal.items() if "#%02X%02X%02X" % c in hexes}
 
 
-EYES = {"#8140CC", "#8E49D9", "#EBBEFD"}
-SILVER = {"#EAEAF0", "#C5C5D9", "#F9F8FA", "#E1DFEF", "#CCCBE4", "#96BEE8"}
+EYES = {"#8140CC", "#8E49D9", "#EBBEFD", "#A662F5", "#EFE2F6"}
+SILVER = {"#EAEAF0", "#C5C5D9", "#F9F8FA", "#E1DFEF", "#CCCBE4", "#96BEE8", "#E2E2F4", "#FCFBFD", "#DEE0E3", "#C3C3C5",
+          "#61BCDB"}
 
 
 def weights(v):
@@ -133,9 +146,41 @@ CUTS = {
     "1_42": ("1", [(23, 38, 1)], []),
     "1_40": ("1", [(23, 38, 1), (39, 52, 2)], [(0, 38, 1)]),
     "2_40": ("2", [(0, 11, 4), (12, 30, 6), (31, 50, 9), (51, 73, 9)], [(0, 53, 14)]),
+    # round 2 (codex_model_v2): draft 4 = Codex's "compact" try, 45 x 57, the hood's top row 7, the soles row 56 (50)
+    "4_42": ("4", [(0, 6, 1), (8, 18, 1), (20, 37, 3), (38, 54, 4)], [(0, 18, 3), (19, 44, 3)]),
+    "4_40": ("4", [(0, 6, 2), (8, 18, 2), (20, 37, 4), (38, 54, 4)], [(0, 18, 4), (19, 44, 4)]),
 }
-PICK = None
-POLISH = []
+PICK = "4_42"         # the user's pick (「用 4_42，我把脸和手套修回原画」, 2026-10-10)
+# (row, column from the figure's left edge, letters; '.' clears, ' ' keeps) - draft 4's palette
+POLISH = [
+    (63, 18, "0ltqqtl0"),    # the dark slit -> a skin slit with two glowing eyes (picture A)
+    (64, 19, "mrsrm"),       # the mask's lit top under it
+]
+# (row0, row1, col0, col1, {from: to}) - recolour inside a box: bare hands -> the picture's brown gloves
+GLOVE = {"q": "h", "l": "d", "h": "9"}
+RECOLOR = [
+    (55, 60, 12, 15, GLOVE),  # the raised fist on the grip
+    (78, 84, 32, 38, GLOVE),  # the near hand, open
+]
+
+
+# The user on the fixed 4_42: 「挺不错的 再帮我略微缩小点就可以了」 - whole rows / columns more, evenly, from the
+# polished figure (rows: 0-5 the pommel and fist, 6 the hood's top, 10-14 the face, 47 the soles), the face kept.
+SHRINKS = {
+    "s40": ([(16, 32, 1), (33, 45, 1)], [(0, 14, 1), (25, 38, 1)]),
+    "s38": ([(0, 5, 1), (7, 9, 1), (16, 32, 2), (33, 45, 1)], [(0, 14, 2), (25, 38, 2)]),
+}
+SHRINK_HARD = (set(range(10, 15)) | {46, 47}, set(range(19, 26)))
+SHRINK = "s40"          # the user's pick (「40 格」, 2026-10-10)
+
+
+def shrink(can, name):
+    """The polished canvas with SHRINKS[name]'s rows and columns deleted, back on the canvas."""
+    pal = palette(CUTS[PICK][0])
+    rows = from_rgba(R.crop(can), pal)
+    rp, cp = SHRINKS[name]
+    out, dr, dc = cut(rows, rp, cp, SHRINK_HARD[0], SHRINK_HARD[1], weights(CUTS[PICK][0]))
+    return on_canvas(to_rgba(out, pal)), dr, dc
 
 
 def cut(rows, row_parts, col_parts, hard_rows, hard_cols, weight):
@@ -180,6 +225,14 @@ def rebuild():
     can = on_canvas(fig)
     ys, xs = np.nonzero(can[..., 3] > 0)
     x0 = xs.min()
+    inv = {v: k for k, v in pal.items()}
+    for y0, y1, c0, c1, m in RECOLOR:
+        for y in range(y0, y1 + 1):
+            for x in range(x0 + c0, x0 + c1 + 1):
+                if can[y, x, 3]:
+                    k = inv[tuple(int(v) for v in can[y, x, :3])]
+                    if k in m:
+                        can[y, x, :3] = pal[m[k]]
     for y, c, text in POLISH:
         for i, ch in enumerate(text):
             if ch == ".":
@@ -187,6 +240,8 @@ def rebuild():
             elif ch != " ":
                 can[y, x0 + c + i, :3] = pal[ch]
                 can[y, x0 + c + i, 3] = 255
+    if SHRINK:
+        can = shrink(can, SHRINK)[0]
     return can
 
 
