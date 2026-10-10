@@ -260,24 +260,21 @@ def legs_moved(P, a, near_dx, far_dx, near_lift=0, far_lift=0):
 
 def compose(P, pose):
     orient, layer, (dx, dy), lean, sink, legs = pose
-    base = P.body
-    if legs:
-        base = legs_moved(P, base, legs[0], legs[1])
-    up, low = upper_lower(base)
+    up, low = upper_lower(P.body)
     headm = leaned(as_rgba(P.head_m), lean)[..., 3] > 0
-    up = leaned(up, lean)
+    base = np.zeros_like(P.body)
+    K.put(base, low, 0, 0)
+    K.put(base, leaned(up, lean), 0, 0)
+    # a crouch lowers everything but the boots and shins (the coat's hem over them): never the body over the coat
+    c = lowered(P, base, sink, near=(legs[0], 0) if legs else (0, 0), far=(legs[1], 0) if legs else (0, 0))
     if sink:
-        up = K.shifted(up, 0, sink)
         headm = np.roll(headm, sink, 0)
-    c = np.zeros_like(base)
-    K.put(c, low, 0, 0)
-    K.put(c, up, 0, 0)
     sh = (ELBOW[0] + lean_shift(int(ELBOW[1]), lean), ELBOW[1] + sink)
     if layer == "behind":
         K.place(c, P.orient(orient), sh, under=True)
     else:
-        head = np.zeros_like(up)
-        head[headm] = up[headm]
+        head = np.zeros_like(c)
+        head[headm] = c[headm]
         K.place(c, P.orient(orient), sh)
         if layer == "front":
             K.put(c, head, 0, 0)
@@ -291,47 +288,45 @@ def compose(P, pose):
     return c, keep
 
 
-# the run: both boots (with their shins) come in under the hips (IN) and step on an even stride - planted, sliding
-# back 3 columns a frame for 4 frames, then lifted and swung forward - the far leg half a cycle later, so the near
-# boot passes in front of the far one; the coat and the body ride over the legs, bobbing (moved whole, never sheared)
-IN = 8
-STRIDE = [(6, 0), (3, 0), (0, 0), (-3, 0), (-3, 1), (0, 2), (3, 2), (5, 1)]      # (dx from the boot's base, lift)
-BOB = [1, 0, 0, 1, 1, 0, 0, 1]
+# legs that stand: the boots and shins (NEAR_LOW / FAR_LOW). A bob or a breath moves everything ELSE down over them -
+# the coat's hem then hides a little more of the shins, like knees bending - so neither the coat nor the belt is ever
+# squashed (the user: 「上下摆动造成模型变形」 on the first idle, which sank the upper body over the coat)
+def lowered(P, a, n, near=(0, 0), far=(0, 0)):
+    """`a` with everything but the boots and shins moved down n rows; the near / far boot+shin moved (dx, lift)."""
+    nm = K.mask_rows(NEAR_LOW) & (a[..., 3] > 0)
+    fm = K.mask_rows(FAR_LOW) & (a[..., 3] > 0)
+    nl, fl = np.zeros_like(a), np.zeros_like(a)
+    nl[nm], fl[fm] = a[nm], a[fm]
+    body = a.copy()
+    body[nm | fm] = 0
+    c = np.zeros_like(a)
+    K.put(c, K.shifted(fl, far[0], -far[1]), 0, 0)
+    K.put(c, K.shifted(nl, near[0], -near[1]), 0, 0)
+    K.put(c, K.shifted(body, 0, n), 0, 0)
+    c[P.D.soles + 1:] = 0
+    return c
+
+
+# the run (League's: the sword stays on his shoulder): each boot steps in its own lane - planted, sliding back 2 columns a
+# frame, then lifted and carried forward - the far leg half a cycle later; the body dips a row as a foot lands. The
+# first run brought both boots in under the hips (IN): the coat's flaps hung over nothing - 「走路姿势太怪了」
+STRIDE = [(3, 0), (1, 0), (-1, 0), (-3, 0), (-2, 1), (0, 2), (2, 2), (3, 1)]      # (dx from the boot's place, lift)
+BOB = [1, 0, 0, 0, 1, 0, 0, 0]
 
 
 def run_frame(P, k):
-    a = P.D.a
-    nm = K.mask_rows(NEAR_LOW) & (a[..., 3] > 0)
-    fm = K.mask_rows(FAR_LOW) & (a[..., 3] > 0)
-    near, far = np.zeros_like(a), np.zeros_like(a)
-    near[nm], far[fm] = a[nm], a[fm]
-    body = a.copy()
-    body[nm | fm] = 0
-    ndx, nlift = STRIDE[k]
-    fdx, flift = STRIDE[(k + 4) % 8]
-    bob = BOB[k]
-    c = np.zeros_like(a)
-    K.put(c, K.shifted(far, fdx - IN, -flift), 0, 0)
-    K.put(c, K.shifted(near, ndx + IN, -nlift), 0, 0)
-    K.put(c, K.shifted(body, 0, bob), 0, 0)       # the coat over the legs
-    keep = np.roll(P.head_m, bob, 0)
-    c[P.D.soles + 1:] = 0
-    return c, keep
+    c = lowered(P, P.D.a, BOB[k], near=STRIDE[k], far=STRIDE[(k + 4) % 8])
+    return c, np.roll(P.head_m, BOB[k], 0)
 
 
-# the idle: his own breath (import_native's shared cut would run through the coat's flaps and the boots): everything
-# above the hips - the sword on his shoulder and the head with it - sinks over the standing legs, 0 0 1 2 2 2 1 0 rows
-BREATH = [0, 0, 1, 2, 2, 2, 1, 0]
+# the idle: his own breath (import_native's shared cut costs 18 visible squares through the coat and the trousers): the
+# whole figure but the boots and shins sinks 0 0 1 1 1 1 0 0 rows over them (lowered)
+BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
 
 
 def idle_frame(P, k):
-    a = P.D.a
-    up, low = upper_lower(a)
     n = BREATH[k]
-    c = np.zeros_like(a)
-    K.put(c, low, 0, 0)
-    K.put(c, K.shifted(up, 0, n), 0, 0)
-    return c, np.roll(P.head_m, n, 0)
+    return lowered(P, P.D.a, n), np.roll(P.head_m, n, 0)
 
 
 def frames(P, tag):
