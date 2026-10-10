@@ -404,6 +404,86 @@ def trot_frame(k, des):
     return can
 
 
+SHRINK = 0.9                          # the user: 「慎的模型太大 缩小一点」 (46 rows -> 42, like Talon and Olaf)
+SHRINK_KEEP = ["!EFE2F6+3,5,4,4"]     # no line through the eyes and the mask
+SHRINK_ANCHOR = "EFE2F6"
+CH, CW = 88, 64                       # the pivot: the centre of the pivot-centred arrays shrink_frames works on
+
+
+def to_c(a):
+    """A 128 x 128 canvas (pivot 64, 88) as a pivot-centred array (177 x 129)."""
+    out = np.zeros((2 * CH + 1, 2 * CW + 1, 4), np.uint8)
+    out[:128, :128] = a
+    return out
+
+
+def from_c(arr):
+    h, w = arr.shape[0] // 2, arr.shape[1] // 2
+    can = np.zeros((128, 128, 4), np.uint8)
+    r0, c0 = CH - h, CW - w
+    rs, cs = slice(max(0, r0), min(128, r0 + arr.shape[0])), slice(max(0, c0), min(128, c0 + arr.shape[1]))
+    can[rs, cs] = arr[rs.start - r0:rs.stop - r0, cs.start - c0:cs.stop - c0]
+    return can
+
+
+def design_plan(des):
+    """The lines the design loses (shrink_frames.plan_tag on the design alone): applied to the design AND to each of
+    its moving parts, so a part keeps its exact squares in every frame it is moved in (the import's shrink cut the
+    moving legs at fixed canvas columns: a different column of the leg in every frame - 「还有轻微的变形」)."""
+    import shrink_frames as SF
+    fr = [(to_c(des), 160)]
+    body = SF.body_of(fr)
+    return SF.plan_tag(fr, body, SHRINK, keep_colours=SHRINK_KEEP), body
+
+
+def shrunk(a, plan):
+    import shrink_frames as SF
+    return from_c(SF.apply_tag([(to_c(a), 100)], plan)[0][0])
+
+
+def shrunk_row(plan, y):
+    """Canvas row y of the design after the plan (rows removed above it move it up)."""
+    return y - sum(1 for r in plan["rows"] if CH + r < y)
+
+
+def shrink_tag(frames, body, anchor=SHRINK_ANCHOR):
+    """Codex's frames of one action shrunk together (one plan, the lines following the eyes; not in the death, where
+    the lying frames' eyes sit low or are gone and the offset lines fell under the soles). A frame whose lowest row
+    ended under the soles (an empty line removed below the figure moved its pivot) is moved back up whole."""
+    import shrink_frames as SF
+    sheet = {"t": [(to_c(a), ms) for a, ms in frames]}
+    SF.shrink_sheet(sheet, SHRINK, body=body, keep_colours=SHRINK_KEEP, anchor=anchor)
+    out = []
+    for a, ms in sheet["t"]:
+        a = from_c(a)
+        low = int(np.nonzero(a[..., 3].any(1))[0].max())
+        if low > SOLES:
+            a = shift(a, 0, SOLES - low)
+        out.append((a, ms))
+    return out
+
+
+def breath_parts(des):
+    """The idle's breathing body (rows < BREATH_ROW, the near hand down to HAND_END) and what stays (the legs)."""
+    up = des.copy()
+    up[BREATH_ROW:, :HAND_COL] = 0
+    up[HAND_END:] = 0
+    low = des.copy()
+    low[:BREATH_ROW] = 0
+    low[BREATH_ROW:HAND_END, HAND_COL:] = 0
+    return up, low
+
+
+def compose(parts):
+    can = np.zeros((128, 128, 4), np.uint8)
+    for part, dx, dy in parts:
+        p = shift(part, dx, dy)
+        m = p[..., 3] > 0
+        can[m] = p[m]
+    can[SOLES + 1:] = 0
+    return can
+
+
 def sink(a, row, n):
     """Everything above `row` n rows lower, over what is below (moved, not redrawn)."""
     up = a.copy()
@@ -457,23 +537,45 @@ def build(only=None):
             info[name] = (s, f)
         return cache[name]
 
+    plan, body0 = design_plan(des)
+    des90 = shrunk(des, plan)
+    up, low = breath_parts(des)
+    up90, low90 = shrunk(up, plan), shrunk(low, plan)
+    upper, tail, apron, far, near = (shrunk(p, plan) for p in trot_parts(des))
     for tag, rows in TAGS.items():
         if only and tag not in only:
             continue
-        frames = []
+        frames, codex = [], []
         for k, (src, ms) in enumerate(rows, 1):
             if src == "design":
-                a = des.copy()
+                a = des90
             elif isinstance(src, tuple) and src[0] == "breath":
-                a = breath(des, src[1])
+                a = compose([(low90, 0, 0), (up90, 0, src[1])])
             elif isinstance(src, tuple) and src[0] == "trot":
-                a = pinholes(trot_frame(src[1], des))
+                kk = src[1]
+                bob, (ndx, nup), (fdx, fup) = TROT_BOB[kk - 1], NEAR_STEP[kk - 1], FAR_STEP[kk - 1]
+                a = pinholes(compose([(tail, ndx, bob), (far, fdx, -fup), (near, ndx, -nup), (apron, 0, bob),
+                                      (upper, 0, bob)]))
             elif isinstance(src, tuple) and src[0] == "sink":
-                a = sink(frame(src[1]), src[2], src[3])
+                a = ("sink", src[1], src[2], src[3])
             else:
-                a = frame(src)
+                a = ("codex", src)
+                codex.append((frame(src), ms))
             frames.append((a, ms))
-        sheet[tag] = frames
+        done = {}
+        if codex:
+            names = [f[0][1] for f in frames if isinstance(f[0], tuple) and f[0][0] == "codex"]
+            for name, (a, _) in zip(names, shrink_tag(codex, body0, None if tag == "dead" else SHRINK_ANCHOR)):
+                done[name] = a
+        out = []
+        for a, ms in frames:
+            if isinstance(a, tuple) and a[0] == "codex":
+                a = done[a[1]]
+            elif isinstance(a, tuple) and a[0] == "sink":
+                srcf = done.get(a[1]) if a[1] in done else shrink_tag([(frame(a[1]), 100)], body0)[0][0]
+                a = sink(srcf, shrunk_row(plan, a[2]), a[3])
+            out.append((a, ms))
+        sheet[tag] = out
     return sheet, info
 
 
