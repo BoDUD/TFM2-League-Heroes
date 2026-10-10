@@ -602,6 +602,13 @@
         "skill": "召回灵魂之刃，从目标身后飞回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并<#ef5350ff>减速25%<>，之后3次普攻强化。刀回手时附近有敌方英雄则施放<#ff9028ff>奥义！魂佑<>：<#ffb900ff>1.75秒<>内区域中的友方英雄不受普攻伤害（<#ffb900ff>15秒<>冷却）。",
         "skill2": "向前突进，沿途敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并被<#ef5350ff>嘲讽1.17秒<>。嘲讽到英雄且暮临就绪时，灵魂之刃从突进起点飞回、穿过他们。",
         "ult": "全图有友方英雄被控，或与敌方英雄缠斗且离慎较远时：给他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>护盾<#ffb900ff>5秒<>，慎引导<#ffb900ff>2.5秒<>后传送到他身边（被控则中断）。"
+      },
+      "league_syndra": {
+        "name": "辛德拉",
+        "attack": "被动<#ff9028ff>卓尔不凡<>：<#ffb900ff>3<>级Q对英雄伤害+25%，<#ffb900ff>5<>级W附带<#ffffffff>20%真实伤害<>，<#ffb900ff>7<>级E范围更大，<#ffb900ff>9<>级R的法球无视魔抗。",
+        "skill": "召唤暗黑法球，对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。法球留在原地<#ffb900ff>6秒<>。",
+        "skill2": "先用<#ff9028ff>驱使念力<>把法球掷向敌方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。再锥形击退敌人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，被推开的法球使附近敌人<#ef5350ff>晕眩1.25秒<>。",
+        "ult": "向一名敌方英雄发射<#ffb900ff>3颗+场上法球数<>（最多7颗），每颗造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<><#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -1034,6 +1041,11 @@
         "skill1": "奥义！暮临",
         "skill2": "奥义！影缚",
         "ult": "秘奥义！慈悲度魂落"
+      },
+      "league_syndra": {
+        "skill1": "暗黑法球",
+        "skill2": "弱者退散",
+        "ult": "能量倾泻"
       }
     }
   },
@@ -1640,6 +1652,13 @@
         "skill": "召回靈魂之刃，從目標身後飛回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並<#ef5350ff>緩速25%<>，之後3次普攻強化。刀回手時附近有敵方英雄則施放<#ff9028ff>靈氣庇護<>：<#ffb900ff>1.75秒<>內區域中的友方英雄不受普攻傷害（<#ffb900ff>15秒<>冷卻）。",
         "skill2": "向前突進，沿途敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並被<#ef5350ff>嘲諷1.17秒<>。嘲諷到英雄且暮光強襲就緒時，靈魂之刃從突進起點飛回、穿過他們。",
         "ult": "全圖有友方英雄被控，或與敵方英雄纏鬥且離慎較遠時：給他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>護盾<#ffb900ff>5秒<>，慎引導<#ffb900ff>2.5秒<>後傳送到他身邊（被控則中斷）。"
+      },
+      "league_syndra": {
+        "name": "星朵拉",
+        "attack": "被動<#ff9028ff>卓越<>：<#ffb900ff>3<>級Q對英雄傷害+25%，<#ffb900ff>5<>級W附帶<#ffffffff>20%真實傷害<>，<#ffb900ff>7<>級E範圍更大，<#ffb900ff>9<>級R的星體無視魔抗。",
+        "skill": "召喚黑暗星體，對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。星體留在原地<#ffb900ff>6秒<>。",
+        "skill2": "先用<#ff9028ff>意志之力<>把星體擲向敵方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。再錐形擊退敵人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，被推開的星體使附近敵人<#ef5350ff>暈眩1.25秒<>。",
+        "ult": "向一名敵方英雄發射<#ffb900ff>3顆+場上星體數<>（最多7顆），每顆造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<><#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -2072,6 +2091,11 @@
         "skill1": "暮光強襲",
         "skill2": "影襲",
         "ult": "並肩作戰"
+      },
+      "league_syndra": {
+        "skill1": "黑暗星體",
+        "skill2": "虛弱潰散",
+        "ult": "超能解放"
       }
     }
   },
@@ -2678,6 +2702,13 @@
         "skill": "Recalls his spirit blade from behind the target: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> and <#ef5350ff>25% slow<> to enemies on its way; his next 3 attacks are empowered. With an enemy champion near on its return, <#ff9028ff>Spirit's Refuge<>: for <#ffb900ff>1.75s<> allied champions in the zone take no basic attack damage (<#ffb900ff>15s<> cooldown).",
         "skill2": "Dashes forward: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> to enemies passed, <#ef5350ff>taunted 1.17s<>. Taunting a champion with Twilight Assault ready also pulls the blade from where the dash began, through them.",
         "ult": "When an allied champion anywhere is crowd-controlled, or locked in a fight far from Shen: a <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> shield on it for <#ffb900ff>5s<>; Shen channels <#ffb900ff>2.5s<> and teleports to it (crowd control breaks it)."
+      },
+      "league_syndra": {
+        "name": "Syndra",
+        "attack": "Passive <#ff9028ff>Transcendent<>: at level <#ffb900ff>3<> Dark Sphere deals 25% more to champions, at <#ffb900ff>5<> Force of Will adds <#ffffffff>20% true damage<>, at <#ffb900ff>7<> Scatter the Weak grows, at <#ffb900ff>9<> Unleashed Power ignores Magic Resist.",
+        "skill": "A Dark Sphere deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> around it and stays for <#ffb900ff>6s<>.",
+        "skill2": "First <#ff9028ff>Force of Will<> throws a sphere at an enemy champion for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 30%<>. Then a cone deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and knocks enemies back; spheres pushed <#ef5350ff>stun<> enemies near them for <#ffb900ff>1.25s<>.",
+        "ult": "Fires <#ffb900ff>3 + her spheres<> (up to 7) at an enemy champion, each dealing <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -3110,6 +3141,11 @@
         "skill1": "Twilight Assault",
         "skill2": "Shadow Dash",
         "ult": "Stand United"
+      },
+      "league_syndra": {
+        "skill1": "Dark Sphere",
+        "skill2": "Scatter the Weak",
+        "ult": "Unleashed Power"
       }
     }
   },
@@ -3716,6 +3752,13 @@
         "skill": "영혼의 검을 대상 뒤에서 회수해 지나는 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해와 <#ef5350ff>25% 둔화<>, 다음 기본 공격 3회 강화. 돌아올 때 근처에 적 챔피언이 있으면 <#ff9028ff>의지의 결계<>: <#ffb900ff>1.75초<> 동안 범위 안 아군 챔피언은 기본 공격 피해를 받지 않음(재사용 <#ffb900ff>15초<>).",
         "skill2": "앞으로 돌진해 지나간 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해, <#ef5350ff>1.17초 도발<>. 챔피언을 도발했고 황혼 강습이 준비되어 있으면 검이 돌진 시작점에서 날아와 그들을 관통.",
         "ult": "맵 어디서든 아군 챔피언이 군중 제어에 걸렸거나 쉔과 멀리서 교전 중이면: <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 보호막 <#ffb900ff>5초<>, 쉔이 <#ffb900ff>2.5초<> 정신 집중 후 그 곁으로 순간이동(군중 제어 시 취소)."
+      },
+      "league_syndra": {
+        "name": "신드라",
+        "attack": "기본 지속 효과 <#ff9028ff>초월<>: <#ffb900ff>3<>레벨 Q 챔피언 피해 +25%, <#ffb900ff>5<>레벨 W <#ffffffff>고정 피해 20%<> 추가, <#ffb900ff>7<>레벨 E 범위 증가, <#ffb900ff>9<>레벨 R 구체가 마법 저항력 무시.",
+        "skill": "어둠 구체가 주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>. 구체는 <#ffb900ff>6초<> 동안 남음.",
+        "skill2": "먼저 <#ff9028ff>의지의 힘<>으로 적 챔피언에게 구체를 던져 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>30% 둔화<>. 이어서 부채꼴로 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>와 밀쳐내기, 밀려난 구체 주변 적 <#ef5350ff>기절 1.25초<>.",
+        "ult": "적 챔피언 하나에게 <#ffb900ff>구체 3개 + 남은 구체 수<>(최대 7개) 발사, 개당 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>의 <#a974ffff>마법 피해<>."
       }
     },
     "skill_name": {
@@ -4148,6 +4191,11 @@
         "skill1": "황혼 강습",
         "skill2": "그림자 돌진",
         "ult": "단결된 의지"
+      },
+      "league_syndra": {
+        "skill1": "어둠 구체",
+        "skill2": "적군 와해",
+        "ult": "풀려난 힘"
       }
     }
   },
@@ -4754,6 +4802,13 @@
         "skill": "霊刃を対象の背後から呼び戻し、通過した敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>25%スロウ<>、次の通常攻撃3回を強化。戻った時に敵チャンピオンが近くにいれば<#ff9028ff>防人の帳<>：<#ffb900ff>1.75秒<>間、範囲内の味方チャンピオンは通常攻撃のダメージを受けない（<#ffb900ff>15秒<>毎）。",
         "skill2": "前方へ突進し、通過した敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>1.17秒の挑発<>。チャンピオンを挑発し護刃招来が使えるなら、霊刃が突進の起点から飛び戻り彼らを貫く。",
         "ult": "マップのどこかで味方チャンピオンが行動妨害を受けるか、シェンから遠くで交戦中なら：<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>のシールドを<#ffb900ff>5秒<>、シェンは<#ffb900ff>2.5秒<>詠唱後その傍へテレポート（行動妨害で中断）。"
+      },
+      "league_syndra": {
+        "name": "シンドラ",
+        "attack": "パッシブ <#ff9028ff>絶大なる魔力<>：<#ffb900ff>3<>レベルでQのチャンピオンへのダメージ+25%、<#ffb900ff>5<>レベルでWに<#ffffffff>20%確定ダメージ<>、<#ffb900ff>7<>レベルでE拡大、<#ffb900ff>9<>レベルでRが魔法防御無視。",
+        "skill": "ダークスフィアが周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。スフィアは<#ffb900ff>6秒<>残る。",
+        "skill2": "まず<#ff9028ff>ダークフォース<>でスフィアを敵チャンピオンに投げ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。続けて扇状に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>とノックバック、押されたスフィアが周囲の敵を<#ef5350ff>1.25秒スタン<>。",
+        "ult": "敵チャンピオン1体に<#ffb900ff>3個+残りのスフィア<>（最大7個）を放ち、1個ごとに<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>の<#a974ffff>魔法ダメージ<>。"
       }
     },
     "skill_name": {
@@ -5186,6 +5241,11 @@
         "skill1": "護刃招来",
         "skill2": "殺気駆け",
         "ult": "瞬身護法"
+      },
+      "league_syndra": {
+        "skill1": "ダークスフィア",
+        "skill2": "闇の波導",
+        "ult": "魔力の奔流"
       }
     }
   }
