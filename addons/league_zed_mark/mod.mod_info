@@ -11,10 +11,10 @@
       "version": ">=0.82.0"
     }
   ],
-  "description": "Test build of Zed's Contempt for the Weak and Death Mark from real health and damage (needs League of Legends Heroes): replaces the main pack's Zed so his attacks on a champion below 50% health add 6/8/10% of its max health as magic damage (10 s per target), and his Death Mark bursts for its base damage plus 35% of the damage he dealt to the marked champion, instead of the data pack's stand-ins (an attack after a spell hit, three hits counted), which cannot read health or damage. Below 30% health while his Death Mark's shadow stands, he swaps back to it. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-09",
+  "description": "Test build of Zed's Contempt for the Weak and Death Mark from real health and damage (needs League of Legends Heroes): replaces the main pack's Zed so his attacks on a champion below 50% health add 6/8/10% of its max health as magic damage (10 s per target), and his Death Mark bursts for its base damage plus 35% of the damage he dealt to the marked champion, instead of the data pack's stand-ins (an attack after a spell hit, three hits counted), which cannot read health or damage. Below 30% health while his Death Mark's shadow stands, he trades places with it. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-10",
   "mod_id": "league_zed_mark",
   "mod_type": "native",
   "name": "League Heroes: Zed's Contempt and Death Mark from health and damage (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
