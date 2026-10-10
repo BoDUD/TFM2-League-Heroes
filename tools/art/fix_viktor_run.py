@@ -74,13 +74,20 @@ HIP = 1               # both hips' column from the pivot, as HIP_X draws them in
 # frame (boot_dx, lift) from the leg's own place, League's order (planted 1-4 sliding back, heel up 5, up 6, past the
 # planted boot a row clear of it in 7, reaching in 8); the far leg half a cycle later. The knee: half the boot's lean
 # when planted, a column ahead of the boot when lifted.
-HIPS2 = {"near": -1, "far": 1}         # in a column each so the boots trade places front / back each half cycle
 # The pace (the user again: 「有点怪啊走路 你没感觉吗」): run v10 kept run v9's 8 x 133 ms, a slow shuffle whose small
 # steps slid along the ground. oppi's own Viktor walks 10 x 65 ms with feet lifted 1-2 px; at 80 ms a frame the same
 # steps come quick (a cycle in 0.64 s). Lifting higher stacks his two 10-px boots into two slabs (tried: heel kicks up
 # 2-3 behind the thigh).
 RUN_MS = 80
-STEP2 = [(4, 0), (2, 0), (0, 0), (-2, 0), (-4, 1), (-2, 1), (0, 1), (2, 0)]
+# run v11 (the user picked C - each leg in its own lane - then: 「但是腿部模型变形问题没解决」): per frame (shin_dx,
+# boot_dx, lift) for the near leg, the far one half a cycle later: planted 4 frames sliding back a column a frame,
+# then heel up 1, the knee raised 2 while it swings forward, down again; BOB3 sinks the body + thighs a row as a foot
+# takes the weight (frames 1, 5) - the body never rises off the legs, so no gap opens at the waist and the design's
+# pelvis rows are not pasted back over the legs any more (seat() did that every frame: the thigh tops, rows 88-90,
+# stayed the idle's while the legs under them moved - 「只有脚动上面的腿不动」, and the joint looked broken)
+STEP3 = [(1, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 0), (-1, -2, 1), (0, -1, 2), (1, 1, 2), (1, 2, 1)]
+BOB3 = [1, 0, 0, 0, 1, 0, 0, 0]
+SEAT = False
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
 TORSO = 30            # design rows 0..29 (from the design's top) are in every run cell as they are
 PELVIS = (30, 33)     # design rows 30..32: the pelvis armour put back
@@ -150,30 +157,29 @@ def shin(leg):
                     leg[y, e] = (*OUT, 255)
 
 
-def zleg(part, hip_dx, boot_dx, lift):
-    """league_zed's run_leg on Viktor's 12-row leg: thigh rows LEG_TOP..KNEE_ROW-1 shifted from hip_dx to the knee's,
-    the shin leaning on to boot_dx at BOOT_ROW, the boot rows whole, the shin + boot `lift` rows up behind the thigh."""
-    # the whole leg swings from the hip (the user: 「只有脚动上面的腿不动 不协调」 when the knee went half as far as the
-    # boot): the knee as far as the boot, a column further when the leg is lifted
-    # and half of the step is the whole leg sliding under the pelvis armour (a thigh leaning the whole step over its five
-    # rows stood at ~40 degrees and the body looked tilted on two slanted sticks: 「走路的时候身体像是歪的」)
-    knee_dx = hip_dx + boot_dx + (1 if lift else 0)
-    top_dx = hip_dx + int(np.floor(boot_dx / 2 + 0.5))
-    boot_dx = hip_dx + boot_dx
+def zleg(part, shin_dx, boot_dx, lift, drop):
+    """One leg of run v11 in three rigid blocks, none of them bent or sheared (the user, 10-10: 「腿部模型变形问题没解决」
+    after the row-by-row leans): the thigh (LEG_TOP..KNEE_ROW-1) where the design has it, only sunk `drop` rows with
+    the body; the shin with its orange knee ring (KNEE_ROW..BOOT_ROW-1) shin_dx columns over; the boot (BOOT_ROW..)
+    boot_dx over. Neighbouring blocks are at most a column apart, so the leg stays joined. A swinging leg lifts shin +
+    boot `lift` rows in front of the thigh's lower rows (the knee raised); a sunk thigh goes over the shin's top."""
     thigh = np.zeros_like(part)
     low = np.zeros_like(part)
+    assert abs(shin_dx) <= 1 and abs(boot_dx - shin_dx) <= 1, (shin_dx, boot_dx)
     for r, c in zip(*np.nonzero(part[..., 3])):
         if r < S.KNEE_ROW:
-            sh = top_dx + int(np.floor((knee_dx - top_dx) * (r - S.LEG_TOP) / (S.KNEE_ROW - S.LEG_TOP) + 0.5))
-            if 0 <= c + sh < part.shape[1]:
-                thigh[r, c + sh] = part[r, c]
+            if r + drop < part.shape[0]:
+                thigh[r + drop, c] = part[r, c]
         else:
-            t = min(1.0, (r - S.KNEE_ROW) / (S.BOOT_ROW - S.KNEE_ROW))
-            sh = int(np.floor(knee_dx + (boot_dx - knee_dx) * t + 0.5))
+            sh = shin_dx if r < S.BOOT_ROW else boot_dx
             if 0 <= c + sh < part.shape[1]:
                 low[r - lift, c + sh] = part[r, c]
-    m = (thigh[..., 3] == 0) & (low[..., 3] > 0)
-    thigh[m] = low[m]
+    if lift:
+        m = low[..., 3] > 0
+        thigh[m] = low[m]
+    else:
+        m = (thigh[..., 3] == 0) & (low[..., 3] > 0)
+        thigh[m] = low[m]
     return thigh
 
 
@@ -230,12 +236,11 @@ def run_frames(design, bob):
     at = feet()
     out = []
     for k in range(8):
-        f = STEP2[(k + 4) % 8]
-        c = zleg(far, HIPS2["far"], *f)
-        b = np.roll(body, bob[k], axis=0)
+        c = zleg(far, *STEP3[(k + 4) % 8], BOB3[k])
+        b = np.roll(body, BOB3[k], axis=0)
         m = b[..., 3] > 0
         c[m] = b[m]
-        n = zleg(near, HIPS2["near"], *STEP2[k])
+        n = zleg(near, *STEP3[k], BOB3[k])
         m = n[..., 3] > 0
         c[m] = n[m]
         # the far boot's sole row left under the near boot raised over it: outline touching no colour - gone
@@ -249,6 +254,10 @@ def run_frames(design, bob):
         stray = ink & ~near_col
         stray[:S.LEG_TOP] = False
         c[stray] = 0
+        fill_gaps(c, S.LEG_TOP)
+        # closed as the import will close it, then any gap that walls in filled too: the import adds nothing new
+        low = int(np.nonzero(c[..., 3].any(1))[0].max())
+        c = G.complete_outline(c, color=OUT, dark=70, feet=low)[0]
         fill_gaps(c, S.LEG_TOP)
         out.append(c)
     return out
@@ -307,17 +316,16 @@ def main():
         cells = json.load(f)
     with open(lp(S.RUN_MANIFEST), encoding="utf-8") as f:
         bob = [fr["upper_shift"][1] for fr in json.load(f)["frames"]]
-    at = feet()
     for k in range(8):
-        print(f"frame {k + 1}: near {at['near'][k][0]:+.2f} up {at['near'][k][1]}, far {at['far'][k][0]:+.2f} up "
-              f"{at['far'][k][1]}")
+        print(f"frame {k + 1}: near {STEP3[k]}, far {STEP3[(k + 4) % 8]}, body down {BOB3[k]}")
     for fr in cells["tags"]["run"]:
         fr["ms"] = RUN_MS
     with open(lp(os.path.join(NATIVE, "viktor_cells.json")), "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(cells, indent=1, ensure_ascii=False))
     a = load("viktor_run.png")
     S.place_run(a, cells, run_frames(design, bob))
-    seat(a, cells)
+    if SEAT:
+        seat(a, cells)
     Image.fromarray(a).resize((a.shape[1] * Z, a.shape[0] * Z), Image.NEAREST).save(lp(os.path.join(NATIVE, "viktor_run.png")))
 
 
