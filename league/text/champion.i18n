@@ -575,6 +575,13 @@
         "skill2": "冲向目标，冲得越久伤害越高（最多200%），造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害并<#ef5350ff>击退<>，之后移速+25%。",
         "ult": "带幽灵骑兵冲向敌方英雄，沿途敌人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>伤害；落地使周围敌人<#ef5350ff>恐惧0.75秒<>（冲得远<#ef5350ff>1.33秒<>），顺势<#ff9028ff>暴走<>一圈并开启<#ff9028ff>恐惧之灵<>。"
       },
+      "league_talon": {
+        "name": "泰隆",
+        "attack": "腕刃攻击。<#ff9028ff>刀锋之末<>：技能命中英雄叠一层伤口，叠满3层后下次普攻使其<#ff9028ff>流血<>，<#ffb900ff>2秒<>内受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>伤害。<#ff9028ff>刺客之道<>（自动，<#ffb900ff>10秒<>）：收刀或Q击杀时身边有2名敌方英雄，就翻身跃开并加速。",
+        "skill": "扇形掷出飞刀造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>伤害，随后飞刀收回，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>伤害并<#ef5350ff>减速40%<>。",
+        "skill2": "跃向目标造成<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>伤害；目标就在身边时改为原地捅刺，造成150%暴击伤害。击杀目标回复<#66bb6aff>60<>生命并返还冷却。",
+        "ult": "向四周甩出一圈飞刀造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>伤害，随后<#ff9028ff>隐身<><#ffb900ff>2.5秒<>、移速+40%；隐身结束或攻击时飞刀收回，再次造成同样伤害。"
+      },
       "league_draven": {
         "name": "德莱文",
         "attack": "<#ff9028ff>德莱文联盟<>：每接住一把斧头+1层崇拜（最多6层，每层攻击+4），用斧头击杀英雄时兑现：每层回复25生命，攻速+30%<#ffb900ff>4秒<>。<#ff9028ff>血性冲刺<>（自动，<#ffb900ff>12秒<>）：对英雄出手时移速+40%、攻速+35%，接住斧头即刷新。",
@@ -993,6 +1000,11 @@
         "skill1": "暴走",
         "skill2": "毁灭冲锋",
         "ult": "暗影冲击"
+      },
+      "league_talon": {
+        "skill1": "斩草除根",
+        "skill2": "诺克萨斯式外交",
+        "ult": "暗影突袭"
       },
       "league_draven": {
         "skill1": "旋转飞斧",
@@ -1577,6 +1589,13 @@
         "skill2": "衝向目標，衝得越久傷害越高（最多200%），造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害並<#ef5350ff>擊退<>，之後跑速+25%。",
         "ult": "帶幽靈騎兵衝向敵方英雄，沿途敵人受到<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>傷害；落地使周圍敵人<#ef5350ff>恐懼0.75秒<>（衝得遠<#ef5350ff>1.33秒<>），順勢<#ff9028ff>逸騎刃擊<>一圈並開啟<#ff9028ff>靈魂恐懼<>。"
       },
+      "league_talon": {
+        "name": "塔隆",
+        "attack": "腕刃攻擊。<#ff9028ff>終焉殘刃<>：技能命中英雄疊一層傷口，疊滿3層後下次普攻使其<#ff9028ff>流血<>，<#ffb900ff>2秒<>內受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>傷害。<#ff9028ff>刺客身法<>（自動，<#ffb900ff>10秒<>）：收刀或Q擊殺時身邊有2名敵方英雄，就翻身躍開並加速。",
+        "skill": "扇形擲出飛刀造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>傷害，隨後飛刀收回，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>傷害並<#ef5350ff>緩速40%<>。",
+        "skill2": "躍向目標造成<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>傷害；目標就在身邊時改為原地捅刺，造成150%暴擊傷害。擊殺目標回復<#66bb6aff>60<>生命並返還冷卻。",
+        "ult": "向四周甩出一圈飛刀造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>傷害，隨後<#ff9028ff>隱形<><#ffb900ff>2.5秒<>、跑速+40%；隱形結束或攻擊時飛刀收回，再次造成同樣傷害。"
+      },
       "league_draven": {
         "name": "達瑞文",
         "attack": "<#ff9028ff>瑞文聯盟<>：每接住一把斧頭+1層崇拜（最多6層，每層攻擊+4），用斧頭擊殺英雄時兌現：每層回復25生命，攻速+30%<#ffb900ff>4秒<>。<#ff9028ff>好戲上場<>（自動，<#ffb900ff>12秒<>）：對英雄出手時移速+40%、攻速+35%，接住斧頭即刷新。",
@@ -1995,6 +2014,11 @@
         "skill1": "逸騎刃擊",
         "skill2": "毀滅衝刺",
         "ult": "暗影的逆襲"
+      },
+      "league_talon": {
+        "skill1": "迴力匕首",
+        "skill2": "諾城王道",
+        "ult": "暗影突襲"
       },
       "league_draven": {
         "skill1": "迴旋飛斧",
@@ -2579,6 +2603,13 @@
         "skill2": "Charges the target, harder the longer he rides (up to 200%): <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> damage and a <#ef5350ff>knockback<>, then +25% move speed.",
         "ult": "Rides at an enemy champion with spectral riders: enemies in the path take <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> damage; on landing enemies around are <#ef5350ff>feared 0.75s<> (<#ef5350ff>1.33s<> after a long ride), and he spins a <#ff9028ff>Rampage<> and starts <#ff9028ff>Spirit of Dread<>."
       },
+      "league_talon": {
+        "name": "Talon",
+        "attack": "Wrist-blade strikes. <#ff9028ff>Blade's End<>: his spells wound champions they hit; at 3 wounds his next attack makes it <#ff9028ff>bleed<> for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> over <#ffb900ff>2s<>. <#ff9028ff>Assassin's Path<> (automatic, <#ffb900ff>10s<>): when his blades return or his Q kills with 2 enemy champions near, he vaults away and runs faster.",
+        "skill": "Throws a fan of blades for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> damage; they fly back for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> damage and a <#ef5350ff>40% slow<>.",
+        "skill2": "Leaps at the target for <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> damage; next to it he stabs instead, a 150% critical strike. A kill heals <#66bb6aff>60<> and refunds the cooldown.",
+        "ult": "Sends a ring of blades out for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> damage, then turns <#ff9028ff>invisible<> for <#ffb900ff>2.5s<> with +40% move speed; the blades return when it ends or he attacks, dealing the same again."
+      },
       "league_draven": {
         "name": "Draven",
         "attack": "Throws axes. <#ff9028ff>League of Draven<>: each caught axe gives 1 Adoration (up to 6, +4 attack each); an axe kill on a champion cashes them in: 25 health each and +30% attack speed for <#ffb900ff>4s<>. <#ff9028ff>Blood Rush<> (automatic, <#ffb900ff>12s<>): attacking a champion gives +40% move speed and +35% attack speed; a catch resets it.",
@@ -2997,6 +3028,11 @@
         "skill1": "Rampage",
         "skill2": "Devastating Charge",
         "ult": "Onslaught of Shadows"
+      },
+      "league_talon": {
+        "skill1": "Rake",
+        "skill2": "Noxian Diplomacy",
+        "ult": "Shadow Assault"
       },
       "league_draven": {
         "skill1": "Spinning Axe",
@@ -3581,6 +3617,13 @@
         "skill2": "대상에게 돌격하며 오래 달릴수록 강해집니다(최대 200%): <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 피해와 <#ef5350ff>밀어내기<>, 이후 이동 속도 +25%.",
         "ult": "유령 기병과 함께 적 챔피언에게 돌진: 경로의 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 피해, 착지 시 주변 적 <#ef5350ff>0.75초 공포<>(멀리 달리면 <#ef5350ff>1.33초<>), 이어서 <#ff9028ff>회오리 베기<>와 <#ff9028ff>공포의 망령<>."
       },
+      "league_talon": {
+        "name": "탈론",
+        "attack": "손목 칼날로 공격합니다. <#ff9028ff>검의 최후<>: 스킬이 챔피언에게 적중하면 상처 1중첩, 3중첩이면 다음 기본 공격이 <#ff9028ff>출혈<>을 일으켜 <#ffb900ff>2초<>에 걸쳐 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 피해. <#ff9028ff>암살자의 길<>(자동, <#ffb900ff>10초<>): 칼날이 돌아오거나 Q로 처치할 때 적 챔피언 2명이 가까이 있으면 뛰어올라 벗어나고 빨라집니다.",
+        "skill": "칼날을 부채꼴로 던져 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 피해, 칼날이 돌아오며 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>의 피해와 <#ef5350ff>40% 둔화<>.",
+        "skill2": "대상에게 도약해 <#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 피해, 바로 옆이면 대신 찔러 150% 치명타. 처치하면 체력 <#66bb6aff>60<> 회복, 재사용 대기시간 반환.",
+        "ult": "칼날을 원형으로 뿌려 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 피해, 이후 <#ffb900ff>2.5초<> 동안 <#ff9028ff>투명<>, 이동 속도 +40%. 투명이 끝나거나 공격하면 칼날이 돌아와 같은 피해."
+      },
       "league_draven": {
         "name": "드레이븐",
         "attack": "<#ff9028ff>드레이븐의 리그<>: 도끼를 받을 때마다 숭배 1중첩(최대 6, 중첩당 공격력 +4). 도끼로 챔피언을 처치하면 소모: 중첩당 체력 25 회복, <#ffb900ff>4초<> 동안 공격 속도 +30%. <#ff9028ff>광기의 피<>(자동, <#ffb900ff>12초<>): 챔피언 공격 시 이동 속도 +40%, 공격 속도 +35%, 도끼를 받으면 초기화.",
@@ -3999,6 +4042,11 @@
         "skill1": "회오리 베기",
         "skill2": "파멸의 돌격",
         "ult": "그림자의 맹습"
+      },
+      "league_talon": {
+        "skill1": "갈퀴손",
+        "skill2": "녹서스식 외교",
+        "ult": "그림자 공격"
       },
       "league_draven": {
         "skill1": "회전 도끼",
@@ -4583,6 +4631,13 @@
         "skill2": "対象へ突進、長く走るほど強力（最大200%）：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>のダメージと<#ef5350ff>ノックバック<>、その後移動速度+25%。",
         "ult": "亡霊騎兵と共に敵チャンピオンへ突撃：経路の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>のダメージ、着地で周囲の敵に<#ef5350ff>0.75秒フィアー<>（遠くからなら<#ef5350ff>1.33秒<>）、続けて<#ff9028ff>ランページ<>と<#ff9028ff>ソウルドレイン<>。"
       },
+      "league_talon": {
+        "name": "タロン",
+        "attack": "手首の刃で攻撃。<#ff9028ff>血塗られし慈悲<>：スキルがチャンピオンに命中すると傷を1つ、3つで次の通常攻撃が<#ff9028ff>出血<>させ<#ffb900ff>2秒<>で<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>のダメージ。<#ff9028ff>暗殺者の跳躍<>（自動、<#ffb900ff>10秒<>）：刃が戻る時かQで倒した時に敵チャンピオン2体が近いと跳んで離脱し加速。",
+        "skill": "刃を扇状に投げ<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>のダメージ、刃が戻って<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>のダメージと<#ef5350ff>40%スロウ<>。",
+        "skill2": "対象へ跳びかかり<#ff9028ff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>のダメージ、隣にいれば代わりに刺して150%クリティカル。倒すと<#66bb6aff>60<>回復しクールダウン返還。",
+        "ult": "刃を円状に放ち<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>のダメージ、その後<#ffb900ff>2.5秒<><#ff9028ff>インビジブル<>、移動速度+40%。終了時か攻撃時に刃が戻り同じダメージ。"
+      },
       "league_draven": {
         "name": "ドレイヴン",
         "attack": "<#ff9028ff>リーグ・オブ・ドレイヴン<>：斧をキャッチするたび崇拝+1（最大6、1つにつき攻撃力+4）。斧でチャンピオンを倒すと換金：1つにつき体力25回復、<#ffb900ff>4秒<>攻撃速度+30%。<#ff9028ff>血の疼き<>（自動、<#ffb900ff>12秒<>）：チャンピオン攻撃時に移動速度+40%、攻撃速度+35%、キャッチでリセット。",
@@ -5001,6 +5056,11 @@
         "skill1": "ランページ",
         "skill2": "チャージ",
         "ult": "スペクターズ・オンスロート"
+      },
+      "league_talon": {
+        "skill1": "飛燕手裏剣",
+        "skill2": "ノクサスの刃",
+        "ult": "シャドウアサルト"
       },
       "league_draven": {
         "skill1": "回転斬斧",
