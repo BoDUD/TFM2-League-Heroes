@@ -168,7 +168,14 @@ FIXES = [(71, 64, "#FDC087"), (90, 63, "#FDC087"),
          # (65,64) (66,69), the forehead under the gem (69,66), hair strands (71,60) (72,59) (78,69); the cheek's
          # outline, the gaps between the claws and the line between the thighs are drawing and stay
          (64, 67, "#FCCD3D"), (64, 68, "#FCCD3D"), (65, 64, "#FCCD3D"), (66, 69, "#FCCD3D"), (69, 66, "#FDC087"),
-         (71, 60, "#E3E5EE"), (72, 59, "#E3E5EE"), (78, 69, "#E3E5EE")]       # (canvas row, column, colour) after tryn(*PICK)
+         (71, 60, "#E3E5EE"), (72, 59, "#E3E5EE"), (78, 69, "#E3E5EE"),
+         # 2026-10-11 「辛德拉的眼睛和嘴可以改的有特色一点 像辛德拉一点」 -> the user's pick 「用方案A」: glowing eyes (magenta
+         # outer, white-hot inner core, the outer lower corner dark crimson - a sharp, haughty eye), the far eye's lash
+         # 2 squares like the near one's, closed dark plum lips 2 squares wide instead of the small red open mouth
+         (70, 67, "#100117"),
+         (71, 62, "#F50485"), (71, 63, "#E3E5EE"), (71, 67, "#E3E5EE"), (71, 68, "#F50485"),
+         (72, 62, "#750242"), (72, 68, "#750242"),
+         (74, 64, "#750242"), (74, 65, "#A70743")]       # (canvas row, column, colour) after tryn(*PICK)
 PICK = ("3", 42)       # the user's pick: draft 3 at 42 rows, league_tryndamere's way (「第三稿→42」, 2026-10-11); the
                        # even cuts (CUTS, 「3_42」 first) were dropped for their dirty black squares round the eyes
 
