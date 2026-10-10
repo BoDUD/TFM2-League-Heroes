@@ -15,8 +15,10 @@ The user: 「codex交付了 有问题的地方你帮我修复 完美版了喊我
   restored from the blade's own squares (two visible columns' slices carried on down its line, TEMPLATE);
 - the body leans by whole-row shifts (rows above the hips, the head moved whole with its chin row), crouches by sinking
   the body over the standing legs (layering), jumps by moving the whole figure;
-- the run: each leg split at the knee, thigh and shin moved whole (Shen's accepted run: shifts and lifts, never sheared);
-- the head, the far arm and the coat stay square for square.
+- the run: the boots step in their own lanes (moved whole, drawn over the coat's hem), the body leans into it and the
+  greatsword rests on his shoulder pointing back (run_frame);
+- the head, the far arm and the coat stay square for square;
+- at 90% (SCALE): the body loses whole lines once before posing, the blade two of its own repeating steps.
 League's renders (assets/source/viego/poses.json, pose_n) and Codex's frames give the poses.
 """
 import argparse
@@ -68,6 +70,80 @@ FAR_SHOULDER = (72.5, 76.5)
 HIP_ROW = 86                           # the belt's bottom: rows above lean / sink, the legs below stand
 NECK_ROW = 74                          # the chin: the head moves whole with this row's shift
 
+# 90% (the user, 2026-10-11: 「佛耶戈的模型在游戏里有点大了 稍微缩小一点 你选一套最合适的」; 42 rows crown to soles ->
+# 38, Senna's and Shen's heights): the body loses whole rows and columns ONCE (tools/art/shrink_frames.py, never through
+# his face), before any action is posed from it - cut from the finished frames, a line runs through a different part of
+# him in every frame (rig_xinzhao.py's SCALE). The sword unit stays as drawn (whole lines out of its 1:2 blade would
+# leave uneven steps) and turns about the elbow's new place; the coordinates below the parts are read with are the
+# design's, the posing ones (HIP_ROW, NECK_ROW, NEAR_LOW, FAR_LOW, the elbow) move with the cut (Parts._shrink).
+SCALE = 0.9
+SHRINK_KEEP = ["!91F9F7+6,4,11,4"]     # his face (grown from the glint in his eye): no line crosses it
+# the boots' rows (from the pivot) stay: the cheapest row was the near boot's ankle (a boot one row shorter); a column
+# through a boot is the same in every frame (the boots move whole after the cut)
+BOOT_ROWS = tuple(range(95 - PIVOT[1], 100 - PIVOT[1]))
+PLAN = None
+# the blade 10% shorter too, by whole steps of its own 1:2 line: the stretch the head hides in the design is restored
+# from two of its columns (TEMPLATE), so there it repeats exactly every two columns and a row - BLADE_STEPS of those
+# steps taken out at column BLADE_CUT leave no seam (whole rows or columns through the blade would leave uneven steps)
+BLADE_CUT, BLADE_STEPS = 70, 2
+
+
+def shortened(unit):
+    """The sword unit (a canvas) with BLADE_STEPS of the blade's steps taken out at BLADE_CUT: the blade beyond the cut
+    moved two columns in and a row down per step, over the removed stretch."""
+    out = unit.copy()
+    out[:, BLADE_CUT - 2 * BLADE_STEPS:] = 0
+    tip = unit.copy()
+    tip[:, :BLADE_CUT] = 0
+    K.put(out, tip, -2 * BLADE_STEPS, BLADE_STEPS)
+    return out
+
+
+def _pivot_frame(c):
+    f = np.zeros((2 * PIVOT[1] + 1, 2 * PIVOT[0] + 1) + c.shape[2:], c.dtype)
+    f[:c.shape[0], :c.shape[1]] = c
+    return f
+
+
+def map_x(x):
+    """A canvas column (or point) on the shrunk design: the removed columns between it and the pivot close in."""
+    cs = [PIVOT[0] + c for c in PLAN["cols"]]
+    if x < PIVOT[0]:
+        return x + sum(1 for c in cs if x < c < PIVOT[0])
+    return x - sum(1 for c in cs if PIVOT[0] < c <= x)
+
+
+def map_y(y):
+    """A canvas row (or point): down one for every removed row under it (all above the soles, which stay)."""
+    return y + sum(1 for r in PLAN["rows"] if PIVOT[1] + r > y)
+
+
+def shrunk(c):
+    """A 128x128 canvas (image or mask) without the plan's rows and columns, the soles on their row."""
+    gone_r = {PIVOT[1] + r for r in PLAN["rows"]}
+    gone_c = {PIVOT[0] + q for q in PLAN["cols"]}
+    out = np.zeros_like(c)
+    for y in range(c.shape[0]):
+        if y in gone_r:
+            continue
+        ny = map_y(y)
+        for x in range(c.shape[1]):
+            if x not in gone_c and 0 <= ny < c.shape[0]:
+                nx = map_x(x)
+                if 0 <= nx < c.shape[1]:
+                    out[ny, nx] = c[y, x]
+    return out
+
+
+def map_rows(spec):
+    m = shrunk(K.mask_rows(spec))
+    out = {}
+    for y in range(m.shape[0]):
+        xs = np.nonzero(m[y])[0]
+        if len(xs):
+            out[y] = (int(xs.min()), int(xs.max()))
+    return out
+
 
 def hexrgb(h):
     return tuple(int(h[k:k + 2], 16) for k in (1, 3, 5))
@@ -117,6 +193,8 @@ class Parts:
         right[:, :OVERRIDE] = 0
         K.put(unit, left, 0, 0, under=True)
         K.put(unit, right, 0, 0)
+        if SCALE != 1:
+            unit = shortened(unit)
         self.unit_canvas = unit
         self.unit = K.Part.from_canvas(unit, unit[..., 3] > 0, ELBOW)
         # as drawn (on his shoulder) the unit is the design's own cut: the head hides the blade there anyway
@@ -128,6 +206,32 @@ class Parts:
         for m in (self.sword_m, self.hand_m, self.arm_m):
             self.body[m] = 0
         self.far = K.Part.from_canvas(a, self.far_m, FAR_SHOULDER)
+        self.elbow = ELBOW
+        if SCALE != 1:
+            self._shrink()
+
+    def _shrink(self):
+        """The body, the head's and the far arm's masks and the posing rows on the 90% design (the plan chosen once, on
+        the body without the sword unit); the design becomes the shrunk body with the unit on its shoulder (the blade
+        the head hid restored: the smaller head need not hide all of it) and the head over it."""
+        global PLAN, HIP_ROW, NECK_ROW, NEAR_LOW, FAR_LOW
+        import shrink_frames as SF
+        if PLAN is None:
+            frame = [(_pivot_frame(self.body), 0)]
+            PLAN = SF.plan_tag(frame, SF.body_of(frame), SCALE, SHRINK_KEEP, edge_rows=BOOT_ROWS)
+            HIP_ROW, NECK_ROW = map_y(HIP_ROW), map_y(NECK_ROW)
+            NEAR_LOW, FAR_LOW = map_rows(NEAR_LOW), map_rows(FAR_LOW)
+        self.body = shrunk(self.body)
+        self.head_m = shrunk(self.head_m)
+        self.far_m = shrunk(self.far_m)
+        self.elbow = (map_x(ELBOW[0]), map_y(ELBOW[1]))
+        self.unit_drawn = self.unit
+        a = self.body.copy()
+        head = np.zeros_like(a)
+        head[self.head_m] = a[self.head_m]
+        K.place(a, self.unit, self.elbow)
+        K.put(a, head, 0, 0)
+        self.D.a = a
 
     def orient(self, name):
         """The sword unit in one of the eight exact symmetries, named by where the blade points."""
@@ -245,18 +349,19 @@ NEAR_LOW = {95: (51, 60), 96: (51, 60), 97: (51, 60), 98: (51, 60)}
 FAR_LOW = {95: (68, 77), 96: (68, 77), 97: (68, 77), 98: (68, 77), 99: (68, 77)}
 
 
-def compose(P, pose):
-    orient, layer, (dx, dy), lean, sink, legs = pose
+def posed(P, orient, layer, lean, sink=0, near=(0, 0), far=(0, 0), over=False):
+    """The body leant (whole rows above the hips), lowered `sink` rows over the boots (each moved (dx, lift): behind the
+    hem, or `over` it), the sword unit in `orient` at the elbow: behind the body, or in front of it and under the head
+    ("front") or over everything ("over"). Returns the canvas and the head's mask."""
     up, low = upper_lower(P.body)
     headm = leaned(as_rgba(P.head_m), lean)[..., 3] > 0
     base = np.zeros_like(P.body)
     K.put(base, low, 0, 0)
     K.put(base, leaned(up, lean), 0, 0)
-    # a crouch lowers everything but the boots and shins (the coat's hem over them): never the body over the coat
-    c = lowered(P, base, sink, near=(legs[0], 0) if legs else (0, 0), far=(legs[1], 0) if legs else (0, 0))
-    if sink:
-        headm = np.roll(headm, sink, 0)
-    sh = (ELBOW[0] + lean_shift(int(ELBOW[1]), lean), ELBOW[1] + sink)
+    # a crouch lowers everything but the boots (the coat's hem over them): never the body over the coat
+    c = lowered(P, base, sink, near=near, far=far, over=over)
+    headm = np.roll(headm, sink, 0)
+    sh = (P.elbow[0] + lean_shift(int(P.elbow[1]), lean), P.elbow[1] + sink)
     if layer == "behind":
         K.place(c, P.orient(orient), sh, under=True)
     else:
@@ -266,7 +371,13 @@ def compose(P, pose):
         if layer == "front":
             K.put(c, head, 0, 0)
     c[P.D.soles + 1:] = 0
-    keep = headm
+    return c, headm
+
+
+def compose(P, pose):
+    orient, layer, (dx, dy), lean, sink, legs = pose
+    c, keep = posed(P, orient, layer, lean, sink, near=(legs[0], 0) if legs else (0, 0),
+                    far=(legs[1], 0) if legs else (0, 0))
     if dx or dy:
         c = K.shifted(c, dx, dy)
         keep = K.shifted(as_rgba(keep), dx, dy)[..., 3] > 0
@@ -296,18 +407,24 @@ def lowered(P, a, n, near=(0, 0), far=(0, 0), over=False):
     return c
 
 
-# the run (League's: the sword stays on his shoulder): each boot steps in its own lane - planted, sliding back a column a
-# frame, then lifted and carried forward - the far leg half a cycle later; the body dips a row as a foot lands. The
-# first run brought both boots in under the hips (IN): the coat's flaps hung over nothing - 「走路姿势太怪了」. The boots
-# are drawn whole over the hem: a lifted boot behind it lost its top rows but for its outline column, left standing
-# beside the hem like a hook (「脚移动时看起来有点变形」)
+# the run: each boot steps in its own lane - planted, sliding back a column a frame, then lifted and carried forward -
+# the far leg half a cycle later; the body dips a row as a foot lands. The first run brought both boots in under the
+# hips (IN): the coat's flaps hung over nothing - 「走路姿势太怪了」. The boots are drawn whole over the hem: a lifted boot
+# behind it lost its top rows but for its outline column, left standing beside the hem like a hook
+# (「脚移动时看起来有点变形」). Then, in game: 「佛耶戈待机的姿势和走路时应该是不一样的 你想办法补一套的 现在的姿势走路
+# 太怪了」 - the run had the idle's upright stance, the blade forward over his shoulder. Now he leans into the run
+# (RUN_LEAN, whole rows above the hips) with the greatsword resting on his shoulder the other way, its blade pointing
+# back ("raised_back": the unit mirrored, the grip where the idle holds it). Of the eight ways the unit turns this one
+# keeps the blade off the ground: dragged behind him ("trail") it ran 8-9 rows under the feet line, cut there, and
+# the cut moved along the blade with the bob (a tip changing length from frame to frame)
 STRIDE = [(2, 0), (1, 0), (0, 0), (-1, 0), (-1, 1), (0, 2), (1, 2), (2, 1)]      # (dx from the boot's place, lift)
 BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+RUN_POSE = ("raised_back", "front")
+RUN_LEAN = 0.25
 
 
 def run_frame(P, k):
-    c = lowered(P, P.D.a, BOB[k], near=STRIDE[k], far=STRIDE[(k + 4) % 8], over=True)
-    return c, np.roll(P.head_m, BOB[k], 0)
+    return posed(P, *RUN_POSE, RUN_LEAN, sink=BOB[k], near=STRIDE[k], far=STRIDE[(k + 4) % 8], over=True)
 
 
 # the idle: his own breath (import_native's shared cut costs 18 visible squares through the coat and the trousers): the
@@ -341,7 +458,7 @@ def parts_review(P, path):
     for o in ORIENTS:
         c = np.zeros((128, 128, 4), np.uint8)
         K.put(c, P.body, 0, 0)
-        K.place(c, P.orient(o), ELBOW, under=o in ("back_steep", "behind_steep", "raised_back"))
+        K.place(c, P.orient(o), P.elbow, under=o in ("back_steep", "behind_steep", "raised_back"))
         tiles.append(c)
     z = 5
     W = 128 * z
