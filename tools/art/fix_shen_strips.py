@@ -56,12 +56,29 @@ CANVAS_SQUARE = 1254 / 128
 # bulbs hid behind the apron or rose into the sash; the user: 「腿变形严重了 交叉步也不对」.)
 RUN_SHEET = os.path.join(ROOT, "assets", "source", "shen", "codex_run_swap", "shen_run_3x3_1x.png")
 RUN_CELL, RUN_SOLES = 60, 55
-# The user kept Codex's legs and asked for the design's upper body (「腿部ok的 上半身用之前的」): the design's rows above
-# RUN_CUT (head, arms, sword, sash; its near hand down to row RUN_CUT + 1) square for square over Codex's legs and
-# hems below RUN_CUT, RUN_BOB rows lower per frame (down only).
-RUN_CUT = 85
-RUN_HAND_COL = 78
-RUN_BOB = [1, 1, 0, 0, 0, 0, 0, 1, 1]   # lowest in the wide strides (1-2, 8-9), up through the pass
+# The user kept Codex's legs and asked for the design's upper body (「腿部ok的 上半身用之前的」): the design down to its
+# sash (rows <= DES_SASH; its arms hang lower: the sword arm to row 84 at columns <= ARM_COL, the near hand per row
+# from HAND_FROM) square for square over everything of Codex's below the sash. RUN_SASH: the lowest row of Codex's sash
+# (its purple knot) per frame, read off the frames; the design's sash goes down onto it, never up (a body lifted off
+# its legs would open a gap at the waist). (Cutting at the design's row 85 instead kept the design's skirt tops over
+# Codex's skirts and legs - the user: 「腿变形了啊大哥」.)
+DES_SASH = 79
+RUN_SASH = [78, 78, 78, 80, 80, 80, 80, 80, 80]
+ARM_ROWS, ARM_COL = range(80, 85), 50
+HAND_FROM = {80: 72, 81: 74, 82: 75, 83: 78, 84: 78, 85: 80}
+
+
+def upper(des):
+    """The design's head, torso, arms and sash: everything down to its sash, its arms below it."""
+    up = des.copy()
+    up[DES_SASH + 1:] = 0
+    for y in ARM_ROWS:
+        up[y, :ARM_COL + 1] = des[y, :ARM_COL + 1]
+    for y, x in HAND_FROM.items():
+        up[y, x:] = des[y, x:]
+    return up
+
+
 EYE = (239, 226, 246)
 SPECK = 4
 
@@ -362,14 +379,19 @@ def swap_frame(k, des):
     dy, dx = SOLES - RUN_SOLES, int(round(feet_mid(des, SOLES))) - RUN_CELL // 2
     ys, xs = np.nonzero(cell[..., 3] > 0)
     can[ys + dy, xs + dx] = cell[ys, xs]
-    bob = RUN_BOB[k - 1]
-    up = des.copy()
-    up[RUN_CUT:, :RUN_HAND_COL] = 0
-    up[RUN_CUT + 2:] = 0
-    up = shift(up, 0, bob)
-    can[:RUN_CUT + bob] = 0
+    bob = max(0, RUN_SASH[k - 1] - DES_SASH)
+    can[:DES_SASH + bob + 1] = 0
+    up = shift(upper(des), 0, bob)
     m = up[..., 3] > 0
     can[m] = up[m]
+    # the sash's corner outline squares left hanging over a narrower waist (one neighbour or none) go
+    op = can[..., 3] > 0
+    nb = ndimage.convolve(op.astype(int), np.ones((3, 3), int), mode="constant") - op
+    y0 = DES_SASH + bob
+    lone = op & (nb <= 1)
+    lone[:y0 - 1] = False
+    lone[y0 + 2:] = False
+    can[lone] = 0
     return can
 
 
