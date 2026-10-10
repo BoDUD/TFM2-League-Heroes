@@ -324,11 +324,11 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("q_blade")]
+    views_p = [P_("q_blade"), P_("e_dash")]   # e_dash: the shadow trail he leaves, riding with him
     views_e = [E("a_hit"), E("a_emp"), E("q_hit"), E("e_hit"), E("w_zone", BIG, -1, False), E("r_cast", BIG, 3),
                E("r_land", BIG, 3)]
     views_b = [B_("p_on", FX, 3), B_("q_1", FX, 3), B_("q_slow", FX, -1), B_("w_safe", FX, 3),
-               B_("r_shield", BIG, 3)]
+               B_("r_shield", BIG, 3), B_("r_ch", BIG, 3)]   # r_ch: the channel's light on him while it lasts
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_shen_unite:unite", "params": {}}
