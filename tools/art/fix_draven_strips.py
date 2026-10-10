@@ -40,6 +40,7 @@ SRC = os.path.join(ROOT, "assets", "source", "draven", "codex_strips", "1x")
 DESIGN = os.path.join(ROOT, "assets", "source", "native", "draven_native.png")
 OUT = os.path.join(ROOT, "assets", "source", "native")
 sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 Z = 8
 SOLES, MID = 99, 64
 PIVOT = (MID, SOLES - 11)          # 11 rows over the soles, as tools/lol/native_pose.py puts it
@@ -362,7 +363,192 @@ def run_frame(d, k, variant):
     return fr
 
 
+# ---------------------------------------------------------------- 90 % (the user 10-10: 「模型可以适当缩小点」, picked 90 %)
+SCALE = 0.9
+CREST = 60                          # the design's hair crest row: its body, crest to soles, 40 rows -> 36
+BODY_COLS = (38, 89)                # its columns, both axes included: 52 -> 47
+SKIN = ["D59660", "F0AF76", "FFCF94", "AF714D"]
+SHRINK_TAGS = ("run", "skill2", "ult", "dead")
+
+
+def head_box(a, d):
+    """(top, bottom, left, right) of the design's head in frame a: where the most of its squares (HEAD_ROWS) match
+    colour for colour - 77 of 77 where the head is pasted, 16-47 in Codex's own heads (every action frame's box was
+    checked by eye, 2026-10-10)."""
+    hm = head_mask(d)
+    ys, xs = np.nonzero(hm)
+    t0, b0, l0, r0 = ys.min(), ys.max(), xs.min(), xs.max()
+    key = lambda x: (x[..., 0].astype(np.int32) << 16) | (x[..., 1].astype(np.int32) << 8) | x[..., 2]
+    pk, pm = key(d[t0:b0 + 1, l0:r0 + 1]), hm[t0:b0 + 1, l0:r0 + 1]
+    ak, op = key(a), a[..., 3] > 0
+    h, w = pk.shape
+    best = (-1, 0, 0)
+    for y in range(0, 128 - h):
+        for x in range(0, 128 - w):
+            s = int(((ak[y:y + h, x:x + w] == pk) & pm & op[y:y + h, x:x + w]).sum())
+            if s > best[0]:
+                best = (s, y, x)
+    _, y, x = best
+    return y, y + h - 1, x, x + w - 1
+
+
+def shrink_plan(frames, heads, scale=SCALE):
+    """The rows and columns each frame of an action loses (canvas lines): (1 - scale) of the frame's own height and
+    width (a lying body loses rows of its thickness, not 4), in as many equal stretches of it, in each the line most
+    like its neighbour over the whole action (shrink_frames' costs: a hand, an eye, any small piece dearer; so the
+    frames of an action lose the same parts of him), never the head (its box + 1), the soles' two rows, the pivot
+    row, the standing column, the figure's two outermost lines or a line with none of that frame's squares - such a
+    pick moves to the nearest free line. Every head stays square for square."""
+    import shrink_frames as SF
+    st = np.stack(frames)
+    det = SF._details(st)
+    rc = SF._diff(st, 1) + SF.DETAIL_WEIGHT * det.sum((0, 2))
+    cc = SF._diff(st, 2) + SF.DETAIL_WEIGHT * det.sum((0, 1))
+    kept = SF._kept(st, SKIN)
+    kr0, kc0 = kept.sum((0, 2)), kept.sum((0, 1))
+    big, cut = 10 ** 6, 1 - scale
+    out = []
+    for a, (t, b, l, r) in zip(frames, heads):
+        op = a[..., 3] > 0
+        fr, fc = op.any(1), op.any(0)
+        ys, xs = np.nonzero(fr)[0], np.nonzero(fc)[0]
+        top, left, right = ys.min(), xs.min(), xs.max()
+        bad_r = set(range(t - 1, b + 2)) | {SOLES, SOLES - 1, PIVOT[1], top, top + 1} | set(np.nonzero(~fr)[0])
+        bad_c = set(range(l - 1, r + 2)) | {MID, left, left + 1, right - 1, right} | set(np.nonzero(~fc)[0])
+        kr, kc = kr0.copy(), kc0.copy()
+        kr[list(bad_r)] += big
+        kc[list(bad_c)] += big
+        n_r = int(round(cut * (SOLES - top + 1)))
+        n_c = int(round(cut * (right - left + 1)))
+        nl = int(round(n_c * (MID - left) / max(1, right - left)))
+        r_pick = SF._pick(rc, top, SOLES, n_r, keep=kr)
+        c_pick = SF._pick(cc, left, MID, nl, keep=kc) + SF._pick(cc, MID + 1, right + 1, n_c - nl, keep=kc)
+
+        def move(picks, bad, lo, hi, cost):
+            picks = list(picks)
+            for j, i in enumerate(picks):
+                if i not in bad:
+                    continue
+                free = [c for c in range(lo, hi + 1) if c not in bad and c not in picks
+                        and (c - 1) not in picks and (c + 1) not in picks]
+                if free:
+                    picks[j] = min(free, key=lambda c: (abs(c - i) // 4, cost[c]))
+            return sorted(picks)
+        out.append((move(r_pick, bad_r, top, SOLES, rc), move(c_pick, bad_c, left, right, cc)))
+    return out
+
+
+def shrink_apply(a, rows, cols):
+    """Frame a without those rows and columns: what is over a removed row comes down one (the soles stay on row 99),
+    what is beside a removed column closes in on the standing column."""
+    out = np.zeros_like(a)
+    ys, xs = np.nonzero(a[..., 3] > 0)
+    for y, x in zip(ys, xs):
+        if y in rows or x in cols:
+            continue
+        ny = y + sum(1 for r in rows if r > y)
+        nx = x + sum(1 for c in cols if x < c < MID) if x < MID else x - sum(1 for c in cols if MID < c < x)
+        out[ny, nx] = a[y, x]
+    return out
+
+
+def shrink(sheet, d, tags=SHRINK_TAGS):
+    """The tags made SCALE as big, without resampling; returns {tag: [(rows, cols) per frame]}."""
+    plans = {}
+    for tag in tags:
+        frames = [a for a, _ in sheet[tag]]
+        plans[tag] = shrink_plan(frames, [head_box(a, d) for a in frames])
+        sheet[tag] = [(shrink_apply(a, *p), ms) for (a, ms), p in zip(sheet[tag], plans[tag])]
+    return plans
+
+
 # ---------------------------------------------------------------- the strips
+# ---------------------------------------------------------------- League's idle and attack at 90 % (codex_pose/)
+# the user 10-10: 「另外待机姿势能改成和英雄联盟一样吗 攻击姿势也是」 - Codex redrew the idle (both axes low, League's
+# draven_idle1) and the attack (League's attack1 at 0/100/190/270/420 ms) at 36 rows (assets/source/draven/POSE_REDO.md)
+POSE = os.path.join(ROOT, "assets", "source", "draven", "codex_pose", "1x")
+POSE_ATTACK = [50, 60, 73, 117, 100]       # the release frame (4) starts at 183 ms = tick 11, the kit's a_st
+HIT_BACK = 2                              # the hit: the new idle stepped back this many columns (Talon's way)
+
+
+POSE_HEAD = {"attack_2": (63, 57)}         # (row, column) of the head's box where the match missed (tilted back)
+POSE_SOLES = {"attack_5": 2}               # Codex left its soles this many rows low (its HANDOFF): lifted, then
+POSE_ROWS = {"attack_5": 2}                # this many rows out (38 -> 36, not through the head)
+OUTLINE = (0x1A, 0x0E, 0x0E)
+
+
+def pose_frame(d, name):
+    """Codex's frame `name` with the design's own head on the head it drew (head_box, or POSE_HEAD): Codex's hair
+    squares outside it (its crest drawn taller or wider, rows over the headband) cleared and the outline they leave
+    bordering nothing; every head then the same. attack_5 lifted and two rows shorter (POSE_SOLES, POSE_ROWS)."""
+    a = load(os.path.join(POSE, f"{name}.png"))
+    if name in POSE_SOLES:
+        a = shift(a, 0, -POSE_SOLES[name])
+    t, b, l, r = head_box(a, d)
+    if name in POSE_HEAD:
+        t, l = POSE_HEAD[name]
+        b, r = t + (b - t), l + (r - l)
+    hm = head_mask(d)
+    ys, xs = np.nonzero(hm)
+    head = np.zeros_like(d)
+    head[hm] = d[hm]
+    head = shift(head, l - xs.min(), t - ys.min())
+    on = head[..., 3] > 0
+    rows, cols = range(max(0, t - 6), t + 5), range(max(0, l - 3), min(128, r + 4))
+    for y in rows:
+        for x in cols:
+            if not on[y, x] and a[y, x, 3] and tuple(int(v) for v in a[y, x, :3]) in HAIR:
+                a[y, x] = 0
+    for _ in range(3):
+        for y in rows:
+            for x in cols:
+                if on[y, x] or not a[y, x, 3] or tuple(int(v) for v in a[y, x, :3]) != OUTLINE:
+                    continue
+                if not any(0 <= v < 128 and 0 <= u < 128 and (on[v, u] or a[v, u, 3] and
+                                                              tuple(int(c) for c in a[v, u, :3]) != OUTLINE)
+                           for v, u in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1))):
+                    a[y, x] = 0
+    a = over(a, head)
+    if name in POSE_ROWS:
+        a = shrink_rows(a, POSE_ROWS[name], (t, b, l, r))
+    return a
+
+
+def shrink_rows(a, n, hb):
+    """Frame a n rows shorter: the n rows most like their neighbours between the head and the soles (shrink_frames'
+    costs), never the head's (+1), the pivot row or the soles' two."""
+    import shrink_frames as SF
+    st = a[None]
+    rc = SF._diff(st, 1) + SF.DETAIL_WEIGHT * SF._details(st).sum((0, 2))
+    keep = np.zeros(128, np.int64)
+    t, b, _, _ = hb
+    keep[max(0, t - 1):b + 2] += 10 ** 6
+    keep[[PIVOT[1], SOLES, SOLES - 1]] += 10 ** 6
+    keep[~(a[..., 3] > 0).any(1)] += 10 ** 6
+    return shrink_apply(a, SF._pick(rc, b + 2, SOLES - 1, n, keep=keep), [])
+
+
+# ---------------------------------------------------------------- Q on the new idle: the far axe spinning in its fist
+FAR_AXE2 = ((69, 84), (36, 47))            # the axe held out behind (rows, columns) with the fist's left outline;
+FAR_POMMEL2 = []                           # the fist itself (skin, columns 48-49) stays on the arm
+FAR_FIST2 = (47.5, 75.5)                   # the fist's middle (x, y): quarter turns map squares onto squares
+
+
+def spin2(a, q):
+    """The new idle with its far axe turned q quarter turns about the fist, drawn behind the body (League's Q
+    twirls the axe in the hand)."""
+    (r0, r1), (c0, c1) = FAR_AXE2
+    m = box(a, (r0, r1), (c0, c1))
+    for y, x in FAR_POMMEL2:
+        m[y, x] = a[y, x, 3] > 0
+    body = a.copy()
+    body[m] = 0
+    part = np.zeros_like(a)
+    part[m] = a[m]
+    t, _ = turn(part, m, FAR_FIST2, q)
+    return over(t, body)
+
+
 def frame_of(d, src, variant):
     if src == "design":
         return d.copy()
@@ -370,7 +556,24 @@ def frame_of(d, src, variant):
         return spin(d, src[1])
     if isinstance(src, tuple) and src[0] == "run":
         return run2_frame(d, src[1]) if variant == "C" else run_frame(d, src[1], variant)
+    if isinstance(src, tuple) and src[0] == "pose":
+        return pose_frame(d, src[1])
+    if isinstance(src, tuple) and src[0] == "pose_back":
+        return shift(pose_frame(d, src[1]), -src[2], 0)
+    if isinstance(src, tuple) and src[0] == "spin2":
+        return spin2(pose_frame(d, "idle_1"), src[1])
     return load(os.path.join(SRC, f"{src}.png"))
+
+
+def pose_tags():
+    """TAGS with Codex's League-pose idle, attack and the hit from them, once codex_pose/ is in."""
+    tags = dict(TAGS)
+    if os.path.isdir(lp(POSE)):
+        tags["idle"] = [(("pose", "idle_1"), 140)]
+        tags["attack"] = [(("pose", f"attack_{k + 1}"), ms) for k, ms in enumerate(POSE_ATTACK)]
+        tags["hit"] = [(("pose_back", "idle_1", HIT_BACK), 100)]
+        tags["skill"] = [(("spin2", 1), 50), (("spin2", 2), 50), (("spin2", 3), 50), (("pose", "idle_1"), 50)]
+    return tags
 
 
 def layout(n):
@@ -378,9 +581,15 @@ def layout(n):
     return cols, -(-n // cols)
 
 
-def build(variant="C"):
+def build(variant="C", small=True):
+    """Every tag's frames; small: the tags Codex drew at 40 rows made SCALE as big (all of them until codex_pose/ is
+    in)."""
     d = load(DESIGN)
-    return {tag: [(frame_of(d, src, variant), ms) for src, ms in rows] for tag, rows in TAGS.items()}
+    tags = pose_tags()
+    sheet = {tag: [(frame_of(d, src, variant), ms) for src, ms in rows] for tag, rows in tags.items()}
+    if small and SCALE < 1:
+        shrink(sheet, d, SHRINK_TAGS if os.path.isdir(lp(POSE)) else tuple(sheet))
+    return sheet
 
 
 def write(sheet):

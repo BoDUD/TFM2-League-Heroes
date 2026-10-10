@@ -33,7 +33,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_draven")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_draven_fx", "league_draven_big")}
-HAND = 14                                        # the throwing hand: px in front of his pivot (the axes leave there)
+HAND = 18                                        # the throwing hand: px in front of his pivot (the axes leave there;
+                                                 # attack frame 4's arm reaches out 20)
 AXE = P["axe_speed"] / 1000                      # px a tick
 EAXE = P["e_speed"] / 1000
 ROUT = P["r_speed"] / 1000

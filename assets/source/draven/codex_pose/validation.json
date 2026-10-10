@@ -1,0 +1,56 @@
+[
+  {
+    "name": "idle_1",
+    "size_ok": true,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "bottom_row": 99,
+    "baseline_ok": true
+  },
+  {
+    "name": "attack_1",
+    "size_ok": true,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "bottom_row": 99,
+    "baseline_ok": true
+  },
+  {
+    "name": "attack_2",
+    "size_ok": true,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "bottom_row": 99,
+    "baseline_ok": true
+  },
+  {
+    "name": "attack_3",
+    "size_ok": true,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "bottom_row": 99,
+    "baseline_ok": true
+  },
+  {
+    "name": "attack_4",
+    "size_ok": true,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "bottom_row": 99,
+    "baseline_ok": true
+  },
+  {
+    "name": "attack_5",
+    "size_ok": true,
+    "grid": true,
+    "binary_alpha": true,
+    "palette": true,
+    "bottom_row": 101,
+    "baseline_ok": false
+  }
+]
