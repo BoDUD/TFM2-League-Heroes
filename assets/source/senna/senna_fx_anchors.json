@@ -1,0 +1,23 @@
+{
+  "a_shot": {"cell": [25, 9], "anchor": [12, 4], "frames": 4},
+  "a_hit": {"cell": [17, 15], "anchor": [8, 7], "frames": 4},
+  "p_mark": {"cell": [25, 15], "anchor": [12, 7], "frames": 4},
+  "p_take": {"cell": [17, 41], "anchor": [8, 20], "frames": 5},
+  "p_gain": {"cell": [25, 21], "anchor": [12, 10], "frames": 4},
+  "q_beam": {"cell": [169, 27], "anchor": [84, 13], "frames": 5},
+  "q_hit": {"cell": [19, 15], "anchor": [9, 7], "frames": 4},
+  "q_heal": {"cell": [23, 53], "anchor": [11, 26], "frames": 4},
+  "q_slow": {"cell": [21, 19], "anchor": [10, 9], "frames": 4},
+  "w_mist": {"cell": [29, 13], "anchor": [14, 6], "frames": 4},
+  "w_hit": {"cell": [21, 15], "anchor": [10, 7], "frames": 4},
+  "w_cling": {"cell": [21, 55], "anchor": [10, 27], "frames": 4},
+  "w_burst": {"cell": [61, 113], "anchor": [30, 56], "frames": 6},
+  "w_root": {"cell": [23, 43], "anchor": [11, 21], "frames": 4},
+  "e_mist": {"cell": [87, 83], "anchor": [43, 41], "frames": 6},
+  "e_ms": {"cell": [21, 19], "anchor": [10, 9], "frames": 4},
+  "r_core": {"cell": [85, 23], "anchor": [42, 11], "frames": 4},
+  "r_light": {"cell": [97, 99], "anchor": [48, 49], "frames": 4},
+  "r_hit": {"cell": [31, 35], "anchor": [15, 17], "frames": 5},
+  "r_sh": {"cell": [35, 87], "anchor": [17, 43], "frames": 4},
+  "r_shield": {"cell": [35, 37], "anchor": [17, 18], "frames": 4}
+}

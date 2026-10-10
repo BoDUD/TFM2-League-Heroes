@@ -295,7 +295,8 @@ def build(p, native=False):
     q_heal = [heal_ally(p["q_heal"], p["q_hratio"]), view("q_heal"), tsfx("q_heal")]
     skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Targeting", "EnemyWithoutTower", combine(
         sfx("q"), voice("vo_q", p),
-        beam("q_beam", p["q_w"], p["q_len"], 8, 2, "EnemyWithoutTower", q_hit),
+        # the beam hits on its 2nd tick and stays 18 (300 ms) for its picture (import_senna.py: line, beam, fading)
+        beam("q_beam", p["q_w"], p["q_len"], 18, 2, "EnemyWithoutTower", q_hit),
         beam("q_mark", p["q_w"], p["q_len"], 2, 2, "EnemyChampion", [mark()]),
         beam("q_light", p["q_w"], p["q_len"], 2, 2, "AllyChampion", q_heal)))
 
