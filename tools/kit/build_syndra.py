@@ -68,6 +68,9 @@ P = {
     # skill2: W Force of Will (League: 925 range, 40-220 + 70% AP, slow 25% 1.5 s, cd 12-8 s; upgraded true damage)
     "w_cd": 660, "w_range": 85000, "w_anim": 30, "w_rel": 12, "w_fly": 16, "w_r": 21000, "w_dmg": 55, "w_ratio": 55,
     "w_slow": 30, "w_slow_t": 90, "w_true": 20,
+    # the add-on's grab (league_syndra, addons/league_syndra): a minion or monster within w_grab_r of her, lifted to
+    # her over w_lift_speed a tick, thrown at the target in w_fly ticks (only with no sphere counted on her)
+    "w_grab_r": 60000, "w_lift_speed": 6000,
     # -> E Scatter the Weak (League: 700 cone of 56 deg (84 upgraded), 25-235 + 60% AP, spheres pushed stun 1.25 s,
     # cd 15 s)
     "e_cd": 840, "e_range": 70000, "e_anim": 24, "e_rel": 8, "e_gap": 30, "e_fly": 2, "e_len": 70000, "e_w": 9000,
@@ -234,7 +237,7 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p):
+def build(p, native=False):
     # ------------------------------------------------------------------ passive: the upgrades by level
     def threshold(level):
         """The probe hit is 100 x her attack once the 99% cut is applied (atk_g a level, no item she buys gives any):
@@ -331,10 +334,18 @@ def build(p):
         hit = [magic(p["w_dmg"], p["w_ratio"]),
                sw("s2", true_magic("w_pen", p["w_dmg"] * p["w_true"] // 100, p["w_ratio"] * p["w_true"] // 100)),
                buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]), view("w_hit")]
-        land = [view("w_land"), sfx("w_land"), burst("w_burst", p["w_r"], "EnemyWithoutTower", hit), *sphere()]
-        return combine(sfx("w_throw"), lob("w_throw", p["w_fly"], 1000, "EnemyWithoutTower", [], end=land))
+        slam = [view("w_land"), sfx("w_land"), burst("w_burst", p["w_r"], "EnemyWithoutTower", hit)]
+        thrown = combine(sfx("w_throw"), lob("w_throw", p["w_fly"], 1000, "EnemyWithoutTower", [], end=slam + sphere()))
+        if not native:
+            return thrown
+        # the add-on's copy: when its passive lifted a minion or monster (w_unit on her), that unit flies to the
+        # target (the passive moves it); the lob is hidden and leaves no sphere
+        flung = combine(sfx("w_throw"), lob("w_fling", p["w_fly"], 1000, "EnemyWithoutTower", [], end=slam))
+        return sw("w_unit", flung, thrown)
 
-    w_cast = combine(anim("skill2", p["w_anim"]), sfx("w_grab"), voice("vo_w", p), delayed(p["w_rel"], w_fire()))
+    # the add-on's copy marks the cast for its passive: w_grab on her, w_at on the unit the throw goes at
+    grab = [flag("w_grab", p["w_rel"] + 2), buff("w_at", p["w_rel"] + p["w_fly"] + 4)] if native else []
+    w_cast = combine(*grab, anim("skill2", p["w_anim"]), sfx("w_grab"), voice("vo_w", p), delayed(p["w_rel"], w_fire()))
     w_then_e = combine(refresh("w_aim", 1), w_cast,
                        sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]),
                                                 delayed(p["e_gap"], anim("skill2_e", p["e_anim"]),
@@ -404,8 +415,12 @@ def build(p):
                E("orb", BIG, 1, **LATE), E("w_land", BIG, -1, **LATE), E("w_hit"), E("e_hit"), E("e_stun"),
                E("r_cast", BIG, 3), E("r_hit"), E("evo", FX, 3, **LATE)]
     views_b = [B_("w_slow", FX, -1)]
+    extra = {}
+    if native:
+        extra["passive"] = {"passive_ref": "league_syndra:grab",
+                            "params": {k: p[k] for k in ("w_rel", "w_fly", "w_grab_r", "w_lift_speed")}}
     return {
-        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC", "Range"],
+        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC", "Range"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2",
                         f"asset/league/icons/{ID}_ult"],
@@ -434,6 +449,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy (addons/league_syndra/make_override.py)")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
@@ -443,7 +459,7 @@ def main():
         if k not in p:
             raise SystemExit(f"unknown parameter {k}")
         p[k] = type(p[k])(float(v)) if isinstance(p[k], int) else float(v)
-    kit = build(p)
+    kit = build(p, a.native)
     if a.nodes:
         for s in ("attack", "skill", "skill2", "ult"):
             print(f"{s:7s} {nodes(kit[s]['effect']):4d} nodes")
