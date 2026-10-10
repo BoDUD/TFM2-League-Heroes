@@ -679,6 +679,9 @@ SHRINK_STILL = {"karma": ["idle"], "talon": ["idle"]}
 # are rebuilt from the shrunk idle, {hero: {tag: [dx per frame]}} - shrunk on their own they lost another column
 # than the idle did, one through the hood (「确认模型没有变形」)
 SHRINK_FROM_IDLE = {"talon": {"hit": [-2, -1]}}
+# actions drawn at the shrunk size already (fix_talon_strips run_legs takes the idle's cut out of the design before
+# posing the legs): the shrink leaves them as drawn
+SHRINK_SKIP = {"talon": ["run"]}
 # single actions made smaller (the idle untouched), {hero: {scale: [tags]}}, with SHRINK_KEEP / SHRINK_ANCHOR as above:
 # Olaf's idle is the slim design B, and Codex's redraw of his R, E and death kept bulkier bodies (area 1.2-1.7x the
 # idle's) - after 「奥拉夫跑动时为什么变大一圈 好违和」 the user picked 「一起改」 (every action at the idle's size); his hit
@@ -1527,12 +1530,13 @@ def main():
                     copies = {e["into"]: e["from"] for e in json.load(f)["items"] if "from" in e}
             plans = {"idle": idle_plan, **SF.shrink_sheet(sheet, SHRINK[hero], same_as=copies, body=body0,
                                                          keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero),
-                                                         tags=[t for t in sheet if t != "idle"],
+                                                         tags=[t for t in sheet if t != "idle" and t not in SHRINK_SKIP.get(hero, ())],
                                                          anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()),
                                         head=SHRINK_HEAD.get(hero, ()))}
             SHRUNK[hero] = plans
             print(f"{hero}: shrunk to {SHRINK[hero]:.0%} without resampling: " + ", ".join(
-                f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items()))
+                f"{t} -{len(p['rows'])}r -{len(p['cols'])}c" for t, p in plans.items())
+                + "".join(f", {t} drawn shrunk" for t in SHRINK_SKIP.get(hero, ()) if t in sheet))
             # a TIDY module's clean-up for the shrunk frames (tidy_shrunk): a removed row can take a tip's cap with
             # it (Xerath's far leg)
             tidy_frames(hero, sheet, "tidy_shrunk")
