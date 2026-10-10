@@ -19,9 +19,9 @@ then made "final" copies itself by resizing and re-quantising them: those are bl
   3. stand it where League's frame stands: its lowest row on League's lowest row (the soles' row for a grounded frame),
      its eyes on League's head column (else its middle on League's);
   4. clear specks (pieces of fewer than SPECK squares apart from the body) and close the outline.
-The idle is the design square for square, breathing (the body above the sash sinks over the legs); the run is Codex's
-skin swap of oppi's Lee Sin run (RUN_SHEET). Q and R start from the design itself (League's casts start from the idle
-pose).
+The idle is the design square for square, breathing (the body above the sash sinks over the legs); the run is the
+design's body over legs drawn from League's run joints (run_shen_legs.py). Q and R start from the design itself
+(League's casts start from the idle pose).
 """
 import argparse
 import json
@@ -49,38 +49,9 @@ Z = 8
 SOLES, MID = 99, 64
 PIVOT = (MID, SOLES - 11)
 CANVAS_SQUARE = 1254 / 128
-# The run: Codex's skin swap of oppi's Lee Sin run (a wide-stanced, baggy-trousered humanoid: the legs cross, the fists
-# pump, the body bobs) - assets/source/shen/codex_run_swap. Its 1x sheet is 3 x 3 cells of 60 x 60 on the design's 30
-# colours, the soles on the cell's row RUN_SOLES, the cell's middle column where the pack put the design's feet middle.
-# (The first run moved the design's own legs whole under the body: the wide stance could not cross - the hakama
-# bulbs hid behind the apron or rose into the sash; the user: 「腿变形严重了 交叉步也不对」.)
-# legs_fix/: Codex's second pass - frames 4-8 squeezed both hakama legs into one cone (12-17 wide, one trouser, one
-# boot; the design's are 27 wide): redrawn below the sash with two whole legs and two boots, frames 1-3 and 9 kept
-RUN_SHEET = os.path.join(ROOT, "assets", "source", "shen", "codex_run_swap", "legs_fix", "shen_run_fix_3x3_1x.png")
-RUN_CELL, RUN_SOLES = 60, 55
-# The user kept Codex's legs and asked for the design's upper body (「腿部ok的 上半身用之前的」): the design down to its
-# sash (rows <= DES_SASH; its arms hang lower: the sword arm to row 84 at columns <= ARM_COL, the near hand per row
-# from HAND_FROM) square for square over everything of Codex's below the sash. RUN_SASH: the lowest row of Codex's sash
-# (its purple knot) per frame, read off the frames; the design's sash goes down onto it, never up (a body lifted off
-# its legs would open a gap at the waist). (Cutting at the design's row 85 instead kept the design's skirt tops over
-# Codex's skirts and legs - the user: 「腿变形了啊大哥」.)
-DES_SASH = 79
-RUN_SASH = [78, 78, 78, 80, 80, 80, 80, 80, 80]
-ARM_ROWS, ARM_COL = range(80, 85), 50
-HAND_FROM = {80: 72, 81: 74, 82: 75, 83: 78, 84: 78, 85: 80}
-
-
-def upper(des):
-    """The design's head, torso, arms and sash: everything down to its sash, its arms below it."""
-    up = des.copy()
-    up[DES_SASH + 1:] = 0
-    for y in ARM_ROWS:
-        up[y, :ARM_COL + 1] = des[y, :ARM_COL + 1]
-    for y, x in HAND_FROM.items():
-        up[y, x:] = des[y, x:]
-    return up
-
-
+# The run: the design's body over legs drawn from League's run joints (tools/art/run_shen_legs.py). Codex's two
+# skin-swap runs (assets/source/shen/codex_run_swap) were rejected: the passing frames squeezed both hakama legs into
+# one cone, the redo ballooned them into a squat; the first run (the design's own legs moved whole) could not cross.
 EYE = (239, 226, 246)
 SPECK = 4
 
@@ -90,7 +61,7 @@ TAGS = {
     # the idle breathes without a cut: the body above the sash (and the whole near hand) sinks over the legs, which stay
     # square for square (import_native's idle_breathe cut two rows out of the trousers, boots, apron and tail hem)
     "idle": [(("breath", n), 140) for n in (0, 0, 1, 2, 2, 2, 1, 0)],
-    "run": [(("swap", k), 100) for k in range(1, 10)],
+    "run": [(("legs", k), 100) for k in range(1, 9)],
     "attack": [(f"attack_{k}", ms) for k, ms in zip(range(1, 7), (50, 60, 60, 90, 80, 60))],
     # Q: Codex's four frames were four bodies (frame 4 tall and thin); the palm push is one drawing held
     # (League's Q starts from the idle pose: the design itself, so the cast starts without a jump)
@@ -372,29 +343,11 @@ def action_frame(name, tag, k, pal, lol, ref):
     return a, s, f
 
 
-def swap_frame(k, des):
-    """Run frame k (1-9) of Codex's skin swap on our canvas: its soles on ours, its cell's middle on the design's feet."""
-    sheet = np.asarray(Image.open(lp(RUN_SHEET)).convert("RGBA"))
-    r, c = divmod(k - 1, 3)
-    cell = sheet[r * RUN_CELL:(r + 1) * RUN_CELL, c * RUN_CELL:(c + 1) * RUN_CELL]
-    can = np.zeros_like(des)
-    dy, dx = SOLES - RUN_SOLES, int(round(feet_mid(des, SOLES))) - RUN_CELL // 2
-    ys, xs = np.nonzero(cell[..., 3] > 0)
-    can[ys + dy, xs + dx] = cell[ys, xs]
-    bob = max(0, RUN_SASH[k - 1] - DES_SASH)
-    can[:DES_SASH + bob + 1] = 0
-    up = shift(upper(des), 0, bob)
-    m = up[..., 3] > 0
-    can[m] = up[m]
-    # the sash's corner outline squares left hanging over a narrower waist (one neighbour or none) go
-    op = can[..., 3] > 0
-    nb = ndimage.convolve(op.astype(int), np.ones((3, 3), int), mode="constant") - op
-    y0 = DES_SASH + bob
-    lone = op & (nb <= 1)
-    lone[:y0 - 1] = False
-    lone[y0 + 2:] = False
-    can[lone] = 0
-    return can
+def legs_frame(k):
+    import run_shen_legs as RL
+    if not hasattr(legs_frame, "cache"):
+        legs_frame.cache = RL.frames()
+    return legs_frame.cache[k - 1]
 
 
 def sink(a, row, n):
@@ -459,8 +412,8 @@ def build(only=None):
                 a = des.copy()
             elif isinstance(src, tuple) and src[0] == "breath":
                 a = breath(des, src[1])
-            elif isinstance(src, tuple) and src[0] == "swap":
-                a = pinholes(swap_frame(src[1], des))
+            elif isinstance(src, tuple) and src[0] == "legs":
+                a = pinholes(legs_frame(src[1]))
             elif isinstance(src, tuple) and src[0] == "sink":
                 a = sink(frame(src[1]), src[2], src[3])
             else:
