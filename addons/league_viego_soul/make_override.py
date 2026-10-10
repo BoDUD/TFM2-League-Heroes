@@ -33,16 +33,16 @@ CATS = {"Melee": "melee", "Range": "range", "Magician": "mage", "Util": "util", 
 O, A, R, E = setup.O, setup.A, setup.R, setup.E
 TEXT = {
     "zh-hans": O + "君命已决" + E + "（附加包）：他伤过的敌方英雄{p_win}秒内阵亡，尸体处留下灵魂{soul_t}秒，靠近即附身" + A + "{p_t}秒" + E +
-               "：整个身体变成那个英雄，按其类别用近战 / 射手 / 法师 / 辅助 / 刺客的招式，" + R + "{p_inv}秒无敌" + E + "，攻击+{p_ad}%、攻速+{p_as}%，Q、W刷新。",
+               "：整个身体变成那个英雄，按其类别用近战 / 射手 / 法师 / 辅助 / 刺客的招式，" + R + "{p_inv}秒无敌" + E + "，攻击+{p_ad}%、攻速+{p_as}%，Q、W冷却减半。",
     "zh-hant": O + "王權統御" + E + "（擴充包）：他傷過的敵方英雄{p_win}秒內陣亡，屍體處留下靈魂{soul_t}秒，靠近即附身" + A + "{p_t}秒" + E +
-               "：整個身體變成那個英雄，按其類別用近戰 / 射手 / 法師 / 輔助 / 刺客的招式，" + R + "{p_inv}秒無敵" + E + "，攻擊+{p_ad}%、攻速+{p_as}%，Q、W刷新。",
+               "：整個身體變成那個英雄，按其類別用近戰 / 射手 / 法師 / 輔助 / 刺客的招式，" + R + "{p_inv}秒無敵" + E + "，攻擊+{p_ad}%、攻速+{p_as}%，Q、W冷卻減半。",
     "en": O + "Sovereign's Domination" + E + " (add-on): an enemy champion he damaged dies within {p_win}s - its soul waits {soul_t}s; "
           "near it he possesses it for " + A + "{p_t}s" + E + ": he takes its whole body and fights with its class's moves (fighter, "
-          "marksman, mage, support, assassin), " + R + "untouchable {p_inv}s" + E + ", +{p_ad}% attack, +{p_as}% attack speed, Q and W refreshed.",
+          "marksman, mage, support, assassin), " + R + "untouchable {p_inv}s" + E + ", +{p_ad}% attack, +{p_as}% attack speed, Q and W cooldowns halved.",
     "ko": O + "군주의 지배" + E + "(확장팩): 피해를 입힌 적 챔피언이 {p_win}초 안에 죽으면 영혼이 {soul_t}초 남고, 다가가면 " + A + "{p_t}초" + E +
-          " 빙의: 그 챔피언의 몸이 되어 계열(전사·원거리·마법사·서포터·암살자)의 기술을 쓰고 " + R + "{p_inv}초 무적" + E + ", 공격력 +{p_ad}%, 공격 속도 +{p_as}%, Q·W 초기화.",
+          " 빙의: 그 챔피언의 몸이 되어 계열(전사·원거리·마법사·서포터·암살자)의 기술을 쓰고 " + R + "{p_inv}초 무적" + E + ", 공격력 +{p_ad}%, 공격 속도 +{p_as}%, Q·W 재사용 대기시간 절반.",
     "ja": O + "王の支配" + E + "（拡張）：ダメージを与えた敵チャンピオンが{p_win}秒以内に倒れると魂が{soul_t}秒残り、近づくと" + A + "{p_t}秒" + E +
-          "憑依：その体になり系統（ファイター・射手・メイジ・サポート・アサシン）の技を使う。" + R + "{p_inv}秒無敵" + E + "、攻撃力+{p_ad}%・攻撃速度+{p_as}%、QとW再使用可能。",
+          "憑依：その体になり系統（ファイター・射手・メイジ・サポート・アサシン）の技を使う。" + R + "{p_inv}秒無敵" + E + "、攻撃力+{p_ad}%・攻撃速度+{p_as}%、QとWのクールダウン半減。",
 }
 
 

@@ -2,35 +2,35 @@
   "zh-hans": {
     "description": {
       "league_viego_soul": {
-        "attack": "<#ff9028ff>君命已决<>（附加包）：他伤过的敌方英雄3秒内阵亡，尸体处留下灵魂8秒，靠近即附身<#ffb900ff>10秒<>：整个身体变成那个英雄，按其类别用近战 / 射手 / 法师 / 辅助 / 刺客的招式，<#ef5350ff>1秒无敌<>，攻击+25%、攻速+30%，Q、W刷新。"
+        "attack": "<#ff9028ff>君命已决<>（附加包）：他伤过的敌方英雄3秒内阵亡，尸体处留下灵魂8秒，靠近即附身<#ffb900ff>10秒<>：整个身体变成那个英雄，按其类别用近战 / 射手 / 法师 / 辅助 / 刺客的招式，<#ef5350ff>1秒无敌<>，攻击+20%、攻速+30%，Q、W冷却减半。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_viego_soul": {
-        "attack": "<#ff9028ff>王權統御<>（擴充包）：他傷過的敵方英雄3秒內陣亡，屍體處留下靈魂8秒，靠近即附身<#ffb900ff>10秒<>：整個身體變成那個英雄，按其類別用近戰 / 射手 / 法師 / 輔助 / 刺客的招式，<#ef5350ff>1秒無敵<>，攻擊+25%、攻速+30%，Q、W刷新。"
+        "attack": "<#ff9028ff>王權統御<>（擴充包）：他傷過的敵方英雄3秒內陣亡，屍體處留下靈魂8秒，靠近即附身<#ffb900ff>10秒<>：整個身體變成那個英雄，按其類別用近戰 / 射手 / 法師 / 輔助 / 刺客的招式，<#ef5350ff>1秒無敵<>，攻擊+20%、攻速+30%，Q、W冷卻減半。"
       }
     }
   },
   "en": {
     "description": {
       "league_viego_soul": {
-        "attack": "<#ff9028ff>Sovereign's Domination<> (add-on): an enemy champion he damaged dies within 3s - its soul waits 8s; near it he possesses it for <#ffb900ff>10s<>: he takes its whole body and fights with its class's moves (fighter, marksman, mage, support, assassin), <#ef5350ff>untouchable 1s<>, +25% attack, +30% attack speed, Q and W refreshed."
+        "attack": "<#ff9028ff>Sovereign's Domination<> (add-on): an enemy champion he damaged dies within 3s - its soul waits 8s; near it he possesses it for <#ffb900ff>10s<>: he takes its whole body and fights with its class's moves (fighter, marksman, mage, support, assassin), <#ef5350ff>untouchable 1s<>, +20% attack, +30% attack speed, Q and W cooldowns halved."
       }
     }
   },
   "ko": {
     "description": {
       "league_viego_soul": {
-        "attack": "<#ff9028ff>군주의 지배<>(확장팩): 피해를 입힌 적 챔피언이 3초 안에 죽으면 영혼이 8초 남고, 다가가면 <#ffb900ff>10초<> 빙의: 그 챔피언의 몸이 되어 계열(전사·원거리·마법사·서포터·암살자)의 기술을 쓰고 <#ef5350ff>1초 무적<>, 공격력 +25%, 공격 속도 +30%, Q·W 초기화."
+        "attack": "<#ff9028ff>군주의 지배<>(확장팩): 피해를 입힌 적 챔피언이 3초 안에 죽으면 영혼이 8초 남고, 다가가면 <#ffb900ff>10초<> 빙의: 그 챔피언의 몸이 되어 계열(전사·원거리·마법사·서포터·암살자)의 기술을 쓰고 <#ef5350ff>1초 무적<>, 공격력 +20%, 공격 속도 +30%, Q·W 재사용 대기시간 절반."
       }
     }
   },
   "ja": {
     "description": {
       "league_viego_soul": {
-        "attack": "<#ff9028ff>王の支配<>（拡張）：ダメージを与えた敵チャンピオンが3秒以内に倒れると魂が8秒残り、近づくと<#ffb900ff>10秒<>憑依：その体になり系統（ファイター・射手・メイジ・サポート・アサシン）の技を使う。<#ef5350ff>1秒無敵<>、攻撃力+25%・攻撃速度+30%、QとW再使用可能。"
+        "attack": "<#ff9028ff>王の支配<>（拡張）：ダメージを与えた敵チャンピオンが3秒以内に倒れると魂が8秒残り、近づくと<#ffb900ff>10秒<>憑依：その体になり系統（ファイター・射手・メイジ・サポート・アサシン）の技を使う。<#ef5350ff>1秒無敵<>、攻撃力+20%・攻撃速度+30%、QとWのクールダウン半減。"
       }
     }
   }

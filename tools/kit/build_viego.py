@@ -44,6 +44,10 @@ FX = "asset/league/effects/league_viego_fx"
 BIG = "asset/league/effects/league_viego_big"
 
 # Timings: placeholders until the strips are in (assets/source/viego/poses.json).
+# Numbers = candidate c1 of the 10-min classic-SDK simulations (Temp/vy_sim, kd.py --lane 1 against demon, circus_blade,
+# hunter, inquisitor and ninja, three lineups, both sides, 2026-10-11): +1.51 on seeds 1-12 (league_kayn +1.76,
+# league_khazix +1.20), +1.16 on 25-36 (league_kayn +1.23). The draft c0 (double strike heal 40 + 40%, a soul +25% attack
+# and Q / W ready at once) was +2.02 / +1.92; c2 (c1 + attack 88) +0.96 / +1.23.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Viego: 630 +109
     # hp, 57 AD +3.5, 34 armour, 32 mr, 345 move, 200 range - a skirmisher who lives on resets
@@ -51,7 +55,7 @@ P = {
     # attack: the sword (League's Q passive: 2-7% current health on hit, at least 10-35; here % max health on champions)
     "atk_range": 26000, "atk_dur": 24, "atk_cd": 64, "atk_st": 10, "a_pct": 2,
     # the double strike after Q's mark (League: the second hit 20% AD + 15% AP, heals 145% of it on champions)
-    "d_at": 6, "d_dmg": 20, "d_ratio": 60, "d_heal": 40, "d_heal_ratio": 40,
+    "d_at": 6, "d_dmg": 20, "d_ratio": 60, "d_heal": 30, "d_heal_ratio": 30,
     # Q Blade of the Ruined King (League: 600 x 125 thrust, 10-100 + 70% AD, cd 5-3 s, mark 4 s)
     "q_cd": 330, "q_range": 36000, "q_dur": 18, "q_at": 8, "q_len": 40000, "q_speed": 8000, "q_rad": 6500,
     "q_y": 4000, "q_dmg": 50, "q_ratio": 70, "q_mark": 240,
@@ -66,9 +70,9 @@ P = {
     # passive Sovereign's Domination (League: takedown window 3 s, possession 10 s, untouchable 1 s while taking the
     # soul, heal 2% + of the champion's max health)
     "p_win": 180, "p_t": 600, "p_inv": 60, "p_anim": 24, "p_heal": 60, "p_heal_ratio": 50,
-    "p_ad": 25, "p_as": 30, "p_ms": 15,
+    "p_ad": 20, "p_as": 30, "p_ms": 15,
     # cooldown caps when a soul is taken: skill_cooldown_mult on both skills; the ult gets skill + ult share (0 = none)
-    "p_skill": 10000, "p_ult": 0,
+    "p_skill": 100, "p_ult": 0,
     # the add-on's soul kits (native=1 only): bolts, the slam ring, the piercing shot, heals, stuns
     "s_bolt_speed": 5000, "s_y": 4000, "s_a_dmg": 20, "s_q_dmg": 70, "s_q_ratio": 80, "s_e_dmg": 90, "s_e_ratio": 80,
     "s_e_at": 10, "s_stun": 50, "s_slow": 30, "s_slow_t": 120, "s_ring_r": 20000, "s_line_len": 50000, "s_heal": 60,

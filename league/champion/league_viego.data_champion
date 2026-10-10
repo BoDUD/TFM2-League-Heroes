@@ -256,7 +256,7 @@
                                                   "tick": 600
                                                 }
                                               },
-                                              "attack_mult": 25,
+                                              "attack_mult": 20,
                                               "attack_speed_mult": 30,
                                               "move_speed_mult": 15
                                             },
@@ -301,8 +301,8 @@
                                                   "tick": 2
                                                 }
                                               },
-                                              "skill_cooldown_mult": 10000,
-                                              "ult_cooldown_mult": -10000
+                                              "skill_cooldown_mult": 100,
+                                              "ult_cooldown_mult": -100
                                             },
                                             "only_to_enemy": false
                                           }
@@ -453,8 +453,8 @@
                       },
                       {
                         "type": "Heal",
-                        "amount": 40,
-                        "attack_ratio": 40,
+                        "amount": 30,
+                        "attack_ratio": 30,
                         "ap_ratio": 0,
                         "heal_type": "Caster"
                       },
@@ -865,7 +865,7 @@
                                                         "tick": 600
                                                       }
                                                     },
-                                                    "attack_mult": 25,
+                                                    "attack_mult": 20,
                                                     "attack_speed_mult": 30,
                                                     "move_speed_mult": 15
                                                   },
@@ -910,8 +910,8 @@
                                                         "tick": 2
                                                       }
                                                     },
-                                                    "skill_cooldown_mult": 10000,
-                                                    "ult_cooldown_mult": -10000
+                                                    "skill_cooldown_mult": 100,
+                                                    "ult_cooldown_mult": -100
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -1463,7 +1463,7 @@
                                                           "tick": 600
                                                         }
                                                       },
-                                                      "attack_mult": 25,
+                                                      "attack_mult": 20,
                                                       "attack_speed_mult": 30,
                                                       "move_speed_mult": 15
                                                     },
@@ -1508,8 +1508,8 @@
                                                           "tick": 2
                                                         }
                                                       },
-                                                      "skill_cooldown_mult": 10000,
-                                                      "ult_cooldown_mult": -10000
+                                                      "skill_cooldown_mult": 100,
+                                                      "ult_cooldown_mult": -100
                                                     },
                                                     "only_to_enemy": false
                                                   }
@@ -1986,7 +1986,7 @@
                                                                           "tick": 600
                                                                         }
                                                                       },
-                                                                      "attack_mult": 25,
+                                                                      "attack_mult": 20,
                                                                       "attack_speed_mult": 30,
                                                                       "move_speed_mult": 15
                                                                     },
@@ -2031,8 +2031,8 @@
                                                                           "tick": 2
                                                                         }
                                                                       },
-                                                                      "skill_cooldown_mult": 10000,
-                                                                      "ult_cooldown_mult": -10000
+                                                                      "skill_cooldown_mult": 100,
+                                                                      "ult_cooldown_mult": -100
                                                                     },
                                                                     "only_to_enemy": false
                                                                   }
@@ -2472,7 +2472,7 @@
                                             "tick": 600
                                           }
                                         },
-                                        "attack_mult": 25,
+                                        "attack_mult": 20,
                                         "attack_speed_mult": 30,
                                         "move_speed_mult": 15
                                       },
@@ -2517,8 +2517,8 @@
                                             "tick": 2
                                           }
                                         },
-                                        "skill_cooldown_mult": 10000,
-                                        "ult_cooldown_mult": -10000
+                                        "skill_cooldown_mult": 100,
+                                        "ult_cooldown_mult": -100
                                       },
                                       "only_to_enemy": false
                                     }

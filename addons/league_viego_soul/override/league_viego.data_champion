@@ -14,10 +14,10 @@
       "p_inv": 60,
       "p_heal": 60,
       "p_heal_ratio": 50,
-      "p_ad": 25,
+      "p_ad": 20,
       "p_as": 30,
       "p_ms": 15,
-      "p_skill": 10000,
+      "p_skill": 100,
       "p_ult": 0,
       "p_win": 180,
       "soul_r": 35000,
@@ -456,8 +456,8 @@
                                 },
                                 {
                                   "type": "Heal",
-                                  "amount": 40,
-                                  "attack_ratio": 40,
+                                  "amount": 30,
+                                  "attack_ratio": 30,
                                   "ap_ratio": 0,
                                   "heal_type": "Caster"
                                 },

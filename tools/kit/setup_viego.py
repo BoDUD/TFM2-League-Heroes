@@ -50,7 +50,7 @@ TEXT = {
     "zh-hans": {
         "name": "佛耶戈",
         "attack": O + "君命已决" + E + "：他伤过的敌方英雄{p_win}秒内阵亡则附身其灵魂" + A + "{p_t}秒" + E + "：" + R + "{p_inv}秒无敌" + E + "，回复" + hl("p") +
-                  "，攻击+{p_ad}%、攻速+{p_as}%、移速+{p_ms}%，Q、W刷新。普攻附加英雄最大生命{a_pct}%。",
+                  "，攻击+{p_ad}%、攻速+{p_as}%、移速+{p_ms}%，Q、W冷却减半。普攻附加英雄最大生命{a_pct}%。",
         "skill": "向前刺出，造成" + phy("q") + "伤害。刺中的英雄被标记" + A + "{q_mark}秒" + E + "，下次普攻对其斩两下：再造成" + phy("d") + "伤害并回复" + hl("d") + "。",
         "skill2": O + "茫茫焦土" + E + "：黑雾升起，" + A + "{e_t}秒" + E + "内移速+{e_ms}%、攻速+{e_as}%，蓄力时隐身。随后冲刺并吐出亡魂，第一个被击中的敌人受到" +
                   phy("w") + "伤害并" + R + "眩晕{w_stun}秒" + E + "。",
@@ -60,7 +60,7 @@ TEXT = {
     "zh-hant": {
         "name": "維爾戈",
         "attack": O + "王權統御" + E + "：他傷過的敵方英雄{p_win}秒內陣亡則附身其靈魂" + A + "{p_t}秒" + E + "：" + R + "{p_inv}秒無敵" + E + "，回復" + hl("p") +
-                  "，攻擊+{p_ad}%、攻速+{p_as}%、移速+{p_ms}%，Q、W刷新。普攻附加英雄最大生命{a_pct}%。",
+                  "，攻擊+{p_ad}%、攻速+{p_as}%、移速+{p_ms}%，Q、W冷卻減半。普攻附加英雄最大生命{a_pct}%。",
         "skill": "向前刺出，造成" + phy("q") + "傷害。刺中的英雄被標記" + A + "{q_mark}秒" + E + "，下次普攻對其斬兩下：再造成" + phy("d") + "傷害並回復" + hl("d") + "。",
         "skill2": O + "幽影之徑" + E + "：黑霧升起，" + A + "{e_t}秒" + E + "內移速+{e_ms}%、攻速+{e_as}%，蓄力時隱身。隨後衝刺並吐出亡魂，第一個被擊中的敵人受到" +
                   phy("w") + "傷害並" + R + "暈眩{w_stun}秒" + E + "。",
@@ -71,7 +71,7 @@ TEXT = {
         "name": "Viego",
         "attack": O + "Sovereign's Domination" + E + ": an enemy champion he damaged dies within {p_win}s - he possesses its soul for " + A + "{p_t}s" + E +
                   ": " + R + "untouchable {p_inv}s" + E + ", heals " + hl("p") + ", +{p_ad}% attack, +{p_as}% attack speed, +{p_ms}% move speed, "
-                  "Q and W refreshed. Attacks deal {a_pct}% of a champion's max health.",
+                  "Q and W cooldowns halved. Attacks deal {a_pct}% of a champion's max health.",
         "skill": "Thrusts forward: " + phy("q") + ". A champion hit is marked for " + A + "{q_mark}s" + E + ": his next attack on it strikes twice, "
                  + phy("d") + " more, and heals " + hl("d") + ".",
         "skill2": O + "Harrowed Path" + E + ": mist rises - " + A + "{e_t}s" + E + " of +{e_ms}% move speed and +{e_as}% attack speed, hidden while "
@@ -83,7 +83,7 @@ TEXT = {
     "ko": {
         "name": "비에고",
         "attack": O + "군주의 지배" + E + ": 피해를 입힌 적 챔피언이 {p_win}초 안에 죽으면 영혼에 빙의 " + A + "{p_t}초" + E + ": " + R + "{p_inv}초 무적" + E +
-                  ", " + hl("p") + " 회복, 공격력 +{p_ad}%, 공격 속도 +{p_as}%, 이동 속도 +{p_ms}%, Q·W 초기화. 기본 공격은 챔피언 최대 체력 {a_pct}% 추가.",
+                  ", " + hl("p") + " 회복, 공격력 +{p_ad}%, 공격 속도 +{p_as}%, 이동 속도 +{p_ms}%, Q·W 재사용 대기시간 절반. 기본 공격은 챔피언 최대 체력 {a_pct}% 추가.",
         "skill": "앞으로 찔러 " + phy("q") + " 피해. 맞은 챔피언은 " + A + "{q_mark}초" + E + " 표식: 다음 기본 공격이 두 번 베어 " + phy("d") + " 추가 피해, " + hl("d") + " 회복.",
         "skill2": O + "안개의 길" + E + ": 안개가 일어 " + A + "{e_t}초" + E + " 동안 이동 속도 +{e_ms}%, 공격 속도 +{e_as}%, 충전 중 은신. 이어서 돌진하며 망령을 "
                   "날려 처음 맞은 적에게 " + phy("w") + " 피해와 " + R + "{w_stun}초 기절" + E + ".",
@@ -94,7 +94,7 @@ TEXT = {
     "ja": {
         "name": "ヴィエゴ",
         "attack": O + "王の支配" + E + "：ダメージを与えた敵チャンピオンが{p_win}秒以内に倒れると魂に憑依" + A + "{p_t}秒" + E + "：" + R + "{p_inv}秒無敵" + E +
-                  "、" + hl("p") + "回復、攻撃力+{p_ad}%・攻撃速度+{p_as}%・移動速度+{p_ms}%、QとWが再使用可能。通常攻撃はチャンピオンに最大体力の{a_pct}%を追加。",
+                  "、" + hl("p") + "回復、攻撃力+{p_ad}%・攻撃速度+{p_as}%・移動速度+{p_ms}%、QとWのクールダウン半減。通常攻撃はチャンピオンに最大体力の{a_pct}%を追加。",
         "skill": "前方へ突き、" + phy("q") + "のダメージ。当たったチャンピオンに" + A + "{q_mark}秒" + E + "の刻印：次の通常攻撃が2回斬り、" + phy("d") + "の追加ダメージと" + hl("d") + "回復。",
         "skill2": O + "彷徨える苦悶" + E + "：霧が立ちのぼり" + A + "{e_t}秒" + E + "移動速度+{e_ms}%・攻撃速度+{e_as}%、溜め中は透明。続けて突進し亡霊を放ち、"
                   "最初に当たった敵に" + phy("w") + "のダメージと" + R + "{w_stun}秒スタン" + E + "。",
