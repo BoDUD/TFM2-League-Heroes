@@ -51,11 +51,14 @@ PIVOT = (MID, SOLES - 11)
 CANVAS_SQUARE = 1254 / 128
 # The run: a trot of the design's own legs, nothing redrawn (the user: 「腿别变形」「脚也别变形」「颜色都不一致」 after
 # Codex's two skin swaps and legs drawn from League's joints were all rejected). Each leg is the design's leg (rows
-# 85-99, the boot included) moved whole: on its own side, planted 4 frames, then lifted 1-2 rows for 4 frames; the two legs half a cycle apart; the body (rows <= 84) sinks 1 row as a foot lands; the
+# 85-99, the boot included) moved whole (NEAR_STEP / FAR_STEP); the two legs half a cycle apart; the body (rows <= 84) sinks 1 row as a foot lands; the
 # tail hem rides with the near leg (it hangs behind it), the apron stays with the body in front.
-TROT = [(0, 0), (0, 0), (0, 0), (0, 0), (0, 1), (0, 2), (0, 2), (0, 1)]   # (columns from the stance, rows up): a leg
-#       moved sideways opened a slit beside the apron (「这对吗」) - the legs lift in place, the game moves him
-TROT_NEAR, TROT_FAR = 0, 4
+# A scissor step (the user: 「好歹有点换脚的感觉啊 平行走路？？？？」 on legs lifting in place): the near leg swings
+# forward (+x, lifted) while the far leg, planted, slides back (-x), then the other way; each travels 11 columns, so
+# the lead foot swaps (idle: the far foot 18 ahead; frame 5: the near foot 4 ahead). Moving towards and past the
+# apron never opens a slit beside it (a leg moved away from it did: 「这对吗」); the near leg stays in front.
+NEAR_STEP = [(0, 0), (4, 2), (8, 2), (11, 1), (11, 0), (8, 0), (4, 0), (0, 0)]      # (columns, rows up)
+FAR_STEP = [(0, 0), (-4, 0), (-8, 0), (-11, 0), (-11, 0), (-8, 2), (-4, 2), (0, 1)]
 TROT_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
 LEG_TOP = 85
 EYE = (239, 226, 246)
@@ -373,8 +376,8 @@ def trot_parts(des):
 def trot_frame(k, des):
     upper, tail, apron, far, near = trot_parts(des)
     bob = TROT_BOB[k - 1]
-    ndx, nup = TROT[(k - 1 + TROT_NEAR) % 8]
-    fdx, fup = TROT[(k - 1 + TROT_FAR) % 8]
+    ndx, nup = NEAR_STEP[k - 1]
+    fdx, fup = FAR_STEP[k - 1]
     can = np.zeros_like(des)
     for part, dx, dy in ((tail, ndx, bob), (far, fdx, -fup), (near, ndx, -nup), (apron, 0, bob), (upper, 0, bob)):
         p = shift(part, dx, dy)
