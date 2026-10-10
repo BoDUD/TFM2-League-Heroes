@@ -41,13 +41,17 @@ ID = "league_draven"
 FX = "asset/league/effects/league_draven_fx"
 BIG = "asset/league/effects/league_draven_big"
 
-# Numbers: draft c0 (to be balanced in dv_sim against the merged ADCs).
+# Numbers = candidate c0 of the 10-min classic-SDK simulations (dv_sim/sim/kd.py --lane 3 against archer, gunner,
+# boomerang_hunter, poison_dart_hunter and bomber, three lineups, both sides, 2026-10-10): +2.18 on seeds 1-12
+# (league_jinx +4.46, league_twitch +1.79, league_kogmaw +1.67), +1.70 on 25-36 (league_twitch +1.18, league_kogmaw +1.69).
+# Timings from the strips (fix_draven_strips.py TAGS): the axe leaves on tick 11 (attack frame 3, 180 ms of 400), Stand
+# Aside's axes on 11 (skill2 frame 4), Whirling Death's on 16 (ult frame 5, 270 ms of 500); Q's twirl 200 ms.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Draven: 550
     # range, 62 AD +3.6 (high), 675 +104 hp, 29 armour, 330 move, attack speed 0.679
     "hp": 930, "hp_g": 90, "atk": 104, "atk_g": 19, "def": 22, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     # attack: the axe leaves the hand on a_st (retimed to the strips later)
-    "atk_range": 55000, "atk_dur": 22, "atk_cd": 60, "a_st": 10, "axe_speed": 6000, "axe_y": 0,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 60, "a_st": 11, "axe_speed": 6000, "axe_y": 0,
     # passive League of Draven (League: a stack a catch, cashed in on a champion kill for gold)
     "p_n": 6, "p_atk": 4, "p_heal": 25, "p_as": 30, "p_t": 240,
     # Q Spinning Axe (League: +40-60 + 75-115% bonus AD, 5.8 s in hand, two at most, cd 12-8 s)
@@ -56,7 +60,7 @@ P = {
     # W Blood Rush (League: +50-70% decaying move speed 1.5 s, +30-50% attack speed 3 s, cd 12 s, reset by a catch)
     "w_cd": 720, "w_r": 70000, "w_ms": 40, "w_ms_t": 90, "w_as": 35, "w_as_t": 180,
     # E Stand Aside (League: 1050 range, 75-235 + 50% bonus AD, knocked aside, 20-40% slow 2 s, cd 18-14 s)
-    "e_cd": 900, "e_range": 95000, "e_dur": 24, "e_rel": 12, "e_speed": 6000, "e_len": 105000, "e_rad": 8000,
+    "e_cd": 900, "e_range": 95000, "e_dur": 24, "e_rel": 11, "e_speed": 6000, "e_len": 105000, "e_rad": 8000,
     "e_y": 0, "e_dmg": 70, "e_ratio": 50, "e_kb": 1800, "e_kb_t": 8, "e_slow": 30, "e_slow_t": 120,
     # R Whirling Death (League: global, 175-375 + 110% bonus AD a pass, turns on the first champion, cd 100-60 s)
     "r_cd": 2700, "r_range": 150000, "r_dur": 30, "r_rel": 16, "r_speed": 4500, "r_fast": 6500, "r_len": 200000,
@@ -249,7 +253,7 @@ def build(p):
     # the ricochet: from the hit, a hidden lob onto him lands where he stands q_fly ticks later; the circle and the
     # falling axe are a non-following caster picture started on the same tick (a ViewEffect on his own spot is
     # not shown in game)
-    drop = on_me(cview("q_zone"), lob("q_drop", p["q_fly"], "AllyOnlySelf", [
+    drop = on_me(cview("q_zone"), cview("q_fall"), lob("q_drop", p["q_fly"], "AllyOnlySelf", [
         pick(p["catch_r"], "AllyOnlySelf", flag("q_got", 2), fp=True),
         sw("q_got", combine(*rm("q_got"), caught), combine(view("q_lost"), sfx("q_lost")))]))
     spin_hit = [attack(p["q_dmg"], 100 + p["q_ratio"]), view("q_hit"), tsfx("q_hit"), delayed(1, drop)]
@@ -301,9 +305,12 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("a_axe"), P_("q_axe"), P_("e_axes"), P_("r_out", BIG), P_("r_back", BIG)]
-    views_e = [E("a_hit"), E("q_hit"), E("q_zone", FX, -1, False), E("q_catch", FX, 3), E("q_lost", FX, 1, False),
-               E("w_cast", FX, 3), E("e_hit"), E("r_hit"), E("p_cash", FX, 3)]
+    # the ult's blades out and back are one picture (tag r_axes); q_zone (the catch circle, under him) and q_fall (the
+    # axe coming down into it, over him) are non-following caster pictures started on the bounce
+    views_p = [P_("a_axe"), P_("q_axe"), P_("e_axes"), dict(P_("r_out", BIG), tag="r_axes"),
+               dict(P_("r_back", BIG), tag="r_axes")]
+    views_e = [E("a_hit"), E("q_hit"), E("q_zone", FX, -1, False), E("q_fall", FX, 3, False), E("q_catch", FX, 3),
+               E("q_lost", FX, 1, False), E("w_cast", FX, 3), E("e_hit"), E("r_hit"), E("p_cash", FX, 3)]
     views_b = [B_("ax1", FX, 3), B_("ax2", FX, 3), B_("w_ms", FX, -1), B_("e_slow", FX, -1), B_(f"p_{N}", FX, 3)]
     return {
         "id": ID, "category": "Range", "tags": ["AD", "Range"],
