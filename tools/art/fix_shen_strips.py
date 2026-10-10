@@ -353,35 +353,6 @@ def action_frame(name, tag, k, pal, lol, ref):
     return a, s, f
 
 
-MASK_WHITE, SKIN_LIGHT, SLIT_VIOLET = (222, 224, 227), (238, 169, 109), (89, 60, 156)
-FACE_BOX = (60, 73, 56, 79)     # rows, columns of the run's head on the canvas
-
-
-def run_face(a):
-    """Codex painted the run's mask with the eye colour and the eye slit violet: the design's face back - the eye colour
-    only where it touches the slit (the eyes), the mask's other eye-coloured squares white, the slit's violet skin."""
-    a = a.copy()
-    r0, r1, c0, c1 = FACE_BOX
-    sub = a[r0:r1, c0:c1]
-    rgb = sub[..., :3]
-    eye = (rgb == EYE).all(-1) & (sub[..., 3] > 0)
-    vio = (rgb == SLIT_VIOLET).all(-1) & (sub[..., 3] > 0)
-    nb = lambda m: np.roll(m, 1, 1) | np.roll(m, -1, 1)
-    keep = eye & nb(vio)
-    slit = vio & nb(eye)
-    white = (rgb == MASK_WHITE).all(-1) & (sub[..., 3] > 0)
-    for y in np.nonzero(keep.any(1))[0]:              # the rest of the slit's row: violet -> skin, a white square
-        xs = np.nonzero(keep[y])[0]                   # between violet ones -> the other eye
-        x0, x1 = max(xs.min() - 2, 0), xs.max() + 8
-        for x in range(x0 + 1, min(x1, sub.shape[1] - 1)):
-            if white[y, x] and vio[y, x - 1] and vio[y, x + 1]:
-                sub[y, x, :3] = EYE
-        slit[y, x0:x1] |= vio[y, x0:x1]
-    sub[eye & ~keep, :3] = MASK_WHITE
-    sub[slit, :3] = SKIN_LIGHT
-    return a
-
-
 def swap_frame(k, des):
     """Run frame k (1-9) of Codex's skin swap on our canvas: its soles on ours, its cell's middle on the design's feet."""
     sheet = np.asarray(Image.open(lp(RUN_SHEET)).convert("RGBA"))
