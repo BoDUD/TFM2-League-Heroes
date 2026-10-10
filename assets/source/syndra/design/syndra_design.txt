@@ -1,0 +1,43 @@
+# x0 48
+ 58         0000
+ 59       00II0      0100
+ 60      0II000  000   0H0
+ 61      HHH1yy00III00 0yHd0
+ 62      HHHH1yy001II10y0Hd0
+ 63     00HHHHddy00dd0y0HHd0
+ 64     0yddHHdddyy0yMMy0dGy0
+ 65     0yydddddd00yyrry0yG00
+ 66      ddy01yy10000yr0y00
+ 67      0dy1y00AWWW0gyW00
+ 68      01ky0AAWssss00sW0
+ 69     0W00y0AW000ssss0W0
+ 70     0WA0k0W00Ic0sssI00
+ 71     0WA00y0W0XMssssX00
+ 72     0WAA00WWssssssss0W0
+ 73     0WAAAAWAksssRRs0AW0
+ 74     0WA00AWA0ksssssAWW0
+ 75    0WA0HI00WW0RR000AWWW0
+ 76   0WWA0yHHh0W0kkk00AW0W0
+ 77    0AWA00000W0Gyhsh0000
+ 78     0WAA0sk0W1ddydR0W0
+ 79    0WAA0ss0W00dddydG0
+ 80  01WWA0y00A0AA0ddk1ss0
+ 81 0AWAA0Mhg0AA0MMyMMy0yI0
+ 820WWAAAMhd0AA0MMMyrry00hI00
+ 830WWAA00h0AA0dd000yy00 d0MM0
+ 840W00MMM0AA0dddyg1ksss01cM00
+ 85 000M0M0A0hhdy0b0kssss0 1 0
+ 86  0A000A0Hhdy0sss0kssh0
+ 87   00AA0HHdy0ssss001hy0
+ 88   0 00HHdy00ssss000hh0
+ 89  0yHHHdddy000s0y0hh00
+ 90   0yydddyy0d00yy0d0
+ 91    00dddy1dd0yyd0y0
+ 92     0ydyy0dd0yhd0y0
+ 93      0000   0hhd00
+ 94              0hd0
+ 95               0h0
+ 96              0yd0
+ 97              00yy0
+ 98               00y0
+ 99                000
