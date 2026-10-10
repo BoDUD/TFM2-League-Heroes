@@ -591,10 +591,10 @@
       },
       "league_senna": {
         "name": "赛娜",
-        "attack": "<#ff9028ff>赦除<>：技能和普攻标记敌方英雄，下次普攻吸走：额外3%最大生命伤害+1层黑雾；每<#ffb900ff>6秒<>一次普攻和击杀英雄也+1层。每层攻击+1、射程略增，每2层暴击+1%（死亡清空）。<#ff9028ff>黑雾咒附<>（自动）：英雄贴近时，她和身边队友隐身<#ffb900ff>6秒<>、移速+20%。",
+        "attack": "<#ff9028ff>赦除<>：技能和普攻标记敌方英雄，下次普攻吸走：额外3%最大生命伤害+1层黑雾；每<#ffb900ff>6秒<>一次普攻和击杀英雄也+1层。每层攻击+1、射程略增，每2层暴击+1%（死亡清空）。<#ff9028ff>黑雾咒附<>（自动）：英雄贴近时，她和身边队友隐身<#ffb900ff>4秒<>、移速+20%。",
         "skill": "遗物炮射出穿透目标的暗影光束：直线上的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害并<#ef5350ff>减速20%<><#ffb900ff>1.25秒<>，队友英雄回复<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>生命。",
         "skill2": "射出黑雾，附着在首个命中的敌人身上并造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害；<#ffb900ff>1秒<>后黑雾扩散，<#ef5350ff>禁锢<>它和周围的敌人<#ffb900ff>1.5秒<>。",
-        "ult": "蓄力后朝远方交战中的英雄射出横贯战场的光束：中心对敌方英雄造成<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害，两侧宽阔的光芒给她和沿途队友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%护盾<><#ffb900ff>3秒<>。"
+        "ult": "蓄力后朝远方交战中的英雄射出横贯战场的光束：中心对敌方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>物理伤害，两侧宽阔的光芒给她和沿途队友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%护盾<><#ffb900ff>3秒<>。"
       }
     },
     "skill_name": {
@@ -1617,10 +1617,10 @@
       },
       "league_senna": {
         "name": "姍娜",
-        "attack": "<#ff9028ff>赦罪<>：技能和普攻標記敵方英雄，下次普攻吸走：額外3%最大生命傷害+1層黑霧；每<#ffb900ff>6秒<>一次普攻和擊殺英雄也+1層。每層攻擊+1、射程略增，每2層暴擊+1%（死亡清空）。<#ff9028ff>黯霧詛咒<>（自動）：英雄貼近時，她和身邊隊友隱形<#ffb900ff>6秒<>、移速+20%。",
+        "attack": "<#ff9028ff>赦罪<>：技能和普攻標記敵方英雄，下次普攻吸走：額外3%最大生命傷害+1層黑霧；每<#ffb900ff>6秒<>一次普攻和擊殺英雄也+1層。每層攻擊+1、射程略增，每2層暴擊+1%（死亡清空）。<#ff9028ff>黯霧詛咒<>（自動）：英雄貼近時，她和身邊隊友隱形<#ffb900ff>4秒<>、移速+20%。",
         "skill": "聖物砲射出穿透目標的暗影光束：直線上的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害並<#ef5350ff>緩速20%<><#ffb900ff>1.25秒<>，隊友英雄回復<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>生命。",
         "skill2": "射出黑霧，附著在首個命中的敵人身上並造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害；<#ffb900ff>1秒<>後黑霧擴散，<#ef5350ff>定身<>它和周圍的敵人<#ffb900ff>1.5秒<>。",
-        "ult": "蓄力後朝遠方交戰中的英雄射出橫貫戰場的光束：中心對敵方英雄造成<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害，兩側寬闊的光芒給她和沿途隊友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%護盾<><#ffb900ff>3秒<>。"
+        "ult": "蓄力後朝遠方交戰中的英雄射出橫貫戰場的光束：中心對敵方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>物理傷害，兩側寬闊的光芒給她和沿途隊友英雄<#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%護盾<><#ffb900ff>3秒<>。"
       }
     },
     "skill_name": {
@@ -2643,10 +2643,10 @@
       },
       "league_senna": {
         "name": "Senna",
-        "attack": "<#ff9028ff>Absolution<>: her hits mark an enemy champion; the next attack takes it: +3% max health damage, 1 Mist. +1 Mist per attack every <#ffb900ff>6s<> and per champion kill. Mist: +1 attack, some range, +1% crit per 2 (lost on death). <#ff9028ff>Curse of the Black Mist<> (auto): an enemy champion near, she and nearby allies are invisible <#ffb900ff>6s<>, +20% speed.",
+        "attack": "<#ff9028ff>Absolution<>: her hits mark an enemy champion; the next attack takes it: +3% max health damage, 1 Mist. +1 Mist per attack every <#ffb900ff>6s<> and per champion kill. Mist: +1 attack, some range, +1% crit per 2 (lost on death). <#ff9028ff>Curse of the Black Mist<> (auto): an enemy champion near, she and nearby allies are invisible <#ffb900ff>4s<>, +20% speed.",
         "skill": "The relic cannon fires a shadow beam through its target: enemies in the line take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage and are <#ef5350ff>slowed 20%<> for <#ffb900ff>1.25s<>; allied champions in it heal <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>.",
         "skill2": "Fires the Black Mist: it clings to the first enemy hit, dealing <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage, and after <#ffb900ff>1s<> spreads, <#ef5350ff>rooting<> it and the enemies around it for <#ffb900ff>1.5s<>.",
-        "ult": "Charges, then fires a beam of light across the battlefield at a fighting champion far away: its core deals <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> physical damage to enemy champions; its wide light gives her and the allied champions along it a <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% shield<> for <#ffb900ff>3s<>."
+        "ult": "Charges, then fires a beam of light across the battlefield at a fighting champion far away: its core deals <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<> physical damage to enemy champions; its wide light gives her and the allied champions along it a <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% shield<> for <#ffb900ff>3s<>."
       }
     },
     "skill_name": {
@@ -3669,10 +3669,10 @@
       },
       "league_senna": {
         "name": "세나",
-        "attack": "<#ff9028ff>면죄<>: 스킬·공격이 적 챔피언에 표식, 다음 공격이 거둠: 최대 체력 3% 추가 피해, 안개 1. <#ffb900ff>6초<>마다 공격 1회·처치도 안개 1. 안개당 공격력 +1, 사거리↑, 2개마다 치명타 +1%(사망 시 소멸). <#ff9028ff>검은 안개의 저주<>(자동): 적 챔피언 접근 시 자신과 주변 아군 <#ffb900ff>6초<> 투명, 이속 +20%.",
+        "attack": "<#ff9028ff>면죄<>: 스킬·공격이 적 챔피언에 표식, 다음 공격이 거둠: 최대 체력 3% 추가 피해, 안개 1. <#ffb900ff>6초<>마다 공격 1회·처치도 안개 1. 안개당 공격력 +1, 사거리↑, 2개마다 치명타 +1%(사망 시 소멸). <#ff9028ff>검은 안개의 저주<>(자동): 적 챔피언 접근 시 자신과 주변 아군 <#ffb900ff>4초<> 투명, 이속 +20%.",
         "skill": "렐릭 캐논이 대상을 관통하는 어둠의 광선을 발사: 직선의 적은 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 물리 피해를 입고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>20% 둔화<>, 아군 챔피언은 <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<> 회복.",
         "skill2": "검은 안개를 발사해 처음 맞힌 적에게 달라붙어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 물리 피해. <#ffb900ff>1초<> 뒤 퍼지며 그 적과 주변 적을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>.",
-        "ult": "기를 모은 뒤 멀리 교전 중인 챔피언에게 전장을 가로지르는 광선 발사: 중심은 적 챔피언에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 물리 피해, 넓은 빛은 자신과 경로의 아군 챔피언에게 <#ffb900ff>3초<> 동안 <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% 보호막<>."
+        "ult": "기를 모은 뒤 멀리 교전 중인 챔피언에게 전장을 가로지르는 광선 발사: 중심은 적 챔피언에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>의 물리 피해, 넓은 빛은 자신과 경로의 아군 챔피언에게 <#ffb900ff>3초<> 동안 <#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40% 보호막<>."
       }
     },
     "skill_name": {
@@ -4695,10 +4695,10 @@
       },
       "league_senna": {
         "name": "セナ",
-        "attack": "<#ff9028ff>魂の赦し<>：スキルと攻撃で敵チャンピオンに印、次の攻撃で回収：最大体力3%追加ダメージと霧1。<#ffb900ff>6秒<>毎の攻撃1回とキルでも霧1。霧1つで攻撃力+1、射程微増、2つ毎にクリ+1%（デスで失う）。<#ff9028ff>黒き霧の呪い<>（自動）：敵接近で自身と味方が<#ffb900ff>6秒<>インビジブル、移速+20%。",
+        "attack": "<#ff9028ff>魂の赦し<>：スキルと攻撃で敵チャンピオンに印、次の攻撃で回収：最大体力3%追加ダメージと霧1。<#ffb900ff>6秒<>毎の攻撃1回とキルでも霧1。霧1つで攻撃力+1、射程微増、2つ毎にクリ+1%（デスで失う）。<#ff9028ff>黒き霧の呪い<>（自動）：敵接近で自身と味方が<#ffb900ff>4秒<>インビジブル、移速+20%。",
         "skill": "レリックキャノンが対象を貫く闇の光線を放つ：直線上の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージと<#ffb900ff>1.25秒<><#ef5350ff>20%スロウ<>、味方チャンピオンは<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7cfc00ff>35%<>回復。",
         "skill2": "黒き霧を放ち、最初に当たった敵に取り憑いて<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ。<#ffb900ff>1秒<>後に広がり、その敵と周りの敵を<#ffb900ff>1.5秒<><#ef5350ff>スネア<>。",
-        "ult": "力を溜め、遠くで交戦中のチャンピオンへ戦場を貫く光線を放つ：中心は敵チャンピオンに<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の物理ダメージ、幅広い光は自身と通り道の味方チャンピオンに<#ffb900ff>3秒<><#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%のシールド<>。"
+        "ult": "力を溜め、遠くで交戦中のチャンピオンへ戦場を貫く光線を放つ：中心は敵チャンピオンに<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>75%<>の物理ダメージ、幅広い光は自身と通り道の味方チャンピオンに<#ffb900ff>3秒<><#9fd8ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#9fd8ffff>40%のシールド<>。"
       }
     },
     "skill_name": {

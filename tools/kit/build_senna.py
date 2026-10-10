@@ -53,11 +53,15 @@ ID = "league_senna"
 FX = "asset/league/effects/league_senna_fx"
 BIG = "asset/league/effects/league_senna_big"
 
-# Numbers: draft c0 (to be set by the support-lane simulations, Temp/se_sim, kd.py --lane 4).
+# Numbers = candidate c3d of the 10-min classic-SDK simulations (se_sim/sim/kd.py --lane 4 against priest, bard,
+# enchanter, monk and taoist, three lineups, both sides, 2026-10-10): +0.65 on seeds 1-12, +0.95 on 25-36. The draft c0
+# was +0.53 / +0.81 with R aimed at the cast (it struck nobody) and E almost never on; aimed when it leaves and E at
+# 45000 (c2) it went to +1.67 / +2.94. R 200 + 100% -> 150 + 75% alone +1.33, E 6 s -> 4 s alone +1.59, attack 80 ->
+# 75 alone +1.31 / +2.23; all three (c3d) kept. league_karma in the same batches: -0.29 / -0.51.
 # League's Senna: 530 + 89 hp, 50 AD (+0, the Mist is her growth), 600 range, 0.625 attacks a second (windup 31%),
 # 25 + 4 armour, 330 move.
 P = {
-    "hp": 880, "hp_g": 86, "atk": 80, "atk_g": 9, "def": 20, "def_g": 6, "mr": 22, "mr_g": 3, "ms": 950, "ms_g": 9,
+    "hp": 880, "hp_g": 86, "atk": 75, "atk_g": 9, "def": 20, "def_g": 6, "mr": 22, "mr_g": 3, "ms": 950, "ms_g": 9,
     # attack: the shot leaves the cannon on a_st (retimed to the strips later)
     "atk_range": 62000, "atk_dur": 34, "atk_cd": 96, "a_st": 18, "a_speed": 7000, "a_y": -2000,
     # passive Absolution (League: mark 4 s, 1-10% current hp, 0.75 AD a Mist, +20 range and 10% crit every 20)
@@ -71,11 +75,11 @@ P = {
     "w_cd": 660, "w_range": 90000, "w_dur": 24, "w_st": 12, "w_aim": 85000, "w_speed": 4500, "w_len": 110000,
     "w_rad": 5000, "w_dmg": 70, "w_ratio": 60, "w_wait": 60, "w_r": 28000, "w_root": 90,
     # E Curse of the Black Mist (League: 6-8 s, radius 400, +20% move speed, cd 26-20 s)
-    "e_cd": 1320, "e_near": 45000, "e_r": 40000, "e_t": 360, "e_ms": 20,
+    "e_cd": 1320, "e_near": 45000, "e_r": 40000, "e_t": 240, "e_ms": 20,
     # R Dawning Shadow (League: global, 1 s cast, core 320 wide 250-550 + 115% bonus AD, light 2400 wide, shield
     # 120-200 + 150% Mist 3 s, cd 140-100 s); r_len: the longest line the map's clamp leaves straight
     "r_cd": 3000, "r_range": 250000, "r_dur": 60, "r_rel": 45, "r_speed": 30000, "r_len": 260000, "r_rad": 7500,
-    "r_wide": 100000, "r_dmg": 200, "r_ratio": 100, "r_sh": 120, "r_sratio": 40, "r_sh_t": 180,
+    "r_wide": 100000, "r_dmg": 150, "r_ratio": 75, "r_sh": 120, "r_sratio": 40, "r_sh_t": 180,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
