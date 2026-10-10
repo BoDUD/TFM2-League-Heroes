@@ -54,12 +54,14 @@ CANVAS_SQUARE = 1254 / 128
 # 85-99, the boot included) moved whole (NEAR_STEP / FAR_STEP); the two legs half a cycle apart; the body (rows <= 84) sinks 1 row as a foot lands; the
 # tail hem rides with the near leg (it hangs behind it), the apron stays with the body in front.
 # A scissor step (the user: 「好歹有点换脚的感觉啊 平行走路？？？？」 on legs lifting in place): the near leg swings
-# forward (+x, lifted) while the far leg, planted, slides back (-x), then the other way; each travels 11 columns, so
-# the lead foot swaps (idle: the far foot 18 ahead; frame 5: the near foot 4 ahead). Moving towards and past the
-# apron never opens a slit beside it (a leg moved away from it did: 「这对吗」); the near leg stays in front.
-NEAR_STEP = [(0, 0), (4, 2), (8, 2), (11, 1), (11, 0), (8, 0), (4, 0), (0, 0)]      # (columns, rows up)
-FAR_STEP = [(0, 0), (-4, 0), (-8, 0), (-11, 0), (-11, 0), (-8, 2), (-4, 2), (0, 1)]
+# forward (+x, lifted) while the planted far leg slides back (-x), then the other way. Each travels 3 columns inwards
+# and back, so the feet close from 18 apart to 12 and the bulbs touch but never overlap (legs that passed each other
+# overlapped into one thick leg: 「别变形」); moving towards the apron never opens a slit beside it (a leg moved away from
+# it did: 「这对吗」). The near foot is mirrored to point forward.
+NEAR_STEP = [(0, 0), (2, 2), (3, 2), (3, 1), (3, 0), (2, 0), (1, 0), (0, 0)]        # (columns, rows up)
+FAR_STEP = [(0, 0), (-1, 0), (-2, 0), (-3, 0), (-3, 1), (-2, 2), (-1, 2), (0, 1)]
 TROT_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+NEAR_FOOT_TOP = 96
 LEG_TOP = 85
 EYE = (239, 226, 246)
 SPECK = 4
@@ -367,6 +369,10 @@ def trot_parts(des):
     far = masked(des, range(LEG_TOP, 100), lambda y: (68, 75) if y <= 90 else (66, 77))
     near = masked(des, range(LEG_TOP, 100),
                   lambda y: (53, 61) if y <= 90 else ((54, 59) if y <= 92 else ((53, 58) if y <= 94 else (51, 57))))
+    # the idle's near foot points backwards (a turned-out stance): mirrored about its own middle so its toe leads
+    # when the leg swings forward (a mirror, nothing redrawn); the shaft above it stays
+    foot = near[NEAR_FOOT_TOP:100, 51:58]
+    near[NEAR_FOOT_TOP:100, 51:58] = foot[:, ::-1]
     upper = des.copy()
     upper[LEG_TOP:, :78] = 0
     upper[LEG_TOP + 2:] = 0
