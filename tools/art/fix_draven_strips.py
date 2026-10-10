@@ -39,6 +39,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, "assets", "source", "draven", "codex_strips", "1x")
 DESIGN = os.path.join(ROOT, "assets", "source", "native", "draven_native.png")
 OUT = os.path.join(ROOT, "assets", "source", "native")
+sys.path.insert(0, HERE)
 Z = 8
 SOLES, MID = 99, 64
 PIVOT = (MID, SOLES - 11)          # 11 rows over the soles, as tools/lol/native_pose.py puts it
@@ -225,9 +226,47 @@ WAIST = (70, 92, 44, 64)           # rows, columns by the far hip: gaps there ar
 SHADOW = (0x29, 0x2A, 0x32)
 
 
+RAW = os.path.join(ROOT, "assets", "source", "draven", "codex_strips", "raw")
+PITCH = 1254 / 128                 # the generator drew the 1024 canvas at 1254 px: one game square = 9.8 px
+
+
+def raw_legs(d, k):
+    """The legs as the generator drew them in run frame k (raw/run_<k>.png read on the 128 grid: each square the
+    median of its middle 3 x 3, the nearest design colour in CIELAB) - Codex's own 1x had moved and resampled them
+    into the pack's boot boxes, which broke them into thin specks (the user: 「腿部严重变形」). Everything under the
+    belt but the near axe, lifted so the soles stand on row 99."""
+    import design_rengar as R
+    pal = np.unique(d[d[..., 3] > 0][:, :3], axis=0)
+    pl = R.lab(pal.astype(float))
+    im = np.asarray(Image.open(lp(os.path.join(RAW, f"run_{k + 1}.png"))).convert("RGBA")).astype(float)
+    a = np.zeros((128, 128, 4), np.uint8)
+    for y in range(HIP_ROW - 2, 128):
+        for x in range(128):
+            cy, cx = int((y + 0.5) * PITCH), int((x + 0.5) * PITCH)
+            if not (1 <= cy < im.shape[0] - 1 and 1 <= cx < im.shape[1] - 1):
+                continue
+            blk = im[cy - 1:cy + 2, cx - 1:cx + 2].reshape(-1, 4)
+            if (blk[:, 3] >= 128).mean() < 0.5:
+                continue
+            c = np.median(blk[blk[:, 3] >= 128][:, :3], axis=0)
+            a[y, x, :3] = pal[((R.lab(c[None]) - pl) ** 2).sum(-1).argmin()]
+            a[y, x, 3] = 255
+    b = BOB[k]
+    a[:HIP_ROW + b] = 0
+    a[:AXE_LOW + b + 1, AXE_X:] = 0
+    ys = np.nonzero(a[..., 3])[0]
+    return shift(a, 0, SOLES - ys.max()) if len(ys) and ys.max() > SOLES else a
+
+
+# the raw legs of frames 1-4 make one whole stride (the near foot lands in 4, pushes back through 1-2, swings in 3;
+# the far one lands in 3, pushes back in 4, kicks up in 1, swings in 2); frames 5-8 kept both feet where 1-4 had
+# them (no swap), so the run plays 1-4 twice (two legs alike: a stride and its half-cycle twin look the same)
+LEG_SRC = [0, 1, 2, 3, 0, 1, 2, 3]
+
+
 def run_frame(d, k, variant):
     arm, body = run_upper(d, variant)
-    legs = codex_legs(d, k)
+    legs = raw_legs(d, LEG_SRC[k])
     up = over(shift(arm, 0, BOB[k]), shift(body, 0, BOB[k]))   # the body over the far arm's root
     fr = over(legs, up)
     # Codex's hips were drawn for the raised-arm body: lowered, the far arm closes a pocket by the far hip in the
