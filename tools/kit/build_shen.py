@@ -42,6 +42,9 @@ ID = "league_shen"
 FX = "asset/league/effects/league_shen_fx"
 BIG = "asset/league/effects/league_shen_big"
 
+# Timings from the strips' League frames (assets/source/shen/poses.json): the sword's sweep is attack frame 4 (170 ms,
+# tick 10), Q's palm frame 3 (tick 7, q_at 8), R = `ult` (the seal, 300 ms = r_wind) then `ult_loop` (the channel).
+# Retimed (c6): +0.69 on seeds 1-12, +0.92 on 25-36.
 # Numbers = candidate c3 of the 10-min classic-SDK simulations (sn_sim/sim/kd.py, top lane against fighter, executioner,
 # lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-10): +0.41 on seeds 1-12, +0.89 on
 # 25-36 (league_malphite +1.06 / +0.74, league_sett +1.08 on 1-12). The draft c0 was -1.14 (attack 86, hp 1150, Q 50+60,
@@ -51,7 +54,7 @@ P = {
     # 64 AD +3, 34 armour, 32 mr, 340 move, 125 range - a tank: more health and resistances, less attack
     "hp": 1200, "hp_g": 110, "atk": 94, "atk_g": 15, "def": 38, "def_g": 9, "mr": 30, "mr_g": 5, "ms": 1000, "ms_g": 11,
     # attack: the sword
-    "atk_range": 25000, "atk_dur": 24, "atk_cd": 68, "atk_st": 12,
+    "atk_range": 25000, "atk_dur": 24, "atk_cd": 68, "atk_st": 10,
     # passive Ki Barrier (League: 50-101 + 14% bonus hp shield 2 s, cd 9-6 s, cut by abilities hitting champions)
     "p_sh": 90, "p_sh_ratio": 40, "p_sh_t": 120, "p_cd": 480, "p_cd_hit": 150,
     # Q Twilight Assault (League: 2-4% max hp per empowered hit, 5-7% + 50% attack speed after a champion; cd 8-4 s)
@@ -69,7 +72,7 @@ P = {
     "e_champ": 1,
     # R Stand United (League: shield 140-460 + 17.5% bonus hp for 5 s, 3 s channel, global; cd 200-160 s)
     "r_cd": 4200, "r_arm": 900, "r_poll": 10, "r_reset": 4900, "r_sur": 25000, "r_far": 60000, "r_seen": 25,
-    "r_sh": 260, "r_sh_ratio": 60, "r_sh_t": 300, "r_ch": 150, "r_brk": 15,
+    "r_sh": 260, "r_sh_ratio": 60, "r_sh_t": 300, "r_ch": 150, "r_brk": 15, "r_wind": 18,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_shen_unite: its native passive picks the ally by health and sets r_pick
@@ -286,7 +289,7 @@ def build(p):
         return combine(*rm("r_arm", "r_seen"), refresh("r_ch", p["r_ch"] + 2),
                        shield(p["r_sh"], p["r_sh_ratio"], p["r_sh_t"]), buff("r_shield", p["r_sh_t"]),
                        sfx("r_ally"),
-                       on_me(anim("ult", p["r_ch"]), cview("r_cast"), sfx("r"), voice("vo_r", p), ki, *breaks),
+                       on_me(anim("ult", p["r_wind"]), delayed(p["r_wind"], anim("ult_loop", p["r_ch"] - p["r_wind"])), cview("r_cast"), sfx("r"), voice("vo_r", p), ki, *breaks),
                        delayed(p["r_ch"], sw("r_ch", combine(*rm("r_ch"), {"type": "Teleport"}, view("r_land"),
                                                               sfx("r_land")))))
 
