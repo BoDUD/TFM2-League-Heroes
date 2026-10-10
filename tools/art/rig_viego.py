@@ -239,23 +239,10 @@ POSES = {
              ("down_steep", "front", (1, 0), 0.15, 5, (-1, 2))],
 }
 
-# the boots and shins (rows: (first, last)): moved whole for the lunges and the run
-NEAR_LOW = {92: (53, 59), 93: (53, 59), 94: (53, 59), 95: (52, 60), 96: (52, 60), 97: (52, 60), 98: (51, 60)}
-FAR_LOW = {93: (69, 74), 94: (69, 74), 95: (69, 77), 96: (69, 77), 97: (69, 77), 98: (69, 77), 99: (69, 77)}
-
-
-def legs_moved(P, a, near_dx, far_dx, near_lift=0, far_lift=0):
-    """`a` with the near / far boot + shin moved whole (far first: the near leg is in front)."""
-    nm, fm = K.mask_rows(NEAR_LOW) & (a[..., 3] > 0), K.mask_rows(FAR_LOW) & (a[..., 3] > 0)
-    rest = a.copy()
-    rest[nm | fm] = 0
-    near, far = np.zeros_like(a), np.zeros_like(a)
-    near[nm], far[fm] = a[nm], a[fm]
-    c = np.zeros_like(a)
-    K.put(c, K.shifted(far, far_dx, -far_lift), 0, 0)
-    K.put(c, rest, 0, 0)
-    K.put(c, K.shifted(near, near_dx, -near_lift), 0, 0)
-    return c
+# the boots (rows: (first, last)): the coat's long flaps hide the shins down to row 94 - only the boots show under the
+# hem, so only they move (moving rows 92-94 with them tore the flaps' hem)
+NEAR_LOW = {95: (51, 60), 96: (51, 60), 97: (51, 60), 98: (51, 60)}
+FAR_LOW = {95: (68, 77), 96: (68, 77), 97: (68, 77), 98: (68, 77), 99: (68, 77)}
 
 
 def compose(P, pose):
@@ -288,34 +275,38 @@ def compose(P, pose):
     return c, keep
 
 
-# legs that stand: the boots and shins (NEAR_LOW / FAR_LOW). A bob or a breath moves everything ELSE down over them -
+# legs that stand: the boots (NEAR_LOW / FAR_LOW). A bob or a breath moves everything ELSE down over them -
 # the coat's hem then hides a little more of the shins, like knees bending - so neither the coat nor the belt is ever
 # squashed (the user: 「上下摆动造成模型变形」 on the first idle, which sank the upper body over the coat)
-def lowered(P, a, n, near=(0, 0), far=(0, 0)):
-    """`a` with everything but the boots and shins moved down n rows; the near / far boot+shin moved (dx, lift)."""
+def lowered(P, a, n, near=(0, 0), far=(0, 0), over=False):
+    """`a` with everything but the boots moved down n rows; the near / far boot moved (dx, lift), behind the coat (a
+    crouch: the hem hides their tops) or, `over`, drawn whole over it (a step: the boot keeps its shape)."""
     nm = K.mask_rows(NEAR_LOW) & (a[..., 3] > 0)
     fm = K.mask_rows(FAR_LOW) & (a[..., 3] > 0)
     nl, fl = np.zeros_like(a), np.zeros_like(a)
     nl[nm], fl[fm] = a[nm], a[fm]
     body = a.copy()
     body[nm | fm] = 0
+    boots = [K.shifted(fl, far[0], -far[1]), K.shifted(nl, near[0], -near[1])]       # the near boot in front
+    body = K.shifted(body, 0, n)
     c = np.zeros_like(a)
-    K.put(c, K.shifted(fl, far[0], -far[1]), 0, 0)
-    K.put(c, K.shifted(nl, near[0], -near[1]), 0, 0)
-    K.put(c, K.shifted(body, 0, n), 0, 0)
+    for layer in ([body] + boots if over else boots + [body]):
+        K.put(c, layer, 0, 0)
     c[P.D.soles + 1:] = 0
     return c
 
 
-# the run (League's: the sword stays on his shoulder): each boot steps in its own lane - planted, sliding back 2 columns a
+# the run (League's: the sword stays on his shoulder): each boot steps in its own lane - planted, sliding back a column a
 # frame, then lifted and carried forward - the far leg half a cycle later; the body dips a row as a foot lands. The
-# first run brought both boots in under the hips (IN): the coat's flaps hung over nothing - 「走路姿势太怪了」
-STRIDE = [(3, 0), (1, 0), (-1, 0), (-3, 0), (-2, 1), (0, 2), (2, 2), (3, 1)]      # (dx from the boot's place, lift)
+# first run brought both boots in under the hips (IN): the coat's flaps hung over nothing - 「走路姿势太怪了」. The boots
+# are drawn whole over the hem: a lifted boot behind it lost its top rows but for its outline column, left standing
+# beside the hem like a hook (「脚移动时看起来有点变形」)
+STRIDE = [(2, 0), (1, 0), (0, 0), (-1, 0), (-1, 1), (0, 2), (1, 2), (2, 1)]      # (dx from the boot's place, lift)
 BOB = [1, 0, 0, 0, 1, 0, 0, 0]
 
 
 def run_frame(P, k):
-    c = lowered(P, P.D.a, BOB[k], near=STRIDE[k], far=STRIDE[(k + 4) % 8])
+    c = lowered(P, P.D.a, BOB[k], near=STRIDE[k], far=STRIDE[(k + 4) % 8], over=True)
     return c, np.roll(P.head_m, BOB[k], 0)
 
 
