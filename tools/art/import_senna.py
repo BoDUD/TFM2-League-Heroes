@@ -19,7 +19,7 @@ pictures that stand on a spot (`xbox`) take each frame's own box middle across a
 down.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; the soles 11 under
 the pivot) and times it by the kit (tools/kit/build_senna.py, 60 ticks a second). Her cannon is long: the muzzle is
-44 px in front of the pivot on the attack's shot frame, 41 on Q's, 39 on W's (league_senna#anim.fanim, the 85% sprite), so the
+44 px in front of the pivot on the attack's shot frame, 43 on Q's, 40 on W's (league_senna#anim.fanim, the 85% sprite), so the
 shots stay hidden until they pass it and the Q beam's picture starts there.
 The red side: the client never mirrors a data picture. The shots and the beam are turned to their flight and stay as
 drawn; everything on a unit or on the ground is drawn over its own left-right flip (league_xayah's FLIP_LR).
@@ -56,9 +56,9 @@ RAMPS = {
 # the lights' darkest shade on their edge goes (or takes the next)
 RIM = {"08302A": "0E5444", "1A1B22": "2C2F3A", "9A5E1C": "D9952E"}
 
-# Q: the beam's picture runs from the muzzle (41 px out on Q's shot frame) to the line's end (q_len 130 px); a
-# LineRangeProjectile's picture is centred on its line, so its left end sits 65 - 41 = 24 px behind the middle
-Q_LEN, Q_MUZZLE = 130, 41
+# Q: the beam's picture runs from the muzzle (43 px out on Q's shot frame) to the line's end (q_len 130 px); a
+# LineRangeProjectile's picture is centred on its line, so its left end sits 65 - 43 = 22 px behind the middle
+Q_LEN, Q_MUZZLE = 130, 43
 Q_DRAWN = Q_LEN - Q_MUZZLE
 
 # raw strip -> native: frames n, size (game px) over measure, anchor, ramps
@@ -164,7 +164,7 @@ FX = {
     "q_hit": [("q_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "q_heal": [("q_heal", seq(range(4), [60, 80, 90, 110]), [FEET])],
     "q_slow": [("q_slow", seq(range(4), [110] * 4), [FEET])],
-    # W: 4.5 px a tick, hidden for the 8 ticks inside the cannon (39 px); 110 px of flight
+    # W: 4.5 px a tick, hidden for the 8 ticks inside the cannon (40 px); 110 px of flight
     "w_mist": [("w_mist", flight(4, 60, 600, lead=8), [(0, 0)])],
     "w_hit": [("w_hit", seq(range(4), [40, 50, 60, 80]), [HIT])],
     "w_cling": [("w_cling", seq(range(4), [100] * 4), [GROUND])],

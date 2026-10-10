@@ -184,7 +184,10 @@ POLISH = [(68, 21, "9MkKKKKKKKK0"), (69, 21, "mkKk000KKKKK"), (70, 21, "kkKkPP00
           # the ground showing through her (「像素缺失」): a pinhole between the locs and the claws, the slit beside them,
           # the gaps round the hand at her hip - each the commonest colour round it (the claws' open prongs stay)
           (65, 37, "9"), (73, 38, "9"), (74, 38, "9"), (75, 38, "9"), (83, 18, "99"), (83, 22, "99"), (84, 22, "9"),
-          (85, 21, "9"), (90, 21, "r")]
+          (85, 21, "9"), (90, 21, "r"),
+          # the chin (「待机时嘴巴下面的黑线没改」): the dark row under the lips becomes a row of skin with the outline
+          # turned down at the jaw corners and a 4-square chin tip under it - fix_senna_strips' CANON_EDITS on the idle
+          (76, 25, "00kKKk0"), (77, 27, "0000")]
 
 
 def rebuild():

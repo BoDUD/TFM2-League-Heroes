@@ -62,9 +62,9 @@ BIG = "asset/league/effects/league_senna_big"
 # 25 + 4 armour, 330 move.
 P = {
     "hp": 880, "hp_g": 86, "atk": 75, "atk_g": 9, "def": 20, "def_g": 6, "mr": 22, "mr_g": 3, "ms": 950, "ms_g": 9,
-    # attack: the shot leaves the cannon on a_st; a_y: the shots (and W) fly 4 px over the pivot, at the 85% sprite's
-    # muzzles (attack 2 px, W 5 px up)
-    "atk_range": 62000, "atk_dur": 34, "atk_cd": 96, "a_st": 18, "a_speed": 7000, "a_y": 1000,
+    # attack: the shot leaves the cannon on a_st; a_y: the shots (and W) fly 6 px over the pivot, at the 85% sprite's
+    # muzzles (attack and W about 6 px up)
+    "atk_range": 62000, "atk_dur": 34, "atk_cd": 96, "a_st": 18, "a_speed": 7000, "a_y": -1000,
     # passive Absolution (League: mark 4 s, 1-10% current hp, 0.75 AD a Mist, +20 range and 10% crit every 20)
     "p_mark": 240, "p_lock": 180, "p_hp": 3, "p_wave": 360, "p_atk": 1, "p_rng": 100, "p_ms": 15, "p_ms_t": 30,
     # Q Piercing Darkness (League: 1300 long, 100-280 wide, 30-130 + 60% bonus AD, heal 40-120 + 40% bonus AD,
