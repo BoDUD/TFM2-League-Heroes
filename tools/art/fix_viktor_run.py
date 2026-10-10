@@ -88,11 +88,13 @@ RUN_MS = 80
 # The far leg is the near one mirrored (the user, 10-10: 「脚都穿模了」 - the far copy's long toe ran under the near
 # heel - then 「脚的方位是不是应该和头一个方向啊 这样看起来才不歪」 and of three standing versions picked B): a left leg
 # is a right leg mirrored, its shin FAR_SHIN columns left where the idle's far shin stands, the toes turned outward and
-# the far foot under the head; the two boots meet only heel to heel. In frames 5-6 the near boot rises 3 rows where it
-# stands instead of going back over the far heel (no square of it on the far boot); in frame 4 the far heel passes
-# behind the near one.
-FAR_SHIN = -8
-STEP3 = [(1, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 0), (0, 0, 3), (0, 0, 3), (1, 1, 2), (1, 2, 1)]
+# the far foot under the head. Then 「右脚的模型走路时还是会穿模变形」: with the shins 8 apart the heels stood one column
+# apart, so a lifted boot moving toward the other always touched it (the near boot, raised 3 to clear the far heel,
+# also crushed its 12-row leg). The far shin now stands FAR_SHIN = 10 columns left (the heels 3 apart, a gap between
+# the thighs as under the pelvis of the idle), the boots go up at most 2 rows, and every frame was checked: a lifted
+# boot never touches the other leg (both planted they may overlap - the near foot in front).
+FAR_SHIN = -10
+STEP3 = [(1, 2, 0), (1, 1, 0), (0, 0, 0), (0, -1, 0), (0, 0, 1), (0, 1, 2), (1, 1, 2), (1, 1, 1)]
 BOB3 = [1, 0, 0, 0, 1, 0, 0, 0]
 SEAT = False
 CAPE = (-5, 6)        # the cape's inner edge kept in the body: its column from the pivot, rows from the leg top
