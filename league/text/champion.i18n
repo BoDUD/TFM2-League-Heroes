@@ -588,6 +588,13 @@
         "skill": "手中转起一把飞斧（最多2把），下次攻击额外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>伤害。斧头弹回空中，<#ffb900ff>0.4秒<>后落在他身边随机一处，他会跑进落点圈接住，继续旋转。",
         "skill2": "掷出一对贯穿的斧刃，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>伤害，<#ef5350ff>击退<>敌人并<#ef5350ff>减速30%<><#ffb900ff>2秒<>。",
         "ult": "向远处交战中的英雄掷出两把宽大的巨斧，飞得很远，贯穿路上的敌人造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害；碰到第一个英雄（或飞到尽头）后折返，回程再造成一次伤害。"
+      },
+      "league_shen": {
+        "name": "慎",
+        "attack": "<#ff9028ff>忍法！气合盾<>：施放技能后获得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>护盾<#ffb900ff>2秒<>（<#ffb900ff>8秒<>一次，技能命中英雄则缩短）。强化普攻额外25伤害，对英雄再加其最大生命4%（刀穿过英雄则6%、攻速+50%）。",
+        "skill": "召回灵魂之刃，从目标身后飞回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并<#ef5350ff>减速25%<>，之后3次普攻强化。刀回手时附近有敌方英雄则施放<#ff9028ff>奥义！魂佑<>：<#ffb900ff>1.75秒<>内区域中的友方英雄不受普攻伤害（<#ffb900ff>15秒<>冷却）。",
+        "skill2": "向前突进，沿途敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>伤害并被<#ef5350ff>嘲讽1.17秒<>。嘲讽到英雄且暮临就绪时，灵魂之刃从突进起点飞回、穿过他们。",
+        "ult": "全图有友方英雄被控，或与敌方英雄缠斗且离慎较远时：给他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>护盾<#ffb900ff>5秒<>，慎引导<#ffb900ff>2.5秒<>后传送到他身边（被控则中断）。"
       }
     },
     "skill_name": {
@@ -1010,6 +1017,11 @@
         "skill1": "旋转飞斧",
         "skill2": "开道利斧",
         "ult": "冷血追命"
+      },
+      "league_shen": {
+        "skill1": "奥义！暮临",
+        "skill2": "奥义！影缚",
+        "ult": "秘奥义！慈悲度魂落"
       }
     }
   },
@@ -1602,6 +1614,13 @@
         "skill": "手中轉起一把飛斧（最多2把），下次攻擊額外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>傷害。斧頭彈回空中，<#ffb900ff>0.4秒<>後落在他身邊隨機一處，他會跑進落點圈接住，繼續旋轉。",
         "skill2": "擲出一對貫穿的斧刃，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>傷害，<#ef5350ff>擊退<>敵人並<#ef5350ff>緩速30%<><#ffb900ff>2秒<>。",
         "ult": "向遠處交戰中的英雄擲出兩把寬大的巨斧，飛得很遠，貫穿路上的敵人造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害；碰到第一個英雄（或飛到盡頭）後折返，回程再造成一次傷害。"
+      },
+      "league_shen": {
+        "name": "慎",
+        "attack": "<#ff9028ff>凝氣盾<>：施放技能後獲得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>護盾<#ffb900ff>2秒<>（<#ffb900ff>8秒<>一次，技能命中英雄則縮短）。強化普攻額外25傷害，對英雄再加其最大生命4%（刀穿過英雄則6%、攻速+50%）。",
+        "skill": "召回靈魂之刃，從目標身後飛回，沿途造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並<#ef5350ff>緩速25%<>，之後3次普攻強化。刀回手時附近有敵方英雄則施放<#ff9028ff>靈氣庇護<>：<#ffb900ff>1.75秒<>內區域中的友方英雄不受普攻傷害（<#ffb900ff>15秒<>冷卻）。",
+        "skill2": "向前突進，沿途敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>傷害並被<#ef5350ff>嘲諷1.17秒<>。嘲諷到英雄且暮光強襲就緒時，靈魂之刃從突進起點飛回、穿過他們。",
+        "ult": "全圖有友方英雄被控，或與敵方英雄纏鬥且離慎較遠時：給他<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>護盾<#ffb900ff>5秒<>，慎引導<#ffb900ff>2.5秒<>後傳送到他身邊（被控則中斷）。"
       }
     },
     "skill_name": {
@@ -2024,6 +2043,11 @@
         "skill1": "迴旋飛斧",
         "skill2": "給我閃！",
         "ult": "迴轉死神"
+      },
+      "league_shen": {
+        "skill1": "暮光強襲",
+        "skill2": "影襲",
+        "ult": "並肩作戰"
       }
     }
   },
@@ -2616,6 +2640,13 @@
         "skill": "Spins an axe in his hand (up to 2): his next attack deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> bonus damage. The axe bounces up and lands at a random spot near him after <#ffb900ff>0.4s<>; he runs into the circle to catch it, still spinning.",
         "skill2": "Throws a pair of piercing axes for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, <#ef5350ff>knocking enemies back<> and <#ef5350ff>slowing 30%<> for <#ffb900ff>2s<>.",
         "ult": "Hurls two huge, wide axes at a fighting champion far away; they fly a long way, dealing <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> to every enemy passed, turn at the first champion (or the end) and fly back, dealing it again."
+      },
+      "league_shen": {
+        "name": "Shen",
+        "attack": "Sword strike. <#ff9028ff>Ki Barrier<>: every ability gives him a <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<> shield for <#ffb900ff>2s<> (once every <#ffb900ff>8s<>, sooner when abilities hit champions). Empowered attacks deal 25 more, and to champions 4% of their max health (6% and +50% attack speed if the blade passed one).",
+        "skill": "Recalls his spirit blade from behind the target: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> and <#ef5350ff>25% slow<> to enemies on its way; his next 3 attacks are empowered. With an enemy champion near on its return, <#ff9028ff>Spirit's Refuge<>: for <#ffb900ff>1.75s<> allied champions in the zone take no basic attack damage (<#ffb900ff>15s<> cooldown).",
+        "skill2": "Dashes forward: <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> to enemies passed, <#ef5350ff>taunted 1.17s<>. Taunting a champion with Twilight Assault ready also pulls the blade from where the dash began, through them.",
+        "ult": "When an allied champion anywhere is crowd-controlled, or locked in a fight far from Shen: a <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> shield on it for <#ffb900ff>5s<>; Shen channels <#ffb900ff>2.5s<> and teleports to it (crowd control breaks it)."
       }
     },
     "skill_name": {
@@ -3038,6 +3069,11 @@
         "skill1": "Spinning Axe",
         "skill2": "Stand Aside",
         "ult": "Whirling Death"
+      },
+      "league_shen": {
+        "skill1": "Twilight Assault",
+        "skill2": "Shadow Dash",
+        "ult": "Stand United"
       }
     }
   },
@@ -3630,6 +3666,13 @@
         "skill": "손에서 도끼를 회전시킴(최대 2개): 다음 공격이 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>의 추가 피해. 도끼는 튕겨 올라 <#ffb900ff>0.4초<> 뒤 주변 무작위 위치에 떨어지며, 원 안으로 달려가 받아서 계속 회전.",
         "skill2": "관통하는 도끼 한 쌍을 던져 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 피해, <#ef5350ff>밀쳐내고<> <#ffb900ff>2초<> 동안 <#ef5350ff>30% 둔화<>.",
         "ult": "멀리 교전 중인 챔피언에게 넓고 거대한 도끼 두 개를 던져 멀리까지 날아가며 지나는 적에게 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 피해. 첫 챔피언(또는 끝)에서 되돌아와 다시 피해."
+      },
+      "league_shen": {
+        "name": "쉔",
+        "attack": "<#ff9028ff>기 보호막<>: 스킬 사용 시 <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<> 보호막 <#ffb900ff>2초<>(<#ffb900ff>8초<>마다, 스킬이 챔피언 적중 시 단축). 강화 기본 공격은 추가 25 피해, 챔피언에게 최대 체력 4%(검이 챔피언을 관통했으면 6%, 공격 속도 +50%).",
+        "skill": "영혼의 검을 대상 뒤에서 회수해 지나는 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해와 <#ef5350ff>25% 둔화<>, 다음 기본 공격 3회 강화. 돌아올 때 근처에 적 챔피언이 있으면 <#ff9028ff>의지의 결계<>: <#ffb900ff>1.75초<> 동안 범위 안 아군 챔피언은 기본 공격 피해를 받지 않음(재사용 <#ffb900ff>15초<>).",
+        "skill2": "앞으로 돌진해 지나간 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 피해, <#ef5350ff>1.17초 도발<>. 챔피언을 도발했고 황혼 강습이 준비되어 있으면 검이 돌진 시작점에서 날아와 그들을 관통.",
+        "ult": "맵 어디서든 아군 챔피언이 군중 제어에 걸렸거나 쉔과 멀리서 교전 중이면: <#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 보호막 <#ffb900ff>5초<>, 쉔이 <#ffb900ff>2.5초<> 정신 집중 후 그 곁으로 순간이동(군중 제어 시 취소)."
       }
     },
     "skill_name": {
@@ -4052,6 +4095,11 @@
         "skill1": "회전 도끼",
         "skill2": "비켜서라",
         "ult": "죽음의 소용돌이"
+      },
+      "league_shen": {
+        "skill1": "황혼 강습",
+        "skill2": "그림자 돌진",
+        "ult": "단결된 의지"
       }
     }
   },
@@ -4644,6 +4692,13 @@
         "skill": "手の中で斧を回す（最大2本）：次の攻撃が<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の追加ダメージ。斧は跳ね上がり<#ffb900ff>0.4秒<>後に周囲のランダムな位置に落ち、円に走り込んでキャッチし回し続ける。",
         "skill2": "貫通する斧を2本投げ<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>のダメージ、<#ef5350ff>ノックバック<>と<#ffb900ff>2秒<><#ef5350ff>30%スロウ<>。",
         "ult": "遠くで交戦中のチャンピオンへ幅広の巨大な斧を2本投げ、遠くまで飛んで通過した敵に<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>。最初のチャンピオン（または端）で折り返し、戻りでも同じダメージ。"
+      },
+      "league_shen": {
+        "name": "シェン",
+        "attack": "<#ff9028ff>内気功<>：スキル使用後に<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>40%<>のシールド<#ffb900ff>2秒<>（<#ffb900ff>8秒<>に1回、スキルがチャンピオンに当たると短縮）。強化通常攻撃は追加25ダメージ、チャンピオンには最大体力の4%（刀が貫いたら6%、攻撃速度+50%）。",
+        "skill": "霊刃を対象の背後から呼び戻し、通過した敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>25%スロウ<>、次の通常攻撃3回を強化。戻った時に敵チャンピオンが近くにいれば<#ff9028ff>防人の帳<>：<#ffb900ff>1.75秒<>間、範囲内の味方チャンピオンは通常攻撃のダメージを受けない（<#ffb900ff>15秒<>毎）。",
+        "skill2": "前方へ突進し、通過した敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>と<#ef5350ff>1.17秒の挑発<>。チャンピオンを挑発し護刃招来が使えるなら、霊刃が突進の起点から飛び戻り彼らを貫く。",
+        "ult": "マップのどこかで味方チャンピオンが行動妨害を受けるか、シェンから遠くで交戦中なら：<#ffb900ff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>のシールドを<#ffb900ff>5秒<>、シェンは<#ffb900ff>2.5秒<>詠唱後その傍へテレポート（行動妨害で中断）。"
       }
     },
     "skill_name": {
@@ -5066,6 +5121,11 @@
         "skill1": "回転斬斧",
         "skill2": "薙ぎ払い",
         "ult": "死の車輪"
+      },
+      "league_shen": {
+        "skill1": "護刃招来",
+        "skill2": "殺気駆け",
+        "ult": "瞬身護法"
       }
     }
   }
