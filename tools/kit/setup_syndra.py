@@ -35,8 +35,8 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 Wh = "<#ffffffff>"     # true damage
 E = "<>"
-# champion_view: set from tfm2_ase.py face once the sprite is in (run with --face / --banpick)
-VIEW = {"face": {"x": 0, "y": -30}, "center": {"x": 0, "y": -12}}
+# champion_view: tfm2_ase.py face (crown 39 px over the feet, head centre x -2.3); the idle's top is 30 over the pivot (above -28): the ban/pick card's point -39 + 30
+VIEW = {"face": {"x": -1, "y": -39}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}
 
 
 def mag(d, r):
