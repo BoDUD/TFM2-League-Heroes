@@ -19,9 +19,9 @@ then made "final" copies itself by resizing and re-quantising them: those are bl
   3. stand it where League's frame stands: its lowest row on League's lowest row (the soles' row for a grounded frame),
      its eyes on League's head column (else its middle on League's);
   4. clear specks (pieces of fewer than SPECK squares apart from the body) and close the outline.
-The loops are the design square for square: the idle breathes (the body above the sash sinks over the legs), the run
-moves the design's own legs whole under its bobbing body (RIG; Codex's raw run legs were short and gapped). Q and R
-start from the design itself (League's casts start from the idle pose).
+The idle is the design square for square, breathing (the body above the sash sinks over the legs); the run is Codex's
+skin swap of oppi's Lee Sin run (RUN_SHEET). Q and R start from the design itself (League's casts start from the idle
+pose).
 """
 import argparse
 import json
@@ -49,22 +49,13 @@ Z = 8
 SOLES, MID = 99, 64
 PIVOT = (MID, SOLES - 11)
 CANVAS_SQUARE = 1254 / 128
-HIP_ROW = 86
-RUN_BOB = [1, -2, 0, 0, 2, -3, 0, 0]   # the pack's bob for the upper body (Codex's raw legs; superseded by RIG_BOB)
-# The run rig (RIG = True): the design's own legs as rigid pieces, moved whole. The design's rows < LEG_TOP (head,
-# torso, sash) bob down only (a leg moving up under a risen body would open a gap at the hips); its tail hem (behind,
-# left) and apron (front, middle) hang with it; the legs step under the apron. The far leg is the design's far leg (toe
-# forward); the near leg the design's near leg MIRRORED (its toe pointed backwards in the stance) - two different
-# drawings, so the half-cycle twins differ. Each leg: 4 frames planted, sliding back, then 4 frames swinging forward,
-# lifted; the other leg half a cycle later; the near leg in front.
-RIG = True
-LEG_TOP = 85
-HIP_BAND = 2          # the design's rows LEG_TOP.. +HIP_BAND-1 (the trousers' waist under the sash, full width) stay with
-#                       the body: the tail hem hangs from them; the legs move below them
-RIG_BOB = [2, 1, 0, 0, 2, 1, 0, 0]   # lowest as a foot lands (frames 1, 5), up again through the pass
-# a leg's (boot column, lift) through the cycle: planted 72 -> 60 (3 a frame), lifted 2-3 rows on the way forward
-STRIDE = [(72, 0), (69, 0), (66, 0), (63, 0), (60, 1), (62, 3), (66, 3), (70, 2)]
-NEAR_PHASE, FAR_PHASE = 0, 4
+# The run: Codex's skin swap of oppi's Lee Sin run (a wide-stanced, baggy-trousered humanoid: the legs cross, the fists
+# pump, the body bobs) - assets/source/shen/codex_run_swap. Its 1x sheet is 3 x 3 cells of 60 x 60 on the design's 30
+# colours, the soles on the cell's row RUN_SOLES, the cell's middle column where the pack put the design's feet middle.
+# (The first run moved the design's own legs whole under the body: the wide stance could not cross - the hakama
+# bulbs hid behind the apron or rose into the sash; the user: 「腿变形严重了 交叉步也不对」.)
+RUN_SHEET = os.path.join(ROOT, "assets", "source", "shen", "codex_run_swap", "shen_run_3x3_1x.png")
+RUN_CELL, RUN_SOLES = 60, 55
 EYE = (239, 226, 246)
 SPECK = 4
 
@@ -74,7 +65,7 @@ TAGS = {
     # the idle breathes without a cut: the body above the sash (and the whole near hand) sinks over the legs, which stay
     # square for square (import_native's idle_breathe cut two rows out of the trousers, boots, apron and tail hem)
     "idle": [(("breath", n), 140) for n in (0, 0, 1, 2, 2, 2, 1, 0)],
-    "run": [(f"run_{k}", 100) for k in range(1, 9)],
+    "run": [(("swap", k), 100) for k in range(1, 10)],
     "attack": [(f"attack_{k}", ms) for k, ms in zip(range(1, 7), (50, 60, 60, 90, 80, 60))],
     # Q: Codex's four frames were four bodies (frame 4 tall and thin); the palm push is one drawing held
     # (League's Q starts from the idle pose: the design itself, so the cast starts without a jump)
@@ -356,114 +347,45 @@ def action_frame(name, tag, k, pal, lol, ref):
     return a, s, f
 
 
-def upper_body(des, bob):
-    a = des.copy()
-    a[HIP_ROW:] = 0
-    return shift(a, 0, bob)
+MASK_WHITE, SKIN_LIGHT, SLIT_VIOLET = (222, 224, 227), (238, 169, 109), (89, 60, 156)
+FACE_BOX = (60, 73, 56, 79)     # rows, columns of the run's head on the canvas
 
 
-def align_upper(fig, up, hip):
-    """The translation of fig onto the canvas whose rows < hip agree best with the design's upper body there."""
-    U = up[:hip]
-    uy, ux = np.nonzero(U[..., 3] > 0)
-    H, W = fig.shape[:2]
-    best = (-1, 0, 0)
-    for y0 in range(hip - H, hip + 4):
-        for x0 in range(20, 100 - W // 3):
-            yy, xx = uy - y0, ux - x0
-            ok = (yy >= 0) & (yy < H) & (xx >= 0) & (xx < W)
-            if ok.sum() < len(uy) * 0.7:
-                continue
-            same = (fig[yy[ok], xx[ok], 3] > 0) & (np.abs(fig[yy[ok], xx[ok], :3].astype(int)
-                                                          - U[uy[ok], ux[ok], :3].astype(int)).sum(-1) < 40)
-            sc = same.sum() / len(uy)
-            if sc > best[0]:
-                best = (sc, y0, x0)
-    return best
+def run_face(a):
+    """Codex painted the run's mask with the eye colour and the eye slit violet: the design's face back - the eye colour
+    only where it touches the slit (the eyes), the mask's other eye-coloured squares white, the slit's violet skin."""
+    a = a.copy()
+    r0, r1, c0, c1 = FACE_BOX
+    sub = a[r0:r1, c0:c1]
+    rgb = sub[..., :3]
+    eye = (rgb == EYE).all(-1) & (sub[..., 3] > 0)
+    vio = (rgb == SLIT_VIOLET).all(-1) & (sub[..., 3] > 0)
+    nb = lambda m: np.roll(m, 1, 1) | np.roll(m, -1, 1)
+    keep = eye & nb(vio)
+    slit = vio & nb(eye)
+    white = (rgb == MASK_WHITE).all(-1) & (sub[..., 3] > 0)
+    for y in np.nonzero(keep.any(1))[0]:              # the rest of the slit's row: violet -> skin, a white square
+        xs = np.nonzero(keep[y])[0]                   # between violet ones -> the other eye
+        x0, x1 = max(xs.min() - 2, 0), xs.max() + 8
+        for x in range(x0 + 1, min(x1, sub.shape[1] - 1)):
+            if white[y, x] and vio[y, x - 1] and vio[y, x + 1]:
+                sub[y, x, :3] = EYE
+        slit[y, x0:x1] |= vio[y, x0:x1]
+    sub[eye & ~keep, :3] = MASK_WHITE
+    sub[slit, :3] = SKIN_LIGHT
+    return a
 
 
-def masked(des, rows, cols_by_row):
-    """The design's squares in the given rows, each row limited to its column range (inclusive)."""
-    out = np.zeros_like(des)
-    for y in rows:
-        c0, c1 = cols_by_row(y)
-        out[y, c0:c1 + 1] = des[y, c0:c1 + 1]
-    return out
-
-
-def rig_parts(des):
-    tail = masked(des, range(LEG_TOP, 95), lambda y: (46, 53 if y >= 91 else 52))
-    apron = masked(des, range(LEG_TOP, 94), lambda y: (62, 65 if y >= 91 else 67))
-    far = masked(des, range(LEG_TOP, 100), lambda y: (68, 75) if y <= 90 else (66, 77))
-    near = masked(des, range(LEG_TOP, 100),
-                  lambda y: (53, 61) if y <= 90 else ((54, 59) if y <= 92 else ((53, 58) if y <= 94 else (51, 57))))
-    near[..., 3] *= 1   # (kept as drawn; mirrored when placed)
-    upper = des.copy()
-    upper[LEG_TOP + HIP_BAND:] = 0
-    return upper, tail, apron, far, near
-
-
-def boot_col(part):
-    ys, xs = np.nonzero(part[95:100, :, 3] > 0)
-    return (xs.min() + xs.max()) / 2
-
-
-def put_leg(can, part, col, lift, mirror=False):
-    p = part
-    if mirror:
-        ys, xs = np.nonzero(p[..., 3] > 0)
-        x0, x1 = xs.min(), xs.max()
-        q = np.zeros_like(p)
-        q[:, x0:x1 + 1] = p[:, x0:x1 + 1][:, ::-1]
-        p = q
-    dx = int(round(col - boot_col(p)))
-    p = shift(p, dx, -lift)
-    m = p[..., 3] > 0
-    can[m] = p[m]
-
-
-def rig_frame(k, des):
-    upper, tail, apron, far, near = rig_parts(des)
-    bob = RIG_BOB[k - 1]
+def swap_frame(k, des):
+    """Run frame k (1-9) of Codex's skin swap on our canvas: its soles on ours, its cell's middle on the design's feet."""
+    sheet = np.asarray(Image.open(lp(RUN_SHEET)).convert("RGBA"))
+    r, c = divmod(k - 1, 3)
+    cell = sheet[r * RUN_CELL:(r + 1) * RUN_CELL, c * RUN_CELL:(c + 1) * RUN_CELL]
     can = np.zeros_like(des)
-    t = shift(tail, 0, bob)
-    m = t[..., 3] > 0
-    can[m] = t[m]
-    fc, fl = STRIDE[(k - 1 + FAR_PHASE) % 8]
-    nc, nl = STRIDE[(k - 1 + NEAR_PHASE) % 8]
-    put_leg(can, far, fc, fl)
-    put_leg(can, near, nc, nl, mirror=True)
-    for part in (apron, upper):
-        p = shift(part, 0, bob)
-        m = p[..., 3] > 0
-        can[m] = p[m]
-    can[SOLES + 1:] = 0
-    return can
-
-
-def run_frame(k, des, pal):
-    """The design's upper body (bobbing) over the legs of Codex's raw run frame k: the raw read on its own grid, scaled,
-    placed where its upper body matches the design's, cut below the hip, its lowest row moved onto the soles."""
-    name = f"run_{k}"
-    fig, s = read(name, pal)
-    f = s / CANVAS_SQUARE * FIX.get(name, 1.0)
-    fig = R.crop(scale_to(fig, f))
-    bob = RUN_BOB[k - 1]
-    up = upper_body(des, bob)
-    hip = HIP_ROW + bob
-    sc, y0, x0 = align_upper(fig, up, hip)
-    can = np.zeros((128, 128, 4), np.uint8)
-    H, W = fig.shape[:2]
-    ys, xs = max(0, y0), max(0, x0)
-    can[ys:y0 + H, xs:x0 + W] = fig[ys - y0:, xs - x0:][:128 - ys, :128 - xs]
-    legs = can.copy()
-    legs[:hip] = 0
-    low = int(np.nonzero(legs[..., 3] > 0)[0].max())
-    legs = shift(legs, 0, SOLES - low)
-    out = legs
-    m = up[..., 3] > 0
-    out[m] = up[m]
-    return out, s, f, sc, SOLES - low
+    dy, dx = SOLES - RUN_SOLES, int(round(feet_mid(des, SOLES))) - RUN_CELL // 2
+    ys, xs = np.nonzero(cell[..., 3] > 0)
+    can[ys + dy, xs + dx] = cell[ys, xs]
+    return run_face(can)
 
 
 def sink(a, row, n):
@@ -528,11 +450,8 @@ def build(only=None):
                 a = des.copy()
             elif isinstance(src, tuple) and src[0] == "breath":
                 a = breath(des, src[1])
-            elif tag == "run" and RIG:
-                a = pinholes(rig_frame(k, des))
-            elif tag == "run":
-                a, s, f, sc, dy = run_frame(k, des, pal)
-                info[src] = (s, f)
+            elif isinstance(src, tuple) and src[0] == "swap":
+                a = pinholes(swap_frame(src[1], des))
             elif isinstance(src, tuple) and src[0] == "sink":
                 a = sink(frame(src[1]), src[2], src[3])
             else:
@@ -549,6 +468,11 @@ def layout(n):
 
 def write(sheet):
     cells = {"cell": [128, 128], "scale": Z, "tags": {}}
+    path = lp(os.path.join(OUT, "shen_cells.json"))
+    if os.path.exists(path):        # --only rebuilds some tags: keep the others' cells, in TAGS order
+        with open(path, encoding="utf-8") as f:
+            old = json.load(f)["tags"]
+        cells["tags"] = {t: old[t] for t in TAGS if t in old and t not in sheet}
     for tag, frames in sheet.items():
         cols, rows = layout(len(frames))
         strip = np.zeros((rows * 128, cols * 128, 4), np.uint8)
@@ -558,6 +482,7 @@ def write(sheet):
         Image.fromarray(strip).resize((cols * 128 * Z, rows * 128 * Z), Image.NEAREST).save(
             lp(os.path.join(OUT, f"shen_{tag}.png")))
         cells["tags"][tag] = [{"pivot": list(PIVOT), "ms": ms} for _, ms in frames]
+    cells["tags"] = {t: cells["tags"][t] for t in TAGS if t in cells["tags"]}
     with open(lp(os.path.join(OUT, "shen_cells.json")), "w", encoding="utf-8", newline="\n") as f:
         f.write("{" + json.dumps({"cell": cells["cell"], "scale": Z})[1:-1] + ', "tags": {\n')
         f.write(",\n".join(f'  "{t}": ' + json.dumps(v) for t, v in cells["tags"].items()))
