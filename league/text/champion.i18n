@@ -606,9 +606,9 @@
       "league_syndra": {
         "name": "辛德拉",
         "attack": "被动<#ff9028ff>卓尔不凡<>：<#ffb900ff>3<>级Q对英雄伤害+25%，<#ffb900ff>5<>级W附带<#ffffffff>20%真实伤害<>，<#ffb900ff>7<>级E范围更大，<#ffb900ff>9<>级R的法球无视魔抗。",
-        "skill": "召唤暗黑法球，对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。法球留在原地<#ffb900ff>6秒<>。",
+        "skill": "召唤暗黑法球，对周围敌人造成<#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<><#a974ffff>魔法伤害<>。法球留在原地<#ffb900ff>6秒<>。",
         "skill2": "先用<#ff9028ff>驱使念力<>把法球掷向敌方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>。再锥形击退敌人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>，被推开的法球使附近敌人<#ef5350ff>晕眩1.25秒<>。",
-        "ult": "向一名敌方英雄发射<#ffb900ff>3颗+场上法球数<>（最多7颗），每颗造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<><#a974ffff>魔法伤害<>。"
+        "ult": "向一名敌方英雄发射<#ffb900ff>3颗+场上法球数<>（最多7颗），每颗造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<><#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -1656,9 +1656,9 @@
       "league_syndra": {
         "name": "星朵拉",
         "attack": "被動<#ff9028ff>卓越<>：<#ffb900ff>3<>級Q對英雄傷害+25%，<#ffb900ff>5<>級W附帶<#ffffffff>20%真實傷害<>，<#ffb900ff>7<>級E範圍更大，<#ffb900ff>9<>級R的星體無視魔抗。",
-        "skill": "召喚黑暗星體，對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。星體留在原地<#ffb900ff>6秒<>。",
+        "skill": "召喚黑暗星體，對周圍敵人造成<#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<><#a974ffff>魔法傷害<>。星體留在原地<#ffb900ff>6秒<>。",
         "skill2": "先用<#ff9028ff>意志之力<>把星體擲向敵方英雄，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>。再錐形擊退敵人，造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>，被推開的星體使附近敵人<#ef5350ff>暈眩1.25秒<>。",
-        "ult": "向一名敵方英雄發射<#ffb900ff>3顆+場上星體數<>（最多7顆），每顆造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<><#a974ffff>魔法傷害<>。"
+        "ult": "向一名敵方英雄發射<#ffb900ff>3顆+場上星體數<>（最多7顆），每顆造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<><#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -2706,9 +2706,9 @@
       "league_syndra": {
         "name": "Syndra",
         "attack": "Passive <#ff9028ff>Transcendent<>: at level <#ffb900ff>3<> Dark Sphere deals 25% more to champions, at <#ffb900ff>5<> Force of Will adds <#ffffffff>20% true damage<>, at <#ffb900ff>7<> Scatter the Weak grows, at <#ffb900ff>9<> Unleashed Power ignores Magic Resist.",
-        "skill": "A Dark Sphere deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> around it and stays for <#ffb900ff>6s<>.",
+        "skill": "A Dark Sphere deals <#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<> <#a974ffff>magic damage<> around it and stays for <#ffb900ff>6s<>.",
         "skill2": "First <#ff9028ff>Force of Will<> throws a sphere at an enemy champion for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing 30%<>. Then a cone deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and knocks enemies back; spheres pushed <#ef5350ff>stun<> enemies near them for <#ffb900ff>1.25s<>.",
-        "ult": "Fires <#ffb900ff>3 + her spheres<> (up to 7) at an enemy champion, each dealing <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> <#a974ffff>magic damage<>."
+        "ult": "Fires <#ffb900ff>3 + her spheres<> (up to 7) at an enemy champion, each dealing <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -3756,9 +3756,9 @@
       "league_syndra": {
         "name": "신드라",
         "attack": "기본 지속 효과 <#ff9028ff>초월<>: <#ffb900ff>3<>레벨 Q 챔피언 피해 +25%, <#ffb900ff>5<>레벨 W <#ffffffff>고정 피해 20%<> 추가, <#ffb900ff>7<>레벨 E 범위 증가, <#ffb900ff>9<>레벨 R 구체가 마법 저항력 무시.",
-        "skill": "어둠 구체가 주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>. 구체는 <#ffb900ff>6초<> 동안 남음.",
+        "skill": "어둠 구체가 주변 적에게 <#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<>의 <#a974ffff>마법 피해<>. 구체는 <#ffb900ff>6초<> 동안 남음.",
         "skill2": "먼저 <#ff9028ff>의지의 힘<>으로 적 챔피언에게 구체를 던져 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>의 <#a974ffff>마법 피해<>, <#ef5350ff>30% 둔화<>. 이어서 부채꼴로 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>와 밀쳐내기, 밀려난 구체 주변 적 <#ef5350ff>기절 1.25초<>.",
-        "ult": "적 챔피언 하나에게 <#ffb900ff>구체 3개 + 남은 구체 수<>(최대 7개) 발사, 개당 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>의 <#a974ffff>마법 피해<>."
+        "ult": "적 챔피언 하나에게 <#ffb900ff>구체 3개 + 남은 구체 수<>(최대 7개) 발사, 개당 <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>의 <#a974ffff>마법 피해<>."
       }
     },
     "skill_name": {
@@ -4806,9 +4806,9 @@
       "league_syndra": {
         "name": "シンドラ",
         "attack": "パッシブ <#ff9028ff>絶大なる魔力<>：<#ffb900ff>3<>レベルでQのチャンピオンへのダメージ+25%、<#ffb900ff>5<>レベルでWに<#ffffffff>20%確定ダメージ<>、<#ffb900ff>7<>レベルでE拡大、<#ffb900ff>9<>レベルでRが魔法防御無視。",
-        "skill": "ダークスフィアが周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。スフィアは<#ffb900ff>6秒<>残る。",
+        "skill": "ダークスフィアが周囲の敵に<#a974ffff>62<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>52%<>の<#a974ffff>魔法ダメージ<>。スフィアは<#ffb900ff>6秒<>残る。",
         "skill2": "まず<#ff9028ff>ダークフォース<>でスフィアを敵チャンピオンに投げ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>。続けて扇状に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>とノックバック、押されたスフィアが周囲の敵を<#ef5350ff>1.25秒スタン<>。",
-        "ult": "敵チャンピオン1体に<#ffb900ff>3個+残りのスフィア<>（最大7個）を放ち、1個ごとに<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>の<#a974ffff>魔法ダメージ<>。"
+        "ult": "敵チャンピオン1体に<#ffb900ff>3個+残りのスフィア<>（最大7個）を放ち、1個ごとに<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>の<#a974ffff>魔法ダメージ<>。"
       }
     },
     "skill_name": {

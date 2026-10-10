@@ -63,7 +63,7 @@ P = {
     # spheres (League: 6 s; R throws 3 + at most 4)
     "orb_t": 360,
     # skill: Q Dark Sphere (League: 800 range, radius 180, 0.6 s, 55-265 + 65% AP, cd 7 s; upgraded +25% to champions)
-    "q_cd": 420, "q_range": 80000, "q_anim": 24, "q_rel": 8, "q_fall": 30, "q_r": 20000, "q_dmg": 60, "q_ratio": 50,
+    "q_cd": 420, "q_range": 80000, "q_anim": 24, "q_rel": 8, "q_fall": 30, "q_r": 20000, "q_dmg": 62, "q_ratio": 52,
     "q_champ": 25,
     # skill2: W Force of Will (League: 925 range, 40-220 + 70% AP, slow 25% 1.5 s, cd 12-8 s; upgraded true damage)
     "w_cd": 660, "w_range": 85000, "w_anim": 30, "w_rel": 12, "w_fly": 16, "w_r": 21000, "w_dmg": 55, "w_ratio": 55,
@@ -75,7 +75,7 @@ P = {
     "e_reach": 90000, "e_stun_r": 24000, "e_stun_evo": 30000, "e_stun": 75, "e_orb": 30, "e_orb_ratio": 30,
     # ult: R Unleashed Power (League: 675 range, 3 + spheres (max 7) x 90-170 + 17% AP, cd 120-80 s)
     "r_cd": 4200, "r_slot": 75000, "r_min": 2, "r_arm": 480, "r_hold": 180, "r_poll": 10, "r_anim": 40, "r_rel": 14,
-    "r_gap": 5, "r_speed": 4200, "r_y": -3000, "r_dmg": 50, "r_ratio": 17,
+    "r_gap": 5, "r_speed": 4200, "r_y": -3000, "r_dmg": 52, "r_ratio": 18,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -298,8 +298,10 @@ def build(p):
                                                                "tick": p["e_kb_t"]}, view("e_hit")]}
 
     def e_fire():
-        # the picture: a line that hits nothing from her toward the target (drawn on the right half of its canvas)
-        return combine(sfx("e_cast"), ray("e_wave", 2 * p["e_len"], p["e_w"], 14, 1, "Ally", []),
+        # the picture: a line that hits nothing, from her toward the target; its view is drawn at the line's middle
+        # (the simulation's spawn event: x, y = the midpoint of from -> to), so a 1000-unit line puts the picture's
+        # centre on her and the wave is drawn in the right half of its canvas
+        return combine(sfx("e_cast"), ray("e_wave", 1000, p["e_w"], 14, 1, "Ally", []),
                        sw("s3", cone(p["e_cos_evo"]), cone(p["e_cos"])),
                        delayed(p["e_fly"], sfx("e_push"), refresh("e_go", 2)))
 
