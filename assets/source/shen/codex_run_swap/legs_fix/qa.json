@@ -1,0 +1,13 @@
+{
+  "unchanged_frames_exact": {
+    "1": true,
+    "2": true,
+    "3": true,
+    "9": true
+  },
+  "upper_and_protected_pixels_exact": true,
+  "alpha_binary": true,
+  "palette_only": true,
+  "grid_8x8": true,
+  "foot_height_55": true
+}

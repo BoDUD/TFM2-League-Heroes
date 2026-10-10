@@ -54,7 +54,9 @@ CANVAS_SQUARE = 1254 / 128
 # colours, the soles on the cell's row RUN_SOLES, the cell's middle column where the pack put the design's feet middle.
 # (The first run moved the design's own legs whole under the body: the wide stance could not cross - the hakama
 # bulbs hid behind the apron or rose into the sash; the user: 「腿变形严重了 交叉步也不对」.)
-RUN_SHEET = os.path.join(ROOT, "assets", "source", "shen", "codex_run_swap", "shen_run_3x3_1x.png")
+# legs_fix/: Codex's second pass - frames 4-8 squeezed both hakama legs into one cone (12-17 wide, one trouser, one
+# boot; the design's are 27 wide): redrawn below the sash with two whole legs and two boots, frames 1-3 and 9 kept
+RUN_SHEET = os.path.join(ROOT, "assets", "source", "shen", "codex_run_swap", "legs_fix", "shen_run_fix_3x3_1x.png")
 RUN_CELL, RUN_SOLES = 60, 55
 # The user kept Codex's legs and asked for the design's upper body (「腿部ok的 上半身用之前的」): the design down to its
 # sash (rows <= DES_SASH; its arms hang lower: the sword arm to row 84 at columns <= ARM_COL, the near hand per row
