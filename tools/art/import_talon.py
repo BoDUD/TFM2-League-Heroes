@@ -153,10 +153,60 @@ FX = {
     "r_hit": [("r_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "r_on": [("r_on", seq(range(4), [120] * 4), [GROUND])],
 }
+# R (League's Shadow Assault): the blades fly out to the ring in r_fly ticks (r_out's first four cells, 183 ms), hang
+# there for the stealth - the kit plays one r_ring<k> piece (r_step ticks, 100 ms) on his cast point every r_step
+# ticks while r_on lasts: r_out's last cell, its blades alone (the specks between them off) a shade lighter so they
+# stand out on the stealth smoke, one row of them (top to bottom) lit white in turn - and fly in to where he is when
+# they come back (r_back on him: the lit ring, then r_back's blades closing in and the flash, without its leftover dots)
+RING = 4
 BIG = {
-    "r_out": [("r_out", seq(range(6), [40, 60, 70, 90, 110, 130]), [FEET])],
-    "r_back": [("r_back", seq(range(6), [50, 50, 50, 60, 80, 100]), [FEET])],
+    "r_out": [("r_out", seq(range(4), [30, 40, 50, 63]), [FEET])],
+    **{f"r_ring{k}": [("r_out", seq([("ring", 5, k)], [100]), [FEET])] for k in range(RING)},
+    "r_back": [("r_out", seq([("ring", 5, None)], [40]), [FEET]),
+               ("r_back", seq(range(5), [40, 50, 50, 60, 80]), [FEET])],
 }
+
+
+def ring(cell, lit):
+    """r_out's cell with its blades alone (pieces of 5 px or more), each colour a step lighter on its ramp, and the
+    blades of row `lit` (rows of them from the top, RING rows) two steps lighter; lit None: all two steps."""
+    a = cell.copy()
+    on = a[..., 3] > 0
+    seen = np.zeros(on.shape, bool)
+    blades = []
+    for y0, x0 in zip(*np.nonzero(on)):
+        if seen[y0, x0]:
+            continue
+        stack, comp = [(y0, x0)], []
+        seen[y0, x0] = True
+        while stack:
+            y, x = stack.pop()
+            comp.append((y, x))
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    v, u = y + dy, x + dx
+                    if 0 <= v < on.shape[0] and 0 <= u < on.shape[1] and on[v, u] and not seen[v, u]:
+                        seen[v, u] = True
+                        stack.append((v, u))
+        if len(comp) < 5:
+            for y, x in comp:
+                a[y, x] = 0
+        else:
+            blades.append(comp)
+    order = sorted(range(len(blades)), key=lambda i: np.mean([y for y, _ in blades[i]]))
+    row = {i: r * RING // len(blades) for r, i in enumerate(order)}
+    step = {}
+    for name in ("STEEL", "GLEAM", "SHADE"):
+        ramp = RAMPS[name]
+        for i, h in enumerate(ramp):
+            step[h] = ramp[i + 1:] + [ramp[-1]] * 2
+    for i, comp in enumerate(blades):
+        k = 1 if lit is None or row[i] == lit else 0
+        for y, x in comp:
+            h = "%02X%02X%02X" % tuple(a[y, x, :3])
+            if h in step:
+                a[y, x, :3] = [int(step[h][k][j:j + 2], 16) for j in (0, 2, 4)]
+    return a
 FLIP_TB = {"w_out", "w_back"}
 
 
@@ -172,7 +222,8 @@ def build(table):
                 if k == EMPTY:
                     out[tag].append((np.zeros((3, 3, 4), np.uint8), ms))
                     continue
-                f = J.place(strip[k], anchors[src]["anchor"], spots)
+                cell = ring(strip[k[1]], k[2]) if isinstance(k, tuple) else strip[k]
+                f = J.place(cell, anchors[src]["anchor"], spots)
                 f = X.over_flip(f, "tb" if tag in FLIP_TB else "lr")
                 out[tag].append((f, ms))
     return out

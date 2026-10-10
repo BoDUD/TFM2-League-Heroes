@@ -26,6 +26,10 @@ Rake is `skill` (the combo opener), Noxian Diplomacy `skill2`, Shadow Assault th
           AD to everything within r_r), he turns invisible (`CasterInvisible` r_inv) and runs r_haste% faster; the
           blades come back to him (the same damage round him) when the stealth ends - or at once on his next attack
           or Noxian Diplomacy hit, as League's attack / Q break the stealth (they raise r_brk, the ult polls it).
+          The picture is League's: the blades fly out to the ring (r_out), hang round the cast point for the stealth -
+          league_ekko's anchor dropped there, its `end_effects` a piece of the ring (r_ring0..3) every r_step ticks
+          while r_on lasts (league_zed's shadow pieces) - and fly in to where he is when they come back (r_back on
+          him). No projectile takes an angle (a line flies at the target), so the eight blades are pictures.
   combos  W -> Q (one cast, above); R -> Q -> attack (the stealthed leap converges the blades, the third wound bleeds);
           the vault out when outnumbered (E).
 """
@@ -69,6 +73,9 @@ P = {
     # R Shadow Assault (League: 550 radius, 90-270 + 100% bonus AD out and back, 2.5 s stealth, 40-60% haste, cd 100 s)
     "r_cd": 3000, "r_dur": 20, "r_at": 6, "r_range": 30000, "r_r": 30000, "r_dmg": 55, "r_ratio": 75, "r_inv": 150,
     "r_haste": 40,
+    # the ring's picture: the blades reach it r_fly ticks after they leave (r_out), then hang on the cast point in
+    # r_step-tick pieces while r_on lasts (tools/art/import_talon.py: r_out 183 ms, r_ring0..3 100 ms each)
+    "r_fly": 11, "r_step": 6,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -298,9 +305,15 @@ def build(p):
                     sw("q_cd", NONE, noxian(0)))
 
     # ------------------------------------------------------------------ R Shadow Assault
+    # the ring hanging on the cast point (league_ekko's anchor: it ends the tick it appears, a Delayed in its end_effects
+    # keeps the point): a piece every r_step ticks from when the blades reach it while r_on lasts - the blades' return
+    # takes r_on off, so the ring is gone within r_step ticks of it
+    ring = [delayed(t, sw("r_on", view(f"r_ring{j % 4}")))
+            for j, t in enumerate(range(p["r_fly"], p["r_inv"] - p["r_at"] + 2, p["r_step"]))]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(anim("ult", p["r_dur"]), voice("vo_r", p),
                          delayed(p["r_at"] - 1, sfx("r"), cview("r_out"),
+                                 line("r_anchor", 1, 1, 1, 5000, "EnemyWithoutTower", True, [], ring),
                                  around(p["r_r"], "EnemyWithoutTower", [attack(p["r_dmg"], p["r_ratio"]),
                                                                         view("r_hit"), tsfx("r_hit")]),
                                  around(p["r_r"], "EnemyChampion", wound())),
@@ -321,6 +334,7 @@ def build(p):
     views_p = [P_("w_out"), P_("w_back")]
     views_e = [E("a_hit"), E("q_hit"), E("q_leap", FX, -1, False), E("q_heal", FX, 3, False), E("w_hit"),
                E("e_vault", FX, -1, False), E("r_out", BIG, 3, False), E("r_back", BIG, 3, False), E("r_hit"),
+               *[E(f"r_ring{k}", BIG, 3, False) for k in range(4)],
                E("p_bleed", FX, 3)]
     views_b = [B_("p_wound", "p_wound", FX, 4), B_("w_slow", "w_slow", FX, 3), B_("e_haste", "e_haste", FX, -1),
                B_("r_on", "r_on", FX, -1)]
