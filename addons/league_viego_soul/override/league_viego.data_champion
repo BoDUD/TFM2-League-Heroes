@@ -2746,6 +2746,1246 @@
       "tag": "s_haste",
       "repeat": true,
       "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:alchemist",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:android",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:archer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:astrologer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:bard",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:barrier_magician",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:berserker",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:bomber",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:boomerang_hunter",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:cavalry_knight",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:chef",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:circus_blade",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:clown",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:crossbowman",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:dancer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:dark_mage",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:demon",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:dokkaebi",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:druid",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:dual_blader",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:enchanter",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:executioner",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:exorcist",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:fighter",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:gambler",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:ghost",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:guardian_spirit",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:gunner",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:hammerer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:harpooner",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:hitman",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:hunter",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:ice_mage",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:illusionist",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:inquisitor",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:jiangshi",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:knight",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:lancer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_aatrox",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_ahri",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_akali",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_alistar",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_amumu",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_annie",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_ashe",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_blitzcrank",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_brand",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_briar",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_caitlyn",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_camille",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_darius",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_diana",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_draven",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_ekko",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_evelynn",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_ezreal",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_fiddlesticks",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_fiora",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_fizz",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_garen",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_gwen",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_hecarim",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_janna",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_jax",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_jhin",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_jinx",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_kaisa",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_karma",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_kayle",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_kayn",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_kennen",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_khazix",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_kogmaw",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_leblanc",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_leesin",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_leona",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_lillia",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_lissandra",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_lucian",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_lulu",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_lux",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_malphite",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_masteryi",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_missfortune",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_morgana",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_nami",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_nocturne",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_olaf",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_pyke",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_rakan",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_renekton",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_rengar",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_riven",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_ryze",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_samira",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_senna",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_seraphine",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_sett",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_shaco",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_shen",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_sivir",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_sona",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_soraka",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_syndra",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_talon",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_taric",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_teemo",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_thresh",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_tristana",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_tryndamere",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_twistedfate",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_twitch",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_varus",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_vayne",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_veigar",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_vi",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_viego",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_viktor",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_vladimir",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_xayah",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_xerath",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_xinzhao",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_yasuo",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_yone",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_zed",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:league_zilean",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:lightning_mage",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:magic_knight",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:monk",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:necromancer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:nightmare",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:ninja",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:ogre",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:plague_doctor",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:poison_dart_hunter",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:pole_warrior",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:priest",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:prisoner",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:pyromancer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:pythoness",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:sand_mage",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:shadowmancer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:shield_bearer",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:siege_breaker",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:soldier",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:spellbreaker",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:strongman",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:swordman",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:taoist",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:vampire",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:voodoo_shaman",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:werewolf",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:whip_master",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:white_mage",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_viego_soul:wind_mage",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "p_on",
+      "repeat": true,
+      "z": 3
     }
   ]
 }

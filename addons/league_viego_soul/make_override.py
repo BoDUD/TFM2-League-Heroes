@@ -111,6 +111,14 @@ def main():
         if name not in json.dumps(champion):
             sys.exit(f"{name} is gone from the copy: update src/lib.rs")
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.attack"
+    # the look buff league_viego_soul:<id> (src/view.rs reads it on his display entity to draw the victim's body) needs
+    # a view: in game (2026-10-11, 「佛爷戈的捡魂变身好像没用」) the hook saw Viego every frame and never the look buff,
+    # while Kayn's form buffs, which the display world does carry, all have views. The view is the possession's mist.
+    table = souls(a.game)
+    big = kit.BIG
+    for cid in sorted(table):
+        champion["view_buffs"].append({"type": "Animated", "name": f"{HERO}_soul:{cid}", "anim": big, "tag": "p_on",
+                                       "repeat": True, "z": 3})
 
     v = {k: p[k] for k in ("p_ad", "p_as")}
     v.update({k: setup.secs(p[k]) for k in ("p_win", "p_t", "p_inv", "soul_t")})
@@ -133,7 +141,6 @@ def main():
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps({lang: {"description": {MOD_ID: {"attack": texts[lang]}}} for lang in main_text},
                            ensure_ascii=False, indent=2) + "\n")
-    table = souls(a.game)
     with open(lp(os.path.join(ADDON, "src", "souls.rs")), "w", encoding="utf-8", newline="\n") as f:
         f.write(souls_rs(table))
     cats = {}

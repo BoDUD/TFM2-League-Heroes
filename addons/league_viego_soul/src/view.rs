@@ -92,9 +92,16 @@ struct Stats {
     writes: u64,
     last: Option<std::time::Instant>,
     looks: Vec<(usize, u64, Vec<u8>)>,
+    /// the buff names last logged per Viego, and how many such lines were written (at most BUFF_LINES a run)
+    buffsets: Vec<(usize, u64, Vec<u8>)>,
+    buff_lines: usize,
 }
 
-static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, viegos: 0, writes: 0, last: None, looks: Vec::new() });
+/// Lines listing a Viego's display buffs when they change (the check that the look buff reaches the display world).
+const BUFF_LINES: usize = 60;
+
+static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, viegos: 0, writes: 0, last: None, looks: Vec::new(),
+    buffsets: Vec::new(), buff_lines: 0 });
 static ORIG: Mutex<Originals> = Mutex::new(Originals { seen: Vec::new() });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
@@ -218,6 +225,15 @@ unsafe fn dress_viego(world: usize) {
         } else {
             Vec::new()
         };
+        if st.buff_lines < BUFF_LINES {
+            let joined = buffs.join(&b", "[..]);
+            if !st.buffsets.iter().any(|b| b.0 == world && b.1 == key && b.2 == joined) {
+                st.buffsets.retain(|b| !(b.0 == world && b.1 == key));
+                st.buffsets.push((world, key, joined.clone()));
+                st.buff_lines += 1;
+                wlog(format!("world {world:#x} Viego #{key} display buffs: [{}]", String::from_utf8_lossy(&joined)));
+            }
+        }
         let original = orig.get_or_keep(world, key, res);
         let soul = victim(buffs.iter().copied());
         let target: Option<(Vec<u8>, &'static [&'static str])> = soul.and_then(|id| {
