@@ -651,7 +651,7 @@
           "name": "league_senna_q_beam",
           "width": 6000,
           "length": 130000,
-          "delay": 8,
+          "delay": 18,
           "apply": 2,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
