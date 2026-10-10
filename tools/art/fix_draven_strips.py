@@ -281,6 +281,64 @@ def ribbons(d):
     return out
 
 
+# ---------------------------------------------------------------- the run Codex redrew whole (codex_run/)
+RUN2 = os.path.join(ROOT, "assets", "source", "draven", "codex_run", "1x")
+# design head (canvas rows, first/last column): hair crest, headband, face, moustache, beard down to the scarf
+HEAD_ROWS = {60: (57, 67), 61: (57, 67), 62: (57, 67), 63: (57, 67), 64: (59, 67), 65: (59, 66), 66: (60, 66),
+             67: (59, 66), 68: (58, 66)}
+GOLD = (0xF3, 0xCB, 0x57)
+AXE8 = ((78, 92), (29, 47), (1, 1))   # run 8's smeared far axe: rows, columns of run 4's, moved (dx, dy)
+
+
+def head_mask(d):
+    m = np.zeros(d.shape[:2], bool)
+    for y, (c0, c1) in HEAD_ROWS.items():
+        m[y, c0:c1 + 1] = True
+    return m & (d[..., 3] > 0)
+
+
+HAIR = {(0x74, 0x23, 0x42), (0x6B, 0x34, 0x3D), (0x42, 0x1D, 0x30), (0x9C, 0x34, 0x4C)}
+
+
+def band(a):
+    """Where the head is: (the hair crest's top row, the middle column of the hair in its top 4 rows), searched in
+    columns 56-78 (the design's raised axe ends at column 57; the run's axes hang lower, at the sides)."""
+    win = a[40:75, 56:79]
+    op = win[..., 3] > 0
+    rows = np.nonzero(op.any(1))[0]
+    top = rows.min()
+    hair = np.array([[tuple(int(v) for v in win[y, x, :3]) in HAIR and op[y, x] for x in range(win.shape[1])]
+                     for y in range(top, top + 4)])
+    xs = np.nonzero(hair)[1]
+    return 40 + top, 56 + xs.mean()
+
+
+def run2_frame(d, k):
+    """Codex's whole-figure run frame k with the design's own head put on Codex's (found by the headband), run 8's
+    smeared far axe replaced by run 4's, and the frame moved sideways so the head stands on the design's column."""
+    a = load(os.path.join(RUN2, f"run_{k + 1}.png"))
+    if k == 7:
+        b = load(os.path.join(RUN2, "run_4.png"))
+        (r0, r1), (c0, c1), (dx, dy) = AXE8
+        a[r0 + dy:r1 + dy + 1, c0 + dx:c1 + dx + 1] = 0
+        part = b[r0:r1 + 1, c0:c1 + 1]
+        m = part[..., 3] > 0
+        a[r0 + dy:r1 + dy + 1, c0 + dx:c1 + dx + 1][m] = part[m]
+    dr, dc = band(d)
+    fr, fc = band(a)
+    dy, dx = fr - dr, int(round(fc - dc))
+    # Codex's head out: the hair above the mantle, the face's columns down to the beard
+    for y in range(54 + dy, 63 + dy):
+        a[y, 55 + dx:71 + dx] = 0
+    for y in range(63 + dy, 69 + dy):
+        a[y, 58 + dx:68 + dx] = 0
+    hm = head_mask(d)
+    head = np.zeros_like(d)
+    head[hm] = d[hm]
+    a = over(a, shift(head, dx, dy))
+    return shift(a, -dx, 0)          # the head on the design's column: the body moves with it
+
+
 def run_frame(d, k, variant):
     arm, body = run_upper(d, variant)
     if LEGS == "rig":
@@ -311,7 +369,7 @@ def frame_of(d, src, variant):
     if isinstance(src, tuple) and src[0] == "spin":
         return spin(d, src[1])
     if isinstance(src, tuple) and src[0] == "run":
-        return run_frame(d, src[1], variant)
+        return run2_frame(d, src[1]) if variant == "C" else run_frame(d, src[1], variant)
     return load(os.path.join(SRC, f"{src}.png"))
 
 
@@ -320,7 +378,7 @@ def layout(n):
     return cols, -(-n // cols)
 
 
-def build(variant="M"):
+def build(variant="C"):
     d = load(DESIGN)
     return {tag: [(frame_of(d, src, variant), ms) for src, ms in rows] for tag, rows in TAGS.items()}
 
@@ -344,7 +402,7 @@ def write(sheet):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--run", default="M", choices=["M", "V"])
+    ap.add_argument("--run", default="C", choices=["C", "M", "V"])
     ap.add_argument("--review", help="write <tag>_<k>.png (128 x 128) here instead of the strips")
     a = ap.parse_args()
     sheet = build(a.run)

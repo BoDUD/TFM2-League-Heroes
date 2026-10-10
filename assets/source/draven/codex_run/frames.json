@@ -1,0 +1,50 @@
+[
+  {
+    "file": "run_1.png",
+    "tag": "run",
+    "frame": 1,
+    "ms": 100
+  },
+  {
+    "file": "run_2.png",
+    "tag": "run",
+    "frame": 2,
+    "ms": 100
+  },
+  {
+    "file": "run_3.png",
+    "tag": "run",
+    "frame": 3,
+    "ms": 100
+  },
+  {
+    "file": "run_4.png",
+    "tag": "run",
+    "frame": 4,
+    "ms": 100
+  },
+  {
+    "file": "run_5.png",
+    "tag": "run",
+    "frame": 5,
+    "ms": 100
+  },
+  {
+    "file": "run_6.png",
+    "tag": "run",
+    "frame": 6,
+    "ms": 100
+  },
+  {
+    "file": "run_7.png",
+    "tag": "run",
+    "frame": 7,
+    "ms": 100
+  },
+  {
+    "file": "run_8.png",
+    "tag": "run",
+    "frame": 8,
+    "ms": 100
+  }
+]
