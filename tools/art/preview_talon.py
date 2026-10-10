@@ -30,7 +30,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_talon")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_talon_fx", "league_talon_big")}
-REACH = 24                                      # where his stabs land from (px from Darius)
+REACH = 30                                      # where his stabs land from (px from Darius)
 BLADE = P["w_speed"] / 1000                     # px a tick
 BLADE_Y = P["w_y"] // 1000 + 8                  # the blades fly this far over the pivot
 
@@ -63,6 +63,8 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
+        if dur is not None and dur <= 0:
+            return None
         x, y = me.pos(t)
         fr = frames_of(sp, tag)
         if stealth[0] and stealth[0][0] <= t < stealth[0][1]:
@@ -129,10 +131,15 @@ def showcase(out, z=3, step=40):
     under_on.pos = me.pos
     under.append(under_on)
     s0 = t
-    me.moves.append((s0, s0 + 500, me.pos(s0)[0], me.pos(s0)[0] + 30))
+    sx = me.pos(s0)[0]
+    me.moves.append((s0, s0 + 400, sx, sx - 26))                # unseen, he slips back...
+    face[0] = True
+    a("run", 400, loop=True)
+    a("idle", 150, loop=True)
+    s1 = t
+    me.moves.append((s1, s1 + 350, sx - 26, d.pos(s1)[0] - REACH))   # ...and comes in for the stab
     face[0] = False
-    a("run", 500, loop=True)
-    a("idle", 200, loop=True)
+    a("run", 350, loop=True)
     hit(d, "a_hit", t + tick(P["a_st"]))
     stab = t + tick(P["a_st"])
     a("attack", tick(P["atk_dur"]))

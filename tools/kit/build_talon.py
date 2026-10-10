@@ -181,8 +181,9 @@ def line(name, speed, rng, radius, y, target, penetrate, effects, end=()):
 
 
 def back(name, speed, radius, y, target, penetrate, effects):
+    """y: kept for the call sites; the engine reads no y_offset on a returning projectile."""
     return {"type": "BackToCasterLinearProjectile", "name": n(name), "speed": speed, "range": 400000,
-            "penetrate": penetrate, "shape": circle(radius), "y_offset": y, "applied_target": target,
+            "penetrate": penetrate, "shape": circle(radius), "applied_target": target,
             "applied_effects": [T(e) for e in effects], "end_effects": []}
 
 
