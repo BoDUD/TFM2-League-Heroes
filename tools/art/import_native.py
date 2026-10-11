@@ -776,7 +776,9 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "twistedfate": (0x7A, 0xF4, 0xFF),   # the hat's brim tops every frame; the cyan is only in his one eye
         "evelynn": (0xFF, 0xD2, 0x1E),       # her hair or a raised lasher tops the frames; the yellow is only her eyes
         "sett": (0xC8, 0x70, 0x0A),       # his ears or a raised fist top the frames; the amber is only in his eyes
-        "alistar": (0xFB, 0x12, 0x0D)}    # his mane, horns or raised fists top the frames; the red is only his eyes
+        "alistar": (0xFB, 0x12, 0x0D),    # his mane, horns or raised fists top the frames; the red is only his eyes
+        "irelia": (9, 144, 186)}          # her floating blades top the frames (strips_irelia.py); the eyes' dark cyan is
+                                          # theirs alone (the gems use the palette's #098FBA)
 
 
 def blocks(path):
