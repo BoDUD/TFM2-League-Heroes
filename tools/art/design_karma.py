@@ -179,7 +179,14 @@ POLISH = [(69, 12, "zS"), (69, 19, "z"),
           #    winged liner, the dark tear streak under the near eye): the near eye 3 wide, thin brows, the dark square
           #    between the brows gone (work/kr/edit/eyes2_kr.py option C2)
           (69, 12, "hzzsssszz"), (70, 11, "00000"), (71, 12, "Ppw0"), (71, 19, "pwP"), (72, 12, "PpPs"),
-          (72, 19, "PpS"), (73, 12, "S0"), (74, 13, "z")]
+          (72, 19, "PpS"), (73, 12, "S0"), (74, 13, "z"),
+          # 4. 「卡尔玛的腿部也给我修一下」 (her idle's legs; 「我没让你改变卡尔玛的尺寸和其他部位 只改腿」): the near leg out of
+          #    the slit widened into a 4-5 square block down to the boot, its shade squares side by side like two eyes. Now
+          #    3 wide to the ankle (shade on its back edge, the skirt's dark inside on both sides), a gold anklet, the
+          #    boot under it; the far boot gets its anklet too (the actions' legs, Codex's). Row 95 is the row the 95%
+          #    shrink takes out of the idle: it repeats row 94 round the near leg, so the shrink still takes it
+          (91, 17, "Sssh"), (92, 15, "h0Sssh"), (93, 15, "h0SsSh"), (94, 16, "0ggg"), (95, 15, "00ggg0"),
+          (96, 17, "bbb"), (96, 7, "gg")]
 
 
 def rebuild():
