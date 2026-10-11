@@ -27,7 +27,8 @@ whole); what is fixed here:
   7. the run's body is frame 1's in every frame, its belt on each frame's own belt: Codex's redrawn bodies shook.
   8. the idle (side-on too, the user: 「待机图也改成侧面的吧 不然太奇怪了」) stands upright like oppi's Nautilus: the run's
      body and hip (its size) on frame 4's straight leg and a darker copy of it behind, standing still.
-  9. the carried anchor cut to 0.72 by whole rows and columns (「钩子画的过大了 适当缩小」).
+  9. the carried anchor is Codex's own straight one, attack 4's turned crown up (「钩子画的过大了 适当缩小」
+     「武器给我画直了啊」).
 Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
 python tools/art/import_native.py --hero nautilus.
 """
@@ -47,7 +48,6 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import rigkit as K  # noqa: E402
 import rig_nautilus as RN  # noqa: E402
-import design_riven as R  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "nautilus", "codex_strips2")
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
@@ -129,30 +129,24 @@ def darkened(part):
     return K.Part(u, part.j)
 
 
-def smaller(part, scale):
-    """9: the anchor above the fist (rows over FIST_ROW) made smaller by whole rows and columns dropped (design_riven's
-    keep_axis: in each group the line most like its neighbour goes, nothing resampled, no square repainted), the
-    shank's columns (SHANK_COLS) and its foot (rows FIST_ROW - 4 to - 2) kept whole; the crown as high over his head as
-    before, the straight shank run on down to the fist; the fist as it is."""
-    s = part.s
-    top = s[:FIST_ROW]
-    cols = sorted({tuple(int(v) for v in p[:3]) for p in top[top[..., 3] > 0]})
-    lut = {c: i for i, c in enumerate(cols)}
-    idx = np.full(top.shape[:2], -1, int)
-    for y, x in zip(*np.nonzero(top[..., 3])):
-        idx[y, x] = lut[tuple(int(v) for v in top[y, x, :3])]
-    H, W = idx.shape
-    rows = R.keep_axis([idx[y] for y in range(H)], round(H * scale), range(H - 4, H - 1))
-    keep = R.keep_axis([idx[rows][:, x] for x in range(W)], round(W * scale), SHANK_COLS)
-    small = top[np.ix_(rows, keep)]
-    dx = SHANK_COLS[0] - keep.index(SHANK_COLS[0])          # the shank over the same columns as before
-    canvas = np.zeros_like(s)
-    canvas[FIST_ROW:] = s[FIST_ROW:]
-    K.put(canvas, small, dx, 0)
-    shank = small[-1:]
-    for r in range(len(rows), FIST_ROW):
-        K.put(canvas, shank, dx, r)
-    return K.Part(canvas, part.j)
+def straight_anchor(f4):
+    """9: the anchor he carries - Codex's own, straight and even (attack frame 4 holds it level before him, the crown
+    the same above and below the shank), from its red band to the crown (ANCHOR4), turned a quarter (crown up); the
+    shank run on straight down to the design's near fist (darkened), the crown as high over the fist as the design's
+    was."""
+    r0, r1, c0, c1 = ANCHOR4
+    head = np.rot90(f4[r0:r1, c0:c1], 1).copy()
+    fist = darkened(RN.Parts().unit).s[FIST_ROWS[0]:FIST_ROWS[1]]
+    H, W = FIST_AT + fist.shape[0], head.shape[1]
+    u = np.zeros((H, W, 4), np.uint8)
+    u[:head.shape[0]] = head
+    shank = head[SHANK_ROW:SHANK_ROW + 1].copy()
+    shank[0, :SHANK_COLS[0]] = 0
+    shank[0, SHANK_COLS[1] + 1:] = 0
+    for r in range(head.shape[0] - 1, FIST_AT + 1):
+        K.put(u, shank, 0, r)
+    K.put(u, fist, FIST_DX, FIST_AT)
+    return K.Part(u, (8.0 + FIST_DX, 31.5 - FIST_ROWS[0] + FIST_AT))
 
 
 def helmet_top(f):
@@ -210,7 +204,15 @@ def carry(f, B, F, unit, old=None):
     if old is not None:
         r0, r1, c0, c1 = old
         g[r0:r1 + 1, c0:c1 + 1] = 0
-    K.place(g, unit, (F[1], F[0]))
+    # the anchor over his shoulder: behind the body (only where nothing is drawn), the fist round its shank on top;
+    # over the helmet nothing of Codex's stays where the new anchor goes (his rope's last squares showed through)
+    where = np.zeros_like(g)
+    K.place(where, unit, (F[1], F[0]))
+    g[(where[..., 3] > 0) & (np.arange(g.shape[0]) < top)[:, None]] = 0
+    K.place(g, unit, (F[1], F[0]), under=True)
+    fist = unit.s.copy()
+    fist[:FIST_AT] = 0
+    K.place(g, K.Part(fist, unit.j), (F[1], F[0]))
     # Codex's old flukes and the rope's knot left warm squares (bronze, red) by the new anchor's left fluke
     # (「还有多余的像素没清理」): small warm pieces outside the unit, left of its shank and above the fist, touching it
     # and hanging out of the figure (the air at most 2 squares off) go, with the outline that bordered only them
@@ -228,7 +230,7 @@ def carry(f, B, F, unit, old=None):
     for i in range(1, n + 1):
         piece = lab == i
         ys, xs = np.nonzero(piece)
-        if (piece.sum() <= 8 and (piece & near_unit).any() and (piece & air).any() and xs.max() < round(F[1])
+        if (piece.sum() <= 12 and (piece & near_unit).any() and (piece & air).any() and xs.max() < round(F[1])
                 and ys.max() < F[0] - 3):
             stray |= piece
     g[stray] = 0
@@ -402,11 +404,17 @@ CARRY = {("run", 1): ((59, 51), (80, 57.1)), ("run", 2): ((58.5, 50.5), (79.5, 5
          ("run", 7): ((59.5, 49.5), (77.9, 55.1)), ("run", 8): ((56.5, 53.5), (77.2, 58.2)),
          ("skill2", 1): ((63, 52), (82, 58.9)), ("skill2", 5): ((63, 52), (82, 60.4)),
          ("skill2", 6): ((60, 50), (82, 58.6)), ("hit", 2): ((56, 49.3), (80, 58.6)), ("ult", 8): ((62.1, 54.3), (78.4, 61.2))}
-# 9: the carried anchor was too big (「钩子画的过大了 适当缩小」: the design's unit, 36 squares across, wider than his
-# body; the anchors he swings are about 25): above the fist it loses whole rows and columns to ANCHOR_SCALE (smaller()).
-FIST_ROW = 27
-ANCHOR_SCALE = 0.72
-SHANK_COLS = range(8, 12)                                       # the unit's shank above the fist
+# 9: the carried anchor was too big (「钩子画的过大了 适当缩小」), then crooked (「武器给我画直了啊」: the design's crown
+# leans to the right of its shank). It is Codex's own anchor now, the one he swings (straight_anchor): attack 4's,
+# rows/columns ANCHOR4 (red band to crown tip), turned a quarter; its shank's cross-section (row SHANK_ROW of the turned
+# piece, columns SHANK_COLS) run down to the design's near fist (its rows FIST_ROWS) set FIST_DX columns over at row
+# FIST_AT.
+ANCHOR4 = (63, 96, 91, 108)
+SHANK_ROW = 12
+SHANK_COLS = (13, 19)
+FIST_ROWS = (29, 34)
+FIST_DX = 7
+FIST_AT = 31
 # W+E's last frame: Codex's old shank ran on down beside the new one to the fist, a light grey bar left of it (rows,
 # columns, both ends in); cleared before the unit goes in
 OLD_SHANK = {("skill2", 6): (64, 73, 52, 58)}
@@ -464,7 +472,7 @@ def build():
     piece[r0:r1, c0:c1] = f5[r0:r1, c0:c1]
     ys, xs = np.nonzero(piece[..., 3] > 0)
     anchor = piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1][::-1].copy()     # on its crown
-    unit = smaller(darkened(RN.Parts().unit), ANCHOR_SCALE)
+    unit = straight_anchor(strips["attack"][cell(3, n["attack"], cw, ch)])
     for (tag, k), (B, F) in CARRY.items():
         sl = cell(k - 1, n[tag], cw, ch)
         strips[tag][sl] = carry(strips[tag][sl], B, F, unit, OLD_SHANK.get((tag, k)))
