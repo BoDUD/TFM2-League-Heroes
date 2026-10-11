@@ -13,7 +13,8 @@ champion in reach; the passive in the main pack; a native add-on for Q on a wall
           q_ratio% AP, and the two are pulled together - the champion dragged toward him (`Grab`, q_pull a tick for q_pull_t
           ticks) while he hauls himself toward it (`MoveToTarget` a tick later, the skill_pull strip): they meet between.
           A miss pulls nobody. The hook arms the passive at once (q_land): the next attack roots even while it rests.
-          On a wall the anchor pulls him to it - native, addons/league_nautilus.
+          On a wall the anchor pulls him to it and half the cooldown comes back - native, addons/league_nautilus (the copy
+          built with native=1 calls its league_nautilus:hook as the anchor flies).
   skill2  W Titan's Wrath (泰坦之怒) + E Riptide (暗流涌动): a `Targeting` cast on `EnemyWithoutTower` (c_range): a shield
           of w_shield + w_ap% AP for w_t ticks, while it holds his attacks also hit everything round the target
           (w_dmg + w_ratio% AP, w_r); on tick e_at the slam: three waves (e_gap ticks apart) round him (e_r), every enemy
@@ -61,6 +62,8 @@ P = {
     "r_stun": 45, "r_path_dmg": 60, "r_path_ratio": 30, "r_path_up": 30, "r_path_rad": 8000, "r_y": 0, "q_near": 30000,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the copy for addons/league_nautilus: the anchor's flight also asks league_nautilus:hook whether it bites a wall
+    "native": 0,
 }
 
 
@@ -205,10 +208,11 @@ def build(p):
               delayed(1, anim("skill_pull", p["q_anim"]),
                       {"type": "MoveToTarget", "speed": p["q_dash"], "range": p["q_reach"] + 30000,
                        "end_effects": []})]
+    wall = [{"type": "Native", "effect_ref": "league_nautilus:hook"}] if p["native"] else []
     throw = combine(sfx("q"), voice("vo_q", p),
                     delayed(p["q_at"], sfx("q_fly"),
                             line("q_anchor", p["q_speed"], p["q_reach"], p["q_rad"], p["q_y"], "EnemyChampion", False,
-                                 hooked)))
+                                 hooked), *wall))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Direction", "EnemyChampion", throw)
 
     # ------------------------------------------------------------------ skill2: W Titan's Wrath + E Riptide
