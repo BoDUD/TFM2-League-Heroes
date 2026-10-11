@@ -1,0 +1,253 @@
+{
+  "status": "pass",
+  "frames": 55,
+  "new_frames": 49,
+  "checks": {
+    "idle_unchanged": true,
+    "source_palette_colors": 27,
+    "run_head_horizontal_offset_constant": true,
+    "run_head_vertical_bob_at_most_one": true,
+    "impact_frames_ticks": {
+      "attack": [
+        5,
+        14
+      ],
+      "skill": [
+        4,
+        8
+      ],
+      "skill2": [
+        5,
+        24
+      ],
+      "ult": [
+        6,
+        19
+      ],
+      "possess": [
+        3,
+        10
+      ]
+    }
+  },
+  "motion_acceptance": "review_required; rigid pixel parts approximate joint articulation, not game-tested",
+  "animations": {
+    "idle": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1049,
+        1049,
+        1049,
+        1049,
+        1049,
+        1049
+      ],
+      "distinct_pivot_aligned_poses": 1,
+      "duration_ms": 960
+    },
+    "run": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1017,
+        1038,
+        1053,
+        1100,
+        1118,
+        1105,
+        1059,
+        1055
+      ],
+      "distinct_pivot_aligned_poses": 8,
+      "duration_ms": 865
+    },
+    "attack": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1049,
+        999,
+        1026,
+        917,
+        937,
+        1049
+      ],
+      "distinct_pivot_aligned_poses": 5,
+      "duration_ms": 400
+    },
+    "skill": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1031,
+        1113,
+        1101,
+        1017,
+        1017,
+        1013
+      ],
+      "distinct_pivot_aligned_poses": 5,
+      "duration_ms": 300
+    },
+    "skill2": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        965,
+        1095,
+        854,
+        875,
+        1191,
+        1024,
+        1023
+      ],
+      "distinct_pivot_aligned_poses": 7,
+      "duration_ms": 770
+    },
+    "ult": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1049,
+        1035,
+        960,
+        1132,
+        774,
+        748,
+        748,
+        1009
+      ],
+      "distinct_pivot_aligned_poses": 7,
+      "duration_ms": 600
+    },
+    "possess": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1023,
+        1101,
+        769,
+        1009
+      ],
+      "distinct_pivot_aligned_poses": 4,
+      "duration_ms": 400
+    },
+    "hit": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1049,
+        1049
+      ],
+      "distinct_pivot_aligned_poses": 2,
+      "duration_ms": 200
+    },
+    "dead": {
+      "checks": {
+        "size": true,
+        "exact_8x_grid": true,
+        "binary_alpha": true,
+        "approved_palette": true,
+        "frame_count": true,
+        "timing_and_pivots": true,
+        "no_pixels_below_sole": true,
+        "identical_translated_head": true,
+        "grip_anchor_outside_head": true,
+        "unused_cells_empty": true
+      },
+      "opaque_pixels_per_frame": [
+        1040,
+        961,
+        788,
+        743,
+        732,
+        709,
+        709,
+        709
+      ],
+      "distinct_pivot_aligned_poses": 6,
+      "duration_ms": 1470
+    }
+  }
+}
