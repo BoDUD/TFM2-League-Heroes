@@ -168,13 +168,47 @@ def carry(f, B, F, unit):
     g[gone] = 0
     solid = (g[..., 3] > 0) & ~is_(g, "0")
     near_solid = ndimage.convolve(solid.astype(int), np.ones((3, 3), int), mode="constant") > 0
-    g[outl & ~near_solid] = 0
+    # only the old anchor's own outline: squares next to what went (a visor's dark squares border only dark too)
+    g[outl & ~near_solid & ndimage.binary_dilation(gone, np.ones((3, 3)))] = 0
+    g = mend_gaps(g, top, hl)
     K.place(g, unit, (F[1], F[0]))
     lab2, n2 = ndimage.label(g[..., 3] > 0, np.ones((3, 3)))
     if n2 > 1:
         sizes = ndimage.sum(g[..., 3] > 0, lab2, range(1, n2 + 1))
         g[(lab2 != 1 + int(np.argmax(sizes))) & (lab2 > 0)] = 0
-    return K.finish(g, OUT, RN.PIVOT[1] + 11)
+    return tidy(g)
+
+
+def tidy(c):
+    """The outline closed round the silhouette (strips.complete_outline) and crumbs under 3 squares dropped - nothing
+    inside repainted: rigkit.finish took the visor's dark squares for orphan outline and filled them grey."""
+    out, _, _ = K.strips.complete_outline(c, color=OUT, dark=70, feet=RN.PIVOT[1] + 11)
+    out[RN.PIVOT[1] + 12:] = 0
+    for comp in K.pieces(out)[1:]:
+        if len(comp) < 3:
+            for y, x in comp:
+                out[y, x] = 0
+    return out
+
+
+def mend_gaps(g, top, hl):
+    """Squares the old shank left clear at the back of the helmet (open notches between the hood and the shank): the
+    body's mask closed (5x5) in a box round the helmet's back, each new square the commonest colour of its
+    neighbours, from the edge in."""
+    box = np.zeros(g.shape[:2], bool)
+    box[max(top - 3, 0):top + 16, max(hl - 8, 0):hl + 10] = True
+    op = g[..., 3] > 0
+    closed = ndimage.binary_closing(op, np.ones((5, 5)), iterations=1) & box & ~op
+    for _ in range(8):
+        if not closed.any():
+            break
+        for y, x in zip(*np.nonzero(closed)):
+            nb = [tuple(int(v) for v in g[yy, xx]) for yy, xx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1))
+                  if g[yy, xx, 3] and not np.array_equal(g[yy, xx, :3], OUT)]
+            if len(nb) >= 2:
+                g[y, x] = max(set(nb), key=nb.count)
+                closed[y, x] = False
+    return g
 
 
 def bounds(spec):
@@ -252,7 +286,7 @@ def build():
         K.put(c, anchor, DEAD_LEFT[k], RN.PIVOT[1] + 11 - anchor.shape[0])
         K.put(c, f, 0, 0)
         c[RN.PIVOT[1] + 12:] = 0
-        dead[sl] = K.finish(c, OUT, RN.PIVOT[1] + 11)
+        dead[sl] = tidy(c)
     # the idle: side-on like every action (the user: 「待机图也改成侧面的吧 不然太奇怪了」) - W+E's first frame (Codex's
     # braced stance, both boots flat, the anchor on his back), breathing: everything above the crotch (rows to
     # IDLE_CUT) sinks a row over the legs in frames 3-6
@@ -271,7 +305,7 @@ def build():
             up[:IDLE_CUT + 1] = stand[:IDLE_CUT + 1]
             fr[:IDLE_CUT + 1] = 0
             K.put(fr, up, 0, b)
-            fr = K.finish(fr, OUT, RN.PIVOT[1] + 11)
+            fr = tidy(fr)
         sheet[cell(k, len(IDLE_BREATH), cw, ch)] = fr
     strips["idle"] = sheet
     return strips, cells
