@@ -4,7 +4,7 @@ shrunk by whole rows and columns, every kept square the draft's own (tools/art/d
 tools/art/design_viego.py).
 
     python tools/art/design_nautilus.py --sheet OUT.png      # the cut options beside Codex's cut and the pack's heroes
-    python tools/art/design_nautilus.py --pick s35 [--check]  # write (or compare) the native design
+    python tools/art/design_nautilus.py --pick p35 [--check]  # write (or compare) the native design
 
 How it came about (2026-10-11): the user picked Codex's picture A (codex_picture/nautilus-model-A.png: League's idle,
 the anchor on his back). Codex's step 1 (codex_model/) came back with its own 35-row A / B cut from a coarse draft
@@ -13,6 +13,8 @@ The draft itself reads back as 67 x 83 squares; the helmet's hood tops row HELME
 to soles); the anchor rises 21 rows above the helmet - at 35 rows that is 12 above, too tall (「注意模型不要过大」).
 Options (OPTIONS): `p<N>` = every row in proportion (N rows helmet to soles); `s<N>` = the body's rows (HELMET..82) to N
 and the rows above the helmet (the anchor's crown and flukes) to TOP[N], so the anchor stands lower above him.
+The user first picked s35, then (「你这头也太大了 不奇怪吗」, region cuts shrinking the helmet tried and dropped) settled
+on **p35** (39 x 48, the anchor 11 rows above the helmet): 「用这个吧 感觉这个最还原」.
 Steps:
   1. the raw read back on its own grid (the skill's regrid.py, alpha >= 128);
   2. every square one of K colours of the read-back's own (design_varus.kmeans: CIELAB, farthest-point start, seed 1);
@@ -50,6 +52,7 @@ HOLES = ((27, 28), (30, 31), (33, 34))  # the helmet's three vent holes: 2x2 squ
 HOLE_COLS = (38, 39)
 HOLE_BOX = (27, 35, 37, 40)          # rows / columns (inclusive) holding the holes' dark squares
 OPTIONS = ("p35", "s35", "s38", "s32")
+
 TOP = {32: 6, 35: 7, 38: 8}         # s<N>: rows kept above the helmet (the anchor's crown and flukes)
 SOLE_ROW, MID_COL, FEET_ROWS = 99, 64, 3
 NEIGHBOURS = ["alistar", "blitzcrank", "leona", "thresh", "shen", "viego"]
@@ -122,8 +125,8 @@ def build(option):
     fig[m, :3] = pal[small[m]]
     fig[m, 3] = 255
     keep = np.zeros(m.shape, bool)
-    fr = [rows.index(r) for r in FACE_ROWS]
-    fc = [cols.index(c) for c in FACE_COLS]
+    fr = [rows.index(r) for r in FACE_ROWS if r in rows]
+    fc = [cols.index(c) for c in FACE_COLS if c in cols]
     keep[fr[0]:fr[-1] + 1, fc[0]:fc[-1] + 1] = True
     outline = tuple(int(v) for v in pal[int(np.argmin((pal * [0.299, 0.587, 0.114]).sum(1)))])
     can = np.pad(fig, ((1, 1), (1, 1), (0, 0)))
