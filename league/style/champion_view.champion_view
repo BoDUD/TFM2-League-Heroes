@@ -994,8 +994,8 @@
     },
     "league_talon": {
       "face": {
-        "x": 7,
-        "y": -37
+        "x": 9,
+        "y": -39
       },
       "center": {
         "x": 0,
@@ -1003,7 +1003,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -11
+        "y": -9
       }
     },
     "league_draven": {

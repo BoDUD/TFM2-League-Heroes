@@ -102,7 +102,9 @@ fill_holes once more after the head is pasted: a head turned a quarter (his vaul
 and the neck. "weapon_off": {"<tag>": [frame numbers]} drops the weapon part in those frames (his attack 4 and W 2,
 where League's blade hangs right under the face). "tilt": {"<tag>": {"<frame>": degrees}} sets a frame's head turn
 where League's head joint leans less than the body shows (his Q dive goes face-down). "head": {"front": true}
-pastes the head over the weapon as well, so a blade held at the chin never covers the face.
+pastes the head over the weapon as well, so a blade held at the chin never covers the face. "head": {"joint":
+[x, y]} gives League's head joint's place inside the drawn head instead of taking it from League's first idle head:
+his head grew a column and two rows (2026-10-11, 「帽子改大点」) and stays where the strips have it (4.8 / 8.8 + 1 / 2).
 """
 import argparse
 import json
@@ -678,6 +680,8 @@ def main():
         _, _, league_head, _, _, first = next(frames("idle"))
         ys, xs = np.nonzero(league_head)
         jx, jy = first[at][0] - xs.min() // Z, first[at][1] - ys.min() // Z
+        if rs["head"].get("joint"):
+            jx, jy = rs["head"]["joint"]
     for tag, rows in table["tags"].items():
         cols, nrows = layout(len(rows))
         sheet = np.zeros((nrows * h, cols * w, 4), np.uint8)
