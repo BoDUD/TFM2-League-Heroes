@@ -17,8 +17,8 @@ tools/art/design_zeri.py) with only what the action moves moved, nothing resampl
   crouches and the landings (lowered(): everything above the hips comes down over them); lifted for E's hop and R's
   spring; leant by moving the head rows and the chest rows whole (lean()).
 - the run (8 frames, league_caitlyn's way): the upper body the idle's with the rifle held level at the hip (as League's
-  Zeri runs), two squares ahead of the hips (leaning into the run), stepping down a row as a foot lands; the legs one leg's eight phases drawn square by square at one
-  length in the leggings' colours on the design's own flat boots, the far leg four phases on and five squares
+  Zeri runs), the feet stepping behind the hips (leaning into the run), stepping down a row as a foot lands; the legs one leg's eight phases drawn square by square at one
+  length in the leggings' colours on the design's own flat boots, the far leg four phases on and three squares
   right so the feet cross every other step (RUN_PHASES); E's lunge and R's hop are strides of it.
 - the death (League's): struck back, sinking to her knees (whole shin rows out, the boots kept), then down on her face:
   the figure without the rifle a quarter turn clockwise (League falls forward), the rifle lying level by her.
@@ -93,32 +93,33 @@ SHIN_ROWS = (30, 32)             # the rows the knees fold away (the death's kne
 # made her legs change length frame to frame (the leg swings in depth: a shin 3 to 8 squares on screen) and the legs on
 # League's angles came out thick and folded - the user: 「这腿肯定是有大问题的」「腿变形啊」「我要的是模型不变形自然的交叉步
 # 走路」「现在好多英雄都已经做好了啊 参考都不会吗」. So one leg is set in eight phases (RUN_PHASES: where its ankle is),
-# its knee solved at the same thigh and shin length in every frame (RUN_LEG), and it is drawn square by square two
-# squares wide in the leggings' colours (lit left, dark right: the idle's 'da'), the tan patch on the near knee, the
+# its knee solved at the same thigh and shin length in every frame (RUN_LEG), and it is drawn square by square in the
+# leggings' colours (lit left, dark right: the idle's 'da'; the thigh full at the hip, RUN_THIGH), the tan patch on the near knee, the
 # design's own whole boot flat on the ankle; the far leg is the same phases four on, RUN_FAR squares right, so the feet
 # cross every other step; the legs stay on the ground and the body steps down a row as a foot lands (RUN_STEP), the
 # hips with it; the far leg drawn first with its outline ring, the near one over it, the body (the coat's panels) over
 # both
-RUN_HIP = (1.0, -3.0)           # the near hip, squares from the standing point: under the belt, the shorts' left side
-# (the hips move with the waist RUN_LEAN brings forward - left where they were, the legs hung from the back half of
-# the waist and a stretch of it stood empty: 「泽丽的腰部是不是过宽啊 所以走路没铺满 腿没对上腰部 空出一大截」)
-RUN_FAR = 5.0                   # the far leg: the near leg's drawing this many squares right (the shorts' right side)
+RUN_HIP = (-1.0, -3.0)          # the near hip, squares from the standing point (under the belt, the shorts' left)
+RUN_FAR = 3.0                   # the far leg: the near leg's drawing this many squares right
 RUN_LEG = (4.3, 4.3)            # thigh and shin (hip -> knee -> the boot's cuff), the same in every frame
+RUN_THIGH = (4, 2)              # the thigh's width at the hip and at the knee: full at the hip as the design's far thigh
+# ('ddda'), so the two thighs fill the waist under the belt; the shin two squares as the design's ('da')
 RUN_CUFF = 5                    # the boot's cuff row with the boot on the ground (squares under the standing point)
 RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the body (and the hips) come down: as a foot lands, up as they pass
 # one leg's eight phases: its ankle (the cuff's middle) in squares from the standing point, and how far it is lifted
-RUN_PHASES = [(+2.0, 0),        # 1 the heel landing ahead of the hip
-              (0.0, 0),         # 2 planted, the body coming over it
-              (-2.0, 0),        # 3 planted, sliding back under her
-              (-4.5, 1),        # 4 pushing off behind, the heel up
-              (-6.0, 3),        # 5 the heel lifting behind, the knee bent
-              (-5.5, 4),        # 6 the heel up behind (the far boot shows behind the near leg)
-              (-0.5, 3.5),      # 7 swung through, the knee forward, the foot tucked under her
-              (+2.0, 1.5)]      # 8 reaching forward, about to land
-# the upper body (with the levelled rifle) two squares ahead of the hips, as one piece: standing straight up over legs
-# that step out in front of her she walked with her hips pushed forward (the user: 「现在泽丽给我的感觉就是挺着腰走路的
-# 这对吗」); moved whole, nothing in it is cut or slanted
-RUN_LEAN = 2
+RUN_PHASES = [(0.0, 0),         # 1 the heel landing just ahead of the hip
+              (-2.0, 0),        # 2 planted, the body coming over it
+              (-4.0, 0),        # 3 planted, sliding back under her
+              (-6.5, 1),        # 4 pushing off behind, the heel up
+              (-8.0, 3),        # 5 the heel lifting behind, the knee bent
+              (-7.5, 4),        # 6 the heel up behind (the far boot shows behind the near leg)
+              (-2.5, 3.5),      # 7 swung through, the knee forward, the foot tucked under her
+              (0.0, 1.5)]       # 8 reaching forward, about to land
+# (the feet step behind the hips, so the body is ahead of them and she leans into the run, the waist and the hips where
+# the idle has them. Standing straight up over legs that stepped out in front of her she walked with her hips pushed
+# forward - 「现在泽丽给我的感觉就是挺着腰走路的」; moving the upper body forward instead left the hips behind the waist -
+# 「腿没对上腰部 空出一大截」; spreading the hips to the waist's edges splayed the legs - 「你这样一改就腿大变形」. Thin
+# thighs under the shorts' hem had left the waist looking too wide for them: 「泽丽的腰部是不是过宽啊」)
 LEGGINGS = ("#73234B", "#45183A")                    # lit, dark: the design's leggings
 PATCH = ("#F2CC8F", "#AC8157")                       # the near knee's tan patch
 # what stays of the design under the belt in the run (table rows: (first, last) columns): the shorts' hem, the coat's
@@ -259,14 +260,16 @@ class Rig:
         knee = k1 if k1[0] >= k2[0] else k2                  # the knee bends forward
         lit, dark = (K.rgb(h) for h in LEGGINGS)
         cells = {}
-        for p0, p1 in ((hip, knee), (knee, ank)):
+        for p0, p1, (w0, w1) in ((hip, knee, RUN_THIGH), (knee, ank, (2, 2))):
             n = int(max(abs(p1[0] - p0[0]), abs(p1[1] - p0[1])) * 4) + 1
             steep = abs(p1[1] - p0[1]) >= abs(p1[0] - p0[0])
             for i in range(n + 1):
                 x = p0[0] + (p1[0] - p0[0]) * i / n
                 y = p0[1] + (p1[1] - p0[1]) * i / n
                 xi, yi = int(math.floor(x)), int(math.floor(y))
-                cells.setdefault((xi, yi), lit)
+                w = int(round(w0 + (w1 - w0) * i / n))       # the thigh full at the hip, two squares at the knee
+                for j in range(w - 1):
+                    cells.setdefault((xi - j, yi) if steep else (xi, yi - j), lit)
                 cells.setdefault((xi + 1, yi) if steep else (xi, yi + 1), dark)
         if leg == "near":                     # the tan patch on her near knee (the design's)
             kx, ky = int(math.floor(knee[0])), int(math.floor(knee[1]))
@@ -289,10 +292,8 @@ class Rig:
         c = np.zeros_like(self.a)
         K.put(c, self.run_leg((k + 4) % 8, RUN_FAR, "far", step), 0, 0)      # the far leg first
         K.put(c, self.run_leg(k, 0.0, "near", step), 0, 0)
-        up = np.zeros_like(self.a)
-        K.put(up, K.shifted(body, 0, step), 0, 0)
-        self.level_arm(up, step)
-        K.put(c, K.shifted(up, RUN_LEAN, 0), 0, 0)
+        K.put(c, K.shifted(body, 0, step), 0, 0)
+        self.level_arm(c, step)
         c[SOLES + 1:] = 0
         return c
 
