@@ -9,9 +9,10 @@ hanging arm stuck out to the image left), fired the rifle from the hip (a quarte
 legs to and fro for the run and laid the death down in one jump. The user: 「有问题的地方你帮我修复 模型穿模 色素多
 模型变形之类的 完美了再喊我review」. Every frame here is the design (assets/source/native/zeri_native.png,
 tools/art/design_zeri.py) with only what the action moves moved, nothing resampled:
-- the rifle unit (RIFLE: the rifle with the hand gripping it) is one rigid piece: upright as drawn, or a quarter turn
-  clockwise about the grip (GRIP) so the rifle lies level to the image right at shoulder height (League's Q holds it
-  across the chest); the glove and the forearm under the hand and the free arm at the image left never move.
+- the arm unit (RIFLE: the rifle with the hand gripping it, FOREARM: the glove, the cuff and the elbow under it) is one
+  rigid piece: upright as drawn, or a quarter turn clockwise about the elbow (ELBOW) so the forearm reaches forward and
+  the rifle lies level at the hip, clear of the hair and the face (League's Q fires from the hip); the free arm at the
+  image left never moves.
 - the whole figure moves: a column back for the recoil and the hit; the upper body lowered a row over the legs for the
   crouches and the landings (lowered(): everything above the hips comes down over them); lifted for E's hop and R's
   spring; leant by moving the head rows and the chest rows whole (lean()).
@@ -45,7 +46,7 @@ SOLES = 99
 OX, OY = 53, 60                  # the 24 x 40 design table on the canvas (design40/zeri40_final.txt)
 CELL, CELL_PIVOT = (96, 80), (48, 64)
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_back", "ult", "hit", "dead"]
-MS = {"idle": [200] * 6, "run": [107] * 7 + [106], "attack": [67, 66, 100, 84, 83], "skill": [90, 90, 87, 117, 116],
+MS = {"idle": [125] * 8, "run": [107] * 7 + [106], "attack": [67, 66, 100, 84, 83], "skill": [90, 90, 87, 117, 116],
       "skill2": [75] * 4, "skill2_back": [75] * 4, "ult": [75, 75, 90, 93], "hit": [100, 100],
       "dead": [100, 100, 100, 120, 150, 200, 300, 400]}
 
@@ -61,8 +62,11 @@ RIFLE_ROWS = {0: (19, 21), 1: (19, 22), 2: (19, 23), 3: (19, 23), 4: (18, 23), 5
               8: (17, 23), 9: (17, 23), 10: (16, 22), 11: (16, 21), 12: (16, 20), 13: (16, 21), 14: (16, 22),
               15: (16, 18), 16: (16, 18), 17: (16, 18)}
 RIFLE_EXTRA = [(15, 20), (15, 21), (15, 22), (16, 21), (16, 22), (16, 23)]   # the hand's knuckles, the grip's end
-GRIP = (T(14, 20)[0] + 0.5, T(14, 20)[1] + 0.5)   # the middle of the hand: the quarter turn's centre
-LEVEL_AT = (1, 0)                # the levelled rifle set this far off the grip, its stock clear of the face
+GRIP = (T(14, 20)[0] + 0.5, T(14, 20)[1] + 0.5)   # the middle of the hand (the rifle alone turns about it)
+# the forearm under the hand (the maroon glove, the white cuff, the elbow out of the coat's sleeve): with the rifle and
+# the hand it makes the arm unit, turned a quarter turn clockwise about the elbow so the rifle lies level at the hip
+FOREARM = [(15, 19), (16, 19), (16, 20), (17, 19), (17, 20), (18, 19), (18, 20), (19, 18), (19, 19), (20, 18)]
+ELBOW = (T(20, 18)[0] + 0.5, T(20, 18)[1] + 0.5)
 HEAD_BOX = (0, 16, 0, 15)        # table rows r0..r1, columns c0..c1: the buns, the hair, the face, the neck
 LEG_TOP = 28                     # the legs: the table rows from here down
 BODY_KEEP = {28: [(0, 3)], 29: [(0, 2)]}          # the free hand's fingers stay with the body
@@ -72,6 +76,9 @@ LEGS = {"near": (0, 9, 28, 33), "far": (12, 22, 28, 33)}
 SWING = [2, 1, 0, -1, -2, -1, 1, 2]                  # near leg's boot offset per frame (+ forward); the far leg opposite
 LIFT = [0, 0, 0, 0, 1, 2, 1, 0]
 BOB = [1, 0, 0, 1, 1, 0, 0, 1]
+# the idle: her own breath (import_native's shared cut would run through the upright rifle): everything above the legs
+# sinks 0 0 1 1 1 1 0 0 rows over them (lowered), as league_viego's
+BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
 
 
 def table_mask(rows=None, box=None, cells=None):
@@ -94,6 +101,8 @@ class Rig:
         self.out = self.D.outline
         op = self.a[..., 3] > 0
         self.rifle_m = table_mask(rows=RIFLE_ROWS, cells=RIFLE_EXTRA) & op
+        self.forearm_m = table_mask(cells=FOREARM) & op & ~self.rifle_m
+        self.arm_m = self.rifle_m | self.forearm_m
         self.head_m = table_mask(box=HEAD_BOX) & op & ~self.rifle_m
         legs = np.zeros((128, 128), bool)
         legs[OY + LEG_TOP:] = True
@@ -107,6 +116,7 @@ class Rig:
             m[OY + LEG_TOP:, OX + c0:OX + c1 + 1] = True
             self.leg_m[side] = m & self.legs_m
         self.rifle = K.Part.from_canvas(self.a, self.rifle_m, GRIP)
+        self.arm = K.Part.from_canvas(self.a, self.arm_m, ELBOW)
 
     # ---------------------------------------------------------------------------------------- building blocks
     def layer(self, m):
@@ -117,10 +127,11 @@ class Rig:
     def body(self, rifle=True):
         m = (self.a[..., 3] > 0) & ~self.legs_m
         if not rifle:
-            m &= ~self.rifle_m
+            m &= ~self.arm_m
         return self.layer(m)
 
     def rifle_level(self):
+        """The rifle alone, level (the death's rifle on the ground)."""
         return K.rot90(self.rifle, 1)
 
     def lowered(self, upper, legs, dy):
@@ -149,9 +160,9 @@ class Rig:
     def pose(self, rifle="up", dx=0, dy=0, low=0, lean=(0, 0), legs=None):
         upper = self.body(rifle=False)
         if rifle == "up":
-            K.put(upper, self.layer(self.rifle_m), 0, 0)
+            K.put(upper, self.layer(self.arm_m), 0, 0)
         elif rifle == "level":
-            K.place(upper, self.rifle_level(), (GRIP[0] + LEVEL_AT[0], GRIP[1] + LEVEL_AT[1]))
+            K.place(upper, K.rot90(self.arm, 1), ELBOW)
         if lean != (0, 0):
             upper = self.lean(upper, *lean)
         leg_layer = self.layer(self.legs_m) if legs is None else legs
@@ -200,7 +211,7 @@ class Rig:
     def build(self, tag):
         P = self.pose
         if tag == "idle":
-            return [P() for _ in range(6)]
+            return [P(low=n) for n in BREATH]
         if tag == "run":
             return [self.run_frame(k) for k in range(8)]
         if tag == "attack":
@@ -213,11 +224,11 @@ class Rig:
         if tag == "skill2_back":
             return [P(low=1), P(dx=-2, dy=-2, legs=self.legs(1, 1)), P(dx=-1, low=1), P()]
         if tag == "ult":
-            return [P(low=1), P(dy=-2, rifle="level", legs=self.legs(-1, 1)), P(low=1, rifle="level"), P()]
+            return [P(low=1), P(dy=-2, legs=self.legs(-1, 1)), P(low=1, rifle="level", dx=-1), P()]
         if tag == "hit":
-            return [P(dx=-2, lean=(-1, 0)), P(dx=-1)]
+            return [P(dx=-2), P(dx=-1)]
         if tag == "dead":
-            return [P(dx=-1, lean=(-1, 0)), P(dx=-1, low=1), self.kneel(2, dx=-1), self.kneel(3, dx=-1),
+            return [P(dx=-1), P(dx=-1, low=1), self.kneel(2, dx=-1), self.kneel(3, dx=-1),
                     self.lying(), self.lying(), self.lying(), self.lying()]
         raise KeyError(tag)
 
@@ -243,7 +254,15 @@ class Rig:
         out = []
         for f in frames:
             keep = None if tag == "dead" else self.head_keep(f)
-            out.append(K.finish(f, self.out, SOLES, keep=keep))
+            g = K.finish(f, self.out, SOLES, keep=keep)
+            # finish leaves the kept head's light edges open (complete_outline skips light squares it may not touch):
+            # the outline goes outside them too - only clear squares are filled
+            g, _, _ = K.strips.complete_outline(g, color=tuple(self.out), feet=SOLES)
+            for h in K.holes(g):
+                if len(h) <= 6:
+                    for y, x in h:
+                        g[y, x] = (*self.out, 255)
+            out.append(g)
         return out
 
 

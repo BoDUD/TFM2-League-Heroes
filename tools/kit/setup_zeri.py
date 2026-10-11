@@ -38,7 +38,10 @@ R = "<#ef5350ff>"      # crowd control
 Wh = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 2, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": 0}}
+# face: tfm2_ase.py face on the final sprite (crown 38 px above the feet); banpick_center: her idle tops at -40
+# (bun tips, the rifle's electrodes), so by the card rule y = -39 - top would be +1 - 0 (as league_kayle) keeps
+# the card from scaling and clips nothing
 
 
 def mag(d, r):
