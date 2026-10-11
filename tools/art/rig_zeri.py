@@ -119,9 +119,11 @@ RUN_PHASES = [(+2.0, 0),        # 1 the heel landing ahead of the hip
 RUN_LEAN = 2
 LEGGINGS = ("#73234B", "#45183A")                    # lit, dark: the design's leggings
 PATCH = ("#F2CC8F", "#AC8157")                       # the near knee's tan patch
-# what stays of the design under the belt in the run (table rows: (first, last) columns): the coat's two panels and
-# the hanging hand; the boots (rows 33-39) are cut whole with their outline
-RUN_KEEP = {25: [(0, 9), (17, 19)], 26: [(0, 9), (17, 20)], 27: [(0, 9)], 28: [(0, 3)], 29: [(0, 2)]}
+# what stays of the design under the belt in the run (table rows: (first, last) columns): the shorts' hem, the coat's
+# two panels and the hanging hand; the boots (rows 33-39) are cut whole with their outline
+RUN_KEEP = {25: [(0, 19)], 26: [(0, 9), (17, 20)], 27: [(0, 9)], 28: [(0, 3)], 29: [(0, 2)]}
+# (row 25 kept across: the shorts' hem under the belt - cut away, a raised leg left a square of ground showing
+# between the other thigh and the coat's panel right under the belt: 「我怎么发现腿抬高时这里会略微变形」)
 RUN_BOOTS = {"near": (33, 39, 0, 8), "far": (33, 39, 13, 22)}
 # the idle: her own breath (import_native's shared cut would run through the upright rifle): everything above the legs
 # sinks 0 0 1 1 1 1 0 0 rows over them (lowered), as league_viego's
@@ -384,6 +386,16 @@ class Rig:
                     for y, x in h:
                         g[y, x] = (*col, 255)
             g[K.orphan_outline(g, tuple(self.out))] = 0       # outline squares touching no colour: stray
+            if tag == "run":
+                # a one-square dent left between a thigh and a coat panel under the belt (three sides closed) takes the
+                # outline: a square of ground there read as a bite out of her hips (「腿抬高时这里会略微变形」)
+                for _ in range(2):
+                    op = g[..., 3] > 0
+                    for y in range(legs_y, SOLES):
+                        for x in range(OX - 3, OX + 25):
+                            near = int(op[y - 1, x]) + int(op[y + 1, x]) + int(op[y, x - 1]) + int(op[y, x + 1])
+                            if not op[y, x] and near >= 3:
+                                g[y, x] = (*self.out, 255)
             out.append(g)
         return out
 
