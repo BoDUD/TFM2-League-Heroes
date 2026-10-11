@@ -16,10 +16,10 @@ tools/art/design_zeri.py) with only what the action moves moved, nothing resampl
 - the whole figure moves: a column back for the recoil and the hit; the upper body lowered a row over the legs for the
   crouches and the landings (lowered(): everything above the hips comes down over them); lifted for E's hop and R's
   spring; leant by moving the head rows and the chest rows whole (lean()).
-- the run (League's, 8 frames): the upper body the idle's with the rifle held level at the hip (as League's Zeri runs),
-  bobbing with League's hips; the legs drawn on League's thigh and shin angles in the leggings' colours with the design's whole boots as the
-  feet, the hips under the belt so the steps cross (league_shen's way, RUN_JOINTS); E's lunge and R's hop are strides
-  of it.
+- the run (8 frames, league_caitlyn's way): the upper body the idle's with the rifle held level at the hip (as League's
+  Zeri runs), stepping down a row as a foot lands; the legs one leg's eight phases drawn square by square at one
+  length in the leggings' colours on the design's own flat boots, the far leg four phases on and three squares
+  right so the feet cross every other step (RUN_PHASES); E's lunge and R's hop are strides of it.
 - the death (League's): struck back, sinking to her knees (whole shin rows out, the boots kept), then down on her face:
   the figure without the rifle a quarter turn clockwise (League falls forward), the rifle lying level by her.
 Each frame is finished round what moved (rigkit.finish: the outline closed on moved edges, pinholes filled, stray
@@ -89,20 +89,31 @@ HEAD_BOX = (0, 16, 0, 15)        # table rows r0..r1, columns c0..c1: the buns, 
 LEG_TOP = 28                     # the legs: the table rows from here down
 BODY_KEEP = {28: [(0, 3)], 29: [(0, 2)]}          # the free hand's fingers stay with the body
 SHIN_ROWS = (30, 32)             # the rows the knees fold away (the death's kneel)
-# the run (the user: 「这跑动姿势对吗 交叉步都没？？」「跑步时腿别变形 之前慎什么都发生过最后处理完美的吧」): league_shen's
-# and league_viego's way - the legs run League's run (RUN_JOINTS: tools/lol/pose_joints.py on poses.json, its 8 frames,
-# the stride not squeezed), each DRAWN on League's thigh and shin angles in the design's leggings colours (rigkit.bone_arm:
-# the same shape in every frame, never a turned piece), the hips brought in under the belt so the steps cross; the feet
-# are the design's own whole boots, always flat; a foot League has on the ground stands on the soles (rigkit.leg_chain
-# solves the knee); the body bobs with League's hips (0-RUN_BOB rows; lower when a planted foot is out of reach); the
-# near leg (League's R, nearer the camera) drawn over the far one, the coat's panels over both
-RUN_JOINTS = os.path.join(ROOT, "assets", "source", "zeri", "run_joints.json")
-RUN_HIPS = {"near": OX + 9.0, "far": OX + 13.0}     # the hips' columns under the belt (canvas x)
-RUN_HIP_Y = OY + Rw(23.5)                                # their row: the leggings split under the belt
-RUN_LEG = (5.8, 5.2)                                 # thigh and shin lengths (hip -> knee -> the boot's top)
-RUN_PLANT_TOE = 8.5                                  # a League toe this low (game px under its pivot) stands
-RUN_RISE = 0.3       # League's Zeri hops (her hips rise ~12 px at our size): the body follows them at this share
-LEGGINGS = ("#73234B", "#73234B", "#45183A")        # lit, mid, dark: the design's leggings
+# the run: league_caitlyn's way (tools/art/fix_caitlyn_run_v2.py, the run the user approved). League's run traced here
+# made her legs change length frame to frame (the leg swings in depth: a shin 3 to 8 squares on screen) and the legs on
+# League's angles came out thick and folded - the user: 「这腿肯定是有大问题的」「腿变形啊」「我要的是模型不变形自然的交叉步
+# 走路」「现在好多英雄都已经做好了啊 参考都不会吗」. So one leg is set in eight phases (RUN_PHASES: where its ankle is),
+# its knee solved at the same thigh and shin length in every frame (RUN_LEG), and it is drawn square by square two
+# squares wide in the leggings' colours (lit left, dark right: the idle's 'da'), the tan patch on the near knee, the
+# design's own whole boot flat on the ankle; the far leg is the same phases four on, RUN_FAR squares right, so the feet
+# cross every other step; the legs stay on the ground and the body steps down a row as a foot lands (RUN_STEP), the
+# hips with it; the far leg drawn first with its outline ring, the near one over it, the body (the coat's panels) over
+# both
+RUN_HIP = (-1.0, -3.0)          # the near hip, squares from the standing point (under the belt, between the panels)
+RUN_FAR = 3.0                   # the far leg: the near leg's drawing this many squares right
+RUN_LEG = (4.3, 4.3)            # thigh and shin (hip -> knee -> the boot's cuff), the same in every frame
+RUN_CUFF = 5                    # the boot's cuff row with the boot on the ground (squares under the standing point)
+RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the body (and the hips) come down: as a foot lands, up as they pass
+# one leg's eight phases: its ankle (the cuff's middle) in squares from the standing point, and how far it is lifted
+RUN_PHASES = [(+3.0, 0),        # 1 the heel landing ahead of the hip
+              (+1.0, 0),        # 2 planted, the body coming over it
+              (-1.0, 0),        # 3 planted, sliding back under her
+              (-3.5, 1),        # 4 pushing off behind, the heel up
+              (-5.0, 3),        # 5 the heel lifting behind, the knee bent
+              (-4.5, 4),        # 6 the heel up behind (the far boot shows behind the near leg)
+              (+0.5, 3.5),      # 7 swung through, the knee forward, the foot tucked under her
+              (+3.0, 1.5)]      # 8 reaching forward, about to land
+LEGGINGS = ("#73234B", "#45183A")                    # lit, dark: the design's leggings
 PATCH = ("#F2CC8F", "#AC8157")                       # the near knee's tan patch
 # what stays of the design under the belt in the run (table rows: (first, last) columns): the coat's two panels and
 # the hanging hand; the boots (rows 33-39) are cut whole with their outline
@@ -226,48 +237,52 @@ class Rig:
         self._run = (body, boots)
         return self._run
 
-    def run_frame(self, k):
-        import json
+    def run_leg(self, phase, dx, leg, step):
+        """One leg at a phase: the knee solved at RUN_LEG, two squares wide along hip -> knee -> ankle, the design's
+        boot flat with its cuff's middle on the ankle, one outline ring round both."""
         import math
-        body, boots = self.run_pieces()
-        with open(RUN_JOINTS, encoding="utf-8") as f:
-            J = json.load(f)
-        hips = [(fr["joints"]["L_Hip"][1] + fr["joints"]["R_Hip"][1]) / 2 for fr in J]
-        j = J[k]["joints"]
-        air = J[k]["air"] > 0
+        _, boots = self.run_pieces()
+        hip = (PIVOT[0] + RUN_HIP[0] + dx + 0.5, PIVOT[1] + RUN_HIP[1] + step + 0.5)
+        ax, lift = RUN_PHASES[phase]
+        ank = (PIVOT[0] + ax + dx + 0.5, PIVOT[1] + RUN_CUFF + 0.5 - lift)
         lt, ls = RUN_LEG
-        want = {}
-        for leg, side in (("near", "R"), ("far", "L")):
-            H, Kn, Fo = (j[f"{side}_{n}"][:2] for n in ("Hip", "KneeLower", "Foot"))
-            th, sh = K.bone_angle(H, Kn), K.bone_angle(Kn, Fo)
-            ax = RUN_HIPS[leg] + lt * math.sin(math.radians(th)) + ls * math.sin(math.radians(sh))
-            want[leg] = (th, sh, j[f"{side}_Toe"][1] >= RUN_PLANT_TOE and not air, ax)
-        bob = int(round((hips[k] - max(hips)) * RUN_RISE))         # 0 at her lowest hips, negative = up
-        for leg, (th, sh, planted, ax) in want.items():
-            if planted:
-                bob = max(bob, K.reach_bob((RUN_HIPS[leg], RUN_HIP_Y), ax, SOLES + 1 - boots[leg][2], lt, ls))
-        shades = tuple(K.rgb(h) for h in LEGGINGS)
-        patch = tuple(K.rgb(h) for h in PATCH)
+        k1, _ = K.elbow(hip, ank, lt, ls, bend=-1)
+        k2, _ = K.elbow(hip, ank, lt, ls, bend=1)
+        knee = k1 if k1[0] >= k2[0] else k2                  # the knee bends forward
+        lit, dark = (K.rgb(h) for h in LEGGINGS)
+        cells = {}
+        for p0, p1 in ((hip, knee), (knee, ank)):
+            n = int(max(abs(p1[0] - p0[0]), abs(p1[1] - p0[1])) * 4) + 1
+            steep = abs(p1[1] - p0[1]) >= abs(p1[0] - p0[0])
+            for i in range(n + 1):
+                x = p0[0] + (p1[0] - p0[0]) * i / n
+                y = p0[1] + (p1[1] - p0[1]) * i / n
+                xi, yi = int(math.floor(x)), int(math.floor(y))
+                cells.setdefault((xi, yi), lit)
+                cells.setdefault((xi + 1, yi) if steep else (xi, yi + 1), dark)
+        if leg == "near":                     # the tan patch on her near knee (the design's)
+            kx, ky = int(math.floor(knee[0])), int(math.floor(knee[1]))
+            for q, col in (((kx, ky), PATCH[0]), ((kx + 1, ky), PATCH[1]), ((kx, ky + 1), PATCH[1])):
+                if q in cells:
+                    cells[q] = K.rgb(col)
+        g = np.zeros_like(self.a)
+        for (x, y), col in cells.items():
+            g[y, x] = (*col, 255)
+        boot, (mid, top), _ = boots[leg]
+        K.put(g, K.shifted(boot, int(round(ank[0] - mid)), int(round(ank[1] - 0.5 - top))), 0, 0)
+        m = g[..., 3] > 0
+        p = np.pad(m, 1)
+        g[~m & (p[2:, 1:-1] | p[:-2, 1:-1] | p[1:-1, 2:] | p[1:-1, :-2])] = (*self.out, 255)
+        return g
+
+    def run_frame(self, k):
+        body, _ = self.run_pieces()
+        step = RUN_STEP[k]
         c = np.zeros_like(self.a)
-        for leg in ("far", "near"):
-            th, sh, planted, ax = want[leg]
-            hip = (RUN_HIPS[leg], RUN_HIP_Y + bob)
-            boot, tp, bh = boots[leg]
-            knee, ank, th, sh, grounded = K.leg_chain(hip, th, sh, lt, ls, SOLES + 1 - bh, planted)
-            g = np.zeros_like(self.a)
-            K.bone_arm(g, hip, knee, ank, {"upper": [(0, 1, shades)], "fore": [(0, 1, shades)]}, width=(3.4, 3.0),
-                       outline=tuple(self.out))
-            if leg == "near":                 # the tan patch on her near knee (the design's)
-                kx, ky = int(math.floor(knee[0])), int(math.floor(knee[1]))
-                for y, x, col in ((ky, kx, patch[0]), (ky, kx - 1, patch[0]), (ky + 1, kx, patch[1]),
-                                  (ky + 1, kx - 1, patch[1])):
-                    if g[y, x, 3] and tuple(g[y, x, :3]) != tuple(self.out):
-                        g[y, x] = (*col, 255)
-            top = (ank[0], SOLES + 1 - bh) if grounded else ank
-            K.put(g, K.shifted(boot, int(round(top[0] - tp[0])), int(round(top[1] - tp[1]))), 0, 0)
-            K.put(c, g, 0, 0)
-        K.put(c, K.shifted(body, 0, bob), 0, 0)
-        self.level_arm(c, bob)
+        K.put(c, self.run_leg((k + 4) % 8, RUN_FAR, "far", step), 0, 0)      # the far leg first
+        K.put(c, self.run_leg(k, 0.0, "near", step), 0, 0)
+        K.put(c, K.shifted(body, 0, step), 0, 0)
+        self.level_arm(c, step)
         c[SOLES + 1:] = 0
         return c
 
