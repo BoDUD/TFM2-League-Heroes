@@ -13,6 +13,14 @@ Syndra): a draft read on its own grid, its own 24 colours, whole rows and column
 face kept, only the outline closed; the figure placed with its soles on row 99 and the middle of its feet on column 64.
 The user picked Codex's own codex_B (32 x 42), then asked for a smaller head, a smaller figure and no muddy spots: polish()
 gave p35c (28 x 36), Codex redrew it clean (step 1b) and that redraw is final: --final copies it (plus FIXES).
+
+Then (2026-10-11) the user: 「而且我感觉有点丑 头有点大 身体做的不好」 and gave their own picture of her
+(assets/source/zeri/user_ref/zeri_user.png): 「你拿这版泽丽 一点点还原吧 还原到完美」, 40 rows. The picture was
+block-voted at 40 rows (each square its commonest non-black colour, outline only where half of it is ink), the face
+kept at the picture's own size and every detail kept, then finished square by square (design40/zeri40_v5.txt; the user:
+「眼睛嘴巴做的不太像泽丽 其他都挺好的」). Codex redrew the face box alone (rows 8-15 x columns 7-14, pack
+tools/art/pack_zeri_face.py, delivery codex_face/); the user picked take C 「深绿瞳+收敛嘴」 -> design40/zeri40_final.txt,
+which --final now writes (palette design40/palette.json, the 24 x 40 table at x 53 / y 60: soles on row 99).
 """
 import argparse
 import os
@@ -415,14 +423,16 @@ def main():
         Image.fromarray(can).save(R.lp(a.tryn_out))
         print(a.tryn, info[0], "outline", added)
     if a.final:
-        can = np.asarray(Image.open(os.path.join(ROOT, "assets", "source", "zeri", "codex_refine",
-                                                 "zeri_refine_1x.png")).convert("RGBA")).copy()
-        for y, x, col in FIXES:
-            if col is None:
-                can[y, x] = 0
-            else:
-                can[y, x, :3] = R.hx(col)
-                can[y, x, 3] = 255
+        import json
+        d40 = os.path.join(ROOT, "assets", "source", "zeri", "design40")
+        pal = json.load(open(os.path.join(d40, "palette.json")))
+        rows = open(os.path.join(d40, "zeri40_final.txt")).read().splitlines()[:40]
+        can = np.zeros((128, 128, 4), np.uint8)
+        for y, r in enumerate(rows):
+            for x, ch in enumerate(r):
+                if ch in pal:
+                    can[60 + y, 53 + x, :3] = R.hx(pal[ch])
+                    can[60 + y, 53 + x, 3] = 255
         bb = Image.fromarray(can).getbbox()
         cols = len({tuple(c) for c in can[can[..., 3] > 0][:, :3]})
         msg = f"{bb[2] - bb[0]} x {bb[3] - bb[1]} box {bb}, {cols} colours"
