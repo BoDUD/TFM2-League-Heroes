@@ -95,7 +95,7 @@ HEAD_NECK = 16                   # the head table's neck row; in the idle on the
 
 
 def table(path):
-    rows = [r.rstrip("\n") for r in open(K.lp(path), encoding="utf-8")]
+    rows = [r.rstrip("\r\n") for r in open(K.lp(path), encoding="utf-8")]     # a checkout may bring CRLF
     w = max(len(r) for r in rows)
     return np.array([list(r.ljust(w, ".")) for r in rows])
 
