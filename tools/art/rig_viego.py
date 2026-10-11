@@ -15,8 +15,8 @@ The user: 「codex交付了 有问题的地方你帮我修复 完美版了喊我
   restored from the blade's own squares (two visible columns' slices carried on down its line, TEMPLATE);
 - the body leans by whole-row shifts (rows above the hips, the head moved whole with its chin row), crouches by sinking
   the body over the standing legs (layering), jumps by moving the whole figure;
-- the run: the boots step in their own lanes (moved whole, drawn over the coat's hem), the body leans into it and the
-  greatsword rests on his shoulder pointing back (run_frame);
+- the run: the legs stride on League's run between the coat's flaps (run_frame: trousers drawn in the design's colours,
+  its own boots as the feet), the body leans into it and the greatsword rests on his shoulder pointing back;
 - the head, the far arm and the coat stay square for square;
 - at 90% (SCALE): the body loses whole lines once before posing, the blade two of its own repeating steps.
 League's renders (assets/source/viego/poses.json, pose_n) and Codex's frames give the poses.
@@ -214,13 +214,14 @@ class Parts:
         """The body, the head's and the far arm's masks and the posing rows on the 90% design (the plan chosen once, on
         the body without the sword unit); the design becomes the shrunk body with the unit on its shoulder (the blade
         the head hid restored: the smaller head need not hide all of it) and the head over it."""
-        global PLAN, HIP_ROW, NECK_ROW, NEAR_LOW, FAR_LOW
+        global PLAN, HIP_ROW, NECK_ROW, NEAR_LOW, FAR_LOW, LEFT_FLAP, RIGHT_FLAP, GAP
         import shrink_frames as SF
         if PLAN is None:
             frame = [(_pivot_frame(self.body), 0)]
             PLAN = SF.plan_tag(frame, SF.body_of(frame), SCALE, SHRINK_KEEP, edge_rows=BOOT_ROWS)
             HIP_ROW, NECK_ROW = map_y(HIP_ROW), map_y(NECK_ROW)
             NEAR_LOW, FAR_LOW = map_rows(NEAR_LOW), map_rows(FAR_LOW)
+            LEFT_FLAP, RIGHT_FLAP, GAP = map_rows(LEFT_FLAP), map_rows(RIGHT_FLAP), map_rows(GAP)
         self.body = shrunk(self.body)
         self.head_m = shrunk(self.head_m)
         self.far_m = shrunk(self.far_m)
@@ -407,24 +408,152 @@ def lowered(P, a, n, near=(0, 0), far=(0, 0), over=False):
     return c
 
 
-# the run: each boot steps in its own lane - planted, sliding back a column a frame, then lifted and carried forward -
-# the far leg half a cycle later; the body dips a row as a foot lands. The first run brought both boots in under the
-# hips (IN): the coat's flaps hung over nothing - 「走路姿势太怪了」. The boots are drawn whole over the hem: a lifted boot
-# behind it lost its top rows but for its outline column, left standing beside the hem like a hook
-# (「脚移动时看起来有点变形」). Then, in game: 「佛耶戈待机的姿势和走路时应该是不一样的 你想办法补一套的 现在的姿势走路
-# 太怪了」 - the run had the idle's upright stance, the blade forward over his shoulder. Now he leans into the run
-# (RUN_LEAN, whole rows above the hips) with the greatsword resting on his shoulder the other way, its blade pointing
-# back ("raised_back": the unit mirrored, the grip where the idle holds it). Of the eight ways the unit turns this one
-# keeps the blade off the ground: dragged behind him ("trail") it ran 8-9 rows under the feet line, cut there, and
-# the cut moved along the blade with the bob (a tip changing length from frame to frame)
-STRIDE = [(2, 0), (1, 0), (0, 0), (-1, 0), (-1, 1), (0, 2), (1, 2), (2, 1)]      # (dx from the boot's place, lift)
-BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+# the run. First each boot stepped in its own lane under the coat; the first of those brought both boots in under the
+# hips (IN) with the coat left as it stands - 「走路姿势太怪了」; lifted behind the hem a boot kept only its outline column
+# (「脚移动时看起来有点变形」); then in game: 「佛耶戈待机的姿势和走路时应该是不一样的 你想办法补一套的 现在的姿势走路
+# 太怪了」 - he leans into it (RUN_LEAN, whole rows above the hips) with the greatsword on his shoulder the other way,
+# its blade pointing back ("raised_back": the grip where the idle holds it; dragged behind him, "trail", it ran under
+# the feet line). Then: 「佛爷戈跑步时应该和待机时的腿部动作不一样 现在是一样的 所以看起来走路很怪 根据联盟的姿势改啊」 -
+# the legs run League's run (RUN_JOINTS: tools/lol/pose_joints.py on poses.json, its 8 frames). His coat is open at the
+# front, so the legs stride between its flaps: each one League's thigh and shin angles on our bone lengths (RUN_LEG), a
+# foot League has on the ground planted flat on the soles (rigkit.leg_chain solves the knee), the trousers in the
+# design's own three colours (rigkit.bone_arm), the design's boots as the feet (the near one mirrored, its toe forward;
+# a swinging one turned with its shin, RotSprite), the flaps swaying with the thighs (whole rows), the body bobbing with
+# League's hips (0-2 rows; lower when a planted foot is out of reach)
+RUN_JOINTS = os.path.join(ROOT, "assets", "source", "viego", "run_joints.json")
 RUN_POSE = ("raised_back", "front")
 RUN_LEAN = 0.25
+RUN_HIPS = {"near": 60.5, "far": 64.5}  # the hips' columns on the hip row: near = League's R (nearer the camera)
+RUN_LEG = (4.6, 4.4)                    # thigh and shin lengths
+RUN_PLANT_TOE = 8.5                     # a League toe this low (game px under its pivot) stands on the ground
+RUN_FLAT = 25                           # a swinging foot within this many degrees of straight down stays upright
+RUN_SWAY = 0.6                          # a flap's hem moves this share of its thigh's reach
+TROUSER = ("#2F2C6A", "#231E48", "#1A1132")    # lit, mid, dark: the design's trousers between the flaps
+# the coat's two flaps and the gap between them (design rows: (first, last) column)
+LEFT_FLAP = {y: (49, 58) for y in range(84, 94)}
+RIGHT_FLAP = {y: (66, 81) for y in range(86, 94)}
+GAP = {y: (59, 65) for y in range(86, 94)}
+
+
+def run_joints():
+    with open(RUN_JOINTS, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def top_mid(part):
+    ys, xs = np.nonzero(part[..., 3] > 0)
+    top = ys.min()
+    row = xs[ys == top]
+    return (row.min() + row.max() + 1) / 2.0, float(top)
+
+
+def mirrored_about(part, cx):
+    out = np.zeros_like(part)
+    for y, x in zip(*np.nonzero(part[..., 3] > 0)):
+        nx = int(round(2 * cx - x - 1))
+        if 0 <= nx < part.shape[1]:
+            out[y, nx] = part[y, x]
+    return out
+
+
+def swayed(piece, top, amount):
+    """A flap with its rows from `top` down moved `amount` columns at its hem (whole rows, in proportion)."""
+    out = np.zeros_like(piece)
+    ys = np.nonzero(piece[..., 3].any(1))[0]
+    if not len(ys):
+        return out
+    bot = ys.max()
+    for y in ys:
+        d = int(math.floor(amount * max(0, y - top) / max(1, bot - top) + 0.5))
+        if d > 0:
+            out[y, d:] = piece[y, :-d]
+        elif d < 0:
+            out[y, :d] = piece[y, -d:]
+        else:
+            out[y] = piece[y]
+    return out
+
+
+def run_pieces(P):
+    """The leant body without its boots, flaps and the gap between them; the flaps; the boots (the near one mirrored:
+    its toe forward) with their tops' middles and heights. Cached on P."""
+    if getattr(P, "_run", None) is not None:
+        return P._run
+    up, low = upper_lower(P.body)
+    base = np.zeros_like(P.body)
+    K.put(base, low, 0, 0)
+    K.put(base, leaned(up, RUN_LEAN), 0, 0)
+    op = base[..., 3] > 0
+    nm, fm = K.mask_rows(NEAR_LOW) & op, K.mask_rows(FAR_LOW) & op
+    lm, rm_ = K.mask_rows(LEFT_FLAP) & op & ~nm, K.mask_rows(RIGHT_FLAP) & op & ~fm
+    gm = K.mask_rows(GAP) & op
+
+    def take(m):
+        p = np.zeros_like(base)
+        p[m] = base[m]
+        return p
+    rest = base.copy()
+    rest[nm | fm | lm | rm_ | gm] = 0
+    boots = {}
+    for leg, m in (("near", nm), ("far", fm)):
+        b = take(m)
+        if leg == "near":
+            b = mirrored_about(b, top_mid(b)[0])
+        tp = top_mid(b)
+        boots[leg] = (b, tp, float(np.nonzero(b[..., 3].any(1))[0].max() + 1) - tp[1])
+    P._run = dict(rest=rest, left=take(lm), right=take(rm_), boots=boots,
+                  flap_tops=(min(LEFT_FLAP), min(RIGHT_FLAP)))
+    return P._run
 
 
 def run_frame(P, k):
-    return posed(P, *RUN_POSE, RUN_LEAN, sink=BOB[k], near=STRIDE[k], far=STRIDE[(k + 4) % 8], over=True)
+    R = run_pieces(P)
+    J = run_joints()
+    bobs = K.hip_bobs([(f["joints"]["L_Hip"][1] + f["joints"]["R_Hip"][1]) / 2 for f in J], 2)
+    j = J[k]["joints"]
+    soles = P.D.soles
+    lt, ls = RUN_LEG
+    want = {}
+    for leg, side in (("near", "R"), ("far", "L")):
+        H, Kn, Fo = (j[f"{side}_{n}"][:2] for n in ("Hip", "KneeLower", "Foot"))
+        th, sh = K.bone_angle(H, Kn), K.bone_angle(Kn, Fo)
+        ax = RUN_HIPS[leg] + lt * math.sin(math.radians(th)) + ls * math.sin(math.radians(sh))
+        want[leg] = (th, sh, j[f"{side}_Toe"][1] >= RUN_PLANT_TOE, ax)
+    bob = bobs[k]
+    for leg, (th, sh, planted, ax) in want.items():
+        if planted:
+            bob = max(bob, K.reach_bob((RUN_HIPS[leg], HIP_ROW), ax, soles + 1 - R["boots"][leg][2], lt, ls))
+    shades = tuple(hexrgb(h) for h in TROUSER)
+    out = tuple(int(v) for v in P.D.outline[:3])
+    legs = {}
+    for leg in ("far", "near"):
+        th, sh, planted, ax = want[leg]
+        hip = (RUN_HIPS[leg], HIP_ROW + bob)
+        boot, tp, bh = R["boots"][leg]
+        knee, ank, th, sh, grounded = K.leg_chain(hip, th, sh, lt, ls, soles + 1 - bh, planted)
+        c = np.zeros_like(R["rest"])
+        K.bone_arm(c, hip, knee, ank, {"upper": [(0, 1, shades)], "fore": [(0, 1, shades)]}, width=(3.4, 3.0),
+                   outline=out)
+        if grounded or abs(sh) <= RUN_FLAT:
+            top = (ank[0], soles + 1 - bh) if grounded else ank
+            K.put(c, K.shifted(boot, int(round(top[0] - tp[0])), int(round(top[1] - tp[1]))), 0, 0)
+        else:
+            K.place(c, K.turn(K.Part.from_canvas(boot, boot[..., 3] > 0, tp), sh), ank)
+        legs[leg] = (c, knee[0] - hip[0])
+    c = np.zeros_like(R["rest"])
+    K.put(c, legs["far"][0], 0, 0)
+    K.put(c, legs["near"][0], 0, 0)
+    ltop, rtop = R["flap_tops"]
+    K.put(c, K.shifted(swayed(R["left"], ltop, legs["near"][1] * RUN_SWAY), 0, bob), 0, 0)
+    K.put(c, K.shifted(swayed(R["right"], rtop, legs["far"][1] * RUN_SWAY), 0, bob), 0, 0)
+    K.put(c, K.shifted(R["rest"], 0, bob), 0, 0)
+    headm = np.roll(leaned(as_rgba(P.head_m), RUN_LEAN)[..., 3] > 0, bob, 0)
+    head = np.zeros_like(c)
+    head[headm] = c[headm]
+    K.place(c, P.orient(RUN_POSE[0]), (P.elbow[0] + lean_shift(int(P.elbow[1]), RUN_LEAN), P.elbow[1] + bob))
+    K.put(c, head, 0, 0)
+    c[soles + 1:] = 0
+    return c, headm
 
 
 # the idle: his own breath (import_native's shared cut costs 18 visible squares through the coat and the trousers): the

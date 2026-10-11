@@ -299,6 +299,44 @@ def swing_leg(a, mask, hip_row, ankle_row, dx, lift=0, drop=0):
     return put(shin, boot, 0, 0)
 
 
+def bone_angle(a, b):
+    """Degrees of the bone a -> b from straight down, + toward +x (forward for a hero facing right)."""
+    return math.degrees(math.atan2(b[0] - a[0], b[1] - a[1]))
+
+
+def leg_chain(hip, th, sh, lt, ls, ankle_max, planted=False):
+    """A leg on League's thigh / shin angles (bone_angle) with our own bone lengths: knee and ankle from the hip. A
+    planted foot (or one that would sink) puts the ankle on ankle_max under where the angles leave it and the knee is
+    solved (two-bone IK, bent forward). Returns knee, ankle, the angles used and whether it stands."""
+    kx = hip[0] + lt * math.sin(math.radians(th))
+    ky = hip[1] + lt * math.cos(math.radians(th))
+    ax = kx + ls * math.sin(math.radians(sh))
+    ay = ky + ls * math.cos(math.radians(sh))
+    if ay <= ankle_max and not planted:
+        return (kx, ky), (ax, ay), th, sh, False
+    ay = ankle_max
+    knee, _ = elbow(hip, (ax, ay), lt, ls, bend=-1)
+    if knee[0] < min(hip[0], ax) - 0.01:
+        knee, _ = elbow(hip, (ax, ay), lt, ls, bend=1)
+    return knee, (ax, ay), bone_angle(hip, knee), bone_angle(knee, (ax, ay)), True
+
+
+def hip_bobs(hips_y, top=2):
+    """League's hip heights over a cycle -> rows the body sits lower (0 at the highest hips, `top` at the lowest)."""
+    lo, hi = min(hips_y), max(hips_y)
+    return [int(round((h - lo) / max(1e-6, hi - lo) * top)) for h in hips_y]
+
+
+def reach_bob(hip, ank_x, ankle_max, lt, ls, slack=0.4):
+    """Rows the hip must come down for an ankle planted at (ank_x, ankle_max) to be within the leg's reach."""
+    reach = lt + ls - slack
+    dx = ank_x - hip[0]
+    if abs(dx) >= reach:
+        return 0
+    need_y = ankle_max - math.sqrt(reach * reach - dx * dx)
+    return max(0, int(math.ceil(need_y - hip[1] - 1e-9)))
+
+
 # ------------------------------------------------------------------------------------------------ whole figure
 def scale2x(s):
     """EPX / Scale2x."""
