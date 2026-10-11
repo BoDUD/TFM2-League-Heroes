@@ -141,9 +141,15 @@ def carry(f, B, F, unit):
     top, hl = helmet_top(f)
     lab, n = ndimage.label(op & ~outl & ~bronze & ~red, FOUR)
     gone = np.zeros_like(op)
+    br = is_(f, "t") | is_(f, "p") | is_(f, "k") | is_(f, "o") | is_(f, "u")
+    bl, bn = ndimage.label(br, np.ones((3, 3)))
+    helm = bl == 1 + int(np.argmax(ndimage.sum(br, bl, range(1, bn + 1))))
+    touch = ndimage.binary_dilation(helm, np.ones((3, 3)), iterations=2)   # the hood touches the helmet's bronze
     for i in range(1, n + 1):
         ys, xs = np.nonzero(lab == i)
-        if ys.min() < top and xs.min() < hl - 3:          # the crown's pieces and the fluke hanging from them
+        # the crown's pieces: wholly over the helmet's top, or reaching down beside it without touching its bronze -
+        # never the dark hood at the back of the helmet (taken with them once: 「头部有模型失去像素啊」)
+        if ys.min() < top and (ys.max() < top + 2 or not (touch & (lab == i)).any()):
             gone |= lab == i
     by, bx = int(round(B[0])), int(round(B[1]))
     rl, _ = ndimage.label(red, np.ones((3, 3)))
@@ -157,7 +163,7 @@ def carry(f, B, F, unit):
                 if ys.max() <= top + 12 and xs.max() <= hl + 6:
                     gone |= lab == i
     rows, cols = np.mgrid[0:128, 0:128]
-    gone |= op & ~outl & (rows < top) & (cols < hl - 2)   # the crown's rope above the helmet
+    gone |= op & ~outl & ~bronze & (rows < top - 1) & (cols < hl - 2)   # the crown's rope above the helmet
     g = f.copy()
     g[gone] = 0
     solid = (g[..., 3] > 0) & ~is_(g, "0")
