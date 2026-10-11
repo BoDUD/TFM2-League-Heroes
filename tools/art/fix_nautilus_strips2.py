@@ -18,8 +18,8 @@ whole); what is fixed here:
   4. dead 2-8: Codex drew another anchor (a ring on top, a thin stock, small flukes) standing beside him; it goes
      (every square left of a per-row boundary, B) and the anchor he carries everywhere else (attack 5's, cut above the
      fist) stands on its crown in its place, behind him, the outline closed (rigkit.finish).
-The idle stays the design breathing (tools/art/rig_nautilus.py's idle strip, its standing point 64): Codex returned the
-design unchanged. Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
+The idle is side-on too (the user: 「待机图也改成侧面的吧 不然太奇怪了」, after the front-on design idle beside the side-on
+actions): W+E's first frame, breathing (the body above the hip band sinks a row over the legs). Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
 python tools/art/import_native.py --hero nautilus.
 """
 import argparse
@@ -120,6 +120,8 @@ DEAD_B[8] = DEAD_B[7]
 DEAD_LEFT = {2: 23, 3: 34, 4: 28, 5: 49, 6: 47, 7: 42, 8: 42}   # the new anchor's left column (its crown on the soles)
 ANCHOR_BOX = (40, 58, 28, 60)                                   # attack 5: rows, columns of the anchor above the fist
 # 3: ult frames taken from other strips (ult frame <- (tag, frame)), 1-based
+IDLE_BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
+IDLE_CUT = 86                                                   # the last row that sinks (the hip band's)
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -154,17 +156,26 @@ def build():
         K.put(c, f, 0, 0)
         c[RN.PIVOT[1] + 12:] = 0
         dead[sl] = K.finish(c, OUT, RN.PIVOT[1] + 11)
-    # the idle: the design breathing (rig_nautilus), its own standing point
-    R = RN.Rig(RN.Parts())
-    idle = [RN.idle_frame(R, b) for b in RN.BREATH]
+    # the idle: side-on like every action (the user: 「待机图也改成侧面的吧 不然太奇怪了」) - W+E's first frame (Codex's
+    # braced stance, both boots flat, the anchor on his back), breathing: everything above the crotch (rows to
+    # IDLE_CUT) sinks a row over the legs in frames 3-6
     for t in cells["tags"].values():
         for fr in t:
             fr.pop("head", None)
-    cells["tags"]["idle"] = [{"pivot": list(RN.PIVOT), "ms": m} for m in RN.MS["idle"]]
-    cols, rows = K.layout(len(idle))
+    stand = strips["skill2"][cell(0, n["skill2"], cw, ch)]
+    pivot = list(cells["tags"]["skill2"][0]["pivot"])
+    cells["tags"]["idle"] = [{"pivot": pivot, "ms": m} for m in RN.MS["idle"]]
+    cols, rows = K.layout(len(IDLE_BREATH))
     sheet = np.zeros((rows * ch, cols * cw, 4), np.uint8)
-    for k, fr in enumerate(idle):
-        sheet[cell(k, len(idle), cw, ch)] = K.finish(fr, OUT, RN.PIVOT[1] + 11)
+    for k, b in enumerate(IDLE_BREATH):
+        fr = stand.copy()
+        if b:
+            up = np.zeros_like(stand)
+            up[:IDLE_CUT + 1] = stand[:IDLE_CUT + 1]
+            fr[:IDLE_CUT + 1] = 0
+            K.put(fr, up, 0, b)
+            fr = K.finish(fr, OUT, RN.PIVOT[1] + 11)
+        sheet[cell(k, len(IDLE_BREATH), cw, ch)] = fr
     strips["idle"] = sheet
     return strips, cells
 
