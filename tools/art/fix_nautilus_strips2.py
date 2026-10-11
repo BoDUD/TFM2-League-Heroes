@@ -18,9 +18,9 @@ whole); what is fixed here:
   4. dead 2-8: Codex drew another anchor (a ring on top, a thin stock, small flukes) standing beside him; it goes
      (every square left of a per-row boundary, B) and the anchor he carries everywhere else (attack 5's, cut above the
      fist) stands on its crown in its place, behind him, the outline closed (rigkit.finish).
-  5. the anchor carried on his back: the shank's last stretch, hidden behind the helmet and the shoulder plate (「武器没拿在
-     手里 看起来像是插在脑袋里了？」), drawn on into the near fist (GRIP), frames whose shank misses the fist mended from
-     one that holds it (GRIP_FROM).
+  5. the anchor carried on his back: Codex's bent one out, the design's straight anchor unit in, held in the near fist
+     (CARRY); frames whose anchor cannot take it (the attack's first and last, Q's landing, R's first, the hit's first)
+     are the mended stance (GRIP_FROM).
 The idle is side-on too (the user: 「待机图也改成侧面的吧 不然太奇怪了」, after the front-on design idle beside the side-on
 actions): W+E's first frame, breathing (the body above the hip band sinks a row over the legs). Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
 python tools/art/import_native.py --hero nautilus.
@@ -107,33 +107,68 @@ def red_specks(f):
             f[y, x, :3] = L["k"]
 
 
-def grip(f, B, F, t0=0.4, half=1.0):
-    """5: the shank from the band B on to the fist's top F over the body, then the fist (its grey piece and the squares
-    round it) back on top."""
-    out = f.copy()
-    (by, bx), (fy, fx) = B, F
-    ln = math.hypot(fy - by, fx - bx)
-    uy, ux = (fy - by) / ln, (fx - bx) / ln
-    grey = is_(f, "n") | is_(f, "s") | is_(f, "v")
-    lab, _ = ndimage.label(grey)
-    fid = lab[int(round(fy)) + 2, int(round(fx))]
-    fist = (lab == fid) if fid else np.zeros_like(grey)
-    ring = ndimage.binary_dilation(fist, np.ones((3, 3))) & ~fist & (f[..., 3] > 0)
+FOUR = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
+
+
+def darkened(part):
+    step = {"v": "s", "s": "n", "n": "i", "i": "f"}
+    u = part.s.copy()
+    for y, x in zip(*np.nonzero(u[..., 3])):
+        ch = INV.get(tuple(int(v) for v in u[y, x, :3]))
+        if ch in step:
+            u[y, x, :3] = L[step[ch]]
+    return K.Part(u, part.j)
+
+
+def helmet_top(f):
+    """The helmet: the biggest piece of light bronze; its top row and its leftmost square there."""
+    br = is_(f, "t") | is_(f, "p") | is_(f, "k") | is_(f, "o") | is_(f, "u")
+    lab, n = ndimage.label(br, np.ones((3, 3)))
+    sizes = ndimage.sum(br, lab, range(1, n + 1))
+    ys, xs = np.nonzero(lab == 1 + int(np.argmax(sizes)))
+    top = ys.min()
+    return top, xs[ys == top].min()
+
+
+def carry(f, B, F, unit):
+    """5: Codex's carried anchor out, the design's anchor unit in (see CARRY)."""
+    op = f[..., 3] > 0
+    outl = is_(f, "0")
+    bronze = np.zeros_like(op)
+    for c in "tpkouhje":
+        bronze |= is_(f, c)
     red = is_(f, "l") | is_(f, "m")
-    for y in range(int(min(by, fy)) - 3, int(max(by, fy)) + 4):
-        for x in range(int(min(bx, fx)) - 4, int(max(bx, fx)) + 5):
-            py, px = y + 0.5 - by, x + 0.5 - bx
-            t = (py * uy + px * ux) / ln
-            if t < t0 or t > 1.0 or (red[y, x] and t < 0.5):
-                continue
-            d = py * ux - px * uy
-            if abs(d) <= half:
-                out[y, x] = (*L["n" if d > 0.3 else "f"], 255)
-            elif abs(d) <= half + 1.0:
-                out[y, x] = (*L["0"], 255)
-    out[fist] = f[fist]
-    out[ring] = f[ring]
-    return out
+    top, hl = helmet_top(f)
+    lab, n = ndimage.label(op & ~outl & ~bronze & ~red, FOUR)
+    gone = np.zeros_like(op)
+    for i in range(1, n + 1):
+        ys, xs = np.nonzero(lab == i)
+        if ys.min() < top and xs.min() < hl - 3:          # the crown's pieces and the fluke hanging from them
+            gone |= lab == i
+    by, bx = int(round(B[0])), int(round(B[1]))
+    rl, _ = ndimage.label(red, np.ones((3, 3)))
+    if rl[by, bx]:
+        gone |= rl == rl[by, bx]
+    for dy in range(1, 6):                                # the shank's piece under the band
+        for dx in range(-2, 4):
+            i = lab[by + dy, bx + dx]
+            if i and not gone[by + dy, bx + dx]:
+                ys, xs = np.nonzero(lab == i)
+                if ys.max() <= top + 12 and xs.max() <= hl + 6:
+                    gone |= lab == i
+    rows, cols = np.mgrid[0:128, 0:128]
+    gone |= op & ~outl & (rows < top) & (cols < hl - 2)   # the crown's rope above the helmet
+    g = f.copy()
+    g[gone] = 0
+    solid = (g[..., 3] > 0) & ~is_(g, "0")
+    near_solid = ndimage.convolve(solid.astype(int), np.ones((3, 3), int), mode="constant") > 0
+    g[outl & ~near_solid] = 0
+    K.place(g, unit, (F[1], F[0]))
+    lab2, n2 = ndimage.label(g[..., 3] > 0, np.ones((3, 3)))
+    if n2 > 1:
+        sizes = ndimage.sum(g[..., 3] > 0, lab2, range(1, n2 + 1))
+        g[(lab2 != 1 + int(np.argmax(sizes))) & (lab2 > 0)] = 0
+    return K.finish(g, OUT, RN.PIVOT[1] + 11)
 
 
 def bounds(spec):
@@ -153,17 +188,18 @@ DEAD_B[8] = DEAD_B[7]
 DEAD_LEFT = {2: 23, 3: 34, 4: 28, 5: 49, 6: 47, 7: 42, 8: 42}   # the new anchor's left column (its crown on the soles)
 ANCHOR_BOX = (40, 58, 28, 60)                                   # attack 5: rows, columns of the anchor above the fist
 # 3: ult frames taken from other strips (ult frame <- (tag, frame)), 1-based
-# 5: the anchor on his back looked stuck in his helmet (the user: 「武器没拿在手里 看起来像是插在脑袋里了？」): Codex's shank
-# points at the near fist but its last stretch hid behind the helmet and the shoulder plate. Drawn on over them - from the
-# red band B on to the fist's top F (rows, columns), the shank's dark core, a grey edge, the outline - and the fist put
-# back over it: he holds the anchor over his shoulder, League's carry. Frames where the shank does not point at the
-# fist take a mended frame instead (GRIP_FROM).
-GRIP = {("run", 1): ((59, 51), (78, 57.1)), ("run", 2): ((58.5, 50.5), (77, 55.8)), ("run", 3): ((58, 51), (78, 55.5)),
-        ("run", 4): ((59.2, 52.5), (77, 58.0)), ("run", 5): ((60.5, 52.5), (79, 58.4)),
-        ("run", 6): ((58.9, 54.7), (77, 58.2)), ("run", 7): ((59.5, 49.5), (76, 55.1)),
-        ("run", 8): ((56.5, 53.5), (75, 58.2)), ("skill2", 1): ((63, 52), (80, 58.9)),
-        ("skill2", 5): ((63, 52), (80, 60.4)), ("skill2", 6): ((60, 50), (80, 58.6)),
-        ("hit", 2): ((56, 49.3), (78, 58.6)), ("ult", 8): ((62.1, 54.3), (76, 61.2))}
+# 5: the anchor carried on his back looked stuck in his helmet and, drawn on, crooked (the user: 「武器没拿在手里 看起来像是插在
+# 脑袋里了？」「武器别歪啊」「还是歪的吧」): Codex's carried anchor bends (a slanted crown, a shank curving into the back of
+# the helmet), so it is taken out square by square - the crown's pieces, the red band at B and the shank's piece under it,
+# outline squares left bordering only air; the helmet untouched - and the design's own anchor unit goes in (anchor + near
+# fist, rigid, upright: the crown over his head, the straight shank down into the fist, as p35 carries it), one step
+# darker to Codex's anchor greys, its fist on Codex's near fist F (rows, columns).
+CARRY = {("run", 1): ((59, 51), (80, 57.1)), ("run", 2): ((58.5, 50.5), (79.5, 55.8)),
+         ("run", 3): ((59.5, 51.5), (80, 55.5)), ("run", 4): ((59.2, 52.5), (80.2, 58.0)),
+         ("run", 5): ((60.5, 52.5), (81.2, 58.4)), ("run", 6): ((58.9, 54.7), (79.2, 58.2)),
+         ("run", 7): ((59.5, 49.5), (77.9, 55.1)), ("run", 8): ((56.5, 53.5), (77.2, 58.2)),
+         ("skill2", 1): ((63, 52), (82, 58.9)), ("skill2", 5): ((63, 52), (82, 60.4)),
+         ("skill2", 6): ((60, 50), (82, 58.6)), ("hit", 2): ((56, 49.3), (80, 58.6)), ("ult", 8): ((62.1, 54.3), (78.4, 61.2))}
 # (tag, frame) <- the mended W+E stance (the idle's), or the mended hit 2 a column back
 GRIP_FROM = {("attack", 1): ("skill2", 1, 0), ("attack", 6): ("skill2", 1, 0), ("skill_pull", 4): ("skill2", 1, 0),
              ("ult", 1): ("skill2", 1, 0), ("hit", 1): ("hit", 2, -1)}
@@ -192,9 +228,10 @@ def build():
     piece[r0:r1, c0:c1] = f5[r0:r1, c0:c1]
     ys, xs = np.nonzero(piece[..., 3] > 0)
     anchor = piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1][::-1].copy()     # on its crown
-    for (tag, k), (B, F) in GRIP.items():
+    unit = darkened(RN.Parts().unit)
+    for (tag, k), (B, F) in CARRY.items():
         sl = cell(k - 1, n[tag], cw, ch)
-        strips[tag][sl] = grip(strips[tag][sl], B, F)
+        strips[tag][sl] = carry(strips[tag][sl], B, F, unit)
     for (tag, k), (src, j, dx) in GRIP_FROM.items():
         piece = strips[src][cell(j - 1, n[src], cw, ch)]
         strips[tag][cell(k - 1, n[tag], cw, ch)] = K.shifted(piece, dx, 0)
