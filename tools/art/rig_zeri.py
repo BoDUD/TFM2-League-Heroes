@@ -46,8 +46,10 @@ PIVOT = (64, 88)                 # the design's standing point (the soles on row
 SOLES = 99
 import json as _json
 # the design table on the canvas (design40/zeri40_final.txt, its soles on row 99). The constants below are written in
-# the 40-row table's rows; the 37-row design took whole rows out (design40/shrink37.json): Rw() maps them
-_KEPT = _json.load(open(os.path.join(ROOT, "assets", "source", "zeri", "design40", "shrink37.json")))["rows"]
+# the 40-row table's rows; a design with whole rows taken out lists the rows it kept in design40/shrink.json and Rw()
+# maps them (the 37-row cut was undone: 「恢复到40」 - the torso it shortened read as a pot belly)
+_SHRINK = os.path.join(ROOT, "assets", "source", "zeri", "design40", "shrink.json")
+_KEPT = _json.load(open(_SHRINK))["rows"] if os.path.exists(_SHRINK) else list(range(40))
 
 
 def Rw(r):
@@ -104,7 +106,8 @@ RUN_FAR = 3.0                   # the far leg: the near leg's drawing this many 
 RUN_LEG = (4.3, 4.3)            # thigh and shin (hip -> knee -> the boot's cuff), the same in every frame
 RUN_THIGH = (4, 2)              # the thigh's width at the hip and at the knee: full at the hip as the design's far thigh
 # ('ddda'), so the two thighs fill the waist under the belt; the shin two squares as the design's ('da')
-RUN_CUFF = 5                    # the boot's cuff row with the boot on the ground (squares under the standing point)
+# the boot's cuff row with the boot on the ground (squares under the standing point): the boot's top (table row 33)
+RUN_CUFF = SOLES - PIVOT[1] - (sum(1 for r in range(33, 40) if r in _KEPT) - 1)
 RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the body (and the hips) come down: as a foot lands, up as they pass
 # one leg's eight phases: its ankle (the cuff's middle) in squares from the standing point, and how far it is lifted
 RUN_PHASES = [(0.0, 0),         # 1 the heel landing just ahead of the hip
