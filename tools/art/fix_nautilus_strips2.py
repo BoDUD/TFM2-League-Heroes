@@ -21,11 +21,11 @@ whole); what is fixed here:
   5. the anchor carried on his back: Codex's bent one out, the design's straight anchor unit in, held in the near fist
      (CARRY); frames whose anchor cannot take it (the attack's first and last, Q's landing, R's first, the hit's first)
      are the mended stance (GRIP_FROM).
-  6. the run trades legs: Codex's second delivery (codex_legs) drew only the legs, 8 frames changing legs, put back
-     in the design's suit colours (suit_legs).
+  6. the run is oppi's diver's walk: the body still, the one straight leg Codex drew cleanly twice under it (the far
+     one darker, behind), shuffling and lifting in turn (WALK, on_legs).
   7. the run's body is frame 1's in every frame, its belt on each frame's own belt: Codex's redrawn bodies shook.
   8. the idle (side-on too, the user: 「待机图也改成侧面的吧 不然太奇怪了」) stands upright like oppi's Nautilus: the run's
-     body on Codex's upright legs (codex_legs), still.
+     body on the straight leg, the far one just behind it, still.
   9. the carried anchor is Codex's own straight one, attack 4's turned crown up (「钩子画的过大了 适当缩小」
      「武器给我画直了啊」).
 Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
@@ -297,55 +297,44 @@ def lower(f, belt):
     return part, rest
 
 
-def suit_legs(f, body):
-    """6: Codex's legs of one frame (codex_legs: its squares where the pack's body was clear) in the design's colours.
-    Codex drew both legs bronze from the hip down; the design's legs are the dark suit with a bronze knee guard and a
-    bronze boot. The two legs are told apart where they stand apart (SEP_ROW down) and grown up through the thighs;
-    on each, the boot (its last BOOT_ROWS rows) and the knee guard (KNEE_ROWS rows at the knee, a little over half
-    way from the hip to the boot, the front GUARD_COLS squares, bright bronze only) stay bronze, the rest goes to the
-    suit's tones (SUIT); outline squares Codex stacked two or three deep (none of their eight neighbours coloured) go."""
-    L = np.full(f.shape[:2], "", object)
-    for y, x in zip(*np.nonzero(f[..., 3])):
-        L[y, x] = INV.get(tuple(int(v) for v in f[y, x, :3]), "?")
-    leg = (f[..., 3] > 0) & (body[..., 3] == 0)
-    solid = leg & (L != "0")
-    low = solid.copy()
-    low[:SEP_ROW] = False
-    lab, m = ndimage.label(low, FOUR)
-    big = sorted(range(1, m + 1), key=lambda i: (lab == i).sum())[-2:]
-    owner = np.zeros(solid.shape, int)
-    queue = deque()
-    for who, i in enumerate(big, 1):
-        for y, x in zip(*np.nonzero(lab == i)):
-            owner[y, x] = who
-            queue.append((y, x))
-    while queue:
-        y, x = queue.popleft()
-        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            if solid[y + dy, x + dx] and not owner[y + dy, x + dx]:
-                owner[y + dy, x + dx] = owner[y, x]
-                queue.append((y + dy, x + dx))
-    out = np.zeros_like(f)
-    out[leg] = f[leg]
-    for who in (1, 2):
-        ys, xs = np.nonzero(owner == who)
-        if not len(ys):
-            continue
-        boot = ys.max() - BOOT_ROWS + 1
-        knee = ys.min() + int(round((boot - ys.min()) * 0.55))
-        for y, x in zip(ys, xs):
-            if y >= boot:
-                continue
-            if (abs(y - knee) <= KNEE_ROWS // 2 and x > xs[ys == y].max() - GUARD_COLS
-                    and L[y, x] in GUARD):
-                continue
-            if L[y, x] in SUIT:
-                out[y, x, :3] = L_[SUIT[L[y, x]]]
-    for y, x in zip(*np.nonzero(solid & (owner == 0))):
-        if L[y, x] in SUIT:
-            out[y, x, :3] = L_[SUIT[L[y, x]]]
-    coloured = ndimage.binary_dilation((out[..., 3] > 0) & ~is_(out, "0"), np.ones((3, 3), bool))
-    out[is_(out, "0") & ~coloured] = 0
+def straight_leg(part):
+    """6: the leg Codex drew straight under him in the first side-on delivery's run frame 4 (its front leg: the dark
+    suit, the bronze knee guard, the boot) - the solid piece reaching furthest right on the soles' rows, with the
+    outline squares touching it, from its thigh (THIGH4) down, a row lower (in frame 1's place: frame 4 floats a row)."""
+    solid = (part[..., 3] > 0) & ~is_(part, "0")
+    lab, m = ndimage.label(solid, FOUR)
+    low = np.zeros_like(solid)
+    low[SEP_ROW:] = True
+    pieces = [i for i in range(1, m + 1) if ((lab == i) & low).any()]
+    front = max(pieces, key=lambda i: np.nonzero((lab == i) & low)[1].max())
+    mask = lab == front
+    outline = (part[..., 3] > 0) & is_(part, "0")
+    mask |= outline & ndimage.binary_dilation(mask, np.ones((3, 3), bool))
+    leg = np.zeros_like(part)
+    leg[mask] = part[mask]
+    leg[:THIGH4] = 0
+    return K.shifted(leg, 0, 1)
+
+
+def darker(piece):
+    out = piece.copy()
+    for y, x in zip(*np.nonzero(piece[..., 3])):
+        ch = INV.get(tuple(int(v) for v in piece[y, x, :3]))
+        if ch in FAR:
+            out[y, x, :3] = L[FAR[ch]]
+    return out
+
+
+def on_legs(leg, hip, near, far, back=0):
+    """6/8: frame 1's hip over two copies of the straight leg, each moved whole: (columns forward, rows lifted) for the
+    near one (as drawn) and the far one (`back` columns further back, one step darker, behind); a lifted leg tucked
+    under the hip."""
+    out = np.zeros_like(leg)
+    for (dx, lift), back, tone in ((far, back, darker), (near, 0, lambda a: a)):
+        u = K.shifted(tone(leg), dx - back, -lift)
+        u[:HIP_END + 1] = 0
+        K.put(out, u, 0, 0)
+    K.put(out, hip, 0, 0)
     return out
 
 
@@ -396,25 +385,35 @@ OLD_SHANK = {("skill2", 6): (64, 73, 52, 58)}
 GRIP_FROM = {("attack", 1): ("skill2", 1, 0), ("attack", 6): ("skill2", 1, 0), ("skill_pull", 4): ("skill2", 1, 0),
              ("ult", 1): ("skill2", 1, 0), ("hit", 1): ("hit", 2, -1)}
 # 6: the run never changed legs (「走路压根看不出换腿」): Codex drew one stride and kept the same leg in front in all 8
-# frames; legs stitched from those either jumped across in a frame or stopped mid-run (「这交叉步看着好怪啊」「走路的时候
-# 看着还有点怪」). Codex redrew only the legs on the final body (tools/art/pack_nautilus_legs.py, LEGS_PROMPT.md; delivered
-# as nautilus_legs_pack_done.zip, kept in assets/source/nautilus/codex_legs): 8 frames changing legs and an upright
-# idle, but every leg bronze from the hip down (「我在这版上修」): suit_legs() puts them back in the design's colours.
-LEGS = os.path.join(ROOT, "assets", "source", "nautilus", "codex_legs")
+# frames; legs stitched from those jumped across or stopped mid-run (「这交叉步看着好怪啊」), and the legs Codex redrew
+# later came back bent out of shape (「泰坦明显腿部严重变形 没修到完美」). He walks the way oppi's Nautilus does: the
+# body still, the legs shuffling under it, a heavy diver's stamp (a foot lifted a row at most: the two boots are the same
+# 11-column block, lifted higher one stands on the other; apart they are 0 or 4+ columns, never a sliver). Both legs are the one straight leg Codex drew cleanly (straight_leg), the far
+# one a step darker behind it; each frame moves each leg whole - (columns forward, rows lifted), WALK -
+# the near leg leading frames 1-4 and the far one 5-8, a lifted leg tucked under the hip (on_legs). Nothing is turned,
+# stretched or redrawn.
 SEP_ROW = 93
-BOOT_ROWS = 5
-KNEE_ROWS = 3
-GUARD_COLS = 3
-GUARD = set("utpomk")
-SUIT = {"u": "i", "t": "i", "p": "i", "o": "i", "m": "i", "k": "f", "j": "f", "h": "f", "e": "a", "c": "a", "b": "f",
-        "l": "f"}
+THIGH4 = 87
+HIP_END = 87
+FAR_BACK = 3                                                    # the idle's far leg, columns behind
+FAR = {"u": "t", "t": "p", "p": "k", "o": "k", "m": "k", "k": "j", "j": "h", "h": "e", "e": "c", "c": "b",
+       "v": "s", "s": "n", "n": "i", "i": "f"}
+#        near (forward, lift)   far (forward, lift)
+WALK = [((3, 0), (-3, 0)),        # the near foot planted forward, the far one behind
+        ((2, 0), (-2, 1)),        # the far foot lifts a row and comes through
+        ((0, 0), (0, 0)),         # passing: the far leg wholly behind the near one
+        ((-2, 0), (2, 0)),        # it stamps down forward
+        ((-3, 0), (3, 0)),
+        ((-2, 1), (2, 0)),        # the near foot lifts a row and comes through
+        ((0, 0), (0, 0)),         # passing
+        ((2, 0), (-2, 0))]        # it stamps down forward
 # 7: the run shook (「走路时模型抖动太厉害」): Codex redrew the upper body in every frame (the helmet 3 columns and 2 rows
 # apart) and the carried anchor rode the fist. Every frame wears frame 1's body (every row down to its belt - the teal
 # light - and the near fist's lowest squares), its belt on the frame's own belt (BELT, Codex's run frames 1-4): the
 # body bobs a row with Codex's hips and nothing is cut through them.
 BELT = [85, 84, 84, 84]
-# 8: the idle (「待机时腿不要岔开啊 直立站那不就行了 你看oppi的泰坦啊」「现在明显待机和走路时模型尺寸都不一样了」): frame 1's
-# body (the run's size) on Codex's upright legs (codex_legs/idle_1x.png, suit_legs()), still.
+# 8: the idle (「待机时腿不要岔开啊 直立站那不就行了 你看oppi的泰坦啊」「现在明显待机和走路时模型尺寸都不一样了」「待机姿势也
+# 怪」): frame 1's body (the run's size) standing on the straight leg, the far one FAR_BACK columns behind it, still.
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -442,21 +441,25 @@ def build():
     for (tag, k), (B, F) in CARRY.items():
         sl = cell(k - 1, n[tag], cw, ch)
         strips[tag][sl] = carry(strips[tag][sl], B, F, unit, OLD_SHANK.get((tag, k)))
-    # 6-7: the run - frame 1's body over Codex's legs, in the design's colours
+    # 6-7: the run - frame 1's body, still, over the straight leg twice, shuffling (WALK)
     first = [strips["run"][cell(k, n["run"], cw, ch)].copy() for k in range(4)]
-    pivs = [list(cells["tags"]["run"][k]["pivot"]) for k in range(4)]
+    pivot = list(cells["tags"]["run"][0]["pivot"])
+    fist = lower(first[0], BELT[0])[1]
     top = first[0].copy()
     top[BELT[0] + 1:] = 0
-    K.put(top, lower(first[0], BELT[0])[1], 0, 0)
-    legs_run = np.asarray(Image.open(os.path.join(LEGS, "run_1x.png")).convert("RGBA"))
-    body_run = np.asarray(Image.open(os.path.join(LEGS, "body_run_1x.png")).convert("RGBA"))
-    for k in range(8):
-        j = k % 4
-        g = (slice((k // 4) * ch, (k // 4 + 1) * ch), slice((k % 4) * cw, (k % 4 + 1) * cw))
-        f = suit_legs(legs_run[g], body_run[g])
-        K.put(f, top, pivs[j][0] - pivs[0][0], BELT[j] - BELT[0])
+    K.put(top, fist, 0, 0)
+    hip = first[0].copy()
+    hip[:BELT[0] + 1] = 0
+    hip[HIP_END + 1:] = 0
+    hip[fist[..., 3] > 0] = 0
+    if cells["tags"]["run"][3]["pivot"][0] != pivot[0]:
+        sys.exit("run frames 1 and 4 stand on different columns: straight_leg() puts frame 4's leg under frame 1's body")
+    leg = straight_leg(lower(first[3], BELT[3])[0])
+    for k, (near, far) in enumerate(WALK):
+        f = on_legs(leg, hip, near, far)
+        K.put(f, top, 0, 0)
         strips["run"][cell(k, n["run"], cw, ch)] = tidy(f)
-        cells["tags"]["run"][k]["pivot"] = list(pivs[j])
+        cells["tags"]["run"][k]["pivot"] = list(pivot)
     for (tag, k), (src, j, dx) in GRIP_FROM.items():
         piece = strips[src][cell(j - 1, n[src], cw, ch)]
         strips[tag][cell(k - 1, n[tag], cw, ch)] = K.shifted(piece, dx, 0)
@@ -476,11 +479,10 @@ def build():
     for t in cells["tags"].values():
         for fr in t:
             fr.pop("head", None)
-    stand = suit_legs(np.asarray(Image.open(os.path.join(LEGS, "idle_1x.png")).convert("RGBA")),
-                      np.asarray(Image.open(os.path.join(LEGS, "body_idle_1x.png")).convert("RGBA")))
+    stand = on_legs(leg, hip, (0, 0), (0, 0), FAR_BACK)
     K.put(stand, top, 0, 0)
     stand = tidy(stand)
-    cells["tags"]["idle"] = [{"pivot": list(pivs[0]), "ms": m} for m in RN.MS["idle"]]
+    cells["tags"]["idle"] = [{"pivot": list(pivot), "ms": m} for m in RN.MS["idle"]]
     cols, rows = K.layout(len(RN.MS["idle"]))
     sheet = np.zeros((rows * ch, cols * cw, 4), np.uint8)
     for k in range(len(RN.MS["idle"])):
