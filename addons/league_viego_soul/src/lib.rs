@@ -250,6 +250,9 @@ impl Possess {
             sim.add_buff(me, &timed(OFF, 600));
         }
         wlog(format!("{} END possession of {} ({why})", head(sim, me), on.name));
+        if let Some((m, s)) = on_screen(sim) {
+            view::note_end(m, s, me, sim.tick());
+        }
     }
 
     fn possess(&mut self, sim: &mut StableSim<'_>, me: usize, soul: Soul) {
@@ -427,6 +430,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:possess"), Possess::default());
     view::install_once();
+    // the screen's match clock for the body swap (0.1.7); the bundle's only client extension
+    module.set_extension(view::ClockReader);
     host.log(LogLevel::Info, "league_viego_soul loaded (Viego: Sovereign's Domination as in League).");
 }
 

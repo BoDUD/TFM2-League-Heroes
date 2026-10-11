@@ -28,6 +28,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex, Once};
 
 use super::{souls, wlog, HERO, LOOK};
+use mod_api_stable::{StableClient, StableExtension};
 
 const FN_RVA: usize = 0x2808e30;
 const SLOT_RVA: usize = 0x3c31358;
@@ -140,6 +141,94 @@ pub fn note_possess(m: u64, s: u64, id: usize, tick: usize, name: &str) {
             if t.len() > 256 {
                 t.remove(0);
             }
+        }
+    }
+}
+
+/// Possession ends noted by the sims the screen replays: (match, set, Viego's id, tick).
+static ENDS: Mutex<Vec<(u64, u64, usize, usize)>> = Mutex::new(Vec::new());
+
+/// The passive's possession ended (time, Heartbreaker, death, a new soul) in a sim the screen replays.
+pub fn note_end(m: u64, s: u64, id: usize, tick: usize) {
+    if let Ok(mut e) = ENDS.lock() {
+        if !e.contains(&(m, s, id, tick)) {
+            e.push((m, s, id, tick));
+            if e.len() > 256 {
+                e.remove(0);
+            }
+        }
+    }
+}
+
+/// The victim Viego `id` wears at sim tick `t` of (m, s): the last possession started at or before `t` and not ended
+/// by then (no end noted: `p_t` after its start).
+pub fn wearing(all: &[Taken], ends: &[(u64, u64, usize, usize)], m: u64, s: u64, id: usize, t: usize, p_t: usize)
+               -> Option<String> {
+    let start = all.iter().filter(|e| e.m == m && e.s == s && e.id == id && e.tick <= t).max_by_key(|e| e.tick)?;
+    let end = ends.iter().filter(|e| e.0 == m && e.1 == s && e.2 == id && e.3 >= start.tick).map(|e| e.3).min()
+        .unwrap_or(start.tick + p_t);
+    (t < end).then(|| start.name.clone())
+}
+
+/// The screen's match clock (ingame.header.game_time.value, league_kayn_form 0.2's): its last whole second, when it
+/// turned to it, and the match ticks a real second (the playback speed) from its last step.
+struct Clock {
+    secs: Option<(usize, std::time::Instant)>,
+    rate: f64,
+    ticking: bool,
+    minute: Option<usize>,
+}
+
+static CLOCK: Mutex<Clock> = Mutex::new(Clock { secs: None, rate: 60.0, ticking: false, minute: None });
+const CLOCK_PATH: &str = "ingame.header.game_time.value";
+
+/// "12:34" -> 754.
+pub fn clock_secs(text: &str) -> Option<usize> {
+    let (m, s) = text.trim().split_once(':')?;
+    Some(m.trim().parse::<usize>().ok()? * 60 + s.trim().parse::<usize>().ok()?)
+}
+
+/// The screen's sim tick now (None until the clock has stepped once this match).
+fn screen_tick() -> Option<usize> {
+    let c = CLOCK.lock().ok()?;
+    let (secs, at) = c.secs?;
+    c.ticking.then(|| secs * 60 + ((at.elapsed().as_secs_f64() * c.rate) as usize).min(59))
+}
+
+/// The client extension that reads the screen's clock (registered once in lib.rs).
+pub struct ClockReader;
+
+impl StableExtension for ClockReader {
+    fn post_update(&self, ctx: &mut StableClient<'_>, _dt: u64) {
+        let Ok(mut c) = CLOCK.lock() else { return };
+        if !ctx.is_in_game() {
+            c.secs = None;
+            c.ticking = false;
+            c.minute = None;
+            return;
+        }
+        let shown = {
+            let parts: Vec<&str> = CLOCK_PATH.split('.').collect();
+            (1..=parts.len()).all(|n| ctx.ui_visible(&parts[..n].join(".")) == Some(true))
+        };
+        let Some(secs) = shown.then(|| ctx.ui_text(CLOCK_PATH)).flatten().as_deref().and_then(clock_secs) else { return };
+        let now = std::time::Instant::now();
+        match c.secs {
+            Some((s, _)) if s == secs => {}
+            Some((s, at)) => {
+                if secs == s + 1 {
+                    c.rate = (60.0 / now.duration_since(at).as_secs_f64()).clamp(10.0, 1200.0);
+                    c.ticking = true;
+                } else if secs < s {
+                    c.ticking = false; // another match
+                }
+                c.secs = Some((secs, now));
+            }
+            None => c.secs = Some((secs, now)),
+        }
+        if c.ticking && c.minute != Some(secs / 60) {
+            c.minute = Some(secs / 60);
+            wlog(format!("screen clock {:02}:{:02} ({:.0} ticks a second)", secs / 60, secs % 60, c.rate));
         }
     }
 }
@@ -355,8 +444,19 @@ unsafe fn dress_viego(world: usize) {
             }
             tr.in_possess = posing;
             tr.shaped = shaped;
+            // 0.1.7: the screen's clock against the sim's own possession ticks - the body is the victim's from the
+            // tick the sim possessed to the tick it ended, whatever buffs reach the screen
+            let by_clock = match (screen_tick(), view) {
+                (Some(t), Some((m, s))) => Some(match (TAKEN.lock(), ENDS.lock()) {
+                    (Ok(a), Ok(e)) => wearing(&a, &e, m, s, key as usize, t, 600).map(String::into_bytes),
+                    _ => None,
+                }),
+                _ => None,
+            };
             let now_victim = if let Some(id) = victim(buffs.iter().copied()) {
                 Some(id.to_vec())
+            } else if let Some(v) = by_clock {
+                v
             } else if shaped {
                 tr.victim.clone()
             } else {
@@ -489,6 +589,20 @@ mod tests {
         assert_eq!(nth_taken(&all, 592, 1, 24, 0).as_deref(), Some("league_lux"));
         assert_eq!(nth_taken(&all, 592, 2, 796, 0), None);
         assert_eq!(nth_taken(&all, 1, 1, 796, 0), None);
+    }
+
+    #[test]
+    fn the_clock_finds_what_he_wears() {
+        let t = |id, tick, n: &str| Taken { m: 592, s: 1, id, tick, name: n.into() };
+        let all = vec![t(24, 1000, "league_lux"), t(24, 5000, "league_jinx")];
+        let ends = vec![(592, 1, 24, 1300)];
+        assert_eq!(wearing(&all, &ends, 592, 1, 24, 999, 600), None);
+        assert_eq!(wearing(&all, &ends, 592, 1, 24, 1000, 600).as_deref(), Some("league_lux"));
+        assert_eq!(wearing(&all, &ends, 592, 1, 24, 1300, 600), None);
+        assert_eq!(wearing(&all, &ends, 592, 1, 24, 5599, 600).as_deref(), Some("league_jinx"));
+        assert_eq!(wearing(&all, &ends, 592, 1, 24, 5600, 600), None);
+        assert_eq!(clock_secs("15:48"), Some(948));
+        assert_eq!(clock_secs("x"), None);
     }
 
     #[test]
