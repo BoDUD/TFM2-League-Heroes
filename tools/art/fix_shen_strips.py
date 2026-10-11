@@ -54,16 +54,21 @@ CANVAS_SQUARE = 1254 / 128
 # The run. First a scissor step of the design's own legs moved whole (the user: 「腿别变形」「脚也别变形」「颜色都不一致」
 # after Codex's two skin swaps and legs drawn from League's joints with the stride squeezed - 45% of the lift - were all
 # rejected; 「好歹有点换脚的感觉啊 平行走路？？？？」 on legs lifting in place). Then (2026-10-11): 「慎姿势改对了 步伐没改对」
-# - the legs run League's run (RUN_JOINTS, its 8 frames, the stride not squeezed): each leg is three rigid pieces of the
-# design at 90% - the thigh (the hakama bulb), the shin (cuff and boot shaft), the foot - turned (RotSprite, its own
-# colours only) to League's thigh and shin angles about their own joints; a foot League has on the ground stands flat on
-# the soles (rigkit.leg_chain solves the knee, the shin moved onto the foot), a swinging one turns with its shin; the
-# near foot mirrored (its toe points back in the design's wide stance); the tail hem hangs RUN_TAIL_DX columns in, from
-# the sash (the near thigh it hung beside swings away); the body bobs with League's hips (0-2 rows, lower when a planted
-# foot is out of reach).
+# - the legs run League's run (RUN_JOINTS, its 8 frames, the stride not squeezed). The design's own leg pieces turned to
+# League's angles (RotSprite) came out a different shape in every frame: 「慎的跑动腿部变形」 (Viego's drawn trousers:
+# 「佛耶戈不错」). So the legs are DRAWN on League's thigh and shin angles in the design's own colours, the same shape in
+# every frame: the hakama bulb (purple #593C9C, its edges #231548, RUN_W), its silver cuff, the brown boot shaft, one
+# outline round them; the feet are the design's own (the near one mirrored: its toe points back in the wide stance),
+# flat - a foot League has on the ground stands on the soles, the knee solved by rigkit.leg_chain - or a quarter turn
+# when the shin swings near level (RUN_TURN); the tail hem hangs RUN_TAIL_DX columns in, from the sash (the near thigh it
+# hung beside swings away); the body bobs with League's hips (0-2 rows, lower when a planted foot is out of reach).
 RUN_JOINTS = os.path.join(ROOT, "assets", "source", "shen", "run_joints.json")
 RUN_PLANT_TOE = 8.5               # a League toe this low (game px under its pivot) stands on the ground
-RUN_FLAT = 25                     # a swinging foot within this many degrees of straight down stays flat
+RUN_TURN = 70                     # a swinging foot turns a quarter once its shin is this far from straight down
+RUN_W = (2.3, 2.5, 1.1, 1.8, 1.5)   # half-widths at 90%: the bulb at the sash, at the cuff, its bulge; the shaft; the
+                                    # cuff's length (the design's bulb ~8 wide in its middle, the shaft 4)
+LEG_COLOURS = {"bulb": "#593C9C", "bulb2": "#583B95", "bulb_edge": "#231548", "cuff": "#C3C3C5", "cuff2": "#A3A5AB",
+               "cuff3": "#767A8B", "shaft": "#573327", "shaft2": "#3D241E", "shaft3": "#341E1A"}
 RUN_TAIL_DX = 3
 FOOT_ROW = 97                     # the feet's first row on the design
 KNEE_ROW = 91                     # the lower leg's first row
@@ -460,13 +465,53 @@ def stride_legs(parts, plan):
 
 
 def turned(part, joint, at, deg):
-    """The part with its `joint` on `at`, turned `deg` (+ toward +x from down; RotSprite, the part's own colours)."""
+    """The part with its `joint` on `at`, turned `deg` (+ toward +x from down) - only by quarter turns (exact)."""
     import rigkit as K
-    c = np.zeros_like(part)
-    if abs(deg) < 0.5:
+    q = int(round(deg / 90.0)) % 4
+    if q == 0:
         return shift(part, int(round(at[0] - joint[0])), int(round(at[1] - joint[1])))
-    K.place(c, K.turn(K.Part.from_canvas(part, part[..., 3] > 0, joint), deg), at)
+    c = np.zeros_like(part)
+    K.place(c, K.rot90(K.Part.from_canvas(part, part[..., 3] > 0, joint), (-q) % 4), at)
     return c
+
+
+def draw_leg(can, hip, knee, ank):
+    """One leg drawn over what is in `can`: the hakama bulb from the hip to the knee (its edges darker, its last
+    RUN_W[4] squares the silver cuff), the boot shaft from the knee to the ankle, one outline round both."""
+    from scipy import ndimage as nd
+    col = {k: tuple(int(v[i:i + 2], 16) for i in (1, 3, 5)) + (255,) for k, v in LEG_COLOURS.items()}
+    hip_w, knee_w, bulge, shin_w, cuff_len = RUN_W
+    ys, xs = np.mgrid[0:can.shape[0], 0:can.shape[1]]
+    px, py = xs + 0.5, ys + 0.5
+
+    def seg(p0, p1):
+        (x0, y0), (x1, y1) = p0, p1
+        dx, dy = x1 - x0, y1 - y0
+        l2 = max(dx * dx + dy * dy, 1e-6)
+        t = ((px - x0) * dx + (py - y0) * dy) / l2
+        tc = np.clip(t, 0, 1)
+        return np.hypot(px - (x0 + tc * dx), py - (y0 + tc * dy)), t, (px - x0) * dy - (py - y0) * dx, l2 ** 0.5
+
+    d, t, side, length = seg(hip, knee)
+    tc = np.clip(t, 0, 1)
+    w = hip_w + (knee_w - hip_w) * tc + bulge * np.sin(np.pi * tc)
+    bulb = (d <= w) & (t >= -0.05) & (t <= 1.0)
+    d2, t2, side2, _ = seg(knee, ank)
+    shaft = (d2 <= shin_w) & (t2 >= 0.0) & (t2 <= 1.05)
+    leg = bulb | shaft
+    can[nd.binary_dilation(leg, np.ones((3, 3), bool)) & ~leg] = tuple(int(v) for v in OUTLINE) + (255,)
+    can[shaft] = col["shaft"]
+    can[shaft & (d2 > shin_w - 0.9) & (side2 < 0)] = col["shaft2"]
+    can[shaft & (d2 > shin_w - 0.9) & (side2 > 0)] = col["shaft3"]
+    can[bulb] = col["bulb"]
+    edge = bulb & (d > w - 1.0)
+    can[edge] = col["bulb_edge"]
+    can[bulb & ~edge & (d > w - 2.0) & (side < 0)] = col["bulb2"]
+    cuff = bulb & ((1 - tc) * length < cuff_len)
+    can[cuff] = col["cuff"]
+    can[cuff & (d > w - 1.2)] = col["cuff2"]
+    can[cuff & (d > w - 1.2) & (side > 0)] = col["cuff3"]
+    return can
 
 
 def stride_frame(parts, k):
@@ -495,29 +540,18 @@ def stride_frame(parts, k):
         th, sh, planted, ax = want[leg]
         hip = (L["hip"][0], L["hip"][1] + bob)
         knee, ank, th, sh, grounded = K.leg_chain(hip, th, sh, L["lt"], L["ls"], SOLES + 1 - L["fh"], planted)
-        thigh = turned(L["thigh"], L["hip"], hip, th - L["a_t"])
-        shin = turned(L["shin"], L["knee"], knee, sh - L["a_s"])
+        c = draw_leg(np.zeros((128, 128, 4), np.uint8), hip, knee, ank)
         if grounded:
-            # the foot flat on the soles under the ankle; the turned shin moved onto it (RotSprite rounds its end)
-            top = (ank[0] + L["fdx"], SOLES + 1 - L["fh"])
-            foot = turned(L["foot"], L["ftop"], top, 0.0)
-            sb = bottom_mid(shin)
-            shin = shift(shin, int(round(top[0] - L["fdx"] - sb[0])), int(round(top[1] - sb[1])))
+            foot = turned(L["foot"], L["ftop"], (ank[0] + L["fdx"], SOLES + 1 - L["fh"]), 0.0)
         else:
-            # a swinging foot turns with its shin at the shin's far end (over the knee when the heel kicks up)
-            foot = turned(L["foot"], L["ank"], ank, 0.0 if abs(sh) <= RUN_FLAT else sh - L["a_s"])
-        drawn[leg] = (thigh, shin, foot, grounded)
+            foot = turned(L["foot"], L["ank"], ank, sh - L["a_s"] if abs(sh) >= RUN_TURN else 0.0)
+        drawn[leg] = (c, foot)
     far, near = drawn["far"], drawn["near"]
-    layers = [(far[1], 0, 0), (far[2], 0, 0), (far[0], 0, 0),
+    layers = [(far[1], 0, 0), (far[0], 0, 0),
               (parts["tail_top"], RUN_TAIL_DX, bob), (parts["hem"], RUN_TAIL_DX, bob),
-              (near[1], 0, 0), (near[2], 0, 0), (near[0], 0, 0),
+              (near[1], 0, 0), (near[0], 0, 0),
               (parts["apron"], 0, bob)] + [(c, 0, bob) for c in parts["run_upper"]]
-    a = bare_outline_gone(compose(layers))
-    if far[3] or near[3]:
-        low = int(np.nonzero(a[..., 3].any(1))[0].max())
-        if 0 < SOLES - low <= 2:                    # a planted sole a square short of the soles (rounding)
-            a = shift(a, 0, SOLES - low)
-    return a
+    return bare_outline_gone(compose(layers))
 
 
 def bare_outline_gone(a):
