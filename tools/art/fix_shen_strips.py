@@ -20,11 +20,13 @@ then made "final" copies itself by resizing and re-quantising them: those are bl
      its eyes on League's head column (else its middle on League's);
   4. clear specks (pieces of fewer than SPECK squares apart from the body) and close the outline.
 The idle is the design square for square, breathing (the body above the sash sinks over the legs); the run is a trot
-of the design's own legs moved whole (TROT). Q and R start from the design itself (League's casts start from the idle
+of the design's own leg pieces on League's run (stride_frame) under its own upper body: leaning, the near fist up
+(run_upper). Q and R start from the design itself (League's casts start from the idle
 pose).
 """
 import argparse
 import json
+import math
 import os
 import sys
 
@@ -49,22 +51,49 @@ Z = 8
 SOLES, MID = 99, 64
 PIVOT = (MID, SOLES - 11)
 CANVAS_SQUARE = 1254 / 128
-# The run: a scissor step of the design's own legs, nothing redrawn (the user: 「腿别变形」「脚也别变形」「颜色都不一致」
-# after Codex's two skin swaps and legs drawn from League's joints were all rejected; 「好歹有点换脚的感觉啊 平行走路？？？？」
-# on legs lifting in place). Each leg is two rigid pieces of the design: the thigh (the hakama bulb, rows 85-90) and
-# the lower leg (cuff, shin and boot, rows 91-99). A leg moves sideways whole (both pieces, NEAR_STEP / FAR_STEP
-# columns: the near one forward while the planted far one slides back, then the other way, 2 columns inwards at most,
-# the thighs tucking under the apron's edges); a step lifts only the lower leg, BEHIND its own thigh (a bent knee: the
-# thigh never rises into the sash, nothing is cut but what goes behind). The tail hem moves with the near leg it hangs
-# beside, the near boot in front of it, so the two keep the idle's arrangement; the body sinks a row as a foot lands.
-# (Lifting the whole leg hid the bulb's top under the sash and ran the mirrored near boot through the tail hem:
-# 「你看不到变形吗」.)
-NEAR_STEP = [(2, 0), (1, 0), (1, 0), (0, 0), (0, 1), (1, 2), (2, 2), (2, 1)]        # (columns, lower leg rows up)
-FAR_STEP = [(-2, 1), (-1, 2), (0, 2), (0, 1), (0, 0), (-1, 0), (-1, 0), (-2, 0)]
-TROT_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+# The run. First a scissor step of the design's own legs moved whole (the user: 「腿别变形」「脚也别变形」「颜色都不一致」
+# after Codex's two skin swaps and legs drawn from League's joints with the stride squeezed - 45% of the lift - were all
+# rejected; 「好歹有点换脚的感觉啊 平行走路？？？？」 on legs lifting in place). Then (2026-10-11): 「慎姿势改对了 步伐没改对」
+# - the legs run League's run (RUN_JOINTS, its 8 frames, the stride not squeezed). The design's own leg pieces turned to
+# League's angles (RotSprite) came out a different shape in every frame: 「慎的跑动腿部变形」 (Viego's drawn trousers:
+# 「佛耶戈不错」). So the legs are DRAWN on League's thigh and shin angles in the design's own colours, the same shape in
+# every frame: the hakama bulb (purple #593C9C, its edges #231548, RUN_W), its silver cuff, the brown boot shaft, one
+# outline round them; the feet are the design's own whole boots (from the shaft's last row down, FOOT_ROW; the near one
+# mirrored: its toe points back in the wide stance), always flat and drawn over the leg - a foot League has on the
+# ground stands on the soles, the knee solved by rigkit.leg_chain. (The leg's outline drawn over the feet cut them into
+# pieces, a quarter-turned foot stood up as a bar, and without the shaft's last row the far boot's heel hung apart:
+# 「慎的脚变形了啊」.) The tail hem hangs RUN_TAIL_DX columns in, from the sash (the near thigh it hung beside swings
+# away); the body bobs with League's hips (0-2 rows, lower when a planted foot is out of reach).
+RUN_JOINTS = os.path.join(ROOT, "assets", "source", "shen", "run_joints.json")
+RUN_PLANT_TOE = 8.5               # a League toe this low (game px under its pivot) stands on the ground
+RUN_W = (2.3, 2.5, 1.1, 1.8, 1.5)   # half-widths at 90%: the bulb at the sash, at the cuff, its bulge; the shaft; the
+                                    # cuff's length (the design's bulb ~8 wide in its middle, the shaft 4)
+LEG_COLOURS = {"bulb": "#593C9C", "bulb2": "#583B95", "bulb_edge": "#231548", "cuff": "#C3C3C5", "cuff2": "#A3A5AB",
+               "cuff3": "#767A8B", "shaft": "#573327", "shaft2": "#3D241E", "shaft3": "#341E1A"}
+RUN_TAIL_DX = 3
+FOOT_ROW = 96                     # the feet's first row on the design (the boot shaft's last, so the boot stays whole)
 KNEE_ROW = 91                     # the lower leg's first row
 LEG_TOP = 85
+# The run's own upper body (the user, 2026-10-11, with Viego's: 「慎的待机和跑步应该也不一样 我意思你顺便处理」 - the trot
+# carried the idle's stance): he leans into the run, every row above the sash moved forward RUN_LEAN columns per row
+# up from it (whole rows), the hood, his raised far arm with the sword and the near forearm moved whole (a sheared
+# blade or hood gets steps) - the far arm with the hood it holds the hilt beside - and his near fist comes up before his
+# chest: the bracer and the fist turned a quarter turn back about the elbow (rigkit.rot90: lossless), as League's Shen
+# runs. Rows are the design's (before the 90% cut; run_upper maps them).
+RUN_LEAN = 0.35
+RUN_HEAD = {59: (60, 70), 60: (59, 71), 61: (59, 72), 62: (59, 73), 63: (60, 73), 64: (60, 72), 65: (60, 72),
+            66: (60, 72), 67: (60, 72), 68: (61, 72), 69: (61, 72), 70: (61, 71)}
+RUN_FAR = {54: (60, 62), 55: (59, 63), 56: (57, 63), 57: (55, 62), 58: (55, 62), 59: (54, 59), 60: (54, 58),
+           61: (54, 58), 62: (54, 58), 63: (53, 59), 64: (53, 59), 65: (53, 59), 66: (53, 59), 67: (53, 59),
+           68: (52, 59), 69: (51, 59), 70: (51, 58), 71: (50, 58), 72: (50, 57), 73: (49, 56), 74: (48, 55),
+           75: (48, 54), 76: (47, 53), 77: (47, 52), 78: (47, 51), 79: (47, 51), 80: (47, 51), 81: (47, 51),
+           82: (48, 51), 83: (48, 51), 84: (48, 50)}
+RUN_NEAR = {77: (75, 78), 78: (74, 78), 79: (74, 81), 80: (72, 81), 81: (74, 83), 82: (75, 83), 83: (78, 82),
+            84: (78, 82), 85: (80, 81)}           # the bracer and the fist (the bare upper arm ends on row 78)
+NECK_ROW = 70                     # the hood's chin: the hood and the far arm move with this row's shift
+NEAR_ELBOW = (74.5, 78.5)         # (x, y): the near forearm turns about it
 EYE = (239, 226, 246)
+OUTLINE = (11, 1, 15)              # the design's outline colour (palette()[0], its darkest)
 SPECK = 4
 
 # tag -> [(source, ms)]; a source is a Codex frame name (placed by ITS League frame) or ("sink", name, row, n): that
@@ -73,7 +102,7 @@ TAGS = {
     # the idle breathes without a cut: the body above the sash (and the whole near hand) sinks over the legs, which stay
     # square for square (import_native's idle_breathe cut two rows out of the trousers, boots, apron and tail hem)
     "idle": [(("breath", n), 140) for n in (0, 0, 1, 2, 2, 2, 1, 0)],
-    "run": [(("trot", k), 100) for k in range(1, 9)],
+    "run": [(("stride", k), 100) for k in range(8)],
     "attack": [(f"attack_{k}", ms) for k, ms in zip(range(1, 7), (50, 60, 60, 90, 80, 60))],
     # Q: Codex's four frames were four bodies (frame 4 tall and thin); the palm push is one drawing held
     # (League's Q starts from the idle pose: the design itself, so the cast starts without a jump)
@@ -377,7 +406,14 @@ def trot_parts(des):
     tail_top, hem = tail.copy(), tail.copy()
     tail_top[KNEE_ROW:] = 0
     hem[:KNEE_ROW] = 0
-    parts = {"upper": upper, "tail_top": tail_top, "hem": hem, "apron": apron}
+    parts = {"tail_top": tail_top, "hem": hem, "apron": apron}
+    # the upper body in the run's pieces: the hood, the far arm with the sword, the near forearm, the torso (the rest)
+    torso = upper.copy()
+    for name, spec in (("head", RUN_HEAD), ("far_arm", RUN_FAR), ("near_fore", RUN_NEAR)):
+        piece = masked(torso, sorted(spec), lambda y: spec[y])
+        torso[piece[..., 3] > 0] = 0
+        parts[name] = piece
+    parts["torso"] = torso
     for name, leg in (("near", near), ("far", far)):
         thigh, low = leg.copy(), leg.copy()
         thigh[KNEE_ROW:] = 0
@@ -386,17 +422,182 @@ def trot_parts(des):
     return parts
 
 
-def trot_layers(parts, k):
-    """Frame k's pieces with their moves, back to front."""
-    bob = TROT_BOB[k - 1]
-    ndx, nup = NEAR_STEP[k - 1]
-    fdx, fup = FAR_STEP[k - 1]
-    # the tail hem's lower half (rows >= KNEE_ROW, beside the near boot) rises with the near lower leg, over the tail's
-    # upper half: the cloth lifted by the knee. Lifted alone, the near boot ran over the hem's corner (or, behind it,
-    # lost its ankle): 「右腿好了 左腿还有一点」. The tail's upper half sinks with the body.
-    return [(parts["far_low"], fdx, -fup), (parts["far_thigh"], fdx, bob), (parts["tail_top"], ndx, bob),
-            (parts["hem"], ndx, -nup), (parts["near_low"], ndx, -nup), (parts["near_thigh"], ndx, bob),
-            (parts["apron"], 0, bob), (parts["upper"], 0, bob)]
+def top_mid(part):
+    ys, xs = np.nonzero(part[..., 3] > 0)
+    top = ys.min()
+    row = xs[ys == top]
+    return (row.min() + row.max() + 1) / 2.0, float(top)
+
+
+def bottom_mid(part):
+    ys, xs = np.nonzero(part[..., 3] > 0)
+    bot = ys.max()
+    row = xs[ys == bot]
+    return (row.min() + row.max() + 1) / 2.0, float(bot + 1)
+
+
+def stride_legs(parts, plan):
+    """Each leg's pieces on the 90% canvas (thigh, shin, foot - the near foot mirrored about its ankle: toe forward)
+    with their joints, bone angles on the design and lengths."""
+    import rigkit as K
+    foot_row = int(plan_point(plan, CW, FOOT_ROW)[1])
+    legs = {}
+    for leg in ("near", "far"):
+        thigh, low = parts[leg + "_thigh"], parts[leg + "_low"]
+        shin, foot = low.copy(), low.copy()
+        shin[foot_row:] = 0
+        foot[:foot_row] = 0
+        hip, knee, ank = top_mid(thigh), top_mid(shin), bottom_mid(shin)
+        if leg == "near":
+            fwd = np.zeros_like(foot)
+            for y, x in zip(*np.nonzero(foot[..., 3] > 0)):
+                nx = int(round(2 * ank[0] - x - 1))
+                if 0 <= nx < 128:
+                    fwd[y, nx] = foot[y, x]
+            foot = fwd
+        ftop = top_mid(foot)
+        legs[leg] = dict(thigh=thigh, shin=shin, foot=foot, hip=hip, knee=knee, ank=ank,
+                         a_t=K.bone_angle(hip, knee), a_s=K.bone_angle(knee, ank),
+                         lt=float(np.hypot(knee[0] - hip[0], knee[1] - hip[1])),
+                         ls=float(np.hypot(ank[0] - knee[0], ank[1] - knee[1])),
+                         ftop=ftop, fdx=ftop[0] - ank[0],
+                         fh=float(np.nonzero(foot[..., 3].any(1))[0].max() + 1) - ftop[1])
+    return legs
+
+
+def turned(part, joint, at, deg):
+    """The part with its `joint` on `at`, turned `deg` (+ toward +x from down) - only by quarter turns (exact)."""
+    import rigkit as K
+    q = int(round(deg / 90.0)) % 4
+    if q == 0:
+        return shift(part, int(round(at[0] - joint[0])), int(round(at[1] - joint[1])))
+    c = np.zeros_like(part)
+    K.place(c, K.rot90(K.Part.from_canvas(part, part[..., 3] > 0, joint), (-q) % 4), at)
+    return c
+
+
+def draw_leg(can, hip, knee, ank):
+    """One leg drawn over what is in `can`: the hakama bulb from the hip to the knee (its edges darker, its last
+    RUN_W[4] squares the silver cuff), the boot shaft from the knee to the ankle, one outline round both."""
+    from scipy import ndimage as nd
+    col = {k: tuple(int(v[i:i + 2], 16) for i in (1, 3, 5)) + (255,) for k, v in LEG_COLOURS.items()}
+    hip_w, knee_w, bulge, shin_w, cuff_len = RUN_W
+    ys, xs = np.mgrid[0:can.shape[0], 0:can.shape[1]]
+    px, py = xs + 0.5, ys + 0.5
+
+    def seg(p0, p1):
+        (x0, y0), (x1, y1) = p0, p1
+        dx, dy = x1 - x0, y1 - y0
+        l2 = max(dx * dx + dy * dy, 1e-6)
+        t = ((px - x0) * dx + (py - y0) * dy) / l2
+        tc = np.clip(t, 0, 1)
+        return np.hypot(px - (x0 + tc * dx), py - (y0 + tc * dy)), t, (px - x0) * dy - (py - y0) * dx, l2 ** 0.5
+
+    d, t, side, length = seg(hip, knee)
+    tc = np.clip(t, 0, 1)
+    w = hip_w + (knee_w - hip_w) * tc + bulge * np.sin(np.pi * tc)
+    bulb = (d <= w) & (t >= -0.05) & (t <= 1.0)
+    d2, t2, side2, _ = seg(knee, ank)
+    shaft = (d2 <= shin_w) & (t2 >= 0.0) & (t2 <= 1.05)
+    leg = bulb | shaft
+    can[nd.binary_dilation(leg, np.ones((3, 3), bool)) & ~leg] = tuple(int(v) for v in OUTLINE) + (255,)
+    can[shaft] = col["shaft"]
+    can[shaft & (d2 > shin_w - 0.9) & (side2 < 0)] = col["shaft2"]
+    can[shaft & (d2 > shin_w - 0.9) & (side2 > 0)] = col["shaft3"]
+    can[bulb] = col["bulb"]
+    edge = bulb & (d > w - 1.0)
+    can[edge] = col["bulb_edge"]
+    can[bulb & ~edge & (d > w - 2.0) & (side < 0)] = col["bulb2"]
+    cuff = bulb & ((1 - tc) * length < cuff_len)
+    can[cuff] = col["cuff"]
+    can[cuff & (d > w - 1.2)] = col["cuff2"]
+    can[cuff & (d > w - 1.2) & (side > 0)] = col["cuff3"]
+    return can
+
+
+def stride_frame(parts, k):
+    """Run frame k (0-7) from League's joints."""
+    import rigkit as K
+    with open(lp(RUN_JOINTS), encoding="utf-8") as f:
+        J = json.load(f)
+    legs = parts["legs"]
+    bobs = K.hip_bobs([(fr["joints"]["L_Hip"][1] + fr["joints"]["R_Hip"][1]) / 2 for fr in J], 2)
+    j = J[k]["joints"]
+    want = {}
+    for leg, side in (("far", "R"), ("near", "L")):            # near = League's L (nearer the camera)
+        L = legs[leg]
+        H, Kn, Fo = (j[f"{side}_{n}"][:2] for n in ("Hip", "KneeLower", "Foot"))
+        th, sh = K.bone_angle(H, Kn), K.bone_angle(Kn, Fo)
+        ax = L["hip"][0] + L["lt"] * np.sin(np.radians(th)) + L["ls"] * np.sin(np.radians(sh))
+        want[leg] = (th, sh, j[f"{side}_Toe"][1] >= RUN_PLANT_TOE, ax)
+    bob = bobs[k]
+    for leg, (th, sh, planted, ax) in want.items():
+        L = legs[leg]
+        if planted:
+            bob = max(bob, K.reach_bob(L["hip"], ax, SOLES + 1 - L["fh"], L["lt"], L["ls"]))
+    drawn = {}
+    for leg in ("far", "near"):
+        L = legs[leg]
+        th, sh, planted, ax = want[leg]
+        hip = (L["hip"][0], L["hip"][1] + bob)
+        knee, ank, th, sh, grounded = K.leg_chain(hip, th, sh, L["lt"], L["ls"], SOLES + 1 - L["fh"], planted)
+        c = draw_leg(np.zeros((128, 128, 4), np.uint8), hip, knee, ank)
+        if grounded:
+            foot = turned(L["foot"], L["ftop"], (ank[0] + L["fdx"], SOLES + 1 - L["fh"]), 0.0)
+        else:
+            foot = turned(L["foot"], L["ank"], ank, 0.0)
+        drawn[leg] = (c, foot)
+    far, near = drawn["far"], drawn["near"]
+    layers = [(far[0], 0, 0), (far[1], 0, 0),
+              (parts["tail_top"], RUN_TAIL_DX, bob), (parts["hem"], RUN_TAIL_DX, bob),
+              (near[0], 0, 0), (near[1], 0, 0),
+              (parts["apron"], 0, bob)] + [(c, 0, bob) for c in parts["run_upper"]]
+    return bare_outline_gone(compose(layers))
+
+
+def bare_outline_gone(a):
+    """Outline squares with no colour beside them taken out (rigkit.orphan_outline, until none is left): the turned
+    forearm's lower edge (its outline on the bracer's side) hung under the elbow as a stalk."""
+    import rigkit as K
+    a = a.copy()
+    outline = tuple(int(v) for v in OUTLINE)
+    while True:
+        gone = K.orphan_outline(a, outline)
+        if not gone.any():
+            return a
+        a[gone] = 0
+
+
+def plan_point(plan, x, y):
+    """A design point (x, y) on the 90% canvas: down one for every removed row under it, the removed columns between
+    it and the pivot closing in."""
+    rows = [CH + r for r in plan["rows"]]
+    cols = [CW + c for c in plan["cols"]]
+    y2 = y + sum(1 for r in rows if r > y)
+    if x < CW:
+        return x + sum(1 for c in cols if x < c < CW), y2
+    return x - sum(1 for c in cols if CW < c <= x), y2
+
+
+def run_upper(parts, plan):
+    """The run's upper body on the 90% pieces, back to front: the far arm with the sword and the hood moved with the
+    neck's shift, the torso leant row by row (RUN_LEAN), the near forearm turned up about the elbow, moved with the
+    elbow's row."""
+    import rigkit as K
+    neck = plan_point(plan, CW, NECK_ROW)[1]
+    leg = plan_point(plan, CW, LEG_TOP)[1]
+
+    def lean(y):
+        return int(math.floor((leg - max(y, neck)) * RUN_LEAN + 0.5)) if y < leg else 0
+
+    torso = np.zeros_like(parts["torso"])
+    for y in range(128):
+        torso[y] = shift(parts["torso"][y:y + 1], lean(y), 0)[0]
+    ex, ey = plan_point(plan, *NEAR_ELBOW)
+    fore = parts["near_fore"]
+    near = np.zeros_like(fore)
+    K.place(near, K.rot90(K.Part.from_canvas(fore, fore[..., 3] > 0, (ex, ey)), 3), (ex + lean(int(ey)), ey))
+    return [shift(parts["far_arm"], lean(neck), 0), torso, shift(parts["head"], lean(neck), 0), near]
 
 
 SHRINK = 0.9                          # the user: 「慎的模型太大 缩小一点」 (46 rows -> 42, like Talon and Olaf)
@@ -518,13 +719,19 @@ def source_of(name):
 def build(only=None):
     des = design()
     pal = palette(des)
-    cells = json.load(open(os.path.join(POSE, "shen_cells.json"), encoding="utf-8"))
-    lols, cache, sheet, info = {}, {}, {}, {}
-    ref = place_ref(des, cells)
+    lols, cache, sheet, info, lol = {}, {}, {}, {}, {}
+
+    def league_cells():
+        """League's renders (POSE) are read only for a Codex frame: --only run / idle build without them."""
+        if not lol:
+            lol["cells"] = json.load(open(os.path.join(POSE, "shen_cells.json"), encoding="utf-8"))
+            lol["ref"] = place_ref(des, lol["cells"])
+        return lol["cells"], lol["ref"]
 
     def frame(name):
         if name not in cache:
             tag, k = source_of(name)
+            cells, ref = league_cells()
             if tag not in lols:
                 lols[tag] = league(tag, cells)
             a, s, f = action_frame(name, tag, k, pal, lols[tag], ref)
@@ -537,6 +744,8 @@ def build(only=None):
     up, low = breath_parts(des)
     up90, low90 = shrunk(up, plan), shrunk(low, plan)
     run_parts = {n: shrunk(p, plan) for n, p in trot_parts(des).items()}
+    run_parts["run_upper"] = run_upper(run_parts, plan)
+    run_parts["legs"] = stride_legs(run_parts, plan)
     for tag, rows in TAGS.items():
         if only and tag not in only:
             continue
@@ -546,8 +755,8 @@ def build(only=None):
                 a = des90
             elif isinstance(src, tuple) and src[0] == "breath":
                 a = compose([(low90, 0, 0), (up90, 0, src[1])])
-            elif isinstance(src, tuple) and src[0] == "trot":
-                a = compose(trot_layers(run_parts, src[1]))
+            elif isinstance(src, tuple) and src[0] == "stride":
+                a = stride_frame(run_parts, src[1])
             elif isinstance(src, tuple) and src[0] == "sink":
                 a = ("sink", src[1], src[2], src[3])
             else:

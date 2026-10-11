@@ -32,12 +32,12 @@
  88      0uuvvvvvg0SSs0v0g0
  89     0uHvvvvvgG0Sss0vv00
  90     Hvvvvvvg0hH0sss0pvv0
- 91   0Hvvvvvvg0hHh0sssz0puv
- 92  0uvuvvvvg0HHh0sSsSz00pv
- 93 vvuppppppp0hHH0ssss0HH0p0
- 940pppp000vpp000H0Ssss0000p0
- 950ppp0 0SS000  0h00000  00p0
- 96 000  0gb0      0bbg0    0
+ 91   0Hvvvvvvg0hHh0Sssh0puv
+ 92  0uvuvvvvg0HHhh0Sssh00pv
+ 93 vvuppppppp0hHHh0SsShHH0p0
+ 940pppp000vpp000H00ggg0000p0
+ 950ppp0 0SS000  000ggg0  00p0
+ 96 000  0gg0      0bbb0    0
  97      0bb0      0bbbb0
  98     0bbh0      0hhbbb0
  99     00000      0000000

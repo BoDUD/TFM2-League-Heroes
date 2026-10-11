@@ -82,10 +82,17 @@ P = {
     # (his attack range) though one was within the last r_seen ticks, one his team hit lately within r_chase (and,
     # with r_chase_mate, an allied champion within r_mates) -> the portal where the line toward it touches the first
     # enemy champion (r_stop), at most r_move away. The allied units standing in his portal (r_portal) come along.
-    "r_cd": 3000, "r_range": 120000, "r_arm": 600, "r_poll": 10, "r_ch": 60,
+    # 2026-10-11, players: 「瑞兹的大招不会像卡牌那样释放 远距离的追和逃命」 -> league_twistedfate R's reach: armed and
+    # chasing within 360000, no ally needed in his portal, also into a fight his team has far away (r_need_seen 0),
+    # the teamfight guard counted round him (r_crowd_r); the escape lands by an allied champion r_far_min..r_far away
+    # with no enemy champion within r_far_safe of it (r_far_try picks), else the old jump (the user's pick). Sim (mid,
+    # 5 base mages, 2 x 25 seeds): before +1.53 / +1.81; landing at 38000 +1.89 / +1.37 with deaths 2.1 -> 2.7; at
+    # 50000 +2.65 / +2.31; at 50000 with a 70 s cooldown (r_cd 4200, was 50 s) +2.26 / +2.01, 5.6 warps a game (1.5).
+    "r_cd": 4200, "r_range": 360000, "r_arm": 600, "r_poll": 10, "r_ch": 60,
     "r_esc": 30000, "r_alone": 1, "r_esc1": 15000, "r_mates": 50000, "r_back": 60000, "r_back_t": 4,
-    "r_reach": 45000, "r_seen": 90, "r_chase": 100000, "r_chase_mate": 1, "r_move": 80000, "r_stop": 38000,
-    "r_crowd": 3, "r_chase_mates": 25000,
+    "r_reach": 45000, "r_seen": 90, "r_chase": 360000, "r_chase_mate": 0, "r_move": 360000, "r_stop": 50000,
+    "r_crowd": 3, "r_chase_mates": 25000, "r_crowd_r": 100000, "r_need_seen": 0,
+    "r_far": 360000, "r_far_min": 60000, "r_far_safe": 30000, "r_far_try": 3,
     "r_portal": 25000, "r_grab": 15000, "r_carry": 30000, "r_land": 16, "r_e_range": 70000,
     # his spoken lines: one every vo_gap ticks at most
     "vo_gap": 600,
@@ -345,8 +352,28 @@ def build(p):
     chase = combine(*start(), beacon, anchor(ch + 1))
     # the escape (on the champion right on him): at the end of the channel a jump straight away from it
     bt = p["r_back_t"]
-    escape = combine(*start(), anchor(ch + bt + 1), delayed(ch, sw("r_cut", NONE, combine(
-        *arrive(bt + 3), {"type": "MoveBack", "speed": p["r_back"] // bt, "tick": bt}, delayed(bt, *land())))))
+    # the far escape: a 1-tick lob onto an allied champion (league_annie R's way to a unit's spot); where it lands it
+    # asks "is he within r_far_min of it" (then it is no escape: himself, or an ally in the same fight) and "is an
+    # enemy champion within r_far_safe of it"; neither -> r_fok, the destination's portal, and at the end of the
+    # channel he is put there (a Teleport in a projectile's end_effects lands on its point, league_ekko). r_far_try
+    # lobs at random allies, each with its own flags; only the first that passes takes r_fok and lands him (r_fm<k>).
+    # No lob passed -> the old jump away.
+    def far_lob(k):
+        ask = lambda rng, target, fl: {"type": "RandomTarget", "range": rng, "casting_target": target,
+                                       "from_projectile": True, "effects": [flag(fl, ch + 4)]}
+        return {"type": "ParabolicProjectile", "name": n("r_far"), "travel_time": 1, "range": p["r_far"] + 20000,
+                "shape": circle(1000), "range_effect_name": "", "applied_target": "AllyChampion",
+                "applied_effects": [], "end_effects": [
+                    ask(p["r_far_min"], "AllyOnlySelf", f"r_fc{k}"), ask(p["r_far_safe"], "EnemyChampion", f"r_fh{k}"),
+                    delayed(1, sw(f"r_fc{k}", NONE, sw(f"r_fh{k}", NONE, sw("r_fok", NONE, combine(
+                        flag("r_fok", ch + 4), flag(f"r_fm{k}", ch + 4), view("r_dest")))))),
+                    delayed(ch - 1, sw(f"r_fm{k}", sw("r_cut", NONE, combine(*arrive(bt + 3), {"type": "Teleport"},
+                                                                             *land()))))]}
+    tries = range(p["r_far_try"])
+    far = [*rm("r_fok", *[f"r_f{c}{k}" for k in tries for c in "chm"])] + [rand("AllyChampion", p["r_far"], [far_lob(k)])
+                                                                          for k in tries]
+    escape = combine(*start(), *far, anchor(ch + bt + 1), delayed(ch, sw("r_cut", NONE, sw("r_fok", NONE, combine(
+        *arrive(bt + 3), {"type": "MoveBack", "speed": p["r_back"] // bt, "tick": bt}, delayed(bt, *land()))))))
     # the check: count the enemy champions round him (league_kayle R's ladder), note one in his reach, and a tick
     # later pick escape, chase or nothing
     def crowd(n):
@@ -363,13 +390,13 @@ def build(p):
         hunt = sw("r_mate2", hunt)
     r_try = sw("r_armed", combine(
         *rm("r_n1", "r_n2", "r_near", "r_mate", "r_mate2", *[f"r_c{i}" for i in range(1, p["r_crowd"] + 1)]),
-        around(p["r_chase"], "EnemyChampion", [crowd(p["r_crowd"])]),
+        around(p["r_crowd_r"], "EnemyChampion", [crowd(p["r_crowd"])]),
         rand("AllyNotSelf", p["r_chase_mates"], [flag("r_mate2", 2)]),
         around(p["r_esc"], "EnemyChampion", [sw("r_n1", flag("r_n2", 2), flag("r_n1", 2))]),
         rand("AllyNotSelf", p["r_mates"], [flag("r_mate", 2)]), *alone,
         rand("EnemyChampion", p["r_reach"], [flag("r_near", 2), refresh("r_seen", p["r_seen"])]),
         delayed(1, sw("r_armed", sw("r_n2", rand("EnemyChampion", p["r_esc"], [sw("r_armed", escape)]),
-                                    sw("r_near", NONE, sw("r_seen", hunt)))))))
+                                    sw("r_near", NONE, sw("r_seen", hunt) if p["r_need_seen"] else hunt))))))
     poll = {"type": "AddCasted", "casted_type": "Bleed", "duration": p["r_arm"], "period": p["r_poll"], "effects": [r_try]}
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "None", "EnemyChampion", combine(
         *rm("r_armed"), flag("r_armed", p["r_arm"]), self_only(poll),
