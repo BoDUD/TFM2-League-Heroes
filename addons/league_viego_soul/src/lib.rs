@@ -240,6 +240,11 @@ impl Possess {
         let heal = p.p_heal as usize + atk * p.p_heal_ratio as usize / 100;
         sim.heal(me, me, heal);
         wlog(format!("{} POSSESS {} ({}) for {} ticks, heal {heal}", head(sim, me), soul.name, soul.cat, p.p_t));
+        let presim = SimOriginKindV1::from_code(sim.sim_origin().unwrap_or_default().kind)
+            == Some(SimOriginKindV1::ServerPresim);
+        if !presim {
+            view::note_possess(&soul.name);
+        }
         self.on = Some(Possession { name: soul.name, cat: soul.cat, until: sim.tick() + p.p_t as usize });
     }
 }

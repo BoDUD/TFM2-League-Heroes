@@ -308,9 +308,13 @@ def build(p):
             return buff("mark", p["p_win"])
         # the add-on puts the possession's state on him itself (its buffs, the heal, the cooldowns) and sets p_go /
         # p_off for the pictures and sounds, played by his next action
-        show = combine(anim("possess", p["p_anim"]), cview("p_take"), sfx("p"), sfx("p_hit"), voice("vo_p", p))
+        # league_viego_shape: a data buff for the add-on's display hook - the game's display world carries the buffs
+        # the data adds but none the add-on adds (in game 2026-10-11: his q_cd there, never the add-on's p_on or look
+        # buff), so the body swap keys on this one (the victim from the add-on's own record)
+        show = combine(anim("possess", p["p_anim"]), cview("p_take"), sfx("p"), sfx("p_hit"), voice("vo_p", p),
+                       refresh("shape", p["p_t"]))
         take = combine(sw("p_go", combine(*rm("p_go"), show)),
-                       sw("p_off", combine(*rm("p_off"), cview("p_end"), sfx("p_end"))))
+                       sw("p_off", combine(*rm("p_off", "shape"), cview("p_end"), sfx("p_end"))))
     else:
         watch = sw("p_alive", NONE, sw("p_lock", NONE, soul()))
 
@@ -376,7 +380,8 @@ def build(p):
     land = [attack(p["r_dmg"], p["r_ratio"], p["r_hp"]), view("r_hit"), tsfx("r_hit"), track(),
             on_me(cview("r_land"), sfx("r_land"), kb)]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
-                 combine(anim("ult", p["r_dur"]), take, sw("p_on", end()), sfx("r"), voice("vo_r", p), cview("r_cast"),
+                 combine(anim("ult", p["r_dur"]), take, sw("p_on", end()), *(rm("shape") if native else ()), sfx("r"),
+                         voice("vo_r", p), cview("r_cast"),
                          buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"], cc_immune=True),
                          {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_reach"], "end_effects": []},
                          delayed(p["r_hit"] - 1, *land)))
@@ -396,7 +401,9 @@ def build(p):
     if native:
         views_p += [P_("s_bolt"), P_("s_line")]
         views_e += [E("s_hit"), E("s_burst", BIG, 3), E("s_ring", BIG, -1)]
-        views_b += [B_("s_slow", FX, 3), B_("s_heal", FX, 3), B_("s_haste", FX, 3)]
+        views_b += [B_("s_slow", FX, 3), B_("s_heal", FX, 3), B_("s_haste", FX, 3),
+                    # the possession's mist on the data's shape buff (the add-on's own p_on is never drawn)
+                    {"type": "Animated", "name": n("shape"), "anim": BIG, "tag": "p_on", "repeat": True, "z": 3}]
         extra["passive"] = {"passive_ref": "league_viego_soul:possess",
                             "params": {k: p[k] for k in ("p_t", "p_inv", "p_heal", "p_heal_ratio", "p_ad", "p_as", "p_ms",
                                                          "p_skill", "p_ult", "p_win", "soul_r", "soul_t", "s_range")}}

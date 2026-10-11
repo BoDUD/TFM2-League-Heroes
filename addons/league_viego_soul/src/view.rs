@@ -13,6 +13,10 @@
 //! （skill2 → skill → attack → idle），佛耶戈自己才有的动作（附身、大招）画成 idle。没有附身 buff 就把记下的原资源名写回去。
 //! 查不到动作表的英雄（别的 mod）不换外形：名字对不上图会让游戏 panic（「animation info not found」）。
 //! 资源名这个字段是从工坊 Rin 的佛耶戈（3812835762，viego.dll 的显示函数）读出来的；第一次进游戏要看日志确认。
+//!
+//! 0.1.3：显示世界里有数据加的 buff（他的 `league_viego_q_cd`），却从来没有本包原生加的（外形标记、`league_viego_p_on`），
+//! 所以附身改由数据加的 `league_viego_shape` 来认（附加包副本里，播吸魂时加、附身结束 / 大招时去掉）；附身的是谁，
+//! 由被动在附身时记下（`note_possess`），画面这边取最近一次、且这个显示世界里有那个英雄（刚阵亡的尸体）的那条。
 
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -99,6 +103,38 @@ struct Stats {
 
 /// Lines listing a Viego's display buffs when they change (the check that the look buff reaches the display world).
 const BUFF_LINES: usize = 60;
+
+/// The data's possession buff on his display entity (the add-on copy adds it with the possession's pictures).
+const SHAPE: &[u8] = b"league_viego_shape";
+
+/// Possessions the passive started (not in server presims): the victim's id and when, newest last.
+static TAKEN: Mutex<Vec<(String, std::time::Instant)>> = Mutex::new(Vec::new());
+/// (display world, Viego's key) -> the victim chosen while his shape buff lasts.
+static CHOSEN: Mutex<Vec<(usize, u64, Vec<u8>)>> = Mutex::new(Vec::new());
+
+/// The passive took a soul: remembered for the display hook.
+pub fn note_possess(name: &str) {
+    if let Ok(mut t) = TAKEN.lock() {
+        t.push((name.to_string(), std::time::Instant::now()));
+        if t.len() > 32 {
+            t.remove(0);
+        }
+    }
+}
+
+/// The victim for a Viego whose shape buff just showed: of the possessions noted in the last 20 s (newest first), the
+/// first whose champion is in this display world (its corpse; one playing "dead" first), else the newest of the last 5 s.
+fn pick(present: &dyn Fn(&str) -> Option<bool>) -> Option<Vec<u8>> {
+    let t = TAKEN.lock().ok()?;
+    let now = std::time::Instant::now();
+    let recent: Vec<&(String, std::time::Instant)> =
+        t.iter().rev().filter(|(n, at)| now.duration_since(*at).as_secs_f64() <= 20.0 && tags_of(n.as_bytes()).is_some())
+            .collect();
+    recent.iter().find(|(n, _)| present(n) == Some(true))
+        .or_else(|| recent.iter().find(|(n, _)| present(n).is_some()))
+        .or_else(|| recent.iter().find(|(_, at)| now.duration_since(*at).as_secs_f64() <= 5.0))
+        .map(|(n, _)| n.as_bytes().to_vec())
+}
 
 static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, viegos: 0, writes: 0, last: None, looks: Vec::new(),
     buffsets: Vec::new(), buff_lines: 0 });
@@ -226,7 +262,8 @@ unsafe fn dress_viego(world: usize) {
             Vec::new()
         };
         // the soul's buffs are logged whenever they change (the first BUFF_LINES other changes too)
-        let soulish = buffs.iter().any(|b| b.starts_with(b"league_viego_soul") || b.starts_with(b"league_viego_p_"));
+        let soulish = buffs.iter().any(|b| b.starts_with(b"league_viego_soul") || b.starts_with(b"league_viego_p_")
+            || *b == SHAPE);
         if st.buff_lines < BUFF_LINES || soulish {
             let joined = buffs.join(&b", "[..]);
             if !st.buffsets.iter().any(|b| b.0 == world && b.1 == key && b.2 == joined) {
@@ -237,7 +274,35 @@ unsafe fn dress_viego(world: usize) {
             }
         }
         let original = orig.get_or_keep(world, key, res);
-        let soul = victim(buffs.iter().copied());
+        let shaped = buffs.iter().any(|b| *b == SHAPE);
+        let chosen: Option<Vec<u8>> = {
+            let Ok(mut ch) = CHOSEN.try_lock() else { continue };
+            let had = ch.iter().find(|c| c.0 == world && c.1 == key).map(|c| c.2.clone());
+            let now = if let Some(id) = victim(buffs.iter().copied()) {
+                Some(id.to_vec())
+            } else if shaped {
+                had.clone().or_else(|| {
+                    pick(&|n: &str| {
+                        recs.iter().find(|r| r.2 == n.as_bytes() && r.0 != key).map(|r| {
+                            string_at(r.1 + ANIM_CAP, 32) == Some(&b"dead"[..])
+                        })
+                    })
+                })
+            } else {
+                None
+            };
+            if now != had {
+                ch.retain(|c| !(c.0 == world && c.1 == key));
+                if let Some(id) = &now {
+                    ch.push((world, key, id.clone()));
+                }
+                wlog(format!("world {world:#x} Viego #{key}: possession {} (shape buff {})",
+                    now.as_deref().map_or("over".into(), |n| String::from_utf8_lossy(n).into_owned()),
+                    if shaped { "on" } else { "off" }));
+            }
+            now
+        };
+        let soul = chosen.as_deref();
         // the victim's body: its display entity's resource name while it is still in the display world; a soul is
         // taken from a corpse the game may already have dropped, so else the champion id itself (every display entity
         // seen - Viego's own "league_viego" - carries its id as the resource name)
