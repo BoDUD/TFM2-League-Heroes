@@ -1,0 +1,1 @@
+原稿来自内置 image_gen，未作修改。原稿的尺寸与 alpha 不适合直接导入；请使用 pixel_1x/。原始提示词与实际增补见 generation-prompts.json。

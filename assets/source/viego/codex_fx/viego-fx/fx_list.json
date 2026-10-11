@@ -1,0 +1,127 @@
+[
+ {
+  "file": "viego_fx_a_hit.png",
+  "binding": "view_effects `league_viego_a_hit`（跟随，画在人物上面；左右对称）",
+  "size": "12"
+ },
+ {
+  "file": "viego_fx_a_double.png",
+  "binding": "view_effects `league_viego_a_double`（跟随，画在人物上面；左右对称）",
+  "size": "16"
+ },
+ {
+  "file": "viego_fx_q_thrust.png",
+  "binding": "view_projectiles `league_viego_q_thrust`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "viego_fx_q_hit.png",
+  "binding": "view_effects `league_viego_q_hit`（跟随；左右对称）",
+  "size": "14"
+ },
+ {
+  "file": "viego_fx_q_marked.png",
+  "binding": "view_buffs `league_viego_q_marked`（跟随；左右对称）",
+  "size": "12 × 8"
+ },
+ {
+  "file": "viego_fx_w_maw.png",
+  "binding": "view_projectiles `league_viego_w_maw`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "16 × 12"
+ },
+ {
+  "file": "viego_fx_w_hit.png",
+  "binding": "view_effects `league_viego_w_hit`（跟随；左右对称）",
+  "size": "16"
+ },
+ {
+  "file": "viego_fx_w_stun.png",
+  "binding": "view_buffs `league_viego_w_stun`（跟随；左右对称）",
+  "size": "16 × 7"
+ },
+ {
+  "file": "viego_fx_e_mist.png",
+  "binding": "view_effects `league_viego_e_mist`（施法时，不跟随，画在人物下面；上下左右都对称）",
+  "size": "60 × 24"
+ },
+ {
+  "file": "viego_fx_e_on.png",
+  "binding": "view_buffs `league_viego_e_on`（跟随，画在人物上面；左右对称）",
+  "size": "26 × 10"
+ },
+ {
+  "file": "viego_fx_p_take.png",
+  "binding": "view_effects `league_viego_p_take`（跟随，画在人物上面；左右对称）",
+  "size": "36 × 50"
+ },
+ {
+  "file": "viego_fx_p_on.png",
+  "binding": "view_buffs `league_viego_p_on`（跟随，画在人物上面；左右对称）",
+  "size": "34 × 46"
+ },
+ {
+  "file": "viego_fx_p_safe.png",
+  "binding": "view_buffs `league_viego_p_safe`（跟随，画在人物上面；左右对称）",
+  "size": "28 × 42"
+ },
+ {
+  "file": "viego_fx_p_end.png",
+  "binding": "view_effects `league_viego_p_end`（跟随，画在人物上面；左右对称）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "viego_fx_r_cast.png",
+  "binding": "view_effects `league_viego_r_cast`（跟随，画在人物上面；左右对称）",
+  "size": "24 × 12"
+ },
+ {
+  "file": "viego_fx_r_hit.png",
+  "binding": "view_effects `league_viego_r_hit`（跟随，画在人物上面；左右对称）",
+  "size": "30 × 38"
+ },
+ {
+  "file": "viego_fx_r_land.png",
+  "binding": "view_effects `league_viego_r_land`（落点上，不跟随，画在人物下面；上下左右都对称）",
+  "size": "44 × 18"
+ },
+ {
+  "file": "viego_fx_s_bolt.png",
+  "binding": "view_projectiles `league_viego_s_bolt`（朝飞行方向转；上下对称）",
+  "size": "10 × 6"
+ },
+ {
+  "file": "viego_fx_s_line.png",
+  "binding": "view_projectiles `league_viego_s_line`（朝飞行方向转；上下对称）",
+  "size": "18 × 6"
+ },
+ {
+  "file": "viego_fx_s_hit.png",
+  "binding": "view_effects `league_viego_s_hit`（跟随；左右对称）",
+  "size": "10"
+ },
+ {
+  "file": "viego_fx_s_burst.png",
+  "binding": "view_effects `league_viego_s_burst`（跟随，画在人物上面；左右对称）",
+  "size": "24"
+ },
+ {
+  "file": "viego_fx_s_ring.png",
+  "binding": "view_effects `league_viego_s_ring`（跟随，画在人物下面；上下左右都对称）",
+  "size": "44 × 18"
+ },
+ {
+  "file": "viego_fx_s_slow.png",
+  "binding": "view_buffs `league_viego_s_slow`（画在脚下；左右对称）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "viego_fx_s_heal.png",
+  "binding": "view_buffs `league_viego_s_heal`（跟随，画在人物上面；左右对称）",
+  "size": "18 × 24"
+ },
+ {
+  "file": "viego_fx_s_haste.png",
+  "binding": "view_buffs `league_viego_s_haste`（画在脚下；左右对称）",
+  "size": "18 × 6"
+ }
+]
