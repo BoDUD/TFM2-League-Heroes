@@ -25,8 +25,8 @@ whole); what is fixed here:
      straight leg and the other one lifted behind it), then the same with the other leg near (the far leg one step
      darker, on whole patches).
   7. the run's body is frame 1's in every frame, its belt on each frame's own belt: Codex's redrawn bodies shook.
-  8. the idle (side-on too, the user: 「待机图也改成侧面的吧 不然太奇怪了」) stands upright on straight legs (frame 4's
-     leg stood straight, a darker copy behind) with the anchor slung on his back as League's idle carries it, still.
+  8. the idle (side-on too, the user: 「待机图也改成侧面的吧 不然太奇怪了」) stands upright with the anchor slung on his
+     back as League's idle carries it, on legs seen from the front-right like his helmet and chest (LEG34), still.
   9. the carried anchor is Codex's own straight one, attack 4's turned crown up (「钩子画的过大了 适当缩小」
      「武器给我画直了啊」).
 Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
@@ -390,24 +390,15 @@ def leg_units(f, belt, pivot_x, ref_x):
     return out
 
 
-def stood_straight(u):
-    """8: a leg standing straight (「泰坦待机动作的腿我想要的是站直的」): run frame 4's front leg tapers from a wide thigh
-    to a narrow shin, its back edge stepping 3 columns forward to the boot, so it read as stepping out. Each row of the
-    thigh and shin moves whole so the back edge stands in one column (the thigh's); the boot (from BOOT_ROW) moves as
-    one piece with its top row. Nothing redrawn."""
-    ys = [y for y in range(u.shape[0]) if u[y, :, 3].any()]
-    back = min(np.nonzero(u[y, :, 3])[0].min() for y in ys[:2])
-    out = np.zeros_like(u)
-    boot = None
-    for y in ys:
-        if y >= BOOT_ROW and boot is not None:
-            d = boot
-        else:
-            d = back - np.nonzero(u[y, :, 3])[0].min()
-            if y >= BOOT_ROW:
-                boot = d
-        out[y] = np.roll(u[y], d, axis=0)
-    return out
+def drawn(rows):
+    """A letter grid (the strips' colours, "0" the outline, "." clear) as RGBA."""
+    a = np.zeros((len(rows), len(rows[0]), 4), np.uint8)
+    for y, r in enumerate(rows):
+        for x, c in enumerate(r):
+            if c != ".":
+                a[y, x, :3] = OUT if c == "0" else L[c]
+                a[y, x, 3] = 255
+    return a
 
 
 def on_ground(u, dx):
@@ -490,11 +481,6 @@ BELT = [85, 84, 84, 84]
 HIP_END = 87
 THIGH4 = 87
 IDLE_FEET = 7
-# the idle's legs (「只是待机动作腿有问题」「你把待机动作的腿改好就行了啊」「大哥待机动作的腿弄直了啊」「泰坦待机动作的腿
-# 我想要的是站直的」): run frame 4's front leg from the thigh down, stood straight (stood_straight: its back edge one
-# column, the boot under it), twice - the near one as drawn, the far one a step darker STAND_BACK columns behind - both
-# feet flat, not astride.
-STAND_BACK = -5
 # 「泰坦待机动作你先去对比英雄联盟什么样 然后改 现在还很奇怪」: League's idle (Nautilus_idle1, side on) carries the anchor
 # slung on his back - the crown up and behind the head, the flukes hanging by the shoulder, the shank down behind the
 # helmet - not held up straight over his head like a sign. The idle's anchor is attack frame 5's (Codex's, crown up
@@ -502,7 +488,27 @@ STAND_BACK = -5
 # (columns, rows), behind him; his near fist stays where it held the shank.
 IDLE_ANCHOR = (40, 64, 28, 57)
 IDLE_ANCHOR_AT = (8, 10)
-BOOT_ROW = 95                                                   # the straight leg's boot, on the ground row 99
+# 「你知道怪在哪吗这个腿 方向和头 腰部都不一致」 (the user picked: 朝向不一致): the helmet shows both eyes and the chest and
+# belt face the viewer - the body is seen from the front-right, at about 45 degrees - while the legs were drawn side on
+# (the knee plate on the leg's right edge, the boot pointing straight right). Seen at 45 degrees (League's idle1,
+# tools/lol/pose_ref.py --yaw 45) the knee plate faces the viewer and the boot points right and forward. LEG34 is that
+# leg, drawn on the grid in the strips' colours (rows from IDLE_LEG_Y, column 0 its back outline): the near leg at
+# column IDLE_LEG_X, the far one the same leg a step darker FAR34 (columns, rows up) behind it - further back on the
+# ground, a row higher.
+LEG34 = ["0ffiiiif0..",
+         "0fffiiif0..",
+         "0ffkttpf0..",
+         "0fkpttpk0..",
+         "0fbkppkb0..",
+         ".0ffiiif0..",
+         ".0ffiiif0..",
+         ".0bfiifb00.",
+         "0jkkpppkk0.",
+         "0hkkmmppk0.",
+         "0hjkkkkkj0.",
+         "0000000000."]
+IDLE_LEG_X, IDLE_LEG_Y = 61, 88
+FAR34 = (-5, 1)
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -586,13 +592,12 @@ def build():
     for t in cells["tags"].values():
         for fr in t:
             fr.pop("head", None)
-    near = leg_units(first[3], BELT[3], pivs[3][0], pivs[0][0])["F"]
-    near[:THIGH4] = 0                               # run frame 4's front leg from the thigh down
-    near = K.shifted(stood_straight(on_ground(near, 0)), 0, 0)
-    far = near
+    leg = drawn(LEG34)
     stand = np.zeros_like(first[0])
-    K.put(stand, toned(on_ground(far, STAND_BACK), solid_of(on_ground(far, STAND_BACK))), 0, 0)
-    K.put(stand, on_ground(near, 0), 0, 0)
+    far = np.zeros_like(stand)
+    K.put(far, leg, IDLE_LEG_X + FAR34[0], IDLE_LEG_Y - FAR34[1])
+    K.put(stand, toned(far, solid_of(far)), 0, 0)
+    K.put(stand, leg, IDLE_LEG_X, IDLE_LEG_Y)
     K.put(stand, hip, 0, 0)
     # his body with the near fist only (carry() with the unit's fist), the anchor slung on his back as League's idle
     # has it: attack 5's anchor (crown up and back, the shank down behind the helmet), behind everything
