@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_nautilus": {
+    "remapping": "asset/league_nautilus/override/league_nautilus",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_nautilus/text/champion",
+    "type": "merge"
+  }
+}
