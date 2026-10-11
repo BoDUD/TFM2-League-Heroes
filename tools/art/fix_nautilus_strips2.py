@@ -470,10 +470,10 @@ BELT = [85, 84, 84, 84]
 HIP_END = 87
 THIGH4 = 87
 IDLE_FEET = 7
-# the idle's legs (「只是待机动作腿有问题」「你把待机动作的腿改好就行了啊」): the straight leg and a darker copy 7 columns
-# behind read as one dark block. Two of Codex's own upright legs instead - run frame 4's front leg near, run frame 6's
-# front leg (a step darker) STAND_BACK columns behind - both feet flat, side by side, not astride.
-STAND_BACK = -10
+# the idle's legs (「只是待机动作腿有问题」「你把待机动作的腿改好就行了啊」「大哥待机动作的腿弄直了啊」): run frame 4's
+# front leg, the straight part from the thigh down, vertical, twice - the near one as drawn, the far one a step darker
+# STAND_BACK columns behind (far enough for both boots to show) - both feet flat, side by side, not astride.
+STAND_BACK = -8
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -503,7 +503,6 @@ def build():
         strips[tag][sl] = carry(strips[tag][sl], B, F, unit, OLD_SHANK.get((tag, k)))
     # 6-7: the run - frame 1's body over each frame's own hips and legs, frames 4 and 8 passing (stance())
     first = [strips["run"][cell(k, n["run"], cw, ch)].copy() for k in range(4)]
-    run6, piv6 = strips["run"][cell(5, n["run"], cw, ch)].copy(), cells["tags"]["run"][5]["pivot"][0]
     pivs = [list(cells["tags"]["run"][k]["pivot"]) for k in range(4)]
     if pivs[3][0] != pivs[0][0]:
         sys.exit("run frames 1 and 4 stand on different columns: stance() puts frame 4's leg under frame 1's body")
@@ -558,7 +557,8 @@ def build():
         for fr in t:
             fr.pop("head", None)
     near = leg_units(first[3], BELT[3], pivs[3][0], pivs[0][0])["F"]
-    far = leg_units(run6, 85, piv6, pivs[0][0])["F"]
+    near[:THIGH4] = 0                               # the straight part of run frame 4's front leg, from the thigh down
+    far = near
     stand = np.zeros_like(first[0])
     K.put(stand, toned(on_ground(far, STAND_BACK), solid_of(on_ground(far, STAND_BACK))), 0, 0)
     K.put(stand, on_ground(near, 0), 0, 0)
