@@ -21,8 +21,11 @@ whole); what is fixed here:
   5. the anchor carried on his back: Codex's bent one out, the design's straight anchor unit in, held in the near fist
      (CARRY); frames whose anchor cannot take it (the attack's first and last, Q's landing, R's first, the hit's first)
      are the mended stance (GRIP_FROM).
+  6. the run trades legs every half cycle: frames 5-8 are frames 1-4 with the legs' tones swapped (the front one darker).
+  9. the carried anchor cut to 0.72 by whole rows and columns (「钩子画的过大了 适当缩小」).
+  7. the run's upper body is frame 1's in every frame (bobbing a row): Codex's redrawn upper bodies shook.
 The idle is side-on too (the user: 「待机图也改成侧面的吧 不然太奇怪了」, after the front-on design idle beside the side-on
-actions): W+E's first frame, breathing (the body above the hip band sinks a row over the legs). Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
+actions): W+E's first frame (8: its legs moved whole closer together, oppi's shoulder-wide stance - 「待机动作 不应该岔开腿」), breathing (the body above the hip band sinks a row over the legs). Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
 python tools/art/import_native.py --hero nautilus.
 """
 import argparse
@@ -40,6 +43,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import rigkit as K  # noqa: E402
 import rig_nautilus as RN  # noqa: E402
+import design_riven as R  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "nautilus", "codex_strips2")
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
@@ -118,6 +122,32 @@ def darkened(part):
         if ch in step:
             u[y, x, :3] = L[step[ch]]
     return K.Part(u, part.j)
+
+
+def smaller(part, scale):
+    """9: the anchor above the fist (rows over FIST_ROW) made smaller by whole rows and columns dropped (design_riven's
+    keep_axis: in each group the line most like its neighbour goes, nothing resampled, no square repainted), the
+    shank's columns (SHANK_COLS) and its foot (rows FIST_ROW - 4 to - 2) kept whole; the crown as high over his head as
+    before, the straight shank run on down to the fist; the fist as it is."""
+    s = part.s
+    top = s[:FIST_ROW]
+    cols = sorted({tuple(int(v) for v in p[:3]) for p in top[top[..., 3] > 0]})
+    lut = {c: i for i, c in enumerate(cols)}
+    idx = np.full(top.shape[:2], -1, int)
+    for y, x in zip(*np.nonzero(top[..., 3])):
+        idx[y, x] = lut[tuple(int(v) for v in top[y, x, :3])]
+    H, W = idx.shape
+    rows = R.keep_axis([idx[y] for y in range(H)], round(H * scale), range(H - 4, H - 1))
+    keep = R.keep_axis([idx[rows][:, x] for x in range(W)], round(W * scale), SHANK_COLS)
+    small = top[np.ix_(rows, keep)]
+    dx = SHANK_COLS[0] - keep.index(SHANK_COLS[0])          # the shank over the same columns as before
+    canvas = np.zeros_like(s)
+    canvas[FIST_ROW:] = s[FIST_ROW:]
+    K.put(canvas, small, dx, 0)
+    shank = small[-1:]
+    for r in range(len(rows), FIST_ROW):
+        K.put(canvas, shank, dx, r)
+    return K.Part(canvas, part.j)
 
 
 def helmet_top(f):
@@ -211,6 +241,37 @@ def mend_gaps(g, top, hl):
     return g
 
 
+def legs_swapped(f, pivot_x):
+    """6: the frame with its back (left) leg lighter and its front (right) leg darker."""
+    out = f.copy()
+    for y in range(LEG_ROW, f.shape[0]):
+        xs = np.nonzero((f[y, :, 3] > 0) & ~is_(f[y:y + 1], "0")[0])[0]
+        if not len(xs):
+            continue
+        gaps = np.diff(xs)
+        split = xs[int(np.argmax(gaps))] + 1 if gaps.size and gaps.max() > 1 else pivot_x
+        for x in xs:
+            ch = INV.get(tuple(int(v) for v in f[y, x, :3]))
+            table = LIGHTER if x < split else DARKER
+            if ch in table:
+                out[y, x, :3] = L[table[ch]]
+    return out
+
+
+def legs_closer(stand, pivot_x):
+    """8: the stance's two legs (every row from HIP_ROW, split at the crotch, CROTCH columns from the standing point)
+    each moved whole NARROW columns toward the other - no square redrawn, the front leg over the back one."""
+    split = int(pivot_x) + CROTCH
+    back, front = np.zeros_like(stand), np.zeros_like(stand)
+    back[HIP_ROW:, :split] = stand[HIP_ROW:, :split]
+    front[HIP_ROW:, split:] = stand[HIP_ROW:, split:]
+    out = stand.copy()
+    out[HIP_ROW:] = 0
+    K.put(out, back, NARROW, 0, under=True)
+    K.put(out, front, -NARROW, 0)
+    return tidy(out)
+
+
 def bounds(spec):
     return {r: c for r0, r1, c in spec for r in range(r0, r1 + 1)}
 
@@ -240,9 +301,34 @@ CARRY = {("run", 1): ((59, 51), (80, 57.1)), ("run", 2): ((58.5, 50.5), (79.5, 5
          ("run", 7): ((59.5, 49.5), (77.9, 55.1)), ("run", 8): ((56.5, 53.5), (77.2, 58.2)),
          ("skill2", 1): ((63, 52), (82, 58.9)), ("skill2", 5): ((63, 52), (82, 60.4)),
          ("skill2", 6): ((60, 50), (82, 58.6)), ("hit", 2): ((56, 49.3), (80, 58.6)), ("ult", 8): ((62.1, 54.3), (78.4, 61.2))}
+# 9: the carried anchor was too big (「钩子画的过大了 适当缩小」: the design's unit, 36 squares across, wider than his
+# body; the anchors he swings are about 25): above the fist it loses whole rows and columns to ANCHOR_SCALE (smaller()).
+FIST_ROW = 27
+ANCHOR_SCALE = 0.72
+SHANK_COLS = range(8, 12)                                       # the unit's shank above the fist
 # (tag, frame) <- the mended W+E stance (the idle's), or the mended hit 2 a column back
 GRIP_FROM = {("attack", 1): ("skill2", 1, 0), ("attack", 6): ("skill2", 1, 0), ("skill_pull", 4): ("skill2", 1, 0),
              ("ult", 1): ("skill2", 1, 0), ("hit", 1): ("hit", 2, -1)}
+# 6: the run never changed legs (「走路压根看不出换腿」): Codex kept the same leg in front in all 8 frames. Frames 5-8 are
+# frames 1-4 again with the legs' tones swapped - the leg in front darker (the far one), the one behind brighter (the near
+# one) - so the legs trade places every half cycle; the shapes square for square. Below LEG_ROW each row's pixels split
+# into the left leg and the right leg at the widest gap (or the standing point where they touch).
+LEG_ROW = 88
+DARKER = {"u": "p", "t": "k", "p": "j", "o": "k", "m": "j", "k": "h", "j": "e", "h": "e", "n": "i", "s": "n", "i": "f",
+          "f": "a", "c": "e", "b": "a"}
+LIGHTER = {"k": "t", "j": "p", "h": "k", "e": "j", "m": "p", "p": "t", "o": "t", "c": "j", "a": "f", "f": "i", "i": "n",
+           "b": "f"}
+# 7: the run shook (「走路时模型抖动太厉害」): Codex redrew the upper body in every frame (the helmet 3 columns and 2 rows
+# apart) and the carried anchor rode the fist. The run's upper body (every row above LEG_ROW: the helmet, the shoulders,
+# the fists, the anchor) is frame 1's in all 8 frames, at the same place from the standing point, bobbing RUN_BOB rows;
+# only the legs change.
+RUN_BOB = [0, -1, -1, 0, 0, -1, -1, 0]
+# 8: the idle stood astride (「待机动作 不应该岔开腿」「待机动作你看oppi怎么画的啊 还有模型别变形啊」): oppi's idles stand
+# with the feet about shoulder-wide; W+E's braced stance keeps every square, its two legs each moved whole NARROW
+# columns in under the hips.
+HIP_ROW = 89
+CROTCH = -3
+NARROW = 4
 IDLE_BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
 IDLE_CUT = 86                                                   # the last row that sinks (the hip band's)
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
@@ -268,10 +354,25 @@ def build():
     piece[r0:r1, c0:c1] = f5[r0:r1, c0:c1]
     ys, xs = np.nonzero(piece[..., 3] > 0)
     anchor = piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1][::-1].copy()     # on its crown
-    unit = darkened(RN.Parts().unit)
+    unit = smaller(darkened(RN.Parts().unit), ANCHOR_SCALE)
     for (tag, k), (B, F) in CARRY.items():
         sl = cell(k - 1, n[tag], cw, ch)
         strips[tag][sl] = carry(strips[tag][sl], B, F, unit)
+    for k in range(4, 8):
+        src = strips["run"][cell(k - 4, n["run"], cw, ch)]
+        piv = cells["tags"]["run"][k - 4]["pivot"]
+        strips["run"][cell(k, n["run"], cw, ch)] = legs_swapped(src, piv[0])
+        cells["tags"]["run"][k]["pivot"] = list(piv)
+    top = strips["run"][cell(0, n["run"], cw, ch)].copy()
+    top[LEG_ROW:] = 0
+    piv0 = cells["tags"]["run"][0]["pivot"][0]
+    for k in range(8):
+        sl = cell(k, n["run"], cw, ch)
+        f = strips["run"][sl].copy()
+        dy = RUN_BOB[k]
+        f[:LEG_ROW + dy] = 0
+        K.put(f, top, cells["tags"]["run"][k]["pivot"][0] - piv0, dy)
+        strips["run"][sl] = tidy(f)
     for (tag, k), (src, j, dx) in GRIP_FROM.items():
         piece = strips[src][cell(j - 1, n[src], cw, ch)]
         strips[tag][cell(k - 1, n[tag], cw, ch)] = K.shifted(piece, dx, 0)
@@ -293,8 +394,8 @@ def build():
     for t in cells["tags"].values():
         for fr in t:
             fr.pop("head", None)
-    stand = strips["skill2"][cell(0, n["skill2"], cw, ch)]
     pivot = list(cells["tags"]["skill2"][0]["pivot"])
+    stand = legs_closer(strips["skill2"][cell(0, n["skill2"], cw, ch)], pivot[0])
     cells["tags"]["idle"] = [{"pivot": pivot, "ms": m} for m in RN.MS["idle"]]
     cols, rows = K.layout(len(IDLE_BREATH))
     sheet = np.zeros((rows * ch, cols * cw, 4), np.uint8)
