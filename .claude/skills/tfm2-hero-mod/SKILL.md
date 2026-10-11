@@ -65,6 +65,13 @@ empty tooltip). That is why the linter exists - run it after every edit.
    Then `python scripts/tfm2_ase.py face <sprite> --out face.png` and look at it: next to base
    champions at 1x, is the head about a third of the height and can you see the eyes? Put the
    `face` point it suggests into `style/champion_view` (portraits crop around it).
+   With an image model (Codex) the art goes in steps, each a prompt pack the user hands over - step 0 the picture
+   (`PICTURE_PROMPT.md`), step 1 the game-size design (`MODEL_PROMPTS.md`), step 2 the action strips
+   (`MODEL_STRIPS.md`), step 3 the effects (`PROMPTS_FX.md`), each with its zipped references - and after each pack
+   tell the user plainly which zip to give and which text to paste, then wait for the delivery. Read every delivery
+   back yourself (its raw drafts, not only its own cut), and when re-posing strips from the design's parts follow
+   art-spec "Step 0-1 pitfalls with a big prop" and "Strips posed from the design's own parts" (no arbitrary
+   rotations, no long arms, nothing over the face, legs never squashed or slid, the run its own pose).
 5. **Text and sound** - `references/text-audio.md` (colour codes, icon ids, sound overrides).
 6. **Validate** - `python scripts/lint_mod.py <mod folder>` (add `--game <TFM2 folder>` if the
    game is not in a standard Steam path) until 0 errors; read every WARN.

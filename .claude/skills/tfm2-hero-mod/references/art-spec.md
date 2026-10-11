@@ -416,6 +416,23 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   of the prompt (image models may refuse named characters) and ask for a HANDOFF and a manifest. Back from the model:
   `scripts/regrid.py` (square edges at the peaks of colour change, each square the median of its middle 3x3), then the
   palette, one outline and the face by hand - never a resampling.
+- **Step 0-1 pitfalls with a big prop (league_nautilus, 2026-10-11).**
+  - The reference frame for a picture prompt: render the clip as a strip first (`pose_ref.py --anim <clip> --frames 8`)
+    and pick from it. A single `--frame clip@ms` render can put a prop on its own root joint somewhere else (Nautilus's
+    anchor is the root joint `Weapon`: at `--yaw 30` his idle4 anchor stood under the floor); try `--yaw 60` / `90`.
+  - Codex's own cut of its draft to the target rows can shred a big prop: its 35-row A/B kept the helmet and eyes but
+    cut the anchor into grey specks. Always read back its RAW drafts yourself (`raw/`, `regrid.py`) and cut them the
+    Tryndamere way (own K colours, `design_riven.keep_axis` whole lines, the face's rows and columns kept); show the
+    cuts beside Codex's and the pack's heroes at 2x and 4x. Restore small features the line cuts merge (three vent holes
+    became a "B": put each back as one dark square, `design_nautilus.holes`).
+  - Offer the cut in proportion as well as the "smaller head" variants: the user called it a too-big head first
+    (「你这头也太大了 不奇怪吗」), then chose the in-proportion cut as the most faithful (「用这个吧 感觉这个最还原」) and kept
+    it over a Codex redraw with a smaller helmet (「还是用 p35」). Cutting the head harder than the body (more lines
+    out of the helmet than the legs) squashed the helmet - not a fix.
+  - A soft first draft (blended squares, small eyes) does not survive the cut: the eyes and the prop blur into specks.
+    Only a crisp coarse draft reads back cleanly; otherwise ask Codex to redraw at game size.
+  - Any Codex delivery spliced from parts (its 1b refine) can hold enclosed transparent seams (59 squares: a column
+    down the body, a band at the crotch): count enclosed clear squares (`rigkit.holes`) before showing it.
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate
@@ -724,6 +741,46 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   with it (exact colours matched 0.2-0.6, the classes 0.6-0.9), the frame's own face cleared first (behind the head
   only skin and eyes, so trailing hair stays). Such frames pack palette-indexed (alpha over 128 or not, the nearest
   palette colour) and read back pixel for pixel: 19 MB -> 1.2 MB.
+- **Strips posed from the design's own parts (`tools/art/rigkit.py`; rig_viego, fix_shen_strips, rig_nautilus) - what
+  the user rejected and what passed.** Codex's step-2 strips often come back re-posed from parts with the arms drawn as
+  thick lines at any angle, holes where a limb was cut out, a death that pushes the body into the ground, run legs as
+  overlapping scraps. Re-pose them from the design (`--parts` tinted review, then `--review` sheets, every frame at
+  9-10x, and an ours | League GIF at the action's timing) before calling anything done:
+  - **Never turn a design piece by an arbitrary angle** (RotSprite or nearest): it reads as deformation. A weapon and
+    the hand gripping it are ONE rigid unit moved by translations and the grid's 8 exact symmetries (quarter turns,
+    mirrors, transposes) about the grip; a forearm with its glove likewise about the elbow (`rigkit.rot90`).
+  - **No long arms** (「手臂不要有这种严重变形的 长手怪的东西」): a drawn arm is only ever as long as the design's own visible
+    arm (league_nautilus: the near fist within 9.5 px of the shoulder, checked in code - `NEAR_REACH` raises). A huge
+    weapon (a 34-square anchor) cannot swing round the body on a short arm: for a slam in front, hand it to the front
+    hand and plant it there (the crown on the ground before him), the back hand letting go.
+  - **Never cross the face.** An arm or weapon drawn over the head hid the eyes; keep the near hand beside or above
+    the head, and when a weapon passes in front, paste the head back over it ("front" layer).
+  - **Never shear the head.** A whole-row lean shears what it crosses; on a hero whose head is most of the torso
+    (league_nautilus's helmet, rows 63-86 of 37), the lean moves the whole upper body and runs out over the hip band.
+  - **Legs are never squashed, slid or sheared** (「腿部还有很多模型变形的地方」「这移动姿势对吗？？平移的？？」): sinking
+    the body over the boots for a crouch or a death shortened the shins into the boots; whole legs translated sideways
+    read as sliding; a whole-row shear of a stepping shin bends it. Standing frames keep the design's legs square for
+    square; a pose that bends the knees draws the legs on joints - thigh and shin in the design's own colours, the
+    same shape in every frame, the knee guard drawn the same each time, the design's boots whole and flat
+    (`fix_shen_strips.draw_leg` is the template the user accepted).
+  - **The run is its own pose** (league_viego 「待机的姿势和走路时应该是不一样的」, league_shen 「慎的待机和跑步应该也不一样」,
+    league_nautilus 「这是待机姿势 跑步姿势不是身体得另外一个方向吗 慎重做了不学吗」): never the idle body over moving
+    legs. He leans into the run (the upper body forward, the head moved whole), the arms and the weapon carried for
+    running (Viego's greatsword pointing back over his shoulder, Shen's near fist turned up before his chest), and the
+    legs stride on League's run (`tools/lol/pose_joints.py <spec> --tag run --joints ... --json`, the hip joint may be
+    named `Thigh`; the knee solved by `rigkit.leg_chain` with planted feet on the soles), the body bobbing 0-2 rows.
+  - **Check before showing:** `rigkit.audit` (pieces, enclosed holes, orphan outline, nothing under the soles) on every
+    frame, the legs of every tag in one sheet at 7x, and the run against League's frame by frame.
+- **Reviews with the user (the pack's standing rules).**
+  - Fix only what is reported, on the version the user saw (league_khazix: legs losing pixels in the run were fixed by
+    redoing the run in another style - 「你改成这样什么意思？」). Measure the reported defect, fix its cause, keep every
+    other choice; a bigger change is asked first with a picture, and an offered redesign answered 「修一下吧」 is not a yes.
+  - Keep the model moderate (「注意模型不要过大」): 37-42 rows from the top of the head to the soles beside the pack's
+    tanks; a big prop over the head counts against it.
+  - Lossless where possible: whole lines out of a draft, parts moved whole, exact symmetries - never a resampling of
+    finished pixels; limbs that must be new are drawn in the design's own colours.
+  - Choices go to the user as options side by side (2x and 4x beside the pack's heroes), and finished strips as an
+    ours | League GIF at the actions' timing plus a frame sheet; call the user only when every frame has been checked.
 
 ## QA checklist
 
