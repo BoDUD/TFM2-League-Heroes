@@ -32,8 +32,8 @@ SRC = os.path.join(VR, "assets", "source", "zeri")
 DESIGN = os.path.join(VR, "assets", "source", "native", "zeri_native.png")
 SPEC = os.path.join(SRC, "poses.json")
 DOC = os.path.join(SRC, "MODEL_STRIPS.md")
-PICTURE = os.path.join(SRC, "codex_picture", "zeri-model-A.png")
-DRAFT = os.path.join(SRC, "codex_model", "zeri_design_B.png")
+PICTURE = os.path.join(SRC, "user_ref", "zeri_user.png")          # the user's own picture (the final design restores it)
+DRAFT = os.path.join(SRC, "codex_face", "zeri_face_C.png")        # the final design at 8x (face take C)
 Z = 8
 FEET = 11                       # the soles' row under the pivot (base sprites' soles)
 PIVOT = (64, 88)                # the design's standing point on its 128x128 canvas (the soles on row 99, column 64)
@@ -41,7 +41,7 @@ TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_back", "ult", "hit",
 RELEASE = {}                    # 1-based frame where the shot / throw / burst goes, per tag (filled from poses.json)
 # the head on the design's canvas, by shape: the horns, the helmet with its gem, the face (magenta eyes, red lips) and
 # the hair framing it - not the long hair falling past her shoulders
-HEAD_BOXES = [(64, 78, 50, 70)]   # rows r0..r1, columns c0..c1 (inclusive): the buns, the bangs, the face, the hair beside it (not the rifle)
+HEAD_BOXES = [(60, 76, 53, 68)]   # rows r0..r1, columns c0..c1 (inclusive): the buns, the bangs, the face, the hair beside it (not the rifle)
 
 
 def lp(p):

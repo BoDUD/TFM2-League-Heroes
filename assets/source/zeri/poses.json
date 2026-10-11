@@ -3,7 +3,7 @@
  "champ": "Zeri",
  "camera": {"yaw": 30, "pitch": 20, "mirror": true},
  "chibi": {"head": 1.6, "legs": 0.9, "hair": 1.0},
- "height": 30,
+ "height": 33,
  "cell": [80, 72, 12],
  "design": "Idle@0",
  "tags": {

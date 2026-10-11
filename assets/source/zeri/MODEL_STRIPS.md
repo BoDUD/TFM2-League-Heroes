@@ -1,6 +1,6 @@
 # 泽丽：按定稿造型画动作帧（第 2 步，给 Codex 的提示词）
 
-> **造型已定，不许再改。** 用户选定的是 `design/zeri_design.png`（放大 8 倍，1024×1024；38 行高、28 格宽，19 色；鞋底在第 99 行，站位点在第 64 列）。**造型图就是标准**：两个尖刺发髻（深青蓝尖刺 + 柠檬黄绿）、黄绿眼睛、脸颊创可贴、青蓝外套 + 银管、黄背心 + 闪电、红棕皮带、深紫红紧身裤 + 护膝、棕靴 + 橙袜口、画面右侧竖举的柠檬黄 + 橙色步枪和握枪的手、画面左侧垂下的紫红手套，颜色、明暗，每一帧都照它，只改姿势。
+> **造型已定，不许再改。** 用户选定的是 `design/zeri_design.png`（放大 8 倍，1024×1024；40 行高、24 格宽，29 色；鞋底在第 99 行，站位点在第 64 列）。**造型图就是标准**：两个尖刺发髻（深青蓝尖刺 + 柠檬黄绿）、黄绿眼睛、脸颊创可贴、青蓝外套 + 银管、黄背心 + 闪电、红棕皮带、深紫红紧身裤 + 护膝、棕靴 + 橙袜口、画面右侧竖举的柠檬黄 + 橙色步枪和握枪的手、画面左侧垂下的紫红手套，颜色、明暗，每一帧都照它，只改姿势。
 > - **待机条已经做好**（`zeri_idle.png`），不用画；它也告诉你造型图在格子里多大、站在哪里。其余 8 张动作图按下面的表画。
 > - 帧数、每帧时长、出手帧和站位照 `now/zeri_now_<动作>.png`（英雄联盟原版动作按游戏尺寸取色）；手臂和身体的动作照 `pose/lol_pose_<动作>.png`（同一帧的高清渲染；它是镜像的）；长相照造型图。**出招一律朝图的右边**。
 > - **放技能时的身体就是待机的身体**（同一套像素）：外套、背心、皮带、发髻、腿的形状和大小不能变，只动手臂；整个人可以前倾后仰、上下前后挪 1–3 格。
@@ -15,7 +15,7 @@
 1. 生图：附图顺序和通用提示词一样（造型图、now 条、lol_pose），或者用骨架 + 皮囊的短提示词，或者用造型图的部件拼。
 2. 对齐网格：找出方块边界，**每格取多数颜色**，缩成 1 像素 1 格的原尺寸图；透明度只留 0 和 255。
 3. 色板：每个像素换成造型图色板里最近的颜色（`design/zeri_palette.png`，或直接读 `design/zeri_design_1x.png`）。
-4. **贴头**：把造型图的头（`design/zeri_head_1x.png` 里不透明的格子：两个发髻、刘海、脸、眼睛、创可贴；在 128×128 画布上的范围 x 50–70、y 64–78，**按图里的形状贴，不是整个方框**）原样贴进每一帧头的位置（只平移；跳起的帧整块往上挪；死亡倒地的帧整块转 90°）。贴之前先擦掉你自己画的头，不要在头旁边留下多余的描边。
+4. **贴头**：把造型图的头（`design/zeri_head_1x.png` 里不透明的格子：两个发髻、刘海、脸、眼睛、创可贴；在 128×128 画布上的范围 x 53–68、y 60–76，**按图里的形状贴，不是整个方框**）原样贴进每一帧头的位置（只平移；跳起的帧整块往上挪；死亡倒地的帧整块转 90°）。贴之前先擦掉你自己画的头，不要在头旁边留下多余的描边。
 5. 对位：每帧按 `zeri_cells.json` 的站位点放回格子（和 now 条同一格、同一位置），鞋底落在脚底线上；检查线以下没有像素；再放大 8 倍输出。
 6. 按最后的「交回前自查」逐项检查。
 
@@ -26,7 +26,7 @@
 | `design/zeri_design.png` | **定稿造型**，放大 8 倍（1024×1024，透明底）；站位点 (64, 88)，脚底线第 99 行 | 每张动作图的第一张附图 |
 | `design/zeri_design_1x.png` | 同一张，原尺寸（128×128） | 脚本用：色板、贴头、切部件 |
 | `design/zeri_head.png`、`_1x.png` | 要贴进每一帧的头（发髻、刘海、脸） | 贴头 |
-| `design/zeri_palette.png` | 造型图的全部 19 色（暗到亮） | 色板 |
+| `design/zeri_palette.png` | 造型图的全部 29 色（暗到亮） | 色板 |
 | `zeri_idle.png` | **已做好的待机条** | 不用画；看大小和站位 |
 | `now/zeri_now_<动作>.png` | 英雄联盟原版动作按游戏尺寸取色，放大 8 倍，按格子排好 | 第二张附图（或骨架图）：帧数、时机、站位 |
 | `pose/lol_pose_<动作>.png` | 同一帧的高清渲染，同样的格子、同样的位置 | 第三张附图：手臂和身体的动作 |
@@ -37,7 +37,7 @@
 ## 规则（每张都一样）
 
 - **和造型图一样的像素**：待机姿态时和造型图一样大，每个像素一个 8×8 方块，对齐同一个网格，没有抗锯齿、模糊、半透明。
-- **只用造型图的 19 种颜色**，不加新颜色；明暗照定稿，不要抖动、噪点、自己加的碎点，**不要在脸上和身上留零散的黑格**；外轮廓 1 格近黑描边。
+- **只用造型图的 29 种颜色**，不加新颜色；明暗照定稿，不要抖动、噪点、自己加的碎点，**不要在脸上和身上留零散的黑格**；外轮廓 1 格近黑描边。
 - **腿**：the legs are the design's own legs - the dark maroon leggings with the round knee pad, the brown ankle boots with orange socks, legs apart - square for square in every frame but the run, E's hop and the death; a cast may move the WHOLE figure 1-2 squares forward, back or up (a lean or a step of the whole body), never the upper body alone over still legs. In the run she RUNS with clear steps (League's run): the legs move as rigid pieces (thigh+shin+boot), one forward while the other is back, the boots on the feet line when planted; the legs keep the design's own leg squares and colours (never flattened, squashed or missing squares)。
 - **手臂**：the arms are the design's arms, the same thickness as in the design (never thinner, never 1-pixel sticks), each growing from the OUTER corner of its shoulder (never from the chest). The image-RIGHT arm and the RIFLE it holds are ONE rigid piece: upright beside her head in the idle; to shoot it turns as a whole by a QUARTER TURN (the rifle level, pointing to the image right at chest height) - never bent, never turned by an odd angle, never shifted row by row; the image-LEFT arm hangs as in the design or comes up as one rigid piece to steady the rifle. The hands (the maroon fingerless glove) are NEVER hidden behind the body, the coat or the rifle in any frame and keep the design's size and colours; where an arm moves away, the body behind it is filled with the body's own colours. The bullets, the laser and the sparks are effects。
 - **身上**：the oversized teal-blue coat with its silver tube, the yellow tank top with the lightning print, the red-brown belt, the two spiky hair buns and the bit of yellow battery backpack stay on her in every frame, the same shapes and sizes as in the design (the coat's hem may swing behind her in the run and the hop, as one piece, its shape the same)。
@@ -56,7 +56,7 @@
 Three attached images. FIRST: the approved, final pixel-art design of this character at 8x (every pixel an 8x8 block) - copy its colors, shapes, head, body and pixel style exactly; do not redesign anything. Every frame must be the FIRST image's character in a new pose: the same 3/4 view facing right, the same two spiky hair buns (dark teal-blue spikes, lime yellow-green hair), the yellow-green eyes and the cheek plaster, the oversized teal-blue coat with the silver tube, the yellow tank top with the lightning print, the red-brown belt, the dark maroon leggings with the knee pad, the brown boots with orange socks, the maroon fingerless glove, the lime yellow and orange rifle, the same shading. SECOND: the original animation sampled at game size at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing, the size and where the character stands in its cell, but NOT its blurry look. THIRD: the original 3D animation at the same frames, in the same grid and the same places (mirrored) - copy the motion of the arms and the body from it, but keep the FIRST image's proportions and, in every frame but the run, E's hop and the death, the FIRST image's own body and legs; every cast goes to the RIGHT of the image; never draw her from the back, upside down or lying flat on the ground (except the death).
 The character: Zeri, the Spark of Zaun (a lively street girl with spiky hair buns, an oversized coat and an electric rifle).
 Task: draw every frame as clean pixel art identical in style to the FIRST image, at EXACTLY the same pixel size, every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.
-Pixel rules (most important): ONLY the 19 colors of the FIRST image, no new colors: #100C14 #3E1838 #5A2E1E #0E3E66 #A8261E #6A2A5A #8A4A30 #7A9A08 #1670A0 #E0287A #22A0C8 #C8784A #B4E01E #F6A418 #F6C21E #F2B47E #E8FA5A #C8CCD6 #F2F4F8. A 1-square near-black outline around the silhouette. Copy the FIRST image's shading; no dithering, no noise, no random specks added, no stray black squares on the face or the body.
+Pixel rules (most important): ONLY the 29 colors of the FIRST image, no new colors: #0A0411 #182657 #45183A #2A323F #318F0A #8C2020 #035786 #73234B #A44B10 #3C3C8C #A14633 #017E9E #9E493D #CF3728 #75D902 #A9C907 #AC8157 #F48C06 #22A8CC #877F90 #F04C7A #F2854B #F8C00C #D7F31E #F8AB63 #EAFB4A #C0BAD3 #F2CC8F #F4F4F8. A 1-square near-black outline around the silhouette. Copy the FIRST image's shading; no dithering, no noise, no random specks added, no stray black squares on the face or the body.
 The body is the idle body: in every frame but the run, E's hop and the death the coat, the tank top and belt, the hair buns and the legs keep the FIRST image's shapes and sizes square for square; only the arms move, and the whole figure may lean or move 1-3 squares.
 Legs: the legs are the design's own legs - the dark maroon leggings with the round knee pad, the brown ankle boots with orange socks, legs apart - square for square in every frame but the run, E's hop and the death; a cast may move the WHOLE figure 1-2 squares forward, back or up (a lean or a step of the whole body), never the upper body alone over still legs. In the run she RUNS with clear steps (League's run): the legs move as rigid pieces (thigh+shin+boot), one forward while the other is back, the boots on the feet line when planted; the legs keep the design's own leg squares and colours (never flattened, squashed or missing squares).
 The arms: the arms are the design's arms, the same thickness as in the design (never thinner, never 1-pixel sticks), each growing from the OUTER corner of its shoulder (never from the chest). The image-RIGHT arm and the RIFLE it holds are ONE rigid piece: upright beside her head in the idle; to shoot it turns as a whole by a QUARTER TURN (the rifle level, pointing to the image right at chest height) - never bent, never turned by an odd angle, never shifted row by row; the image-LEFT arm hangs as in the design or comes up as one rigid piece to steady the rifle. The hands (the maroon fingerless glove) are NEVER hidden behind the body, the coat or the rifle in any frame and keep the design's size and colours; where an arm moves away, the body behind it is filled with the body's own colours. The bullets, the laser and the sparks are effects.
