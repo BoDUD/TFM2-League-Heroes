@@ -390,6 +390,26 @@ def leg_units(f, belt, pivot_x, ref_x):
     return out
 
 
+def stood_straight(u):
+    """8: a leg standing straight (「泰坦待机动作的腿我想要的是站直的」): run frame 4's front leg tapers from a wide thigh
+    to a narrow shin, its back edge stepping 3 columns forward to the boot, so it read as stepping out. Each row of the
+    thigh and shin moves whole so the back edge stands in one column (the thigh's); the boot (from BOOT_ROW) moves as
+    one piece with its top row. Nothing redrawn."""
+    ys = [y for y in range(u.shape[0]) if u[y, :, 3].any()]
+    back = min(np.nonzero(u[y, :, 3])[0].min() for y in ys[:2])
+    out = np.zeros_like(u)
+    boot = None
+    for y in ys:
+        if y >= BOOT_ROW and boot is not None:
+            d = boot
+        else:
+            d = back - np.nonzero(u[y, :, 3])[0].min()
+            if y >= BOOT_ROW:
+                boot = d
+        out[y] = np.roll(u[y], d, axis=0)
+    return out
+
+
 def on_ground(u, dx):
     """A leg unit moved dx columns, its lowest square on the soles' row."""
     ys = np.nonzero(u[..., 3])[0]
@@ -470,10 +490,12 @@ BELT = [85, 84, 84, 84]
 HIP_END = 87
 THIGH4 = 87
 IDLE_FEET = 7
-# the idle's legs (「只是待机动作腿有问题」「你把待机动作的腿改好就行了啊」「大哥待机动作的腿弄直了啊」): run frame 4's
-# front leg, the straight part from the thigh down, vertical, twice - the near one as drawn, the far one a step darker
-# STAND_BACK columns behind (far enough for both boots to show) - both feet flat, side by side, not astride.
-STAND_BACK = -8
+# the idle's legs (「只是待机动作腿有问题」「你把待机动作的腿改好就行了啊」「大哥待机动作的腿弄直了啊」「泰坦待机动作的腿
+# 我想要的是站直的」): run frame 4's front leg from the thigh down, stood straight (stood_straight: its back edge one
+# column, the boot under it), twice - the near one as drawn, the far one a step darker STAND_BACK columns behind - both
+# feet flat, not astride.
+STAND_BACK = -5
+BOOT_ROW = 95                                                   # the straight leg's boot, on the ground row 99
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -557,7 +579,8 @@ def build():
         for fr in t:
             fr.pop("head", None)
     near = leg_units(first[3], BELT[3], pivs[3][0], pivs[0][0])["F"]
-    near[:THIGH4] = 0                               # the straight part of run frame 4's front leg, from the thigh down
+    near[:THIGH4] = 0                               # run frame 4's front leg from the thigh down
+    near = K.shifted(stood_straight(on_ground(near, 0)), 0, 0)
     far = near
     stand = np.zeros_like(first[0])
     K.put(stand, toned(on_ground(far, STAND_BACK), solid_of(on_ground(far, STAND_BACK))), 0, 0)
