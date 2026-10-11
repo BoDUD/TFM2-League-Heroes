@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）、辛德拉（`league_syndra`）、佛耶戈（`league_viego`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。第 87 位是中单辛德拉（法师）。第 88 位是打野佛耶戈（战士）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）、辛德拉（`league_syndra`）、佛耶戈（`league_viego`）、泽丽（`league_zeri`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。第 87 位是中单辛德拉（法师）。第 88 位是打野佛耶戈（战士）。第 89 位是 ADC 泽丽（射手）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手；赛娜的 W 也一样，射程内有敌方英雄时朝英雄射；辛德拉的 W 也一样，射程内有敌方英雄时把法球掷向英雄、接着朝他推 E，Q 在 E 冷却好时也先砸英雄）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -167,6 +167,8 @@
 ![辛德拉演示：她一发暗黑小光弹打在德莱厄斯身上；Q 暗黑法球：德莱厄斯脚下紫色暗影旋进来凝聚成球，0.5 秒后砸下炸开，法球悬在原地；W 驱使念力：她把一颗法球掷到德莱厄斯脚下，落地冲击减速德莱厄斯和盖伦，又留下一颗法球；E 弱者退散：一道紫色弧形冲击波从她身前推出去，两颗法球撞进德莱厄斯和盖伦，头顶转起晕眩光环；她飘过他们、转身朝左（红色方的朝向）放 R 能量倾泻：七颗法球聚到身边，3 + 2 颗法球拖着紫色彗尾依次砸向德莱厄斯；最后身上亮起卓尔不凡的暗紫光](docs/preview/league_syndra_showcase.gif)
 
 ![佛耶戈演示：他一剑砍在德莱厄斯身上（X 形剑光）；Q 破败王剑：一道青绿剑气刺穿德莱厄斯和身后的盖伦，德莱厄斯头顶亮起荆棘王冠标记，下一剑斩两下、黑雾炸开回血；W+E：他退后放出一大片黑雾，脚边缭绕黑雾加速，冲刺吐出黑雾巨口咬住德莱厄斯（头顶晕眩环）；R 痛贯天灵：他跃到德莱厄斯身上一剑刺下，落地冲击波把盖伦击退，德莱厄斯倒下；他夺取灵魂：苍白的灵魂光从两边升起汇到头顶，1 秒无敌的外壳，然后附身的黑雾裹住他，最后黑雾散开](docs/preview/league_viego_showcase.gif?v=head)
+
+![泽丽演示：她平端步枪朝德莱厄斯连射，每一串电弹充一格电，充满时身上噼啪闪一圈电光，下一发变成追踪的电击弹（炸开、减速，她身上亮起电光护罩、脚边加速线）；W 强穿激光：蓄力后射出电脉冲打中德莱厄斯，脚下青色电环减速；E 灿丽花火：脚下炸开电光往前一跳，步枪带电，贯穿弹穿过德莱厄斯打到身后的盖伦；她跑过他们、转身朝左（红色方的朝向）放 R 超限爆闪：以她为中心炸开一圈巨大的电新星打中两人，全身绕起超载电光，三连发打中盖伦、连锁闪电劈到德莱厄斯](docs/preview/league_zeri_showcase.gif?v=head)
 
 ## 英雄：盖伦
 
@@ -3822,6 +3824,46 @@ python addons/league_viego_soul/make_override.py   # 附身附加包的副本（
 - 特效：25 张用 Codex 的游戏尺寸版逐格切；地上的圈、两个爆裂裁成格子里的椭圆，E 的黑雾最后一帧是一整块，改成倒放自己的前两帧散去。
 
 逐帧预览：[`docs/preview/league_viego_frames.png`](docs/preview/league_viego_frames.png)，特效：[`docs/preview/league_viego_effects.png`](docs/preview/league_viego_effects.png)。
+
+## 英雄：泽丽
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | ADC（射手，分类 Range，标签 AD / Range / Shield），第 89 位英雄。祖安花火 泽丽：平端电枪连射，普攻给电池充电，充满打出追踪电击弹；W 打到小兵化成长激光，E 冲刺后子弹贯穿，大招电新星后超载三连发、连锁闪电。用户的选择全用推荐方案：Q 当普攻（7 发连射打第一个）、被动「普攻充能 + 强化弹 + 护盾」、W「打到小兵/野怪就变激光」、E「看局势冲刺」、大招「开团时放（武装等待）」、加入高手连招；W 撞墙激光和真偷盾做成附加包 |
+| 普攻 | Q「电火迸射」当普攻：一串 7 发电弹（一个不穿透的直线弹，打第一个挡路的单位，小兵会挡），100% 攻击力物理伤害，攻击距离 60000（比原版射手略长），第 8 tick 出手（动作帧第 3 帧，平端的枪口） |
+| 被动 | 「内能迁转」：每次普攻给电池充一格（R 的新星直接充满），充满后下一发变成追踪的电击弹：100% 攻击力 + 40 + 100% 法强魔法伤害，减速 40% 0.5 秒，打英雄再加其最大生命 4% 真实伤害，自己得到 40 + 30% 攻击力的护盾 3 秒、移速 +10% 1.5 秒（护盾代表英雄联盟的偷盾） |
+| 偷盾 / 撞墙附加包 | 可选的附加包 [`addons/league_zeri`](addons/league_zeri/README.md)（在附加包合集里，原生代码，主包不装它也完整）：电击弹不给自己的小护盾，改成伤害打到敌人护盾时偷 45% 变成自己的护盾 3 秒；W 的电脉冲撞到墙（地图的墙格子或地图边缘）就从那里化成长激光。附加包里的泽丽是 `make_override.py` 从主包生成的副本 |
+| 技能1 | W「强穿激光」：冷却 600 tick（10 秒），朝 90000 内的敌人放（小兵野怪也算），第 16 tick 射出电脉冲，打中第一个敌人：60 + 110% 攻击力、减速 35% 2 秒；先打中小兵或野怪时，从那里往后化成一道 100000 长的激光，打中后面所有敌人。打中英雄且电池满时立刻补一发电击弹 |
+| 技能2 | E「灿丽花火」：冷却 1200 tick（20 秒），照薇恩 Q 的三种走位冲刺 30000（被英雄贴身就后撤、射程里有东西就后跳、否则冲向目标），之后 5 秒普攻贯穿：第一个单位吃满，后面的敌人吃 80% 攻击力 + 20 + 30% 法强魔法伤害；每次打中英雄缩短冷却。**高手连招 E 接 W** |
+| 大招 | R「超限爆闪」：冷却 3600 tick（60 秒），武装等待（图奇 R 的做法）：射程 90000 内有两个敌方英雄就立刻放，否则待命 10 秒，期间普攻时只要有一个英雄就放，没放出来退还冷却。放出：第 9 tick 以她为中心炸开新星（半径 75000）：150 + 100% 法强魔法伤害 + 60% 攻击力物理伤害，电池充满，超载 5 秒：攻速 +30%、移速 +20%，每打中一个英雄移速再叠 +3% 并延长超载（最多 2.5 秒）；超载时普攻变三连发，打中的地方连锁闪电劈 30000 内所有敌人：15 + 40% 法强魔法伤害。**高手连招 R 接 E** |
+| 数值 | 攻击 92（+18）、生命 860（+86）、护甲 20（+7）、魔抗 15（+3）、移速 920（+10）。用 SDK 对战模拟调：ADC，对 4 个原版射手（`gunner`、`soldier`、`archer`、`gambler`），种子 1–12 +1.33（同一批图奇 +1.36、莎弥拉 +1.70），25–36 +1.70（图奇 +1.71、莎弥拉 +1.21） |
+| 精灵图 | 9 个动作 48 帧：待机 8（上半身整个往下沉一行的呼吸）、移动 8（照英雄联盟泽丽的跑步：枪平端在腰前，两条腿交叉迈步、跳步起伏）、普攻 5（第 3 帧开枪）、W（`skill`）5（第 4 帧开枪）、E 前冲 4、E 后跳 4、R 4（第 3 帧新星）、受击 2、死亡 8（跪下、向前扑倒）。发髻尖到鞋底 40 行、24 格宽，27 色。头像截取点 (2, −38)，选人卡片 0 |
+| 特效 | Codex 生图的 24 张（游戏尺寸版逐格切，`import_zeri.py`；红色方的对称逐格检查）：`league_zeri_fx` 连射电弹 / 命中、电击弹 / 命中 / 减速、充满电的电光、护盾、加速线、W 蓄力 / 电脉冲 / 命中 / 减速、E 生效时的电弧 / 贯穿弹 / 命中、R 三连发 / 命中 / 连锁闪电；`league_zeri_big` W 的长激光（画在格子右半边，从脉冲停下的点往外射）、附加包的撞墙激光、E 冲刺电光、R 电新星、超载、超载延长。颜色照英雄联盟：柠檬黄绿的电、白芯、青色的边，R 带一点彩虹边 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_zeri.py`）：连射、命中、电击弹、充满电、护盾，W 蓄力 / 发射 / 激光 / 命中，E 冲刺 / 落地，R 施放 / 超载 / 连锁；W、E、R、充满电的配音（片段名 `league_zeri_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（W 强穿激光 / E 灿丽花火 / R 超限爆闪），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_zeri.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_zeri.py         # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_zeri.py         # 五种语言的文字、音效配置、共享文件里她的键（头像点和选人卡片点也在里面）
+python tools/art/design_zeri.py --final        # 造型：assets/source/zeri/design40/zeri40_final.txt 写成 zeri_native.png
+python tools/lol/pose_joints.py assets/source/zeri/poses.json --tag run --json assets/source/zeri/run_joints.json   # 英雄联盟跑步的腿部关节
+python tools/art/rig_zeri.py           # 动作：用定稿自己的部件摆出全部 48 帧
+python tools/art/import_native.py --hero zeri
+python tools/art/import_zeri.py        # 特效：游戏尺寸版逐格切，拼成特效表
+python tools/art/preview_zeri.py       # 预览和演示 GIF
+python addons/league_zeri/make_override.py   # 偷盾 / 撞墙附加包的副本（主包的泽丽改了就重跑）
+```
+
+美术（提示词见 [`assets/source/zeri/`](assets/source/zeri/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`REFINE_PROMPTS.md`、`FACE_PROMPTS.md`、`GRID_PROMPTS.md`、`MODEL_STRIPS.md`、`PROMPTS_FX.md`）：
+
+- 造型：Codex 的几版（`codex_model/`、`codex_refine/`）用户都觉得头大、身体僵、画风不统一，最后用户给了自己画的一张泽丽（`user_ref/zeri_user.png`）：「你拿这版泽丽 一点点还原吧 还原到完美」，40 行。按格子叠在原图上，每格取原图里最多的非黑颜色（一格一半以上是黑才画描边），脸保持原图本来的大小，细节一格格保留（`design40/zeri40_v5.txt`）。脸让 Codex 只重画脸框里的 8×8 格（`codex_face/`，用户选 C），再按英雄联盟模型的脸改成粗深眉、黑眼线、黄绿瞳、珊瑚色嘴唇；照 oppi 的做法舍弃小细节（头带改成头发、发髻的紫色尖刺、枪上的灰钉、扣子的黑槽、靴子银扣等去掉），补齐头发缺口和衣服上的破洞；最后照霞不画嘴，眼睛换成更亮的绿瞳（用户选 B，`zeri40_final.txt`）。
+- 动作：Codex 用定稿部件拼的帧把垂着的左臂转出去、从腰间开枪、腿整条左右滑。`rig_zeri.py` 只用不失真的操作：枪 + 手 + 前臂一整块绕手肘转 90°，平端在腰前开枪（平端时袖口的白色并成一条紫红前臂）；左手不动；跑步照慎和佛耶戈的做法（用户：「交叉步都没？？」「跑步时腿别变形」）——腿照英雄联盟泽丽跑步的大腿、小腿角度用紧身裤的颜色画（每帧同样粗细），脚是定稿整只靴子、平放，胯收到腰带下面所以两脚交叉换步，身体跟着英雄联盟的跳步起伏；E、R 的腾空帧就是跑步里的跨步；死亡跪下后整个人转 90° 向前扑倒。每帧审计：一整块、没有洞、没有落单的描边、头和定稿逐像素一致。
+- 特效：24 张用 Codex 的游戏尺寸版逐格切，枪口在站位点前 26 格、脚底上 17 格，子弹飞过枪口前不显示。
+
+逐帧预览：[`docs/preview/league_zeri_frames.png`](docs/preview/league_zeri_frames.png)，特效：[`docs/preview/league_zeri_effects.png`](docs/preview/league_zeri_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
