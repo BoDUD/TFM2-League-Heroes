@@ -697,9 +697,13 @@ SHRINK_GROUPS = {"senna": {"dead": [[0], [1], [2, 3, 4, 5]]}}
 # a head drawn the same on every frame loses the same lines in every action (shrink_frames.head_lines; window and keep
 # from the top-left square of the hero's SHRINK_ANCHOR colour, rows / (left, right) columns to take) - cut by each
 # action's own plan, Senna's hood lost other rows in each action and would change shape at every animation change;
-# her whole head is in SHRINK_KEEP, so no other line crosses it
-SHRINK_HEAD = {"senna": {"window": (-12, 6, -11, 18), "keep": (-4, 6, -4, 10), "rows": 4, "cols": (3, 3),
-                         "face_rows": (-3, 2)}}
+# her whole head is in SHRINK_KEEP, so no other line crosses it. fixed_rows: rows it loses as well, from the same
+# square - Senna's: one plain forehead and one cheek row (eyes, brows and mouth untouched), two of the hair over the
+# forehead and ONE of the hood's dome. head_lines' four cheapest (every other row from -11 to -5) took two of the
+# dome's: her hood went flat on top and its outline opened at the top-left (「赛娜的头顶有点扁看起来不自然」); without
+# -11 and -9, -10 keeps the outline's steps closed (the head a row taller: 14 rows in the run, 13 before)
+SHRINK_HEAD = {"senna": {"window": (-12, 6, -11, 18), "keep": (-4, 6, -4, 10), "rows": 0, "cols": (3, 3),
+                         "fixed_rows": (-10, -7, -5, -3, 2)}}
 # rows (from the pivot) no action loses: Senna's stamped boots are three rows, the soles' two are kept anyway
 SHRINK_KEEP_ROWS = {"senna": (9,)}
 # heroes whose anchor colour marks a feature drawn the same in every frame: shifts from its corner square
@@ -1533,7 +1537,7 @@ def main():
             if hero in SHRINK_HEAD:
                 hs = SHRINK_HEAD[hero]
                 head = SF.head_lines(sheet, SHRINK_ANCHOR[hero], hs["window"], hs["rows"], hs["cols"], hs["keep"])
-                head["rows"] = sorted(head["rows"] + list(hs.get("face_rows", ())))
+                head["rows"] = sorted(head["rows"] + list(hs.get("fixed_rows", ())))
                 print(f"{hero}: head lines from the eyes' corner: rows {head['rows']}, columns {head['cols']}")
             idle_plan = SF.shrink_sheet(sheet, SHRINK[hero], keep_colours=SHRINK_KEEP.get(hero, ()), keep_by_tag=SHRINK_KEEP_TAG.get(hero), body=body0,
                                         tags=["idle"], anchor=SHRINK_ANCHOR.get(hero), still=SHRINK_STILL.get(hero, ()),
