@@ -433,6 +433,26 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
     Only a crisp coarse draft reads back cleanly; otherwise ask Codex to redraw at game size.
   - Any Codex delivery spliced from parts (its 1b refine) can hold enclosed transparent seams (59 squares: a column
     down the body, a band at the crotch): count enclosed clear squares (`rigkit.holes`) before showing it.
+- **A muddy design: the image model draws it again ON THE GAME GRID (league_gwen, league_lillia, league_zed,
+  league_zeri).** When a design reads muddy at game size ("模型整体还是太糊", "要不模糊细节好") - always the case when a
+  bigger picture was brought down to game size, by row/column cuts, area or block votes or Lanczos, however carefully -
+  no amount of hand re-shading fixes it, and neither does redrawing the face alone. league_zeri (2026-10-11): the
+  user's own 72-row picture block-voted to 40 rows (a square is outline only where half of it is ink, else its
+  commonest non-black colour) kept the face at the picture's size and every detail ("其他都挺好的"), but three rounds of
+  hand-drawn and Codex-drawn faces could not lift it ("脸改的还是有点诡异", "眼睛没有泽丽的特色", "太糊"). What came
+  out clean before is an on-grid redraw: the pack (`tools/art/pack_zeri_grid.py`, `assets/source/zeri/GRID_PROMPTS.md`;
+  deliveries `assets/source/{gwen,lillia,zed}/codex_grid/`) gives, in this order, (1) the CURRENT sprite with each
+  square drawn 26 x 26 px and a yellow measuring grid - the size, proportions, pose and place to keep, (2) the user's
+  picture - the look, (3) the hero's face on League's in-game model (a local `pose_ref.py --hq` render, never committed)
+  - the face's character: brows, liner, eye colour, lips, (4) an earlier on-grid delivery at 26 px and (5) its 1x
+  enlarged 8x - "every square one flat colour, no half squares", then the quality bar and the rejected faces. Canvas
+  1024 x 1536 = 39 x 59 squares of 26 px (Gwen's geometry), the figure's top and soles rows and its feet column given
+  as numbers, at most ~24 colours, 3-4 shades a material lit from the upper left, one outline and little black inside,
+  details at least a square, three takes differing in the face, the big picture and its 1x delivered square for square.
+  Back: read the 1x (check it against the big one), put it on the 128 canvas (soles row 99, feet column 64), the
+  one-outline tidy (`tools/art/tidy_codex18.py` rules), show the takes beside the current sprite and the picture.
+  Go there at the FIRST "糊", and when the user hands over a big picture to "restore" at game size, offer this route
+  before restoring it by hand.
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate
