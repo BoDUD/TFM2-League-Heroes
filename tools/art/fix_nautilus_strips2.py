@@ -509,6 +509,9 @@ LEG34 = ["0ffiiiif0..",
          "0000000000."]
 IDLE_LEG_X, IDLE_LEG_Y = 61, 88
 FAR34 = (-5, 1)
+# run frame 1's hip ends in its back thigh leaving backwards (row, columns): two dark squares out behind the idle's
+# straight far leg; cut, the far leg's own top shows there
+IDLE_HIP_CUT = (87, 54, 58)
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -598,7 +601,10 @@ def build():
     K.put(far, leg, IDLE_LEG_X + FAR34[0], IDLE_LEG_Y - FAR34[1])
     K.put(stand, toned(far, solid_of(far)), 0, 0)
     K.put(stand, leg, IDLE_LEG_X, IDLE_LEG_Y)
-    K.put(stand, hip, 0, 0)
+    idle_hip = hip.copy()
+    r, c0, c1 = IDLE_HIP_CUT
+    idle_hip[r, c0:c1 + 1] = 0
+    K.put(stand, idle_hip, 0, 0)
     # his body with the near fist only (carry() with the unit's fist), the anchor slung on his back as League's idle
     # has it: attack 5's anchor (crown up and back, the shank down behind the helmet), behind everything
     fist = unit.s.copy()
