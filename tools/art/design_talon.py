@@ -17,6 +17,12 @@ to 40 rows came out as black specks and grey mush. What the user kept:
   3. the face WITHOUT eyes (the user: 「这眼睛不对 你要么就别画眼睛了 拿头罩遮住」): under the silver crest a black band
      of hood shadow, below it the lit lower face (cheeks, nose, mouth, chin) - the splash's look.
 Approved 「这个可以下一步吧」: 42 x 32, 22 colours, the outline closed. Strips: keep the face this way (no eyes).
+2026-10-11 「男刀按照之前的遮挡了眼睛 但是面部还是奇怪」「而且这里都挺奇怪的」, and with picture A's head shrunk to 20
+columns: 「泰隆这种感觉做不到？」. The face (rows 5-11, columns 23-27) is redrawn after that small picture A: the crest two
+rows of grey metal with a light ridge (it was three rows of white checkerboard), the hood-shadow band a row higher, the
+face four rows (was three) lit in the middle, dark at the jaw and on the left, a chin, no mouth dot; the hood's dark
+inside on its left (the white lining beside the face read as a bar). The strips' pasted heads were swapped square for
+square (the old face block found in any quarter turn or flip, 22 squares each frame).
 """
 import argparse
 import os
