@@ -21,10 +21,10 @@ whole); what is fixed here:
   5. the anchor carried on his back: Codex's bent one out, the design's straight anchor unit in, held in the near fist
      (CARRY); frames whose anchor cannot take it (the attack's first and last, Q's landing, R's first, the hit's first)
      are the mended stance (GRIP_FROM).
-  6. the run trades legs every half cycle: Codex's hips and legs of frames 1-3 whole, the 4th passing (frame 4's
-     straight leg and the other one lifted behind it), then the same with the other leg near (the far leg one step
-     darker, on whole patches).
-  7. the run's body is frame 1's in every frame, its belt on each frame's own belt: Codex's redrawn bodies shook.
+  6. the walk is the idle stepping (WALK): the same body, slung anchor and legs; the legs lift in turn in place as
+     oppi's do, the knee high, the whole figure floating up and down on each step like League's heavy diver.
+  7. the idle and every walk frame wear the one body, run frame 1's with Codex's anchor taken out: Codex redrew the
+     body in every run frame and it shook.
   8. the idle stands still with the anchor slung on his back as League's idle carries it, on legs drawn as oppi's
      Nautilus stands (IDLE_LEGS): seen from the front-right like his helmet and chest, two straight legs apart.
   9. the carried anchor is Codex's own straight one, attack 4's turned crown up (「钩子画的过大了 适当缩小」
@@ -37,7 +37,6 @@ import json
 import math
 import os
 import sys
-from collections import deque
 
 import numpy as np
 from PIL import Image
@@ -282,7 +281,7 @@ def mend_gaps(g, top, hl):
 
 
 def lower(f, belt):
-    """6: Codex's hips and legs, every row under the belt; and apart, the pieces there that never reach the feet (the
+    """7: Codex's hips and legs, every row under the belt; and apart, the pieces there that never reach the feet (the
     near fist's lowest squares)."""
     part = f.copy()
     part[:belt + 1] = 0
@@ -297,84 +296,6 @@ def lower(f, belt):
     return part, rest
 
 
-def solid_of(p):
-    return (p[..., 3] > 0) & ~is_(p, "0")
-
-
-def legs_of(part):
-    """6: the back leg's and the front leg's squares from TONE_ROW down: the two biggest pieces standing apart from
-    SEP_ROW down, grown up through the thighs (each square to the nearer one, stepping through coloured squares)."""
-    low = solid_of(part)
-    low[:SEP_ROW] = False
-    lab, m = ndimage.label(low, FOUR)
-    big = sorted(range(1, m + 1), key=lambda i: (lab == i).sum())[-2:]
-    big.sort(key=lambda i: np.nonzero(lab == i)[1].mean())
-    sol = solid_of(part)
-    sol[:TONE_ROW] = False
-    owner = np.zeros(sol.shape, int)
-    queue = deque()
-    for who, i in ((1, big[0]), (2, big[1])):
-        for y, x in zip(*np.nonzero((lab == i) & sol)):
-            owner[y, x] = who
-            queue.append((y, x))
-    while queue:
-        y, x = queue.popleft()
-        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            if sol[y + dy, x + dx] and not owner[y + dy, x + dx]:
-                owner[y + dy, x + dx] = owner[y, x]
-                queue.append((y + dy, x + dx))
-    return owner == 1, owner == 2, lab == big[0], lab == big[1]
-
-
-def toned(p, mask):
-    out = p.copy()
-    for y, x in zip(*np.nonzero(mask)):
-        ch = INV.get(tuple(int(v) for v in p[y, x, :3]))
-        if ch in FAR:
-            out[y, x, :3] = L[FAR[ch]]
-    return out
-
-
-def far_patches(p, far, near):
-    """6: the far leg's tone goes on whole patches of one colour family (a knee guard, a boot, a highlight) lying
-    mostly in the far leg - never half a knee guard."""
-    letters = np.full(p.shape[:2], "", dtype=object)
-    for y, x in zip(*np.nonzero(p[..., 3])):
-        letters[y, x] = INV.get(tuple(int(v) for v in p[y, x, :3]), "?")
-    mask = np.zeros(p.shape[:2], bool)
-    for fam in FAMILIES:
-        lab, m = ndimage.label(np.isin(letters, list(fam)), FOUR)
-        for i in range(1, m + 1):
-            patch = lab == i
-            if (patch & far).sum() > (patch & near).sum():
-                mask |= patch
-    return mask
-
-
-def leg_unit(part, mask):
-    """The leg's squares and the outline squares touching them."""
-    outline = (part[..., 3] > 0) & is_(part, "0")
-    m = mask | (outline & ndimage.binary_dilation(mask, np.ones((3, 3), bool)))
-    u = np.zeros_like(part)
-    u[m] = part[m]
-    return u
-
-
-def stance(leg, hip, near, lift):
-    """6, the run's passing frames: Codex's straight leg `leg` (frame 4's front one, in frame 1's place) and the
-    same leg IDLE_FEET columns behind it, one step darker; the swing leg (the one behind) lifted `lift` rows, tucked
-    under the hip; `near` "front" (the straight one near) or "back" (the swing one near, in Codex's colours, over the
-    other); frame 1's hip on top."""
-    swing = K.shifted(leg, -IDLE_FEET, -lift)
-    swing[:HIP_END + 1] = 0
-    far, nr = (swing, leg) if near == "front" else (leg, swing)
-    out = np.zeros_like(leg)
-    K.put(out, toned(far, solid_of(far)), 0, 0)
-    K.put(out, nr, 0, 0)
-    K.put(out, hip, 0, 0)
-    return out
-
-
 def drawn(rows):
     """A letter grid (the strips' colours, "0" the outline, "." clear) as RGBA."""
     a = np.zeros((len(rows), len(rows[0]), 4), np.uint8)
@@ -384,6 +305,25 @@ def drawn(rows):
                 a[y, x, :3] = OUT if c == "0" else L[c]
                 a[y, x, 3] = 255
     return a
+
+
+def walk_frame(legs, body, slung, near_step, far_step, rise):
+    """6, 8: the idle's legs (the hip band, then the near leg left of LEG_SPLIT and the far one right of it, sharing
+    its outline column) under his body, the slung anchor behind all; each leg's step (columns forward, rows lifted) - a
+    lifted leg loses its top rows (the thigh turned towards us, behind the knee) and hangs from the band by its knee
+    guard - and the whole figure `rise` rows up."""
+    band = IDLE_LEGS_AT[1]
+    out = np.zeros_like(body)
+    for cols, (dx, lift) in ((slice(LEG_SPLIT, None), far_step), (slice(None, LEG_SPLIT + 1), near_step)):
+        leg = np.zeros_like(legs)
+        leg[band + 1 + lift:, cols] = legs[band + 1 + lift:, cols]
+        K.put(out, K.shifted(leg, dx, -lift), 0, 0)
+    hip = np.zeros_like(legs)
+    hip[band] = legs[band]
+    K.put(out, hip, 0, 0)
+    K.put(out, body, 0, 0)
+    K.put(out, slung, 0, 0, under=True)
+    return tidy(K.shifted(out, 0, -rise))
 
 
 def bounds(spec):
@@ -409,11 +349,7 @@ ANCHOR_BOX = (40, 58, 28, 60)                                   # attack 5: rows
 # outline squares left bordering only air; the helmet untouched - and the design's own anchor unit goes in (anchor + near
 # fist, rigid, upright: the crown over his head, the straight shank down into the fist, as p35 carries it), one step
 # darker to Codex's anchor greys, its fist on Codex's near fist F (rows, columns).
-CARRY = {("run", 1): ((59, 51), (80, 57.1)), ("run", 2): ((58.5, 50.5), (79.5, 55.8)),
-         ("run", 3): ((59.5, 51.5), (80, 55.5)), ("run", 4): ((59.2, 52.5), (80.2, 58.0)),
-         ("run", 5): ((60.5, 52.5), (81.2, 58.4)), ("run", 6): ((58.9, 54.7), (79.2, 58.2)),
-         ("run", 7): ((59.5, 49.5), (77.9, 55.1)), ("run", 8): ((56.5, 53.5), (77.2, 58.2)),
-         ("skill2", 1): ((63, 52), (82, 58.9)), ("skill2", 5): ((63, 52), (82, 60.4)),
+CARRY = {("skill2", 1): ((63, 52), (82, 58.9)), ("skill2", 5): ((63, 52), (82, 60.4)),
          ("skill2", 6): ((60, 50), (82, 58.6)), ("hit", 2): ((56, 49.3), (80, 58.6)), ("ult", 8): ((62.1, 54.3), (78.4, 61.2))}
 # 9: the carried anchor was too big (「钩子画的过大了 适当缩小」), then crooked (「武器给我画直了啊」: the design's crown
 # leans to the right of its shank). It is Codex's own anchor now, the one he swings (straight_anchor): attack 4's,
@@ -429,34 +365,16 @@ FIST_AT = 31
 # W+E's last frame: Codex's old shank ran on down beside the new one to the fist, a light grey bar left of it (rows,
 # columns, both ends in); cleared before the unit goes in
 OLD_SHANK = {("skill2", 6): (64, 73, 52, 58)}
-# (tag, frame) <- the mended W+E stance (the idle's), or the mended hit 2 a column back
+# (tag, frame) <- the mended W+E stance, or the mended hit 2 a column back
 GRIP_FROM = {("attack", 1): ("skill2", 1, 0), ("attack", 6): ("skill2", 1, 0), ("skill_pull", 4): ("skill2", 1, 0),
              ("ult", 1): ("skill2", 1, 0), ("hit", 1): ("hit", 2, -1)}
-# 6: the run never changed legs (「走路压根看不出换腿」): Codex drew one stride and kept the same leg in front in all 8
-# frames - 1 the stride, 2 the back foot down behind, 3-4 the front leg straight under him and the back one lifted
-# behind. Frames 5-8 as 1-4 with only the legs' tones swapped made the back leg jump to the front in one frame,
-# glaring yellow over a black one (「这交叉步看着好怪啊」); cutting the legs apart along columns then broke the thighs
-# and left squares behind (「走路时下半身有点变形 还有多余的像素没清理」). The cycle now: 1-3 Codex's own hips and legs,
-# whole, under frame 1's body (7), the far leg one step darker (FAR, on whole patches: far_patches); 4 frame 4's
-# straight leg and the other leg passing behind it, lifted PASS_LIFT rows (stance()); 5-8 the same with the other leg
-# near. Each leg goes forward, under him, behind, lifted, passing, forward again. The legs are told apart where they
-# stand apart (from SEP_ROW down) and grown up through the thighs to TONE_ROW; the hips above stay as drawn.
+# 7: the body of the idle and of every walk frame: run frame 1's (Codex redrew it in each run frame and it shook:
+# 「走路时模型抖动太厉害」) down to its belt (the teal light, row BELT), with the near fist's lowest squares under it
+# (lower(): the pieces under the belt that end above SEP_ROW); Codex's carried anchor taken out where it sits in that
+# frame (RUN1_BF: its red band B and the near fist F, rows and columns), the unit's fist alone put back (carry()).
+BELT = 85
 SEP_ROW = 93
-TONE_ROW = 90
-PASS_LIFT = 2
-FAR = {"u": "t", "t": "p", "p": "k", "o": "k", "m": "k", "k": "j", "j": "h", "h": "e", "e": "c", "c": "b",
-       "v": "s", "s": "n", "n": "i", "i": "f"}
-FAMILIES = (set("utpomkjhec"), set("vsni"))
-# 7: the run shook (「走路时模型抖动太厉害」): Codex redrew the upper body in every frame (the helmet 3 columns and 2 rows
-# apart) and the carried anchor rode the fist. Every frame wears frame 1's body (every row down to its belt - the teal
-# light - and the near fist's lowest squares), its belt on the frame's own belt (BELT, Codex's run frames 1-4): the
-# body bobs a row with Codex's hips and nothing is cut through them.
-BELT = [85, 84, 84, 84]
-# 6, the passing frames (4 and 8): frame 1's hip (rows to HIP_END) over frame 4's straight front leg from its thigh
-# (THIGH4) and the same leg IDLE_FEET columns behind it (stance())
-HIP_END = 87
-THIGH4 = 87
-IDLE_FEET = 7
+RUN1_BF = ((59, 51), (80, 57.1))
 # 「泰坦待机动作你先去对比英雄联盟什么样 然后改 现在还很奇怪」: League's idle (Nautilus_idle1, side on) carries the anchor
 # slung on his back - the crown up and behind the head, the flukes hanging by the shoulder, the shank down behind the
 # helmet - not held up straight over his head like a sign. The idle's anchor is attack frame 5's (Codex's, crown up
@@ -488,6 +406,16 @@ IDLE_LEGS = ["........0fiiiiiffiiiif0..........",
              "...0hjkkkkjjh0...00000000000.....",
              "...00000000000..................."]
 IDLE_LEGS_AT = (48, 86)
+# 6: the walk (「走路的时候武器是不是也应该是斜着 还有参考oppi走路步伐怎么做的 泰坦走路姿势应该有点太空漫步的感觉的 英雄联盟
+# 里反正是这样 反正现在的走路步伐是错的」). League's run (Nautilus_Run) carries the anchor slung on his back as the idle
+# does and lifts the knees high, the body floating up and down - a diver walking the sea floor; oppi's Nautilus walks
+# seen from the front-right like his idle, the legs lifting in turn under the body, in place. A walk frame is the idle
+# (walk_frame) with a step per leg - (columns forward, rows lifted) for the near leg and the far one - and the whole
+# figure risen some rows: a leg lifts 2 and 3 rows while the figure floats 1 and 2 rows up, comes down a column
+# forward, and drifts back as the other one lifts. LEG_SPLIT: the column between the legs (their shared outline).
+WALK = [((0, 0), (0, 2), 1), ((0, 0), (1, 3), 2), ((0, 0), (1, 1), 1), ((0, 0), (1, 0), 0),
+        ((0, 2), (0, 0), 1), ((1, 3), (0, 0), 2), ((1, 1), (0, 0), 1), ((1, 0), (0, 0), 0)]
+LEG_SPLIT = 63
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -512,46 +440,11 @@ def build():
     ys, xs = np.nonzero(piece[..., 3] > 0)
     anchor = piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1][::-1].copy()     # on its crown
     unit = straight_anchor(strips["attack"][cell(3, n["attack"], cw, ch)])
-    raw_run1 = strips["run"][cell(0, n["run"], cw, ch)].copy()     # for the idle (its anchor goes on his back)
+    raw_run1 = strips["run"][cell(0, n["run"], cw, ch)].copy()     # the body of the idle and the walk (7)
+    pivot = list(cells["tags"]["run"][0]["pivot"])
     for (tag, k), (B, F) in CARRY.items():
         sl = cell(k - 1, n[tag], cw, ch)
         strips[tag][sl] = carry(strips[tag][sl], B, F, unit, OLD_SHANK.get((tag, k)))
-    # 6-7: the run - frame 1's body over each frame's own hips and legs, frames 4 and 8 passing (stance())
-    first = [strips["run"][cell(k, n["run"], cw, ch)].copy() for k in range(4)]
-    pivs = [list(cells["tags"]["run"][k]["pivot"]) for k in range(4)]
-    if pivs[3][0] != pivs[0][0]:
-        sys.exit("run frames 1 and 4 stand on different columns: stance() puts frame 4's leg under frame 1's body")
-    fist = lower(first[0], BELT[0])[1]
-    top = first[0].copy()
-    top[BELT[0] + 1:] = 0
-    K.put(top, fist, 0, 0)
-    hip = first[0].copy()
-    hip[:BELT[0] + 1] = 0
-    hip[HIP_END + 1:] = 0
-    hip[fist[..., 3] > 0] = 0
-    parts = [lower(first[k], BELT[k])[0] for k in range(4)]
-    legs = [legs_of(p) for p in parts]
-    back_seed, front_seed = legs[3][2], legs[3][3]
-    lab, _ = ndimage.label(solid_of(parts[3]), FOUR)
-    whole = lab == lab[tuple(np.argwhere(front_seed)[0])]
-    if (whole & back_seed).any():
-        sys.exit("run frame 4's legs touch: stance() needs its front leg whole")
-    leg = leg_unit(parts[3], whole)
-    leg[:THIGH4] = 0
-    leg = K.shifted(leg, 0, 1)                      # in frame 1's place (frame 4 floats a row: its belt on row 84)
-    for k in range(8):
-        j = k % 4
-        if j == 3:
-            f = stance(leg, hip, "front" if k < 4 else "back", PASS_LIFT)
-            K.put(f, top, 0, 0)
-            f = K.shifted(f, 0, BELT[3] - BELT[0])
-        else:
-            back, front = legs[j][:2]
-            far, near = (back, front) if k < 4 else (front, back)
-            f = toned(parts[j], far_patches(parts[j], far, near))
-            K.put(f, top, pivs[j][0] - pivs[0][0], BELT[j] - BELT[0])
-        strips["run"][cell(k, n["run"], cw, ch)] = tidy(f)
-        cells["tags"]["run"][k]["pivot"] = list(pivs[j])
     for (tag, k), (src, j, dx) in GRIP_FROM.items():
         piece = strips[src][cell(j - 1, n[src], cw, ch)]
         strips[tag][cell(k - 1, n[tag], cw, ch)] = K.shifted(piece, dx, 0)
@@ -567,28 +460,33 @@ def build():
         K.put(c, f, 0, 0)
         c[RN.PIVOT[1] + 12:] = 0
         dead[sl] = tidy(c)
-    # the idle: the run's body standing still on oppi's legs (8)
     for t in cells["tags"].values():
         for fr in t:
             fr.pop("head", None)
-    stand = np.zeros_like(first[0])
-    K.put(stand, drawn(IDLE_LEGS), *IDLE_LEGS_AT)
-    # his body with the near fist only (carry() with the unit's fist), the anchor slung on his back as League's idle
-    # has it: attack 5's anchor (crown up and back, the shank down behind the helmet), behind everything
+    # 7: his body with the near fist only (carry() with the unit's fist); the anchor slung on his back as League's
+    # idle and run carry it: attack 5's anchor (crown up and back, the shank down behind the helmet), behind everything
     fist = unit.s.copy()
     fist[:FIST_AT] = 0
-    B, F = CARRY[("run", 1)]
+    B, F = RUN1_BF
     bare = carry(raw_run1, B, F, K.Part(fist, unit.j))
-    idle_top = bare.copy()
-    idle_top[BELT[0] + 1:] = 0
-    K.put(idle_top, lower(bare, BELT[0])[1], 0, 0)
-    K.put(stand, idle_top, 0, 0)
+    body = bare.copy()
+    body[BELT + 1:] = 0
+    K.put(body, lower(bare, BELT)[1], 0, 0)
     r0, r1, c0, c1 = IDLE_ANCHOR
-    slung = np.zeros_like(stand)
+    slung = np.zeros_like(body)
     slung[r0:r1, c0:c1] = strips["attack"][cell(4, n["attack"], cw, ch)][r0:r1, c0:c1]
-    K.put(stand, K.shifted(slung, *IDLE_ANCHOR_AT), 0, 0, under=True)
-    stand = tidy(stand)
-    cells["tags"]["idle"] = [{"pivot": list(pivs[0]), "ms": m} for m in RN.MS["idle"]]
+    slung = K.shifted(slung, *IDLE_ANCHOR_AT)
+    legs = np.zeros_like(body)
+    K.put(legs, drawn(IDLE_LEGS), *IDLE_LEGS_AT)
+    # 6: the walk
+    if len(WALK) != n["run"]:
+        sys.exit("WALK needs a step for every run frame")
+    for k, (near_step, far_step, rise) in enumerate(WALK):
+        strips["run"][cell(k, n["run"], cw, ch)] = walk_frame(legs, body, slung, near_step, far_step, rise)
+        cells["tags"]["run"][k]["pivot"] = list(pivot)
+    # 8: the idle, standing still
+    stand = walk_frame(legs, body, slung, (0, 0), (0, 0), 0)
+    cells["tags"]["idle"] = [{"pivot": list(pivot), "ms": m} for m in RN.MS["idle"]]
     cols, rows = K.layout(len(RN.MS["idle"]))
     sheet = np.zeros((rows * ch, cols * cw, 4), np.uint8)
     for k in range(len(RN.MS["idle"])):
