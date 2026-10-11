@@ -25,8 +25,8 @@ whole); what is fixed here:
      straight leg and the other one lifted behind it), then the same with the other leg near (the far leg one step
      darker, on whole patches).
   7. the run's body is frame 1's in every frame, its belt on each frame's own belt: Codex's redrawn bodies shook.
-  8. the idle (side-on too, the user: 「待机图也改成侧面的吧 不然太奇怪了」) stands upright with the anchor slung on his
-     back as League's idle carries it, on legs seen from the front-right like his helmet and chest (LEG34), still.
+  8. the idle stands still with the anchor slung on his back as League's idle carries it, on legs drawn as oppi's
+     Nautilus stands (IDLE_LEGS): seen from the front-right like his helmet and chest, two straight legs apart.
   9. the carried anchor is Codex's own straight one, attack 4's turned crown up (「钩子画的过大了 适当缩小」
      「武器给我画直了啊」).
 Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
@@ -361,7 +361,7 @@ def leg_unit(part, mask):
 
 
 def stance(leg, hip, near, lift):
-    """8 (and the run's passing frames): Codex's straight leg `leg` (frame 4's front one, in frame 1's place) and the
+    """6, the run's passing frames: Codex's straight leg `leg` (frame 4's front one, in frame 1's place) and the
     same leg IDLE_FEET columns behind it, one step darker; the swing leg (the one behind) lifted `lift` rows, tucked
     under the hip; `near` "front" (the straight one near) or "back" (the swing one near, in Codex's colours, over the
     other); frame 1's hip on top."""
@@ -375,21 +375,6 @@ def stance(leg, hip, near, lift):
     return out
 
 
-def leg_units(f, belt, pivot_x, ref_x):
-    """8: one of Codex's run frames cut into its two whole legs ({"B": back, "F": front}): its squares under the belt
-    (lower), told apart where they stand apart and grown up through the thighs (legs_of), each with the outline squares
-    touching it; moved under frame 1's belt (its own belt to BELT[0], its standing point to ref_x)."""
-    part, _ = lower(f, belt)
-    back_m, front_m = legs_of(part)[2:]
-    solid = solid_of(part)
-    lab, _ = ndimage.label(solid, FOUR)
-    out = {}
-    for name, seed in (("B", back_m), ("F", front_m)):
-        whole = np.isin(lab, np.unique(lab[seed & solid]))
-        out[name] = K.shifted(leg_unit(part, whole), int(ref_x - pivot_x), BELT[0] - belt)
-    return out
-
-
 def drawn(rows):
     """A letter grid (the strips' colours, "0" the outline, "." clear) as RGBA."""
     a = np.zeros((len(rows), len(rows[0]), 4), np.uint8)
@@ -399,12 +384,6 @@ def drawn(rows):
                 a[y, x, :3] = OUT if c == "0" else L[c]
                 a[y, x, 3] = 255
     return a
-
-
-def on_ground(u, dx):
-    """A leg unit moved dx columns, its lowest square on the soles' row."""
-    ys = np.nonzero(u[..., 3])[0]
-    return K.shifted(u, dx, RN.PIVOT[1] + 11 - ys.max())
 
 
 def bounds(spec):
@@ -473,11 +452,8 @@ FAMILIES = (set("utpomkjhec"), set("vsni"))
 # light - and the near fist's lowest squares), its belt on the frame's own belt (BELT, Codex's run frames 1-4): the
 # body bobs a row with Codex's hips and nothing is cut through them.
 BELT = [85, 84, 84, 84]
-# 8: the idle (「待机时上下浮动模型还变形 我的意思是待机时腿不要岔开啊 直立站那不就行了 你看oppi的泰坦啊」「现在明显待机和走路时
-# 模型尺寸都不一样了」, then 「待机一样的问题」): like oppi's Nautilus, upright on two straight legs and still - frame 1's
-# body and its hip (rows to HIP_END), frame 4's straight front leg from its thigh (THIGH4) down a row lower (the sole
-# on the ground row), the far leg the same IDLE_FEET columns behind (its thigh under the back of the hip), one step
-# darker. The run's size: the run's own body.
+# 6, the passing frames (4 and 8): frame 1's hip (rows to HIP_END) over frame 4's straight front leg from its thigh
+# (THIGH4) and the same leg IDLE_FEET columns behind it (stance())
 HIP_END = 87
 THIGH4 = 87
 IDLE_FEET = 7
@@ -488,30 +464,30 @@ IDLE_FEET = 7
 # (columns, rows), behind him; his near fist stays where it held the shank.
 IDLE_ANCHOR = (40, 64, 28, 57)
 IDLE_ANCHOR_AT = (8, 10)
-# 「你知道怪在哪吗这个腿 方向和头 腰部都不一致」 (the user picked: 朝向不一致): the helmet shows both eyes and the chest and
-# belt face the viewer - the body is seen from the front-right, at about 45 degrees - while the legs were drawn side on
-# (the knee plate on the leg's right edge, the boot pointing straight right). Seen at 45 degrees (League's idle1,
-# tools/lol/pose_ref.py --yaw 45) the knee plate faces the viewer and the boot points right and forward. LEG34 is that
-# leg, drawn on the grid in the strips' colours (rows from IDLE_LEG_Y, column 0 its back outline): the near leg at
-# column IDLE_LEG_X, the far one the same leg a step darker FAR34 (columns, rows up) behind it - further back on the
-# ground, a row higher.
-LEG34 = ["0ffiiiif0..",
-         "0fffiiif0..",
-         "0ffkttpf0..",
-         "0fkpttpk0..",
-         "0fbkppkb0..",
-         ".0ffiiif0..",
-         ".0ffiiif0..",
-         ".0bfiifb00.",
-         "0jkkpppkk0.",
-         "0hkkmmppk0.",
-         "0hjkkkkkj0.",
-         "0000000000."]
-IDLE_LEG_X, IDLE_LEG_Y = 61, 88
-FAR34 = (-5, 1)
-# run frame 1's hip ends in its back thigh leaving backwards (row, columns): two dark squares out behind the idle's
-# straight far leg; cut, the far leg's own top shows there
-IDLE_HIP_CUT = (87, 54, 58)
+# 8: the idle's legs. Side on, or turned to the front-right a leg at a time, they never agreed with the body (「这个腿
+# 方向和头 腰部都不一致」, the user picked 朝向不一致: the helmet shows both eyes, the chest and belt face the viewer); the
+# user: 「其实你学学oppi的泰坦吧」「照着他的做吧」「你看他的待机的腿做的非常好啊」. oppi's Nautilus (and his Sion) stands as
+# his body is seen, from the front-right: two straight legs apart under the hip, the near one (the image's left) on the
+# ground, the far one (the image's right) a row higher, the boots turned out - as the design's own front view stands
+# (codex_picture/nautilus-model-A.png: bronze knee guards, dark shins, bronze boots). IDLE_LEGS is that, drawn on the
+# grid in the strips' colours from IDLE_LEGS_AT (column, row): the hip under the belt, the near leg in full tone, the
+# far one a step darker (its suit, knee guard and boot), the boots lit on top. Still, at the run's size (「待机时上下浮动
+# 模型还变形」「现在明显待机和走路时模型尺寸都不一样了」): the run's own body over them.
+IDLE_LEGS = ["........0fiiiiiffiiiif0..........",
+             ".......0ffiiiif0ffiiiff0.........",
+             "......0ffiiiiif0fffiiiff0........",
+             "......0ffiiiif0.0ffiiiff0........",
+             "......0fkttpkf0.0fjppkjf0........",
+             ".....0fkpttppf0.0fjkppkjf0.......",
+             ".....0fbkppkbf0.0fbjkkjbf0.......",
+             ".....0ffiiiif0...0ffiiff0........",
+             ".....0ffiiiif0...0ffiiff0........",
+             "....00bfiiifb0...0bffiffb00......",
+             "...0jkttpppkj0...0hjppkkjjh0.....",
+             "...0hkpppkkkj0...0ejkkkjjjhe0....",
+             "...0hjkkkkjjh0...00000000000.....",
+             "...00000000000..................."]
+IDLE_LEGS_AT = (48, 86)
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
 
@@ -591,20 +567,12 @@ def build():
         K.put(c, f, 0, 0)
         c[RN.PIVOT[1] + 12:] = 0
         dead[sl] = tidy(c)
-    # the idle: side-on like every action (the user: 「待机图也改成侧面的吧 不然太奇怪了」), standing still (8)
+    # the idle: the run's body standing still on oppi's legs (8)
     for t in cells["tags"].values():
         for fr in t:
             fr.pop("head", None)
-    leg = drawn(LEG34)
     stand = np.zeros_like(first[0])
-    far = np.zeros_like(stand)
-    K.put(far, leg, IDLE_LEG_X + FAR34[0], IDLE_LEG_Y - FAR34[1])
-    K.put(stand, toned(far, solid_of(far)), 0, 0)
-    K.put(stand, leg, IDLE_LEG_X, IDLE_LEG_Y)
-    idle_hip = hip.copy()
-    r, c0, c1 = IDLE_HIP_CUT
-    idle_hip[r, c0:c1 + 1] = 0
-    K.put(stand, idle_hip, 0, 0)
+    K.put(stand, drawn(IDLE_LEGS), *IDLE_LEGS_AT)
     # his body with the near fist only (carry() with the unit's fist), the anchor slung on his back as League's idle
     # has it: attack 5's anchor (crown up and back, the shank down behind the helmet), behind everything
     fist = unit.s.copy()
