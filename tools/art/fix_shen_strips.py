@@ -58,19 +58,20 @@ CANVAS_SQUARE = 1254 / 128
 # League's angles (RotSprite) came out a different shape in every frame: 「慎的跑动腿部变形」 (Viego's drawn trousers:
 # 「佛耶戈不错」). So the legs are DRAWN on League's thigh and shin angles in the design's own colours, the same shape in
 # every frame: the hakama bulb (purple #593C9C, its edges #231548, RUN_W), its silver cuff, the brown boot shaft, one
-# outline round them; the feet are the design's own (the near one mirrored: its toe points back in the wide stance),
-# flat - a foot League has on the ground stands on the soles, the knee solved by rigkit.leg_chain - or a quarter turn
-# when the shin swings near level (RUN_TURN); the tail hem hangs RUN_TAIL_DX columns in, from the sash (the near thigh it
-# hung beside swings away); the body bobs with League's hips (0-2 rows, lower when a planted foot is out of reach).
+# outline round them; the feet are the design's own whole boots (from the shaft's last row down, FOOT_ROW; the near one
+# mirrored: its toe points back in the wide stance), always flat and drawn over the leg - a foot League has on the
+# ground stands on the soles, the knee solved by rigkit.leg_chain. (The leg's outline drawn over the feet cut them into
+# pieces, a quarter-turned foot stood up as a bar, and without the shaft's last row the far boot's heel hung apart:
+# 「慎的脚变形了啊」.) The tail hem hangs RUN_TAIL_DX columns in, from the sash (the near thigh it hung beside swings
+# away); the body bobs with League's hips (0-2 rows, lower when a planted foot is out of reach).
 RUN_JOINTS = os.path.join(ROOT, "assets", "source", "shen", "run_joints.json")
 RUN_PLANT_TOE = 8.5               # a League toe this low (game px under its pivot) stands on the ground
-RUN_TURN = 70                     # a swinging foot turns a quarter once its shin is this far from straight down
 RUN_W = (2.3, 2.5, 1.1, 1.8, 1.5)   # half-widths at 90%: the bulb at the sash, at the cuff, its bulge; the shaft; the
                                     # cuff's length (the design's bulb ~8 wide in its middle, the shaft 4)
 LEG_COLOURS = {"bulb": "#593C9C", "bulb2": "#583B95", "bulb_edge": "#231548", "cuff": "#C3C3C5", "cuff2": "#A3A5AB",
                "cuff3": "#767A8B", "shaft": "#573327", "shaft2": "#3D241E", "shaft3": "#341E1A"}
 RUN_TAIL_DX = 3
-FOOT_ROW = 97                     # the feet's first row on the design
+FOOT_ROW = 96                     # the feet's first row on the design (the boot shaft's last, so the boot stays whole)
 KNEE_ROW = 91                     # the lower leg's first row
 LEG_TOP = 85
 # The run's own upper body (the user, 2026-10-11, with Viego's: 「慎的待机和跑步应该也不一样 我意思你顺便处理」 - the trot
@@ -544,12 +545,12 @@ def stride_frame(parts, k):
         if grounded:
             foot = turned(L["foot"], L["ftop"], (ank[0] + L["fdx"], SOLES + 1 - L["fh"]), 0.0)
         else:
-            foot = turned(L["foot"], L["ank"], ank, sh - L["a_s"] if abs(sh) >= RUN_TURN else 0.0)
+            foot = turned(L["foot"], L["ank"], ank, 0.0)
         drawn[leg] = (c, foot)
     far, near = drawn["far"], drawn["near"]
-    layers = [(far[1], 0, 0), (far[0], 0, 0),
+    layers = [(far[0], 0, 0), (far[1], 0, 0),
               (parts["tail_top"], RUN_TAIL_DX, bob), (parts["hem"], RUN_TAIL_DX, bob),
-              (near[1], 0, 0), (near[0], 0, 0),
+              (near[0], 0, 0), (near[1], 0, 0),
               (parts["apron"], 0, bob)] + [(c, 0, bob) for c in parts["run_upper"]]
     return bare_outline_gone(compose(layers))
 
