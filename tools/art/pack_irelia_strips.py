@@ -257,11 +257,13 @@ BODY_TXT = ("the head keeps the design's size, colours and details (the royal-bl
             "the far one partly behind her) stay on her in every frame")
 ARMS_TXT = ("the arms are the design's arms - bare upper arm, white arm band, crimson arm guard, white wrist band, the hand "
             "with finger tips - never longer than the design's own arm (no long stretched arms), never thinner, each growing "
-            "from its shoulder guard; the BLADES are the design's crescent blades (a crimson body, a white edge, a black "
+            "from its shoulder guard; she NEVER holds a blade - no grip, no hilt, no blade in her hand: the blades FLOAT free "
+            "(at least one square clear of her hands) and she directs them with open hands, palm out or fingers pointing; "
+            "the BLADES are the design's crescent blades (a crimson body, a white edge, a black "
             "outline between neighbours, the cyan gem at the root of the lower one): each blade ONE rigid object of exactly "
             "the design's shape and size, only moved and turned whole, drawn clean at every angle like oppi draws Sion's axe "
             "(refs/style_oppi_sion.png) - never bent, melted, shortened, thinned or changing shape from frame to frame; when "
-            "they are not sent out they stay folded behind her back exactly as in the design")
+            "they are not sent out they hover folded behind her back exactly as in the design")
 ANIM = {
     "run": "RUN, 8 frames, one seamless loop (League's run, 1.0 s): the blade bundle stays FOLDED ON HER BACK exactly as in "
            "the design, the long hair streaming back, the arms swinging a little; the legs CROSS: in frames 1 and 5 the boots "
@@ -269,10 +271,10 @@ ANIM = {
            "boot passes BESIDE the other 1-2 rows up with the knee bent; the body bobs 1 row with each landing; her head "
            "keeps the same place across the cell relative to the standing point in all 8 frames; frame 8 flows into frame 1.",
     "attack": "BASIC ATTACK (a blade slash), 5 frames: 1 turning to the right, the near hand drawn back, ONE crimson blade "
-              "lifting off the bundle on her back; 2 crouching, the near arm swung back behind her, the blade raised behind "
-              "her shoulder (the design's blade, full size); 3 THE SLASH (the blow lands here): lunging forward, front knee "
-              "bent, the near arm flung forward to the image right at chest height, the blade flying level in front of her "
-              "hand, its point to the right; 4 following through, the blade swinging back past her; 5 back toward the stance, "
+              "lifting off the bundle on her back; 2 crouching, the near arm swung back behind her, the blade floating up behind "
+              "her shoulder (the design's blade, full size, not in her hand); 3 THE SLASH (the blow lands here): lunging forward, front knee "
+              "bent, the near arm flung forward to the image right at chest height, the blade flying level a square or two "
+              "ahead of her open hand, its point to the right; 4 following through, the blade swinging back past her; 5 back toward the stance, "
               "the blade back in the bundle.",
     "skill": "BLADESURGE (Q, a dash through the target), 4 frames: 1 crouched low, leaning forward to the image right, the near "
              "hand forward; 2 dashing: the body low and leaning far forward, the front knee bent, the near hand thrust ahead "
@@ -329,7 +331,7 @@ DOC_TEXT = """# 艾瑞莉娅：按定稿造型画动作帧——侧身版（第 
 > - **待机条已经做好**（`irelia_idle.png`），不用画；它也告诉你造型图在格子里多大、站在哪里。其余 8 张动作图按下面的表画。
 > - 帧数、每帧时长、出手帧和站位照 `now/irelia_now_<动作>.png`（英雄联盟原版动作按游戏尺寸取色）；手臂、飞刃和身体的动作照 `pose/lol_pose_<动作>.png`（同一帧的高清渲染；它是镜像的）；长相照造型图。**出招一律朝图的右边**。
 > - **动作帧是侧身**：身体朝右转（脸朝右、远侧眼睛变窄，近侧肩甲在前、远侧肩甲一半在身后），两腿一前一后侧着站或跑（不是待机那种正面站）；头、身体、腿、手臂、飞刃的大小颜色和造型图一样，只是转过去看；同一个动作里每帧大小形状一致（不能忽大忽小、不能变形）；整个人可以前倾后仰、前冲、下蹲、跳起。
-> - **和参考图不一样、以造型图为准的地方**：① 照造型图的比例；② **英雄联盟里的飞刃一直飘在她身边，我们的飞刃平时收在背后**（造型图那样），只有表里写的时候才离开背后：普攻飞出一把、Q 两把、W 三把挡在身前再斩出；E 和 R 掷出去的刃是特效，**不画**；③ **不画嘴**；④ **不画背影、不倒立**；⑤ **腿**：{LEGS_TXT}；⑥ **手臂和飞刃**：{ARMS_TXT}；⑦ **身上**：{BODY_TXT}；⑧ 脚底线以下什么都不能有，飞刃也不行。
+> - **和参考图不一样、以造型图为准的地方**：① 照造型图的比例；② **她没有手持武器：飞刃是一组漂浮的刀刃，从不握在手里**（没有刀柄、不贴在手上，离手至少一格，她用张开的手掌或手指指挥它们）；**英雄联盟里的飞刃一直飘在她身边，我们的飞刃平时收拢悬在背后**（造型图那样），只有表里写的时候才离开背后：普攻飞出一把、Q 两把、W 三把挡在身前再斩出；E 和 R 掷出去的刃是特效，**不画**；③ **不画嘴**；④ **不画背影、不倒立**；⑤ **腿**：{LEGS_TXT}；⑥ **手臂和飞刃**：{ARMS_TXT}；⑦ **身上**：{BODY_TXT}；⑧ 脚底线以下什么都不能有，飞刃也不行。
 > - **你的生图工具画不准游戏尺寸时，用「骨架 + 皮囊」的办法**：图1 = `now/irelia_now_<动作>.png`（骨架），图2 = `design/irelia_design.png`（皮囊），下面有那段简短中文提示词；生成后按格子取回（每格取多数颜色，不要取中心点），**不要用脚本缩小或删行**。**整条画糊了就一帧一帧单独生成**（每帧一张图，最后拼回格子）。上一轮你的生图原稿画成了每格约 15 px（是要求的一半大），按 1 倍取回全是碎点——这一轮**生成后先量格子大小**，不是 8 px 一格（在 1024 的格子里）就重画。
 > - 交回的图必须每个像素都是严格对齐的 8×8 纯色块。交付到 `outputs/irelia-strips/`：附 `HANDOFF.md`（**最后写**；每张用了哪条提示词、哪里没做到）、`manifest.json`（每帧的格子矩形、站位点 pivot、不透明范围 bbox）和所有生图原稿（`raw/`，不要重采样），最好打成一个 zip（`irelia_strips_pack_done.zip`）。
 
@@ -385,7 +387,7 @@ Legs: {LEGS_TXT}.
 The arms and the blades: {ARMS_TXT}.
 The body: {BODY_TXT}.
 Feet line: in every cell the soles are on square row [R] from the top of the cell (pixels [R*8] to [R*8+7]); NOTHING from pixel [R*8+8] down, because the game draws the health bar there - the blades too. Her place across the cell follows the SECOND image (each frame's standing point is in irelia_cells.json). In the run her head keeps the same horizontal place relative to the standing point in every frame.
-Side-on facing the image right (only the idle faces the camera); every cast goes to the RIGHT of the image; never her back, never upside down, never a mouth. Do not draw effects (thrown blades in flight for E and R, slash trails, sparks, glows, shockwaves) - only the character and the blades she holds. Every animation starts and ends near the FIRST image's pose.
+Side-on facing the image right (only the idle faces the camera); every cast goes to the RIGHT of the image; never her back, never upside down, never a mouth. Do not draw effects (thrown blades in flight for E and R, slash trails, sparks, glows, shockwaves) - only the character and the blades floating around her (never in her hands). Every animation starts and ends near the FIRST image's pose.
 Animation: [animation]
 Layout: exactly like the SECOND image - [grid], each cell 128x128 squares ({cwZ}x{chZ} px), [size] pixels; frame N in the same cell as in the SECOND image; unused cells stay empty. Transparent background (if not possible: solid #00FF00 green). No grid lines, no borders, no labels, no guide marks.
 Before finishing, check: every square 8x8 on one grid, only the FIRST image's colors, every frame side-on, the head the design's size and turned to the right, no mouth, both arms growing from the shoulder guards in every frame, every blade rigid and full size, the bundle on her back when no blade is sent, the legs the same thickness in every frame, the run's boots swapping front and back, no loose pieces, no stray black squares, nothing below the feet line, never her back or upside down, the frames in the same cells as the SECOND image.
@@ -398,7 +400,7 @@ Before finishing, check: every square 8x8 on one grid, only the FIRST image's co
 1. 保留图1所有帧的位置、大小、排列顺序和格子，每一格是 8×8 像素的纯色方块，人物不能变大也不能变小。
 2. 保留每一帧的动作：身体侧过来朝右（只有待机是正面），手臂、飞刃和身体的方向和姿势照图1（出招都朝图的右边，不画背影、不倒立）；头、身体和腿的颜色、细节、大小用图2的，头跟着身体转过去，不画嘴。
 3. 长相、配色、细节全部换成图2：宝蓝长发、银色V形头冠、深色斜眉和青色眼睛、银白胸甲和红心、领口青宝石、带白边的深红前摆、银白卷钩肩甲、白臂环红护臂、深藏青打底裤、银色星形护膝、红靴；背后一束弯月形飞刃（深红刃身、白刃口、黑描边，左下那把带青宝石）。
-4. 手臂从肩甲长出来，和图2一样粗、不比图2长；每把飞刃是一整块、大小形状不变；没有送出去的飞刃收在背后；E 和 R 掷出去的飞刃不画；任何东西不能低于脚底线。
+4. 手臂从肩甲长出来，和图2一样粗、不比图2长；**她从不手握飞刃**：飞刃是漂浮的，离手至少一格，她用张开的手掌或手指指挥；每把飞刃是一整块、大小形状不变；没有送出去的飞刃收在背后；E 和 R 掷出去的飞刃不画；任何东西不能低于脚底线。
 5. 动作：[animation]
 背景保持纯绿色 #00FF00，方便抠图。风格保持与图2一致。重点在于精准复刻图1的“动作骨架”，只是换了“皮囊”。
 ```
@@ -415,7 +417,7 @@ Before finishing, check: every square 8x8 on one grid, only the FIRST image's co
 - [ ] 每个像素是严格对齐的 8×8 纯色块（在 1024 的格子里量过），透明度只有 0 和 255；
 - [ ] 只用造型图色板里的颜色，明暗照定稿，没有自己加的碎点；
 - [ ] 除待机外每帧都是侧身朝右；头和造型图一样大、细节一样，转向右边，不画嘴；身体（胸甲、前摆、肩甲、手臂、腿）看得见；同一个动作里各部件大小形状不变；
-- [ ] 两只手臂都在、和造型图一样粗、不比造型图的手臂长，从肩甲长出来；每把飞刃是一整块、没有变小变形；没送出去的飞刃收在背后；
+- [ ] 两只手臂都在、和造型图一样粗、不比造型图的手臂长，从肩甲长出来；手里没有握着任何飞刃（飞刃漂浮、离手至少一格）；每把飞刃是一整块、没有变小变形；没送出去的飞刃收在背后；
 - [ ] 跑步飞刃一直收在背上，侧身交叉步（像 `refs/style_oppi_alistar.png`、`refs/style_oppi_vi.png`：每半个周期两只靴子交换前后、抬起的腿屈膝），腿每帧一样粗、没有碎块、没有缺格子；
 - [ ] E 掷出那一帧起、R 齐射那一帧起，飞出去的刃不画；
 - [ ] 脚底线以下没有任何像素（飞刃也不行）；黑边干净，没有零散的黑格；
