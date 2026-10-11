@@ -38,10 +38,11 @@ R = "<#ef5350ff>"      # crowd control
 Wh = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 2, "y": -35}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": 0}}
-# face: tfm2_ase.py face on the final sprite (crown 35 px above the feet: the 37-row design); banpick_center: her idle tops at -40
-# (bun tips, the rifle's electrodes), so by the card rule y = -39 - top would be +1 - 0 (as league_kayle) keeps
-# the card from scaling and clips nothing
+VIEW = {"face": {"x": 2, "y": -35}, "center": {"x": 0, "y": -12}}
+# face: tfm2_ase.py face on the final sprite (crown 35 px above the feet: the 37-row design). No banpick_center (as
+# league_garen, 37 rows too): her idle tops at -25.5 from the frame centre (37 rows, the soles 11.5 under it), inside
+# the card's ~-28, so the card's own placement shows her whole; the 0 she had put the pivot on the canvas bottom and
+# clipped her under the chest (the user's photo, 「泽丽BP界面位置不对」)
 
 
 def mag(d, r):
