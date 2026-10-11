@@ -52,7 +52,7 @@ TEXT = {
         "attack": O + "君命已决" + E + "：他伤过的敌方英雄{p_win}秒内阵亡则附身其灵魂" + A + "{p_t}秒" + E + "：" + R + "{p_inv}秒无敌" + E + "，回复" + hl("p") +
                   "，攻击+{p_ad}%、攻速+{p_as}%、移速+{p_ms}%，Q、W冷却减半。普攻附加英雄最大生命{a_pct}%。",
         "skill": "向前刺出，造成" + phy("q") + "伤害。刺中的英雄被标记" + A + "{q_mark}秒" + E + "，下次普攻对其斩两下：再造成" + phy("d") + "伤害并回复" + hl("d") + "。",
-        "skill2": O + "茫茫焦土" + E + "：黑雾升起，" + A + "{e_t}秒" + E + "内移速+{e_ms}%、攻速+{e_as}%，蓄力时隐身。随后冲刺并吐出亡魂，第一个被击中的敌人受到" +
+        "skill2": O + "茫茫焦土" + E + "：黑雾升起，" + A + "{e_t}秒" + E + "内移速+{e_ms}%、攻速+{e_as}%，站在黑雾里（留{e_zs}秒）时隐身。随后冲刺并吐出亡魂，第一个被击中的敌人受到" +
                   phy("w") + "伤害并" + R + "眩晕{w_stun}秒" + E + "。",
         "ult": "跃向队伍正在交手的敌方英雄并" + R + "减速{r_slow}%" + E + "，落地刺穿它，造成" + phy("r") + "+其最大生命{r_hp}%伤害，击退周围其他敌人。结束附身。",
         "names": ("破败王剑", "千载幽咽", "痛贯天灵"),
@@ -62,7 +62,7 @@ TEXT = {
         "attack": O + "王權統御" + E + "：他傷過的敵方英雄{p_win}秒內陣亡則附身其靈魂" + A + "{p_t}秒" + E + "：" + R + "{p_inv}秒無敵" + E + "，回復" + hl("p") +
                   "，攻擊+{p_ad}%、攻速+{p_as}%、移速+{p_ms}%，Q、W冷卻減半。普攻附加英雄最大生命{a_pct}%。",
         "skill": "向前刺出，造成" + phy("q") + "傷害。刺中的英雄被標記" + A + "{q_mark}秒" + E + "，下次普攻對其斬兩下：再造成" + phy("d") + "傷害並回復" + hl("d") + "。",
-        "skill2": O + "幽影之徑" + E + "：黑霧升起，" + A + "{e_t}秒" + E + "內移速+{e_ms}%、攻速+{e_as}%，蓄力時隱身。隨後衝刺並吐出亡魂，第一個被擊中的敵人受到" +
+        "skill2": O + "幽影之徑" + E + "：黑霧升起，" + A + "{e_t}秒" + E + "內移速+{e_ms}%、攻速+{e_as}%，站在黑霧裡（留{e_zs}秒）時隱身。隨後衝刺並吐出亡魂，第一個被擊中的敵人受到" +
                   phy("w") + "傷害並" + R + "暈眩{w_stun}秒" + E + "。",
         "ult": "躍向隊伍正在交手的敵方英雄並" + R + "緩速{r_slow}%" + E + "，落地刺穿它，造成" + phy("r") + "+其最大生命{r_hp}%傷害，擊退周圍其他敵人。結束附身。",
         "names": ("殞落王者之劍", "冥魂之噬", "破心者"),
@@ -75,7 +75,7 @@ TEXT = {
         "skill": "Thrusts forward: " + phy("q") + ". A champion hit is marked for " + A + "{q_mark}s" + E + ": his next attack on it strikes twice, "
                  + phy("d") + " more, and heals " + hl("d") + ".",
         "skill2": O + "Harrowed Path" + E + ": mist rises - " + A + "{e_t}s" + E + " of +{e_ms}% move speed and +{e_as}% attack speed, hidden while "
-                  "charging. Then he dashes and looses a wraith: the first enemy hit takes " + phy("w") + " and is " + R + "stunned {w_stun}s" + E + ".",
+                  "in the mist ({e_zs}s). Then he dashes and looses a wraith: the first enemy hit takes " + phy("w") + " and is " + R + "stunned {w_stun}s" + E + ".",
         "ult": "Leaps at an enemy champion his team is fighting, " + R + "slowing it {r_slow}%" + E + ", and pierces it on landing: " + phy("r") +
                " + {r_hp}% of its max health; other enemies near are knocked back. Ends a possession.",
         "names": ("Blade of the Ruined King", "Spectral Maw", "Heartbreaker"),
@@ -85,7 +85,7 @@ TEXT = {
         "attack": O + "군주의 지배" + E + ": 피해를 입힌 적 챔피언이 {p_win}초 안에 죽으면 영혼에 빙의 " + A + "{p_t}초" + E + ": " + R + "{p_inv}초 무적" + E +
                   ", " + hl("p") + " 회복, 공격력 +{p_ad}%, 공격 속도 +{p_as}%, 이동 속도 +{p_ms}%, Q·W 재사용 대기시간 절반. 기본 공격은 챔피언 최대 체력 {a_pct}% 추가.",
         "skill": "앞으로 찔러 " + phy("q") + " 피해. 맞은 챔피언은 " + A + "{q_mark}초" + E + " 표식: 다음 기본 공격이 두 번 베어 " + phy("d") + " 추가 피해, " + hl("d") + " 회복.",
-        "skill2": O + "안개의 길" + E + ": 안개가 일어 " + A + "{e_t}초" + E + " 동안 이동 속도 +{e_ms}%, 공격 속도 +{e_as}%, 충전 중 은신. 이어서 돌진하며 망령을 "
+        "skill2": O + "안개의 길" + E + ": 안개가 일어 " + A + "{e_t}초" + E + " 동안 이동 속도 +{e_ms}%, 공격 속도 +{e_as}%, 안개 속({e_zs}초)에서는 은신. 이어서 돌진하며 망령을 "
                   "날려 처음 맞은 적에게 " + phy("w") + " 피해와 " + R + "{w_stun}초 기절" + E + ".",
         "ult": "아군이 교전 중인 적 챔피언에게 도약해 " + R + "{r_slow}% 둔화" + E + ", 착지하며 꿰뚫어 " + phy("r") + " + 최대 체력 {r_hp}% 피해, 주변의 다른 적은 "
                "밀쳐냄. 빙의 종료.",
@@ -96,7 +96,7 @@ TEXT = {
         "attack": O + "王の支配" + E + "：ダメージを与えた敵チャンピオンが{p_win}秒以内に倒れると魂に憑依" + A + "{p_t}秒" + E + "：" + R + "{p_inv}秒無敵" + E +
                   "、" + hl("p") + "回復、攻撃力+{p_ad}%・攻撃速度+{p_as}%・移動速度+{p_ms}%、QとWのクールダウン半減。通常攻撃はチャンピオンに最大体力の{a_pct}%を追加。",
         "skill": "前方へ突き、" + phy("q") + "のダメージ。当たったチャンピオンに" + A + "{q_mark}秒" + E + "の刻印：次の通常攻撃が2回斬り、" + phy("d") + "の追加ダメージと" + hl("d") + "回復。",
-        "skill2": O + "彷徨える苦悶" + E + "：霧が立ちのぼり" + A + "{e_t}秒" + E + "移動速度+{e_ms}%・攻撃速度+{e_as}%、溜め中は透明。続けて突進し亡霊を放ち、"
+        "skill2": O + "彷徨える苦悶" + E + "：霧が立ちのぼり" + A + "{e_t}秒" + E + "移動速度+{e_ms}%・攻撃速度+{e_as}%、霧の中（{e_zs}秒）では透明。続けて突進し亡霊を放ち、"
                   "最初に当たった敵に" + phy("w") + "のダメージと" + R + "{w_stun}秒スタン" + E + "。",
         "ult": "味方が交戦中の敵チャンピオンへ跳び" + R + "{r_slow}%スロウ" + E + "、着地で貫き" + phy("r") + "+最大体力の{r_hp}%のダメージ、周囲の他の敵はノックバック。憑依を終える。",
         "names": ("滅びの王剣", "亡霊の嘆き", "ハートブレイカー"),
@@ -124,6 +124,7 @@ def values(p):
                            "w_dmg", "w_ratio", "r_slow", "r_dmg", "r_ratio", "r_hp", "p_heal", "p_heal_ratio", "p_ad",
                            "p_as", "p_ms")}
     v.update({k: secs(p[k]) for k in ("q_mark", "e_t", "w_stun", "p_win", "p_t", "p_inv")})
+    v["e_zs"] = secs(p["e_zt"])
     return v
 
 

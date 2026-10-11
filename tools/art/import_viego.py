@@ -83,6 +83,10 @@ BIG = {
     # the mist round his feet as he casts (the haste lasts 5 s on him as e_on): it spills out, curls twice, recedes
     "e_mist": [("e_mist", seq([0, 1] + [2 + k % 5 for k in range(10)] + [1, 0], [80, 80] + [100] * 10 + [100, 100]),
                 [SOLES])],
+    # skill2's lasting mist (the zone's 2.5 s, build_viego e_zt 150): e_mist's cells spilling out, curling, receding - played once
+    # at the cast point (a zone's own picture is turned with its direction, and this one stands on its soles)
+    "e_zone": [("e_mist", seq([0, 1] + [2 + k % 5 for k in range(21)] + [1, 0], [80, 80] + [100] * 21 + [100, 100]),
+                [SOLES])],
     # the soul pulled in (the possess strip lasts 24 ticks), the possession's mist (looped)
     "p_take": [("p_take", seq(range(6), [60, 70, 80, 90, 100, 120]), [SOLES])],
     "p_on": [("p_on", seq(range(4), [120] * 4), [SOLES])],

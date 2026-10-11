@@ -63,6 +63,9 @@ P = {
     "q_y": 4000, "q_dmg": 50, "q_ratio": 70, "q_mark": 240,
     # skill2: E Harrowed Path's mist (League: 8 s, 22.5-37.5% move speed, 25-55% attack speed, camouflage; cd 14-6 s)
     "w_cd": 600, "w_range": 46000, "w_dur": 46, "e_t": 300, "e_ms": 30, "e_as": 40, "e_inv": 45,
+    # the mist stays where it rose for e_zt ticks (radius e_r, its picture looped): inside it he is hidden (checked
+    # every e_period ticks) - 「看不到迷雾隐身效果」「迷雾是一点看不到」: the 1.4 s puff played while he was hidden
+    "e_zt": 150, "e_r": 30000, "e_period": 6,   # 2.5 s: 4 s added 0.6 kills a game (sim s25: +2.40 vs +1.81), 2.5 s +1.86
     # then W Spectral Maw (League: charge to 1 s, dash 300, missile 500-900, 25-355 + 100% AP, stun 0.25-1.25 s; cd 8 s)
     "w_wind": 24, "w_dash": 18000, "w_dspeed": 3000, "w_len": 42000, "w_speed": 4000, "w_rad": 6000, "w_y": 4000,
     "w_dmg": 90, "w_ratio": 70, "w_stun": 66,
@@ -367,8 +370,18 @@ def build(p):
                           line("w_twin", p["w_speed"], p["w_len"], p["w_rad"], p["w_y"], "EnemyChampion", False,
                                w_champ)),
                   delayed(dash_t + fly_t + 1, combo))
+    # the mist: Ekko's anchor laid where he stands, its end_effects start the zone (league_gwen's Hallowed Mist); its
+    # picture (e_zone, the zone's whole life) plays on the cast point in front of him (z 1, league_akali's shroud)
+    inside = {"type": "RandomTarget", "range": p["e_r"], "casting_target": "AllyOnlySelf", "from_projectile": True,
+              "effects": [{"type": "CasterInvisible", "tick": p["e_period"] + 2}]}
+    zone = {"type": "RangePeriodProjectile", "name": n("e_zone"), "shape": circle(p["e_r"]), "tick": p["e_zt"],
+            "period": p["e_period"], "first_delay": 0, "applied_target": "AllyChampion",
+            "applied_effects": [T(inside)], "end_effects": []}
+    anchor = {"type": "LinearProjectile", "name": n("e_anchor"), "speed": 1, "range": 1, "y_offset": 5000,
+              "penetrate": True, "shape": circle(1000), "applied_target": "EnemyChampion", "applied_effects": [],
+              "end_effects": [zone]}
     mist = combine(refresh("e_on", p["e_t"], move_speed_mult=p["e_ms"], attack_speed_mult=p["e_as"]),
-                   {"type": "CasterInvisible", "tick": p["e_inv"]}, cview("e_mist"), sfx("e"), sfx("e_mist"),
+                   {"type": "CasterInvisible", "tick": p["e_inv"]}, cview("e_zone"), anchor, sfx("e"), sfx("e_mist"),
                    voice("vo_e", p))
     w_own = combine(anim("skill2", p["w_dur"]), mist, sfx("w_charge"), delayed(p["w_wind"] - 1, maw))
     if native:
@@ -394,13 +407,14 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
     views_p = [P_("q_thrust"), P_("w_maw")]
-    views_e = [E("a_hit"), E("a_double"), E("q_hit"), E("w_hit"), E("e_mist", BIG, -1, False), E("p_take", BIG, 3),
+    views_e = [E("a_hit"), E("a_double"), E("q_hit"), E("w_hit"), E("e_zone", BIG, 1, False), E("p_take", BIG, 3),
                E("p_end", FX, 3), E("r_cast", FX, 3), E("r_hit", BIG, 3), E("r_land", BIG, -1, False)]
     views_b = [B_("q_marked", FX, 3), B_("w_stun", FX, 3), B_("e_on", FX, 3), B_("p_on", BIG, 3), B_("p_safe", FX, 3)]
     extra = {}
     if native:
         views_p += [P_("s_bolt"), P_("s_line")]
-        views_e += [E("s_hit"), E("s_burst", BIG, 3), E("s_ring", BIG, -1)]
+        # the assassins' vanishing puff (e_mist)
+        views_e += [E("s_hit"), E("s_burst", BIG, 3), E("s_ring", BIG, -1), E("e_mist", BIG, -1, False)]
         views_b += [B_("s_slow", FX, 3), B_("s_heal", FX, 3), B_("s_haste", FX, 3),
                     # the possession's mist on the data's shape buff (the add-on's own p_on is never drawn)
                     {"type": "Animated", "name": n("shape"), "anim": BIG, "tag": "p_on", "repeat": True, "z": 3}]

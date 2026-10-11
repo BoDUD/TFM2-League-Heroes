@@ -6,7 +6,7 @@
 //! （p_win tick），被动 `league_viego_soul:possess` 每 tick：
 //!
 //! - **记功**：哪些敌方英雄身上有他的标记、最后一次看到是哪一 tick；
-//! - **灵魂**：有标记的敌方英雄由活变死 = 他参与了击杀，尸体那里留下一个灵魂 soul_t tick；他活着、走到 soul_r 以内就**附身**
+//! - **灵魂**：有标记的敌方英雄由活变死 = 他参与了击杀，尸体那里留下一个灵魂 soul_t tick；他活着、在 soul_r 以内就**附身**，soul_dash 以内就冲过去（0.1.5）
 //!   （英雄联盟要去点那个灵魂；离得近就马上附身）；
 //! - **附身** p_t tick：身上挂 `league_viego_soul:<英雄 id>`（给显示钩子看：整个身体画成那个英雄，src/view.rs）、
 //!   `league_viego_soul_<类别>`（数据副本的普攻 / Q / W 按它换成五套招式之一：近战、射手、法师、辅助、刺客，类别按英雄 id 查
@@ -131,6 +131,24 @@ fn buff_names(sim: &StableSim<'_>, id: usize) -> Vec<String> {
     })
 }
 
+/// His dash onto a soul, a tick (League's possession leap).
+const DASH_SPEED: f64 = 4000.0;
+
+/// A forced move onto `to` (league_aatrox_chain's), ending exactly there; the ticks it takes.
+fn force_move(sim: &mut StableSim<'_>, id: usize, from: (f64, f64), to: (f64, f64), speed: f64) -> usize {
+    let d = ((to.0 - from.0).powi(2) + (to.1 - from.1).powi(2)).sqrt();
+    if d < 1.0 {
+        return 0;
+    }
+    let ticks = (d / speed).ceil().max(1.0);
+    let mut cc = CcV1::of_kind(CcKindV1::ForceMove, ticks as u64);
+    cc.dx = (to.0 - from.0).round() as i64;
+    cc.dy = (to.1 - from.1).round() as i64;
+    cc.speed = (d / ticks).ceil() as u64;
+    sim.apply_cc(id, &cc);
+    ticks as usize
+}
+
 fn timed(name: &str, ticks: u32) -> BuffV1 {
     let mut b = BuffV1::named(name);
     b.duration_kind = BuffDurationV1::Time.code();
@@ -155,12 +173,14 @@ pub struct Params {
     pub soul_r: u32,
     pub soul_t: u32,
     pub s_range: u32,
+    pub soul_dash: u32,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Params { p_t: 600, p_inv: 60, p_heal: 60, p_heal_ratio: 50, p_ad: 25, p_as: 30, p_ms: 15, p_skill: 10000,
-                 p_ult: 0, p_win: 180, soul_r: 35000, soul_t: 480, s_range: 25000 }
+                 p_ult: 0, p_win: 180, soul_r: 35000, soul_t: 480, s_range: 25000,
+                 soul_dash: 90000 }
     }
 }
 
@@ -189,6 +209,8 @@ pub struct Possess {
     pub was_alive: bool,
     /// The first update has run (a sim the screen replays is noted for the display hook then).
     pub started: bool,
+    /// No new dash onto a soul before this tick (the last one's length).
+    pub dash_until: usize,
 }
 
 impl Possess {
@@ -205,6 +227,14 @@ impl Possess {
             .filter(|(_, s)| dist(s.pos, me) <= self.p.soul_r as u64)
             .min_by_key(|(_, s)| dist(s.pos, me))
             .map(|(i, _)| i)
+    }
+
+    /// The nearest soul out of soul_r but within soul_dash: the one he dashes onto.
+    pub fn dashable(&self, me: (u64, u64)) -> Option<&Soul> {
+        self.souls
+            .iter()
+            .filter(|s| (self.p.soul_r as u64..=self.p.soul_dash as u64).contains(&dist(s.pos, me)))
+            .min_by_key(|s| dist(s.pos, me))
     }
 
     fn end(&mut self, sim: &mut StableSim<'_>, me: usize, why: &str) {
@@ -281,6 +311,7 @@ impl StablePassive for Possess {
             soul_r: g("soul_r", d.soul_r),
             soul_t: g("soul_t", d.soul_t),
             s_range: g("s_range", d.s_range),
+            soul_dash: g("soul_dash", d.soul_dash),
         };
     }
 
@@ -342,6 +373,15 @@ impl StablePassive for Possess {
                 self.end(sim, me, "time");
             } else if !buff_names(sim, me).iter().any(|b| b == ON) {
                 self.end(sim, me, "Heartbreaker");
+            }
+        }
+        // a soul he cannot reach but within soul_dash: he dashes onto it (League: he goes and takes the soul; the AI
+        // never walked to one - the user's game had one soul, 56000 away, never taken: 「可能是地上没有魂」)
+        if alive && now >= self.dash_until && self.reachable(mpos).is_none() {
+            if let Some((pos, name)) = self.dashable(mpos).map(|s| (s.pos, s.name.clone())) {
+                let ticks = force_move(sim, me, (mpos.0 as f64, mpos.1 as f64), (pos.0 as f64, pos.1 as f64), DASH_SPEED);
+                self.dash_until = now + ticks + 2;
+                wlog(format!("{} DASH to the soul of {name}, {} away, {ticks} ticks", head(sim, me), dist(pos, mpos)));
             }
         }
         if alive {
@@ -424,6 +464,16 @@ mod tests {
         assert_eq!(p.reachable((0, 0)), Some(1));
         p.souls = vec![s("a", 50_000)];
         assert_eq!(p.reachable((0, 0)), None);
+    }
+
+    #[test]
+    fn a_soul_out_of_reach_is_dashed_to() {
+        let mut p = Possess::default();
+        let s = |n: &str, x| Soul { name: n.into(), cat: "melee", pos: (x, 0), until: 99 };
+        p.souls = vec![s("far", 120_000), s("dash", 56_000), s("near", 70_000)];
+        assert_eq!(p.dashable((0, 0)).map(|s| s.name.as_str()), Some("dash"));
+        p.souls = vec![s("far", 120_000)];
+        assert!(p.dashable((0, 0)).is_none());
     }
 
     #[test]

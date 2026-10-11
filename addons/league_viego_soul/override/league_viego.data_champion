@@ -1880,7 +1880,55 @@
                           },
                           {
                             "type": "CasterViewEffect",
-                            "name": "league_viego_e_mist"
+                            "name": "league_viego_e_zone"
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "league_viego_e_anchor",
+                            "speed": 1,
+                            "range": 1,
+                            "y_offset": 5000,
+                            "penetrate": true,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RangePeriodProjectile",
+                                "name": "league_viego_e_zone",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 30000
+                                  }
+                                },
+                                "tick": 150,
+                                "period": 6,
+                                "first_delay": 0,
+                                "applied_target": "AllyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "RandomTarget",
+                                      "range": 30000,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": true,
+                                      "effects": [
+                                        {
+                                          "type": "CasterInvisible",
+                                          "tick": 8
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ],
+                                "end_effects": []
+                              }
+                            ]
                           },
                           {
                             "type": "Sfx",
@@ -2715,10 +2763,10 @@
     },
     {
       "type": "Animation",
-      "name": "league_viego_e_mist",
+      "name": "league_viego_e_zone",
       "anim": "asset/league/effects/league_viego_big",
-      "tag": "e_mist",
-      "z": -1,
+      "tag": "e_zone",
+      "z": 1,
       "is_follow": false
     },
     {
@@ -2784,6 +2832,14 @@
       "tag": "s_ring",
       "z": -1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_viego_e_mist",
+      "anim": "asset/league/effects/league_viego_big",
+      "tag": "e_mist",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
