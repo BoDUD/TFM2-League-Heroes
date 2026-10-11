@@ -16,9 +16,10 @@ tools/art/design_zeri.py) with only what the action moves moved, nothing resampl
 - the whole figure moves: a column back for the recoil and the hit; the upper body lowered a row over the legs for the
   crouches and the landings (lowered(): everything above the hips comes down over them); lifted for E's hop and R's
   spring; leant by moving the head rows and the chest rows whole (lean()).
-- the run (League's, 8 frames): the upper body the idle's (the rifle upright as in League's run), a row lower at each
-  contact; each leg the design's own squares swung about its hip (rigkit.swing_leg: rows moved in proportion, the boot
-  moved whole and lifted on the back swing), the far leg under the near one.
+- the run (League's, 8 frames): the upper body the idle's with the rifle held level at the hip (as League's Zeri runs),
+  bobbing with League's hips; the legs drawn on League's thigh and shin angles in the leggings' colours with the design's whole boots as the
+  feet, the hips under the belt so the steps cross (league_shen's way, RUN_JOINTS); E's lunge and R's hop are strides
+  of it.
 - the death (League's): struck back, sinking to her knees (whole shin rows out, the boots kept), then down on her face:
   the figure without the rifle a quarter turn clockwise (League falls forward), the rifle lying level by her.
 Each frame is finished round what moved (rigkit.finish: the outline closed on moved edges, pinholes filled, stray
@@ -65,17 +66,34 @@ RIFLE_EXTRA = [(15, 20), (15, 21), (15, 22), (16, 21), (16, 22), (16, 23)]   # t
 GRIP = (T(14, 20)[0] + 0.5, T(14, 20)[1] + 0.5)   # the middle of the hand (the rifle alone turns about it)
 # the forearm under the hand (the maroon glove, the white cuff, the elbow out of the coat's sleeve): with the rifle and
 # the hand it makes the arm unit, turned a quarter turn clockwise about the elbow so the rifle lies level at the hip
-FOREARM = [(15, 19), (16, 19), (16, 20), (17, 19), (17, 20), (18, 19), (18, 20), (19, 18), (19, 19), (20, 18)]
+FOREARM = [(15, 19), (16, 19), (16, 20), (17, 19), (17, 20), (18, 18), (18, 19), (18, 20), (19, 18), (19, 19), (20, 18)]
+# levelled, the forearm is one maroon band from the elbow to the hand: the white cuff (the design's, under the hand)
+# would sit in the middle of it as a white blot (the user: 「这里多余的色素是什么？？」)
+LEVEL_RECOLOUR = {"#F4F4F8": "#73234B", "#C0BAD3": "#45183A"}
 ELBOW = (T(20, 18)[0] + 0.5, T(20, 18)[1] + 0.5)
 HEAD_BOX = (0, 16, 0, 15)        # table rows r0..r1, columns c0..c1: the buns, the hair, the face, the neck
 LEG_TOP = 28                     # the legs: the table rows from here down
 BODY_KEEP = {28: [(0, 3)], 29: [(0, 2)]}          # the free hand's fingers stay with the body
 SHIN_ROWS = (30, 32)             # the rows the knees fold away (the death's kneel)
-# the run: each leg's columns (table) and its hip / ankle rows for rigkit.swing_leg; the boot moved whole
-LEGS = {"near": (0, 9, 28, 33), "far": (12, 22, 28, 33)}
-SWING = [2, 1, 0, -1, -2, -1, 1, 2]                  # near leg's boot offset per frame (+ forward); the far leg opposite
-LIFT = [0, 0, 0, 0, 1, 2, 1, 0]
-BOB = [1, 0, 0, 1, 1, 0, 0, 1]
+# the run (the user: 「这跑动姿势对吗 交叉步都没？？」「跑步时腿别变形 之前慎什么都发生过最后处理完美的吧」): league_shen's
+# and league_viego's way - the legs run League's run (RUN_JOINTS: tools/lol/pose_joints.py on poses.json, its 8 frames,
+# the stride not squeezed), each DRAWN on League's thigh and shin angles in the design's leggings colours (rigkit.bone_arm:
+# the same shape in every frame, never a turned piece), the hips brought in under the belt so the steps cross; the feet
+# are the design's own whole boots, always flat; a foot League has on the ground stands on the soles (rigkit.leg_chain
+# solves the knee); the body bobs with League's hips (0-RUN_BOB rows; lower when a planted foot is out of reach); the
+# near leg (League's R, nearer the camera) drawn over the far one, the coat's panels over both
+RUN_JOINTS = os.path.join(ROOT, "assets", "source", "zeri", "run_joints.json")
+RUN_HIPS = {"near": OX + 9.0, "far": OX + 13.0}     # the hips' columns under the belt (canvas x)
+RUN_HIP_Y = OY + 23.5                                # their row: the leggings split under the belt
+RUN_LEG = (5.8, 5.2)                                 # thigh and shin lengths (hip -> knee -> the boot's top)
+RUN_PLANT_TOE = 8.5                                  # a League toe this low (game px under its pivot) stands
+RUN_RISE = 0.3       # League's Zeri hops (her hips rise ~12 px at our size): the body follows them at this share
+LEGGINGS = ("#73234B", "#73234B", "#45183A")        # lit, mid, dark: the design's leggings
+PATCH = ("#F2CC8F", "#AC8157")                       # the near knee's tan patch
+# what stays of the design under the belt in the run (table rows: (first, last) columns): the coat's two panels and
+# the hanging hand; the boots (rows 33-39) are cut whole with their outline
+RUN_KEEP = {25: [(0, 9), (17, 19)], 26: [(0, 9), (17, 20)], 27: [(0, 9)], 28: [(0, 3)], 29: [(0, 2)]}
+RUN_BOOTS = {"near": (33, 39, 0, 8), "far": (33, 39, 13, 22)}
 # the idle: her own breath (import_native's shared cut would run through the upright rifle): everything above the legs
 # sinks 0 0 1 1 1 1 0 0 rows over them (lowered), as league_viego's
 BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
@@ -110,11 +128,6 @@ class Rig:
             for c0, c1 in spans:
                 legs[OY + r, OX + c0:OX + c1 + 1] = False
         self.legs_m = legs & op
-        self.leg_m = {}
-        for side, (c0, c1, hip, ankle) in LEGS.items():
-            m = np.zeros((128, 128), bool)
-            m[OY + LEG_TOP:, OX + c0:OX + c1 + 1] = True
-            self.leg_m[side] = m & self.legs_m
         self.rifle = K.Part.from_canvas(self.a, self.rifle_m, GRIP)
         self.arm = K.Part.from_canvas(self.a, self.arm_m, ELBOW)
 
@@ -129,6 +142,18 @@ class Rig:
         if not rifle:
             m &= ~self.arm_m
         return self.layer(m)
+
+    def level_arm(self, c, dy=0):
+        """The arm unit a quarter turn clockwise about the elbow (dy rows lower), its forearm one maroon band: the
+        cuff's squares (each forearm square (r, c) of the table lands on (c + 2, 38 - r) about ELBOW) recoloured."""
+        K.place(c, K.rot90(self.arm, 1), (ELBOW[0], ELBOW[1] + dy))
+        sw = {K.rgb(a_): K.rgb(b_) for a_, b_ in LEVEL_RECOLOUR.items()}
+        for r, col in FOREARM:
+            y, x = OY + col + 2 + dy, OX + 38 - r
+            got = tuple(int(v) for v in c[y, x, :3])
+            if c[y, x, 3] and got in sw:
+                c[y, x, :3] = sw[got]
+        return c
 
     def rifle_level(self):
         """The rifle alone, level (the death's rifle on the ground)."""
@@ -148,31 +173,82 @@ class Rig:
             out[y] = np.roll(upper[y], dx, 0) if dx else upper[y]
         return out
 
-    def legs(self, swing=0, lift=0):
-        """Both legs: the near one's boot `swing` columns forward (lifted `lift` rows), the far one's the other way."""
-        c = np.zeros_like(self.a)
-        for side, sw, lf in (("far", -swing, 0 if swing >= 0 else lift), ("near", swing, lift if swing < 0 else 0)):
-            c0, c1, hip, ankle = LEGS[side]
-            leg = K.swing_leg(self.a, self.leg_m[side], OY + hip, OY + ankle, sw, lift=lf)
-            K.put(c, leg, 0, 0)
-        return c
-
-    def pose(self, rifle="up", dx=0, dy=0, low=0, lean=(0, 0), legs=None):
+    def pose(self, rifle="up", dx=0, dy=0, low=0, lean=(0, 0)):
         upper = self.body(rifle=False)
         if rifle == "up":
             K.put(upper, self.layer(self.arm_m), 0, 0)
         elif rifle == "level":
-            K.place(upper, K.rot90(self.arm, 1), ELBOW)
+            self.level_arm(upper)
         if lean != (0, 0):
             upper = self.lean(upper, *lean)
-        leg_layer = self.layer(self.legs_m) if legs is None else legs
-        c = self.lowered(upper, leg_layer, low)
+        c = self.lowered(upper, self.layer(self.legs_m), low)
         return K.shifted(c, dx, dy)
 
     # ---------------------------------------------------------------------------------------- the run
+    def run_pieces(self):
+        """The body above the legs (the design under the belt cut away but the coat's panels and the hand), the two
+        boots with their tops' middles and heights. Cached."""
+        if getattr(self, "_run", None) is not None:
+            return self._run
+        op = self.a[..., 3] > 0
+        low = np.zeros((128, 128), bool)
+        low[OY + 25:] = True
+        for r, spans in RUN_KEEP.items():
+            for c0, c1 in spans:
+                low[OY + r, OX + c0:OX + c1 + 1] = False
+        body = self.layer(op & ~low & ~self.arm_m)      # the arm unit goes on level (League's run holds the rifle forward)
+        boots = {}
+        for leg, (r0, r1, c0, c1) in RUN_BOOTS.items():
+            b = self.layer(table_mask(box=(r0, r1, c0, c1)) & op)
+            ys, xs = np.nonzero(b[..., 3] > 0)
+            top = ys.min()
+            row = xs[ys == top]
+            boots[leg] = (b, ((row.min() + row.max() + 1) / 2.0, float(top)), float(ys.max() + 1 - top))
+        self._run = (body, boots)
+        return self._run
+
     def run_frame(self, k):
-        legs = self.legs(SWING[k], LIFT[k])
-        c = self.lowered(self.body(rifle=True), legs, BOB[k])
+        import json
+        import math
+        body, boots = self.run_pieces()
+        with open(RUN_JOINTS, encoding="utf-8") as f:
+            J = json.load(f)
+        hips = [(fr["joints"]["L_Hip"][1] + fr["joints"]["R_Hip"][1]) / 2 for fr in J]
+        j = J[k]["joints"]
+        air = J[k]["air"] > 0
+        lt, ls = RUN_LEG
+        want = {}
+        for leg, side in (("near", "R"), ("far", "L")):
+            H, Kn, Fo = (j[f"{side}_{n}"][:2] for n in ("Hip", "KneeLower", "Foot"))
+            th, sh = K.bone_angle(H, Kn), K.bone_angle(Kn, Fo)
+            ax = RUN_HIPS[leg] + lt * math.sin(math.radians(th)) + ls * math.sin(math.radians(sh))
+            want[leg] = (th, sh, j[f"{side}_Toe"][1] >= RUN_PLANT_TOE and not air, ax)
+        bob = int(round((hips[k] - max(hips)) * RUN_RISE))         # 0 at her lowest hips, negative = up
+        for leg, (th, sh, planted, ax) in want.items():
+            if planted:
+                bob = max(bob, K.reach_bob((RUN_HIPS[leg], RUN_HIP_Y), ax, SOLES + 1 - boots[leg][2], lt, ls))
+        shades = tuple(K.rgb(h) for h in LEGGINGS)
+        patch = tuple(K.rgb(h) for h in PATCH)
+        c = np.zeros_like(self.a)
+        for leg in ("far", "near"):
+            th, sh, planted, ax = want[leg]
+            hip = (RUN_HIPS[leg], RUN_HIP_Y + bob)
+            boot, tp, bh = boots[leg]
+            knee, ank, th, sh, grounded = K.leg_chain(hip, th, sh, lt, ls, SOLES + 1 - bh, planted)
+            g = np.zeros_like(self.a)
+            K.bone_arm(g, hip, knee, ank, {"upper": [(0, 1, shades)], "fore": [(0, 1, shades)]}, width=(3.4, 3.0),
+                       outline=tuple(self.out))
+            if leg == "near":                 # the tan patch on her near knee (the design's)
+                kx, ky = int(math.floor(knee[0])), int(math.floor(knee[1]))
+                for y, x, col in ((ky, kx, patch[0]), (ky, kx - 1, patch[0]), (ky + 1, kx, patch[1]),
+                                  (ky + 1, kx - 1, patch[1])):
+                    if g[y, x, 3] and tuple(g[y, x, :3]) != tuple(self.out):
+                        g[y, x] = (*col, 255)
+            top = (ank[0], SOLES + 1 - bh) if grounded else ank
+            K.put(g, K.shifted(boot, int(round(top[0] - tp[0])), int(round(top[1] - tp[1]))), 0, 0)
+            K.put(c, g, 0, 0)
+        K.put(c, K.shifted(body, 0, bob), 0, 0)
+        self.level_arm(c, bob)
         c[SOLES + 1:] = 0
         return c
 
@@ -219,12 +295,13 @@ class Rig:
         if tag == "skill":
             return [P(low=1), P(rifle="level", low=1), P(rifle="level", low=1, dx=-1),
                     P(rifle="level", dx=-2, low=1), P()]
-        if tag == "skill2":
-            return [P(low=1), P(dx=2, dy=-1, legs=self.legs(-2, 1)), P(dx=1, low=1, legs=self.legs(1, 0)), P()]
-        if tag == "skill2_back":
-            return [P(low=1), P(dx=-2, dy=-2, legs=self.legs(1, 1)), P(dx=-1, low=1), P()]
-        if tag == "ult":
-            return [P(low=1), P(dy=-2, legs=self.legs(-1, 1)), P(low=1, rifle="level", dx=-1), P()]
+        R = lambda k, dx, dy: K.shifted(self.run_frame(k), dx, dy)     # a stride of the run, moved whole
+        if tag == "skill2":                   # E forward: crouch, the run's long stride lunging forward, its landing
+            return [P(low=1), R(0, 2, -1), R(1, 1, 0), P()]
+        if tag == "skill2_back":              # E back: crouch, the run's tucked hop back, the landing
+            return [P(low=1), R(3, -2, -1), P(dx=-1, low=1), P()]
+        if tag == "ult":                      # R: crouch, a hop (the run's tucked frame), the nova fired level
+            return [P(low=1), R(3, 0, -1), P(low=1, rifle="level", dx=-1), P()]
         if tag == "hit":
             return [P(dx=-2), P(dx=-1)]
         if tag == "dead":
