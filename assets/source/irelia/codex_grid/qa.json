@@ -1,0 +1,260 @@
+[
+  {
+    "take": "A",
+    "big_size": [
+      1024,
+      1536
+    ],
+    "native_size": [
+      39,
+      59
+    ],
+    "visible_bbox": [
+      6,
+      9,
+      27,
+      51
+    ],
+    "height": 42,
+    "width": 21,
+    "colors": 19,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "every_cell_uniform_and_matches_1x": true,
+    "transparent_padding": true,
+    "nothing_below_row50": true,
+    "source_bbox": [
+      157,
+      203,
+      725,
+      1333
+    ],
+    "row_sampling_anchors": [
+      [
+        9,
+        203
+      ],
+      [
+        13,
+        348
+      ],
+      [
+        17,
+        480
+      ],
+      [
+        19,
+        529
+      ],
+      [
+        21,
+        578
+      ],
+      [
+        24,
+        640
+      ],
+      [
+        25,
+        660
+      ],
+      [
+        29,
+        790
+      ],
+      [
+        36,
+        946
+      ],
+      [
+        40,
+        1048
+      ],
+      [
+        43,
+        1143
+      ],
+      [
+        51,
+        1333
+      ]
+    ],
+    "workflow": "native image_gen artwork, nearest-neighbor anchored row/column sampling, shared palette, binary alpha",
+    "mouth": "no lip pixels in generated source, visually checked",
+    "fingers": "simplified; allotted three-column hand width cannot show 3-4 fully separated fingers with one-cell gaps"
+  },
+  {
+    "take": "B",
+    "big_size": [
+      1024,
+      1536
+    ],
+    "native_size": [
+      39,
+      59
+    ],
+    "visible_bbox": [
+      6,
+      9,
+      27,
+      51
+    ],
+    "height": 42,
+    "width": 21,
+    "colors": 19,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "every_cell_uniform_and_matches_1x": true,
+    "transparent_padding": true,
+    "nothing_below_row50": true,
+    "source_bbox": [
+      128,
+      91,
+      756,
+      1363
+    ],
+    "row_sampling_anchors": [
+      [
+        9,
+        91
+      ],
+      [
+        13,
+        290
+      ],
+      [
+        17,
+        422
+      ],
+      [
+        19,
+        480
+      ],
+      [
+        21,
+        531
+      ],
+      [
+        24,
+        598
+      ],
+      [
+        25,
+        623
+      ],
+      [
+        29,
+        768
+      ],
+      [
+        36,
+        934
+      ],
+      [
+        40,
+        1051
+      ],
+      [
+        43,
+        1170
+      ],
+      [
+        51,
+        1363
+      ]
+    ],
+    "workflow": "native image_gen artwork, nearest-neighbor anchored row/column sampling, shared palette, binary alpha",
+    "mouth": "no lip pixels in generated source, visually checked",
+    "fingers": "simplified; allotted three-column hand width cannot show 3-4 fully separated fingers with one-cell gaps"
+  },
+  {
+    "take": "C",
+    "big_size": [
+      1024,
+      1536
+    ],
+    "native_size": [
+      39,
+      59
+    ],
+    "visible_bbox": [
+      6,
+      9,
+      27,
+      51
+    ],
+    "height": 42,
+    "width": 21,
+    "colors": 21,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "every_cell_uniform_and_matches_1x": true,
+    "transparent_padding": true,
+    "nothing_below_row50": true,
+    "source_bbox": [
+      144,
+      183,
+      724,
+      1331
+    ],
+    "row_sampling_anchors": [
+      [
+        9,
+        183
+      ],
+      [
+        13,
+        338
+      ],
+      [
+        17,
+        470
+      ],
+      [
+        19,
+        526
+      ],
+      [
+        21,
+        578
+      ],
+      [
+        24,
+        640
+      ],
+      [
+        25,
+        660
+      ],
+      [
+        29,
+        790
+      ],
+      [
+        36,
+        946
+      ],
+      [
+        40,
+        1053
+      ],
+      [
+        43,
+        1143
+      ],
+      [
+        51,
+        1331
+      ]
+    ],
+    "workflow": "native image_gen artwork, nearest-neighbor anchored row/column sampling, shared palette, binary alpha",
+    "mouth": "no lip pixels in generated source, visually checked",
+    "fingers": "simplified; allotted three-column hand width cannot show 3-4 fully separated fingers with one-cell gaps"
+  }
+]

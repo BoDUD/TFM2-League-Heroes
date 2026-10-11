@@ -15,11 +15,16 @@ How it came about (2026-10-11):
     「按照这版来还原」, 「你可以学泽丽啊 牺牲一点像素 重点做哪里的像素」, 「你可以不画嘴 但是眼睛一定要像刀妹」;
   * first pass: tools/art/restore_irelia.py (the head at 1.3x the body's scale, every square the material most of its
     picture pixels belong to and that material's commonest shade, then tidied);
-  * then hand-finished square by square over that pass and the picture (on the same grid): the face 7 squares wide with
-    Irelia's sharp eyes (one row of cyan iris under a heavy liner, slanted brows, a white corner on the near eye, a glint
-    on the far one) and one square of red lips, the silver tiara diamond, a rounded hair dome with its blue sheen, the
-    breastplate's red heart and cyan collar gem, the tabard lit on its left, the far sleeve and the boots shaded, the
-    outline closed. 42 rows from the blade tips to the soles, 22 wide, 19 colours.
+  * then hand-finished square by square over that pass and the picture (on the same grid): the silver tiara diamond, a
+    rounded hair dome with its blue sheen, the breastplate's red heart and cyan collar gem, the tabard lit on its left,
+    the far sleeve and the boots shaded, the outline closed; v3 (「背后的刀刃目前看起来太模糊」「两个手臂也是歪的 手指也没画」
+    「右腿是歪的」): crisp crescent blades, straight arms and legs, fingers, star knee guards, no mouth;
+  * the eyes (「眼睛还是太怪」, then the user: 「整个身体按照现在让codex精修一版可以让你描的吧」): Codex redrew the whole sprite
+    on the 26-px grid (tools/art/pack_irelia_grid.py, codex_grid/); its own 1x copies were specks again, and its raw
+    drafts at ~2x reduce to this very layout, so the gain is the face, traced square by square from take B
+    (codex_grid/raw/irelia-grid-B.png): brows slanting down to the nose, a black liner over one row of cyan iris with the
+    white in the outer corners, no mouth, the chin's shade lightened so it never reads as one.
+    42 rows from the blade tips to the soles, 22 wide, 20 colours.
 The side-on view for the actions is still to come (step 2's pack).
 """
 import argparse
