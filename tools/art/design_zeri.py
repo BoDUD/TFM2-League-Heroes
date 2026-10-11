@@ -11,7 +11,8 @@ zeri_B_attempt1.png, about 37-40 x 62-63 squares on their own ~19 px grids) and 
 zeri_design_A/B: 30 x 40 / 32 x 42). Here league_tryndamere's way (design_syndra.tryn, the user's 「就按照那种方式」 for
 Syndra): a draft read on its own grid, its own 24 colours, whole rows and columns dropped where least is lost, the
 face kept, only the outline closed; the figure placed with its soles on row 99 and the middle of its feet on column 64.
-The user picked Codex's own codex_B (32 x 42): --final copies it (plus FIXES) to the native design.
+The user picked Codex's own codex_B (32 x 42), then asked for a smaller head, a smaller figure and no muddy spots: polish()
+gave p35c (28 x 36), Codex redrew it clean (step 1b) and that redraw is final: --final copies it (plus FIXES).
 """
 import argparse
 import os
@@ -32,9 +33,23 @@ SRC = os.path.join(ROOT, "assets", "source", "zeri", "codex_model")
 RAW = {"A1": "raw/zeri_A_attempt1.png", "A2": "raw/zeri_A_attempt2.png", "B1": "raw/zeri_B_attempt1.png"}
 OUT = os.path.join(ROOT, "assets", "source", "native", "zeri_native.png")
 K = 24
-PICK = "codex_B"       # the user's pick (2026-10-11): Codex's own 32 x 42 cut of draft B1 (zeri_design_B_1x.png), over
-                       # this script's league_tryndamere cuts of A1 / A2 / B1 at 40 and 42 rows
-FIXES = []             # (canvas row, column, colour) on the pick
+PICK = "codex_refine"  # the user's final pick (2026-10-11, 「定稿 refine」): Codex's clean redraw at p35c's size (step 1b,
+                       # codex_refine/zeri_refine_1x.png, 28 x 36, 19 colours), after codex_B (32 x 42) had too big a head
+# the user, on the final pick: 「枪要补齐吧」 - its rifle stopped two rows under the buns with one electrode left uncapped;
+# rows 62-70, columns 73-77 redrawn as the picture's rifle: two capped electrodes, the silver muzzle, the lime and orange
+# body (rows 71 down untouched). None = transparent.
+_GUN = {"a": "#100C14", "r": "#C8CCD6", "n": "#B4E01E", "h": "#7A9A08", "m": "#F6A418", "q": "#E8FA5A", ".": None}
+_GUN_ROWS = [".a.a.", "arara", "arrra", "anrra", "ahrra", "ammra", "anmma", "anqma", "anqma"]
+FIXES = [(62 + r, 73 + c, _GUN[ch]) for r, row in enumerate(_GUN_ROWS) for c, ch in enumerate(row)]
+# then 「杂乱的黑色像素得清理吧 保持干净啊人物」 (the user's crop: between the hair and the rifle): the hair's outline and
+# the rifle's ran side by side with a 1-square transparent slit between them (rows 74-78, column 70) and the hair's edge
+# had no outline at rows 69 and 71 - the hair now runs on to the rifle's own single outline
+_H, _N = "#7A9A08", "#B4E01E"
+FIXES += [(68, 72, "#100C14"),
+          (69, 70, _N), (69, 71, _N), (69, 72, _H), (70, 70, _N), (70, 71, _H), (70, 72, _H), (71, 70, _H), (71, 71, _H),
+          (72, 70, _H), (73, 69, _H), (73, 70, _H)]
+FIXES += [(y, x, _H) for y in range(74, 79) for x in (69, 70)]
+FIXES += [(80, 71, "#100C14")]
 
 
 def read(v):
@@ -400,10 +415,14 @@ def main():
         Image.fromarray(can).save(R.lp(a.tryn_out))
         print(a.tryn, info[0], "outline", added)
     if a.final:
-        can = np.asarray(Image.open(os.path.join(SRC, "zeri_design_B_1x.png")).convert("RGBA")).copy()
+        can = np.asarray(Image.open(os.path.join(ROOT, "assets", "source", "zeri", "codex_refine",
+                                                 "zeri_refine_1x.png")).convert("RGBA")).copy()
         for y, x, col in FIXES:
-            can[y, x, :3] = R.hx(col)
-            can[y, x, 3] = 255
+            if col is None:
+                can[y, x] = 0
+            else:
+                can[y, x, :3] = R.hx(col)
+                can[y, x, 3] = 255
         bb = Image.fromarray(can).getbbox()
         cols = len({tuple(c) for c in can[can[..., 3] > 0][:, :3]})
         msg = f"{bb[2] - bb[0]} x {bb[3] - bb[1]} box {bb}, {cols} colours"
