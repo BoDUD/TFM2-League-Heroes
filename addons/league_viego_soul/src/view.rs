@@ -16,7 +16,12 @@
 //!
 //! 0.1.3：显示世界里有数据加的 buff（他的 `league_viego_q_cd`），却从来没有本包原生加的（外形标记、`league_viego_p_on`），
 //! 所以附身改由数据加的 `league_viego_shape` 来认（附加包副本里，播吸魂时加、附身结束 / 大招时去掉）；附身的是谁，
-//! 由被动在附身时记下（`note_possess`），画面这边取最近一次、且这个显示世界里有那个英雄（刚阵亡的尸体）的那条。
+//! 由被动在附身时记下（`note_possess`）。
+//!
+//! 0.1.4：屏幕放的那场模拟（ClientMatchView）几秒钟就把整局跑完，屏幕几分钟后才放到附身那一刻（上一局：模拟里 11:38 附身
+//! 格温，屏幕三分多钟以后才放到），0.1.3 只取 20 秒内记下的附身，所以永远取不到。现在每条记下模拟的场次、佛耶戈的实体号
+//! （和画面实体的 key 是同一个号）和 tick；屏幕上这个佛耶戈每开始一次附身（播附身动作 `possess`，或 shape buff 出现），就取
+//! 那场模拟里记给他的下一条。
 
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -106,35 +111,66 @@ const BUFF_LINES: usize = 60;
 
 /// The data's possession buff on his display entity (the add-on copy adds it with the possession's pictures).
 const SHAPE: &[u8] = b"league_viego_shape";
+/// The data's possession pose (the show plays it with the shape buff, again on a soul taken while possessed).
+const POSSESS_ANIM: &[u8] = b"possess";
 
-/// Possessions the passive started (not in server presims): the victim's id and when, newest last.
-static TAKEN: Mutex<Vec<(String, std::time::Instant)>> = Mutex::new(Vec::new());
-/// (display world, Viego's key) -> the victim chosen while his shape buff lasts.
-static CHOSEN: Mutex<Vec<(usize, u64, Vec<u8>)>> = Mutex::new(Vec::new());
+/// One possession the passive started in a sim the screen replays: the sim's match and set, Viego's entity id there
+/// (the display entity's key is the same id), the tick, the victim's champion id.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Taken {
+    pub m: u64,
+    pub s: u64,
+    pub id: usize,
+    pub tick: usize,
+    pub name: String,
+}
 
-/// The passive took a soul: remembered for the display hook.
-pub fn note_possess(name: &str) {
+/// Possessions noted by the sims the screen replays, oldest first (the same one noted twice - a match watched again -
+/// once).
+static TAKEN: Mutex<Vec<Taken>> = Mutex::new(Vec::new());
+/// The match and set of the last sim the screen replays that has a Viego (noted on its first update).
+static LATEST: Mutex<Option<(u64, u64)>> = Mutex::new(None);
+
+/// The passive took a soul in a sim the screen replays: remembered for the display hook.
+pub fn note_possess(m: u64, s: u64, id: usize, tick: usize, name: &str) {
     if let Ok(mut t) = TAKEN.lock() {
-        t.push((name.to_string(), std::time::Instant::now()));
-        if t.len() > 32 {
-            t.remove(0);
+        let e = Taken { m, s, id, tick, name: name.to_string() };
+        if !t.contains(&e) {
+            t.push(e);
+            if t.len() > 256 {
+                t.remove(0);
+            }
         }
     }
 }
 
-/// The victim for a Viego whose shape buff just showed: of the possessions noted in the last 20 s (newest first), the
-/// first whose champion is in this display world (its corpse; one playing "dead" first), else the newest of the last 5 s.
-fn pick(present: &dyn Fn(&str) -> Option<bool>) -> Option<Vec<u8>> {
-    let t = TAKEN.lock().ok()?;
-    let now = std::time::Instant::now();
-    let recent: Vec<&(String, std::time::Instant)> =
-        t.iter().rev().filter(|(n, at)| now.duration_since(*at).as_secs_f64() <= 20.0 && tags_of(n.as_bytes()).is_some())
-            .collect();
-    recent.iter().find(|(n, _)| present(n) == Some(true))
-        .or_else(|| recent.iter().find(|(n, _)| present(n).is_some()))
-        .or_else(|| recent.iter().find(|(_, at)| now.duration_since(*at).as_secs_f64() <= 5.0))
-        .map(|(n, _)| n.as_bytes().to_vec())
+/// A sim the screen replays has started with a Viego in it: its possessions are the ones the screen will show.
+pub fn note_view(m: u64, s: u64) {
+    if let Ok(mut l) = LATEST.lock() {
+        *l = Some((m, s));
+    }
 }
+
+/// The k-th (from 0) possession of Viego `id` in the sim (m, s), by tick; past the last one noted, the last one.
+pub fn nth_taken(all: &[Taken], m: u64, s: u64, id: usize, k: usize) -> Option<String> {
+    let mut his: Vec<&Taken> = all.iter().filter(|t| t.m == m && t.s == s && t.id == id).collect();
+    his.sort_by_key(|t| t.tick);
+    his.get(k).or(his.last()).map(|t| t.name.clone())
+}
+
+/// A Viego on the screen: the possessions started there so far, and last frame's pose and shape buff.
+struct Track {
+    world: usize,
+    key: u64,
+    view: Option<(u64, u64)>,
+    used: usize,
+    in_possess: bool,
+    shaped: bool,
+    last_start: Option<std::time::Instant>,
+    victim: Option<Vec<u8>>,
+}
+
+static TRACKS: Mutex<Vec<Track>> = Mutex::new(Vec::new());
 
 static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, viegos: 0, writes: 0, last: None, looks: Vec::new(),
     buffsets: Vec::new(), buff_lines: 0 });
@@ -275,32 +311,63 @@ unsafe fn dress_viego(world: usize) {
         }
         let original = orig.get_or_keep(world, key, res);
         let shaped = buffs.iter().any(|b| *b == SHAPE);
+        // the pose the game set this frame (read before it is swapped for the victim's below)
+        let posing = string_at(v + ANIM_CAP, 32) == Some(POSSESS_ANIM);
+        // The sim the screen replays ran the whole match ahead of it (the possession was noted minutes before the screen
+        // gets there): each possession that starts on the screen - the possess pose, or the shape buff coming on - is
+        // the next one noted for this Viego (his entity id is the display key) in that sim.
         let chosen: Option<Vec<u8>> = {
-            let Ok(mut ch) = CHOSEN.try_lock() else { continue };
-            let had = ch.iter().find(|c| c.0 == world && c.1 == key).map(|c| c.2.clone());
-            let now = if let Some(id) = victim(buffs.iter().copied()) {
+            let Ok(mut tracks) = TRACKS.try_lock() else { continue };
+            let view = LATEST.lock().ok().and_then(|l| *l);
+            let i = match tracks.iter().position(|t| t.world == world && t.key == key) {
+                Some(i) => i,
+                None => {
+                    tracks.push(Track { world, key, view, used: 0, in_possess: false, shaped: false, last_start: None,
+                                        victim: None });
+                    if tracks.len() > 64 {
+                        tracks.remove(0);
+                    }
+                    tracks.len() - 1
+                }
+            };
+            let tr = &mut tracks[i];
+            if tr.view != view {
+                // another match: the same display world and key start over
+                *tr = Track { world, key, view, used: 0, in_possess: false, shaped: false, last_start: None,
+                              victim: None };
+            }
+            let had = if tr.shaped { tr.victim.clone() } else { None };
+            // the pose and the shape buff of one show arrive together: a second signal within 0.25 s is the same start
+            let fresh = (posing && !tr.in_possess) || (shaped && !tr.shaped);
+            if fresh && !tr.last_start.is_some_and(|t| now.duration_since(t).as_secs_f64() < 0.25) {
+                tr.last_start = Some(now);
+                tr.used += 1;
+                let k = tr.used - 1;
+                let (noted, next) = match (TAKEN.lock(), view) {
+                    (Ok(t), Some((m, s))) => (t.iter().filter(|e| (e.m, e.s) == (m, s) && e.id as u64 == key).count(),
+                                              nth_taken(&t, m, s, key as usize, k)),
+                    _ => (0, None),
+                };
+                tr.victim = next.map(String::into_bytes);
+                wlog(format!("world {world:#x} Viego #{key}: possession {} starts on the screen ({} noted for him in \
+                    the sim it replays, {:?}) -> {}", tr.used, noted, view,
+                    tr.victim.as_deref().map_or("nobody".into(), |n| String::from_utf8_lossy(n).into_owned())));
+            }
+            tr.in_possess = posing;
+            tr.shaped = shaped;
+            let now_victim = if let Some(id) = victim(buffs.iter().copied()) {
                 Some(id.to_vec())
             } else if shaped {
-                had.clone().or_else(|| {
-                    pick(&|n: &str| {
-                        recs.iter().find(|r| r.2 == n.as_bytes() && r.0 != key).map(|r| {
-                            string_at(r.1 + ANIM_CAP, 32) == Some(&b"dead"[..])
-                        })
-                    })
-                })
+                tr.victim.clone()
             } else {
                 None
             };
-            if now != had {
-                ch.retain(|c| !(c.0 == world && c.1 == key));
-                if let Some(id) = &now {
-                    ch.push((world, key, id.clone()));
-                }
+            if now_victim != had {
                 wlog(format!("world {world:#x} Viego #{key}: possession {} (shape buff {})",
-                    now.as_deref().map_or("over".into(), |n| String::from_utf8_lossy(n).into_owned()),
+                    now_victim.as_deref().map_or("over".into(), |n| String::from_utf8_lossy(n).into_owned()),
                     if shaped { "on" } else { "off" }));
             }
-            now
+            now_victim
         };
         let soul = chosen.as_deref();
         // the victim's body: its display entity's resource name while it is still in the display world; a soul is
@@ -409,6 +476,19 @@ mod tests {
         assert_eq!(o.get_or_keep(1, 7, b"league_viego"), b"league_viego".to_vec());
         assert_eq!(o.get_or_keep(1, 7, b"league_jinx"), b"league_viego".to_vec());
         assert_eq!(o.get_or_keep(2, 7, b"x"), b"x".to_vec());
+    }
+
+    #[test]
+    fn the_screen_takes_his_possessions_in_order() {
+        let t = |m, id, tick, n: &str| Taken { m, s: 1, id, tick, name: n.into() };
+        let all = vec![t(592, 796, 50_000, "league_jinx"), t(592, 796, 41_934, "league_gwen"), t(592, 24, 9_000, "league_lux"),
+                       t(588, 796, 1_000, "league_teemo")];
+        assert_eq!(nth_taken(&all, 592, 1, 796, 0).as_deref(), Some("league_gwen"));
+        assert_eq!(nth_taken(&all, 592, 1, 796, 1).as_deref(), Some("league_jinx"));
+        assert_eq!(nth_taken(&all, 592, 1, 796, 5).as_deref(), Some("league_jinx"));
+        assert_eq!(nth_taken(&all, 592, 1, 24, 0).as_deref(), Some("league_lux"));
+        assert_eq!(nth_taken(&all, 592, 2, 796, 0), None);
+        assert_eq!(nth_taken(&all, 1, 1, 796, 0), None);
     }
 
     #[test]

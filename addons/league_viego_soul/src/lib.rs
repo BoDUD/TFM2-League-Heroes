@@ -82,7 +82,17 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
         _ => "unknown",
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
-    format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
+    let t = sim.tick();
+    format!("[{kind} m={} s={}] t={t} ({}:{:02}) #{id}", m(o.match_id), m(o.set_index), t / 3600, t / 60 % 60)
+}
+
+/// The sims the screen replays (the client's own match view, spectating, a replay) - not the server's presims: the
+/// screen draws their possessions (view::note_possess).
+fn on_screen(sim: &StableSim<'_>) -> Option<(u64, u64)> {
+    let o = sim.sim_origin().unwrap_or_default();
+    matches!(SimOriginKindV1::from_code(o.kind),
+        Some(SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay))
+        .then_some((o.match_id, o.set_index))
 }
 
 // ===================== 计算 =====================
@@ -177,6 +187,8 @@ pub struct Possess {
     pub souls: Vec<Soul>,
     pub on: Option<Possession>,
     pub was_alive: bool,
+    /// The first update has run (a sim the screen replays is noted for the display hook then).
+    pub started: bool,
 }
 
 impl Possess {
@@ -240,10 +252,8 @@ impl Possess {
         let heal = p.p_heal as usize + atk * p.p_heal_ratio as usize / 100;
         sim.heal(me, me, heal);
         wlog(format!("{} POSSESS {} ({}) for {} ticks, heal {heal}", head(sim, me), soul.name, soul.cat, p.p_t));
-        let presim = SimOriginKindV1::from_code(sim.sim_origin().unwrap_or_default().kind)
-            == Some(SimOriginKindV1::ServerPresim);
-        if !presim {
-            view::note_possess(&soul.name);
+        if let Some((m, s)) = on_screen(sim) {
+            view::note_possess(m, s, me, sim.tick(), &soul.name);
         }
         self.on = Some(Possession { name: soul.name, cat: soul.cat, until: sim.tick() + p.p_t as usize });
     }
@@ -278,6 +288,13 @@ impl StablePassive for Possess {
         let now = sim.tick();
         let Some(e) = sim.get_entity(me) else { return };
         let (alive, team, mpos) = (e.is_alive(), e.team(), e.pos());
+        if !self.started {
+            self.started = true;
+            if let Some((m, s)) = on_screen(sim) {
+                view::note_view(m, s);
+                wlog(format!("{} the passive is on (team {team}); this sim is the one the screen replays", head(sim, me)));
+            }
+        }
         if alive != self.was_alive {
             self.was_alive = alive;
             if !alive {
