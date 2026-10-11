@@ -616,6 +616,13 @@
         "skill": "向前刺出，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>伤害。刺中的英雄被标记<#ffb900ff>4秒<>，下次普攻对其斩两下：再造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害并回复<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>。",
         "skill2": "<#ff9028ff>茫茫焦土<>：黑雾升起，<#ffb900ff>5秒<>内移速+30%、攻速+40%，站在黑雾里（留2.5秒）时隐身。随后冲刺并吐出亡魂，第一个被击中的敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>伤害并<#ef5350ff>眩晕1.1秒<>。",
         "ult": "跃向队伍正在交手的敌方英雄并<#ef5350ff>减速99%<>，落地刺穿它，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+其最大生命12%伤害，击退周围其他敌人。结束附身。"
+      },
+      "league_zeri": {
+        "name": "泽丽",
+        "attack": "普攻<#ff9028ff>电火迸射<>：7发连射打第一个敌人。被动<#ff9028ff>内能迁转<>：每<#ffb900ff>5<>次攻击充满电，下一击为电击弹，额外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速<>，命中英雄再造成<#ffffffff>4%最大生命真实伤害<>，自己获得护盾和移速。",
+        "skill": "发射电脉冲，对第一个敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速35%<>。先打中小兵或野怪时，从那里化为长激光，伤害并减速身后所有敌人。",
+        "skill2": "短距冲刺（被贴身时后撤），之后<#ffb900ff>5秒<>普攻贯穿：后面的敌人受到80%伤害，并额外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>。命中英雄缩短冷却。",
+        "ult": "电新星对周围敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>，超载<#ffb900ff>5秒<>：攻速+30%、移速+20%，命中英雄叠加移速并延长；普攻变为三连发，在敌人间连锁闪电。"
       }
     },
     "skill_name": {
@@ -1058,6 +1065,11 @@
         "skill1": "破败王剑",
         "skill2": "千载幽咽",
         "ult": "痛贯天灵"
+      },
+      "league_zeri": {
+        "skill1": "强穿激光",
+        "skill2": "灿丽花火",
+        "ult": "超限爆闪"
       }
     }
   },
@@ -1678,6 +1690,13 @@
         "skill": "向前刺出，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>傷害。刺中的英雄被標記<#ffb900ff>4秒<>，下次普攻對其斬兩下：再造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害並回復<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>。",
         "skill2": "<#ff9028ff>幽影之徑<>：黑霧升起，<#ffb900ff>5秒<>內移速+30%、攻速+40%，站在黑霧裡（留2.5秒）時隱身。隨後衝刺並吐出亡魂，第一個被擊中的敵人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>傷害並<#ef5350ff>暈眩1.1秒<>。",
         "ult": "躍向隊伍正在交手的敵方英雄並<#ef5350ff>緩速99%<>，落地刺穿它，造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+其最大生命12%傷害，擊退周圍其他敵人。結束附身。"
+      },
+      "league_zeri": {
+        "name": "婕莉",
+        "attack": "普攻<#ff9028ff>激電連彈<>：7發連射打第一個敵人。被動<#ff9028ff>人體蓄電池<>：每<#ffb900ff>5<>次攻擊充滿電，下一擊為電擊彈，額外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速<>，命中英雄再造成<#ffffffff>4%最大生命真實傷害<>，自己獲得護盾和移速。",
+        "skill": "發射電脈衝，對第一個敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速35%<>。先打中小兵或野怪時，從那裡化為長雷射，傷害並緩速身後所有敵人。",
+        "skill2": "短距衝刺（被貼身時後撤），之後<#ffb900ff>5秒<>普攻貫穿：後面的敵人受到80%傷害，並額外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>。命中英雄縮短冷卻。",
+        "ult": "電新星對周圍敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>，超載<#ffb900ff>5秒<>：攻速+30%、移速+20%，命中英雄疊加移速並延長；普攻變為三連發，在敵人間連鎖閃電。"
       }
     },
     "skill_name": {
@@ -2120,6 +2139,11 @@
         "skill1": "殞落王者之劍",
         "skill2": "冥魂之噬",
         "ult": "破心者"
+      },
+      "league_zeri": {
+        "skill1": "超激爆電磁炮",
+        "skill2": "電光石火",
+        "ult": "雷霆萬鈞"
       }
     }
   },
@@ -2740,6 +2764,13 @@
         "skill": "Thrusts forward: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>. A champion hit is marked for <#ffb900ff>4s<>: his next attack on it strikes twice, <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more, and heals <#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>.",
         "skill2": "<#ff9028ff>Harrowed Path<>: mist rises - <#ffb900ff>5s<> of +30% move speed and +40% attack speed, hidden while in the mist (2.5s). Then he dashes and looses a wraith: the first enemy hit takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> and is <#ef5350ff>stunned 1.1s<>.",
         "ult": "Leaps at an enemy champion his team is fighting, <#ef5350ff>slowing it 99%<>, and pierces it on landing: <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 12% of its max health; other enemies near are knocked back. Ends a possession."
+      },
+      "league_zeri": {
+        "name": "Zeri",
+        "attack": "Attacks are <#ff9028ff>Burst Fire<>: seven rounds at the first enemy hit. Passive <#ff9028ff>Living Battery<>: every <#ffb900ff>5<> attacks charge her pack; the next is a charged shot dealing <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> more and <#ef5350ff>slowing<>; on a champion also <#ffffffff>4% max health true damage<>, and she gains a shield and Move Speed.",
+        "skill": "Fires an electric pulse dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> to the first enemy hit, <#ef5350ff>slowing 35%<>. If a minion or monster stops it, it bursts into a long laser that hits and slows every enemy behind.",
+        "skill2": "Dashes a short way (back when an enemy is close), then for <#ffb900ff>5s<> Burst Fire pierces: enemies after the first take 80% damage and <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>. Champion hits lower the cooldowns.",
+        "ult": "A nova deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> around her and overcharges her for <#ffb900ff>5s<>: +30% Attack Speed, +20% Move Speed that stacks and lasts longer with champion hits; Burst Fire becomes a triple shot that chains lightning between enemies."
       }
     },
     "skill_name": {
@@ -3182,6 +3213,11 @@
         "skill1": "Blade of the Ruined King",
         "skill2": "Spectral Maw",
         "ult": "Heartbreaker"
+      },
+      "league_zeri": {
+        "skill1": "Ultrashock Laser",
+        "skill2": "Spark Surge",
+        "ult": "Lightning Crash"
       }
     }
   },
@@ -3802,6 +3838,13 @@
         "skill": "앞으로 찔러 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 피해. 맞은 챔피언은 <#ffb900ff>4초<> 표식: 다음 기본 공격이 두 번 베어 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 피해, <#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<> 회복.",
         "skill2": "<#ff9028ff>안개의 길<>: 안개가 일어 <#ffb900ff>5초<> 동안 이동 속도 +30%, 공격 속도 +40%, 안개 속(2.5초)에서는 은신. 이어서 돌진하며 망령을 날려 처음 맞은 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 피해와 <#ef5350ff>1.1초 기절<>.",
         "ult": "아군이 교전 중인 적 챔피언에게 도약해 <#ef5350ff>99% 둔화<>, 착지하며 꿰뚫어 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> + 최대 체력 12% 피해, 주변의 다른 적은 밀쳐냄. 빙의 종료."
+      },
+      "league_zeri": {
+        "name": "제리",
+        "attack": "기본 공격 <#ff9028ff>집중 사격<>: 처음 맞는 적에게 7연발. 기본 지속 효과 <#ff9028ff>살아있는 배터리<>: 공격 <#ffb900ff>5<>번에 충전, 다음 공격은 충전탄으로 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>둔화<>, 챔피언에게 <#ffffffff>최대 체력 4% 고정 피해<>, 자신은 보호막과 이동 속도.",
+        "skill": "전기 펄스로 처음 맞는 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>35% 둔화<>. 미니언이나 몬스터에 막히면 그 자리에서 긴 레이저가 되어 뒤의 모든 적을 맞히고 둔화.",
+        "skill2": "짧게 돌진(적이 붙으면 뒤로), 이후 <#ffb900ff>5초<> 동안 집중 사격 관통: 뒤의 적은 80% 피해와 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>. 챔피언 적중 시 재사용 대기시간 감소.",
+        "ult": "주변 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>, <#ffb900ff>5초<> 과충전: 공격 속도 +30%, 이동 속도 +20%(챔피언 적중 시 중첩·연장), 집중 사격이 적 사이를 잇는 번개 3연발로."
       }
     },
     "skill_name": {
@@ -4244,6 +4287,11 @@
         "skill1": "몰락한 왕의 검",
         "skill2": "망령의 나락",
         "ult": "심장 파괴자"
+      },
+      "league_zeri": {
+        "skill1": "초강력 레이저",
+        "skill2": "스파크 돌진",
+        "ult": "번개 방출"
       }
     }
   },
@@ -4864,6 +4912,13 @@
         "skill": "前方へ突き、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>のダメージ。当たったチャンピオンに<#ffb900ff>4秒<>の刻印：次の通常攻撃が2回斬り、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の追加ダメージと<#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>回復。",
         "skill2": "<#ff9028ff>彷徨える苦悶<>：霧が立ちのぼり<#ffb900ff>5秒<>移動速度+30%・攻撃速度+40%、霧の中（2.5秒）では透明。続けて突進し亡霊を放ち、最初に当たった敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>のダメージと<#ef5350ff>1.1秒スタン<>。",
         "ult": "味方が交戦中の敵チャンピオンへ跳び<#ef5350ff>99%スロウ<>、着地で貫き<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>+最大体力の12%のダメージ、周囲の他の敵はノックバック。憑依を終える。"
+      },
+      "league_zeri": {
+        "name": "ゼリ",
+        "attack": "通常攻撃は<#ff9028ff>バーストファイア<>：最初の敵に7連射。パッシブ<#ff9028ff>生体バッテリー<>：<#ffb900ff>5<>回の攻撃で充電、次の攻撃はチャージ弾で<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>スロウ<>、チャンピオンには<#ffffffff>最大体力4%の確定ダメージ<>、自身にシールドと移動速度。",
+        "skill": "電気パルスが最初の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>35%スロウ<>。ミニオンかモンスターに当たるとそこから長いレーザーになり、後ろの敵全員に命中。",
+        "skill2": "短くダッシュ（敵が近いと後ろへ）、その後<#ffb900ff>5秒<>バーストファイアが貫通：後ろの敵に80%と<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>。チャンピオン命中でCD短縮。",
+        "ult": "周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>5秒<>オーバーチャージ：攻撃速度+30%、移動速度+20%（チャンピオン命中で累積・延長）、通常攻撃は敵間を連鎖する稲妻の3連射に。"
       }
     },
     "skill_name": {
@@ -5306,6 +5361,11 @@
         "skill1": "滅びの王剣",
         "skill2": "亡霊の嘆き",
         "ult": "ハートブレイカー"
+      },
+      "league_zeri": {
+        "skill1": "ウルトラショックレーザー",
+        "skill2": "スパークサージ",
+        "ult": "ライトニングクラッシュ"
       }
     }
   }

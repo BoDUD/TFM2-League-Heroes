@@ -1,0 +1,492 @@
+[
+  {
+    "name": "a_burst",
+    "frames": 4,
+    "size": [
+      1280,
+      80
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      35,
+      35,
+      29,
+      32
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "a_hit",
+    "frames": 4,
+    "size": [
+      768,
+      192
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      34,
+      76,
+      58,
+      22
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "p_spark",
+    "frames": 4,
+    "size": [
+      896,
+      176
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      65,
+      73,
+      70,
+      72
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "p_hit",
+    "frames": 5,
+    "size": [
+      1440,
+      288
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      42,
+      136,
+      184,
+      132,
+      50
+    ],
+    "unique_frames": 5
+  },
+  {
+    "name": "p_ready",
+    "frames": 6,
+    "size": [
+      3072,
+      704
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": true,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      72,
+      216,
+      356,
+      434,
+      314,
+      166
+    ],
+    "unique_frames": 6
+  },
+  {
+    "name": "p_shv",
+    "frames": 4,
+    "size": [
+      2048,
+      736
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": true,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      368,
+      378,
+      382,
+      362
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "p_slow",
+    "frames": 4,
+    "size": [
+      1024,
+      112
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      30,
+      28,
+      26,
+      30
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "p_haste",
+    "frames": 4,
+    "size": [
+      1280,
+      128
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      32,
+      34,
+      30,
+      40
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "w_cast",
+    "frames": 5,
+    "size": [
+      2560,
+      672
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": true,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      104,
+      166,
+      288,
+      282,
+      148
+    ],
+    "unique_frames": 5
+  },
+  {
+    "name": "w_pulse",
+    "frames": 4,
+    "size": [
+      1152,
+      144
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      63,
+      56,
+      53,
+      67
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "w_laser",
+    "frames": 6,
+    "size": [
+      19584,
+      240
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": true,
+    "frame_pixels": [
+      324,
+      1047,
+      853,
+      471,
+      368,
+      168
+    ],
+    "unique_frames": 6
+  },
+  {
+    "name": "w_wall",
+    "frames": 4,
+    "size": [
+      2688,
+      176
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      233,
+      202,
+      219,
+      264
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "w_hit",
+    "frames": 4,
+    "size": [
+      1024,
+      256
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      40,
+      86,
+      100,
+      34
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "w_slow",
+    "frames": 4,
+    "size": [
+      1152,
+      128
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      54,
+      46,
+      48,
+      50
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "e_cast",
+    "frames": 5,
+    "size": [
+      3680,
+      320
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      66,
+      210,
+      382,
+      490,
+      198
+    ],
+    "unique_frames": 5
+  },
+  {
+    "name": "e_on",
+    "frames": 4,
+    "size": [
+      1920,
+      672
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": true,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      162,
+      150,
+      164,
+      136
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "e_shot",
+    "frames": 4,
+    "size": [
+      1280,
+      96
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      42,
+      40,
+      44,
+      46
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "e_hit",
+    "frames": 4,
+    "size": [
+      768,
+      192
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      12,
+      76,
+      38,
+      6
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "r_nova",
+    "frames": 6,
+    "size": [
+      14592,
+      992
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      2296,
+      4712,
+      5544,
+      6628,
+      5288,
+      2652
+    ],
+    "unique_frames": 6
+  },
+  {
+    "name": "r_on",
+    "frames": 4,
+    "size": [
+      2304,
+      800
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": true,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      472,
+      558,
+      630,
+      594
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "r_st2",
+    "frames": 4,
+    "size": [
+      2304,
+      800
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": true,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      576,
+      466,
+      590,
+      432
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "r_shot",
+    "frames": 4,
+    "size": [
+      1280,
+      176
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      91,
+      89,
+      90,
+      95
+    ],
+    "unique_frames": 4
+  },
+  {
+    "name": "r_hit",
+    "frames": 5,
+    "size": [
+      1440,
+      288
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      56,
+      178,
+      172,
+      120,
+      52
+    ],
+    "unique_frames": 5
+  },
+  {
+    "name": "r_zap",
+    "frames": 4,
+    "size": [
+      1024,
+      512
+    ],
+    "binary_alpha": true,
+    "grid16_exact": true,
+    "symmetry_exact": true,
+    "center_clear_checked": false,
+    "laser_left_half_empty": false,
+    "frame_pixels": [
+      122,
+      156,
+      112,
+      54
+    ],
+    "unique_frames": 4
+  }
+]
