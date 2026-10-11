@@ -7,20 +7,24 @@ delivery: 「侧脸的五官每个都不一样 好奇怪 我们做的是这一�
 Codex's strips (assets/source/irelia/codex_strips, from tools/art/pack_irelia_strips.py) were side-on, but the face
 was a different face in every frame and the attack, W, the R's wind-up, the Q's landing and the hit were drawn a fifth
 smaller than the design. Every frame here is the design (assets/source/native/irelia_native.png, design42/irelia42.txt)
-with only what the action moves moved, nothing resampled - the head (hair, tiara, the slanted brows and cyan eyes, no
-mouth) is the design's in every standing frame:
-- the arms are rigid units cut from the design (the bare upper arm, the white band, the red guard, the white wrist band
-  and the hand with its finger tips) turned whole by quarter turns about the shoulder: hanging as drawn, forward
-  (pointing to the image right: the far arm, the one nearer the target) or up;
-- the blades are the design's: the bundle behind her back moved whole (lifted for the R, dropped in the death, gone
-  while the R's volley flies), and single blades the design's tallest blade, turned a quarter to fly level - always a
-  square or more clear of the open hand (the user: 「刀妹没有单一的传统手持武器 她的武器是一组漂浮的致命飞刀」);
-- the whole figure leans (the head and chest rows moved forward), crouches (the upper body lowered over the legs) or
-  lunges (the run's widest stride under the lowered body);
-- the run: the design's upper body (head, blades, arms, tabard, hair) over the legs of Codex's side-on run (its 8 frames
-  change legs; the legs are the right size), the hips under the tabard, the body bobbing a row on each landing;
-- the death: struck back, sinking to her knees (the shins folded away), then lying on her front (the figure turned a
-  quarter), the blades dropped on the ground behind her.
+with only what the action moves moved, nothing resampled. The first rig was sent back (「你看不到模型有一堆问题吗 各种变形吗」):
+the head moved alone over the body (the bundle broke at the neck, the chin off the collar), the far arm turned up lay
+across her face, crouches pushed the body into the legs, the run stood her on Codex's thin legs, and the importer's
+breathing bent the idle. Now:
+- the head, the body and the bundle move only together, with the whole figure; nothing is lowered into the legs;
+- the far arm (image right, nearer the target) is a rigid unit cut from the design (sleeve, white elbow plate, red
+  guard, white wrist band, the hand with its finger tips): hanging as drawn or turned a quarter to point forward at
+  shoulder height - never up across the face; the near arm always hangs;
+- the blades: the bundle behind her back moved whole (lifted for the R, dropped in the death, gone while the R's volley
+  flies, its top blade gone while the E's blades fly), single blades in flight a hand-drawn crescent in the blades'
+  colours, the W's shield the design's own upright blade, always clear of the open hand (the user: 「刀妹没有单一的传统
+  手持武器 她的武器是一组漂浮的致命飞刀」);
+- the legs are the design's own: the run's cross steps move each boot whole and lean the leg above it to it from the
+  hip (rigkit.swing_leg), lifting the passing boot, the whole figure a row up on the passing frames; the Q's dash stands
+  on the widest step;
+- the idle is the design, still (import_native.BREATHE_SKIP);
+- the death: struck back, sinking to her knees (the boots' tops folded away), then lying (the figure turned a
+  quarter), the bundle dropped behind her.
 Each frame is finished round what moved (rigkit.finish: the outline closed on moved edges, pinholes filled, stray
 outline squares dropped; the head never changes), then audited. Writes assets/source/native/irelia_<tag>.png (8x) and
 irelia_cells.json; then tools/art/import_native.py --hero irelia.
@@ -75,6 +79,7 @@ BLADE_FLY = ["....!!!!!!....",
              "!qqRRRRRRRRRW!",
              ".!!qqqqRRRR!!.",
              "...!!!!!!!!..."]
+HAND_FWD = (OX + 25.0, OY + 19.0)   # the middle of the far hand with the arm forward
 HEAD_ROWS = (5, 16)              # the head (hair dome, tiara, face, neck) - moved whole when she leans
 CHEST_ROWS = (17, 22)
 # the legs (the run puts Codex's under the body): the thighs' navy, the knees, the shins and the boots
@@ -82,10 +87,11 @@ LEGS = {27: [(10, 11)], 28: [(10, 11), (16, 16)], 29: [(10, 11), (16, 16)], 30: 
         31: [(10, 11), (15, 16)], 32: [(8, 21)], 33: [(8, 21)], 34: [(8, 21)], 35: [(8, 21)], 36: [(7, 21)],
         37: [(7, 21)], 38: [(7, 21)], 39: [(7, 21)], 40: [(7, 21)], 41: [(7, 21)]}
 SHIN_ROWS = (35, 38)             # the rows the knees fold away (the death's kneel)
-HAIR = set("nmhH")            # Codex's hair (its leggings are N)
-LEG_RECOLOUR = {"N": "n", "n": "m"}   # Codex's leggings one step lighter: the design's navy
-CODEX_HIP_ROW = 86               # Codex's run: its legs from this row down
-HIP_X = OX + 13.5                # the middle of the design's hips (under the tabard)
+# a blade of the bundle that leaves it (E: the top one flies as the effect)
+BUNDLE_BLADES = {"right": {0: (10, 10), 1: (9, 11), 2: (8, 11), 3: (8, 11), 4: (8, 11), 5: (8, 9)}}
+# the run: the design's own legs stepping (near boot columns, far boot columns, near lift, far lift, whole-figure rise)
+RUN_STEPS = [(2, -2, 0, 0, 0), (1, -1, 0, 1, 0), (0, 0, 0, 2, 1), (-1, 1, 0, 1, 0),
+             (-2, 2, 0, 0, 0), (-1, 1, 1, 0, 0), (0, 0, 2, 0, 1), (1, -1, 1, 0, 0)]
 
 
 def table_mask(spec):
@@ -166,28 +172,35 @@ class Rig:
         r = K.Part(a, (7.0, 3.0))
         return r if k == "r" else r.flip_h()
 
-    def lean(self, upper, dx_head, dx_chest):
-        out = np.zeros_like(upper)
-        for y in range(upper.shape[0]):
-            r = y - OY
-            dx = dx_head if r <= HEAD_ROWS[1] else (dx_chest if CHEST_ROWS[0] <= r <= CHEST_ROWS[1] else 0)
-            if dx:
-                out[y] = np.roll(upper[y], dx, 0)
-            else:
-                out[y] = upper[y]
-        return out
+    def leg_layers(self):
+        """The design's two legs (thigh, star knee guard, boot), split down the middle between them."""
+        legs = self.layer(self.legs_m)
+        near, far = legs.copy(), legs.copy()
+        near[:, OX + 14:] = 0
+        far[:, :OX + 14] = 0
+        return near, far
 
-    def pose(self, far=0, near=0, bundle=(0, 0), low=0, lean=(0, 0), dx=0, legs=None, blades=()):
-        """far / near: quarter turns of the arms (0 hanging, 3 forward, 2 up); bundle: (dx, dy) of the blade bundle or
-        None (gone); low: rows the upper body sits lower; lean: (head, chest) columns forward; legs: a canvas of legs
-        (default the design's); blades: [(orientation k, x, y)] single blades placed by their middle."""
+    def walk_legs(self, d_near, d_far, lift_near=0, lift_far=0):
+        """The design's legs stepping: each leg's boot moved whole d columns (lifted rows), the leg above it leaning
+        to it from the hip (rigkit.swing_leg: whole rows moved in proportion, nothing redrawn)."""
+        near, far = self.leg_layers()
+        hip, ankle = OY + 27, OY + 35
+        c = np.zeros_like(self.a)
+        for layer, d, lift in ((far, d_far, lift_far), (near, d_near, lift_near)):
+            m = layer[..., 3] > 0
+            K.put(c, K.swing_leg(layer, m, hip, ankle, d, lift=lift), 0, 0)
+        return c
+
+    def pose(self, far=0, bundle=(0, 0), low=0, dx=0, legs=None, blades=(), drop_blades=()):
+        """far: quarter turns of the far arm (0 hanging as drawn, 3 forward to the image right); bundle: (dx, dy) of the
+        blade bundle or None (gone while its blades fly); low: rows the whole upper body sits lower (at most 1, over a
+        wide stance); dx: the whole figure moved; legs: a canvas of legs (default the design's standing legs);
+        blades: [(orientation, x, y)] single blades placed by their middle. The head never moves against the body."""
         up = np.zeros_like(self.a)
         if bundle is not None:
-            K.put(up, self.bundle, bundle[0], bundle[1])
+            K.put(up, self.bundle_without(drop_blades), bundle[0], bundle[1])
         K.put(up, self.torso(), 0, 0)
-        if lean != (0, 0):
-            up = self.lean(up, *lean)
-        self.arm(up, "near", near)
+        self.arm(up, "near", 0)
         self.arm(up, "far", far)
         c = np.zeros_like(self.a)
         K.put(c, self.layer(self.legs_m) if legs is None else legs, 0, 0)
@@ -198,34 +211,16 @@ class Rig:
         c[SOLES + 1:] = 0
         return c
 
-    # ---------------------------------------------------------------------------------------- the run
-    def codex_legs(self, f):
-        """Codex's legs in one of its run frames: from CODEX_HIP_ROW down, right of its hair (the hair squares and its
-        outline consumed from the left of each row until a leg colour), moved so the hips sit under the design's."""
-        L = letters_of(f)
-        m = np.zeros((128, 128), bool)
-        for y in range(CODEX_HIP_ROW, SOLES + 1):
-            xs = np.nonzero(L[y] != ".")[0]
-            if not len(xs):
-                continue
-            x = xs.min()
-            while x < 128 and L[y, x] in HAIR | {"!", "."}:
-                x += 1
-            if x < 128 and x > xs.min() and L[y, x - 1] == "!":
-                x -= 1
-            m[y, x:] = L[y, x:] != "."
-        legs = np.zeros_like(f)
-        legs[m] = f[m]
-        L2 = letters_of(legs)
-        for src, dst in LEG_RECOLOUR.items():
-            legs[L2 == src, :3] = K.rgb(PAL[dst])
-        top = np.nonzero(m[CODEX_HIP_ROW])[0]
-        mid = (top.min() + top.max() + 1) / 2.0 if len(top) else HIP_X
-        return K.shifted(legs, int(round(HIP_X - mid)), 0)
+    def bundle_without(self, names):
+        b = self.bundle.copy()
+        for n in names:
+            b[table_mask(BUNDLE_BLADES[n])] = 0
+        return b
 
-    def run_frame(self, k, bob):
-        f = codex_frames("run")[k]
-        return self.pose(legs=self.codex_legs(f), low=bob)
+    # ---------------------------------------------------------------------------------------- the run
+    def run_frame(self, k):
+        d_near, d_far, l_near, l_far, bob = RUN_STEPS[k]
+        return self.pose(legs=self.walk_legs(d_near, d_far, l_near, l_far), low=bob)
 
     # ---------------------------------------------------------------------------------------- the death
     def kneel(self, n, dx=0, bundle=(0, 0)):
@@ -268,39 +263,32 @@ class Rig:
     # ---------------------------------------------------------------------------------------- the strips
     def build(self, tag):
         P = self.pose
-        fx, fy = FAR_SHOULDER
+        hx, hy = HAND_FWD
+        fly = lambda dx, dy=0: ("r", hx + dx, hy + dy)
         if tag == "idle":
             return [P() for _ in range(8)]
         if tag == "run":
-            return [self.run_frame(k, b) for k, b in enumerate([0, 1, 1, 0, 0, 1, 1, 0])]
+            return [K.shifted(self.run_frame(k), 0, -RUN_STEPS[k][4]) for k in range(8)]
         if tag == "attack":
-            return [P(far=2, lean=(-1, 0)),
-                    P(far=3, lean=(1, 0), blades=[("r", fx + 19, fy + 1)]),
-                    P(far=3, lean=(1, 0), low=1, blades=[("r", fx + 23, fy + 2)]),
-                    P(far=3, lean=(1, 0)),
-                    P()]
+            return [P(), P(far=3), P(far=3, dx=1, blades=[fly(11)]), P(far=3, dx=1, blades=[fly(16)]), P()]
         if tag == "skill":
-            return [P(far=3, low=1, lean=(1, 0)),
-                    P(far=3, low=2, lean=(2, 0), blades=[("r", fx + 20, fy - 1), ("r", fx + 20, fy + 4)]),
-                    P(far=3, low=2, lean=(2, 0), blades=[("r", fx + 24, fy), ("r", fx + 22, fy + 5)]),
-                    P()]
+            wide = self.walk_legs(-2, 2)
+            return [P(far=3), P(far=3, dx=1, legs=wide, blades=[fly(11, -3), fly(13, 3)]),
+                    P(far=3, dx=2, legs=wide, blades=[fly(15, -3), fly(17, 3)]), P()]
         if tag == "skill2":
-            return [P(far=2), P(far=2, low=1, lean=(-1, 0)), P(far=3, lean=(1, 0)), P(far=3), P()]
+            return [P(), P(far=3), P(far=3, dx=1, drop_blades=["right"]), P(far=3, drop_blades=["right"]), P()]
         if tag == "skill2_w":
-            shield = [(0, fx + 13, fy - 3), (0, fx + 16, fy - 1), (0, fx + 19, fy - 3)]
-            return [P(far=2),
-                    P(far=3, low=1, blades=shield),
-                    P(far=3, low=1, blades=shield),
-                    P(far=3, low=2, blades=[(b[0], b[1] - 1, b[2] + 1) for b in shield]),
-                    P(far=3, lean=(1, 0), blades=[("r", fx + 20, fy - 4), ("r", fx + 23, fy + 1), ("r", fx + 20, fy + 6)]),
-                    P()]
+            shield = [(0, hx + 6, hy + 5), (0, hx + 9, hy + 3), (0, hx + 12, hy + 5)]
+            return [P(), P(far=3, blades=shield), P(far=3, blades=shield),
+                    P(far=3, blades=[(b[0], b[1], b[2] - 1) for b in shield]),
+                    P(far=3, dx=1, blades=[fly(12, -5), fly(15, 0), fly(12, 5)]), P()]
         if tag == "ult":
-            return [P(far=2, bundle=(2, -4)), P(far=2, bundle=(3, -8)),
-                    P(far=3, low=2, lean=(1, 0), bundle=None), P(far=3, low=2, lean=(1, 0), bundle=None), P()]
+            return [P(bundle=(1, -3)), P(far=3, bundle=(2, -6)), P(far=3, dx=1, bundle=None),
+                    P(far=3, dx=1, bundle=None), P()]
         if tag == "hit":
-            return [P(dx=-2, lean=(-1, 0)), P(dx=-1)]
+            return [P(dx=-2), P(dx=-1)]
         if tag == "dead":
-            return [P(dx=-1, lean=(-1, 0)), P(dx=-1, low=1, bundle=(-1, 3)), self.kneel(2, dx=-1, bundle=(-2, 6)),
+            return [P(dx=-1), P(dx=-1, bundle=(-1, 3)), self.kneel(2, dx=-1, bundle=(-2, 6)),
                     self.kneel(3, dx=-1, bundle=(-4, 9)), self.lying(), self.lying(), self.lying(), self.lying()]
         raise KeyError(tag)
 
@@ -329,6 +317,10 @@ class Rig:
             g = K.finish(f, self.out, SOLES, keep=keep)
             if tag == "dead":                 # the dropped bundle over the hair leaves the hair's gaps between its blades
                 g = K.fill_pinholes(g, 20, self.out)
+            for h in K.holes(g):              # a slit between the lifted bundle and the hair: ink (between the boots it
+                if len(h) <= 6 and max(y for y, _ in h) < OY + 32:      # stays clear, as in the design)
+                    for y, x in h:
+                        g[y, x] = (*self.out, 255)
             out.append(g)
         return out
 

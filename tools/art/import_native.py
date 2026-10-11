@@ -78,7 +78,7 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # Shen too (fix_shen_strips.breath: the body sinks over his legs - the shared cut shortened his trousers, boots,
 # apron and tail hem); Viego too (rig_viego.idle_frame: the same sink, his coat's flaps and boots never cut); Zeri too
 # (rig_zeri BREATH: the same sink; the shared cut would run through her upright rifle)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri", "irelia"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
