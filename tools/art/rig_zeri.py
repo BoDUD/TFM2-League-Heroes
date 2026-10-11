@@ -17,7 +17,7 @@ tools/art/design_zeri.py) with only what the action moves moved, nothing resampl
   crouches and the landings (lowered(): everything above the hips comes down over them); lifted for E's hop and R's
   spring; leant by moving the head rows and the chest rows whole (lean()).
 - the run (8 frames, league_caitlyn's way): the upper body the idle's with the rifle held level at the hip (as League's
-  Zeri runs), stepping down a row as a foot lands; the legs one leg's eight phases drawn square by square at one
+  Zeri runs), two squares ahead of the hips (leaning into the run), stepping down a row as a foot lands; the legs one leg's eight phases drawn square by square at one
   length in the leggings' colours on the design's own flat boots, the far leg four phases on and three squares
   right so the feet cross every other step (RUN_PHASES); E's lunge and R's hop are strides of it.
 - the death (League's): struck back, sinking to her knees (whole shin rows out, the boots kept), then down on her face:
@@ -105,14 +105,18 @@ RUN_LEG = (4.3, 4.3)            # thigh and shin (hip -> knee -> the boot's cuff
 RUN_CUFF = 5                    # the boot's cuff row with the boot on the ground (squares under the standing point)
 RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the body (and the hips) come down: as a foot lands, up as they pass
 # one leg's eight phases: its ankle (the cuff's middle) in squares from the standing point, and how far it is lifted
-RUN_PHASES = [(+3.0, 0),        # 1 the heel landing ahead of the hip
-              (+1.0, 0),        # 2 planted, the body coming over it
-              (-1.0, 0),        # 3 planted, sliding back under her
-              (-3.5, 1),        # 4 pushing off behind, the heel up
-              (-5.0, 3),        # 5 the heel lifting behind, the knee bent
-              (-4.5, 4),        # 6 the heel up behind (the far boot shows behind the near leg)
-              (+0.5, 3.5),      # 7 swung through, the knee forward, the foot tucked under her
-              (+3.0, 1.5)]      # 8 reaching forward, about to land
+RUN_PHASES = [(+2.0, 0),        # 1 the heel landing ahead of the hip
+              (0.0, 0),         # 2 planted, the body coming over it
+              (-2.0, 0),        # 3 planted, sliding back under her
+              (-4.5, 1),        # 4 pushing off behind, the heel up
+              (-6.0, 3),        # 5 the heel lifting behind, the knee bent
+              (-5.5, 4),        # 6 the heel up behind (the far boot shows behind the near leg)
+              (-0.5, 3.5),      # 7 swung through, the knee forward, the foot tucked under her
+              (+2.0, 1.5)]      # 8 reaching forward, about to land
+# the upper body (with the levelled rifle) two squares ahead of the hips, as one piece: standing straight up over legs
+# that step out in front of her she walked with her hips pushed forward (the user: 「现在泽丽给我的感觉就是挺着腰走路的
+# 这对吗」); moved whole, nothing in it is cut or slanted
+RUN_LEAN = 2
 LEGGINGS = ("#73234B", "#45183A")                    # lit, dark: the design's leggings
 PATCH = ("#F2CC8F", "#AC8157")                       # the near knee's tan patch
 # what stays of the design under the belt in the run (table rows: (first, last) columns): the coat's two panels and
@@ -281,8 +285,10 @@ class Rig:
         c = np.zeros_like(self.a)
         K.put(c, self.run_leg((k + 4) % 8, RUN_FAR, "far", step), 0, 0)      # the far leg first
         K.put(c, self.run_leg(k, 0.0, "near", step), 0, 0)
-        K.put(c, K.shifted(body, 0, step), 0, 0)
-        self.level_arm(c, step)
+        up = np.zeros_like(self.a)
+        K.put(up, K.shifted(body, 0, step), 0, 0)
+        self.level_arm(up, step)
+        K.put(c, K.shifted(up, RUN_LEAN, 0), 0, 0)
         c[SOLES + 1:] = 0
         return c
 
@@ -369,10 +375,15 @@ class Rig:
             # finish leaves the kept head's light edges open (complete_outline skips light squares it may not touch):
             # the outline goes outside them too - only clear squares are filled
             g, _, _ = K.strips.complete_outline(g, color=tuple(self.out), feet=SOLES)
+            legs_y = OY + int(Rw(24))                       # under the belt: between the legs
             for h in K.holes(g):
                 if len(h) <= 6:
+                    # a slit closed between the legs takes the leggings' dark colour (league_sivir's and league_sett's
+                    # runs); elsewhere the outline
+                    col = K.rgb(LEGGINGS[1]) if min(y for y, _ in h) >= legs_y else tuple(self.out)
                     for y, x in h:
-                        g[y, x] = (*self.out, 255)
+                        g[y, x] = (*col, 255)
+            g[K.orphan_outline(g, tuple(self.out))] = 0       # outline squares touching no colour: stray
             out.append(g)
         return out
 
