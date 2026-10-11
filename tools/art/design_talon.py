@@ -17,12 +17,14 @@ to 40 rows came out as black specks and grey mush. What the user kept:
   3. the face WITHOUT eyes (the user: 「这眼睛不对 你要么就别画眼睛了 拿头罩遮住」): under the silver crest a black band
      of hood shadow, below it the lit lower face (cheeks, nose, mouth, chin) - the splash's look.
 Approved 「这个可以下一步吧」: 42 x 32, 22 colours, the outline closed. Strips: keep the face this way (no eyes).
-2026-10-11 「男刀按照之前的遮挡了眼睛 但是面部还是奇怪」「而且这里都挺奇怪的」, and with picture A's head shrunk to 20
-columns: 「泰隆这种感觉做不到？」. The face (rows 5-11, columns 23-27) is redrawn after that small picture A: the crest two
-rows of grey metal with a light ridge (it was three rows of white checkerboard), the hood-shadow band a row higher, the
-face four rows (was three) lit in the middle, dark at the jaw and on the left, a chin, no mouth dot; the hood's dark
-inside on its left (the white lining beside the face read as a bar). The strips' pasted heads were swapped square for
-square (the old face block found in any quarter turn or flip, 22 squares each frame).
+2026-10-11 「男刀按照之前的遮挡了眼睛 但是面部还是奇怪」「而且这里都挺奇怪的」, then with picture A's head shrunk to 20
+columns: 「泰隆这种感觉做不到？」「帽子改大点 然后照着这个轮廓描 不就好了吗」「注意模型不要过大」. The head (rows 0-14) is
+picture A traced at 15 px a square in this palette - the hood a column wider and two rows taller than before (one dome
+row and one crest row fewer than the trace, so the model grows 2 rows), the grey metal crest, the hood-shadow band (no
+eyes, as asked), the face five columns by four rows lit in the middle with a narrowing chin, the grey lining on its left
+- its specks evened and an outline round it; the grid grew two rows on top. Every strip frame got the new head where
+its old face was, in the same quarter turn / flip, and the few slits it closed against the body or blade were filled
+(restyle_native.fill_holes); poses.json's restyle head (rect, cut, joint) points at it.
 """
 import argparse
 import os
