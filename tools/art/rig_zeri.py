@@ -44,7 +44,21 @@ DESIGN = os.path.join(NATIVE, "zeri_native.png")
 HERO = "zeri"
 PIVOT = (64, 88)                 # the design's standing point (the soles on row 99, the feet's middle on column 64)
 SOLES = 99
-OX, OY = 53, 60                  # the 24 x 40 design table on the canvas (design40/zeri40_final.txt)
+import json as _json
+# the design table on the canvas (design40/zeri40_final.txt, its soles on row 99). The constants below are written in
+# the 40-row table's rows; the 37-row design took whole rows out (design40/shrink37.json): Rw() maps them
+_KEPT = _json.load(open(os.path.join(ROOT, "assets", "source", "zeri", "design40", "shrink37.json")))["rows"]
+
+
+def Rw(r):
+    """A 40-row table row (int or float) -> the design's row (a row taken out -> the next one kept)."""
+    base = int(r // 1)
+    frac = r - base
+    nxt = next((k for k, v in enumerate(_KEPT) if v >= base), len(_KEPT) - 1)
+    return nxt + frac
+
+
+OX, OY = 53, 100 - len(_KEPT)
 CELL, CELL_PIVOT = (96, 80), (48, 64)
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_back", "ult", "hit", "dead"]
 MS = {"idle": [125] * 8, "run": [107] * 7 + [106], "attack": [67, 66, 100, 84, 83], "skill": [90, 90, 87, 117, 116],
@@ -53,8 +67,8 @@ MS = {"idle": [125] * 8, "run": [107] * 7 + [106], "attack": [67, 66, 100, 84, 8
 
 
 def T(r, c):
-    """Table square (row, column) -> canvas (x, y)."""
-    return OX + c, OY + r
+    """Table square (row, column, 40-row coordinates) -> canvas (x, y)."""
+    return OX + c, OY + Rw(r)
 
 
 # ------------------------------------------------------------------------------------------------ the parts (table)
@@ -84,7 +98,7 @@ SHIN_ROWS = (30, 32)             # the rows the knees fold away (the death's kne
 # near leg (League's R, nearer the camera) drawn over the far one, the coat's panels over both
 RUN_JOINTS = os.path.join(ROOT, "assets", "source", "zeri", "run_joints.json")
 RUN_HIPS = {"near": OX + 9.0, "far": OX + 13.0}     # the hips' columns under the belt (canvas x)
-RUN_HIP_Y = OY + 23.5                                # their row: the leggings split under the belt
+RUN_HIP_Y = OY + Rw(23.5)                                # their row: the leggings split under the belt
 RUN_LEG = (5.8, 5.2)                                 # thigh and shin lengths (hip -> knee -> the boot's top)
 RUN_PLANT_TOE = 8.5                                  # a League toe this low (game px under its pivot) stands
 RUN_RISE = 0.3       # League's Zeri hops (her hips rise ~12 px at our size): the body follows them at this share
@@ -103,12 +117,14 @@ def table_mask(rows=None, box=None, cells=None):
     m = np.zeros((128, 128), bool)
     if rows:
         for r, (c0, c1) in rows.items():
-            m[OY + r, OX + c0:OX + c1 + 1] = True
+            if r in _KEPT:
+                m[OY + int(Rw(r)), OX + c0:OX + c1 + 1] = True
     if box:
         r0, r1, c0, c1 = box
-        m[OY + r0:OY + r1 + 1, OX + c0:OX + c1 + 1] = True
+        m[OY + int(Rw(r0)):OY + int(Rw(r1)) + 1, OX + c0:OX + c1 + 1] = True
     for r, c in cells or []:
-        m[OY + r, OX + c] = True
+        if r in _KEPT:
+            m[OY + int(Rw(r)), OX + c] = True
     return m
 
 
@@ -123,10 +139,10 @@ class Rig:
         self.arm_m = self.rifle_m | self.forearm_m
         self.head_m = table_mask(box=HEAD_BOX) & op & ~self.rifle_m
         legs = np.zeros((128, 128), bool)
-        legs[OY + LEG_TOP:] = True
+        legs[OY + int(Rw(LEG_TOP)):] = True
         for r, spans in BODY_KEEP.items():
             for c0, c1 in spans:
-                legs[OY + r, OX + c0:OX + c1 + 1] = False
+                legs[OY + int(Rw(r)), OX + c0:OX + c1 + 1] = False
         self.legs_m = legs & op
         self.rifle = K.Part.from_canvas(self.a, self.rifle_m, GRIP)
         self.arm = K.Part.from_canvas(self.a, self.arm_m, ELBOW)
@@ -148,8 +164,11 @@ class Rig:
         cuff's squares (each forearm square (r, c) of the table lands on (c + 2, 38 - r) about ELBOW) recoloured."""
         K.place(c, K.rot90(self.arm, 1), (ELBOW[0], ELBOW[1] + dy))
         sw = {K.rgb(a_): K.rgb(b_) for a_, b_ in LEVEL_RECOLOUR.items()}
+        er, ec = int(Rw(20)), 18                       # the elbow's square (the turn's centre)
         for r, col in FOREARM:
-            y, x = OY + col + 2 + dy, OX + 38 - r
+            if r not in _KEPT:
+                continue
+            y, x = OY + er + (col - ec) + dy, OX + ec + (er - int(Rw(r)))
             got = tuple(int(v) for v in c[y, x, :3])
             if c[y, x, 3] and got in sw:
                 c[y, x, :3] = sw[got]
@@ -167,7 +186,7 @@ class Rig:
 
     def lean(self, upper, dx_head, dx_chest):
         out = np.zeros_like(upper)
-        r_head = OY + HEAD_BOX[1]
+        r_head = OY + int(Rw(HEAD_BOX[1]))
         for y in range(upper.shape[0]):
             dx = dx_head if y <= r_head else (dx_chest if OY + 17 <= y <= OY + 22 else 0)
             out[y] = np.roll(upper[y], dx, 0) if dx else upper[y]
@@ -192,10 +211,10 @@ class Rig:
             return self._run
         op = self.a[..., 3] > 0
         low = np.zeros((128, 128), bool)
-        low[OY + 25:] = True
+        low[OY + int(Rw(25)):] = True
         for r, spans in RUN_KEEP.items():
             for c0, c1 in spans:
-                low[OY + r, OX + c0:OX + c1 + 1] = False
+                low[OY + int(Rw(r)), OX + c0:OX + c1 + 1] = False
         body = self.layer(op & ~low & ~self.arm_m)      # the arm unit goes on level (League's run holds the rifle forward)
         boots = {}
         for leg, (r0, r1, c0, c1) in RUN_BOOTS.items():
@@ -255,7 +274,7 @@ class Rig:
     # ---------------------------------------------------------------------------------------- the death
     def kneel(self, n, dx=0):
         legs = self.layer(self.legs_m)
-        r_hi = OY + SHIN_ROWS[1]
+        r_hi = OY + int(Rw(SHIN_ROWS[1]))
         cut0 = r_hi - n + 1
         upper_legs = legs.copy()
         upper_legs[cut0:] = 0

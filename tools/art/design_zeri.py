@@ -20,7 +20,9 @@ block-voted at 40 rows (each square its commonest non-black colour, outline only
 kept at the picture's own size and every detail kept, then finished square by square (design40/zeri40_v5.txt; the user:
 「眼睛嘴巴做的不太像泽丽 其他都挺好的」). Codex redrew the face box alone (rows 8-15 x columns 7-14, pack
 tools/art/pack_zeri_face.py, delivery codex_face/); the user picked take C 「深绿瞳+收敛嘴」 -> design40/zeri40_final.txt,
-which --final now writes (palette design40/palette.json, the 24 x 40 table at x 53 / y 60: soles on row 99).
+which --final now writes (palette design40/palette.json, the table at x 53, its soles on row 99). Smaller (the user:
+「整体模型缩小一点吧 在游戏里太大了」, pick 37 rows): whole rows 6, 19 and 21 of the 40-row table (zeri40_v40.txt) taken out
+(design40/shrink37.json; the face, the rifle, the legs and the boots untouched; the brows gone: 「眼睛上这两块看着好怪」).
 Then 「眼睛没有泽丽的特色」「模型整体还是太糊」: Codex's on-grid redraw (codex_grid/, pack_zeri_grid.py) came back as a
 shrink of its own drawing again; the user took my clean pass of the same table instead (the old face kept as
 design40/zeri40_faceC.txt): League's Zeri face - thick dark-brown brows (q), a black lash only over each eye, an
@@ -432,13 +434,14 @@ def main():
         import json
         d40 = os.path.join(ROOT, "assets", "source", "zeri", "design40")
         pal = json.load(open(os.path.join(d40, "palette.json")))
-        rows = open(os.path.join(d40, "zeri40_final.txt")).read().splitlines()[:40]
+        rows = [r for r in open(os.path.join(d40, "zeri40_final.txt")).read().splitlines() if r]
+        oy = 100 - len(rows)                 # the soles on row 99; the table's column 11 (the feet's middle) on 64
         can = np.zeros((128, 128, 4), np.uint8)
         for y, r in enumerate(rows):
             for x, ch in enumerate(r):
                 if ch in pal:
-                    can[60 + y, 53 + x, :3] = R.hx(pal[ch])
-                    can[60 + y, 53 + x, 3] = 255
+                    can[oy + y, 53 + x, :3] = R.hx(pal[ch])
+                    can[oy + y, 53 + x, 3] = 255
         bb = Image.fromarray(can).getbbox()
         cols = len({tuple(c) for c in can[can[..., 3] > 0][:, :3]})
         msg = f"{bb[2] - bb[0]} x {bb[3] - bb[1]} box {bb}, {cols} colours"
