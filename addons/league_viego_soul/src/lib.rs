@@ -211,6 +211,8 @@ pub struct Possess {
     pub started: bool,
     /// No new dash onto a soul before this tick (the last one's length).
     pub dash_until: usize,
+    /// What the sim showed of the possession's data side (p_go taken, shape on), for the log: 0.1.6.
+    pub seen: (bool, bool),
 }
 
 impl Possess {
@@ -286,6 +288,7 @@ impl Possess {
             view::note_possess(m, s, me, sim.tick(), &soul.name);
         }
         self.on = Some(Possession { name: soul.name, cat: soul.cat, until: sim.tick() + p.p_t as usize });
+        self.seen = (false, false);
     }
 }
 
@@ -367,6 +370,20 @@ impl StablePassive for Possess {
             self.souls.push(s);
         }
         self.souls.retain(|s| s.until > now);
+        // the data side of a possession, logged once each: the next action takes p_go and adds the shape buff (the
+        // screen draws the body swap from that buff) - 「还是不能变身」: is it the sim or the screen that misses?
+        if self.on.is_some() {
+            let names = buff_names(sim, me);
+            let (go, shape) = (names.iter().any(|b| b == GO), names.iter().any(|b| b == "league_viego_shape"));
+            if !go && !self.seen.0 {
+                self.seen.0 = true;
+                wlog(format!("{} p_go taken by his action (shape buff {})", head(sim, me), if shape { "on" } else { "not yet" }));
+            }
+            if shape && !self.seen.1 {
+                self.seen.1 = true;
+                wlog(format!("{} shape buff on in the sim", head(sim, me)));
+            }
+        }
         // 附身中：时间到 / 数据的大招拿掉了 p_on
         if let Some(on) = &self.on {
             if now >= on.until {

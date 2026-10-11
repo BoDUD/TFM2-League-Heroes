@@ -107,7 +107,7 @@ struct Stats {
 }
 
 /// Lines listing a Viego's display buffs when they change (the check that the look buff reaches the display world).
-const BUFF_LINES: usize = 60;
+const BUFF_LINES: usize = 400;
 
 /// The data's possession buff on his display entity (the add-on copy adds it with the possession's pictures).
 const SHAPE: &[u8] = b"league_viego_shape";
