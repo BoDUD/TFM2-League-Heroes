@@ -42,16 +42,21 @@ import tfm2_ase  # noqa: E402
 from regrid import regrid  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "nautilus", "codex_model")
-RAW = os.path.join(SRC, "raw", "A_simple.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "nautilus_native.png")
 K = 24
-HELMET, SOLES = 21, 82              # on the 67 x 83 read-back: the hood's top, the soles
-FACE_ROWS = range(37, 43)           # the viewing slit with the two red eyes and the jaw guard's top
-FACE_COLS = range(32, 47)           # the slit from end to end
-HOLES = ((27, 28), (30, 31), (33, 34))  # the helmet's three vent holes: 2x2 squares in columns HOLE_COLS
-HOLE_COLS = (38, 39)
-HOLE_BOX = (27, 35, 37, 40)          # rows / columns (inclusive) holding the holes' dark squares
-OPTIONS = ("p35", "s35", "s38", "s32")
+# the two raw drafts, on their own read-back grids (row, column; ranges inclusive of start, exclusive of stop)
+DRAFTS = {
+    # raw/A_simple.png (10 px squares, 67 x 83): options p<N> / s<N>
+    "simple": dict(raw="A_simple.png", shape=(83, 67), helmet=21, soles=82,
+                   face_rows=range(37, 43), face_cols=range(32, 47),        # the slit with the eyes, the jaw guard's top
+                   holes=((27, 28), (30, 31), (33, 34)), hole_cols=(38, 39), hole_box=(27, 35, 37, 40)),
+    # raw/A_first.png (11 px squares, 71 x 78), Codex's first draft: the helmet narrower than the shoulders, the chest
+    # plates showing - the user, pointing at it: 「头适当的小一点 学这张图」. Options f<N> (in proportion)
+    "first": dict(raw="A_first.png", shape=(78, 71), helmet=22, soles=77,
+                  face_rows=range(39, 43), face_cols=range(38, 50),
+                  holes=((29, 29), (31, 32), (34, 35)), hole_cols=(43, 44), hole_box=(29, 36, 42, 45)),
+}
+OPTIONS = ("p35", "f35", "f33", "f31")
 
 TOP = {32: 6, 35: 7, 38: 8}         # s<N>: rows kept above the helmet (the anchor's crown and flukes)
 SOLE_ROW, MID_COL, FEET_ROWS = 99, 64, 3
@@ -64,8 +69,8 @@ def lp(path):
     return pre + path if os.name == "nt" and not path.startswith(pre) else path
 
 
-def read_back():
-    raw, _, _ = regrid(np.asarray(Image.open(lp(RAW)).convert("RGBA")))
+def read_back(draft="simple"):
+    raw, _, _ = regrid(np.asarray(Image.open(lp(os.path.join(SRC, "raw", DRAFTS[draft]["raw"]))).convert("RGBA")))
     ys, xs = np.nonzero(raw[..., 3] >= 128)
     raw = raw[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy()
     raw[..., 3] = np.where(raw[..., 3] >= 128, 255, 0)
@@ -82,15 +87,16 @@ def least(lines, n_out):
     return best[0]
 
 
-def holes(small, rows, cols, idx, pal):
+def holes(small, rows, cols, idx, pal, d):
     """The three vent holes stay three dots: deleted rows between them merged two or three into one dark bar (a "B"
     on the helmet). The holes' squares that survived (every square in HOLE_BOX darker than 150 summed RGB: the draft's
     holes hold three of the K near-blacks) go back to the bronze beside them, then each hole is one dark square on the
     first kept hole column, a bronze row between them."""
+    HOLES, HOLE_COLS = d["holes"], d["hole_cols"]
     dark = idx[HOLES[0][0], HOLE_COLS[0]]
     col = next(cols.index(c) for c in HOLE_COLS if c in cols)
     bronze = idx[HOLES[0][0], HOLE_COLS[0] - 1]
-    y0, y1, x0, x1 = HOLE_BOX
+    y0, y1, x0, x1 = d["hole_box"]
     for i, r in enumerate(rows):
         for j, c in enumerate(cols):
             if y0 <= r <= y1 and x0 <= c <= x1 and small[i, j] >= 0 and pal[small[i, j]].sum() < 150:
@@ -104,8 +110,11 @@ def holes(small, rows, cols, idx, pal):
 
 def build(option):
     kind, n = option[0], int(option[1:])
-    raw = read_back()
-    assert raw.shape[:2] == (83, 67), raw.shape
+    d = DRAFTS["first" if kind == "f" else "simple"]
+    kind = "p" if kind == "f" else kind
+    HELMET, SOLES, FACE_ROWS, FACE_COLS = d["helmet"], d["soles"], d["face_rows"], d["face_cols"]
+    raw = read_back("first" if option[0] == "f" else "simple")
+    assert raw.shape[:2] == d["shape"], raw.shape
     idx, pal = dv.kmeans(raw, K)
     H, W = idx.shape
     body = SOLES - HELMET + 1
@@ -119,7 +128,7 @@ def build(option):
     sub = idx[rows]
     cols = R.keep_axis([sub[:, x] for x in range(W)], round(W * n / body), FACE_COLS)
     small = idx[np.ix_(rows, cols)]
-    holes(small, rows, cols, idx, pal)
+    holes(small, rows, cols, idx, pal, d)
     fig = np.zeros(small.shape + (4,), np.uint8)
     m = small >= 0
     fig[m, :3] = pal[small[m]]
