@@ -18,12 +18,16 @@ whole); what is fixed here:
   4. dead 2-8: Codex drew another anchor (a ring on top, a thin stock, small flukes) standing beside him; it goes
      (every square left of a per-row boundary, B) and the anchor he carries everywhere else (attack 5's, cut above the
      fist) stands on its crown in its place, behind him, the outline closed (rigkit.finish).
+  5. the anchor carried on his back: the shank's last stretch, hidden behind the helmet and the shoulder plate (「武器没拿在
+     手里 看起来像是插在脑袋里了？」), drawn on into the near fist (GRIP), frames whose shank misses the fist mended from
+     one that holds it (GRIP_FROM).
 The idle is side-on too (the user: 「待机图也改成侧面的吧 不然太奇怪了」, after the front-on design idle beside the side-on
 actions): W+E's first frame, breathing (the body above the hip band sinks a row over the legs). Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
 python tools/art/import_native.py --hero nautilus.
 """
 import argparse
 import json
+import math
 import os
 import sys
 
@@ -103,6 +107,35 @@ def red_specks(f):
             f[y, x, :3] = L["k"]
 
 
+def grip(f, B, F, t0=0.4, half=1.0):
+    """5: the shank from the band B on to the fist's top F over the body, then the fist (its grey piece and the squares
+    round it) back on top."""
+    out = f.copy()
+    (by, bx), (fy, fx) = B, F
+    ln = math.hypot(fy - by, fx - bx)
+    uy, ux = (fy - by) / ln, (fx - bx) / ln
+    grey = is_(f, "n") | is_(f, "s") | is_(f, "v")
+    lab, _ = ndimage.label(grey)
+    fid = lab[int(round(fy)) + 2, int(round(fx))]
+    fist = (lab == fid) if fid else np.zeros_like(grey)
+    ring = ndimage.binary_dilation(fist, np.ones((3, 3))) & ~fist & (f[..., 3] > 0)
+    red = is_(f, "l") | is_(f, "m")
+    for y in range(int(min(by, fy)) - 3, int(max(by, fy)) + 4):
+        for x in range(int(min(bx, fx)) - 4, int(max(bx, fx)) + 5):
+            py, px = y + 0.5 - by, x + 0.5 - bx
+            t = (py * uy + px * ux) / ln
+            if t < t0 or t > 1.0 or (red[y, x] and t < 0.5):
+                continue
+            d = py * ux - px * uy
+            if abs(d) <= half:
+                out[y, x] = (*L["n" if d > 0.3 else "f"], 255)
+            elif abs(d) <= half + 1.0:
+                out[y, x] = (*L["0"], 255)
+    out[fist] = f[fist]
+    out[ring] = f[ring]
+    return out
+
+
 def bounds(spec):
     return {r: c for r0, r1, c in spec for r in range(r0, r1 + 1)}
 
@@ -120,6 +153,20 @@ DEAD_B[8] = DEAD_B[7]
 DEAD_LEFT = {2: 23, 3: 34, 4: 28, 5: 49, 6: 47, 7: 42, 8: 42}   # the new anchor's left column (its crown on the soles)
 ANCHOR_BOX = (40, 58, 28, 60)                                   # attack 5: rows, columns of the anchor above the fist
 # 3: ult frames taken from other strips (ult frame <- (tag, frame)), 1-based
+# 5: the anchor on his back looked stuck in his helmet (the user: 「武器没拿在手里 看起来像是插在脑袋里了？」): Codex's shank
+# points at the near fist but its last stretch hid behind the helmet and the shoulder plate. Drawn on over them - from the
+# red band B on to the fist's top F (rows, columns), the shank's dark core, a grey edge, the outline - and the fist put
+# back over it: he holds the anchor over his shoulder, League's carry. Frames where the shank does not point at the
+# fist take a mended frame instead (GRIP_FROM).
+GRIP = {("run", 1): ((59, 51), (78, 57.1)), ("run", 2): ((58.5, 50.5), (77, 55.8)), ("run", 3): ((58, 51), (78, 55.5)),
+        ("run", 4): ((59.2, 52.5), (77, 58.0)), ("run", 5): ((60.5, 52.5), (79, 58.4)),
+        ("run", 6): ((58.9, 54.7), (77, 58.2)), ("run", 7): ((59.5, 49.5), (76, 55.1)),
+        ("run", 8): ((56.5, 53.5), (75, 58.2)), ("skill2", 1): ((63, 52), (80, 58.9)),
+        ("skill2", 5): ((63, 52), (80, 60.4)), ("skill2", 6): ((60, 50), (80, 58.6)),
+        ("hit", 2): ((56, 49.3), (78, 58.6)), ("ult", 8): ((62.1, 54.3), (76, 61.2))}
+# (tag, frame) <- the mended W+E stance (the idle's), or the mended hit 2 a column back
+GRIP_FROM = {("attack", 1): ("skill2", 1, 0), ("attack", 6): ("skill2", 1, 0), ("skill_pull", 4): ("skill2", 1, 0),
+             ("ult", 1): ("skill2", 1, 0), ("hit", 1): ("hit", 2, -1)}
 IDLE_BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
 IDLE_CUT = 86                                                   # the last row that sinks (the hip band's)
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
@@ -145,6 +192,13 @@ def build():
     piece[r0:r1, c0:c1] = f5[r0:r1, c0:c1]
     ys, xs = np.nonzero(piece[..., 3] > 0)
     anchor = piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1][::-1].copy()     # on its crown
+    for (tag, k), (B, F) in GRIP.items():
+        sl = cell(k - 1, n[tag], cw, ch)
+        strips[tag][sl] = grip(strips[tag][sl], B, F)
+    for (tag, k), (src, j, dx) in GRIP_FROM.items():
+        piece = strips[src][cell(j - 1, n[src], cw, ch)]
+        strips[tag][cell(k - 1, n[tag], cw, ch)] = K.shifted(piece, dx, 0)
+        cells["tags"][tag][k - 1]["pivot"] = list(cells["tags"][src][j - 1]["pivot"])
     dead = strips["dead"]
     for k in range(2, 9):
         sl = cell(k - 1, n["dead"], cw, ch)
