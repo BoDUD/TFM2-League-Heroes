@@ -21,6 +21,12 @@ kept at the picture's own size and every detail kept, then finished square by sq
 「眼睛嘴巴做的不太像泽丽 其他都挺好的」). Codex redrew the face box alone (rows 8-15 x columns 7-14, pack
 tools/art/pack_zeri_face.py, delivery codex_face/); the user picked take C 「深绿瞳+收敛嘴」 -> design40/zeri40_final.txt,
 which --final now writes (palette design40/palette.json, the 24 x 40 table at x 53 / y 60: soles on row 99).
+Then 「眼睛没有泽丽的特色」「模型整体还是太糊」: Codex's on-grid redraw (codex_grid/, pack_zeri_grid.py) came back as a
+shrink of its own drawing again; the user took my clean pass of the same table instead (the old face kept as
+design40/zeri40_faceC.txt): League's Zeri face - thick dark-brown brows (q), a black lash only over each eye, an
+olive-over-yellow-green iris (G / Y, eyes only), coral lips (z) - every material shaded from the upper left, ~30
+lone squares merged, then 「眼睛附近黑边太重了」「多余的色素太多了」「这个腿也是歪的」: no black beside the eyes (skin /
+the hair's dark lime), the image-right leg straight on columns 15-16 under the hip; 「可以了」.
 """
 import argparse
 import os
