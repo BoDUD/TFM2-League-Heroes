@@ -20,11 +20,18 @@ How it came about (2026-10-11):
     the far sleeve and the boots shaded, the outline closed; v3 (「背后的刀刃目前看起来太模糊」「两个手臂也是歪的 手指也没画」
     「右腿是歪的」): crisp crescent blades, straight arms and legs, fingers, star knee guards, no mouth;
   * the eyes (「眼睛还是太怪」, then the user: 「整个身体按照现在让codex精修一版可以让你描的吧」): Codex redrew the whole sprite
-    on the 26-px grid (tools/art/pack_irelia_grid.py, codex_grid/); its own 1x copies were specks again, and its raw
-    drafts at ~2x reduce to this very layout, so the gain is the face, traced square by square from take B
-    (codex_grid/raw/irelia-grid-B.png): brows slanting down to the nose, a black liner over one row of cyan iris with the
-    white in the outer corners, no mouth, the chin's shade lightened so it never reads as one.
-    42 rows from the blade tips to the soles, 22 wide, 20 colours.
+    on the 26-px grid (tools/art/pack_irelia_grid.py, codex_grid/); its own 1x copies were specks again, its raw drafts
+    drawn at ~15 px squares (take B: 86 x 44 read back, blade tips to soles);
+  * the whole sprite traced from take B (the user on the old body: 「身体还是一塌糊涂吧 细节太差了 各种模型变形」): every
+    game square decided by hand from the 2 x 2 read-back squares under it (read-back row 2r+2, column 2c - the phase with
+    the fewest split squares), no vote and no average: take B's proportions (head, arms angled out, the long hair down to
+    the knees, short navy legs, big boots), the three crescent blades each a red body with a white edge and its own
+    outline, the silver blade and the lower blade with its 2x2 cyan gem, the breastplate's red heart and collar gem, the
+    tabard (white edge, red, dark red) with an ink line off the near hip's red-and-white plates, straight arms with a
+    white band, red guard and white wrist, hands with two finger tips, star knee guards, boots with white ankle bands and
+    toe caps; the face six squares wide: brows slanting down to the nose, a black liner over one row of cyan iris with
+    the white in the outer corners, no mouth; take B's own royal blues for the hair and the leggings (palette.json
+    N n m h H). 42 rows from the blade tips to the soles, 22 wide, 20 colours.
 The side-on view for the actions is still to come (step 2's pack).
 """
 import argparse
