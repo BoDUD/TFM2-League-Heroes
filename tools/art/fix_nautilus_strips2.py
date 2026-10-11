@@ -25,8 +25,8 @@ whole); what is fixed here:
      straight leg and the other one lifted behind it), then the same with the other leg near (the far leg one step
      darker, on whole patches).
   7. the run's body is frame 1's in every frame, its belt on each frame's own belt: Codex's redrawn bodies shook.
-  8. the idle (side-on too, the user: 「待机图也改成侧面的吧 不然太奇怪了」) stands upright like oppi's Nautilus: the run's
-     body and hip (its size) on frame 4's straight leg and a darker copy of it behind, standing still.
+  8. the idle (side-on too, the user: 「待机图也改成侧面的吧 不然太奇怪了」) stands upright on straight legs (frame 4's
+     leg stood straight, a darker copy behind) with the anchor slung on his back as League's idle carries it, still.
   9. the carried anchor is Codex's own straight one, attack 4's turned crown up (「钩子画的过大了 适当缩小」
      「武器给我画直了啊」).
 Writes assets/source/native/nautilus_<tag>.png (8x) and nautilus_cells.json; then
@@ -495,6 +495,13 @@ IDLE_FEET = 7
 # column, the boot under it), twice - the near one as drawn, the far one a step darker STAND_BACK columns behind - both
 # feet flat, not astride.
 STAND_BACK = -5
+# 「泰坦待机动作你先去对比英雄联盟什么样 然后改 现在还很奇怪」: League's idle (Nautilus_idle1, side on) carries the anchor
+# slung on his back - the crown up and behind the head, the flukes hanging by the shoulder, the shank down behind the
+# helmet - not held up straight over his head like a sign. The idle's anchor is attack frame 5's (Codex's, crown up
+# and back as League's): rows/columns IDLE_ANCHOR (the crown and the whole shank, not the arm), moved IDLE_ANCHOR_AT
+# (columns, rows), behind him; his near fist stays where it held the shank.
+IDLE_ANCHOR = (40, 64, 28, 57)
+IDLE_ANCHOR_AT = (8, 10)
 BOOT_ROW = 95                                                   # the straight leg's boot, on the ground row 99
 ULT_FROM = {3: ("skill", 3), 5: ("attack", 4), 6: ("attack", 4), 7: ("attack", 5)}
 
@@ -520,6 +527,7 @@ def build():
     ys, xs = np.nonzero(piece[..., 3] > 0)
     anchor = piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1][::-1].copy()     # on its crown
     unit = straight_anchor(strips["attack"][cell(3, n["attack"], cw, ch)])
+    raw_run1 = strips["run"][cell(0, n["run"], cw, ch)].copy()     # for the idle (its anchor goes on his back)
     for (tag, k), (B, F) in CARRY.items():
         sl = cell(k - 1, n[tag], cw, ch)
         strips[tag][sl] = carry(strips[tag][sl], B, F, unit, OLD_SHANK.get((tag, k)))
@@ -586,7 +594,20 @@ def build():
     K.put(stand, toned(on_ground(far, STAND_BACK), solid_of(on_ground(far, STAND_BACK))), 0, 0)
     K.put(stand, on_ground(near, 0), 0, 0)
     K.put(stand, hip, 0, 0)
-    K.put(stand, top, 0, 0)
+    # his body with the near fist only (carry() with the unit's fist), the anchor slung on his back as League's idle
+    # has it: attack 5's anchor (crown up and back, the shank down behind the helmet), behind everything
+    fist = unit.s.copy()
+    fist[:FIST_AT] = 0
+    B, F = CARRY[("run", 1)]
+    bare = carry(raw_run1, B, F, K.Part(fist, unit.j))
+    idle_top = bare.copy()
+    idle_top[BELT[0] + 1:] = 0
+    K.put(idle_top, lower(bare, BELT[0])[1], 0, 0)
+    K.put(stand, idle_top, 0, 0)
+    r0, r1, c0, c1 = IDLE_ANCHOR
+    slung = np.zeros_like(stand)
+    slung[r0:r1, c0:c1] = strips["attack"][cell(4, n["attack"], cw, ch)][r0:r1, c0:c1]
+    K.put(stand, K.shifted(slung, *IDLE_ANCHOR_AT), 0, 0, under=True)
     stand = tidy(stand)
     cells["tags"]["idle"] = [{"pivot": list(pivs[0]), "ms": m} for m in RN.MS["idle"]]
     cols, rows = K.layout(len(RN.MS["idle"]))
