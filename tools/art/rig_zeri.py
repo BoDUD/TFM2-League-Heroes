@@ -18,7 +18,7 @@ tools/art/design_zeri.py) with only what the action moves moved, nothing resampl
   spring; leant by moving the head rows and the chest rows whole (lean()).
 - the run (8 frames, league_caitlyn's way): the upper body the idle's with the rifle held level at the hip (as League's
   Zeri runs), two squares ahead of the hips (leaning into the run), stepping down a row as a foot lands; the legs one leg's eight phases drawn square by square at one
-  length in the leggings' colours on the design's own flat boots, the far leg four phases on and three squares
+  length in the leggings' colours on the design's own flat boots, the far leg four phases on and five squares
   right so the feet cross every other step (RUN_PHASES); E's lunge and R's hop are strides of it.
 - the death (League's): struck back, sinking to her knees (whole shin rows out, the boots kept), then down on her face:
   the figure without the rifle a quarter turn clockwise (League falls forward), the rifle lying level by her.
@@ -99,8 +99,10 @@ SHIN_ROWS = (30, 32)             # the rows the knees fold away (the death's kne
 # cross every other step; the legs stay on the ground and the body steps down a row as a foot lands (RUN_STEP), the
 # hips with it; the far leg drawn first with its outline ring, the near one over it, the body (the coat's panels) over
 # both
-RUN_HIP = (-1.0, -3.0)          # the near hip, squares from the standing point (under the belt, between the panels)
-RUN_FAR = 3.0                   # the far leg: the near leg's drawing this many squares right
+RUN_HIP = (1.0, -3.0)           # the near hip, squares from the standing point: under the belt, the shorts' left side
+# (the hips move with the waist RUN_LEAN brings forward - left where they were, the legs hung from the back half of
+# the waist and a stretch of it stood empty: 「泽丽的腰部是不是过宽啊 所以走路没铺满 腿没对上腰部 空出一大截」)
+RUN_FAR = 5.0                   # the far leg: the near leg's drawing this many squares right (the shorts' right side)
 RUN_LEG = (4.3, 4.3)            # thigh and shin (hip -> knee -> the boot's cuff), the same in every frame
 RUN_CUFF = 5                    # the boot's cuff row with the boot on the ground (squares under the standing point)
 RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the body (and the hips) come down: as a foot lands, up as they pass
