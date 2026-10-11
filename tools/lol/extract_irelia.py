@@ -10,7 +10,7 @@ zh_CN (Tencent client) by default.
 
 Her events are Play_sfx_Irelia_Irelia<spell>_<event> (found by scanning her wad for Play_ strings). Basic attack
 IreliaBasicAttack_OnCast / _OnHit; Ionian Fervor full IreliaP_Max_OnBuffActivate; Bladesurge IreliaQ_OnCast, IreliaQ_hit
-(the reset plays the same pool: another variant); Defiant Dance IreliaW_OnCast (the charge), IreliaWDefence_block_self,
+(the reset plays the same pool: another variant); Defiant Dance IreliaW_OnCast (the charge),
 IreliaW2_OnCast (the slash), IreliaW2_hit; Flawless Duet IreliaEMissile_OnMissileCast (a blade thrown),
 IreliaE_missile_stop (it lands), IreliaESecondary_hit (the stun line); Vanguard's Edge IreliaR_OnCast,
 IreliaR_onmissilelaunch, IreliaR_OnHit_champ (the burst), IreliaR2_hit (the wall cuts). Voice clips are
@@ -45,7 +45,6 @@ CLIPS = {
     "league_irelia_sfx_q_hit": (P + "Q_hit", 481404348, 0.6, -10),
     "league_irelia_sfx_q_reset": (P + "Q_Hit_reset", 919110971, 0.6, -9),
     "league_irelia_sfx_w_cast": (P + "W_OnCast", 228710834, 1.6, -11),
-    "league_irelia_sfx_w_block": (P + "WDefence_block_self", 738454969, 0.7, -12),
     "league_irelia_sfx_w_slash": (P + "W2_OnCast", 311921195, 0.9, -9),
     "league_irelia_sfx_w_hit": (P + "W2_hit", 1014456617, 0.8, -10),
     "league_irelia_sfx_e_cast": (P + "EMissile_OnMissileCast", 890463546, 0.7, -10),
