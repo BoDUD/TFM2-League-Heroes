@@ -1,0 +1,102 @@
+{
+  "A": {
+    "checks": {
+      "canvas_1x_128": true,
+      "canvas_8x_1024": true,
+      "exact_8x_blocks": true,
+      "hard_alpha_0_255": true,
+      "max_32_colors": true,
+      "nothing_below_sole": true,
+      "sole_row_99": true,
+      "width_limit": true,
+      "inside_purple_guides": true,
+      "anchor_limit": true,
+      "body_preserved": true,
+      "layer_composition": true,
+      "three_vents": true,
+      "two_eye_highlights": true
+    },
+    "opaque_colors": 23,
+    "bbox": [
+      44,
+      58,
+      81,
+      100
+    ],
+    "vent_xy": [
+      [
+        62,
+        66
+      ],
+      [
+        62,
+        68
+      ],
+      [
+        62,
+        70
+      ]
+    ],
+    "eye_highlight_xy": [
+      [
+        59,
+        73
+      ],
+      [
+        66,
+        73
+      ]
+    ],
+    "sha256": "e98630c82fb37350dd8e0944f231b022ca8b523817dafe34b047694cf04a2747"
+  },
+  "B": {
+    "checks": {
+      "canvas_1x_128": true,
+      "canvas_8x_1024": true,
+      "exact_8x_blocks": true,
+      "hard_alpha_0_255": true,
+      "max_32_colors": true,
+      "nothing_below_sole": true,
+      "sole_row_99": true,
+      "width_limit": true,
+      "inside_purple_guides": true,
+      "anchor_limit": true,
+      "body_preserved": true,
+      "layer_composition": true,
+      "three_vents": true,
+      "two_eye_highlights": true
+    },
+    "opaque_colors": 23,
+    "bbox": [
+      45,
+      62,
+      80,
+      100
+    ],
+    "vent_xy": [
+      [
+        62,
+        66
+      ],
+      [
+        62,
+        68
+      ],
+      [
+        62,
+        70
+      ]
+    ],
+    "eye_highlight_xy": [
+      [
+        59,
+        73
+      ],
+      [
+        66,
+        73
+      ]
+    ],
+    "sha256": "d9b068c40e05ece61af03c2410b6f3267a045b6d08ce72ff3827a9292ee45762"
+  }
+}

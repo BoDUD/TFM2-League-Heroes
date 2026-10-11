@@ -623,6 +623,13 @@
         "skill": "发射电脉冲，对第一个敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>并<#ef5350ff>减速35%<>。先打中小兵或野怪时，从那里化为长激光，伤害并减速身后所有敌人。",
         "skill2": "短距冲刺（被贴身时后撤），之后<#ffb900ff>5秒<>普攻贯穿：后面的敌人受到80%伤害，并额外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>。命中英雄缩短冷却。",
         "ult": "电新星对周围敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>，超载<#ffb900ff>5秒<>：攻速+30%、移速+20%，命中英雄叠加移速并延长；普攻变为三连发，在敌人间连锁闪电。"
+      },
+      "league_nautilus": {
+        "name": "诺提勒斯",
+        "attack": "<#ff9028ff>排山倒海<>：普攻敌方英雄时将其<#ef5350ff>禁锢0.83秒<>，并额外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>，之后<#ffb900ff>6秒<>内不再触发。",
+        "skill": "抛出铁锚，钩中第一个敌方英雄，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，并把双方拉向彼此。",
+        "skill2": "<#ff9028ff>泰坦之怒<>：获得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>60%<><#9fd8ffff>护盾<>，<#ffb900ff>6秒<>内普攻还会伤及目标周围的敌人<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。<#ff9028ff>暗流涌动<>：地面震荡三波，周围敌人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>1.25秒<>。",
+        "ult": "对射程内一名敌方英雄发出深海冲击波：沿途敌人被<#ef5350ff>击飞<>并受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>伤害；目标受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，<#ef5350ff>击飞1秒后眩晕0.75秒<>。"
       }
     },
     "skill_name": {
@@ -1070,6 +1077,11 @@
         "skill1": "强穿激光",
         "skill2": "灿丽花火",
         "ult": "超限爆闪"
+      },
+      "league_nautilus": {
+        "skill1": "疏通航道",
+        "skill2": "泰坦之怒",
+        "ult": "深海冲击"
       }
     }
   },
@@ -1697,6 +1709,13 @@
         "skill": "發射電脈衝，對第一個敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>並<#ef5350ff>緩速35%<>。先打中小兵或野怪時，從那裡化為長雷射，傷害並緩速身後所有敵人。",
         "skill2": "短距衝刺（被貼身時後撤），之後<#ffb900ff>5秒<>普攻貫穿：後面的敵人受到80%傷害，並額外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>。命中英雄縮短冷卻。",
         "ult": "電新星對周圍敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>，超載<#ffb900ff>5秒<>：攻速+30%、移速+20%，命中英雄疊加移速並延長；普攻變為三連發，在敵人間連鎖閃電。"
+      },
+      "league_nautilus": {
+        "name": "納帝魯斯",
+        "attack": "<#ff9028ff>沉重打擊<>：普攻敵方英雄時將其<#ef5350ff>定身0.83秒<>，並額外造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>，之後<#ffb900ff>6秒<>內不再觸發。",
+        "skill": "拋出鐵錨，鉤中第一個敵方英雄，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，並把雙方拉向彼此。",
+        "skill2": "<#ff9028ff>巨人之怒<>：獲得<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>60%<><#9fd8ffff>護盾<>，<#ffb900ff>6秒<>內普攻還會傷及目標周圍的敵人<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。<#ff9028ff>鋼鐵怒濤<>：地面震盪三波，周圍敵人受到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>1.25秒<>。",
+        "ult": "對射程內一名敵方英雄發出衝擊波：沿途敵人被<#ef5350ff>擊飛<>並受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>傷害；目標受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，<#ef5350ff>擊飛1秒後暈眩0.75秒<>。"
       }
     },
     "skill_name": {
@@ -2144,6 +2163,11 @@
         "skill1": "超激爆電磁炮",
         "skill2": "電光石火",
         "ult": "雷霆萬鈞"
+      },
+      "league_nautilus": {
+        "skill1": "深淵鐵錨",
+        "skill2": "巨人之怒",
+        "ult": "潛航衝擊"
       }
     }
   },
@@ -2771,6 +2795,13 @@
         "skill": "Fires an electric pulse dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> to the first enemy hit, <#ef5350ff>slowing 35%<>. If a minion or monster stops it, it bursts into a long laser that hits and slows every enemy behind.",
         "skill2": "Dashes a short way (back when an enemy is close), then for <#ffb900ff>5s<> Burst Fire pierces: enemies after the first take 80% damage and <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>. Champion hits lower the cooldowns.",
         "ult": "A nova deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> around her and overcharges her for <#ffb900ff>5s<>: +30% Attack Speed, +20% Move Speed that stacks and lasts longer with champion hits; Burst Fire becomes a triple shot that chains lightning between enemies."
+      },
+      "league_nautilus": {
+        "name": "Nautilus",
+        "attack": "<#ff9028ff>Staggering Blow<>: his attack on an enemy champion <#ef5350ff>roots it 0.83s<> and deals <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> more, then rests <#ffb900ff>6s<>.",
+        "skill": "Throws his anchor at the first enemy champion: <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, and the two are pulled toward each other.",
+        "skill2": "<#ff9028ff>Titan's Wrath<>: a <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>60%<> <#9fd8ffff>shield<>; for <#ffb900ff>6s<> his attacks also hit enemies round the target for <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>. <#ff9028ff>Riptide<>: three waves round him deal <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and <#ef5350ff>slow 40%<> for <#ffb900ff>1.25s<>.",
+        "ult": "Sends a shockwave at an enemy champion in range: enemies on its way are <#ef5350ff>knocked up<> for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>; the champion takes <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, <#ef5350ff>airborne 1s, then stunned 0.75s<>."
       }
     },
     "skill_name": {
@@ -3218,6 +3249,11 @@
         "skill1": "Ultrashock Laser",
         "skill2": "Spark Surge",
         "ult": "Lightning Crash"
+      },
+      "league_nautilus": {
+        "skill1": "Dredge Line",
+        "skill2": "Titan's Wrath",
+        "ult": "Depth Charge"
       }
     }
   },
@@ -3845,6 +3881,13 @@
         "skill": "전기 펄스로 처음 맞는 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>35% 둔화<>. 미니언이나 몬스터에 막히면 그 자리에서 긴 레이저가 되어 뒤의 모든 적을 맞히고 둔화.",
         "skill2": "짧게 돌진(적이 붙으면 뒤로), 이후 <#ffb900ff>5초<> 동안 집중 사격 관통: 뒤의 적은 80% 피해와 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>. 챔피언 적중 시 재사용 대기시간 감소.",
         "ult": "주변 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>, <#ffb900ff>5초<> 과충전: 공격 속도 +30%, 이동 속도 +20%(챔피언 적중 시 중첩·연장), 집중 사격이 적 사이를 잇는 번개 3연발로."
+      },
+      "league_nautilus": {
+        "name": "노틸러스",
+        "attack": "<#ff9028ff>강력한 일격<>: 적 챔피언을 기본 공격하면 <#ef5350ff>0.83초 속박<>하고 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>를 추가로 입힘. 이후 <#ffb900ff>6초<> 동안 발동하지 않음.",
+        "skill": "닻을 던져 처음 맞은 적 챔피언에게 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>를 입히고 서로를 끌어당김.",
+        "skill2": "<#ff9028ff>타이탄의 분노<>: <#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>60%<> <#9fd8ffff>보호막<>, <#ffb900ff>6초<> 동안 기본 공격이 대상 주변 적에게도 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 피해. <#ff9028ff>역조<>: 주변에 세 번 파동, <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.25초<> <#ef5350ff>40% 둔화<>.",
+        "ult": "사거리 내 적 챔피언에게 충격파: 경로의 적은 <#ef5350ff>공중에 뜨고<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> 피해, 대상은 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1초 에어본 후 0.75초 기절<>."
       }
     },
     "skill_name": {
@@ -4292,6 +4335,11 @@
         "skill1": "초강력 레이저",
         "skill2": "스파크 돌진",
         "ult": "번개 방출"
+      },
+      "league_nautilus": {
+        "skill1": "닻줄 견인",
+        "skill2": "타이탄의 분노",
+        "ult": "폭뢰"
       }
     }
   },
@@ -4919,6 +4967,13 @@
         "skill": "電気パルスが最初の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>35%スロウ<>。ミニオンかモンスターに当たるとそこから長いレーザーになり、後ろの敵全員に命中。",
         "skill2": "短くダッシュ（敵が近いと後ろへ）、その後<#ffb900ff>5秒<>バーストファイアが貫通：後ろの敵に80%と<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>。チャンピオン命中でCD短縮。",
         "ult": "周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>5秒<>オーバーチャージ：攻撃速度+30%、移動速度+20%（チャンピオン命中で累積・延長）、通常攻撃は敵間を連鎖する稲妻の3連射に。"
+      },
+      "league_nautilus": {
+        "name": "ノーチラス",
+        "attack": "<#ff9028ff>鉄の錨<>：敵チャンピオンへの通常攻撃で<#ef5350ff>0.83秒スネア<>し、<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>を追加。その後<#ffb900ff>6秒<>は発動しない。",
+        "skill": "錨を投げ、最初に当たった敵チャンピオンに<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、互いを引き寄せる。",
+        "skill2": "<#ff9028ff>大海の激憤<>：<#9fd8ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>60%<>の<#9fd8ffff>シールド<>、<#ffb900ff>6秒<>間通常攻撃が対象周囲の敵にも<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。<#ff9028ff>粉砕水<>：周囲に3回の波、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1.25秒<><#ef5350ff>40%スロウ<>。",
+        "ult": "射程内の敵チャンピオンへ衝撃波：通り道の敵は<#ef5350ff>ノックアップ<>し<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>、対象は<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>1秒打ち上げ後0.75秒スタン<>。"
       }
     },
     "skill_name": {
@@ -5366,6 +5421,11 @@
         "skill1": "ウルトラショックレーザー",
         "skill2": "スパークサージ",
         "ult": "ライトニングクラッシュ"
+      },
+      "league_nautilus": {
+        "skill1": "錨投げ",
+        "skill2": "大海の激憤",
+        "ult": "爆雷発射"
       }
     }
   }
