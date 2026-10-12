@@ -39,8 +39,16 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import rigkit as K  # noqa: E402
 import strips_irelia as S  # noqa: E402
+import ppu_hd as PH  # noqa: E402
 
 PPU = 2
+# On the battlefield and the cards she is drawn at SIZE of the 1x size (addons/league_main/src/hd.rs SIZES: the user,
+# 「还有整体模型太大了吧 要学酒桶缩小点吧」, picked 85% from dist/irelia_packs/review/irelia_size_compare.png), scaled
+# about her position, so every dense frame is drawn SHIFT dense px lower and her soles, 2 x 11.5 dense px under the
+# pivot, stay on the ground (tools/art/ppu_gragas.py's way: SHIFT = 23 (1 / SIZE - 1))
+SIZE = 0.85
+SHIFT = round(23 * (1 / SIZE - 1))
+assert PH.SHIFT.get("irelia") == SHIFT, "ppu_hd.SHIFT must match"
 OUT = os.path.join(ROOT, "assets", "source", "ppu")
 STEM = os.path.join(ROOT, "league", "champions", "league_irelia")
 CENTRE = (64, 88)                # the canvas point at the 1x sheet frames' centre (strips_irelia.PIVOT)
@@ -418,7 +426,11 @@ def build():
             else:
                 L, fr = rb[tag][k]
                 C2 = action_hd(tag, k, L, fr, head)
-            frames.append(tidy(cut(loose_out(C2), w, h)))
+            fr = tidy(cut(loose_out(C2), w, h))
+            assert not (fr[-SHIFT:] != ".").any(), (tag, k, "no room under the soles to move the frame down")
+            moved = np.full(fr.shape, ".", "<U1")
+            moved[SHIFT:] = fr[:-SHIFT]
+            frames.append(moved)
         out[tag] = frames
     return out
 

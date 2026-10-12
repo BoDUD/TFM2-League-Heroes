@@ -1623,6 +1623,19 @@ def main():
         if added:
             print(f"league/champions/league_{hero}: the forms' and in-wall tags added for the add-on's anim-name swap: "
                   f"{', '.join(added)}")
+        if hero in PPU_HD.SHIFT:
+            # a hero drawn smaller has every dense frame SHIFT dense px lower (ppu_hd.SHIFT): a 1x frame whose content
+            # reaches its bottom row (league_irelia lying dead) gets clear rows above and below, centre kept
+            need = -(-PPU_HD.SHIFT[hero] // PPU_HD.PPU[hero])
+            for tag in [t for t in sheet if not t.startswith(PPU_HD.PREFIX)]:
+                padded = []
+                for a, ms in sheet[tag]:
+                    rows = np.nonzero(a[..., 3].any(1))[0]
+                    free = a.shape[0] - 1 - rows.max() if len(rows) else need
+                    if free < need:
+                        a = np.pad(a, ((need - free, need - free), (0, 0), (0, 0)))
+                    padded.append((a, ms))
+                sheet[tag] = padded
         if hero in PPU_HD.PPU:
             made = PPU_HD.add_hd(hero, sheet)
             print(f"league/champions/league_{hero}: hd_ tags for the main pack's dense frames (PPU {PPU_HD.PPU[hero]}; "
