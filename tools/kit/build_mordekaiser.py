@@ -26,12 +26,14 @@ add-on addons/league_mordekaiser for the real 10% steal, the tether and W's real
   ult     R Realm of Death (轮回绝境): a `Targeting` cast on `EnemyChampion` (r_range). r_at ticks in the target is
           cursed for r_t ticks (League's 7 s realm): it loses r_steal% attack, ability power, armour, magic resistance
           and max health and he gains r_ad attack, r_mp ability power, r_def armour, r_mr magic resistance and r_hp
-          health (League steals 10%; the data cannot read the target's stats, the add-on can); the target is taunted
-          r_taunt ticks onto him; every r_per ticks an `AddCasted` on it (its effects run with him as the caster)
+          health (League steals 10%; the data cannot read the target's stats, the add-on can); no taunt (League has
+          none - the user: 「嘲讽不做啊 和英雄联盟一样」); every r_per ticks an `AddCasted` on it (its effects run with him as the caster)
           lands a 1-tick zone of r_leash on the target that marks him if he stands inside - no mark means the target
           got away: it is pulled back to him (`Pull` r_pull x r_pull_t). Another `AddCasted` keeps a 2-tick flag up
           while the target lives (league_viego's window): it dying inside the realm heals him r_kill + r_kill_ap% AP
-          and lets him keep the stolen stats r_keep ticks more (League: until it respawns).
+          and lets him keep the stolen stats r_keep ticks more (League: until it respawns). With native=1
+          league_mordekaiser:realm takes the carry in reach into the realm instead: both banished r_t ticks (out of
+          everyone's reach and sight, a vortex r_realm where they stood), the duel fought by the add-on.
   combos  E -> Q: a Q cast within e_combo of a champion dragged slams at once (q_fast: the pros chain the pull into the
           isolated slam). R -> E: an E cast within r_combo of the curse throws the claw at once. The AI's ult target
           is its own; with native=1 league_mordekaiser:realm picks the enemy carry (the highest attack + ability power).
@@ -75,7 +77,7 @@ P = {
     "w_heal": 30, "w_heal_ap": 40,
     # R Realm of Death (League: 650 range, 7 s, steals 10% of the target's stats, cd 140-80 s)
     "r_cd": 3600, "r_range": 48000, "r_dur": 30, "r_at": 8, "r_t": 420, "r_steal": 10, "r_ad": 12, "r_mp": 25,
-    "r_def": 8, "r_mr": 6, "r_hp": 150, "r_taunt": 90, "r_per": 30, "r_leash": 45000, "r_pull": 2000, "r_pull_t": 8,
+    "r_def": 8, "r_mr": 6, "r_hp": 150, "r_per": 30, "r_leash": 45000, "r_pull": 2000, "r_pull_t": 8,
     "r_kill": 150, "r_kill_ap": 50, "r_keep": 900, "r_combo": 120,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -322,7 +324,7 @@ def build(p):
     if native:
         realm = combine({"type": "Native", "effect_ref": "league_mordekaiser:realm"}, view("r_mark"))
     else:
-        realm = combine(curse, view("r_mark"), {"type": "Taunt", "duration": p["r_taunt"]}, leash, alive,
+        realm = combine(curse, view("r_mark"), leash, alive,
                         on_me(refresh("r_steal", p["r_t"], **gain), *rm("r_won")), watch)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(start, voice("vo_r", p),
@@ -338,7 +340,7 @@ def build(p):
                                       "z": z}
     views_p = [P_("q_line", BIG, 1), P_("e_line", BIG, 2)]
     views_e = [E("a_hit"), E("p_aura", BIG, -1), E("p_hit"), E("q_slam", BIG, -1, False), E("q_hit"),
-               E("q_iso_hit"), E("e_hit"), E("w_shield"), E("w_heal"), E("r_cast", BIG, 2, False), E("r_mark"),
+               E("q_iso_hit"), E("e_hit"), E("w_shield"), E("w_heal"), E("r_cast", BIG, 2, False), E("r_mark"), E("r_realm", BIG, -1, False),
                E("r_pull"), E("r_win")]
     views_b = [B_("r_curse", FX, 3)]
     kit = {
@@ -354,8 +356,8 @@ def build(p):
     }
     if native:
         kit["passive"] = {"passive_ref": "league_mordekaiser:revenant",
-                          "params": {"steal": p["r_steal"], "realm": p["r_t"], "leash": p["r_leash"],
-                                     "w_dealt": 45, "w_taken": 15, "w_cap": 30}}
+                          "params": {"kill": p["r_kill"], "kill_ap": p["r_kill_ap"], "keep": p["r_keep"],
+                                     "w_dealt": 45, "w_taken": 15, "w_cap": 30, "w_heal": 40}}
     return kit
 
 

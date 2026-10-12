@@ -58,8 +58,7 @@ TEXT = {
         "skill2": "甩出断魂之爪，造成" + mag("e") + M + "魔法伤害" + E + "并把敌人" + R + "拉到身前" + E + "。冷却中被英雄贴近时改为" + O +
                   "不坏之身" + E + "：获得" + G_ + "{w_sh}" + E + " + " + APi + G_ + "{w_ap}%护盾" + E + "，护盾仍在时回复" + G_ +
                   "{w_heal}" + E + " + " + APi + G_ + "{w_heal_ap}%生命" + E + "。",
-        "ult": "诅咒一名敌方英雄" + A + "{r_t}秒" + E + "：偷取其{r_steal}%攻击、法强、护甲、魔抗和生命，" + R + "嘲讽" + E + A + "{r_taunt}秒" +
-               E + "，逃远会被" + R + "拉回" + E + "；期间将其击杀则回复" + G_ + "{r_kill}" + E + " + " + APi + G_ + "{r_kill_ap}%生命" + E + "。",
+        "ult": "诅咒一名敌方英雄" + A + "{r_t}秒" + E + "：偷取其{r_steal}%攻击、法强、护甲、魔抗和生命，逃远会被" + R + "拉回" + E + "；期间将其击杀则回复" + G_ + "{r_kill}" + E + " + " + APi + G_ + "{r_kill_ap}%生命" + E + "。",
         "names": ("破灭之锤", "断魂一扼", "轮回绝境"),
     },
     "zh-hant": {
@@ -70,8 +69,7 @@ TEXT = {
         "skill2": "甩出死之爪，造成" + mag("e") + M + "魔法傷害" + E + "並把敵人" + R + "拉到身前" + E + "。冷卻中被英雄貼近時改為" + O +
                   "不滅之軀" + E + "：獲得" + G_ + "{w_sh}" + E + " + " + APi + G_ + "{w_ap}%護盾" + E + "，護盾仍在時回復" + G_ +
                   "{w_heal}" + E + " + " + APi + G_ + "{w_heal_ap}%生命" + E + "。",
-        "ult": "詛咒一名敵方英雄" + A + "{r_t}秒" + E + "：偷取其{r_steal}%攻擊、法強、護甲、魔抗和生命，" + R + "嘲諷" + E + A + "{r_taunt}秒" +
-               E + "，逃遠會被" + R + "拉回" + E + "；期間將其擊殺則回復" + G_ + "{r_kill}" + E + " + " + APi + G_ + "{r_kill_ap}%生命" + E + "。",
+        "ult": "詛咒一名敵方英雄" + A + "{r_t}秒" + E + "：偷取其{r_steal}%攻擊、法強、護甲、魔抗和生命，逃遠會被" + R + "拉回" + E + "；期間將其擊殺則回復" + G_ + "{r_kill}" + E + " + " + APi + G_ + "{r_kill_ap}%生命" + E + "。",
         "names": ("泯殺", "死之爪", "死亡領域"),
     },
     "en": {
@@ -86,7 +84,7 @@ TEXT = {
                   "{w_ap}% shield" + E + "; if it still holds, he heals " + G_ + "{w_heal}" + E + " + " + APi + G_ + "{w_heal_ap}%" + E +
                   ".",
         "ult": "Curses an enemy champion for " + A + "{r_t}s" + E + ": steals {r_steal}% of its attack, ability power, armour, magic "
-               "resistance and health, " + R + "taunts" + E + " it for " + A + "{r_taunt}s" + E + " and " + R + "drags it back" + E +
+               "resistance and health and " + R + "drags it back" + E +
                " if it runs. Killing it meanwhile heals him " + G_ + "{r_kill}" + E + " + " + APi + G_ + "{r_kill_ap}%" + E + ".",
         "names": ("Obliterate", "Death's Grasp", "Realm of Death"),
     },
@@ -98,8 +96,7 @@ TEXT = {
         "skill2": "손아귀를 뻗어 " + mag("e") + " " + M + "마법 피해" + E + "를 주고 적을 " + R + "끌어당김" + E + ". 재사용 대기 중 챔피언이 "
                   "붙으면 " + O + "불멸" + E + ": " + G_ + "{w_sh}" + E + " + " + APi + G_ + "{w_ap}% 보호막" + E + ", 보호막이 남아 있으면 " +
                   G_ + "{w_heal}" + E + " + " + APi + G_ + "{w_heal_ap}%" + E + " 회복.",
-        "ult": "적 챔피언을 " + A + "{r_t}초" + E + " 저주: 공격력·주문력·방어력·마법 저항력·체력 {r_steal}% 강탈, " + A + "{r_taunt}초" + E +
-               " " + R + "도발" + E + ", 도망치면 " + R + "끌어옴" + E + ". 그동안 처치하면 " + G_ + "{r_kill}" + E + " + " + APi + G_ +
+        "ult": "적 챔피언을 " + A + "{r_t}초" + E + " 저주: 공격력·주문력·방어력·마법 저항력·체력 {r_steal}% 강탈, 도망치면 " + R + "끌어옴" + E + ". 그동안 처치하면 " + G_ + "{r_kill}" + E + " + " + APi + G_ +
                "{r_kill_ap}%" + E + " 회복.",
         "names": ("말살", "죽음의 손아귀", "죽음의 세계"),
     },
@@ -111,8 +108,7 @@ TEXT = {
         "skill2": "呪縛の手を放ち" + mag("e") + "の" + M + "魔法ダメージ" + E + "、敵を" + R + "引き寄せる" + E + "。CD中に敵が接近すると" + O +
                   "不滅の鎧" + E + "：" + G_ + "{w_sh}" + E + " + " + APi + G_ + "{w_ap}%のシールド" + E + "、残っていれば" + G_ + "{w_heal}" +
                   E + " + " + APi + G_ + "{w_heal_ap}%" + E + "回復。",
-        "ult": "敵チャンピオンを" + A + "{r_t}秒" + E + "呪う：攻撃力・魔力・物防・魔防・体力の{r_steal}%を奪い、" + A + "{r_taunt}秒" + E + R +
-               "挑発" + E + "、逃げると" + R + "引き戻す" + E + "。その間に倒すと" + G_ + "{r_kill}" + E + " + " + APi + G_ + "{r_kill_ap}%" +
+        "ult": "敵チャンピオンを" + A + "{r_t}秒" + E + "呪う：攻撃力・魔力・物防・魔防・体力の{r_steal}%を奪い、逃げると" + R + "引き戻す" + E + "。その間に倒すと" + G_ + "{r_kill}" + E + " + " + APi + G_ + "{r_kill_ap}%" +
                E + "回復。",
         "names": ("滅魂の一撃", "死の呪縛", "死の国"),
     },
@@ -136,7 +132,7 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("a_ap", "p_ms", "p_dmg", "p_ap", "p_hp", "q_dmg", "q_ap", "q_iso_dmg", "q_iso_ap", "e_dmg",
                            "e_ap", "w_sh", "w_ap", "w_heal", "w_heal_ap", "r_steal", "r_kill", "r_kill_ap")}
-    v.update({k: secs(p[k]) for k in ("p_per", "r_t", "r_taunt")})
+    v.update({k: secs(p[k]) for k in ("p_per", "r_t")})
     return v
 
 

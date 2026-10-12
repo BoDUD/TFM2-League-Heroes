@@ -3272,10 +3272,6 @@
                   "name": "league_mordekaiser_r_mark"
                 },
                 {
-                  "type": "Taunt",
-                  "duration": 90
-                },
-                {
                   "type": "AddCasted",
                   "casted_type": "Poison",
                   "duration": 420,
@@ -3717,6 +3713,14 @@
       "tag": "r_mark",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_mordekaiser_r_realm",
+      "anim": "asset/league/effects/league_mordekaiser_big",
+      "tag": "r_realm",
+      "z": -1,
+      "is_follow": false
     },
     {
       "type": "Animation",

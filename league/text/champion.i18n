@@ -664,7 +664,7 @@
         "attack": "<#ff9028ff>黑暗起兮<>：普攻附带<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%魔法伤害<>。普攻、Q、E命中英雄叠层，3层时移速+3%，每<#ffb900ff>0.5秒<>对周围敌人造成<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<><#a974ffff>魔法伤害<>。",
         "skill": "挥锤砸向前方一条直线，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>；只砸中一个敌人时改为<#a974ffff>98<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>。",
         "skill2": "甩出断魂之爪，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并把敌人<#ef5350ff>拉到身前<>。冷却中被英雄贴近时改为<#ff9028ff>不坏之身<>：获得<#7ee87eff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60%护盾<>，护盾仍在时回复<#7ee87eff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%生命<>。",
-        "ult": "诅咒一名敌方英雄<#ffb900ff>7秒<>：偷取其10%攻击、法强、护甲、魔抗和生命，<#ef5350ff>嘲讽<><#ffb900ff>1.5秒<>，逃远会被<#ef5350ff>拉回<>；期间将其击杀则回复<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
+        "ult": "诅咒一名敌方英雄<#ffb900ff>7秒<>：偷取其10%攻击、法强、护甲、魔抗和生命，逃远会被<#ef5350ff>拉回<>；期间将其击杀则回复<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
       }
     },
     "skill_name": {
@@ -1810,7 +1810,7 @@
         "attack": "<#ff9028ff>暗崛<>：普攻附帶<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%魔法傷害<>。普攻、Q、E命中英雄疊層，3層時移速+3%，每<#ffb900ff>0.5秒<>對周圍敵人造成<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<><#a974ffff>魔法傷害<>。",
         "skill": "揮錘砸向前方一條直線，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>；只砸中一個敵人時改為<#a974ffff>98<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>。",
         "skill2": "甩出死之爪，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並把敵人<#ef5350ff>拉到身前<>。冷卻中被英雄貼近時改為<#ff9028ff>不滅之軀<>：獲得<#7ee87eff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60%護盾<>，護盾仍在時回復<#7ee87eff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%生命<>。",
-        "ult": "詛咒一名敵方英雄<#ffb900ff>7秒<>：偷取其10%攻擊、法強、護甲、魔抗和生命，<#ef5350ff>嘲諷<><#ffb900ff>1.5秒<>，逃遠會被<#ef5350ff>拉回<>；期間將其擊殺則回復<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
+        "ult": "詛咒一名敵方英雄<#ffb900ff>7秒<>：偷取其10%攻擊、法強、護甲、魔抗和生命，逃遠會被<#ef5350ff>拉回<>；期間將其擊殺則回復<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
       }
     },
     "skill_name": {
@@ -2956,7 +2956,7 @@
         "attack": "<#ff9028ff>Darkness Rise<>: his attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% magic damage<> more. Attacks, Q and E hitting champions stack it; at 3 stacks he moves 3% faster and deals <#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<> <#a974ffff>magic damage<> to enemies around him every <#ffb900ff>0.5s<>.",
         "skill": "Slams his mace down a line ahead for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>; hitting a single enemy, <#a974ffff>98<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<> instead.",
         "skill2": "Lashes out a grasp for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, <#ef5350ff>pulling<> enemies to him. On cooldown with a champion close: <#ff9028ff>Indestructible<>, a <#7ee87eff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60% shield<>; if it still holds, he heals <#7ee87eff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%<>.",
-        "ult": "Curses an enemy champion for <#ffb900ff>7s<>: steals 10% of its attack, ability power, armour, magic resistance and health, <#ef5350ff>taunts<> it for <#ffb900ff>1.5s<> and <#ef5350ff>drags it back<> if it runs. Killing it meanwhile heals him <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>."
+        "ult": "Curses an enemy champion for <#ffb900ff>7s<>: steals 10% of its attack, ability power, armour, magic resistance and health and <#ef5350ff>drags it back<> if it runs. Killing it meanwhile heals him <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>."
       }
     },
     "skill_name": {
@@ -4102,7 +4102,7 @@
         "attack": "<#ff9028ff>암흑 탄생<>: 기본 공격이 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 마법 피해<> 추가. 기본 공격·Q·E로 챔피언 적중 시 중첩, 3중첩이면 이동 속도 3% 증가, <#ffb900ff>0.5초<>마다 주변 적에게 <#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<> <#a974ffff>마법 피해<>.",
         "skill": "전방 직선을 철퇴로 내리쳐 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>, 적 하나만 맞히면 <#a974ffff>98<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>.",
         "skill2": "손아귀를 뻗어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>를 주고 적을 <#ef5350ff>끌어당김<>. 재사용 대기 중 챔피언이 붙으면 <#ff9028ff>불멸<>: <#7ee87eff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60% 보호막<>, 보호막이 남아 있으면 <#7ee87eff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%<> 회복.",
-        "ult": "적 챔피언을 <#ffb900ff>7초<> 저주: 공격력·주문력·방어력·마법 저항력·체력 10% 강탈, <#ffb900ff>1.5초<> <#ef5350ff>도발<>, 도망치면 <#ef5350ff>끌어옴<>. 그동안 처치하면 <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<> 회복."
+        "ult": "적 챔피언을 <#ffb900ff>7초<> 저주: 공격력·주문력·방어력·마법 저항력·체력 10% 강탈, 도망치면 <#ef5350ff>끌어옴<>. 그동안 처치하면 <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<> 회복."
       }
     },
     "skill_name": {
@@ -5248,7 +5248,7 @@
         "attack": "<#ff9028ff>無窮の闇<>：通常攻撃に<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%魔法ダメージ<>追加。通常攻撃・Q・Eがチャンピオンに当たるとスタック、3スタックで移動速度3%増加、<#ffb900ff>0.5秒<>ごとに周囲の敵に<#a974ffff>4<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>1%<>の<#a974ffff>魔法ダメージ<>。",
         "skill": "前方の直線を鉄槌で叩き<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、敵1体だけなら<#a974ffff>98<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>。",
         "skill2": "呪縛の手を放ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、敵を<#ef5350ff>引き寄せる<>。CD中に敵が接近すると<#ff9028ff>不滅の鎧<>：<#7ee87eff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60%のシールド<>、残っていれば<#7ee87eff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%<>回復。",
-        "ult": "敵チャンピオンを<#ffb900ff>7秒<>呪う：攻撃力・魔力・物防・魔防・体力の10%を奪い、<#ffb900ff>1.5秒<><#ef5350ff>挑発<>、逃げると<#ef5350ff>引き戻す<>。その間に倒すと<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>回復。"
+        "ult": "敵チャンピオンを<#ffb900ff>7秒<>呪う：攻撃力・魔力・物防・魔防・体力の10%を奪い、逃げると<#ef5350ff>引き戻す<>。その間に倒すと<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>回復。"
       }
     },
     "skill_name": {
