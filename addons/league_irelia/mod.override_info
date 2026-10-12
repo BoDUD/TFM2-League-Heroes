@@ -1,0 +1,6 @@
+{
+  "asset/league/champion/league_irelia": {
+    "remapping": "asset/league_irelia/override/league_irelia",
+    "type": "override"
+  }
+}

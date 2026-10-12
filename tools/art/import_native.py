@@ -79,8 +79,9 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # Shen too (fix_shen_strips.breath: the body sinks over his legs - the shared cut shortened his trousers, boots,
 # apron and tail hem); Viego too (rig_viego.idle_frame: the same sink, his coat's flaps and boots never cut); Zeri too
 # (rig_zeri BREATH: the same sink; the shared cut would run through her upright rifle); Nautilus too
-# (rig_nautilus.idle_frame: the body sinks over the boots - a shared cut would run through the anchor or the helmet)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus", "gragas"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# (rig_nautilus.idle_frame: the body sinks over the boots - a shared cut would run through the anchor or the helmet);
+# Irelia too (strips_irelia: a still idle, only her blades bob)
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus", "gragas", "irelia"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -778,7 +779,9 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "twistedfate": (0x7A, 0xF4, 0xFF),   # the hat's brim tops every frame; the cyan is only in his one eye
         "evelynn": (0xFF, 0xD2, 0x1E),       # her hair or a raised lasher tops the frames; the yellow is only her eyes
         "sett": (0xC8, 0x70, 0x0A),       # his ears or a raised fist top the frames; the amber is only in his eyes
-        "alistar": (0xFB, 0x12, 0x0D)}    # his mane, horns or raised fists top the frames; the red is only his eyes
+        "alistar": (0xFB, 0x12, 0x0D),    # his mane, horns or raised fists top the frames; the red is only his eyes
+        "irelia": (9, 144, 186)}          # her floating blades top the frames (strips_irelia.py); the eyes' dark cyan is
+                                          # theirs alone (the gems use the palette's #098FBA)
 
 
 def blocks(path):
