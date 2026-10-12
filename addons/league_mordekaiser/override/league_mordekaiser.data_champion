@@ -18,7 +18,7 @@
   "stat": {
     "attack": 74,
     "magic_power": 50,
-    "hp": 980,
+    "hp": 1040,
     "defence": 32,
     "magic_resistance": 25,
     "move_speed": 980,
@@ -29,7 +29,7 @@
   "growth": {
     "attack": 9,
     "magic_power": 20,
-    "hp": 98,
+    "hp": 104,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 11,
@@ -1154,7 +1154,7 @@
                                 "effects": [
                                   {
                                     "type": "ApAttack",
-                                    "damage": 70,
+                                    "damage": 80,
                                     "attack_ratio": 70,
                                     "hp_ratio": 0,
                                     "can_crit": false,
@@ -1175,7 +1175,7 @@
                                 "effects": [
                                   {
                                     "type": "ApAttack",
-                                    "damage": 98,
+                                    "damage": 112,
                                     "attack_ratio": 98,
                                     "hp_ratio": 0,
                                     "can_crit": false,
@@ -1489,7 +1489,7 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 70,
+                                "damage": 80,
                                 "attack_ratio": 70,
                                 "hp_ratio": 0,
                                 "can_crit": false,
@@ -1510,7 +1510,7 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 98,
+                                "damage": 112,
                                 "attack_ratio": 98,
                                 "hp_ratio": 0,
                                 "can_crit": false,

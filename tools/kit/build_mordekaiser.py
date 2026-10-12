@@ -51,13 +51,14 @@ BIG = "asset/league/effects/league_mordekaiser_big"
 
 # Timings fitted to the frames (tools/art/rig_mordekaiser.py): the swing's hit on tick 10 of 24 (the strike frame), Q's
 # slam on 10 of 26, E's claw on 8 of 24 (the grasp held 3-19), R's curse on 8 of 30.
-# Numbers = d1 of the balance runs (Temp/mk_sim, kd.py 600 24 --lane 0 against fighter, executioner, lancer,
-# pole_warrior, knight and berserker, seeds 1-24 and 25-48): +1.11 / +1.42 against league_irelia +1.67 / +1.29,
-# league_renekton +1.78 / +1.07, league_gwen +1.33 / +1.30 (d0: +1.98 / +2.71 with hp 1040 +104, shield 70, heal 40).
+# Numbers = d8 of the balance runs (Temp/mk_sim, kd.py 600 24 --lane 0 against fighter, executioner, lancer,
+# pole_warrior, knight and berserker): +1.60 on seeds 1-24 against league_irelia +1.67, league_renekton +1.78,
+# league_gwen +1.33. History: d0 (with R's taunt) +1.98 / +2.71; d1 (hp 980, shield 50, heal 30) +1.11 / +1.42; the
+# taunt taken out (the user: 「嘲讽不做啊 和英雄联盟一样」) d5 +0.41 / +0.44; d7 (d0's numbers) +1.34; d8 = d7 + Q 80 (112).
 P = {
     # stats (a melee fighter like league_renekton / league_darius / league_gwen, with ability power growth):
     # League's Mordekaiser 645 +104 hp, 61 AD, 37 armour, 32 mr, 335 move, 175 range, AS 0.625
-    "hp": 980, "hp_g": 98, "atk": 74, "atk_g": 9, "mp": 50, "mp_g": 20, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4,
+    "hp": 1040, "hp_g": 104, "atk": 74, "atk_g": 9, "mp": 50, "mp_g": 20, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4,
     "ms": 980, "ms_g": 11,
     # attack (League: +40% AP magic on hit from Darkness Rise)
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 64, "a_st": 10, "a_ap": 40,
@@ -67,14 +68,14 @@ P = {
     "p_pen": 10,
     # Q Obliterate (League: 625 long, 160 wide, 45-255 + 70% AP, isolated +25..55%, cd 8-4 s)
     "q_cd": 360, "q_range": 38000, "q_dur": 26, "q_at": 10, "q_fast": 2, "q_len": 42000, "q_w": 6000,
-    "q_dmg": 70, "q_ap": 70, "q_iso_dmg": 98, "q_iso_ap": 98,
+    "q_dmg": 80, "q_ap": 70, "q_iso_dmg": 112, "q_iso_ap": 98,
     # E Death's Grasp (League: 700 range, 40-160 + 60% AP, pull, cd 18-10 s)
     "s2_cd": 120, "s2_dur": 2, "e_cd": 780, "e_range": 50000, "e_dur": 24, "e_at": 8, "e_len": 54000, "e_w": 6000,
     "e_dmg": 60, "e_ap": 60, "e_pull": 3000, "e_combo": 120,
     # W Indestructible (League: shield from damage dealt and taken up to 30% max health, recast heals 32.5-47.5% of
     # what is left, cd 12-8 s)
-    "w_trig": 40000, "w_cd": 720, "w_dur": 20, "w_sh": 50, "w_ap": 60, "w_t": 180, "w_heal_at": 150,
-    "w_heal": 30, "w_heal_ap": 40,
+    "w_trig": 40000, "w_cd": 720, "w_dur": 20, "w_sh": 70, "w_ap": 60, "w_t": 180, "w_heal_at": 150,
+    "w_heal": 40, "w_heal_ap": 40,
     # R Realm of Death (League: 650 range, 7 s, steals 10% of the target's stats, cd 140-80 s)
     "r_cd": 3600, "r_range": 48000, "r_dur": 30, "r_at": 8, "r_t": 420, "r_steal": 10, "r_ad": 12, "r_mp": 25,
     "r_def": 8, "r_mr": 6, "r_hp": 150, "r_per": 30, "r_leash": 45000, "r_pull": 2000, "r_pull_t": 8,
