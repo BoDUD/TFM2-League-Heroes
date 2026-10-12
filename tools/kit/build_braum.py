@@ -46,28 +46,30 @@ ID = "league_braum"
 FX = "asset/league/effects/league_braum_fx"
 BIG = "asset/league/effects/league_braum_big"
 
-# Timings are placeholders until the strips (step 2).
+# Timings from the strips (assets/source/braum/frames/frames.json, Codex's step 2 after League's clips): attack 430 ms, the
+# bash lands on frame 4 (210 ms, tick 13); Q 440 ms, the ice on frame 4 (220 ms, tick 13); E's raise 400 ms; W's leap
+# 370 ms; R 590 ms, the shield hits the ground on frame 5 (320 ms, tick 19).
 P = {
     # stats (the pack's tank supports: league_alistar hp 1100 +120, def 38, mr 28, atk 80, interval 80, range 25000);
     # League's Braum: 610 +112 hp, 55 AD, 35 armour, 32 mr, 335 move, 125 range
     "hp": 1100, "hp_g": 120, "atk": 78, "atk_g": 6, "mp": 25, "mp_g": 15, "def": 40, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
-    "atk_range": 25000, "atk_dur": 26, "atk_cd": 80, "atk_st": 12,
+    "atk_range": 25000, "atk_dur": 26, "atk_cd": 80, "atk_st": 13,
     # passive Concussive Blows (League: 4 stacks within 4 s each; stun 1.25-1.75 s + 16-122 magic; then 8 s without new
     # stacks, his attacks +20% of that damage)
     "p_hold": 240, "p_stun": 60, "p_dmg": 40, "p_ap": 40, "p_lock": 480, "p_extra": 12, "p_extra_ap": 10,
     # Q Winter's Bite (League: 1050 range, speed 1700, 75-255 + 2.5% max hp, slow 70% fading to 30% over 2 s, cd 8-6 s)
-    "q_cd": 480, "q_range": 70000, "q_dur": 24, "q_at": 9, "q_speed": 3600, "q_dmg": 60, "q_ap": 40, "q_hp": 2,
+    "q_cd": 480, "q_range": 70000, "q_dur": 26, "q_at": 13, "q_speed": 3600, "q_dmg": 60, "q_ap": 40, "q_hp": 2,
     "q_slow1": 70, "q_slow1_t": 40, "q_slow2": 35, "q_slow2_t": 80,
     # skill2 slot: E Unbreakable + W Stand Behind Me
     "s2_cd": 60, "s2_range": 45000,
     # E Unbreakable (League: 3-4 s, first hit 0, 30-60% less after it, cd 18-8 s)
-    "e_cd": 840, "e_t": 210, "e_red": 40, "e_sh": 60, "e_sh_ap": 40, "e_ally_r": 25000, "e_ally_red": 20, "e_anim": 20,
+    "e_cd": 840, "e_t": 210, "e_red": 40, "e_sh": 60, "e_sh_ap": 40, "e_ally_r": 25000, "e_ally_red": 20, "e_anim": 24,
     # W Stand Behind Me (League: 650 leap, 15-45 armour / mr (+ a share of his bonus) 3 s for both, cd 13-7 s)
-    "w_cd": 600, "w_range": 60000, "w_speed": 4500, "w_def": 20, "w_mr": 20, "w_t": 180, "w_anim": 14,
+    "w_cd": 600, "w_range": 60000, "w_speed": 4500, "w_def": 20, "w_mr": 20, "w_t": 180, "w_anim": 22,
     # R Glacial Fissure (League: 1250 line, 150-450 + 60% AP, knock-up 1-1.5 s first / 0.6 s, slow zone 40-70% 4 s,
     # cd 130-85 s)
-    "r_cd": 3600, "r_range": 75000, "r_dur": 30, "r_at": 12, "r_len": 80000, "r_speed": 9000, "r_w": 9000,
+    "r_cd": 3600, "r_range": 75000, "r_dur": 36, "r_at": 19, "r_len": 80000, "r_speed": 9000, "r_w": 9000,
     "r_dmg": 100, "r_ap": 60, "r_up": 36, "r_up1": 75, "r_n": 4, "r_zr": 10000, "r_slow": 40, "r_zone": 240,
     "r_combo": 90,
     # his spoken lines, at most one every vo_gap ticks

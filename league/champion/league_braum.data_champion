@@ -58,7 +58,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 12,
           "effects": [
             {
               "type": "Attack",
@@ -387,7 +387,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_braum.skill",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 480,
     "start_timing": 1,
     "cancelable": false,
@@ -795,7 +795,7 @@
           },
           "effect_none": {
             "type": "Delayed",
-            "tick": 8,
+            "tick": 12,
             "effects": [
               {
                 "type": "Combine",
@@ -1261,7 +1261,7 @@
             {
               "type": "CasterAnimation",
               "name": "skill2",
-              "tick": 20
+              "tick": 24
             },
             {
               "type": "CasterViewEffect",
@@ -1369,7 +1369,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "w_leap",
-                          "tick": 14
+                          "tick": 22
                         },
                         {
                           "type": "CasterViewEffect",
@@ -1559,7 +1559,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "skill2",
-                                    "tick": 20
+                                    "tick": 24
                                   },
                                   {
                                     "type": "CasterViewEffect",
@@ -1636,7 +1636,7 @@
                       {
                         "type": "CasterAnimation",
                         "name": "w_leap",
-                        "tick": 14
+                        "tick": 22
                       },
                       {
                         "type": "CasterViewEffect",
@@ -1826,7 +1826,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "skill2",
-                                  "tick": 20
+                                  "tick": 24
                                 },
                                 {
                                   "type": "CasterViewEffect",
@@ -1964,7 +1964,7 @@
                     {
                       "type": "CasterAnimation",
                       "name": "skill2",
-                      "tick": 20
+                      "tick": 24
                     },
                     {
                       "type": "CasterViewEffect",
@@ -2015,7 +2015,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_braum.ult",
-    "duration": 30,
+    "duration": 36,
     "cooltime": 3600,
     "start_timing": 1,
     "cancelable": false,
@@ -2061,7 +2061,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 18,
           "effects": [
             {
               "type": "Combine",
