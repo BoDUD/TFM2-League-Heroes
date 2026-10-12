@@ -11,6 +11,7 @@
 pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
     ("league_vladimir", 2.0, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
+    ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
 ];
 
 pub const PREFIX: &str = "hd_";

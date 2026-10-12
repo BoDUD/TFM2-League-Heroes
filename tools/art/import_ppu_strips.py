@@ -120,6 +120,17 @@ def main():
     ap.add_argument("--design-run", action="store_true",
                     help="the run is the design itself, its legs stepping (RUN_LEGS; Codex's run bodies changed width "
                          "and arm length frame to frame: 「吸血鬼走路时模型变形」)")
+    ap.add_argument("--paste-head", type=int, default=0, metavar="ROWS",
+                    help="paste the design's head (its part above ROWS joined to the face: karma 59, the head and the "
+                         "jade ring) into every frame (one face in all frames): placed where the 1x frame holds the 1x "
+                         "idle's head, x PPU, then moved up to --head-search pixels onto Codex's head; what is left of "
+                         "Codex's head round it is cleared (as --head-rows), and pieces of Codex's ring above it")
+    ap.add_argument("--head-search", type=int, default=8)
+    ap.add_argument("--no-head", action="append", default=[], metavar="TAG:I,J",
+                    help="frames that keep Codex's head (lying, turned: karma dead:1,2,3,4,5,6,7)")
+    ap.add_argument("--props", action="append", default=[], metavar="TAG:I=J",
+                    help="frame I's parts apart from the body (a dropped ring, fans) replaced by frame J's, on the "
+                         "same ground - they lie still once fallen (karma dead:2=7)")
     ap.add_argument("--same", action="append", default=[], metavar="TAG:I=J",
                     help="frame I of TAG is frame J's drawing, its lowest row on frame I's skeleton's lowest row (a "
                          "drawing that does not match its neighbours; vladimir dead:5=4 dead:6=4 dead:7=4 - Codex drew "
@@ -176,9 +187,40 @@ def main():
     for spec in a.same:
         tag, ij = spec.split(":")
         i, j = (int(v) for v in ij.split("="))
-        got[tag][i] = same_as(got[tag][j], got[tag][i].shape[:2], sheet[tag][i][0], k)
+        got[tag][i] = same_as(got[tag][j], got[tag][i].shape[:2], sheet[tag][i][0], k, sheet["idle"][0][0])
         print(f"{tag}[{i}]: frame {j}'s drawing, on its own skeleton's lowest row")
+    for spec in a.props:
+        tag, ij = spec.split(":")
+        i, j = (int(v) for v in ij.split("="))
+        n_ = swap_props(got[tag][i], got[tag][j], sheet[tag][i][0], sheet[tag][j][0], k)
+        print(f"{tag}[{i}]: {n_} pixels apart from the body taken from frame {j}")
     design_s = up(design, s)
+    if a.paste_head:
+        skip = set()
+        for spec in a.no_head:
+            tag, ids = spec.split(":")
+            skip |= {(tag, int(v)) for v in ids.split(",")}
+        core = head_core(design_s, a.paste_head * s)
+        idle1 = sheet["idle"][0][0]
+        base, (x0, y0) = place_idle(design_s, idle1, k)
+        tpl = idle1_head(idle1, int(np.ceil(a.paste_head * s / k)))
+        at1 = find_1x(idle1, tpl)
+        for tag in got:
+            if tag == "idle":
+                continue
+            for i in sorted(got[tag]):
+                if (tag, i) in skip:
+                    continue
+                f1 = sheet[tag][i][0]
+                hit = find_1x(f1, tpl)
+                fr = got[tag][i]
+                H, W = fr.shape[:2]
+                # the design's top-left: the idle's place against the centre, moved as the 1x head moved (x PPU)
+                gx = x0 - base.shape[1] / 2 + W / 2 + k * ((hit[1] - f1.shape[1] / 2) - (at1[1] - idle1.shape[1] / 2))
+                gy = y0 - base.shape[0] / 2 + H / 2 + k * ((hit[2] - f1.shape[0] / 2) - (at1[2] - idle1.shape[0] / 2))
+                res = paste_head(fr, design_s, core, (int(round(gx)), int(round(gy))), a.head_search)
+                print(f"{tag}[{i}]: head at {res['at']} (from the 1x: {res['guess']}, {res['match']}% of its pixels on "
+                      f"Codex's), {res['cleared']} pixels of Codex's head and ring cleared")
     if a.head_rows:
         for tag in got:
             for i in got[tag]:
@@ -216,6 +258,149 @@ def main():
         want = [(round(f.shape[1] * k), round(f.shape[0] * k)) for f, _ in frames]
         write_strip(hero, tag, [have[i] for i in range(len(frames))], want)
         print(f"assets/source/ppu/{hero}_{tag}.png: {len(frames)} frames")
+
+
+def head_core(design, rows):
+    """The design's head: its opaque part above `rows` joined side by side to the face (the largest part there; an
+    ornament only touching it corner to corner - karma's fans - is not in it) -> bool mask in design coordinates."""
+    from scipy import ndimage
+    op = design[..., 3] > 0
+    op[rows:] = False
+    lab, n = ndimage.label(op)
+    sizes = ndimage.sum(op, lab, range(1, n + 1))
+    return lab == (int(np.argmax(sizes)) + 1)
+
+
+def idle1_head(idle1, rows):
+    """The 1x idle's top `rows` (from its first opaque row): the head the 1x frames carry -> (rows, cols, colours)."""
+    top = np.nonzero(idle1[..., 3] > 0)[0].min()
+    ty, tx = np.nonzero(idle1[top:top + rows, ..., 3] > 0)
+    ty = ty + top
+    return ty, tx, idle1[ty, tx].astype(int)
+
+
+def find_1x(f, tpl):
+    """Where the 1x frame holds the 1x idle's head best: (wrong pixels, dx, dy) - the idle's head moved by (dx, dy)."""
+    ty, tx, want = tpl
+    H, W = f.shape[:2]
+    best = None
+    g = f.astype(int)
+    for dy in range(-ty.min(), H - ty.max()):
+        for dx in range(-tx.min(), W - tx.max()):
+            bad = int((np.abs(g[ty + dy, tx + dx] - want).max(axis=1) > 0).sum())
+            if best is None or bad < best[0]:
+                best = (bad, dx, dy)
+    return best
+
+
+def jade_mask(fr):
+    """Pixels of a jade green (karma's ring): green above red, blue at most a little above green."""
+    r, gg, b = (fr[..., c].astype(int) for c in range(3))
+    return (fr[..., 3] > 0) & (gg > r + 20) & (b < gg + 30)
+
+
+def colour_set(img, mask, least=10):
+    """The colours of img's pixels under mask that appear at least `least` times -> set of (r, g, b)."""
+    from collections import Counter
+    c = Counter(tuple(int(v) for v in p[:3]) for p in img[mask])
+    return {k for k, n in c.items() if n >= least}
+
+
+def in_colours(fr, cols):
+    m = np.zeros(fr.shape[:2], bool)
+    for c in cols:
+        m |= (fr[..., 0] == c[0]) & (fr[..., 1] == c[1]) & (fr[..., 2] == c[2])
+    return m & (fr[..., 3] > 0)
+
+
+def paste_head(fr, design, core, guess, search, far=4, allow=5):
+    """The design's head (`core`, design coordinates) pasted into `fr` with the design's top-left near `guess`: at the
+    place within `search` pixels where most of its pixels fall on pixels of their colour family in Codex's drawing
+    (colour distance under 60), nearer the guess on a tie. Then Codex's head round it goes: in its rows, the parts
+    beside it that never reach more than `far` pixels from it (an arm reaches far) and the bits under 30 pixels above
+    its face (Codex's ring's outline); and Codex's own ring (the
+    largest part in the colours of the design's ring - the head's upper part) wherever the pasted one does not
+    cover it, except next to the fans (their teal stripes and outline share the ring's colours)."""
+    from scipy import ndimage
+    H, W = fr.shape[:2]
+    cy, cx = np.nonzero(core)
+    want = design[cy, cx, :3].astype(int)
+    upper = core.copy()
+    upper[cy.min() + int(0.55 * (cy.max() - cy.min())):] = False
+    ring_cols = colour_set(design, upper)
+    others = design[..., 3] > 0
+    others[cy.max() + 1:] = False
+    fan_cols = {c for c in colour_set(design, others & ~core) - ring_cols if sum(c) > 150}   # their light colours
+    ring_px = in_colours(fr, ring_cols)
+    lab_r, n_r = ndimage.label(ring_px, structure=np.ones((3, 3)))
+    old_ring = np.zeros((H, W), bool)
+    if n_r:
+        sizes = ndimage.sum(ring_px, lab_r, range(1, n_r + 1))
+        old_ring = lab_r == int(np.argmax(sizes)) + 1
+        old_ring &= ~ndimage.binary_dilation(in_colours(fr, fan_cols), structure=np.ones((3, 3)))
+    g = fr.astype(int)
+    best = None
+    for dy in range(-search, search + 1):
+        for dx in range(-search, search + 1):
+            y, x = cy + guess[1] + dy, cx + guess[0] + dx
+            ok = (y >= 0) & (y < H) & (x >= 0) & (x < W)
+            if ok.mean() < 0.9:
+                continue
+            got = g[y[ok], x[ok]]
+            close = (got[:, 3] > 0) & (np.abs(got[:, :3] - want[ok]).sum(axis=1) < 60)
+            score = int(close.sum()) - 0.5 * (abs(dx) + abs(dy))
+            if best is None or score > best[0]:
+                best = (score, dx, dy, int(close.sum()))
+    _, dx, dy, close = best
+    ox, oy = guess[0] + dx, guess[1] + dy
+    y, x = cy + oy, cx + ox
+    ok = (y >= 0) & (y < H) & (x >= 0) & (x < W)
+    M = np.zeros((H, W), bool)
+    M[y[ok], x[ok]] = True
+    fr[y[ok], x[ok]] = design[cy[ok], cx[ok]]
+    ring_gone = old_ring & ~M
+    fr[ring_gone] = 0
+    band = np.zeros((H, W), bool)
+    band[:cy.max() + oy + 1] = True        # from the frame's top: Codex's ring may stand higher than the pasted one
+    rest = (fr[..., 3] > 0) & ~M & band
+    lab, n = ndimage.label(rest, structure=np.ones((3, 3)))
+    dist = ndimage.distance_transform_edt(~M)
+    face_top = cy.min() + oy + int(0.55 * (cy.max() - cy.min()))
+    gone = np.zeros((H, W), bool)
+    for v in range(1, n + 1):
+        z = lab == v
+        if int((dist[z] > far).sum()) <= allow:
+            gone |= z
+        elif z.sum() < 30 and not z[face_top:].any():
+            gone |= z          # a bit of Codex's ring's outline left above the face
+    fr[gone] = 0
+    return {"at": (int(ox), int(oy)), "guess": tuple(int(v) for v in guess), "match": round(100 * close / len(cy)),
+            "cleared": int(gone.sum() + ring_gone.sum())}
+
+
+def swap_props(dst, src, one_dst, one_src, k):
+    """dst's parts apart from its largest part (the body) replaced by src's, both frames' ground (the lowest row of
+    the 1x frame x k, the frame grown alike at both ends) on one row, their centres on one column. -> pixels put."""
+    from scipy import ndimage
+
+    def apart(fr):
+        op = fr[..., 3] > 0
+        lab, n = ndimage.label(op, structure=np.ones((3, 3)))
+        sizes = ndimage.sum(op, lab, range(1, n + 1))
+        return op & (lab != int(np.argmax(sizes)) + 1)
+
+    def ground(fr, one):
+        sk = P.scale_any(one, k)
+        return np.nonzero(sk[..., 3].any(axis=1))[0].max() + (fr.shape[0] - sk.shape[0]) // 2
+
+    dst[apart(dst)] = 0
+    m = apart(src)
+    dy = ground(dst, one_dst) - ground(src, one_src)
+    dx = (dst.shape[1] - src.shape[1]) // 2
+    ys, xs = np.nonzero(m)
+    ok = (ys + dy >= 0) & (ys + dy < dst.shape[0]) & (xs + dx >= 0) & (xs + dx < dst.shape[1])
+    dst[ys[ok] + dy, xs[ok] + dx] = src[ys[ok], xs[ok]]
+    return int(ok.sum())
 
 
 def clear_head_ghost(fr, design, rows, far=4, allow=5):
@@ -394,31 +579,42 @@ def design_run(design, spec, n, s=1):
     return frames
 
 
-def same_as(src, shape, one, k):
+def same_as(src, shape, one, k, idle1=None):
     """`src` (a frame) in a frame of `shape`, centred across, its lowest opaque row on the lowest row of the 1x
-    frame `one` scaled by k (the frame grown alike at both ends: the 1x frame centred in it)."""
+    frame `one` scaled by k (the frame grown alike at both ends: the 1x frame centred in it) - never below the 1x
+    idle's soles (a prop falling past the ground in the 1x frame: karma dead 2). A drawing that does not fit grows
+    the frame alike at both ends (its centre, the pivot, kept)."""
     H, W = shape
     sk = P.scale_any(one, k)
-    want = np.nonzero(sk[..., 3].any(axis=1))[0].max() + (H - sk.shape[0]) // 2
-    have = np.nonzero(src[..., 3].any(axis=1))[0]
-    dy, dx = want - have.max(), (W - src.shape[1]) // 2
-    out = np.zeros((H, W, 4), np.uint8)
     ys, xs = np.nonzero(src[..., 3] > 0)
-    ok = (ys + dy >= 0) & (ys + dy < H) & (xs + dx >= 0) & (xs + dx < W)
-    if not ok.all():
-        sys.exit(f"the drawing does not fit the frame {W}x{H}")
+    while True:
+        want = np.nonzero(sk[..., 3].any(axis=1))[0].max() + (H - sk.shape[0]) // 2
+        if idle1 is not None:
+            si = P.scale_any(idle1, k)
+            sole = np.nonzero(si[..., 3].any(axis=1))[0].max() - si.shape[0] / 2      # below the centre
+            want = min(want, int(round(H / 2 + sole)))
+        dy, dx = want - ys.max(), (W - src.shape[1]) // 2
+        if (xs + dx).min() < 0 or (xs + dx).max() >= W:
+            W += 2
+        elif (ys + dy).min() < 0:
+            H += 2
+        else:
+            break
+    out = np.zeros((H, W, 4), np.uint8)
     out[ys + dy, xs + dx] = src[ys, xs]
     return out
 
 
-def drop_specks(fr, below=4):
+def drop_specks(fr, below=4, at_edge=12):
     """Clear the parts of fewer than `below` pixels (8-connected) - a dot left floating by the image model
-    (「别留多余的像素」). -> their sizes."""
+    (「别留多余的像素」) - and of fewer than `at_edge` within 3 pixels of the frame's side (a sliver cut from a drawing).
+    -> their sizes."""
     from scipy import ndimage
     op = fr[..., 3] > 0
     lab, n = ndimage.label(op, structure=np.ones((3, 3)))
     sizes = ndimage.sum(op, lab, range(1, n + 1))
-    small = [v + 1 for v, z in enumerate(sizes) if z < below]
+    edge = set(np.unique(np.concatenate([lab[:, :3].ravel(), lab[:, -3:].ravel(), lab[:3].ravel()]))) - {0}
+    small = [v + 1 for v, z in enumerate(sizes) if z < below or (z < at_edge and v + 1 in edge)]
     fr[np.isin(lab, small)] = 0
     return [int(sizes[v - 1]) for v in small]
 
