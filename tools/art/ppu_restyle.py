@@ -1,0 +1,669 @@
+#!/usr/bin/env python3
+"""The PPU heroes brought to one look - league_zeri's (2026-10-13).
+
+    python tools/art/ppu_restyle.py --hero zeri [--hero karma ...] [--preview DIR] [--set key=value ...]
+
+The user: 「这几个ppu英雄会导致人物体型很细 不协调 和其他像素风格的英雄不太搭」「太高清了看上去像动画贴图」, then on Zeri's
+sample (her own dense art, head scaled up evenly, the body below the neck wider and shorter): 「泽丽完美」「泽丽是榜样
+其他英雄都按照这种思路来改就行了」「画风要统一」. Every hero's dense frames are made from its current ones (kept in
+assets/source/ppu/orig/ on the first run, read from there afterwards), in up to four steps (RESTYLE has each hero's):
+
+1. proportions (`head`, `wide`, `short`): in every frame the head is found (the idle's face matched in the frame) and
+   everything above the neck is scaled evenly by `head` round the neck, everything below it `wide` times wider round
+   the pivot column and `short` times as tall up from the ground row (the soles stay); a band of `band` dense rows
+   round the neck goes smoothly from one to the other (nothing tears). A lying frame (FRAMES: "lie", the head's side
+   and its neck point) does the same along x: the head scaled round the neck, the body `short` times as long round the
+   pivot and `wide` times as thick up from the ground. `ring` (Karma's halo): the halo's pixels are taken out first
+   and put back `ring` times their size above the head where the warp sends them. Nearest on the dense grid.
+2. size (`grow`): everything scaled evenly round the pivot and the ground row (league_corki: 「飞机像泽丽那样变大点」).
+3. pixel density (`ppu`): the frames brought to a coarser grid - `ppu` squares a game pixel - each square the commonest
+   colour of the dense pixels under it (a square a third or more outline takes the outline, so eyes and lines stay);
+   the hero's PPU changes to `ppu` (ppu_hd.py PPU, addons/league_main/src/hd.rs HEROES).
+4. outline (`edge`): the outer outline grown by `edge` squares.
+Frames that come out bigger grow alike at both ends (the pivot kept, ppu_hd.py's drawn-strip rule); when an idle frame
+would be wider than PPU x its 1x frame (the DLL needs hd_idle exactly that wide), the 1x idle frames get clear columns
+at both sides. The champion_view face point moves with the head. Then `python tools/art/ppu_hd.py --hero <hero>`.
+"""
+import argparse
+import json
+import os
+import re
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw
+from scipy import ndimage, signal
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+sys.path.insert(0, HERE)
+import ppu_hd as P  # noqa: E402
+import strips as G  # noqa: E402
+
+SRC = os.path.join(ROOT, "assets", "source", "ppu")
+ORIG = os.path.join(SRC, "orig")
+MOD = os.path.join(ROOT, "league")
+FEET = 11.5                         # 1x pixels from the pivot down to the soles' bottom edge
+CROSS = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
+WARPS = {}                          # (hero, tag, frame) -> the Warp used (the face point follows the idle's)
+
+KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14, 52, 46), (5, 26, 30)]
+# face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
+RESTYLE = {
+    "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
+    # 「卡尔玛太壮了 还需要调」「头上的光环太大」「卡尔玛的像素还可以降一降吧？」
+    "karma": dict(face=(38, 62, 33, 58), neck=(45, 64), head=1.2, wide=1.25, short=0.92, band=3, edge=1,
+                  ring=0.6, ring_colours=KARMA_RING, ring_rows=40, ppu=2.2, max_err=2200, outline=(15, 3, 16)),
+    # 「布隆铁男可以在壮点 太细了」; 2.2 squares a game pixel at his 90 % (hd.rs SIZES)
+    # (their heads are Codex's own in many frames - not found reliably - so the body only, every frame alike)
+    "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98),
+    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.2),
+    # 「飞机像泽丽那样变大点」
+    "corki": dict(grow=1.2, edge=1, ppu=2.2),
+    # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
+    "kassadin": dict(edge=0, ppu=2.42),
+    # the 12 frames Codex drew 5-17 % smaller, brought to the others' size first
+    "ashe": dict(edge=1, ppu=2.2, fix={("dead", 1): 1.2, ("q_attack", 0): 1.087, ("run", 6): 1.064,
+                                       ("skill", 0): 1.064, ("skill", 2): 1.075, ("skill", 3): 1.053,
+                                       ("skill", 5): 1.075, ("skill2", 0): 1.087, ("ult", 3): 1.075}),
+    # 「吸血鬼我觉得只要降低点像素就好了」
+    "vladimir": dict(edge=1, ppu=1.8),
+    # 「其他英雄也差不多2.2」「画风要统一」
+    "yasuo": dict(edge=0, ppu=2.2),
+    "garen": dict(edge=0, ppu=2.2),
+    # 2.2 at his 80 %
+    "gragas": dict(edge=0, ppu=1.76),
+}
+# (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
+# ("body",) (no head: the body's change only) | ("none",)
+FRAMES = {
+    **{("zeri", "dead", i): ("lie", "r", 36.5, 3.5) for i in (4, 5, 6, 7)},
+    **{("karma", "dead", i): ("lie", "r", 7.5, 17.5) for i in (2, 3, 4, 5, 6, 7)},
+    ("karma", "dead", 1): ("up", 20.5, 13.5),
+}
+
+
+# ----------------------------------------------------------------------------------------------- frames in and out
+def read_orig(hero):
+    """{tag: [(dense frame, ms)]} - the frames this tool starts from (saved from the sheet on the first run)."""
+    sheet = P.read_sheet(os.path.join(MOD, "champions", f"league_{hero}"))
+    tags = [t for t in sheet if not t.startswith(P.PREFIX)]
+    os.makedirs(ORIG, exist_ok=True)
+    out = {}
+    for t in tags:
+        png = os.path.join(ORIG, f"{hero}_{t}.png")
+        side = os.path.join(ORIG, f"{hero}_{t}.json")
+        hd = sheet.get(P.PREFIX + t) or sheet[t]          # (the 1x tag has the same timing)
+        if not os.path.isfile(png):
+            frames = [a for a, _ in hd]
+            H = max(a.shape[0] for a in frames)
+            strip = np.zeros((H, sum(a.shape[1] + 1 for a in frames) - 1, 4), np.uint8)
+            x = 0
+            for a in frames:
+                strip[:a.shape[0], x:x + a.shape[1]] = a
+                x += a.shape[1] + 1
+            Image.fromarray(strip).save(png)
+            with open(side, "w", encoding="utf-8", newline="\n") as f:
+                json.dump({"sizes": [[a.shape[1], a.shape[0]] for a in frames], "ppu": P.PPU[hero]}, f)
+        s = np.asarray(Image.open(png).convert("RGBA"))
+        with open(side, encoding="utf-8") as f:
+            meta = json.load(f)
+        frames, x = [], 0
+        for W, H in meta["sizes"]:
+            frames.append(s[:H, x:x + W].copy())
+            x += W + 1
+        out[t] = [(a, ms) for a, (_, ms) in zip(frames, hd)]
+    return out, sheet, meta.get("ppu", P.PPU[hero])
+
+
+# ----------------------------------------------------------------------------------------------- the head
+def find_face(a, tpl):
+    """(row, col) of the template's top-left where it fits `a` best, and the mean squared error there (per opaque
+    template pixel and channel, a clear frame pixel counting as 255 off)."""
+    m = (tpl[..., 3] > 0).astype(float)
+    if a.shape[0] < tpl.shape[0] or a.shape[1] < tpl.shape[1]:
+        return None, 1e9
+    F = a[..., :3].astype(float) * (a[..., 3:] > 0)
+    T = tpl[..., :3].astype(float)
+    clear = (a[..., 3] == 0).astype(float)
+    score = signal.correlate(clear, m, mode="valid", method="fft") * 3 * 255.0 ** 2
+    for c in range(3):
+        score += signal.correlate(F[..., c] ** 2, m, mode="valid", method="fft")
+        score -= 2 * signal.correlate(F[..., c], m * T[..., c], mode="valid", method="fft")
+        score += (m * T[..., c] ** 2).sum()
+    score /= m.sum() * 3
+    y, x = np.unravel_index(np.argmin(score), score.shape)
+    return (int(y), int(x)), float(score[y, x])
+
+
+# ----------------------------------------------------------------------------------------------- the warp
+class Warp:
+    """Source -> drawn positions (continuous pixel coordinates, the frame's own; the pivot at its centre). `reach`:
+    upright, the body is widened only within `reach` dense columns of the pivot (the idle's own half width) - what
+    sticks out further (a gun held out, an arm thrown forward) keeps its length and only moves out with the body."""
+
+    def __init__(self, mode, side, nx, ny, px, gy, head, wide, short, band, reach=None):
+        self.mode, self.side = mode, side
+        self.nx, self.ny, self.px, self.gy = nx, ny, px, gy
+        self.s, self.bx, self.by, self.t = head, wide, short, max(band, 1e-3)
+        self.R = reach if reach else 1e9
+        if mode == "up":
+            self.nx2, self.ny2 = px + self.g(nx - px), gy + short * (ny - gy)
+        else:
+            self.nx2, self.ny2 = px + short * (nx - px), gy + wide * (ny - gy)
+
+    def g(self, d):
+        """The body's widening of a column d from the pivot: wide x within reach, 1 x beyond."""
+        ad = np.abs(d)
+        return np.sign(d) * (self.bx * np.minimum(ad, self.R) + np.maximum(ad - self.R, 0))
+
+    def w(self, u):
+        """1 in the head, 0 in the body, linear across the band (u: source row, or column when lying)."""
+        if self.mode == "up":
+            return np.clip((self.ny + self.t - u) / (2 * self.t), 0, 1)
+        if self.side == "r":
+            return np.clip((u - (self.nx - self.t)) / (2 * self.t), 0, 1)
+        return np.clip(((self.nx + self.t) - u) / (2 * self.t), 0, 1)
+
+    def along(self, u):
+        """The drawn row (upright) / column (lying) of source row / column u."""
+        w = self.w(u)
+        if self.mode == "up":
+            head = self.ny2 + self.s * (u - self.ny)
+            body = self.gy + self.by * (u - self.gy)
+        else:
+            head = self.nx2 + self.s * (u - self.nx)
+            body = self.px + self.by * (u - self.px)
+        return w * head + (1 - w) * body
+
+    def across(self, v, u):
+        """The drawn column (upright: v a source column on source row u) / row (lying: v a source row, u a column)."""
+        w = self.w(u)
+        if self.mode == "up":
+            head = self.nx2 + self.s * (v - self.nx)
+            body = self.px + self.g(v - self.px)
+        else:
+            head = self.gy + self.s * (v - self.gy)
+            body = self.gy + self.bx * (v - self.gy)
+        return w * head + (1 - w) * body
+
+    def forward(self, x, y):
+        if self.mode == "up":
+            return self.across(x, y), self.along(y)
+        return self.along(x), self.across(y, x)
+
+    def render(self, a, out_shape, off):
+        """`a` drawn on a canvas of out_shape whose pixel (0, 0) is the source's (-off[1], -off[0])."""
+        H, W = a.shape[:2]
+        Ho, Wo = out_shape
+        lim = max(H, W) * 2
+        us = np.linspace(-lim, lim + max(H, W), 20000)
+        al = self.along(us)
+        if self.mode == "up":
+            yc = np.arange(Ho) + 0.5 - off[0]
+            ys = np.interp(yc, al, us)
+            xc = np.arange(Wo) + 0.5 - off[1]
+            vs = np.linspace(-W, 2 * W, 6 * W + 1)
+            xs = np.empty((Ho, Wo))
+            for r in range(Ho):
+                xs[r] = np.interp(xc, self.across(vs, ys[r]), vs)
+            ysg = np.broadcast_to(ys[:, None], xs.shape)
+        else:
+            xc = np.arange(Wo) + 0.5 - off[1]
+            xs1 = np.interp(xc, al, us)
+            w = self.w(xs1)
+            S = w * self.s + (1 - w) * self.bx
+            yc = np.arange(Ho) + 0.5 - off[0]
+            ysg = self.gy + (yc[:, None] - self.gy) / S[None, :]
+            xs = np.broadcast_to(xs1[None, :], ysg.shape)
+        iy, ix = np.floor(ysg).astype(int), np.floor(xs).astype(int)
+        ok = (iy >= 0) & (iy < H) & (ix >= 0) & (ix < W)
+        out = np.zeros((Ho, Wo, 4), np.uint8)
+        out[ok] = a[iy[ok], ix[ok]]
+        return out
+
+
+def scale_even(a, k):
+    """Nearest, k times its size (k > 0)."""
+    h, w = a.shape[:2]
+    H, W = max(1, round(h * k)), max(1, round(w * k))
+    ys = np.minimum(((np.arange(H) + 0.5) / k).astype(int), h - 1)
+    xs = np.minimum(((np.arange(W) + 0.5) / k).astype(int), w - 1)
+    return a[ys][:, xs]
+
+
+# ----------------------------------------------------------------------------------------------- colours
+def edge_colour(a):
+    """The commonest colour on the outer edge (the hero's outline colour)."""
+    op = a[..., 3] > 0
+    edge = op & ~ndimage.binary_erosion(op, structure=CROSS)
+    cols, n = np.unique(a[edge][:, :3], axis=0, return_counts=True)
+    return tuple(int(v) for v in cols[np.argmax(n)])
+
+
+def palette_of(a, n=64):
+    """The frame's own commonest colours (opaque), at most n."""
+    px = a[a[..., 3] > 0][:, :3]
+    if not len(px):
+        return np.zeros((1, 3))
+    cols, cnt = np.unique(px, axis=0, return_counts=True)
+    return cols[np.argsort(-cnt)[:n]].astype(float)
+
+
+def despeckle(a):
+    """A single square whose four neighbours all share one other colour takes that colour (near-black ones stay:
+    eyes, lines)."""
+    key = (a[..., 0].astype(np.int64) << 24) | (a[..., 1].astype(np.int64) << 16) |           (a[..., 2].astype(np.int64) << 8) | a[..., 3].astype(np.int64)
+    p = np.pad(key, 1, constant_values=-1)
+    up, dn, lf, rt = p[:-2, 1:-1], p[2:, 1:-1], p[1:-1, :-2], p[1:-1, 2:]
+    m = (up == dn) & (dn == lf) & (lf == rt) & (up != key) & (up >= 0) & (a[..., 3] > 0) &         (a[..., :3].astype(int).sum(-1) >= 70)
+    out = a.copy()
+    ys, xs = np.nonzero(m)
+    out[ys, xs] = a[ys - 1, xs]
+    return out
+
+
+def pixelate(a, k, pivot, outline):
+    """`a` (a dense frame, its pivot at `pivot` = (x, y)) brought to k times as many pixels a side (k < 1): squares of
+    1/k dense pixels on a grid through the pivot. Each square: the mean of its opaque pixels snapped to the frame's own
+    64 commonest colours (clean shading, no stray colours), clear where half or more is clear, the outline colour where
+    40 % or more is near-black (eyes, lines) or, on the silhouette's edge, a quarter or more; single squares unlike all
+    four neighbours take theirs. -> (frame, new pivot)."""
+    H, W = a.shape[:2]
+    c = 1.0 / k
+    px, py = pivot
+    nx0, ny0 = int(np.ceil(px / c)), int(np.ceil(py / c))          # squares left of / above the pivot
+    nx1, ny1 = int(np.ceil((W - px) / c)), int(np.ceil((H - py) / c))
+    Wn, Hn = nx0 + nx1, ny0 + ny1
+    cx = np.floor((np.arange(W) + 0.5 - px) / c).astype(int) + nx0
+    cy = np.floor((np.arange(H) + 0.5 - py) / c).astype(int) + ny0
+    cell = (cy[:, None] * Wn + cx[None, :]).ravel()
+    n = Hn * Wn
+    op = (a[..., 3] > 0).ravel().astype(float)
+    tot = np.bincount(cell, minlength=n)
+    na = np.bincount(cell, weights=op, minlength=n)
+    rgb = np.stack([np.bincount(cell, weights=a[..., c_].ravel() * op, minlength=n) for c_ in range(3)], 1)
+    rgb /= np.maximum(na, 1)[:, None]
+    alpha = np.bincount(cell, weights=a[..., 3].ravel().astype(float), minlength=n) / np.maximum(na, 1)
+    dark = np.bincount(cell, weights=((a[..., :3].astype(int).sum(-1) < 70).ravel() * op), minlength=n)
+    dark = (dark / np.maximum(tot, 1)).reshape(Hn, Wn)
+    keep = ((na > 0) & (na * 2 >= tot)).reshape(Hn, Wn)
+    pal = palette_of(a)
+    rgb = rgb.reshape(Hn, Wn, 3)
+    d = ((rgb[..., None, :] - pal[None, None]) ** 2).sum(-1)
+    col = pal[np.argmin(d, -1)]
+    out = np.zeros((Hn, Wn, 4), np.uint8)
+    out[keep, :3] = col[keep]
+    out[keep, 3] = np.clip(np.round(alpha.reshape(Hn, Wn)[keep]), 1, 255)
+    edge = keep & ~ndimage.binary_erosion(keep, structure=CROSS)
+    m = keep & ((dark >= 0.4) | (edge & (dark >= 0.25)))
+    out[m, :3] = outline
+    return despeckle(out), (nx0, ny0)
+
+
+def grow_edge(a, n, colour):
+    if n <= 0:
+        return a
+    a = np.pad(a, ((n, n), (n, n), (0, 0)))
+    op = a[..., 3] > 0
+    ring = ndimage.binary_dilation(op, structure=CROSS, iterations=n) & ~op
+    a = a.copy()
+    a[ring, :3] = colour
+    a[ring, 3] = 255
+    return a
+
+
+def fit(content, pivot, W, H, exact_w=None):
+    """`content` (its pivot at `pivot`) on a frame of at least W x H grown alike at both ends, the pivot at the centre;
+    exact_w: the width it must have. -> frame (None when it does not fit exact_w)."""
+    op = content[..., 3] > 0
+    if not op.any():
+        return np.zeros((H, W, 4), np.uint8)
+    ys, xs = np.nonzero(op)
+    hw = max(pivot[0] - xs.min(), xs.max() + 1 - pivot[0])
+    hh = max(pivot[1] - ys.min(), ys.max() + 1 - pivot[1])
+    Wn = W
+    while Wn / 2 < hw:
+        Wn += 2
+    Hn = H
+    while Hn / 2 < hh:
+        Hn += 2
+    if exact_w is not None:
+        if Wn > exact_w:
+            return None
+        Wn = exact_w
+    out = np.zeros((Hn, Wn, 4), np.uint8)
+    dx, dy = Wn / 2 - pivot[0], Hn / 2 - pivot[1]
+    ox, oy = int(np.floor(dx + 0.5)), int(np.floor(dy + 0.5))
+    yy, xx = ys + oy, xs + ox
+    ok = (yy >= 0) & (yy < Hn) & (xx >= 0) & (xx < Wn)
+    out[yy[ok], xx[ok]] = content[ys[ok], xs[ok]]
+    return out
+
+
+# ----------------------------------------------------------------------------------------------- one frame
+def restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach=None, ring_tpl=None):
+    """-> (content, pivot (x, y), note)."""
+    fixk = spec.get("fix", {}).get((tag, i))
+    if fixk:
+        # a frame Codex drew smaller than the rest, brought to the others' size round the pivot and the ground row
+        H0, W0 = a.shape[:2]
+        big = scale_even(a, fixk)
+        gy0 = H0 / 2 + FEET * ppu
+        pvx, pvy = W0 / 2 * fixk, gy0 * fixk - FEET * ppu
+        Hb, Wb = big.shape[:2]
+        Wf, Hf = int(2 * np.ceil(max(pvx, Wb - pvx))) + 2, int(2 * np.ceil(max(pvy, Hb - pvy))) + 2
+        can = np.zeros((Hf, Wf, 4), np.uint8)
+        ox, oy = int(round(Wf / 2 - pvx)), int(round(Hf / 2 - pvy))
+        can[oy:oy + Hb, ox:ox + Wb] = big
+        a = can
+    H, W = a.shape[:2]
+    px, py = W / 2, H / 2
+    gy = py + FEET * ppu
+    content, pivot, note = a, (px, py), ""
+    if spec.get("head", 1) != 1 or spec.get("wide", 1) != 1 or spec.get("short", 1) != 1:
+        how = FRAMES.get((hero, tag, i))
+        if how is None and spec.get("body_only"):
+            how = ("body",)
+        if how is None:
+            (fy, fx), err = find_face(a, tpl)
+            if err > spec.get("max_err", 1500):
+                how = ("body",)
+                note = f"no head (err {err:.0f})"
+            else:
+                how = ("up", fx + neck_off[0], fy + neck_off[1])
+                note = f"head at {fx},{fy} err {err:.0f}"
+        if how[0] == "none":
+            warp = None
+        elif how[0] == "body":
+            warp = Warp("up", None, px, -1e6, px, gy, 1.0, spec["wide"], spec["short"], spec.get("band", 2), reach)
+        elif how[0] == "up":
+            nx, ny = (how[1], how[2]) if note else (px + how[1], py + how[2])
+            warp = Warp("up", None, nx, ny, px, gy, spec["head"], spec["wide"], spec["short"],
+                        spec.get("band", 2), reach)
+        else:
+            warp = Warp("lie", how[1], px + how[2], py + how[3], px, gy, spec["head"], spec["wide"], spec["short"],
+                        spec.get("band", 2))
+            note = f"lying, head {how[1]}"
+        WARPS[(hero, tag, i)] = warp
+        if warp is not None:
+            ring = None
+            if spec.get("ring") is not None and ring_tpl is not None and how[0] == "up":
+                a, ring = take_ring(a, ring_tpl, spec)
+                if ring is not None:
+                    a = drop_specks(a, 24)
+            m = int(max(H, W) * 0.6)
+            Ho, Wo = H + 2 * m, W + 2 * m
+            content = warp.render(a, (Ho, Wo), (m, m))
+            pivot = (px + m, py + m)
+            if ring is not None:
+                put_ring(content, ring, warp, spec["ring"], (m, m))
+    if spec.get("grow", 1) != 1:
+        # evenly bigger round the pivot column and the ground row (the soles stay FEET below the pivot)
+        k = spec["grow"]
+        gyc = pivot[1] + FEET * ppu
+        content = scale_even(content, k)
+        pivot = (pivot[0] * k, gyc * k - FEET * ppu)
+    return content, pivot, note
+
+
+def ring_template(first, spec):
+    """Karma's halo in the idle's first frame: its colours (with the outline next to them, `ring_rows` rows from the
+    top) -> (pixels, its top-left) - the same halo is pasted in every upright frame."""
+    cols = np.array(spec["ring_colours"])
+    rgb = first[..., :3].astype(int)
+    op = first[..., 3] > 0
+    jade = op & (np.abs(rgb[:, :, None, :] - cols[None, None]).sum(-1) == 0).any(-1)
+    jade[spec["ring_rows"]:] = False
+    lab, n = ndimage.label(jade, structure=np.ones((3, 3)))
+    sizes = ndimage.sum(jade, lab, range(1, n + 1))
+    core = lab == int(np.argmax(sizes)) + 1
+    dark = op & (rgb.sum(-1) < 70)
+    m = core | (dark & ndimage.binary_dilation(core, structure=np.ones((3, 3)), iterations=2))
+    m[spec["ring_rows"]:] = False
+    ys, xs = np.nonzero(m)
+    y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    pix = np.zeros((y1 - y0, x1 - x0, 4), np.uint8)
+    sub = m[y0:y1, x0:x1]
+    pix[sub] = first[y0:y1, x0:x1][sub]
+    return pix
+
+
+def take_ring(a, tpl, spec):
+    """The halo found in `a` (the template where the frame matches it best) and taken out: only the pixels equal to
+    the template's go. -> (frame without it, (pixels, box)) or (a, None) when it is not there."""
+    (ry, rx), err = find_face(a, tpl)
+    if err > spec.get("ring_err", 800):
+        return a, None
+    h, w = tpl.shape[:2]
+    win = a[ry:ry + h, rx:rx + w]
+    same = (tpl[..., 3] > 0) & (np.abs(win.astype(int) - tpl.astype(int)).sum(-1) == 0)
+    out = a.copy()
+    out[ry:ry + h, rx:rx + w][same] = 0
+    return out, (tpl, (ry, ry + h, rx, rx + w))
+
+
+def drop_specks(a, most):
+    """Pieces of at most `most` pixels standing apart from the rest (what is left of the halo's outline)."""
+    op = a[..., 3] > 0
+    lab, n = ndimage.label(op, structure=np.ones((3, 3)))
+    if n < 2:
+        return a
+    sizes = ndimage.sum(op, lab, range(1, n + 1))
+    small = np.isin(lab, np.nonzero(sizes <= most)[0] + 1)
+    out = a.copy()
+    out[small] = 0
+    return out
+
+
+def put_ring(content, ring, warp, k, off):
+    """The halo back, k times its size, its bottom middle where the warp sends it, behind what is drawn there."""
+    pix, (y0, y1, x0, x1) = ring
+    ax, ay = (x0 + x1) / 2, y1
+    bx, by = warp.forward(np.array(float(ax)), np.array(float(ay)))
+    small = scale_even(pix, k)
+    top = int(round(float(by) + off[0] - small.shape[0]))
+    left = int(round(float(bx) + off[1] - small.shape[1] / 2))
+    m = small[..., 3] > 0
+    ys, xs = np.nonzero(m)
+    yy, xx = ys + top, xs + left
+    ok = (yy >= 0) & (yy < content.shape[0]) & (xx >= 0) & (xx < content.shape[1])
+    yy, xx, ys, xs = yy[ok], xx[ok], ys[ok], xs[ok]
+    behind = content[yy, xx, 3] == 0
+    content[yy[behind], xx[behind]] = small[ys[behind], xs[behind]]
+
+
+# ----------------------------------------------------------------------------------------------- one hero
+def restyle(hero, spec, write=True, only=None):
+    frames, sheet, ppu = read_orig(hero)
+    new_ppu = spec.get("ppu", ppu)
+    first = frames["idle"][0][0]
+    outline = tuple(spec["outline"]) if spec.get("outline") else edge_colour(first)
+    tpl = neck_off = None
+    if "face" in spec:
+        r0, r1, c0, c1 = spec["face"]
+        tpl = first[r0:r1, c0:c1]
+        if spec.get("neck"):
+            nx, ny = spec["neck"]
+        else:
+            ny = spec["neck_row"]
+            op = first[..., 3] > 0
+            nx = np.nonzero(op[max(0, ny - 3):ny + 4])[1].mean() + 0.5
+        neck_off = (nx - c0, ny - r0)
+    # the body is widened within the idle's own half width round the pivot (spec "reach" overrides, in dense pixels)
+    op = first[..., 3] > 0
+    reach = spec.get("reach") or float(np.abs(np.nonzero(op)[1] + 0.5 - first.shape[1] / 2).max())
+    ring_tpl = ring_template(first, spec) if spec.get("ring") is not None else None
+    out, notes = {}, []
+    for tag, fr in frames.items():
+        if only and tag not in only:
+            continue
+        res = []
+        for i, (a, ms) in enumerate(fr):
+            content, pivot, note = restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach, ring_tpl)
+            if new_ppu != ppu:
+                content, pivot = pixelate(content, new_ppu / ppu, pivot, outline)
+            content = grow_edge(content, spec.get("edge", 0), outline)
+            e = spec.get("edge", 0)
+            pivot = (pivot[0] + e, pivot[1] + e)
+            res.append((content, pivot, ms))
+            notes.append(f"{tag}[{i}] {note}")
+        out[tag] = res
+    return out, sheet, ppu, new_ppu, notes, outline
+
+
+def framed(hero, out, sheet, new_ppu):
+    """The restyled frames on their frames (the 1x idle padded where the idle needs more width). -> ({tag: frames},
+    pad columns)."""
+    k = new_ppu
+    pad = 0
+    while True:
+        ok, res = True, {}
+        for tag, fr in out.items():
+            ones = sheet[tag]
+            frames = []
+            for (content, pivot, ms), (one, _) in zip(fr, ones):
+                w1 = one.shape[1] + (2 * pad if tag == "idle" else 0)
+                W, H = P.hd_size(w1, one.shape[0], k)
+                f = fit(content, pivot, W, H, exact_w=W if tag == "idle" else None)
+                if f is None:
+                    ok = False
+                    break
+                frames.append((f, ms))
+            if not ok:
+                break
+            res[tag] = frames
+        if ok:
+            return res, pad
+        pad += 1
+
+
+def moved_face(hero, spec, frames, ppu):
+    """The champion_view face point (1x pixels from the pivot) where the idle's first frame's warp and growth send it
+    (None when nothing moves)."""
+    path = os.path.join(MOD, "style", "champion_view.champion_view")
+    cv = json.loads(open(path, "rb").read().decode("utf-8-sig"))
+    entry = cv["entries"].get(f"league_{hero}")
+    if not entry or "face" not in entry:
+        return None
+    fx, fy = entry["face"]["x"], entry["face"]["y"]
+    a = frames["idle"][0][0]
+    px, py = a.shape[1] / 2, a.shape[0] / 2
+    x, y = px + fx * ppu, py + fy * ppu
+    warp = WARPS.get((hero, "idle", 0))
+    if warp is not None:
+        x, y = (float(v) for v in warp.forward(np.array(x), np.array(y)))
+    rx, ry = (x - px) / ppu, (y - py) / ppu
+    k = spec.get("grow", 1)
+    rx, ry = rx * k, FEET + (ry - FEET) * k
+    new = {"x": int(round(rx)), "y": int(round(ry))}
+    return None if new == {"x": fx, "y": fy} else (path, cv, entry, new)
+
+
+def write_face(hero, moved):
+    if not moved:
+        return
+    path, cv, entry, new = moved
+    print(f"{hero}: champion_view face {entry['face']} -> {new}")
+    entry["face"] = new
+    text = json.dumps(cv, ensure_ascii=False, indent=2).replace(chr(10), chr(13) + chr(10)) + chr(13) + chr(10)
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        f.write(text)
+
+
+def write_hero(hero, res, sheet, pad, new_ppu):
+    for tag, frames in res.items():
+        H = max(f.shape[0] for f, _ in frames)
+        strip = np.zeros((H, sum(f.shape[1] + 1 for f, _ in frames) - 1, 4), np.uint8)
+        x = 0
+        for f, _ in frames:
+            strip[:f.shape[0], x:x + f.shape[1]] = f
+            x += f.shape[1] + 1
+        Image.fromarray(strip).save(os.path.join(SRC, f"{hero}_{tag}.png"))
+        with open(os.path.join(SRC, f"{hero}_{tag}.json"), "w", encoding="utf-8", newline="\n") as fh:
+            json.dump({"sizes": [[f.shape[1], f.shape[0]] for f, _ in frames]}, fh)
+    if pad:
+        plain = {t: v for t, v in sheet.items() if not t.startswith(P.PREFIX)}
+        plain["idle"] = [(np.pad(a, ((0, 0), (pad, pad), (0, 0))), ms) for a, ms in plain["idle"]]
+        G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), plain)
+
+
+# ----------------------------------------------------------------------------------------------- previews
+def crop(a):
+    ys, xs = np.nonzero(a[..., 3])
+    return a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
+def shown(a, k):
+    im = Image.fromarray(crop(a))
+    size = (max(1, round(im.width * k)), max(1, round(im.height * k)))
+    return im.resize(size, Image.NEAREST if k >= 1 else Image.BOX)
+
+
+def sizes_of():
+    src = open(os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), encoding="utf-8").read()
+    m = re.search(r"pub const SIZES[^=]*=\s*&\[(.*?)\];", src, re.S)
+    return {h: float(v) for h, v in re.findall(r'\("league_(\w+)",\s*([0-9.]+)\)', m.group(1))}
+
+
+def preview(hero, res, ppu_old, new_ppu, path, Z=3):
+    """Every frame before / after at game size x Z, tag by tag."""
+    size = sizes_of().get(hero, 1.0)
+    frames, _, _ = read_orig(hero)
+    rows = []
+    for tag, fr in res.items():
+        before = [shown(a, Z * size / ppu_old) for a, _ in frames[tag]]
+        after = [shown(f, Z * size / new_ppu) for f, _ in fr]
+        cw = max(im.width for im in before + after) + 6
+        ch = max(im.height for im in before + after)
+        im = Image.new("RGB", (110 + cw * len(after), 2 * ch + 30), (88, 104, 88))
+        d = ImageDraw.Draw(im)
+        d.text((2, 4), tag, fill=(255, 255, 255))
+        d.text((2, ch // 2 + 10), "now", fill=(200, 200, 200))
+        d.text((2, ch + ch // 2 + 20), "new", fill=(255, 255, 0))
+        for i, (b, n) in enumerate(zip(before, after)):
+            x = 110 + i * cw
+            im.paste(b, (x, 6 + ch - b.height), b)
+            im.paste(n, (x, 24 + 2 * ch - n.height), n)
+        rows.append(im)
+    W = max(r.width for r in rows)
+    can = Image.new("RGB", (W, sum(r.height for r in rows)), (60, 70, 60))
+    y = 0
+    for r in rows:
+        can.paste(r, (0, y))
+        y += r.height
+    can.save(path)
+    return can.size
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--hero", action="append", required=True)
+    ap.add_argument("--preview", help="write <hero>_restyle.png here, change nothing")
+    ap.add_argument("--only", help="tags (comma separated) for a quick preview")
+    ap.add_argument("--set", nargs="*", default=[], help="key=value over RESTYLE[hero] (numbers)")
+    a = ap.parse_args()
+    for hero in a.hero:
+        spec = dict(RESTYLE[hero])
+        for kv in a.set:
+            k, v = kv.split("=", 1)
+            spec[k] = float(v)
+        out, sheet, ppu, new_ppu, notes, outline = restyle(hero, spec, only=a.only.split(",") if a.only else None)
+        res, pad = framed(hero, out, sheet, new_ppu)
+        bad = [n for n in notes if "no head" in n]
+        print(f"{hero}: PPU {ppu} -> {new_ppu}, outline {outline}, 1x idle padded {pad}; frames without a head: "
+              f"{', '.join(bad) or 'none'}")
+        if a.preview:
+            os.makedirs(a.preview, exist_ok=True)
+            print(preview(hero, res, ppu, new_ppu, os.path.join(a.preview, f"{hero}_restyle.png")))
+            continue
+        write_hero(hero, res, sheet, pad, new_ppu)
+        frames, _, _ = read_orig(hero)
+        write_face(hero, moved_face(hero, spec, frames, ppu))
+        print(f"{hero}: strips written; set PPU {hero} {new_ppu} in ppu_hd.py / hd.rs if it changed, then "
+              f"python tools/art/ppu_hd.py --hero {hero}")
+
+
+if __name__ == "__main__":
+    main()

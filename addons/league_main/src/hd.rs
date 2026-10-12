@@ -9,18 +9,18 @@
 
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
 pub const HEROES: &[(&str, f32, &str)] = &[
-    ("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
-    ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim")),
+    ("league_yasuo", 2.2, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
+    ("league_gragas", 1.76, include_str!("../../../league/champions/league_gragas#anim.fanim")),
     ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
-    ("league_vladimir", 2.0, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
-    ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
-    ("league_ashe", 5.4571, include_str!("../../../league/champions/league_ashe#anim.fanim")),
+    ("league_vladimir", 1.8, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
+    ("league_karma", 2.2, include_str!("../../../league/champions/league_karma#anim.fanim")),
+    ("league_ashe", 2.2, include_str!("../../../league/champions/league_ashe#anim.fanim")),
     ("league_irelia", 2.0, include_str!("../../../league/champions/league_irelia#anim.fanim")),
-    ("league_kassadin", 3.622, include_str!("../../../league/champions/league_kassadin#anim.fanim")),
-    ("league_corki", 5.0, include_str!("../../../league/champions/league_corki#anim.fanim")),
-    ("league_garen", 3.0, include_str!("../../../league/champions/league_garen#anim.fanim")),
-    ("league_braum", 2.881, include_str!("../../../league/champions/league_braum#anim.fanim")),
-    ("league_mordekaiser", 5.0, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
+    ("league_kassadin", 2.42, include_str!("../../../league/champions/league_kassadin#anim.fanim")),
+    ("league_corki", 2.2, include_str!("../../../league/champions/league_corki#anim.fanim")),
+    ("league_garen", 2.2, include_str!("../../../league/champions/league_garen#anim.fanim")),
+    ("league_braum", 1.98, include_str!("../../../league/champions/league_braum#anim.fanim")),
+    ("league_mordekaiser", 2.2, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
