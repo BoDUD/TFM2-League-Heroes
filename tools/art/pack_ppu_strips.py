@@ -59,6 +59,17 @@ ACTIONS = {
         "hit": "taking a hit, recoiling",
         "dead": "dying: collapsing to the ground",
     },
+    "yasuo": {
+        "run": "running to the right, the sword held low behind him (8-frame loop)",
+        "attack": "basic attack: a quick sword slash to the right",
+        "skill": "Q Steel Tempest: a straight sword thrust to the right",
+        "q3": "Q3: a rising sword sweep that sends a whirlwind to the right",
+        "eq": "E-Q: a spinning sword slash in a full circle while dashing",
+        "skill2": "E Sweeping Blade: a low dash to the right through an enemy, sword trailing",
+        "ult": "R Last Breath: a leap up and a flurry of strikes on an airborne enemy, landing with the sword sheathed",
+        "hit": "taking a hit, recoiling",
+        "dead": "dying: collapsing to the ground",
+    },
     "ashe": {
         "run": "running to the right with the bow (8-frame loop)",
         "attack": "basic attack: drawing the bow and shooting an arrow to the right",
@@ -78,6 +89,10 @@ LOOKS = {
     "karma": "a spiritual mage: dark skin, short dark hair with a gold-and-jade circlet, a big jade dragon ring floating "
              "above her head, two cream-and-jade spirit blades floating beside her shoulders, a purple-and-gold top, a "
              "long purple-to-magenta skirt split at the front, jade tattoos on the bare leg, purple heeled boots",
+    "yasuo": "a wandering swordsman: a long brown ponytail tied with a gold band, a handsome stubbled face with thick "
+             "brows, a blue scarf, a big silver shoulder plate on the far shoulder, a bare chest under brown straps, "
+             "silver forearm guards, a gold sash, dark blue wide trousers, grey wrapped boots, and a long thin "
+             "katana",
     "ashe": "a chibi frost archer: a black hood with a gold crest, long silver-white hair, big blue eyes, black-and-gold "
             "armour, a dark blue cape, a quiver of ice-blue arrows on the back, and a big ice-crystal bow with gold "
             "fittings in her near hand",
@@ -148,6 +163,7 @@ def main():
     ap.add_argument("--px", type=int, default=6, help="pixels per square in the pack's images")
     ap.add_argument("--colours", type=int, default=48)
     ap.add_argument("--ppu", type=float, help="squares per 1x pixel (default: the design's height / the 1x idle's); "
+                    "yasuo: 1.5 - his game sheet is PPU 3 with the design's squares 2 x 2 (the face the user took); "
                     "karma: 3 - her head to her soles against the 1x one's (the big jade ring above her head is not "
                     "measured: by the whole height her body came out a quarter smaller)")
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "ppu_packs"))
