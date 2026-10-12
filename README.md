@@ -4051,7 +4051,7 @@ python addons/league_kassadin/make_override.py   # 附加包的副本（主包�
 - 动作：照定稿造型自己摆（没有再让 Codex 画），见上面「精灵图」一行。侧身造型（`codex_model` 的侧身 A）最后没有用上。
 - 特效：见上面「特效」一行；提示词在 `PROMPTS_FX.md`。
 
-逐帧预览：[`docs/preview/league_kassadin_frames.png`](docs/preview/league_kassadin_frames.png)（游戏里用的 hd_ 高清帧），特效：[`docs/preview/league_kassadin_effects.png`](docs/preview/league_kassadin_effects.png)。
+逐帧预览：[`docs/preview/league_kassadin_frames.png`](docs/preview/league_kassadin_frames.png)（游戏里用的 hd_ 高清帧），特效：[`docs/preview/league_kassadin_effects.png`](docs/preview/league_kassadin_effects.png)。改大小、加粗描边、全部改正面之前和之后（游戏里的大小，旁边是德莱厄斯）：[`docs/preview/league_kassadin_before_after.gif`](docs/preview/league_kassadin_before_after.gif)。
 
 ## 选人卡片位置（`banpick_center`）
 
