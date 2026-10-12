@@ -2,7 +2,7 @@
 
     python tools/art/pack_nidalee_picture.py --out dist/nidalee_packs/nidalee_pack0 [--lol D:/WeGameApps/lol]
 
-Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..10 (League renders and the loading-screen art: Riot's, kept local, never
+Writes <out>/PICTURE_PROMPT.md, <out>/refs/A, B (the user's concept sheets, the main reference), <out>/refs/1..10 (League renders and the loading-screen art: Riot's, kept local, never
 committed) and <out>/style/11..13 (this pack's approved Codex pictures), then <out>.zip.
 Nidalee has two forms, so the pack asks for four pictures: the huntress (3/4 front, A the javelin upright at her side,
 B the javelin level over her shoulder, ready to throw) and the cougar (side-on facing right, A standing, B crouched to
@@ -44,6 +44,11 @@ RENDERS = {
     "10_cougar_league_actions": (C, ["NidaleeCougar_Spell2_short@80", "NidaleeCougar_Spell2_short@160",
                                      "NidaleeCougar_Spell3@250", "NidaleeCougar_Attack1@300", "NidaleeCougar_Run1@0",
                                      "NidaleeCougar_Run1@500"], 90, False, 600, 0.5, 0.88, 1.8, None),
+}
+# the user's concept sheets (2026-10-13, made with an image model): the main reference, attached first as A and B
+CONCEPT = {
+    "A_concept_human.png": os.path.join(SRC, "nidalee", "user_ref", "nidalee_concept_human.png"),
+    "B_concept_forms.png": os.path.join(SRC, "nidalee", "user_ref", "nidalee_concept_forms.png"),
 }
 STYLE = {
     "11_style_braum.png": os.path.join(SRC, "braum", "codex_picture", "braum-model-A.png"),
@@ -89,6 +94,8 @@ def main():
     splash.convert("RGB").save(os.path.join(refs, "5_nidalee_splash.png"))
     for name, src in STYLE.items():
         shutil.copyfile(src, os.path.join(style, name))
+    for name, src in CONCEPT.items():
+        shutil.copyfile(src, os.path.join(refs, name))
     shutil.copyfile(os.path.join(SRC, "nidalee", "PICTURE_PROMPT.md"), os.path.join(a.out, "PICTURE_PROMPT.md"))
     zp = shutil.make_archive(a.out, "zip", a.out)
     print("written", zp)
