@@ -70,6 +70,15 @@ ACTIONS = {
         "hit": "taking a hit, recoiling",
         "dead": "dying: collapsing to the ground",
     },
+    "soraka": {
+        "run": "running to the right holding the staff (8-frame loop)",
+        "attack": "basic attack: a staff swing throwing a star bolt to the right",
+        "skill": "Q Starcall: raising the staff high to call a falling star to the right",
+        "skill2": "E Equinox: thrusting the staff forward to set a silence circle to the right",
+        "ult": "R Wish: both arms raised high, praying, the staff upright",
+        "hit": "taking a hit, recoiling",
+        "dead": "dying: collapsing to the ground",
+    },
     "ashe": {
         "run": "running to the right with the bow (8-frame loop)",
         "attack": "basic attack: drawing the bow and shooting an arrow to the right",
@@ -93,6 +102,12 @@ LOOKS = {
              "brows, a blue scarf, a big silver shoulder plate on the far shoulder, a bare chest under brown straps, "
              "silver forearm guards, a gold sash, dark blue wide trousers, grey wrapped boots, and a long thin "
              "katana",
+    "soraka": "a gentle celestial healer: blue-violet skin with light swirl markings on her arms, long white-silver "
+              "hair in a thick low ponytail down her back, one curved golden horn on her forehead, big pointed ears "
+              "(blue-violet outside, red inside), golden eyes, a golden-yellow top with a teal gem pendant, a red cape, "
+              "a brown belt with a round orange gem and a long orange-red cloth hanging in front, pale wraps on her "
+              "lower legs, dark goat hooves, and a long golden staff with a big crescent moon on top and an orange orb "
+              "at the bottom",
     "ashe": "a chibi frost archer: a black hood with a gold crest, long silver-white hair, big blue eyes, black-and-gold "
             "armour, a dark blue cape, a quiver of ice-blue arrows on the back, and a big ice-crystal bow with gold "
             "fittings in her near hand",
@@ -159,9 +174,15 @@ def pack_cells(sizes, px, max_px=MAX_PX):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--hero", required=True)
-    ap.add_argument("--design", required=True, help="the Codex picture (any size; read back on its own grid)")
+    ap.add_argument("--design", help="the Codex picture (any size; read back on its own grid); without it (a hero "
+                    "whose design is drawn in the same pack's step 1: tools/art/pack_ppu_model.py) --ppu is needed and "
+                    "the prompts point at that step's design")
     ap.add_argument("--px", type=int, default=6, help="pixels per square in the pack's images")
     ap.add_argument("--colours", type=int, default=48)
+    ap.add_argument("--model-ref", help="with no --design: the picture the design is redrawn from in step 1 (the "
+                    "user: 「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」 - one pack, the design "
+                    "first, then every action on it without stopping)")
+    ap.add_argument("--px-model", type=int, default=8, help="pixels per square of the step-1 design")
     ap.add_argument("--ppu", type=float, help="squares per 1x pixel (default: the design's height / the 1x idle's); "
                     "yasuo: 1.5 - his game sheet is PPU 3 with the design's squares 2 x 2 (the face the user took); "
                     "karma: 3 - her head to her soles against the 1x one's (the big jade ring above her head is not "
@@ -170,7 +191,9 @@ def main():
     a = ap.parse_args()
     hero, px = a.hero, a.px
     sheet = P.read_sheet(os.path.join(ROOT, "league", "champions", f"league_{hero}"))
-    design = clean_design(a.design, a.colours)
+    design = clean_design(a.design, a.colours) if a.design else None
+    if design is None and not a.ppu:
+        sys.exit("without --design, --ppu is needed")
     idle = sheet["idle"][0][0]
     ys = np.nonzero(idle[..., 3] > 0)[0]
     ppu = a.ppu or design.shape[0] / (ys.max() - ys.min() + 1)
@@ -179,20 +202,25 @@ def main():
         shutil.rmtree(out)
     for sub in ("design", "now", "guide", "refs"):
         os.makedirs(os.path.join(out, sub))
-    shutil.copyfile(a.design, os.path.join(out, "refs", f"{hero}_design_raw.png"))
     up = lambda img, k: np.repeat(np.repeat(img, k, axis=0), k, axis=1)
-    Image.fromarray(design).save(os.path.join(out, "design", f"{hero}_design_1x.png"))
-    Image.fromarray(up(design, px)).save(os.path.join(out, "design", f"{hero}_design.png"))
-    cols = np.unique(design[design[..., 3] > 0][:, :3], axis=0)
-    cols = cols[np.argsort(cols.sum(axis=1))]
-    pal = np.zeros((1, len(cols), 4), np.uint8)
-    pal[0, :, :3], pal[0, :, 3] = cols, 255
-    Image.fromarray(up(pal, 24)).save(os.path.join(out, "design", f"{hero}_palette.png"))
-    hexes = " ".join("#%02X%02X%02X" % tuple(int(v) for v in c) for c in cols)
+    if design is not None:
+        shutil.copyfile(a.design, os.path.join(out, "refs", f"{hero}_design_raw.png"))
+        Image.fromarray(design).save(os.path.join(out, "design", f"{hero}_design_1x.png"))
+        Image.fromarray(up(design, px)).save(os.path.join(out, "design", f"{hero}_design.png"))
+        cols = np.unique(design[design[..., 3] > 0][:, :3], axis=0)
+        cols = cols[np.argsort(cols.sum(axis=1))]
+        pal = np.zeros((1, len(cols), 4), np.uint8)
+        pal[0, :, :3], pal[0, :, 3] = cols, 255
+        Image.fromarray(up(pal, 24)).save(os.path.join(out, "design", f"{hero}_palette.png"))
+        hexes = " ".join("#%02X%02X%02X" % tuple(int(v) for v in c) for c in cols)
+        extra = max(0, round(design.shape[0] - ppu * (ys.max() - ys.min() + 1)))
+    else:
+        cols, hexes, extra = [], "", 0
+        os.rmdir(os.path.join(out, "design"))
     feet = feet_offset(idle)                        # 1x rows from the pivot to the soles
-    extra = max(0, round(design.shape[0] - ppu * (ys.max() - ys.min() + 1)))
 
-    manifest = {"hero": hero, "ppu": round(ppu, 4), "px_per_square": px, "design_squares": list(design.shape[1::-1]),
+    manifest = {"hero": hero, "ppu": round(ppu, 4), "px_per_square": px,
+                "design_squares": list(design.shape[1::-1]) if design is not None else None,
                 "colours": len(cols), "images": []}
     rows_md = []
     for tag, frames in sheet.items():
@@ -249,20 +277,84 @@ def main():
     with open(os.path.join(out, "cells.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
     write_prompts(out, hero, px, design, len(cols), hexes, rows_md, ppu)
+    if design is None and a.model_ref:
+        write_model_step(out, hero, ppu, a.px_model, idle, a.model_ref, px)
+        readme = [f"# {hero}：一个包两步，一次做完", "",
+                  f"1. 先按 `MODEL.md` 画造型（交付 `outputs/{hero}-ppu-model/`）。",
+                  f"2. 画完不用等确认，直接按 `PROMPTS.md` 画全部动作，附图2 用第 1 步的造型"
+                  f"（交付 `outputs/{hero}-ppu-strips/`）。", "",
+                  f"两步都交付后打成一个 zip：`{hero}_ppu_done.zip`。", ""]
+        with open(os.path.join(out, "README.md"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(chr(10).join(readme))
     shutil.make_archive(os.path.join(a.out, f"{hero}_ppu_strips"), "zip", out)
-    print(f"{hero}: design {design.shape[1]}x{design.shape[0]} squares, {len(cols)} colours, PPU {ppu:.3f}; "
+    print(f"{hero}: design " + (f"{design.shape[1]}x{design.shape[0]} squares, {len(cols)} colours"
+                                 if design is not None else "from step 1") + f", PPU {ppu:.3f}; "
           f"{len(rows_md)} images, {sum(r[2] for r in rows_md)} frames -> {a.out}/{hero}_ppu_strips.zip")
+
+
+def write_model_step(out, hero, ppu, mpx, idle, ref, px):
+    """Step 1 of a one-shot pack: the design redrawn from `ref` on a clean grid at the hero's height x PPU."""
+    os.makedirs(os.path.join(out, "model"), exist_ok=True)
+    shutil.copyfile(ref, os.path.join(out, "model", f"{hero}_reference.png"))
+    for other in ("vladimir", "karma", "ashe", "yasuo"):
+        src = os.path.join(ROOT, "assets", "source", "ppu", f"{other}_codex.png")
+        if os.path.isfile(src):
+            shutil.copyfile(src, os.path.join(out, "model", f"style_{other}.png"))
+    ys, xs = np.nonzero(idle[..., 3] > 0)
+    rows = round((ys.max() - ys.min() + 1) * ppu)
+    # the guide: a 1024 x 1536 canvas of mpx squares, the 1x idle x PPU standing on the feet line, its top line
+    W, H = 1024 // mpx, 1536 // mpx
+    sk = scale_nearest(idle[ys.min():ys.max() + 1, xs.min():xs.max() + 1], ppu)
+    feet_row = H - 8
+    top_row = feet_row - rows + 1
+    canvas = np.zeros((H, W, 4), np.uint8)
+    x0 = (W - sk.shape[1]) // 2
+    canvas[top_row:top_row + sk.shape[0], x0:x0 + sk.shape[1]] = sk[:H - top_row]
+    big = np.repeat(np.repeat(canvas, mpx, axis=0), mpx, axis=1)
+    Image.fromarray(big).save(os.path.join(out, "model", f"{hero}_size_now.png"))
+    g = Image.fromarray(big).convert("RGBA")
+    dr = ImageDraw.Draw(g)
+    dr.line([0, top_row * mpx, W * mpx, top_row * mpx], fill=(0, 0, 255, 255), width=2)
+    dr.line([0, (feet_row + 1) * mpx - 2, W * mpx, (feet_row + 1) * mpx - 2], fill=(255, 0, 0, 255), width=2)
+    g.save(os.path.join(out, "model", f"{hero}_size_guide.png"))
+    look = LOOKS.get(hero, hero)
+    step = f"""# 第一步：造型（{hero}，画完不要停，直接做第二步）
+
+> 用户：「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」。先照 `model/{hero}_reference.png`（你 10 月 9 日画的那张）重画一张**干净的高清造型**，画完**直接用它做第二步**（`PROMPTS.md` 里的动作），中间不用等确认。
+
+- **大小**：从角尖到蹄底正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，蹄底在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），角尖在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的她按同样的大小放大的样子——只看大小和站位，长相照参考图。
+- **长相、配色、姿势照 `model/{hero}_reference.png`**：{look}。3/4 侧前方朝右，自然站立，法杖竖在身前。
+- **画法照 `model/style_*.png`**（同一套英雄的高清造型）：干净的像素画，每格一个纯色方块，同一个网格，1 格深色外描边，每种材质 2-4 个色阶，不要抖动、渐变、噪点、抗锯齿、半透明；整张最多 48 色。
+- 交付 `outputs/{hero}-ppu-model/{hero}_design.png`（{mpx} 倍放大，透明底）和 `{hero}_design_1x.png`（1 像素 1 格），生图原稿放 `raw/`。
+
+```text
+Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from the tip of the horn to the bottom of the hooves, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with the hooves on square row {feet_row} and the character centered. Keep the reference's look, colours, proportions and pose (3/4 view facing right, standing, the staff upright in front of her). Match the pixel style of the other attached designs: a 1-square dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
+```
+
+然后打开 `PROMPTS.md` 做第二步：**附图2 一律用这一步画好的 `{hero}_design.png`**，每格 {px}×{px} 像素——第二步骨架的格子按 {px} 像素一格算，**和这一步的 {mpx} 像素不同时，把造型缩放成 {px} 像素一格再当附图2**（按格子整格缩放，不要插值）。
+"""
+    with open(os.path.join(out, "MODEL.md"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(step)
 
 
 def write_prompts(out, hero, px, design, ncol, hexes, rows, ppu):
     look = LOOKS.get(hero, hero)
+    if design is None:
+        # the design is drawn in step 1 of the same pack (model/): every reference to it points there
+        dfile = f"outputs/{hero}-ppu-model/{hero}_design.png"
+        dsize = "第一步定稿的大小"
+        colours_rule = "only the colours of Image 2 (no new colours)"
+    else:
+        dfile = f"design/{hero}_design.png"
+        dsize = f"{design.shape[1]}×{design.shape[0]} 格、{ncol} 色"
+        colours_rule = f"ONLY Image 2's colours: {hexes}"
     table = "\n".join(f"| `{n}.png` | {t} | {c} | {w}×{h} | {d} |" for n, t, c, w, h, d in rows)
     md = f"""# {hero}：按高清造型逐帧重画全部动作（PPU {ppu:.2f}，给 Codex 的提示词）
 
-> 用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」。**造型就是 `design/{hero}_design.png`**（你之前画的那张，按格子取回，{design.shape[1]}×{design.shape[0]} 格、{ncol} 色，这里每格 {px}×{px} 像素）。待机不用画（就是造型图）。其余每个动作都要画成**这个造型**，像素大小和造型图一模一样。
+> 用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」。**造型就是 `{dfile}`**（{dsize}，这里每格 {px}×{px} 像素）。待机不用画（就是造型图）。其余每个动作都要画成**这个造型**，像素大小和造型图一模一样。
 > - 每张 `now/{hero}_<动作>_<n>.png` 是**骨架**：现在游戏里的动作帧按同样的格子放大，告诉你每帧的姿势、在格子里的位置和人有多高。你画的人**脚底和骨架在同一行同一列、头顶到脚底一样高**，姿势照骨架；**比例（头的大小、身材、四肢）、长相、配色、细节全部照造型图**——骨架是旧的粗画法，头比造型图大，不要照它的比例（「骨架 + 皮囊」）。
 > - `guide/` 是同一张图加了格子边框（灰）、站位点（蓝十字）和脚底线（红线）——对位用，**不要画进图里**。`cells.json` 里有每格的位置。
-> - **每格 {px}×{px} 像素一个纯色方块**，所有格子对齐同一个网格；只用造型图的颜色（`design/{hero}_palette.png`）；没有抗锯齿、模糊、半透明。
+> - **每格 {px}×{px} 像素一个纯色方块**，所有格子对齐同一个网格；只用造型图的颜色；没有抗锯齿、模糊、半透明。
 > - **头每帧都是造型图的头**（发型、脸、眼睛逐格一样，只平移），衣服、武器、配饰的形状和颜色每帧都和造型图一样；出招一律朝图的右边；不画背影；**脚底线以下什么都不能有**；不画特效（血、光、箭的轨迹、冲击波），只画人。
 > - 每张交回同名文件（`{hero}_<动作>_<n>.png`，和骨架同样大小、同样的格子），放到 `outputs/{hero}-ppu-strips/`；附 `HANDOFF.md`（最后写：每张用了哪条提示词、哪里没做到）和生图原稿 `raw/`（不要重采样）；最好打成一个 zip（`{hero}_ppu_strips_done.zip`）。
 > - 你的生图工具一次画不好整张时，**一帧一帧单独生成**（每帧一张图，按 `cells.json` 拼回格子）；生成后按格子取回（每格取多数颜色，不要取中心点），**不要用脚本缩放**。
@@ -273,13 +365,13 @@ def write_prompts(out, hero, px, design, ncol, hexes, rows, ppu):
 |---|---|---|---|---|
 {table}
 
-## 提示词（每张图：附图1 = `now/` 里那张骨架，附图2 = `design/{hero}_design.png`）
+## 提示词（每张图：附图1 = `now/` 里那张骨架，附图2 = `{dfile}`）
 
 ```text
 Image 1 is a sprite sheet of an animation: frames in cells, read left to right, top to bottom. Image 2 is the approved, final pixel-art design of the character. Redraw every frame of Image 1 as the character of Image 2.
 1. Keep from Image 1: every frame's cell, where the character stands (the soles on the same row and the same column), the height from the soles to the top of the head, and the pose (where the arms, the weapon, the body and the legs go). Do NOT copy Image 1's proportions or look: Image 1's figure is an older, rougher drawing with a bigger head - the head size, the body, the limbs and every detail are Image 2's. Every cast goes to the RIGHT of the image; never draw the character from the back.
 2. Replace the look completely with Image 2: {look}. The head (hair, face, eyes) is Image 2's head in every frame, copied square for square and only moved; the clothes, armour, weapon and ornaments keep Image 2's shapes and colours in every frame.
-3. Pixel art at EXACTLY Image 2's pixel size: every pixel one crisp {px}x{px} square on a single grid, nothing smaller, no anti-aliasing, no blur, no semi-transparency. ONLY Image 2's colours: {hexes}. A 1-square dark outline around the silhouette, Image 2's shading, no dithering, no noise.
+3. Pixel art at EXACTLY Image 2's pixel size: every pixel one crisp {px}x{px} square on a single grid, nothing smaller, no anti-aliasing, no blur, no semi-transparency. {colours_rule}. A 1-square dark outline around the silhouette, Image 2's shading, no dithering, no noise.
 4. Nothing below each frame's feet (the soles stay where Image 1's soles are). Do not draw any effect (blood, glow, arrows in flight, trails, shockwaves): only the character.
 5. The animation: [动作内容].
 Same image size and the same cells as Image 1. Transparent background (if not possible: solid #00FF00 green). No grid lines, borders, labels or guide marks.
