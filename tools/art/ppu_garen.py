@@ -23,12 +23,13 @@ the picture's face is (import_ppu_strips.paste_head searched round its skin), ex
 seen from behind, the death lying down). The slash's white arc across attack picture 4 and the burst over q_attack
 picture 5's legs leave nothing to keep, so those frames take the next picture; ult pictures 4-6's ground burst round
 the planted blade is cleared (the blade kept); the skill's raised blade, guard and fist go back over the pasted head
-(held beside it). The run (the user picked the idle for it: legs stepping, the body never bent) is the dense idle's
-frame 0 with its two lower legs stepping as rigid pieces (RUN_FAR, RUN_NEAR: knee guard to sole, the blade and the cape
-left with the body) - each on the ground from in front to behind, then swung forward lifted, the far one half a cycle
-on - and the rest one block a row or two down as a foot lands; the legs behind it (the skirt and the blade in front as
-in the idle), ground shut in where a leg was filled with the colours round it, the cape's loose specks dropped; the
-body stays put, the soles on the 1x run's ground row.
+(held beside it). The run (the user picked the idle for it, then 「走路时腿变形 你好好解决」 on lower legs slid whole -
+the knee left the hip) is drawn the approved way (league_caitlyn, league_zeri, league_irelia): the dense idle's frame 0
+without its legs, the hips fixed under the skirt, each ankle placed by the eight run phases, the knee solved at one
+thigh and shin length, thigh and shin straight greaves in the idle's own greys with an outline ring, the idle's knee
+guard on the knee and its boot on the ankle (the far leg - the one under the blade, image right: the body is turned to
+the front-right - a step darker, half a cycle on); the cape behind the legs, the skirt, body and blade in front, the
+whole body a row or two down as a foot lands, and where it stands on the 1x run's ground.
 
 idle: the first picture of garen_idle.png is the design; the loop is that design breathing (tools/art/idle_breathe.py,
 the 1x recipe: the body above the shins down 0-2 rows and a column forward, the head a frame late), the sword lifted out
@@ -373,83 +374,151 @@ def actions(pal, design):
     return out
 
 
-# the run: boxes (row0, row1, col0, col1) of the dense idle frame 0 (142 x 138) holding each lower leg, knee guard to
-# sole (the cape's blue and the blade never in them); one leg's cycle in dense px - forward of the standing place, and
-# lifted - from landing in front through pushing off behind to the swing; the body's dip as a foot lands
-RUN_FAR = ((75, 99, 14, 41),)
-RUN_NEAR = ((79, 88, 60, 87), (88, 99, 57, 87))
-RUN_DX = [8, 3, -2, -7, -5, 0, 5, 9]
-RUN_LIFT = [0, 0, 0, 0, 3, 6, 5, 1]
+# the run, in the dense idle frame 0's pixels (142 x 138): the near leg's knee guard and boot (rows, cols, ends
+# excluded) pasted on every knee and ankle; both legs' pixels below the skirt (taken out of the body); the hips; thigh and
+# shin lengths; the boot's top row on the ground; each foot lands RUN_LEAD ahead of its hip and pushes off as far behind
+RUN_KNEE = (76, 87, 25, 39)
+RUN_BOOT = (86, 99, 17, 37)
+RUN_LEGS = ((76, 99, 16, 40), (80, 99, 58, 90))
+RUN_HIP = {"near": (34.0, 73.0), "far": (60.0, 75.0)}
+RUN_LEG = (8.5, 7.5)
+RUN_ANKLE = 87.0
+RUN_LEAD = 5.5
+RUN_FAR_DARK = 0.18
+# one leg's eight phases (league_zeri's, approved; strips_irelia.RUN_PHASES): the ankle from its place in 1x squares of
+# a longer leg (x RUN_SCALE: Garen's legs are shorter) and how far the foot is lifted
+RUN_PHASES = [(0.0, 0), (-2.0, 0), (-4.0, 0), (-6.5, 1), (-8.0, 3), (-7.5, 4), (-2.5, 3.5), (0.0, 1.5)]
+RUN_SCALE = 1.4
 RUN_BOB = [2, 1, 0, 1, 2, 1, 0, 1]
 
 
 def run(idle0, ones):
     """The 8 dense run frames from the dense idle's frame 0, each on round(PPU x its 1x run frame), the body where the
     idle's stands on the 1x run's ground (see the module's notes)."""
+    import rigkit as K
     a = idle0.astype(int)
     h, w = a.shape[:2]
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
     op = a[..., 3] > 0
-    blue = op & (a[..., 2] > a[..., 0] + 40) & (a[..., 2] > 90)
-    blade = blade_mask(idle0, PPU)
-    blade |= op & ndimage.binary_dilation(blade) & (lum(a) < 70)
+    navy = op & (b > r + 15) & (b > 60)                   # the cape's and the skirt's blues down to their darkest
+    yy, xx = np.mgrid[0:h, 0:w]
+    core = blade_mask(idle0, PPU) & (lum(a) >= 70)
+    # the blade's steel and only the outline right against it (blade_mask reaches 1.5 px out: the far boot's dark)
+    blade = core | (blade_mask(idle0, PPU) & (lum(a) < 70)
+                    & ndimage.binary_dilation(core, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])))
 
-    def boxes(spec):
+    blue = op & (b > r + 40) & (b > 90)
+
+    def box(r0, r1, c0, c1, skip):
         m = np.zeros((h, w), bool)
-        for r0, r1, c0, c1 in spec:
-            m[r0:r1, c0:c1] = True
-        return m & op & ~blue & ~blade
+        m[r0:r1, c0:c1] = True
+        return m & op & ~skip & ~blade
 
-    far, near = boxes(RUN_FAR), boxes(RUN_NEAR)
-    # the outline a leg shares with the body goes with the leg (left behind it hung off the cape as a hook, or crossed
-    # the leg as a dark line); the body's edge it leaves open is closed again below
-    dark = op & (lum(a) < 60) & ~blade
-    far |= dark & ndimage.binary_dilation(far, structure=np.ones((3, 3))) & ~near
-    near |= dark & ndimage.binary_dilation(near, structure=np.ones((3, 3))) & ~far
-    body = op & ~far & ~near
+    # the pasted pieces never carry a blue (the cape's dark outline touches the knee guard); the legs taken out leave
+    # the darkest blues with the body
+    knee = box(*RUN_KNEE, navy)
+    boot = box(*RUN_BOOT, navy) & ~knee
+    legs = np.zeros((h, w), bool)
+    for bx in RUN_LEGS:
+        legs |= box(*bx, blue)
+    cape = ndimage.binary_fill_holes(blue & (yy > 46) & (xx < 34))
+    cape |= op & ndimage.binary_dilation(cape, iterations=2) & (lum(a) < 60) & ~legs & (xx < 34)
+    body = op & ~legs & ~cape
+    ky, kx = np.nonzero(knee)
+    knee_mid = (kx.mean(), ky.mean())
+    by, bx_ = np.nonzero(boot)
+    boot_top = ((bx_.min() + bx_.max() + 1) / 2, by.min())
+    # the greave's greys (lit, mid, dark) from the near leg's shin and boot, the outline's colour
+    px = a[box(84, 92, 20, 36, navy)][:, :3]
+    l = 0.299 * px[:, 0] + 0.587 * px[:, 1] + 0.114 * px[:, 2]
+    grey, gl = px[(np.abs(px[:, 0] - px[:, 2]) < 30) & (l > 60)], l[(np.abs(px[:, 0] - px[:, 2]) < 30) & (l > 60)]
+    lit, mid, dark = (tuple(int(c) for c in grey[np.argmin(np.abs(gl - v))]) for v in np.quantile(gl, [0.85, 0.55, 0.2]))
+    outline = tuple(int(c) for c in a[op & (lum(a) < 40)][:, :3][0])
+
+    def stamp(dst, m, ox, oy, shade=0.0):
+        ys, xs = np.nonzero(m)
+        Y, X = ys + oy, xs + ox
+        ok = (Y >= 0) & (Y < dst.shape[0]) & (X >= 0) & (X < dst.shape[1])
+        px = idle0[ys[ok], xs[ok]].astype(int)
+        px[:, :3] = (px[:, :3] * (1 - shade)).astype(int)
+        dst[Y[ok], X[ok]] = px.astype(np.uint8)
+
+    def segment(cells, p0, p1, w0, w1):
+        n = int(max(abs(p1[0] - p0[0]), abs(p1[1] - p0[1])) * 3) + 1
+        for i in range(n + 1):
+            x, y = p0[0] + (p1[0] - p0[0]) * i / n, p0[1] + (p1[1] - p0[1]) * i / n
+            wd = w0 + (w1 - w0) * i / n
+            for j in range(int(round(wd))):
+                t = j / max(1, wd - 1)
+                cells[(int(np.floor(y)), int(np.floor(x - wd / 2 + j)))] = dark if t < 0.3 else (mid if t < 0.75 else lit)
+
     fx, fy = feet(idle0)
-    # where the 1x run stands, from each frame's centre (the mean of its frames: the old run's own legs move)
     stood = [feet(one) for one in ones]
     sx = float(np.mean([x - one.shape[1] / 2 for (x, _), one in zip(stood, ones)]))
     sy = float(np.mean([y - one.shape[0] / 2 for (_, y), one in zip(stood, ones)]))
     pad = 12
-    zone = np.zeros((h + 2 * pad, w + 2 * pad), bool)
-    zone[pad:pad + h, pad:pad + w] = ndimage.binary_dilation(far | near, iterations=12)
-    sole = int(round(fy)) - 1 + pad
     out = []
     for k, one in enumerate(ones):
         f = np.zeros((h + 2 * pad, w + 2 * pad, 4), np.uint8)
-        for mask, ph in ((far, (k + 4) % 8), (near, k), (body, None)):
-            dx, dy = (RUN_DX[ph], -RUN_LIFT[ph]) if ph is not None else (0, RUN_BOB[k])
-            ys, xs = np.nonzero(mask)
-            f[ys + pad + dy, xs + pad + dx] = idle0[ys, xs]
+        step = RUN_BOB[k]
+        stamp(f, cape, pad, pad + step)
+        for phase, far in (((k + 4) % 8, True), (k, False)):
+            hx, hy = RUN_HIP["far" if far else "near"]
+            hy += step
+            dx, lift = RUN_PHASES[phase]
+            ax, ay = hx + RUN_LEAD + RUN_SCALE * dx, RUN_ANKLE - RUN_SCALE * lift
+            k1, _ = K.elbow((hx, hy), (ax, ay), RUN_LEG[0], RUN_LEG[1], bend=-1)
+            k2, _ = K.elbow((hx, hy), (ax, ay), RUN_LEG[0], RUN_LEG[1], bend=1)
+            kx_, ky_ = k1 if k1[0] >= k2[0] else k2                    # the knee forward
+            cells = {}
+            segment(cells, (hx, hy), (kx_, ky_), 10, 8)
+            segment(cells, (kx_, ky_), (ax, ay), 8, 7)
+            layer = np.zeros(f.shape, np.uint8)
+            for (y, x), col in cells.items():
+                if 0 <= y + pad < f.shape[0] and 0 <= x + pad < f.shape[1]:
+                    layer[y + pad, x + pad, :3] = col
+                    layer[y + pad, x + pad, 3] = 255
+            m = layer[..., 3] > 0
+            ring = ndimage.binary_dilation(m, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])) & ~m
+            layer[ring, :3] = outline
+            layer[ring, 3] = 255
+            shade = RUN_FAR_DARK if far else 0.0
+            if shade:
+                layer[..., :3] = (layer[..., :3].astype(int) * (1 - shade)).astype(np.uint8)
+            stamp(layer, boot, int(round(ax - boot_top[0])) + pad, int(round(ay - boot_top[1])) + pad, shade)
+            stamp(layer, knee, int(round(kx_ - knee_mid[0])) + pad, int(round(ky_ - knee_mid[1])) + pad, shade)
+            lm = layer[..., 3] > 0
+            f[lm] = layer[lm]
+        stamp(f, body, pad, pad + step)
         opf = f[..., 3] > 0
         holes = ndimage.binary_fill_holes(opf) & ~opf
         if holes.any():
             f = N.fill_behind(f, holes)
-        # the cape's specks left where a leg stood in front of it: a pixel with two or fewer neighbours goes
+        # specks round the legs (the cape's frayed edge, bits of the old legs): pixels with <= 2 neighbours, small parts
+        zone = np.zeros(f.shape[:2], bool)
+        zone[pad + 70:] = True
         for _ in range(2):
             opf = f[..., 3] > 0
-            n = ndimage.convolve(opf.astype(int), np.ones((3, 3), int), mode="constant") - opf
-            f[opf & (n <= 2) & zone] = 0
-        # the body's edge a leg left: outlined again (round the legs only, never under the soles)
-        f, _, _ = G.complete_outline(f, feet=sole, keep=~zone)
+            nb = ndimage.convolve(opf.astype(int), np.ones((3, 3), int), mode="constant") - opf
+            f[opf & (nb <= 2) & zone] = 0
         opf = f[..., 3] > 0
-        holes = ndimage.binary_fill_holes(opf) & ~opf          # a pocket the new outline shut in
-        if holes.any():
-            f = N.fill_behind(f, holes)
-        # on the 1x run frame: the idle's feet (the body's standing place, not the stepping legs') where the 1x run stands
+        lab, n = ndimage.label(opf, structure=np.ones((3, 3)))
+        for v, z in enumerate(ndimage.sum(opf, lab, range(1, n + 1)), 1):
+            if z < 30:
+                f[lab == v] = 0
+        # where the 1x run stands (the mean of its frames: the old run's own legs move); the body never sways
         h1, w1 = one.shape[:2]
         W, H = ppu_hd.hd_size(w1, h1, PPU)
         ys, xs = np.nonzero(f[..., 3])
         while True:
-            dx = int(round(sx * PPU + W / 2 - (fx + pad)))
-            dy = int(round(sy * PPU + H / 2 - (fy + pad)))
-            if ys.min() + dy >= 3 and xs.min() + dx >= 3 and ys.max() + dy < H - 3 and xs.max() + dx < W - 3:
+            dx_ = int(round(sx * PPU + W / 2 - (fx + pad)))
+            dy_ = int(round(sy * PPU + H / 2 - (fy + pad)))
+            if ys.min() + dy_ >= 3 and xs.min() + dx_ >= 3 and ys.max() + dy_ < H - 3 and xs.max() + dx_ < W - 3:
                 break
             W, H = W + 2, H + 2
-        g = np.zeros((H, W, 4), np.uint8)
-        g[ys + dy, xs + dx] = f[ys, xs]
-        out.append(g)
+        g_ = np.zeros((H, W, 4), np.uint8)
+        g_[ys + dy_, xs + dx_] = f[ys, xs]
+        out.append(g_)
     return out
 
 
