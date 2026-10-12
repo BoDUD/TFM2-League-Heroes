@@ -10,7 +10,7 @@
 //! 被动：
 //! - 她身上 `league_irelia_q_dash` 出现 = 一次 Q 冲刺开始；冲刺里她第一次造成伤害（`on_attack`）的那个单位就是 Q 的目标。
 //!   目标身上有印记：拿掉印记（英雄联盟里印记被 Q 消耗），给她挂 `league_irelia_q_again`；这一下把目标打死了
-//!   （`on_kill`，冲刺开始后 `q_dur + 10` tick 内）：也挂 `q_again`。数据里她身上的轮询看到 `q_again` 就再冲一次
+//!   （冲刺开始后 `q_dur + 10` tick 内：英雄看 `on_kill`；小兵、野怪死了游戏不调 `on_kill`，看目标没了或没血）：也挂 `q_again`。数据里她身上的轮询看到 `q_again` 就再冲一次
 //!   （被控的英雄 → 英雄 → 最近的单位，一次施放最多 3 段）。
 //!
 //! AI 钩子 `league_irelia:hop`（英雄联盟里刀妹的「跳兵线」）：Q 好了、Q 射程里没有敌方英雄、但 `hop_reach` 内有一个看得见、
@@ -201,6 +201,7 @@ struct Surge {
     dashes: usize,
     marks: usize,
     kills: usize,
+    hits: usize,
 }
 
 impl Surge {
@@ -249,6 +250,14 @@ impl StablePassive for Surge {
             self.dashes += 1;
         }
         self.was_dashing = now;
+        // 小兵、野怪死了游戏不调 on_kill（只有英雄）：冲刺里打中的目标在窗口内没了或没血 = 这一下打死了
+        if let Some(d) = self.dash {
+            if let Some(t) = d.target {
+                if !d.reset && tick <= d.start + self.p.q_dur + 10 && sim.get_entity(t).map_or(true, |e| e.hp().0 == 0) {
+                    self.reset(sim, me, "kill", t);
+                }
+            }
+        }
         if self.dash.is_some_and(|d| tick > d.start + self.p.q_dur + 12) {
             self.dash = None;
         }
@@ -260,6 +269,13 @@ impl StablePassive for Surge {
             return;
         }
         self.dash.as_mut().unwrap().target = Some(target);
+        if !sim.get_entity(target).is_some_and(|e| e.is_champion()) {
+            self.hits += 1;
+            if self.hits <= 40 || self.hits % 25 == 0 {
+                wlog(format!("{} Q HIT #{} {} ({} hp left)", head(sim, me), self.hits, who(sim, target),
+                             sim.get_entity(target).map_or(0, |e| e.hp().0)));
+            }
+        }
         let mark = ir("mark");
         if has_buff(sim, target, &mark) {
             sim.entity_remove_buff(target, &mark);
@@ -286,6 +302,8 @@ impl StablePassive for Surge {
 struct Hop {
     hops: usize,
     marked: usize,
+    /// 上一次改写的 (她, 目标)：施放开始前每 tick 都会再问一次，同一个目标只算一次
+    last: Option<(usize, usize)>,
 }
 
 /// 她看得见的敌方单位（不含塔），和敌方塔的位置。
@@ -341,6 +359,7 @@ impl StablePlayerAi for Hop {
             let sim = ctx.sim()?;
             let player = sim.get_player(me_id)?;
             if player.cooldowns()?.1 > 0 {
+                self.last = None;               // Q 放出去了：下一次同一个目标再记一行
                 return None;
             }
             let her = player.champion()?;
@@ -402,6 +421,10 @@ impl StablePlayerAi for Hop {
         if !ctx.is_valid_input(&input) {
             return None;
         }
+        if self.last == Some((me_id, target)) {
+            return Some(input);
+        }
+        self.last = Some((me_id, target));
         let n = if hop {
             self.hops += 1;
             self.hops
