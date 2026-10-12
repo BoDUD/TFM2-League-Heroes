@@ -35,6 +35,13 @@ const SHEET_RVA: usize = 0x16d040;
 /// ctrl: key String {cap, ptr, len}, frames Vec {cap, ptr, len}.
 const BUCKET: usize = 0x30;
 const MAX_LINES: usize = 400;
+/// The battlefield body draw (0x230ec30) takes its frame from 0x233d8e0 (its anim lookup returns to 0x233d920) and
+/// sends only the UV: Skia draws UV x the image's real pixels and the pivot is from the frame's size. So there the
+/// frames are the real dense ones (rects x PPU back) and the size asks get the real size, and src/view.rs draws the
+/// entity at 1 / PPU. Everywhere else (cards, encyclopedia, icons: an explicit size) the table / PPU and the size
+/// / PPU.
+const BATTLE_ANIM_RET: [usize; 1] = [0x233d920];
+const BATTLE_SIZE_RET: [usize; 6] = [0x233db6f, 0x233db78, 0x230f9a8, 0x230f9c8, 0x230f9db, 0x230f9ea];
 /// A frame: x, y, w, h, duration (f32).
 const FRAME: usize = 20;
 /// vtable entries copied for a texture proxy (drop, size, align and the methods).
@@ -55,6 +62,8 @@ static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::ne
 /// texture entry -> (its data, its own vtable, our vtable); texture data -> (width fn, height fn, PPU)
 static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// changed table -> (its ctrl, its battlefield copy)
+static BATTLE: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// anim tables already changed: (table, ctrl)
 static DONE: Mutex<Vec<(usize, usize)>> = Mutex::new(Vec::new());
 /// (caller rva, 0 width / 1 height) already logged
@@ -314,8 +323,14 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
         None => (0, 1.0),
     };
     let real = if f != 0 { std::mem::transmute::<usize, Size>(f)(data) } else { f32::NAN };
-    let out = if f != 0 { real / ppu } else { 1.0 };
     let rva = ret.wrapping_sub(MODULE.load(Ordering::Relaxed));
+    let out = if f == 0 {
+        1.0
+    } else if BATTLE_SIZE_RET.contains(&rva) {
+        real
+    } else {
+        real / ppu
+    };
     if let Ok(mut c) = CALLERS.try_lock() {
         if c.len() < 64 && !c.contains(&(rva, which)) {
             c.push((rva, which));
@@ -350,10 +365,76 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
     if !name.ends_with("#anim") || !plausible(got) {
         return got;
     }
-    if let Some(hero) = hero_of_name(name) {
-        densify_table(got, hero);
+    let Some(hero) = hero_of_name(name) else { return got };
+    if !densify_table(got, hero) {
+        return got;
+    }
+    if BATTLE_ANIM_RET.contains(&q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed))) {
+        return battle_table(got, hero).unwrap_or(got);
     }
     got
+}
+
+/// For the battlefield: a copy of the (changed) table whose frames are the real dense ones - every tag's rects x PPU,
+/// rounded (they were whole pixels) - so whatever animation the battlefield draws, stunned or not, it is the dense
+/// frame at PPU times the size, which src/view.rs scales back. The copy is kept (never freed) and shares nothing the
+/// game frees.
+unsafe fn battle_table(t: usize, hero: &Hero) -> Option<usize> {
+    let ctrl = q(t);
+    if let Ok(s) = BATTLE.lock() {
+        if let Some(&(c, sh)) = s.get(&t) {
+            if c == ctrl {
+                return Some(sh);
+            }
+        }
+    }
+    let mask = q(t + 8);
+    if !plausible(ctrl) || mask >= 1 << 20 || (mask + 1) & mask != 0 {
+        return None;
+    }
+    let buckets = mask + 1;
+    let data = ctrl - buckets * BUCKET;
+    let size = buckets * BUCKET + buckets + 16;
+    let mem: &'static mut [u8] = Box::leak(vec![0u8; size].into_boxed_slice());
+    std::ptr::copy_nonoverlapping(data as *const u8, mem.as_mut_ptr(), size);
+    let base = mem.as_mut_ptr() as usize;
+    for i in 0..buckets {
+        if *(ctrl as *const u8).add(i) & 0x80 != 0 {
+            continue;
+        }
+        let b = ctrl - (i + 1) * BUCKET;
+        let (fp, fl) = (q(b + 0x20), q(b + 0x28));
+        if !plausible(fp) || fl == 0 || fl > 4096 {
+            return None;
+        }
+        let frames: &'static mut [u8] = Box::leak(vec![0u8; fl * FRAME].into_boxed_slice());
+        std::ptr::copy_nonoverlapping(fp as *const u8, frames.as_mut_ptr(), fl * FRAME);
+        for f in 0..fl {
+            for k in 0..4 {
+                let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
+                std::ptr::write_unaligned(at, (std::ptr::read_unaligned(at) * hero.ppu).round());
+            }
+        }
+        let nb = base + (b - data);
+        std::ptr::write_unaligned((nb + 0x18) as *mut usize, fl);
+        std::ptr::write_unaligned((nb + 0x20) as *mut usize, frames.as_ptr() as usize);
+        std::ptr::write_unaligned((nb + 0x28) as *mut usize, fl);
+    }
+    let head: &'static mut [usize; 6] = Box::leak(Box::new([0usize; 6]));
+    for (k, h) in head.iter_mut().enumerate() {
+        *h = q(t + 8 * k);
+    }
+    head[0] = base + buckets * BUCKET;
+    let sh = head.as_ptr() as usize;
+    if let Ok(mut s) = BATTLE.lock() {
+        s.insert(t, (ctrl, sh));
+    }
+    let check = match game_find(sh, b"idle") {
+        Some(b) => format!("idle: {}", rect_of(b)),
+        None => "idle NOT found".into(),
+    };
+    wlog(format!("{}: battlefield table {sh:#x} for {t:#x} (real dense frames); {check}", hero.id));
+    Some(sh)
 }
 
 unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: usize) -> usize {
@@ -522,6 +603,15 @@ mod tests {
             assert!(super::densify_table(t, &hero));
             let b = super::bucket_of(t, b"idle").unwrap();
             assert_eq!(std::ptr::read_unaligned(super::q(b + 32) as *const f32), 10.0);
+            // the battlefield's copy: the real dense rects back (x PPU), the table itself untouched
+            let bt = super::battle_table(t, &hero).expect("battlefield table");
+            for key in [&b"idle"[..], b"hd_idle"] {
+                let b = super::bucket_of(bt, key).unwrap();
+                let fp = super::q(b + 32);
+                let got: Vec<f32> = (0..5).map(|k| std::ptr::read_unaligned((fp + 4 * k) as *const f32)).collect();
+                assert_eq!(got, vec![30.0, 60.0, 30.0, 60.0, 0.1]);
+            }
+            assert_eq!(std::ptr::read_unaligned((super::q(super::bucket_of(t, b"idle").unwrap() + 32) + 8) as *const f32), 10.0);
             // a copy the game makes of the changed table (another address, the same dense frames) stays as it is
             let mut mem2 = mem.clone();
             let base2 = mem2.as_mut_ptr() as usize;
