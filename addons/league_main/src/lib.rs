@@ -16,14 +16,14 @@ use mod_api_stable::*;
 
 pub mod hd;
 #[cfg(windows)]
-mod diag;
+mod lookup;
 #[cfg(windows)]
 mod ui;
 #[cfg(windows)]
 mod view;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.2.2";
+const VERSION: &str = "0.3.0";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 
@@ -61,7 +61,7 @@ fn init(host: &StableHost) -> StableMod {
     #[cfg(windows)]
     ui::install_once();
     #[cfg(windows)]
-    diag::install_once();
+    lookup::install_once();
     host.log(LogLevel::Info, "League Heroes: dense (PPU) frames for the heroes that have them (game 0.6.3, Windows).");
     StableMod::new(ID)
 }
