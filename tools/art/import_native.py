@@ -46,6 +46,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import idle_breathe as IB  # noqa: E402
+import ppu_hd as PPU_HD  # noqa: E402
 from native_refs import CELL, Z, layout  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "native")
@@ -77,8 +78,10 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # through it (Draven's 「上下摆动武器变形」)
 # Shen too (fix_shen_strips.breath: the body sinks over his legs - the shared cut shortened his trousers, boots,
 # apron and tail hem); Viego too (rig_viego.idle_frame: the same sink, his coat's flaps and boots never cut); Zeri too
-# (rig_zeri BREATH: the same sink; the shared cut would run through her upright rifle)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri", "irelia"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+# (rig_zeri BREATH: the same sink; the shared cut would run through her upright rifle); Nautilus too
+# (rig_nautilus.idle_frame: the body sinks over the boots - a shared cut would run through the anchor or the helmet);
+# Irelia too (strips_irelia: a still idle, only her blades bob)
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus", "irelia"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -311,7 +314,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
             "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "olaf", "hecarim",
-            "draven", "senna", "shen", "syndra", "viego", "zeri"}
+            "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -1620,6 +1623,10 @@ def main():
         if added:
             print(f"league/champions/league_{hero}: the forms' and in-wall tags added for the add-on's anim-name swap: "
                   f"{', '.join(added)}")
+        if hero in PPU_HD.PPU:
+            made = PPU_HD.add_hd(hero, sheet)
+            print(f"league/champions/league_{hero}: hd_ tags for the main pack's dense frames (PPU {PPU_HD.PPU[hero]}; "
+                  f"drawn {', '.join(made['drawn']) or 'none'}, test {', '.join(made['test']) or 'none'})")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         for name, fsheet in forms.items():
             fw, fh = G.write_sheet(os.path.join(MOD, "champions", f"league_{name}"), fsheet)

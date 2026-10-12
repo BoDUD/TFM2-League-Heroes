@@ -20,12 +20,10 @@ block-voted at 40 rows (each square its commonest non-black colour, outline only
 kept at the picture's own size and every detail kept, then finished square by square (design40/zeri40_v5.txt; the user:
 「眼睛嘴巴做的不太像泽丽 其他都挺好的」). Codex redrew the face box alone (rows 8-15 x columns 7-14, pack
 tools/art/pack_zeri_face.py, delivery codex_face/); the user picked take C 「深绿瞳+收敛嘴」 -> design40/zeri40_final.txt,
-which --final now writes (palette design40/palette.json, the table at x 53, its soles on row 99). Smaller (the user:
-「整体模型缩小一点吧 在游戏里太大了」, pick 37 rows): whole rows 6 (hair), 22 (one of the
-belt's two) and 24 (the shorts) of the 40-row table (zeri40_v40.txt) taken out (design40/shrink37.json; the face, the rifle,
-the shirt, the legs and the boots untouched; the brows gone: 「眼睛上这两块看着好怪」). First cut was rows 6, 19 and 21 -
-two shirt rows, which lifted the belt to the chest over an unchanged shorts block: a pot belly on the run
-(「游戏内走路有点啤酒肚的感觉」「有一块凸出来了」).
+which --final now writes (palette design40/palette.json, the table at x 53, its soles on row 99). The brows are gone (「眼睛上这两块看着好怪」). A 37-row cut (whole rows out
+of the torso: first two shirt rows, then a belt and a shorts row - 「整体模型缩小一点吧 在游戏里太大了」) was undone:
+with the torso two rows shorter and as wide she looked pot-bellied (「游戏内走路有点啤酒肚的感觉」「应该是上半身模型的
+问题 泽丽让我看起来就觉得像是啤酒肚」), and the user chose 「恢复到40」 over cutting elsewhere.
 Then 「眼睛没有泽丽的特色」「模型整体还是太糊」: Codex's on-grid redraw (codex_grid/, pack_zeri_grid.py) came back as a
 shrink of its own drawing again; the user took my clean pass of the same table instead (the old face kept as
 design40/zeri40_faceC.txt): League's Zeri face - thick dark-brown brows (q), a black lash only over each eye, an
