@@ -5,8 +5,10 @@
 //! 用户：「选完英雄的一瞬间 脸部还是会回到之前那样」「还有头像也没变」「被宝石打中后模型突然变小」——卡牌、图鉴、头像、
 //! 选人槽位、战场上眩晕时的画法各走各的代码，逐处改名字、改缩放改不完。所以在这两处一次做完（0.4.0 起）：
 //!
-//! - 取登记英雄的动画表：交回一张**影子表**——表的桶整块复制，每个动作（`idle`、`run` … 和 `hd_*`）都换成它的
-//!   `hd_` 帧，帧矩形 x、y、宽、高全部除以 PPU（帧数据另存一份；原表照旧归游戏所有，影子永不释放）；
+//! - 取登记英雄的动画表：**就地**把表里每个动作（`idle`、`run` … 和 `hd_*`）的帧换成它的 `hd_` 帧，帧矩形 x、y、
+//!   宽、高全部除以 PPU（新帧在游戏同一个堆上分配，跟表一起由游戏释放；一张表只改一次）。0.4.0 交出去的是一张影子
+//!   表和贴图条目的副本：亚索整个不见了（「亚索消失」）——有人绕过这两次查找、拿着原表或原条目，1 倍尺寸配 ÷ PPU 的
+//!   矩形，UV 落到空白处。现在两边都就地改，谁读到的都是同一套；
 //! - 取它的图（`#sheet`）：贴图条目就地换虚表——虚表抄一份，取宽（+0x28）、取高（+0x30）两项换成「原值 ÷ PPU」，
 //!   别的（析构在内）照旧。
 //!
@@ -26,6 +28,8 @@ use super::wlog;
 
 const PROLOGUE: [u8; 12] = [0x55, 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x53];
 const ANIM_RVA: usize = 0x20fc10;
+/// The anim tables' hash (&hasher, key ptr, len -> u64), for the self-test.
+const HASH_RVA: usize = 0x58170;
 const SHEET_RVA: usize = 0x16d040;
 /// The anim table (hashbrown): ctrl, bucket mask, growth left, items, hasher (0x30 bytes); 0x30-byte buckets below
 /// ctrl: key String {cap, ptr, len}, frames Vec {cap, ptr, len}.
@@ -51,8 +55,11 @@ static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::ne
 /// texture entry -> (its data, its own vtable, our vtable); texture data -> (width fn, height fn, PPU)
 static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// original table -> (its ctrl when copied, the shadow table)
-static SHADOWS: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// anim tables already changed: (table, ctrl)
+static DONE: Mutex<Vec<(usize, usize)>> = Mutex::new(Vec::new());
+/// (caller rva, 0 width / 1 height) already logged
+static CALLERS: Mutex<Vec<(usize, usize)>> = Mutex::new(Vec::new());
+static STUBS: Mutex<Option<(usize, usize)>> = Mutex::new(None);
 
 #[link(name = "kernel32")]
 extern "system" {
@@ -129,45 +136,91 @@ unsafe fn bucket_of(t: usize, key: &[u8]) -> Option<usize> {
     None
 }
 
-/// A copy of the anim table at `t` (of `hero`) whose every tag holds its `hd_` frames, rects divided by PPU.
-unsafe fn shadow_of(t: usize, hero: &Hero) -> Option<usize> {
-    let ctrl = q(t);
-    if let Ok(s) = SHADOWS.lock() {
-        if let Some(&(c, sh)) = s.get(&t) {
-            if c == ctrl {
-                return Some(sh);
+/// The game's hash of a key for the anim table at `t` (0x58170: &hasher, ptr, len -> u64), and its probe of the table
+/// (hashbrown, 16-byte groups) - the self-test that the game itself finds `key` there.
+type Hash = unsafe extern "system" fn(usize, usize, usize) -> u64;
+
+unsafe fn game_find(t: usize, key: &[u8]) -> Option<usize> {
+    if MODULE.load(Ordering::Relaxed) == 0 {
+        return bucket_of(t, key); // not in the game (tests)
+    }
+    let hash: Hash = std::mem::transmute(MODULE.load(Ordering::Relaxed) + HASH_RVA);
+    let h = hash(t + 0x20, key.as_ptr() as usize, key.len());
+    let (ctrl, mask) = (q(t), q(t + 8));
+    let h2 = (h >> 57) as u8;
+    let mut pos = (h as usize) & mask;
+    let mut stride = 0;
+    loop {
+        let mut empty = false;
+        for k in 0..16 {
+            let c = *(ctrl as *const u8).add(pos + k);
+            if c == h2 {
+                let i = (pos + k) & mask;
+                let b = ctrl - (i + 1) * BUCKET;
+                let (p, n) = (q(b + 8), q(b + 16));
+                if n == key.len() && plausible(p) && std::slice::from_raw_parts(p as *const u8, n) == key {
+                    return Some(b);
+                }
             }
+            empty |= c == 0xff;
+        }
+        if empty {
+            return None;
+        }
+        stride += 16;
+        pos = (pos + stride) & mask;
+        if stride > mask + 16 {
+            return None;
+        }
+    }
+}
+
+unsafe fn rect_of(b: usize) -> String {
+    let fp = q(b + 0x20);
+    if !plausible(fp) || q(b + 0x28) == 0 {
+        return "no frames".into();
+    }
+    let f: Vec<f32> = (0..5).map(|k| std::ptr::read_unaligned((fp + 4 * k) as *const f32)).collect();
+    format!("{} frames, first {:?}", q(b + 0x28), f)
+}
+
+/// The anim table at `t` (of `hero`) changed in place, once: every tag's frames Vec becomes a new one holding its
+/// `hd_` frames with x, y, w, h divided by PPU (allocated on the process heap like the game's own, so the game frees
+/// it with the table; the old buffers are left alone). Everyone who reads the table - through this lookup or a pointer
+/// kept from before - sees the same frames as the texture's divided size (0.4.0's copy: 「亚索消失」).
+unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
+    let ctrl = q(t);
+    if let Ok(s) = DONE.lock() {
+        if s.contains(&(t, ctrl)) {
+            return true;
         }
     }
     let mask = q(t + 8);
     if !plausible(ctrl) || mask >= 1 << 20 || (mask + 1) & mask != 0 {
-        return None;
+        return false;
     }
-    let buckets = mask + 1;
-    let data = ctrl - buckets * BUCKET;
-    let size = buckets * BUCKET + buckets + 16;
-    let mem: &'static mut [u8] = Box::leak(vec![0u8; size].into_boxed_slice());
-    std::ptr::copy_nonoverlapping(data as *const u8, mem.as_mut_ptr(), size);
-    let base = mem.as_mut_ptr() as usize;
-    let mut done = 0;
-    for i in 0..buckets {
+    // first everything new, read from the untouched table; then all written at once
+    let mut plan: Vec<(usize, usize, usize)> = Vec::new(); // (bucket, new ptr, len)
+    for i in 0..=mask {
         if *(ctrl as *const u8).add(i) & 0x80 != 0 {
             continue;
         }
         let b = ctrl - (i + 1) * BUCKET;
         let (p, n) = (q(b + 8), q(b + 16));
         if !plausible(p) || n > 64 {
-            return None;
+            return false;
         }
-        let key = std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)).ok()?;
+        let Ok(key) = std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)) else { return false };
         let dense = if key.starts_with(hd::PREFIX) { key.to_string() } else { format!("{}{key}", hd::PREFIX) };
-        // a tag without its dense copy would draw at 1/PPU: then nothing is shadowed
-        let src = bucket_of(t, dense.as_bytes())?;
+        let Some(src) = bucket_of(t, dense.as_bytes()) else {
+            wlog(format!("{}: tag {key} has no {dense}: left at 1x - the whole table left alone", hero.id));
+            return false;
+        };
         let (fp, fl) = (q(src + 0x20), q(src + 0x28));
         if !plausible(fp) || fl == 0 || fl > 4096 {
-            return None;
+            return false;
         }
-        let frames: &'static mut [u8] = Box::leak(vec![0u8; fl * FRAME].into_boxed_slice());
+        let mut frames = vec![0u8; fl * FRAME].into_boxed_slice();
         std::ptr::copy_nonoverlapping(fp as *const u8, frames.as_mut_ptr(), fl * FRAME);
         for f in 0..fl {
             for k in 0..4 {
@@ -175,24 +228,23 @@ unsafe fn shadow_of(t: usize, hero: &Hero) -> Option<usize> {
                 std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.ppu);
             }
         }
-        let nb = base + (b - data);
-        std::ptr::write_unaligned((nb + 0x18) as *mut usize, fl);
-        std::ptr::write_unaligned((nb + 0x20) as *mut usize, frames.as_ptr() as usize);
-        std::ptr::write_unaligned((nb + 0x28) as *mut usize, fl);
-        done += 1;
+        plan.push((b, Box::into_raw(frames) as *mut u8 as usize, fl));
     }
-    let head: &'static mut [usize; 6] = Box::leak(Box::new([0usize; 6]));
-    for (k, h) in head.iter_mut().enumerate() {
-        *h = q(t + 8 * k);
+    for &(b, p, n) in &plan {
+        std::ptr::write_unaligned((b + 0x18) as *mut usize, n);
+        std::ptr::write_unaligned((b + 0x20) as *mut usize, p);
+        std::ptr::write_unaligned((b + 0x28) as *mut usize, n);
     }
-    head[0] = base + buckets * BUCKET;
-    let sh = head.as_ptr() as usize;
-    if let Ok(mut s) = SHADOWS.lock() {
-        s.insert(t, (ctrl, sh));
+    if let Ok(mut s) = DONE.lock() {
+        s.push((t, ctrl));
     }
-    wlog(format!("{}: shadow anim table {sh:#x} for {t:#x}: {done} tags on their dense frames, rects / {}",
-        hero.id, hero.ppu));
-    Some(sh)
+    let check = match game_find(t, b"idle") {
+        Some(b) => format!("the game finds idle: {}", rect_of(b)),
+        None => "the game does NOT find idle".into(),
+    };
+    wlog(format!("{}: anim table {t:#x}: {} tags on their dense frames, rects / {}; {check}", hero.id, plan.len(),
+        hero.ppu));
+    true
 }
 
 /// The texture entry at `got` ({data, vtable, ...}) made to report its size divided by PPU, in place: its vtable
@@ -216,8 +268,9 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
     if let Ok(mut s) = SIZES.lock() {
         s.insert(data, (table[5], table[6], hero.ppu));
     }
-    table[5] = tex_width as unsafe extern "system" fn(usize) -> f32 as usize;
-    table[6] = tex_height as unsafe extern "system" fn(usize) -> f32 as usize;
+    let (sw, sh) = size_stubs()?;
+    table[5] = sw;
+    table[6] = sh;
     let fake = table.as_ptr() as usize;
     if let Ok(mut p) = PROXIES.lock() {
         p.insert(got, (data, vt, fake));
@@ -229,20 +282,30 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
 
 type Size = unsafe extern "system" fn(usize) -> f32;
 
-unsafe extern "system" fn tex_width(data: usize) -> f32 {
+unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
     let e = SIZES.lock().ok().and_then(|s| s.get(&data).copied());
-    match e {
-        Some((w, _, ppu)) if w != 0 => std::mem::transmute::<usize, Size>(w)(data) / ppu,
-        _ => 1.0,
+    let (f, ppu) = match e {
+        Some((w, h, ppu)) => (if which == 0 { w } else { h }, ppu),
+        None => (0, 1.0),
+    };
+    let real = if f != 0 { std::mem::transmute::<usize, Size>(f)(data) } else { f32::NAN };
+    let out = if f != 0 { real / ppu } else { 1.0 };
+    let rva = ret.wrapping_sub(MODULE.load(Ordering::Relaxed));
+    if let Ok(mut c) = CALLERS.try_lock() {
+        if c.len() < 64 && !c.contains(&(rva, which)) {
+            c.push((rva, which));
+            wlog(format!("texture {} asked from rva {rva:#x}: {real} -> {out}", if which == 0 { "width" } else { "height" }));
+        }
     }
+    out
 }
 
-unsafe extern "system" fn tex_height(data: usize) -> f32 {
-    let e = SIZES.lock().ok().and_then(|s| s.get(&data).copied());
-    match e {
-        Some((_, h, ppu)) if h != 0 => std::mem::transmute::<usize, Size>(h)(data) / ppu,
-        _ => 1.0,
-    }
+unsafe extern "system" fn tex_width(data: usize, ret: usize) -> f32 {
+    std::panic::catch_unwind(|| unsafe { size_of(data, ret, 0) }).unwrap_or(1.0)
+}
+
+unsafe extern "system" fn tex_height(data: usize, ret: usize) -> f32 {
+    std::panic::catch_unwind(|| unsafe { size_of(data, ret, 1) }).unwrap_or(1.0)
 }
 
 type Lookup = unsafe extern "system" fn(usize, usize, usize) -> usize;
@@ -262,8 +325,10 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
     if !name.ends_with("#anim") || !plausible(got) {
         return got;
     }
-    let Some(hero) = hero_of_name(name) else { return got };
-    shadow_of(got, hero).unwrap_or(got)
+    if let Some(hero) = hero_of_name(name) {
+        densify_table(got, hero);
+    }
+    got
 }
 
 unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: usize) -> usize {
@@ -284,6 +349,37 @@ unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: u
         }
     })
     .unwrap_or(got)
+}
+
+/// The width / height entries of our vtable: `mov rdx, [rsp]; mov rax, tex_*; jmp rax` (the caller's address as the
+/// second argument).
+unsafe fn size_stubs() -> Option<(usize, usize)> {
+    if let Ok(s) = STUBS.lock() {
+        if let Some(p) = *s {
+            return Some(p);
+        }
+    }
+    let page = VirtualAlloc(std::ptr::null_mut(), 0x1000, 0x3000, 0x40) as usize;
+    if page == 0 {
+        return None;
+    }
+    let mut c = Vec::new();
+    for f in [tex_width as unsafe extern "system" fn(usize, usize) -> f32 as usize,
+              tex_height as unsafe extern "system" fn(usize, usize) -> f32 as usize] {
+        c.extend_from_slice(&[0x48, 0x8b, 0x14, 0x24]); // mov rdx, [rsp]
+        c.extend_from_slice(&[0x48, 0xb8]);
+        c.extend_from_slice(&f.to_le_bytes());
+        c.extend_from_slice(&[0xff, 0xe0]); // jmp rax
+        while c.len() % 16 != 0 {
+            c.push(0xcc);
+        }
+    }
+    std::ptr::copy_nonoverlapping(c.as_ptr(), page as *mut u8, c.len());
+    let p = (page, page + 16);
+    if let Ok(mut s) = STUBS.lock() {
+        *s = Some(p);
+    }
+    Some(p)
 }
 
 /// At `page`: the entry stub (`mov r9, rsp; mov rax, detour; jmp rax`) and the original (12 bytes + jmp back).
@@ -364,7 +460,7 @@ mod tests {
     }
 
     #[test]
-    fn every_tag_draws_its_dense_frames_at_1x_size() {
+    fn every_tag_holds_its_dense_frames_at_1x_size() {
         // a 4-bucket table with "idle" in bucket 1 and "hd_idle" in bucket 3
         let mut mem = vec![0u8; 4 * super::BUCKET + 4 + 16];
         let ctrl = 4 * super::BUCKET;
@@ -390,15 +486,17 @@ mod tests {
             put(base + ctrl - 4 * super::BUCKET, &k3, &f3);
             let head = [base + ctrl, 3usize, 0, 2, 0, 0];
             let t = head.as_ptr() as usize;
-            let sh = super::shadow_of(t, &hero).expect("shadow");
+            assert!(super::densify_table(t, &hero));
             for key in [&b"idle"[..], b"hd_idle"] {
-                let b = super::bucket_of(sh, key).unwrap();
+                let b = super::bucket_of(t, key).unwrap();
                 let fp = super::q(b + 32);
                 let got: Vec<f32> = (0..5).map(|k| std::ptr::read_unaligned((fp + 4 * k) as *const f32)).collect();
-                assert_eq!(got, vec![10.0, 20.0, 10.0, 20.0, 0.1 / 1.0]);
+                assert_eq!(got, vec![10.0, 20.0, 10.0, 20.0, 0.1]);
             }
-            // the original is untouched
-            assert_eq!(super::q(super::bucket_of(t, b"idle").unwrap() + 32), f1.as_ptr() as usize);
+            // once only: a second lookup divides nothing again
+            assert!(super::densify_table(t, &hero));
+            let b = super::bucket_of(t, b"idle").unwrap();
+            assert_eq!(std::ptr::read_unaligned(super::q(b + 32) as *const f32), 10.0);
         }
     }
 }
