@@ -10,8 +10,9 @@ skill2, R Glacial Fissure, the passive in the main pack plus a native add-on add
           Hemorrhage's way): his attacks and Q on enemy champions (hidden champion-only twins) climb p1 -> p2 -> p3
           (p_hold ticks each, refreshed); the fourth stuns p_stun ticks and deals p_dmg + p_ap% AP, then for p_lock
           ticks no hit stacks and his attacks on champions add p_extra + p_extra_ap% AP. Every stack shows the mark
-          picture (p_mark) on the champion. With native=1 the add-on's league_braum:blow keeps the stacks on each
-          champion and its passive counts his allies' attacks on a marked champion too (League's rule).
+          picture (p_mark) on the champion. With native=1 the add-on keeps the stacks on each champion
+          (league_braum:blow from his attacks, league_braum:bite from Q) and its passive counts his allies' attacks
+          on a marked champion too (League's rule).
   attack  A shield punch, the hit on tick atk_st.
   skill   Q Winter's Bite (寒冬之咬): a `Targeting` cast on `EnemyWithoutTower` (q_range, waves and camps too): on q_at the
           ice flies (q_speed) and deals q_dmg + q_ap% AP + q_hp% of his maximum health (League: 2.5%), slows q_slow1%
@@ -27,12 +28,12 @@ skill2, R Glacial Fissure, the passive in the main pack plus a native add-on add
             allied champions within e_ally_r e_ally_red% less damage (League: projectiles toward the allies behind
             him hit the shield). With native=1 the add-on's passive keeps the shield toward the enemies: only damage
             from that side is cut, and allies behind him are covered;
-          - else W ready: he leaps to an allied champion within w_range (with native=1 the one lowest on health).
+          - else W ready: he leaps to an allied champion within w_range.
   ult     R Glacial Fissure (冰川裂隙): a `Targeting` cast on `EnemyChampion` (r_range): on r_at he slams the ground; a
           wave runs r_len toward the target (r_speed): every enemy it passes takes r_dmg + r_ap% AP and is thrown up
           r_up ticks, the first champion r_up1 ticks (League: 1-1.5 s against 0.6 s); a fissure of r_n slow fields
-          (r_zr round, r_slow% slow while inside, r_zone ticks) stays on the line. With native=1 the add-on's
-          league_braum:fissure aims the line at the most enemy champions it can reach.
+          (r_zr round, r_slow% slow while inside, r_zone ticks) stays on the line. The add-on's AI hook turns his
+          cast to the champion whose line holds the most enemy champions.
 """
 import argparse
 import json
@@ -71,8 +72,7 @@ P = {
     "r_combo": 90,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
-    # 1 = the copy for addons/league_braum: per-champion stacks (allies' attacks too), the directional shield, W to
-    # the ally lowest on health, R aimed at the most champions
+    # 1 = the copy for addons/league_braum: per-champion stacks (allies' attacks too), the directional shield
     "native": 0,
 }
 
@@ -213,14 +213,16 @@ def build(p):
                                  mark),
                    sw("p1", combine(refresh("p2", p["p_hold"]), refresh("p1", p["p_hold"]), mark),
                       combine(refresh("p1", p["p_hold"]), mark))))
-    if native:   # the add-on keeps the stacks on each champion (his allies' attacks add them too)
-        stack = {"type": "Native", "effect_ref": "league_braum:blow"}
-    else:
-        stack = sw("p_lock", NONE, ladder)
+    stack = sw("p_lock", NONE, ladder)
     bonus = sw("p_lock", combine(magic(p["p_extra"], p["p_extra_ap"]), view("p_extra")))
+    if native:   # the add-on keeps the stacks on each champion (his allies' attacks add them too)
+        a_stack, q_stack = [{"type": "Native", "effect_ref": "league_braum:blow"}], {"type": "Native",
+                                                                                     "effect_ref": "league_braum:bite"}
+    else:
+        a_stack, q_stack = [bonus, stack], stack
 
     # ------------------------------------------------------------------ attack (the champion-only twin stacks)
-    blow = homing("a_twin", 30000, "EnemyChampion", [bonus, stack])
+    blow = homing("a_twin", 30000, "EnemyChampion", a_stack)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(sfx("a_swing"), delayed(p["atk_st"] - 1, attack(0, 100), view("a_hit"), tsfx("a_hit"),
                                                       blow)),
@@ -231,7 +233,7 @@ def build(p):
               delayed(p["q_slow1_t"], buff("q_slow", p["q_slow2_t"], move_speed_mult=-p["q_slow2"])),
               view("q_hit"), tsfx("q_hit")]
     throw = combine(sfx("q"), homing("q_ice", p["q_speed"], "EnemyWithoutTower", q_hits),
-                    homing("q_twin", p["q_speed"], "EnemyChampion", [stack]))
+                    homing("q_twin", p["q_speed"], "EnemyChampion", [q_stack]))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(voice("vo_q", p), sw("r_combo", combine(*rm("r_combo"), throw),
                                                 delayed(p["q_at"] - 1, throw))))
@@ -269,8 +271,7 @@ def build(p):
                   end=[view("r_crack"), field("r_field", p["r_zr"], p["r_zone"], 10, "EnemyWithoutTower",
                                               [buff("r_slow", 12, move_speed_mult=-p["r_slow"])])])
              for i in range(1, p["r_n"] + 1)]
-    aim = {"type": "Native", "effect_ref": "league_braum:fissure"} if native else None
-    slam = combine(aim, sfx("r_hit"), cview("r_slam"),
+    slam = combine(sfx("r_hit"), cview("r_slam"),
                    line("r_wave", p["r_speed"], p["r_len"], p["r_w"], "EnemyWithoutTower", True, struck),
                    line("r_first", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion", False, first), *crack)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -302,8 +303,8 @@ def build(p):
     if native:
         kit["passive"] = {"passive_ref": "league_braum:heart",
                           "params": {"hold": p["p_hold"], "stun": p["p_stun"], "dmg": p["p_dmg"], "ap": p["p_ap"],
-                                     "lock": p["p_lock"], "e_red": p["e_red"], "e_ally": p["e_ally_red"],
-                                     "e_ally_r": p["e_ally_r"], "w_range": p["w_range"]}}
+                                     "lock": p["p_lock"], "extra": p["p_extra"], "extra_ap": p["p_extra_ap"],
+                                     "e_red": p["e_red"], "e_ally": p["e_ally_red"], "e_ally_r": p["e_ally_r"]}}
     return kit
 
 
