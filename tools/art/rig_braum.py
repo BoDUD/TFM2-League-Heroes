@@ -46,11 +46,11 @@ WAIST = 60                        # the design's belt row: the upper body above 
 BAR_TOP = 29                      # the shield crossbar's top row under the far hand
 BREATH = [0, 1, 2, 2, 1, 0]
 # On the battlefield he is drawn at SIZE of the 1x size (addons/league_main/src/hd.rs SIZES; the user: 「布隆做的也有点大
-# 得缩小一点」 - 43 game rows with the shield beside him, now 37 like league_garen's), scaled about his position, so every
+# 得缩小一点」 - 43 game rows with the shield beside him: 85%, then 「稍微调大点」 - 90%, 39 rows), scaled about his position, so every
 # hd frame is drawn SHIFT hd rows lower: the soles, (FEET + 0.5) x PPU under the pivot, land (33.1 + SHIFT) x SIZE =
 # 33.1 under it again (league_gragas's way, tools/art/ppu_gragas.py). A frame without SHIFT clear rows under the soles
 # grows SHIFT rows at both ends first (its centre, the pivot, kept).
-SIZE = 0.85
+SIZE = 0.90
 SHIFT = round((FEET + 0.5) * PPU * (1 / SIZE - 1))
 
 

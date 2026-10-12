@@ -31,7 +31,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); his hd frames drawn RAISE
 /// rows higher (tools/art/rig_kassadin.py).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10), ("league_braum", 0.85)];
+/// Braum: 「布隆做的也有点大 得缩小一点」 (85%), then 「稍微调大点」 (90%, 39 game px); his hd frames drawn SHIFT rows
+/// lower (tools/art/rig_braum.py).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10), ("league_braum", 0.90)];
 
 pub const PREFIX: &str = "hd_";
 
