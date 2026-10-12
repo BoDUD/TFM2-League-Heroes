@@ -11,7 +11,8 @@ canvases with the horn tips and the soles on the pack's lines, so they share the
   - one face (memory one-face-all-frames): the design's helm (HELM, the horns down to the chin) is pasted square for
     square over the pose's own wherever the pose shows it upright and uncovered (HELM_AT: its offset in the pose,
     found by matching); Q's raise and slam and the death keep Codex's (the helm between the raised arms, bowed, fallen);
-  - the run: Codex's four walking phases turned 65 degrees toward the image right (codex_run), tones matched;
+  - the run and every skill: Codex's drawings turned 65 degrees toward the image right (codex_run, codex_turned:
+    the user's 「待机姿势和走路放技能的时候应该不一样的」), tones matched to the run's phase 2; the idle stays A;
   - the idle: the design breathing - the upper body rises over the legs, the row at the cut repeated in the gap;
   - W and the hit: the design recoloured (a teal pulse; a white flash) and moved as a whole.
 Sizes (the user's pick C: 110% and a thicker outline, Kassadin's way): league.dll draws him SIZE about his pivot, so
@@ -63,6 +64,10 @@ HELM_AT = {"attack-raise": (13, -10), "attack-strike": (22, 9), "e-grasp": (0, 0
 CLEAR = {"attack-raise", "attack-strike", "r-point"}
 CLEAR_PAD, CLEAR_ROWS = 5, 76     # hd squares round the helm, the design rows above which the clearing reaches
 RUN = os.path.join(SRC, "codex_run")          # the 65-degree run (Codex, 2026-10-12: mordekaiser_run_poses.zip)
+TURNED = os.path.join(SRC, "codex_turned")    # the 65-degree stand and skill poses (mordekaiser_turned_done.zip; their
+                                              # helms Codex's copy of walk-1's)
+TURNED_POSES = ["turned", "attack-raise", "attack-strike", "q-raise", "q-slam", "e-grasp", "r-point"]
+TURN_DX = -33                                 # the turned stand's torso over the pivot (the run's: RUN_DX)
 RUN_DX = {1: -37, 2: -29, 3: -37, 4: -37}     # phase 2's upper body stood 8 squares left of the others'; all onto the pivot
 # poses Codex drew away from the design's place: the body (the mace on the ground aside) brought back over the pivot
 POSE_DX = {"dead-kneel": -95, "dead-lying": -58}   # the step's bob (the helm's offset in each walk phase)
@@ -92,6 +97,11 @@ class Rig:
         raw = {k: np.asarray(Image.open(os.path.join(RUN, f"mordekaiser-walk-{k}_1x.png")).convert("RGBA"))
                for k in (1, 2, 3, 4)}
         self.run = {k: (raw[k] if k == 2 else relum(raw[k], raw[2], pal)) for k in raw}
+        self.turned = {}
+        for n in TURNED_POSES:
+            p = np.asarray(Image.open(os.path.join(TURNED, f"mordekaiser-{n}_1x.png")).convert("RGBA"))
+            kind = "portrait" if p.shape[0] > p.shape[1] else "landscape"
+            self.turned[n] = (relum(p, raw[2], pal), kind)
 
     def canvas(self):
         return np.zeros((CH, CW, 4), np.uint8)
@@ -147,6 +157,14 @@ class Rig:
                 ok = (ys + hy >= 0) & (ys + hy < CH) & (xs + hx >= 0) & (xs + hx < CW)
                 can[ys[ok] + hy, xs[ok] + hx] = 0
             self.put(can, self.a, self.helm, hx, hy)
+        return can
+
+    def turn(self, name, dx=0):
+        """A 65-degree drawing (the stand or a skill pose), its tones matched to the run's, over the pivot."""
+        p, kind = self.turned[name]
+        can = self.canvas()
+        ox, oy = self.origin(kind)
+        self.put(can, p, p[..., 3] > 0, ox + TURN_DX + dx, oy)
         return can
 
     def walk(self, k):
@@ -260,27 +278,28 @@ def down(can):
 
 
 def actions(r):
-    """{tag: [(hd canvas, ms)]} - the kit's ticks (tools/kit/build_mordekaiser.py)."""
+    """{tag: [(hd canvas, ms)]} - the kit's ticks (tools/kit/build_mordekaiser.py). The idle is design A; the run and every
+    skill the 65-degree drawings (the user: 「待机姿势和走路放技能的时候应该不一样的」, picked 65); the death step 2's."""
     out = {}
-    still = finish(r.design())
+    stand = finish(r.turn("turned"))
     # idle: he breathes - the upper body rises 2 rows over the legs and settles
     out["idle"] = [(finish(r.design(rise=b)), ms(8)) for b in (0, 1, 2, 2, 1, 0)]
-    # run: Codex's four walking phases under the design's upper body
+    # run: Codex's four walking phases turned 65 degrees
     out["run"] = [(finish(r.walk(k)), ms(8)) for k in (1, 2, 3, 4)]
     # attack (24 ticks, the hit on tick 10): raise, swing down on the hit, back to the shoulder
-    out["attack"] = [(still, ms(4)), (finish(r.pose("attack-raise")), ms(6)), (finish(r.pose("attack-strike")), ms(9)),
-                     (still, ms(5))]
+    out["attack"] = [(stand, ms(4)), (finish(r.turn("attack-raise")), ms(6)), (finish(r.turn("attack-strike")), ms(9)),
+                     (stand, ms(5))]
     # skill Q (26 ticks, the slam on tick 10): both hands overhead, the slam held, back
-    out["skill"] = [(finish(r.pose("q-raise")), ms(10)), (finish(r.pose("q-slam")), ms(11)), (still, ms(5))]
+    out["skill"] = [(finish(r.turn("q-raise")), ms(10)), (finish(r.turn("q-slam")), ms(11)), (stand, ms(5))]
     # skill2 E (24 ticks, the claw on tick 8): the free hand thrust forward
-    out["skill2"] = [(still, ms(3)), (finish(r.pose("e-grasp")), ms(16)), (still, ms(5))]
-    # skill2_w W (20 ticks): a teal pulse over the design
-    out["skill2_w"] = [(finish(r.design(), tint=0.25), ms(6)), (finish(r.design(rise=1), tint=0.45), ms(8)),
-                       (finish(r.design(), tint=0.2), ms(6))]
+    out["skill2"] = [(stand, ms(3)), (finish(r.turn("e-grasp")), ms(16)), (stand, ms(5))]
+    # skill2_w W (20 ticks): a teal pulse over the stand
+    out["skill2_w"] = [(finish(r.turn("turned"), tint=0.25), ms(6)), (finish(r.turn("turned"), tint=0.45), ms(8)),
+                       (finish(r.turn("turned"), tint=0.2), ms(6))]
     # ult R (30 ticks, the curse on tick 8): the mace pointed at the target
-    out["ult"] = [(still, ms(3)), (finish(r.pose("r-point")), ms(22)), (still, ms(5))]
+    out["ult"] = [(stand, ms(3)), (finish(r.turn("r-point")), ms(22)), (stand, ms(5))]
     # hit: knocked back 2 squares with a white flash, then 1
-    out["hit"] = [(finish(r.design(dx=-2), flash=0.35), ms(6)), (finish(r.design(dx=-1)), ms(6))]
+    out["hit"] = [(finish(r.turn("turned", dx=-2), flash=0.35), ms(6)), (finish(r.turn("turned", dx=-1)), ms(6))]
     # dead: down on one knee, then lying
     out["dead"] = [(finish(r.pose("dead-kneel")), ms(14)), (finish(r.pose("dead-lying")), ms(60))]
     return out
