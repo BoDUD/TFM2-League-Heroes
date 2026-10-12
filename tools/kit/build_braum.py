@@ -53,17 +53,21 @@ BIG = "asset/league/effects/league_braum_big"
 # priest, monk, bard, pythoness and spirit caller, three lineups, both sides, 2026-10-12): +0.32 on seeds 1-24, +0.21 on
 # 25-48 (league_alistar +0.84 / +0.42, league_taric +1.27 / +1.24, league_leona -0.17 on 1-24). The draft d0 was -0.67
 # (Q 60+40, the passive 40+40, R 100+60, hp 1100, E 40%, W 20/20, stun 1 s).
+# After the strips retimed his casts (attack 13, Q 26/13, E 24, W 22, R 36/19) d3 fell to -0.34 / -0.33; the buff b3
+# (hp 1300, def 44, Q 105, the passive 85, R 180; 2026-10-13, the user: 「布隆加不加强不是你说了算吗 不是有平衡测试吗」)
+# is +0.28 / +0.26 (b1 hp 1260 + Q 100: -0.30 / -0.41; b2 b1 + passive 85: +0.03 / +0.00) - kept under league_alistar's and
+# league_taric's since in game addons/league_braum also stacks the passive on his allies' attacks.
 P = {
     # stats (the pack's tank supports: league_alistar hp 1100 +120, def 38, mr 28, atk 80, interval 80, range 25000);
     # League's Braum: 610 +112 hp, 55 AD, 35 armour, 32 mr, 335 move, 125 range
-    "hp": 1200, "hp_g": 120, "atk": 78, "atk_g": 6, "mp": 25, "mp_g": 15, "def": 40, "def_g": 8, "mr": 28, "mr_g": 4,
+    "hp": 1300, "hp_g": 120, "atk": 78, "atk_g": 6, "mp": 25, "mp_g": 15, "def": 44, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 80, "atk_st": 13,
     # passive Concussive Blows (League: 4 stacks within 4 s each; stun 1.25-1.75 s + 16-122 magic; then 8 s without new
     # stacks, his attacks +20% of that damage)
-    "p_hold": 240, "p_stun": 75, "p_dmg": 70, "p_ap": 60, "p_lock": 480, "p_extra": 12, "p_extra_ap": 10,
+    "p_hold": 240, "p_stun": 75, "p_dmg": 85, "p_ap": 60, "p_lock": 480, "p_extra": 12, "p_extra_ap": 10,
     # Q Winter's Bite (League: 1050 range, speed 1700, 75-255 + 2.5% max hp, slow 70% fading to 30% over 2 s, cd 8-6 s)
-    "q_cd": 480, "q_range": 70000, "q_dur": 26, "q_at": 13, "q_speed": 3600, "q_dmg": 90, "q_ap": 60, "q_hp": 2,
+    "q_cd": 480, "q_range": 70000, "q_dur": 26, "q_at": 13, "q_speed": 3600, "q_dmg": 105, "q_ap": 60, "q_hp": 2,
     "q_slow1": 70, "q_slow1_t": 40, "q_slow2": 35, "q_slow2_t": 80,
     # skill2 slot: E Unbreakable + W Stand Behind Me
     "s2_cd": 60, "s2_range": 45000,
@@ -74,7 +78,7 @@ P = {
     # R Glacial Fissure (League: 1250 line, 150-450 + 60% AP, knock-up 1-1.5 s first / 0.6 s, slow zone 40-70% 4 s,
     # cd 130-85 s)
     "r_cd": 3600, "r_range": 75000, "r_dur": 36, "r_at": 19, "r_len": 80000, "r_speed": 9000, "r_w": 9000,
-    "r_dmg": 160, "r_ap": 70, "r_up": 36, "r_up1": 75, "r_n": 4, "r_zr": 10000, "r_slow": 40, "r_zone": 240,
+    "r_dmg": 180, "r_ap": 70, "r_up": 36, "r_up1": 75, "r_n": 4, "r_zr": 10000, "r_slow": 40, "r_zone": 240,
     "r_combo": 90,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

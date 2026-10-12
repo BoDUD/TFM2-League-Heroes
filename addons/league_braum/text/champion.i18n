@@ -2,45 +2,45 @@
   "zh-hans": {
     "description": {
       "league_braum_heart": {
-        "attack": "【附加包】<#ff9028ff>震荡猛击<>：普攻和寒冬之咬给英雄叠层，队友普攻也叠，第<#ffb900ff>4层<><#ef5350ff>眩晕1.25秒<>并造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>；之后<#ffb900ff>8秒<>不再叠层，普攻额外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。",
+        "attack": "【附加包】<#ff9028ff>震荡猛击<>：普攻和寒冬之咬给英雄叠层，队友普攻也叠，第<#ffb900ff>4层<><#ef5350ff>眩晕1.25秒<>并造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>；之后<#ffb900ff>8秒<>不再叠层，普攻额外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。",
         "skill2": "【附加包】举盾<#ffb900ff>3.5秒<>：正面伤害降低50%，获得60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%护盾，盾后的友方英雄伤害降低20%。<#ff9028ff>挺身而出<>：冲到友方英雄身边，两人护甲和魔抗+30，持续<#ffb900ff>3秒<>。",
-        "ult": "【附加包】猛砸地面，冰川裂隙冲向敌方英雄最多的方向，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.6秒<>（第一个英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>减速40%<>。"
+        "ult": "【附加包】猛砸地面，冰川裂隙冲向敌方英雄最多的方向，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.6秒<>（第一个英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>减速40%<>。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_braum_heart": {
-        "attack": "【附加包】<#ff9028ff>震盪冰封<>：普攻和凜冬衝擊給英雄疊層，隊友普攻也疊，第<#ffb900ff>4層<><#ef5350ff>暈眩1.25秒<>並造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>；之後<#ffb900ff>8秒<>不再疊層，普攻額外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。",
+        "attack": "【附加包】<#ff9028ff>震盪冰封<>：普攻和凜冬衝擊給英雄疊層，隊友普攻也疊，第<#ffb900ff>4層<><#ef5350ff>暈眩1.25秒<>並造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>；之後<#ffb900ff>8秒<>不再疊層，普攻額外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。",
         "skill2": "【附加包】舉盾<#ffb900ff>3.5秒<>：正面傷害降低50%，獲得60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%護盾，盾後的友方英雄傷害降低20%。<#ff9028ff>壁壘守護<>：衝到友方英雄身邊，兩人護甲和魔抗+30，持續<#ffb900ff>3秒<>。",
-        "ult": "【附加包】猛砸地面，冰河裂隙衝向敵方英雄最多的方向，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.6秒<>（第一個英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>緩速40%<>。"
+        "ult": "【附加包】猛砸地面，冰河裂隙衝向敵方英雄最多的方向，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.6秒<>（第一個英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>緩速40%<>。"
       }
     }
   },
   "en": {
     "description": {
       "league_braum_heart": {
-        "attack": "[Add-on] <#ff9028ff>Concussive Blows<>: his attacks and Winter's Bite stack on a champion, then his allies' attacks too; the <#ffb900ff>4th<> <#ef5350ff>stuns 1.25s<> and deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, then for <#ffb900ff>8s<> no stacks and attacks deal <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<> more.",
+        "attack": "[Add-on] <#ff9028ff>Concussive Blows<>: his attacks and Winter's Bite stack on a champion, then his allies' attacks too; the <#ffb900ff>4th<> <#ef5350ff>stuns 1.25s<> and deals <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, then for <#ffb900ff>8s<> no stacks and attacks deal <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<> more.",
         "skill2": "[Add-on] Raises his shield for <#ffb900ff>3.5s<>: 50% less damage from the front, a 60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% shield, allied champions behind it 20% less. <#ff9028ff>Stand Behind Me<>: leaps to an allied champion; both gain 30 armour and magic resist for <#ffb900ff>3s<>.",
-        "ult": "[Add-on] Slams the ground: a fissure runs along the line with the most enemy champions, dealing <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up 0.6s<> (the first champion 1.25s); the fissure <#ef5350ff>slows 40%<> for <#ffb900ff>4s<>."
+        "ult": "[Add-on] Slams the ground: a fissure runs along the line with the most enemy champions, dealing <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up 0.6s<> (the first champion 1.25s); the fissure <#ef5350ff>slows 40%<> for <#ffb900ff>4s<>."
       }
     }
   },
   "ko": {
     "description": {
       "league_braum_heart": {
-        "attack": "[애드온] <#ff9028ff>뇌진탕 펀치<>: 기본 공격과 동상이 챔피언에 중첩(아군 기본 공격도), <#ffb900ff>4중첩<>에 <#ef5350ff>1.25초 기절<>과 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, 이후 <#ffb900ff>8초<> 동안 중첩 없이 기본 공격에 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가.",
+        "attack": "[애드온] <#ff9028ff>뇌진탕 펀치<>: 기본 공격과 동상이 챔피언에 중첩(아군 기본 공격도), <#ffb900ff>4중첩<>에 <#ef5350ff>1.25초 기절<>과 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, 이후 <#ffb900ff>8초<> 동안 중첩 없이 기본 공격에 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가.",
         "skill2": "[애드온] <#ffb900ff>3.5초<> 동안 방패를 들어 정면에서 받는 피해 50% 감소, 60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% 보호막, 방패 뒤 아군 챔피언 피해 20% 감소. <#ff9028ff>내가 지킨다<>: 아군 챔피언에게 도약, 둘 다 <#ffb900ff>3초<> 동안 방어력과 마법 저항력 +30.",
-        "ult": "[애드온] 땅을 내리쳐 적 챔피언이 가장 많은 쪽으로 균열을 일으켜 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.6초 에어본<> (첫 챔피언 1.25초), 균열은 <#ffb900ff>4초<> 동안 <#ef5350ff>40% 둔화<>."
+        "ult": "[애드온] 땅을 내리쳐 적 챔피언이 가장 많은 쪽으로 균열을 일으켜 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.6초 에어본<> (첫 챔피언 1.25초), 균열은 <#ffb900ff>4초<> 동안 <#ef5350ff>40% 둔화<>."
       }
     }
   },
   "ja": {
     "description": {
       "league_braum_heart": {
-        "attack": "【アドオン】<#ff9028ff>漢の拳<>：通常攻撃と冬の凍瘡がスタック（味方の通常攻撃も）、<#ffb900ff>4<>で<#ef5350ff>1.25秒スタン<>と<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>8秒<>スタックせず通常攻撃に<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。",
+        "attack": "【アドオン】<#ff9028ff>漢の拳<>：通常攻撃と冬の凍瘡がスタック（味方の通常攻撃も）、<#ffb900ff>4<>で<#ef5350ff>1.25秒スタン<>と<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>8秒<>スタックせず通常攻撃に<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。",
         "skill2": "【アドオン】<#ffb900ff>3.5秒<>盾を構え正面からの被ダメージ50%軽減、60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%のシールド、盾の後ろの味方チャンピオンも20%軽減。<#ff9028ff>ワシに任せとけ！<>：味方チャンピオンへ跳び、両者の物防と魔防+30（<#ffb900ff>3秒<>）。",
-        "ult": "【アドオン】地面を叩き敵チャンピオンが最も多い方へ裂溝を走らせ<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.6秒ノックアップ<>（最初のチャンピオン1.25秒）、裂溝は<#ffb900ff>4秒<><#ef5350ff>40%スロウ<>。"
+        "ult": "【アドオン】地面を叩き敵チャンピオンが最も多い方へ裂溝を走らせ<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.6秒ノックアップ<>（最初のチャンピオン1.25秒）、裂溝は<#ffb900ff>4秒<><#ef5350ff>40%スロウ<>。"
       }
     }
   }
