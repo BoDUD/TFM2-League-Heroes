@@ -15,9 +15,9 @@ canvases with the horn tips and the soles on the pack's lines, so they share the
     the user's 「待机姿势和走路放技能的时候应该不一样的」), tones matched to the run's phase 2; the idle stays A;
   - the idle: the design breathing - the upper body rises over the legs, the row at the cut repeated in the gap;
   - W and the hit: the design recoloured (a teal pulse; a white flash) and moved as a whole.
-Sizes (the user's pick C: a thicker outline, Kassadin's way; 110%, later 95%, then 90%): league.dll draws him SIZE about his pivot, so
+Sizes (the user's pick C: a thicker outline, Kassadin's way; 110%, later 95%): league.dll draws him SIZE about his pivot, so
 every hd frame is drawn RAISE rows higher (lower below 100%); every frame's outer outline is grown THICK hd squares.
-Then 「铁男感觉做的太大了吧？」: 95% (beside Darius, Garen, Nautilus and Braum at game size), then 90%.
+Then 「铁男感觉做的太大了吧？」: 95% (beside Darius, Garen, Nautilus and Braum at game size).
 Writes:
   league/champions/league_mordekaiser#sheet.png / #anim.fanim - the 1x tags (each hd frame brought down by PPU, every 1x
       pixel the commonest colour of its squares; the fallback without league.dll), frames centred on the pivot
@@ -48,8 +48,8 @@ PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
 
 PPU = 5.0                         # 246 design rows / 49 game rows
 FEET = 11                         # 1x rows from the pivot down to the soles
-SIZE = 0.90                       # league_main hd.rs SIZES: the DLL draws him 90% about his pivot (the user picked
-                                  # 110%, then 「铁男感觉做的太大了吧？」 -> 「到95%吧」 -> 「继续缩小点吧 90%」) ...
+SIZE = 0.95                       # league_main hd.rs SIZES: the DLL draws him 95% about his pivot (the user picked
+                                  # 110%, then 「铁男感觉做的太大了吧？」 -> 「到95%吧」) ...
 RAISE = round(FEET * PPU * (1 - 1 / SIZE))   # ... so every hd frame is drawn this many hd rows higher
 THICK = 3                         # the outer outline grown outward by 3 hd squares (the user's pick C)
 OUTLINE = (2, 3, 3)
