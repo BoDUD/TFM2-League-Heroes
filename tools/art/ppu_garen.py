@@ -9,7 +9,9 @@ The user, 2026-10-12: 「这个分支用来重建老英雄的 用PPU重建 先�
 garen_ref_v3.png's chibi): drawn about 3.5 picture pixels to a square, so 2.5 x the 1x sprite (92 rows head to sole) is
 their own density - every square is the area average of the picture under it, mapped to one palette for the whole hero.
 The 1x sheet (Codex's step-2 redraw) is a different drawing; only its frame sizes, timing and standing point are kept:
-an hd frame is round(2.5 x its 1x frame) round the same centre, the soles on the 1x soles' row.
+an hd frame is round(2.5 x its 1x frame) round the same centre, the soles on the 1x soles' row. --write puts the idle
+in (its 1x frames into the sheet, replacing the Codex idle: import_native.py --hero garen would bring that back - run
+this again after it); the actions not redrawn yet are the 1x frames scaled (ppu_hd.py).
 
 idle: the first picture of garen_idle.png is the design; the loop is that design breathing (tools/art/idle_breathe.py,
 the 1x recipe: the body above the shins down 0-2 rows and a column forward, the head a frame late), the sword lifted out
@@ -172,8 +174,15 @@ def frame_1x(tag, i=0):
     return ppu_hd.read_sheet(STEM)[tag][i][0]
 
 
+# where the Codex 1x frames stood (soles' bottom edge, feet's middle from the frame's centre; the frame's size), kept
+# once a tag is replaced in the sheet (the idle since --write)
+STOOD = {"idle": (11.5, -4.0, (45, 55))}
+
+
 def standing(tag):
     """Where the 1x frame 0 of `tag` stands: (soles' bottom edge, feet's middle) in 1x px from the frame's centre."""
+    if tag in STOOD:
+        return STOOD[tag]
     one = frame_1x(tag)
     op = one[..., 3] > 0
     sole = int(np.nonzero(op.any(1))[0].max())
@@ -274,9 +283,34 @@ def gif(frames, path, zoom, ms):
     ims[0].save(path, save_all=True, append_images=ims[1:], duration=ms, loop=0)
 
 
+def write_idle(idle_1x, idle_hd):
+    """The 1x idle into league_garen's sheet (the other tags as they are) and the hd idle as ppu_hd.py's drawn strip
+    (assets/source/ppu/garen_idle.png: the frames left to right, 1 px apart, each round(PPU x its 1x frame))."""
+    sheet = ppu_hd.read_sheet(STEM)
+    sheet = {t: fr for t, fr in sheet.items() if not t.startswith(ppu_hd.PREFIX)}
+    sheet["idle"] = [(f, IB.MS) for f in idle_1x]
+    for a, b in zip(idle_1x, idle_hd):
+        if ppu_hd.hd_size(a.shape[1], a.shape[0], PPU) != (b.shape[1], b.shape[0]):
+            sys.exit(f"hd idle frame {b.shape[1]}x{b.shape[0]} is not round({PPU} x {a.shape[1]}x{a.shape[0]})")
+    G.write_sheet(STEM, sheet)
+    H = max(b.shape[0] for b in idle_hd)
+    strip = np.zeros((H, sum(b.shape[1] + 1 for b in idle_hd) - 1, 4), np.uint8)
+    x = 0
+    for b in idle_hd:
+        strip[:b.shape[0], x:x + b.shape[1]] = b
+        x += b.shape[1] + 1
+    os.makedirs(OUT, exist_ok=True)
+    Image.fromarray(strip).save(os.path.join(OUT, "garen_idle.png"))
+    print(f"league_garen idle: {len(idle_1x)} x {idle_1x[0].shape[1]}x{idle_1x[0].shape[0]} (1x), "
+          f"assets/source/ppu/garen_idle.png {strip.shape[1]}x{strip.shape[0]} (hd)")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--review", help="write review pictures here")
+    ap.add_argument("--write", action="store_true",
+                    help="the idle into league_garen's sheet (1x) and assets/source/ppu/garen_idle.png (hd); then run "
+                         "tools/art/ppu_hd.py --hero garen")
     args = ap.parse_args()
     pair, pal = design()
     sole_dy, feet_dx, size = standing("idle")
@@ -287,6 +321,8 @@ def main():
     idle_1x, rows1, n1 = breathe(one, 1)
     print("idle breath hd: cut cost", rows["dip_cost"], "lean", rows["lean_cost"], "nod", rows["neck"] is not None,
           "blade", n, "| 1x:", rows1["dip_cost"], rows1["lean_cost"], rows1["neck"] is not None, "blade", n1)
+    if args.write:
+        write_idle(idle_1x, idle_hd)
     if args.review:
         os.makedirs(args.review, exist_ok=True)
         Image.fromarray(hd).resize((hd.shape[1] * 6, hd.shape[0] * 6), Image.NEAREST).save(

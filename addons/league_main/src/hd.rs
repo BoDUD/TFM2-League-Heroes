@@ -16,6 +16,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
     ("league_ashe", 5.4571, include_str!("../../../league/champions/league_ashe#anim.fanim")),
     ("league_irelia", 2.0, include_str!("../../../league/champions/league_irelia#anim.fanim")),
+    // Garen: rebuilt from his original pictures (tools/art/ppu_garen.py, branch ppu-rebuild); only the idle is drawn
+    // so far, the other actions are the 1x frames scaled
+    ("league_garen", 2.5, include_str!("../../../league/champions/league_garen#anim.fanim")),
 ];
 
 /// Effect sheets with dense frames (their own `hd_<tag>` beside every tag, tools/art/ppu_<hero>_fx.py): the sheet's name
