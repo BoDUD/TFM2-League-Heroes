@@ -21,27 +21,22 @@
 use std::collections::HashMap;
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
-use std::sync::{LazyLock, Mutex, Once};
+use std::sync::{LazyLock, Mutex, Once, OnceLock};
 
+use super::build::Build;
 use super::hd::{self, Hero};
 use super::wlog;
 
 const PROLOGUE: [u8; 12] = [0x55, 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x53];
-const ANIM_RVA: usize = 0x20fc10;
-/// The anim tables' hash (&hasher, key ptr, len -> u64), for the self-test.
-const HASH_RVA: usize = 0x58170;
-const SHEET_RVA: usize = 0x16d040;
 /// The anim table (hashbrown): ctrl, bucket mask, growth left, items, hasher (0x30 bytes); 0x30-byte buckets below
 /// ctrl: key String {cap, ptr, len}, frames Vec {cap, ptr, len}.
 const BUCKET: usize = 0x30;
 const MAX_LINES: usize = 400;
-/// The battlefield body draw (0x230ec30) takes its frame from 0x233d8e0 (its anim lookup returns to 0x233d920) and
-/// sends only the UV: Skia draws UV x the image's real pixels and the pivot is from the frame's size. So there the
-/// frames are the real dense ones (rects x PPU back) and the size asks get the real size, and src/view.rs draws the
-/// entity at 1 / PPU. Everywhere else (cards, encyclopedia, icons: an explicit size) the table / PPU and the size
-/// / PPU.
-const BATTLE_ANIM_RET: [usize; 1] = [0x233d920];
-const BATTLE_SIZE_RET: [usize; 6] = [0x233db6f, 0x233db78, 0x230f9a8, 0x230f9c8, 0x230f9db, 0x230f9ea];
+// The battlefield body draw (0x230ec30 in 0.6.3) takes its frame from 0x233d8e0 (its anim lookup returns to
+// Build::battle_anim_ret) and sends only the UV: Skia draws UV x the image's real pixels and the pivot is from the
+// frame's size. So there the frames are the real dense ones (rects x PPU back) and the size asks
+// (Build::battle_size_ret) get the real size, and src/view.rs draws the entity at 1 / PPU. Everywhere else (cards,
+// encyclopedia, icons: an explicit size) the table / PPU and the size / PPU.
 /// A frame: x, y, w, h, duration (f32).
 const FRAME: usize = 20;
 /// vtable entries copied for a texture proxy (drop, size, align and the methods).
@@ -49,6 +44,12 @@ const VTABLE: usize = 48;
 
 static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
 static MODULE: AtomicUsize = AtomicUsize::new(0);
+/// The game build found by src/build.rs (set before any hook goes in).
+static BUILD: OnceLock<&'static Build> = OnceLock::new();
+
+fn build() -> &'static Build {
+    BUILD.get().expect("hooks only go in with a known build")
+}
 static ORIG_ANIM: AtomicUsize = AtomicUsize::new(0);
 static ORIG_SHEET: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
@@ -153,7 +154,7 @@ unsafe fn game_find(t: usize, key: &[u8]) -> Option<usize> {
     if MODULE.load(Ordering::Relaxed) == 0 {
         return bucket_of(t, key); // not in the game (tests)
     }
-    let hash: Hash = std::mem::transmute(MODULE.load(Ordering::Relaxed) + HASH_RVA);
+    let hash: Hash = std::mem::transmute(MODULE.load(Ordering::Relaxed) + build().hash);
     let h = hash(t + 0x20, key.as_ptr() as usize, key.len());
     let (ctrl, mask) = (q(t), q(t + 8));
     let h2 = (h >> 57) as u8;
@@ -326,7 +327,7 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
     let rva = ret.wrapping_sub(MODULE.load(Ordering::Relaxed));
     let out = if f == 0 {
         1.0
-    } else if BATTLE_SIZE_RET.contains(&rva) {
+    } else if build().battle_size_ret.contains(&rva) {
         real
     } else {
         real / ppu
@@ -369,7 +370,7 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
     if !densify_table(got, hero) {
         return got;
     }
-    if BATTLE_ANIM_RET.contains(&q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed))) {
+    if build().battle_anim_ret.contains(&q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed))) {
         return battle_table(got, hero).unwrap_or(got);
     }
     got
@@ -534,16 +535,17 @@ unsafe fn hook(func: usize, detour: usize, orig_slot: &AtomicUsize) -> Result<()
     Ok(())
 }
 
-pub fn install_once() {
+pub fn install_once(b: &'static Build) {
     HOOK.call_once(|| {
         let module = unsafe { GetModuleHandleW(std::ptr::null()) };
         MODULE.store(module, Ordering::Release);
+        let _ = BUILD.set(b);
         let a = unsafe {
-            hook(module + ANIM_RVA,
+            hook(module + b.anim,
                  anim_detour as unsafe extern "system" fn(usize, usize, usize, usize) -> usize as usize, &ORIG_ANIM)
         };
         let s = unsafe {
-            hook(module + SHEET_RVA,
+            hook(module + b.sheet,
                  sheet_detour as unsafe extern "system" fn(usize, usize, usize, usize) -> usize as usize, &ORIG_SHEET)
         };
         let list: Vec<String> = HEROES.iter().map(|h| format!("{} x{}", h.id, h.ppu)).collect();
@@ -555,7 +557,7 @@ pub fn install_once() {
 mod tests {
     #[test]
     fn stubs_dump() {
-        let (code, entry, orig) = super::stubs(0x20000, 0x140000000 + super::ANIM_RVA, 0x7ff6_0000_1234);
+        let (code, entry, orig) = super::stubs(0x20000, 0x140000000 + 0x20fc10, 0x7ff6_0000_1234);
         assert_eq!(entry, 0x20000);
         let hex: String = code.iter().map(|b| format!("{b:02x}")).collect();
         println!("STUBS {hex} {:#x}", orig - entry);
