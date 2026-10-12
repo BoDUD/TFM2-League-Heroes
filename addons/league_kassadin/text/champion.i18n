@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_kassadin_void": {
+        "attack": "【附加包】<#ff9028ff>虚空之石<>：受到的魔法伤害正好降低10%。<#ff9028ff>虚空之刃<>：普攻附带<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>；每<#ffb900ff>7秒<>强化一次普攻，额外造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。",
+        "skill2": "【附加包】向前方锥形释放能量脉冲，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速50%<><#ffb900ff>1秒<>。附近每有英雄施放技能（敌我都算）就缩短它的冷却。",
+        "ult": "【附加包】闪现到能击杀、或身边英雄最多的敌方后排身边（不进敌方塔下），对周围敌人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。<#ffb900ff>15秒<>内再次施放叠加一层（最多<#ffb900ff>3层<>），每层额外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_kassadin_void": {
+        "attack": "【附加包】<#ff9028ff>虛空之石<>：受到的魔法傷害正好降低10%。<#ff9028ff>虛空之刃<>：普攻附帶<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>；每<#ffb900ff>7秒<>強化一次普攻，額外造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。",
+        "skill2": "【附加包】向前方錐形釋放能量脈衝，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速50%<><#ffb900ff>1秒<>。附近每有英雄施放技能（敵我都算）就縮短它的冷卻。",
+        "ult": "【附加包】閃現到能擊殺、或身邊英雄最多的敵方後排身邊（不進敵方塔下），對周圍敵人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。<#ffb900ff>15秒<>內再次施放疊加一層（最多<#ffb900ff>3層<>），每層額外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_kassadin_void": {
+        "attack": "[Add-on] <#ff9028ff>Void Stone<>: takes exactly 10% less magic damage. <#ff9028ff>Nether Blade<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>; every <#ffb900ff>7s<> one attack deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> more.",
+        "skill2": "[Add-on] Releases a pulse in a cone ahead: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ef5350ff>50% slow<> for <#ffb900ff>1s<>. Every spell any champion casts near him shortens its cooldown.",
+        "ult": "[Add-on] Blinks next to the enemy he can kill, else the back liner with most champions round it (never under a tower): <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> round him. Cast again within <#ffb900ff>15s<> for a stack (at most <#ffb900ff>3<>), each adding <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_kassadin_void": {
+        "attack": "[애드온] <#ff9028ff>공허석<>: 받는 마법 피해 정확히 10% 감소. <#ff9028ff>황천의 검<>: 기본 공격에 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가, <#ffb900ff>7초<>마다 기본 공격 하나가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 추가.",
+        "skill2": "[애드온] 전방 원뿔로 파동을 방출해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1초<> <#ef5350ff>50% 둔화<>. 근처에서 챔피언이 스킬을 쓸 때마다(아군·적 모두) 재사용 대기시간 감소.",
+        "ult": "[애드온] 처치할 수 있는 적, 없으면 주변 챔피언이 가장 많은 적 후열 옆으로 순간이동해(포탑 아래 제외) 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>. <#ffb900ff>15초<> 안에 다시 쓰면 중첩 (최대 <#ffb900ff>3<>), 중첩마다 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_kassadin_void": {
+        "attack": "【アドオン】<#ff9028ff>ヴォイドストーン<>：受ける魔法ダメージちょうど10%軽減。<#ff9028ff>ネザーブレード<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>7秒<>ごとに1回<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>追加。",
+        "skill2": "【アドオン】前方の扇形に波動を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>50%スロウ<>。近くで誰かがスキルを使うたび（敵味方とも）CD短縮。",
+        "ult": "【アドオン】倒せる敵、いなければ周りの敵が最も多い後衛の傍へ瞬間移動し（塔下は除く）、周囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>15秒<>以内の再使用でスタック（最大<#ffb900ff>3<>）、1つごとに<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。"
+      }
+    }
+  }
+}

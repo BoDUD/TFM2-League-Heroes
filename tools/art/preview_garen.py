@@ -4,7 +4,7 @@ sheets load).
 
     python tools/art/preview_garen.py [--out docs/preview]
 
-  league_garen_frames.png    every animation's dense frames (hd_, PPU 2.5: as league.dll shows them)
+  league_garen_frames.png    every animation, frame by frame, 3x on the arena colour
   league_garen_effects.png   every effect animation, 3x
   league_garen_showcase.gif  a scripted fight against a mirrored Garen, timed like the kit
                              (walk in, attack, Q + W, empowered hit, E, R, death), 3x
@@ -72,8 +72,8 @@ class Anim:
     """A playing animation: frames + durations (ms), optional loop, position (moving at vx
     px/ms), mirror, z."""
 
-    def __init__(self, sp, tag, t0, x, y, loop=False, until=None, flip=False, z=0, vx=0.0, fr=None):
-        self.fr = fr if fr is not None else frames_of(sp, tag)
+    def __init__(self, sp, tag, t0, x, y, loop=False, until=None, flip=False, z=0, vx=0.0):
+        self.fr = frames_of(sp, tag)
         self.t0, self.x, self.y, self.loop, self.flip, self.z, self.vx = t0, x, y, loop, flip, z, vx
         total = sum(ms for _, ms in self.fr)
         self.until = until if until is not None else (None if loop else t0 + total)
@@ -100,9 +100,6 @@ def tick(n):
 
 
 def showcase(out, z=3, step=40):
-    # here, not at the top: preview_dense imports this module (Garen is drawn from his dense frames, PPU 2.5, as the
-    # battlefield draws him; so is the Garen he fights)
-    from preview_dense import dense, put
     garen = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     W, H = 160, 120
@@ -112,18 +109,17 @@ def showcase(out, z=3, step=40):
 
     def g(tag, dur=None, loop=False):
         nonlocal t
-        a = Anim(garen, tag, t, gx, gy, loop=loop, until=(t + dur) if dur else None, fr=dense(garen, tag, "garen", z))
+        a = Anim(garen, tag, t, gx, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(a)
         t = a.until
 
     def hit_target(at, sprite=None, tag=None):
-        flinch.append(Anim(garen, "hit", at, tx, gy, flip=True, fr=dense(garen, "hit", "garen", z)))
+        flinch.append(Anim(garen, "hit", at, tx, gy, flip=True))
         if sprite:
             effects.append(Anim(fx[sprite], tag, at, tx, gy, z=1))
 
     walk = 1200                                          # walk in: move_speed 1000 ~ 1 px a tick
-    body.append(Anim(garen, "run", t, gx - 72, gy, loop=True, until=t + walk, vx=72 / walk,
-                     fr=dense(garen, "run", "garen", z)))
+    body.append(Anim(garen, "run", t, gx - 72, gy, loop=True, until=t + walk, vx=72 / walk))
     t += walk
     g("idle", 500, loop=True)
     for _ in range(2):                                   # basic attacks: 22 ticks, hit at 13
@@ -139,15 +135,14 @@ def showcase(out, z=3, step=40):
     effects.append(decisive)
     g("idle", tick(30), loop=True)
     start = t                                            # empowered attack
-    body.append(Anim(garen, "attack", start, gx, gy, until=start + tick(3), fr=dense(garen, "attack", "garen", z)))
-    body.append(Anim(garen, "q_attack", start + tick(3), gx, gy, fr=dense(garen, "q_attack", "garen", z)))
+    body.append(Anim(garen, "attack", start, gx, gy, until=start + tick(3)))
+    body.append(Anim(garen, "q_attack", start + tick(3), gx, gy))
     decisive.until = start + tick(3)
     hit_target(start + tick(16), "league_garen_hits", "q")
     t = start + tick(33)
     g("idle", tick(40), loop=True)
     start = t                                            # E: 3 s spin, 7 pulses
-    body.append(Anim(garen, "spin", start, gx, gy, loop=True, until=start + tick(182),
-                     fr=dense(garen, "spin", "garen", z)))
+    body.append(Anim(garen, "spin", start, gx, gy, loop=True, until=start + tick(182)))
     effects.append(Anim(fx["league_garen_spin"], "loop", start + tick(2), gx, gy, loop=True,
                         until=start + tick(182), z=1))
     for p in (0, 26, 51, 77, 103, 129, 154):
@@ -161,8 +156,8 @@ def showcase(out, z=3, step=40):
     g("idle", 1400, loop=True)
     end = t
 
-    idle = dense(garen, "idle", "garen", z)
-    dead = dense(garen, "dead", "garen", z)
+    idle = frames_of(garen, "idle")
+    dead = frames_of(garen, "dead")
     mirror = {}
 
     def flip(f):
@@ -187,11 +182,11 @@ def showcase(out, z=3, step=40):
         return flip(pick(idle, tt % sum(ms for _, ms in idle)))
 
     def place(img, f, x, y):
-        put(img, f, x, y, z)
+        img.alpha_composite(f, (x - f.width // 2, y - f.height // 2))
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W * z, H * z), ARENA)
+        img = Image.new("RGBA", (W, H), ARENA)
         for a in effects:
             f = a.frame(tt) if a.z < 0 else None
             if f is not None:
@@ -206,7 +201,7 @@ def showcase(out, z=3, step=40):
             f = a.frame(tt) if a.z >= 0 else None
             if f is not None:
                 place(img, f, a.x, a.y)
-        frames.append(img.convert("RGB"))
+        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
         tt += step
     # one palette for the whole clip, sampled from every 8th frame
     sample = frames[::8]
@@ -224,9 +219,8 @@ def main():
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
-    from preview_dense import dense_rows
     g = load(CHAMP)
-    size = contact(dense_rows(g), os.path.join(args.out, "league_garen_frames.png"), z=1)
+    size = contact([(g, t["name"], t["name"]) for t in g.tags], os.path.join(args.out, "league_garen_frames.png"))
     print("frames", size)
     rows = []
     for name, path in FX.items():

@@ -188,8 +188,7 @@ def breathe(design, head, body=BODY, lag=LAG, nod=True, sway=SWAY, nod_max=6.0, 
     # flat dark belt was the cheapest row of the default zone, so only his hump breathed while the fists stood
     # (「牛头有点怪」): his zone is forced into the legs, zone=(0.20, 1)
     lo, hi = int(sole - zone[0] * h), sole - zone[1]
-    # as many cut rows as the deepest dip (2 at 1x; a dense frame dips PPU x as many rows: tools/art/ppu_garen.py)
-    dip, dip_cost = pick(merge_cost(a0, lo, hi, feet=sole - 3), groups(a0, lo, hi), lo, max(2, max(body)), W)
+    dip, dip_cost = pick(merge_cost(a0, lo, hi, feet=sole - 3), groups(a0, lo, hi), lo, 2, W)
     # the lean's hinge, per group: a standing shape (feet on the soles' row) hinges at the ankle - below its own cut
     # rows, above the boot's last two rows; a hanging shape (a fist, a tail off the ground) moves whole (hinge = sole)
     standing = op[sole]

@@ -2,8 +2,8 @@
   "entries": {
     "league_garen": {
       "face": {
-        "x": -3,
-        "y": -36
+        "x": -1,
+        "y": -33
       },
       "center": {
         "x": 0,
@@ -1102,6 +1102,16 @@
       "face": {
         "x": 0,
         "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_kassadin": {
+      "face": {
+        "x": 1,
+        "y": -34
       },
       "center": {
         "x": 0,

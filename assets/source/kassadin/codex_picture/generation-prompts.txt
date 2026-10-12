@@ -1,0 +1,4 @@
+Design brief used as source: uploaded Chinese instruction text: 卡萨丁（虚空行者）第0步, with 12 supplied visual references.
+A: Full-body 3/4-right pixel-art Kassadin, horned dark-violet helmet, orange eyes, metal respirator and hoses, bare teal muscular torso, cyan open hands, silver-spiked purple pauldrons, purple layered robe with silver trims, no feet.
+B: Same design, intended with near forearm projected forward and long straight violet energy blade. NOTE: Generated B draft did NOT reliably render the blade. Do not use as final B.
+Requested technical specification: PNG 1024x1536 true clean transparent background, figure height approximately 600 px, hard alpha, no glow/no background; these generated drafts do not meet all requirements.
