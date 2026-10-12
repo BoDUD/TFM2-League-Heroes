@@ -70,7 +70,7 @@ P = {
     "s2_cd": 300, "e_cd": 720, "e_range": 50000, "e_dur": 22, "e_rel": 18, "e_len": 80000, "e_w": 5000,
     "e_dmg": 50, "e_ratio": 60, "e_stun": 45, "mark_t": 300,
     "w_cd": 720, "w_dur": 44, "w_charge": 32, "w_dr": 50, "w_len": 55000, "w_w": 6000,
-    "w_dmg": 40, "w_ratio": 110,
+    "w_dmg": 40, "w_ratio": 110, "w_line_t": 16,
     # ult: R Vanguard's Edge (League: 1000 range, speed 2000, 125-375 + 70% AP magic, mark 5 s, wall 2.5 s: slow 90%
     # 1.5 s + disarm on crossing, cd 125/105/85 s)
     "r_cd": 3600, "r_slot": 70000, "r_count": 70000, "r_reach": 55000, "r_arm": 600, "r_hold": 180, "r_anim": 26,
@@ -261,8 +261,8 @@ def build(p, native=False):
                                               sw("q_aim", NONE, pick(p["q_range"], "EnemyWithoutTower", dash())))),
                     *rm("q_aim"))
     # the poll: a landing climbs a rung, a kill opens q_again, spent once the dash has landed (at most q_n a cast)
-    poll = combine(sw("q_land", combine(*rm("q_land"), climb)),
-                   sw("q_kt", NONE, sw("q_k", combine(*rm("q_k"), refresh("q_again", p["q_poll"])))),
+    kill = [] if native else [sw("q_kt", NONE, sw("q_k", combine(*rm("q_k"), refresh("q_again", p["q_poll"]))))]
+    poll = combine(sw("q_land", combine(*rm("q_land"), climb)), *kill,     # the add-on's passive sees the kill itself
                    sw("q_again", sw("q_dash", NONE, ladder(qn, lambda q: combine(flag(q, p["q_poll"]), again),
                                                             last=combine(*rm("q_again"))))))
 
@@ -291,7 +291,7 @@ def build(p, native=False):
         return combine(refresh("w_cd", p["w_cd"]), anim("skill2_w", p["w_dur"]), sfx("w_cast"), voice("vo_w", p),
                        refresh("w_on", p["w_charge"], base_attack_damaged_reduce=p["w_dr"]),
                        delayed(p["w_charge"], sfx("w_slash"), cview("w_slash"),
-                               strip("w_line", p["w_len"], p["w_w"], 4, 2, "EnemyWithoutTower", hit),
+                               strip("w_line", p["w_len"], p["w_w"], p["w_line_t"], 2, "EnemyWithoutTower", hit),
                                strip("w_champ", p["w_len"], p["w_w"], 3, 2, "EnemyChampion", [climb])))
 
     w_try = sw("w_cd", NONE, w_fire())

@@ -2388,7 +2388,7 @@
                   "name": "league_irelia_w_line",
                   "width": 6000,
                   "length": 55000,
-                  "delay": 4,
+                  "delay": 16,
                   "apply": 2,
                   "applied_target": "EnemyWithoutTower",
                   "applied_effects": [

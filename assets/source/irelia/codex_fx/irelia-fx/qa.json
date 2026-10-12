@@ -1,0 +1,200 @@
+[
+  {
+    "name": "a_hit",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "p_hit",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "pv4",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "q_hit",
+    "frames": 5,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "mark",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "e_cast",
+    "frames": 5,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "e_line",
+    "frames": 6,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "e_hit",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "e_stun",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "w_on",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "w_slash",
+    "frames": 5,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "w_line",
+    "frames": 5,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "w_hit",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "r_blades",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "r_hit",
+    "frames": 5,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "r_wall_v",
+    "frames": 10,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "r_slow",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  },
+  {
+    "name": "r_wslow",
+    "frames": 4,
+    "full_16x_nearest_match": true,
+    "frame_count_and_size": true,
+    "binary_alpha": true,
+    "palette_only": true,
+    "symmetry": true,
+    "central_hole_clear": true,
+    "uniform16px_blocks": true
+  }
+]

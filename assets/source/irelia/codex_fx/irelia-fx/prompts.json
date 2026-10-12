@@ -1,0 +1,344 @@
+[
+  {
+    "name": "a_hit",
+    "frames": 4,
+    "cell": [
+      16,
+      16
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a BLADE STRIKE on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 4 squares across; 2 two crimson slash arcs crossing in an X 14 squares across, white cores; 3 the arcs thinning, a few silver sparks flying out at mirrored places; 4 fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a BLADE STRIKE on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 4 squares across; 2 two crimson slash arcs crossing in an X 14 squares across, white cores; 3 the arcs thinning, a few silver sparks flying out at mirrored places; 4 fading sparks.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1024x1024, every working cell 512x512; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 16x16 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "p_hit",
+    "frames": 4,
+    "cell": [
+      14,
+      14
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a SMALL CYAN BURST on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-cyan dot; 2 a cyan ring 10 squares across with a white core; 3 four tiny crimson-edged leaf sparks flying out diagonally (mirrored); 4 fading.\nLayout: one horizontal row of 4 equal square cells, image size 896x224 (each cell 224x224, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a SMALL CYAN BURST on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-cyan dot; 2 a cyan ring 10 squares across with a white core; 3 four tiny crimson-edged leaf sparks flying out diagonally (mirrored); 4 fading.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1024x1024, every working cell 512x512; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 14x14 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "pv4",
+    "frames": 4,
+    "cell": [
+      36,
+      44
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA).\nEffect: a CYAN GLOW round her, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place in the middle (16 x 40 squares, its bottom on the cell's bottom) EMPTY: six small cyan glints (2-3 squares, white cores) spread round the figure's outline - two at shoulder height, two at the hips, two at the knees, each pair mirrored - twinkling in turn, with 1-square cyan sparkles drifting up between them.\nLayout: one horizontal row of 4 equal 36:44 cells, image size 2304x704 (each cell 576x704, 16 px a square). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1152,
+      1408
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA).\nEffect: a CYAN GLOW round her, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place in the middle (16 x 40 squares, its bottom on the cell's bottom) EMPTY: six small cyan glints (2-3 squares, white cores) spread round the figure's outline - two at shoulder height, two at the hips, two at the knees, each pair mirrored - twinkling in turn, with 1-square cyan sparkles drifting up between them.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1152x1408, every working cell 576x704; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 36x44 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere. MANDATORY: center16x40 gamepixels rectangle EMPTY in EVERYframe, aligned bottomofcell. Draw ONLY outside it. For W release first flash split into TWO mirrored side-glints at chestheight outside centralhole, not a light over body."
+  },
+  {
+    "name": "q_hit",
+    "frames": 5,
+    "cell": [
+      20,
+      20
+    ],
+    "working_grid": [
+      3,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a DASH STRIKE on the target, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 6 squares across; 2 two thick crimson slash arcs crossing in an X 18 squares across, white cores; 3 the X at its brightest with a silver-white ring 12 squares across; 4 crimson shards flying out at mirrored places; 5 a few fading shards.\nLayout: one horizontal row of 5 equal square cells, image size 1600x320 (each cell 320x320, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a DASH STRIKE on the target, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 6 squares across; 2 two thick crimson slash arcs crossing in an X 18 squares across, white cores; 3 the X at its brightest with a silver-white ring 12 squares across; 4 crimson shards flying out at mirrored places; 5 a few fading shards.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 5 frames, 3 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1536x1024, every working cell 512x512; identical clear cell boundaries but do NOT draw boundaries. Last unused cell completely TRANSPARENT. Each cell represents exactly 20x20 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "mark",
+    "frames": 4,
+    "cell": [
+      12,
+      48
+    ],
+    "working_grid": [
+      4,
+      1
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA).\nEffect: a SMALL MARK over the head, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a diamond sigil 8 squares tall and 6 wide - a cyan gem in the middle, two small crimson blade points above and below it - pulsing brighter and dimmer, two 1-square cyan sparkles at its sides.\nLayout: one horizontal row of 4 equal 12:48 cells, image size 768x768 (each cell 192x768, 16 px a square); the sigil's middle 4 squares from the TOP of the cell, centered; the rest of the cell empty. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      768,
+      768
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA).\nEffect: a SMALL MARK over the head, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a diamond sigil 8 squares tall and 6 wide - a cyan gem in the middle, two small crimson blade points above and below it - pulsing brighter and dimmer, two 1-square cyan sparkles at its sides.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 4 columns x 1 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 768x768, every working cell 192x768; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 12x48 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "e_cast",
+    "frames": 5,
+    "cell": [
+      26,
+      12
+    ],
+    "working_grid": [
+      1,
+      5
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a FLASH AT HER FEET, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white vertical glint 2 squares wide and 8 tall rising from the bottom middle; 2 a flat cyan ellipse 24 squares wide and 8 tall round it on the ground, white inner rim; 3 the ellipse at its brightest; 4 the ellipse breaking into cyan dashes; 5 a few fading dashes.\nLayout: one horizontal row of 5 equal 26:12 cells, image size 2080x192 (each cell 416x192, 16 px a square); the ellipse's middle 4 squares above the cell's bottom, centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      832,
+      1920
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a FLASH AT HER FEET, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white vertical glint 2 squares wide and 8 tall rising from the bottom middle; 2 a flat cyan ellipse 24 squares wide and 8 tall round it on the ground, white inner rim; 3 the ellipse at its brightest; 4 the ellipse breaking into cyan dashes; 5 a few fading dashes.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 5 frames, 1 columns x 5 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 832x1920, every working cell 832x384; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 26x12 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "e_line",
+    "frames": 6,
+    "cell": [
+      82,
+      14
+    ],
+    "working_grid": [
+      1,
+      6
+    ],
+    "symmetry": "vertical",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a LINE BETWEEN TWO BLADES pointing RIGHT, 6 frames, SYMMETRIC TOP TO BOTTOM in every frame (the game turns it to its direction; going left it is flipped upside down): the picture spans the whole line, its LEFT edge is where she stands and its RIGHT edge 80 squares away. HER BLADE: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, lying flat along the line, 9 squares long. 1 a blade at each end; 2-4 the two blades flying toward the middle, each trailing a thin cyan beam (2 squares thick, white core) back to its end; 5 the blades meet in the middle in a white-cyan flash 10 squares tall; 6 the whole line glowing cyan-white 3 squares thick, the blades gone.\nLayout: one horizontal row of 6 equal 82:14 cells, image size 7872x224 (each cell 1312x224, 16 px a square); the line on the cell's middle row from the LEFT edge to the RIGHT edge. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1312,
+      1344
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a LINE BETWEEN TWO BLADES pointing RIGHT, 6 frames, SYMMETRIC TOP TO BOTTOM in every frame (the game turns it to its direction; going left it is flipped upside down): the picture spans the whole line, its LEFT edge is where she stands and its RIGHT edge 80 squares away. HER BLADE: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, lying flat along the line, 9 squares long. 1 a blade at each end; 2-4 the two blades flying toward the middle, each trailing a thin cyan beam (2 squares thick, white core) back to its end; 5 the blades meet in the middle in a white-cyan flash 10 squares tall; 6 the whole line glowing cyan-white 3 squares thick, the blades gone.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 6 frames, 1 columns x 6 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1312x1344, every working cell 1312x224; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 82x14 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "e_hit",
+    "frames": 4,
+    "cell": [
+      16,
+      16
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a CYAN SLICE HIT on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white horizontal glint 6 squares long; 2 a cyan flash 14 squares wide and 6 tall, white core, a thin crimson rim; 3 short cyan streaks jumping out at mirrored places; 4 fading streaks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256 (each cell 256x256, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a CYAN SLICE HIT on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white horizontal glint 6 squares long; 2 a cyan flash 14 squares wide and 6 tall, white core, a thin crimson rim; 3 short cyan streaks jumping out at mirrored places; 4 fading streaks.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1024x1024, every working cell 512x512; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 16x16 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "e_stun",
+    "frames": 4,
+    "cell": [
+      16,
+      48
+    ],
+    "working_grid": [
+      4,
+      1
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: STUN over the head, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a small flat ellipse of light 14 squares wide and 5 tall with three tiny cyan-silver leaf glints on it (one in the middle front, two at mirrored sides), the glints moving outward and back in turn.\nLayout: one horizontal row of 4 equal 16:48 cells, image size 1024x768 (each cell 256x768, 16 px a square); the ellipse's middle 4 squares from the TOP of the cell, centered; the rest of the cell empty. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1024,
+      768
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: STUN over the head, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a small flat ellipse of light 14 squares wide and 5 tall with three tiny cyan-silver leaf glints on it (one in the middle front, two at mirrored sides), the glints moving outward and back in turn.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 4 columns x 1 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1024x768, every working cell 256x768; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 16x48 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "w_on",
+    "frames": 4,
+    "cell": [
+      36,
+      44
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a GUARD OF BLADES round her, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place in the middle (16 x 40 squares, its bottom on the cell's bottom) EMPTY: HER BLADE: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, 12 squares long - one on each side of the figure, standing upright at shoulder height with the tips leaning in over the head, mirrored; a thin cyan glow running along each blade's edge from base to tip, moving up a few squares each frame.\nLayout: one horizontal row of 4 equal 36:44 cells, image size 2304x704 (each cell 576x704, 16 px a square). Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1152,
+      1408
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a GUARD OF BLADES round her, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place in the middle (16 x 40 squares, its bottom on the cell's bottom) EMPTY: HER BLADE: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, 12 squares long - one on each side of the figure, standing upright at shoulder height with the tips leaning in over the head, mirrored; a thin cyan glow running along each blade's edge from base to tip, moving up a few squares each frame.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1152x1408, every working cell 576x704; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 36x44 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere. MANDATORY: center16x40 gamepixels rectangle EMPTY in EVERYframe, aligned bottomofcell. Draw ONLY outside it. For W release first flash split into TWO mirrored side-glints at chestheight outside centralhole, not a light over body."
+  },
+  {
+    "name": "w_slash",
+    "frames": 5,
+    "cell": [
+      32,
+      44
+    ],
+    "working_grid": [
+      3,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a RELEASE BURST round her, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place (16 x 40 squares, bottom on the cell's bottom) EMPTY: 1 a white flash at chest height 6 squares across; 2 two crimson crescent arcs opening to both sides, 30 squares from tip to tip, white cores; 3 the arcs at their widest; 4 the arcs thinning into silver streaks; 5 fading.\nLayout: one horizontal row of 5 equal 32:44 cells, image size 2560x704 (each cell 512x704, 16 px a square); the flash at chest height (26 squares above the cell's bottom), centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1536,
+      1408
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a RELEASE BURST round her, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side), the figure's place (16 x 40 squares, bottom on the cell's bottom) EMPTY: 1 a white flash at chest height 6 squares across; 2 two crimson crescent arcs opening to both sides, 30 squares from tip to tip, white cores; 3 the arcs at their widest; 4 the arcs thinning into silver streaks; 5 fading.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 5 frames, 3 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1536x1408, every working cell 512x704; identical clear cell boundaries but do NOT draw boundaries. Last unused cell completely TRANSPARENT. Each cell represents exactly 32x44 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere. MANDATORY: center16x40 gamepixels rectangle EMPTY in EVERYframe, aligned bottomofcell. Draw ONLY outside it. For W release first flash split into TWO mirrored side-glints at chestheight outside centralhole, not a light over body."
+  },
+  {
+    "name": "w_line",
+    "frames": 5,
+    "cell": [
+      57,
+      16
+    ],
+    "working_grid": [
+      1,
+      5
+    ],
+    "symmetry": "vertical",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a SLASH WAVE pointing RIGHT, 5 frames, SYMMETRIC TOP TO BOTTOM in every frame (the game turns it to its direction; going left it is flipped upside down): the picture spans the whole line, its LEFT edge is where she stands and its RIGHT edge 55 squares away; a crimson crescent wave 12 squares tall (its bow toward the right, white core) travelling from the left end to the right end over frames 1-4, a crimson trail 4 squares thick behind it, thinning; 5 only the fading trail.\nLayout: one horizontal row of 5 equal 57:16 cells, image size 4560x256 (each cell 912x256, 16 px a square); the wave on the cell's middle row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      912,
+      1280
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a SLASH WAVE pointing RIGHT, 5 frames, SYMMETRIC TOP TO BOTTOM in every frame (the game turns it to its direction; going left it is flipped upside down): the picture spans the whole line, its LEFT edge is where she stands and its RIGHT edge 55 squares away; a crimson crescent wave 12 squares tall (its bow toward the right, white core) travelling from the left end to the right end over frames 1-4, a crimson trail 4 squares thick behind it, thinning; 5 only the fading trail.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 5 frames, 1 columns x 5 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 912x1280, every working cell 912x256; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 57x16 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "w_hit",
+    "frames": 4,
+    "cell": [
+      18,
+      18
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a HEAVY SLASH HIT on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white horizontal flash 8 squares long; 2 a thick crimson horizontal slash 16 squares long and 4 tall, white core; 3 crimson shards flying out at mirrored places; 4 fading.\nLayout: one horizontal row of 4 equal square cells, image size 1152x288 (each cell 288x288, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a HEAVY SLASH HIT on the target, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white horizontal flash 8 squares long; 2 a thick crimson horizontal slash 16 squares long and 4 tall, white core; 3 crimson shards flying out at mirrored places; 4 fading.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1024x1024, every working cell 512x512; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 18x18 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "r_blades",
+    "frames": 4,
+    "cell": [
+      28,
+      18
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "vertical",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a VOLLEY OF BLADES flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM in every frame (the game turns it to its direction; going left it is flipped upside down): HER BLADE: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, 8 squares long, pointing right; five of them in an arrowhead - one in front on the middle row, two above and two below it stepped back 4 squares each, mirrored - every blade trailing a crimson streak 6 squares long; the streaks flicker and the blades bob a square in turn.\nLayout: one horizontal row of 4 equal 28:18 cells, image size 1792x288 (each cell 448x288, 16 px a square); the front blade's tip 1 square from the RIGHT edge, vertically centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1152,
+      768
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a VOLLEY OF BLADES flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM in every frame (the game turns it to its direction; going left it is flipped upside down): HER BLADE: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, 8 squares long, pointing right; five of them in an arrowhead - one in front on the middle row, two above and two below it stepped back 4 squares each, mirrored - every blade trailing a crimson streak 6 squares long; the streaks flicker and the blades bob a square in turn.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1152x768, every working cell 576x384; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 28x18 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "r_hit",
+    "frames": 5,
+    "cell": [
+      22,
+      22
+    ],
+    "working_grid": [
+      3,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a VOLLEY HIT on the target, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 8 squares across; 2 three crimson slashes crossing in a star 20 squares across (one horizontal, two diagonal), white cores; 3 a cyan ring 16 squares across round them; 4 crimson and cyan shards flying out at mirrored places; 5 fading shards.\nLayout: one horizontal row of 5 equal square cells, image size 1760x352 (each cell 352x352, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA) and a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98).\nEffect: a VOLLEY HIT on the target, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 8 squares across; 2 three crimson slashes crossing in a star 20 squares across (one horizontal, two diagonal), white cores; 3 a cyan ring 16 squares across round them; 4 crimson and cyan shards flying out at mirrored places; 5 fading shards.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 5 frames, 3 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1536x1024, every working cell 512x512; identical clear cell boundaries but do NOT draw boundaries. Last unused cell completely TRANSPARENT. Each cell represents exactly 22x22 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "r_wall_v",
+    "frames": 10,
+    "cell": [
+      64,
+      36
+    ],
+    "working_grid": [
+      2,
+      5
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a RING WALL OF BLADES on the ground, 10 frames played once, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat ellipse 60 squares wide and 26 tall seen from above at an angle; twelve of her blade: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, 7 squares tall, standing upright round the ellipse's rim with their tips up (the front ones lower on the picture, the back ones higher, the side ones smaller); a thin crimson glow line on the ground along the rim. 1-2 the blades rising out of the ground; 3-8 the wall standing, the cyan gems twinkling in turn and a brighter crimson pulse running round the rim; 9-10 the blades sinking, the glow fading.\nLayout: one horizontal row of 10 equal 64:36 cells, image size 10240x576 (each cell 1024x576, 16 px a square); the ellipse's middle 16 squares above the cell's bottom, centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1024,
+      1440
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629), a cyan ramp (#FFFFFF, #D8FBFF, #84EBFF, #27CFF3, #098FBA), a silver ramp (#FFFFFF, #E8F4FC, #BDCFDF, #96ACC3, #6C7A98) and a navy ramp for the blades' backs (#4D6085, #344367, #222B51, #131A37, #0A081C).\nEffect: a RING WALL OF BLADES on the ground, 10 frames played once, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat ellipse 60 squares wide and 26 tall seen from above at an angle; twelve of her blade: a slim crescent blade like a curved leaf, crimson edge, navy back, a silver tip and a small cyan gem at its base, a 1-square dark outline - exactly the blades floating round her in design/irelia_design.png, 7 squares tall, standing upright round the ellipse's rim with their tips up (the front ones lower on the picture, the back ones higher, the side ones smaller); a thin crimson glow line on the ground along the rim. 1-2 the blades rising out of the ground; 3-8 the wall standing, the cyan gems twinkling in turn and a brighter crimson pulse running round the rim; 9-10 the blades sinking, the glow fading.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 10 frames, 2 columns x 5 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1024x1440, every working cell 512x288; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 64x36 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "r_slow",
+    "frames": 4,
+    "cell": [
+      20,
+      8
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a SLOW RING at the feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat crimson ellipse 18 squares wide and 6 tall on the ground, six tiny blade-shaped notches on it (mirrored) pulsing in turn, white highlights on the front.\nLayout: one horizontal row of 4 equal 20:8 cells, image size 1280x128 (each cell 320x128, 16 px a square); the ellipse's middle 3 squares above the cell's bottom, centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1280,
+      512
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a SLOW RING at the feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a flat crimson ellipse 18 squares wide and 6 tall on the ground, six tiny blade-shaped notches on it (mirrored) pulsing in turn, white highlights on the front.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1280x512, every working cell 640x256; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 20x8 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  },
+  {
+    "name": "r_wslow",
+    "frames": 4,
+    "cell": [
+      18,
+      8
+    ],
+    "working_grid": [
+      2,
+      2
+    ],
+    "symmetry": "horizontal",
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a FAINT SLOW RING at the feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a thin crimson ellipse 16 squares wide and 5 tall on the ground, dimmer than a full slow (mid crimson, no white), a brighter dash running round it.\nLayout: one horizontal row of 4 equal 18:8 cells, image size 1152x128 (each cell 288x128, 16 px a square); the ellipse's middle 3 squares above the cell's bottom, centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "canvas": [
+      1296,
+      576
+    ],
+    "prompt": "VFX ONLY. No character, no portrait, no scenery. Reference when attached is ONLY her physical blade shape/color, never draw the woman. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, slashes, trails or rings (only her solid blades get the dark #0A081C outline), BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a crimson ramp (#FFFFFF, #FFC8D8, #F32D5B, #D51046, #A80A36, #750629).\nEffect: a FAINT SLOW RING at the feet, 4 frames, a seamless loop, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): a thin crimson ellipse 16 squares wide and 5 tall on the ground, dimmer than a full slow (mid crimson, no white), a brighter dash running round it.\n\nWORKING CONTACT SHEET (final horizontal strip will be exported separately): 4 frames, 2 columns x 2 rows, read LEFT TO RIGHT then TOP TO BOTTOM. Canvas 1296x576, every working cell 648x288; identical clear cell boundaries but do NOT draw boundaries. Each cell represents exactly 18x8 GAME PIXELS; draw the shapes in big pure-color square pixel blocks on that logical grid, not fine illustration. The effect sizes/positions in the Effect description are GAME PIXELS. Preserve animation progression distinct frames. Flat solid bright color clusters, pure white cores, no dark outlines on lights, no fuzzy halo, no anti-alias, no gradients, no dithering. Transparent empty spaces. No text, labels, numbers, borders or guides. No hero anywhere."
+  }
+]
