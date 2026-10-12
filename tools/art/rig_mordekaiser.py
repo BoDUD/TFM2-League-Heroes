@@ -68,6 +68,7 @@ TURNED = os.path.join(SRC, "codex_turned")    # the 65-degree stand and skill po
                                               # helms Codex's copy of walk-1's)
 TURNED_POSES = ["turned", "attack-raise", "attack-strike", "q-raise", "q-slam", "e-grasp", "r-point"]
 TURN_DX = -33                                 # the turned stand's torso over the pivot (the run's: RUN_DX)
+LIFT = 1                                      # Codex's 65-degree soles sit on row 252, the design's on 251: one row up
 # The user, on Codex's two raises a tenth taller than the stand and the strike's spike cut at the ground: 「我自己缩小和补
 # 尖刺」. SHRINK: pose -> (its horn row, the stand's horn row, the soles' row) from Codex's QA.json - the pose brought to
 # the stand's height by whole rows and columns out (design_riven.seam_shrink: the least-loss line of each group), about
@@ -178,7 +179,7 @@ class Rig:
         p, kind = self.turned[name]
         can = self.canvas()
         ox, oy = self.origin(kind)
-        self.put(can, p, p[..., 3] > 0, ox + TURN_DX + dx, oy)
+        self.put(can, p, p[..., 3] > 0, ox + TURN_DX + dx, oy - (0 if name in SHRINK else LIFT))
         return can
 
     def walk(self, k):
@@ -188,7 +189,7 @@ class Rig:
         p = self.run[k]
         can = self.canvas()
         ox, oy = self.origin("landscape")
-        self.put(can, p, p[..., 3] > 0, ox + RUN_DX[k], oy)
+        self.put(can, p, p[..., 3] > 0, ox + RUN_DX[k], oy - LIFT)
         return can
 
 
