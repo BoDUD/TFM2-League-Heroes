@@ -47,6 +47,8 @@ static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
 /// (display world, entity key) -> the scale bookkeeping of a dense hero.
 struct State {
     scales: Vec<(usize, u64, Scale)>,
+    /// (world, entity) -> the 8 bytes at +0x1b8 last frame (the battlefield draw checks +0x1bc == 1: 「被宝石打中后模型突然变小」)
+    flags: Vec<(usize, u64, [u8; 8])>,
     seen: Vec<(usize, u64)>,
     seen_lines: usize,
     hd_lines: usize,
@@ -59,6 +61,7 @@ struct State {
 
 static STATE: Mutex<State> = Mutex::new(State {
     scales: Vec::new(),
+    flags: Vec::new(),
     seen: Vec::new(),
     seen_lines: 0,
     hd_lines: 0,
@@ -193,6 +196,19 @@ unsafe fn densify(world: usize) {
         }
         let Some(hero) = HEROES.iter().find(|h| h.id == name) else { continue };
         st.dense += 1;
+        let fl: [u8; 8] = std::ptr::read_unaligned((v + 0x1b8) as *const [u8; 8]);
+        let fk = st.flags.iter().position(|e| e.0 == world && e.1 == key);
+        if fk.map_or(true, |k| st.flags[k].2 != fl) {
+            match fk {
+                Some(k) => st.flags[k].2 = fl,
+                None => st.flags.push((world, key, fl)),
+            }
+            if st.hd_lines < MAX_HD_LINES {
+                st.hd_lines += 1;
+                wlog(format!("world {world:#x} #{key} {name}: +0x1b8.. {fl:02x?} (playing {})",
+                    string_at(v + ANIM_CAP, 64).unwrap_or("?")));
+            }
+        }
         let Some(cur) = string_at(v + ANIM_CAP, 64) else { continue };
         let cur = cur.to_string();
         let want = hd::anim_for(&cur, &hero.tags);

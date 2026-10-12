@@ -23,7 +23,7 @@ mod ui;
 mod view;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.3.0";
+const VERSION: &str = "0.3.1";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 
