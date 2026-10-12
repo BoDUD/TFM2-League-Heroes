@@ -63,10 +63,9 @@ static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
 struct State {
     scales: Vec<(usize, u64, Scale)>,
     lines: usize,
-    effects: Vec<String>,
 }
 
-static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), lines: 0, effects: Vec::new() });
+static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), lines: 0 });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -145,18 +144,6 @@ unsafe fn shrink(world: usize) {
         let res = string_at(v + RES_PTR, v + RES_LEN_AT);
         let key = q(elem) as u64;
         let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
-        if st.effects.len() < 64 {
-            // 0.6.0: is an effect drawn as a display entity? (hd.rs EFFECTS: their tables are dense, not scaled here)
-            for n in [res, id].into_iter().flatten() {
-                let last = n.rsplit('/').next().unwrap_or(n).split('#').next().unwrap_or(n);
-                if hd::EFFECTS.iter().any(|e| e.0 == last) && !st.effects.iter().any(|e| e == n) {
-                    let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
-                    wlog(format!("world {world:#x} #{key}: an effect entity: res {} id {} scale {cur:.3}",
-                        res.unwrap_or("?"), id.unwrap_or("?")));
-                    st.effects.push(n.to_string());
-                }
-            }
-        }
         let Some(hero) = drawn_as(&HEROES, res, id) else {
             // no longer drawn with dense frames (a possession ended): the game's own value back
             if let Some(k) = at {
