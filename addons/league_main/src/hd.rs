@@ -1,9 +1,10 @@
-//! Which heroes have dense (PPU) frames, and what the display hook does with them - the parts that need no game.
+//! Which heroes have dense (PPU) frames - the parts that need no game.
 //!
 //! A hero listed in `HEROES` carries `hd_<tag>` beside every `<tag>` in its own sheet (tools/art/ppu_hd.py, the same
-//! PPU there), each frame PPU times the 1x frame's size. The hook plays `hd_<tag>` where the game plays `<tag>` and
-//! draws the entity at its scale / PPU. The tags are read from the sheet's .fanim compiled in, so the DLL never asks
-//! for an animation the sheet lacks (the game panics on a missing one: 「animation info not found」).
+//! PPU there), each frame PPU times the 1x frame's size. src/lookup.rs hands every reader of the hero's animations a
+//! table whose every tag holds the dense frames with their rects divided by PPU, and every reader of its sheet a
+//! texture that reports its size divided by PPU: the same UVs (the dense squares), the 1x sizes. The tags are read
+//! from the sheet's .fanim compiled in.
 
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
 pub const HEROES: &[(&str, f32, &str)] =
@@ -51,31 +52,6 @@ pub fn heroes() -> Vec<Hero> {
         .collect()
 }
 
-/// The animation the entity should play: `hd_<tag>` for a tag with a dense copy, the plain name for anything else
-/// (a name the hook put on last frame comes back to its plain one first). None when it already plays that.
-pub fn anim_for(cur: &str, tags: &[String]) -> Option<String> {
-    let plain = cur.strip_prefix(PREFIX).unwrap_or(cur);
-    let want = if tags.iter().any(|t| t == plain) { format!("{PREFIX}{plain}") } else { plain.to_string() };
-    (want != cur).then_some(want)
-}
-
-/// One entity's draw scale: the game's own value (base) and what the hook last wrote over it.
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Scale {
-    pub base: f32,
-    pub wrote: f32,
-}
-
-/// The scale to write this frame. `cur` is what the entity holds now: the hook's own last value (the game left it
-/// alone - keep the base) or a fresh one from the game (a new base). Never divides twice.
-pub fn next_scale(prev: Option<Scale>, cur: f32, ppu: f32) -> Scale {
-    let base = match prev {
-        Some(p) if (cur - p.wrote).abs() <= 1e-6 => p.base,
-        _ => cur,
-    };
-    Scale { base, wrote: base / ppu }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -93,27 +69,6 @@ mod tests {
                 assert!(hd.contains(&format!("{PREFIX}{t}")), "{id}: no {PREFIX}{t}");
             }
         }
-    }
-
-    #[test]
-    fn names_swap_both_ways() {
-        let tags = vec!["idle".to_string(), "run".to_string()];
-        assert_eq!(anim_for("idle", &tags).as_deref(), Some("hd_idle"));
-        assert_eq!(anim_for("hd_idle", &tags), None);
-        assert_eq!(anim_for("hd_ult", &tags).as_deref(), Some("ult"));
-        assert_eq!(anim_for("ult", &tags), None);
-    }
-
-    #[test]
-    fn the_scale_is_divided_once() {
-        let s = next_scale(None, 1.0, 2.0);
-        assert_eq!(s, Scale { base: 1.0, wrote: 0.5 });
-        let s = next_scale(Some(s), 0.5, 2.0); // the game left our value
-        assert_eq!(s, Scale { base: 1.0, wrote: 0.5 });
-        let s = next_scale(Some(s), 1.0, 2.0); // the game wrote its own again
-        assert_eq!(s, Scale { base: 1.0, wrote: 0.5 });
-        let s = next_scale(Some(s), 1.3, 2.0); // a new base (a growth effect)
-        assert_eq!(s, Scale { base: 1.3, wrote: 0.65 });
     }
 
     #[test]

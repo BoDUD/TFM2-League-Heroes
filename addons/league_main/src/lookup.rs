@@ -2,13 +2,19 @@
 //! 入口那 12 个字节（push rbp … push rbx）换成 `mov rax, 跳板; jmp rax`；跳板把栈顶的地址（返回地址在那里）放进 r9
 //! 交给本包的函数，原函数照常执行（原来的 12 个字节 + 跳回入口 + 12）。
 //!
-//! 1. 诊断：每个调用处（rva）第一次取英雄图时记一行，登记的高清英雄的每个（调用处，名字）也记一行——用来找卡牌、
-//!    图鉴、头像各是哪段代码画的（BP 卡牌改好后用户：「游戏百科里面的不对」「选完英雄后又不对了」）。
-//! 2. 游戏百科的英雄格子和头像：rva 0x24b44b0 按 `idle` 第 0 帧、以帧中心加 champion_view 的脸点为准裁一块
-//!    （格子宽高 ÷ s），画成 min(格子, 帧 × s) 大小；动作名 `idle` 是内联比较的，改不了名字。所以从这里（返回地址
-//!    0x24b4574）取登记英雄的动画表时，交回一份**影子表**：把表的桶整块复制一份，副本里 `idle` 和 `hd_idle` 两项
-//!    的帧互换（帧数据不复制，原表照旧归游戏所有，影子表永不释放）；再把它栈上还没读的三个参数改成高清帧的：
-//!    脸点 x、y 乘 PPU，s 除以 PPU——裁出的是同一块画面，像素细 PPU 倍。
+//! 用户：「选完英雄的一瞬间 脸部还是会回到之前那样」「还有头像也没变」「被宝石打中后模型突然变小」——卡牌、图鉴、头像、
+//! 选人槽位、战场上眩晕时的画法各走各的代码，逐处改名字、改缩放改不完。所以在这两处一次做完（0.4.0 起）：
+//!
+//! - 取登记英雄的动画表：交回一张**影子表**——表的桶整块复制，每个动作（`idle`、`run` … 和 `hd_*`）都换成它的
+//!   `hd_` 帧，帧矩形 x、y、宽、高全部除以 PPU（帧数据另存一份；原表照旧归游戏所有，影子永不释放）；
+//! - 取它的图（`#sheet`）：交回一个**代理**——同一个贴图对象，虚表抄一份，取宽（+0x28）、取高（+0x30）两项换成
+//!   「原值 ÷ PPU」。
+//!
+//! UV = 矩形 ÷ 贴图大小，正好落在高清那一块上；画出来的大小 = 矩形宽高 × 各自的缩放，和 1 倍的一样。所以任何按名字
+//! 取帧、按帧大小画的地方都画高清帧，大小、锚点不变，不用再改动作名、写 +0x1b4、改卡牌的指令。绘制命令按名字引用
+//! 贴图（0x22edc70 把「…#sheet」交给 0x1c7880），执行时再取一次——也是代理，宽高一致。
+//!
+//! 另记诊断：每个调用处第一次取英雄图记一行，登记英雄的每个（调用处，名字）也记一行。
 
 use std::collections::HashMap;
 use std::ffi::c_void;
@@ -21,17 +27,14 @@ use super::wlog;
 const PROLOGUE: [u8; 12] = [0x55, 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x53];
 const ANIM_RVA: usize = 0x20fc10;
 const SHEET_RVA: usize = 0x16d040;
-/// 0x24b44b0's anim lookup returns here; its frame: rbp = rsp + 0x80 and the stack arguments face x, face y and the
-/// scale at rbp + 0x110, + 0x118, + 0x120 (read only after this lookup).
-const ICON_RET: usize = 0x24b4574;
-const ICON_RBP: usize = 0x80;
-const ICON_FACE_X: usize = 0x110;
-const ICON_FACE_Y: usize = 0x118;
-const ICON_SCALE: usize = 0x120;
 /// The anim table (hashbrown): ctrl, bucket mask, growth left, items, hasher (0x30 bytes); 0x30-byte buckets below
 /// ctrl: key String {cap, ptr, len}, frames Vec {cap, ptr, len}.
 const BUCKET: usize = 0x30;
 const MAX_LINES: usize = 400;
+/// A frame: x, y, w, h, duration (f32).
+const FRAME: usize = 20;
+/// vtable entries copied for a texture proxy (drop, size, align and the methods).
+const VTABLE: usize = 48;
 
 static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
 static MODULE: AtomicUsize = AtomicUsize::new(0);
@@ -45,6 +48,9 @@ struct Probe {
     lines: usize,
 }
 static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::new(), lines: 0 });
+/// original texture entry -> (its data, its vtable, the proxy); texture data -> (width fn, height fn, PPU)
+static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// original table -> (its ctrl when copied, the shadow table)
 static SHADOWS: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
@@ -123,8 +129,8 @@ unsafe fn bucket_of(t: usize, key: &[u8]) -> Option<usize> {
     None
 }
 
-/// A copy of the anim table at `t` whose `idle` holds `hd_idle`'s frames and the other way round.
-unsafe fn shadow_of(t: usize) -> Option<usize> {
+/// A copy of the anim table at `t` (of `hero`) whose every tag holds its `hd_` frames, rects divided by PPU.
+unsafe fn shadow_of(t: usize, hero: &Hero) -> Option<usize> {
     let ctrl = q(t);
     if let Ok(s) = SHADOWS.lock() {
         if let Some(&(c, sh)) = s.get(&t) {
@@ -140,17 +146,40 @@ unsafe fn shadow_of(t: usize) -> Option<usize> {
     let buckets = mask + 1;
     let data = ctrl - buckets * BUCKET;
     let size = buckets * BUCKET + buckets + 16;
-    let idle_at = bucket_of(t, b"idle")? - data;
-    let hd_at = bucket_of(t, format!("{}idle", hd::PREFIX).as_bytes())? - data;
     let mem: &'static mut [u8] = Box::leak(vec![0u8; size].into_boxed_slice());
     std::ptr::copy_nonoverlapping(data as *const u8, mem.as_mut_ptr(), size);
     let base = mem.as_mut_ptr() as usize;
-    // swap the two frames Vecs {cap, ptr, len} at bucket + 0x18
-    for k in 0..3 {
-        let (a, b) = (base + idle_at + 0x18 + 8 * k, base + hd_at + 0x18 + 8 * k);
-        let (va, vb) = (q(a), q(b));
-        std::ptr::write_unaligned(a as *mut usize, vb);
-        std::ptr::write_unaligned(b as *mut usize, va);
+    let mut done = 0;
+    for i in 0..buckets {
+        if *(ctrl as *const u8).add(i) & 0x80 != 0 {
+            continue;
+        }
+        let b = ctrl - (i + 1) * BUCKET;
+        let (p, n) = (q(b + 8), q(b + 16));
+        if !plausible(p) || n > 64 {
+            return None;
+        }
+        let key = std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)).ok()?;
+        let dense = if key.starts_with(hd::PREFIX) { key.to_string() } else { format!("{}{key}", hd::PREFIX) };
+        // a tag without its dense copy would draw at 1/PPU: then nothing is shadowed
+        let src = bucket_of(t, dense.as_bytes())?;
+        let (fp, fl) = (q(src + 0x20), q(src + 0x28));
+        if !plausible(fp) || fl == 0 || fl > 4096 {
+            return None;
+        }
+        let frames: &'static mut [u8] = Box::leak(vec![0u8; fl * FRAME].into_boxed_slice());
+        std::ptr::copy_nonoverlapping(fp as *const u8, frames.as_mut_ptr(), fl * FRAME);
+        for f in 0..fl {
+            for k in 0..4 {
+                let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
+                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.ppu);
+            }
+        }
+        let nb = base + (b - data);
+        std::ptr::write_unaligned((nb + 0x18) as *mut usize, fl);
+        std::ptr::write_unaligned((nb + 0x20) as *mut usize, frames.as_ptr() as usize);
+        std::ptr::write_unaligned((nb + 0x28) as *mut usize, fl);
+        done += 1;
     }
     let head: &'static mut [usize; 6] = Box::leak(Box::new([0usize; 6]));
     for (k, h) in head.iter_mut().enumerate() {
@@ -161,8 +190,63 @@ unsafe fn shadow_of(t: usize) -> Option<usize> {
     if let Ok(mut s) = SHADOWS.lock() {
         s.insert(t, (ctrl, sh));
     }
-    wlog(format!("shadow anim table {sh:#x} for {t:#x} ({} buckets): idle <-> hd_idle", buckets));
+    wlog(format!("{}: shadow anim table {sh:#x} for {t:#x}: {done} tags on their dense frames, rects / {}",
+        hero.id, hero.ppu));
     Some(sh)
+}
+
+/// The texture entry at `got` ({data, vtable, ...}) with its size divided by PPU: a copy whose vtable is a copy with
+/// the width (+0x28) and height (+0x30) entries on [`tex_width`] / [`tex_height`].
+unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
+    let (data, vt) = (q(got), q(got + 8));
+    if !plausible(data) || !plausible(vt) {
+        return None;
+    }
+    if let Ok(p) = PROXIES.lock() {
+        if let Some(&(d, v, px)) = p.get(&got) {
+            if d == data && v == vt {
+                return Some(px);
+            }
+        }
+    }
+    let table: &'static mut [usize; VTABLE] = Box::leak(Box::new([0usize; VTABLE]));
+    for (k, e) in table.iter_mut().enumerate() {
+        *e = read(vt + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
+    }
+    if let Ok(mut s) = SIZES.lock() {
+        s.insert(data, (table[5], table[6], hero.ppu));
+    }
+    table[5] = tex_width as unsafe extern "system" fn(usize) -> f32 as usize;
+    table[6] = tex_height as unsafe extern "system" fn(usize) -> f32 as usize;
+    let obj: &'static mut [usize; 8] = Box::leak(Box::new([0usize; 8]));
+    for (k, e) in obj.iter_mut().enumerate() {
+        *e = read(got + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
+    }
+    obj[1] = table.as_ptr() as usize;
+    let px = obj.as_ptr() as usize;
+    if let Ok(mut p) = PROXIES.lock() {
+        p.insert(got, (data, vt, px));
+    }
+    wlog(format!("{}: texture proxy {px:#x} for {got:#x} (size / {})", hero.id, hero.ppu));
+    Some(px)
+}
+
+type Size = unsafe extern "system" fn(usize) -> f32;
+
+unsafe extern "system" fn tex_width(data: usize) -> f32 {
+    let e = SIZES.lock().ok().and_then(|s| s.get(&data).copied());
+    match e {
+        Some((w, _, ppu)) if w != 0 => std::mem::transmute::<usize, Size>(w)(data) / ppu,
+        _ => 1.0,
+    }
+}
+
+unsafe extern "system" fn tex_height(data: usize) -> f32 {
+    let e = SIZES.lock().ok().and_then(|s| s.get(&data).copied());
+    match e {
+        Some((_, h, ppu)) if h != 0 => std::mem::transmute::<usize, Size>(h)(data) / ppu,
+        _ => 1.0,
+    }
 }
 
 type Lookup = unsafe extern "system" fn(usize, usize, usize) -> usize;
@@ -178,32 +262,32 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
         return got;
     }
     let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)) else { return got };
-    let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
-    note(0, rva, name, got);
-    if rva != ICON_RET || !plausible(got) {
+    note(0, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got);
+    if !name.ends_with("#anim") || !plausible(got) {
         return got;
     }
     let Some(hero) = hero_of_name(name) else { return got };
-    let Some(sh) = shadow_of(got) else { return got };
-    let rbp = sp + 8 + ICON_RBP;
-    for (off, mul) in [(ICON_FACE_X, hero.ppu), (ICON_FACE_Y, hero.ppu), (ICON_SCALE, 1.0 / hero.ppu)] {
-        let at = (rbp + off) as *mut f32;
-        std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) * mul);
-    }
-    sh
+    shadow_of(got, hero).unwrap_or(got)
 }
 
 unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: usize) -> usize {
     let f: Lookup = std::mem::transmute(ORIG_SHEET.load(Ordering::Acquire));
     let got = f(ctx, ptr, len);
-    let _ = std::panic::catch_unwind(|| unsafe {
-        if len > 0 && len <= 300 && plausible(ptr) {
-            if let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)) {
-                note(1, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got);
-            }
+    std::panic::catch_unwind(|| unsafe {
+        if len == 0 || len > 300 || !plausible(ptr) {
+            return got;
         }
-    });
-    got
+        let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)) else { return got };
+        note(1, q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed)), name, got);
+        if !name.ends_with("#sheet") || !plausible(got) {
+            return got;
+        }
+        match hero_of_name(name) {
+            Some(hero) => proxy_of(got, hero).unwrap_or(got),
+            None => got,
+        }
+    })
+    .unwrap_or(got)
 }
 
 /// At `page`: the entry stub (`mov r9, rsp; mov rax, detour; jmp rax`) and the original (12 bytes + jmp back).
@@ -264,7 +348,8 @@ pub fn install_once() {
             hook(module + SHEET_RVA,
                  sheet_detour as unsafe extern "system" fn(usize, usize, usize, usize) -> usize as usize, &ORIG_SHEET)
         };
-        wlog(format!("resource lookups hooked: anim {a:?}, sheet {s:?} (encyclopedia / face icons: shadow idle)"));
+        let list: Vec<String> = HEROES.iter().map(|h| format!("{} x{}", h.id, h.ppu)).collect();
+        wlog(format!("resource lookups hooked: anim {a:?}, sheet {s:?}: dense frames everywhere for {}", list.join(", ")));
     });
 }
 
@@ -278,8 +363,12 @@ mod tests {
         println!("STUBS {hex} {:#x}", orig - entry);
     }
 
+    fn frames(v: &[[f32; 5]]) -> Vec<u8> {
+        v.iter().flat_map(|f| f.iter().flat_map(|x| x.to_le_bytes())).collect()
+    }
+
     #[test]
-    fn shadow_swaps_idle_frames() {
+    fn every_tag_draws_its_dense_frames_at_1x_size() {
         // a 4-bucket table with "idle" in bucket 1 and "hd_idle" in bucket 3
         let mut mem = vec![0u8; 4 * super::BUCKET + 4 + 16];
         let ctrl = 4 * super::BUCKET;
@@ -288,27 +377,32 @@ mod tests {
         let base = mem.as_mut_ptr() as usize;
         let k1 = b"idle".to_vec();
         let k3 = b"hd_idle".to_vec();
+        let f1 = frames(&[[0.0, 0.0, 10.0, 20.0, 0.1]]);
+        let f3 = frames(&[[30.0, 60.0, 30.0, 60.0, 0.1]]);
+        let hero = super::Hero { id: "league_test", ppu: 3.0, tags: vec!["idle".into()] };
         unsafe {
-            let put = |b: usize, key: &Vec<u8>, frames: usize| {
+            let put = |b: usize, key: &Vec<u8>, fr: &Vec<u8>| {
                 let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);
                 w(0, key.len());
                 w(8, key.as_ptr() as usize);
                 w(16, key.len());
-                w(24, 7);
-                w(32, frames);
-                w(40, 7);
+                w(24, 1);
+                w(32, fr.as_ptr() as usize);
+                w(40, 1);
             };
-            put(base + ctrl - 2 * super::BUCKET, &k1, 0x1111_0000);
-            put(base + ctrl - 4 * super::BUCKET, &k3, 0x3333_0000);
+            put(base + ctrl - 2 * super::BUCKET, &k1, &f1);
+            put(base + ctrl - 4 * super::BUCKET, &k3, &f3);
             let head = [base + ctrl, 3usize, 0, 2, 0, 0];
             let t = head.as_ptr() as usize;
-            let sh = super::shadow_of(t).expect("shadow");
-            let b1 = super::bucket_of(sh, b"idle").unwrap();
-            let b3 = super::bucket_of(sh, b"hd_idle").unwrap();
-            assert_eq!(super::q(b1 + 32), 0x3333_0000);
-            assert_eq!(super::q(b3 + 32), 0x1111_0000);
+            let sh = super::shadow_of(t, &hero).expect("shadow");
+            for key in [&b"idle"[..], b"hd_idle"] {
+                let b = super::bucket_of(sh, key).unwrap();
+                let fp = super::q(b + 32);
+                let got: Vec<f32> = (0..5).map(|k| std::ptr::read_unaligned((fp + 4 * k) as *const f32)).collect();
+                assert_eq!(got, vec![10.0, 20.0, 10.0, 20.0, 0.1 / 1.0]);
+            }
             // the original is untouched
-            assert_eq!(super::q(super::bucket_of(t, b"idle").unwrap() + 32), 0x1111_0000);
+            assert_eq!(super::q(super::bucket_of(t, b"idle").unwrap() + 32), f1.as_ptr() as usize);
         }
     }
 }
