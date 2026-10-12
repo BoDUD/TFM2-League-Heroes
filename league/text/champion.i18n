@@ -675,10 +675,10 @@
       },
       "league_galio": {
         "name": "加里奥",
-        "attack": "<#ff9028ff>巨像重击<>：每<#ffb900ff>5秒<>下一次普攻对周围敌人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。<#ff9028ff>杜朗护盾<>被动：普攻时获得<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>护盾，每<#ffb900ff>12秒<>一次。",
-        "skill": "射出两道风刃，落点造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，并留下<#ffb900ff>2秒<>龙卷风，每<#ffb900ff>0.5秒<>造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法伤害<>。",
-        "skill2": "冲向敌方英雄，撞到第一个英雄造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.75秒<>。<#ff9028ff>杜朗护盾<>：蓄力<#ffb900ff>0.83秒<>，伤害降低40%，随后<#ef5350ff>嘲讽1.17秒<>周围敌人，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。",
-        "ult": "给陷入苦战的友方英雄<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>护盾，引导<#ffb900ff>2秒<>后飞到其身边，落地造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.75秒<>，周围友方英雄也获得护盾。"
+        "attack": "<#ff9028ff>巨像重击<>：每<#ffb900ff>4秒<>下一次普攻对周围敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。<#ff9028ff>杜朗护盾<>被动：普攻时获得<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>护盾，每<#ffb900ff>12秒<>一次。",
+        "skill": "射出两道风刃，落点造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，并留下<#ffb900ff>2秒<>龙卷风，每<#ffb900ff>0.5秒<>造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<><#a974ffff>魔法伤害<>。",
+        "skill2": "冲向敌方英雄，撞到第一个英雄造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.75秒<>。<#ff9028ff>杜朗护盾<>：蓄力<#ffb900ff>0.83秒<>，伤害降低40%，随后<#ef5350ff>嘲讽1.17秒<>周围敌人，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。",
+        "ult": "给陷入苦战的友方英雄<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>护盾，引导<#ffb900ff>2秒<>后飞到其身边，落地造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.75秒<>，周围友方英雄也获得护盾。"
       }
     },
     "skill_name": {
@@ -1845,10 +1845,10 @@
       },
       "league_galio": {
         "name": "加里歐",
-        "attack": "<#ff9028ff>護國意志<>：每<#ffb900ff>5秒<>下一次普攻對周圍敵人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。<#ff9028ff>杜蘭德之盾<>被動：普攻時獲得<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>護盾，每<#ffb900ff>12秒<>一次。",
-        "skill": "射出兩道風刃，落點造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，並留下<#ffb900ff>2秒<>龍捲風，每<#ffb900ff>0.5秒<>造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法傷害<>。",
-        "skill2": "衝向敵方英雄，撞到第一個英雄造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.75秒<>。<#ff9028ff>杜蘭德之盾<>：蓄力<#ffb900ff>0.83秒<>，傷害降低40%，隨後<#ef5350ff>嘲諷1.17秒<>周圍敵人，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。",
-        "ult": "給陷入苦戰的友方英雄<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>護盾，引導<#ffb900ff>2秒<>後飛到其身邊，落地造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.75秒<>，周圍友方英雄也獲得護盾。"
+        "attack": "<#ff9028ff>護國意志<>：每<#ffb900ff>4秒<>下一次普攻對周圍敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。<#ff9028ff>杜蘭德之盾<>被動：普攻時獲得<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>護盾，每<#ffb900ff>12秒<>一次。",
+        "skill": "射出兩道風刃，落點造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，並留下<#ffb900ff>2秒<>龍捲風，每<#ffb900ff>0.5秒<>造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<><#a974ffff>魔法傷害<>。",
+        "skill2": "衝向敵方英雄，撞到第一個英雄造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.75秒<>。<#ff9028ff>杜蘭德之盾<>：蓄力<#ffb900ff>0.83秒<>，傷害降低40%，隨後<#ef5350ff>嘲諷1.17秒<>周圍敵人，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。",
+        "ult": "給陷入苦戰的友方英雄<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>護盾，引導<#ffb900ff>2秒<>後飛到其身邊，落地造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.75秒<>，周圍友方英雄也獲得護盾。"
       }
     },
     "skill_name": {
@@ -3015,10 +3015,10 @@
       },
       "league_galio": {
         "name": "Galio",
-        "attack": "<#ff9028ff>Colossal Smash<>: every <#ffb900ff>5s<> his next attack deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> to enemies around him. <#ff9028ff>Shield of Durand<> passive: attacking grants a <#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<> shield, once every <#ffb900ff>12s<>.",
-        "skill": "Fires two windblasts: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> where they land, leaving a tornado for <#ffb900ff>2s<> that deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> every <#ffb900ff>0.5s<>.",
-        "skill2": "Charges at an enemy champion: the first champion hit takes <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and is <#ef5350ff>knocked up 0.75s<>. <#ff9028ff>Shield of Durand<>: braces for <#ffb900ff>0.83s<> taking 40% less damage, then <#ef5350ff>taunts<> nearby enemies for <#ef5350ff>1.17s<>, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>.",
-        "ult": "Grants an allied champion in a fight a <#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<> shield, channels <#ffb900ff>2s<> and flies to it; landing deals <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ef5350ff>knocks up 0.75s<>; allied champions there are shielded too."
+        "attack": "<#ff9028ff>Colossal Smash<>: every <#ffb900ff>4s<> his next attack deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> to enemies around him. <#ff9028ff>Shield of Durand<> passive: attacking grants a <#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<> shield, once every <#ffb900ff>12s<>.",
+        "skill": "Fires two windblasts: <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> where they land, leaving a tornado for <#ffb900ff>2s<> that deals <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> <#a974ffff>magic damage<> every <#ffb900ff>0.5s<>.",
+        "skill2": "Charges at an enemy champion: the first champion hit takes <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> and is <#ef5350ff>knocked up 0.75s<>. <#ff9028ff>Shield of Durand<>: braces for <#ffb900ff>0.83s<> taking 40% less damage, then <#ef5350ff>taunts<> nearby enemies for <#ef5350ff>1.17s<>, dealing <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>.",
+        "ult": "Grants an allied champion in a fight a <#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<> shield, channels <#ffb900ff>2s<> and flies to it; landing deals <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> and <#ef5350ff>knocks up 0.75s<>; allied champions there are shielded too."
       }
     },
     "skill_name": {
@@ -4185,10 +4185,10 @@
       },
       "league_galio": {
         "name": "갈리오",
-        "attack": "<#ff9028ff>석상의 강타<>: <#ffb900ff>5초<>마다 다음 기본 공격이 주변 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>. <#ff9028ff>듀란드의 방패<> 기본 지속 효과: 기본 공격 시 <#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<> 보호막, <#ffb900ff>12초<>마다 한 번.",
-        "skill": "돌풍 두 개를 날려 떨어진 곳에 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, <#ffb900ff>2초<> 동안 회오리가 남아 <#ffb900ff>0.5초<>마다 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>마법 피해<>.",
-        "skill2": "적 챔피언에게 돌진해 처음 부딪힌 챔피언에게 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.75초 에어본<>. <#ff9028ff>듀란드의 방패<>: <#ffb900ff>0.83초<> 동안 받는 피해 40% 감소 후 주변 적을 <#ef5350ff>1.17초 도발<>, <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>.",
-        "ult": "싸우는 아군 챔피언에게 <#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<> 보호막, <#ffb900ff>2초<> 정신 집중 후 날아가 착지하며 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.75초 에어본<>, 주변 아군 챔피언도 보호막."
+        "attack": "<#ff9028ff>석상의 강타<>: <#ffb900ff>4초<>마다 다음 기본 공격이 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>. <#ff9028ff>듀란드의 방패<> 기본 지속 효과: 기본 공격 시 <#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<> 보호막, <#ffb900ff>12초<>마다 한 번.",
+        "skill": "돌풍 두 개를 날려 떨어진 곳에 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, <#ffb900ff>2초<> 동안 회오리가 남아 <#ffb900ff>0.5초<>마다 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<> <#a974ffff>마법 피해<>.",
+        "skill2": "적 챔피언에게 돌진해 처음 부딪힌 챔피언에게 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.75초 에어본<>. <#ff9028ff>듀란드의 방패<>: <#ffb900ff>0.83초<> 동안 받는 피해 40% 감소 후 주변 적을 <#ef5350ff>1.17초 도발<>, <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>.",
+        "ult": "싸우는 아군 챔피언에게 <#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<> 보호막, <#ffb900ff>2초<> 정신 집중 후 날아가 착지하며 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.75초 에어본<>, 주변 아군 챔피언도 보호막."
       }
     },
     "skill_name": {
@@ -5355,10 +5355,10 @@
       },
       "league_galio": {
         "name": "ガリオ",
-        "attack": "<#ff9028ff>巨像の一撃<>：<#ffb900ff>5秒<>毎に次の通常攻撃が周囲の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>デュランドの守り<>自動効果：通常攻撃で<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>のシールド（<#ffb900ff>12秒<>毎）。",
-        "skill": "二つの旋風を放ち着弾点に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>2秒<>竜巻が残り<#ffb900ff>0.5秒<>毎に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の<#a974ffff>魔法ダメージ<>。",
-        "skill2": "敵チャンピオンへ突進し最初に当たったチャンピオンに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.75秒ノックアップ<>。<#ff9028ff>デュランドの守り<>：<#ffb900ff>0.83秒<>構え被ダメージ40%軽減、周囲の敵を<#ef5350ff>1.17秒挑発<>し<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。",
-        "ult": "戦う味方チャンピオンに<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>のシールド、<#ffb900ff>2秒<>詠唱後に飛来し着地で<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.75秒ノックアップ<>、周囲の味方もシールド。"
+        "attack": "<#ff9028ff>巨像の一撃<>：<#ffb900ff>4秒<>毎に次の通常攻撃が周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>デュランドの守り<>自動効果：通常攻撃で<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>のシールド（<#ffb900ff>12秒<>毎）。",
+        "skill": "二つの旋風を放ち着弾点に<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>2秒<>竜巻が残り<#ffb900ff>0.5秒<>毎に<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>18%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill2": "敵チャンピオンへ突進し最初に当たったチャンピオンに<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.75秒ノックアップ<>。<#ff9028ff>デュランドの守り<>：<#ffb900ff>0.83秒<>構え被ダメージ40%軽減、周囲の敵を<#ef5350ff>1.17秒挑発<>し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "戦う味方チャンピオンに<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>のシールド、<#ffb900ff>2秒<>詠唱後に飛来し着地で<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.75秒ノックアップ<>、周囲の味方もシールド。"
       }
     },
     "skill_name": {

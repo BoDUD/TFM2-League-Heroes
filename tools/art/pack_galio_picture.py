@@ -10,6 +10,8 @@ with glowing blue eyes, a gold winged emblem on the chest, huge stone fists, two
 behind him, a stone tail ending in a gold arrowhead, digitigrade clawed stone feet. Version A = League's idle with the
 wings raised high (as in the game), version B = the same figure with the wings half folded (tips a little above the
 crown) - a more compact silhouette for the game's small frames. Side-on comes in step 1 (memory side-view-design).
+The look: the PPU heroes' one look of 2026-10-13 (league_zeri's: stocky, about 2.2 squares a game pixel, a thick outline):
+crown to soles about 92 squares of 8 px.
 """
 import argparse
 import os
@@ -39,10 +41,12 @@ RENDERS = {
     "9_galio_league_side": (["galio_idle01@0"], 85, True, 1000, 0.80, 0.94, 1.0, None),
 }
 SUBMESH = []
+# the 2026-10-13 one look of the PPU heroes (league_zeri's, PR #249 ppu-chunky, tools/art/ppu_restyle.py): their restyled
+# hd_idle frames at 8x (one square = one dense pixel), assets/source/galio/style_ref
 STYLE = {
-    "10_style_mordekaiser.png": os.path.join(SRC, "mordekaiser", "codex_picture", "mordekaiser-model-A.png"),
-    "11_style_braum.png": os.path.join(SRC, "braum", "codex_picture", "braum-model-A.png"),
-    "12_style_kassadin.png": os.path.join(SRC, "kassadin", "codex_picture", "kassadin-model-A.png"),
+    "10_style_mordekaiser.png": os.path.join(SRC, "galio", "style_ref", "mordekaiser_hd_idle_x8.png"),
+    "11_style_braum.png": os.path.join(SRC, "galio", "style_ref", "braum_hd_idle_x8.png"),
+    "12_style_zeri.png": os.path.join(SRC, "galio", "style_ref", "zeri_hd_idle_x8.png"),
 }
 
 

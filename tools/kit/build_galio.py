@@ -51,34 +51,39 @@ BIG = "asset/league/effects/league_galio_big"
 
 # Timings are placeholders until the strips (attack 26 / hit 12, Q 30 / 12, E 36 / charge 10, W charge + release 18,
 # R wind 20).
+# Numbers = candidate d3 of the 10-min classic-SDK simulations (Temp/gl_sim/sim/kd.py, mid lane against the base pyromancer,
+# ice, lightning, wind and white mages, three lineups, both sides, 2026-10-13): +1.43 on seeds 1-24, +1.28 on 25-48
+# (league_xerath +1.51 / +1.04, league_viktor +1.27 / +1.68, league_kassadin +1.22 / +1.55). The draft d0 was -0.16 / +0.05
+# (Q 80+60, tornado 15+12, passive 50+50 every 5 s, E 90+70, W 60+50, R 160+70, hp 1100, mp 40, Q cd 8 s); d2 (d3 with
+# Q cd 8 s, passive every 5 s, hp 1100) +1.13 / +0.84.
 P = {
     # stats (the pack's melee AP tanks: league_malphite hp 1100 +120, def 40, mr 30, atk 80, mp 30; mid mages mp 40-42);
     # League's Galio: 600 +126 hp, 59 AD, 24 armour +4.7, 32 mr +2.05, 340 move, 150 range - tank stats, mage scaling,
     # magic resistance his own
-    "hp": 1100, "hp_g": 115, "atk": 78, "atk_g": 6, "mp": 40, "mp_g": 18, "def": 34, "def_g": 7, "mr": 36, "mr_g": 6,
+    "hp": 1150, "hp_g": 115, "atk": 78, "atk_g": 6, "mp": 45, "mp_g": 18, "def": 34, "def_g": 7, "mr": 36, "mr_g": 6,
     "ms": 1000, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 26, "atk_cd": 72, "atk_st": 12,
     # passive Colossal Smash (League: every 5 s, 15-200 + 100% AD + 50% AP + 60% bonus MR, radius ~300)
-    "p_cd": 300, "p_r": 16000, "p_dmg": 50, "p_ap": 50,
+    "p_cd": 240, "p_r": 16000, "p_dmg": 80, "p_ap": 70,
     # W passive (League: magic shield 6-15% max hp after 12 s without damage)
     "w_ps": 90, "w_ps_ap": 30, "w_ps_t": 300, "w_ps_cd": 720,
     # Q Winds of War (League: 825 range, 70-210 + 75% AP, tornado 2 s 4 ticks of 2% max hp + AP, cd 11-7 s)
-    "q_cd": 480, "q_range": 55000, "q_dur": 30, "q_at": 12, "q_fly": 24, "q_r": 15000, "q_dmg": 80, "q_ap": 60,
-    "q_tr": 13000, "q_t": 120, "q_tp": 30, "q_tdmg": 15, "q_tap": 12, "q_fast": 120,
+    "q_cd": 420, "q_range": 55000, "q_dur": 30, "q_at": 12, "q_fly": 24, "q_r": 15000, "q_dmg": 120, "q_ap": 80,
+    "q_tr": 13000, "q_t": 120, "q_tp": 30, "q_tdmg": 30, "q_tap": 18, "q_fast": 120,
     # skill2 slot: E Justice Punch + W Shield of Durand
     "s2_cd": 60,
     # E Justice Punch (League: 650 dash, 90-250 + 90% AP, knock-up 0.75 s, cd 12-8 s)
-    "e_cd": 600, "e_range": 43000, "e_dur": 36, "e_at": 10, "e_speed": 3600, "e_tick": 12, "e_dmg": 90, "e_ap": 70,
+    "e_cd": 600, "e_range": 43000, "e_dur": 36, "e_at": 10, "e_speed": 3600, "e_tick": 12, "e_dmg": 130, "e_ap": 90,
     "e_up": 45,
     # W Shield of Durand (League: 20-40% DR (half vs physical) while charging up to 2 s + 2 s after, taunt 0.5-1.5 s,
     # 20-140 + 30% AP in 400 units, cd 18-14 s)
     "w_cd": 900, "w_trig": 24000, "w_r": 26000, "w_ch": 50, "w_dr": 40, "w_lin": 60, "w_slow": 15, "w_taunt": 70,
-    "w_dmg": 60, "w_ap": 50, "w_rel": 18,
+    "w_dmg": 90, "w_ap": 70, "w_rel": 18,
     # R Hero's Entrance (League: 4000-5500 range, 2.75 s channel, allies 5 s W shield, 150-450 + 70% AP, knock-up
     # 0.75 s (1.5 s... at the centre in the data) radius 325, cd 180-140 s)
     "r_cd": 4200, "r_arm": 900, "r_poll": 10, "r_reset": 4900, "r_sur": 25000, "r_far": 60000, "r_seen": 25,
     "r_sh": 150, "r_sh_ap": 50, "r_sh_t": 300, "r_ch": 120, "r_brk": 15, "r_wind": 20,
-    "r_r": 22000, "r_dmg": 160, "r_ap": 70, "r_up": 45, "r_rc": 10000, "r_up_c": 70,
+    "r_r": 22000, "r_dmg": 220, "r_ap": 90, "r_up": 45, "r_rc": 10000, "r_up_c": 70,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_galio: its passive gives the magic shield and picks R's ally

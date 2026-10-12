@@ -18,8 +18,8 @@
   ],
   "stat": {
     "attack": 78,
-    "magic_power": 40,
-    "hp": 1100,
+    "magic_power": 45,
+    "hp": 1150,
     "defence": 34,
     "magic_resistance": 36,
     "move_speed": 1000,
@@ -104,7 +104,7 @@
                   "name": "league_galio_p_cd",
                   "duration": {
                     "Time": {
-                      "tick": 300
+                      "tick": 240
                     }
                   }
                 },
@@ -146,8 +146,8 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 50,
-                        "attack_ratio": 50,
+                        "damage": 80,
+                        "attack_ratio": 70,
                         "hp_ratio": 0,
                         "can_crit": false,
                         "attack_effect_type": "Target"
@@ -170,7 +170,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_galio.skill",
     "duration": 30,
-    "cooltime": 480,
+    "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
     "range": 55000,
@@ -265,8 +265,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 80,
-                              "attack_ratio": 60,
+                              "damage": 120,
+                              "attack_ratio": 80,
                               "hp_ratio": 0,
                               "can_crit": false,
                               "attack_effect_type": "Target"
@@ -352,8 +352,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 15,
-                              "attack_ratio": 12,
+                              "damage": 30,
+                              "attack_ratio": 18,
                               "hp_ratio": 0,
                               "can_crit": false,
                               "attack_effect_type": "Target"
@@ -404,8 +404,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 80,
-                          "attack_ratio": 60,
+                          "damage": 120,
+                          "attack_ratio": 80,
                           "hp_ratio": 0,
                           "can_crit": false,
                           "attack_effect_type": "Target"
@@ -491,8 +491,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 15,
-                          "attack_ratio": 12,
+                          "damage": 30,
+                          "attack_ratio": 18,
                           "hp_ratio": 0,
                           "can_crit": false,
                           "attack_effect_type": "Target"
@@ -705,8 +705,8 @@
                                 "effects": [
                                   {
                                     "type": "ApAttack",
-                                    "damage": 60,
-                                    "attack_ratio": 50,
+                                    "damage": 90,
+                                    "attack_ratio": 70,
                                     "hp_ratio": 0,
                                     "can_crit": false,
                                     "attack_effect_type": "Target"
@@ -851,8 +851,8 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 90,
-                      "attack_ratio": 70,
+                      "damage": 130,
+                      "attack_ratio": 90,
                       "hp_ratio": 0,
                       "can_crit": false,
                       "attack_effect_type": "Target"
@@ -1342,8 +1342,8 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 160,
-                                                                    "attack_ratio": 70,
+                                                                    "damage": 220,
+                                                                    "attack_ratio": 90,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false,
                                                                     "attack_effect_type": "Target"
@@ -1591,8 +1591,8 @@
                                                                                         "effects": [
                                                                                           {
                                                                                             "type": "ApAttack",
-                                                                                            "damage": 60,
-                                                                                            "attack_ratio": 50,
+                                                                                            "damage": 90,
+                                                                                            "attack_ratio": 70,
                                                                                             "hp_ratio": 0,
                                                                                             "can_crit": false,
                                                                                             "attack_effect_type": "Target"
