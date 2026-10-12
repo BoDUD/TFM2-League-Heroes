@@ -4,7 +4,7 @@ load).
 
     python tools/art/preview_ashe.py [--out docs/preview]
 
-  league_ashe_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_ashe_frames.png    every animation's dense frames (hd_, PPU 5.4571: as league.dll shows them)
   league_ashe_effects.png   every effect animation, 3x
   league_ashe_showcase.gif  a scripted fight against a mirrored Ashe, timed like the kit (run in,
                             two frost arrows, Q + flurries, W volley, R crystal arrow + freeze,
@@ -59,6 +59,7 @@ class Anim:
 
 
 def showcase(out, z=3, step=40):
+    from preview_dense import dense, put    # here, not at the top: every preview script imports this module's Anim
     ashe = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     W, H = 200, 116                   # 116: the W fan (13 arrows, +-50 px round the pivot row) fits
@@ -69,7 +70,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(ashe, tag), t, ax, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(ashe, tag, "ashe", z), t, ax, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
 
@@ -79,13 +80,13 @@ def showcase(out, z=3, step=40):
         arrive = at + tick(dist / speed_px_tick)
         shots.append(Anim(frames_of(fx[sprite], tag), at, bow[0], bow[1] + dy, loop=True, until=arrive,
                           x1=tx - 4, y1=gy - 4 + dy, z=1))
-        flinch.append(Anim(frames_of(ashe, "hit"), arrive, tx, gy, flip=True))
+        flinch.append(Anim(dense(ashe, "hit", "ashe", z), arrive, tx, gy, flip=True))
         if hit:
             effects.append(Anim(frames_of(fx[hit[0]], hit[1]), arrive, tx, gy, z=1))
         return arrive
 
     run = 1000                                         # run in: move_speed 900 ~ 0.9 px a tick
-    body.append(Anim(frames_of(ashe, "run"), t, ax - 54, gy, loop=True, until=t + run, x1=ax))
+    body.append(Anim(dense(ashe, "run", "ashe", z), t, ax - 54, gy, loop=True, until=t + run, x1=ax))
     t += run
     a("idle", 400, loop=True)
     for _ in range(2):                                 # basic attacks: 24 ticks, arrow at tick 9
@@ -99,15 +100,15 @@ def showcase(out, z=3, step=40):
         effects.append(Anim(frames_of(fx["league_ashe_fx"], "focus"), start + tick(2 + p), ax, gy, z=1))
     for _ in range(3):                                 # flurries: 30% attack speed, 46-tick rhythm
         start = t
-        body.append(Anim(frames_of(ashe, "attack"), start, ax, gy, until=start + tick(1)))
-        body.append(Anim(frames_of(ashe, "q_attack"), start + tick(1), ax, gy))
+        body.append(Anim(dense(ashe, "attack", "ashe", z), start, ax, gy, until=start + tick(1)))
+        body.append(Anim(dense(ashe, "q_attack", "ashe", z), start + tick(1), ax, gy))
         shoot(start + tick(8), "league_ashe_fx", "flurry", 5.2)
         t = start + tick(24)
         a("idle", tick(46 - 24), loop=True)
     start = t                                          # W: the volley fan on the release frame (tick 12),
     a("skill2")                                        # centred on its 80 px rectangle; hits 14 ticks later
     effects.append(Anim(frames_of(fx["league_ashe_fx"], "volley"), start + tick(12), ax + 40, gy, z=1))
-    flinch.append(Anim(frames_of(ashe, "hit"), start + tick(12 + 14), tx, gy, flip=True))
+    flinch.append(Anim(dense(ashe, "hit", "ashe", z), start + tick(12 + 14), tx, gy, flip=True))
     effects.append(Anim(frames_of(fx["league_ashe_fx"], "hit"), start + tick(12 + 14), tx, gy, z=1))
     a("idle", tick(40), loop=True)
     start = t                                          # R: crystal arrow at tick 22, freeze, death
@@ -118,8 +119,9 @@ def showcase(out, z=3, step=40):
     a("idle", death - t + 1600, loop=True)
     end = t
 
-    idle = frames_of(ashe, "idle")
-    dead = frames_of(ashe, "dead")
+    idle = dense(ashe, "idle", "ashe", z)
+    dead = dense(ashe, "dead", "ashe", z)
+    hit0 = dense(ashe, "hit", "ashe", z)[0][0]
     mirror = {}
 
     def flip(f):
@@ -138,7 +140,7 @@ def showcase(out, z=3, step=40):
         if tt >= death:
             return flip(pick(dead, tt - death, hold=True))
         if frozen[0] <= tt < frozen[1]:                # stunned: holds its hit frame
-            return flip(frames_of(ashe, "hit")[0][0])
+            return flip(hit0)
         for an in flinch:
             f = an.frame(tt)
             if f is not None:
@@ -146,11 +148,11 @@ def showcase(out, z=3, step=40):
         return flip(pick(idle, tt % sum(ms for _, ms in idle)))
 
     def place(img, f, x, y):
-        img.alpha_composite(f, (x - f.width // 2, y - f.height // 2))
+        put(img, f, x, y, z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         place(img, target_frame(tt), tx, gy)
         for an in body:
             f = an.frame(tt)
@@ -161,7 +163,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::8]                               # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -178,8 +180,9 @@ def main():
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "preview"))
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
+    from preview_dense import dense_rows
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_ashe_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_ashe_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)
