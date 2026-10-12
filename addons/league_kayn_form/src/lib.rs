@@ -52,6 +52,7 @@ pub const NEED: u32 = 14;
 // ===================== 日志 =====================
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
+static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("LEAGUE_KAYN_FORM_LOG") {
@@ -73,10 +74,20 @@ static T0: LazyLock<std::time::Instant> = LazyLock::new(std::time::Instant::now)
 
 fn wlog(msg: impl AsRef<str>) {
     let _guard = LOG_LOCK.lock().unwrap_or_else(|e| e.into_inner());
-    if let Ok(mut f) = OpenOptions::new().create(true).append(true).open(&*LOG_PATH) {
-        let _ = writeln!(f, "[{:8.1}s] {}", T0.elapsed().as_secs_f64(), msg.as_ref());
-        let _ = f.flush();
+    // the file stays open: opening and closing it for every line took 0.6 ms a line in game (15 000 lines a session,
+    // about 9 s of stalls on the simulation thread, 2026-10-12, the user: 「LOL mod让游戏掉帧很严重 加载很卡」)
+    let mut file = LOG_FILE.lock().unwrap_or_else(|e| e.into_inner());
+    if file.is_none() {
+        *file = OpenOptions::new().create(true).append(true).open(&*LOG_PATH).ok();
     }
+    if let Some(f) = file.as_mut() {
+        let _ = f.write_all(format!("[{:8.1}s] {}\n", T0.elapsed().as_secs_f64(), msg.as_ref()).as_bytes());
+    }
+}
+
+/// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
+fn close_log() {
+    *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -385,6 +396,7 @@ impl StablePassive for Orbs {
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
 pub fn register(host: &StableHost, module: &mut StableMod) {
     // 上一次启动的日志留一份（.prev.log），重启游戏不丢
+    close_log();
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
