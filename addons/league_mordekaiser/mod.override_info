@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_mordekaiser": {
+    "remapping": "asset/league_mordekaiser/override/league_mordekaiser",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_mordekaiser/text/champion",
+    "type": "merge"
+  }
+}

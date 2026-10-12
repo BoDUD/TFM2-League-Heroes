@@ -51,7 +51,7 @@ import strips as G  # noqa: E402
 # his PPU design by tools/art/rig_kassadin.py (134 design rows / 37 game rows); vladimir, karma, ashe,
 # yasuo: Codex's strips read back by tools/art/import_ppu_strips.py; corki: tools/art/rig_corki_hd.py; braum: Codex's
 # strips (tools/art/import_braum_strips.py) brought to the sheets by tools/art/rig_braum.py, 121 rows / 42 (all in assets/source/ppu)
-PPU = {"yasuo": 3, "gragas": 2, "zeri": 3, "vladimir": 2, "karma": 3, "ashe": 5.4571, "irelia": 2, "kassadin": 3.622, "corki": 5, "garen": 3, "braum": 2.881}
+PPU = {"yasuo": 3, "gragas": 2, "zeri": 3, "vladimir": 2, "karma": 3, "ashe": 5.4571, "irelia": 2, "kassadin": 3.622, "corki": 5, "garen": 3, "braum": 2.881, "mordekaiser": 5}
 PREFIX = "hd_"
 # hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
 # the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much

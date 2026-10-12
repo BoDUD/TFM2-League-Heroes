@@ -20,6 +20,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_corki", 5.0, include_str!("../../../league/champions/league_corki#anim.fanim")),
     ("league_garen", 3.0, include_str!("../../../league/champions/league_garen#anim.fanim")),
     ("league_braum", 2.881, include_str!("../../../league/champions/league_braum#anim.fanim")),
+    ("league_mordekaiser", 5.0, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -33,7 +34,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// rows higher (tools/art/rig_kassadin.py).
 /// Braum: 「布隆做的也有点大 得缩小一点」 (85%), then 「稍微调大点」 (90%, 39 game px); his hd frames drawn SHIFT rows
 /// lower (tools/art/rig_braum.py).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10), ("league_braum", 0.90)];
+/// Mordekaiser: the user picked 110% with a thicker outline (C, Kassadin's way), then 「铁男感觉做的太大了吧？」 -> 95%,
+/// then 「铁男再稍微调大点」 -> 100% (49 game px with the mace, his body 43; listed so the history stays readable).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10),
+                                    ("league_braum", 0.90), ("league_mordekaiser", 1.00)];
 
 pub const PREFIX: &str = "hd_";
 
