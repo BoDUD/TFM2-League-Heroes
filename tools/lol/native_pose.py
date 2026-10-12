@@ -570,14 +570,16 @@ def main():
               "".join(f"\n  frame {k + 1} touches the cell's {' and '.join(fr[4])}" for k, fr in enumerate(frames) if fr[4]))
 
     if not args.tag:
-        canvas = np.zeros((128, 128, 4), np.uint8)
         ys, xs = np.nonzero(design[..., 3])
         crop = design[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-        top, left = 100 - crop.shape[0], (128 - crop.shape[1]) // 2
-        canvas[top:100, left:left + crop.shape[1]] = crop
-        on_bg(canvas).resize((128 * Z, 128 * Z), Image.NEAREST).save(os.path.join(args.out, f"{hero}_native_design.png"))
+        # the 128 canvas with the feet on row 100; a dense (PPU) render taller than that gets a canvas as much bigger
+        n = max(128, crop.shape[0] + 28, crop.shape[1] + 8)
+        canvas = np.zeros((n, n, 4), np.uint8)
+        top, left = n - 28 - crop.shape[0], (n - crop.shape[1]) // 2
+        canvas[top:n - 28, left:left + crop.shape[1]] = crop
+        on_bg(canvas).resize((n * Z, n * Z), Image.NEAREST).save(os.path.join(args.out, f"{hero}_native_design.png"))
         hi = np.clip(render(ch, pv, cam, scale, dy), 0, 255).astype(np.uint8)
-        big = np.zeros((128 * Z, 128 * Z, 4), np.uint8)
+        big = np.zeros((n * Z, n * Z, 4), np.uint8)
         y0, x0 = (top - ys.min()) * Z, (left - xs.min()) * Z
         sy0, sx0 = max(0, -y0), max(0, -x0)
         h = min(hi.shape[0] - sy0, big.shape[0] - max(0, y0))
