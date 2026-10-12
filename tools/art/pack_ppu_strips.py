@@ -370,21 +370,25 @@ def main():
 MODEL_STEP = {
     "yasuo": {"asked": "「亚索的也可以帮我重做一下整体」「做亚索」"},     # (only the request: his design was already drawn)
     "garen": {
-        "asked": "「盖伦游戏里还是老模型 ... 你参考亚索那些怎么弄的啊」；看了按原稿读回的那版后「还是变形 修不好了？模型都变形了 "
-                 "还有模型尺寸太大 头这么大？」，选了「照亚索：新造型 + Codex 重画」，又说「盖伦的造型可以换」",
-        "ref_note": "上一版按 GPT 原稿读回的高清造型，只是参考：它的头太大、身子太宽，用户说造型可以换",
+        "asked": "「盖伦游戏里还是老模型 ... 你参考亚索那些怎么弄的啊」；大头版被否（「头这么大？」）后「盖伦的造型可以换」；"
+                 "看了 Codex 新画的造型（每个 1x 像素 1.5 格）后「用PPU 啊」",
+        "ref_note": "上一次交付的新造型，**长相、比例、站姿、配色已经定了**，只是太粗：每格放成 2×2 格摆在了要画的位置和大小上",
         "top": "头发最高处", "bottom": "靴底", "top_en": "the top of the hair", "bottom_en": "the soles of the boots",
         "feet_en": "the boot soles",
-        "pose": "**造型可以换**（用户：「盖伦的造型可以换」）：照英雄联盟的盖伦重新设计，盔甲细节和配色不必照参考图。"
-                "**比例照 `model/style_yasuo.png`（亚索）**：头（头顶到下巴）只占身高的三成左右，**不要 Q 版大头**，"
-                "身形结实但不要比亚索宽太多；**站姿照 `model/garen_size_now.png`（现在游戏里的待机）**：3/4 侧前方朝右，"
-                "双脚分开站稳，大剑握在身前、剑尖朝右下方。",
-        "pose_en": "You may redesign him (the user: his look can change): League of Legends' Garen, the armour details "
-                   "and colours need not follow the reference, which is only the previous version. Use the proportions "
-                   "of the image named style_yasuo - the head (top of the hair to the chin) only about 30% of the "
-                   "height, NO big chibi head, a solid build but not much wider than that design - and the POSE of the "
-                   "image named garen_size_now (the hero's current standing pose): 3/4 view facing right, feet apart, "
-                   "the greatsword held low in front of him with its tip pointing down to the right.",
+        # the outline as thick as the reference's (Yasuo's in the game): one fine square read 0.33 game px on
+        # league_kassadin, too thin beside the 1x heroes
+        "outline": ("2 格", "2-square"),
+        "pose": "**照参考图原样重画成两倍的精细度**：参考图每格已经放成 2×2 格，摆在了要画的位置和大小上——人还是这个人、"
+                "这个站姿、这些颜色，大小和站位不变，但**不要留下 2×2 的大方块和台阶**：轮廓的斜线和弧线按细格子画顺，"
+                "盔甲的金边、宝石、围巾和披风的褶子、剑刃的高光画细，脸画清楚（眉毛、眼睛、鼻子、嘴，3/4 侧脸），"
+                "头发分出发丝。不改设计、不加东西、不变胖变瘦。",
+        "pose_en": "The reference IS the approved design, only too coarse: each of its squares was blown up to 2x2 squares "
+                   "and it already stands at the right place and size. Redraw it at twice the detail - the same "
+                   "character, the same pose, proportions, outline and colours, the same size and place - but with NO "
+                   "2x2 blocks or staircase steps left: smooth the slanted and curved outlines on the fine grid, draw "
+                   "the gold trim, the gems, the scarf's and the cape's folds and the sword's edge highlight finer, a "
+                   "clear 3/4 face (brows, eyes, nose, mouth) and strands in the hair. Do not change the design, add "
+                   "anything, or make him wider or slimmer.",
     },
     "soraka": {
         "asked": "「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」",
@@ -448,11 +452,11 @@ def write_model_step(out, hero, ppu, mpx, idle, ref, px, stop=False):
 
 - **大小**：从{m["top"]}到{m["bottom"]}正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，{m["bottom"]}在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），{m["top"]}在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的样子按同样的大小放大——看大小和站位，长相照参考图。
 - **{look}**。{m["pose"]}
-- **画法照 `model/style_*.png`**（同一套英雄的高清造型）：干净的像素画，每格一个纯色方块，同一个网格，1 格深色外描边，每种材质 2-4 个色阶，不要抖动、渐变、噪点、抗锯齿、半透明；整张最多 48 色。
+- **画法照 `model/style_*.png`**（同一套英雄的高清造型）：干净的像素画，每格一个纯色方块，同一个网格，{m.get("outline", ("1 格",))[0]}深色外描边，每种材质 2-4 个色阶，不要抖动、渐变、噪点、抗锯齿、半透明；整张最多 48 色。
 - 交付 `outputs/{hero}-ppu-model/{hero}_design.png`（{mpx} 倍放大，透明底）和 `{hero}_design_1x.png`（1 像素 1 格），生图原稿放 `raw/`。
 
 ```text
-Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from {m["top_en"]} to {m["bottom_en"]}, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with {m["feet_en"]} on square row {feet_row} and the character centered. {m["pose_en"]} Match the pixel style of the other attached designs: a 1-square dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
+Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from {m["top_en"]} to {m["bottom_en"]}, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with {m["feet_en"]} on square row {feet_row} and the character centered. {m["pose_en"]} Match the pixel style of the other attached designs: a {m.get("outline", (0, "1-square"))[1]} dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
 ```
 
 """ + ("" if stop else f"""然后打开 `PROMPTS.md` 做第二步：**附图2 一律用这一步画好的 `{hero}_design.png`**，每格 {px}×{px} 像素——第二步骨架的格子按 {px} 像素一格算，**和这一步的 {mpx} 像素不同时，把造型缩放成 {px} 像素一格再当附图2**（按格子整格缩放，不要插值）。
