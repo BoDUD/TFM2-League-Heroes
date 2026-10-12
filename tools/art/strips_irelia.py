@@ -48,8 +48,10 @@ back on their own grid the drafts are clean, 84 rows from the blade tips to the 
     one front head; the approved runs of the pack keep the idle's body and only step the legs): the near leg in eight
     phases (RUN_PHASES, league_zeri's: only the ankle placed, the knee solved at one thigh and shin length), the thigh
     navy from three squares at the hip to two at the knee, the silver guard on the knee, the red greave two squares wide,
-    the idle's right boot (toe forward) flat on the ankle; the far leg four phases on and RUN_FAR squares right, drawn
-    first, each leg with one outline ring and a square of ground left in a dent between them outlined; the upper body
+    the idle's right boot (toe forward) flat on the ankle; the hips where the idle's thighs hang (with the far hip four
+    squares in, the waist's right part hung over nothing: 「腿和腰之间有点变形」), the far foot four phases on and RUN_FAR
+    squares right of the near one, drawn first, each leg with one outline ring and a square of ground left in a dent between them outlined, ground closed in
+    between the thighs and the tabard her bodysuit's dark navy (「其他英雄也有过这问题 空档太大」); the upper body
     (the idle's down to the hips, the tabard's tip kept) and the blades a row down as a foot lands (RUN_STEP);
   * the other actions: the draft split into its body and the floating blades (the pieces apart from the body), each reduced,
     a blade the head would cover moved away from it; the outline stays where the drafts draw it (a block on the
@@ -127,8 +129,10 @@ FRAMES = os.path.join(DESIGN, "frames")     # the action frames finished by hand
 # body squares (rows, columns of body_idle.txt)
 RUN_TOP = 27                     # the idle's legs from this row down are redrawn; the tabard's tip stays (RUN_TABARD)
 RUN_TABARD = {27: (18, 21), 28: (18, 21)}
-RUN_HIP = (26.5, 16.5)           # the near hip (the image-left leg's top middle)
-RUN_FAR = 4.0                    # the far leg: the near leg's drawing this many squares right
+RUN_HIP = (26.5, 16.5, 23.0)     # the hips' row and columns, near (image left) and far: where the idle's thighs hang,
+# so the thighs go on from the waist (the far hip four squares in, the waist's right part was left hanging over nothing:
+# 「腿和腰之间有点变形」)
+RUN_FAR = 3.5                    # the far foot: this many squares right of where the near foot is at the same phase
 RUN_LEG = (4.6, 6.4)             # thigh (hip -> knee) and shin (knee -> the ankle band), the same in every frame
 RUN_ANKLE = 38.0                 # the ankle band's row with the foot on the ground (the idle's)
 RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the upper body comes down: as a foot lands, up as the legs pass
@@ -450,13 +454,14 @@ def idle_place():
 
 
 # ------------------------------------------------------------------------------------------------- the run
-def run_leg(phase, dx, step):
-    """One leg at a phase as {(row, col): letter} in body squares: the knee solved at RUN_LEG (bent forward), the
+def run_leg(phase, far, step):
+    """One leg at a phase as {(row, col): letter} in body squares: the hip where the idle's thigh hangs, the ankle at
+    the phase from the near hip (the far foot RUN_FAR right of it), the knee solved at RUN_LEG (bent forward), the
     thigh navy from three squares at the hip to two at the knee, the silver guard on the knee, the red greave two
     squares to the ankle (its top lit), the idle's boot flat on the ankle."""
-    hy, hx = RUN_HIP[0] + step, RUN_HIP[1] + dx
+    hy, hx = RUN_HIP[0] + step, RUN_HIP[2] if far else RUN_HIP[1]
     ax, lift = RUN_PHASES[phase]
-    ax, ay = hx + ax, RUN_ANKLE - lift
+    ax, ay = RUN_HIP[1] + (RUN_FAR if far else 0.0) + ax, RUN_ANKLE - lift
     lt, ls = RUN_LEG
     k1, _ = K.elbow((hx, hy), (ax, ay), lt, ls, bend=-1)
     k2, _ = K.elbow((hx, hy), (ax, ay), lt, ls, bend=1)
@@ -487,8 +492,8 @@ def run_leg(phase, dx, step):
 
 
 def run_frame(body, head, found, k):
-    """Run frame k: the idle's four blades (bobbing as in the idle), the far leg four phases on and RUN_FAR squares
-    right, the near leg over it (each with one outline ring), the idle's upper body over both, RUN_STEP rows down."""
+    """Run frame k: the idle's four blades (bobbing as in the idle), the far leg four phases on, the near leg over it
+    (each with one outline ring), the idle's upper body over both, RUN_STEP rows down."""
     step = RUN_STEP[k]
     up = body.copy()
     for r in range(RUN_TOP, up.shape[0]):
@@ -503,8 +508,8 @@ def run_frame(body, head, found, k):
                 G[r + BODY_AT[0] + oy + BOB[name][k] + step, c0 + i + BODY_AT[1] + ox] = ch
     by, bx = BODY_AT
     legs = np.full(G.shape, ".", "<U1")
-    for phase, dx in (((k + 4) % 8, RUN_FAR), (k, 0.0)):
-        cells = run_leg(phase, dx, step)
+    for phase, far in (((k + 4) % 8, True), (k, False)):
+        cells = run_leg(phase, far, step)
         for y, x in cells:
             for dy, dx2 in N4:
                 if (y + dy, x + dx2) not in cells:
@@ -523,6 +528,12 @@ def run_frame(body, head, found, k):
     m = up != "."
     G[by + step:by + step + up.shape[0], bx:bx + up.shape[1]][m] = up[m]
     paste_head(G, found, 2 * step, 0, BODY_AT, head)
+    lab, n = ndimage.label(G == ".")             # ground closed in between the thighs and the tabard: her bodysuit
+    for i in range(1, n + 1):
+        hole = lab == i
+        ys, xs = np.nonzero(hole)
+        if ys.min() >= by + RUN_TOP and hole.sum() <= 8 and 0 < xs.min() and xs.max() < G.shape[1] - 1                 and ys.max() < G.shape[0] - 1:
+            G[hole] = "a"
     return G
 
 
