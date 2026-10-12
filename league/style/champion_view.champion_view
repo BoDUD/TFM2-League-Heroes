@@ -2,8 +2,8 @@
   "entries": {
     "league_garen": {
       "face": {
-        "x": -1,
-        "y": -33
+        "x": 1,
+        "y": -32
       },
       "center": {
         "x": 0,
@@ -1122,6 +1122,16 @@
       "face": {
         "x": 6,
         "y": -16
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_braum": {
+      "face": {
+        "x": 6,
+        "y": -38
       },
       "center": {
         "x": 0,
