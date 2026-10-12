@@ -9,7 +9,8 @@ The game reads every mod file except background music into memory when it starts
   effects. The clip name does not change, so no .sound_info needs an edit. Clips that no .sound_info plays
   are left out. MP3 clips are copied as they are.
 - Sprite sheets (#sheet.png + #anim.fanim) repacked: identical frames share one rect and the frames sit
-  close together (1 px gap) - except the idle's, which keep IDLE_PAD clear pixels round them: the ban/pick and
+  close together (1 px gap) - except the idle's, which keep IDLE_PAD clear pixels round them (a dense hero's hd_idle
+  IDLE_PAD x its density): the ban/pick and
   player cards draw a little more than the idle frame's rect, and a neighbour packed right above showed through
   (league_tryndamere's card had his E fire over his head: 「蛮王头顶混入了一点特效？」). Every frame keeps its size, its pixels and its duration; only x and y in the
   .fanim change.
@@ -41,6 +42,7 @@ import argparse
 import concurrent.futures as cf
 import copy
 import hashlib
+import math
 import io
 import json
 import os
@@ -174,16 +176,30 @@ def shelf_pack(sizes, width):
     return pos, used_w, y + row_h
 
 
+def idle_pads(anim):
+    """{tag: clear pixels round each of its frames}: IDLE_PAD round the idle, and round a dense hero's hd_idle (the cards
+    draw it with league.dll, past its rect just as far in game pixels) IDLE_PAD x its density - hd_idle's frame width
+    over the idle's (league_corki's card showed the bottom of the frame packed above his hd_idle: 「上面特效进来了」)."""
+    anims = anim.get("anims", {})
+    pads = {"idle": IDLE_PAD}
+    one, hd = anims.get("idle", {}).get("frames", []), anims.get("hd_idle", {}).get("frames", [])
+    if one and hd:
+        k = float(hd[0]["data"]["w"]) / max(1.0, float(one[0]["data"]["w"]))
+        pads["hd_idle"] = int(math.ceil(IDLE_PAD * max(1.0, k)))
+    return pads
+
+
 def idle_clear(px, anim):
-    """No opaque pixel within IDLE_PAD of an idle frame's rect, outside it (a sheet kept as it is must be)."""
+    """No opaque pixel within its pad of an idle (or hd_idle) frame's rect, outside it (a sheet kept as it is must be)."""
     op = px[..., 3] > 0
-    for fr in anim.get("anims", {}).get("idle", {}).get("frames", []):
-        x, y, w, h = (int(fr["data"][k]) for k in ("x", "y", "w", "h"))
-        y0, x0 = max(0, y - IDLE_PAD), max(0, x - IDLE_PAD)
-        near = op[y0:y + h + IDLE_PAD, x0:x + w + IDLE_PAD].copy()
-        near[y - y0:y - y0 + h, x - x0:x - x0 + w] = False
-        if near.any():
-            return False
+    for tag, pad in idle_pads(anim).items():
+        for fr in anim.get("anims", {}).get(tag, {}).get("frames", []):
+            x, y, w, h = (int(fr["data"][k]) for k in ("x", "y", "w", "h"))
+            y0, x0 = max(0, y - pad), max(0, x - pad)
+            near = op[y0:y + h + pad, x0:x + w + pad].copy()
+            near[y - y0:y - y0 + h, x - x0:x - x0 + w] = False
+            if near.any():
+                return False
     return True
 
 
@@ -218,9 +234,12 @@ def repack(png_raw, anim, where):
             content[key] = len(uniq)
             uniq.append(crop)
         slot_of_rect[r] = content[key]
-    idle = {slot_of_rect[tuple(int(fr["data"][k]) for k in ("x", "y", "w", "h"))]
-            for fr in anim.get("anims", {}).get("idle", {}).get("frames", [])}
-    pad = [IDLE_PAD if i in idle else 0 for i in range(len(uniq))]
+    padded = {}
+    for tag, p in idle_pads(anim).items():
+        for fr in anim.get("anims", {}).get(tag, {}).get("frames", []):
+            i = slot_of_rect[tuple(int(fr["data"][k]) for k in ("x", "y", "w", "h"))]
+            padded[i] = max(padded.get(i, 0), p)
+    pad = [padded.get(i, 0) for i in range(len(uniq))]
     sizes = [(c.shape[1] + 2 * pad[i], c.shape[0] + 2 * pad[i]) for i, c in enumerate(uniq)]
     max_w = max(w for w, _ in sizes)
     best = None

@@ -52,6 +52,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_briar", "assassin", &["attack", "attack_fx1", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_scream", "ult", "ult_fly", "ult_land"]),
     ("league_caitlyn", "range", &["attack", "attack_fx1", "dead", "e", "hit", "idle", "passive", "passive_fx1", "run", "skill", "skill2", "ult", "ult_fx1"]),
     ("league_camille", "melee", &["attack", "attack_q", "attack_q2", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_dash", "ult"]),
+    ("league_corki", "range", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_skill2_w", "hd_ult", "hit", "idle", "run", "skill", "skill2", "skill2_w", "ult"]),
     ("league_darius", "melee", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult", "w_attack"]),
     ("league_diana", "assassin", &["attack", "attack_p", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_w", "ult"]),
     ("league_draven", "range", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
