@@ -1002,6 +1002,17 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_darius_ult_mark",
+            "duration": {
+              "Time": {
+                "tick": 40
+              }
+            }
+          }
+        },
+        {
           "type": "Sfx",
           "name": "league_darius_r_cast"
         },
@@ -1261,5 +1272,9 @@
       "tag": "w_ready",
       "z": -1
     }
-  ]
+  ],
+  "passive": {
+    "passive_ref": "league_darius_ult:own_kill",
+    "params": {}
+  }
 }
