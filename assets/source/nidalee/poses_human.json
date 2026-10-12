@@ -1,0 +1,186 @@
+{
+ "hero": "nidalee",
+ "champ": "Nidalee",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 37,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "nidalee_2012_idle1@0",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "nidalee_2012_run@0",
+     115
+    ],
+    [
+     "nidalee_2012_run@125",
+     115
+    ],
+    [
+     "nidalee_2012_run@250",
+     115
+    ],
+    [
+     "nidalee_2012_run@375",
+     115
+    ],
+    [
+     "nidalee_2012_run@500",
+     115
+    ],
+    [
+     "nidalee_2012_run@625",
+     115
+    ],
+    [
+     "nidalee_2012_run@750",
+     115
+    ],
+    [
+     "nidalee_2012_run@875",
+     115
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "nidalee_2012_idle1@0>nidalee_2012_attack1@0:0.6",
+     70
+    ],
+    [
+     "nidalee_2012_attack1@150",
+     80
+    ],
+    [
+     "nidalee_2012_attack1@300",
+     70
+    ],
+    [
+     "nidalee_2012_attack1@450",
+     100
+    ],
+    [
+     "nidalee_2012_attack1@800>nidalee_2012_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "nidalee_2012_idle1@0>nidalee_2012_spell1@0:0.6",
+     70
+    ],
+    [
+     "nidalee_2012_spell1@0",
+     90
+    ],
+    [
+     "nidalee_2012_spell1@130",
+     70
+    ],
+    [
+     "nidalee_2012_spell1@260",
+     100
+    ],
+    [
+     "nidalee_2012_spell1@420",
+     100
+    ],
+    [
+     "nidalee_2012_spell1@900>nidalee_2012_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.2,
+   "release": 3,
+   "frames": [
+    [
+     "nidalee_2012_idle1@0>nidalee_2012_spell3@0:0.6",
+     80
+    ],
+    [
+     "nidalee_2012_spell3@150",
+     90
+    ],
+    [
+     "nidalee_2012_spell3@300",
+     110
+    ],
+    [
+     "nidalee_2012_spell3@600>nidalee_2012_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "transform": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "nidalee_2012_idle1@0>nidalee_2012_attack1@0:0.3",
+     80
+    ],
+    [
+     "nidalee_2012_attack1@400",
+     80
+    ],
+    [
+     "nidalee_2012_attack1@550",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "nidalee_2012_death@0",
+     100
+    ],
+    [
+     "nidalee_2012_death@300",
+     110
+    ],
+    [
+     "nidalee_2012_death@1500",
+     120
+    ],
+    [
+     "nidalee_2012_death@1900",
+     150
+    ],
+    [
+     "nidalee_2012_death@2400",
+     200
+    ],
+    [
+     "nidalee_2012_death@2900",
+     400
+    ]
+   ]
+  }
+ }
+}
