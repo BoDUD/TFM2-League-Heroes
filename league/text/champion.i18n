@@ -647,10 +647,10 @@
       },
       "league_kassadin": {
         "name": "卡萨丁",
-        "attack": "<#ff9028ff>虚空之石<>：受到的魔法伤害降低约10%。<#ff9028ff>虚空之刃<>：普攻附带<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>；每<#ffb900ff>7秒<>强化一次普攻，额外造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。",
+        "attack": "<#ff9028ff>虚空之石<>：受到的魔法伤害降低约10%。<#ff9028ff>虚空之刃<>：普攻附带<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>；每<#ffb900ff>7秒<>强化一次普攻，额外造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。",
         "skill": "向目标发射虚无法球，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，打断英雄的动作。自身获得50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%护盾<#ffb900ff>1.5秒<>。",
         "skill2": "向前方锥形释放能量脉冲，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速50%<><#ffb900ff>1秒<>。每次施放虚无法球或虚空行走都会缩短它的冷却。",
-        "ult": "闪现到附近一名敌方英雄身边，对周围敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。<#ffb900ff>15秒<>内再次施放叠加一层（最多<#ffb900ff>3层<>），每层额外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。"
+        "ult": "闪现到附近一名敌方英雄身边，对周围敌人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。<#ffb900ff>15秒<>内再次施放叠加一层（最多<#ffb900ff>3层<>），每层额外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -1769,10 +1769,10 @@
       },
       "league_kassadin": {
         "name": "卡薩丁",
-        "attack": "<#ff9028ff>虛空之石<>：受到的魔法傷害降低約10%。<#ff9028ff>虛空之刃<>：普攻附帶<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>；每<#ffb900ff>7秒<>強化一次普攻，額外造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。",
+        "attack": "<#ff9028ff>虛空之石<>：受到的魔法傷害降低約10%。<#ff9028ff>虛空之刃<>：普攻附帶<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>；每<#ffb900ff>7秒<>強化一次普攻，額外造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。",
         "skill": "向目標發射虛無法球，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，打斷英雄的動作。自身獲得50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%護盾<#ffb900ff>1.5秒<>。",
         "skill2": "向前方錐形釋放能量脈衝，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速50%<><#ffb900ff>1秒<>。每次施放虛無法球或虛空行走都會縮短它的冷卻。",
-        "ult": "閃現到附近一名敵方英雄身邊，對周圍敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。<#ffb900ff>15秒<>內再次施放疊加一層（最多<#ffb900ff>3層<>），每層額外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。"
+        "ult": "閃現到附近一名敵方英雄身邊，對周圍敵人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。<#ffb900ff>15秒<>內再次施放疊加一層（最多<#ffb900ff>3層<>），每層額外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -2891,10 +2891,10 @@
       },
       "league_kassadin": {
         "name": "Kassadin",
-        "attack": "<#ff9028ff>Void Stone<>: takes about 10% less magic damage. <#ff9028ff>Nether Blade<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>; every <#ffb900ff>7s<> one attack deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> more.",
+        "attack": "<#ff9028ff>Void Stone<>: takes about 10% less magic damage. <#ff9028ff>Nether Blade<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>; every <#ffb900ff>7s<> one attack deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> more.",
         "skill": "Fires an orb at the target: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>, interrupting a champion. He gains a 50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% shield for <#ffb900ff>1.5s<>.",
         "skill2": "Releases a pulse in a cone ahead: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ef5350ff>50% slow<> for <#ffb900ff>1s<>. Each Null Sphere or Riftwalk he casts shortens its cooldown.",
-        "ult": "Blinks next to a nearby enemy champion: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> round him. Cast again within <#ffb900ff>15s<> for a stack (at most <#ffb900ff>3<>), each adding <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>."
+        "ult": "Blinks next to a nearby enemy champion: <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> round him. Cast again within <#ffb900ff>15s<> for a stack (at most <#ffb900ff>3<>), each adding <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -4013,10 +4013,10 @@
       },
       "league_kassadin": {
         "name": "카사딘",
-        "attack": "<#ff9028ff>공허석<>: 받는 마법 피해 약 10% 감소. <#ff9028ff>황천의 검<>: 기본 공격에 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가, <#ffb900ff>7초<>마다 기본 공격 하나가 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 추가.",
+        "attack": "<#ff9028ff>공허석<>: 받는 마법 피해 약 10% 감소. <#ff9028ff>황천의 검<>: 기본 공격에 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가, <#ffb900ff>7초<>마다 기본 공격 하나가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 추가.",
         "skill": "대상에게 구체를 발사해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>, 챔피언의 동작을 끊음. 자신은 <#ffb900ff>1.5초<> 동안 50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% 보호막.",
         "skill2": "전방 원뿔로 파동을 방출해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1초<> <#ef5350ff>50% 둔화<>. 무의 구체나 균열 이동을 쓸 때마다 재사용 대기시간 감소.",
-        "ult": "근처 적 챔피언 옆으로 순간이동해 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>. <#ffb900ff>15초<> 안에 다시 쓰면 중첩 (최대 <#ffb900ff>3<>), 중첩마다 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가."
+        "ult": "근처 적 챔피언 옆으로 순간이동해 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>. <#ffb900ff>15초<> 안에 다시 쓰면 중첩 (최대 <#ffb900ff>3<>), 중첩마다 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가."
       }
     },
     "skill_name": {
@@ -5135,10 +5135,10 @@
       },
       "league_kassadin": {
         "name": "カサディン",
-        "attack": "<#ff9028ff>ヴォイドストーン<>：受ける魔法ダメージ約10%軽減。<#ff9028ff>ネザーブレード<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>7秒<>ごとに1回<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>追加。",
+        "attack": "<#ff9028ff>ヴォイドストーン<>：受ける魔法ダメージ約10%軽減。<#ff9028ff>ネザーブレード<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>7秒<>ごとに1回<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>追加。",
         "skill": "対象に球を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、チャンピオンの動作を中断。自身に<#ffb900ff>1.5秒<>50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%のシールド。",
         "skill2": "前方の扇形に波動を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>50%スロウ<>。ヴォイドスフィアかリフトウォークを使うたびCD短縮。",
-        "ult": "近くの敵チャンピオンの傍へ瞬間移動し、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>15秒<>以内の再使用でスタック（最大<#ffb900ff>3<>）、1つごとに<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。"
+        "ult": "近くの敵チャンピオンの傍へ瞬間移動し、周囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>15秒<>以内の再使用でスタック（最大<#ffb900ff>3<>）、1つごとに<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。"
       }
     },
     "skill_name": {

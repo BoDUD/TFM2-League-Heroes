@@ -42,7 +42,7 @@ fn ks(x: &str) -> String {
 /// 大招找落点的距离（r_reach）、爆炸半径（r_r）、伤害（r_dmg + r_ratio% 法强，每层 r_st + r_st_ratio%）。
 pub const R_REACH: f64 = 56_000.0;
 pub const R_R: f64 = 20_000.0;
-pub const R_DMG: usize = 80;
+pub const R_DMG: usize = 100;
 pub const R_RATIO: usize = 50;
 pub const R_ST: usize = 40;
 pub const R_ST_RATIO: usize = 10;

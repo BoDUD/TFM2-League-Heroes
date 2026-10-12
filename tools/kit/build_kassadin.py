@@ -43,6 +43,8 @@ FX = "asset/league/effects/league_kassadin_fx"
 BIG = "asset/league/effects/league_kassadin_big"
 
 # Timings are placeholders until the strips (step 2): hits on tick 8 of 24.
+# Balance d1 (2026-10-12, Temp/ks_sim, mid vs 5 base mages, 2 x 720 games): +1.22 / +1.55 (d0 +0.96; fizz +2.06 /
+# +1.78, diana +1.56 / +0.80, ekko +0.52 / -0.23); d2 (Q, E 100, hp 960) +1.64 / +1.87 was above the peers.
 P = {
     # stats (Melee AP assassin like league_fizz / league_diana / league_ekko: attack 80 +10, mp 50 +20, hp 920-950);
     # League's Kassadin: 646 +113 hp, 59 AD, 21 armour, 30 mr, 335 move, 150 range
@@ -53,7 +55,7 @@ P = {
     # passive Void Stone (League: 10% less magic damage)
     "p_mr": 12, "p_mrm": 11,
     # W Nether Blade active (League: 50-200 + 80% AP on the next attack, cd 7 s)
-    "w_cd": 420, "w_dmg": 60, "w_ratio": 70,
+    "w_cd": 420, "w_dmg": 70, "w_ratio": 70,
     # Q Null Sphere (League: 650 range, 1400 speed, 70-250 + 70% AP, magic shield 50-230 + 40% AP 1.5 s, cd 9-7 s)
     "q_cd": 360, "q_range": 50000, "q_dur": 24, "q_at": 8, "q_speed": 3000, "q_dmg": 90, "q_ratio": 70,
     "q_int": 6, "q_sil": 60, "q_sh": 50, "q_sh_ap": 40, "q_sh_t": 90,
@@ -64,7 +66,7 @@ P = {
     # R Riftwalk (League: 500 blink, radius 270, 70-110 + 50% AP (+ mana) and 35-55 + 7% AP a stack, 4 stacks 15 s,
     # cd 5 / 3.5 / 2 s)
     "r_cd": 480, "r_range": 48000, "r_reach": 56000, "r_dur": 24, "r_at": 6, "r_r": 20000,
-    "r_dmg": 80, "r_ratio": 50, "r_st": 40, "r_st_ratio": 10, "r_stack_t": 900, "r_combo": 120,
+    "r_dmg": 100, "r_ratio": 50, "r_st": 40, "r_st_ratio": 10, "r_stack_t": 900, "r_combo": 120,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_kassadin: native passive (exact 10%, real Force Pulse charge) and R's landing

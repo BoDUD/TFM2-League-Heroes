@@ -184,7 +184,7 @@
                       },
                       {
                         "type": "ApAttack",
-                        "damage": 60,
+                        "damage": 70,
                         "attack_ratio": 70,
                         "hp_ratio": 0,
                         "can_crit": false,
@@ -771,7 +771,7 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 200,
+                            "damage": 220,
                             "attack_ratio": 80,
                             "hp_ratio": 0,
                             "can_crit": false,
@@ -866,7 +866,7 @@
                           "effects": [
                             {
                               "type": "ApAttack",
-                              "damage": 160,
+                              "damage": 180,
                               "attack_ratio": 70,
                               "hp_ratio": 0,
                               "can_crit": false,
@@ -961,7 +961,7 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 120,
+                                "damage": 140,
                                 "attack_ratio": 60,
                                 "hp_ratio": 0,
                                 "can_crit": false,
@@ -1032,7 +1032,7 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 80,
+                                "damage": 100,
                                 "attack_ratio": 50,
                                 "hp_ratio": 0,
                                 "can_crit": false,
