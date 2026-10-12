@@ -43,7 +43,7 @@ SIZE = 0.80
 SHIFT = round(23 * (1 / SIZE - 1))
 assert P.SHIFT.get("gragas") == SHIFT, "ppu_hd.SHIFT must match"
 HEAD_ROWS, HEAD_COLS = (1, 11), (14, 30)   # the design's head in its table: the dome, brows, eyes, nose, moustache
-OUT = os.path.join(ROOT, "assets", "source", "ppu")
+OUT = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 
 
 def dense_design():

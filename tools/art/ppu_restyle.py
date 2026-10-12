@@ -49,6 +49,10 @@ CROSS = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
 WARPS = {}                          # (hero, tag, frame) -> the Warp used (the face point follows the idle's)
 
 KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14, 52, 46), (5, 26, 30)]
+# the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
+# rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
+ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
+            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
@@ -107,14 +111,17 @@ def read_orig(hero):
             with open(side, "w", encoding="utf-8", newline="\n") as f:
                 json.dump({"sizes": [[a.shape[1], a.shape[0]] for a in frames], "ppu": P.PPU[hero]}, f)
         s = np.asarray(Image.open(png).convert("RGBA"))
-        with open(side, encoding="utf-8") as f:
-            meta = json.load(f)
+        if os.path.isfile(side):
+            with open(side, encoding="utf-8") as f:
+                meta = json.load(f)
+        else:                                   # a tool that writes no size list: each frame PPU x its 1x frame
+            meta = {"sizes": [list(P.hd_size(a.shape[1], a.shape[0], ORIG_PPU[hero])) for a, _ in sheet[t]]}
         frames, x = [], 0
         for W, H in meta["sizes"]:
             frames.append(s[:H, x:x + W].copy())
             x += W + 1
         out[t] = [(a, ms) for a, (_, ms) in zip(frames, hd)]
-    return out, sheet, meta.get("ppu", P.PPU[hero])
+    return out, sheet, ORIG_PPU.get(hero, meta.get("ppu", P.PPU[hero]))
 
 
 # ----------------------------------------------------------------------------------------------- the head
@@ -547,7 +554,13 @@ def moved_face(hero, spec, frames, ppu):
     entry = cv["entries"].get(f"league_{hero}")
     if not entry or "face" not in entry:
         return None
-    fx, fy = entry["face"]["x"], entry["face"]["y"]
+    keep = os.path.join(ORIG, f"{hero}_face.json")        # the face point before any restyle (reruns start there)
+    if not os.path.isfile(keep):
+        with open(keep, "w", encoding="utf-8", newline=chr(10)) as f:
+            json.dump(entry["face"], f)
+    with open(keep, encoding="utf-8") as f:
+        base = json.load(f)
+    fx, fy = base["x"], base["y"]
     a = frames["idle"][0][0]
     px, py = a.shape[1] / 2, a.shape[0] / 2
     x, y = px + fx * ppu, py + fy * ppu
@@ -558,7 +571,7 @@ def moved_face(hero, spec, frames, ppu):
     k = spec.get("grow", 1)
     rx, ry = rx * k, FEET + (ry - FEET) * k
     new = {"x": int(round(rx)), "y": int(round(ry))}
-    return None if new == {"x": fx, "y": fy} else (path, cv, entry, new)
+    return None if new == entry["face"] else (path, cv, entry, new)
 
 
 def write_face(hero, moved):

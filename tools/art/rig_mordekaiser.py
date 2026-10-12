@@ -44,7 +44,7 @@ SRC = os.path.join(ROOT, "assets", "source", "mordekaiser")
 FRONT = os.path.join(SRC, "hd", "front.png")
 POSES = os.path.join(SRC, "codex_poses")
 STEM = os.path.join(ROOT, "league", "champions", "league_mordekaiser")
-PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
+PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 
 PPU = 5.0                         # 246 design rows / 49 game rows
 FEET = 11                         # 1x rows from the pivot down to the soles

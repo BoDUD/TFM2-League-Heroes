@@ -30,7 +30,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ppu_hd as P  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "ppu")
+SRC = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 PACKS = os.path.join(ROOT, "dist", "ppu_packs")
 
 
