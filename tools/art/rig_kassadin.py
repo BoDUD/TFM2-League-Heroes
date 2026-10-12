@@ -17,7 +17,8 @@ Breathing (the user: 「可能卡萨丁像个僵尸？」): the upper body rises
 the gap (plain cloth); the run: League's glide - the figure floating, the upper body a little forward, the hem trailing;
 the death: League's collapse - the upper body sinking onto the robe (the user: 「死亡动作不太对吧」); Riftwalk: the figure
 recoloured toward the void (TINT) and back.
-Sizes (the user: 「在游戏太小了吧」「和原本游戏有点违和感」, picked 115% and a thicker outline): league.dll draws him SIZE
+Sizes (the user: 「在游戏太小了吧」「和原本游戏有点违和感」, picked 115% and a thicker outline, then 「感觉太大了点？调到110%
+差不多吧」): league.dll draws him SIZE
 about his pivot, so every hd frame is drawn RAISE rows higher; every frame's outer outline is grown THICK hd squares.
 Writes:
   league/champions/league_kassadin#sheet.png / #anim.fanim - the 1x tags (each hd frame brought down by PPU, every 1x
@@ -53,7 +54,7 @@ WHITE = np.array([255, 255, 255], float)
 OUTLINE = (12, 9, 19)
 ARM_ELBOW = (66, 62)              # the blade arm's elbow in the design (the forearm unit turns about it)
 SPLIT = 70                        # the robe starts here (under the belt plate); the hands hang lower, with the arms
-SIZE = 1.15                       # league_main hd.rs SIZES: the DLL draws him 115% about his pivot ...
+SIZE = 1.10                       # league_main hd.rs SIZES: the DLL draws him 110% about his pivot ...
 RAISE = round(FEET * PPU * (1 - 1 / SIZE))   # ... so every hd frame is drawn this many hd rows higher: soles on the ground
 THICK = 3                         # the outer outline grown outward by 3 hd squares (with the drawn one ~1 game pixel; the
                                   # base heroes' and the 1x pack heroes' outline is 1 game pixel, his was 0.28)
