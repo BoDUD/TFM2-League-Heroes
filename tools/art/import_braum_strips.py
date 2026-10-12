@@ -12,7 +12,8 @@ square for square into the design's 48 colours), tidied the user's way (「你�
     head's place, scale 1), and the drawn head's leftovers round it (head colours in the cranium's rows outside the
     pasted head) are cleared; tilted or lying heads (dead 1-6) stay Codex's;
   * the soles on the design's ground row (Codex's frames stand one row higher);
-  * idle = the design itself; hit = the design 2 squares back with a white flash, then 1 back.
+  * idle = the design itself; hit = the design 2 squares back with a white flash, then 1 back;
+  * the run from the crossing-step redraw (codex_run, the user: 「布隆走路没交叉步？」) when it is there (run_fix).
 Writes assets/source/braum/frames/braum_<tag>_<n>.png (the dense frames on the pack's 256 x 170 canvas with PAD rows
 added on top, standing point PIV_X / SOLE) and frames.json (tag -> [(file, ms)]). tools/art/rig_braum.py turns
 them into the game sheets (outline, breathing, sizes).
@@ -137,6 +138,50 @@ def paste_head(a, p, m, cols, at):
     return out
 
 
+PINHOLE = 6                        # enclosed clear specks this small in a read-back frame are holes, not gaps
+RUN_FIX = os.path.join(SRC, "codex_run")   # the crossing-step run (RUN_FIX.md), pasted by the user as 8 WebP frames
+
+
+def run_fix(k, d, ref_right):
+    """Run frame k of the crossing-step redraw: Codex drew every frame whole, each at its own square size (6-8 px), so
+    each is read back on its own grid (regrid: about 110 squares, the shield 92 tall as in the design), every colour
+    snapped to the design's nearest, alpha 0/255; placed with the shield's right edge (the frame's rightmost column)
+    on `ref_right` (the old run frames' median) and the lowest square on SOLE."""
+    import regrid as RG
+    a = np.asarray(Image.open(os.path.join(RUN_FIX, f"braum_run_{k}.webp")).convert("RGBA")).copy()
+    g = RG.regrid(a)[0]
+    op = g[..., 3] >= 128
+    ys, xs = np.nonzero(op)
+    g, op = g[ys.min():ys.max() + 1, xs.min():xs.max() + 1], op[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    pal = np.unique(d[d[..., 3] > 0][:, :3], axis=0).astype(int)
+    rgb = g[..., :3].astype(int)
+    idx = ((rgb[:, :, None, :] - pal[None, None]) ** 2).sum(-1).argmin(-1)
+    out = np.zeros((ROWS, COLS, 4), np.uint8)
+    h, w = op.shape
+    y0, x0 = SOLE + 1 - h, ref_right + 1 - w
+    sub = out[y0:y0 + h, x0:x0 + w]
+    sub[op, :3] = pal[idx[op]]
+    sub[op, 3] = 255
+    return out
+
+
+def fill_pinholes(a):
+    """Pinholes the read-back's alpha (and the head's leftovers) left inside him - enclosed, at most PINHOLE squares -
+    take the commonest colour round them; the bigger enclosed gaps (between the legs, in an arm's crook) stay."""
+    out = a.copy()
+    opq = out[..., 3] > 0
+    lab, n = ndimage.label(ndimage.binary_fill_holes(opq) & ~opq)
+    for j in range(1, n + 1):
+        m = lab == j
+        if m.sum() > PINHOLE:
+            continue
+        ring = ndimage.binary_dilation(m, structure=np.ones((3, 3))) & opq
+        cols, cnt = np.unique(out[ring][:, :3], axis=0, return_counts=True)
+        out[m, :3] = cols[cnt.argmax()]
+        out[m, 3] = 255
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review", help="write a 6x before / after sheet per tag here")
@@ -150,17 +195,28 @@ def main():
     # the design's head place on the canvas: the reference the drawn heads are found round
     hy0, hx0 = DESIGN_AT[1] + HEAD[0], DESIGN_AT[0] + HEAD[2]
     report = []
+    # the old run frames' shield edge (their rightmost column): the crossing-step run is placed on it
+    rights = []
+    for f in manifest["frames"]:
+        if f["tag"] == "run":
+            o = load(os.path.join(CODEX, f["file"].replace(".png", "_1x.png")))
+            rights.append(int(np.nonzero(o[..., 3].any(0))[0].max()))
+    run_right = int(np.median(rights))
     for f in manifest["frames"]:
         tag, i = f["tag"], f["index"] + 1
         src = load(os.path.join(CODEX, f["file"].replace(".png", "_1x.png")))
         src = np.concatenate([np.zeros((PAD + 1, COLS, 4), np.uint8), src[:-1]])   # PAD rows on top; soles on SOLE
                                                                                    # (Codex: one row higher)
+        if tag == "run" and os.path.isdir(RUN_FIX):
+            src = run_fix(i, d, run_right)
         if tag == "ult":
             src = scale_about(src, ULT_SCALE, PIV_X, SOLE)
         before = src.copy()
         if (tag, i) not in KEEP_HEAD:
             y, x, s = match(src, p, m)
             src = paste_head(src, p, m, cols, (y, x))
+            if tag == "run" and os.path.isdir(RUN_FIX):
+                src = fill_pinholes(src)
             report.append(f"{tag} {i}: head at ({y},{x}) match {s:.2f}")
         else:
             report.append(f"{tag} {i}: Codex's head kept")
