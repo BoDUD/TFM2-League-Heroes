@@ -16,10 +16,13 @@ tools/art/design_zeri.py) with only what the action moves moved, nothing resampl
 - the whole figure moves: a column back for the recoil and the hit; the upper body lowered a row over the legs for the
   crouches and the landings (lowered(): everything above the hips comes down over them); lifted for E's hop and R's
   spring; leant by moving the head rows and the chest rows whole (lean()).
-- the run (8 frames): the upper body the idle's with the rifle held level at the hip (as League's Zeri runs); the legs
-  straight lines swinging from the hips as the pack's ADCs run, in the leggings' colours on the design's own flat
-  boots, the far leg four phases on and a shade darker so the feet cross every other step (RUN_PHASES); the body a
-  row down while the legs are spread; E's lunge and R's hop are strides of it.
+- the run (8 frames, League's sprint): the upper body leant forward on an even line (RUN_LEAN: the head six squares
+  ahead of the hips, unchanged), the rifle held level; the legs straight lines from the hips as the pack's ADCs run,
+  in the leggings' colours on the design's own flat boots, one length in every frame: a foot slides back on the
+  ground, kicks up behind, swings forward a row up, both feet off the ground at the widest stride (RUN_SEQ); the far
+  leg four phases on and a shade darker; the body a row down as a foot lands. Finished square by square in a table
+  (RUN_TABLE, --base writes the rig's own frames to start from). E's lunge and R's hop are strides of it; E's hop back
+  is the figure lifted whole (a forward-leaning stride moving backwards read as running in place).
 - the death (League's): struck back, sinking to her knees (whole shin rows out, the boots kept), then down on her face:
   the figure without the rifle a quarter turn clockwise (League falls forward), the rifle lying level by her.
 Each frame is finished round what moved (rigkit.finish: the outline closed on moved edges, pinholes filled, stray
@@ -91,31 +94,40 @@ HEAD_BOX = (0, 16, 0, 15)        # table rows r0..r1, columns c0..c1: the buns, 
 LEG_TOP = 28                     # the legs: the table rows from here down
 BODY_KEEP = {28: [(0, 3)], 29: [(0, 2)]}          # the free hand's fingers stay with the body
 SHIN_ROWS = (30, 32)             # the rows the knees fold away (the death's kneel)
-# the run: straight legs swinging from the hips, as every ADC of the pack runs (league_varus, league_samira, league_sivir:
-# the user, 「所有的AD都是画直了移动的」「把腿画直吧 歪着造成整个身体变形」). Legs on League's run changed length frame to
-# frame and bent their knees (「腿变形啊」「我要的是模型不变形自然的交叉步走路」), and knees bent on solved legs read as
-# crooked legs (「走路时候腿应该是直的吧 现在泽丽画成歪的了」). Each leg is one straight line from its hip to its ankle,
-# drawn square by square in the leggings' colours (the thigh full at the hip as the design's far thigh 'ddda', two
-# squares from the knee down as the design's shin 'da'), the tan patch at the near knee, the design's own whole boot
-# flat on the ankle; on the ground the foot slides back evenly from ahead of the hip to behind it, off the ground it
-# comes forward evenly a little lifted; the far leg is the same eight phases four on, RUN_FAR squares right, drawn
-# first and one shade darker (its boot too), the near one over it. The hips sit under the middle of the waist and go
-# down a row with the body when the legs are spread, so a planted leg keeps its length; the coat's panels over both
-RUN_HIP = (1.0, -3.0)           # the near hip, squares from the standing point (under the middle of the waist)
-RUN_FAR = 1.0                   # the far hip this many squares right of the near one
+# the run, leant forward as League's Zeri sprints (「泽丽不应该是身体前倾着跑的的吗 再LOL里面」「你去网上看看视频吧 泽丽
+# 怎么跑的 然后全部重改」), on straight legs as every ADC of the pack runs (league_varus, league_samira, league_sivir: 「所有的
+# AD都是画直了移动的」「把腿画直吧 歪着造成整个身体变形」). The lean is an even line, no square resampled: every row of the
+# upper body above RUN_LEAN one square further right every two rows, the head one block by its lowest row's amount, the
+# levelled arm by its elbow's - the head six squares ahead of the hips, the free arm trailing. Legs on League's run
+# changed length frame to frame and bent their knees (「腿变形啊」「我要的是模型不变形自然的交叉步走路」), and knees bent
+# on solved legs read as crooked legs (「走路时候腿应该是直的吧 现在泽丽画成歪的了」). Each leg is one straight line from
+# its hip to its ankle, drawn row by row in the leggings' colours (the thigh full at the hip as the design's far thigh
+# 'ddda', two squares from the knee down as the design's shin 'da', wider across a row the more it slants), the tan
+# patch at the near knee, the design's own whole boot flat on the ankle with its own outline, about one length
+# (RUN_LEG) in every frame: a foot on the ground slides back from ahead of the hips to behind them, kicks up behind,
+# swings forward a row up, both feet off the ground at the widest stride (League's sprint). The far leg is the same
+# eight phases four on, its hip RUN_FAR right of the near one, drawn first and one shade darker (its boot too), the
+# near one over it. The body and the hips come down a row as a foot lands; the coat's panels over both
+RUN_LEAN = 87                   # the row the lean turns about (rows above move right, rows below stay)
+RUN_DX = -3                     # the whole run frame moved back, so the hips stand where the idle stands (the feet do
+                                # not jump forward as she starts to run; the head leans ahead)
+RUN_HIP = (3.0, -3.0)           # the hips' middle (after the lean), squares from the standing point: under the shorts
+RUN_FAR = 2.0                   # the far hip this many squares right of the near one (each one from the middle)
 RUN_THIGH = (4, 2)              # the thigh's width at the hip and from the knee down (squares)
 # the boot's cuff row with the boot on the ground (squares under the standing point): the boot's top (table row 33)
 RUN_CUFF = SOLES - PIVOT[1] - (sum(1 for r in range(33, 40) if r in _KEPT) - 1)
-RUN_STEP = [1, 0, 0, 1, 1, 0, 0, 1]      # rows the body and the hips come down: a row while the legs are spread
-# one leg's eight phases: its ankle (the cuff's middle) in squares right of its hip, and how far it is lifted
-RUN_PHASES = [(+3.0, 0),        # 1 landing ahead
-              (+1.0, 0),        # 2 planted under the hip
-              (-1.0, 0),        # 3 planted, sliding back
-              (-3.0, 0),        # 4 pushing off behind
-              (-3.0, 0.5),      # 5 leaving the ground behind
-              (-1.0, 1.5),      # 6 swinging through
-              (+1.0, 1.5),      # 7 swinging forward
-              (+3.0, 0.5)]      # 8 reaching forward, about to land
+RUN_LEG = RUN_CUFF - RUN_HIP[1]          # hip to cuff, squares (8)
+RUN_STEP = [1, 0, 0, 0, 1, 0, 0, 0]      # rows the body and the hips come down: a row as a foot lands
+# one leg's eight phases: its ankle (the cuff's middle) in squares right of the hips' middle, and how far it is lifted
+# (None: as far as the leg's length takes it, never under the ground); the far leg is four phases on
+RUN_SEQ = [(+3.5, 0),           # 1 landing ahead of the hips
+           (+1.0, 0),           # 2 under them
+           (-2.5, 0),           # 3 sliding back
+           (-5.0, 2.0),         # 4 pushed off behind, two rows up: both feet off the ground
+           (-7.0, 2.0),         # 5 kicked up behind (on the ground under the coat's hem a row of ground showed)
+           (-3.5, 1.0),         # 6 swinging forward, a row up (its length would scrape the ground)
+           (+1.5, 1.0),         # 7 passing under the hips, a row up
+           (+5.0, None)]        # 8 reaching forward: both feet off the ground
 LEGGINGS = ("#73234B", "#45183A")                    # lit, dark: the design's leggings
 PATCH = ("#F2CC8F", "#AC8157")                       # the near knee's tan patch
 # the far leg and its boot one shade darker on the design's own ramps, so the two legs read apart where they cross
@@ -123,13 +135,67 @@ FAR_DARKER = {"#73234B": "#45183A", "#9E493D": "#5A2418", "#F48C06": "#9E493D", 
               "#AC8157": "#5A2418", "#F2CC8F": "#AC8157"}
 # what stays of the design under the belt in the run (table rows: (first, last) columns): the shorts' hem, the coat's
 # two panels and the hanging hand; the boots (rows 33-39) are cut whole with their outline
-RUN_KEEP = {25: [(0, 19)], 26: [(0, 20)], 27: [(0, 9)], 28: [(0, 3)], 29: [(0, 2)]}
+RUN_KEEP = {25: [(0, 19)], 26: [(0, 20)], 27: [(0, 10)], 28: [(0, 3)], 29: [(0, 2)]}
 # (rows 25 and 26 kept across: the shorts' hem under the belt - cut away, a square of ground showed between a thigh
-# and the coat's panel under the belt: 「我怎么发现腿抬高时这里会略微变形」「这里没对齐留空档要注意吧」)
+# and the coat's panel under the belt: 「我怎么发现腿抬高时这里会略微变形」「这里没对齐留空档要注意吧」; row 27 to the
+# outline right of the coat's hem, so a thigh swinging back behind it does not run into the hem's blue)
 RUN_BOOTS = {"near": (33, 39, 0, 8), "far": (33, 39, 13, 22)}
 # the idle: her own breath (import_native's shared cut would run through the upright rifle): everything above the legs
 # sinks 0 0 1 1 1 1 0 0 rows over them (lowered), as league_viego's
 BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
+# the run as finished frame by frame: one table of design40/palette.json letters per frame over the canvas window
+# RUN_WINDOW ('.' clear). --base writes the rig's frames into it to start from; the tables are what is built (the
+# user: 「你给我一帧一帧改到完美」 - every square of every frame checked and touched up by hand)
+RUN_TABLE = os.path.join(ROOT, "assets", "source", "zeri", "run40", "run.txt")
+RUN_WINDOW = (40, 54, 104, 100)            # x0, y0, x1, y1 (canvas, end exclusive)
+PALETTE = os.path.join(ROOT, "assets", "source", "zeri", "design40", "palette.json")
+
+
+def run_shift(y):
+    """Squares a canvas row of the upper body moves right in the run's lean (the head as one block)."""
+    ref = max(y, OY + int(Rw(HEAD_BOX[1])))
+    return (RUN_LEAN - ref + 1) // 2 if ref < RUN_LEAN else 0
+
+
+def read_run_table(path=RUN_TABLE):
+    """The hand-finished run frames (canvases), or None when there is no table."""
+    if not os.path.exists(path):
+        return None
+    pal = {k: K.rgb(v) for k, v in _json.load(open(PALETTE, encoding="utf-8")).items()}
+    x0, y0, x1, y1 = RUN_WINDOW
+    frames, cur = [], None
+    for line in open(path, encoding="utf-8").read().splitlines():
+        if line.startswith("# frame"):
+            cur = np.zeros((128, 128, 4), np.uint8)
+            frames.append(cur)
+            row = y0
+        elif line.startswith("#") or not line.strip() or cur is None:
+            continue
+        else:
+            assert len(line) == x1 - x0, (len(frames), row, len(line))
+            for i, ch in enumerate(line):
+                if ch != ".":
+                    cur[row, x0 + i] = (*pal[ch], 255)
+            row += 1
+    return frames
+
+
+def write_run_table(frames, path=RUN_TABLE):
+    inv = {}
+    for k, v in _json.load(open(PALETTE, encoding="utf-8")).items():
+        inv.setdefault(K.rgb(v), k)
+    x0, y0, x1, y1 = RUN_WINDOW
+    out = [f"# Zeri's run, finished frame by frame (tools/art/rig_zeri.py): canvas x {x0}-{x1 - 1}, y {y0}-{y1 - 1}; "
+           f"letters as design40/palette.json, '.' clear"]
+    for k, f in enumerate(frames):
+        assert not f[..., 3][:y0].any() and not f[..., 3][y1:].any(), k
+        assert not f[..., 3][:, :x0].any() and not f[..., 3][:, x1:].any(), k
+        out.append(f"# frame {k + 1}")
+        for y in range(y0, y1):
+            out.append("".join(inv[tuple(int(v) for v in f[y, x, :3])] if f[y, x, 3] else "." for x in range(x0, x1)))
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("\n".join(out) + "\n")
 
 
 def table_mask(rows=None, box=None, cells=None):
@@ -148,7 +214,8 @@ def table_mask(rows=None, box=None, cells=None):
 
 
 class Rig:
-    def __init__(self):
+    def __init__(self, table=True):
+        self.table = read_run_table() if table else None      # the run as finished by hand (None: the rig's own)
         self.D = K.Design(DESIGN)
         self.a = self.D.a
         self.out = self.D.outline
@@ -245,36 +312,75 @@ class Rig:
         self._run = (body, boots)
         return self._run
 
-    def run_leg(self, phase, dx, leg, step):
+    def run_upper(self):
+        """The body above the legs with the rifle held level, leant forward (RUN_LEAN). Cached."""
+        if getattr(self, "_upper", None) is not None:
+            return self._upper
+        body, _ = self.run_pieces()
+        arm = np.zeros_like(self.a)
+        self.level_arm(arm)
+        up = np.zeros_like(self.a)
+        for y in range(up.shape[0]):
+            dx = run_shift(y)
+            up[y] = np.roll(body[y], dx, 0) if dx else body[y]
+        sh = run_shift(OY + int(Rw(20)))
+        arm = K.shifted(arm, sh, 0)
+        K.put(up, arm, 0, 0)                  # the arm by its elbow's row
+        # the coat's rows beside the levelled forearm (under the elbow) moved a square less than the arm: the forearm
+        # reaches back that square to the coat, as it leaves the sleeve in the attack (a square of outline between
+        # them cut the arm off the body)
+        ink = np.array(self.out, np.uint8)
+        for r in (21, 22):
+            y = OY + int(Rw(r))
+            xs = [x for x in np.nonzero(arm[y, :, 3])[0] if not (arm[y, x, :3] == ink).all()]
+            if xs:
+                x0 = min(xs)
+                for x in range(x0 - (sh - run_shift(y)), x0):
+                    up[y, x] = arm[y, x0]
+        self._upper = up
+        return up
+
+    def run_leg(self, phase, leg, step):
         """One leg at a phase: a straight line from its hip to its ankle, square by square (the thigh full at the hip,
         two squares from the knee down), the design's boot flat with its cuff's middle on the ankle, one outline ring
         round both; the far leg one shade darker."""
         import math
         _, boots = self.run_pieces()
-        hip = (PIVOT[0] + RUN_HIP[0] + dx + 0.5, PIVOT[1] + RUN_HIP[1] + step + 0.5)
-        ax, lift = RUN_PHASES[phase]
-        ank = (hip[0] + ax, PIVOT[1] + RUN_CUFF + 0.5 - lift)
+        mid = PIVOT[0] + RUN_HIP[0] + 0.5
+        hip = (mid + (RUN_FAR / 2 if leg == "far" else -RUN_FAR / 2), PIVOT[1] + RUN_HIP[1] + step + 0.5)
+        ax, lift = RUN_SEQ[phase]
+        if lift is None:                      # as high as the leg's length takes the foot (measured from the middle)
+            lift = RUN_LEG - step - math.sqrt(max(0.0, RUN_LEG ** 2 - ax ** 2))
+            lift = max(0.0, round(lift * 2) / 2)
+        ank = (mid + ax, PIVOT[1] + RUN_CUFF + 0.5 - lift)
         lit, dark = (K.rgb(h) for h in LEGGINGS)
         cells = {}
-        n = int(max(abs(ank[0] - hip[0]), abs(ank[1] - hip[1])) * 4) + 1
-        for i in range(n + 1):
-            f = i / n
-            x = hip[0] + (ank[0] - hip[0]) * f
-            y = hip[1] + (ank[1] - hip[1]) * f
-            xi, yi = int(math.floor(x)), int(math.floor(y))
-            w = int(round(RUN_THIGH[0] + (RUN_THIGH[1] - RUN_THIGH[0]) * min(1.0, f * 2)))
-            for j in range(w - 1):
-                cells.setdefault((xi - j, yi), lit)
-            cells.setdefault((xi + 1, yi), dark)
-        if leg == "near":                     # the tan patch on her near knee (the design's), the leg's middle
-            kx = int(math.floor((hip[0] + ank[0]) / 2))
-            ky = int(math.floor((hip[1] + ank[1]) / 2))
-            for q, col in (((kx, ky), PATCH[0]), ((kx + 1, ky), PATCH[1]), ((kx, ky + 1), PATCH[1])):
-                if q in cells:
-                    cells[q] = K.rgb(col)
+        # row by row: the line's middle on the row, the leg's width across it (wider the more the leg slants, so a
+        # slanting leg is as thick as an upright one - the pack's runs draw a slanting shin three squares a row), the
+        # last square the shadow as on the design's legs ('da')
+        th = math.atan2(abs(ank[0] - hip[0]), ank[1] - hip[1])
+        for yi in range(int(math.floor(hip[1])), int(math.floor(ank[1])) + 1):
+            f = min(1.0, max(0.0, (yi + 0.5 - hip[1]) / (ank[1] - hip[1])))
+            cx = hip[0] + (ank[0] - hip[0]) * f
+            w = max(2, int(round((RUN_THIGH[0] + (RUN_THIGH[1] - RUN_THIGH[0]) * min(1.0, f * 2)) / math.cos(th))))
+            x0 = int(math.floor(cx - w / 2.0 + 0.5))
+            for x in range(x0, x0 + w - 1):
+                cells[(x, yi)] = lit
+            cells[(x0 + w - 1, yi)] = dark
+        if leg == "near":                     # the tan patch on her near knee (the design's), the leg's middle:
+            ky = int(math.floor((hip[1] + ank[1]) / 2))      # on that row's own squares, wherever the leg slants
+            for y, cols in ((ky, (PATCH[0], PATCH[1])), (ky + 1, (PATCH[1],))):
+                row = sorted(x for x, yy in cells if yy == y)
+                for x, col in zip(row, cols):
+                    cells[(x, y)] = K.rgb(col)
         g = np.zeros_like(self.a)
         for (x, y), col in cells.items():
             g[y, x] = (*col, 255)
+        # the outline round the leg, then the boot over it with its own (the design's): ringed again, a boot stood in
+        # two rows of outline and next to the other boot four
+        m = g[..., 3] > 0
+        p = np.pad(m, 1)
+        g[~m & (p[2:, 1:-1] | p[:-2, 1:-1] | p[1:-1, 2:] | p[1:-1, :-2])] = (*self.out, 255)
         boot, (mid, top), _ = boots[leg]
         K.put(g, K.shifted(boot, int(round(ank[0] - mid)), int(round(ank[1] - 0.5 - top))), 0, 0)
         if leg == "far":
@@ -283,21 +389,18 @@ class Rig:
                 got = tuple(int(v) for v in g[y, x, :3])
                 if got in sw:
                     g[y, x, :3] = sw[got]
-        m = g[..., 3] > 0
-        p = np.pad(m, 1)
-        g[~m & (p[2:, 1:-1] | p[:-2, 1:-1] | p[1:-1, 2:] | p[1:-1, :-2])] = (*self.out, 255)
         return g
 
     def run_frame(self, k):
-        body, _ = self.run_pieces()
+        if self.table is not None:
+            return self.table[k].copy()
         step = RUN_STEP[k]
         c = np.zeros_like(self.a)
-        K.put(c, self.run_leg((k + 4) % 8, RUN_FAR, "far", step), 0, 0)      # the far leg first
-        K.put(c, self.run_leg(k, 0.0, "near", step), 0, 0)
-        K.put(c, K.shifted(body, 0, step), 0, 0)
-        self.level_arm(c, step)
+        K.put(c, self.run_leg((k + 4) % 8, "far", step), 0, 0)      # the far leg first
+        K.put(c, self.run_leg(k, "near", step), 0, 0)
+        K.put(c, K.shifted(self.run_upper(), 0, step), 0, 0)
         c[SOLES + 1:] = 0
-        return c
+        return K.shifted(c, RUN_DX, 0)
 
     # ---------------------------------------------------------------------------------------- the death
     def kneel(self, n, dx=0):
@@ -345,8 +448,8 @@ class Rig:
         R = lambda k, dx, dy: K.shifted(self.run_frame(k), dx, dy)     # a stride of the run, moved whole
         if tag == "skill2":                   # E forward: crouch, the run's long stride lunging forward, its landing
             return [P(low=1), R(0, 2, -1), R(1, 1, 0), P()]
-        if tag == "skill2_back":              # E back: crouch, the run's tucked hop back, the landing
-            return [P(low=1), R(3, -2, -1), P(dx=-1, low=1), P()]
+        if tag == "skill2_back":              # E back: crouch, a hop back (the figure lifted whole: the run's frames
+            return [P(low=1), P(dx=-2, dy=-2), P(dx=-1, low=1), P()]     # lean forward), the landing
         if tag == "ult":                      # R: crouch, a hop (the run's tucked frame), the nova fired level
             return [P(low=1), R(3, 0, -1), P(low=1, rifle="level", dx=-1), P()]
         if tag == "hit":
@@ -375,44 +478,62 @@ class Rig:
         return keep
 
     def finished(self, frames, tag):
+        if tag == "run" and self.table is not None:
+            return [f.copy() for f in frames]       # finished by hand
         out = []
         for f in frames:
             keep = None if tag == "dead" else self.head_keep(f)
             g = K.finish(f, self.out, SOLES, keep=keep)
+            if tag == "run":
+                # a pinhole shut between the legs and the coat is ground, not coat: the outline (finish gives it the
+                # commonest colour round it - a square of the coat's blue under the hem)
+                g[(f[..., 3] == 0) & (g[..., 3] > 0) & ~(g[..., :3] == np.array(self.out, np.uint8)).all(-1)] = \
+                    (*self.out, 255)
             # finish leaves the kept head's light edges open (complete_outline skips light squares it may not touch):
             # the outline goes outside them too - only clear squares are filled
             g, _, _ = K.strips.complete_outline(g, color=tuple(self.out), feet=SOLES)
             legs_y = OY + int(Rw(24))                       # under the belt: between the legs
             for h in K.holes(g):
                 if len(h) <= 6:
-                    # a slit closed between the legs takes the leggings' dark colour (league_sivir's and league_sett's
-                    # runs); elsewhere the outline
-                    col = K.rgb(LEGGINGS[1]) if min(y for y, _ in h) >= legs_y else tuple(self.out)
+                    # a slit shut between the legs or the boots: the outline (in the leggings' dark colour a slit
+                    # between two boots read as a third leg)
                     for y, x in h:
-                        g[y, x] = (*col, 255)
-            g[K.orphan_outline(g, tuple(self.out))] = 0       # outline squares touching no colour: stray
-            # no square of ground may sit in a dent (three sides closed) or a one-square crack between two outlines
-            # where parts were moved against each other: under the belt in the run (a bite out of her hips, a split
-            # between the legs: 「腿抬高时这里会略微变形」「这里没对齐留空档要注意吧」) and round the levelled forearm in
-            # every action (under the elbow and under the grip); it takes the outline. The design's own notches (the
-            # hair's, the coat's, the upright rifle's) lie outside both boxes
-            boxes = [(OY + int(Rw(18)), OY + int(Rw(23)) + 3, OX + 16, OX + 30)]
-            if tag == "run":
-                boxes.append((legs_y, SOLES, OX - 3, OX + 25))
-            if tag != "dead":
-                while True:
-                    op = g[..., 3] > 0
-                    fill = []
-                    for y, x in ((y, x) for y0, y1, x0, x1 in boxes for y in range(y0, y1) for x in range(x0, x1)):
-                        if op[y, x]:
-                            continue
-                        near = int(op[y - 1, x]) + int(op[y + 1, x]) + int(op[y, x - 1]) + int(op[y, x + 1])
-                        if near >= 3 or (op[y, x - 1] and op[y, x + 1] and (op[y - 1, x] or op[y + 1, x])):
-                            fill.append((y, x))
-                    if not fill:
-                        break
-                    for y, x in fill:
                         g[y, x] = (*self.out, 255)
+            g[K.orphan_outline(g, tuple(self.out))] = 0       # outline squares touching no colour: stray
+            # the design is ringed in the outline all round: no coloured square may meet the ground (the dark blues and
+            # maroons complete_outline leaves open where a part moved off what it lay on: the coat's hem over a leg
+            # that stepped away, the levelled forearm's underside, the bun beside the rifle that went level); and no
+            # square of ground may sit in a dent (three sides closed) where parts were moved against each other: under
+            # the belt in the run (a bite out of her hips, a split between the legs: 「腿抬高时这里会略微变形」「这里
+            # 没对齐留空档要注意吧」), round the levelled forearm in every action (under the elbow and under the grip;
+            # in the run where the lean took it, and the coat's front where the upright rifle's foot was). Both take
+            # the outline. The design's own notches (the hair's, the crotch's, the hand's, the boots') lie outside
+            # the boxes, the head's always (its box is skipped)
+            lean = run_shift(OY + int(Rw(20))) + RUN_DX if tag == "run" else 0
+            boxes = [(OY + int(Rw(17 if tag == "run" else 18)), OY + int(Rw(23)) + 3,
+                      OX + 16 + lean - (2 if tag == "run" else 0), OX + 30 + lean)]
+            if tag == "run":
+                boxes.append((legs_y, SOLES, OX - 3 + RUN_DX, OX + 25 + RUN_DX))
+            inbox = np.zeros(g.shape[:2], bool)
+            for y0, y1, x0, x1 in boxes:
+                inbox[y0:y1, x0:x1] = True
+            if keep is not None and keep.any():
+                ys, xs = np.nonzero(keep)
+                inbox[ys.min():ys.max() + 1, xs.min():xs.max() + 1] = False
+            inbox[SOLES + 1:] = False
+            ink = np.array(self.out, np.uint8)
+            while True:
+                op = g[..., 3] > 0
+                col = op & ~(g[..., :3] == ink).all(-1)
+                p = np.pad(col, 1)
+                fill = ~op & (p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:])
+                fill[SOLES + 1:] = False
+                if tag != "dead":
+                    q = np.pad(op, 1).astype(int)
+                    fill |= ~op & inbox & (q[:-2, 1:-1] + q[2:, 1:-1] + q[1:-1, :-2] + q[1:-1, 2:] >= 3)
+                if not fill.any():
+                    break
+                g[fill] = (*self.out, 255)
             out.append(g)
         return out
 
@@ -422,7 +543,14 @@ def main():
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--review")
     ap.add_argument("--tags", default=",".join(TAGS))
+    ap.add_argument("--base", action="store_true", help="write the rig's own run frames into RUN_TABLE (then finish "
+                    "them by hand) and stop")
     a = ap.parse_args()
+    if a.base:
+        rig = Rig(table=False)
+        write_run_table(rig.finished(rig.build("run"), "run"))
+        print("written", RUN_TABLE)
+        return
     rig = Rig()
     built = {}
     for tag in a.tags.split(","):
