@@ -3,6 +3,7 @@
 
     python tools/art/ppu_garen.py                  # write assets/source/ppu/garen_<tag>.png (+ .json sizes)
     python tools/art/ppu_garen.py --review DIR     # garen_hd_<tag>.png (8x) and garen_hd_<tag>.gif
+    python tools/art/ppu_garen.py --actions        # the actions too (attack, q_attack, skill, spin, ult, hit, dead)
 
 The user, 2026-10-12: 「这个分支用来重建老英雄的 用PPU重建 先是盖伦 但是所有模型图生成就不拜托codex了 我们自己处理 因为也有原稿
 对比了」, then 「按原稿走 密度2.5」. The originals are the GPT strips in assets/source/garen (garen_<tag>.png, round 3/4,
@@ -12,6 +13,17 @@ The 1x sheet (Codex's step-2 redraw) is a different drawing; only its frame size
 an hd frame is round(2.5 x its 1x frame) round the same centre, the soles on the 1x soles' row. --write puts the idle
 in (its 1x frames into the sheet, replacing the Codex idle: import_native.py --hero garen would bring that back - run
 this again after it); the actions not redrawn yet are the 1x frames scaled (ppu_hd.py).
+
+actions (the user, 2026-10-12: 「盖伦游戏里还是老模型 ... 你参考亚索那些怎么弄的啊」, then the idle's face in every
+frame, the slashes and bursts out, the glowing gold blade kept): each strip's pictures one to a frame, read at the
+strip's own scale (the median of 2.5 x the 1x frame's height over the picture's: every strip was drawn at its own size),
+the palette of the idle, its sparkles and glints (parts under 2% of the figure) dropped, the feet - the lowest rows of
+what is not blade - where the 1x frame's feet are; then the idle's head (hair, face, eyes; not the scarf) pasted where
+the picture's face is (import_ppu_strips.paste_head searched round its skin), except where no face shows (the spin
+seen from behind, the death lying down). The slash's white arc across attack picture 4 and the burst over q_attack
+picture 5's legs leave nothing to keep, so those frames take the next picture; ult pictures 4-6's ground burst round
+the planted blade is cleared (the blade kept); the skill's raised blade, guard and fist go back over the pasted head
+(held beside it). The run is the 1x run scaled until it is made from the idle.
 
 idle: the first picture of garen_idle.png is the design; the loop is that design breathing (tools/art/idle_breathe.py,
 the 1x recipe: the body above the shins down 0-2 rows and a column forward, the head a frame late), the sword lifted out
@@ -170,6 +182,213 @@ def design():
     return out, pal
 
 
+COUNTS = {"attack": 6, "q_attack": 7, "skill": 4, "spin": 8, "ult": 8, "hit": 2, "dead": 7}
+# frame -> the picture it takes instead of its own (0-based): the slash's white arc across attack picture 4's legs and
+# the burst over q_attack picture 5's legs leave nothing to keep - the next picture's pose
+SAME = {"attack": {3: 4}, "q_attack": {4: 5}}
+# the ground burst round the planted blade in ult pictures 4-6: a box (picture px from the frame's top-left) whose
+# glow goes, the blade's columns spared
+BURST = {"ult": {i: {"box": (100, 143, 216, 196), "blade": (133, 167)} for i in (3, 4, 5)}}
+# frames without the idle's head (0-based): the spin seen from behind, the death lying down
+NO_HEAD = {"spin": {1, 2, 3, 4, 5}, "dead": {5, 6}}
+# frames whose raised blade is held beside the head (its fist and guard in front of it): back over the pasted head
+FRONT = {"skill": {0, 1, 2}}
+
+
+def lum(a):
+    return 0.299 * a[..., 0] + 0.587 * a[..., 1] + 0.114 * a[..., 2]
+
+
+def steel(a):
+    """The blade's light greys and whites (a glowing blade's pale gold too)."""
+    r, g, b = (a[..., c].astype(int) for c in range(3))
+    sat = np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b)
+    return (a[..., 3] > 0) & (lum(a) > 120) & ((sat < 45) | ((r > 220) & (g > 200)))
+
+
+def feet(a):
+    """(feet's middle x, soles' bottom edge y) of a frame: the lowest three rows of what is not blade."""
+    op = (a[..., 3] > 0) & ~steel(a)
+    sole = int(np.nonzero(op.any(1))[0].max())
+    xs = np.nonzero(op[max(0, sole - 2):sole + 1].any(0))[0]
+    return (xs.min() + xs.max() + 1) / 2.0, sole + 1.0
+
+
+def head_of(design):
+    """The dense idle's head: hair, skin, the eyes and the outline above the scarf (rows 3-42, columns 33-79 of the
+    142 x 138 idle frame), the largest 4-connected part -> (head mask, face mask: its skin and eyes)."""
+    a = design.astype(int)
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    op = a[..., 3] > 0
+    h, w = op.shape
+    box = np.zeros((h, w), bool)
+    box[3:43, 33:80] = True
+    rows = np.arange(h)[:, None] * np.ones((1, w), int)
+    skin = (r > 190) & (g > 140) & (g < 220) & (b > 100) & (b < 195) & (r > b + 35)
+    hair = (r > 45) & (r < 175) & (g > 25) & (g < 120) & (b < 90) & (r > g + 10) & (r > b + 20)
+    eye = (((b > 140) & (r < 110)) | ((lum(a) > 200) & (np.abs(r - b) < 40))) & (rows <= 33)
+    m = op & box & (skin | hair | (lum(a) < 60) | eye)
+    lab, n = ndimage.label(m)
+    head = lab == (int(np.argmax(ndimage.sum(m, lab, range(1, n + 1)))) + 1)
+    head = ndimage.binary_fill_holes(head) & op & box
+    return head, head & (skin | eye)
+
+
+def glow(a):
+    """A burst's colours in a picture (float RGBA): bright yellow to white."""
+    r, g, b = a[..., 0] * 255, a[..., 1] * 255, a[..., 2] * 255
+    return (a[..., 3] > 0.05) & (0.299 * r + 0.587 * g + 0.114 * b > 150) & (r > 200) & (g > 140)
+
+
+def unburst(fr, spec):
+    """The burst's glow in spec's box cleared from the picture frame (the blade's columns kept) -> pixels cleared."""
+    x0, y0, x1, y1 = spec["box"]
+    b0, b1 = spec["blade"]
+    m = np.zeros(fr.a.shape[:2], bool)
+    m[y0:y1, x0:x1] = True
+    m[:, b0:b1] = False
+    gone = m & glow(fr.a)
+    fr.a = fr.a.copy()
+    fr.a[gone] = 0
+    return int(gone.sum())
+
+
+def drop_bits(a, keep=0.02):
+    """Parts apart from the figure under `keep` of its largest part (sparkles, glints): clear."""
+    op = a[..., 3] > 0
+    lab, n = ndimage.label(op, structure=np.ones((3, 3)))
+    if n <= 1:
+        return a
+    sizes = ndimage.sum(op, lab, range(1, n + 1))
+    out = a.copy()
+    for k, z in enumerate(sizes, 1):
+        if z < keep * sizes.max():
+            out[lab == k] = 0
+    return out
+
+
+def skin_mid(f):
+    """The middle of the largest skin-coloured part in the frame's upper 70% (the face) -> (x, y) or None."""
+    a = f.astype(int)
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    skin = (a[..., 3] > 0) & (r > 190) & (g > 140) & (g < 220) & (b > 100) & (b < 195) & (r > b + 35)
+    ys = np.nonzero((a[..., 3] > 0).any(1))[0]
+    skin[ys.min() + int(0.7 * (ys.max() - ys.min())):] = False
+    lab, n = ndimage.label(skin)
+    if not n:
+        return None
+    yy, xx = np.nonzero(lab == int(np.argmax(ndimage.sum(skin, lab, range(1, n + 1)))) + 1)
+    return float(xx.mean()), float(yy.mean())
+
+
+def prop(f):
+    """A blade held up with its guard and fist: steel greys and whites and gold with their dark outline, the parts of
+    them reaching above the figure's top fifth -> mask."""
+    a = f.astype(int)
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    op = a[..., 3] > 0
+    sat = np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b)
+    metal = op & (((sat < 45) & (lum(a) > 90)) | ((r > 190) & (g > 110) & (b < 100) & (lum(a) > 140)))
+    m = metal | (op & (lum(a) < 60) & ndimage.binary_dilation(metal, structure=np.ones((3, 3))))
+    lab, n = ndimage.label(m, structure=np.ones((3, 3)))
+    ys = np.nonzero(op.any(1))[0]
+    top = ys.min() + 0.2 * (ys.max() - ys.min())
+    out = np.zeros(op.shape, bool)
+    for v in range(1, n + 1):
+        z = lab == v
+        if np.nonzero(z)[0].min() < top:
+            out |= z
+    return out
+
+
+def on_feet(a, one, margin=3):
+    """A read picture on a dense frame round(PPU x the 1x frame `one`), its feet where the 1x frame's are (PPU x round
+    the centre); the frame grown alike at both ends until it fits with `margin` clear."""
+    fx, fy = feet(a)
+    ox, oy = feet(one)
+    h1, w1 = one.shape[:2]
+    W, H = ppu_hd.hd_size(w1, h1, PPU)
+    ys, xs = np.nonzero(a[..., 3])
+    while True:
+        dx = int(round((ox - w1 / 2) * PPU + W / 2 - fx))
+        dy = int(round((oy - h1 / 2) * PPU + H / 2 - fy))
+        if (ys.min() + dy >= margin and xs.min() + dx >= margin and ys.max() + dy < H - margin
+                and xs.max() + dx < W - margin):
+            out = np.zeros((H, W, 4), np.uint8)
+            out[ys + dy, xs + dx] = a[ys, xs]
+            return out
+        W, H = W + 2, H + 2
+
+
+def actions(pal, design):
+    """{tag: [dense frame]} for COUNTS' tags from the pictures (see the module's notes), with a line per tag."""
+    import import_ppu_strips as IPS
+    sheet = ppu_hd.read_sheet(STEM)
+    head, face = head_of(design)
+    fy, fx = np.nonzero(face)
+    face_mid = (float(fx.mean()), float(fy.mean()))
+    out = {}
+    for tag, n in COUNTS.items():
+        a = np.asarray(Image.open(os.path.join(PICS, f"garen_{tag}.png")).convert("RGBA")).astype(np.float32) / 255
+        pics = G.split_strip(a, n)
+        for i, spec in BURST.get(tag, {}).items():
+            unburst(pics[i], spec)
+        frames = [pics[SAME.get(tag, {}).get(i, i)] for i in range(n)]
+        ones = [f for f, _ in sheet[tag]]
+        if len(ones) != n:
+            sys.exit(f"{tag}: {n} pictures, {len(ones)} 1x frames")
+        ratios = []
+        for fr, one in zip(frames, ones):
+            x0, y0, x1, y1 = fr.bbox(0.5)
+            ys = np.nonzero((one[..., 3] > 0).any(1))[0]
+            ratios.append(PPU * (ys.max() - ys.min() + 1) / (y1 - y0))
+        s = float(np.median(ratios))
+        done, notes = [], []
+        for i, (fr, one) in enumerate(zip(frames, ones)):
+            pic, _, _, _ = regrid(fr, s)
+            f = on_feet(drop_bits(G.drop_lonely(pal.apply(pic))), one)
+            mid = skin_mid(f)
+            if i in NO_HEAD.get(tag, ()) or mid is None:
+                notes.append("-")
+            else:
+                before = f.copy()
+                guess = (int(round(mid[0] - face_mid[0])), int(round(mid[1] - face_mid[1])))
+                res = IPS.paste_head(f, design, head, guess, 10, match=face, ring=False, hair_above=False)
+                if i in FRONT.get(tag, ()):
+                    m = prop(before)
+                    ox, oy = res["at"]
+                    cy, cx = np.nonzero(face)
+                    ok = (cy + oy >= 0) & (cy + oy < f.shape[0]) & (cx + ox >= 0) & (cx + ox < f.shape[1])
+                    m[cy[ok] + oy, cx[ok] + ox] = False          # never over the pasted face itself
+                    f[m] = before[m]
+                notes.append(f"{res['match']}%")
+            done.append(f)
+        out[tag] = done
+        print(f"{tag}: scale {s:.4f}, head match " + " ".join(notes))
+    return out
+
+
+def write_strip(tag, frames, ones):
+    """A tag's dense frames as ppu_hd.py's drawn strip: assets/source/ppu/garen_<tag>.png (left to right, 1 px apart,
+    top-aligned) and garen_<tag>.json with the sizes when a frame is grown beyond round(PPU x its 1x frame)."""
+    want = [ppu_hd.hd_size(o.shape[1], o.shape[0], PPU) for o in ones]
+    sizes = [(f.shape[1], f.shape[0]) for f in frames]
+    H = max(h for _, h in sizes)
+    strip = np.zeros((H, sum(w + 1 for w, _ in sizes) - 1, 4), np.uint8)
+    x = 0
+    for f in frames:
+        strip[:f.shape[0], x:x + f.shape[1]] = f
+        x += f.shape[1] + 1
+    Image.fromarray(strip).save(os.path.join(OUT, f"garen_{tag}.png"))
+    side = os.path.join(OUT, f"garen_{tag}.json")
+    if sizes != want:
+        with open(side, "w", encoding="utf-8") as fh:
+            json.dump({"sizes": [list(v) for v in sizes]}, fh)
+    elif os.path.isfile(side):
+        os.remove(side)
+    return sum(1 for a, b in zip(sizes, want) if a != b)
+
+
 def frame_1x(tag, i=0):
     return ppu_hd.read_sheet(STEM)[tag][i][0]
 
@@ -311,6 +530,9 @@ def main():
     ap.add_argument("--write", action="store_true",
                     help="the idle into league_garen's sheet (1x) and assets/source/ppu/garen_idle.png (hd); then run "
                          "tools/art/ppu_hd.py --hero garen")
+    ap.add_argument("--actions", action="store_true",
+                    help="the other actions' dense strips from their pictures (assets/source/ppu/garen_<tag>.png); then "
+                         "run tools/art/ppu_hd.py --hero garen")
     args = ap.parse_args()
     pair, pal = design()
     sole_dy, feet_dx, size = standing("idle")
@@ -323,6 +545,15 @@ def main():
           "blade", n, "| 1x:", rows1["dip_cost"], rows1["lean_cost"], rows1["neck"] is not None, "blade", n1)
     if args.write:
         write_idle(idle_1x, idle_hd)
+    if args.actions or args.review:
+        made = actions(pal, idle_hd[0])
+        sheet = ppu_hd.read_sheet(STEM)
+        for tag, frames in made.items():
+            if args.actions:
+                grown = write_strip(tag, frames, [f for f, _ in sheet[tag]])
+                print(f"assets/source/ppu/garen_{tag}.png: {len(frames)} frames, {grown} grown")
+            if args.review:
+                gif(frames, os.path.join(args.review, f"garen_hd_{tag}.gif"), 4, 100)
     if args.review:
         os.makedirs(args.review, exist_ok=True)
         Image.fromarray(hd).resize((hd.shape[1] * 6, hd.shape[0] * 6), Image.NEAREST).save(
