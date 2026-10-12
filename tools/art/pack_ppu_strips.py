@@ -99,6 +99,16 @@ ACTIONS = {
         "hit": "taking a hit, recoiling",
         "dead": "dying: collapsing to the ground",
     },
+    "garen": {
+        "run": "running to the right, the greatsword held low in front, the cape flowing behind (8-frame loop)",
+        "attack": "basic attack: a heavy two-handed greatsword slash to the right",
+        "q_attack": "Q Decisive Strike: a leaping overhead strike bringing the greatsword down on an enemy to the right",
+        "skill": "Q cast: raising the greatsword with a battle shout, gathering courage (speed and a shield)",
+        "spin": "E Judgment: spinning on the spot with the greatsword held out level, a full turn over the loop",
+        "ult": "R Demacian Justice: raising the greatsword high to call down a giant sword from the sky to the right",
+        "hit": "taking a hit, recoiling",
+        "dead": "dying: falling to his knees and collapsing to the ground",
+    },
     "ashe": {
         "run": "running to the right with the bow (8-frame loop)",
         "attack": "basic attack: drawing the bow and shooting an arrow to the right",
