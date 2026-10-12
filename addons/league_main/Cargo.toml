@@ -1,0 +1,14 @@
+[package]
+name = "league_main"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# The main pack's own DLL: the game loads `<mod_id>.dll` from a native mod's folder, so the library is `league`
+# (target/release/league.dll, shipped by tools/package_mod.py into mods/league). Not part of league_addons.
+[lib]
+name = "league"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }
