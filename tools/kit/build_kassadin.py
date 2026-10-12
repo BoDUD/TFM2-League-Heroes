@@ -272,7 +272,7 @@ def build(p):
     }
     if native:
         kit["passive"] = {"passive_ref": "league_kassadin:void_stone",
-                          "params": {"cool": p["e_cd"], "cut": 90, "reach": 32000, "dr": 10}}
+                          "params": {"cool": p["e_cd"], "q_cool": p["q_cd"], "cut": 90, "reach": 32000, "dr": 10}}
     return kit
 
 
