@@ -29,6 +29,8 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_irelia";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.1";
 
 /// 主包艾瑞莉娅的名字（buff、音效都以它开头）。
 fn ir(x: &str) -> String {
@@ -447,7 +449,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let v = host.game_version();
     wlog(format!(
         "=== {ID} v{} (Irelia: Bladesurge resets on the real mark or kill, hops the wave) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        VERSION,
         v.major,
         v.minor,
         v.patch,
