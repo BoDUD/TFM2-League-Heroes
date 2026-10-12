@@ -10,7 +10,8 @@
                               at him, fizzing on the ground, the blast and the sticky puddle; E + W - the dust where he
                               sets off, the belly slam (Darius stunned), the drink, the rage steam and the next punch's
                               ale burst; R - the cask hurled behind Darius onto Garen, the explosion flinging both toward
-                              him; the swig's heal at every skill; 3x
+                              him; the swig's heal at every skill; 3x. He is drawn as the game draws him on the
+                              battlefield: his dense (hd_) frames at PPU 2 and 85% (league_main hd.rs SIZES).
 """
 import argparse
 import os
@@ -26,6 +27,7 @@ from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_pyke import Me, OnMe  # noqa: E402
 from build_gragas import P  # noqa: E402
+import ppu_gragas  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -49,8 +51,10 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
+        # his dense frames at the battlefield's size (PPU 2, then 85%: league_main hd.rs SIZES), as the game draws him
+        an = Anim(frames_of(sp, "hd_" + tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
+        an.scale = z * ppu_gragas.SIZE / ppu_gragas.K
         body.append(an)
         t = an.until
         return an
@@ -125,30 +129,33 @@ def showcase(out, z=3, step=40):
     a("idle", max(300, land - t + 600), loop=True)
     end = t
 
-    def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+    def place(img, f, px, py, k=z):
+        """f (centred on its pivot) drawn k times its size with its centre on (px, py) game px."""
+        if k != 1:
+            f = f.resize((max(1, round(f.width * k)), max(1, round(f.height * k))), Image.NEAREST)
+        img.alpha_composite(f, (round(px * z + z / 2 - f.width / 2), round(py * z + z / 2 - f.height / 2)))
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        units = [(u.pos(tt)[1], u.frame(tt), u.pos(tt)) for u in (g, d)]
+        units = [(u.pos(tt)[1], u.frame(tt), u.pos(tt), z) for u in (g, d)]
         for an in body:
             f = an.frame(tt)
             if f is not None:
-                units.append((an.pos(tt)[1] + 0.5, f, an.pos(tt)))
+                units.append((an.pos(tt)[1] + 0.5, f, an.pos(tt), an.scale))
                 break
-        for _, f, p in sorted(units, key=lambda u: u[0]):
+        for _, f, p, k in sorted(units, key=lambda u: u[0]):
             if f is not None:
-                place(img, f, *p)
+                place(img, f, *p, k)
         for an in over:
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))

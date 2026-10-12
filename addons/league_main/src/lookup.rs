@@ -259,7 +259,7 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
         for f in 0..fl {
             for k in 0..4 {
                 let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
-                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.ppu);
+                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.shown());
             }
         }
         plan.push((b, Box::into_raw(frames) as *mut u8 as usize, fl));
@@ -300,7 +300,7 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
         *e = read(vt + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
     }
     if let Ok(mut s) = SIZES.lock() {
-        s.insert(data, (table[5], table[6], hero.ppu));
+        s.insert(data, (table[5], table[6], hero.shown()));
     }
     let (sw, sh) = size_stubs()?;
     table[5] = sw;
@@ -412,7 +412,7 @@ unsafe fn battle_table(t: usize, hero: &Hero) -> Option<usize> {
         for f in 0..fl {
             for k in 0..4 {
                 let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
-                std::ptr::write_unaligned(at, (std::ptr::read_unaligned(at) * hero.ppu).round());
+                std::ptr::write_unaligned(at, (std::ptr::read_unaligned(at) * hero.shown()).round());
             }
         }
         let nb = base + (b - data);

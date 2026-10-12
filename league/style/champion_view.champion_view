@@ -1095,15 +1095,11 @@
     "league_gragas": {
       "face": {
         "x": 3,
-        "y": -42
+        "y": -34
       },
       "center": {
         "x": 0,
         "y": -12
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -7
       }
     }
   }
