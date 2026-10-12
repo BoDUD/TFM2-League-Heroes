@@ -155,6 +155,11 @@ def main():
     ap.add_argument("--props", action="append", default=[], metavar="TAG:I=J",
                     help="frame I's parts apart from the body (a dropped ring, fans) replaced by frame J's, on the "
                          "same ground - they lie still once fallen (karma dead:2=7)")
+    ap.add_argument("--settle", action="append", default=[], metavar="TAG",
+                    help="every frame of TAG moved whole so its soles (the lowest row) are on the idle's and their "
+                         "middle on the idle's feet middle, the frame grown evenly where it must (its centre, the pivot, "
+                         "kept): garen spin - Codex's frames stood up to 18 hd px apart, one 9 rows up, and a turn on the "
+                         "spot drifted (「盖伦放E的时候模型不会旋转了？」)")
     ap.add_argument("--same", action="append", default=[], metavar="TAG:I=J",
                     help="frame I of TAG is frame J's drawing, its lowest row on frame I's skeleton's lowest row (a "
                          "drawing that does not match its neighbours; vladimir dead:5=4 dead:6=4 dead:7=4 - Codex drew "
@@ -322,6 +327,23 @@ def main():
     fr, at = place_idle(design_s, idle[0][0], k)
     got["idle"] = {i: fr for i in range(len(idle))}
     print(f"idle: the design ({design_s.shape[1]}x{design_s.shape[0]}) at {at} in every one of {len(idle)} frames")
+    def feet_of(f):
+        ys, xs = np.nonzero(f[..., 3])
+        low = ys >= ys.max() - 6
+        return (xs[low].min() + xs[low].max() + 1) / 2 - f.shape[1] / 2, ys.max() + 1 - f.shape[0] / 2
+    ix, iy = feet_of(got["idle"][0])
+    for tag in a.settle:
+        for i, f in got[tag].items():
+            fx, fy = feet_of(f)
+            dx, dy = int(round(ix - fx)), int(round(iy - fy))
+            H, W = f.shape[:2]
+            ys, xs = np.nonzero(f[..., 3])
+            gx = max(0, -(xs.min() + dx), xs.max() + dx - (W - 1))
+            gy = max(0, -(ys.min() + dy), ys.max() + dy - (H - 1))
+            g = np.zeros((H + 2 * gy, W + 2 * gx, 4), np.uint8)
+            g[ys + dy + gy, xs + dx + gx] = f[ys, xs]
+            got[tag][i] = g
+            print(f"{tag}[{i}]: moved {dx}, {dy} onto the idle's feet" + (f", frame grown by {2 * gx} x {2 * gy}" if gx or gy else ""))
     os.makedirs(SRC, exist_ok=True)
     for tag, frames in sheet.items():
         if tag.startswith(P.PREFIX):
