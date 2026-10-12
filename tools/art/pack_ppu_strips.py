@@ -213,6 +213,12 @@ def main():
                     "karma: 3 - her head to her soles against the 1x one's (the big jade ring above her head is not "
                     "measured: by the whole height her body came out a quarter smaller)")
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "ppu_packs"))
+    ap.add_argument("--only", action="append", default=[], metavar="TAG:I,J",
+                    help="a completion pack: only these frames (yasuo eq:5 ult:0,1,2 dead:0,1,2,3,4,5,6 - Codex's image "
+                         "service stopped half way through his pack)")
+    ap.add_argument("--name", help="the pack's folder and zip name (default: the hero's; a completion pack: <hero>_fix)")
+    ap.add_argument("--refs", nargs="*", default=[],
+                    help="earlier deliveries' images copied into refs/ for Codex to match (a completion pack)")
     a = ap.parse_args()
     hero, px = a.hero, a.px
     sheet = P.read_sheet(os.path.join(ROOT, "league", "champions", f"league_{hero}"))
@@ -222,7 +228,12 @@ def main():
     idle = sheet["idle"][0][0]
     ys = np.nonzero(idle[..., 3] > 0)[0]
     ppu = a.ppu or design.shape[0] / (ys.max() - ys.min() + 1)
-    out = os.path.join(a.out, hero)
+    pack_name = a.name or hero
+    only = set()
+    for spec in a.only:
+        t, ids = spec.split(":")
+        only |= {(t, int(v)) for v in ids.split(",")}
+    out = os.path.join(a.out, pack_name)
     if os.path.isdir(out):
         shutil.rmtree(out)
     for sub in ("design", "now", "guide", "refs"):
@@ -251,13 +262,21 @@ def main():
     for tag, frames in sheet.items():
         if tag.startswith(P.PREFIX) or tag == "idle" or tag in SKIP.get(hero, ()):
             continue
+        if only and not any(t == tag for t, _ in only):
+            continue
         cells = []
         for i, (f, ms) in enumerate(frames):
+            if only and (tag, i) not in only:
+                continue
             full = scale_nearest(f, ppu)
             # the cell: from 4 squares over the figure to the feet line (nothing may be drawn below it; the frame's
             # empty half under the pivot would only make the images bigger)
             feet_rel = min(full.shape[0] - 1, round(full.shape[0] / 2 + feet * ppu - 0.5))
             ys_ = np.nonzero(full[..., 3] > 0)[0]
+            # never above the frame's own lowest pixel: the soles' last rows (the rounding above cut 1-2 of them) and
+            # what a frame has under the standing feet line (a lying body, a sword's tip: yasuo dead 6 lost 371 px)
+            if len(ys_):
+                feet_rel = max(feet_rel, int(ys_.max()))
             # room over the head: 4 squares, plus what the design stands taller than the skeleton (karma's jade ring
             # rises ~25 squares over the 1x halo); a cell may start above the frame (frame_top < 0: the importer
             # grows the frame by as much at the top and the bottom, the pivot staying its centre)
@@ -308,7 +327,11 @@ def main():
             rows_md.append((name, tag, len(meta), W * px, H * px, ACTIONS.get(hero, {}).get(tag, tag)))
     with open(os.path.join(out, "cells.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
-    write_prompts(out, hero, px, design, len(cols), hexes, rows_md, ppu)
+    # earlier deliveries' images, named apart from this pack's skeletons (both would be yasuo_eq_1.png)
+    for r in a.refs:
+        shutil.copyfile(r, os.path.join(out, "refs", "delivered_" + os.path.basename(r)))
+    write_prompts(out, hero, px, design, len(cols), hexes, rows_md, ppu, pack_name, sorted(only),
+                  ["delivered_" + os.path.basename(r) for r in a.refs])
     if design is None and a.model_ref:
         write_model_step(out, hero, ppu, a.px_model, idle, a.model_ref, px)
         readme = [f"# {hero}：一个包两步，一次做完", "",
@@ -318,14 +341,15 @@ def main():
                   f"两步都交付后打成一个 zip：`{hero}_ppu_done.zip`。", ""]
         with open(os.path.join(out, "README.md"), "w", encoding="utf-8", newline="\n") as f:
             f.write(chr(10).join(readme))
-    shutil.make_archive(os.path.join(a.out, f"{hero}_ppu_strips"), "zip", out)
+    shutil.make_archive(os.path.join(a.out, f"{pack_name}_ppu_strips"), "zip", out)
     print(f"{hero}: design " + (f"{design.shape[1]}x{design.shape[0]} squares, {len(cols)} colours"
                                  if design is not None else "from step 1") + f", PPU {ppu:.3f}; "
-          f"{len(rows_md)} images, {sum(r[2] for r in rows_md)} frames -> {a.out}/{hero}_ppu_strips.zip")
+          f"{len(rows_md)} images, {sum(r[2] for r in rows_md)} frames -> {a.out}/{pack_name}_ppu_strips.zip")
 
 
 # the one-shot design step's words per hero: who asked, the top and bottom of the figure, the pose
 MODEL_STEP = {
+    "yasuo": {"asked": "「亚索的也可以帮我重做一下整体」「做亚索」"},     # (only the request: his design was already drawn)
     "soraka": {
         "asked": "「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」",
         "ref_note": "你 10 月 9 日画的那张",
@@ -408,9 +432,19 @@ FX_KEEP = {
 }
 
 
-def write_prompts(out, hero, px, design, ncol, hexes, rows, ppu):
+def write_prompts(out, hero, px, design, ncol, hexes, rows, ppu, name=None, only=(), refs=()):
     look = LOOKS.get(hero, hero)
     asked = MODEL_STEP.get(hero, {}).get("asked", "「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」")
+    name = name or hero
+    fix = ""
+    if only:
+        frames = "、".join(f"{t} 第 {i + 1} 帧" for t, i in only)
+        fix = (f"> **补画包**：上次的包没画完（生图服务中途断了），这里只有缺的 {len(only)} 帧：{frames}。"
+               f"其余的已经交付，不用再画。")
+        if refs:
+            fix += (f"`refs/` 里是上次交付的 {len(refs)} 张（{'、'.join(f'`{r}`' for r in refs)}）："
+                    f"这次画的人要和它们**一样大、一样的画法和细节**，同一个动作里接得上。")
+        fix += "\n>\n"
     fx_cn, fx_en = FX_KEEP.get(hero, ("", ""))
     if design is None:
         # the design is drawn in step 1 of the same pack (model/): every reference to it points there
@@ -424,12 +458,12 @@ def write_prompts(out, hero, px, design, ncol, hexes, rows, ppu):
     table = "\n".join(f"| `{n}.png` | {t} | {c} | {w}×{h} | {d} |" for n, t, c, w, h, d in rows)
     md = f"""# {hero}：按高清造型逐帧重画全部动作（PPU {ppu:.2f}，给 Codex 的提示词）
 
-> 用户：{asked}。**造型就是 `{dfile}`**（{dsize}，这里每格 {px}×{px} 像素）。待机不用画（就是造型图）。其余每个动作都要画成**这个造型**，像素大小和造型图一模一样。
+{fix}> 用户：{asked}。**造型就是 `{dfile}`**（{dsize}，这里每格 {px}×{px} 像素）。待机不用画（就是造型图）。其余每个动作都要画成**这个造型**，像素大小和造型图一模一样。
 > - 每张 `now/{hero}_<动作>_<n>.png` 是**骨架**：现在游戏里的动作帧按同样的格子放大，告诉你每帧的姿势、在格子里的位置和人有多高。你画的人**脚底和骨架在同一行同一列、头顶到脚底一样高**，姿势照骨架；**比例（头的大小、身材、四肢）、长相、配色、细节全部照造型图**——骨架是旧的粗画法，头比造型图大，不要照它的比例（「骨架 + 皮囊」）。
 > - `guide/` 是同一张图加了格子边框（灰）、站位点（蓝十字）和脚底线（红线）——对位用，**不要画进图里**。`cells.json` 里有每格的位置。
 > - **每格 {px}×{px} 像素一个纯色方块**，所有格子对齐同一个网格；只用造型图的颜色；没有抗锯齿、模糊、半透明。
 > - **头每帧都是造型图的头**（发型、脸、眼睛逐格一样，只平移），衣服、武器、配饰的形状和颜色每帧都和造型图一样；出招一律朝图的右边；不画背影；**脚底线以下什么都不能有**；不画特效（血、光、箭的轨迹、冲击波），只画人。{fx_cn}
-> - 每张交回同名文件（`{hero}_<动作>_<n>.png`，和骨架同样大小、同样的格子），放到 `outputs/{hero}-ppu-strips/`；附 `HANDOFF.md`（最后写：每张用了哪条提示词、哪里没做到）和生图原稿 `raw/`（不要重采样）；最好打成一个 zip（`{hero}_ppu_strips_done.zip`）。
+> - 每张交回同名文件（`{hero}_<动作>_<n>.png`，和骨架同样大小、同样的格子），放到 `outputs/{name}-ppu-strips/`；附 `HANDOFF.md`（最后写：每张用了哪条提示词、哪里没做到）和生图原稿 `raw/`（不要重采样）；最好打成一个 zip（`{name}_ppu_strips_done.zip`）。
 > - 你的生图工具一次画不好整张时，**一帧一帧单独生成**（每帧一张图，按 `cells.json` 拼回格子）；生成后按格子取回（每格取多数颜色，不要取中心点），**不要用脚本缩放**。
 
 ## 要画的图

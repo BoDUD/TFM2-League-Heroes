@@ -47,9 +47,9 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
-# gragas, zeri, irelia: dense strips drawn by tools/art/ppu_gragas.py, ppu_zeri.py, ppu_irelia.py; vladimir, karma: Codex's strips read
-# back by tools/art/import_ppu_strips.py (all in assets/source/ppu)
-PPU = {"yasuo": 3, "gragas": 2, "zeri": 3, "vladimir": 2, "karma": 3, "irelia": 2}
+# gragas, zeri, irelia: dense strips drawn by tools/art/ppu_gragas.py, ppu_zeri.py, ppu_irelia.py; vladimir, karma, ashe,
+# yasuo: Codex's strips read back by tools/art/import_ppu_strips.py (all in assets/source/ppu)
+PPU = {"yasuo": 3, "gragas": 2, "zeri": 3, "vladimir": 2, "karma": 3, "ashe": 5.4571, "irelia": 2}
 PREFIX = "hd_"
 # hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
 # the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much

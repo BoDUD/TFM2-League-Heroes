@@ -109,7 +109,16 @@ def write_strip(hero, tag, frames, want):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--hero", required=True)
-    ap.add_argument("--delivery", required=True, help="Codex's folder: cells.json and the <hero>_<tag>_<n>.png images")
+    ap.add_argument("--delivery", required=True, action="append",
+                    help="Codex's folder: cells.json and the <hero>_<tag>_<n>.png images (repeatable: a later delivery's "
+                         "frames replace an earlier one's - a completion pack). An image not delivered takes its frames "
+                         "from the folder's frames_1x/<tag>_<nn>.png (one pixel per square) where those exist")
+    ap.add_argument("--fill-from-sheet", action="store_true",
+                    help="frames no delivery has keep the dense frames the sheet has now (yasuo's partial delivery: "
+                         "eq 5, ult 0-2 and the death were never drawn)")
+    ap.add_argument("--head-region", metavar="R0-R1:C0-C1+...",
+                    help="with --paste-head: the head only inside these boxes (design squares; yasuo's pauldron touches "
+                         "his hair - 0-17:0-67+18-26:49-67)")
     ap.add_argument("--design", help="the design, 1 px per square (default: the pack's design/<hero>_design_1x.png)")
     ap.add_argument("--scale", type=int, default=1, help="game pixels per drawn square (yasuo: 2)")
     ap.add_argument("--head-rows", type=int, default=0,
@@ -125,7 +134,22 @@ def main():
                          "jade ring) into every frame (one face in all frames): placed where the 1x frame holds the 1x "
                          "idle's head, x PPU, then moved up to --head-search pixels onto Codex's head; what is left of "
                          "Codex's head round it is cleared (as --head-rows), and pieces of Codex's ring above it")
-    ap.add_argument("--head-search", type=int, default=8)
+    ap.add_argument("--head-match", metavar="R0-R1:C0-C1",
+                    help="with --paste-head: place the head by this part of it only (design squares; yasuo's face "
+                         "11-26:45-62 - Codex's ponytail flows another way frame to frame and outvoted the face)")
+    ap.add_argument("--sole-fix", action="store_true",
+                    help="a pack from before 2026-10-12 15:20 cut each cell 1-2 rows above the soles (rounding): every "
+                         "cell's drawing moved down onto the idle's soles (ashe: her actions stood 2 rows over the idle)")
+    ap.add_argument("--clear-ring", action="store_true",
+                    help="with --paste-head: Codex's own ring goes - the largest part in the colours of the head's upper "
+                         "part (karma's jade ring); never for a hero whose head shares its colours with the body (ashe's "
+                         "hood is her cape's navy and gold: it took her body)")
+    ap.add_argument("--clear-hair-above", action="store_true",
+                    help="with --paste-head: above the face, parts mostly in the head's colours go (yasuo's ponytail "
+                         "drawn higher by Codex)")
+    ap.add_argument("--head-search", type=int, default=8,
+                    help="pixels round the 1x head's place to look for Codex's head; 0: the whole frame, each way "
+                         "round (yasuo: Codex drew the E-Q spin away from the 1x frames, frame 0 facing left)")
     ap.add_argument("--no-head", action="append", default=[], metavar="TAG:I,J",
                     help="frames that keep Codex's head (lying, turned: karma dead:1,2,3,4,5,6,7)")
     ap.add_argument("--props", action="append", default=[], metavar="TAG:I=J",
@@ -137,9 +161,15 @@ def main():
                          "the last three lying frames apart, a different crumpled body from frames 3-4)")
     a = ap.parse_args()
     hero, s = a.hero, a.scale
-    with open(os.path.join(a.delivery, "cells.json"), encoding="utf-8") as f:
-        cells = json.load(f)
+    deliveries = []
+    for folder in a.delivery:
+        with open(os.path.join(folder, "cells.json"), encoding="utf-8") as f:
+            deliveries.append((folder, json.load(f)))
+    cells = deliveries[0][1]
     px, k = cells["px_per_square"], cells["ppu"] * s
+    for folder, c in deliveries[1:]:
+        if (c["px_per_square"], c["ppu"]) != (px, cells["ppu"]):
+            sys.exit(f"{folder}: px {c['px_per_square']} PPU {c['ppu']}, the first delivery's px {px} PPU {cells['ppu']}")
     if hero not in P.PPU or abs(P.PPU[hero] - k) > 1e-3:
         sys.exit(f"{hero}: PPU in tools/art/ppu_hd.py must be {k:g} (the pack's {cells['ppu']:g} x --scale {s})")
     dpath = a.design or os.path.join(PACKS, hero, "design", f"{hero}_design_1x.png")
@@ -148,11 +178,28 @@ def main():
     pal = np.unique(design[design[..., 3] > 0][:, :3], axis=0).astype(int)
     sheet = P.read_sheet(os.path.join(ROOT, "league", "champions", f"league_{hero}"))
     got = {}
-    for im in cells["images"]:
-        p = os.path.join(a.delivery, im["file"])
-        if not os.path.isfile(p):
-            sys.exit(f"missing {p}")
-        sq, mixed = squares(p, px)
+    for folder, dcells in deliveries:
+      for im in dcells["images"]:
+        p = os.path.join(folder, im["file"])
+        if os.path.isfile(p):
+            sq, mixed = squares(p, px)
+        else:
+            # not delivered: the frames Codex did draw, one pixel per square, into a sheet of the pack's size
+            sq, mixed = np.zeros((im["squares"][1], im["squares"][0], 4), np.uint8), 0
+            found = []
+            for m in im["cells"]:
+                f1 = os.path.join(folder, "frames_1x", f"{m['tag']}_{m['frame']:02d}.png")
+                x, y, w, h = m["rect"]
+                if os.path.isfile(f1):
+                    one = np.asarray(Image.open(f1).convert("RGBA"))
+                    if one.shape[:2] != (h, w):
+                        sys.exit(f"{f1}: {one.shape[1]}x{one.shape[0]}, its cell {w}x{h}")
+                    sq[y:y + h, x:x + w] = one
+                    found.append(m["frame"])
+            print(f"{im['file']}: not delivered; frames_1x has {im['cells'][0]['tag']} {found or 'none'}")
+            im = dict(im, cells=[m for m in im["cells"] if m["frame"] in found])
+        sq[sq[..., 3] < 128] = 0
+        sq[..., 3] = np.where(sq[..., 3] > 0, 255, 0)
         sq, recoloured = to_palette(sq, pal)
         if tuple(sq.shape[1::-1]) != tuple(im["squares"]):
             sys.exit(f"{im['file']}: {sq.shape[1]}x{sq.shape[0]} squares, the pack's {im['squares']}")
@@ -181,6 +228,14 @@ def main():
             if cut:
                 print(f"  {m['tag']}[{m['frame']}]: {cut} pixels past the frame (dropped)")
             fr[oy + cy0:oy + cy1, ox + cx0:ox + cx1] = cell[cy0:cy1, cx0:cx1]
+            if a.sole_fix:
+                # the cell's bottom against the idle's soles (bottom edges, from the frame's centre)
+                si = P.scale_any(sheet["idle"][0][0], k)
+                idle_sole = np.nonzero(si[..., 3].any(axis=1))[0].max() + 1 - si.shape[0] / 2
+                down = int(round(idle_sole - (oy + cell.shape[0] - FH / 2)))
+                if 0 < down <= int(np.ceil(k)):
+                    fr[down:] = fr[:FH - down].copy()
+                    fr[:down] = 0
             specks = drop_specks(fr)
             if specks:
                 print(f"  {m['tag']}[{m['frame']}]: specks of {specks} pixels apart from the figure (dropped)")
@@ -201,7 +256,23 @@ def main():
         for spec in a.no_head:
             tag, ids = spec.split(":")
             skip |= {(tag, int(v)) for v in ids.split(",")}
-        core = head_core(design_s, a.paste_head * s)
+        region = None
+        if a.head_region:
+            region = np.zeros(design_s.shape[:2], bool)
+            for box in a.head_region.split("+"):
+                rr, cc = box.split(":")
+                r0, r1 = (int(v) * s for v in rr.split("-"))
+                c0, c1 = (int(v) * s for v in cc.split("-"))
+                region[r0:r1 + s, c0:c1 + s] = True
+        core = head_core(design_s, a.paste_head * s, region)
+        match = None
+        if a.head_match:
+            rr, cc = a.head_match.split(":")
+            r0, r1 = (int(v) * s for v in rr.split("-"))
+            c0, c1 = (int(v) * s for v in cc.split("-"))
+            match = np.zeros_like(core)
+            match[r0:r1 + s, c0:c1 + s] = True
+            match &= core
         idle1 = sheet["idle"][0][0]
         base, (x0, y0) = place_idle(design_s, idle1, k)
         tpl = idle1_head(idle1, int(np.ceil(a.paste_head * s / k)))
@@ -219,9 +290,11 @@ def main():
                 # the design's top-left: the idle's place against the centre, moved as the 1x head moved (x PPU)
                 gx = x0 - base.shape[1] / 2 + W / 2 + k * ((hit[1] - f1.shape[1] / 2) - (at1[1] - idle1.shape[1] / 2))
                 gy = y0 - base.shape[0] / 2 + H / 2 + k * ((hit[2] - f1.shape[0] / 2) - (at1[2] - idle1.shape[0] / 2))
-                res = paste_head(fr, design_s, core, (int(round(gx)), int(round(gy))), a.head_search)
-                print(f"{tag}[{i}]: head at {res['at']} (from the 1x: {res['guess']}, {res['match']}% of its pixels on "
-                      f"Codex's), {res['cleared']} pixels of Codex's head and ring cleared")
+                res = paste_head(fr, design_s, core, (int(round(gx)), int(round(gy))), a.head_search, match=match,
+                                 ring=a.clear_ring, hair_above=a.clear_hair_above)
+                print(f"{tag}[{i}]: head at {res['at']}{' mirrored' if res['mirrored'] else ''} (from the 1x: "
+                      f"{res['guess']}, {res['match']}% of its pixels on Codex's), {res['cleared']} pixels of Codex's "
+                      f"head and ring cleared")
     if a.head_rows:
         for tag in got:
             for i in got[tag]:
@@ -255,18 +328,25 @@ def main():
             continue
         have = got.get(tag, {})
         if sorted(have) != list(range(len(frames))):
-            sys.exit(f"{tag}: frames {sorted(have)} delivered, {len(frames)} in the sheet")
+            lost = [i for i in range(len(frames)) if i not in have]
+            if not a.fill_from_sheet or P.PREFIX + tag not in sheet:
+                sys.exit(f"{tag}: frames {lost} not delivered (--fill-from-sheet keeps the sheet's dense ones)")
+            for i in lost:
+                have[i] = sheet[P.PREFIX + tag][i][0]
+            print(f"{tag}: frames {lost} not delivered - the sheet's dense frames kept")
         want = [(round(f.shape[1] * k), round(f.shape[0] * k)) for f, _ in frames]
         write_strip(hero, tag, [have[i] for i in range(len(frames))], want)
         print(f"assets/source/ppu/{hero}_{tag}.png: {len(frames)} frames")
 
 
-def head_core(design, rows):
+def head_core(design, rows, region=None):
     """The design's head: its opaque part above `rows` joined side by side to the face (the largest part there; an
     ornament only touching it corner to corner - karma's fans - is not in it) -> bool mask in design coordinates."""
     from scipy import ndimage
     op = design[..., 3] > 0
     op[rows:] = False
+    if region is not None:
+        op &= region
     lab, n = ndimage.label(op)
     sizes = ndimage.sum(op, lab, range(1, n + 1))
     return lab == (int(np.argmax(sizes)) + 1)
@@ -314,18 +394,73 @@ def in_colours(fr, cols):
     return m & (fr[..., 3] > 0)
 
 
-def paste_head(fr, design, core, guess, search, far=4, allow=5):
+def best_place(fr, design, core, guess, search, match=None):
+    """Where the head (`core` of `design`, top-left of the design near `guess`) falls best on Codex's drawing: the
+    most of its pixels on pixels of their colour family (distance under 60), a little against the distance from the
+    guess; within `search` pixels of it, or anywhere in the frame and each way round - mirrored too (a spin's frame
+    facing left: yasuo eq 0) - when `search` is 0 (coarse steps, then fine). -> (score, dx, dy, close, mirrored)."""
+    H, W = fr.shape[:2]
+    g = fr.astype(int)
+    best = None
+    if match is not None:
+        core = match
+    for mirrored in ((False, True) if not search else (False,)):
+        c = core[:, ::-1] if mirrored else core
+        d = design[:, ::-1] if mirrored else design
+        cy, cx = np.nonzero(c)
+        want = d[cy, cx, :3].astype(int)
+        # with a match part (the face) its skin counts three times: a dark ponytail drawn elsewhere must not outvote
+        # the face (yasuo q3 4-5)
+        r_, g_, b_ = want[:, 0], want[:, 1], want[:, 2]
+        weight = np.where((match is not None) & (r_ > 120) & (r_ > g_) & (g_ > b_) & (r_ - b_ > 50) & (g_ > 60), 3, 1)
+
+        def score(dx, dy):
+            y, x = cy + guess[1] + dy, cx + guess[0] + dx
+            ok = (y >= 0) & (y < H) & (x >= 0) & (x < W)
+            if ok.mean() < 0.9:
+                return None
+            got = g[y[ok], x[ok]]
+            hit = (got[:, 3] > 0) & (np.abs(got[:, :3] - want[ok]).sum(axis=1) < 60)
+            close = int(hit.sum())
+            return int((hit * weight[ok]).sum()) - (0.15 if not search else 0.5) * (abs(dx) + abs(dy)), close
+
+        if search:
+            spots = [(dx, dy) for dy in range(-search, search + 1) for dx in range(-search, search + 1)]
+        else:
+            spots = [(dx, dy) for dy in range(-H, H, 3) for dx in range(-W, W, 3)]
+        top = None
+        for dx, dy in spots:
+            r = score(dx, dy)
+            if r and (top is None or r[0] > top[0]):
+                top = (r[0], dx, dy, r[1])
+        if top and not search:
+            for dy in range(top[2] - 2, top[2] + 3):
+                for dx in range(top[1] - 2, top[1] + 3):
+                    r = score(dx, dy)
+                    if r and r[0] > top[0]:
+                        top = (r[0], dx, dy, r[1])
+        if top and (best is None or top[0] > best[0]):
+            best = top + (mirrored,)
+    return best
+
+
+def paste_head(fr, design, core, guess, search, far=4, allow=5, match=None, ring=True, hair_above=True):
     """The design's head (`core`, design coordinates) pasted into `fr` with the design's top-left near `guess`: at the
     place within `search` pixels where most of its pixels fall on pixels of their colour family in Codex's drawing
     (colour distance under 60), nearer the guess on a tie. Then Codex's head round it goes: in its rows, the parts
-    beside it that never reach more than `far` pixels from it (an arm reaches far) and the bits under 30 pixels above
-    its face (Codex's ring's outline); and Codex's own ring (the
+    beside it that never reach more than `far` pixels from it (an arm reaches far), and above its face the bits under
+    30 pixels (Codex's ring's outline) or mostly of the head's own colours (Codex's ponytail drawn higher: yasuo);
+    and Codex's own ring (the
     largest part in the colours of the design's ring - the head's upper part) wherever the pasted one does not
     cover it, except next to the fans (their teal stripes and outline share the ring's colours)."""
     from scipy import ndimage
     H, W = fr.shape[:2]
+    _, dx, dy, close, mirrored = best_place(fr, design, core, guess, search, match)
+    n_match = int((match if match is not None else core).sum())
+    if mirrored:
+        # the head facing the other way: the design and its head mirrored, the guess kept for the same place
+        design, core = design[:, ::-1], core[:, ::-1]
     cy, cx = np.nonzero(core)
-    want = design[cy, cx, :3].astype(int)
     upper = core.copy()
     upper[cy.min() + int(0.55 * (cy.max() - cy.min())):] = False
     ring_cols = colour_set(design, upper)
@@ -335,24 +470,10 @@ def paste_head(fr, design, core, guess, search, far=4, allow=5):
     ring_px = in_colours(fr, ring_cols)
     lab_r, n_r = ndimage.label(ring_px, structure=np.ones((3, 3)))
     old_ring = np.zeros((H, W), bool)
-    if n_r:
+    if n_r and ring:
         sizes = ndimage.sum(ring_px, lab_r, range(1, n_r + 1))
         old_ring = lab_r == int(np.argmax(sizes)) + 1
         old_ring &= ~ndimage.binary_dilation(in_colours(fr, fan_cols), structure=np.ones((3, 3)))
-    g = fr.astype(int)
-    best = None
-    for dy in range(-search, search + 1):
-        for dx in range(-search, search + 1):
-            y, x = cy + guess[1] + dy, cx + guess[0] + dx
-            ok = (y >= 0) & (y < H) & (x >= 0) & (x < W)
-            if ok.mean() < 0.9:
-                continue
-            got = g[y[ok], x[ok]]
-            close = (got[:, 3] > 0) & (np.abs(got[:, :3] - want[ok]).sum(axis=1) < 60)
-            score = int(close.sum()) - 0.5 * (abs(dx) + abs(dy))
-            if best is None or score > best[0]:
-                best = (score, dx, dy, int(close.sum()))
-    _, dx, dy, close = best
     ox, oy = guess[0] + dx, guess[1] + dy
     y, x = cy + oy, cx + ox
     ok = (y >= 0) & (y < H) & (x >= 0) & (x < W)
@@ -367,16 +488,25 @@ def paste_head(fr, design, core, guess, search, far=4, allow=5):
     lab, n = ndimage.label(rest, structure=np.ones((3, 3)))
     dist = ndimage.distance_transform_edt(~M)
     face_top = cy.min() + oy + int(0.55 * (cy.max() - cy.min()))
+    head_px = in_colours(fr, colour_set(design, core, least=3))
     gone = np.zeros((H, W), bool)
     for v in range(1, n + 1):
         z = lab == v
         if int((dist[z] > far).sum()) <= allow:
             gone |= z
-        elif z.sum() < 30 and not z[face_top:].any():
-            gone |= z          # a bit of Codex's ring's outline left above the face
+        elif not z[face_top:].any() and (z.sum() < 30 or (hair_above and head_px[z].mean() > 0.6)):
+            gone |= z          # a bit of Codex's ring's outline, or its own head's (ponytail) edge, above the face
     fr[gone] = 0
-    return {"at": (int(ox), int(oy)), "guess": tuple(int(v) for v in guess), "match": round(100 * close / len(cy)),
-            "cleared": int(gone.sum() + ring_gone.sum())}
+    # what is left of Codex's head as pieces apart from the figure (under 60 pixels, in the head's rows)
+    op = fr[..., 3] > 0
+    lab2, n2 = ndimage.label(op, structure=np.ones((3, 3)))
+    for v in range(1, n2 + 1):
+        z = lab2 == v
+        if z.sum() < 60 and not (z & M).any() and not z[cy.max() + oy + 1:].any():
+            fr[z] = 0
+            gone |= z
+    return {"at": (int(ox), int(oy)), "guess": tuple(int(v) for v in guess), "match": round(100 * close / n_match),
+            "cleared": int(gone.sum() + ring_gone.sum()), "mirrored": mirrored}
 
 
 def swap_props(dst, src, one_dst, one_src, k):
