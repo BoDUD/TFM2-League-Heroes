@@ -9,7 +9,8 @@
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
 pub const HEROES: &[(&str, f32, &str)] =
     &[("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
-      ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim"))];
+      ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim")),
+      ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim"))];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
 /// the texture's reported size are divided by PPU / size (src/lookup.rs: the cards, the encyclopedia, the face icons,

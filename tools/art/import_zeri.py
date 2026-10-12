@@ -13,9 +13,9 @@ flying rounds, pulses, the spark and the add-on's wall laser are symmetric top t
 them upside down), the laser's line picture too (its left half empty: it reaches on from the point the pulse stopped
 on), every picture on a unit, the buffs and what plays on her (p_ready, w_cast, e_cast, r_nova, the overcharge)
 symmetric left to right, the nova on the ground both ways (check() asserts it). Nothing rides in her action frames.
-Spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it. The rounds leave her pivot 5 px
-up (build_zeri a_y) and stay unseen for `lead` ticks, until they pass the levelled rifle's muzzle (26 px ahead of her,
-17 over the soles: rig_zeri's release frames). Times from the kit (build_zeri.P, 60 ticks a second).
+Spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it. The rounds leave her pivot 9.7 px
+up (build_zeri a_y) and stay unseen for `lead` ticks, until they reach the levelled rifle's muzzle in her dense frames
+(11 px ahead of her, 21 over the soles: tools/art/ppu_zeri.py; the 1x rifle's was 26 ahead, 17 over the soles, three ticks). Times from the kit (build_zeri.P, 60 ticks a second).
 """
 import os
 import sys
@@ -50,7 +50,7 @@ SOLES = (0, 11)                 # on the ground under a unit
 EMPTY = J.EMPTY
 seq = J.seq
 flight = J.flight
-LEAD = 3                        # ticks: the rounds fly 8-9 px a tick and the muzzle is 26 px ahead of her pivot
+LEAD = 1                        # ticks: the rounds fly 8-9 px a tick and the muzzle is 11 px ahead of her pivot
 
 FX = {
     # the rounds: the burst, E's piercing round and R's triple shot 9 px a tick to ~80 px (burst_speed, atk_range +
