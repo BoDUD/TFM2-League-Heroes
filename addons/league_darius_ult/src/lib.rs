@@ -362,8 +362,9 @@ impl StablePassive for OwnKill {
         Box::new(self.clone())
     }
 
-    fn on_spawn(&mut self, _sim: &mut StableSim<'_>, _player: usize, _me: usize) {
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         *self = OwnKill { refunds: self.refunds, ..OwnKill::default() };
+        wlog(format!("{} SPAWN: own-kill passive on Darius (player {player})", head(sim, me)));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
@@ -388,12 +389,21 @@ impl StablePassive for OwnKill {
                 .filter_map(|i| sim.entity_at(i))
                 .find(|e| e.is_champion() && e.team() != team && (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == MARK))
                 .map(|e| e.id());
+            if let Some(x) = self.target {
+                wlog(format!("{} R CAST seen {} ticks ago, R's target #{x} marked", head(sim, me), tick - t0));
+            }
         }
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _player: usize, me: usize, victim: usize) {
         let is_target = self.target == Some(victim) || has_buff(sim, victim, MARK);
-        if !own_kill_refund(sim.tick(), self.cast, is_target, has_buff(sim, me, R_KILL)) {
+        let landed = has_buff(sim, me, R_KILL);
+        if !own_kill_refund(sim.tick(), self.cast, is_target, landed) {
+            // every champion kill of his during an R, refunded or not (the in-game check)
+            if let Some(t0) = self.cast.filter(|_| sim.get_entity(victim).is_none_or(|e| e.is_champion())) {
+                let why = if !is_target { "not R's target" } else if landed { "the blow's own kill: the main pack refreshes" } else { "past the blow" };
+                wlog(format!("{} R KILL SEEN: #{victim} {} ticks after the cast, no refund ({why})", head(sim, me), sim.tick() - t0));
+            }
             return;
         }
         sim.entity_remove_buff(me, RESET);
