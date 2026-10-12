@@ -11,7 +11,7 @@ canvases with the horn tips and the soles on the pack's lines, so they share the
   - one face (memory one-face-all-frames): the design's helm (HELM, the horns down to the chin) is pasted square for
     square over the pose's own wherever the pose shows it upright and uncovered (HELM_AT: its offset in the pose,
     found by matching); Q's raise and slam and the death keep Codex's (the helm between the raised arms, bowed, fallen);
-  - the run: Codex's four walking phases whole, the design's helm pasted at each step's bob;
+  - the run: Codex's four walking phases turned 65 degrees toward the image right (codex_run), tones matched;
   - the idle: the design breathing - the upper body rises over the legs, the row at the cut repeated in the gap;
   - W and the hit: the design recoloured (a teal pulse; a white flash) and moved as a whole.
 Sizes (the user's pick C: 110% and a thicker outline, Kassadin's way): league.dll draws him SIZE about his pivot, so
@@ -35,6 +35,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips as G  # noqa: E402
+sys.path.insert(0, HERE)
+import design_varus as V  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "mordekaiser")
 FRONT = os.path.join(SRC, "hd", "front.png")
@@ -60,7 +62,8 @@ HELM_AT = {"attack-raise": (13, -10), "attack-strike": (22, 9), "e-grasp": (0, 0
 # ours); e-grasp keeps its pixels (the mace behind the helm, its helm the design's within a square)
 CLEAR = {"attack-raise", "attack-strike", "r-point"}
 CLEAR_PAD, CLEAR_ROWS = 5, 76     # hd squares round the helm, the design rows above which the clearing reaches
-WALK_DY = {1: 1, 2: 0, 3: 1, 4: -1}
+RUN = os.path.join(SRC, "codex_run")          # the 65-degree run (Codex, 2026-10-12: mordekaiser_run_poses.zip)
+RUN_DX = {1: -37, 2: -29, 3: -37, 4: -37}     # phase 2's upper body stood 8 squares left of the others'; all onto the pivot
 # poses Codex drew away from the design's place: the body (the mace on the ground aside) brought back over the pivot
 POSE_DX = {"dead-kneel": -95, "dead-lying": -58}   # the step's bob (the helm's offset in each walk phase)
 LEG_CUT = 165                     # design row: the idle's upper body rises above it
@@ -85,6 +88,10 @@ class Rig:
                 p = np.asarray(Image.open(os.path.join(POSES, f)).convert("RGBA"))
                 kind = "portrait" if p.shape[0] > p.shape[1] else "landscape"
                 self.poses[f[len("mordekaiser-"):-len("_1x.png")]] = (p, kind)
+        pal = np.unique(self.a[self.a[..., 3] > 0][:, :3], axis=0)
+        raw = {k: np.asarray(Image.open(os.path.join(RUN, f"mordekaiser-walk-{k}_1x.png")).convert("RGBA"))
+               for k in (1, 2, 3, 4)}
+        self.run = {k: (raw[k] if k == 2 else relum(raw[k], raw[2], pal)) for k in raw}
 
     def canvas(self):
         return np.zeros((CH, CW, 4), np.uint8)
@@ -143,15 +150,41 @@ class Rig:
         return can
 
     def walk(self, k):
-        """Codex's walking phase k whole (its upper body is the design's within a few squares; a cut at the belt
-        showed as a seam), the design's helm pasted at the step's bob."""
-        p, kind = self.poses[f"walk-{k}"]
+        """The run turned toward the image right (the user: 「走路的时候腿既然是那个方向 身体也要那个方向吧？」, picked
+        League's 65 degrees): Codex's phase k (codex_run), its tones matched to phase 2's (relum), moved by RUN_DX so
+        the four upper bodies stand on one column and the torso over the pivot."""
+        p = self.run[k]
         can = self.canvas()
-        ox, oy = self.origin(kind)
-        x0, y0 = PACK[kind]
-        self.put(can, p, p[..., 3] > 0, ox, oy)
-        self.put(can, self.a, self.helm, ox + x0, oy + y0 + WALK_DY[k])
+        ox, oy = self.origin("landscape")
+        self.put(can, p, p[..., 3] > 0, ox + RUN_DX[k], oy)
         return can
+
+
+def relum(p, ref, pal):
+    """p's colours moved to ref's tones: every colour's place among p's lightnesses (its median quantile) mapped to
+    the lightness at that quantile of ref, then the palette colour nearest in Lab to that lightness with the colour's
+    own hue (teal stays teal). The four run phases came 173 / 199 / 210 / 232 bright (the design 202)."""
+    op, ro = p[..., 3] > 0, ref[..., 3] > 0
+    lab = V.srgb2lab(p[op][:, :3].astype(float))
+    rl = np.sort(V.srgb2lab(ref[ro][:, :3].astype(float))[:, 0])
+    plab = V.srgb2lab(pal.astype(float))
+    order = np.argsort(lab[:, 0], kind="stable")
+    q = np.empty(len(lab))
+    q[order] = (np.arange(len(lab)) + 0.5) / len(lab)
+    out = p.copy()
+    px = out[op]
+    keys = [tuple(c) for c in p[op][:, :3]]
+    groups = {}
+    for i, key in enumerate(keys):
+        groups.setdefault(key, []).append(i)
+    for key, idx in groups.items():
+        idx = np.array(idx)
+        target = rl[min(len(rl) - 1, int(np.median(q[idx]) * len(rl)))]
+        c = lab[idx[0]]
+        d = (plab[:, 0] - target) ** 2 + (plab[:, 1] - c[1]) ** 2 + (plab[:, 2] - c[2]) ** 2
+        px[idx, :3] = pal[d.argmin()]
+    out[op] = px
+    return out
 
 
 SPECK = 12                        # loose pieces smaller than this (8-connected) are dropped
