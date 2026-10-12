@@ -46,6 +46,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import idle_breathe as IB  # noqa: E402
+import ppu_hd as PPU_HD  # noqa: E402
 from native_refs import CELL, Z, layout  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "native")
@@ -1619,6 +1620,10 @@ def main():
         if added:
             print(f"league/champions/league_{hero}: the forms' and in-wall tags added for the add-on's anim-name swap: "
                   f"{', '.join(added)}")
+        if hero in PPU_HD.PPU:
+            made = PPU_HD.add_hd(hero, sheet)
+            print(f"league/champions/league_{hero}: hd_ tags for the main pack's dense frames (PPU {PPU_HD.PPU[hero]}; "
+                  f"drawn {', '.join(made['drawn']) or 'none'}, test {', '.join(made['test']) or 'none'})")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         for name, fsheet in forms.items():
             fw, fh = G.write_sheet(os.path.join(MOD, "champions", f"league_{name}"), fsheet)

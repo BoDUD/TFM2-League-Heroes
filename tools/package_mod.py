@@ -30,6 +30,10 @@ replaces a clip's .wav with the .mp3 of the same name, refreshes only the select
 text/champion.i18n, style/champion_view and mod.override_info, and keeps the higher mod_info version.
 Every other hero's files stay as they are.
 
+The main pack is a native mod (mod.mod_info contains_code / mod_type native, 2026-10-12: the dense PPU frames,
+addons/league_main): every package and every install also carries league.dll, built here with
+`cargo build --release -p league_main` in addons/ (cargo needed; --dll <path> to ship one built elsewhere).
+
 Needs Python 3.9+ with Pillow, numpy and soundfile (`pip install pillow numpy soundfile`; the libsndfile in
 soundfile's wheel brings the LAME encoder). The audio is Riot's: it is never committed.
 """
@@ -64,6 +68,21 @@ MP3_QUALITY = 0.0          # libsndfile compression level for VBR MP3: 0.0 = LAM
 MAX_SHEET = 2048           # repacked sheets stay within 2048 x 2048, like the sheets the mod ships today
 GAP = 1                    # transparent pixels between packed frames
 IDLE_PAD = 8               # clear pixels round every idle frame (the cards draw past its rect)
+
+
+DLL = "league.dll"           # the main pack's own code (addons/league_main), next to mod.mod_info
+
+
+def build_dll(explicit):
+    """-> the bytes of league.dll: --dll's file, else a fresh `cargo build --release -p league_main`."""
+    if explicit:
+        return read(explicit)
+    import subprocess
+    addons = os.path.join(REPO, "addons")
+    r = subprocess.run(["cargo", "build", "--release", "-p", "league_main"], cwd=addons)
+    if r.returncode:
+        sys.exit("cargo build of addons/league_main failed: the main pack needs its league.dll")
+    return read(os.path.join(addons, "target", "release", DLL))
 
 
 def lp(path):
@@ -438,6 +457,8 @@ def version(v):
 
 def install(pkg, heroes, target, dry):
     wrote = removed = 0
+    if DLL in pkg and os.path.isfile(lp(os.path.join(target, DLL))) and read(os.path.join(target, DLL)) != pkg[DLL]:
+        print(f"{DLL}: replaced (the game must be closed: a loaded DLL cannot be overwritten)")
     for rel, data in sorted(pkg.items()):
         if rel in SHARED or rel == "mod.mod_info":
             continue
@@ -475,6 +496,9 @@ def install(pkg, heroes, target, dry):
             else:
                 inst["version"] = max(inst["version"], new["version"], key=version)
                 inst["last_updated"] = max(inst["last_updated"], new["last_updated"])
+                for k in ("contains_code", "mod_type"):   # the DLL ships with every install
+                    if k in new:
+                        inst[k] = new[k]
         else:
             inst = new
         print(f"mod.mod_info: version {inst['version']}")
@@ -492,6 +516,7 @@ def main():
     ap.add_argument("--target", help="install into this mod folder instead of <game>/mods/league")
     ap.add_argument("--dry", action="store_true", help="with --install: report, write nothing")
     ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--dll", help=f"ship this {DLL} instead of building addons/league_main")
     a = ap.parse_args()
     t0 = time.time()
     all_heroes = hero_ids(a.src)
@@ -505,6 +530,10 @@ def main():
     else:
         heroes = all_heroes
     pkg, report = build(a.src, heroes, everything=not a.hero, workers=a.workers)
+    info = parse_json(read(os.path.join(a.src, "mod.mod_info")), "mod.mod_info")
+    if info.get("contains_code"):
+        pkg[DLL] = build_dll(a.dll)
+        print(f"{DLL}: {len(pkg[DLL]) / 1e3:.0f} kB")
     print_report(report, time.time() - t0)
     out = a.out or (None if a.install else os.path.join(REPO, "dist", "league"))
     if out:
