@@ -9,7 +9,8 @@
 //! 1. 0x22ede3e 的 `call 0x23305e0` 改成调用本包的 [`card_anim`]（经 EXE 附近的一小段跳板，顺带把控件对象 rbx 传进来）：
 //!    先调用原函数，控件路径是登记的高清英雄、名字是它有高清份的动作，就把名字换成 `hd_<动作>`（新字符串用游戏同一个堆）；
 //! 2. 0x22ee187 那条 7 字节的 movaps 改成 `call` 跳板 + 2 个 nop：跳板保存易失寄存器，调用 [`card_scale`] 取得这一次
-//!    的缩放（动作名是 `hd_` 开头的：2.2 ÷ PPU，否则原来的 2.2），放进 xmm0 的低两格。
+//!    的缩放（动作名是 `hd_` 开头的：2.2 ÷ PPU，否则原来的 2.2），放进 xmm0 的低两格；控件的偏移（+0x20，英雄的
+//!    view center，按精灵像素）照旧乘 2.2：跳板把存着的 xmm3 交给它，偏移那一份乘 PPU 补回来。
 //!
 //! 两处都先核对原指令的字节，不对（别的版本、别的 mod 改过）就什么都不改，卡牌照旧画 1 倍的 idle。头像（0x24b44b0 按
 //! `idle` 第一帧裁脸）还没有接：那里的名字是内联比较的。
@@ -130,7 +131,10 @@ unsafe extern "system" fn card_anim(out: usize, state: usize, card: usize) -> us
 }
 
 /// The card's sprite scale this time (0x22ee187): 2.2 / PPU for an `hd_` animation of a registered hero, else 2.2.
-unsafe extern "system" fn card_scale(card: usize, rbp: usize) -> f32 {
+/// `xmm3` points at the saved xmm3 = the control's offset (+0x20, the champion's view centre, sprite pixels) minus
+/// (frame width / 2, frame height), about to be multiplied by the scale: for a dense frame the offset part is raised
+/// by PPU so it stays offset x 2.2 on the screen (「BP里面模型位置不对」: shrunk with the frame it dropped 18 px).
+unsafe extern "system" fn card_scale(card: usize, rbp: usize, xmm3: usize) -> f32 {
     let base = std::ptr::read_unaligned((MODULE.load(Ordering::Acquire) + SCALE_CONST_RVA) as *const f32);
     std::panic::catch_unwind(|| unsafe {
         let (p, n) = (q(rbp + ANIM_PTR), q(rbp + ANIM_LEN));
@@ -142,7 +146,14 @@ unsafe extern "system" fn card_scale(card: usize, rbp: usize) -> f32 {
             return base;
         }
         match string_at(card).and_then(hero_of) {
-            Some(h) => base / h.ppu,
+            Some(h) => {
+                for lane in 0..2 {
+                    let off = std::ptr::read_unaligned((card + 0x20 + 4 * lane) as *const f32);
+                    let at = (xmm3 + 4 * lane) as *mut f32;
+                    std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) + off * (h.ppu - 1.0));
+                }
+                base / h.ppu
+            }
             None => base,
         }
     })
@@ -202,8 +213,9 @@ fn trampolines(page: usize) -> (Vec<u8>, usize, usize) {
     }
     c.extend_from_slice(&[0x48, 0x89, 0xd9]); // mov rcx, rbx
     c.extend_from_slice(&[0x48, 0x89, 0xea]); // mov rdx, rbp
+    c.extend_from_slice(&[0x4c, 0x8d, 0x44, 0x24, 0x40]); // lea r8, [rsp + 0x40]  (the saved xmm3)
     c.extend_from_slice(&[0x48, 0xb8]); // mov rax, imm64
-    c.extend_from_slice(&(card_scale as unsafe extern "system" fn(usize, usize) -> f32 as usize).to_le_bytes());
+    c.extend_from_slice(&(card_scale as unsafe extern "system" fn(usize, usize, usize) -> f32 as usize).to_le_bytes());
     c.extend_from_slice(&[0xff, 0xd0]); // call rax
     c.extend_from_slice(&[0x0f, 0xc6, 0xc0, 0x00]); // shufps xmm0, xmm0, 0
     c.extend_from_slice(&[0xf3, 0x0f, 0x7e, 0xc0]); // movq xmm0, xmm0 (upper lanes zero)
