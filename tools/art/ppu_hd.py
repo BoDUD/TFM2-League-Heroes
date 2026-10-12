@@ -47,7 +47,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
-PPU = {"yasuo": 3}
+PPU = {"yasuo": 3, "zeri": 3}   # zeri: dense strips drawn by tools/art/ppu_zeri.py (assets/source/ppu)
 PREFIX = "hd_"
 HEAD = {
     "yasuo": {"src": "yasuo_head.png", "scale": 2, "at": (75, 30), "box": (8, 22, 24, 37), "keep_row": 20,
@@ -376,6 +376,8 @@ def outside_head(hero, sheet):
     """hd pixels that differ from the 1x frame scaled, far from where its head is (the body must stay the 1x art)."""
     bad = []
     for tag in [t for t in sheet if t.startswith(PREFIX)]:
+        if os.path.isfile(os.path.join(SRC, f"{hero}_{tag[len(PREFIX):]}.png")):
+            continue                    # a drawn strip (league_irelia's): the whole frame is the drawing, not the 1x art
         for i, (b, _) in enumerate(sheet[tag]):
             a = up(sheet[tag[len(PREFIX):]][i][0], PPU[hero])
             diff = np.abs(a.astype(int) - b.astype(int)).max(axis=2) > 0
@@ -413,6 +415,9 @@ def strays(hero, sheet):
             holes = ndimage.binary_fill_holes(op) & ~op
             holes1 = up(ndimage.binary_fill_holes(one[..., 3] > 0) & ~(one[..., 3] > 0), PPU[hero])
             new_holes = holes & ~holes1
+            # a drawn strip's own gaps (league_zeri's under the arm) are its drawing: tools/art/ppu_<hero>.py checks them
+            if os.path.isfile(os.path.join(SRC, f"{hero}_{tag[len(PREFIX):]}.png")):
+                new_holes[:] = False
             if new_holes.any():
                 ys, xs = np.nonzero(new_holes)
                 bad.append(f"{tag}[{i}]: {int(new_holes.sum())} hole pixels at {list(zip(xs.tolist(), ys.tolist()))[:4]}")
