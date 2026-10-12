@@ -47,8 +47,25 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
-PPU = {"yasuo": 3, "zeri": 3}   # zeri: dense strips drawn by tools/art/ppu_zeri.py (assets/source/ppu)
+PPU = {"yasuo": 3, "gragas": 2, "zeri": 3}   # gragas, zeri: dense strips drawn by tools/art/ppu_gragas.py, ppu_zeri.py (assets/source/ppu)
 PREFIX = "hd_"
+# hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
+# the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much
+SHIFT = {"gragas": 6}
+# heroes whose dense frames are a new drawing, not the 1x art (league_zeri: Codex's pictures read at 111 rows): the
+# checks against the 1x frame scaled do not apply to them (tools/art/ppu_zeri.py checks its frames)
+REDRAWN = {"zeri"}
+
+
+def up1(hero, a):
+    """A 1x frame doubled to its dense size and moved down as the hero's dense frames are."""
+    b = up(a, PPU[hero])
+    k = SHIFT.get(hero, 0)
+    if k:
+        m = np.zeros_like(b)
+        m[k:] = b[:-k]
+        b = m
+    return b
 HEAD = {
     "yasuo": {"src": "yasuo_head.png", "scale": 2, "at": (75, 30), "box": (8, 22, 24, 37), "keep_row": 20,
               "on_top": [(25, 10), (25, 11)], "face_box": (13, 21, 28, 36), "tolerance": 30,
@@ -376,10 +393,10 @@ def outside_head(hero, sheet):
     """hd pixels that differ from the 1x frame scaled, far from where its head is (the body must stay the 1x art)."""
     bad = []
     for tag in [t for t in sheet if t.startswith(PREFIX)]:
-        if os.path.isfile(os.path.join(SRC, f"{hero}_{tag[len(PREFIX):]}.png")):
-            continue                    # a drawn strip (league_irelia's): the whole frame is the drawing, not the 1x art
+        if hero in REDRAWN:
+            continue                    # the whole frame is the drawing, not the 1x art
         for i, (b, _) in enumerate(sheet[tag]):
-            a = up(sheet[tag[len(PREFIX):]][i][0], PPU[hero])
+            a = up1(hero, sheet[tag[len(PREFIX):]][i][0])
             diff = np.abs(a.astype(int) - b.astype(int)).max(axis=2) > 0
             if not diff.any():
                 continue
@@ -413,10 +430,9 @@ def strays(hero, sheet):
                             if z * PPU[hero] ** 2 < 40)
             # holes: clear pockets shut in by the figure that the 1x frame does not have ("像素缺失")
             holes = ndimage.binary_fill_holes(op) & ~op
-            holes1 = up(ndimage.binary_fill_holes(one[..., 3] > 0) & ~(one[..., 3] > 0), PPU[hero])
+            holes1 = up1(hero, (ndimage.binary_fill_holes(one[..., 3] > 0) & ~(one[..., 3] > 0))[..., None])[..., 0]
             new_holes = holes & ~holes1
-            # a drawn strip's own gaps (league_zeri's under the arm) are its drawing: tools/art/ppu_<hero>.py checks them
-            if os.path.isfile(os.path.join(SRC, f"{hero}_{tag[len(PREFIX):]}.png")):
+            if hero in REDRAWN:         # the drawing's own gaps (under the arm), not leftovers
                 new_holes[:] = False
             if new_holes.any():
                 ys, xs = np.nonzero(new_holes)
