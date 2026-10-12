@@ -24,8 +24,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// (src/view.rs), each about the frame's centre / the unit's position - so the hero's dense frames are drawn lower by
 /// (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were (tools/art/ppu_gragas.py SHIFT).
 /// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too).
-/// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05)];
+/// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet, then 「感觉泽丽可以略微放大一点吧」「太小了点」:
+/// 110% (drawn RAISE rows higher: tools/art/ppu_zeri.py).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.10)];
 
 pub const PREFIX: &str = "hd_";
 

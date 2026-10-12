@@ -11,7 +11,7 @@
                             charge, the pulse into Darius (the hit, the slow); E - the dash burst, the piercing round
                             through Darius into Garen; she runs past them, turns round - facing left from here, as on
                             the red side - and fires R: the nova round her hits both, the overcharge, triple shots
-                            chaining lightning; 3x, her dense frames (PPU 3) at 105% as league.dll draws them,
+                            chaining lightning; 3x, her dense frames (PPU 3) at 110% as league.dll draws them,
                             the rounds from their levelled muzzle
 """
 import argparse
@@ -33,10 +33,10 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_zeri")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_zeri_fx", "league_zeri_big")}
-MUZZLE = 11                                      # the dense frames' levelled muzzle at 105%, px ahead of the pivot
-LIFT = -11                                       # and over it (build_zeri a_y)
+MUZZLE = 11.5                                    # the dense frames' levelled muzzle at 110%, px ahead of the pivot
+LIFT = -11.5                                     # and over it (build_zeri a_y)
 PPU = 3                                          # her dense frames (tools/art/ppu_hd.py)
-SCALE = 1.05                                     # as league.dll shows them (tools/art/ppu_zeri.py SCALE)
+SCALE = 1.10                                     # as league.dll shows them (tools/art/ppu_zeri.py SCALE)
 ROUND = P["burst_speed"] / 1000                  # px a tick
 SPARK = P["p_speed"] / 1000
 PULSE = P["w_speed"] / 1000
@@ -61,7 +61,7 @@ def showcase(out, z=3, step=40):
         x, y = me.pos(t)
         an = Anim(frames_of(sp, "hd_" + tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
         an.pos = me.pos
-        an.scale = z * SCALE / PPU                  # her dense frames at 105%, as the game draws her
+        an.scale = z * SCALE / PPU                  # her dense frames at 110%, as the game draws her
         body.append(an)
         t = an.until
         return an

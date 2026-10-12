@@ -15,7 +15,7 @@ on), every picture on a unit, the buffs and what plays on her (p_ready, w_cast, 
 symmetric left to right, the nova on the ground both ways (check() asserts it). Nothing rides in her action frames.
 Spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it. The rounds leave her pivot 9.7 px
 up (build_zeri a_y) and stay unseen for `lead` ticks, until they reach the levelled rifle's muzzle in her dense frames
-(11 px ahead of her and over her pivot at 105%: tools/art/ppu_zeri.py; the 1x rifle's was 26 ahead, 6 over, three ticks). Times from the kit (build_zeri.P, 60 ticks a second).
+(11.5 px ahead of her and over her pivot at 110%: tools/art/ppu_zeri.py; the 1x rifle's was 26 ahead, 6 over, three ticks). Times from the kit (build_zeri.P, 60 ticks a second).
 """
 import os
 import sys
