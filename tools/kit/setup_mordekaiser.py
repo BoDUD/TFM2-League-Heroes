@@ -38,7 +38,7 @@ R = "<#ef5350ff>"      # crowd control
 G_ = "<#7ee87eff>"     # heals, shields
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 2, "y": -36}, "center": {"x": 0, "y": -14}}
+VIEW = {"face": {"x": 1, "y": -32}, "center": {"x": 0, "y": -14}}
 
 
 def mag(k):

@@ -1140,8 +1140,8 @@
     },
     "league_mordekaiser": {
       "face": {
-        "x": 2,
-        "y": -36
+        "x": 1,
+        "y": -32
       },
       "center": {
         "x": 0,
