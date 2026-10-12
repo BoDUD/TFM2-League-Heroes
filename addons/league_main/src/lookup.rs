@@ -199,6 +199,31 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
     if !plausible(ctrl) || mask >= 1 << 20 || (mask + 1) & mask != 0 {
         return false;
     }
+    // A table the game copied from one already changed (the encyclopedia's and the BP grid's
+    // `asset/base/aseprite_resources/champions/<id>#anim`, made on first use) is dense already: idle as wide as
+    // hd_idle. 0.4.2 divided those a second time (idle 17.7 x 19: 「还是消失」). Only a table whose hd_idle is PPU
+    // times as wide as its idle is changed.
+    let first_w = |b: usize| -> Option<f32> {
+        let fp = q(b + 0x20);
+        (plausible(fp) && q(b + 0x28) > 0).then(|| std::ptr::read_unaligned((fp + 8) as *const f32))
+    };
+    let idle_hd = format!("{}idle", hd::PREFIX);
+    let (Some(wi), Some(wh)) = (bucket_of(t, b"idle").and_then(first_w), bucket_of(t, idle_hd.as_bytes()).and_then(first_w))
+    else {
+        return false;
+    };
+    if (wh - wi).abs() < 0.01 {
+        if let Ok(mut s) = DONE.lock() {
+            s.push((t, ctrl));
+        }
+        wlog(format!("{}: anim table {t:#x} is dense already (a copy of a changed one: idle {wi} wide)", hero.id));
+        return true;
+    }
+    if (wh - wi * hero.ppu).abs() > 0.5 {
+        wlog(format!("{}: anim table {t:#x}: idle {wi} wide, hd_idle {wh}: not PPU {} times - left alone", hero.id,
+            hero.ppu));
+        return false;
+    }
     // first everything new, read from the untouched table; then all written at once
     let mut plan: Vec<(usize, usize, usize)> = Vec::new(); // (bucket, new ptr, len)
     for i in 0..=mask {
@@ -497,6 +522,16 @@ mod tests {
             assert!(super::densify_table(t, &hero));
             let b = super::bucket_of(t, b"idle").unwrap();
             assert_eq!(std::ptr::read_unaligned(super::q(b + 32) as *const f32), 10.0);
+            // a copy the game makes of the changed table (another address, the same dense frames) stays as it is
+            let mut mem2 = mem.clone();
+            let base2 = mem2.as_mut_ptr() as usize;
+            let head2 = [base2 + ctrl, 3usize, 0, 2, 0, 0];
+            let t2 = head2.as_ptr() as usize;
+            assert!(super::densify_table(t2, &hero));
+            for key in [&b"idle"[..], b"hd_idle"] {
+                let b = super::bucket_of(t2, key).unwrap();
+                assert_eq!(std::ptr::read_unaligned((super::q(b + 32) + 8) as *const f32), 10.0, "{key:?} width");
+            }
         }
     }
 }
