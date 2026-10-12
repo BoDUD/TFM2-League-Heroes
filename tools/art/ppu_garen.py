@@ -51,6 +51,11 @@ BLADE = ((-5.2, 1.7), (13.4, 9.9), 2.5)
 # line through (220, 459.05) at slope 0.4615, half width 16.6 across it (outline outside), from the guard (x 200)
 # straight to x 322, then both edges meet on the middle line at x 345. Its colours: the picture's own, for each square
 # the median of the picture's blade pixels at the same distance from the middle line, within 12 px along it.
+# the hilt behind the near fist (the user, again: 「还是歪的」 - the picture's grip and pommel run from the guard to the
+# left at slope 0.2, the blade at 0.46: the sword bent ~14 degrees at the guard). The grip ends in the fist instead, as
+# oppi's Garen holds his: the pommel and the grip left of the fist (picture box x 76-107, rows 416-444; the fist starts
+# at x 107) are taken out and what lies round them (the cape, the dark under-suit) fills the hole, nearest pixel first.
+HILT_SRC = (76, 416, 107, 444)
 BLADE_SRC = {"seed": (270, 470), "through": (220, 459.05), "slope": 0.4615, "half": 16.6, "start": 200,
              "bend": 322, "tip": 345, "along": 12}
 
@@ -67,6 +72,23 @@ def regrid(fr, scale):
     fx = G.feet_mid(fr, scale, px=3)
     out, u0, r0 = G.render(fr, scale, scale, fx, y1, X0=0.0, Y0=-0.5, cut=0.5)
     return out, u0, r0, (fx, y1, scale)
+
+
+def drop_pommel(fr):
+    """HILT_SRC's pommel and grip out of idle picture 1 (strip px), filled from the nearest pixels round them; the
+    cape's blue inside the box stays."""
+    x0, y0, x1, y1 = HILT_SRC
+    a = fr.a.copy()
+    X0, Y0, X1, Y1 = x0 - fr.ox, y0 - fr.oy, x1 - fr.ox, y1 - fr.oy
+    rgb = a[..., :3] * 255
+    box = np.zeros(a.shape[:2], bool)
+    box[Y0:Y1, X0:X1] = True
+    cape = (rgb[..., 2] > 110) & (rgb[..., 0] < 50) & (rgb[..., 2] > rgb[..., 1] + 60)
+    hole = box & (a[..., 3] > 0.5) & ~cape
+    _, (iy, ix) = ndimage.distance_transform_edt(hole, return_indices=True)
+    a[hole] = a[iy[hole], ix[hole]]
+    fr.a = a
+    return fr
 
 
 def blade_coords(x, y):
@@ -133,7 +155,7 @@ def straight_blade(a, u0, r0, geo, pal):
 def design():
     """The idle design at both densities from picture 1 of garen_idle.png: {"hd": (array, u0, r0), "1x": ...} on
     ROWS and ROWS_1X rows, one palette (made on the hd one), crumbs dropped."""
-    fr = load_strip("idle")[0]
+    fr = drop_pommel(load_strip("idle")[0])
     x0, y0, x1, y1 = fr.bbox(0.5)
     hd = regrid(fr, ROWS / (y1 - y0))
     pal = G.Palette([hd[0]], colors=COLOURS)
@@ -211,7 +233,7 @@ def blade_mask(a, k):
     t = ((px - x0) * dx + (py - y0) * dy) / (dx * dx + dy * dy)
     d = np.hypot(px - (x0 + t * dx), py - (y0 + t * dy))
     dark = a[..., :3].astype(int).sum(-1) < 210                          # its outline, a square further out
-    return (a[..., 3] > 0) & (t >= 0) & (((t <= 1.08) & (d <= r)) | (dark & (t <= 1.15) & (d <= r + 0.6)))
+    return (a[..., 3] > 0) & (t >= 0) & (((t <= 1.08) & (d <= r)) | (dark & (t <= 1.25) & (d <= r + 0.6)))
 
 
 def eye(a):
@@ -225,21 +247,144 @@ def eye(a):
     return float(xs.mean()), float(ys.mean())
 
 
-def breathe(a, k):
-    """8 idle frames of the design `a` (k px per 1x px): the blade lifted out (the squares it covered filled with the
-    body round them), idle_breathe.py's breath at k x its 1x rows (rounded: the same dip on screen), the blade stamped back with the body."""
-    blade = blade_mask(a, k)
-    body_rows = [int(round(v * k)) for v in IB.BODY]
-    lift = a.copy()
-    lift[blade] = 0
-    lift = N.fill_behind(lift, blade)
-    frames, rows = IB.breathe(lift, eye(a), body=body_rows)
-    ys, xs = np.nonzero(blade)
-    out = []
-    for f, dip, lean in zip(frames, body_rows, IB.SWAY):
-        f[ys + 2 + dip, xs + 2 + lean] = a[ys, xs]
-        out.append(np.ascontiguousarray(f[2:-2, 2:-2]))
-    return out, rows, int(blade.sum())
+# the idle as oppi's Garen breathes (the user: 「待机动作不要只有上下抖动 学oppi」 - oppi's lol_garen_garen idle, 7 x 100
+# ms: the chest rises a square, the shoulders and arms open out, the head comes up two squares, the cape and the sword
+# go with them, the legs stay). Parts in the idle hd frame (142 x 138; polygons in its px, a 1x frame reads them
+# through its centre): each a layer lifted out of the body (the squares under it filled from the nearest body square,
+# so a part moved a square or two shows body, not a hole), the rest of the body rising over the thighs (rows doubled
+# where a doubled row shows least, idle_breathe.py's pick), the layers put back moved:
+#   cape        the blue behind the near leg; it rises with the body and its hem swings out (C, at the bottom)
+#   pad_rear    the far shoulder's pauldron: up with the body, out to the left (P)
+#   arm_front   the near pauldron, arm and gauntlet: up, out to the right (F)
+#   head        hair, face, ears (not the scarf): up with the body and a little more, a frame late (H)
+#   blade       the sword from the guard on (the guard rides on the body): up with the body
+IDLE_FRAME = (142, 138)
+PARTS = {
+    "cape": [(4, 48), (32, 48), (32, 90), (4, 90)],
+    "pad_rear": [(12, 31), (40, 31), (40, 40), (36, 52), (12, 52)],
+    "arm_front": [(67, 32), (80, 32), (90, 50), (90, 64), (84, 80), (72, 80), (68, 64)],
+    "head": [(28, 4), (81, 4), (81, 24), (76, 30), (70, 36), (64, 41), (48, 42), (36, 38), (28, 30)],
+}
+IDLE_MS = 125
+RISE = {  # hd px per frame (the 1x frames: /2.5 rounded)
+    "U": [0, 1, 2, 3, 3, 2, 1, 0],
+    "H": [0, 0, 1, 1, 2, 2, 1, 0],
+    "P": [0, 0, 1, 1, 2, 1, 1, 0],
+    "F": [0, 1, 1, 2, 2, 1, 1, 0],
+    "C": [0, 1, 1, 2, 2, 2, 1, 0],
+}
+SEAM_ZONE = (78, 90)            # hd rows where the body's rise is taken up (the thighs, over the knees)
+
+
+def part_masks(a, k):
+    """{part: mask} of the frame `a` (k px per 1x px)."""
+    from PIL import ImageDraw
+    W, H = IDLE_FRAME
+    h, w = a.shape[:2]
+    yy, xx = np.mgrid[0:h, 0:w]
+    X = np.clip((W / 2 + ((xx + 0.5) - w / 2) * PPU / k).astype(int), 0, W - 1)
+    Y = np.clip((H / 2 + ((yy + 0.5) - h / 2) * PPU / k).astype(int), 0, H - 1)
+    rgb = a[..., :3].astype(int)
+    op = a[..., 3] > 0
+    blue = (rgb[..., 2] > 110) & (rgb[..., 0] < 60) & (rgb[..., 2] > rgb[..., 1] + 50)
+    sat = rgb.max(-1) - rgb.min(-1)
+    steel = (sat < 40) & (rgb.sum(-1) > 240)
+    gold = (rgb[..., 0] > 200) & (rgb[..., 1] > 120) & (rgb[..., 2] < 90) & (sat > 100)
+    lab, n = ndimage.label(blue)
+    sizes = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
+    big_blue = np.isin(lab, [i + 1 for i, v in enumerate(sizes) if v > 30 * (k / PPU) ** 2])   # scarf, cape, tabard
+    out = {}
+    for name, poly in PARTS.items():
+        im = Image.new("L", (W, H), 0)
+        ImageDraw.Draw(im).polygon(poly, fill=1)
+        inside = (np.asarray(im) > 0)[Y, X]
+        if name == "cape":
+            dark = op & (rgb.sum(-1) < 150)
+            near = ndimage.binary_dilation(blue & inside, np.ones((3, 3), bool))
+            out[name] = op & inside & (blue | (dark & near & (X < 24)))      # its outline, left of the leg
+        elif name == "head":                     # the eyes' blue is the head's; the pauldrons' metal at its sides not
+            out[name] = op & inside & ~big_blue & ~((steel | gold) & (Y >= 33) & ((X < 38) | (X > 66)))
+        else:                                    # the pauldrons' blue gems go with them
+            out[name] = op & inside & ~big_blue
+    out["blade"] = blade_mask(a, k)
+    for name in ("pad_rear", "arm_front", "head"):
+        out[name] &= ~out["blade"]
+    return out
+
+
+def shifted(layer, dx, dy):
+    out = np.zeros_like(layer)
+    h, w = layer.shape[:2]
+    ys, xs = np.nonzero(layer[..., 3])
+    Y, X = ys + dy, xs + dx
+    ok = (Y >= 0) & (Y < h) & (X >= 0) & (X < w)
+    out[Y[ok], X[ok]] = layer[ys[ok], xs[ok]]
+    return out
+
+
+def over(dst, src):
+    m = src[..., 3] > 0
+    dst[m] = src[m]
+    return dst
+
+
+def rig_idle(a, k):
+    """8 idle frames of the design `a` (k px per 1x px), see PARTS and RISE. -> (frames, report)."""
+    m = part_masks(a, k)
+    sc = {n: [int(round(v * k / PPU)) for v in vals] for n, vals in RISE.items()}
+    layers = {n: np.where(m[n][..., None], a, 0).astype(np.uint8) for n in m}
+    base = a.copy()
+    front = m["pad_rear"] | m["arm_front"] | m["head"] | m["blade"]
+    base[front | m["cape"]] = 0
+    # the squares under the parts in front: the nearest body square (thin strips show when a part moves); under the
+    # head only its lowest rows, the scarf or pauldron under them carried up (the head rises 2 squares more than the
+    # body); beside it the ground shows
+    solid = base[..., 3] > 0
+    _, (iy, ix) = ndimage.distance_transform_edt(~solid, return_indices=True)
+    side = m["pad_rear"] | m["arm_front"]
+    base[side] = base[iy[side], ix[side]]
+    base = N.fill_behind(base, m["blade"])                     # the blade lies out in the air: only inside the body
+    lift = max(1, max(int(round(v * k / PPU)) for v in RISE["H"]))
+    for x in range(a.shape[1]):
+        col = np.nonzero(m["head"][:, x])[0]
+        if not len(col):
+            continue
+        r = int(col.max())
+        if r + 1 < a.shape[0] and base[r + 1, x, 3] > 0:
+            base[max(0, r - lift + 1):r + 1, x] = base[r + 1, x]
+    op = base[..., 3] > 0
+    ys = np.nonzero(op.any(1))[0]
+    sole = int(ys.max())
+    lo = int(round(a.shape[0] / 2 + (SEAM_ZONE[0] - IDLE_FRAME[1] / 2) * k / PPU))
+    hi = min(int(round(a.shape[0] / 2 + (SEAM_ZONE[1] - IDLE_FRAME[1] / 2) * k / PPU)), sole - 3)
+    n_seam = max(1, max(sc["U"]))
+    seams, cost = IB.pick(IB.merge_cost(base, lo, hi, feet=sole - 3), IB.groups(base, lo, hi), lo, n_seam, a.shape[1])
+    seams = np.sort(seams, axis=0)                             # the upper first (a lower one never moves after)
+    frames = []
+    for t in range(8):
+        U, Hh, P, F, C = (sc[n][t] for n in ("U", "H", "P", "F", "C"))
+        b = base.copy()
+        for j in range(U):
+            b = IB.double(b, seams[j])
+        f = np.zeros_like(a)
+        cape = layers["cape"]
+        if C:                                                  # the hem swings out: rows further down move further
+            cy = np.nonzero(cape[..., 3].any(1))[0]
+            if len(cy):
+                top, bot = cy.min(), cy.max()
+                c2 = np.zeros_like(cape)
+                for y in range(top, bot + 1):
+                    dx = -int(round(C * (y - top) / max(1, bot - top)))
+                    c2[y] = np.roll(cape[y], dx, axis=0)
+                cape = c2
+        over(f, shifted(cape, 0, -U))
+        over(f, b)
+        over(f, shifted(layers["pad_rear"], -P, -U))
+        over(f, shifted(layers["arm_front"], F, -U))
+        over(f, shifted(layers["head"], 0, -U - Hh))
+        over(f, shifted(layers["blade"], 0, -U))
+        frames.append(f)
+    return frames, {"seam_cost": cost, "seam_rows": (lo, hi), "parts": {n: int(v.sum()) for n, v in m.items()}}
 
 
 def gif(frames, path, zoom, ms):
@@ -261,18 +406,17 @@ def main():
     one, hd = fit(pair, sole_dy, feet_dx, size)
     print("idle 1x", one.shape[1], "x", one.shape[0], "(was", size, ") hd", hd.shape[1], "x", hd.shape[0],
           "colours", len(pal.colors))
-    idle_hd, rows, n = breathe(hd, PPU)
-    idle_1x, rows1, n1 = breathe(one, 1)
-    print("idle breath hd: cut cost", rows["dip_cost"], "lean", rows["lean_cost"], "nod", rows["neck"] is not None,
-          "blade", n, "| 1x:", rows1["dip_cost"], rows1["lean_cost"], rows1["neck"] is not None, "blade", n1)
+    idle_hd, rep = rig_idle(hd, PPU)
+    idle_1x, rep1 = rig_idle(one, 1)
+    print("idle hd", rep, "| 1x", rep1)
     if args.review:
         os.makedirs(args.review, exist_ok=True)
         Image.fromarray(hd).resize((hd.shape[1] * 6, hd.shape[0] * 6), Image.NEAREST).save(
             os.path.join(args.review, "garen_design_hd_6x.png"))
         Image.fromarray(one).resize((one.shape[1] * 15, one.shape[0] * 15), Image.NEAREST).save(
             os.path.join(args.review, "garen_design_1x_15x.png"))
-        gif(idle_hd, os.path.join(args.review, "garen_hd_idle.gif"), 4, IB.MS)
-        gif(idle_1x, os.path.join(args.review, "garen_1x_idle.gif"), 10, IB.MS)
+        gif(idle_hd, os.path.join(args.review, "garen_hd_idle.gif"), 4, IDLE_MS)
+        gif(idle_1x, os.path.join(args.review, "garen_1x_idle.gif"), 10, IDLE_MS)
 
 
 if __name__ == "__main__":
