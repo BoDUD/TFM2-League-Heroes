@@ -1108,6 +1108,16 @@
         "y": -12
       }
     },
+    "league_kassadin": {
+      "face": {
+        "x": 1,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_corki": {
       "face": {
         "x": 6,

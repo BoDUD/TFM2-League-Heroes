@@ -645,6 +645,13 @@
         "skill2": "两把飞刃合拢，路线上的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>，英雄被<#ff9028ff>印记<>。冷却时贴身改用<#ff9028ff>距破之舞<>：蓄力减免50%普攻伤害，再斩出<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理伤害<>。",
         "ult": "射出刃群，碰到英雄炸开，扇形内敌人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理伤害<>、<#ef5350ff>减速70%并缴械1秒<>，英雄被<#ff9028ff>印记<>；留下刃墙<#ffb900ff>2.5秒<>，墙内敌人减速40%。"
       },
+      "league_kassadin": {
+        "name": "卡萨丁",
+        "attack": "<#ff9028ff>虚空之石<>：受到的魔法伤害降低约10%。<#ff9028ff>虚空之刃<>：普攻附带<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>；每<#ffb900ff>7秒<>强化一次普攻，额外造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。",
+        "skill": "向目标发射虚无法球，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，打断英雄的动作。自身获得50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%护盾<#ffb900ff>1.5秒<>。",
+        "skill2": "向前方锥形释放能量脉冲，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速50%<><#ffb900ff>1秒<>。每次施放虚无法球或虚空行走都会缩短它的冷却。",
+        "ult": "闪现到附近一名敌方英雄身边，对周围敌人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。<#ffb900ff>15秒<>内再次施放叠加一层（最多<#ffb900ff>3层<>），每层额外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。"
+      },
       "league_corki": {
         "name": "库奇",
         "attack": "<#ff9028ff>海克斯科技军备<>：普攻<#ffffffff>20%<>伤害转为<#ffffffff>真实伤害<>。<#ff9028ff>特别快递<>：开局、复活后及每<#ffb900ff>45秒<>，下次瓦尔基里俯冲变成弹药包：起飞时<#ef5350ff>击退<>附近英雄并造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>，飞得更远、火焰更宽更久，加速30%。",
@@ -1113,6 +1120,11 @@
         "skill1": "利刃冲击",
         "skill2": "比翼双刃",
         "ult": "先锋之刃"
+      },
+      "league_kassadin": {
+        "skill1": "虚无法球",
+        "skill2": "能量脉冲",
+        "ult": "虚空行走"
       },
       "league_corki": {
         "skill1": "磷光炸弹",
@@ -1767,6 +1779,13 @@
         "skill2": "兩把飛刃合攏，路線上的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>，英雄被<#ff9028ff>印記<>。冷卻時貼身改用<#ff9028ff>不屈祕舞<>：蓄力減免50%普攻傷害，再斬出<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理傷害<>。",
         "ult": "射出刃群，碰到英雄炸開，扇形內敵人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理傷害<>、<#ef5350ff>緩速70%並繳械1秒<>，英雄被<#ff9028ff>印記<>；留下刃牆<#ffb900ff>2.5秒<>，牆內敵人緩速40%。"
       },
+      "league_kassadin": {
+        "name": "卡薩丁",
+        "attack": "<#ff9028ff>虛空之石<>：受到的魔法傷害降低約10%。<#ff9028ff>虛空之刃<>：普攻附帶<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>；每<#ffb900ff>7秒<>強化一次普攻，額外造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。",
+        "skill": "向目標發射虛無法球，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，打斷英雄的動作。自身獲得50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%護盾<#ffb900ff>1.5秒<>。",
+        "skill2": "向前方錐形釋放能量脈衝，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速50%<><#ffb900ff>1秒<>。每次施放虛無法球或虛空行走都會縮短它的冷卻。",
+        "ult": "閃現到附近一名敵方英雄身邊，對周圍敵人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。<#ffb900ff>15秒<>內再次施放疊加一層（最多<#ffb900ff>3層<>），每層額外<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。"
+      },
       "league_corki": {
         "name": "庫奇",
         "attack": "<#ff9028ff>海克斯軍火<>：普攻<#ffffffff>20%<>傷害轉為<#ffffffff>真實傷害<>。<#ff9028ff>特別快遞<>：開局、復活後及每<#ffb900ff>45秒<>，下次女武神特攻變成彈藥包：起飛時<#ef5350ff>擊退<>附近英雄並造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>，飛得更遠、火焰更寬更久，加速30%。",
@@ -2235,6 +2254,11 @@
         "skill1": "利刃衝擊",
         "skill2": "無瑕重刃",
         "ult": "護劍化形"
+      },
+      "league_kassadin": {
+        "skill1": "虛無法球",
+        "skill2": "能量脈衝",
+        "ult": "虛空行走"
       },
       "league_corki": {
         "skill1": "磷光炸彈",
@@ -2889,6 +2913,13 @@
         "skill2": "Two blades converge: enemies between take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned 0.75s<>; champions are <#ff9028ff>Marked<>. On cooldown, up close she uses <#ff9028ff>Defiant Dance<>: a guard taking 50% less attack damage, then a strike for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>physical damage<>.",
         "ult": "Fires blades that burst on the first champion: enemies in the cone take <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>physical damage<>, are <#ef5350ff>slowed 70% and disarmed 1s<>, champions <#ff9028ff>Marked<>. A blade wall stays <#ffb900ff>2.5s<>, slowing enemies inside 40%."
       },
+      "league_kassadin": {
+        "name": "Kassadin",
+        "attack": "<#ff9028ff>Void Stone<>: takes about 10% less magic damage. <#ff9028ff>Nether Blade<>: attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>; every <#ffb900ff>7s<> one attack deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> more.",
+        "skill": "Fires an orb at the target: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>, interrupting a champion. He gains a 50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% shield for <#ffb900ff>1.5s<>.",
+        "skill2": "Releases a pulse in a cone ahead: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and a <#ef5350ff>50% slow<> for <#ffb900ff>1s<>. Each Null Sphere or Riftwalk he casts shortens its cooldown.",
+        "ult": "Blinks next to a nearby enemy champion: <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> round him. Cast again within <#ffb900ff>15s<> for a stack (at most <#ffb900ff>3<>), each adding <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<>."
+      },
       "league_corki": {
         "name": "Corki",
         "attack": "<#ff9028ff>Hextech Munitions<>: 20% of his attacks' damage is <#ffffffff>true damage<>. <#ff9028ff>Special Delivery<>: at the start, after a respawn and every <#ffb900ff>45s<> his next Valkyrie is the Package: the take-off <#ef5350ff>knocks back<> champions near him for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>, he flies farther, the fire is wider and lasts longer, and he gains 30% move speed.",
@@ -3357,6 +3388,11 @@
         "skill1": "Bladesurge",
         "skill2": "Flawless Duet",
         "ult": "Vanguard's Edge"
+      },
+      "league_kassadin": {
+        "skill1": "Null Sphere",
+        "skill2": "Force Pulse",
+        "ult": "Riftwalk"
       },
       "league_corki": {
         "skill1": "Phosphorus Bomb",
@@ -4011,6 +4047,13 @@
         "skill2": "두 칼날이 모여 사이의 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>, 챔피언에 <#ff9028ff>표식<>. 재사용 대기 중 근접하면 <#ff9028ff>저항의 춤<>: 받는 기본 공격 피해 50% 감소 후 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>의 <#ff9028ff>물리 피해<>.",
         "ult": "칼날이 첫 챔피언에서 터져 부채꼴의 적에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>70% 둔화·1초 무장 해제<>, 챔피언에 <#ff9028ff>표식<>. 칼날 벽이 <#ffb900ff>2.5초<> 남아 안의 적 40% 둔화."
       },
+      "league_kassadin": {
+        "name": "카사딘",
+        "attack": "<#ff9028ff>공허석<>: 받는 마법 피해 약 10% 감소. <#ff9028ff>황천의 검<>: 기본 공격에 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가, <#ffb900ff>7초<>마다 기본 공격 하나가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 추가.",
+        "skill": "대상에게 구체를 발사해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>, 챔피언의 동작을 끊음. 자신은 <#ffb900ff>1.5초<> 동안 50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% 보호막.",
+        "skill2": "전방 원뿔로 파동을 방출해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1초<> <#ef5350ff>50% 둔화<>. 무의 구체나 균열 이동을 쓸 때마다 재사용 대기시간 감소.",
+        "ult": "근처 적 챔피언 옆으로 순간이동해 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>. <#ffb900ff>15초<> 안에 다시 쓰면 중첩 (최대 <#ffb900ff>3<>), 중첩마다 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가."
+      },
       "league_corki": {
         "name": "코르키",
         "attack": "<#ff9028ff>마법공학 탄약<>: 기본 공격 피해의 20%가 <#ffffffff>고정 피해<>. <#ff9028ff>특급 배송<>: 시작 시, 부활 후, <#ffb900ff>45초<>마다 다음 발키리가 탄약 꾸러미: 이륙 시 주변 챔피언을 <#ef5350ff>밀쳐내고<> <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>, 더 멀리 날고 불길이 더 넓고 오래가며 이동 속도 30% 증가.",
@@ -4479,6 +4522,11 @@
         "skill1": "칼날 쇄도",
         "skill2": "쌍검협무",
         "ult": "선봉진격검"
+      },
+      "league_kassadin": {
+        "skill1": "무의 구체",
+        "skill2": "힘의 파동",
+        "ult": "균열 이동"
       },
       "league_corki": {
         "skill1": "인광탄",
@@ -5133,6 +5181,13 @@
         "skill2": "2本の刃が合わさり間の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>、チャンピオンに<#ff9028ff>マーク<>。CD中、近くでは<#ff9028ff>不屈の舞<>：通常攻撃のダメージ50%軽減後、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>の<#ff9028ff>物理ダメージ<>。",
         "ult": "刃が最初のチャンピオンで炸裂、扇状の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>70%スロウと1秒武装解除<>、チャンピオンに<#ff9028ff>マーク<>。刃の壁が<#ffb900ff>2.5秒<>残り、内側の敵に40%スロウ。"
       },
+      "league_kassadin": {
+        "name": "カサディン",
+        "attack": "<#ff9028ff>ヴォイドストーン<>：受ける魔法ダメージ約10%軽減。<#ff9028ff>ネザーブレード<>：通常攻撃に<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>7秒<>ごとに1回<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>追加。",
+        "skill": "対象に球を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、チャンピオンの動作を中断。自身に<#ffb900ff>1.5秒<>50 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%のシールド。",
+        "skill2": "前方の扇形に波動を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>50%スロウ<>。ヴォイドスフィアかリフトウォークを使うたびCD短縮。",
+        "ult": "近くの敵チャンピオンの傍へ瞬間移動し、周囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>15秒<>以内の再使用でスタック（最大<#ffb900ff>3<>）、1つごとに<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。"
+      },
       "league_corki": {
         "name": "コーキ",
         "attack": "<#ff9028ff>ヘクステック榴散弾<>：通常攻撃ダメージの20%が<#ffffffff>確定ダメージ<>。<#ff9028ff>荷物便<>：開始時・復活後・<#ffb900ff>45秒<>ごとに次のワルキューレ機行が強化：離陸時に周囲のチャンピオンを<#ef5350ff>ノックバック<>し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>、より遠く飛び炎が広く長く、移動速度30%増加。",
@@ -5601,6 +5656,11 @@
         "skill1": "瞬刃",
         "skill2": "無欠の連舞",
         "ult": "先陣の刃"
+      },
+      "league_kassadin": {
+        "skill1": "ヴォイドスフィア",
+        "skill2": "ヴォイドパルス",
+        "ult": "リフトウォーク"
       },
       "league_corki": {
         "skill1": "閃光弾",
