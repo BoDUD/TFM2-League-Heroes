@@ -12,14 +12,10 @@ use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex, Once};
 
+use super::build::Build;
 use super::hd::{self, Hero};
 use super::wlog;
 
-const FN_RVA: usize = 0x2808e30;
-const SLOT_RVA: usize = 0x3c31358;
-/// push r15; push r14; push r13; push r12; push rsi; push rdi; push rbp; push rbx; sub rsp, 0x88; movdqa [rsp+..], xmm7
-const FN_HEAD: [u8; 24] = [0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x55, 0x53, 0x48, 0x81, 0xec, 0x88,
-    0x00, 0x00, 0x00, 0x66, 0x0f, 0x7f, 0x7c, 0x24];
 const TABLE: usize = 0x138;
 const TABLE_MASK: usize = 0x140;
 const TABLE_ITEMS: usize = 0x150;
@@ -63,6 +59,15 @@ extern "system" {
     fn GetCurrentProcess() -> isize;
     fn GetModuleHandleW(name: *const u16) -> usize;
     fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
+}
+
+/// `len` bytes of the game EXE at `rva` (None when unreadable).
+pub fn read_rva(rva: usize, len: usize) -> Option<Vec<u8>> {
+    let module = unsafe { GetModuleHandleW(std::ptr::null()) };
+    if module == 0 {
+        return None;
+    }
+    read(module + rva, len)
 }
 
 fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
@@ -142,15 +147,12 @@ unsafe fn shrink(world: usize) {
     }
 }
 
-fn install() -> Result<(usize, usize), String> {
+fn install(b: &Build) -> Result<(usize, usize), String> {
     let module = unsafe { GetModuleHandleW(std::ptr::null()) };
     if module == 0 {
         return Err("no module handle".into());
     }
-    if read(module + FN_RVA, FN_HEAD.len()).as_deref() != Some(&FN_HEAD[..]) {
-        return Err("not game 0.6.3 (the display handler differs)".into());
-    }
-    let slot = module + SLOT_RVA;
+    let slot = module + b.display_slot;
     let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;
     if !plausible(cur) {
         return Err(format!("the slot holds {cur:#x}"));
@@ -167,13 +169,13 @@ fn install() -> Result<(usize, usize), String> {
 }
 
 /// 加载时换槽（一个进程只换一次）。
-pub fn install_once() {
+pub fn install_once(b: &'static Build) {
     HOOK.call_once(|| {
         let module = unsafe { GetModuleHandleW(std::ptr::null()) };
-        match install() {
+        match install(b) {
             Ok((slot, prev)) => wlog(format!(
                 "battlefield scale on: display slot {slot:#x} now calls this pack, then {} ({prev:#x})",
-                if prev == module + FN_RVA { "the game's own handler" } else { "another mod's handler (chained)" }
+                if prev == module + b.display_fn { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("battlefield scale off ({e})")),
         }
