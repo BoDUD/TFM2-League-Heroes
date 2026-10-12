@@ -51,7 +51,7 @@ PPU = {"yasuo": 3, "gragas": 2}   # gragas: dense strips drawn by tools/art/ppu_
 PREFIX = "hd_"
 # hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
 # the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much
-SHIFT = {"gragas": 4}
+SHIFT = {"gragas": 6}
 
 
 def up1(hero, a):

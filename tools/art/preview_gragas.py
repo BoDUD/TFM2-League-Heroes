@@ -11,7 +11,7 @@
                               sets off, the belly slam (Darius stunned), the drink, the rage steam and the next punch's
                               ale burst; R - the cask hurled behind Darius onto Garen, the explosion flinging both toward
                               him; the swig's heal at every skill; 3x. He is drawn as the game draws him on the
-                              battlefield: his dense (hd_) frames at PPU 2 and 85% (league_main hd.rs SIZES).
+                              battlefield: his dense (hd_) frames at PPU 2 and 80% (league_main hd.rs SIZES).
 """
 import argparse
 import os
@@ -51,7 +51,7 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        # his dense frames at the battlefield's size (PPU 2, then 85%: league_main hd.rs SIZES), as the game draws him
+        # his dense frames at the battlefield's size (PPU 2, then 80%: league_main hd.rs SIZES), as the game draws him
         an = Anim(frames_of(sp, "hd_" + tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
         an.scale = z * ppu_gragas.SIZE / ppu_gragas.K

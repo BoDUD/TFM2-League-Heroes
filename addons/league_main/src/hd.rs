@@ -16,8 +16,8 @@ pub const HEROES: &[(&str, f32, &str)] =
 /// the BP slots draw him that much smaller, the UVs unchanged) and the battlefield scale is the game's / PPU x size
 /// (src/view.rs), each about the frame's centre / the unit's position - so the hero's dense frames are drawn lower by
 /// (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were (tools/art/ppu_gragas.py SHIFT).
-/// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」 (the cards and the encyclopedia too).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.85)];
+/// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80)];
 
 pub const PREFIX: &str = "hd_";
 

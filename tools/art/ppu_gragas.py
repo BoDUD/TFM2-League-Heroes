@@ -37,9 +37,9 @@ K = 2
 MIN_HEAD = 0.6                   # share of the design head's squares a frame must hold to take the dense squares
 PIECE = 4                        # smallest piece of equal squares that turns dense
 # On the battlefield he is drawn at SIZE of the 1x size (addons/league_main/src/hd.rs SIZES: the user, 「酒桶模型缩小一点
-# 太大了」, 85%), scaled about his position, so every dense frame is drawn SHIFT dense px lower: the soles, 2 x 11.5 dense
-# px under the pivot, land (23 + SHIFT) / 2 x SIZE = 11.5 under it again (SHIFT = 23 (1 / SIZE - 1) = 4.06).
-SIZE = 0.85
+# 太大了」, 85%, then 80%: 「怎么看起来还是比诺手高这么多」), scaled about his position, so every dense frame is drawn SHIFT dense px lower: the soles, 2 x 11.5 dense
+# px under the pivot, land (23 + SHIFT) / 2 x SIZE = 11.5 under it again (SHIFT = 23 (1 / SIZE - 1) = 5.75).
+SIZE = 0.80
 SHIFT = round(23 * (1 / SIZE - 1))
 assert P.SHIFT.get("gragas") == SHIFT, "ppu_hd.SHIFT must match"
 HEAD_ROWS, HEAD_COLS = (1, 11), (14, 30)   # the design's head in its table: the dome, brows, eyes, nose, moustache
