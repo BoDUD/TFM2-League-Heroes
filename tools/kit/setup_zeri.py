@@ -38,10 +38,10 @@ R = "<#ef5350ff>"      # crowd control
 Wh = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 1, "y": -34}, "center": {"x": 0, "y": -12}}
-# face: tfm2_ase.py face's rule on the dense idle (league.dll shows hd_idle on the cards, the encyclopedia and the face
-# icons too: the crown 34.3 px above the feet, the head's middle 0.7 px behind the pivot; the 1x design's was (2, -38)).
-# No banpick_center: the dense idle tops at -25.5 from the frame centre, under the card's -28 (the 1x one, at -28.5,
+VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -12}}
+# face: tfm2_ase.py face's rule on the dense idle as league.dll shows it on the cards, the encyclopedia and the face icons
+# (105%, tools/art/ppu_zeri.py SCALE: the crown 36 px above the feet; the 1x design's was (2, -38)).
+# No banpick_center: the dense idle tops at -27.5 from the frame centre, under the card's -28 (the 1x one, at -28.5,
 # had -11; the 0 she once had put the pivot on the canvas bottom and clipped her under the chest: 「泽丽BP界面位置不对」)
 
 
