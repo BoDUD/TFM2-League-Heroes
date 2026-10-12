@@ -16,6 +16,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
     ("league_ashe", 5.4571, include_str!("../../../league/champions/league_ashe#anim.fanim")),
     ("league_irelia", 2.0, include_str!("../../../league/champions/league_irelia#anim.fanim")),
+    ("league_kassadin", 3.622, include_str!("../../../league/champions/league_kassadin#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -25,7 +26,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were (tools/art/ppu_gragas.py SHIFT).
 /// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too).
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05)];
+/// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); his hd frames drawn RAISE
+/// rows higher (tools/art/rig_kassadin.py).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10)];
 
 pub const PREFIX: &str = "hd_";
 

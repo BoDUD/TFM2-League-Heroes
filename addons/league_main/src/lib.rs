@@ -24,7 +24,7 @@ mod lookup;
 mod view;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.5.5";
+const VERSION: &str = "0.6.9";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 

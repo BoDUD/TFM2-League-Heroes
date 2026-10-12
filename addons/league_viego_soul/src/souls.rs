@@ -72,6 +72,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_jinx", "range", &["attack", "dead", "hit", "idle", "rocket", "run", "skill", "skill2", "ult"]),
     ("league_kaisa", "range", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult", "ult_dash", "ult_land"]),
     ("league_karma", "util", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_skill_e", "hd_ult", "hit", "idle", "run", "skill", "skill2", "skill_e", "ult"]),
+    ("league_kassadin", "assassin", &["attack", "attack_w", "dead", "hd_attack", "hd_attack_w", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_ult", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_kayle", "mage", &["attack", "attack_melee", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_kayn", "assassin", &["attack", "dead", "hit", "hw_hit", "hw_idle", "hw_run", "hw_skill", "idle", "r_hidden", "rh_attack", "rh_dead", "rh_hit", "rh_idle", "rh_run", "rh_skill", "rh_skill2", "rh_skill2_fx1", "rh_transform", "rh_ult", "rh_ult_exit", "rh_ult_fx1", "run", "rw_hit", "rw_idle", "rw_run", "rw_skill", "sh_attack", "sh_dead", "sh_hit", "sh_idle", "sh_run", "sh_skill", "sh_skill2", "sh_skill2_fx1", "sh_transform", "sh_ult", "sh_ult_exit", "sh_ult_fx1", "skill", "skill2", "skill2_fx1", "transform", "ult", "ult_exit", "ult_fx1", "w_hit", "w_idle", "w_run", "w_skill"]),
     ("league_kennen", "mage", &["attack", "attack_fx1", "attack_fx2", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_fx1", "ult", "w"]),
