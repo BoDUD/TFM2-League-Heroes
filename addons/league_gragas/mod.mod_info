@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.96.0"
+      "version": ">=0.98.0"
     }
   ],
   "description": "Test build of Gragas's Explosive Cask aimed as in League (needs League of Legends Heroes): replaces the main pack's Gragas so his cask lands behind the enemy champions, on the spot that flings the most of them (the back line first) toward him and his team. Other champions are untouched. Writes a log for testing.",
