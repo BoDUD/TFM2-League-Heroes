@@ -658,6 +658,13 @@
         "skill": "向目标位置扔出磷光炸弹，范围内敌人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>。",
         "skill2": "<#ff9028ff>格林机枪<>：<#ffb900ff>4秒<>内向前方锥形扫射，每次造成<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%魔法伤害<>，叠加降低护甲和魔抗。冷却中被英雄贴近时改为<#ff9028ff>瓦尔基里俯冲<>：向后俯冲，沿途留下火焰，每<#ffb900ff>0.5秒<>造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法伤害<>。",
         "ult": "储存<#ffb900ff>4发<>火箭（每<#ffb900ff>10秒<>补一发），命中第一个敌人后爆炸，范围内造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<><#a974ffff>魔法伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<><#ff9028ff>物理伤害<>；每第3发是大火箭：范围更大，伤害200%。"
+      },
+      "league_braum": {
+        "name": "布隆",
+        "attack": "<#ff9028ff>震荡猛击<>：普攻和寒冬之咬命中英雄叠一层，第<#ffb900ff>4层<><#ef5350ff>眩晕1秒<>并造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>；之后<#ffb900ff>8秒<>不再叠层，普攻额外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。",
+        "skill": "从盾中甩出寒冰，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>+最大生命2%<#a974ffff>魔法伤害<>，<#ef5350ff>减速70%<>，<#ffb900ff>2秒<>内渐弱到35%。",
+        "skill2": "举盾<#ffb900ff>3.5秒<>：受到伤害降低40%，获得60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%护盾，身边友方英雄伤害降低20%。<#ff9028ff>挺身而出<>：冲到友方英雄身边，两人护甲和魔抗+20，持续<#ffb900ff>3秒<>。",
+        "ult": "猛砸地面，冰川裂隙冲向目标，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.6秒<>（第一个英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>减速40%<>。"
       }
     },
     "skill_name": {
@@ -1130,6 +1137,11 @@
         "skill1": "磷光炸弹",
         "skill2": "格林机枪",
         "ult": "火箭轰击"
+      },
+      "league_braum": {
+        "skill1": "寒冬之咬",
+        "skill2": "坚不可摧",
+        "ult": "冰川裂隙"
       }
     }
   },
@@ -1792,6 +1804,13 @@
         "skill": "向目標位置扔出磷光炸彈，範圍內敵人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>。",
         "skill2": "<#ff9028ff>格林機槍<>：<#ffb900ff>4秒<>內向前方錐形掃射，每次造成<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<><#ff9028ff>物理<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%魔法傷害<>，疊加降低護甲和魔抗。冷卻中被英雄貼近時改為<#ff9028ff>女武神特攻<>：向後俯衝，沿途留下火焰，每<#ffb900ff>0.5秒<>造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法傷害<>。",
         "ult": "儲存<#ffb900ff>4發<>火箭（每<#ffb900ff>10秒<>補一發），命中第一個敵人後爆炸，範圍內造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<><#a974ffff>魔法傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<><#ff9028ff>物理傷害<>；每第3發是大火箭：範圍更大，傷害200%。"
+      },
+      "league_braum": {
+        "name": "布郎姆",
+        "attack": "<#ff9028ff>震盪冰封<>：普攻和凜冬衝擊命中英雄疊一層，第<#ffb900ff>4層<><#ef5350ff>暈眩1秒<>並造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>；之後<#ffb900ff>8秒<>不再疊層，普攻額外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。",
+        "skill": "從盾中甩出寒冰，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>+最大生命2%<#a974ffff>魔法傷害<>，<#ef5350ff>緩速70%<>，<#ffb900ff>2秒<>內漸弱到35%。",
+        "skill2": "舉盾<#ffb900ff>3.5秒<>：受到傷害降低40%，獲得60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%護盾，身邊友方英雄傷害降低20%。<#ff9028ff>壁壘守護<>：衝到友方英雄身邊，兩人護甲和魔抗+20，持續<#ffb900ff>3秒<>。",
+        "ult": "猛砸地面，冰河裂隙衝向目標，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.6秒<>（第一個英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>緩速40%<>。"
       }
     },
     "skill_name": {
@@ -2264,6 +2283,11 @@
         "skill1": "磷光炸彈",
         "skill2": "格林機槍",
         "ult": "火箭轟擊"
+      },
+      "league_braum": {
+        "skill1": "凜冬衝擊",
+        "skill2": "雄心重盾",
+        "ult": "冰河裂隙"
       }
     }
   },
@@ -2926,6 +2950,13 @@
         "skill": "Lobs a phosphorus bomb at a spot: enemies in the blast take <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<>.",
         "skill2": "<#ff9028ff>Gatling Gun<>: sprays a cone ahead for <#ffb900ff>4s<>, each burst <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<> <#ff9028ff>physical<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9% magic damage<>, stacking armour and magic resistance shred. On cooldown with a champion close: <#ff9028ff>Valkyrie<>, a dash back leaving fire that deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> every <#ffb900ff>0.5s<>.",
         "ult": "Stores <#ffb900ff>4 missiles<> (one back every <#ffb900ff>10s<>); each bursts on the first enemy hit for <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> <#a974ffff>magic damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<> <#ff9028ff>physical damage<> around it. Every third is the Big One: a wider blast for 200% damage."
+      },
+      "league_braum": {
+        "name": "Braum",
+        "attack": "<#ff9028ff>Concussive Blows<>: attacks and Winter's Bite stack on champions; the <#ffb900ff>4th<> <#ef5350ff>stuns 1s<> and deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>, then for <#ffb900ff>8s<> no stacks and attacks deal <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<> more.",
+        "skill": "Hurls ice from his shield: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> + 2% max health <#a974ffff>magic damage<> and a <#ef5350ff>70% slow<> fading to 35% over <#ffb900ff>2s<>.",
+        "skill2": "Raises his shield for <#ffb900ff>3.5s<>: 40% less damage, a 60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% shield, allied champions beside him 20% less. <#ff9028ff>Stand Behind Me<>: leaps to an allied champion; both gain 20 armour and magic resist for <#ffb900ff>3s<>.",
+        "ult": "Slams the ground: a fissure runs at the target, dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up 0.6s<> (the first champion 1.25s); the fissure <#ef5350ff>slows 40%<> for <#ffb900ff>4s<>."
       }
     },
     "skill_name": {
@@ -3398,6 +3429,11 @@
         "skill1": "Phosphorus Bomb",
         "skill2": "Gatling Gun",
         "ult": "Missile Barrage"
+      },
+      "league_braum": {
+        "skill1": "Winter's Bite",
+        "skill2": "Unbreakable",
+        "ult": "Glacial Fissure"
       }
     }
   },
@@ -4060,6 +4096,13 @@
         "skill": "지정 위치에 인광탄을 던져 범위 내 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>물리 피해<>.",
         "skill2": "<#ff9028ff>개틀링 건<>: <#ffb900ff>4초<> 동안 전방 원뿔로 난사, 매번 <#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<> <#ff9028ff>물리<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9% 마법 피해<>, 방어력·마법 저항력 감소 중첩. 재사용 대기 중 챔피언이 붙으면 <#ff9028ff>발키리<>: 뒤로 돌진하며 불길을 남겨 <#ffb900ff>0.5초<>마다 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>마법 피해<>.",
         "ult": "미사일 <#ffb900ff>4발<> 저장(<#ffb900ff>10초<>마다 1발 충전), 처음 맞힌 적에서 폭발해 주변에 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<> <#a974ffff>마법 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<> <#ff9028ff>물리 피해<>. 3발째는 대형 미사일: 범위 확대, 피해 200%."
+      },
+      "league_braum": {
+        "name": "브라움",
+        "attack": "<#ff9028ff>뇌진탕 펀치<>: 기본 공격과 동상이 챔피언에 중첩, <#ffb900ff>4중첩<>에 <#ef5350ff>1초 기절<>과 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>마법 피해<>, 이후 <#ffb900ff>8초<> 동안 중첩 없이 기본 공격에 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가.",
+        "skill": "방패에서 얼음을 날려 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> + 최대 체력 2% <#a974ffff>마법 피해<>와 <#ef5350ff>70% 둔화<>, <#ffb900ff>2초<>에 걸쳐 35%로 감소.",
+        "skill2": "<#ffb900ff>3.5초<> 동안 방패를 들어 받는 피해 40% 감소, 60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% 보호막, 곁의 아군 챔피언 피해 20% 감소. <#ff9028ff>내가 지킨다<>: 아군 챔피언에게 도약, 둘 다 <#ffb900ff>3초<> 동안 방어력과 마법 저항력 +20.",
+        "ult": "땅을 내리쳐 대상 쪽으로 균열을 일으켜 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.6초 에어본<> (첫 챔피언 1.25초), 균열은 <#ffb900ff>4초<> 동안 <#ef5350ff>40% 둔화<>."
       }
     },
     "skill_name": {
@@ -4532,6 +4575,11 @@
         "skill1": "인광탄",
         "skill2": "개틀링 건",
         "ult": "미사일 폭격"
+      },
+      "league_braum": {
+        "skill1": "동상",
+        "skill2": "불굴",
+        "ult": "빙하 균열"
       }
     }
   },
@@ -5194,6 +5242,13 @@
         "skill": "指定地点に閃光弾を投げ、範囲内の敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>。",
         "skill2": "<#ff9028ff>ガトリングガン<>：<#ffb900ff>4秒<>間前方の扇状に掃射、毎回<#ff9028ff>9<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16%<>の<#ff9028ff>物理<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%魔法ダメージ<>、防御低下が累積。CD中に敵チャンピオンが接近すると<#ff9028ff>ワルキューレ機行<>：後方へ飛び炎を残し、<#ffb900ff>0.5秒<>ごとに<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "ミサイルを<#ffb900ff>4発<>蓄える（<#ffb900ff>10秒<>ごとに1発）。最初に当たった敵で爆発し周囲に<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>42%<>の<#a974ffff>魔法ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>52%<>の<#ff9028ff>物理ダメージ<>。3発目は大型：範囲拡大、ダメージ200%。"
+      },
+      "league_braum": {
+        "name": "ブラウム",
+        "attack": "<#ff9028ff>漢の拳<>：通常攻撃と冬の凍瘡がチャンピオンにスタック、<#ffb900ff>4<>で<#ef5350ff>1秒スタン<>と<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>8秒<>スタックせず通常攻撃に<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。",
+        "skill": "盾から氷を放ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>+最大体力の2%の<#a974ffff>魔法ダメージ<>と<#ef5350ff>70%スロウ<>（<#ffb900ff>2秒<>で35%まで減衰）。",
+        "skill2": "<#ffb900ff>3.5秒<>盾を構え被ダメージ40%軽減、60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%のシールド、傍の味方チャンピオンも20%軽減。<#ff9028ff>ワシに任せとけ！<>：味方チャンピオンへ跳び、両者の物防と魔防+20（<#ffb900ff>3秒<>）。",
+        "ult": "地面を叩き対象へ裂溝を走らせ<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.6秒ノックアップ<>（最初のチャンピオン1.25秒）、裂溝は<#ffb900ff>4秒<><#ef5350ff>40%スロウ<>。"
       }
     },
     "skill_name": {
@@ -5666,6 +5721,11 @@
         "skill1": "閃光弾",
         "skill2": "ガトリングガン",
         "ult": "連発ミサイル"
+      },
+      "league_braum": {
+        "skill1": "冬の凍瘡",
+        "skill2": "不破の盾",
+        "ult": "氷河の裂溝"
       }
     }
   }
