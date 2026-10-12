@@ -35,6 +35,7 @@ TMP = os.path.join(os.environ["LOCALAPPDATA"], "Temp", "ks_work")
 REF = os.path.join(TMP, "fxref")
 DOC = os.path.join(ROOT, "assets", "source", "kassadin", "PROMPTS_FX.md")
 SHEET = os.path.join(ROOT, "league", "champions", "league_kassadin")
+HD_FRONT = os.path.join(ROOT, "assets", "source", "kassadin", "ppu", "front.png")   # the approved PPU design
 PRE = chr(92) * 2 + "?" + chr(92)
 
 
@@ -104,8 +105,8 @@ FX = [
      "34 × 44",
      "放出法球时多余的能量包住自己：身体外面一层蓝紫色的护盾外壳（只画外轮廓的一圈弧线和几块六边形的亮片，像一个罩住全身的大椭圆的边），**中间人形位置留空**，一闪出现、闪几下、最后碎掉。**左右对称**。",
      SH,
-     f"a SHIELD SHELL round a tall figure, 6 frames, {LR}, its inside EMPTY (a clear upright area 24 squares wide and 40 "
-     "tall in the middle): only the rim of a tall ellipse 32 squares wide and 42 tall round it - a thin violet-blue arc "
+     f"a SHIELD SHELL round a tall figure, 6 frames, {LR}, its inside EMPTY (a clear upright area 26 squares wide and 36 "
+     "tall in the middle): only the rim of a tall ellipse 34 squares wide and 42 tall round it - a thin violet-blue arc "
      "2 squares thick with a white inner edge and a few small hexagon glints on it at mirrored places; 1 the rim faint "
      "and short (arcs at the shoulders only); 2-4 the whole rim bright, the glints twinkling in turn; 5 the rim cracking "
      "into pieces; 6 fading pieces.",
@@ -158,7 +159,7 @@ FX = [
      f"{VO}, {MG} and {DK}",
      f"a VOID RIFT OPENING with a blast on the ground, 7 frames, {LR}: 1 a vertical white-violet slit 2 squares wide and "
      "30 tall; 2 a black-violet rift 10 squares wide with a bright edge; 3 the rift gone, the middle EMPTY (a clear upright "
-     "area 14 squares wide and 36 tall where he now stands), a flat violet ring on the ground 20 squares wide and 7 tall "
+     "area 24 squares wide and 36 tall where he now stands), a flat violet ring on the ground 20 squares wide and 7 tall "
      "with a white rim; 4 the ring at 40 x 13, violet wisps rising on both sides of the empty middle (mirrored); 5 the ring "
      "breaking into violet and magenta sparks; 6 sparks rising and fading; 7 a few embers.",
      row(7, 46, 42) + "; centered across, the ground ring's middle 5 squares above the cell's bottom."),
@@ -278,7 +279,7 @@ def document(shape):
     L = []
     a = L.append
     a("# 虚空行者 卡萨丁：给 Codex 的特效提示词（第 3 步）\n")
-    a(f"> **这一份是 {len(FX)} 张特效图。** 造型和动作已定（`design/kassadin_idle.png`：游戏里的 3/4 正面待机，8 倍，连角 {h} 行、{w} 格宽）。")
+    a(f"> **这一份是 {len(FX)} 张特效图。** 造型和动作已定（`design/kassadin_idle.png`：游戏里的 3/4 正面待机）。他在游戏里是**高清**的（PPU：每个游戏格子里 3.62×3.62 个细像素，这张图就是高清造型放大 3 倍），连角 {h} 格高、{w} 格宽；**特效照常按游戏格子画**（1 格 = 1 个游戏像素），不用画成高清。")
     a("> - 大小对照 `design/kassadin_size.png`：待机放大 4 倍，长袍下摆在红线上，上面是 10 格一段的刻度，右边是原版斗士。每条写的大小都是游戏像素（格）。")
     a("> - `design/kassadin_shots.png`：定稿动作（4 倍），青色十字是他的站位点；每张写了特效从哪里出来。")
     a("> - 参考图 `refs/lol_fx_ref.png` 是英雄联盟里卡萨丁自己的特效贴图（大多是灰度的形状，游戏里再上色），按用在我们哪张特效分好了行，只在本地用，不要提交。"
@@ -352,8 +353,9 @@ def main():
         shutil.rmtree(out)
     for sub in ("design", "refs"):
         os.makedirs(os.path.join(out, sub))
-    fig = idle_1x()
-    Image.fromarray(np.repeat(np.repeat(fig, 8, 0), 8, 1)).save(os.path.join(out, "design", "kassadin_idle.png"))
+    # his idle as the game shows it with league.dll: the PPU design (3.62 fine squares a game square), 3x
+    hd = np.asarray(Image.open(HD_FRONT).convert("RGBA"))
+    Image.fromarray(np.repeat(np.repeat(hd, 3, 0), 3, 1)).save(os.path.join(out, "design", "kassadin_idle.png"))
     shape = size_sheet(os.path.join(out, "design", "kassadin_size.png"))
     shots_sheet(os.path.join(out, "design", "kassadin_shots.png"))
     ref_sheet(os.path.join(out, "refs", "lol_fx_ref.png"))
