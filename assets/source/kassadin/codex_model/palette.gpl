@@ -1,0 +1,25 @@
+GIMP Palette
+Name: Kassadin shared21
+Columns: 7
+#
+ 16  13  32 outline
+ 41  32  68 purple_dark
+ 68  48 107 purple
+101  67 153 purple_light
+137  99 187 purple_high
+ 32  30  48 hose_dark
+ 57  54  75 hose
+ 83  80 100 hose_high
+ 86  87 102 steel_dark
+136 139 155 steel
+187 195 206 steel_light
+226 232 233 steel_high
+ 21  77  99 skin_dark
+ 34 126 149 skin
+ 57 180 195 skin_light
+112 220 224 skin_high
+160 240 232 hand
+198  83  18 eye_dark
+255 151  28 eye
+255 241 160 eye_high
+176 140 225 gem
