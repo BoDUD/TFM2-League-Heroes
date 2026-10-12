@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_corki_aim": {
+        "ult": "【智能】储存<#ffb900ff>4发<>火箭（每<#ffb900ff>10秒<>补一发），命中第一个敌人后爆炸，范围内造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>；每第3发是大火箭：范围更大，伤害200%。火箭瞄准能炸到最多敌人的地方，大火箭优先残血英雄。",
+        "skill2": "【智能】<#ff9028ff>格林机枪<>：<#ffb900ff>4秒<>内向前方锥形扫射，每次造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<><#ff9028ff>物理<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%魔法伤害<>，叠加降低护甲和魔抗。冷却中被英雄贴近时改为<#ff9028ff>瓦尔基里俯冲<>：向后俯冲，沿途留下火焰，每<#ffb900ff>0.5秒<>造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法伤害<>。俯冲避开墙和敌方塔，朝队友飞。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_corki_aim": {
+        "ult": "【智能】儲存<#ffb900ff>4發<>火箭（每<#ffb900ff>10秒<>補一發），命中第一個敵人後爆炸，範圍內造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>；每第3發是大火箭：範圍更大，傷害200%。火箭瞄準能炸到最多敵人的地方，大火箭優先殘血英雄。",
+        "skill2": "【智能】<#ff9028ff>格林機槍<>：<#ffb900ff>4秒<>內向前方錐形掃射，每次造成<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<><#ff9028ff>物理<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%魔法傷害<>，疊加降低護甲和魔抗。冷卻中被英雄貼近時改為<#ff9028ff>女武神特攻<>：向後俯衝，沿途留下火焰，每<#ffb900ff>0.5秒<>造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法傷害<>。俯衝避開牆和敵方塔，朝隊友飛。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_corki_aim": {
+        "ult": "[Aimed] Stores <#ffb900ff>4 missiles<> (one back every <#ffb900ff>10s<>); each bursts on the first enemy hit for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<> around it. Every third is the Big One: a wider blast for 200% damage. Missiles aim where they hit the most, the Big One at low champions.",
+        "skill2": "[Aimed] <#ff9028ff>Gatling Gun<>: sprays a cone ahead for <#ffb900ff>4s<>, each burst <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<> <#ff9028ff>physical<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6% magic damage<>, stacking armour and magic resistance shred. On cooldown with a champion close: <#ff9028ff>Valkyrie<>, a dash back leaving fire that deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> every <#ffb900ff>0.5s<>. The dash avoids walls and enemy towers and heads for his team."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_corki_aim": {
+        "ult": "[조준] 미사일 <#ffb900ff>4발<> 저장(<#ffb900ff>10초<>마다 1발 충전), 처음 맞힌 적에서 폭발해 주변에 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>물리 피해<>. 3발째는 대형 미사일: 범위 확대, 피해 200%. 미사일은 가장 많이 맞힐 곳을, 대형은 체력 낮은 챔피언을 노림.",
+        "skill2": "[조준] <#ff9028ff>개틀링 건<>: <#ffb900ff>4초<> 동안 전방 원뿔로 난사, 매번 <#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<> <#ff9028ff>물리<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6% 마법 피해<>, 방어력·마법 저항력 감소 중첩. 재사용 대기 중 챔피언이 붙으면 <#ff9028ff>발키리<>: 뒤로 돌진하며 불길을 남겨 <#ffb900ff>0.5초<>마다 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>마법 피해<>. 돌진은 벽과 적 포탑을 피해 아군 쪽으로."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_corki_aim": {
+        "ult": "【狙い】ミサイルを<#ffb900ff>4発<>蓄える（<#ffb900ff>10秒<>ごとに1発）。最初に当たった敵で爆発し周囲に<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>。3発目は大型：範囲拡大、ダメージ200%。ミサイルは最も多く当たる位置、大型は低体力の敵を狙う。",
+        "skill2": "【狙い】<#ff9028ff>ガトリングガン<>：<#ffb900ff>4秒<>間前方の扇状に掃射、毎回<#ff9028ff>6<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>12%<>の<#ff9028ff>物理<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%魔法ダメージ<>、防御低下が累積。CD中に敵チャンピオンが接近すると<#ff9028ff>ワルキューレ機行<>：後方へ飛び炎を残し、<#ffb900ff>0.5秒<>ごとに<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の<#a974ffff>魔法ダメージ<>。突進は壁と敵タワーを避け味方の方へ。"
+      }
+    }
+  }
+}
