@@ -112,6 +112,10 @@ def main():
                          "where a frame holds them pixel for pixel, the outline of the head Codex drew first and "
                          "pasted over is cleared - parts next to the block in its rows that never reach more than 4 "
                          "pixels from it (「吸血鬼走路有残影？没清理干净吧」); an arm or a claw reaches far")
+    ap.add_argument("--design-run", metavar="NEAR|FAR",
+                    help="the run is the design itself, still, its two legs stepping: each leg = boxes x0-x1:y0-y1 "
+                         "joined by + (the design's squares); vladimir 15-25:73-81|26-34:73-75+26-40:76-81 "
+                         "(Codex's run bodies changed width and arm length frame to frame: 「吸血鬼走路时模型变形」)")
     ap.add_argument("--same", action="append", default=[], metavar="TAG:I=J",
                     help="frame I of TAG is frame J's drawing, its lowest row on frame I's skeleton's lowest row (a "
                          "drawing that does not match its neighbours; vladimir dead:5=4 dead:6=4 dead:7=4 - Codex drew "
@@ -178,6 +182,25 @@ def main():
                 if n:
                     print(f"{tag}[{i}]: {n} pixels of the old head's outline round the pasted head (cleared)")
     idle = sheet["idle"]
+    if a.design_run:
+        boxes = [[tuple(tuple(int(v) * s for v in part.split("-")) for part in box.split(":"))
+                  for box in leg.split("+")] for leg in a.design_run.split("|")]
+        run = design_run(design_s, boxes[0], boxes[1], len(sheet["run"]), s)
+        base, (x0, y0) = place_idle(design_s, idle[0][0], k)
+        for i, f in enumerate(run):
+            H, W = got["run"][i].shape[:2]
+            # the idle's place against the frame's centre: the same in the run (no sway); the frame grown alike at
+            # both sides when the design is wider than it
+            reach = max(base.shape[1] / 2 - x0, x0 + f.shape[1] - base.shape[1] / 2)
+            while W < 2 * reach:
+                W += 2
+            cx = x0 - base.shape[1] / 2 + W / 2
+            cy = y0 - base.shape[0] / 2 + H / 2
+            out = np.zeros((H, W, 4), np.uint8)
+            fy, fx = round(cy), round(cx)
+            out[fy:fy + f.shape[0], fx:fx + f.shape[1]] = f
+            got["run"][i] = out
+        print(f"run: the design with its legs stepping, {len(run)} frames")
     fr, at = place_idle(design_s, idle[0][0], k)
     got["idle"] = {i: fr for i in range(len(idle))}
     print(f"idle: the design ({design_s.shape[1]}x{design_s.shape[0]}) at {at} in every one of {len(idle)} frames")
@@ -227,6 +250,47 @@ def clear_head_ghost(fr, design, rows, far=4, allow=5):
             gone |= z
     fr[gone] = 0
     return int(gone.sum())
+
+
+def design_run(design, near, far, n, s=1, stride=2.0, lift=2.0, boot=2):
+    """`n` run frames of the design (as tall, as wide): the body still, the two legs (each a list of boxes
+    ((x0, x1), (y0, y1)), inclusive) stepping half a cycle apart - the foot moved `stride` pixels forward and
+    back and lifted up to `lift` on its way forward. The foot (the leg's rows from `boot` rows under its top) moves as
+    one block; the rows above it lean from the leg's top to the foot. The far leg is behind the body, the near one in front."""
+    H, W = design.shape[:2]
+    op = design[..., 3] > 0
+    legs = []
+    for boxes in (near, far):
+        m = np.zeros((H, W), bool)
+        for (x0, x1), (y0, y1) in boxes:
+            m[y0:y1 + 1, x0:x1 + 1] = op[y0:y1 + 1, x0:x1 + 1]
+        legs.append(m)
+    top = min(min(y0 for _, (y0, _) in b) for b in (near, far))
+    body = design.copy()
+    body[legs[0] | legs[1]] = 0
+    frames = []
+    span = boot * s
+    for i in range(n):
+        out = np.zeros_like(design)
+        layers = []
+        for leg, ph in ((legs[1], i / n + 0.5), (legs[0], i / n)):
+            a = 2 * np.pi * ph
+            dx = stride * s * np.cos(a)
+            up_ = lift * s * max(0.0, np.sin(a))
+            lay = np.zeros_like(design)
+            ys, xs = np.nonzero(leg)
+            for y, x in sorted(zip(ys, xs)):
+                t = min(1.0, (y - top + 1) / (span + 1))
+                ny, nx = int(round(y - up_ * t)), int(round(x + dx * t))
+                if 0 <= ny < H and 0 <= nx < W:
+                    lay[ny, nx] = design[y, x]
+            layers.append(lay)
+        far_l, near_l = layers
+        out[far_l[..., 3] > 0] = far_l[far_l[..., 3] > 0]
+        out[body[..., 3] > 0] = body[body[..., 3] > 0]
+        out[near_l[..., 3] > 0] = near_l[near_l[..., 3] > 0]
+        frames.append(out)
+    return frames
 
 
 def same_as(src, shape, one, k):
