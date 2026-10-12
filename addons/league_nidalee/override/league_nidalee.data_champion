@@ -16,20 +16,20 @@
     "asset/league/icons/league_nidalee_ult"
   ],
   "stat": {
-    "attack": 62,
+    "attack": 110,
     "magic_power": 50,
-    "hp": 880,
-    "defence": 24,
-    "magic_resistance": 20,
+    "hp": 980,
+    "defence": 28,
+    "magic_resistance": 24,
     "move_speed": 1100,
     "hp_regen": 0,
     "stack": 0,
     "crit_chance": 0
   },
   "growth": {
-    "attack": 6,
+    "attack": 25,
     "magic_power": 20,
-    "hp": 86,
+    "hp": 100,
     "defence": 7,
     "magic_resistance": 4,
     "move_speed": 12,
@@ -41,7 +41,7 @@
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_nidalee_prowl.attack",
     "duration": 24,
-    "cooltime": 62,
+    "cooltime": 52,
     "start_timing": 1,
     "cancelable": true,
     "range": 23000,
@@ -312,7 +312,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "c_transform",
-                  "tick": 18
+                  "tick": 8
                 },
                 {
                   "type": "CasterViewEffect",
@@ -392,7 +392,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "transform",
-                  "tick": 18
+                  "tick": 8
                 },
                 {
                   "type": "CasterViewEffect",
@@ -506,7 +506,7 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 28,
+                                    "damage": 56,
                                     "attack_ratio": 210,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
@@ -516,7 +516,7 @@
                               },
                               "effect_none": {
                                 "type": "Attack",
-                                "damage": 20,
+                                "damage": 40,
                                 "attack_ratio": 150,
                                 "hp_ratio": 0,
                                 "target_hp_ratio": 0,
@@ -531,16 +531,16 @@
                               "buff_name": "league_nidalee_hunt",
                               "effect_buff": {
                                 "type": "ApAttack",
-                                "damage": 42,
-                                "attack_ratio": 56,
+                                "damage": 72,
+                                "attack_ratio": 86,
                                 "hp_ratio": 0,
                                 "can_crit": false,
                                 "attack_effect_type": "Target"
                               },
                               "effect_none": {
                                 "type": "ApAttack",
-                                "damage": 30,
-                                "attack_ratio": 40,
+                                "damage": 52,
+                                "attack_ratio": 62,
                                 "hp_ratio": 0,
                                 "can_crit": false,
                                 "attack_effect_type": "Target"
@@ -741,7 +741,7 @@
                       "name": "league_nidalee_cq_cd",
                       "duration": {
                         "Time": {
-                          "tick": 360
+                          "tick": 300
                         }
                       }
                     },
@@ -796,7 +796,7 @@
                     "name": "league_nidalee_hq_cd",
                     "duration": {
                       "Time": {
-                        "tick": 420
+                        "tick": 360
                       }
                     }
                   },
@@ -905,8 +905,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 55,
-                                      "attack_ratio": 55,
+                                      "damage": 88,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false,
                                       "attack_effect_type": "Target"
@@ -929,8 +929,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 88,
-                                        "attack_ratio": 88,
+                                        "damage": 140,
+                                        "attack_ratio": 128,
                                         "hp_ratio": 0,
                                         "can_crit": false,
                                         "attack_effect_type": "Target"
@@ -950,8 +950,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 121,
-                                        "attack_ratio": 121,
+                                        "damage": 193,
+                                        "attack_ratio": 176,
                                         "hp_ratio": 0,
                                         "can_crit": false,
                                         "attack_effect_type": "Target"
@@ -1150,7 +1150,7 @@
                             "name": "league_nidalee_ce_cd",
                             "duration": {
                               "Time": {
-                                "tick": 360
+                                "tick": 300
                               }
                             }
                           },
@@ -1214,8 +1214,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 60,
-                                  "attack_ratio": 55,
+                                  "damage": 98,
+                                  "attack_ratio": 80,
                                   "hp_ratio": 0,
                                   "can_crit": false,
                                   "attack_effect_type": "Target"
@@ -1391,8 +1391,8 @@
                                           "effects": [
                                             {
                                               "type": "ApAttack",
-                                              "damage": 40,
-                                              "attack_ratio": 30,
+                                              "damage": 70,
+                                              "attack_ratio": 48,
                                               "hp_ratio": 0,
                                               "can_crit": false,
                                               "attack_effect_type": "Target"
@@ -1431,7 +1431,7 @@
                                                   "name": "league_nidalee_ce_cd",
                                                   "duration": {
                                                     "Time": {
-                                                      "tick": 360
+                                                      "tick": 300
                                                     }
                                                   }
                                                 },
@@ -1495,8 +1495,8 @@
                                                     "effects": [
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 60,
-                                                        "attack_ratio": 55,
+                                                        "damage": 98,
+                                                        "attack_ratio": 80,
                                                         "hp_ratio": 0,
                                                         "can_crit": false,
                                                         "attack_effect_type": "Target"
@@ -1538,7 +1538,7 @@
                               "name": "league_nidalee_cw_cd",
                               "duration": {
                                 "Time": {
-                                  "tick": 360
+                                  "tick": 300
                                 }
                               }
                             },
@@ -1616,8 +1616,8 @@
                                             "effects": [
                                               {
                                                 "type": "ApAttack",
-                                                "damage": 40,
-                                                "attack_ratio": 30,
+                                                "damage": 70,
+                                                "attack_ratio": 48,
                                                 "hp_ratio": 0,
                                                 "can_crit": false,
                                                 "attack_effect_type": "Target"
@@ -1656,7 +1656,7 @@
                                                     "name": "league_nidalee_ce_cd",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 360
+                                                        "tick": 300
                                                       }
                                                     }
                                                   },
@@ -1720,8 +1720,8 @@
                                                       "effects": [
                                                         {
                                                           "type": "ApAttack",
-                                                          "damage": 60,
-                                                          "attack_ratio": 55,
+                                                          "damage": 98,
+                                                          "attack_ratio": 80,
                                                           "hp_ratio": 0,
                                                           "can_crit": false,
                                                           "attack_effect_type": "Target"
@@ -1769,7 +1769,7 @@
                             "name": "league_nidalee_cw_cd",
                             "duration": {
                               "Time": {
-                                "tick": 360
+                                "tick": 300
                               }
                             }
                           },
@@ -1847,8 +1847,8 @@
                                           "effects": [
                                             {
                                               "type": "ApAttack",
-                                              "damage": 40,
-                                              "attack_ratio": 30,
+                                              "damage": 70,
+                                              "attack_ratio": 48,
                                               "hp_ratio": 0,
                                               "can_crit": false,
                                               "attack_effect_type": "Target"
@@ -1887,7 +1887,7 @@
                                                   "name": "league_nidalee_ce_cd",
                                                   "duration": {
                                                     "Time": {
-                                                      "tick": 360
+                                                      "tick": 300
                                                     }
                                                   }
                                                 },
@@ -1951,8 +1951,8 @@
                                                     "effects": [
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 60,
-                                                        "attack_ratio": 55,
+                                                        "damage": 98,
+                                                        "attack_ratio": 80,
                                                         "hp_ratio": 0,
                                                         "can_crit": false,
                                                         "attack_effect_type": "Target"
@@ -2133,8 +2133,8 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 12,
-                                            "attack_ratio": 10,
+                                            "damage": 18,
+                                            "attack_ratio": 16,
                                             "hp_ratio": 0,
                                             "can_crit": false,
                                             "attack_effect_type": "Target"
@@ -2273,8 +2273,8 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 12,
-                                            "attack_ratio": 10,
+                                            "damage": 18,
+                                            "attack_ratio": 16,
                                             "hp_ratio": 0,
                                             "can_crit": false,
                                             "attack_effect_type": "Target"
@@ -2584,7 +2584,7 @@
             "name": "league_nidalee_cw_cd",
             "duration": {
               "Time": {
-                "tick": 360
+                "tick": 300
               }
             }
           },
@@ -2666,8 +2666,8 @@
                           "effects": [
                             {
                               "type": "ApAttack",
-                              "damage": 100,
-                              "attack_ratio": 60,
+                              "damage": 160,
+                              "attack_ratio": 90,
                               "hp_ratio": 0,
                               "can_crit": false,
                               "attack_effect_type": "Target"
@@ -2699,7 +2699,7 @@
                                 "name": "league_nidalee_ce_cd",
                                 "duration": {
                                   "Time": {
-                                    "tick": 360
+                                    "tick": 300
                                   }
                                 }
                               },
@@ -2763,8 +2763,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 60,
-                                      "attack_ratio": 55,
+                                      "damage": 98,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false,
                                       "attack_effect_type": "Target"

@@ -669,9 +669,9 @@
       "league_nidalee": {
         "name": "奈德丽",
         "attack": "<#ff9028ff>寻觅<>：标枪或夹子命中英雄将其捕猎<#ffb900ff>4秒<>，期间移速+20%。出手前按战况切换人形（远程）和美洲狮（近战）形态，切换冷却<#ffb900ff>3秒<>。",
-        "skill": "人形：投出标枪造成<#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>，飞得越远越高（最多220%）。<#ff9028ff>推倒<>：下次攻击额外造成<#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，对捕猎目标+40%。",
-        "skill2": "人形：治疗友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持续<#ffb900ff>7秒<>；冷却时放<#ff9028ff>丛林伏击<>，持续造成<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。<#ff9028ff>猛扑<>：扑向敌人造成<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>；<#ff9028ff>挥击<>造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>。",
-        "ult": "化身美洲狮，重置美洲狮技能，扑向英雄造成<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，落地挥击并准备推倒。"
+        "skill": "人形：投出标枪造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，飞得越远越高（最多220%）。<#ff9028ff>推倒<>：下次攻击额外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法伤害<>，对捕猎目标+40%。",
+        "skill2": "人形：治疗友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持续<#ffb900ff>7秒<>；冷却时放<#ff9028ff>丛林伏击<>，持续造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法伤害<>。<#ff9028ff>猛扑<>：扑向敌人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法伤害<>；<#ff9028ff>挥击<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>。",
+        "ult": "化身美洲狮，重置美洲狮技能，扑向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，落地挥击并准备推倒。"
       }
     },
     "skill_name": {
@@ -1827,9 +1827,9 @@
       "league_nidalee": {
         "name": "奈德麗",
         "attack": "<#ff9028ff>穿梭<>：標槍或陷阱命中英雄將其狩獵<#ffb900ff>4秒<>，期間跑速+20%。出手前依戰況切換人形（遠程）和美洲獅（近戰）形態，切換冷卻<#ffb900ff>3秒<>。",
-        "skill": "人形：擲出標槍造成<#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>，飛得越遠越高（最多220%）。<#ff9028ff>擊倒<>：下次攻擊額外造成<#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，對狩獵目標+40%。",
-        "skill2": "人形：治療友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持續<#ffb900ff>7秒<>；冷卻時放<#ff9028ff>叢林伏擊<>，持續造成<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。<#ff9028ff>猛撲<>：撲向敵人造成<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>；<#ff9028ff>揮擊<>造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>。",
-        "ult": "化身美洲獅，重置美洲獅技能，撲向英雄造成<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，落地揮擊並準備擊倒。"
+        "skill": "人形：擲出標槍造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，飛得越遠越高（最多220%）。<#ff9028ff>擊倒<>：下次攻擊額外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法傷害<>，對狩獵目標+40%。",
+        "skill2": "人形：治療友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持續<#ffb900ff>7秒<>；冷卻時放<#ff9028ff>叢林伏擊<>，持續造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法傷害<>。<#ff9028ff>猛撲<>：撲向敵人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法傷害<>；<#ff9028ff>揮擊<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>。",
+        "ult": "化身美洲獅，重置美洲獅技能，撲向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，落地揮擊並準備擊倒。"
       }
     },
     "skill_name": {
@@ -2985,9 +2985,9 @@
       "league_nidalee": {
         "name": "Nidalee",
         "attack": "<#ff9028ff>Prowl<>: javelin and trap hits hunt a champion for <#ffb900ff>4s<> (+20% move speed). Before each attack she switches between human (ranged) and cougar (melee) as the fight needs, every <#ffb900ff>3s<> at most.",
-        "skill": "Human: throws a javelin for <#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>, more the farther it flies (up to 220%). <#ff9028ff>Takedown<>: her next attack deals <#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>physical<> and <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> more, +40% on the hunted.",
-        "skill2": "Human: heals an allied champion for <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> and gives 40% attack speed for <#ffb900ff>7s<>; on cooldown she sets a <#ff9028ff>Bushwhack<> trap, <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<> a pulse. <#ff9028ff>Pounce<>: leaps for <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<>; <#ff9028ff>Swipe<>: <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<> around her.",
-        "ult": "Turns into the cougar, resets the cougar's abilities and pounces on a champion for <#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, then swipes and readies Takedown."
+        "skill": "Human: throws a javelin for <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, more the farther it flies (up to 220%). <#ff9028ff>Takedown<>: her next attack deals <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>physical<> and <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>magic damage<> more, +40% on the hunted.",
+        "skill2": "Human: heals an allied champion for <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> and gives 40% attack speed for <#ffb900ff>7s<>; on cooldown she sets a <#ff9028ff>Bushwhack<> trap, <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>magic damage<> a pulse. <#ff9028ff>Pounce<>: leaps for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>magic damage<>; <#ff9028ff>Swipe<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> around her.",
+        "ult": "Turns into the cougar, resets the cougar's abilities and pounces on a champion for <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, then swipes and readies Takedown."
       }
     },
     "skill_name": {
@@ -4143,9 +4143,9 @@
       "league_nidalee": {
         "name": "니달리",
         "attack": "<#ff9028ff>수풀 배회<>: 창이나 덫에 맞은 챔피언을 <#ffb900ff>4초<> 동안 사냥 (이동 속도 +20%). 공격 전에 상황에 따라 인간(원거리)과 쿠거(근접) 형태를 바꾸며, 전환 대기시간 <#ffb900ff>3초<>.",
-        "skill": "인간: 창을 던져 <#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>마법 피해<>, 멀리 날수록 증가 (최대 220%). <#ff9028ff>숨통 끊기<>: 다음 공격이 <#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>물리<>와 <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>마법 피해<> 추가, 사냥 대상 +40%.",
-        "skill2": "인간: 아군 챔피언 <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> 회복, <#ffb900ff>7초<> 동안 공격 속도 +40%; 대기 중이면 <#ff9028ff>매복 덫<>으로 <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 지속. <#ff9028ff>급습<>: 도약해 <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>; <#ff9028ff>할퀴기<>: <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>마법 피해<>.",
-        "ult": "쿠거로 변해 쿠거 스킬을 초기화하고 챔피언에게 도약해 <#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, 착지 후 할퀴고 숨통 끊기를 준비."
+        "skill": "인간: 창을 던져 <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 멀리 날수록 증가 (최대 220%). <#ff9028ff>숨통 끊기<>: 다음 공격이 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>물리<>와 <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>마법 피해<> 추가, 사냥 대상 +40%.",
+        "skill2": "인간: 아군 챔피언 <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> 회복, <#ffb900ff>7초<> 동안 공격 속도 +40%; 대기 중이면 <#ff9028ff>매복 덫<>으로 <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>마법 피해<> 지속. <#ff9028ff>급습<>: 도약해 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>마법 피해<>; <#ff9028ff>할퀴기<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>.",
+        "ult": "쿠거로 변해 쿠거 스킬을 초기화하고 챔피언에게 도약해 <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>, 착지 후 할퀴고 숨통 끊기를 준비."
       }
     },
     "skill_name": {
@@ -5301,9 +5301,9 @@
       "league_nidalee": {
         "name": "ニダリー",
         "attack": "<#ff9028ff>品定め<>：槍か虎挟みが当たったチャンピオンを<#ffb900ff>4秒<>狩る（移動速度+20%）。攻撃の前に戦況で人間（遠隔）とクーガー（近接）を切り替え、間隔<#ffb900ff>3秒<>。",
-        "skill": "人間：槍を投げ<#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>、遠いほど増加（最大220%）。<#ff9028ff>テイクダウン<>：次の通常攻撃に<#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<>の<#ff8a65ff>物理<>と<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、狩る相手に+40%。",
-        "skill2": "人間：味方チャンピオンを<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>回復、攻撃速度+40%（<#ffb900ff>7秒<>）；クールダウン中は<#ff9028ff>虎挟み<>で<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ジャンプ<>：飛びかかり<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>；<#ff9028ff>クロウ<>：<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>。",
-        "ult": "クーガーに変身しクーガーのスキルをリセット、チャンピオンへ飛びかかり<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、着地でクロウ、テイクダウン準備。"
+        "skill": "人間：槍を投げ<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、遠いほど増加（最大220%）。<#ff9028ff>テイクダウン<>：次の通常攻撃に<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<>の<#ff8a65ff>物理<>と<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<>の<#a974ffff>魔法ダメージ<>、狩る相手に+40%。",
+        "skill2": "人間：味方チャンピオンを<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>回復、攻撃速度+40%（<#ffb900ff>7秒<>）；クールダウン中は<#ff9028ff>虎挟み<>で<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ジャンプ<>：飛びかかり<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<>の<#a974ffff>魔法ダメージ<>；<#ff9028ff>クロウ<>：<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "クーガーに変身しクーガーのスキルをリセット、チャンピオンへ飛びかかり<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>、着地でクロウ、テイクダウン準備。"
       }
     },
     "skill_name": {
