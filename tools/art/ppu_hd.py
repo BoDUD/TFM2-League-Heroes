@@ -47,13 +47,16 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
-# gragas: dense strips drawn by tools/art/ppu_gragas.py; vladimir, karma: Codex's strips read back by
-# tools/art/import_ppu_strips.py (all in assets/source/ppu)
-PPU = {"yasuo": 3, "gragas": 2, "vladimir": 2, "karma": 3}
+# gragas, zeri: dense strips drawn by tools/art/ppu_gragas.py, ppu_zeri.py; vladimir, karma: Codex's strips read
+# back by tools/art/import_ppu_strips.py (all in assets/source/ppu)
+PPU = {"yasuo": 3, "gragas": 2, "zeri": 3, "vladimir": 2, "karma": 3}
 PREFIX = "hd_"
 # hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
 # the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much
 SHIFT = {"gragas": 6}
+# heroes whose dense frames are a new drawing, not the 1x art (league_zeri: Codex's pictures read at 111 rows): the
+# checks against the 1x frame scaled do not apply to them (tools/art/ppu_zeri.py checks its frames)
+REDRAWN = {"zeri"}
 
 
 def up1(hero, a):
@@ -424,6 +427,8 @@ def outside_head(hero, sheet):
     """hd pixels that differ from the 1x frame scaled, far from where its head is (the body must stay the 1x art)."""
     bad = []
     for tag in [t for t in sheet if t.startswith(PREFIX) and not is_drawn(hero, t[len(PREFIX):])]:
+        if hero in REDRAWN:
+            continue                    # the whole frame is the drawing, not the 1x art
         for i, (b, _) in enumerate(sheet[tag]):
             a = up1(hero, sheet[tag[len(PREFIX):]][i][0])
             diff = np.abs(a.astype(int) - b.astype(int)).max(axis=2) > 0
@@ -464,6 +469,8 @@ def strays(hero, sheet):
             holes = ndimage.binary_fill_holes(op) & ~op
             holes1 = up1(hero, (ndimage.binary_fill_holes(one[..., 3] > 0) & ~(one[..., 3] > 0))[..., None])[..., 0]
             new_holes = holes & ~holes1
+            if hero in REDRAWN:         # the drawing's own gaps (under the arm), not leftovers
+                new_holes[:] = False
             if new_holes.any():
                 ys, xs = np.nonzero(new_holes)
                 bad.append(f"{tag}[{i}]: {int(new_holes.sum())} hole pixels at {list(zip(xs.tolist(), ys.tolist()))[:4]}")

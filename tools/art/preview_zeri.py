@@ -3,7 +3,7 @@
 
     python tools/art/preview_zeri.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_zeri_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_zeri_frames.png    every animation's dense frames (hd_, PPU 3, as league.dll shows them), the game at 3x
   league_zeri_effects.png   every effect animation, 3x
   league_zeri_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                             (tools/kit/build_zeri.py, 60 ticks a second): bursts of rounds into Darius charge the pack
@@ -11,7 +11,8 @@
                             charge, the pulse into Darius (the hit, the slow); E - the dash burst, the piercing round
                             through Darius into Garen; she runs past them, turns round - facing left from here, as on
                             the red side - and fires R: the nova round her hits both, the overcharge, triple shots
-                            chaining lightning; 3x
+                            chaining lightning; 3x, her dense frames (PPU 3) at 105% as league.dll draws them,
+                            the rounds from their levelled muzzle
 """
 import argparse
 import os
@@ -32,7 +33,10 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_zeri")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_zeri_fx", "league_zeri_big")}
-MUZZLE = 26                                      # the levelled rifle's muzzle, px ahead of the pivot
+MUZZLE = 11                                      # the dense frames' levelled muzzle at 105%, px ahead of the pivot
+LIFT = -11                                       # and over it (build_zeri a_y)
+PPU = 3                                          # her dense frames (tools/art/ppu_hd.py)
+SCALE = 1.05                                     # as league.dll shows them (tools/art/ppu_zeri.py SCALE)
 ROUND = P["burst_speed"] / 1000                  # px a tick
 SPARK = P["p_speed"] / 1000
 PULSE = P["w_speed"] / 1000
@@ -42,7 +46,7 @@ def showcase(out, z=3, step=40):
     sp = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_zeri_fx"], fx["league_zeri_big"]
-    W, H = 420, 150
+    W, H = 420, 150                                 # game px, drawn z times
     gy = 108
     x0 = 110
     d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), x0 + 60, gy)       # her attack range
@@ -55,8 +59,9 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
+        an = Anim(frames_of(sp, "hd_" + tag), t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
         an.pos = me.pos
+        an.scale = z * SCALE / PPU                  # her dense frames at 105%, as the game draws her
         body.append(an)
         t = an.until
         return an
@@ -65,7 +70,7 @@ def showcase(out, z=3, step=40):
         over.append(OnFoe(frames_of(sheet or small, tag), when, foe))
         foe.flinches.append(when)
 
-    def shot(foe, when, tag, speed, last=None, y=-6):
+    def shot(foe, when, tag, speed, last=None, y=LIFT):
         """A round from the muzzle to the foe (or on to `last`)."""
         sx = me.pos(when)[0] + (-MUZZLE if face[0] else MUZZLE)
         tx = (last or foe).pos(when)[0]
@@ -131,30 +136,33 @@ def showcase(out, z=3, step=40):
     a("idle", 1200, loop=True)
     end = t
 
-    def place(img, f, px, py):
-        img.alpha_composite(f, (int(px - f.width // 2), int(py - f.height // 2)))
+    def place(img, f, px, py, k=z):
+        """f (centred on its pivot) drawn k times its size with its centre on (px, py) game px."""
+        if k != 1:
+            f = f.resize((max(1, round(f.width * k)), max(1, round(f.height * k))), Image.NEAREST)
+        img.alpha_composite(f, (round(px * z + z / 2 - f.width / 2), round(py * z + z / 2 - f.height / 2)))
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        units = [(g.pos(tt)[1], g.frame(tt), g.pos(tt)), (d.pos(tt)[1], d.frame(tt), d.pos(tt))]
+        units = [(u.pos(tt)[1], u.frame(tt), u.pos(tt), z) for u in (g, d)]
         for an in body:
             f = an.frame(tt)
             if f is not None:
-                units.append((an.pos(tt)[1] + 0.5, f, an.pos(tt)))
+                units.append((an.pos(tt)[1] + 0.5, f, an.pos(tt), an.scale))
                 break
-        for _, f, p in sorted(units, key=lambda u: u[0]):
+        for _, f, p, k in sorted(units, key=lambda u: u[0]):
             if f is not None:
-                place(img, f, *p)
+                place(img, f, *p, k)
         for an in over:
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -174,8 +182,8 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_zeri_frames.png")))
+        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags if t["name"].startswith("hd_")],
+                                os.path.join(args.out, "league_zeri_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():

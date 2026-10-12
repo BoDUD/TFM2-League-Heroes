@@ -11,6 +11,7 @@
 pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
     ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim")),
+    ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
     ("league_vladimir", 2.0, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
     ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
 ];
@@ -21,7 +22,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// (src/view.rs), each about the frame's centre / the unit's position - so the hero's dense frames are drawn lower by
 /// (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were (tools/art/ppu_gragas.py SHIFT).
 /// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80)];
+/// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05)];
 
 pub const PREFIX: &str = "hd_";
 

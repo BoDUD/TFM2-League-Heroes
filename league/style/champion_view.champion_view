@@ -1066,16 +1066,12 @@
     },
     "league_zeri": {
       "face": {
-        "x": 2,
-        "y": -38
+        "x": 1,
+        "y": -36
       },
       "center": {
         "x": 0,
         "y": -12
-      },
-      "banpick_center": {
-        "x": 0,
-        "y": -11
       }
     },
     "league_nautilus": {

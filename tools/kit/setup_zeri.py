@@ -38,11 +38,11 @@ R = "<#ef5350ff>"      # crowd control
 Wh = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 2, "y": -38}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -11}}
-# face: tfm2_ase.py face on the final sprite (crown 38 px above the feet: the 40-row design - the 37-row cut was undone,
-# 「恢复到40」). banpick_center: her idle tops at -28.5 from the frame centre (40 rows, the soles 11.5 under it), past the
-# card's -28, so y = -39 - (-28) = -11 puts the bun tips a pixel under the card's top (the card rule; the 0 she once
-# had put the pivot on the canvas bottom and clipped her under the chest: 「泽丽BP界面位置不对」)
+VIEW = {"face": {"x": 1, "y": -36}, "center": {"x": 0, "y": -12}}
+# face: tfm2_ase.py face's rule on the dense idle as league.dll shows it on the cards, the encyclopedia and the face icons
+# (105%, tools/art/ppu_zeri.py SCALE: the crown 36 px above the feet; the 1x design's was (2, -38)).
+# No banpick_center: the dense idle tops at -27.5 from the frame centre, under the card's -28 (the 1x one, at -28.5,
+# had -11; the 0 she once had put the pivot on the canvas bottom and clipped her under the chest: 「泽丽BP界面位置不对」)
 
 
 def mag(d, r):

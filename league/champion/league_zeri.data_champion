@@ -1328,7 +1328,7 @@
                 "type": "TargetProjectile",
                 "name": "league_zeri_p_spark",
                 "speed": 8000,
-                "y_offset": -1000,
+                "y_offset": -6000,
                 "applied_target": "Enemy",
                 "applied_effects": [
                   {
@@ -1789,7 +1789,7 @@
                             "radius": 3000
                           }
                         },
-                        "y_offset": -1000
+                        "y_offset": -6000
                       },
                       "effect_none": {
                         "type": "LinearProjectile",
@@ -1902,7 +1902,7 @@
                             "radius": 3000
                           }
                         },
-                        "y_offset": -1000
+                        "y_offset": -6000
                       }
                     }
                   ]
@@ -2074,7 +2074,7 @@
                               "radius": 3000
                             }
                           },
-                          "y_offset": -1000
+                          "y_offset": -6000
                         },
                         "effect_none": {
                           "type": "LinearProjectile",
@@ -2187,7 +2187,7 @@
                               "radius": 3000
                             }
                           },
-                          "y_offset": -1000
+                          "y_offset": -6000
                         }
                       }
                     ]
@@ -2318,7 +2318,7 @@
                               "radius": 3000
                             }
                           },
-                          "y_offset": -1000
+                          "y_offset": -6000
                         },
                         "effect_none": {
                           "type": "LinearProjectile",
@@ -2392,7 +2392,7 @@
                               "radius": 3000
                             }
                           },
-                          "y_offset": -1000
+                          "y_offset": -6000
                         }
                       }
                     ]
@@ -2632,7 +2632,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_zeri_p_spark",
                                     "speed": 8000,
-                                    "y_offset": -1000,
+                                    "y_offset": -6000,
                                     "applied_target": "Enemy",
                                     "applied_effects": [
                                       {
@@ -2890,7 +2890,7 @@
                     "radius": 4000
                   }
                 },
-                "y_offset": -1000
+                "y_offset": -6000
               }
             ]
           }
@@ -3365,7 +3365,7 @@
                                                   "type": "TargetProjectile",
                                                   "name": "league_zeri_p_spark",
                                                   "speed": 8000,
-                                                  "y_offset": -1000,
+                                                  "y_offset": -6000,
                                                   "applied_target": "Enemy",
                                                   "applied_effects": [
                                                     {
@@ -3623,7 +3623,7 @@
                                   "radius": 4000
                                 }
                               },
-                              "y_offset": -1000
+                              "y_offset": -6000
                             }
                           ]
                         }
@@ -4469,7 +4469,7 @@
                                                                     "type": "TargetProjectile",
                                                                     "name": "league_zeri_p_spark",
                                                                     "speed": 8000,
-                                                                    "y_offset": -1000,
+                                                                    "y_offset": -6000,
                                                                     "applied_target": "Enemy",
                                                                     "applied_effects": [
                                                                       {
@@ -4727,7 +4727,7 @@
                                                     "radius": 4000
                                                   }
                                                 },
-                                                "y_offset": -1000
+                                                "y_offset": -6000
                                               }
                                             ]
                                           }

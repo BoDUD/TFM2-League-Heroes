@@ -58,8 +58,10 @@ P = {
     # 56 AD, 330 move (the fastest base move speed among marksmen), 550 attack range (Q 825)
     "hp": 860, "hp_g": 86, "atk": 92, "atk_g": 18, "ap": 20, "ap_g": 8, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3,
     "ms": 920, "ms_g": 10,
-    # attack: Burst Fire leaves the rifle on a_st (the action's start timing: attack speed shortens it)
-    "atk_range": 60000, "atk_dur": 24, "atk_cd": 56, "a_st": 8, "burst_speed": 9000, "burst_r": 3000, "a_y": -1000,
+    # attack: Burst Fire leaves the rifle on a_st (the action's start timing: attack speed shortens it); the rounds, the
+    # spark and W's pulse start 5000 - a_y over her pivot: 11 px, the dense frames' levelled muzzle as league.dll shows
+    # them at 105% (tools/art/ppu_zeri.py SCALE; the user: 「挪到高清枪口」 - the 1x rifle's was 6 px over it, a_y -1000)
+    "atk_range": 60000, "atk_dur": 24, "atk_cd": 56, "a_st": 8, "burst_speed": 9000, "burst_r": 3000, "a_y": -6000,
     # passive: Living Battery (League: charged attack 90-200 + 110% AP + 1-11% max hp; shield steal 45% 3 s; haste 10% 1.5 s)
     "p_need": 5, "p_speed": 8000, "p_dmg": 40, "p_ap": 100, "p_hp": 4, "p_slow": 40, "p_slow_t": 30,
     "p_sh": 40, "p_sh_r": 30, "p_sh_t": 180, "p_haste": 10, "p_haste_t": 90, "p_steal": 45,
