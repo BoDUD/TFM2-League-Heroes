@@ -55,10 +55,10 @@ P = {
     "p_heal": 55, "p_heal3": 85, "p_ap": 20, "p_cd": 720,
     # Q Barrel Roll (League: 850 range, radius 250, 80-240 + 70% AP, slow 40-60% 2 s, cooked 2 s at most, cd 11-6 s)
     "q_cd": 420, "q_range": 58000, "q_dur": 25, "q_at": 9, "q_fly": 22, "q_wait": 45, "q_r": 19000,
-    "q_dmg": 95, "q_ratio": 70, "q_slow": 40, "q_slow_t": 120,
+    "q_dmg": 90, "q_ratio": 70, "q_slow": 40, "q_slow_t": 120,
     # E Body Slam (League: 600 dash at 900, 80-260 + 60% AP, stun 1 s, cd 14-12 s, 40% back on a hit)
     "e_cd": 600, "e_range": 42000, "e_dur": 44, "e_at": 4, "e_speed": 3200, "e_tick": 12, "e_r": 20000,
-    "e_dmg": 85, "e_ratio": 60, "e_stun": 60, "e_refund": 66, "e_combo": 120,
+    "e_dmg": 80, "e_ratio": 60, "e_stun": 60, "e_refund": 66, "e_combo": 120,
     # W Drunken Rage (League: 10-30% damage reduction 2.5 s; the next attack 7% max health + 20-170 + 70% AP, r 250)
     "w_at": 17, "w_dr": 20, "w_dr_t": 150, "w_t": 300, "w_r": 17000, "w_dmg": 55, "w_ratio": 50, "w_hp": 6,
     # R Explosive Cask (League: 1000 range, radius 350, 200-400 + 80% AP, knock-back 900, cd 100-70 s)
