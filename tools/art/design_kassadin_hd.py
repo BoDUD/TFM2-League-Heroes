@@ -69,24 +69,32 @@ def is_hand(rgb):
     return g > HAND[1] and b > HAND[1] and r < 200
 
 
-def blade(a, base, length):
-    """Draw the blade from `base` 45 degrees down-right, under the hand's squares; returns the grown picture."""
-    pad = length + 6
-    a = np.pad(a, ((0, pad), (0, pad), (0, 0)))
+def blade(a, base, length, direction=(1, 1), bright=False, crop=True):
+    """Draw the blade from `base` along `direction` (a multiple of 45 degrees: (1, 1) down and forward, (1, 0) forward,
+    (1, -1) up and forward, (0, -1) up, (0, 1) down), under the hand's squares. `length` counts squares along the
+    larger axis (diagonals as long as the design's). bright: Nether Blade's empowered strike - the whole rim lit.
+    crop: grow the picture for the blade and trim it (the design); else draw inside `a` as it is (the rig's canvas)."""
+    if crop:
+        pad = length + 6
+        a = np.pad(a, ((0, pad), (0, pad), (0, 0)))
     H, W = a.shape[:2]
     bx, by = base
-    ux, uy = 1 / np.sqrt(2), 1 / np.sqrt(2)          # along the blade
-    nx, ny = -uy, ux                                 # across it (toward the lower left)
-    L = length * np.sqrt(2)
+    dx, dy = direction
+    n_ = np.hypot(dx, dy)
+    ux, uy = dx / n_, dy / n_                        # along the blade
+    nx, ny = -uy, ux                                 # across it
+    L = length * n_
     hand = np.zeros((H, W), bool)
-    for y in range(H):
-        for x in range(W):
+    y0, y1 = max(0, int(by - L - 8)), min(H, int(by + L + 8))
+    x0, x1 = max(0, int(bx - L - 8)), min(W, int(bx + L + 8))
+    for y in range(y0, y1):
+        for x in range(x0, x1):
             if a[y, x, 3] and is_hand(a[y, x]):
                 hand[y, x] = True
     body = np.zeros((H, W), bool)
     col = np.zeros((H, W, 3), np.uint8)
-    for y in range(H):
-        for x in range(W):
+    for y in range(y0, y1):
+        for x in range(x0, x1):
             px, py = x + 0.5 - bx, y + 0.5 - by
             t = px * ux + py * uy
             d = px * nx + py * ny
@@ -96,16 +104,16 @@ def blade(a, base, length):
             w = 3.6 * (1 - f) ** 0.55 + 0.5                # half width tapering to the point
             k = (t % 8.0)
             if 3.0 < k < 5.0 and 0.1 < f < 0.8:            # the teeth (voidblade_glow), a pair every 8, both sides
-                w += 1.0 + (4.0 - abs(k - 4.0) * 1.0) * 0.0 + (1.0 if abs(k - 4.0) < 0.75 else 0.0)
+                w += 1.0 + (1.0 if abs(k - 4.0) < 0.75 else 0.0)
             if abs(d) > w:
                 continue
             body[y, x] = True
             if f > 0.9:
                 col[y, x] = TIP
             elif abs(d) > w - 0.9:
-                col[y, x] = EDGE if d < 0 else RIM       # the lit side up-right, the rim below
+                col[y, x] = EDGE if (d < 0 or bright) else RIM   # the lit side up-right, the rim below
             elif abs(d) > w - 2.0:
-                col[y, x] = RIM if d < 0 else (160, 85, 255)
+                col[y, x] = (EDGE if bright else RIM) if d < 0 else (160, 85, 255)
             else:
                 col[y, x] = CORE2 if d < 0 else CORE
     out = a.copy()
@@ -117,8 +125,17 @@ def blade(a, base, length):
     ring = (p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]) & ~put & (out[..., 3] == 0)
     out[ring, :3] = INK
     out[ring, 3] = 255
+    if not crop:
+        return out
     ys, xs = np.nonzero(out[..., 3])
     return out[:ys.max() + 1, :xs.max() + 1]
+
+
+def base_views():
+    """{view: the read-back on the shared palette, no blade}."""
+    arrs = [load(VIEWS[v]) for v in VIEWS]
+    qs, _ = quantize(arrs)
+    return dict(zip(VIEWS, qs))
 
 
 def build():
