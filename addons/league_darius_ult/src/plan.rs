@@ -19,6 +19,18 @@ pub const R_RANGE: usize = 46_000;
 /// 从放出 R 到落刀的 tick（start_timing 4 + Delayed 22）：层数要撑到这时才算数。
 pub const R_LAND: usize = 26;
 
+/// 主包落刀那一下加在诺手身上的击杀标记（落刀前没有）。
+pub const R_KILL: &str = "league_darius_r_kill";
+/// 副本里 R 出手时给目标挂的标记（被动认大招目标用），挂 `MARK_TICKS` tick。
+pub const MARK: &str = "league_darius_ult_mark";
+pub const MARK_TICKS: usize = 40;
+
+/// 诺手拿到人头（`on_kill`）时要不要把 R 还给他：R 在 `cast` tick 放出，死的是大招目标，还没落刀（`landed` = 身上已有
+/// 主包的击杀标记，那一刀自己会刷新），离放出不超过 `R_LAND` tick。队友抢的人头游戏不算他的，不会走到这里。
+pub fn own_kill_refund(now: usize, cast: Option<usize>, is_target: bool, landed: bool) -> bool {
+    cast.is_some_and(|t| now >= t && now <= t + R_LAND) && is_target && !landed
+}
+
 /// 诺手自己：攻击力（读到的当前值）、诺克萨斯之力和每层出血还剩几 tick（没有就是 None）。
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Me {
@@ -224,6 +236,18 @@ mod tests {
         // 减伤 30%：300 只剩 210，250 血砍不死
         assert!(!Foe { id: 3, hp: 250, reduce: 30, ..Foe::default() }.dies_to(300));
         assert!(Foe { id: 3, hp: 210, reduce: 30, ..Foe::default() }.dies_to(300));
+    }
+
+    #[test]
+    fn his_own_kill_before_the_blow_gives_r_back() {
+        // 放出后 10 tick 他的流血把大招目标流死：还
+        assert!(own_kill_refund(110, Some(100), true, false));
+        // 落刀那一下砍死的：主包自己刷新，不重复
+        assert!(!own_kill_refund(126, Some(100), true, true));
+        // 死的不是大招目标、没在放 R、早过了落刀：不还
+        assert!(!own_kill_refund(110, Some(100), false, false));
+        assert!(!own_kill_refund(110, None, true, false));
+        assert!(!own_kill_refund(100 + R_LAND + 1, Some(100), true, false));
     }
 
     #[test]

@@ -10,9 +10,11 @@ it, checks that src/plan.rs's numbers are the kit's -
   * R_RANGE: R's range; R_LAND: R's start_timing + the Delayed ticks above the ladder (when the blow lands);
   * R's casting target is still EnemyChampionRecentlyAttacked (the AI's cue that a fight is on) -
 and writes addons/league_darius_ult/override/league_darius.data_champion and .../text/champion.i18n: the same kit
-with one change, R's tooltip pointing to description.league_darius_ult.ult (a "test build" lead, so the tooltip in
-game shows whether the override took; the AI hook league_darius_ult:ult decides when R goes). Every other champion
-stays untouched. Run it again whenever the main pack's Darius changes.
+with three changes - R's tooltip pointing to description.league_darius_ult.ult (a "test build" lead, so the tooltip in
+game shows whether the override took; the AI hook league_darius_ult:ult decides when R goes); the passive
+league_darius_ult:own_kill (his own kill of R's target before the blow refreshes R, 2026-10-12, the user: 「别人反馈人头是
+诺手的」「改」); and R marking its target at the cast (an AddBuff of src/plan.rs's MARK, MARK_TICKS long) so the passive
+knows whom R is for. Every other champion stays untouched. Run it again whenever the main pack's Darius changes.
 """
 import json
 import os
@@ -85,6 +87,9 @@ def consts():
         "MIGHT_ATTACK_MULT": num("MIGHT_ATTACK_MULT"),
         "R_RANGE": num("R_RANGE"),
         "R_LAND": num("R_LAND"),
+        "MARK": one(r'pub const MARK: &str = "([^"]+)";', "MARK"),
+        "MARK_TICKS": num("MARK_TICKS"),
+        "R_KILL": one(r'pub const R_KILL: &str = "([^"]+)";', "R_KILL"),
     }
 
 
@@ -144,6 +149,12 @@ def check(kit, c):
                and nd.get("buff_state", {}).get("name") in c["HEMO"]}
     if len(windows) != 1:
         sys.exit("the hemorrhage stacks last %s ticks: one window expected" % sorted(windows))
+    flags = {nd["buff_state"]["name"] for nd, dl in walk(ult["effect"]) if nd.get("type") == "AddCasterBuff"
+             and nd.get("buff_state", {}).get("name") == c["R_KILL"] and dl == delay}
+    if not flags:
+        sys.exit("R's blow no longer sets %s on Darius: update plan.rs R_KILL and the passive" % c["R_KILL"])
+    if kit.get("passive"):
+        sys.exit("the main pack's Darius has a passive now: the copy would replace it, update this script")
     if ult["casting_target"] != CASTING_TARGET:
         sys.exit("R's casting target is %s, not %s: update this script and the README" % (ult["casting_target"], CASTING_TARGET))
     return windows.pop()
@@ -158,6 +169,11 @@ def main():
     if c["R_TIERS"][c["MIGHT_TIER"]] != (2 * b, 2 * r) or window % 60:
         sys.exit("the tooltip says Might doubles R and the window is whole seconds: update TEXT")
     kit["ult"]["description"] = "#asset/base/text/champion?" + TEXT_KEY
+    kit["passive"] = {"passive_ref": MOD_ID + ":own_kill", "params": {}}
+    root = kit["ult"]["effect"]
+    if root.get("type") != "Combine":
+        sys.exit("R's effect is not a Combine: update this script")
+    root["effects"].insert(0, {"type": "AddBuff", "buff_state": {"name": c["MARK"], "duration": {"Time": {"tick": c["MARK_TICKS"]}}}})
 
     values = {"b": b, "r": r, "s": step * 100 // r, "w": window // 60}
     texts = {lang: t.format(**values) for lang, t in TEXT.items()}
