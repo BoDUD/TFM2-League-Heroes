@@ -45,6 +45,13 @@ THICK = 2                         # the outer outline grown by 2 hd squares: wit
 WAIST = 60                        # the design's belt row: the upper body above it (and the near arm below it) breathes
 BAR_TOP = 29                      # the shield crossbar's top row under the far hand
 BREATH = [0, 1, 2, 2, 1, 0]
+# On the battlefield he is drawn at SIZE of the 1x size (addons/league_main/src/hd.rs SIZES; the user: 「布隆做的也有点大
+# 得缩小一点」 - 43 game rows with the shield beside him, now 37 like league_garen's), scaled about his position, so every
+# hd frame is drawn SHIFT hd rows lower: the soles, (FEET + 0.5) x PPU under the pivot, land (33.1 + SHIFT) x SIZE =
+# 33.1 under it again (league_gragas's way, tools/art/ppu_gragas.py). A frame without SHIFT clear rows under the soles
+# grows SHIFT rows at both ends first (its centre, the pivot, kept).
+SIZE = 0.85
+SHIFT = round((FEET + 0.5) * PPU * (1 / SIZE - 1))
 
 
 def ms(ticks):
@@ -184,6 +191,18 @@ def walk_frame(idle, near_step, far_step, rise):
     return np.roll(out, -rise, axis=0)
 
 
+def lower(hd):
+    """The hd frame moved SHIFT rows down (grown SHIFT rows at both ends first when its soles have no room)."""
+    if not SHIFT:
+        return hd
+    rows = np.nonzero(hd[..., 3].any(1))[0]
+    if hd.shape[0] - 1 - rows.max() < SHIFT:
+        hd = np.pad(hd, ((SHIFT, SHIFT), (0, 0), (0, 0)))
+    out = np.zeros_like(hd)
+    out[SHIFT:] = hd[:-SHIFT]
+    return out
+
+
 def actions():
     """{tag: [(hd canvas, ms)]}: the imported frames, the idle breathing."""
     fr = json.load(open(os.path.join(FRAMES, "frames.json"), encoding="utf-8"))
@@ -212,6 +231,7 @@ def main():
         ones, hds = [], []
         for can, t in frames:
             one, hd = down(can)
+            hd = lower(hd)
             ones.append((one, round(t, 3)))
             hds.append(hd)
         sheet[tag] = ones

@@ -661,10 +661,10 @@
       },
       "league_braum": {
         "name": "布隆",
-        "attack": "<#ff9028ff>震荡猛击<>：普攻和寒冬之咬命中英雄叠一层，第<#ffb900ff>4层<><#ef5350ff>眩晕1.25秒<>并造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>；之后<#ffb900ff>8秒<>不再叠层，普攻额外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。",
-        "skill": "从盾中甩出寒冰，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+最大生命2%<#a974ffff>魔法伤害<>，<#ef5350ff>减速70%<>，<#ffb900ff>2秒<>内渐弱到35%。",
+        "attack": "<#ff9028ff>震荡猛击<>：普攻和寒冬之咬命中英雄叠一层，第<#ffb900ff>4层<><#ef5350ff>眩晕1.25秒<>并造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>；之后<#ffb900ff>8秒<>不再叠层，普攻额外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法伤害<>。",
+        "skill": "从盾中甩出寒冰，造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+最大生命2%<#a974ffff>魔法伤害<>，<#ef5350ff>减速70%<>，<#ffb900ff>2秒<>内渐弱到35%。",
         "skill2": "举盾<#ffb900ff>3.5秒<>：受到伤害降低50%，获得60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%护盾，身边友方英雄伤害降低20%。<#ff9028ff>挺身而出<>：冲到友方英雄身边，两人护甲和魔抗+30，持续<#ffb900ff>3秒<>。",
-        "ult": "猛砸地面，冰川裂隙冲向目标，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.6秒<>（第一个英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>减速40%<>。"
+        "ult": "猛砸地面，冰川裂隙冲向目标，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.6秒<>（第一个英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>减速40%<>。"
       },
       "league_mordekaiser": {
         "name": "莫德凯撒",
@@ -1819,10 +1819,10 @@
       },
       "league_braum": {
         "name": "布郎姆",
-        "attack": "<#ff9028ff>震盪冰封<>：普攻和凜冬衝擊命中英雄疊一層，第<#ffb900ff>4層<><#ef5350ff>暈眩1.25秒<>並造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>；之後<#ffb900ff>8秒<>不再疊層，普攻額外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。",
-        "skill": "從盾中甩出寒冰，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+最大生命2%<#a974ffff>魔法傷害<>，<#ef5350ff>緩速70%<>，<#ffb900ff>2秒<>內漸弱到35%。",
+        "attack": "<#ff9028ff>震盪冰封<>：普攻和凜冬衝擊命中英雄疊一層，第<#ffb900ff>4層<><#ef5350ff>暈眩1.25秒<>並造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>；之後<#ffb900ff>8秒<>不再疊層，普攻額外造成<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<><#a974ffff>魔法傷害<>。",
+        "skill": "從盾中甩出寒冰，造成<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+最大生命2%<#a974ffff>魔法傷害<>，<#ef5350ff>緩速70%<>，<#ffb900ff>2秒<>內漸弱到35%。",
         "skill2": "舉盾<#ffb900ff>3.5秒<>：受到傷害降低50%，獲得60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%護盾，身邊友方英雄傷害降低20%。<#ff9028ff>壁壘守護<>：衝到友方英雄身邊，兩人護甲和魔抗+30，持續<#ffb900ff>3秒<>。",
-        "ult": "猛砸地面，冰河裂隙衝向目標，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.6秒<>（第一個英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>緩速40%<>。"
+        "ult": "猛砸地面，冰河裂隙衝向目標，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.6秒<>（第一個英雄1.25秒），留下<#ffb900ff>4秒<>的裂隙，<#ef5350ff>緩速40%<>。"
       },
       "league_mordekaiser": {
         "name": "魔鬥凱薩",
@@ -2977,10 +2977,10 @@
       },
       "league_braum": {
         "name": "Braum",
-        "attack": "<#ff9028ff>Concussive Blows<>: attacks and Winter's Bite stack on champions; the <#ffb900ff>4th<> <#ef5350ff>stuns 1.25s<> and deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, then for <#ffb900ff>8s<> no stacks and attacks deal <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<> more.",
-        "skill": "Hurls ice from his shield: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 2% max health <#a974ffff>magic damage<> and a <#ef5350ff>70% slow<> fading to 35% over <#ffb900ff>2s<>.",
+        "attack": "<#ff9028ff>Concussive Blows<>: attacks and Winter's Bite stack on champions; the <#ffb900ff>4th<> <#ef5350ff>stuns 1.25s<> and deals <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, then for <#ffb900ff>8s<> no stacks and attacks deal <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>magic damage<> more.",
+        "skill": "Hurls ice from his shield: <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 2% max health <#a974ffff>magic damage<> and a <#ef5350ff>70% slow<> fading to 35% over <#ffb900ff>2s<>.",
         "skill2": "Raises his shield for <#ffb900ff>3.5s<>: 50% less damage, a 60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% shield, allied champions beside him 20% less. <#ff9028ff>Stand Behind Me<>: leaps to an allied champion; both gain 30 armour and magic resist for <#ffb900ff>3s<>.",
-        "ult": "Slams the ground: a fissure runs at the target, dealing <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up 0.6s<> (the first champion 1.25s); the fissure <#ef5350ff>slows 40%<> for <#ffb900ff>4s<>."
+        "ult": "Slams the ground: a fissure runs at the target, dealing <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ef5350ff>knocking up 0.6s<> (the first champion 1.25s); the fissure <#ef5350ff>slows 40%<> for <#ffb900ff>4s<>."
       },
       "league_mordekaiser": {
         "name": "Mordekaiser",
@@ -4135,10 +4135,10 @@
       },
       "league_braum": {
         "name": "브라움",
-        "attack": "<#ff9028ff>뇌진탕 펀치<>: 기본 공격과 동상이 챔피언에 중첩, <#ffb900ff>4중첩<>에 <#ef5350ff>1.25초 기절<>과 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, 이후 <#ffb900ff>8초<> 동안 중첩 없이 기본 공격에 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가.",
-        "skill": "방패에서 얼음을 날려 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 최대 체력 2% <#a974ffff>마법 피해<>와 <#ef5350ff>70% 둔화<>, <#ffb900ff>2초<>에 걸쳐 35%로 감소.",
+        "attack": "<#ff9028ff>뇌진탕 펀치<>: 기본 공격과 동상이 챔피언에 중첩, <#ffb900ff>4중첩<>에 <#ef5350ff>1.25초 기절<>과 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, 이후 <#ffb900ff>8초<> 동안 중첩 없이 기본 공격에 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> <#a974ffff>마법 피해<> 추가.",
+        "skill": "방패에서 얼음을 날려 <#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + 최대 체력 2% <#a974ffff>마법 피해<>와 <#ef5350ff>70% 둔화<>, <#ffb900ff>2초<>에 걸쳐 35%로 감소.",
         "skill2": "<#ffb900ff>3.5초<> 동안 방패를 들어 받는 피해 50% 감소, 60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40% 보호막, 곁의 아군 챔피언 피해 20% 감소. <#ff9028ff>내가 지킨다<>: 아군 챔피언에게 도약, 둘 다 <#ffb900ff>3초<> 동안 방어력과 마법 저항력 +30.",
-        "ult": "땅을 내리쳐 대상 쪽으로 균열을 일으켜 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.6초 에어본<> (첫 챔피언 1.25초), 균열은 <#ffb900ff>4초<> 동안 <#ef5350ff>40% 둔화<>."
+        "ult": "땅을 내리쳐 대상 쪽으로 균열을 일으켜 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.6초 에어본<> (첫 챔피언 1.25초), 균열은 <#ffb900ff>4초<> 동안 <#ef5350ff>40% 둔화<>."
       },
       "league_mordekaiser": {
         "name": "모데카이저",
@@ -5293,10 +5293,10 @@
       },
       "league_braum": {
         "name": "ブラウム",
-        "attack": "<#ff9028ff>漢の拳<>：通常攻撃と冬の凍瘡がチャンピオンにスタック、<#ffb900ff>4<>で<#ef5350ff>1.25秒スタン<>と<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>8秒<>スタックせず通常攻撃に<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。",
-        "skill": "盾から氷を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+最大体力の2%の<#a974ffff>魔法ダメージ<>と<#ef5350ff>70%スロウ<>（<#ffb900ff>2秒<>で35%まで減衰）。",
+        "attack": "<#ff9028ff>漢の拳<>：通常攻撃と冬の凍瘡がチャンピオンにスタック、<#ffb900ff>4<>で<#ef5350ff>1.25秒スタン<>と<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、その後<#ffb900ff>8秒<>スタックせず通常攻撃に<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>の<#a974ffff>魔法ダメージ<>追加。",
+        "skill": "盾から氷を放ち<#a974ffff>105<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>+最大体力の2%の<#a974ffff>魔法ダメージ<>と<#ef5350ff>70%スロウ<>（<#ffb900ff>2秒<>で35%まで減衰）。",
         "skill2": "<#ffb900ff>3.5秒<>盾を構え被ダメージ50%軽減、60 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>40%のシールド、傍の味方チャンピオンも20%軽減。<#ff9028ff>ワシに任せとけ！<>：味方チャンピオンへ跳び、両者の物防と魔防+30（<#ffb900ff>3秒<>）。",
-        "ult": "地面を叩き対象へ裂溝を走らせ<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.6秒ノックアップ<>（最初のチャンピオン1.25秒）、裂溝は<#ffb900ff>4秒<><#ef5350ff>40%スロウ<>。"
+        "ult": "地面を叩き対象へ裂溝を走らせ<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.6秒ノックアップ<>（最初のチャンピオン1.25秒）、裂溝は<#ffb900ff>4秒<><#ef5350ff>40%スロウ<>。"
       },
       "league_mordekaiser": {
         "name": "モルデカイザー",

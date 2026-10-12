@@ -30,7 +30,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_braum";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 /// 主包布隆的英雄 id（AI 钩子按它认人）。
 const HERO: &str = "league_braum";
 
@@ -40,7 +40,7 @@ const HERO: &str = "league_braum";
 /// 这段时间布隆普攻的额外魔法伤害（p_extra + p_extra_ap% 法强）。
 pub const P_HOLD: usize = 240;
 pub const P_STUN: usize = 75;
-pub const P_DMG: usize = 70;
+pub const P_DMG: usize = 85;
 pub const P_AP: usize = 60;
 pub const P_LOCK: usize = 480;
 pub const P_EXTRA: usize = 12;

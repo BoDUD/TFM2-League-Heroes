@@ -35,7 +35,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Mordekaiser: the user picked 110% with a thicker outline (C, Kassadin's way), then 「铁男感觉做的太大了吧？」 -> 95%
 /// (47 game px with the mace, his body 41); his hd frames drawn RAISE rows lower (tools/art/rig_mordekaiser.py).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10),
-                                    ("league_mordekaiser", 0.95)];
+                                    ("league_braum", 0.85), ("league_mordekaiser", 0.95)];
 
 pub const PREFIX: &str = "hd_";
 
