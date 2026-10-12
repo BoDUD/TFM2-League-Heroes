@@ -15,9 +15,9 @@
     "asset/league/icons/league_corki_ult"
   ],
   "stat": {
-    "attack": 86,
+    "attack": 88,
     "magic_power": 25,
-    "hp": 880,
+    "hp": 900,
     "defence": 20,
     "magic_resistance": 18,
     "move_speed": 920,
@@ -58,7 +58,7 @@
           "type": "TargetProjectile",
           "name": "league_corki_a_bolt",
           "speed": 6000,
-          "y_offset": -4000,
+          "y_offset": 6000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -147,7 +147,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 8,
+          "tick": 6,
           "effects": [
             {
               "type": "Sfx",
@@ -191,8 +191,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 70,
-                        "attack_ratio": 60,
+                        "damage": 95,
+                        "attack_ratio": 70,
                         "hp_ratio": 0,
                         "can_crit": false,
                         "attack_effect_type": "Target"
@@ -203,7 +203,7 @@
                       "effect": {
                         "type": "Attack",
                         "damage": 0,
-                        "attack_ratio": 50,
+                        "attack_ratio": 55,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -1177,8 +1177,8 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 6,
-                                    "attack_ratio": 12,
+                                    "damage": 9,
+                                    "attack_ratio": 16,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
@@ -1186,7 +1186,7 @@
                                   {
                                     "type": "ApAttack",
                                     "damage": 0,
-                                    "attack_ratio": 6,
+                                    "attack_ratio": 9,
                                     "hp_ratio": 0,
                                     "can_crit": false,
                                     "attack_effect_type": "Target"
@@ -1247,8 +1247,8 @@
                                   "effects": [
                                     {
                                       "type": "Attack",
-                                      "damage": 6,
-                                      "attack_ratio": 12,
+                                      "damage": 9,
+                                      "attack_ratio": 16,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -1256,7 +1256,7 @@
                                     {
                                       "type": "ApAttack",
                                       "damage": 0,
-                                      "attack_ratio": 6,
+                                      "attack_ratio": 9,
                                       "hp_ratio": 0,
                                       "can_crit": false,
                                       "attack_effect_type": "Target"

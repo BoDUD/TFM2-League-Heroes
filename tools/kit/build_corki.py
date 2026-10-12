@@ -48,23 +48,27 @@ ID = "league_corki"
 FX = "asset/league/effects/league_corki_fx"
 BIG = "asset/league/effects/league_corki_big"
 
-# Timings are placeholders until the strips (assets/source/corki/...): re-time and re-sim then.
+# Timings from the dense frames (tools/art/rig_corki_hd.py): the shot on tick 8 of 24, the bomb leaves on tick 6 of 22 (the
+# lift's peak), the gatling spins up from tick 6, the missile on tick 6 of 16; the bullets and missiles leave the gun's
+# mouth 1 game px under the pivot (y_offset 6000: a projectile starts 5000 - y_offset over the caster's pivot).
+# Numbers: d4 of the balance runs (Temp/cr_sim, kd.py 600 24 --lane 2, seeds 1-24 and 25-48): +1.18 / +2.08 against
+# league_xerath +1.51 / +1.04, league_viktor +1.27 / +1.68, league_syndra +1.62 / +1.53 (d0 was -0.43).
 P = {
     # stats (between Range 100/900 hp and Magician 80 + 40 AP): League's Corki 610 +100 hp, 52 AD, 550 range,
     # AS 0.644, Marksman/Mage
-    "hp": 880, "hp_g": 92, "atk": 86, "atk_g": 15, "mp": 25, "mp_g": 10, "def": 20, "def_g": 7, "mr": 18, "mr_g": 4,
+    "hp": 900, "hp_g": 92, "atk": 88, "atk_g": 15, "mp": 25, "mp_g": 10, "def": 20, "def_g": 7, "mr": 18, "mr_g": 4,
     "ms": 920, "ms_g": 10,
     # attack: a shot from the gun under the nose
-    "atk_range": 55000, "atk_dur": 24, "atk_cd": 62, "a_st": 8, "a_speed": 6000, "a_y": -4000,
+    "atk_range": 55000, "atk_dur": 24, "atk_cd": 62, "a_st": 8, "a_speed": 6000, "a_y": 6000,
     # passive Hextech Munitions (League: 20% of the attack as true damage); Special Delivery every 45 s
     "p_true": 20, "pk_cd": 2700,
     # Q Phosphorus Bomb (League: 825 range, radius 250, 75-275 + 70% bonus AD + 50% AP?, cd 9-7 s)
-    "q_cd": 450, "q_range": 58000, "q_dur": 22, "q_at": 8, "q_fly": 18, "q_r": 17000,
-    "q_dmg": 70, "q_ap": 60, "q_ad": 50, "q_mark": 150,
+    "q_cd": 450, "q_range": 58000, "q_dur": 22, "q_at": 6, "q_fly": 18, "q_r": 17000,
+    "q_dmg": 95, "q_ap": 70, "q_ad": 55, "q_mark": 150,
     # E Gatling Gun (League: cone 725 / 28 deg, 4 s, 4 shots a second, shred -10..-22 armour and MR at 4 stacks, cd 12 s)
     "s2_cd": 120, "s2_dur": 2, "e_cd": 720, "e_range": 45000, "e_dur": 18, "e_at": 6, "e_t": 240, "e_per": 15,
     "e_reach": 50000, "e_cone": 48000, "e_cos": 850, "e_off": 1000,
-    "e_dmg": 6, "e_ad": 12, "e_ap": 6, "e_shred": 3, "e_shred_t": 60,
+    "e_dmg": 9, "e_ad": 16, "e_ap": 9, "e_shred": 3, "e_shred_t": 60,
     # W Valkyrie (League: dash 600 at 650+, fire 2.5 s, 2 hits a second, 60-210 + 100% AP over it, cd 20-12 s)
     "w_trig": 30000, "w_cd": 1080, "w_dur": 24, "w_at": 4, "w_speed": 4500, "w_tick": 9, "w_gap": 3,
     "w_fire_r": 9000, "w_fire_t": 150, "w_per": 30, "w_dmg": 15, "w_ap": 12,
@@ -73,8 +77,8 @@ P = {
     "pk_fire_r": 13000, "pk_fire_t": 240, "pk_ms": 30, "pk_ms_t": 180,
     # R Missile Barrage (League: 1300 range, radius 200, 80-230 + 15-120% AD + 12% AP, every 3rd x2 r 300; ammo 4,
     # 12-8 s each)
-    "r_cd": 2400, "r_n": 4, "r_range": 84000, "r_dur": 16, "r_at": 6, "r_speed": 6000, "r_y": -2000, "r_w": 3000,
-    "r_dmg": 55, "r_ap": 30, "r_ad": 40, "r_r": 13000, "r_big_r": 20000, "r_big": 200,
+    "r_cd": 2400, "r_n": 4, "r_range": 84000, "r_dur": 16, "r_at": 6, "r_speed": 6000, "r_y": 6000, "r_w": 3000,
+    "r_dmg": 75, "r_ap": 42, "r_ad": 52, "r_r": 13000, "r_big_r": 20000, "r_big": 200,
 
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

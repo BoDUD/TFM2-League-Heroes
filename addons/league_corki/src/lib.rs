@@ -42,9 +42,9 @@ pub const R_SPEED: f64 = 6_000.0;
 pub const R_W: f64 = 3_000.0;
 pub const R_R: f64 = 13_000.0;
 pub const R_BIG_R: f64 = 20_000.0;
-pub const R_DMG: usize = 55;
-pub const R_AP: usize = 30;
-pub const R_AD: usize = 40;
+pub const R_DMG: usize = 75;
+pub const R_AP: usize = 42;
+pub const R_AD: usize = 52;
 pub const R_BIG: usize = 200;
 /// 瓦尔基里俯冲（w_speed x w_tick）和弹药包（pk_speed x pk_tick）。
 pub const W_SPEED: f64 = 4_500.0;
