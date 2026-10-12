@@ -3,7 +3,7 @@
 //! 主包的英雄还是纯数据；这个 DLL 只做数据做不到的画面：**高清帧（PPU）**——登记在 src/hd.rs 的英雄（先是亚索，PPU 3：身体 1 倍图整 3 倍，Codex 画的头每格 2×2）
 //! 在战场上播自己图里 PPU 倍密的 `hd_<tag>`，按「游戏的缩放 ÷ PPU」画，大小不变、像素更细（src/view.rs）。只在游戏
 //! 0.6.3 的 Windows 版上挂钩（核对函数开头的字节）；别的版本、Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
-//! 卡牌、图鉴、头像用的是 `idle`，一直是 1 倍。
+//! 卡牌、图鉴里会动的精灵也换成高清帧、按 2.2 ÷ PPU 画（src/ui.rs，改游戏的两处指令，核对字节）；头像还是 1 倍的 idle。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 
@@ -16,10 +16,12 @@ use mod_api_stable::*;
 
 pub mod hd;
 #[cfg(windows)]
+mod ui;
+#[cfg(windows)]
 mod view;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.2.0";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 
@@ -54,6 +56,8 @@ fn init(host: &StableHost) -> StableMod {
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
     #[cfg(windows)]
     view::install_once();
+    #[cfg(windows)]
+    ui::install_once();
     host.log(LogLevel::Info, "League Heroes: dense (PPU) frames for the heroes that have them (game 0.6.3, Windows).");
     StableMod::new(ID)
 }
