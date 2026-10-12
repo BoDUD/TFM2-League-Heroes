@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_galio_colossus": {
+        "attack": "【附加包】<#ff9028ff>巨像重击<>：每<#ffb900ff>5秒<>下一次普攻对周围敌人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。<#ff9028ff>杜朗护盾<>被动：12秒没受伤获得<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>护盾。",
+        "skill2": "【附加包】冲向敌方英雄，撞到第一个英雄造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.75秒<>。<#ff9028ff>杜朗护盾<>：蓄力<#ffb900ff>0.83秒<>，伤害降低40%，随后<#ef5350ff>嘲讽<>（身边英雄越多越久）周围敌人，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>。",
+        "ult": "【附加包】给苦战中血量最低的友方英雄<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>护盾，引导<#ffb900ff>2秒<>后飞到其身边，落地造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.75秒<>，周围友方英雄也获得护盾。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_galio_colossus": {
+        "attack": "【附加包】<#ff9028ff>護國意志<>：每<#ffb900ff>5秒<>下一次普攻對周圍敵人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。<#ff9028ff>杜蘭德之盾<>被動：12秒沒受傷獲得<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>護盾。",
+        "skill2": "【附加包】衝向敵方英雄，撞到第一個英雄造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.75秒<>。<#ff9028ff>杜蘭德之盾<>：蓄力<#ffb900ff>0.83秒<>，傷害降低40%，隨後<#ef5350ff>嘲諷<>（身邊英雄越多越久）周圍敵人，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>。",
+        "ult": "【附加包】給苦戰中血量最低的友方英雄<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>護盾，引導<#ffb900ff>2秒<>後飛到其身邊，落地造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.75秒<>，周圍友方英雄也獲得護盾。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_galio_colossus": {
+        "attack": "[Add-on] <#ff9028ff>Colossal Smash<>: every <#ffb900ff>5s<> his next attack deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> to enemies around him. <#ff9028ff>Shield of Durand<> passive: 12s without damage grants a <#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<> shield.",
+        "skill2": "[Add-on] Charges at an enemy champion: the first champion hit takes <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and is <#ef5350ff>knocked up 0.75s<>. <#ff9028ff>Shield of Durand<>: braces for <#ffb900ff>0.83s<> taking 40% less damage, then <#ef5350ff>taunts<> nearby enemies (longer the more champions are near), dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>.",
+        "ult": "[Add-on] Grants the allied champion lowest on health in a fight a <#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<> shield, channels <#ffb900ff>2s<> and flies to it; landing deals <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ef5350ff>knocks up 0.75s<>; allied champions there are shielded too."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_galio_colossus": {
+        "attack": "[애드온] <#ff9028ff>석상의 강타<>: <#ffb900ff>5초<>마다 다음 기본 공격이 주변 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>. <#ff9028ff>듀란드의 방패<> 기본 지속 효과: 12초 동안 피해를 받지 않으면 <#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<> 보호막.",
+        "skill2": "[애드온] 적 챔피언에게 돌진해 처음 부딪힌 챔피언에게 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.75초 에어본<>. <#ff9028ff>듀란드의 방패<>: <#ffb900ff>0.83초<> 동안 받는 피해 40% 감소 후 주변 적을 <#ef5350ff>도발<>(주변 챔피언이 많을수록 길게), <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>.",
+        "ult": "[애드온] 싸우는 아군 중 체력이 가장 낮은 챔피언에게 <#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<> 보호막, <#ffb900ff>2초<> 정신 집중 후 날아가 착지하며 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ef5350ff>0.75초 에어본<>, 주변 아군 챔피언도 보호막."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_galio_colossus": {
+        "attack": "【アドオン】<#ff9028ff>巨像の一撃<>：<#ffb900ff>5秒<>毎に次の通常攻撃が周囲の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>デュランドの守り<>自動効果：12秒被弾しないと<#7dd87dff>90 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>30%<>のシールド。",
+        "skill2": "【アドオン】敵チャンピオンへ突進し最初に当たったチャンピオンに<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.75秒ノックアップ<>。<#ff9028ff>デュランドの守り<>：<#ffb900ff>0.83秒<>構え被ダメージ40%軽減、周囲の敵を<#ef5350ff>挑発<>（周囲のチャンピオンが多いほど長く）し<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "【アドオン】戦う味方で体力が最も低いチャンピオンに<#7dd87dff>150 + <i#asset/base/ui/banpick/champion_stat_icon:ap_0>50%<>のシールド、<#ffb900ff>2秒<>詠唱後に飛来し着地で<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.75秒ノックアップ<>、周囲の味方もシールド。"
+      }
+    }
+  }
+}

@@ -11,8 +11,8 @@ addons/league_galio, the pros' combos):
           flag cannot be shortened without restarting it, so the wait here is a flat p_cd).
   W passive Shield of Durand: League shields him against magic (6-15% max health) once he has gone 12 s without
           damage. The data reads neither, so his attack refreshes a w_ps + w_ps_ap% AP shield for w_ps_t ticks at most
-          once every w_ps_cd ticks; with native=1 the add-on gives the shield after 12 s untouched and lets it take only
-          magic damage.
+          once every w_ps_cd ticks; with native=1 the add-on gives the shield after w_ps_cd ticks without damage
+          (a passive's damage hook carries no damage type, so it takes any damage, not only magic).
   attack  A stone punch, the hit on tick atk_st (the smash: attack2, its own tag).
   skill   Q Winds of War (战争罡风): a `Position` cast on `EnemyWithoutTower` (q_range, waves and camps too): on q_at the
           two windblasts fly (a lob, q_fly ticks) to where the unit stood and burst - every enemy within q_r takes
@@ -26,8 +26,8 @@ addons/league_galio, the pros' combos):
             (League: 0.75 s); a hit opens q_fast;
           - else W ready and an enemy champion within w_trig: he braces for w_ch ticks - w_dr% less damage (lingering
             w_lin ticks after) and slowed - then bursts: every enemy within w_r takes w_dmg + w_ap% AP and is taunted
-            w_taunt ticks (League: 0.5-1.5 s by the charge; the add-on's charge lasts by how many enemy champions stand
-            near); a taunted champion opens q_fast.
+            w_taunt ticks (League: 0.5-1.5 s by the charge; with native=1 league_galio:taunt taunts by how many enemy
+            champions stand within w_r: one 0.75 s, two w_taunt, three or more 1.5 s); a taunted champion opens q_fast.
   ult     R Hero's Entrance (英雄登场): League's lands him on an ally anywhere; the data reads no health, so the slot only
           arms it (league_shen R): a 3-tick `None` action, then while r_arm lasts a poll every r_poll ticks looks for an
           allied champion (a) in crowd control, else (b) with an enemy champion within r_sur two polls in a row - and
@@ -35,7 +35,8 @@ addons/league_galio, the pros' combos):
           (crowd control on him every r_brk ticks breaks it), flies onto the ally and lands: every enemy within r_r
           takes r_dmg + r_ap% AP and is knocked up r_up ticks (r_up_c within r_rc, the centre), allied champions round
           him get the shield too. The pros' R -> W: W ready, he braces on landing. Unused, the window ends with the
-          cooldown capped. With native=1 the add-on picks the ally by health and how many enemies would be thrown up.
+          cooldown capped. With native=1 every ally is asked and league_galio:entrance picks the one to land on: the
+          lowest share of health among those far enough with an enemy champion near, more enemies round it first.
 """
 import argparse
 import json
@@ -264,8 +265,9 @@ def build(p):
     def brace():
         burst = combine(anim("w_burst", p["w_rel"]), cview("w_burst"), sfx("w_hit"),
                         around(p["w_r"], "EnemyWithoutTower",
-                               [magic(p["w_dmg"], p["w_ap"]), {"type": "Taunt", "duration": p["w_taunt"]},
-                                buff("w_taunt", p["w_taunt"])]),
+                               [magic(p["w_dmg"], p["w_ap"]),
+                                *([{"type": "Native", "effect_ref": "league_galio:taunt"}] if native else
+                                  [{"type": "Taunt", "duration": p["w_taunt"]}, buff("w_taunt", p["w_taunt"])])]),
                         around(p["w_r"], "EnemyChampion", [fast]))
         return combine(flag("w_cd", p["w_cd"]), anim("w_charge", p["w_ch"]), cview("w_charge"), sfx("w"),
                        voice("vo_w", p),
@@ -308,8 +310,9 @@ def build(p):
                                    sw("r_e", combine(*rm("r_e"), sw("r_seen", save(), refresh("r_seen", p["r_seen"]))))))
         return homing("r_probe", 1000000, "AllyChampion", [far, go])
 
-    if native:  # the add-on marks the ally to land on (lowest health, most enemies round it) with r_pick on him
-        look = sw("r_pick", pick(960000, "AllyNotSelf", probe(True)))
+    if native:  # every ally is asked; league_galio:entrance raises the 1-tick flag r_this on him for the one to land on
+        look = around(960000, "AllyNotSelf", [{"type": "Native", "effect_ref": "league_galio:entrance"},
+                                              sw("r_this", combine(*rm("r_this"), save()))])
     else:
         look = combine(pick(960000, "AllyChampionInCC", flag("r_cc", 1)),
                        sw("r_cc", combine(*rm("r_cc"), pick(960000, "AllyChampionInCC", probe(True))),
@@ -346,8 +349,9 @@ def build(p):
     }
     if native:
         kit["passive"] = {"passive_ref": "league_galio:colossus",
-                          "params": {"ps": p["w_ps"], "ps_ap": p["w_ps_ap"], "ps_t": p["w_ps_t"],
-                                     "w_ch": p["w_ch"], "w_taunt": p["w_taunt"], "r_far": p["r_far"]}}
+                          "params": {"ps": p["w_ps"], "ps_ap": p["w_ps_ap"], "ps_t": p["w_ps_t"], "w_r": p["w_r"],
+                                     "w_taunt": p["w_taunt"], "r_far": p["r_far"], "r_sur": p["r_sur"],
+                                     "r_r": p["r_r"]}}
     return kit
 
 
