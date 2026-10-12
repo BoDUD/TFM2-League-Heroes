@@ -25,6 +25,7 @@ import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -32,6 +33,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 import design_kassadin_hd as D  # noqa: E402
+import design_riven as R  # noqa: E402
 
 PPU = 3.622                       # 134 design rows / 37 game rows (the user's pick)
 FEET = 11                         # 1x rows from the pivot down to the soles (the pack's 128-canvas heroes: 88 -> 99)
@@ -42,6 +44,12 @@ GROUND = 190                      # the hd row under the robe (the soles' line)
 VOID = np.array([108, 40, 196], float)      # Riftwalk's tint
 DARK = np.array([30, 8, 56], float)
 WHITE = np.array([255, 255, 255], float)
+OUTLINE = np.array([12, 9, 19])
+ARM_ELBOW = (66, 62)              # the front design's far elbow (the arm unit turns about it)
+SIDE_ELBOW = (62, 64)             # where it sits in the side design: the front hand then lands on the side hand
+RAISED_ELBOW = (72, 64)           # raised, the elbow at the chest's front edge: the hand clear of the mask (x <= 80)
+BELT = 92                         # the death's collapse: the side design's rows above this (both hands, the belt and
+                                  # the robe's top) sink as one; the cloth below piles up
 
 
 def ms(ticks):
@@ -102,6 +110,104 @@ class Rig:
             can[ys[gone], xs[gone]] = 0
         return can
 
+    # ---------------------------------------------------------------- the swinging arm (the attack)
+    def arm(self, length=32, bright=False):
+        """The front design's far forearm, hand and blade as one rigid unit on a square canvas, the elbow at its
+        centre (ARM_ELBOW). The forearm: the bracer from the elbow down to the hand (rows 59-86, from column 63; the
+        upper arm's and the torso's cyan left of column 76 excluded) - the front view shows it whole; in the side view
+        it hides behind the belt plate."""
+        f = self.views["front"]
+        H, W = f.shape[:2]
+        ys, xs = np.mgrid[0:H, 0:W]
+        rgb = f[..., :3].astype(int)
+        cyan = (rgb[..., 1] > 100) & (rgb[..., 2] > 100) & (rgb[..., 0] < 140)
+        keep = (f[..., 3] > 0) & (ys >= 59) & (ys <= 86) & (xs >= 63) & ~(cyan & (xs < 76)) & ~((ys < 66) & (xs < 67))
+        # only the forearm itself: the biggest 8-connected piece (a bracer spike cut off by the box floated loose)
+        lab, n = ndimage.label(keep, structure=np.ones((3, 3)))
+        if n > 1:
+            keep = lab == (1 + int(np.argmax(ndimage.sum(keep, lab, range(1, n + 1)))))
+        ex, ey = ARM_ELBOW
+        R_ = 70
+        can = np.zeros((2 * R_ + 1, 2 * R_ + 1, 4), np.uint8)
+        yy, xx = np.nonzero(keep)
+        can[yy - ey + R_, xx - ex + R_] = f[yy, xx]
+        bx, by = D.BLADE["front"][0]
+        can = D.blade(can, (bx - ex + R_, by - ey + R_), length, (1, 1), bright=bright, crop=False)
+        return can, R_
+
+    def side_no_hand(self):
+        """The side design without its far hand (it sticks out in front of the robe from column 75, rows 66-86): the
+        hand's whole cyan family - its teal outline (12, 71, 89) too - goes; the robe's front edge is closed again with
+        the design's outline."""
+        a = self.views["side"].copy()
+        H, W = a.shape[:2]
+        ys, xs = np.mgrid[0:H, 0:W]
+        a[(xs >= 75) & (ys >= 66) & (ys <= 86) & teal(a)] = 0
+        a, _, _ = G.complete_outline(a, color=tuple(int(v) for v in OUTLINE))
+        return a
+
+    def swing(self, k, dx=0, elbow=SIDE_ELBOW, length=32, bright=False):
+        """An attack frame: the body (the side design without its far hand) moved dx, the arm unit turned k quarter
+        turns (1 = counter-clockwise: raised up and forward) about its elbow at `elbow` (side design squares), drawn
+        BEHIND the body - the far arm: as in the design, the forearm hides behind the belt plate and only what reaches
+        past the body shows."""
+        body = self.side_no_hand()
+        can = np.zeros((CAN, CAN, 4), np.uint8)
+        x0, y0 = self.place["side"]
+        x0 += dx
+        unit, R_ = self.arm(length, bright)
+        unit = np.ascontiguousarray(np.rot90(unit, k))
+        ex, ey = elbow
+        cx, cy = x0 + ex - R_, y0 + ey - R_
+        yy, xx = np.nonzero(unit[..., 3])
+        ok = (yy + cy >= 0) & (yy + cy < CAN) & (xx + cx >= 0) & (xx + cx < CAN)
+        can[yy[ok] + cy, xx[ok] + cx] = unit[yy[ok], xx[ok]]
+        h, w = body.shape[:2]
+        sub = can[y0:y0 + h, x0:x0 + w]
+        op = body[..., 3] > 0
+        sub[op] = body[op]
+        return can
+
+    # ---------------------------------------------------------------- the death (League's collapse)
+    def collapse(self, sink, dx=0, blade=True):
+        """A death frame (League's Death: he sinks where he stands, the robe piling on the ground): the upper body (the
+        side design's rows above BELT: the head, both arms and hands, the belt, the robe's top) moved down `sink`
+        rows over the robe's lower tiers, which stay as they are (no row of anything is cut or squeezed: squeezed rows
+        thinned the trailing tip to a line); where the lower tier now stands out beside the sunk upper part its cut
+        top edge gets the design's outline. Then the blade at the hand where it went (blade=False: gone)."""
+        a = self.views["side"]
+        H, W = a.shape[:2]
+        ys, xs = np.mgrid[0:H, 0:W]
+        op = a[..., 3] > 0
+        upper = (ys < BELT) & op
+        low = ~upper & op
+        out = np.zeros_like(a)
+        out[low] = a[low]                                        # the lower tiers where they stood
+        uy, ux = np.nonzero(upper)
+        ok = uy + sink < H
+        out[uy[ok] + sink, ux[ok]] = a[uy[ok], ux[ok]]           # the upper body over them, `sink` rows down
+        covered = np.zeros((H, W), bool)
+        covered[uy[ok] + sink, ux[ok]] = True
+        # the lower tier's cut top row, where the upper body no longer covers it: an outline square above it
+        cap = np.zeros((H, W), bool)
+        cap[BELT - 1] = low[BELT] & ~covered[BELT] & (out[BELT - 1, :, 3] == 0)
+        out[cap, :3] = OUTLINE
+        out[cap, 3] = 255
+        can = np.zeros((CAN, CAN, 4), np.uint8)
+        x0, y0 = self.place["side"]
+        x0 += dx
+        can[y0:y0 + H, x0:x0 + W] = out
+        if not blade:                                            # the energy blade gone (it would reach under the ground)
+            return can
+        bx, by = hand_base("side")
+        return D.blade(can, (bx + x0, by + y0 + sink), 32, (1, 1), crop=False)
+
+
+def teal(a):
+    """The hands' colours: the cyan skin and its teal outline (green and blue well over red)."""
+    rgb = a[..., :3].astype(int)
+    return (a[..., 3] > 0) & (rgb[..., 1] > rgb[..., 0] + 40) & (rgb[..., 2] > rgb[..., 0] + 40)
+
 
 def down(can):
     """The hd canvas -> (the 1x frame centred on the pivot, the hd frame of round(PPU x its size)).
@@ -146,12 +252,17 @@ def actions(r):
     # run: League's glide - the whole figure floating up and down two squares, twice a loop
     bob = [0, -1, -2, -1, 0, -1, -2, -1]
     out["run"] = [(r.frame(S, dy=b), ms(5)) for b in bob]
-    # attack (24 ticks, the hit on tick 8): the blade raised up-forward, swung through forward to down-forward on the
-    # hit as he steps in 3 squares, then back
-    swing = [(-1, UP, 4), (1, FWD, 4), (3, DOWN, 6), (2, DOWN, 6), (0, DOWN, 4)]
-    out["attack"] = [(r.frame(S, dx=x, blade=b), ms(t)) for x, b, t in swing]
-    # attack_w: Nether Blade's strike - the same swing, the blade longer and its whole rim lit
-    out["attack_w"] = [(r.frame(S, dx=x, blade=b, length=40, bright=True), ms(t)) for x, b, t in swing]
+    # attack (24 ticks, the hit on tick 8), League's swipe with the whole arm (the user: 「卡萨丁这样平A的？」): the
+    # forearm, hand and blade as one unit raised up and forward (a quarter turn about the elbow) as he draws in, then
+    # brought down in front of him on the hit as he steps in 3 squares; the last frame is the design again
+    def swipe(length=32, bright=False):
+        up = dict(elbow=RAISED_ELBOW, length=length, bright=bright)
+        return [(r.swing(1, -1, **up), ms(4)), (r.swing(1, 1, **up), ms(4)),
+                (r.swing(0, 3, length=length, bright=bright), ms(6)), (r.swing(0, 2, length=length, bright=bright), ms(6)),
+                (r.frame(S, blade=DOWN, length=length, bright=bright), ms(4))]
+    out["attack"] = swipe()
+    # attack_w: Nether Blade's strike - the same swipe, the blade longer and its whole rim lit
+    out["attack_w"] = swipe(40, True)
     # skill Q (24 ticks, the orb on tick 8): the blade raised up-forward, lowered to point at the target as he leans in
     # (never straight up: from the wrist it would cross the forearm)
     q = [(-1, UP, 4), (0, UP, 4), (2, FWD, 6), (1, FWD, 6), (0, DOWN, 4)]
@@ -164,12 +275,10 @@ def actions(r):
     out["ult"] = [(r.frame(S, blade=UP if k == 0 else DOWN, tint=t), ms(d)) for k, (t, d) in enumerate(rr)]
     # hit: knocked back 2 squares with a white flash, then 1
     out["hit"] = [(r.frame(S, dx=-2, flash=0.35), ms(6)), (r.frame(S, dx=-1), ms(6))]
-    # dead: turning to void and dissolving into it from the head down, a game pixel at a time; the empty robe's hem
-    # (its lowest 16 rows) is left on the ground
-    d = [(0, 0.0, 0.0, None, 6), (-1, 0.5, 0.0, None, 6), (-1, 0.9, 0.3, None, 8), (-1, 0.9, 0.55, None, 8),
-         (-1, 0.95, 0.0, 16, 10), (-1, 0.95, 0.0, 16, 60)]
-    out["dead"] = [(r.frame(S, dx=x, blade=None if k >= 2 else DOWN, tint=t, dissolve=v or (1e-9 if keep else 0),
-                             keep_rows=keep), ms(tk)) for k, (x, t, v, keep, tk) in enumerate(d)]
+    # dead (League's Death, the user: 「死亡动作不太对吧」): he collapses where he stands - the upper body sinking onto
+    # the robe as it pools on the ground (only cloth rows taken out); no sideways slide (it would split the belt)
+    out["dead"] = [(r.frame(S, dx=-1), ms(6)), (r.collapse(8, -1), ms(6)), (r.collapse(16, -1, False), ms(8)),
+                   (r.collapse(22, -1, False), ms(10)), (r.collapse(26, -1, False), ms(60))]
     return out
 
 
