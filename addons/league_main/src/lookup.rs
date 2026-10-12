@@ -7,12 +7,12 @@
 //!
 //! - 取登记英雄的动画表：交回一张**影子表**——表的桶整块复制，每个动作（`idle`、`run` … 和 `hd_*`）都换成它的
 //!   `hd_` 帧，帧矩形 x、y、宽、高全部除以 PPU（帧数据另存一份；原表照旧归游戏所有，影子永不释放）；
-//! - 取它的图（`#sheet`）：交回一个**代理**——同一个贴图对象，虚表抄一份，取宽（+0x28）、取高（+0x30）两项换成
-//!   「原值 ÷ PPU」。
+//! - 取它的图（`#sheet`）：贴图条目就地换虚表——虚表抄一份，取宽（+0x28）、取高（+0x30）两项换成「原值 ÷ PPU」，
+//!   别的（析构在内）照旧。
 //!
 //! UV = 矩形 ÷ 贴图大小，正好落在高清那一块上；画出来的大小 = 矩形宽高 × 各自的缩放，和 1 倍的一样。所以任何按名字
 //! 取帧、按帧大小画的地方都画高清帧，大小、锚点不变，不用再改动作名、写 +0x1b4、改卡牌的指令。绘制命令按名字引用
-//! 贴图（0x22edc70 把「…#sheet」交给 0x1c7880），执行时再取一次——也是代理，宽高一致。
+//! 贴图（0x22edc70 把「…#sheet」交给 0x1c7880），执行时再取一次——同一个条目，宽高一致。
 //!
 //! 另记诊断：每个调用处第一次取英雄图记一行，登记英雄的每个（调用处，名字）也记一行。
 
@@ -48,7 +48,7 @@ struct Probe {
     lines: usize,
 }
 static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::new(), lines: 0 });
-/// original texture entry -> (its data, its vtable, the proxy); texture data -> (width fn, height fn, PPU)
+/// texture entry -> (its data, its own vtable, our vtable); texture data -> (width fn, height fn, PPU)
 static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// original table -> (its ctrl when copied, the shadow table)
@@ -195,18 +195,18 @@ unsafe fn shadow_of(t: usize, hero: &Hero) -> Option<usize> {
     Some(sh)
 }
 
-/// The texture entry at `got` ({data, vtable, ...}) with its size divided by PPU: a copy whose vtable is a copy with
-/// the width (+0x28) and height (+0x30) entries on [`tex_width`] / [`tex_height`].
+/// The texture entry at `got` ({data, vtable, ...}) made to report its size divided by PPU, in place: its vtable
+/// pointer moved to a copy of the vtable whose width (+0x28) and height (+0x30) entries are [`tex_width`] /
+/// [`tex_height`]. (0.4.0 handed out a copy of the entry instead: the encyclopedia then drew nothing - 「亚索消失」 -
+/// the renderer needs the game's own entry.) Every other entry, drop included, is the original's.
 unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
     let (data, vt) = (q(got), q(got + 8));
     if !plausible(data) || !plausible(vt) {
         return None;
     }
     if let Ok(p) = PROXIES.lock() {
-        if let Some(&(d, v, px)) = p.get(&got) {
-            if d == data && v == vt {
-                return Some(px);
-            }
+        if p.values().any(|&(d, _, fake)| d == data && fake == vt) {
+            return Some(got);
         }
     }
     let table: &'static mut [usize; VTABLE] = Box::leak(Box::new([0usize; VTABLE]));
@@ -218,17 +218,13 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
     }
     table[5] = tex_width as unsafe extern "system" fn(usize) -> f32 as usize;
     table[6] = tex_height as unsafe extern "system" fn(usize) -> f32 as usize;
-    let obj: &'static mut [usize; 8] = Box::leak(Box::new([0usize; 8]));
-    for (k, e) in obj.iter_mut().enumerate() {
-        *e = read(got + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
-    }
-    obj[1] = table.as_ptr() as usize;
-    let px = obj.as_ptr() as usize;
+    let fake = table.as_ptr() as usize;
     if let Ok(mut p) = PROXIES.lock() {
-        p.insert(got, (data, vt, px));
+        p.insert(got, (data, vt, fake));
     }
-    wlog(format!("{}: texture proxy {px:#x} for {got:#x} (size / {})", hero.id, hero.ppu));
-    Some(px)
+    std::ptr::write_volatile((got + 8) as *mut usize, fake);
+    wlog(format!("{}: texture {got:#x} reports its size / {} (vtable {vt:#x} -> {fake:#x})", hero.id, hero.ppu));
+    Some(got)
 }
 
 type Size = unsafe extern "system" fn(usize) -> f32;
