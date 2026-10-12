@@ -22,6 +22,7 @@ import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -44,6 +45,14 @@ FRAMES = {"idle": 6}            # pictures in each original strip
 # the idle's blade from the guard to the tip, lifted out before the breath and stamped back moved with the body:
 # (start, end) of its middle line and its half width, in 1x px from the idle frame's centre (both densities)
 BLADE = ((-5.2, 1.7), (13.4, 9.9), 2.5)
+# the idle's blade redrawn straight (the user: 「剑感觉有点歪？」 - the picture's edges are not parallel, 0.445 and 0.478,
+# its lower edge bends flat near the tip and the point sits under the middle line; averaged down, the two edges
+# stepped unevenly and the fuller wobbled). Measured on the picture (strip px, garen_idle.png picture 1): the middle
+# line through (220, 459.05) at slope 0.4615, half width 16.6 across it (outline outside), from the guard (x 200)
+# straight to x 322, then both edges meet on the middle line at x 345. Its colours: the picture's own, for each square
+# the median of the picture's blade pixels at the same distance from the middle line, within 12 px along it.
+BLADE_SRC = {"seed": (270, 470), "through": (220, 459.05), "slope": 0.4615, "half": 16.6, "start": 200,
+             "bend": 322, "tip": 345, "along": 12}
 
 
 def load_strip(tag):
@@ -57,7 +66,68 @@ def regrid(fr, scale):
     x0, y0, x1, y1 = fr.bbox(0.5)
     fx = G.feet_mid(fr, scale, px=3)
     out, u0, r0 = G.render(fr, scale, scale, fx, y1, X0=0.0, Y0=-0.5, cut=0.5)
-    return out, u0, r0
+    return out, u0, r0, (fx, y1, scale)
+
+
+def blade_coords(x, y):
+    """Picture points -> (along the blade's middle line from its start, across it, + down) in picture px."""
+    b = BLADE_SRC
+    ux, uy = 1 / np.hypot(1, b["slope"]), b["slope"] / np.hypot(1, b["slope"])
+    sx, sy = b["start"], b["through"][1] + b["slope"] * (b["start"] - b["through"][0])
+    return (x - sx) * ux + (y - sy) * uy, -(x - sx) * uy + (y - sy) * ux
+
+
+def straight_blade(a, u0, r0, geo, pal):
+    """The idle's blade in the regridded picture `a` redrawn from BLADE_SRC: straight parallel edges, a point on the
+    middle line, a one-square outline; squares of the old blade left outside take the body behind them or go clear.
+    Gold and blue squares (the guard over the blade's root) are never painted. -> (picture, blade squares)."""
+    b = BLADE_SRC
+    fx, ay, s = geo
+    pic = np.asarray(Image.open(os.path.join(PICS, "garen_idle.png")).convert("RGBA")).astype(int)
+    op = pic[..., 3] > 128
+    lum = 0.299 * pic[..., 0] + 0.587 * pic[..., 1] + 0.114 * pic[..., 2]
+    sat = pic[..., :3].max(-1) - pic[..., :3].min(-1)
+    lab, _ = ndimage.label(op & (lum > 60) & (sat < 70))
+    old = ndimage.binary_fill_holes(lab == lab[b["seed"][1], b["seed"][0]])
+    py, px = np.nonzero(old)
+    pt, pd = blade_coords(px + 0.5, py + 0.5)
+    pcol = pic[py, px, :3]
+    L = blade_coords(b["bend"], b["through"][1] + b["slope"] * (b["bend"] - b["through"][0]))[0]
+    T = blade_coords(b["tip"], b["through"][1] + b["slope"] * (b["tip"] - b["through"][0]))[0]
+    h, w = a.shape[:2]
+    yy, xx = np.mgrid[0:h, 0:w]
+    sx = fx + (u0 + xx) / s                                     # each square's middle in the picture
+    sy = ay + (r0 + yy + 0.5) / s
+    t, d = blade_coords(sx, sy)
+    half = np.where(t <= L, b["half"], b["half"] * (T - t) / (T - L))
+    inside = (t >= 0) & (t <= T) & (np.abs(d) <= half)
+    rgb = a[..., :3].astype(int)
+    body_col = (a[..., 3] > 0) & (rgb.max(-1) - rgb.min(-1) >= 70)   # the guard's gold and blue
+    paint = inside & ~body_col
+    out = a.copy()
+    step = 0.5 / s                                              # half a square across, in picture px
+    for y, x in zip(*np.nonzero(paint)):
+        for win in (b["along"], 3 * b["along"]):
+            sel = (np.abs(pd - d[y, x]) <= step) & (np.abs(pt - min(t[y, x], L)) <= win)
+            if sel.sum() >= 3:
+                break
+        c = np.median(pcol[sel], axis=0) if sel.any() else pcol.mean(0)
+        out[y, x, :3] = pal.colors[((pal.colors - c) ** 2).sum(1).argmin()].astype(np.uint8)
+        out[y, x, 3] = 255
+    ring = ~inside & ~body_col & (t >= -1 / s) & ndimage.binary_dilation(inside, np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]))
+    dark = pal.colors[G.lum(pal.colors).argmin()].astype(np.uint8)
+    out[ring, :3] = dark
+    out[ring, 3] = 255
+    # what the old blade and its outline covered beyond the new one (each square by the picture under its middle)
+    old_line = ndimage.binary_dilation(old, iterations=4) & ~old & op & (lum < 70)
+    ix, iy = np.floor(sx).astype(int), np.floor(sy).astype(int)
+    ok = (ix >= 0) & (iy >= 0) & (ix < pic.shape[1]) & (iy < pic.shape[0])
+    was = np.zeros((h, w), bool)
+    was[ok] = (old | old_line)[iy[ok], ix[ok]]
+    left = was & ~inside & ~ring & ~body_col & (out[..., 3] > 0)
+    out[left] = 0
+    out = N.fill_behind(out, left)
+    return out, int(paint.sum())
 
 
 def design():
@@ -69,8 +139,10 @@ def design():
     pal = G.Palette([hd[0]], colors=COLOURS)
     out = {}
     for k, rows in (("hd", ROWS), ("1x", ROWS_1X)):
-        a, u0, r0 = hd if k == "hd" else regrid(fr, rows / (y1 - y0))
-        out[k] = (G.drop_lonely(pal.apply(a)), u0, r0)
+        a, u0, r0, geo = hd if k == "hd" else regrid(fr, rows / (y1 - y0))
+        a = G.drop_lonely(pal.apply(a))
+        a, _ = straight_blade(a, u0, r0, geo, pal)
+        out[k] = (a, u0, r0)
     return out, pal
 
 
