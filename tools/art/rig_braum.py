@@ -9,7 +9,10 @@ one about a game pixel, like the base heroes' and the 1x pack heroes'; Kassadin'
 The idle breathes (Kassadin's lesson: 「可能卡萨丁像个僵尸？」): the upper body - head, torso, both arms with the far
 hand on the shield's crossbar - rises BREATH hd rows over the legs and the shield as one piece (no part turned or
 sheared); the squares it uncovers take the colour of the square under them (the belt's row repeated over the waist,
-the crossbar's top under the lifted hand).
+the crossbar's top under the lifted hand). The run is league_nautilus's approved walk on the idle (walk_frame / WALK):
+the idle's own legs lifted in turn under the same body and shield - Codex's run (its step-2 strips and the crossing-step
+redraw in codex_run) kept one leg in front in every frame (the user: 「怎么感觉腿不换位？」), and bone-drawn legs came out
+deformed (「腿都变形了哥 现在这么多做好的英雄你不会参考吗」).
 Writes:
   league/champions/league_braum#sheet.png / #anim.fanim - the 1x tags (each hd frame brought down by PPU, every 1x
       pixel the commonest colour of its squares; the fallback without league.dll), frames centred on the pivot
@@ -129,6 +132,58 @@ def down(can):
     return one, hd
 
 
+# the run: league_nautilus's approved walk (tools/art/fix_nautilus_strips2.py walk_frame / WALK: the user,
+# 「腿都变形了哥 现在这么多做好的英雄你不会参考吗」 after Codex's run kept one leg in front in every frame and a bone-drawn
+# leg came out deformed). The idle's body, the shield, the head and both legs as they are - the legs cut under the hip
+# band (row LEG_BAND of the design) into the near leg (columns up to LEG_SPLIT) and the far one (to the shield's edge
+# SHIELD_EDGE); in each frame a leg is lifted by losing its top rows (the thigh turned toward us) and moved forward, the
+# legs take turns, and the whole figure rises a little; no part turned or stretched.
+LEG_BAND = 78                    # the design's row under the hip band: the legs start below it
+LEG_SPLIT = 43                   # the column between the legs
+SHIELD_EDGE = 70                 # the shield's left outline column: the far leg ends left of it
+# per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (hd squares: league_nautilus's
+# 1x steps x 3)
+WALK = [((0, 0), (0, 6), 3), ((0, 0), (3, 9), 6), ((0, 0), (3, 3), 3), ((0, 0), (3, 0), 0),
+        ((0, 6), (0, 0), 3), ((3, 9), (0, 0), 6), ((3, 3), (0, 0), 3), ((3, 0), (0, 0), 0)]
+WALK_MS = 115
+CRACK = 80                       # enclosed gaps this small that a step opens are cracks, filled with the outline
+
+
+def walk_frame(idle, near_step, far_step, rise):
+    """The idle canvas with the legs stepping: each leg's squares under the band moved (dx, -lift) after losing their
+    top `lift` rows; the far leg first, the near one over it, the body over both; the whole frame `rise` rows up."""
+    x0, y0 = I.DESIGN_AT
+    band = y0 + LEG_BAND
+    H, W = idle.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    op = idle[..., 3] > 0
+    near = op & (yy > band) & (xx <= x0 + LEG_SPLIT)
+    far = op & (yy > band) & (xx > x0 + LEG_SPLIT) & (xx < x0 + SHIELD_EDGE)
+    out = idle.copy()
+    out[near | far] = 0
+    body = out.copy()
+    out[:] = 0
+    for m, (dx, lift) in ((far, far_step), (near, near_step)):
+        leg = np.where(m[..., None], idle, 0).astype(np.uint8)
+        leg[:band + 1 + lift] = 0
+        ys, xs = np.nonzero(leg[..., 3] > 0)
+        ok = (ys - lift >= 0) & (xs + dx < W)
+        out[ys[ok] - lift, xs[ok] + dx] = leg[ys[ok], xs[ok]]
+    m = body[..., 3] > 0
+    out[m] = body[m]
+    # cracks the step opened (the far leg moved toward the shield's outline: the idle's gap between them squeezed to
+    # slivers): enclosed gaps of at most CRACK squares, new ones or at most 3 columns wide, take the outline (gap-check)
+    opq = out[..., 3] > 0
+    lab, n = ndimage.label(ndimage.binary_fill_holes(opq) & ~opq)
+    own = ndimage.binary_fill_holes(idle[..., 3] > 0) & ~(idle[..., 3] > 0)
+    for j in range(1, n + 1):
+        hole = lab == j
+        xs = np.nonzero(hole.any(0))[0]
+        if hole.sum() <= CRACK and (xs.max() - xs.min() < 3 or not (hole & own).any()):
+            out[hole] = (*OUTLINE, 255)
+    return np.roll(out, -rise, axis=0)
+
+
 def actions():
     """{tag: [(hd canvas, ms)]}: the imported frames, the idle breathing."""
     fr = json.load(open(os.path.join(FRAMES, "frames.json"), encoding="utf-8"))
@@ -140,7 +195,8 @@ def actions():
     x0, y0 = I.DESIGN_AT
     mask[y0:y0 + d.shape[0], x0:x0 + d.shape[1]] = upper_mask(d)
     out["idle"] = [(breathe(idle, mask, k), ms(10)) for k in BREATH]
-    for tag in ("run", "attack", "skill", "skill2", "w_leap", "ult", "hit", "dead"):
+    out["run"] = [(walk_frame(idle, n_, f_, r_), WALK_MS) for n_, f_, r_ in WALK]
+    for tag in ("attack", "skill", "skill2", "w_leap", "ult", "hit", "dead"):
         out[tag] = [(load(n), t) for n, t in fr[tag]]
     return out
 
