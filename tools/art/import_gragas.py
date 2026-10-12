@@ -39,6 +39,8 @@ SHEETS = {
     "w_drink": (6, "core", "lr"), "w_on": (4, ("feet", 0), "lr"), "p_heal": (5, ("feet", 0), "lr"),
     "r_cask": (4, "core", "tb"), "r_boom": (7, ("feet", 8), "lr"), "r_hit": (4, "core", "lr"),
 }
+# Q's pictures drawn twice as big (every square 2 x 2): the user, 「Q技能特效要做大点吧 现在也太小了」, chose 「我直接放大 2 倍」
+TWICE = {"q_barrel", "q_land", "q_boom"}
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
 OVER = (0, -34)                 # over a unit's head (his crown is 31 over the pivot)
 SOLES = (0, 11)                 # on the ground under a unit or a point
@@ -120,6 +122,9 @@ def build(table):
             n, kind, sym = SHEETS[src]
             strip = cells(src, n)
             check(src, strip, sym)
+            if src in TWICE:
+                strip = [np.repeat(np.repeat(c, 2, 0), 2, 1) for c in strip]
+                kind = ("feet", 2 * kind[1]) if isinstance(kind, tuple) else kind
             if "lr" in sym:
                 strip = [odd(c) for c in strip]
             anc = anchor(strip[0], kind)

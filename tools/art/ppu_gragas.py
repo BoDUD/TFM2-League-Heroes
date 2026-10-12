@@ -15,7 +15,8 @@ are the 1x frames doubled, with the raw's squares wherever a frame shows the des
   where the frame's squares equal the design's at that shift, in pieces of 4 squares or more, they become the idle's
   dense squares; everything else is the 1x square doubled. Frames whose head matches less than MIN_HEAD keep the 1x
   frame doubled (a turned or lying head: never a front face pasted on it).
-Writes one strip per tag (the frames left to right, 1 px apart, each exactly 2x its 1x frame), then
+Every dense frame is drawn SHIFT dense px lower (he is shown at SIZE on the battlefield, scaled about his position:
+the soles stay on the ground). Writes one strip per tag (the frames left to right, 1 px apart, each exactly 2x its 1x frame), then
 tools/art/import_native.py --hero gragas (or ppu_hd.py --hero gragas) puts them into the sheet's hd_ tags.
 """
 import argparse
@@ -35,6 +36,12 @@ import trace_gragas as T  # noqa: E402
 K = 2
 MIN_HEAD = 0.6                   # share of the design head's squares a frame must hold to take the dense squares
 PIECE = 4                        # smallest piece of equal squares that turns dense
+# On the battlefield he is drawn at SIZE of the 1x size (addons/league_main/src/hd.rs SIZES: the user, 「酒桶模型缩小一点
+# 太大了」, 85%), scaled about his position, so every dense frame is drawn SHIFT dense px lower: the soles, 2 x 11.5 dense
+# px under the pivot, land (23 + SHIFT) / 2 x SIZE = 11.5 under it again (SHIFT = 23 (1 / SIZE - 1) = 4.06).
+SIZE = 0.85
+SHIFT = round(23 * (1 / SIZE - 1))
+assert P.SHIFT.get("gragas") == SHIFT, "ppu_hd.SHIFT must match"
 HEAD_ROWS, HEAD_COLS = (1, 11), (14, 30)   # the design's head in its table: the dome, brows, eyes, nose, moustache
 OUT = os.path.join(ROOT, "assets", "source", "ppu")
 
@@ -122,6 +129,13 @@ def main():
             d, n = dense_frame(f, one, dense, at, (dx, dy))
             frames.append(d)
             notes.append(f"{i + 1}:{n}")
+        moved = []
+        for fr in frames:
+            assert not fr[-SHIFT:, :, 3].any(), (tag, "no room under the soles to move the frame down")
+            m = np.zeros_like(fr)
+            m[SHIFT:] = fr[:-SHIFT]
+            moved.append(m)
+        frames = moved
         h = max(fr.shape[0] for fr in frames)
         w = sum(fr.shape[1] for fr in frames) + len(frames) - 1
         strip = np.zeros((h, w, 4), np.uint8)

@@ -49,6 +49,20 @@ import strips as G  # noqa: E402
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
 PPU = {"yasuo": 3, "gragas": 2}   # gragas: dense strips drawn by tools/art/ppu_gragas.py (assets/source/ppu)
 PREFIX = "hd_"
+# hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
+# the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much
+SHIFT = {"gragas": 4}
+
+
+def up1(hero, a):
+    """A 1x frame doubled to its dense size and moved down as the hero's dense frames are."""
+    b = up(a, PPU[hero])
+    k = SHIFT.get(hero, 0)
+    if k:
+        m = np.zeros_like(b)
+        m[k:] = b[:-k]
+        b = m
+    return b
 HEAD = {
     "yasuo": {"src": "yasuo_head.png", "scale": 2, "at": (75, 30), "box": (8, 22, 24, 37), "keep_row": 20,
               "on_top": [(25, 10), (25, 11)], "face_box": (13, 21, 28, 36), "tolerance": 30,
@@ -377,7 +391,7 @@ def outside_head(hero, sheet):
     bad = []
     for tag in [t for t in sheet if t.startswith(PREFIX)]:
         for i, (b, _) in enumerate(sheet[tag]):
-            a = up(sheet[tag[len(PREFIX):]][i][0], PPU[hero])
+            a = up1(hero, sheet[tag[len(PREFIX):]][i][0])
             diff = np.abs(a.astype(int) - b.astype(int)).max(axis=2) > 0
             if not diff.any():
                 continue
@@ -411,7 +425,7 @@ def strays(hero, sheet):
                             if z * PPU[hero] ** 2 < 40)
             # holes: clear pockets shut in by the figure that the 1x frame does not have ("像素缺失")
             holes = ndimage.binary_fill_holes(op) & ~op
-            holes1 = up(ndimage.binary_fill_holes(one[..., 3] > 0) & ~(one[..., 3] > 0), PPU[hero])
+            holes1 = up1(hero, (ndimage.binary_fill_holes(one[..., 3] > 0) & ~(one[..., 3] > 0))[..., None])[..., 0]
             new_holes = holes & ~holes1
             if new_holes.any():
                 ys, xs = np.nonzero(new_holes)

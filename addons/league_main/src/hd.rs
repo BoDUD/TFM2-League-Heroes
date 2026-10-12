@@ -11,6 +11,12 @@ pub const HEROES: &[(&str, f32, &str)] =
     &[("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
       ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim"))];
 
+/// Champion id, its size on the battlefield (1.0 = the 1x frames' size): the battlefield scale is the game's / PPU x
+/// this, about the unit's position - the hero's dense frames are drawn lower by (1 - size) x the pivot-to-soles
+/// distance so the soles stay on the ground (tools/art/ppu_gragas.py SHIFT). The cards and the encyclopedia keep 1.0.
+/// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (picked 85%).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.85)];
+
 pub const PREFIX: &str = "hd_";
 
 /// The `"hd_..."` animation names of a .fanim (its keys under "anims"; no frame key starts with hd_).
@@ -39,6 +45,8 @@ pub fn hd_tags(fanim: &str) -> Vec<String> {
 pub struct Hero {
     pub id: &'static str,
     pub ppu: f32,
+    /// the battlefield size (SIZES; 1.0 when not listed)
+    pub size: f32,
     pub tags: Vec<String>,
 }
 
@@ -48,6 +56,7 @@ pub fn heroes() -> Vec<Hero> {
         .map(|&(id, ppu, fanim)| Hero {
             id,
             ppu,
+            size: SIZES.iter().find(|s| s.0 == id).map_or(1.0, |s| s.1),
             tags: hd_tags(fanim).into_iter().map(|t| t[PREFIX.len()..].to_string()).collect(),
         })
         .collect()

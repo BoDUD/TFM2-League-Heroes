@@ -119,7 +119,7 @@ unsafe fn shrink(world: usize) {
         let key = q(elem) as u64;
         let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
         let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
-        let s = next_scale(at.map(|k| st.scales[k].2), cur, hero.ppu);
+        let s = next_scale(at.map(|k| st.scales[k].2), cur, hero.ppu / hero.size);
         std::ptr::write_unaligned((v + SCALE) as *mut f32, s.wrote);
         let changed = match at {
             Some(k) => {

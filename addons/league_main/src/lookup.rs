@@ -577,7 +577,7 @@ mod tests {
         let k3 = b"hd_idle".to_vec();
         let f1 = frames(&[[0.0, 0.0, 10.0, 20.0, 0.1]]);
         let f3 = frames(&[[30.0, 60.0, 30.0, 60.0, 0.1]]);
-        let hero = super::Hero { id: "league_test", ppu: 3.0, tags: vec!["idle".into()] };
+        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()] };
         unsafe {
             let put = |b: usize, key: &Vec<u8>, fr: &Vec<u8>| {
                 let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);
