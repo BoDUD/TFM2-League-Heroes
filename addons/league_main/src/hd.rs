@@ -14,6 +14,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
     ("league_vladimir", 2.0, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
     ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
+    ("league_ashe", 5.4571, include_str!("../../../league/champions/league_ashe#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

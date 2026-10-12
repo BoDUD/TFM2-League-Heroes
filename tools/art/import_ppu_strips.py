@@ -137,6 +137,16 @@ def main():
     ap.add_argument("--head-match", metavar="R0-R1:C0-C1",
                     help="with --paste-head: place the head by this part of it only (design squares; yasuo's face "
                          "11-26:45-62 - Codex's ponytail flows another way frame to frame and outvoted the face)")
+    ap.add_argument("--sole-fix", action="store_true",
+                    help="a pack from before 2026-10-12 15:20 cut each cell 1-2 rows above the soles (rounding): every "
+                         "cell's drawing moved down onto the idle's soles (ashe: her actions stood 2 rows over the idle)")
+    ap.add_argument("--clear-ring", action="store_true",
+                    help="with --paste-head: Codex's own ring goes - the largest part in the colours of the head's upper "
+                         "part (karma's jade ring); never for a hero whose head shares its colours with the body (ashe's "
+                         "hood is her cape's navy and gold: it took her body)")
+    ap.add_argument("--clear-hair-above", action="store_true",
+                    help="with --paste-head: above the face, parts mostly in the head's colours go (yasuo's ponytail "
+                         "drawn higher by Codex)")
     ap.add_argument("--head-search", type=int, default=8,
                     help="pixels round the 1x head's place to look for Codex's head; 0: the whole frame, each way "
                          "round (yasuo: Codex drew the E-Q spin away from the 1x frames, frame 0 facing left)")
@@ -218,6 +228,14 @@ def main():
             if cut:
                 print(f"  {m['tag']}[{m['frame']}]: {cut} pixels past the frame (dropped)")
             fr[oy + cy0:oy + cy1, ox + cx0:ox + cx1] = cell[cy0:cy1, cx0:cx1]
+            if a.sole_fix:
+                # the cell's bottom against the idle's soles (bottom edges, from the frame's centre)
+                si = P.scale_any(sheet["idle"][0][0], k)
+                idle_sole = np.nonzero(si[..., 3].any(axis=1))[0].max() + 1 - si.shape[0] / 2
+                down = int(round(idle_sole - (oy + cell.shape[0] - FH / 2)))
+                if 0 < down <= int(np.ceil(k)):
+                    fr[down:] = fr[:FH - down].copy()
+                    fr[:down] = 0
             specks = drop_specks(fr)
             if specks:
                 print(f"  {m['tag']}[{m['frame']}]: specks of {specks} pixels apart from the figure (dropped)")
@@ -272,7 +290,8 @@ def main():
                 # the design's top-left: the idle's place against the centre, moved as the 1x head moved (x PPU)
                 gx = x0 - base.shape[1] / 2 + W / 2 + k * ((hit[1] - f1.shape[1] / 2) - (at1[1] - idle1.shape[1] / 2))
                 gy = y0 - base.shape[0] / 2 + H / 2 + k * ((hit[2] - f1.shape[0] / 2) - (at1[2] - idle1.shape[0] / 2))
-                res = paste_head(fr, design_s, core, (int(round(gx)), int(round(gy))), a.head_search, match=match)
+                res = paste_head(fr, design_s, core, (int(round(gx)), int(round(gy))), a.head_search, match=match,
+                                 ring=a.clear_ring, hair_above=a.clear_hair_above)
                 print(f"{tag}[{i}]: head at {res['at']}{' mirrored' if res['mirrored'] else ''} (from the 1x: "
                       f"{res['guess']}, {res['match']}% of its pixels on Codex's), {res['cleared']} pixels of Codex's "
                       f"head and ring cleared")
@@ -425,7 +444,7 @@ def best_place(fr, design, core, guess, search, match=None):
     return best
 
 
-def paste_head(fr, design, core, guess, search, far=4, allow=5, match=None):
+def paste_head(fr, design, core, guess, search, far=4, allow=5, match=None, ring=True, hair_above=True):
     """The design's head (`core`, design coordinates) pasted into `fr` with the design's top-left near `guess`: at the
     place within `search` pixels where most of its pixels fall on pixels of their colour family in Codex's drawing
     (colour distance under 60), nearer the guess on a tie. Then Codex's head round it goes: in its rows, the parts
@@ -451,7 +470,7 @@ def paste_head(fr, design, core, guess, search, far=4, allow=5, match=None):
     ring_px = in_colours(fr, ring_cols)
     lab_r, n_r = ndimage.label(ring_px, structure=np.ones((3, 3)))
     old_ring = np.zeros((H, W), bool)
-    if n_r:
+    if n_r and ring:
         sizes = ndimage.sum(ring_px, lab_r, range(1, n_r + 1))
         old_ring = lab_r == int(np.argmax(sizes)) + 1
         old_ring &= ~ndimage.binary_dilation(in_colours(fr, fan_cols), structure=np.ones((3, 3)))
@@ -475,7 +494,7 @@ def paste_head(fr, design, core, guess, search, far=4, allow=5, match=None):
         z = lab == v
         if int((dist[z] > far).sum()) <= allow:
             gone |= z
-        elif not z[face_top:].any() and (z.sum() < 30 or head_px[z].mean() > 0.6):
+        elif not z[face_top:].any() and (z.sum() < 30 or (hair_above and head_px[z].mean() > 0.6)):
             gone |= z          # a bit of Codex's ring's outline, or its own head's (ponytail) edge, above the face
     fr[gone] = 0
     # what is left of Codex's head as pieces apart from the figure (under 60 pixels, in the head's rows)
