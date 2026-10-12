@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_gragas_aim": {
+        "ult": "【智能落点】向一名敌方英雄扔出爆破酒桶：周围敌人受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，并被<#ef5350ff>炸飞<>到古拉加斯这边。酒桶落在敌方英雄身后、能把最多敌人（后排优先）炸过来的地方。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_gragas_aim": {
+        "ult": "【智能落點】向一名敵方英雄扔出爆破酒桶：周圍敵人受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，並被<#ef5350ff>炸飛<>到古拉格斯這邊。酒桶落在敵方英雄身後、能把最多敵人（後排優先）炸過來的地方。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_gragas_aim": {
+        "ult": "[Aimed] Hurls his cask at an enemy champion: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> round it, and the enemies are <#ef5350ff>blown toward him<>. The cask lands behind the enemy champions, where it flings the most of them (the back line first)."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_gragas_aim": {
+        "ult": "[조준] 적 챔피언에게 술통을 던져 주변 적에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>그라가스 쪽으로 날려 보냄<>. 술통은 적 챔피언 뒤, 가장 많은 적(후열 우선)을 날려 보낼 곳에 떨어짐."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_gragas_aim": {
+        "ult": "【狙い撃ち】敵チャンピオンにタルを投げつけ、周囲の敵に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>を与え、<#ef5350ff>グラガスの方へ吹き飛ばす<>。タルは敵チャンピオンの背後、最も多くの敵（後衛優先）を吹き飛ばせる位置に落ちる。"
+      }
+    }
+  }
+}

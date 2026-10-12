@@ -1,0 +1,150 @@
+{
+  "front-A": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "native": [
+      39,
+      59
+    ],
+    "body_rows": 36,
+    "bbox": [
+      7,
+      14,
+      37,
+      51
+    ],
+    "width": 30,
+    "opaque_colors": 22,
+    "alpha": [
+      0,
+      255
+    ],
+    "single_color_per_cell": true,
+    "below_row50_empty": true,
+    "source_head_y": 285,
+    "source_foot_mid_x": 548,
+    "source_bbox": [
+      33,
+      257,
+      1019,
+      1430
+    ],
+    "placement_column": 7,
+    "nominal_foot_mid_column": 22,
+    "measured_final_foot_mid_column": 22.0,
+    "measured_source_foot_mid_column": 22.67
+  },
+  "side-A": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "native": [
+      39,
+      59
+    ],
+    "body_rows": 36,
+    "bbox": [
+      6,
+      14,
+      32,
+      51
+    ],
+    "width": 26,
+    "opaque_colors": 23,
+    "alpha": [
+      0,
+      255
+    ],
+    "single_color_per_cell": true,
+    "below_row50_empty": true,
+    "source_head_y": 302,
+    "source_foot_mid_x": 598,
+    "source_bbox": [
+      65,
+      253,
+      934,
+      1424
+    ],
+    "placement_column": 6,
+    "nominal_foot_mid_column": 22,
+    "measured_final_foot_mid_column": 22.0,
+    "measured_source_foot_mid_column": 21.95
+  },
+  "front-B": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "native": [
+      39,
+      59
+    ],
+    "body_rows": 36,
+    "bbox": [
+      7,
+      14,
+      37,
+      51
+    ],
+    "width": 30,
+    "opaque_colors": 22,
+    "alpha": [
+      0,
+      255
+    ],
+    "single_color_per_cell": true,
+    "below_row50_empty": true,
+    "source_head_y": 300,
+    "source_foot_mid_x": 548,
+    "source_bbox": [
+      37,
+      268,
+      1018,
+      1428
+    ],
+    "placement_column": 7,
+    "nominal_foot_mid_column": 22,
+    "measured_final_foot_mid_column": 22.0,
+    "measured_source_foot_mid_column": 22.63
+  },
+  "side-B": {
+    "canvas": [
+      1024,
+      1536
+    ],
+    "native": [
+      39,
+      59
+    ],
+    "body_rows": 36,
+    "bbox": [
+      6,
+      14,
+      32,
+      51
+    ],
+    "width": 26,
+    "opaque_colors": 22,
+    "alpha": [
+      0,
+      255
+    ],
+    "single_color_per_cell": true,
+    "below_row50_empty": true,
+    "source_head_y": 253,
+    "source_foot_mid_x": 612,
+    "source_bbox": [
+      48,
+      223,
+      987,
+      1431
+    ],
+    "placement_column": 6,
+    "nominal_foot_mid_column": 22,
+    "measured_final_foot_mid_column": 22.0,
+    "measured_source_foot_mid_column": 21.62
+  }
+}

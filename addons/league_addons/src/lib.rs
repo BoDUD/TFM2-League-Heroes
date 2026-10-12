@@ -91,6 +91,12 @@ mod zeri;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_nautilus/src/lib.rs"]
 mod nautilus;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_darius_ult/src/lib.rs"]
+mod darius_ult;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_gragas/src/lib.rs"]
+mod gragas;
 
 pub const ID: &str = "league_addons";
 
@@ -133,10 +139,12 @@ fn init(host: &StableHost) -> StableMod {
     viego_soul::register(host, &mut module);
     zeri::register(host, &mut module);
     nautilus::register(host, &mut module);
+    darius_ult::register(host, &mut module);
+    gragas::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health, Rengar's leap from the map's bushes, Zed's Contempt and Death Mark from health and damage, Olaf's Berserker Rage from missing health, Talon's Assassin's Path over walls, Senna's Mist and Veigar's ability power kept through death, Syndra's W lifting minions and monsters, Viego's possession, Zeri's wall laser and shield steal, Nautilus's Dredge Line hooking walls.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health, Rengar's leap from the map's bushes, Zed's Contempt and Death Mark from health and damage, Olaf's Berserker Rage from missing health, Talon's Assassin's Path over walls, Senna's Mist and Veigar's ability power kept through death, Syndra's W lifting minions and monsters, Viego's possession, Zeri's wall laser and shield steal, Nautilus's Dredge Line hooking walls, Darius's Noxian Guillotine only for a kill or under Noxian Might, Gragas's Explosive Cask aimed behind the enemies.",
     );
     module
 }

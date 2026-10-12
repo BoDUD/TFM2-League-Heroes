@@ -2,9 +2,9 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。英雄都是数据；从 0.97.0 起主包带一个自己的 DLL（`league.dll`，源码 [`addons/league_main`](addons/league_main/src/lib.rs)，`mod.mod_info` 是 `contains_code` / `native`，订阅时游戏会提示这是代码 mod），只做数据做不到的一件事：高清帧（见下）。DLL 只在游戏 0.6.3 的 Windows 版上挂钩，别的版本什么都不改，英雄照旧画 1 倍的帧。
 
-高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索，PPU 3）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 3 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：身体是 1 倍帧整 3 倍放大；头换成 Codex 画的那张帅脸，每格 2×2，一格不丢，所有动作同一张脸）。游戏里画出来大小不变、像素细 3 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 3，贴图报的宽高也除以 3，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/3。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。
+高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索 PPU 3、古拉加斯 PPU 2）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 3 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：身体是 1 倍帧整 3 倍放大；头换成 Codex 画的那张帅脸，每格 2×2，一格不丢，所有动作同一张脸）。游戏里画出来大小不变、像素细 3 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 3，贴图报的宽高也除以 3，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/3。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）、辛德拉（`league_syndra`）、佛耶戈（`league_viego`）、泽丽（`league_zeri`）、诺提勒斯（`league_nautilus`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。第 87 位是中单辛德拉（法师）。第 88 位是打野佛耶戈（战士）。第 89 位是 ADC 泽丽（射手）。第 90 位是辅助诺提勒斯（坦克）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）、辛德拉（`league_syndra`）、佛耶戈（`league_viego`）、泽丽（`league_zeri`）、诺提勒斯（`league_nautilus`）、古拉加斯（`league_gragas`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。第 87 位是中单辛德拉（法师）。第 88 位是打野佛耶戈（战士）。第 89 位是 ADC 泽丽（射手）。第 90 位是辅助诺提勒斯（坦克）。第 92 位是打野古拉加斯（坦克）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）、诺提勒斯的 Q（疏通航道，铁锚钩人）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手；赛娜的 W 也一样，射程内有敌方英雄时朝英雄射；辛德拉的 W 也一样，射程内有敌方英雄时把法球掷向英雄、接着朝他推 E，Q 在 E 冷却好时也先砸英雄）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -173,6 +173,8 @@
 ![泽丽演示：她平端步枪朝德莱厄斯连射，每一串电弹充一格电，充满时身上噼啪闪一圈电光，下一发变成追踪的电击弹（炸开、减速，她身上亮起电光护罩、脚边加速线）；W 强穿激光：蓄力后射出电脉冲打中德莱厄斯，脚下青色电环减速；E 灿丽花火：脚下炸开电光往前一跳，步枪带电，贯穿弹穿过德莱厄斯打到身后的盖伦；她跑过他们、转身朝左（红色方的朝向）放 R 超限爆闪：以她为中心炸开一圈巨大的电新星打中两人，全身绕起超载电光，三连发打中盖伦、连锁闪电劈到德莱厄斯](docs/preview/league_zeri_showcase.gif?v=head)
 
 ![诺提勒斯演示：他挥锚砸在德莱厄斯身上，被动的冲击炸开、脚下禁锢；退开后 Q 疏通航道：铁锚飞出钩住德莱厄斯，两人被拉到一起；W+E：身上套起护盾，砸地放出三波地震，德莱厄斯被减速，下一锤溅到他身边；R 深海冲击：砸地放出冲击波，从德莱厄斯脚下（击飞）一路冲到身后的盖伦，爆发后眩晕](docs/preview/league_nautilus_showcase.gif?v=head)
+
+![古拉加斯演示：他一拳打在德莱厄斯身上；Q 滚动酒桶：酒桶落在德莱厄斯脚下冒泡，0.75 秒后炸开、脚下一滩酒（减速）；E+W：起步的尘土，肚子撞上去（头顶金星眩晕），扛桶喝酒、身上冒红橙热气，下一拳炸开一圈酒浪；R 爆破酒桶：大酒桶落在身后的盖伦脚下爆炸，两个人都被炸到他这边；每放一个技能先喝一口回血（绿金光点）](docs/preview/league_gragas_showcase.gif?v=1012g4)
 
 ## 英雄：盖伦
 
@@ -391,6 +393,7 @@ python tools/art/preview_soraka.py
 | 技能1 | Q「大杀四方」：蓄力后抡斧转一圈，半径 32000 内的敌人受到 60 + 110% 攻击力的物理伤害并流血；每命中一名敌方英雄回复 25 + 30% 攻击力的生命 |
 | 技能2 | E「无情铁手」：斧钩扫过前方约 106° 的扇形（46000），把敌人拉到身边。合并 W「致残打击」：之后 4 秒内的下一次普攻换成贴地横扫，20 + 150% 攻击力，减速 90% 持续 1 秒 |
 | 大招 | R「诺克萨斯断头台」：跳到目标身上砸下，100 + 100% 攻击力的真实伤害；命中计数每层 +20%，诺克萨斯之力时翻倍（200 + 200%）。只对己方刚打过的敌方英雄放（`EnemyChampionRecentlyAttacked`，2026-10-04，用户：「现在AI会满血释放大招」：AI 的大招一有英雄进射程就放，常常在开团时砸满血的人；12 局模拟里放大时目标 ≥75% 血从 53 次里 10 次降到 52 次里 3 次，≤30% 血从 11 次升到 20 次，每局放的次数不变，击杀差 +2.59 → +2.42 在波动内）。击杀刷新（2026-10-09，用户：「诺手的大招刷新 做扩展包可以做的吧」）：用纯数据做在主包里，不装扩展包也有。落刀斩杀敌方英雄后，大招冷却清零、身上亮起诺克萨斯之力并播台词，可以马上再放一次；做法同派克的大招刷新（落刀时加 `league_darius_r_kill` 标记，目标活着下一 tick 清掉，4 tick 后检查，用 `ult_cooldown_mult` 清冷却），脚本 `tools/fix/darius_r_reset.py`。11 局模拟：放了 60 次大招，落刀斩杀 20 次全部刷新，没杀死人的一次都没误刷新；上单线击杀差 +0.83 → +1.61（6 个种子）。 |
+| 大招读血附加包 | 用户：「诺手总是在叠满血怒或敌人残血之前就放大招，这种情况可以用"插件"（或脚本）来调整吗？」「诺手需要调整」。数据读不到当前生命，主包的 R 只能按「队伍刚打过」放，常常层数没叠、对方血还厚就砍了。附加包 [`addons/league_darius_ult`](addons/league_darius_ult/README.md)（在附加包合集里）用原生代码读生命、护盾、免死、减伤和诺手身上的层数，照主包的六档伤害算这一刀落下时的真实伤害（引擎里真实伤害也吃减伤）：一刀砍得死射程内的英雄（砍生命 + 护盾最少的）、或诺克萨斯之力期间才放，AI 想在别的时候放就改成普攻那个人、继续叠层。经典 SDK 模拟（同一份判断挂进引擎自己的 AI 钩子；上单对 6 个基础上单 × 3 套阵容 × 两边，24 个种子，各 864 局）：每局 R 4.6 → 5.3 次，落刀砍死人 1.2 → 3.7 次（25% → 70%，都刷新），砍不死又不在诺克萨斯之力的 3.0 → 0.3 次，落刀前目标已被队友打死（这一刀落空）0.4 → 0.9 次；诺手 K/D/A 3.1/1.5/3.5 → 4.8/1.5/2.5，全队击杀差 +1.73 → +2.19。主包不装附加包也完整可玩；放 R 的时机要在游戏里看日志确认 |
 | 精灵图 | 9 个动作 59 帧：待机、跑步、普攻、Q 蓄力抡圈、W 贴地横扫、E 甩钩回拉、R 跳斩、受击、死亡。发尖到靴底 34 px，18 色，动作全部取自英雄联盟原版动画 |
 | 特效 | 普攻命中、出血、Q 旋风、Q 回血、诺克萨斯之力、W 就绪（脚下）、W 命中、E 扇形斧钩、E 钩中、R 巨斧砸地 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
@@ -403,6 +406,7 @@ python tools/art/restyle_native.py assets/source/darius/poses.json --renders <�
 python tools/art/import_native.py --hero darius
 python tools/art/import_darius.py      # 特效
 python tools/art/preview_darius.py
+python addons/league_darius_ult/make_override.py   # 大招读血附加包的副本（主包的诺手改了就重跑）
 ```
 
 美术（提示词见 [`assets/source/darius/PROMPTS.md`](assets/source/darius/PROMPTS.md)）：
@@ -3908,6 +3912,49 @@ python addons/league_nautilus/make_override.py   # 钩墙附加包的副本（�
 - 特效：17 张用 Codex 的游戏尺寸版逐格切。
 
 逐帧预览：[`docs/preview/league_nautilus_frames.png`](docs/preview/league_nautilus_frames.png)，特效：[`docs/preview/league_nautilus_effects.png`](docs/preview/league_nautilus_effects.png)。
+
+## 英雄：古拉加斯
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 打野（Melee，标签 AP / Magic / Melee / Tank / CC / Heal），第 92 位英雄。酒桶 古拉加斯：AP 坦克打野，扔酒桶减速、肚子撞人眩晕、喝酒强化下一拳，大招把人炸到他这边。用户的选择：打野、Melee AP 坦克；技能1 = Q，技能2 = E 接 W；Q 落地 0.75 秒后爆；E 撞到第一个敌人就停（小兵也算）；大招落在目标身后炸向我方；被动做在主包里；加入高手连招；大招智能落点做成附加包 |
+| 普攻 | 一记重拳，攻击距离 25000，第 8 tick 打中（动作第 3 帧），攻击间隔 70 tick |
+| 被动 | 「欢乐时光」：每放一个技能先喝一口，回复 55（3 级起 85）+ 20% 法强的生命，之后 720 tick（12 秒）内不再触发。英雄联盟是回 5.5% 最大生命；数据里的治疗读不到最大生命，所以是固定值、3 级加一档 |
+| 技能1 | Q「滚动酒桶」：冷却 420 tick（7 秒），对 58000 内的敌人放（小兵野怪也算），第 9 tick 扔出，酒桶飞 22 tick 落到那个位置，在地上冒泡 45 tick（0.75 秒，能躲）后爆炸：半径 19000 内的敌人受到 90 + 70% 法强魔法伤害，减速 40% 持续 2 秒。**高手连招 E 接 Q**：E 撞晕英雄后 2 秒内扔的 Q 落地就炸 |
+| 技能2 | E「肉弹冲击」接 W「醉酒狂暴」：冷却 600 tick（10 秒），对 42000 内的敌人放（小兵野怪也算）。第 4 tick 朝目标冲（每 tick 3200，最多 12 tick），撞到第一个敌人就停：身边 20000 内的敌人受到 80 + 60% 法强魔法伤害并眩晕 60 tick（1 秒），撞中返还部分冷却（Q 也一起）。随后第 17 tick 扛桶喝酒：150 tick（2.5 秒）内受到的伤害降低 20%，下一次普攻对身边 17000 内的敌人造成 55 + 50% 法强魔法伤害，英雄另受 6% 最大生命的真实伤害（数据里的魔法伤害读不到最大生命）。英雄联盟里 W 是单独的技能，这里没有第三个技能位，就接在 E 后面 |
+| 大招 | R「爆破酒桶」：冷却 3000 tick（50 秒），对 70000 内的敌方英雄放，第 10 tick 扔出大酒桶，飞 16 tick 落到目标脚下爆炸：半径 26000 内的敌人受到 200 + 80% 法强魔法伤害，被拽向他（每 tick 3000，12 tick）——目标和它身后的人一起被炸到他这边，和英雄联盟里落在身后把人炸过来的结果一样。用户选的是「落在目标身后」，但数据找不到「一个单位身后的一点」（从另一个投射物终点再发的直线和抛物线仍从施法者出发，模拟里量过），所以主包落在目标脚下；真正的身后落点在附加包里。**高手连招 R 接 E**：被炸过来的英雄到了 E 的距离，AI 下一招就撞上去 |
+| 智能落点附加包 | 可选的附加包 [`addons/league_gragas`](addons/league_gragas/README.md)（在附加包合集里，原生代码，主包不装它也完整）：大招出手时读所有敌人的位置，在射程内每个敌方英雄身后 0 / 9000 / 16000 处各试一个落点，按炸得到的敌人打分（英雄 10 分、离他越远越多——后排优先；小兵野怪 0.5 分），酒桶飞到分最高的点爆炸，把人拽向他。附加包里的古拉加斯是 `make_override.py` 从主包生成的副本，大招说明以「【智能落点】」开头。还没在游戏里看过日志 |
+| 数值 | 攻击 72（+6）、法术强度 30（+15）、生命 1150（+120）、护甲 40（+9）、魔抗 30（+5）、移速 1000（+10），攻击间隔 70 tick，和本包的阿木木、墨菲特同类（AP 坦克）。SDK 对战模拟：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），两边、三套队友阵容各 12 局，一批 360 局。团队击杀差：种子 1–12 −0.05、13–24 +0.42（同两批阿木木 +0.20 / +0.33）。按动作帧重新对时之前（出手慢）是 −0.03，对时以后到了 +0.83 / +0.58，于是 Q、E 伤害各降 5 |
+| 精灵图 | 全部动作 3/4 正面（用户：「全部 3/4 正面」，和本包其他英雄的侧身动作不同）：待机 8（就是定稿，静止）、移动 8、普攻 5（第 3 帧出拳）、Q 5（第 3 帧扔出）、E+W 8（第 3 帧撞上、第 5–7 帧扛桶喝酒）、R 5（第 3 帧掷出）、受击 2、死亡 8（仰面倒地，酒桶滚到一边）。头顶到脚底 42 行，背上的酒桶和头一样高，36 格宽。头像截取点 (3, −31)。**整体缩到 80%**（用户：「酒桶模型缩小一点 太大了」「要改全改啊」，85% 时「怎么看起来还是比诺手高这么多」，对比图里选 80%）：不删像素，主包 DLL 画高清帧时按 PPU ÷ 0.8 缩小——战场、选人卡、图鉴、头像都一样（`league_main` 的 `hd.rs` SIZES），高清帧整体下移 6 个高清像素，缩小后脚底仍在原处；只有主包 DLL 不生效（不是游戏 0.6.3）时是原大小 |
+| 高清帧（PPU 2） | 第二个用 PPU 的英雄（用户：「用PPU的方法完成酒桶」，选「整套都用 PPU 原稿放大」）：图里多一套 `hd_<动作>`，每帧是 1 倍帧的 2 倍大小（[`tools/art/ppu_gragas.py`](tools/art/ppu_gragas.py) 写成 `assets/source/ppu/gragas_<动作>.png`，`ppu_hd.py` 当画好的高清帧读）。待机就是 Codex 的原稿：定稿本来就是从原稿 2:1 逐格描的，每格换回原稿里它下面的 2×2 格（胡子辫子、银环、绳纹、桶盖都细一倍）；手改过的格子（脸、桶盖、X 疤）和轮廓仍按 1 倍放大，不多不少一格。其他动作是 1 倍帧放大 2 倍，凡是和定稿一样的地方（对齐头的位置找，连成 4 格以上的块）换成原稿的格子；头转了、躺下的帧（死亡、喝酒、普攻出拳）就是 1 倍放大。以后可以一个个换成画好的高清帧 |
+| 特效 | Codex 生图的 16 张（游戏尺寸版逐格切，`import_gragas.py`；红色方的对称逐格检查：两只飞出去的酒桶上下对称，其余左右对称；偶数宽的图在正中间补一列，绕站位点也对称）：`league_gragas_fx` 拳头打中、Q 飞出的小酒桶 / 落地冒泡 / 炸中 / 脚下的酒滩（减速）、E 起步的尘土 / 撞中 / 头顶的金星（眩晕）、W 喝酒冒的酒泡 / 狂暴的红橙热气、被动喝一口的绿金光点、R 炸中；`league_gragas_big` W 强化拳炸开的酒浪、Q 的酒桶爆炸、R 飞出的大酒桶和大爆炸。颜色照英雄联盟：金黄的酒和白沫、木头和铁箍、R 的火光 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_gragas.py`）：出拳 / 打中、被动喝一口、Q 扔出 / 爆炸、W 喝酒 / 强化拳打中、E 冲出 / 撞上、R 扔出 / 爆炸；Q、W、E、R 的配音（片段名 `league_gragas_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q 滚动酒桶 / E 肉弹冲击 / R 爆破酒桶），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_gragas.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_gragas.py           # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_gragas.py --face 3,-42 --banpick -7   # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/trace_gragas.py --auto    # 造型：Codex 原稿 2:1 读成表（design/front_auto.txt）
+python tools/art/patch_gragas_front.py     # 手修的脸、桶盖、疤（design/front.txt）
+python tools/art/trace_gragas.py --write   # 写成 gragas_native.png
+python tools/art/ppu_gragas.py             # 高清帧（assets/source/ppu/gragas_*.png）
+python tools/art/import_native.py --hero gragas   # 动作 + hd_ 标签
+python tools/art/import_gragas.py          # 特效：游戏尺寸版逐格切，拼成特效表
+python tools/art/preview_gragas.py         # 预览和演示 GIF
+python addons/league_gragas/make_override.py   # 智能落点附加包的副本（主包的古拉加斯改了就重跑）
+```
+
+美术（提示词见 [`assets/source/gragas/`](assets/source/gragas/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`MODEL_STRIPS.md`、`PROMPTS_FX.md`）：
+
+- 原图：Codex 画的两张（`codex_picture/`），用户选 A（酒桶背在背上）。
+- 造型：Codex 第 1 步按 26 px 格子画了正面 / 侧面各两稿（`codex_model/`），它自己缩到 36 行的版本是糊的，原稿（71×86 格）很清楚；整行整列删到游戏尺寸还是糊（`design_gragas.py`），用户选「我照原稿逐格描」、「不需要侧面吧」：`trace_gragas.py` 把原稿每 2×2 格合成 1 格（错开一格使平票最少，描边仍是一格），`patch_gragas_front.py` 手修脸（浓眉、一格眼白一格瞳孔、大鼻子、嘴）、桶盖（铁环、木纹、方木塞）、肚子上的 X 疤和胡子的杂点，36×44（用户：「没问题 可以下一步」）。
+- 动作：Codex 第一版用定稿的部件拼（手臂盖住胡子、轮廓断开，没用）；第二版是生图画出来的姿势（`codex_strips2/`），每格取多数色、只用定稿的颜色，原样导入。
+- 特效：16 张用 Codex 的游戏尺寸版逐格切。
+
+逐帧预览：[`docs/preview/league_gragas_frames.png`](docs/preview/league_gragas_frames.png)，特效：[`docs/preview/league_gragas_effects.png`](docs/preview/league_gragas_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

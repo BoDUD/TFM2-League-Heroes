@@ -260,7 +260,7 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
         for f in 0..fl {
             for k in 0..4 {
                 let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
-                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.ppu);
+                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hero.shown());
             }
         }
         plan.push((b, Box::into_raw(frames) as *mut u8 as usize, fl));
@@ -301,7 +301,7 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
         *e = read(vt + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
     }
     if let Ok(mut s) = SIZES.lock() {
-        s.insert(data, (table[5], table[6], hero.ppu));
+        s.insert(data, (table[5], table[6], hero.shown()));
     }
     let (sw, sh) = size_stubs()?;
     table[5] = sw;
@@ -413,7 +413,7 @@ unsafe fn battle_table(t: usize, hero: &Hero) -> Option<usize> {
         for f in 0..fl {
             for k in 0..4 {
                 let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
-                std::ptr::write_unaligned(at, (std::ptr::read_unaligned(at) * hero.ppu).round());
+                std::ptr::write_unaligned(at, (std::ptr::read_unaligned(at) * hero.shown()).round());
             }
         }
         let nb = base + (b - data);
@@ -579,7 +579,7 @@ mod tests {
         let k3 = b"hd_idle".to_vec();
         let f1 = frames(&[[0.0, 0.0, 10.0, 20.0, 0.1]]);
         let f3 = frames(&[[30.0, 60.0, 30.0, 60.0, 0.1]]);
-        let hero = super::Hero { id: "league_test", ppu: 3.0, tags: vec!["idle".into()] };
+        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()] };
         unsafe {
             let put = |b: usize, key: &Vec<u8>, fr: &Vec<u8>| {
                 let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);
