@@ -19,7 +19,7 @@
   "stat": {
     "attack": 78,
     "magic_power": 25,
-    "hp": 1100,
+    "hp": 1200,
     "defence": 40,
     "magic_resistance": 28,
     "move_speed": 1000,
@@ -161,12 +161,12 @@
                           },
                           {
                             "type": "Stun",
-                            "duration": 60
+                            "duration": 75
                           },
                           {
                             "type": "ApAttack",
-                            "damage": 40,
-                            "attack_ratio": 40,
+                            "damage": 70,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "can_crit": false,
                             "attack_effect_type": "Target"
@@ -177,7 +177,7 @@
                               "name": "league_braum_p_stun",
                               "duration": {
                                 "Time": {
-                                  "tick": 60
+                                  "tick": 75
                                 }
                               }
                             }
@@ -455,8 +455,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 60,
-                          "attack_ratio": 40,
+                          "damage": 90,
+                          "attack_ratio": 60,
                           "hp_ratio": 2,
                           "can_crit": false,
                           "attack_effect_type": "Target"
@@ -571,12 +571,12 @@
                                 },
                                 {
                                   "type": "Stun",
-                                  "duration": 60
+                                  "duration": 75
                                 },
                                 {
                                   "type": "ApAttack",
-                                  "damage": 40,
-                                  "attack_ratio": 40,
+                                  "damage": 70,
+                                  "attack_ratio": 60,
                                   "hp_ratio": 0,
                                   "can_crit": false,
                                   "attack_effect_type": "Target"
@@ -587,7 +587,7 @@
                                     "name": "league_braum_p_stun",
                                     "duration": {
                                       "Time": {
-                                        "tick": 60
+                                        "tick": 75
                                       }
                                     }
                                   }
@@ -815,8 +815,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 60,
-                          "attack_ratio": 40,
+                          "damage": 90,
+                          "attack_ratio": 60,
                           "hp_ratio": 2,
                           "can_crit": false,
                           "attack_effect_type": "Target"
@@ -931,12 +931,12 @@
                                 },
                                 {
                                   "type": "Stun",
-                                  "duration": 60
+                                  "duration": 75
                                 },
                                 {
                                   "type": "ApAttack",
-                                  "damage": 40,
-                                  "attack_ratio": 40,
+                                  "damage": 70,
+                                  "attack_ratio": 60,
                                   "hp_ratio": 0,
                                   "can_crit": false,
                                   "attack_effect_type": "Target"
@@ -947,7 +947,7 @@
                                     "name": "league_braum_p_stun",
                                     "duration": {
                                       "Time": {
-                                        "tick": 60
+                                        "tick": 75
                                       }
                                     }
                                   }
@@ -1209,7 +1209,7 @@
                         "tick": 210
                       }
                     },
-                    "damaged_reduce": 40
+                    "damaged_reduce": 50
                   },
                   "only_to_enemy": false
                 }
@@ -1422,8 +1422,8 @@
                                     "tick": 180
                                   }
                                 },
-                                "defence": 20,
-                                "magic_resistance": 20
+                                "defence": 30,
+                                "magic_resistance": 30
                               }
                             },
                             {
@@ -1456,8 +1456,8 @@
                                             "tick": 180
                                           }
                                         },
-                                        "defence": 20,
-                                        "magic_resistance": 20
+                                        "defence": 30,
+                                        "magic_resistance": 30
                                       },
                                       "only_to_enemy": false
                                     }
@@ -1507,7 +1507,7 @@
                                               "tick": 210
                                             }
                                           },
-                                          "damaged_reduce": 40
+                                          "damaged_reduce": 50
                                         },
                                         "only_to_enemy": false
                                       }
@@ -1689,8 +1689,8 @@
                                   "tick": 180
                                 }
                               },
-                              "defence": 20,
-                              "magic_resistance": 20
+                              "defence": 30,
+                              "magic_resistance": 30
                             }
                           },
                           {
@@ -1723,8 +1723,8 @@
                                           "tick": 180
                                         }
                                       },
-                                      "defence": 20,
-                                      "magic_resistance": 20
+                                      "defence": 30,
+                                      "magic_resistance": 30
                                     },
                                     "only_to_enemy": false
                                   }
@@ -1774,7 +1774,7 @@
                                             "tick": 210
                                           }
                                         },
-                                        "damaged_reduce": 40
+                                        "damaged_reduce": 50
                                       },
                                       "only_to_enemy": false
                                     }
@@ -1912,7 +1912,7 @@
                                 "tick": 210
                               }
                             },
-                            "damaged_reduce": 40
+                            "damaged_reduce": 50
                           },
                           "only_to_enemy": false
                         }
@@ -2084,8 +2084,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 100,
-                        "attack_ratio": 60,
+                        "damage": 160,
+                        "attack_ratio": 70,
                         "hp_ratio": 0,
                         "can_crit": false,
                         "attack_effect_type": "Target"
@@ -2551,7 +2551,7 @@
       "type": "Animated",
       "name": "league_braum_w_self",
       "anim": "asset/league/effects/league_braum_fx",
-      "tag": "w_self",
+      "tag": "w_guard",
       "repeat": true,
       "z": 3
     },
@@ -2559,7 +2559,7 @@
       "type": "Animated",
       "name": "league_braum_r_slow",
       "anim": "asset/league/effects/league_braum_fx",
-      "tag": "r_slow",
+      "tag": "q_slow",
       "repeat": true,
       "z": -1
     }

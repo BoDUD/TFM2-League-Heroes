@@ -36,7 +36,7 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#7dd87dff>"      # heals
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 2, "y": -30}, "center": {"x": 0, "y": -12}}   # placeholder until the sprite
+VIEW = {"face": {"x": 6, "y": -38}, "center": {"x": 0, "y": -12}}   # tfm2_ase.py face on the imported sheet: his forehead
 
 
 def mag(k, ap="ap"):

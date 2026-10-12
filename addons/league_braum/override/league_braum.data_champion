@@ -19,7 +19,7 @@
   "stat": {
     "attack": 78,
     "magic_power": 25,
-    "hp": 1100,
+    "hp": 1200,
     "defence": 40,
     "magic_resistance": 28,
     "move_speed": 1000,
@@ -58,7 +58,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 12,
           "effects": [
             {
               "type": "Attack",
@@ -100,7 +100,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_braum.skill",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 480,
     "start_timing": 1,
     "cancelable": false,
@@ -168,8 +168,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 60,
-                          "attack_ratio": 40,
+                          "damage": 90,
+                          "attack_ratio": 60,
                           "hp_ratio": 2,
                           "can_crit": false,
                           "attack_effect_type": "Target"
@@ -249,7 +249,7 @@
           },
           "effect_none": {
             "type": "Delayed",
-            "tick": 8,
+            "tick": 12,
             "effects": [
               {
                 "type": "Combine",
@@ -269,8 +269,8 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 60,
-                          "attack_ratio": 40,
+                          "damage": 90,
+                          "attack_ratio": 60,
                           "hp_ratio": 2,
                           "can_crit": false,
                           "attack_effect_type": "Target"
@@ -432,7 +432,7 @@
             {
               "type": "CasterAnimation",
               "name": "skill2",
-              "tick": 20
+              "tick": 24
             },
             {
               "type": "CasterViewEffect",
@@ -540,7 +540,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "w_leap",
-                          "tick": 14
+                          "tick": 22
                         },
                         {
                           "type": "CasterViewEffect",
@@ -593,8 +593,8 @@
                                     "tick": 180
                                   }
                                 },
-                                "defence": 20,
-                                "magic_resistance": 20
+                                "defence": 30,
+                                "magic_resistance": 30
                               }
                             },
                             {
@@ -627,8 +627,8 @@
                                             "tick": 180
                                           }
                                         },
-                                        "defence": 20,
-                                        "magic_resistance": 20
+                                        "defence": 30,
+                                        "magic_resistance": 30
                                       },
                                       "only_to_enemy": false
                                     }
@@ -706,7 +706,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "skill2",
-                                    "tick": 20
+                                    "tick": 24
                                   },
                                   {
                                     "type": "CasterViewEffect",
@@ -783,7 +783,7 @@
                       {
                         "type": "CasterAnimation",
                         "name": "w_leap",
-                        "tick": 14
+                        "tick": 22
                       },
                       {
                         "type": "CasterViewEffect",
@@ -836,8 +836,8 @@
                                   "tick": 180
                                 }
                               },
-                              "defence": 20,
-                              "magic_resistance": 20
+                              "defence": 30,
+                              "magic_resistance": 30
                             }
                           },
                           {
@@ -870,8 +870,8 @@
                                           "tick": 180
                                         }
                                       },
-                                      "defence": 20,
-                                      "magic_resistance": 20
+                                      "defence": 30,
+                                      "magic_resistance": 30
                                     },
                                     "only_to_enemy": false
                                   }
@@ -949,7 +949,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "skill2",
-                                  "tick": 20
+                                  "tick": 24
                                 },
                                 {
                                   "type": "CasterViewEffect",
@@ -1063,7 +1063,7 @@
                     {
                       "type": "CasterAnimation",
                       "name": "skill2",
-                      "tick": 20
+                      "tick": 24
                     },
                     {
                       "type": "CasterViewEffect",
@@ -1114,7 +1114,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_braum_heart.ult",
-    "duration": 30,
+    "duration": 36,
     "cooltime": 3600,
     "start_timing": 1,
     "cancelable": false,
@@ -1160,7 +1160,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 18,
           "effects": [
             {
               "type": "Combine",
@@ -1183,8 +1183,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 100,
-                        "attack_ratio": 60,
+                        "damage": 160,
+                        "attack_ratio": 70,
                         "hp_ratio": 0,
                         "can_crit": false,
                         "attack_effect_type": "Target"
@@ -1650,7 +1650,7 @@
       "type": "Animated",
       "name": "league_braum_w_self",
       "anim": "asset/league/effects/league_braum_fx",
-      "tag": "w_self",
+      "tag": "w_guard",
       "repeat": true,
       "z": 3
     },
@@ -1658,7 +1658,7 @@
       "type": "Animated",
       "name": "league_braum_r_slow",
       "anim": "asset/league/effects/league_braum_fx",
-      "tag": "r_slow",
+      "tag": "q_slow",
       "repeat": true,
       "z": -1
     }
@@ -1667,13 +1667,13 @@
     "passive_ref": "league_braum:heart",
     "params": {
       "hold": 240,
-      "stun": 60,
-      "dmg": 40,
-      "ap": 40,
+      "stun": 75,
+      "dmg": 70,
+      "ap": 60,
       "lock": 480,
       "extra": 12,
       "extra_ap": 10,
-      "e_red": 40,
+      "e_red": 50,
       "e_ally": 20,
       "e_ally_r": 25000
     }

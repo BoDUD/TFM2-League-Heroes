@@ -39,9 +39,9 @@ const HERO: &str = "league_braum";
 /// 每层标记持续（p_hold）、眩晕（p_stun）、第 4 层的魔法伤害（p_dmg + p_ap% 法强）、之后不叠层的时间（p_lock）、
 /// 这段时间布隆普攻的额外魔法伤害（p_extra + p_extra_ap% 法强）。
 pub const P_HOLD: usize = 240;
-pub const P_STUN: usize = 60;
-pub const P_DMG: usize = 40;
-pub const P_AP: usize = 40;
+pub const P_STUN: usize = 75;
+pub const P_DMG: usize = 70;
+pub const P_AP: usize = 60;
 pub const P_LOCK: usize = 480;
 pub const P_EXTRA: usize = 12;
 pub const P_EXTRA_AP: usize = 10;
@@ -333,7 +333,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { e_red: 40, e_ally: 20, e_ally_r: 25_000 }
+        Params { e_red: 50, e_ally: 20, e_ally_r: 25_000 }
     }
 }
 
