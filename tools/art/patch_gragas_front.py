@@ -1,8 +1,9 @@
 """Gragas front: the hand patches on the 2:1 first pass (design/front_auto.txt -> design/front.txt): the face (brows, eyes
 with a white and a pupil, nose, mouth), the keg lid (iron ring, wood, the square cork), the X scar, one hole, the beard
 tips on the silhouette, then single beard squares unlike all four neighbours take their neighbours' colour."""
+import os
 import sys
-sys.path.insert(0, r"D:\TFM2-Workshop\repo\.claude\worktrees\magical-wescoff-894eec\tools\art")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import trace_gragas as T
 D = T.DESIGN  # tools/art/trace_gragas.py --auto writes front_auto.txt; this writes front.txt
