@@ -1,0 +1,296 @@
+{
+  "corki-side": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      19,
+      1,
+      184,
+      125
+    ],
+    "occupied_rows": [
+      1,
+      124
+    ],
+    "height": 124,
+    "colors": 48,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "head_rect": [
+      86,
+      21,
+      57,
+      36
+    ],
+    "head_exact": true,
+    "angle_degrees": 0
+  },
+  "corki-side-lean": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      20,
+      2,
+      177,
+      126
+    ],
+    "occupied_rows": [
+      2,
+      125
+    ],
+    "height": 124,
+    "colors": 48,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "head_rect": [
+      86,
+      21,
+      57,
+      36
+    ],
+    "head_exact": true,
+    "rigid_transform": {
+      "source_bounds": [
+        20,
+        2,
+        177,
+        126
+      ],
+      "translation": [
+        0,
+        0
+      ],
+      "angle_degrees": 12
+    }
+  },
+  "corki-side-up": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      22,
+      0,
+      189,
+      128
+    ],
+    "occupied_rows": [
+      0,
+      127
+    ],
+    "height": 128,
+    "colors": 48,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "head_rect": [
+      86,
+      21,
+      57,
+      36
+    ],
+    "head_exact": true,
+    "rigid_transform": {
+      "source_bounds": [
+        22,
+        0,
+        189,
+        128
+      ],
+      "translation": [
+        0,
+        0
+      ],
+      "angle_degrees": -10
+    }
+  },
+  "corki-dead-fall": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      32,
+      8,
+      161,
+      128
+    ],
+    "occupied_rows": [
+      8,
+      127
+    ],
+    "height": 120,
+    "colors": 48,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "rigid_transform": {
+      "source_bounds": [
+        32,
+        16,
+        161,
+        136
+      ],
+      "translation": [
+        0,
+        -8
+      ],
+      "angle_degrees": 35
+    },
+    "head_exception": "tilted goggles/moustache as death"
+  },
+  "corki-dead-crash": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      19,
+      35,
+      184,
+      126
+    ],
+    "occupied_rows": [
+      35,
+      125
+    ],
+    "height": 91,
+    "colors": 47,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "no_bombs": true,
+    "no_ground": true,
+    "head_exception": "slumped"
+  },
+  "corki-rotors": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      0,
+      4,
+      157,
+      107
+    ],
+    "occupied_rows": [
+      4,
+      106
+    ],
+    "height": 103,
+    "colors": 22,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "states": 8,
+    "layout": "variable centered cells;4 tile gutter"
+  },
+  "corki-rotors-side": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      0,
+      0,
+      153,
+      122
+    ],
+    "occupied_rows": [
+      0,
+      121
+    ],
+    "height": 122,
+    "colors": 23,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "states": 8,
+    "layout": "variable centered cells;4 tile gutter"
+  },
+  "corki-gun": {
+    "grid_px": 8,
+    "canvas": [
+      1536,
+      1024
+    ],
+    "one_x": [
+      192,
+      128
+    ],
+    "bounds": [
+      14,
+      18,
+      174,
+      84
+    ],
+    "occupied_rows": [
+      18,
+      83
+    ],
+    "height": 66,
+    "colors": 10,
+    "new_colors": [],
+    "alpha": [
+      0,
+      255
+    ],
+    "states": 6
+  }
+}
