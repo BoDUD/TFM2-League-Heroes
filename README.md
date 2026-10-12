@@ -3942,7 +3942,7 @@ python tools/art/import_native.py --hero irelia
 python tools/art/ppu_irelia.py             # PPU 2 的高密度条带（再跑一次 import_native 放进图集）
 python tools/art/import_irelia.py          # 特效
 python addons/league_irelia/make_override.py   # 附加包的副本（主包的艾瑞莉娅改了就重跑）
-python tools/art/preview_irelia.py         # 预览和演示 GIF（她按游戏里的样子画：hd_ 帧、PPU 2、85%）
+python tools/art/preview_irelia.py         # 预览和演示 GIF（她按游戏里的样子画：hd_ 帧、PPU 2）
 ```
 
 美术提示词见 [`assets/source/irelia/`](assets/source/irelia/)（`PROMPTS_FX.md` 是特效）。

@@ -13,7 +13,7 @@
                               dash on to Garen; W - the guard of blades, then the slash along the line; R - the volley
                               flying to Darius, the burst on both (slowed, marked) and the blade wall round him; 3x.
                               She is drawn as the game draws her on the battlefield: her dense (hd_) frames at PPU 2
-                              and 85% (league_main hd.rs SIZES).
+                              (her own size: the user, 「这缩的也太小了 还原吧」, after 85%).
 """
 import argparse
 import os
@@ -53,10 +53,10 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        # her dense frames at the battlefield's size (PPU 2, then 85%: league_main hd.rs SIZES), as the game draws her
+        # her dense frames at the battlefield's size (PPU 2), as the game draws her
         an = Anim(frames_of(sp, "hd_" + tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
-        an.scale = z * ppu_irelia.SIZE / ppu_irelia.PPU
+        an.scale = z / ppu_irelia.PPU
         body.append(an)
         t = an.until
         return an

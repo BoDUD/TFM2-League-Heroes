@@ -35,7 +35,7 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 2, "y": -34}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 0, "y": -31}, "center": {"x": 0, "y": -12}}   # the dense idle (league.dll draws her at PPU 2)
 
 
 def phy(d, r):
