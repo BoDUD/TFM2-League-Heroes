@@ -12,6 +12,13 @@
 //! 附加包附身时把被附身英雄的资源名抄到佛耶戈的这里，id 还是 league_viego——附身亚索 / 泽丽 / 弗拉基米尔 / 卡尔玛时画的是
 //! 他们的高清帧，按 id 认就不缩，画出来 2～3 倍大（用户 2026-10-12「Ppu的英雄佛爷戈不会变身失败吧？」）。不再是高清英雄的
 //! 实体（附身结束）把游戏的值写回去。
+//!
+//! 只缩身体（0.6.30，用户：「回城时脚下的特效会被遮挡」「英雄脚下的阴影也被遮挡了」）：+0x1b4 套在战场画身体的函数
+//! 0x230ec30 交出的整组绘制命令外面（0x231fb80：组头插一条缩放命令 0x…11、组尾一条恢复 0x…12），组里除了身体还有阴影、
+//! 脚下的圆圈、眩晕 / 嘲讽标记、读条——跟着缩成 1/PPU（艾希 1/5.5），看着像被身体挡住了。所以在 0x230ec30 的入口挂钩：
+//! 它照常画完，组里不是这个英雄自己那张图（`…/league_<英雄>#sheet`）的命令，连着的一段段各套一对「放大 PPU 倍」的
+//! 缩放 / 恢复命令（和游戏自己的一样：绕同一个点、平移 (1 - k) × 点、x y 都乘 k），外面那层 ÷ PPU 一抵消，就是游戏
+//! 原来的大小；身体照旧 ÷ PPU。别处读 +0x1b4 的画法不受影响。
 
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -62,10 +69,15 @@ static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
 
 struct State {
     scales: Vec<(usize, u64, Scale)>,
+    /// the same scales by the entity value's address (what the body draw gets in rdx)
+    by_value: Vec<(usize, Scale)>,
     lines: usize,
+    /// heroes whose first command list was logged
+    seen: Vec<&'static str>,
 }
 
-static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), lines: 0 });
+static STATE: Mutex<State> =
+    Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), lines: 0, seen: Vec::new() });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -146,6 +158,7 @@ unsafe fn shrink(world: usize) {
         let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
         let Some(hero) = drawn_as(&HEROES, res, id) else {
             // no longer drawn with dense frames (a possession ended): the game's own value back
+            st.by_value.retain(|e| e.0 != v);
             if let Some(k) = at {
                 let p = st.scales.remove(k).2;
                 let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
@@ -164,6 +177,15 @@ unsafe fn shrink(world: usize) {
         let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
         let s = next_scale(at.map(|k| st.scales[k].2), cur, hero.shown());
         std::ptr::write_unaligned((v + SCALE) as *mut f32, s.wrote);
+        match st.by_value.iter().position(|e| e.0 == v) {
+            Some(k) => st.by_value[k].1 = s,
+            None => {
+                st.by_value.push((v, s));
+                if st.by_value.len() > 256 {
+                    st.by_value.remove(0);
+                }
+            }
+        }
         let changed = match at {
             Some(k) => {
                 let b = st.scales[k].2.base != s.base;
@@ -182,6 +204,152 @@ unsafe fn shrink(world: usize) {
             st.lines += 1;
             wlog(format!("world {world:#x} #{key} {name}: draw scale {cur:.3} -> {:.3} (base {:.3})", s.wrote, s.base));
         }
+    }
+}
+
+/// Draw command tags (the enum's niche values at +0) and layout (0xd0 bytes each).
+const CMD: usize = 0xd0;
+const CMD_SPRITE: u64 = 0x8000_0000_0000_0003;
+const CMD_SCALE: u64 = 0x8000_0000_0000_0011;
+const CMD_RESTORE: u64 = 0x8000_0000_0000_0012;
+/// The entity's position (x at +0x17c, y at +0x180 less +0x18c): the point the game scales its commands round.
+const POS_X: usize = 0x17c;
+const POS_Y: usize = 0x180;
+const POS_LIFT: usize = 0x18c;
+
+static ORIG_BODY: AtomicUsize = AtomicUsize::new(0);
+static GROW: AtomicUsize = AtomicUsize::new(0);
+
+type BodyDraw = unsafe extern "system" fn(usize, usize, usize, usize, usize, usize, usize, usize) -> usize;
+type Grow = unsafe extern "system" fn(usize);
+
+/// 0x230ec30 (out Vec, entity value, r8, -, -, stack args 6-8; r9 and the 5th are never read): the game's body draw,
+/// then the extras brought back to the game's size.
+unsafe extern "system" fn body_detour(out: usize, ent: usize, a3: usize, _sp: usize, a5: usize, a6: usize, a7: usize,
+                                      a8: usize) -> usize {
+    let f: BodyDraw = std::mem::transmute(ORIG_BODY.load(Ordering::Acquire));
+    let r = f(out, ent, a3, 0, a5, a6, a7, a8);
+    let _ = std::panic::catch_unwind(|| unsafe { unshrink_extras(out, ent) });
+    r
+}
+
+/// The texture name of a sprite command (its String {cap, ptr, len} at +8).
+unsafe fn sprite_name<'a>(cmd: usize) -> Option<&'a str> {
+    if q(cmd) as u64 != CMD_SPRITE {
+        return None;
+    }
+    string_at(cmd + 0x10, cmd + 0x18)
+}
+
+/// Whether a texture name is the hero's own sheet (`asset/.../league_ashe#sheet`).
+pub fn is_body(name: &str, hero: &str) -> bool {
+    name.rsplit('/').next().and_then(|n| n.split('#').next()) == Some(hero)
+}
+
+/// [first, last] runs of the commands that are neither the body (1) nor a scale / restore command (2).
+pub fn extra_runs(kinds: &[u8]) -> Vec<(usize, usize)> {
+    let mut runs = Vec::new();
+    let mut i = 0;
+    while i < kinds.len() {
+        if kinds[i] != 0 {
+            i += 1;
+            continue;
+        }
+        let s = i;
+        while i < kinds.len() && kinds[i] == 0 {
+            i += 1;
+        }
+        runs.push((s, i - 1));
+    }
+    runs
+}
+
+/// `cmd` put in the command Vec {cap, ptr, len} at `out` before index `at` (grown by the game's own grow_one).
+unsafe fn insert(out: usize, at: usize, cmd: &[u8; CMD]) {
+    let len = q(out + 0x10);
+    if len == q(out) {
+        let g: Grow = std::mem::transmute(GROW.load(Ordering::Acquire));
+        g(out);
+    }
+    let ptr = q(out + 8);
+    std::ptr::copy((ptr + at * CMD) as *const u8, (ptr + (at + 1) * CMD) as *mut u8, (len - at) * CMD);
+    std::ptr::copy_nonoverlapping(cmd.as_ptr(), (ptr + at * CMD) as *mut u8, CMD);
+    std::ptr::write_unaligned((out + 0x10) as *mut usize, len + 1);
+}
+
+unsafe fn unshrink_extras(out: usize, ent: usize) {
+    if !plausible(out) || !plausible(ent) {
+        return;
+    }
+    let Ok(mut st) = STATE.try_lock() else { return };
+    let Some(sc) = st.by_value.iter().find(|e| e.0 == ent).map(|e| e.1) else {
+        // a dense hero the display update never shrank under this address: say so once (the hook then does nothing)
+        let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
+        if let Some(h) = drawn_as(&HEROES, res, string_at(ent + NAME_PTR, ent + NAME_LEN_AT)) {
+            if !st.seen.contains(&h.id) && st.lines < 200 {
+                st.seen.push(h.id);
+                st.lines += 1;
+                wlog(format!("{}: body draw of entity value {ent:#x} with no scale record ({} recorded) - extras left as they are",
+                    h.id, st.by_value.len()));
+            }
+        }
+        return;
+    };
+    let cur = std::ptr::read_unaligned((ent + SCALE) as *const f32);
+    if (cur - sc.wrote).abs() > 1e-6 || sc.wrote <= 0.0 {
+        return; // not shrunk this frame: everything is at the game's size already
+    }
+    let k = sc.base / sc.wrote;
+    let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
+    let Some(hero) = drawn_as(&HEROES, res, string_at(ent + NAME_PTR, ent + NAME_LEN_AT)) else { return };
+    let (cap, ptr, len) = (q(out), q(out + 8), q(out + 0x10));
+    if len == 0 || len > 256 || cap < len || !plausible(ptr) {
+        return;
+    }
+    let kinds: Vec<u8> = (0..len)
+        .map(|i| {
+            let c = ptr + i * CMD;
+            match q(c) as u64 {
+                CMD_SCALE | CMD_RESTORE => 2,
+                _ if sprite_name(c).is_some_and(|n| is_body(n, hero.id)) => 1,
+                _ => 0,
+            }
+        })
+        .collect();
+    let runs = extra_runs(&kinds);
+    if !st.seen.contains(&hero.id) && st.lines < 200 {
+        st.seen.push(hero.id);
+        st.lines += 1;
+        let list: Vec<String> = (0..len)
+            .map(|i| {
+                let c = ptr + i * CMD;
+                let tag = (q(c) as u64) & 0xff;
+                match sprite_name(c) {
+                    Some(n) => format!("{tag}:{}", n.rsplit('/').next().unwrap_or(n)),
+                    None => format!("{tag}"),
+                }
+            })
+            .collect();
+        wlog(format!("{}: body draw commands [{}], the extras back to the game's size in {} runs (x{k:.3})",
+            hero.id, list.join(", "), runs.len()));
+    }
+    if !kinds.contains(&1) {
+        return; // no body found: leave the list as the game made it
+    }
+    let px = std::ptr::read_unaligned((ent + POS_X) as *const f32);
+    let py = std::ptr::read_unaligned((ent + POS_Y) as *const f32)
+        - std::ptr::read_unaligned((ent + POS_LIFT) as *const f32);
+    let mut grow = [0u8; CMD];
+    grow[..8].copy_from_slice(&CMD_SCALE.to_le_bytes());
+    grow[8..12].copy_from_slice(&((1.0 - k) * px).to_le_bytes());
+    grow[12..16].copy_from_slice(&((1.0 - k) * py).to_le_bytes());
+    grow[0x24..0x28].copy_from_slice(&k.to_le_bytes());
+    grow[0x28..0x2c].copy_from_slice(&k.to_le_bytes());
+    let mut back = [0u8; CMD];
+    back[..8].copy_from_slice(&CMD_RESTORE.to_le_bytes());
+    for &(a, b) in runs.iter().rev() {
+        insert(out, b + 1, &back);
+        insert(out, a, &grow);
     }
 }
 
@@ -217,6 +385,13 @@ pub fn install_once(b: &'static Build) {
             )),
             Err(e) => wlog(format!("battlefield scale off ({e})")),
         }
+        GROW.store(module + b.cmd_grow, Ordering::Release);
+        let r = unsafe {
+            super::lookup::hook(module + b.body_draw,
+                body_detour as unsafe extern "system" fn(usize, usize, usize, usize, usize, usize, usize, usize) -> usize
+                    as usize, &ORIG_BODY)
+        };
+        wlog(format!("body draw hooked ({r:?}): shadows, rings and marks round a dense hero at the game's size"));
     });
 }
 
@@ -234,6 +409,22 @@ mod tests {
         assert_eq!(s.base, 1.0);
         let s = next_scale(Some(s), 1.5, 3.0); // a new base (a growth effect)
         assert_eq!(s, Scale { base: 1.5, wrote: 0.5 });
+    }
+
+    #[test]
+    fn only_the_heros_own_sheet_is_the_body() {
+        assert!(is_body("asset/league/champions/league_ashe#sheet", "league_ashe"));
+        assert!(is_body("asset/base/aseprite_resources/champions/league_ashe#sheet", "league_ashe"));
+        assert!(!is_body("asset/base/sprite/circle", "league_ashe"));
+        assert!(!is_body("asset/base/aseprite_resources/skill_effect/stun_effect#sheet", "league_ashe"));
+        assert!(!is_body("asset/league/champions/league_ashe_fx#sheet", "league_ashe"));
+    }
+
+    #[test]
+    fn the_extras_are_wrapped_in_runs() {
+        assert_eq!(extra_runs(&[0, 0, 1, 0]), vec![(0, 1), (3, 3)]);
+        assert_eq!(extra_runs(&[1]), vec![]);
+        assert_eq!(extra_runs(&[0, 2, 0, 1, 1, 0, 0]), vec![(0, 0), (2, 2), (5, 6)]);
     }
 
     #[test]

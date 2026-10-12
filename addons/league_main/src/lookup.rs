@@ -510,7 +510,7 @@ fn stubs(page: usize, func: usize, detour: usize) -> (Vec<u8>, usize, usize) {
     (c, entry, orig)
 }
 
-unsafe fn hook(func: usize, detour: usize, orig_slot: &AtomicUsize) -> Result<(), String> {
+pub(crate) unsafe fn hook(func: usize, detour: usize, orig_slot: &AtomicUsize) -> Result<(), String> {
     if read(func, PROLOGUE.len()).as_deref() != Some(&PROLOGUE[..]) {
         return Err(format!("{func:#x}: not the game's own prologue"));
     }
