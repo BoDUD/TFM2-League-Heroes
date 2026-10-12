@@ -1,0 +1,31 @@
+{
+ "hero": "braum",
+ "champ": "Braum",
+ "camera": {"yaw": 30, "pitch": 20, "mirror": true},
+ "chibi": {"head": 1.0, "legs": 1.0, "hair": 1.0},
+ "height": 42,
+ "cell": [128, 128, 28],
+ "design": "braum_idle_01_loop@0",
+ "tags": {
+  "run": {"frames": [["braum_run_02@0", 115], ["braum_run_02@133", 115], ["braum_run_02@267", 115], ["braum_run_02@400", 115],
+                     ["braum_run_02@533", 115], ["braum_run_02@667", 115], ["braum_run_02@800", 115], ["braum_run_02@933", 115]]},
+  "attack": {"lunge": 0.4, "release": 3,
+             "frames": [["braum_idle_01_loop@0>braum_attack_01@100:0.5", 70], ["braum_attack_01@213", 80], ["braum_attack_01@330", 60],
+                        ["braum_attack_01@425", 100], ["braum_attack_01@700>braum_idle_01_loop@0:0.5", 120]]},
+  "skill": {"lunge": 0.3, "release": 3,
+            "frames": [["braum_idle_01_loop@0>braum_spell1@0:0.6", 70], ["braum_spell1@60", 70], ["braum_spell1@120", 80],
+                       ["braum_spell1@200", 100], ["braum_spell1@500>braum_idle_01_loop@0:0.5", 120]]},
+  "skill2": {"lunge": 0.0, "release": 2,
+             "frames": [["braum_idle_01_loop@0>braum_spell3_idle0@0:0.5", 80], ["braum_spell3_idle0@0", 120],
+                        ["braum_spell3_idle0@950", 200]]},
+  "w_leap": {"lunge": 0.4, "rise": 0.5,
+             "frames": [["braum_idle_01_loop@0>braum_spell2@0:0.6", 60], ["braum_spell2@79", 60], ["braum_spell2@158", 70],
+                        ["braum_spell2@317", 80], ["braum_spell2@554", 100]]},
+  "ult": {"lunge": 0.2, "rise": 0.05, "release": 4,
+          "frames": [["braum_idle_01_loop@0>braum_spell4@0:0.6", 80], ["braum_spell4@0", 100], ["braum_spell4@121", 80],
+                     ["braum_spell4@560", 60], ["braum_spell4@650", 120], ["braum_spell4@846", 150]]},
+  "dead": {"anchor": "first", "lunge": 0.3, "travel": 0.3, "flat": true,
+           "frames": [["braum_death@0", 100], ["braum_death@417", 120], ["braum_death@1250", 150], ["braum_death@2083", 150],
+                      ["braum_death@2500", 200], ["braum_death@2917", 400]]}
+ }
+}
