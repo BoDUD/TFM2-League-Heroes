@@ -47,7 +47,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
-PPU = {"yasuo": 3}
+PPU = {"yasuo": 3, "vladimir": 2}
 PREFIX = "hd_"
 HEAD = {
     "yasuo": {"src": "yasuo_head.png", "scale": 2, "at": (75, 30), "box": (8, 22, 24, 37), "keep_row": 20,
@@ -79,7 +79,27 @@ def read_sheet(stem):
 
 
 def up(a, k):
+    if k != int(k):
+        return scale_any(a, k)
+    k = int(k)
     return np.repeat(np.repeat(a, k, axis=0), k, axis=1)
+
+
+def scale_any(a, k):
+    """`a` scaled to round(k x its size), every pixel the source pixel under its centre (any k > 0)."""
+    h, w = a.shape[:2]
+    H, W = max(1, round(h * k)), max(1, round(w * k))
+    ys = np.minimum(((np.arange(H) + 0.5) / k).astype(int), h - 1)
+    xs = np.minimum(((np.arange(W) + 0.5) / k).astype(int), w - 1)
+    return a[ys][:, xs]
+
+
+def is_drawn(hero, tag):
+    return os.path.isfile(os.path.join(SRC, f"{hero}_{tag}.png"))
+
+
+def hd_size(w, h, k):
+    return round(w * k), round(h * k)
 
 
 def head_pixel(p):
@@ -287,14 +307,22 @@ def paste_head(hero, frame, k, offset):
 
 
 def drawn_strip(hero, tag, sizes, k):
-    """The drawn hd frames of `tag` (None when there is no strip)."""
+    """The drawn hd frames of `tag` (None when there is no strip). Each is round(k x the 1x frame), or the size
+    <hero>_<tag>.json lists (tools/art/import_ppu_strips.py: grown alike at both ends, the centre kept)."""
     p = os.path.join(SRC, f"{hero}_{tag}.png")
     if not os.path.isfile(p):
         return None
     s = np.asarray(Image.open(p).convert("RGBA"))
+    side = os.path.join(SRC, f"{hero}_{tag}.json")
+    if os.path.isfile(side):
+        with open(side, encoding="utf-8") as f:
+            big = [tuple(v) for v in json.load(f)["sizes"]]
+        if len(big) != len(sizes):
+            sys.exit(f"{side}: {len(big)} sizes for {len(sizes)} frames")
+    else:
+        big = [hd_size(w, h, k) for w, h in sizes]
     out, x = [], 0
-    for w, h in sizes:
-        W, H = w * k, h * k
+    for W, H in big:
         if x + W > s.shape[1] or H > s.shape[0]:
             sys.exit(f"{p}: too small for {len(sizes)} frames of {k}x the 1x sizes")
         out.append(s[:H, x:x + W].copy())
@@ -366,16 +394,20 @@ def check(hero, sheet):
             bad.append(f"{PREFIX}{tag}: {len(hd)} frames, {tag} {len(frames)}")
             continue
         for i, ((a, ms), (b, ms2)) in enumerate(zip(frames, hd)):
-            if b.shape[:2] != (a.shape[0] * k, a.shape[1] * k) or abs(ms - ms2) > 1e-6:
-                bad.append(f"{PREFIX}{tag}[{i}]: {b.shape[1]}x{b.shape[0]} {ms2} ms, want "
-                           f"{a.shape[1] * k}x{a.shape[0] * k} {ms} ms")
+            W, H = hd_size(a.shape[1], a.shape[0], k)
+            # a drawn frame may be grown alike at both ends (the centre, the pivot, kept)
+            grown = is_drawn(hero, tag) and b.shape[1] >= W and b.shape[0] >= H and                 (b.shape[1] - W) % 2 == 0 and (b.shape[0] - H) % 2 == 0
+            if ((b.shape[1], b.shape[0]) != (W, H) and not grown) or abs(ms - ms2) > 1e-6:
+                bad.append(f"{PREFIX}{tag}[{i}]: {b.shape[1]}x{b.shape[0]} {ms2} ms, want {W}x{H} {ms} ms")
+            elif tag == "idle" and b.shape[1] != W:
+                bad.append(f"{PREFIX}idle[{i}]: {b.shape[1]} wide - the DLL needs hd_idle exactly round(PPU x {a.shape[1]})")
     return bad
 
 
 def outside_head(hero, sheet):
     """hd pixels that differ from the 1x frame scaled, far from where its head is (the body must stay the 1x art)."""
     bad = []
-    for tag in [t for t in sheet if t.startswith(PREFIX)]:
+    for tag in [t for t in sheet if t.startswith(PREFIX) and not is_drawn(hero, t[len(PREFIX):])]:
         for i, (b, _) in enumerate(sheet[tag]):
             a = up(sheet[tag[len(PREFIX):]][i][0], PPU[hero])
             diff = np.abs(a.astype(int) - b.astype(int)).max(axis=2) > 0
@@ -394,6 +426,9 @@ def strays(hero, sheet):
     has more than 5). -> list of problems ("别留多余的像素")."""
     bad = []
     for tag in [t for t in sheet if t.startswith(PREFIX)]:
+        if is_drawn(hero, tag[len(PREFIX):]):
+            bad += drawn_strays(tag, sheet[tag])
+            continue
         for i, (b, _) in enumerate(sheet[tag]):
             op = b[..., 3] > 0
             lab, n = ndimage.label(op, structure=np.ones((3, 3)))
@@ -420,6 +455,19 @@ def strays(hero, sheet):
                 ys, xs = np.nonzero(sliver)
                 bad.append(f"{tag}[{i}]: specks {small} (1x had {small1}), {int(sliver.sum())} sliver pixels"
                            + (f" at {list(zip(xs.tolist(), ys.tolist()))[:6]}" if sliver.any() else ""))
+    return bad
+
+
+def drawn_strays(tag, frames):
+    """A drawn frame's leftovers: specks of 1-3 pixels apart from the figure ("别留多余的像素")."""
+    bad = []
+    for i, (b, _) in enumerate(frames):
+        op = b[..., 3] > 0
+        lab, n = ndimage.label(op, structure=np.ones((3, 3)))
+        sizes = ndimage.sum(op, lab, range(1, n + 1))
+        small = [int(z) for z in sizes if z < 4]
+        if small:
+            bad.append(f"{tag}[{i}]: specks {small}")
     return bad
 
 
