@@ -1,17 +1,21 @@
 //! Which heroes have dense (PPU) frames - the parts that need no game.
 //!
 //! A hero listed in `HEROES` carries `hd_<tag>` beside every `<tag>` in its own sheet (tools/art/ppu_hd.py, the same
-//! PPU there), each frame PPU times the 1x frame's size. src/lookup.rs hands every reader of the hero's animations a
-//! table whose every tag holds the dense frames with their rects divided by PPU, and every reader of its sheet a
-//! texture that reports its size divided by PPU: the same UVs (the dense squares), the 1x sizes. The tags are read
-//! from the sheet's .fanim compiled in.
+//! PPU there), each frame PPU times the 1x frame's size - a drawn one may be grown alike at both ends (its centre, the
+//! pivot, kept), hd_idle exactly PPU times as wide (src/lookup.rs tells a changed table by it). src/lookup.rs hands every
+//! reader of the hero's animations a table whose every tag holds the dense frames with their rects divided by PPU, and
+//! every reader of its sheet a texture that reports its size divided by PPU: the same UVs (the dense squares), the 1x
+//! sizes. The tags are read from the sheet's .fanim compiled in.
 
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
-pub const HEROES: &[(&str, f32, &str)] =
-    &[("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
-      ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim")),
-      ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
-      ("league_irelia", 2.0, include_str!("../../../league/champions/league_irelia#anim.fanim"))];
+pub const HEROES: &[(&str, f32, &str)] = &[
+    ("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
+    ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim")),
+    ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
+    ("league_vladimir", 2.0, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
+    ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
+    ("league_irelia", 2.0, include_str!("../../../league/champions/league_irelia#anim.fanim")),
+];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
 /// the texture's reported size are divided by PPU / size (src/lookup.rs: the cards, the encyclopedia, the face icons,
@@ -19,7 +23,8 @@ pub const HEROES: &[(&str, f32, &str)] =
 /// (src/view.rs), each about the frame's centre / the unit's position - so the hero's dense frames are drawn lower by
 /// (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were (tools/art/ppu_gragas.py SHIFT).
 /// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80)];
+/// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05)];
 
 pub const PREFIX: &str = "hd_";
 

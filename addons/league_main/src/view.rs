@@ -7,19 +7,20 @@
 //! 函数，再走一遍显示世界的实体表（+0x138 的哈希表，每格 0x1d0 字节，值从 +8 开始），英雄 id（+0x40 / +0x48）登记了的
 //! 实体写缩放。游戏自己的值每帧记下（[`Scale`]：是我们上一帧写的就沿用记下的，不是就当作游戏的新值），不会除两次。
 //! 不改动作名：战场影子表里每个动作都是高清帧，眩晕之类不按动作名画的时候也一样（「被宝石打中后模型突然变小」）。
+//!
+//! 认英雄按身体用哪套图（值 +0x50 / +0x58 / +0x60 的资源名，每个实体平时就是自己的英雄 id），读不到才看英雄 id：佛耶戈
+//! 附加包附身时把被附身英雄的资源名抄到佛耶戈的这里，id 还是 league_viego——附身亚索 / 泽丽 / 弗拉基米尔 / 卡尔玛时画的是
+//! 他们的高清帧，按 id 认就不缩，画出来 2～3 倍大（用户 2026-10-12「Ppu的英雄佛爷戈不会变身失败吧？」）。不再是高清英雄的
+//! 实体（附身结束）把游戏的值写回去。
 
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex, Once};
 
+use super::build::Build;
 use super::hd::{self, Hero};
 use super::wlog;
 
-const FN_RVA: usize = 0x2808e30;
-const SLOT_RVA: usize = 0x3c31358;
-/// push r15; push r14; push r13; push r12; push rsi; push rdi; push rbp; push rbx; sub rsp, 0x88; movdqa [rsp+..], xmm7
-const FN_HEAD: [u8; 24] = [0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x55, 0x53, 0x48, 0x81, 0xec, 0x88,
-    0x00, 0x00, 0x00, 0x66, 0x0f, 0x7f, 0x7c, 0x24];
 const TABLE: usize = 0x138;
 const TABLE_MASK: usize = 0x140;
 const TABLE_ITEMS: usize = 0x150;
@@ -27,6 +28,9 @@ const ELEM: usize = 0x1d0;
 const VALUE: usize = 8;
 const NAME_PTR: usize = 0x40;
 const NAME_LEN_AT: usize = 0x48;
+/// The body's resource name String {cap, ptr, len} (the sprite set it is drawn with; league_viego_soul's RES_CAP).
+const RES_PTR: usize = 0x58;
+const RES_LEN_AT: usize = 0x60;
 const SCALE: usize = 0x1b4;
 
 /// One entity's draw scale: the game's own value (base) and what the hook last wrote over it.
@@ -46,6 +50,14 @@ pub fn next_scale(prev: Option<Scale>, cur: f32, ppu: f32) -> Scale {
     Scale { base, wrote: base / ppu }
 }
 
+/// The registered hero an entity is drawn as: by its body's resource name (`.../league_zeri#anim` or the bare id) when
+/// that is readable, else by its id.
+pub fn drawn_as<'a>(heroes: &'a [Hero], res: Option<&str>, id: Option<&str>) -> Option<&'a Hero> {
+    let name = res.or(id)?;
+    let last = name.rsplit('/').next()?.split('#').next()?;
+    heroes.iter().find(|h| h.id == last)
+}
+
 static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
 
 struct State {
@@ -63,6 +75,15 @@ extern "system" {
     fn GetCurrentProcess() -> isize;
     fn GetModuleHandleW(name: *const u16) -> usize;
     fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
+}
+
+/// `len` bytes of the game EXE at `rva` (None when unreadable).
+pub fn read_rva(rva: usize, len: usize) -> Option<Vec<u8>> {
+    let module = unsafe { GetModuleHandleW(std::ptr::null()) };
+    if module == 0 {
+        return None;
+    }
+    read(module + rva, len)
 }
 
 fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
@@ -93,6 +114,15 @@ fn plausible(p: usize) -> bool {
     (0x10000..0x7fff_ffff_ffff).contains(&p)
 }
 
+/// A String's text from its pointer and length fields (None when it does not look like a name).
+unsafe fn string_at<'a>(ptr_at: usize, len_at: usize) -> Option<&'a str> {
+    let (n, p) = (q(len_at), q(ptr_at));
+    if !(1..=128).contains(&n) || !plausible(p) {
+        return None;
+    }
+    std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)).ok()
+}
+
 unsafe fn shrink(world: usize) {
     if !plausible(world) {
         return;
@@ -110,15 +140,28 @@ unsafe fn shrink(world: usize) {
         }
         let elem = ctrl - (i + 1) * ELEM;
         let v = elem + VALUE;
-        let (n, p) = (q(v + NAME_LEN_AT), q(v + NAME_PTR));
-        if !(1..=64).contains(&n) || !plausible(p) {
-            continue;
-        }
-        let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)) else { continue };
-        let Some(hero) = HEROES.iter().find(|h| h.id == name) else { continue };
+        let id = string_at(v + NAME_PTR, v + NAME_LEN_AT);
+        let res = string_at(v + RES_PTR, v + RES_LEN_AT);
         let key = q(elem) as u64;
-        let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
         let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
+        let Some(hero) = drawn_as(&HEROES, res, id) else {
+            // no longer drawn with dense frames (a possession ended): the game's own value back
+            if let Some(k) = at {
+                let p = st.scales.remove(k).2;
+                let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
+                if (cur - p.wrote).abs() <= 1e-6 {
+                    std::ptr::write_unaligned((v + SCALE) as *mut f32, p.base);
+                }
+                if st.lines < 200 {
+                    st.lines += 1;
+                    wlog(format!("world {world:#x} #{key} {}: drawn as {} again, draw scale back to {:.3}",
+                        id.unwrap_or("?"), res.unwrap_or("?"), p.base));
+                }
+            }
+            continue;
+        };
+        let name = res.unwrap_or(hero.id);
+        let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
         let s = next_scale(at.map(|k| st.scales[k].2), cur, hero.shown());
         std::ptr::write_unaligned((v + SCALE) as *mut f32, s.wrote);
         let changed = match at {
@@ -142,15 +185,12 @@ unsafe fn shrink(world: usize) {
     }
 }
 
-fn install() -> Result<(usize, usize), String> {
+fn install(b: &Build) -> Result<(usize, usize), String> {
     let module = unsafe { GetModuleHandleW(std::ptr::null()) };
     if module == 0 {
         return Err("no module handle".into());
     }
-    if read(module + FN_RVA, FN_HEAD.len()).as_deref() != Some(&FN_HEAD[..]) {
-        return Err("not game 0.6.3 (the display handler differs)".into());
-    }
-    let slot = module + SLOT_RVA;
+    let slot = module + b.display_slot;
     let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;
     if !plausible(cur) {
         return Err(format!("the slot holds {cur:#x}"));
@@ -167,13 +207,13 @@ fn install() -> Result<(usize, usize), String> {
 }
 
 /// 加载时换槽（一个进程只换一次）。
-pub fn install_once() {
+pub fn install_once(b: &'static Build) {
     HOOK.call_once(|| {
         let module = unsafe { GetModuleHandleW(std::ptr::null()) };
-        match install() {
+        match install(b) {
             Ok((slot, prev)) => wlog(format!(
                 "battlefield scale on: display slot {slot:#x} now calls this pack, then {} ({prev:#x})",
-                if prev == module + FN_RVA { "the game's own handler" } else { "another mod's handler (chained)" }
+                if prev == module + b.display_fn { "the game's own handler" } else { "another mod's handler (chained)" }
             )),
             Err(e) => wlog(format!("battlefield scale off ({e})")),
         }
@@ -194,5 +234,17 @@ mod tests {
         assert_eq!(s.base, 1.0);
         let s = next_scale(Some(s), 1.5, 3.0); // a new base (a growth effect)
         assert_eq!(s, Scale { base: 1.5, wrote: 0.5 });
+    }
+
+    #[test]
+    fn a_possessing_viego_is_shrunk_as_his_victim() {
+        let h = hd::heroes();
+        let as_ = |res, id| drawn_as(&h, res, id).map(|h| h.id);
+        assert_eq!(as_(Some("league_zeri"), Some("league_viego")), Some("league_zeri"));
+        assert_eq!(as_(Some("champions/league_yasuo#anim"), Some("league_viego")), Some("league_yasuo"));
+        assert_eq!(as_(Some("league_viego"), Some("league_viego")), None); // the possession over
+        assert_eq!(as_(Some("league_garen"), Some("league_viego")), None); // a plain victim
+        assert_eq!(as_(None, Some("league_karma")), Some("league_karma")); // no resource name read: the id
+        assert_eq!(as_(Some("league_karma"), Some("league_karma")), Some("league_karma"));
     }
 }
