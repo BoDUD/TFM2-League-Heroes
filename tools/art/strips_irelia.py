@@ -307,6 +307,10 @@ def head_mask(L, body, face, fy0, eye_bottom):
     f = face.copy()
     f[chin + 1:] = False
     k3 = np.ones((3, 3))
+    fys, fxs = np.nonzero(f)
+    near_face = np.zeros(L.shape, bool)         # the head's reach: 19 rows over the chin, 10 columns left of the face,
+    near_face[max(0, chin - 19):chin + 1, max(0, fxs.min() - 10):fxs.max() + 6] = True   # 5 right (the flowing hair
+    body = body & near_face                     # behind a running Irelia is one piece with her crown)
     navy = np.isin(L, list("abcd")) & body
     lab, n = ndimage.label(navy, k3)
     near = ndimage.binary_dilation(f, k3)
@@ -340,8 +344,8 @@ def own_head(L, body):
     fy0, fy1, fx0, fx1, face = fb
     cyan = np.isin(L, list("nop")) & ndimage.binary_dilation(face, np.ones((3, 3)))
     cyan[:fy0 + 2] = False                      # the tiara gem sits on the face's top row; the eyes lower
-    if not cyan.any():
-        return None
+    if not cyan.any():                          # eyes not drawn in cyan by the face (a turned or lowered head): its
+        cyan[min(fy1 - 2, fy0 + 3), (fx0 + fx1) // 2] = True       # middle stands in for them
     eye_bottom = int(np.nonzero(cyan.any(1))[0].max())
     hm, chin = head_mask(L, body, face, fy0, eye_bottom)
     ys, xs = np.nonzero(hm)
@@ -367,10 +371,13 @@ def own_head(L, body):
     return head, (y0, y1, x0, x1), fcx, int(np.argmin([abs(c + x0 - fcx) for c in cols])), hm
 
 
-def paste_head(G, oh, oy, ox, at):
-    """Set a head from own_head on the work table G: its last row on the 2:1 row of the chin, its face's middle on the
-    2:1 column of the draft's (at = the 2:1 table's place in G). Returns the head's box in G."""
+def paste_head(G, oh, oy, ox, at, canon=None):
+    """Set a head on the work table G where own_head found the draft's: its last row on the 2:1 row of the chin, its
+    face's middle on the 2:1 column of the draft's (at = the 2:1 table's place in G). canon = (head table, its face's
+    middle column) replaces the draft's own head. Returns the head's box in G."""
     head, (y0, y1, x0, x1), fcx, hc = oh[:4]
+    if canon is not None:
+        head, hc = canon
     r0 = at[0] + (y1 + oy) // 2 - (head.shape[0] - 1)
     c0 = at[1] + int(round((fcx + ox) / 2.0)) - hc
     m = head != "."
@@ -404,12 +411,13 @@ def idle_head(rb):
 
 
 # ------------------------------------------------------------------------------------------------- the actions
-def action_frame(L, lying=False):
-    """A draft at game size: body and blades at 2:1, its own head at HEAD_SCALE; a blade the head would cover moved
-    away from it. lying: read standing (the draft turned a quarter, crown up) and turned back. Returns the work table
-    and the 2:1 table's box in it (row, col, rows, cols)."""
+def action_frame(L, canon, lying=False):
+    """A draft at game size: body and blades at 2:1, the side head (canon) where the draft's own head was - its own
+    head found by own_head and taken away; a blade the head would cover moved away from it. lying: read standing (the
+    draft turned a quarter, crown up) and turned back. Returns the work table and the 2:1 table's box in it (row,
+    col, rows, cols)."""
     if lying:
-        G, (r0, c0, H, W) = action_frame(np.rot90(L, 1))
+        G, (r0, c0, H, W) = action_frame(np.rot90(L, 1), canon)
         Gt = np.rot90(G, -1)
         return Gt, (c0, G.shape[0] - r0 - H, W, H)
     pad = 24
@@ -430,7 +438,7 @@ def action_frame(L, lying=False):
                 if hp[2 * r:2 * r + 2, 2 * c:2 * c + 2].sum() >= 2:
                     body[r, c] = "."
         probe = np.full(G.shape, ".", "<U1")
-        hr0, hc0, hh, hw = paste_head(probe, oh, oy, ox, (pad, pad))
+        hr0, hc0, hh, hw = paste_head(probe, oh, oy, ox, (pad, pad), canon)
         hm = probe != "."
         hcy, hcx = hr0 + hh / 2.0, hc0 + hw / 2.0
     for i in range(1, n + 1):
@@ -457,7 +465,7 @@ def action_frame(L, lying=False):
         G = np.where(sub != ".", sub, G)
     G[pad:pad + H, pad:pad + W] = np.where(body != ".", body, G[pad:pad + H, pad:pad + W])
     if oh is not None:
-        paste_head(G, oh, oy, ox, (pad, pad))
+        paste_head(G, oh, oy, ox, (pad, pad), canon)
     return G, (pad, pad, H, W)
 
 
@@ -472,6 +480,9 @@ def place(G, px):
 def build():
     body = table(os.path.join(DESIGN, "body_idle.txt"))
     oh = idle_head(table(os.path.join(DESIGN, "idle_readback.txt")))
+    side = table(os.path.join(DESIGN, "head_side.txt"))
+    fx = np.nonzero(np.isin(side[-3:], list("qrs")).any(0))[0]
+    canon = (side, int(round((fx.min() + fx.max()) / 2.0)))       # the side face's middle column
     rb = readbacks()
     frames, ms = {}, {}
     f0 = idle_frame(body, oh, 0)
@@ -483,7 +494,7 @@ def build():
     for t in TAGS[1:]:
         res = []
         for k, (L, fr) in enumerate(rb[t]):
-            G, (r0, c0, H, W) = action_frame(L, lying=(t == "dead" and k >= 4))
+            G, (r0, c0, H, W) = action_frame(L, canon, lying=(t == "dead" and k >= 4))
             x0, x1 = fr["bbox"][0], fr["bbox"][2]
             res.append(place(G, c0 + (fr["pivot"][0] - x0) / float(x1 - x0) * W))
         frames[t] = res
