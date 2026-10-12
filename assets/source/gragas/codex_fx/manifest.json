@@ -1,0 +1,386 @@
+[
+  {
+    "name": "a_hit",
+    "file": "gragas_fx_a_hit.png",
+    "logical_cell": [
+      14,
+      14
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "binding": "view_effects `league_gragas_a_hit`（跟随，画在人物上面；左右对称）",
+    "game_size": "12",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "w_hit",
+    "file": "gragas_fx_w_hit.png",
+    "logical_cell": [
+      38,
+      22
+    ],
+    "frames": 5,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      2017,
+      780
+    ],
+    "binding": "view_effects `league_gragas_w_hit`（跟随，画在人物上面；左右对称）",
+    "game_size": "36 × 20",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "q_barrel",
+    "file": "gragas_fx_q_barrel.png",
+    "logical_cell": [
+      14,
+      12
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1514,
+      1039
+    ],
+    "binding": "view_projectiles `league_gragas_q_barrel`（朝飞行方向转，画成朝右飞；上下对称）",
+    "game_size": "12 × 10",
+    "symmetry": "top-bottom",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "q_land",
+    "file": "gragas_fx_q_land.png",
+    "logical_cell": [
+      16,
+      16
+    ],
+    "frames": 6,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "binding": "view_effects `league_gragas_q_land`（不跟随，画在人物下面一层；左右对称）",
+    "game_size": "14 × 14",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "q_boom",
+    "file": "gragas_fx_q_boom.png",
+    "logical_cell": [
+      42,
+      26
+    ],
+    "frames": 6,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1952,
+      806
+    ],
+    "binding": "view_effects `league_gragas_q_boom`（不跟随，画在人物上面；左右对称）",
+    "game_size": "40 × 24",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "q_hit",
+    "file": "gragas_fx_q_hit.png",
+    "logical_cell": [
+      14,
+      14
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "binding": "view_effects `league_gragas_q_hit`（跟随，画在人物上面；左右对称）",
+    "game_size": "12",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "q_slow",
+    "file": "gragas_fx_q_slow.png",
+    "logical_cell": [
+      18,
+      8
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1881,
+      836
+    ],
+    "binding": "view_buffs `league_gragas_q_slow`（跟随，画在人物下面；左右对称）",
+    "game_size": "16 × 6",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "e_dust",
+    "file": "gragas_fx_e_dust.png",
+    "logical_cell": [
+      26,
+      12
+    ],
+    "frames": 5,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1958,
+      803
+    ],
+    "binding": "view_effects `league_gragas_e_dust`（不跟随，画在人物下面；左右对称）",
+    "game_size": "24 × 10",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "e_hit",
+    "file": "gragas_fx_e_hit.png",
+    "logical_cell": [
+      22,
+      22
+    ],
+    "frames": 5,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "binding": "view_effects `league_gragas_e_hit`（跟随，画在人物上面；左右对称）",
+    "game_size": "20",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "e_stun",
+    "file": "gragas_fx_e_stun.png",
+    "logical_cell": [
+      16,
+      8
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1774,
+      887
+    ],
+    "binding": "view_buffs `league_gragas_e_stun`（跟随，画在人物上面；左右对称）",
+    "game_size": "14 × 6",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "w_drink",
+    "file": "gragas_fx_w_drink.png",
+    "logical_cell": [
+      22,
+      18
+    ],
+    "frames": 6,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1699,
+      926
+    ],
+    "binding": "view_effects `league_gragas_w_drink`（跟随，画在人物上面；左右对称）",
+    "game_size": "20 × 16",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "w_on",
+    "file": "gragas_fx_w_on.png",
+    "logical_cell": [
+      38,
+      46
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1139,
+      1381
+    ],
+    "binding": "view_buffs `league_gragas_w_on`（跟随，画在人物上面；左右对称）",
+    "game_size": "36 × 44",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "p_heal",
+    "file": "gragas_fx_p_heal.png",
+    "logical_cell": [
+      26,
+      32
+    ],
+    "frames": 5,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1385,
+      1136
+    ],
+    "binding": "view_effects `league_gragas_p_heal`（跟随，画在人物上面；左右对称）",
+    "game_size": "24 × 30",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "r_cask",
+    "file": "gragas_fx_r_cask.png",
+    "logical_cell": [
+      20,
+      16
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1402,
+      1122
+    ],
+    "binding": "view_projectiles `league_gragas_r_cask`（朝飞行方向转，画成朝右飞；上下对称）",
+    "game_size": "18 × 14",
+    "symmetry": "top-bottom",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "r_boom",
+    "file": "gragas_fx_r_boom.png",
+    "logical_cell": [
+      58,
+      38
+    ],
+    "frames": 7,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      4,
+      2
+    ],
+    "raw_size": [
+      2191,
+      718
+    ],
+    "binding": "view_effects `league_gragas_r_boom`（不跟随，画在人物上面；左右对称）",
+    "game_size": "56 × 36",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  },
+  {
+    "name": "r_hit",
+    "file": "gragas_fx_r_hit.png",
+    "logical_cell": [
+      16,
+      16
+    ],
+    "frames": 4,
+    "layout": "horizontal",
+    "scale": 8,
+    "raw_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "binding": "view_effects `league_gragas_r_hit`（跟随，画在人物上面；左右对称）",
+    "game_size": "14",
+    "symmetry": "left-right",
+    "preview_duration_ms": 120,
+    "timing_status": "preview only; runtime timing not provided"
+  }
+]

@@ -81,7 +81,7 @@ UNSTEADY = {("rakan", "run"), ("kogmaw", "idle"), ("kogmaw", "run"), ("karma", "
 # (rig_zeri BREATH: the same sink; the shared cut would run through her upright rifle); Nautilus too
 # (rig_nautilus.idle_frame: the body sinks over the boots - a shared cut would run through the anchor or the helmet);
 # Irelia too (strips_irelia: a still idle, only her blades bob)
-BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus", "irelia"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
+BREATHE_SKIP = {"renekton", "sivir", "brand", "tristana", "jax", "pyke", "yone", "gwen", "kayle", "alistar", "soraka", "blitzcrank", "xayah", "rengar", "kogmaw", "zed", "karma", "olaf", "viktor", "talon", "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus", "gragas", "irelia"}   # sivir: the user's pick of a still idle (「希维尔改成静止不动吧」): every seam on her shrunk wide stance pulled her
 # hips or her slanted boots
 # renekton: the user's pick of a still idle after the 90% shrink (「C吧」, from main's / a shin breath / still)
 # idle_breathe options per hero (the user's review of the first roster GIF, 2026-10-08: Akali, Alistar, Ashe, Briar and
@@ -314,7 +314,7 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "dian
             "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
             "xerath", "xinzhao", "samira", "pyke", "gwen", "khazix", "brand", "twitch", "renekton", "seraphine",
             "lillia", "viktor", "xayah", "lulu", "vladimir", "rengar", "kogmaw", "zed", "karma", "olaf", "hecarim",
-            "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus"}
+            "draven", "senna", "shen", "syndra", "viego", "zeri", "nautilus", "gragas"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -1626,7 +1626,7 @@ def main():
         if hero in PPU_HD.PPU:
             made = PPU_HD.add_hd(hero, sheet)
             print(f"league/champions/league_{hero}: hd_ tags for the main pack's dense frames (PPU {PPU_HD.PPU[hero]}; "
-                  f"drawn {', '.join(made['drawn']) or 'none'}, scaled {', '.join(made['scaled']) or 'none'})")
+                  f"drawn {', '.join(made['drawn']) or 'none'}, scaled {', '.join(made.get('scaled', [])) or 'none'})")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         for name, fsheet in forms.items():
             fw, fh = G.write_sheet(os.path.join(MOD, "champions", f"league_{name}"), fsheet)

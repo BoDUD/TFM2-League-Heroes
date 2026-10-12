@@ -1092,6 +1092,16 @@
         "y": -5
       }
     },
+    "league_gragas": {
+      "face": {
+        "x": 3,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_irelia": {
       "face": {
         "x": 2,
