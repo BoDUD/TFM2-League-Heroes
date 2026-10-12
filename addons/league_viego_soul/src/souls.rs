@@ -63,7 +63,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_fiddlesticks", "mage", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult", "ult_land", "w_loop"]),
     ("league_fiora", "melee", &["attack", "attack_e", "dead", "hit", "idle", "run", "skill", "skill2", "skill_fx1", "ult"]),
     ("league_fizz", "assassin", &["attack", "attack_w", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
-    ("league_garen", "melee", &["attack", "dead", "hit", "idle", "q_attack", "run", "skill", "spin", "ult"]),
+    ("league_garen", "melee", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_q_attack", "hd_run", "hd_skill", "hd_spin", "hd_ult", "hit", "idle", "q_attack", "run", "skill", "spin", "ult"]),
     ("league_gragas", "melee", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_ult", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_gwen", "assassin", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_hecarim", "melee", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_hit", "ult"]),

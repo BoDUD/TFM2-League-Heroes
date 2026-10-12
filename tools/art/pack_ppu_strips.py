@@ -99,6 +99,16 @@ ACTIONS = {
         "hit": "taking a hit, recoiling",
         "dead": "dying: collapsing to the ground",
     },
+    "garen": {
+        "run": "running to the right, the greatsword held low in front, the cape flowing behind (8-frame loop)",
+        "attack": "basic attack: a heavy two-handed greatsword slash to the right",
+        "q_attack": "Q Decisive Strike: a leaping overhead strike bringing the greatsword down on an enemy to the right",
+        "skill": "Q cast: raising the greatsword with a battle shout, gathering courage (speed and a shield)",
+        "spin": "E Judgment: spinning on the spot with the greatsword held out level, a full turn over the loop",
+        "ult": "R Demacian Justice: raising the greatsword high to call down a giant sword from the sky to the right",
+        "hit": "taking a hit, recoiling",
+        "dead": "dying: falling to his knees and collapsing to the ground",
+    },
     "ashe": {
         "run": "running to the right with the bow (8-frame loop)",
         "attack": "basic attack: drawing the bow and shooting an arrow to the right",
@@ -118,6 +128,8 @@ LOOKS = {
     "karma": "a spiritual mage: dark skin, short dark hair with a gold-and-jade circlet, a big jade dragon ring floating "
              "above her head, two cream-and-jade spirit blades floating beside her shoulders, a purple-and-gold top, a "
              "long purple-to-magenta skirt split at the front, jade tattoos on the bare leg, purple heeled boots",
+    "garen": "Garen, the Might of Demacia (League of Legends): a Demacian knight in heavy silver plate armour with gold "
+             "trim and blue accents, a blue cape, short brown hair, blue eyes, a big silver greatsword",
     "yasuo": "a wandering swordsman: a long brown ponytail tied with a gold band, a handsome stubbled face with thick "
              "brows, a blue scarf, a big silver shoulder plate on the far shoulder, a bare chest under brown straps, "
              "silver forearm guards, a gold sash, dark blue wide trousers, grey wrapped boots, and a long thin "
@@ -208,6 +220,10 @@ def main():
                     "user: 「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」 - one pack, the design "
                     "first, then every action on it without stopping)")
     ap.add_argument("--px-model", type=int, default=8, help="pixels per square of the step-1 design")
+    ap.add_argument("--model-only", action="store_true",
+                    help="with --model-ref: a pack of step 1 alone - Codex draws the design and stops for the user to "
+                         "see it; the actions follow in a pack of their own (--design <the delivery>). garen: the user "
+                         "turned the model read from his original pictures down for its big head (「头这么大？」)")
     ap.add_argument("--ppu", type=float, help="squares per 1x pixel (default: the design's height / the 1x idle's); "
                     "yasuo: 1.5 - his game sheet is PPU 3 with the design's squares 2 x 2 (the face the user took); "
                     "karma: 3 - her head to her soles against the 1x one's (the big jade ring above her head is not "
@@ -236,6 +252,19 @@ def main():
     out = os.path.join(a.out, pack_name)
     if os.path.isdir(out):
         shutil.rmtree(out)
+    if a.model_only:
+        if not a.model_ref:
+            sys.exit("--model-only needs --model-ref")
+        os.makedirs(out)
+        write_model_step(out, hero, ppu, a.px_model, idle, a.model_ref, px, stop=True)
+        readme = [f"# {hero}：只画造型", "",
+                  f"按 `MODEL.md` 画一张造型，交付 `outputs/{hero}-ppu-model/`（最好打成 `{hero}_ppu_model_done.zip`），"
+                  f"**画完就停**：用户先看造型，满意了再另发动作的包。", ""]
+        with open(os.path.join(out, "README.md"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(chr(10).join(readme))
+        shutil.make_archive(os.path.join(a.out, f"{pack_name}_ppu_model"), "zip", out)
+        print(f"{hero}: the design step alone, PPU {ppu:g} -> {a.out}/{pack_name}_ppu_model.zip")
+        return
     for sub in ("design", "now", "guide", "refs"):
         os.makedirs(os.path.join(out, sub))
     up = lambda img, k: np.repeat(np.repeat(img, k, axis=0), k, axis=1)
@@ -350,6 +379,27 @@ def main():
 # the one-shot design step's words per hero: who asked, the top and bottom of the figure, the pose
 MODEL_STEP = {
     "yasuo": {"asked": "「亚索的也可以帮我重做一下整体」「做亚索」"},     # (only the request: his design was already drawn)
+    "garen": {
+        "asked": "「盖伦游戏里还是老模型 ... 你参考亚索那些怎么弄的啊」；大头版被否（「头这么大？」）后「盖伦的造型可以换」；"
+                 "看了 Codex 新画的造型（每个 1x 像素 1.5 格）后「用PPU 啊」",
+        "ref_note": "上一次交付的新造型，**长相、比例、站姿、配色已经定了**，只是太粗：每格放成 2×2 格摆在了要画的位置和大小上",
+        "top": "头发最高处", "bottom": "靴底", "top_en": "the top of the hair", "bottom_en": "the soles of the boots",
+        "feet_en": "the boot soles",
+        # the outline as thick as the reference's (Yasuo's in the game): one fine square read 0.33 game px on
+        # league_kassadin, too thin beside the 1x heroes
+        "outline": ("2 格", "2-square"),
+        "pose": "**照参考图原样重画成两倍的精细度**：参考图每格已经放成 2×2 格，摆在了要画的位置和大小上——人还是这个人、"
+                "这个站姿、这些颜色，大小和站位不变，但**不要留下 2×2 的大方块和台阶**：轮廓的斜线和弧线按细格子画顺，"
+                "盔甲的金边、宝石、围巾和披风的褶子、剑刃的高光画细，脸画清楚（眉毛、眼睛、鼻子、嘴，3/4 侧脸），"
+                "头发分出发丝。不改设计、不加东西、不变胖变瘦。",
+        "pose_en": "The reference IS the approved design, only too coarse: each of its squares was blown up to 2x2 squares "
+                   "and it already stands at the right place and size. Redraw it at twice the detail - the same "
+                   "character, the same pose, proportions, outline and colours, the same size and place - but with NO "
+                   "2x2 blocks or staircase steps left: smooth the slanted and curved outlines on the fine grid, draw "
+                   "the gold trim, the gems, the scarf's and the cape's folds and the sword's edge highlight finer, a "
+                   "clear 3/4 face (brows, eyes, nose, mouth) and strands in the hair. Do not change the design, add "
+                   "anything, or make him wider or slimmer.",
+    },
     "soraka": {
         "asked": "「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」",
         "ref_note": "你 10 月 9 日画的那张",
@@ -375,8 +425,9 @@ MODEL_STEP = {
 }
 
 
-def write_model_step(out, hero, ppu, mpx, idle, ref, px):
-    """Step 1 of a one-shot pack: the design redrawn from `ref` on a clean grid at the hero's height x PPU."""
+def write_model_step(out, hero, ppu, mpx, idle, ref, px, stop=False):
+    """Step 1 of a one-shot pack: the design redrawn from `ref` on a clean grid at the hero's height x PPU (`stop`: a
+    pack of this step alone - Codex delivers the design and stops)."""
     os.makedirs(os.path.join(out, "model"), exist_ok=True)
     shutil.copyfile(ref, os.path.join(out, "model", f"{hero}_reference.png"))
     for other in ("vladimir", "karma", "ashe", "yasuo"):
@@ -402,21 +453,24 @@ def write_model_step(out, hero, ppu, mpx, idle, ref, px):
     g.save(os.path.join(out, "model", f"{hero}_size_guide.png"))
     look = LOOKS.get(hero, hero)
     m = MODEL_STEP[hero]
-    step = f"""# 第一步：造型（{hero}，画完不要停，直接做第二步）
+    head = (f"# 造型（{hero}，画完就停，等用户确认）" if stop else f"# 第一步：造型（{hero}，画完不要停，直接做第二步）")
+    then = ("画完交付就停：用户先看造型，满意了再另发动作的包。" if stop
+            else "画完**直接用它做第二步**（`PROMPTS.md` 里的动作），中间不用等确认。")
+    step = f"""{head}
 
-> 用户：{m["asked"]}。先照 `model/{hero}_reference.png`（{m["ref_note"]}）重画一张**干净的高清造型**，画完**直接用它做第二步**（`PROMPTS.md` 里的动作），中间不用等确认。
+> 用户：{m["asked"]}。先照 `model/{hero}_reference.png`（{m["ref_note"]}）重画一张**干净的高清造型**，{then}
 
-- **大小**：从{m["top"]}到{m["bottom"]}正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，{m["bottom"]}在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），{m["top"]}在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的她按同样的大小放大的样子——看大小和站位，长相照参考图。
+- **大小**：从{m["top"]}到{m["bottom"]}正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，{m["bottom"]}在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），{m["top"]}在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的样子按同样的大小放大——看大小和站位，长相照参考图。
 - **{look}**。{m["pose"]}
-- **画法照 `model/style_*.png`**（同一套英雄的高清造型）：干净的像素画，每格一个纯色方块，同一个网格，1 格深色外描边，每种材质 2-4 个色阶，不要抖动、渐变、噪点、抗锯齿、半透明；整张最多 48 色。
+- **画法照 `model/style_*.png`**（同一套英雄的高清造型）：干净的像素画，每格一个纯色方块，同一个网格，{m.get("outline", ("1 格",))[0]}深色外描边，每种材质 2-4 个色阶，不要抖动、渐变、噪点、抗锯齿、半透明；整张最多 48 色。
 - 交付 `outputs/{hero}-ppu-model/{hero}_design.png`（{mpx} 倍放大，透明底）和 `{hero}_design_1x.png`（1 像素 1 格），生图原稿放 `raw/`。
 
 ```text
-Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from {m["top_en"]} to {m["bottom_en"]}, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with {m["feet_en"]} on square row {feet_row} and the character centered. {m["pose_en"]} Match the pixel style of the other attached designs: a 1-square dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
+Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from {m["top_en"]} to {m["bottom_en"]}, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with {m["feet_en"]} on square row {feet_row} and the character centered. {m["pose_en"]} Match the pixel style of the other attached designs: a {m.get("outline", (0, "1-square"))[1]} dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
 ```
 
-然后打开 `PROMPTS.md` 做第二步：**附图2 一律用这一步画好的 `{hero}_design.png`**，每格 {px}×{px} 像素——第二步骨架的格子按 {px} 像素一格算，**和这一步的 {mpx} 像素不同时，把造型缩放成 {px} 像素一格再当附图2**（按格子整格缩放，不要插值）。
-"""
+""" + ("" if stop else f"""然后打开 `PROMPTS.md` 做第二步：**附图2 一律用这一步画好的 `{hero}_design.png`**，每格 {px}×{px} 像素——第二步骨架的格子按 {px} 像素一格算，**和这一步的 {mpx} 像素不同时，把造型缩放成 {px} 像素一格再当附图2**（按格子整格缩放，不要插值）。
+""")
     with open(os.path.join(out, "MODEL.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write(step)
 
