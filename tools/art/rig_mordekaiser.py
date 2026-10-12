@@ -68,6 +68,15 @@ TURNED = os.path.join(SRC, "codex_turned")    # the 65-degree stand and skill po
                                               # helms Codex's copy of walk-1's)
 TURNED_POSES = ["turned", "attack-raise", "attack-strike", "q-raise", "q-slam", "e-grasp", "r-point"]
 TURN_DX = -33                                 # the turned stand's torso over the pivot (the run's: RUN_DX)
+# The user, on Codex's two raises a tenth taller than the stand and the strike's spike cut at the ground: 「我自己缩小和补
+# 尖刺」. SHRINK: pose -> (its horn row, the stand's horn row, the soles' row) from Codex's QA.json - the pose brought to
+# the stand's height by whole rows and columns out (design_riven.seam_shrink: the least-loss line of each group), about
+# the soles' middle, then the run's helm pasted back at its full size where Codex had put it (HELM_REF, QA's
+# helmet_position, scaled). SPIKE: the strike's raw read back on Codex's own 4-px grid (offset found by matching: 14
+# rows down) gives back the mace head's spikes Codex cleared under the soles' row (columns from SPIKE_X).
+SHRINK = {"attack-raise": (142, 164, 380, (137, 142)), "q-raise": (145, 164, 380, (122, 145))}
+HELM_REF = os.path.join(TURNED, "helmet_reference_1x.png")
+SPIKE = ("attack-strike", 14, 252, 290)       # pose, Codex's shift down, the soles' row, the first column kept
 RUN_DX = {1: -37, 2: -29, 3: -37, 4: -37}     # phase 2's upper body stood 8 squares left of the others'; all onto the pivot
 # poses Codex drew away from the design's place: the body (the mace on the ground aside) brought back over the pivot
 POSE_DX = {"dead-kneel": -95, "dead-lying": -58}   # the step's bob (the helm's offset in each walk phase)
@@ -98,9 +107,14 @@ class Rig:
                for k in (1, 2, 3, 4)}
         self.run = {k: (raw[k] if k == 2 else relum(raw[k], raw[2], pal)) for k in raw}
         self.turned = {}
+        helm = np.asarray(Image.open(HELM_REF).convert("RGBA"))
         for n in TURNED_POSES:
             p = np.asarray(Image.open(os.path.join(TURNED, f"mordekaiser-{n}_1x.png")).convert("RGBA"))
             kind = "portrait" if p.shape[0] > p.shape[1] else "landscape"
+            if n in SHRINK:
+                p = shrink(p, *SHRINK[n], helm)
+            if n == SPIKE[0]:
+                p = spike(p)
             self.turned[n] = (relum(p, raw[2], pal), kind)
 
     def canvas(self):
@@ -176,6 +190,71 @@ class Rig:
         ox, oy = self.origin("landscape")
         self.put(can, p, p[..., 3] > 0, ox + RUN_DX[k], oy)
         return can
+
+
+def shrink(p, horn, target, feet, helm_at, helm):
+    """Codex's pose brought to the stand's height (SHRINK), the run's helm pasted back at its full size."""
+    import design_riven as D
+    f = (feet - target) / (feet - horn)
+    op = p[..., 3] > 0
+    ys, xs = np.nonzero(op)
+    y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    cols = np.unique(p[op][:, :3], axis=0)
+    lut = {tuple(int(v) for v in c): i for i, c in enumerate(cols)}
+    idx = np.full(p.shape[:2], -1, int)
+    for y, x in zip(ys, xs):
+        idx[y, x] = lut[tuple(int(v) for v in p[y, x, :3])]
+    box = idx[y0:y1, x0:x1]
+    th, tw = round(box.shape[0] * f), round(box.shape[1] * f)
+    small = D.seam_shrink(box, th, tw)
+    low = np.nonzero(op[feet - 10:feet].any(0))[0]
+    ax = (low.min() + low.max()) / 2.0                       # the soles' middle stays put
+    nx0 = int(round(ax - (ax - x0) * f))
+    ny0 = feet - th
+    out = np.zeros_like(p)
+    m = small >= 0
+    yy, xx = np.nonzero(m)
+    out[yy + ny0, xx + nx0, :3] = cols[small[m]]
+    out[yy + ny0, xx + nx0, 3] = 255
+    # the helm: its middle where the scaled one sits, at full size, the shrunk one cleared round it
+    hh, hw = helm.shape[:2]
+    cx = ax + (helm_at[0] + hw / 2.0 - ax) * f
+    cy = feet - (feet - (helm_at[1] + hh / 2.0)) * f
+    hx, hy = int(round(cx - hw / 2.0)), int(round(cy - hh / 2.0))
+    hm = helm[..., 3] > 0
+    zone = ndimage.binary_dilation(hm, structure=np.ones((3, 3)), iterations=2)
+    zone[int(hh * 0.8):] = False                             # the neck and shoulders below stay the pose's
+    zy, zx = np.nonzero(zone)
+    out[zy + hy, zx + hx] = 0
+    yy, xx = np.nonzero(hm)
+    out[yy + hy, xx + hx] = helm[yy, xx]
+    return out
+
+
+def spike(p):
+    """The strike's mace head under the soles' row, read back from the raw on Codex's grid (SPIKE)."""
+    name, down, feet, x_from = SPIKE
+    pal = np.unique(p[p[..., 3] > 0][:, :3], axis=0).astype(int)
+    raw = np.asarray(Image.open(os.path.join(TURNED, "raw", f"mordekaiser-{name}.png")).convert("RGBA")).astype(int)
+    H, W = raw.shape[0] // 4, raw.shape[1] // 4
+    blk = raw[:H * 4, :W * 4].reshape(H, 4, W, 4, 4).transpose(0, 2, 1, 3, 4).reshape(H, W, 16, 4)
+    extra = []
+    for y in range(feet - down, H):
+        for x in range(x_from, W):
+            b = blk[y, x]
+            o = b[b[:, 3] >= 128]
+            if len(o) * 2 < 16:
+                continue
+            c, n = np.unique(o[:, :3], axis=0, return_counts=True)
+            extra.append((y + down, x, pal[np.abs(pal - c[n.argmax()]).sum(1).argmin()]))
+    if not extra:
+        return p
+    out = np.zeros((max(p.shape[0], max(e[0] for e in extra) + 1),) + p.shape[1:], np.uint8)
+    out[:p.shape[0]] = p
+    for y, x, c in extra:
+        out[y, x, :3] = c
+        out[y, x, 3] = 255
+    return out
 
 
 def relum(p, ref, pal):

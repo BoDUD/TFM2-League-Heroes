@@ -201,6 +201,13 @@ def strip(name, length, width, delay, apply, target, effects):
             "apply": apply, "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
+def sign(name, length, width, tick):
+    """A picture along a line from him through the target that hits nothing (league_darius E's sweep): the damage
+    lines live 2-3 ticks, too short to see."""
+    return {"type": "LineRangeProjectile", "name": n(name), "width": width, "length": length, "delay": tick,
+            "apply": tick, "applied_target": "EnemyWithoutTower", "applied_effects": []}
+
+
 def twin(target, effects):
     """A champion-only twin of a melee hit: an invisible projectile reaching the target the same tick."""
     return {"type": "TargetProjectile", "name": n("twin"), "speed": 100000, "y_offset": 0, "applied_target": target,
@@ -271,7 +278,7 @@ def build(p):
     slam_hit = sw("q_i2", combine(*plain), combine(*lonely))
 
     def slam():
-        return combine(sfx("q"), cview("q_slam"),
+        return combine(sfx("q"), cview("q_slam"), sign("q_crack", p["q_len"], p["q_w"], 24),
                        strip("q_count", p["q_len"], p["q_w"], 2, 1, "EnemyWithoutTower", [count]),
                        strip("q_line", p["q_len"], p["q_w"], 3, 2, "EnemyWithoutTower", [slam_hit]),
                        strip("q_champ", p["q_len"], p["q_w"], 3, 2, "EnemyChampion", [stack]))
@@ -284,7 +291,8 @@ def build(p):
     grasp_hits = [magic(p["e_dmg"], p["e_ap"]), {"type": "Grab", "speed": p["e_pull"]}, view("e_hit"), tsfx("e_hit")]
 
     def claw():
-        return combine(sfx("e"), strip("e_line", p["e_len"], p["e_w"], 6, 2, "EnemyWithoutTower", grasp_hits),
+        return combine(sfx("e"), sign("e_beam", p["e_len"], p["e_w"], 18),
+                       strip("e_line", p["e_len"], p["e_w"], 6, 2, "EnemyWithoutTower", grasp_hits),
                        strip("e_champ", p["e_len"], p["e_w"], 3, 2, "EnemyChampion",
                              [stack, on_me(refresh("e_combo", p["e_combo"]))]))
 
@@ -338,7 +346,7 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("q_line", BIG, 1), P_("e_line", BIG, 2)]
+    views_p = [P_("q_crack", BIG, 1), P_("e_beam", BIG, 2)]
     views_e = [E("a_hit"), E("p_aura", BIG, -1), E("p_hit"), E("q_slam", BIG, -1, False), E("q_hit"),
                E("q_iso_hit"), E("e_hit"), E("w_shield"), E("w_heal"), E("r_cast", BIG, 2, False), E("r_mark"), E("r_realm", BIG, -1, False),
                E("r_pull"), E("r_win")]

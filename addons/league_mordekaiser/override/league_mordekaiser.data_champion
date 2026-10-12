@@ -1055,6 +1055,16 @@
                       },
                       {
                         "type": "LineRangeProjectile",
+                        "name": "league_mordekaiser_q_crack",
+                        "width": 6000,
+                        "length": 42000,
+                        "delay": 24,
+                        "apply": 24,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      },
+                      {
+                        "type": "LineRangeProjectile",
                         "name": "league_mordekaiser_q_count",
                         "width": 6000,
                         "length": 42000,
@@ -1377,6 +1387,16 @@
                   {
                     "type": "CasterViewEffect",
                     "name": "league_mordekaiser_q_slam"
+                  },
+                  {
+                    "type": "LineRangeProjectile",
+                    "name": "league_mordekaiser_q_crack",
+                    "width": 6000,
+                    "length": 42000,
+                    "delay": 24,
+                    "apply": 24,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": []
                   },
                   {
                     "type": "LineRangeProjectile",
@@ -2229,6 +2249,16 @@
                         },
                         {
                           "type": "LineRangeProjectile",
+                          "name": "league_mordekaiser_e_beam",
+                          "width": 6000,
+                          "length": 54000,
+                          "delay": 18,
+                          "apply": 18,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": []
+                        },
+                        {
+                          "type": "LineRangeProjectile",
                           "name": "league_mordekaiser_e_line",
                           "width": 6000,
                           "length": 54000,
@@ -2492,6 +2522,16 @@
                         {
                           "type": "Sfx",
                           "name": "league_mordekaiser_e"
+                        },
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_mordekaiser_e_beam",
+                          "width": 6000,
+                          "length": 54000,
+                          "delay": 18,
+                          "apply": 18,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": []
                         },
                         {
                           "type": "LineRangeProjectile",
@@ -3221,17 +3261,17 @@
   "view_projectiles": [
     {
       "type": "Animated",
-      "name": "league_mordekaiser_q_line",
+      "name": "league_mordekaiser_q_crack",
       "anim": "asset/league/effects/league_mordekaiser_big",
-      "tag": "q_line",
+      "tag": "q_crack",
       "repeat": true,
       "z": 1
     },
     {
       "type": "Animated",
-      "name": "league_mordekaiser_e_line",
+      "name": "league_mordekaiser_e_beam",
       "anim": "asset/league/effects/league_mordekaiser_big",
-      "tag": "e_line",
+      "tag": "e_beam",
       "repeat": true,
       "z": 2
     }
