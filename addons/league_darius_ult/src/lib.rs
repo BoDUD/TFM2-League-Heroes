@@ -13,6 +13,11 @@
 //! R 的伤害、击杀刷新、画面和声音全是主包的：`mod.override_info` 换上的副本只改了 R 的说明（开头【大招读血测试版】）。
 //! AI 钩子自己看 R 的冷却和等级（引擎的「输入合法」不看冷却，league_pyke 的教训），放出后再看那一刀砍死了没有。
 //!
+//! 被动 `league_darius_ult:own_kill`（副本给诺手挂上；用户：「别人反馈人头是诺手的」「改」）：主包只在落刀那一下砍死人时
+//! 刷新 R。诺手跃起后、落刀前大招目标就死了，这一刀不落、不刷新；人头若是队友的，照旧不刷新（用户：「这个不改 太违反常识」），
+//! 人头是诺手自己的（多半是他的出血在半空里把残血流死），就把 R 还给他，和主包的刷新一样：2 tick 的 `ult_cooldown_mult`
+//! 10000。副本在 R 出手时给目标挂 `league_darius_ult_mark` 认人；游戏只在人头算诺手的时候调 `on_kill`。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_darius_ult.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::fs::OpenOptions;
@@ -23,7 +28,7 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod plan;
-use plan::{plan as decide, Foe, Me, Plan, Why, HEMO, HERO, MIGHT, R_LAND, R_RANGE};
+use plan::{own_kill_refund, plan as decide, Foe, Me, Plan, Why, HEMO, HERO, MARK, MIGHT, R_KILL, R_LAND, R_RANGE};
 
 const ID: &str = "league_darius_ult";
 /// R 从这一级起能放（同 league_pyke）。
@@ -34,6 +39,10 @@ const LOG_EVERY: usize = 120;
 const CHECK_AT: usize = R_LAND + 8;
 /// R 的冷却一 tick 掉这么多以上就是刷新了（自然走一 tick 掉 1 左右）。
 const REFRESH_DROP: usize = 100;
+/// R 的冷却从 0 一下跳到这么多以上 = 刚放出 R（50 秒的冷却，数据 3000 tick）。
+const CAST_JUMP: usize = 1000;
+/// 主包刷新 R 用的 buff（同名：一次只有一个）。
+const RESET: &str = "league_darius_r_reset";
 
 // ===================== 日志 =====================
 
@@ -333,6 +342,89 @@ impl StablePlayerAi for UltAi {
     }
 }
 
+// ===================== 被动：自己的人头也刷新 =====================
+
+fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
+    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+}
+
+#[derive(Clone, Default)]
+struct OwnKill {
+    /// 这一刀放出的 tick 和认出来的大招目标。
+    cast: Option<usize>,
+    target: Option<usize>,
+    last_cd: Option<usize>,
+    refunds: usize,
+}
+
+impl StablePassive for OwnKill {
+    fn clone_box(&self) -> Box<dyn StablePassive> {
+        Box::new(self.clone())
+    }
+
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        *self = OwnKill { refunds: self.refunds, ..OwnKill::default() };
+        wlog(format!("{} SPAWN: own-kill passive on Darius (player {player})", head(sim, me)));
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
+        let tick = sim.tick();
+        let cd = sim.get_player(player).and_then(|p| p.cooldowns()).map(|c| c.3);
+        if let (Some(was), Some(c)) = (self.last_cd, cd) {
+            if was == 0 && c > CAST_JUMP {
+                self.cast = Some(tick);
+                self.target = None;
+            }
+        }
+        self.last_cd = cd;
+        let Some(t0) = self.cast else { return };
+        if tick > t0 + R_LAND + 2 {
+            self.cast = None;
+            self.target = None;
+            return;
+        }
+        if self.target.is_none() {
+            let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
+            self.target = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .find(|e| e.is_champion() && e.team() != team && (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == MARK))
+                .map(|e| e.id());
+            if let Some(x) = self.target {
+                wlog(format!("{} R CAST seen {} ticks ago, R's target #{x} marked", head(sim, me), tick - t0));
+            }
+        }
+    }
+
+    fn on_kill(&mut self, sim: &mut StableSim<'_>, _player: usize, me: usize, victim: usize) {
+        let is_target = self.target == Some(victim) || has_buff(sim, victim, MARK);
+        let landed = has_buff(sim, me, R_KILL);
+        if !own_kill_refund(sim.tick(), self.cast, is_target, landed) {
+            // every champion kill of his during an R, refunded or not (the in-game check)
+            if let Some(t0) = self.cast.filter(|_| sim.get_entity(victim).is_none_or(|e| e.is_champion())) {
+                let why = if !is_target { "not R's target" } else if landed { "the blow's own kill: the main pack refreshes" } else { "past the blow" };
+                wlog(format!("{} R KILL SEEN: #{victim} {} ticks after the cast, no refund ({why})", head(sim, me), sim.tick() - t0));
+            }
+            return;
+        }
+        sim.entity_remove_buff(me, RESET);
+        let mut b = BuffV1::timed(RESET, 2);
+        b.ult_cooldown_mult = 10000;
+        sim.add_buff(me, &b);
+        self.refunds += 1;
+        let after = self.cast.map_or(0, |t| sim.tick() - t);
+        wlog(format!("{} R OWN KILL #{}: #{victim} died to his own damage {after} ticks after the cast, before the blow: R refreshed",
+                     head(sim, me), self.refunds));
+        self.cast = None;
+        self.target = None;
+    }
+
+    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
+        self.cast = None;
+        self.target = None;
+        self.last_cd = None;
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -340,7 +432,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Darius's R only for a kill or under Noxian Might) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Darius's R only for a kill or under Noxian Might; his own kill before the blow refreshes it) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -349,7 +441,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_player_input_ai(UltAi::default());
-    host.log(LogLevel::Info, "league_darius_ult v1 loaded (Darius's R: only for a kill or under Noxian Might).");
+    module.add_native_passive(format!("{ID}:own_kill"), OwnKill::default());
+    host.log(LogLevel::Info, "league_darius_ult v1 loaded (Darius's R: only for a kill or under Noxian Might; his own kill before the blow refreshes it).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
