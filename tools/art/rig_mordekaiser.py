@@ -1,0 +1,294 @@
+#!/usr/bin/env python3
+"""Mordekaiser's action frames: the approved dense design (idle) and Codex's key poses on the same grid.
+
+    python tools/art/rig_mordekaiser.py [--review DIR]
+
+The design (tools/art/design_mordekaiser_hd.py, picture A read back, 166 x 246 squares) is the idle and the card. Every
+action is the 3/4 front view (the user: 「侧面只要四分之三那种就行 参考卡萨丁」). His mace rests behind the helm and the
+pauldron, so the swings were drawn by Codex on the design's own grid (tools/art/pack_mordekaiser_poses.py ->
+assets/source/mordekaiser/codex_poses: the user's 「交给 Codex 画姿势」); Codex's own _1x copies sit on the pack's grid
+canvases with the horn tips and the soles on the pack's lines, so they share the design's scale and ground.
+  - one face (memory one-face-all-frames): the design's helm (HELM, the horns down to the chin) is pasted square for
+    square over the pose's own wherever the pose shows it upright and uncovered (HELM_AT: its offset in the pose,
+    found by matching); Q's raise and slam and the death keep Codex's (the helm between the raised arms, bowed, fallen);
+  - the run: Codex's four walking phases whole, the design's helm pasted at each step's bob;
+  - the idle: the design breathing - the upper body rises over the legs, the row at the cut repeated in the gap;
+  - W and the hit: the design recoloured (a teal pulse; a white flash) and moved as a whole.
+Sizes (the user's pick C: 110% and a thicker outline, Kassadin's way): league.dll draws him SIZE about his pivot, so
+every hd frame is drawn RAISE rows higher; every frame's outer outline is grown THICK hd squares.
+Writes:
+  league/champions/league_mordekaiser#sheet.png / #anim.fanim - the 1x tags (each hd frame brought down by PPU, every 1x
+      pixel the commonest colour of its squares; the fallback without league.dll), frames centred on the pivot
+  assets/source/ppu/mordekaiser_<tag>.png + .json - the hd frames (ppu_hd.py's drawn strips: one row, 1 px gaps)
+Then tools/art/ppu_hd.py --hero mordekaiser adds the hd_ tags (PPU["mordekaiser"]).
+"""
+import argparse
+import json
+import os
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw
+from scipy import ndimage
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
+import strips as G  # noqa: E402
+
+SRC = os.path.join(ROOT, "assets", "source", "mordekaiser")
+FRONT = os.path.join(SRC, "hd", "front.png")
+POSES = os.path.join(SRC, "codex_poses")
+STEM = os.path.join(ROOT, "league", "champions", "league_mordekaiser")
+PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
+
+PPU = 5.0                         # 246 design rows / 49 game rows
+FEET = 11                         # 1x rows from the pivot down to the soles
+SIZE = 1.10                       # league_main hd.rs SIZES: the DLL draws him 110% about his pivot ...
+RAISE = round(FEET * PPU * (1 - 1 / SIZE))   # ... so every hd frame is drawn this many hd rows higher
+THICK = 3                         # the outer outline grown outward by 3 hd squares (the user's pick C)
+OUTLINE = (2, 3, 3)
+CW, CH = 480, 420                 # the hd canvas
+GROUND = 400                      # the hd row under the soles
+PACK = {"landscape": (60, 6), "portrait": (40, 134)}   # the design's top-left on the pack's grid canvases
+PIVOT_X = 148                     # the pivot column in landscape coordinates (between the design's feet)
+HELM = [(70, 62), (73, 30), (84, 30), (87, 48), (91, 30), (101, 30), (103, 44), (104, 58), (103, 76), (98, 88),
+        (92, 92), (84, 90), (78, 80), (72, 72)]
+# the helm's offset in each pose from where it sits in the design (template match on the 1x copies)
+HELM_AT = {"attack-raise": (13, -10), "attack-strike": (22, 9), "e-grasp": (0, 0), "r-point": (-14, -7)}
+# poses whose own helm is cleared first round the pasted one (above the shoulders: a horn of Codex's showed beside
+# ours); e-grasp keeps its pixels (the mace behind the helm, its helm the design's within a square)
+CLEAR = {"attack-raise", "attack-strike", "r-point"}
+CLEAR_PAD, CLEAR_ROWS = 5, 76     # hd squares round the helm, the design rows above which the clearing reaches
+WALK_DY = {1: 1, 2: 0, 3: 1, 4: -1}
+# poses Codex drew away from the design's place: the body (the mace on the ground aside) brought back over the pivot
+POSE_DX = {"dead-kneel": -95, "dead-lying": -58}   # the step's bob (the helm's offset in each walk phase)
+LEG_CUT = 165                     # design row: the idle's upper body rises above it
+TEAL = np.array([20, 230, 220], float)
+WHITE = np.array([255, 255, 255], float)
+
+
+def ms(ticks):
+    return ticks * 1000.0 / 60.0
+
+
+class Rig:
+    def __init__(self):
+        self.a = np.asarray(Image.open(FRONT).convert("RGBA"))
+        h, w = self.a.shape[:2]
+        pm = Image.new("L", (w, h), 0)
+        ImageDraw.Draw(pm).polygon(HELM, fill=255)
+        self.helm = (np.asarray(pm) > 0) & (self.a[..., 3] > 0)
+        self.poses = {}
+        for f in os.listdir(POSES):
+            if f.endswith("_1x.png"):
+                p = np.asarray(Image.open(os.path.join(POSES, f)).convert("RGBA"))
+                kind = "portrait" if p.shape[0] > p.shape[1] else "landscape"
+                self.poses[f[len("mordekaiser-"):-len("_1x.png")]] = (p, kind)
+
+    def canvas(self):
+        return np.zeros((CH, CW, 4), np.uint8)
+
+    def origin(self, kind):
+        """Where a canvas's (0, 0) goes on the hd canvas: the soles' row on GROUND, the pivot column in the middle."""
+        x0, y0 = PACK[kind]
+        lx, ly = PACK["landscape"]
+        # landscape coordinates: the soles on row ly + 246, the pivot on PIVOT_X
+        ox = CW // 2 - PIVOT_X + (lx - x0)
+        oy = GROUND - (ly + self.a.shape[0]) + (ly - y0)
+        return ox, oy
+
+    def put(self, can, img, mask, ox, oy):
+        ys, xs = np.nonzero(mask)
+        ok = (ys + oy >= 0) & (ys + oy < CH) & (xs + ox >= 0) & (xs + ox < CW)
+        can[ys[ok] + oy, xs[ok] + ox] = img[ys[ok], xs[ok]]
+
+    def design(self, dx=0, dy=0, rise=0):
+        """The design; rise: the upper body (above LEG_CUT) that many rows up, the cut's row repeated under it."""
+        can = self.canvas()
+        ox, oy = self.origin("landscape")
+        ox, oy = ox + PACK["landscape"][0] + dx, oy + PACK["landscape"][1] + dy
+        a = self.a
+        op = a[..., 3] > 0
+        legs = op.copy()
+        legs[:LEG_CUT] = False
+        self.put(can, a, legs, ox, oy)
+        for k in range(1, rise + 1):
+            row = op[LEG_CUT]
+            xs = np.nonzero(row)[0]
+            can[oy + LEG_CUT - k, ox + xs] = a[LEG_CUT, xs]
+        upper = op.copy()
+        upper[LEG_CUT:] = False
+        self.put(can, a, upper, ox, oy - rise)
+        return can
+
+    def pose(self, name, helm=True):
+        """Codex's pose on the hd canvas, the design's helm pasted square for square where HELM_AT has it."""
+        p, kind = self.poses[name]
+        can = self.canvas()
+        ox, oy = self.origin(kind)
+        ox += POSE_DX.get(name, 0)
+        self.put(can, p, p[..., 3] > 0, ox, oy)
+        if helm and name in HELM_AT:
+            dx, dy = HELM_AT[name]
+            x0, y0 = PACK[kind]
+            hx, hy = ox + x0 + dx, oy + y0 + dy
+            if name in CLEAR:
+                zone = ndimage.binary_dilation(self.helm, structure=np.ones((3, 3)), iterations=CLEAR_PAD)
+                zone[CLEAR_ROWS:] = False
+                ys, xs = np.nonzero(zone)
+                ok = (ys + hy >= 0) & (ys + hy < CH) & (xs + hx >= 0) & (xs + hx < CW)
+                can[ys[ok] + hy, xs[ok] + hx] = 0
+            self.put(can, self.a, self.helm, hx, hy)
+        return can
+
+    def walk(self, k):
+        """Codex's walking phase k whole (its upper body is the design's within a few squares; a cut at the belt
+        showed as a seam), the design's helm pasted at the step's bob."""
+        p, kind = self.poses[f"walk-{k}"]
+        can = self.canvas()
+        ox, oy = self.origin(kind)
+        x0, y0 = PACK[kind]
+        self.put(can, p, p[..., 3] > 0, ox, oy)
+        self.put(can, self.a, self.helm, ox + x0, oy + y0 + WALK_DY[k])
+        return can
+
+
+SPECK = 12                        # loose pieces smaller than this (8-connected) are dropped
+PINHOLE = 4                       # enclosed clear holes up to this size (Codex's grid vote left them) are filled
+
+
+def finish(can, tint=None, flash=0.0):
+    lab, n = ndimage.label(can[..., 3] > 0, structure=np.ones((3, 3)))
+    if n > 1:
+        sizes = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
+        can[np.isin(lab, 1 + np.nonzero(sizes < SPECK)[0])] = 0
+    op = can[..., 3] > 0
+    holes = ndimage.binary_fill_holes(op) & ~op
+    hl, hk = ndimage.label(holes)
+    for k in range(1, hk + 1):
+        m = hl == k
+        if m.sum() > PINHOLE:
+            continue
+        ring = ndimage.binary_dilation(m, structure=np.ones((3, 3))) & op
+        cols, cnt = np.unique(can[ring][:, :3], axis=0, return_counts=True)
+        can[m, :3] = cols[cnt.argmax()]
+        can[m, 3] = 255
+    can, _, _ = G.complete_outline(can, color=OUTLINE)
+    op = can[..., 3] > 0
+    rgb = can[..., :3].astype(float)
+    if tint:
+        rgb[op] = rgb[op] * (1 - tint) + TEAL * tint
+    if flash:
+        rgb[op] = rgb[op] * (1 - flash) + WHITE * flash
+    can[..., :3] = np.clip(rgb, 0, 255).round().astype(np.uint8)
+    return can
+
+
+def thick(can):
+    """The outer outline grown outward by THICK hd squares (the drawn outline and everything inside kept)."""
+    op = can[..., 3] > 0
+    ring = ndimage.binary_dilation(op, structure=np.ones((3, 3)), iterations=THICK) & ~op
+    out = can.copy()
+    out[ring, :3] = OUTLINE
+    out[ring, 3] = 255
+    return out
+
+
+def down(can):
+    """The hd canvas -> (the 1x frame centred on the pivot, the hd frame of round(PPU x its size), grown RAISE rows at
+    both ends with its picture RAISE rows higher). The pivot: column CW / 2, FEET 1x rows above GROUND. Every 1x pixel
+    takes the commonest colour of the hd squares under it (clear when most of them are clear)."""
+    can = thick(can)
+    px, py = CW / 2.0, GROUND - FEET * PPU
+    ys, xs = np.nonzero(can[..., 3])
+    hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5))
+    hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5))
+    w1, h1 = 2 * hw + 1, 2 * hh + 1
+    one = np.zeros((h1, w1, 4), np.uint8)
+    for j in range(h1):
+        ya, yb = py + (j - hh - 0.5) * PPU, py + (j - hh + 0.5) * PPU
+        for i in range(w1):
+            xa, xb = px + (i - hw - 0.5) * PPU, px + (i - hw + 0.5) * PPU
+            blk = can[max(0, int(np.floor(ya + 0.5))):max(0, int(np.floor(yb + 0.5))),
+                      max(0, int(np.floor(xa + 0.5))):max(0, int(np.floor(xb + 0.5)))].reshape(-1, 4)
+            if not len(blk) or (blk[:, 3] > 0).sum() * 2 < len(blk):
+                continue
+            cols, n = np.unique(blk[blk[:, 3] > 0][:, :3], axis=0, return_counts=True)
+            one[j, i, :3] = cols[n.argmax()]
+            one[j, i, 3] = 255
+    W, H = round(w1 * PPU), round(h1 * PPU) + 2 * RAISE
+    hx0, hy0 = int(round(px - W / 2.0)), int(round(py + RAISE - H / 2.0))
+    hd = np.zeros((H, W, 4), np.uint8)
+    sy0, sx0 = max(0, hy0), max(0, hx0)
+    sub = can[sy0:hy0 + H, sx0:hx0 + W]
+    hd[sy0 - hy0:sy0 - hy0 + sub.shape[0], sx0 - hx0:sx0 - hx0 + sub.shape[1]] = sub
+    return one, hd
+
+
+def actions(r):
+    """{tag: [(hd canvas, ms)]} - the kit's ticks (tools/kit/build_mordekaiser.py)."""
+    out = {}
+    still = finish(r.design())
+    # idle: he breathes - the upper body rises 2 rows over the legs and settles
+    out["idle"] = [(finish(r.design(rise=b)), ms(8)) for b in (0, 1, 2, 2, 1, 0)]
+    # run: Codex's four walking phases under the design's upper body
+    out["run"] = [(finish(r.walk(k)), ms(8)) for k in (1, 2, 3, 4)]
+    # attack (24 ticks, the hit on tick 10): raise, swing down on the hit, back to the shoulder
+    out["attack"] = [(still, ms(4)), (finish(r.pose("attack-raise")), ms(6)), (finish(r.pose("attack-strike")), ms(9)),
+                     (still, ms(5))]
+    # skill Q (26 ticks, the slam on tick 10): both hands overhead, the slam held, back
+    out["skill"] = [(finish(r.pose("q-raise")), ms(10)), (finish(r.pose("q-slam")), ms(11)), (still, ms(5))]
+    # skill2 E (24 ticks, the claw on tick 8): the free hand thrust forward
+    out["skill2"] = [(still, ms(3)), (finish(r.pose("e-grasp")), ms(16)), (still, ms(5))]
+    # skill2_w W (20 ticks): a teal pulse over the design
+    out["skill2_w"] = [(finish(r.design(), tint=0.25), ms(6)), (finish(r.design(rise=1), tint=0.45), ms(8)),
+                       (finish(r.design(), tint=0.2), ms(6))]
+    # ult R (30 ticks, the curse on tick 8): the mace pointed at the target
+    out["ult"] = [(still, ms(3)), (finish(r.pose("r-point")), ms(22)), (still, ms(5))]
+    # hit: knocked back 2 squares with a white flash, then 1
+    out["hit"] = [(finish(r.design(dx=-2), flash=0.35), ms(6)), (finish(r.design(dx=-1)), ms(6))]
+    # dead: down on one knee, then lying
+    out["dead"] = [(finish(r.pose("dead-kneel")), ms(14)), (finish(r.pose("dead-lying")), ms(60))]
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--review", help="write every tag's hd frames here (3x) and an all-tags GIF")
+    a = ap.parse_args()
+    r = Rig()
+    acts = actions(r)
+    sheet = {}
+    os.makedirs(PPU_SRC, exist_ok=True)
+    for tag, frames in acts.items():
+        ones, hds = [], []
+        for can, t in frames:
+            one, hd = down(can)
+            ones.append((one, round(t, 3)))
+            hds.append(hd)
+        sheet[tag] = ones
+        H = max(h.shape[0] for h in hds)
+        strip = np.zeros((H, sum(h.shape[1] + 1 for h in hds) - 1, 4), np.uint8)
+        x = 0
+        for h in hds:
+            strip[:h.shape[0], x:x + h.shape[1]] = h
+            x += h.shape[1] + 1
+        Image.fromarray(strip).save(os.path.join(PPU_SRC, f"mordekaiser_{tag}.png"))
+        with open(os.path.join(PPU_SRC, f"mordekaiser_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
+            json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds]}, f)
+        if a.review:
+            os.makedirs(a.review, exist_ok=True)
+            Z = 2
+            tiles = [Image.fromarray(thick(c)) for c, _ in frames]
+            big = Image.new("RGBA", (len(tiles) * CW * Z, CH * Z), (92, 98, 86, 255))
+            for k, t in enumerate(tiles):
+                big.alpha_composite(t.resize((CW * Z, CH * Z), Image.NEAREST), (k * CW * Z, 0))
+            big.convert("RGB").save(os.path.join(a.review, f"mordekaiser_{tag}.png"))
+    w, h = G.write_sheet(STEM, sheet)
+    print(f"league/champions/league_mordekaiser#sheet.png {w}x{h}: " +
+          ", ".join(f"{t} {len(f)}" for t, f in sheet.items()))
+
+
+if __name__ == "__main__":
+    main()
