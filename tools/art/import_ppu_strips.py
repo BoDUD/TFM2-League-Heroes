@@ -261,6 +261,26 @@ def clear_head_ghost(fr, design, rows, far=4, allow=5):
 RUN_LEGS = {
     "vladimir": {
         "knee": 69, "boot": 75, "lift": 2, "inside_to": 72, "lining": (0x42, 0x00, 0x12),
+        # the body (everything but the legs) rows down per frame: lowest as a foot lands, as the 1x run (frames 0
+        # and 4 one 1x row down), passing through 1 between (「有点僵硬啊吸血鬼」)
+        "bob": [2, 1, 0, 1, 2, 1, 0, 1],
+        # the coat's inside behind the legs (row -> columns between the front flaps); the rest of the body is in
+        # front of them - the legs are inside the coat
+        "back": {69: (16, 36), 70: (16, 36), 71: (15, 36), 72: (16, 35), 73: (22, 34)},
+        # the hands (bell cuff and claws, row -> columns), each moved whole within `dx` (columns), forward as the
+        # leg on its side goes back; only ever to where it covers (the near hand back, or the far hand forward,
+        # would open a slit of ground next to the coat); the near one over everything, the far one behind the body
+        "hands": [
+            {"name": "far", "leg": 0, "dx": (-1, 0), "behind": True,
+             "rows": {47: (33, 40), 48: (33, 45), 49: (33, 44), 50: (33, 44), 51: (33, 43), 52: (33, 43),
+                      53: (34, 45), 54: (35, 46), 55: (35, 47), 56: (35, 48), 57: (35, 48), 58: (36, 44),
+                      59: (38, 45), 60: (39, 45), 61: (39, 46), 62: (40, 46), 63: (40, 46), 64: (45, 46),
+                      65: (46, 46)}},
+            {"name": "near", "leg": 1, "dx": (0, 1), "behind": False,
+             "rows": {46: (8, 15), 47: (3, 15), 48: (3, 15), 49: (4, 15), 50: (5, 15), 51: (6, 15), 52: (5, 15),
+                      53: (3, 15), 54: (2, 15), 55: (1, 15), 56: (0, 15), 57: (0, 15), 58: (4, 15), 59: (3, 15),
+                      60: (3, 15), 61: (3, 13), 62: (3, 13), 63: (9, 13), 64: (10, 12)}},
+        ],
         "legs": [
             {"name": "far", "phase": 0.5, "dx": (-1, 3),
              "rows": {70: (27, 31), 71: (27, 31), 72: (28, 32), 73: (29, 31), 74: (29, 31), 75: (28, 32),
@@ -278,10 +298,17 @@ def design_run(design, spec, n, s=1):
     half a cycle apart. A foot slides back on the ground (dx from its front to its back end) and swings forward in
     the air (lifted up to `lift`); its shin leans from the knee to it, rows moved in proportion, and shortens as the
     foot lifts (rows dropped, its top and its bottom kept) - the boot is never drawn over the shin, never cut, never
-    sheared. Far leg first, near leg over it; where a shin was inside the coat the coat's lining shows."""
+    sheared. The coat's inside (`back`) first, then the far leg, the near leg and the rest of the body over them (the
+    legs are inside the coat); where a shin was inside the coat the coat's lining shows. The body
+    moves down `bob` rows as a whole (nothing of it reshaped); the shins take it up, from the knee (with the body)
+    to the boot (on the ground)."""
     H, W = design.shape[:2]
     knee, boot, lift = spec["knee"] * s, spec["boot"] * s, spec["lift"] * s
     body = design.copy()
+    back_m = np.zeros((H, W), bool)
+    for r, (c0, c1) in spec.get("back", {}).items():
+        for k in range(s):
+            back_m[r * s + k, c0 * s:(c1 + 1) * s] = True
     masks = []
     for leg in spec["legs"]:
         m = np.zeros((H, W), bool)
@@ -294,12 +321,27 @@ def design_run(design, spec, n, s=1):
         inside[(spec["inside_to"] + 1) * s:] = False
         body[m] = 0
         body[inside] = spec["lining"] + (255,)
+        back_m |= inside
+    back_m &= body[..., 3] > 0
+    back = np.where(back_m[..., None], body, 0).astype(np.uint8)
+    hands = []
+    for hand in spec.get("hands", []):
+        m = np.zeros((H, W), bool)
+        for r, (c0, c1) in hand["rows"].items():
+            for k in range(s):
+                m[r * s + k, c0 * s:(c1 + 1) * s] = True
+        m &= (body[..., 3] > 0) & ~back_m
+        hands.append((hand, np.where(m[..., None], body, 0).astype(np.uint8)))
+        body[m] = 0
+    front = np.where(back_m[..., None], 0, body).astype(np.uint8)
     from scipy import ndimage
     op0 = design[..., 3] > 0
     holes0 = ndimage.binary_fill_holes(op0) & ~op0
     frames = []
     for i in range(n):
-        out = body.copy()
+        by = spec.get("bob", [0] * n)[i % len(spec.get("bob", [0]))] * s
+        down = lambda a: np.concatenate([np.zeros((by,) + a.shape[1:], a.dtype), a[:H - by]]) if by else a
+        out = down(back).copy()
         for leg, m in zip(spec["legs"], masks):
             a = 2 * np.pi * (i / n + leg["phase"])
             lo, hi = leg["dx"]
@@ -311,17 +353,39 @@ def design_run(design, spec, n, s=1):
                 if not len(xs):
                     continue
                 t = min(1.0, max(0.0, (y - knee + 1) / (boot - knee + 1)))
-                ny = y - int(np.floor(up_ * t + 0.5))
+                ny = y + int(np.floor(by * (1 - t) - up_ * t + 0.5))
                 sh = int(np.floor(dx * t + 0.5))
                 ok = (xs + sh >= 0) & (xs + sh < W)
                 if 0 <= ny < H:
                     lay[ny, xs[ok] + sh] = design[y, xs[ok]]
             out[lay[..., 3] > 0] = lay[lay[..., 3] > 0]
+        def put_hand(hand, img):
+            leg = spec["legs"][hand["leg"]]
+            # the hand forward (+) while the leg on its side goes back
+            lo, hi = hand["dx"]
+            hx = int(np.floor((lo + (hi - lo) * (1 - np.cos(2 * np.pi * (i / n + leg["phase"]))) / 2) * s + 0.5))
+            sh = np.zeros_like(img)
+            if hx >= 0:
+                sh[:, hx:] = img[:, :W - hx]
+            else:
+                sh[:, :hx] = img[:, -hx:]
+            sh = down(sh)
+            out[sh[..., 3] > 0] = sh[sh[..., 3] > 0]
+        for hand, img in hands:
+            if hand["behind"]:
+                put_hand(hand, img)
+        fr_ = down(front)
+        out[fr_[..., 3] > 0] = fr_[fr_[..., 3] > 0]
+        for hand, img in hands:
+            if not hand["behind"]:
+                put_hand(hand, img)
         # ground shut in between a moved boot or shin and the coat that the design does not have (a crack, memory
         # gap-check) takes the lining's shade
         from scipy import ndimage
         o = out[..., 3] > 0
-        pockets, n_ = ndimage.label(ndimage.binary_fill_holes(o) & ~o & ~holes0)
+        own = np.zeros_like(holes0)
+        own[by:] = holes0[:H - by]
+        pockets, n_ = ndimage.label(ndimage.binary_fill_holes(o) & ~o & ~own)
         for v in range(1, n_ + 1):
             z = pockets == v
             if z.sum() <= 8 * s * s:
