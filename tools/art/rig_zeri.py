@@ -118,16 +118,17 @@ RUN_THIGH = (4, 2)              # the thigh's width at the hip and from the knee
 RUN_CUFF = SOLES - PIVOT[1] - (sum(1 for r in range(33, 40) if r in _KEPT) - 1)
 RUN_LEG = RUN_CUFF - RUN_HIP[1]          # hip to cuff, squares (8)
 RUN_STEP = [1, 0, 0, 0, 1, 0, 0, 0]      # rows the body and the hips come down: a row as a foot lands
-# one leg's eight phases: its ankle (the cuff's middle) in squares right of the hips' middle, and how far it is lifted
+# one leg's eight phases: its ankle (the cuff's middle) in squares right of the hips' middle, and how far it is lifted;
+# the stride sits behind the hips so the legs slant back with the leant body (the user: 「你身体斜过来了 腿也要跟着一个角度吧？」)
 # (None: as far as the leg's length takes it, never under the ground); the far leg is four phases on
-RUN_SEQ = [(+3.5, 0),           # 1 landing ahead of the hips
-           (+1.0, 0),           # 2 under them
-           (-2.5, 0),           # 3 sliding back
-           (-5.0, 2.0),         # 4 pushed off behind, two rows up: both feet off the ground
-           (-7.0, 2.0),         # 5 kicked up behind (on the ground under the coat's hem a row of ground showed)
-           (-3.5, 1.0),         # 6 swinging forward, a row up (its length would scrape the ground)
-           (+1.5, 1.0),         # 7 passing under the hips, a row up
-           (+5.0, None)]        # 8 reaching forward: both feet off the ground
+RUN_SEQ = [(+2.5, 0),           # 1 landing just ahead of the hips
+           (-1.0, 0),           # 2 under them
+           (-3.5, 0),           # 3 sliding back: the planted leg slants back with the leant body
+           (-6.0, 2.0),         # 4 pushed off behind, two rows up: both feet off the ground
+           (-7.5, 3.0),         # 5 kicked up behind
+           (-5.0, 1.5),         # 6 swinging forward
+           (-1.5, 1.0),         # 7 passing under the hips, a row up
+           (+2.0, 1.0)]         # 8 reaching forward, a row up: both feet off the ground
 LEGGINGS = ("#73234B", "#45183A")                    # lit, dark: the design's leggings
 PATCH = ("#F2CC8F", "#AC8157")                       # the near knee's tan patch
 # the far leg and its boot one shade darker on the design's own ramps, so the two legs read apart where they cross
