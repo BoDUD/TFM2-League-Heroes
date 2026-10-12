@@ -35,6 +35,9 @@ import regrid as RG  # noqa: E402
 import ppu_hd as P  # noqa: E402
 
 MAX_PX = 1536            # Codex's largest image side
+# tags left out of a pack: copies of another tag with an effect drawn in (tools/fix/bake_caster_fx.py) - the importer
+# makes their dense frames from the base tag's dense frames and the 1x effect pixels
+SKIP = {"riven": ("skill_fx1", "skill_fx2", "skill2_fx1", "skill2_fx2", "ult_fx1", "r_slash_fx1")}
 GAP = 2                  # squares between cells
 
 # what each action is, for the prompts (the skeleton shows the motion; these name it)
@@ -70,6 +73,23 @@ ACTIONS = {
         "hit": "taking a hit, recoiling",
         "dead": "dying: collapsing to the ground",
     },
+    "riven": {
+        "run": "running to the right with the broken sword (8-frame loop)",
+        "attack": "basic attack: a broken-sword slash to the right",
+        "skill": "Q Broken Wings, first cast: a lunging slash to the right",
+        "q2": "Q Broken Wings, second cast: another lunging slash, the other way round",
+        "q3": "Q Broken Wings, third cast: a leap and a slam of the sword into the ground",
+        "skill2": "E Valor: a quick dash to the right, the sword raised as a shield, then Ki Burst around her",
+        "ult": "R Blade of the Exile: she reforges the sword, its broken pieces joined by a green rune blade",
+        "r_slash": "R Wind Slash: a big sweeping slash sending a wave to the right (the reforged green blade)",
+        "hit": "taking a hit, recoiling",
+        "dead": "dying: collapsing to the ground",
+        "attack_r": "basic attack while R is on: the same slash, the sword reforged with its glowing green rune blade",
+        "skill_r": "Q first cast while R is on: the reforged green blade",
+        "q2_r": "Q second cast while R is on: the reforged green blade",
+        "q3_r": "Q third cast while R is on: the reforged green blade",
+        "skill2_r": "E Valor while R is on: the reforged green blade",
+    },
     "soraka": {
         "run": "running to the right holding the staff (8-frame loop)",
         "attack": "basic attack: a staff swing throwing a star bolt to the right",
@@ -102,6 +122,11 @@ LOOKS = {
              "brows, a blue scarf, a big silver shoulder plate on the far shoulder, a bare chest under brown straps, "
              "silver forearm guards, a gold sash, dark blue wide trousers, grey wrapped boots, and a long thin "
              "katana",
+    "riven": "a fierce exiled warrior: short spiky white hair, green eyes, a dark olive-green sleeveless tunic with a "
+             "torn, jagged skirt, bandages wrapped over her chest, brown leather straps and belts with a round bronze "
+             "buckle and a hanging brown sash, a big olive-green metal pauldron and gauntlet on her sword arm, a "
+             "bandaged other forearm with a leather bracer, bandaged legs, tall brown boots, and a huge broken runic "
+             "sword: a grey stone-like blade snapped into jagged pieces with glowing green runes, a dark hilt",
     "soraka": "a gentle celestial healer: blue-violet skin with light swirl markings on her arms, long white-silver "
               "hair in a thick low ponytail down her back, one curved golden horn on her forehead, big pointed ears "
               "(blue-violet outside, red inside), golden eyes, a golden-yellow top with a teal gem pendant, a red cape, "
@@ -219,12 +244,12 @@ def main():
         os.rmdir(os.path.join(out, "design"))
     feet = feet_offset(idle)                        # 1x rows from the pivot to the soles
 
-    manifest = {"hero": hero, "ppu": round(ppu, 4), "px_per_square": px,
+    manifest = {"hero": hero, "ppu": round(ppu, 4), "px_per_square": px, "skipped": list(SKIP.get(hero, ())),
                 "design_squares": list(design.shape[1::-1]) if design is not None else None,
                 "colours": len(cols), "images": []}
     rows_md = []
     for tag, frames in sheet.items():
-        if tag.startswith(P.PREFIX) or tag == "idle":
+        if tag.startswith(P.PREFIX) or tag == "idle" or tag in SKIP.get(hero, ()):
             continue
         cells = []
         for i, (f, ms) in enumerate(frames):
@@ -240,7 +265,13 @@ def main():
             sk = full[max(0, top):feet_rel + 1]
             if top < 0:
                 sk = np.concatenate([np.zeros((-top,) + sk.shape[1:], np.uint8), sk])
-            cells.append((tag, i, sk, ms, top, full.shape[1::-1]))
+            # across: the figure and 4 squares each side, not the frame's whole width (frame_left: where the cell
+            # starts in the frame)
+            xs_ = np.nonzero(full[..., 3].any(axis=0))[0]
+            left = max(0, int(xs_.min()) - 4) if len(xs_) else 0
+            right = min(full.shape[1], int(xs_.max()) + 5) if len(xs_) else full.shape[1]
+            sk = sk[:, left:right]
+            cells.append((tag, i, sk, ms, top, full.shape[1::-1], left))
         places = pack_cells([(c[2].shape[1], c[2].shape[0]) for c in cells], px)
         k = 0
         for n, img_places in enumerate(places):
@@ -250,13 +281,14 @@ def main():
             H = max(y + c[2].shape[0] for (_, y), c in zip(img_places, chunk))
             now = np.zeros((H, W, 4), np.uint8)
             meta = []
-            for (x, y), (t, i, sk, ms, top, (fw, fh)) in zip(img_places, chunk):
+            for (x, y), (t, i, sk, ms, top, (fw, fh), left) in zip(img_places, chunk):
                 h, w = sk.shape[:2]
                 now[y:y + h, x:x + w] = sk
-                # the pivot is the full frame's centre: the cell starts `top` rows into the frame
-                cx, cy = x + fw / 2, y - top + fh / 2
+                # the pivot is the full frame's centre: the cell starts `top` rows and `left` columns into the frame
+                cx, cy = x - left + fw / 2, y - top + fh / 2
                 meta.append({"tag": t, "frame": i, "rect": [x, y, w, h], "pivot": [cx, cy],
-                             "feet_row": y + h - 1, "ms": ms, "frame_size": [int(fw), int(fh)], "frame_top": top})
+                             "feet_row": y + h - 1, "ms": ms, "frame_size": [int(fw), int(fh)], "frame_top": top,
+                             "frame_left": left})
             name = f"{hero}_{tag}_{n + 1}"
             big = up(now, px)
             Image.fromarray(big).save(os.path.join(out, "now", name + ".png"))
@@ -292,6 +324,33 @@ def main():
           f"{len(rows_md)} images, {sum(r[2] for r in rows_md)} frames -> {a.out}/{hero}_ppu_strips.zip")
 
 
+# the one-shot design step's words per hero: who asked, the top and bottom of the figure, the pose
+MODEL_STEP = {
+    "soraka": {
+        "asked": "「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」",
+        "ref_note": "你 10 月 9 日画的那张",
+        "top": "角尖", "bottom": "蹄底", "top_en": "the tip of the horn", "bottom_en": "the bottom of the hooves",
+        "feet_en": "the hooves",
+        "pose": "长相、配色、姿势照参考图：3/4 侧前方朝右，自然站立，法杖竖在身前。",
+        "pose_en": "Keep the reference's look, colours, proportions and pose (3/4 view facing right, standing, the staff "
+                   "upright in front of her).",
+    },
+    "riven": {
+        "asked": "「锐雯也重做 帮我打包一份个codex」",
+        "ref_note": "用户发来的这张",
+        "top": "头发最高的发梢", "bottom": "鞋底", "top_en": "the highest spike of the hair",
+        "bottom_en": "the soles of the boots", "feet_en": "the boot soles",
+        "pose": "长相、配色、比例照参考图；**姿势照 `model/riven_size_now.png`（现在游戏里的待机）**：3/4 侧前方朝右，"
+                "双脚分开站稳，断剑握在身前、剑尖朝右下方——不要照参考图把剑拖在身后：第二步的动作都是照现在的骨架画的，"
+                "剑多数在身前，待机的剑要和动作接得上。",
+        "pose_en": "Keep the reference's look, colours and proportions, but take the POSE of the image named "
+                   "riven_size_now (the hero's current standing pose): 3/4 view facing right, feet apart, the broken "
+                   "sword held low in front of her with its tip pointing down to the right - not trailing behind her as "
+                   "in the reference.",
+    },
+}
+
+
 def write_model_step(out, hero, ppu, mpx, idle, ref, px):
     """Step 1 of a one-shot pack: the design redrawn from `ref` on a clean grid at the hero's height x PPU."""
     os.makedirs(os.path.join(out, "model"), exist_ok=True)
@@ -318,17 +377,18 @@ def write_model_step(out, hero, ppu, mpx, idle, ref, px):
     dr.line([0, (feet_row + 1) * mpx - 2, W * mpx, (feet_row + 1) * mpx - 2], fill=(255, 0, 0, 255), width=2)
     g.save(os.path.join(out, "model", f"{hero}_size_guide.png"))
     look = LOOKS.get(hero, hero)
+    m = MODEL_STEP[hero]
     step = f"""# 第一步：造型（{hero}，画完不要停，直接做第二步）
 
-> 用户：「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」。先照 `model/{hero}_reference.png`（你 10 月 9 日画的那张）重画一张**干净的高清造型**，画完**直接用它做第二步**（`PROMPTS.md` 里的动作），中间不用等确认。
+> 用户：{m["asked"]}。先照 `model/{hero}_reference.png`（{m["ref_note"]}）重画一张**干净的高清造型**，画完**直接用它做第二步**（`PROMPTS.md` 里的动作），中间不用等确认。
 
-- **大小**：从角尖到蹄底正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，蹄底在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），角尖在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的她按同样的大小放大的样子——只看大小和站位，长相照参考图。
-- **长相、配色、姿势照 `model/{hero}_reference.png`**：{look}。3/4 侧前方朝右，自然站立，法杖竖在身前。
+- **大小**：从{m["top"]}到{m["bottom"]}正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，{m["bottom"]}在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），{m["top"]}在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的她按同样的大小放大的样子——看大小和站位，长相照参考图。
+- **{look}**。{m["pose"]}
 - **画法照 `model/style_*.png`**（同一套英雄的高清造型）：干净的像素画，每格一个纯色方块，同一个网格，1 格深色外描边，每种材质 2-4 个色阶，不要抖动、渐变、噪点、抗锯齿、半透明；整张最多 48 色。
 - 交付 `outputs/{hero}-ppu-model/{hero}_design.png`（{mpx} 倍放大，透明底）和 `{hero}_design_1x.png`（1 像素 1 格），生图原稿放 `raw/`。
 
 ```text
-Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from the tip of the horn to the bottom of the hooves, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with the hooves on square row {feet_row} and the character centered. Keep the reference's look, colours, proportions and pose (3/4 view facing right, standing, the staff upright in front of her). Match the pixel style of the other attached designs: a 1-square dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
+Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from {m["top_en"]} to {m["bottom_en"]}, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with {m["feet_en"]} on square row {feet_row} and the character centered. {m["pose_en"]} Match the pixel style of the other attached designs: a 1-square dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
 ```
 
 然后打开 `PROMPTS.md` 做第二步：**附图2 一律用这一步画好的 `{hero}_design.png`**，每格 {px}×{px} 像素——第二步骨架的格子按 {px} 像素一格算，**和这一步的 {mpx} 像素不同时，把造型缩放成 {px} 像素一格再当附图2**（按格子整格缩放，不要插值）。
@@ -337,8 +397,21 @@ Redraw the attached reference character (FIRST image) as a clean, final pixel-ar
         f.write(step)
 
 
+# what of the skeleton's effects is drawn after all, per hero: (Chinese, English)
+FX_KEEP = {
+    "riven": ("例外：R 期间的动作（`*_r`）和 `ult`、`r_slash` 里，剑是**重铸**的——断片之间接上一道发光的绿色符文刃，"
+              "这是剑本身，要画；骨架里画在身上的**绿色刀光**（剑挥过的绿弧）也照骨架画上，用造型图的绿色。"
+              "别的特效照样不画。",
+              "Exception: in the R-form frames (*_r), ult and r_slash the sword is REFORGED - a glowing green rune blade "
+              "joins its broken pieces: that is the sword itself, draw it; and where Image 1 shows a green sword trail "
+              "(the arc the swing leaves) draw it too, in Image 2's greens. No other effects."),
+}
+
+
 def write_prompts(out, hero, px, design, ncol, hexes, rows, ppu):
     look = LOOKS.get(hero, hero)
+    asked = MODEL_STEP.get(hero, {}).get("asked", "「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」")
+    fx_cn, fx_en = FX_KEEP.get(hero, ("", ""))
     if design is None:
         # the design is drawn in step 1 of the same pack (model/): every reference to it points there
         dfile = f"outputs/{hero}-ppu-model/{hero}_design.png"
@@ -351,11 +424,11 @@ def write_prompts(out, hero, px, design, ncol, hexes, rows, ppu):
     table = "\n".join(f"| `{n}.png` | {t} | {c} | {w}×{h} | {d} |" for n, t, c, w, h, d in rows)
     md = f"""# {hero}：按高清造型逐帧重画全部动作（PPU {ppu:.2f}，给 Codex 的提示词）
 
-> 用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」。**造型就是 `{dfile}`**（{dsize}，这里每格 {px}×{px} 像素）。待机不用画（就是造型图）。其余每个动作都要画成**这个造型**，像素大小和造型图一模一样。
+> 用户：{asked}。**造型就是 `{dfile}`**（{dsize}，这里每格 {px}×{px} 像素）。待机不用画（就是造型图）。其余每个动作都要画成**这个造型**，像素大小和造型图一模一样。
 > - 每张 `now/{hero}_<动作>_<n>.png` 是**骨架**：现在游戏里的动作帧按同样的格子放大，告诉你每帧的姿势、在格子里的位置和人有多高。你画的人**脚底和骨架在同一行同一列、头顶到脚底一样高**，姿势照骨架；**比例（头的大小、身材、四肢）、长相、配色、细节全部照造型图**——骨架是旧的粗画法，头比造型图大，不要照它的比例（「骨架 + 皮囊」）。
 > - `guide/` 是同一张图加了格子边框（灰）、站位点（蓝十字）和脚底线（红线）——对位用，**不要画进图里**。`cells.json` 里有每格的位置。
 > - **每格 {px}×{px} 像素一个纯色方块**，所有格子对齐同一个网格；只用造型图的颜色；没有抗锯齿、模糊、半透明。
-> - **头每帧都是造型图的头**（发型、脸、眼睛逐格一样，只平移），衣服、武器、配饰的形状和颜色每帧都和造型图一样；出招一律朝图的右边；不画背影；**脚底线以下什么都不能有**；不画特效（血、光、箭的轨迹、冲击波），只画人。
+> - **头每帧都是造型图的头**（发型、脸、眼睛逐格一样，只平移），衣服、武器、配饰的形状和颜色每帧都和造型图一样；出招一律朝图的右边；不画背影；**脚底线以下什么都不能有**；不画特效（血、光、箭的轨迹、冲击波），只画人。{fx_cn}
 > - 每张交回同名文件（`{hero}_<动作>_<n>.png`，和骨架同样大小、同样的格子），放到 `outputs/{hero}-ppu-strips/`；附 `HANDOFF.md`（最后写：每张用了哪条提示词、哪里没做到）和生图原稿 `raw/`（不要重采样）；最好打成一个 zip（`{hero}_ppu_strips_done.zip`）。
 > - 你的生图工具一次画不好整张时，**一帧一帧单独生成**（每帧一张图，按 `cells.json` 拼回格子）；生成后按格子取回（每格取多数颜色，不要取中心点），**不要用脚本缩放**。
 
@@ -372,7 +445,7 @@ Image 1 is a sprite sheet of an animation: frames in cells, read left to right, 
 1. Keep from Image 1: every frame's cell, where the character stands (the soles on the same row and the same column), the height from the soles to the top of the head, and the pose (where the arms, the weapon, the body and the legs go). Do NOT copy Image 1's proportions or look: Image 1's figure is an older, rougher drawing with a bigger head - the head size, the body, the limbs and every detail are Image 2's. Every cast goes to the RIGHT of the image; never draw the character from the back.
 2. Replace the look completely with Image 2: {look}. The head (hair, face, eyes) is Image 2's head in every frame, copied square for square and only moved; the clothes, armour, weapon and ornaments keep Image 2's shapes and colours in every frame.
 3. Pixel art at EXACTLY Image 2's pixel size: every pixel one crisp {px}x{px} square on a single grid, nothing smaller, no anti-aliasing, no blur, no semi-transparency. {colours_rule}. A 1-square dark outline around the silhouette, Image 2's shading, no dithering, no noise.
-4. Nothing below each frame's feet (the soles stay where Image 1's soles are). Do not draw any effect (blood, glow, arrows in flight, trails, shockwaves): only the character.
+4. Nothing below each frame's feet (the soles stay where Image 1's soles are). Do not draw any effect (blood, glow, arrows in flight, trails, shockwaves): only the character. {fx_en}
 5. The animation: [动作内容].
 Same image size and the same cells as Image 1. Transparent background (if not possible: solid #00FF00 green). No grid lines, borders, labels or guide marks.
 ```

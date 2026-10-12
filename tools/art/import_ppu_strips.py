@@ -170,8 +170,9 @@ def main():
             FW, FH = round(one.shape[1] * k), round(one.shape[0] * k)
             g = max(0, -m["frame_top"] * s)
             FH += 2 * g
-            # the cell's origin so that its pivot (fw/2, fh/2 - top in squares) is the frame's centre
-            ox = round(FW / 2 - fw * s / 2)
+            # the cell's origin so that its pivot (fw/2 - left, fh/2 - top in squares) is the frame's centre (packs
+            # from before frame_left: the cell spans the frame's whole width)
+            ox = round(FW / 2 - (fw / 2 - m.get("frame_left", 0)) * s)
             oy = round(FH / 2 - (fh / 2 - m["frame_top"]) * s)
             fr = np.zeros((FH, FW, 4), np.uint8)
             cy0, cx0 = max(0, -oy), max(0, -ox)
