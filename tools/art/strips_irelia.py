@@ -5,6 +5,8 @@
                                                     # and irelia_native.png (the idle's first frame)
     python tools/art/strips_irelia.py --check       # compare with the committed files instead of writing
     python tools/art/strips_irelia.py --review DIR  # irelia_strips_review.gif and _frames.png (every frame at 4x)
+    python tools/art/strips_irelia.py --base DIR    # the action frames as the automatic steps make them, <tag>.txt
+                                                    # (what the hand finish in design_v2/frames started from)
 
 How it came about (2026-10-12). The user redid the model (reference/user_model.png): in League Irelia drives the
 blades floating round her by will, her hands stay empty (「英雄联盟里面刀妹是通过意念驱动身后的武器来攻击的 我们现在做的全
@@ -17,27 +19,42 @@ back on their own grid the drafts are clean, 84 rows from the blade tips to the 
     square snapped to Codex's 20 colours (letters KEYS);
   * the size: the body at 2:1 - each game square from the 2x2 read-back squares under it (the phase with the fewest
     split blocks; a tie between colours goes to the colour most of its decided neighbours share, so specks follow the
-    shape) - and the head at 3/4 of the drafts' own size (2:1 leaves the face as specks);
-  * the head is each frame's own, Codex's (own_head): from the crest to the chin round the draft's face, shrunk to 3/4
-    by dropping whole rows and columns of hair (the rows from the tiara to the eyes and the eye columns kept), set on
-    the 2:1 body at the chin - so a side-on action has her side-on face. One head pasted into every frame (a 3/4 face
-    looking at us, drawn twice the body's scale, then 3/4 of it, with two-square eyes under one dark bar) gave
-    「模型感觉还有点变形吧看起来好奇怪」「身体感觉也变形？」「眼睛画风好奇怪」: a big front-facing head on side-on bodies,
-    the eyes not Codex's. Earlier, on the face: 「脸部差不多了 脖子画一个啊」, then on a two-row neck that lifted the
-    head 「参考之前codex的图做吧」 - the idle's neck is the draft's shadow row under the chin turned to skin in shade
-    (NECK), the collar at once. The eyes' dark cyan becomes t in every pasted head (the importer steadies the run on
-    it); the death's lying frames are read standing (the draft turned a quarter) and turned back;
+    shape); the head bigger (2:1 leaves the face as specks);
+  * the head: one head in every frame, the idle's (the user: 「在正脸的基础上 做后续的run动作不就行了吗」「剑姬卡密尔都没
+    单独做侧面啊」) - design_v2/head_front.txt; head_idle.txt is the same head with what lies beside it in the idle (the
+    upper-left blade's tip, the shoulder hook, the hand at her cheek). It is the idle read-back's head (head_mask) with
+    the face kept square for square, from the tiara's gem to the neck - shrunk to 3/4 with the rest, the face had lost
+    a forehead row and a cheek row and stood wide (「这两边凸出来真的好怪」; the user, showing the read-back's face:
+    「这样子的脸 你手描还原不出来吗」) - and the hair over it brought to 5 rows, the columns beside it dropped (whole lines,
+    the least loss: design_riven.pick), the crest's tip and the dome's top outline drawn back where the drops took
+    them; the eyes' dark cyan as t (the importer steadies the run on it), the neck the draft's shadow row under the
+    chin as skin in shade (「脖子画一个啊」, then 「参考之前codex的图做吧」). Each action frame's own head is found
+    (find_head: the face, the hair touching it within 19 rows over the chin, 10 columns left and 5 right of the face -
+    the flowing hair behind a running Irelia is one piece with her crown -, small ornaments touching them) and taken
+    away, and the head set with its neck on the draft's chin row and its face's middle on the draft's; the death's
+    lying frames are read standing (the draft turned a quarter) and turned back. Before it: each draft's own head (the
+    face differing frame to frame, 「跑动时嘴巴脸型一样啊」), then a side head made from run 7 (「侧脸非常的怪」「这是骷髅
+    脸了吧」「而且侧面头和身体都不协调」), and first a big front head at twice the body's scale (「模型感觉还有点变形吧看起来
+    好奇怪」「眼睛画风好奇怪」);
   * the idle is drawn by hand (the user: 「都给我精修好了 每个部位」): design_v2/body_idle.txt, every 2:1 square decided
     from its block of design_v2/idle_readback.txt (the read-back the user liked) and the part it belongs to (collar and
     gem, breastplates, tabard with white edges and its tip, the shoulder hook, the raised forearm to the hand at her
     cheek, the arm hanging to the open hand, the long hair, the hip flaps, knee stars, boots with white ankle bands and
-    toe caps), its own head from the same read-back, and the four blades redrawn clean (BLADES), the top and upper-left
-    ones moved out from behind the head; the eight idle frames are that one still figure with each blade bobbing a
-    row, out of step (BOB);
+    toe caps), head_idle.txt, and the four blades redrawn clean (BLADES), the top and upper-left ones moved out from
+    behind the head; the eight idle frames are that one still figure with each blade bobbing a row, out of step
+    (BOB);
   * the actions: the draft split into its body and the floating blades (the pieces apart from the body), each reduced,
     a blade the head would cover moved away from it; the outline stays where the drafts draw it (a block on the
-    silhouette holding outline is outline) - an ink ring added round the silhouette made every limb a square thicker
-    each side (「身体感觉也变形？」); the hair's strand tips, sticks at 2:1, trimmed (trim_spurs).
+    silhouette holding outline is outline) and is closed where the vote dropped it (close_open: the edge square itself
+    turns outline where the part is thick, the square outside where it is thin - an ink ring added all round made
+    every limb a square thicker each side, 「身体感觉也变形？」); the hair's strand tips, sticks at 2:1, trimmed
+    (trim_spurs);
+  * then finished by hand, frame by frame (design_v2/frames/<tag>.txt, the user: 「你给我一帧一帧改到完美」「不要有变形
+    奇怪的地方全部手描 补」), each looked at against its draft square for square (the 2x2 draft squares under every
+    square): the one-square holes walled by outline filled (the head is bigger than the draft's, so the gap to a
+    blade behind it closed to a square or two), the hair behind a running Irelia given back the strand tips the vote
+    cut (run 5 and 7 were flat blocks), a blade tip the draft's crop cut off taken away (skill 1). --base writes the
+    automatic frames.
 Every frame stands with its lowest row on 99 and its standing point on column 64 (the idle: the feet's middle; an
 action: Codex's pivot at the same fraction of the figure's width); cells 112x84, the point at (52, 66).
 """
@@ -97,8 +114,7 @@ OFFSET = {"top": (-2, -3), "upper_left": (0, -2), "lower_left": (0, 0), "lower_r
 BOB = {"upper_left": [0, 0, -1, -1, -1, -1, 0, 0], "top": [0, -1, -1, -1, 0, 0, 0, 0],
        "lower_left": [0, 0, 0, -1, -1, -1, -1, 0], "lower_right": [-1, -1, 0, 0, 0, 0, -1, -1]}
 BODY_AT = (9, 10)                # the idle's 2:1 body square (r, c) -> work square (r + 9, c + 10)
-HEAD_SCALE = 0.75                # the head's size against the drafts' own (the body is at 1/2)
-NECK = {"a": "q"}                # the idle's shadow row under the chin: skin in shade (the user: 「脖子画一个啊」)
+FRAMES = os.path.join(DESIGN, "frames")     # the action frames finished by hand, <tag>.txt
 
 
 def table(path):
@@ -266,15 +282,24 @@ def despeckle(L, passes=2):
     return L
 
 
-def close_outline(G):
+def close_open(G):
+    """The outline closed where the 2:1 vote dropped it (the drafts are outlined all round; a block holding a quarter
+    of outline votes clear): a coloured square 4-next to clear turns outline itself where its material goes on two
+    squares behind it, else the clear square outside turns outline - an ink ring all round made every limb a square
+    thicker each side (「身体感觉也变形？」)."""
     out = G.copy()
     H, W = G.shape
-    for y, x in zip(*np.nonzero(G == ".")):
+    for y, x in zip(*np.nonzero((G != ".") & (G != "0"))):
+        m = MAT[G[y, x]]
         for dy, dx in N4:
             yy, xx = y + dy, x + dx
-            if 0 <= yy < H and 0 <= xx < W and G[yy, xx] not in (".", "0"):
+            if 0 <= yy < H and 0 <= xx < W and G[yy, xx] != ".":
+                continue
+            behind = [(y - dy, x - dx), (y - 2 * dy, x - 2 * dx)]
+            if all(0 <= by < H and 0 <= bx < W and MAT[G[by, bx]] == m for by, bx in behind):
                 out[y, x] = "0"
-                break
+            elif 0 <= yy < H and 0 <= xx < W:
+                out[yy, xx] = "0"
     return out
 
 
@@ -333,11 +358,9 @@ def head_mask(L, body, face, fy0, eye_bottom):
     return m, chin
 
 
-def own_head(L, body):
-    """The draft's own head (head_mask), from 19 rows over the chin, shrunk to HEAD_SCALE by whole-line drops
-    (design_riven.keep_axis: the rows from the tiara to the eyes and the eye columns kept). Returns (head, its box in
-    L, the face's middle column in L, that column in the head, the head's squares in L) or None; the eyes' dark cyan
-    becomes t."""
+def find_head(L, body):
+    """Where the draft's head is: (its box in L - top, chin, left, right -, the face's middle column, its squares
+    (head_mask)) or None."""
     fb = face_box(L)
     if fb is None:
         return None
@@ -349,44 +372,34 @@ def own_head(L, body):
     eye_bottom = int(np.nonzero(cyan.any(1))[0].max())
     hm, chin = head_mask(L, body, face, fy0, eye_bottom)
     ys, xs = np.nonzero(hm)
-    y0, y1, x0, x1 = ys.min(), min(chin, ys.max()), xs.min(), xs.max()
-    box = np.where(hm[y0:y1 + 1, x0:x1 + 1], L[y0:y1 + 1, x0:x1 + 1], ".")
-    eye = cyan[y0:y1 + 1, x0:x1 + 1]
-    ey, ex = np.nonzero(eye)
-    H, W = box.shape
-    rows = DR.keep_axis([box[r] for r in range(H)], int(round(H * HEAD_SCALE)), list(range(ey.min(), ey.max() + 1)))
-    sub = box[rows]
-    cols = DR.keep_axis([sub[:, c] for c in range(W)], int(round(W * HEAD_SCALE)),
-                        list(range(ex.min(), ex.max() + 1)))
-    head = sub[:, cols].copy()
-    head[eye[np.ix_(rows, cols)] & (head == "n")] = "t"
-    # the drafts' red on the face: by the eyes it read as a red eye (it becomes the brow's dark), under them a mouth
-    # (skin: the user, 「嘴不要」)
-    skin = np.isin(head, list("qrs"))
-    near = ndimage.convolve(skin.astype(int), np.ones((3, 3), int), mode="constant")
-    lowest_eye = np.nonzero((head == "t").any(1))[0].max() if (head == "t").any() else -1
-    for y, x in zip(*np.nonzero(np.isin(head, list("efgh")) & (near >= 2))):
-        head[y, x] = "a" if y <= lowest_eye else "r"
-    fcx = (fx0 + fx1) / 2.0
-    return head, (y0, y1, x0, x1), fcx, int(np.argmin([abs(c + x0 - fcx) for c in cols])), hm
+    return (ys.min(), min(chin, ys.max()), xs.min(), xs.max()), (fx0 + fx1) / 2.0, hm
 
 
-def paste_head(G, oh, oy, ox, at, canon=None):
-    """Set a head on the work table G where own_head found the draft's: its last row on the 2:1 row of the chin, its
-    face's middle on the 2:1 column of the draft's (at = the 2:1 table's place in G). canon = (head table, its face's
-    middle column) replaces the draft's own head. Returns the head's box in G."""
-    head, (y0, y1, x0, x1), fcx, hc = oh[:4]
-    if canon is not None:
-        head, hc = canon
-    r0 = at[0] + (y1 + oy) // 2 - (head.shape[0] - 1)
+def paste_head(G, found, oy, ox, at, head):
+    """Set head = (table, its face's middle column) on the work table G where find_head found the draft's: its last
+    row (the neck) on the 2:1 row of the chin, its face's middle on the 2:1 column of the draft's (at = the 2:1
+    table's place in G). Returns the head's box in G."""
+    (y0, y1, x0, x1), fcx = found[:2]
+    tab, hc = head
+    r0 = at[0] + (y1 + oy) // 2 - (tab.shape[0] - 1)
     c0 = at[1] + int(round((fcx + ox) / 2.0)) - hc
-    m = head != "."
-    G[r0:r0 + head.shape[0], c0:c0 + head.shape[1]][m] = head[m]
-    return r0, c0, head.shape[0], head.shape[1]
+    m = tab != "."
+    G[r0:r0 + tab.shape[0], c0:c0 + tab.shape[1]][m] = tab[m]
+    return r0, c0, tab.shape[0], tab.shape[1]
+
+
+def heads():
+    """head_front.txt (every action frame's head) and head_idle.txt (the same head with the blade's tip, the
+    shoulder hook and the hand at her cheek beside it), each with its face's middle column: the middle of the skin
+    in the front head's last three rows (cheek, chin, neck)."""
+    front = table(os.path.join(DESIGN, "head_front.txt"))
+    fx = np.nonzero(np.isin(front[-3:], list("qrs")).any(0))[0]
+    mid = int(round((fx.min() + fx.max()) / 2.0))
+    return (front, mid), (table(os.path.join(DESIGN, "head_idle.txt")), mid)
 
 
 # ------------------------------------------------------------------------------------------------- the idle
-def idle_frame(body, oh, k):
+def idle_frame(body, head, found, k):
     G = np.full((52, 60), ".", "<U1")
     for name in ("top", "upper_left", "lower_left", "lower_right"):          # behind the body
         oy, ox = OFFSET[name]
@@ -395,29 +408,26 @@ def idle_frame(body, oh, k):
                 G[r + BODY_AT[0] + oy + BOB[name][k], c0 + i + BODY_AT[1] + ox] = ch
     m = body != "."
     G[BODY_AT[0]:BODY_AT[0] + body.shape[0], BODY_AT[1]:BODY_AT[1] + body.shape[1]][m] = body[m]
-    paste_head(G, oh, 0, 0, BODY_AT)
+    paste_head(G, found, 0, 0, BODY_AT, head)
     return G
 
 
-def idle_head(rb):
+def idle_place():
+    """Where the idle's head goes: find_head on the idle read-back (the figure's biggest piece)."""
+    rb = table(os.path.join(DESIGN, "idle_readback.txt"))
     lab, n = ndimage.label(rb != ".", np.ones((3, 3)))
     sizes = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
-    oh = own_head(rb, lab == int(np.argmax(sizes)) + 1)
-    head = oh[0].copy()
-    for c in range(head.shape[1]):          # the neck: the shadow squares under the chin become skin in shade
-        if head[-1, c] in NECK and head[-2, c] in "qrs":
-            head[-1, c] = NECK[head[-1, c]]
-    return (head,) + tuple(oh[1:])
+    return find_head(rb, lab == int(np.argmax(sizes)) + 1)
 
 
 # ------------------------------------------------------------------------------------------------- the actions
-def action_frame(L, canon, lying=False):
-    """A draft at game size: body and blades at 2:1, the side head (canon) where the draft's own head was - its own
-    head found by own_head and taken away; a blade the head would cover moved away from it. lying: read standing (the
+def action_frame(L, head, lying=False):
+    """A draft at game size: body and blades at 2:1, the head (heads()) where the draft's own head was - that one
+    found by find_head and taken away; a blade the head would cover moved away from it. lying: read standing (the
     draft turned a quarter, crown up) and turned back. Returns the work table and the 2:1 table's box in it (row,
     col, rows, cols)."""
     if lying:
-        G, (r0, c0, H, W) = action_frame(np.rot90(L, 1), canon)
+        G, (r0, c0, H, W) = action_frame(np.rot90(L, 1), head)
         Gt = np.rot90(G, -1)
         return Gt, (c0, G.shape[0] - r0 - H, W, H)
     pad = 24
@@ -429,16 +439,16 @@ def action_frame(L, canon, lying=False):
     body = trim_spurs(despeckle(reduce2(np.where(bm, L, "."), oy, ox)))
     H, W = body.shape
     G = np.full((H + 2 * pad, W + 2 * pad), ".", "<U1")
-    oh = own_head(L, bm)
+    found = find_head(L, bm)
     hm = np.zeros(G.shape, bool)
-    if oh is not None:
-        hp = np.pad(oh[4], ((oy, 2), (ox, 2)))
+    if found is not None:
+        hp = np.pad(found[2], ((oy, 2), (ox, 2)))
         for r in range(H):                      # its 2:1 self goes: every square whose block is half head or more
             for c in range(W):
                 if hp[2 * r:2 * r + 2, 2 * c:2 * c + 2].sum() >= 2:
                     body[r, c] = "."
         probe = np.full(G.shape, ".", "<U1")
-        hr0, hc0, hh, hw = paste_head(probe, oh, oy, ox, (pad, pad), canon)
+        hr0, hc0, hh, hw = paste_head(probe, found, oy, ox, (pad, pad), head)
         hm = probe != "."
         hcy, hcx = hr0 + hh / 2.0, hc0 + hw / 2.0
     for i in range(1, n + 1):
@@ -450,7 +460,7 @@ def action_frame(L, canon, lying=False):
         if not m.any():
             continue
         dy = dx = 0
-        if oh is not None and (m & hm).sum() > 0.15 * m.sum():
+        if found is not None and (m & hm).sum() > 0.15 * m.sum():
             ys, xs = np.nonzero(m)
             vy, vx = ys.mean() - hcy, xs.mean() - hcx
             norm = math.hypot(vy, vx) or 1.0
@@ -464,9 +474,9 @@ def action_frame(L, canon, lying=False):
         sub = np.roll(np.roll(sub, dy, 0), dx, 1)
         G = np.where(sub != ".", sub, G)
     G[pad:pad + H, pad:pad + W] = np.where(body != ".", body, G[pad:pad + H, pad:pad + W])
-    if oh is not None:
-        paste_head(G, oh, oy, ox, (pad, pad), canon)
-    return G, (pad, pad, H, W)
+    if found is not None:
+        paste_head(G, found, oy, ox, (pad, pad), head)
+    return close_open(G), (pad, pad, H, W)
 
 
 def place(G, px):
@@ -477,27 +487,77 @@ def place(G, px):
     return out
 
 
-def build():
-    body = table(os.path.join(DESIGN, "body_idle.txt"))
-    oh = idle_head(table(os.path.join(DESIGN, "idle_readback.txt")))
-    side = table(os.path.join(DESIGN, "head_side.txt"))
-    fx = np.nonzero(np.isin(side[-3:], list("qrs")).any(0))[0]
-    canon = (side, int(round((fx.min() + fx.max()) / 2.0)))       # the side face's middle column
-    rb = readbacks()
-    frames, ms = {}, {}
-    f0 = idle_frame(body, oh, 0)
-    ys, xs = np.nonzero(f0 != ".")
-    feet = np.nonzero((f0[ys.max() - 2:ys.max() + 1] != ".").any(0))[0]
-    mid = (feet.min() + feet.max()) / 2.0
-    frames["idle"] = [place(idle_frame(body, oh, k), mid) for k in range(8)]
-    ms["idle"] = [fr["ms"] for _, fr in rb["idle"]]
+def read_frames(path):
+    """A finished tag (design_v2/frames/<tag>.txt): per frame a line '# <k> <row> <col>' (where its table's top-left
+    lies on the 128 canvas) and the table's rows. Returns the canvases."""
+    blocks = []
+    for line in open(K.lp(path), encoding="utf-8"):
+        line = line.rstrip("\r\n")
+        if line.startswith("#"):
+            _, r, c = (int(v) for v in line[1:].split())
+            blocks.append((r, c, []))
+        elif line.strip():
+            blocks[-1][2].append(line)
+    out = []
+    for r, c, rows in blocks:
+        w = max(len(x) for x in rows)
+        G = np.full((128, 128), ".", "<U1")
+        G[r:r + len(rows), c:c + w] = np.array([list(x.ljust(w, ".")) for x in rows])
+        out.append(G)
+    return out
+
+
+def write_frames(path, frames):
+    with open(K.lp(path), "w", encoding="utf-8", newline="\n") as f:
+        for k, G in enumerate(frames):
+            ys, xs = np.nonzero(G != ".")
+            f.write(f"# {k} {ys.min()} {xs.min()}\n")
+            for r in range(ys.min(), ys.max() + 1):
+                f.write("".join(G[r, xs.min():xs.max() + 1]) + "\n")
+            f.write("\n")
+
+
+def auto_actions(rb, head):
+    """The action frames as the automatic steps make them (the start of the hand finish)."""
+    frames = {}
     for t in TAGS[1:]:
         res = []
         for k, (L, fr) in enumerate(rb[t]):
-            G, (r0, c0, H, W) = action_frame(L, canon, lying=(t == "dead" and k >= 4))
+            G, (r0, c0, H, W) = action_frame(L, head, lying=(t == "dead" and k >= 4))
             x0, x1 = fr["bbox"][0], fr["bbox"][2]
             res.append(place(G, c0 + (fr["pivot"][0] - x0) / float(x1 - x0) * W))
         frames[t] = res
+    return frames
+
+
+def build(base=None):
+    """The strips: the idle from its hand-drawn body, its head and the bobbing blades; the actions from their
+    finished tables (FRAMES), or the automatic steps for a tag not finished yet. base: write the automatic action
+    frames there as tables instead."""
+    body = table(os.path.join(DESIGN, "body_idle.txt"))
+    front, idle_h = heads()
+    found = idle_place()
+    rb = readbacks()
+    frames, ms = {}, {}
+    f0 = idle_frame(body, idle_h, found, 0)
+    ys, xs = np.nonzero(f0 != ".")
+    feet = np.nonzero((f0[ys.max() - 2:ys.max() + 1] != ".").any(0))[0]
+    mid = (feet.min() + feet.max()) / 2.0
+    frames["idle"] = [place(idle_frame(body, idle_h, found, k), mid) for k in range(8)]
+    ms["idle"] = [fr["ms"] for _, fr in rb["idle"]]
+    if base:
+        os.makedirs(K.lp(base), exist_ok=True)
+        for t, frs in auto_actions(rb, front).items():
+            write_frames(os.path.join(base, f"{t}.txt"), frs)
+        return None, None
+    auto = None
+    for t in TAGS[1:]:
+        path = os.path.join(FRAMES, f"{t}.txt")
+        if os.path.exists(K.lp(path)):
+            frames[t] = read_frames(path)
+        else:
+            auto = auto or auto_actions(rb, front)
+            frames[t] = auto[t]
         ms[t] = [fr["ms"] for _, fr in rb[t]]
     return {t: [rgba(L) for L in frs] for t, frs in frames.items()}, ms
 
@@ -506,8 +566,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--review")
+    ap.add_argument("--base")
     a = ap.parse_args()
-    built, ms = build()
+    built, ms = build(a.base)
+    if a.base:
+        print("wrote the automatic action frames in", a.base)
+        return
     if a.review:
         os.makedirs(K.lp(a.review), exist_ok=True)
         K.review_gif([(t, built[t]) for t in TAGS], ms, K.lp(os.path.join(a.review, f"{HERO}_strips_review.gif")))
