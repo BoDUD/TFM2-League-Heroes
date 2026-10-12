@@ -23,7 +23,12 @@ the picture's face is (import_ppu_strips.paste_head searched round its skin), ex
 seen from behind, the death lying down). The slash's white arc across attack picture 4 and the burst over q_attack
 picture 5's legs leave nothing to keep, so those frames take the next picture; ult pictures 4-6's ground burst round
 the planted blade is cleared (the blade kept); the skill's raised blade, guard and fist go back over the pasted head
-(held beside it). The run is the 1x run scaled until it is made from the idle.
+(held beside it). The run (the user picked the idle for it: legs stepping, the body never bent) is the dense idle's
+frame 0 with its two lower legs stepping as rigid pieces (RUN_FAR, RUN_NEAR: knee guard to sole, the blade and the cape
+left with the body) - each on the ground from in front to behind, then swung forward lifted, the far one half a cycle
+on - and the rest one block a row or two down as a foot lands; the legs behind it (the skirt and the blade in front as
+in the idle), ground shut in where a leg was filled with the colours round it, the cape's loose specks dropped; the
+body stays put, the soles on the 1x run's ground row.
 
 idle: the first picture of garen_idle.png is the design; the loop is that design breathing (tools/art/idle_breathe.py,
 the 1x recipe: the body above the shins down 0-2 rows and a column forward, the head a frame late), the sword lifted out
@@ -368,6 +373,86 @@ def actions(pal, design):
     return out
 
 
+# the run: boxes (row0, row1, col0, col1) of the dense idle frame 0 (142 x 138) holding each lower leg, knee guard to
+# sole (the cape's blue and the blade never in them); one leg's cycle in dense px - forward of the standing place, and
+# lifted - from landing in front through pushing off behind to the swing; the body's dip as a foot lands
+RUN_FAR = ((75, 99, 14, 41),)
+RUN_NEAR = ((79, 88, 60, 87), (88, 99, 57, 87))
+RUN_DX = [8, 3, -2, -7, -5, 0, 5, 9]
+RUN_LIFT = [0, 0, 0, 0, 3, 6, 5, 1]
+RUN_BOB = [2, 1, 0, 1, 2, 1, 0, 1]
+
+
+def run(idle0, ones):
+    """The 8 dense run frames from the dense idle's frame 0, each on round(PPU x its 1x run frame), the body where the
+    idle's stands on the 1x run's ground (see the module's notes)."""
+    a = idle0.astype(int)
+    h, w = a.shape[:2]
+    op = a[..., 3] > 0
+    blue = op & (a[..., 2] > a[..., 0] + 40) & (a[..., 2] > 90)
+    blade = blade_mask(idle0, PPU)
+    blade |= op & ndimage.binary_dilation(blade) & (lum(a) < 70)
+
+    def boxes(spec):
+        m = np.zeros((h, w), bool)
+        for r0, r1, c0, c1 in spec:
+            m[r0:r1, c0:c1] = True
+        return m & op & ~blue & ~blade
+
+    far, near = boxes(RUN_FAR), boxes(RUN_NEAR)
+    # the outline a leg shares with the body goes with the leg (left behind it hung off the cape as a hook, or crossed
+    # the leg as a dark line); the body's edge it leaves open is closed again below
+    dark = op & (lum(a) < 60) & ~blade
+    far |= dark & ndimage.binary_dilation(far, structure=np.ones((3, 3))) & ~near
+    near |= dark & ndimage.binary_dilation(near, structure=np.ones((3, 3))) & ~far
+    body = op & ~far & ~near
+    fx, fy = feet(idle0)
+    # where the 1x run stands, from each frame's centre (the mean of its frames: the old run's own legs move)
+    stood = [feet(one) for one in ones]
+    sx = float(np.mean([x - one.shape[1] / 2 for (x, _), one in zip(stood, ones)]))
+    sy = float(np.mean([y - one.shape[0] / 2 for (_, y), one in zip(stood, ones)]))
+    pad = 12
+    zone = np.zeros((h + 2 * pad, w + 2 * pad), bool)
+    zone[pad:pad + h, pad:pad + w] = ndimage.binary_dilation(far | near, iterations=12)
+    sole = int(round(fy)) - 1 + pad
+    out = []
+    for k, one in enumerate(ones):
+        f = np.zeros((h + 2 * pad, w + 2 * pad, 4), np.uint8)
+        for mask, ph in ((far, (k + 4) % 8), (near, k), (body, None)):
+            dx, dy = (RUN_DX[ph], -RUN_LIFT[ph]) if ph is not None else (0, RUN_BOB[k])
+            ys, xs = np.nonzero(mask)
+            f[ys + pad + dy, xs + pad + dx] = idle0[ys, xs]
+        opf = f[..., 3] > 0
+        holes = ndimage.binary_fill_holes(opf) & ~opf
+        if holes.any():
+            f = N.fill_behind(f, holes)
+        # the cape's specks left where a leg stood in front of it: a pixel with two or fewer neighbours goes
+        for _ in range(2):
+            opf = f[..., 3] > 0
+            n = ndimage.convolve(opf.astype(int), np.ones((3, 3), int), mode="constant") - opf
+            f[opf & (n <= 2) & zone] = 0
+        # the body's edge a leg left: outlined again (round the legs only, never under the soles)
+        f, _, _ = G.complete_outline(f, feet=sole, keep=~zone)
+        opf = f[..., 3] > 0
+        holes = ndimage.binary_fill_holes(opf) & ~opf          # a pocket the new outline shut in
+        if holes.any():
+            f = N.fill_behind(f, holes)
+        # on the 1x run frame: the idle's feet (the body's standing place, not the stepping legs') where the 1x run stands
+        h1, w1 = one.shape[:2]
+        W, H = ppu_hd.hd_size(w1, h1, PPU)
+        ys, xs = np.nonzero(f[..., 3])
+        while True:
+            dx = int(round(sx * PPU + W / 2 - (fx + pad)))
+            dy = int(round(sy * PPU + H / 2 - (fy + pad)))
+            if ys.min() + dy >= 3 and xs.min() + dx >= 3 and ys.max() + dy < H - 3 and xs.max() + dx < W - 3:
+                break
+            W, H = W + 2, H + 2
+        g = np.zeros((H, W, 4), np.uint8)
+        g[ys + dy, xs + dx] = f[ys, xs]
+        out.append(g)
+    return out
+
+
 def write_strip(tag, frames, ones):
     """A tag's dense frames as ppu_hd.py's drawn strip: assets/source/ppu/garen_<tag>.png (left to right, 1 px apart,
     top-aligned) and garen_<tag>.json with the sizes when a frame is grown beyond round(PPU x its 1x frame)."""
@@ -548,6 +633,7 @@ def main():
     if args.actions or args.review:
         made = actions(pal, idle_hd[0])
         sheet = ppu_hd.read_sheet(STEM)
+        made["run"] = run(idle_hd[0], [f for f, _ in sheet["run"]])
         for tag, frames in made.items():
             if args.actions:
                 grown = write_strip(tag, frames, [f for f, _ in sheet[tag]])
