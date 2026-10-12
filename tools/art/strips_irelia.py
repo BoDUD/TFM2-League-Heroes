@@ -43,7 +43,15 @@ back on their own grid the drafts are clean, 84 rows from the blade tips to the 
     toe caps), head_idle.txt, and the four blades redrawn clean (BLADES), the top and upper-left ones moved out from
     behind the head; the eight idle frames are that one still figure with each blade bobbing a row, out of step
     (BOB);
-  * the actions: the draft split into its body and the floating blades (the pieces apart from the body), each reduced,
+  * the run is the idle's upper body on crossing legs, league_caitlyn's and league_zeri's way (the user: 「头挺不错 感觉
+    侧面跑的时候身体还是很奇怪」 - Codex's run drafts were side-on sprints, every frame a differently drawn body under the
+    one front head; the approved runs of the pack keep the idle's body and only step the legs): the near leg in eight
+    phases (RUN_PHASES, league_zeri's: only the ankle placed, the knee solved at one thigh and shin length), the thigh
+    navy from three squares at the hip to two at the knee, the silver guard on the knee, the red greave two squares wide,
+    the idle's right boot (toe forward) flat on the ankle; the far leg four phases on and RUN_FAR squares right, drawn
+    first, each leg with one outline ring and a square of ground left in a dent between them outlined; the upper body
+    (the idle's down to the hips, the tabard's tip kept) and the blades a row down as a foot lands (RUN_STEP);
+  * the other actions: the draft split into its body and the floating blades (the pieces apart from the body), each reduced,
     a blade the head would cover moved away from it; the outline stays where the drafts draw it (a block on the
     silhouette holding outline is outline) and is closed where the vote dropped it (close_open: the edge square itself
     turns outline where the part is thick, the square outside where it is thin - an ink ring added all round made
@@ -115,6 +123,27 @@ BOB = {"upper_left": [0, 0, -1, -1, -1, -1, 0, 0], "top": [0, -1, -1, -1, 0, 0, 
        "lower_left": [0, 0, 0, -1, -1, -1, -1, 0], "lower_right": [-1, -1, 0, 0, 0, 0, -1, -1]}
 BODY_AT = (9, 10)                # the idle's 2:1 body square (r, c) -> work square (r + 9, c + 10)
 FRAMES = os.path.join(DESIGN, "frames")     # the action frames finished by hand, <tag>.txt
+# the run: the idle's upper body on crossing legs (league_caitlyn's and league_zeri's way, the runs the user approved);
+# body squares (rows, columns of body_idle.txt)
+RUN_TOP = 27                     # the idle's legs from this row down are redrawn; the tabard's tip stays (RUN_TABARD)
+RUN_TABARD = {27: (18, 21), 28: (18, 21)}
+RUN_HIP = (26.5, 16.5)           # the near hip (the image-left leg's top middle)
+RUN_FAR = 4.0                    # the far leg: the near leg's drawing this many squares right
+RUN_LEG = (4.6, 6.4)             # thigh (hip -> knee) and shin (knee -> the ankle band), the same in every frame
+RUN_ANKLE = 38.0                 # the ankle band's row with the foot on the ground (the idle's)
+RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the upper body comes down: as a foot lands, up as the legs pass
+# one leg's eight phases: its ankle in squares from its hip, and how far the foot is lifted
+RUN_PHASES = [(0.0, 0),          # 1 the heel landing just ahead of the hip
+              (-2.0, 0),         # 2 planted, the body coming over it
+              (-4.0, 0),         # 3 planted, sliding back under her
+              (-6.5, 1),         # 4 pushing off behind, the heel up
+              (-8.0, 3),         # 5 the heel lifting behind, the knee bent
+              (-7.5, 4),         # 6 the heel up behind
+              (-2.5, 3.5),       # 7 swung through, the knee forward, the foot tucked under her
+              (0.0, 1.5)]        # 8 reaching forward, about to land (league_zeri's, approved)
+RUN_BOOT = ["klk..",             # the idle's right boot (toe forward): the white ankle band, the foot, the toe cap
+            "fggh.",
+            "fgggm"]
 
 
 def table(path):
@@ -420,6 +449,83 @@ def idle_place():
     return find_head(rb, lab == int(np.argmax(sizes)) + 1)
 
 
+# ------------------------------------------------------------------------------------------------- the run
+def run_leg(phase, dx, step):
+    """One leg at a phase as {(row, col): letter} in body squares: the knee solved at RUN_LEG (bent forward), the
+    thigh navy from three squares at the hip to two at the knee, the silver guard on the knee, the red greave two
+    squares to the ankle (its top lit), the idle's boot flat on the ankle."""
+    hy, hx = RUN_HIP[0] + step, RUN_HIP[1] + dx
+    ax, lift = RUN_PHASES[phase]
+    ax, ay = hx + ax, RUN_ANKLE - lift
+    lt, ls = RUN_LEG
+    k1, _ = K.elbow((hx, hy), (ax, ay), lt, ls, bend=-1)
+    k2, _ = K.elbow((hx, hy), (ax, ay), lt, ls, bend=1)
+    kx, ky = k1 if k1[0] >= k2[0] else k2
+    cells = {}
+    for p0, p1, (w0, w1), (lit, dark) in (((hx, hy), (kx, ky), (3, 2), ("b", "a")),
+                                         ((kx, ky), (ax, ay), (2, 2), ("g", "f"))):
+        n = int(max(abs(p1[0] - p0[0]), abs(p1[1] - p0[1])) * 4) + 1
+        steep = abs(p1[1] - p0[1]) >= abs(p1[0] - p0[0])
+        for i in range(n + 1):
+            x = p0[0] + (p1[0] - p0[0]) * i / n
+            y = p0[1] + (p1[1] - p0[1]) * i / n
+            xi, yi = int(math.floor(x)), int(math.floor(y))
+            w = int(round(w0 + (w1 - w0) * i / n))
+            for j in range(w - 1):
+                cells.setdefault((yi, xi - j) if steep else (yi - j, xi), lit)
+            cells.setdefault((yi, xi + 1) if steep else (yi + 1, xi), dark)
+    kxi, kyi = int(math.floor(kx)), int(math.floor(ky))
+    cells.update({(kyi, kxi): "l", (kyi, kxi + 1): "k", (kyi + 1, kxi): "k", (kyi + 1, kxi + 1): "i"})
+    if cells.get((kyi + 2, kxi)) == "g":
+        cells[(kyi + 2, kxi)] = "h"
+    axi, ayi = int(math.floor(ax)), int(math.floor(ay))
+    for i, row in enumerate(RUN_BOOT):
+        for j, ch in enumerate(row):
+            if ch != ".":
+                cells[(ayi + i, axi - 1 + j)] = ch
+    return cells
+
+
+def run_frame(body, head, found, k):
+    """Run frame k: the idle's four blades (bobbing as in the idle), the far leg four phases on and RUN_FAR squares
+    right, the near leg over it (each with one outline ring), the idle's upper body over both, RUN_STEP rows down."""
+    step = RUN_STEP[k]
+    up = body.copy()
+    for r in range(RUN_TOP, up.shape[0]):
+        keep = RUN_TABARD.get(r, (0, -1))
+        up[r, :keep[0]] = "."
+        up[r, keep[1] + 1:] = "."
+    G = np.full((60, 60), ".", "<U1")
+    for name in ("top", "upper_left", "lower_left", "lower_right"):
+        oy, ox = OFFSET[name]
+        for r, c0, blade in BLADES[name]:
+            for i, ch in enumerate(blade):
+                G[r + BODY_AT[0] + oy + BOB[name][k] + step, c0 + i + BODY_AT[1] + ox] = ch
+    by, bx = BODY_AT
+    legs = np.full(G.shape, ".", "<U1")
+    for phase, dx in (((k + 4) % 8, RUN_FAR), (k, 0.0)):
+        cells = run_leg(phase, dx, step)
+        for y, x in cells:
+            for dy, dx2 in N4:
+                if (y + dy, x + dx2) not in cells:
+                    legs[y + dy + by, x + dx2 + bx] = "0"
+        for (y, x), ch in cells.items():
+            legs[y + by, x + bx] = ch
+    for _ in range(2):                  # a square of ground in a dent between the legs' outlines: outline
+        op = legs != "."
+        n4 = np.zeros(G.shape, int)
+        n4[1:] += op[:-1]
+        n4[:-1] += op[1:]
+        n4[:, 1:] += op[:, :-1]
+        n4[:, :-1] += op[:, 1:]
+        legs[~op & (n4 >= 3)] = "0"
+    G = np.where(legs != ".", legs, G)
+    m = up != "."
+    G[by + step:by + step + up.shape[0], bx:bx + up.shape[1]][m] = up[m]
+    paste_head(G, found, 2 * step, 0, BODY_AT, head)
+    return G
+
+
 # ------------------------------------------------------------------------------------------------- the actions
 def action_frame(L, head, lying=False):
     """A draft at game size: body and blades at 2:1, the head (heads()) where the draft's own head was - that one
@@ -518,9 +624,9 @@ def write_frames(path, frames):
 
 
 def auto_actions(rb, head):
-    """The action frames as the automatic steps make them (the start of the hand finish)."""
+    """The action frames as the automatic steps make them (the start of the hand finish); not the run (run_frame)."""
     frames = {}
-    for t in TAGS[1:]:
+    for t in TAGS[2:]:
         res = []
         for k, (L, fr) in enumerate(rb[t]):
             G, (r0, c0, H, W) = action_frame(L, head, lying=(t == "dead" and k >= 4))
@@ -545,13 +651,15 @@ def build(base=None):
     mid = (feet.min() + feet.max()) / 2.0
     frames["idle"] = [place(idle_frame(body, idle_h, found, k), mid) for k in range(8)]
     ms["idle"] = [fr["ms"] for _, fr in rb["idle"]]
+    frames["run"] = [place(run_frame(body, idle_h, found, k), mid) for k in range(8)]
+    ms["run"] = [fr["ms"] for _, fr in rb["run"]]
     if base:
         os.makedirs(K.lp(base), exist_ok=True)
         for t, frs in auto_actions(rb, front).items():
             write_frames(os.path.join(base, f"{t}.txt"), frs)
         return None, None
     auto = None
-    for t in TAGS[1:]:
+    for t in TAGS[2:]:
         path = os.path.join(FRAMES, f"{t}.txt")
         if os.path.exists(K.lp(path)):
             frames[t] = read_frames(path)
