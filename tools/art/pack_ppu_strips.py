@@ -118,6 +118,8 @@ LOOKS = {
     "karma": "a spiritual mage: dark skin, short dark hair with a gold-and-jade circlet, a big jade dragon ring floating "
              "above her head, two cream-and-jade spirit blades floating beside her shoulders, a purple-and-gold top, a "
              "long purple-to-magenta skirt split at the front, jade tattoos on the bare leg, purple heeled boots",
+    "garen": "Garen, the Might of Demacia (League of Legends): a Demacian knight in heavy silver plate armour with gold "
+             "trim and blue accents, a blue cape, short brown hair, blue eyes, a big silver greatsword",
     "yasuo": "a wandering swordsman: a long brown ponytail tied with a gold band, a handsome stubbled face with thick "
              "brows, a blue scarf, a big silver shoulder plate on the far shoulder, a bare chest under brown straps, "
              "silver forearm guards, a gold sash, dark blue wide trousers, grey wrapped boots, and a long thin "
@@ -208,6 +210,10 @@ def main():
                     "user: 「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」 - one pack, the design "
                     "first, then every action on it without stopping)")
     ap.add_argument("--px-model", type=int, default=8, help="pixels per square of the step-1 design")
+    ap.add_argument("--model-only", action="store_true",
+                    help="with --model-ref: a pack of step 1 alone - Codex draws the design and stops for the user to "
+                         "see it; the actions follow in a pack of their own (--design <the delivery>). garen: the user "
+                         "turned the model read from his original pictures down for its big head (「头这么大？」)")
     ap.add_argument("--ppu", type=float, help="squares per 1x pixel (default: the design's height / the 1x idle's); "
                     "yasuo: 1.5 - his game sheet is PPU 3 with the design's squares 2 x 2 (the face the user took); "
                     "karma: 3 - her head to her soles against the 1x one's (the big jade ring above her head is not "
@@ -236,6 +242,19 @@ def main():
     out = os.path.join(a.out, pack_name)
     if os.path.isdir(out):
         shutil.rmtree(out)
+    if a.model_only:
+        if not a.model_ref:
+            sys.exit("--model-only needs --model-ref")
+        os.makedirs(out)
+        write_model_step(out, hero, ppu, a.px_model, idle, a.model_ref, px, stop=True)
+        readme = [f"# {hero}：只画造型", "",
+                  f"按 `MODEL.md` 画一张造型，交付 `outputs/{hero}-ppu-model/`（最好打成 `{hero}_ppu_model_done.zip`），"
+                  f"**画完就停**：用户先看造型，满意了再另发动作的包。", ""]
+        with open(os.path.join(out, "README.md"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(chr(10).join(readme))
+        shutil.make_archive(os.path.join(a.out, f"{pack_name}_ppu_model"), "zip", out)
+        print(f"{hero}: the design step alone, PPU {ppu:g} -> {a.out}/{pack_name}_ppu_model.zip")
+        return
     for sub in ("design", "now", "guide", "refs"):
         os.makedirs(os.path.join(out, sub))
     up = lambda img, k: np.repeat(np.repeat(img, k, axis=0), k, axis=1)
@@ -350,6 +369,23 @@ def main():
 # the one-shot design step's words per hero: who asked, the top and bottom of the figure, the pose
 MODEL_STEP = {
     "yasuo": {"asked": "「亚索的也可以帮我重做一下整体」「做亚索」"},     # (only the request: his design was already drawn)
+    "garen": {
+        "asked": "「盖伦游戏里还是老模型 ... 你参考亚索那些怎么弄的啊」；看了按原稿读回的那版后「还是变形 修不好了？模型都变形了 "
+                 "还有模型尺寸太大 头这么大？」，选了「照亚索：新造型 + Codex 重画」，又说「盖伦的造型可以换」",
+        "ref_note": "上一版按 GPT 原稿读回的高清造型，只是参考：它的头太大、身子太宽，用户说造型可以换",
+        "top": "头发最高处", "bottom": "靴底", "top_en": "the top of the hair", "bottom_en": "the soles of the boots",
+        "feet_en": "the boot soles",
+        "pose": "**造型可以换**（用户：「盖伦的造型可以换」）：照英雄联盟的盖伦重新设计，盔甲细节和配色不必照参考图。"
+                "**比例照 `model/style_yasuo.png`（亚索）**：头（头顶到下巴）只占身高的三成左右，**不要 Q 版大头**，"
+                "身形结实但不要比亚索宽太多；**站姿照 `model/garen_size_now.png`（现在游戏里的待机）**：3/4 侧前方朝右，"
+                "双脚分开站稳，大剑握在身前、剑尖朝右下方。",
+        "pose_en": "You may redesign him (the user: his look can change): League of Legends' Garen, the armour details "
+                   "and colours need not follow the reference, which is only the previous version. Use the proportions "
+                   "of the image named style_yasuo - the head (top of the hair to the chin) only about 30% of the "
+                   "height, NO big chibi head, a solid build but not much wider than that design - and the POSE of the "
+                   "image named garen_size_now (the hero's current standing pose): 3/4 view facing right, feet apart, "
+                   "the greatsword held low in front of him with its tip pointing down to the right.",
+    },
     "soraka": {
         "asked": "「索拉卡整体模型也重做 帮我整理 包括模型」「直接一步到位」「两个合一起」",
         "ref_note": "你 10 月 9 日画的那张",
@@ -375,8 +411,9 @@ MODEL_STEP = {
 }
 
 
-def write_model_step(out, hero, ppu, mpx, idle, ref, px):
-    """Step 1 of a one-shot pack: the design redrawn from `ref` on a clean grid at the hero's height x PPU."""
+def write_model_step(out, hero, ppu, mpx, idle, ref, px, stop=False):
+    """Step 1 of a one-shot pack: the design redrawn from `ref` on a clean grid at the hero's height x PPU (`stop`: a
+    pack of this step alone - Codex delivers the design and stops)."""
     os.makedirs(os.path.join(out, "model"), exist_ok=True)
     shutil.copyfile(ref, os.path.join(out, "model", f"{hero}_reference.png"))
     for other in ("vladimir", "karma", "ashe", "yasuo"):
@@ -402,11 +439,14 @@ def write_model_step(out, hero, ppu, mpx, idle, ref, px):
     g.save(os.path.join(out, "model", f"{hero}_size_guide.png"))
     look = LOOKS.get(hero, hero)
     m = MODEL_STEP[hero]
-    step = f"""# 第一步：造型（{hero}，画完不要停，直接做第二步）
+    head = (f"# 造型（{hero}，画完就停，等用户确认）" if stop else f"# 第一步：造型（{hero}，画完不要停，直接做第二步）")
+    then = ("画完交付就停：用户先看造型，满意了再另发动作的包。" if stop
+            else "画完**直接用它做第二步**（`PROMPTS.md` 里的动作），中间不用等确认。")
+    step = f"""{head}
 
-> 用户：{m["asked"]}。先照 `model/{hero}_reference.png`（{m["ref_note"]}）重画一张**干净的高清造型**，画完**直接用它做第二步**（`PROMPTS.md` 里的动作），中间不用等确认。
+> 用户：{m["asked"]}。先照 `model/{hero}_reference.png`（{m["ref_note"]}）重画一张**干净的高清造型**，{then}
 
-- **大小**：从{m["top"]}到{m["bottom"]}正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，{m["bottom"]}在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），{m["top"]}在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的她按同样的大小放大的样子——看大小和站位，长相照参考图。
+- **大小**：从{m["top"]}到{m["bottom"]}正好 **{rows} 格**（游戏里现在的 {hero} 高 {ys.max() - ys.min() + 1} 像素，乘 {ppu:g}），每格 **{mpx}×{mpx} 像素**；画布 1024×1536，{m["bottom"]}在第 {feet_row} 行（从上往下数，`model/{hero}_size_guide.png` 的红线），{m["top"]}在蓝线（第 {top_row} 行），人站在画布中间。`model/{hero}_size_now.png` 是现在游戏里的样子按同样的大小放大——看大小和站位，长相照参考图。
 - **{look}**。{m["pose"]}
 - **画法照 `model/style_*.png`**（同一套英雄的高清造型）：干净的像素画，每格一个纯色方块，同一个网格，1 格深色外描边，每种材质 2-4 个色阶，不要抖动、渐变、噪点、抗锯齿、半透明；整张最多 48 色。
 - 交付 `outputs/{hero}-ppu-model/{hero}_design.png`（{mpx} 倍放大，透明底）和 `{hero}_design_1x.png`（1 像素 1 格），生图原稿放 `raw/`。
@@ -415,8 +455,8 @@ def write_model_step(out, hero, ppu, mpx, idle, ref, px):
 Redraw the attached reference character (FIRST image) as a clean, final pixel-art design: {look}. Exactly {rows} squares tall from {m["top_en"]} to {m["bottom_en"]}, every pixel one crisp {mpx}x{mpx} square on a single grid, on a 1024x1536 canvas with {m["feet_en"]} on square row {feet_row} and the character centered. {m["pose_en"]} Match the pixel style of the other attached designs: a 1-square dark outline, 2-4 flat shades per material, no dithering, no gradients, no noise, no anti-aliasing, no semi-transparency, at most 48 colours. Transparent background (if not possible: solid #00FF00 green). No text, no grid lines.
 ```
 
-然后打开 `PROMPTS.md` 做第二步：**附图2 一律用这一步画好的 `{hero}_design.png`**，每格 {px}×{px} 像素——第二步骨架的格子按 {px} 像素一格算，**和这一步的 {mpx} 像素不同时，把造型缩放成 {px} 像素一格再当附图2**（按格子整格缩放，不要插值）。
-"""
+""" + ("" if stop else f"""然后打开 `PROMPTS.md` 做第二步：**附图2 一律用这一步画好的 `{hero}_design.png`**，每格 {px}×{px} 像素——第二步骨架的格子按 {px} 像素一格算，**和这一步的 {mpx} 像素不同时，把造型缩放成 {px} 像素一格再当附图2**（按格子整格缩放，不要插值）。
+""")
     with open(os.path.join(out, "MODEL.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write(step)
 
