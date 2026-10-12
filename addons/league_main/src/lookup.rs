@@ -42,7 +42,7 @@ const FRAME: usize = 20;
 /// vtable entries copied for a texture proxy (drop, size, align and the methods).
 const VTABLE: usize = 48;
 
-static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
+static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::sheets);
 static MODULE: AtomicUsize = AtomicUsize::new(0);
 /// The game build found by src/build.rs (set before any hook goes in).
 static BUILD: OnceLock<&'static Build> = OnceLock::new();
@@ -217,8 +217,10 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
         let fp = q(b + 0x20);
         (plausible(fp) && q(b + 0x28) > 0).then(|| std::ptr::read_unaligned((fp + 8) as *const f32))
     };
-    let idle_hd = format!("{}idle", hd::PREFIX);
-    let (Some(wi), Some(wh)) = (bucket_of(t, b"idle").and_then(first_w), bucket_of(t, idle_hd.as_bytes()).and_then(first_w))
+    // (an effect sheet: its first tag; a drawn effect frame may be grown alike at both ends, a few px wider)
+    let idle_hd = format!("{}{}", hd::PREFIX, hero.check);
+    let (Some(wi), Some(wh)) =
+        (bucket_of(t, hero.check.as_bytes()).and_then(first_w), bucket_of(t, idle_hd.as_bytes()).and_then(first_w))
     else {
         return false;
     };
@@ -226,12 +228,14 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
         if let Ok(mut s) = DONE.lock() {
             s.push((t, ctrl));
         }
-        wlog(format!("{}: anim table {t:#x} is dense already (a copy of a changed one: idle {wi} wide)", hero.id));
+        wlog(format!("{}: anim table {t:#x} is dense already (a copy of a changed one: {} {wi} wide)", hero.id,
+            hero.check));
         return true;
     }
-    if (wh - wi * hero.ppu).abs() > 0.5 {
-        wlog(format!("{}: anim table {t:#x}: idle {wi} wide, hd_idle {wh}: not PPU {} times - left alone", hero.id,
-            hero.ppu));
+    let grow = if hero.effect { 12.0 } else { 0.5 };
+    if wh < wi * hero.ppu - 0.5 || wh > wi * hero.ppu + grow {
+        wlog(format!("{}: anim table {t:#x}: {} {wi} wide, {idle_hd} {wh}: not PPU {} times - left alone", hero.id,
+            hero.check, hero.ppu));
         return false;
     }
     // first everything new, read from the untouched table; then all written at once
@@ -273,9 +277,9 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
     if let Ok(mut s) = DONE.lock() {
         s.push((t, ctrl));
     }
-    let check = match game_find(t, b"idle") {
-        Some(b) => format!("the game finds idle: {}", rect_of(b)),
-        None => "the game does NOT find idle".into(),
+    let check = match game_find(t, hero.check.as_bytes()) {
+        Some(b) => format!("the game finds {}: {}", hero.check, rect_of(b)),
+        None => format!("the game does NOT find {}", hero.check),
     };
     wlog(format!("{}: anim table {t:#x}: {} tags on their dense frames, rects / {}; {check}", hero.id, plan.len(),
         hero.ppu));
@@ -430,9 +434,9 @@ unsafe fn battle_table(t: usize, hero: &Hero) -> Option<usize> {
     if let Ok(mut s) = BATTLE.lock() {
         s.insert(t, (ctrl, sh));
     }
-    let check = match game_find(sh, b"idle") {
-        Some(b) => format!("idle: {}", rect_of(b)),
-        None => "idle NOT found".into(),
+    let check = match game_find(sh, hero.check.as_bytes()) {
+        Some(b) => format!("{}: {}", hero.check, rect_of(b)),
+        None => format!("{} NOT found", hero.check),
     };
     wlog(format!("{}: battlefield table {sh:#x} for {t:#x} (real dense frames); {check}", hero.id));
     Some(sh)
@@ -579,7 +583,7 @@ mod tests {
         let k3 = b"hd_idle".to_vec();
         let f1 = frames(&[[0.0, 0.0, 10.0, 20.0, 0.1]]);
         let f3 = frames(&[[30.0, 60.0, 30.0, 60.0, 0.1]]);
-        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()] };
+        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()], check: "idle".into(), effect: false };
         unsafe {
             let put = |b: usize, key: &Vec<u8>, fr: &Vec<u8>| {
                 let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);
