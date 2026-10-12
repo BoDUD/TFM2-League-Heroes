@@ -17,21 +17,27 @@ back on their own grid the drafts are clean, 84 rows from the blade tips to the 
     square snapped to Codex's 20 colours (letters KEYS);
   * the size: the body at 2:1 - each game square from the 2x2 read-back squares under it (the phase with the fewest
     split blocks; a tie between colours goes to the colour most of its decided neighbours share, so specks follow the
-    shape) - and the head at the drafts' own size, as the pack's other heroes carry a big head;
-  * the head: one head for every frame (design_v2/head.txt), the drafts' 3/4 face looking right with the tiara gem and
-    two-square cyan eyes; the user on the first tries: 「嘴这里凸出来一块有点怪」, 「我说的是这种圆滑一点的」, 「你这替换的
-    也不对啊 你自己做一个自然点的像刀妹的吧」, then on this one 「脸部差不多了 脖子画一个啊」 and, on a two-row neck that
-    lifted the head, 「参考之前codex的图做吧」: the neck as in the draft, one row of skin in shadow under the chin and
-    the red high collar at once. The idle keeps her hand at the cheek (as drawn); the actions use head_nohand.txt,
-    placed from each draft's eyes; lying (the death's last four frames) it is turned a quarter, crown to the right;
+    shape) - and the head at 3/4 of the drafts' own size (2:1 leaves the face as specks);
+  * the head is each frame's own, Codex's (own_head): from the crest to the chin round the draft's face, shrunk to 3/4
+    by dropping whole rows and columns of hair (the rows from the tiara to the eyes and the eye columns kept), set on
+    the 2:1 body at the chin - so a side-on action has her side-on face. One head pasted into every frame (a 3/4 face
+    looking at us, drawn twice the body's scale, then 3/4 of it, with two-square eyes under one dark bar) gave
+    「模型感觉还有点变形吧看起来好奇怪」「身体感觉也变形？」「眼睛画风好奇怪」: a big front-facing head on side-on bodies,
+    the eyes not Codex's. Earlier, on the face: 「脸部差不多了 脖子画一个啊」, then on a two-row neck that lifted the
+    head 「参考之前codex的图做吧」 - the idle's neck is the draft's shadow row under the chin turned to skin in shade
+    (NECK), the collar at once. The eyes' dark cyan becomes t in every pasted head (the importer steadies the run on
+    it); the death's lying frames are read standing (the draft turned a quarter) and turned back;
   * the idle is drawn by hand (the user: 「都给我精修好了 每个部位」): design_v2/body_idle.txt, every 2:1 square decided
-    from its block and the part it belongs to (collar and gem, breastplates, tabard with white edges and its tip, the
-    shoulder hook, the arm hanging to the open hand, the long hair, the hip flaps, knee stars, boots with white ankle
-    bands and toe caps), and the four blades redrawn clean (BLADES), the top and upper-left ones moved out from behind
-    the head; the eight idle frames are that one still figure with each blade bobbing a row, out of step (BOB);
+    from its block of design_v2/idle_readback.txt (the read-back the user liked) and the part it belongs to (collar and
+    gem, breastplates, tabard with white edges and its tip, the shoulder hook, the raised forearm to the hand at her
+    cheek, the arm hanging to the open hand, the long hair, the hip flaps, knee stars, boots with white ankle bands and
+    toe caps), its own head from the same read-back, and the four blades redrawn clean (BLADES), the top and upper-left
+    ones moved out from behind the head; the eight idle frames are that one still figure with each blade bobbing a
+    row, out of step (BOB);
   * the actions: the draft split into its body and the floating blades (the pieces apart from the body), each reduced,
-    a blade the head would cover moved away from it, the outline closed round the silhouette (a clear square next to a
-    coloured one turns ink: the block vote drops the drafts' one-pixel lines).
+    a blade the head would cover moved away from it; the outline stays where the drafts draw it (a block on the
+    silhouette holding outline is outline) - an ink ring added round the silhouette made every limb a square thicker
+    each side (「身体感觉也变形？」); the hair's strand tips, sticks at 2:1, trimmed (trim_spurs).
 Every frame stands with its lowest row on 99 and its standing point on column 64 (the idle: the feet's middle; an
 action: Codex's pivot at the same fraction of the figure's width); cells 112x84, the point at (52, 66).
 """
@@ -87,11 +93,12 @@ BLADES = {
                     (26, 26, "0goo0"), (27, 27, "0bkg0"), (28, 28, "0gg0"), (29, 29, "0gg0"), (30, 29, "0g0"),
                     (31, 30, "00")],
 }
-OFFSET = {"top": (-3, -6), "upper_left": (0, -3), "lower_left": (0, 0), "lower_right": (0, 0)}
+OFFSET = {"top": (-2, -3), "upper_left": (0, -2), "lower_left": (0, 0), "lower_right": (0, 0)}
 BOB = {"upper_left": [0, 0, -1, -1, -1, -1, 0, 0], "top": [0, -1, -1, -1, 0, 0, 0, 0],
        "lower_left": [0, 0, 0, -1, -1, -1, -1, 0], "lower_right": [-1, -1, 0, 0, 0, 0, -1, -1]}
 BODY_AT = (9, 10)                # the idle's 2:1 body square (r, c) -> work square (r + 9, c + 10)
-HEAD_NECK = 16                   # the head table's neck row; in the idle on the work row over the collar (21)
+HEAD_SCALE = 0.75                # the head's size against the drafts' own (the body is at 1/2)
+NECK = {"a": "q"}                # the idle's shadow row under the chin: skin in shade (the user: 「脖子画一个啊」)
 
 
 def table(path):
@@ -202,7 +209,30 @@ def reduce2(L, oy, ox, rounds=3):
                     best = (key, x)
             out[r, c] = best[1]
     out[out == "?"] = "."
+    for r in range(R):                  # a block on the silhouette (1-2 clear squares) holding outline stays outline
+        for c in range(C):
+            blk = [P[2 * r + i, 2 * c + j] for i in range(2) for j in range(2)]
+            if 1 <= blk.count(".") <= 2 and "0" in blk:
+                out[r, c] = "0"
     return out
+
+
+def trim_spurs(L, steps=3):
+    """Hair tips: a navy or outline square with one neighbour (4-way) at the end of a one-square-wide run is cut, up
+    to `steps` squares - the 2:1 vote draws the drafts' fine strand tips as straight sticks."""
+    L = L.copy()
+    for _ in range(steps):
+        op = L != "."
+        n4 = np.zeros(L.shape, int)
+        n4[1:] += op[:-1]
+        n4[:-1] += op[1:]
+        n4[:, 1:] += op[:, :-1]
+        n4[:, :-1] += op[:, 1:]
+        cut = op & (n4 <= 1) & np.isin(L, list("0abcd"))
+        if not cut.any():
+            break
+        L[cut] = "."
+    return L
 
 
 def despeckle(L, passes=2):
@@ -248,8 +278,108 @@ def close_outline(G):
     return out
 
 
+# ------------------------------------------------------------------------------------------------- heads
+def face_box(L):
+    """The draft's face: the topmost skin piece of 8+ squares with cyan beside it (eyes, tiara) in the figure's top
+    45%: (top, bottom, left, right, mask) or None."""
+    ys, _ = np.nonzero(L != ".")
+    top, bot = ys.min(), ys.max()
+    sk = np.isin(L, list("qrs"))
+    near = ndimage.binary_dilation(np.isin(L, list("nop")), np.ones((3, 3)))
+    lab, n = ndimage.label(sk, np.ones((3, 3)))
+    best = None
+    for i in range(1, n + 1):
+        m = lab == i
+        yy, xx = np.nonzero(m)
+        if m.sum() < 8 or yy.min() > top + 0.45 * (bot - top) or not (m & near).any():
+            continue
+        if best is None or yy.min() < best[0]:
+            best = (yy.min(), yy.max(), xx.min(), xx.max(), m)
+    return best
+
+
+def head_mask(L, body, face, fy0, eye_bottom):
+    """The head's squares in the draft: the face (skin of the face piece down to 4 rows under the eyes: an arm held
+    up can join the face's skin), the hair touching it (the navy pieces), the small red / silver / cyan / skin pieces
+    touching those (crest, ornament, tiara, the hand at the cheek: at most 25 squares - a blade or the cape is bigger),
+    and their outline."""
+    chin = eye_bottom + 4
+    f = face.copy()
+    f[chin + 1:] = False
+    k3 = np.ones((3, 3))
+    navy = np.isin(L, list("abcd")) & body
+    lab, n = ndimage.label(navy, k3)
+    near = ndimage.binary_dilation(f, k3)
+    m = f.copy()
+    for i in range(1, n + 1):
+        piece = lab == i
+        if (piece & near).any():
+            m |= piece
+    m[chin + 1:] = False
+    for mat in ("efgh", "ijklm", "nop", "qrs"):
+        lab, n = ndimage.label(np.isin(L, list(mat)) & body & ~m, k3)
+        touch = ndimage.binary_dilation(m, k3)
+        for i in range(1, n + 1):
+            piece = lab == i
+            if piece.sum() <= 25 and (piece & touch).any():
+                m |= piece
+    m[chin + 1:] = False
+    m |= ndimage.binary_dilation(m, k3) & (L == "0") & body
+    m[chin + 1:] = False
+    return m, chin
+
+
+def own_head(L, body):
+    """The draft's own head (head_mask), from 19 rows over the chin, shrunk to HEAD_SCALE by whole-line drops
+    (design_riven.keep_axis: the rows from the tiara to the eyes and the eye columns kept). Returns (head, its box in
+    L, the face's middle column in L, that column in the head, the head's squares in L) or None; the eyes' dark cyan
+    becomes t."""
+    fb = face_box(L)
+    if fb is None:
+        return None
+    fy0, fy1, fx0, fx1, face = fb
+    cyan = np.isin(L, list("nop")) & ndimage.binary_dilation(face, np.ones((3, 3)))
+    cyan[:fy0 + 2] = False                      # the tiara gem sits on the face's top row; the eyes lower
+    if not cyan.any():
+        return None
+    eye_bottom = int(np.nonzero(cyan.any(1))[0].max())
+    hm, chin = head_mask(L, body, face, fy0, eye_bottom)
+    ys, xs = np.nonzero(hm)
+    y0, y1, x0, x1 = ys.min(), min(chin, ys.max()), xs.min(), xs.max()
+    box = np.where(hm[y0:y1 + 1, x0:x1 + 1], L[y0:y1 + 1, x0:x1 + 1], ".")
+    eye = cyan[y0:y1 + 1, x0:x1 + 1]
+    ey, ex = np.nonzero(eye)
+    H, W = box.shape
+    rows = DR.keep_axis([box[r] for r in range(H)], int(round(H * HEAD_SCALE)), list(range(ey.min(), ey.max() + 1)))
+    sub = box[rows]
+    cols = DR.keep_axis([sub[:, c] for c in range(W)], int(round(W * HEAD_SCALE)),
+                        list(range(ex.min(), ex.max() + 1)))
+    head = sub[:, cols].copy()
+    head[eye[np.ix_(rows, cols)] & (head == "n")] = "t"
+    # the drafts' red on the face: by the eyes it read as a red eye (it becomes the brow's dark), under them a mouth
+    # (skin: the user, 「嘴不要」)
+    skin = np.isin(head, list("qrs"))
+    near = ndimage.convolve(skin.astype(int), np.ones((3, 3), int), mode="constant")
+    lowest_eye = np.nonzero((head == "t").any(1))[0].max() if (head == "t").any() else -1
+    for y, x in zip(*np.nonzero(np.isin(head, list("efgh")) & (near >= 2))):
+        head[y, x] = "a" if y <= lowest_eye else "r"
+    fcx = (fx0 + fx1) / 2.0
+    return head, (y0, y1, x0, x1), fcx, int(np.argmin([abs(c + x0 - fcx) for c in cols])), hm
+
+
+def paste_head(G, oh, oy, ox, at):
+    """Set a head from own_head on the work table G: its last row on the 2:1 row of the chin, its face's middle on the
+    2:1 column of the draft's (at = the 2:1 table's place in G). Returns the head's box in G."""
+    head, (y0, y1, x0, x1), fcx, hc = oh[:4]
+    r0 = at[0] + (y1 + oy) // 2 - (head.shape[0] - 1)
+    c0 = at[1] + int(round((fcx + ox) / 2.0)) - hc
+    m = head != "."
+    G[r0:r0 + head.shape[0], c0:c0 + head.shape[1]][m] = head[m]
+    return r0, c0, head.shape[0], head.shape[1]
+
+
 # ------------------------------------------------------------------------------------------------- the idle
-def idle_frame(head, body, k):
+def idle_frame(body, oh, k):
     G = np.full((52, 60), ".", "<U1")
     for name in ("top", "upper_left", "lower_left", "lower_right"):          # behind the body
         oy, ox = OFFSET[name]
@@ -258,55 +388,51 @@ def idle_frame(head, body, k):
                 G[r + BODY_AT[0] + oy + BOB[name][k], c0 + i + BODY_AT[1] + ox] = ch
     m = body != "."
     G[BODY_AT[0]:BODY_AT[0] + body.shape[0], BODY_AT[1]:BODY_AT[1] + body.shape[1]][m] = body[m]
-    r0 = 12 + BODY_AT[0] - HEAD_NECK
-    m = head != "."
-    G[r0:r0 + head.shape[0], 20:20 + head.shape[1]][m] = head[m]
+    paste_head(G, oh, 0, 0, BODY_AT)
     return G
 
 
+def idle_head(rb):
+    lab, n = ndimage.label(rb != ".", np.ones((3, 3)))
+    sizes = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
+    oh = own_head(rb, lab == int(np.argmax(sizes)) + 1)
+    head = oh[0].copy()
+    for c in range(head.shape[1]):          # the neck: the shadow squares under the chin become skin in shade
+        if head[-1, c] in NECK and head[-2, c] in "qrs":
+            head[-1, c] = NECK[head[-1, c]]
+    return (head,) + tuple(oh[1:])
+
+
 # ------------------------------------------------------------------------------------------------- the actions
-def eyes(L):
-    """The draft's eyes: cyan squares touching the topmost face (a skin piece of 8+ squares) in the figure's top 45%."""
-    ys, _ = np.nonzero(L != ".")
-    sk = np.isin(L, list("qrs"))
-    e = np.isin(L, list("nop")) & ndimage.binary_dilation(sk, np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]))
-    e[int(ys.min() + 0.45 * (ys.max() - ys.min())):] = False
-    if not e.any():
-        return None
-    lab, _ = ndimage.label(sk, np.ones((3, 3)))
-    best = None
-    for y, x in zip(*np.nonzero(e)):
-        for dy, dx in N4:
-            if 0 <= y + dy < L.shape[0] and 0 <= x + dx < L.shape[1] and lab[y + dy, x + dx]:
-                k = lab[y + dy, x + dx]
-                if (lab == k).sum() >= 8 and (best is None or y < best[0]):
-                    best = (y, k)
-    if best is None:
-        return None
-    yy, xx = np.nonzero(ndimage.binary_dilation(lab == best[1], np.ones((3, 3))) & e)
-    return float(yy.mean()), float(xx.mean())
-
-
-def action_frame(L, head, lying_head, mode):
-    """mode: "head" (upright head on the eyes), "lying" (the quarter-turned head) or None. Returns the work table,
-    the reduction's box in it (row, col, rows, cols)."""
+def action_frame(L, lying=False):
+    """A draft at game size: body and blades at 2:1, its own head at HEAD_SCALE; a blade the head would cover moved
+    away from it. lying: read standing (the draft turned a quarter, crown up) and turned back. Returns the work table
+    and the 2:1 table's box in it (row, col, rows, cols)."""
+    if lying:
+        G, (r0, c0, H, W) = action_frame(np.rot90(L, 1))
+        Gt = np.rot90(G, -1)
+        return Gt, (c0, G.shape[0] - r0 - H, W, H)
     pad = 24
     oy, ox = best_phase(L)
     lab, n = ndimage.label(L != ".", np.ones((3, 3)))
     sizes = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
     body_id = int(np.argmax(sizes)) + 1
-    body = despeckle(reduce2(np.where(lab == body_id, L, "."), oy, ox))
+    bm = lab == body_id
+    body = trim_spurs(despeckle(reduce2(np.where(bm, L, "."), oy, ox)))
     H, W = body.shape
     G = np.full((H + 2 * pad, W + 2 * pad), ".", "<U1")
+    oh = own_head(L, bm)
     hm = np.zeros(G.shape, bool)
-    hpos = None
-    if mode == "head":
-        e = eyes(L)
-        if e is not None:
-            r0 = int(round((e[0] + oy) / 2.0 + 1.5)) - HEAD_NECK + pad
-            c0 = int(round((e[1] + ox) / 2.0)) - 10 + pad
-            hpos = (r0, c0)
-            hm[r0:r0 + head.shape[0], c0:c0 + head.shape[1]] = head != "."
+    if oh is not None:
+        hp = np.pad(oh[4], ((oy, 2), (ox, 2)))
+        for r in range(H):                      # its 2:1 self goes: every square whose block is half head or more
+            for c in range(W):
+                if hp[2 * r:2 * r + 2, 2 * c:2 * c + 2].sum() >= 2:
+                    body[r, c] = "."
+        probe = np.full(G.shape, ".", "<U1")
+        hr0, hc0, hh, hw = paste_head(probe, oh, oy, ox, (pad, pad))
+        hm = probe != "."
+        hcy, hcx = hr0 + hh / 2.0, hc0 + hw / 2.0
     for i in range(1, n + 1):
         if i == body_id or sizes[i - 1] < 6:
             continue
@@ -316,9 +442,9 @@ def action_frame(L, head, lying_head, mode):
         if not m.any():
             continue
         dy = dx = 0
-        if hpos is not None and (m & hm).sum() > 0.15 * m.sum():
+        if oh is not None and (m & hm).sum() > 0.15 * m.sum():
             ys, xs = np.nonzero(m)
-            vy, vx = ys.mean() - (hpos[0] + 9), xs.mean() - (hpos[1] + 9)
+            vy, vx = ys.mean() - hcy, xs.mean() - hcx
             norm = math.hypot(vy, vx) or 1.0
             for step in range(1, 16):
                 sy, sx = int(round(vy / norm * step)), int(round(vx / norm * step))
@@ -330,19 +456,9 @@ def action_frame(L, head, lying_head, mode):
         sub = np.roll(np.roll(sub, dy, 0), dx, 1)
         G = np.where(sub != ".", sub, G)
     G[pad:pad + H, pad:pad + W] = np.where(body != ".", body, G[pad:pad + H, pad:pad + W])
-    if hpos is not None:
-        m = head != "."
-        G[hpos[0]:hpos[0] + head.shape[0], hpos[1]:hpos[1] + head.shape[1]][m] = head[m]
-    if mode == "lying":
-        ys, xs = np.nonzero(np.isin(G, list("nop")))
-        sel = xs > pad + W * 0.6
-        if sel.any():
-            r0, c0 = int(ys[sel].mean()) - 11, int(xs[sel].mean()) - 5
-        else:       # no eye left in the reduction (the last frame): where it sits a frame before, from the bottom right
-            r0, c0 = pad + H - 16, pad + W - 11
-        m = lying_head != "."
-        G[r0:r0 + lying_head.shape[0], c0:c0 + lying_head.shape[1]][m] = lying_head[m]
-    return close_outline(G), (pad, pad, H, W)
+    if oh is not None:
+        paste_head(G, oh, oy, ox, (pad, pad))
+    return G, (pad, pad, H, W)
 
 
 def place(G, px):
@@ -354,23 +470,20 @@ def place(G, px):
 
 
 def build():
-    head = table(os.path.join(DESIGN, "head.txt"))
-    head_nohand = table(os.path.join(DESIGN, "head_nohand.txt"))
-    lying = np.rot90(head_nohand, k=-1)
     body = table(os.path.join(DESIGN, "body_idle.txt"))
+    oh = idle_head(table(os.path.join(DESIGN, "idle_readback.txt")))
     rb = readbacks()
     frames, ms = {}, {}
-    f0 = idle_frame(head, body, 0)
+    f0 = idle_frame(body, oh, 0)
     ys, xs = np.nonzero(f0 != ".")
     feet = np.nonzero((f0[ys.max() - 2:ys.max() + 1] != ".").any(0))[0]
     mid = (feet.min() + feet.max()) / 2.0
-    frames["idle"] = [place(idle_frame(head, body, k), mid) for k in range(8)]
+    frames["idle"] = [place(idle_frame(body, oh, k), mid) for k in range(8)]
     ms["idle"] = [fr["ms"] for _, fr in rb["idle"]]
     for t in TAGS[1:]:
         res = []
         for k, (L, fr) in enumerate(rb[t]):
-            mode = "lying" if (t == "dead" and k >= 4) else "head"
-            G, (r0, c0, H, W) = action_frame(L, head_nohand, lying, mode)
+            G, (r0, c0, H, W) = action_frame(L, lying=(t == "dead" and k >= 4))
             x0, x1 = fr["bbox"][0], fr["bbox"][2]
             res.append(place(G, c0 + (fr["pivot"][0] - x0) / float(x1 - x0) * W))
         frames[t] = res
