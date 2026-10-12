@@ -16,7 +16,6 @@ lies in 1x pixel (x, y)), so it shows the same size in game at three times the d
 import argparse
 import colorsys
 import json
-import math
 import os
 import sys
 
@@ -43,6 +42,8 @@ X0 = {"idle": 163, "level": 162}           # the tables' column 0: the feet's mi
                                            # table's head is one column right in it)
 SPLIT = 74                                 # table rows from here down are the legs (columns from LEG_COL on)
 LEG_COL = 12
+LEG_ALL = 75                               # table rows from here down are the legs in every column (the coat's panels
+                                           # end above it; left of LEG_COL the near shin and boot sank with the breath)
 BREATH = [0, 1, 3, 3, 3, 3, 2, 1]          # hd rows the upper body sinks in the idle (the 1x frames 3-6 a row down)
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_back", "ult", "hit", "dead"]
 
@@ -69,7 +70,7 @@ RUN_HEAD_LOW = 33                 # level-table row: the chin; the head above it
 RUN_HIPS = (64, 30)               # level-table row and column of the hips' middle (put on League's)
 RUN_PIVOT = 190                   # hd column of the render's standing point
 KNEE_PAD = (75, 82, 12, 20)       # idle-table box of the near knee's pad (its tan squares)
-RUN_HIP_R, RUN_HIP_FILL = 5.5, 9  # the hip's disc radius, rows under the hip filled across (the thigh full there)
+RUN_HIP_R, RUN_HIP_FILL = 5.5, 9  # the hip's disc radius, rows under the hip where the thigh's outline is closed round
 LEG_LIT, LEG_DARK = (131, 51, 86), (99, 37, 71)          # the design's leggings
 FAR_SHADE = 0.72                  # the far leg and boot: every colour this much darker
 SHIN_LOW = 90                     # idle-table row: the shins' last row above the boots (the kneel takes rows out up from it)
@@ -96,6 +97,7 @@ class Rig:
             a = table(name)
             legs = np.zeros(a.shape[:2], bool)
             legs[SPLIT:, LEG_COL:] = True
+            legs[LEG_ALL:] = True
             legs &= a[..., 3] > 0
             up = a.copy()
             up[legs] = 0
@@ -186,8 +188,8 @@ class Rig:
             legs = {}
             for name, m in masks.items():
                 side = "R" if name == "near" else "L"
-                hipx, hipy = RUN_PIVOT + j[side + "_Hip"][0], SOLES - 11 + j[side + "_Hip"][1]
-                kneey = SOLES - 11 + j[side + "_KneeLower"][1]
+                hipx, hipy = RUN_PIVOT + j[side + "_Hip"][0], SOLES - 12 + j[side + "_Hip"][1]
+                kneey = SOLES - 12 + j[side + "_KneeLower"][1]
                 g = np.zeros((SIZE, SIZE, 4), np.uint8)
                 for by in range(ch):
                     for bx in range(cw):
@@ -198,37 +200,38 @@ class Rig:
                         for q in cp[by * z:(by + 1) * z, bx * z:(bx + 1) * z][blk][::3]:
                             c = self.material(q.astype(float))
                             votes[c] = votes.get(c, 0) + 1
-                        X, Y = RUN_PIVOT + bx - px_, SOLES + by - (py_ + 11)
-                        if 0 <= X < SIZE and 0 <= Y < SIZE:
+                        # a row up: the outline under the soles goes on the soles' row (restyle_native's way)
+                        X, Y = RUN_PIVOT + bx - px_, SOLES - 1 + by - (py_ + 11)
+                        if 0 <= X < SIZE and 0 <= Y < SOLES:
                             c = max(votes, key=votes.get)
                             if Y < kneey and c not in (LEG_LIT, LEG_DARK):
                                 c = LEG_LIT                      # above the knee only the leggings (a strap's glint)
                             g[Y, X] = (*c, 255)
                 # the thigh full from the hip: League's leg narrows where it meets the pelvis and, cut there, showed a
-                # neck under the coat's panel (「这里有点变形」): a disc round the hip and each row near it filled across
+                # neck under the coat's panel (「这里有点变形」): a disc round the hip, the thigh's top closed round it
+                # (filled across row by row it made a corner)
                 yy, xx = np.ogrid[:SIZE, :SIZE]
                 disc = ((xx - hipx) ** 2 + (yy - hipy) ** 2 <= RUN_HIP_R ** 2) & (yy >= hipy - 2)
-                g[disc & (g[..., 3] == 0)] = (*LEG_LIT, 255)
-                for y in range(int(hipy), int(hipy) + RUN_HIP_FILL):
-                    xs_ = np.nonzero(g[y, :, 3])[0]
-                    if len(xs_):
-                        row = g[y, xs_.min():xs_.max() + 1]
-                        row[row[:, 3] == 0] = (*LEG_LIT, 255)
+                top = np.zeros(g.shape[:2], bool)
+                top[int(hipy) - 3:int(hipy) + RUN_HIP_FILL] = True
+                m_ = (g[..., 3] > 0) | disc
+                closed = ndimage.binary_closing(m_, structure=np.ones((5, 5)), iterations=1) & top
+                g[(disc | closed) & (g[..., 3] == 0)] = (*LEG_LIT, 255)
                 for _ in range(2):                      # speckles
                     op = g[..., 3] > 0
                     for y, x in list(zip(*np.nonzero(op))):
                         nb = [tuple(g[y + a, x + b, :3]) for a, b in ((0, 1), (0, -1), (1, 0), (-1, 0)) if g[y + a, x + b, 3]]
                         if len(nb) == 4 and len(set(nb)) == 1 and nb[0] != tuple(g[y, x, :3]):
                             g[y, x, :3] = nb[0]
-                op = g[..., 3] > 0                       # a square thicker all round, the edge's own colour
-                grow = ndimage.binary_dilation(op) & ~op
-                grow[SOLES + 1:] = False
+                op = g[..., 3] > 0                       # a square thicker all round, the edge's own colour (not
+                grow = ndimage.binary_dilation(op) & ~op  # onto the soles' row: the outline goes there)
+                grow[SOLES:] = False
                 for y, x in zip(*np.nonzero(grow)):
                     nb = [(y + a, x + b) for a, b in ((0, 1), (0, -1), (1, 0), (-1, 0)) if op[y + a, x + b]]
                     g[y, x] = g[nb[0]]
                 if name == "near":                       # the design's knee pad on League's near knee
                     tmp = np.zeros_like(g)
-                    K.place(tmp, pad, (RUN_PIVOT + j["R_KneeLower"][0] + 1.0, SOLES - 11 + j["R_KneeLower"][1]))
+                    K.place(tmp, pad, (RUN_PIVOT + j["R_KneeLower"][0] + 1.0, SOLES - 12 + j["R_KneeLower"][1]))
                     sel = (tmp[..., 3] > 0) & (g[..., 3] > 0)
                     g[sel] = tmp[sel]
                 m2 = g[..., 3] > 0
@@ -243,7 +246,7 @@ class Rig:
             K.put(c, legs["near"], 0, 0)
             hx, hy = (j["L_Hip"][0] + j["R_Hip"][0]) / 2, (j["L_Hip"][1] + j["R_Hip"][1]) / 2
             dx = int(round(RUN_PIVOT + hx - (X0["level"] + RUN_HIPS[1])))
-            dy = int(round(SOLES - 11 + hy - (TOP + RUN_HIPS[0])))
+            dy = int(round(SOLES - 12 + hy - (TOP + RUN_HIPS[0])))
             K.put(c, K.shifted(upper, dx, dy), 0, 0)
             c[SOLES + 1:] = 0
             frames.append(c)
@@ -252,7 +255,7 @@ class Rig:
             while cut(frames[k], w, h)[1]:
                 frames[k] = K.shifted(frames[k], 0, 1)
                 frames[k][SOLES + 1:] = 0
-        return frames
+        return self.finished(frames)
 
     def run_from_strip(self):
         """The written run strip back on the canvas (the renders are not here)."""
@@ -385,8 +388,8 @@ def main():
     built = {}
     for tag in a.tags.split(","):
         try:
-            # the run read back from its strip is finished already
-            frs = rig.build(tag) if tag == "run" and not rig.renders else rig.finished(rig.build(tag))
+            # the run is finished already (made from the renders, or read back from its strip)
+            frs = rig.build(tag) if tag == "run" else rig.finished(rig.build(tag))
         except KeyError:
             print(f"{tag:12s} not made yet")
             continue
