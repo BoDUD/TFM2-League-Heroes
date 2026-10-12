@@ -73,8 +73,13 @@ def place_idle(design, idle1, k):
     sole = np.nonzero(sk.any(axis=1))[0].max()
     dh, dw = design.shape[:2]
     y0 = sole - dh + 1
-    if y0 < 0 or dw > W:
-        sys.exit(f"the design ({dw}x{dh}) does not fit the idle frame {W}x{H} (soles at row {sole})")
+    if dw > W:
+        sys.exit(f"the design ({dw}x{dh}) is wider than the idle frame {W}x{H}")
+    if y0 < 0:
+        # taller than the frame (karma's jade ring over her head): the frame grown alike at the top and the bottom
+        g = -y0
+        H, y0 = H + 2 * g, 0
+        sk = np.pad(sk, ((g, g), (0, 0)))
     dm = design[..., 3] > 0
     best = max(range(0, W - dw + 1), key=lambda x0: int((sk[y0:y0 + dh, x0:x0 + dw] & dm).sum()))
     out = np.zeros((H, W, 4), np.uint8)
@@ -112,10 +117,9 @@ def main():
                          "where a frame holds them pixel for pixel, the outline of the head Codex drew first and "
                          "pasted over is cleared - parts next to the block in its rows that never reach more than 4 "
                          "pixels from it (「吸血鬼走路有残影？没清理干净吧」); an arm or a claw reaches far")
-    ap.add_argument("--design-run", metavar="NEAR|FAR",
-                    help="the run is the design itself, still, its two legs stepping: each leg = boxes x0-x1:y0-y1 "
-                         "joined by + (the design's squares); vladimir 15-25:73-81|26-34:73-75+26-40:76-81 "
-                         "(Codex's run bodies changed width and arm length frame to frame: 「吸血鬼走路时模型变形」)")
+    ap.add_argument("--design-run", action="store_true",
+                    help="the run is the design itself, its legs stepping (RUN_LEGS; Codex's run bodies changed width "
+                         "and arm length frame to frame: 「吸血鬼走路时模型变形」)")
     ap.add_argument("--same", action="append", default=[], metavar="TAG:I=J",
                     help="frame I of TAG is frame J's drawing, its lowest row on frame I's skeleton's lowest row (a "
                          "drawing that does not match its neighbours; vladimir dead:5=4 dead:6=4 dead:7=4 - Codex drew "
@@ -183,9 +187,7 @@ def main():
                     print(f"{tag}[{i}]: {n} pixels of the old head's outline round the pasted head (cleared)")
     idle = sheet["idle"]
     if a.design_run:
-        boxes = [[tuple(tuple(int(v) * s for v in part.split("-")) for part in box.split(":"))
-                  for box in leg.split("+")] for leg in a.design_run.split("|")]
-        run = design_run(design_s, boxes[0], boxes[1], len(sheet["run"]), s)
+        run = design_run(design_s, RUN_LEGS[hero], len(sheet["run"]), s)
         base, (x0, y0) = place_idle(design_s, idle[0][0], k)
         for i, f in enumerate(run):
             H, W = got["run"][i].shape[:2]
@@ -252,43 +254,78 @@ def clear_head_ghost(fr, design, rows, far=4, allow=5):
     return int(gone.sum())
 
 
-def design_run(design, near, far, n, s=1, stride=2.0, lift=2.0, boot=2):
-    """`n` run frames of the design (as tall, as wide): the body still, the two legs (each a list of boxes
-    ((x0, x1), (y0, y1)), inclusive) stepping half a cycle apart - the foot moved `stride` pixels forward and
-    back and lifted up to `lift` on its way forward. The foot (the leg's rows from `boot` rows under its top) moves as
-    one block; the rows above it lean from the leg's top to the foot. The far leg is behind the body, the near one in front."""
+# The run legs drawn from the design (--design-run): per leg the design's own pixels, row -> (first, last column) -
+# the shin (swung about the knee row: each row moved in proportion) and the boot (from `boot` down, moved whole);
+# `dx` = the foot's range forward and back (the near foot never reaches the far one: 「那走路时候脚也变形了啊」),
+# `phase` = where in the cycle it starts. `lining` = the coat's inside colour left behind the shins inside the coat.
+RUN_LEGS = {
+    "vladimir": {
+        "knee": 69, "boot": 75, "lift": 2, "inside_to": 72, "lining": (0x42, 0x00, 0x12),
+        "legs": [
+            {"name": "far", "phase": 0.5, "dx": (-1, 3),
+             "rows": {70: (27, 31), 71: (27, 31), 72: (28, 32), 73: (29, 31), 74: (29, 31), 75: (28, 32),
+                      76: (28, 33), 77: (27, 34), 78: (27, 37), 79: (27, 38), 80: (27, 39), 81: (27, 39)}},
+            {"name": "near", "phase": 0.0, "dx": (-3, 1),
+             "rows": {70: (17, 22), 71: (18, 22), 72: (18, 22), 73: (18, 21), 74: (18, 21), 75: (17, 21),
+                      76: (17, 21), 77: (16, 22), 78: (16, 22), 79: (15, 23), 80: (15, 23), 81: (15, 23)}},
+        ],
+    },
+}
+
+
+def design_run(design, spec, n, s=1):
+    """`n` run frames of the design: the body as it is (no part of it moves), the legs of `spec` (RUN_LEGS) stepping
+    half a cycle apart. A foot slides back on the ground (dx from its front to its back end) and swings forward in
+    the air (lifted up to `lift`); its shin leans from the knee to it, rows moved in proportion, and shortens as the
+    foot lifts (rows dropped, its top and its bottom kept) - the boot is never drawn over the shin, never cut, never
+    sheared. Far leg first, near leg over it; where a shin was inside the coat the coat's lining shows."""
     H, W = design.shape[:2]
-    op = design[..., 3] > 0
-    legs = []
-    for boxes in (near, far):
-        m = np.zeros((H, W), bool)
-        for (x0, x1), (y0, y1) in boxes:
-            m[y0:y1 + 1, x0:x1 + 1] = op[y0:y1 + 1, x0:x1 + 1]
-        legs.append(m)
-    top = min(min(y0 for _, (y0, _) in b) for b in (near, far))
+    knee, boot, lift = spec["knee"] * s, spec["boot"] * s, spec["lift"] * s
     body = design.copy()
-    body[legs[0] | legs[1]] = 0
+    masks = []
+    for leg in spec["legs"]:
+        m = np.zeros((H, W), bool)
+        for r, (c0, c1) in leg["rows"].items():
+            for k in range(s):
+                m[r * s + k, c0 * s:(c1 + 1) * s] = True
+        m &= design[..., 3] > 0
+        masks.append(m)
+        inside = m.copy()
+        inside[(spec["inside_to"] + 1) * s:] = False
+        body[m] = 0
+        body[inside] = spec["lining"] + (255,)
+    from scipy import ndimage
+    op0 = design[..., 3] > 0
+    holes0 = ndimage.binary_fill_holes(op0) & ~op0
     frames = []
-    span = boot * s
     for i in range(n):
-        out = np.zeros_like(design)
-        layers = []
-        for leg, ph in ((legs[1], i / n + 0.5), (legs[0], i / n)):
-            a = 2 * np.pi * ph
-            dx = stride * s * np.cos(a)
-            up_ = lift * s * max(0.0, np.sin(a))
+        out = body.copy()
+        for leg, m in zip(spec["legs"], masks):
+            a = 2 * np.pi * (i / n + leg["phase"])
+            lo, hi = leg["dx"]
+            dx = ((lo + hi) / 2 + (hi - lo) / 2 * np.cos(a)) * s
+            up_ = lift * max(0.0, -np.sin(a))
             lay = np.zeros_like(design)
-            ys, xs = np.nonzero(leg)
-            for y, x in sorted(zip(ys, xs)):
-                t = min(1.0, (y - top + 1) / (span + 1))
-                ny, nx = int(round(y - up_ * t)), int(round(x + dx * t))
-                if 0 <= ny < H and 0 <= nx < W:
-                    lay[ny, nx] = design[y, x]
-            layers.append(lay)
-        far_l, near_l = layers
-        out[far_l[..., 3] > 0] = far_l[far_l[..., 3] > 0]
-        out[body[..., 3] > 0] = body[body[..., 3] > 0]
-        out[near_l[..., 3] > 0] = near_l[near_l[..., 3] > 0]
+            for y in range(H):
+                xs = np.nonzero(m[y])[0]
+                if not len(xs):
+                    continue
+                t = min(1.0, max(0.0, (y - knee + 1) / (boot - knee + 1)))
+                ny = y - int(np.floor(up_ * t + 0.5))
+                sh = int(np.floor(dx * t + 0.5))
+                ok = (xs + sh >= 0) & (xs + sh < W)
+                if 0 <= ny < H:
+                    lay[ny, xs[ok] + sh] = design[y, xs[ok]]
+            out[lay[..., 3] > 0] = lay[lay[..., 3] > 0]
+        # ground shut in between a moved boot or shin and the coat that the design does not have (a crack, memory
+        # gap-check) takes the lining's shade
+        from scipy import ndimage
+        o = out[..., 3] > 0
+        pockets, n_ = ndimage.label(ndimage.binary_fill_holes(o) & ~o & ~holes0)
+        for v in range(1, n_ + 1):
+            z = pockets == v
+            if z.sum() <= 8 * s * s:
+                out[z] = spec["lining"] + (255,)
         frames.append(out)
     return frames
 
