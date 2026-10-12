@@ -174,6 +174,8 @@
 
 ![诺提勒斯演示：他挥锚砸在德莱厄斯身上，被动的冲击炸开、脚下禁锢；退开后 Q 疏通航道：铁锚飞出钩住德莱厄斯，两人被拉到一起；W+E：身上套起护盾，砸地放出三波地震，德莱厄斯被减速，下一锤溅到他身边；R 深海冲击：砸地放出冲击波，从德莱厄斯脚下（击飞）一路冲到身后的盖伦，爆发后眩晕](docs/preview/league_nautilus_showcase.gif?v=head)
 
+![艾瑞莉娅演示：她的浮刀飞过去砍中德莱厄斯；E 比翼双刃：脚下插下一把刀，两把刀沿着穿过德莱厄斯和盖伦的线合拢，两人被眩晕、头顶打上印记；Q 利刃冲击：冲到带印记的德莱厄斯身上，印记被消耗，立刻再冲向盖伦；她退回去放 W 距破之舞：两把刀护身蓄力，再沿直线斩出一道刀光；R 先锋之刃：刀群飞到德莱厄斯身上炸开，两人减速、打上印记，地上插出一圈刀墙](docs/preview/league_irelia_showcase.gif?v=1012i1)
+
 ![古拉加斯演示：他一拳打在德莱厄斯身上；Q 滚动酒桶：酒桶落在德莱厄斯脚下冒泡，0.75 秒后炸开、脚下一滩酒（减速）；E+W：起步的尘土，肚子撞上去（头顶金星眩晕），扛桶喝酒、身上冒红橙热气，下一拳炸开一圈酒浪；R 爆破酒桶：大酒桶落在身后的盖伦脚下爆炸，两个人都被炸到他这边；每放一个技能先喝一口回血（绿金光点）](docs/preview/league_gragas_showcase.gif?v=1012g4)
 
 ## 英雄：盖伦
@@ -3940,9 +3942,12 @@ python tools/art/import_native.py --hero irelia
 python tools/art/ppu_irelia.py             # PPU 2 的高密度条带（再跑一次 import_native 放进图集）
 python tools/art/import_irelia.py          # 特效
 python addons/league_irelia/make_override.py   # 附加包的副本（主包的艾瑞莉娅改了就重跑）
+python tools/art/preview_irelia.py         # 预览和演示 GIF（她按游戏里的样子画：hd_ 帧、PPU 2、85%）
 ```
 
 美术提示词见 [`assets/source/irelia/`](assets/source/irelia/)（`PROMPTS_FX.md` 是特效）。
+
+逐帧预览：[`docs/preview/league_irelia_frames.png`](docs/preview/league_irelia_frames.png)（1x 和游戏里用的 hd_ 高密度帧），特效：[`docs/preview/league_irelia_effects.png`](docs/preview/league_irelia_effects.png)。
 
 ## 英雄：古拉加斯
 
