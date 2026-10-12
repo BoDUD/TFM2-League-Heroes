@@ -18,7 +18,9 @@ addons/league_nidalee; the pros' combos):
   passive Prowl (寻觅): a javelin or trap hit on an enemy champion hunts it - the `hunted` mark on it for p_t ticks and
           `hunt` on her (p_ms% move speed, League's haste toward the hunted). While `hunt` lasts Pounce reaches
           cw_far (League: 750 against 375), comes back in cw_cd_h ticks and Takedown deals cq_h% more. The data reads
-          only her own buffs, so `hunt` stands for "a champion near is hunted". The add-on adds the brush move speed.
+          only her own buffs, so `hunt` stands for "a champion near is hunted". With native=1 (the add-on's copy) the
+          passive league_nidalee:prowl adds the brush speed: brush_ms% in a bush and brush_t ticks after it,
+          brush_near_ms% with a visible enemy champion within brush_near.
   attack  Human: the javelin thrown at the target (released on a_st). Cougar: the claw (c_atk_st); with Takedown armed
           the bite (c_skill): cq_dmg + cq_ad% AD physical and cq_mdmg + cq_ap% AP magic, x cq_h% while hunting.
   skill   Human: Javelin Toss (标枪投掷), a line (the first unit it meets, a skillshot) toward the target on `EnemyWithoutTower`
@@ -79,6 +81,11 @@ P = {
     "r_cd": 1200, "r_range": 65000, "r_dmg": 100, "r_ap": 60,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # Prowl's brush speed in the add-on (League: +10% 2 s out of brush, +30% toward a visible champion within 1400)
+    "brush_ms": 10, "brush_near_ms": 30, "brush_t": 120, "brush_near": 93000,
+    # 1 = the copy for addons/league_nidalee: passive league_nidalee:prowl (the brush speed); the whole-body cougar and
+    # the javelin's / hunt pounce's targets need nothing in the data
+    "native": 0,
 }
 
 
@@ -338,7 +345,7 @@ def build(p):
                E("w_snap"), E("cw_dust", FX, 1), E("cw_land", BIG, -1, False), E("cw_hit"), E("ce_swipe", BIG, 3),
                E("ce_hit"), E("tf_cougar", BIG, 3), E("tf_human", BIG, 3), E("r_roar", BIG, 3), E("r_hit")]
     views_b = [B_("hunted", FX, 3), B_("e_as", FX, -1), B_("hunt", FX, -1)]
-    return {
+    kit = {
         "id": ID, "category": "Assassin", "tags": ["AP", "Magic", "Range", "Melee", "Heal"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
@@ -349,6 +356,12 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if p["native"]:
+        kit["passive"] = {"passive_ref": "league_nidalee:prowl",
+                          "params": {"brush_ms": p["brush_ms"], "brush_near_ms": p["brush_near_ms"],
+                                     "brush_t": p["brush_t"], "near": p["brush_near"]}}
+        kit["view_buffs"].append(B_("brush", FX, -1))
+    return kit
 
 
 def nodes(o):

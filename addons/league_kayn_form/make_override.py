@@ -133,6 +133,11 @@ def ranges(game):
     for path in sorted(glob.glob(os.path.join(ROOT, "league", "champion", "*.data_champion"))):
         c = load(path)
         out[c["id"]] = c["attack"]["range"]
+    # league_nidalee's attack range is the cougar's melee reach; her human form (the default, every life) adds a
+    # permanent range buff (build_nidalee P h_add), so she counts as ranged
+    sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
+    import build_nidalee
+    out["league_nidalee"] += build_nidalee.P["h_add"]
     return dict(sorted(out.items()))
 
 

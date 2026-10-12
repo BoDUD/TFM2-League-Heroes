@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_nidalee_prowl": {
+        "attack": "【附加包】<#ff9028ff>寻觅<>：标枪或夹子命中英雄将其捕猎<#ffb900ff>4秒<>，期间移速+20%；草丛里和离开后2秒移速+10%（附近有敌方英雄+30%）。出手前按战况切换人形（远程）和美洲狮（近战）形态，切换冷却<#ffb900ff>3秒<>。",
+        "skill": "【附加包】人形：向线上没被挡的英雄投出标枪造成<#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>，飞得越远越高（最多220%）。<#ff9028ff>推倒<>：下次攻击额外造成<#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，对捕猎目标+40%。",
+        "ult": "【附加包】化身美洲狮，重置美洲狮技能，扑向被捕猎或血量最低的英雄造成<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，落地挥击并准备推倒。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_nidalee_prowl": {
+        "attack": "【附加包】<#ff9028ff>穿梭<>：標槍或陷阱命中英雄將其狩獵<#ffb900ff>4秒<>，期間跑速+20%；草叢裡和離開後2秒跑速+10%（附近有敵方英雄+30%）。出手前依戰況切換人形（遠程）和美洲獅（近戰）形態，切換冷卻<#ffb900ff>3秒<>。",
+        "skill": "【附加包】人形：向線上沒被擋的英雄擲出標槍造成<#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>，飛得越遠越高（最多220%）。<#ff9028ff>擊倒<>：下次攻擊額外造成<#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，對狩獵目標+40%。",
+        "ult": "【附加包】化身美洲獅，重置美洲獅技能，撲向被狩獵或血量最低的英雄造成<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，落地揮擊並準備擊倒。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_nidalee_prowl": {
+        "attack": "[Add-on] <#ff9028ff>Prowl<>: javelin and trap hits hunt a champion for <#ffb900ff>4s<> (+20% move speed); in brush and 2s after it +10% move speed (+30% with an enemy champion near). Before each attack she switches between human (ranged) and cougar (melee) as the fight needs, every <#ffb900ff>3s<> at most.",
+        "skill": "[Add-on] Human: throws a javelin at a champion with a clear line for <#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>, more the farther it flies (up to 220%). <#ff9028ff>Takedown<>: her next attack deals <#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>physical<> and <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> more, +40% on the hunted.",
+        "ult": "[Add-on] Turns into the cougar, resets the cougar's abilities and pounces on the hunted or the lowest champion for <#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, then swipes and readies Takedown."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_nidalee_prowl": {
+        "attack": "[애드온] <#ff9028ff>수풀 배회<>: 창이나 덫에 맞은 챔피언을 <#ffb900ff>4초<> 동안 사냥 (이동 속도 +20%); 수풀 안과 나온 뒤 2초 이동 속도 +10% (근처 적 챔피언 +30%). 공격 전에 상황에 따라 인간(원거리)과 쿠거(근접) 형태를 바꾸며, 전환 대기시간 <#ffb900ff>3초<>.",
+        "skill": "[애드온] 인간: 막히지 않은 챔피언에게 창을 던져 <#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>마법 피해<>, 멀리 날수록 증가 (최대 220%). <#ff9028ff>숨통 끊기<>: 다음 공격이 <#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>물리<>와 <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>마법 피해<> 추가, 사냥 대상 +40%.",
+        "ult": "[애드온] 쿠거로 변해 쿠거 스킬을 초기화하고 사냥 대상이나 체력이 가장 낮은 챔피언에게 도약해 <#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, 착지 후 할퀴고 숨통 끊기를 준비."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_nidalee_prowl": {
+        "attack": "【アドオン】<#ff9028ff>品定め<>：槍か虎挟みが当たったチャンピオンを<#ffb900ff>4秒<>狩る（移動速度+20%）；草むらの中と出て2秒移動速度+10%（近くに敵チャンピオンで+30%）。攻撃の前に戦況で人間（遠隔）とクーガー（近接）を切り替え、間隔<#ffb900ff>3秒<>。",
+        "skill": "【アドオン】人間：遮られていないチャンピオンへ槍を投げ<#a974ffff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>、遠いほど増加（最大220%）。<#ff9028ff>テイクダウン<>：次の通常攻撃に<#ff8a65ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<>の<#ff8a65ff>物理<>と<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>、狩る相手に+40%。",
+        "ult": "【アドオン】クーガーに変身しクーガーのスキルをリセット、狩る相手か体力の最も低いチャンピオンへ飛びかかり<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、着地でクロウ、テイクダウン準備。"
+      }
+    }
+  }
+}
