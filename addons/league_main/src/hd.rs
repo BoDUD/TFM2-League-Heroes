@@ -27,11 +27,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// (0.6.0: it logs the display entities that carry an effect's name, to see how the battlefield draws them).
 /// Garen's: the user, 2026-10-12, branch ppu-rebuild: 「导入特效吧」 (the effects redone from the original pictures).
 pub const EFFECTS: &[(&str, f32, &str)] = &[
-    ("league_garen_hits", 2.5, include_str!("../../../league/effects/league_garen_hits#anim.fanim")),
-    ("league_garen_buffs", 2.5, include_str!("../../../league/effects/league_garen_buffs#anim.fanim")),
-    ("league_garen_spin", 2.5, include_str!("../../../league/effects/league_garen_spin#anim.fanim")),
-    ("league_garen_r", 2.5, include_str!("../../../league/effects/league_garen_r#anim.fanim")),
-    ("league_garen_sym", 2.5, include_str!("../../../league/effects/league_garen_sym#anim.fanim")),
+    // none: Garen's dense effects (0.6.0-0.6.1) were drawn 2.5 x too big - the battlefield draws an effect at its
+    // texture's real pixels and src/view.rs scales only hero bodies (the user: 「技能压根没缩小」). Back to 1x (0.6.4).
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -133,9 +130,7 @@ mod tests {
                 assert!(fanim.contains(&format!("\"{}\"", &t[PREFIX.len()..])), "{id}: {t} without its 1x tag");
             }
         }
-        let s = sheets();
-        assert!(s.iter().any(|h| h.effect && h.check == "spark"));
-        assert!(s.iter().filter(|h| !h.effect).all(|h| h.check == "idle"));
+        assert!(sheets().iter().filter(|h| !h.effect).all(|h| h.check == "idle"));
     }
 
     #[test]
