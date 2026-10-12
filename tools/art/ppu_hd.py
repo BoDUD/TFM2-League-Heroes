@@ -47,7 +47,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
-PPU = {"yasuo": 3}
+PPU = {"yasuo": 3, "irelia": 2}
 PREFIX = "hd_"
 HEAD = {
     "yasuo": {"src": "yasuo_head.png", "scale": 2, "at": (75, 30), "box": (8, 22, 24, 37), "keep_row": 20,
@@ -376,6 +376,8 @@ def outside_head(hero, sheet):
     """hd pixels that differ from the 1x frame scaled, far from where its head is (the body must stay the 1x art)."""
     bad = []
     for tag in [t for t in sheet if t.startswith(PREFIX)]:
+        if os.path.isfile(os.path.join(SRC, f"{hero}_{tag[len(PREFIX):]}.png")):
+            continue                    # a drawn strip (league_irelia's): the whole frame is the drawing, not the 1x art
         for i, (b, _) in enumerate(sheet[tag]):
             a = up(sheet[tag[len(PREFIX):]][i][0], PPU[hero])
             diff = np.abs(a.astype(int) - b.astype(int)).max(axis=2) > 0

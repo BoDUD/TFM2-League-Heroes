@@ -141,6 +141,19 @@ def regead(L, head):
     r0 = pad + y1 - chin
     c0 = pad + int(round(fcx - mid))
     put(G, tab, r0, c0)
+    # an arm, hand or blade find_head took with the head (lying by the face): what of it lies 2 or more pixels clear of
+    # the new head and joins a coloured part outside the head (a sleeve going on to the hand, a blade's other half) comes
+    # back with its outline (a lying frame's outstretched hand was left floating, the blade beside her head cut)
+    newm = np.zeros(G.shape, bool)
+    newm[r0:r0 + tab.shape[0], c0:c0 + tab.shape[1]] = tab != "."
+    away = ~ndimage.binary_dilation(newm, iterations=2)[pad:pad + L.shape[0], pad:pad + L.shape[1]]
+    colour = np.isin(L, list("efghijklmnopqrs"))
+    cand = hm & colour & away
+    clab, cn = ndimage.label(cand, np.ones((3, 3)))
+    body_col = ndimage.binary_dilation(colour & ~hm, np.ones((3, 3)))
+    back = np.isin(clab, list(set(np.unique(clab[body_col & cand])) - {0}))
+    back |= ndimage.binary_dilation(back, np.ones((3, 3))) & (L == "0") & hm & away
+    G[pad:pad + L.shape[0], pad:pad + L.shape[1]][back] = L[back]
     # the draft's own head's ornaments, face and crest round the new head (above its chin, where it does not cover
     # them): gone - its hair stays (a second silver clip showed behind the new head's)
     newm = np.zeros(G.shape, bool)
@@ -335,9 +348,37 @@ def action_hd(tag, k, L, fr, head):
     return C2
 
 
-def loose_out(C2, most=6):
-    """Loose bits of up to `most` squares (an outline crumb of a blade the draft's crop cut, a dot left of a head):
-    gone."""
+def tidy(F):
+    """What ppu_hd.strays calls leftovers in a dense frame (亚索's 「像素缺失了啊」「别留多余的像素」): a pocket of ground
+    of up to 40 pixels shut in by the figure (between hair strands, an arm and the body) takes the commonest colour
+    round it; a pixel sticking out alone (6 or more of its 8 neighbours clear: a 1-pixel spur on a tip) goes, until none is left."""
+    F = F.copy()
+    op = F != "."
+    holes = ndimage.binary_fill_holes(op) & ~op
+    lab, n = ndimage.label(holes)
+    for i in range(1, n + 1):
+        m = lab == i
+        if m.sum() > 40:
+            continue
+        ring = ndimage.binary_dilation(m) & ~m
+        vals, cnt = np.unique(F[ring], return_counts=True)
+        F[m] = vals[np.argmax(cnt)]
+    for _ in range(40):
+        op = F != "."
+        p = np.pad(op, 1)
+        clear = sum((~p[1 + a:1 + a + op.shape[0], 1 + c:1 + c + op.shape[1]]).astype(int)
+                    for a in (-1, 0, 1) for c in (-1, 0, 1) if a or c)
+        spur = op & (clear >= 6)
+        if not spur.any():
+            break
+        F[spur] = "."
+    return F
+
+
+def loose_out(C2, most=39):
+    """Loose bits under 40 squares (an outline crumb of a blade the draft's crop cut, a dot left of a head, the hand of
+    lying death frame 5 whose forearm runs under the new head): gone - ppu_hd.strays calls a part under 40 pixels a
+    speck."""
     lab, n = ndimage.label(C2 != ".", np.ones((3, 3)))
     sizes = ndimage.sum(np.ones_like(lab), lab, range(1, n + 1))
     for i, sz in enumerate(sizes, 1):
@@ -377,7 +418,7 @@ def build():
             else:
                 L, fr = rb[tag][k]
                 C2 = action_hd(tag, k, L, fr, head)
-            frames.append(cut(loose_out(C2), w, h))
+            frames.append(tidy(cut(loose_out(C2), w, h)))
         out[tag] = frames
     return out
 

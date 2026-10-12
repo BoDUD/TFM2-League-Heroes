@@ -1626,7 +1626,7 @@ def main():
         if hero in PPU_HD.PPU:
             made = PPU_HD.add_hd(hero, sheet)
             print(f"league/champions/league_{hero}: hd_ tags for the main pack's dense frames (PPU {PPU_HD.PPU[hero]}; "
-                  f"drawn {', '.join(made['drawn']) or 'none'}, test {', '.join(made['test']) or 'none'})")
+                  f"drawn {', '.join(made['drawn']) or 'none'}, scaled {', '.join(made['scaled']) or 'none'})")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         for name, fsheet in forms.items():
             fw, fh = G.write_sheet(os.path.join(MOD, "champions", f"league_{name}"), fsheet)
