@@ -46,6 +46,10 @@ LEG_ALL = 75                               # table rows from here down are the l
                                            # end above it; left of LEG_COL the near shin and boot sank with the breath)
 BREATH = [0, 1, 3, 3, 3, 3, 2, 1]          # hd rows the upper body sinks in the idle (the 1x frames 3-6 a row down)
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_back", "ult", "hit", "dead"]
+SCALE = 1.05                               # league.dll draws her this much bigger, about her pivot (addons/league_main
+                                           # hd.rs SIZES; the user: 「等等泽丽感觉游戏里有点小」, 105% from the size sheet)
+RAISE = round(34.5 * (1 - 1 / SCALE))      # so every frame is drawn this many hd rows higher and the soles stay on the
+                                           # ground (34.5: the soles' bottom edge under the frame's centre, 11.5 1x px)
 
 # the run, League's (「跑步全部重画 还原LOL的」「不要腿部有任何变形」「你不会自己做一个自然一点的？」): the legs are
 # League's own legs in its run, every frame - rendered from League's model nearly from the side with the coat, the
@@ -265,7 +269,7 @@ class Rig:
             c = np.zeros((SIZE, SIZE, 4), np.uint8)
             x0, y0 = CENTRE[0] - (w - 1) // 2, CENTRE[1] - (h - 1) // 2
             c[PPU * y0:PPU * y0 + PPU * h, PPU * x0:PPU * x0 + PPU * w] = s[:PPU * h, x:x + PPU * w]
-            frames.append(c)
+            frames.append(K.shifted(c, 0, RAISE))  # back down: raised() lifts every frame again
             x += PPU * w + 1
         return frames
 
@@ -365,6 +369,14 @@ def cut(frame, w, h):
     return inside, lost
 
 
+def raised(frame, w, h):
+    """The frame RAISE rows up (SCALE); a frame in the air with no room over it in its box only as far as it fits."""
+    g = K.shifted(frame, 0, -RAISE)
+    while cut(g, w, h)[1]:
+        g = K.shifted(g, 0, 1)
+    return g
+
+
 def strip(frames):
     W = sum(f.shape[1] for f in frames) + len(frames) - 1
     H = max(f.shape[0] for f in frames)
@@ -393,7 +405,7 @@ def main():
         except KeyError:
             print(f"{tag:12s} not made yet")
             continue
-        cuts = [cut(f, w, h) for f, (w, h) in zip(frs, sizes[tag])]
+        cuts = [cut(raised(f, w, h), w, h) for f, (w, h) in zip(frs, sizes[tag])]
         assert len(frs) == len(sizes[tag]), (tag, len(frs), len(sizes[tag]))
         built[tag] = [c for c, _ in cuts]
         print(f"{tag:12s}", " ".join(f"{i + 1}:{c.shape[1]}x{c.shape[0]}" + (f" LOST {n}" if n else "")
