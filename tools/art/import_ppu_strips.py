@@ -107,6 +107,11 @@ def main():
     ap.add_argument("--delivery", required=True, help="Codex's folder: cells.json and the <hero>_<tag>_<n>.png images")
     ap.add_argument("--design", help="the design, 1 px per square (default: the pack's design/<hero>_design_1x.png)")
     ap.add_argument("--scale", type=int, default=1, help="game pixels per drawn square (yasuo: 2)")
+    ap.add_argument("--head-rows", type=int, default=0,
+                    help="the design's top rows Codex pasted whole into the frames (vladimir: 35, head and collar): "
+                         "where a frame holds them pixel for pixel, the outline of the head Codex drew first and "
+                         "pasted over is cleared - parts next to the block in its rows that never reach more than 4 "
+                         "pixels from it (「吸血鬼走路有残影？没清理干净吧」); an arm or a claw reaches far")
     ap.add_argument("--same", action="append", default=[], metavar="TAG:I=J",
                     help="frame I of TAG is frame J's drawing, its lowest row on frame I's skeleton's lowest row (a "
                          "drawing that does not match its neighbours; vladimir dead:5=4 dead:6=4 dead:7=4 - Codex drew "
@@ -166,6 +171,12 @@ def main():
         got[tag][i] = same_as(got[tag][j], got[tag][i].shape[:2], sheet[tag][i][0], k)
         print(f"{tag}[{i}]: frame {j}'s drawing, on its own skeleton's lowest row")
     design_s = up(design, s)
+    if a.head_rows:
+        for tag in got:
+            for i in got[tag]:
+                n = clear_head_ghost(got[tag][i], design_s, a.head_rows * s)
+                if n:
+                    print(f"{tag}[{i}]: {n} pixels of the old head's outline round the pasted head (cleared)")
     idle = sheet["idle"]
     fr, at = place_idle(design_s, idle[0][0], k)
     got["idle"] = {i: fr for i in range(len(idle))}
@@ -180,6 +191,42 @@ def main():
         want = [(round(f.shape[1] * k), round(f.shape[0] * k)) for f, _ in frames]
         write_strip(hero, tag, [have[i] for i in range(len(frames))], want)
         print(f"assets/source/ppu/{hero}_{tag}.png: {len(frames)} frames")
+
+
+def clear_head_ghost(fr, design, rows, far=4, allow=5):
+    """Where `fr` holds the design's top `rows` (its opaque pixels) exactly: clear the other parts in those rows
+    that keep within `far` pixels of the block (at most `allow` pixels beyond). -> pixels cleared."""
+    from scipy import ndimage
+    ys, xs = np.nonzero(design[..., 3] > 0)
+    t = design[ys.min():ys.min() + rows]
+    ty, tx = np.nonzero(t[..., 3] > 0)
+    want = t[ty, tx].astype(int)
+    H, W = fr.shape[:2]
+    at = None
+    for dy in range(-ty.min(), H - ty.max()):
+        for dx in range(-tx.min(), W - tx.max()):
+            if (fr[ty + dy, tx + dx].astype(int) == want).all():
+                at = (dx, dy)
+                break
+        if at:
+            break
+    if at is None:
+        return 0
+    dx, dy = at
+    M = np.zeros((H, W), bool)
+    M[ty + dy, tx + dx] = True
+    band = np.zeros((H, W), bool)
+    band[max(0, dy):dy + rows] = True
+    rest = (fr[..., 3] > 0) & ~M & band
+    lab, n = ndimage.label(rest, structure=np.ones((3, 3)))
+    dist = ndimage.distance_transform_edt(~M)
+    gone = np.zeros((H, W), bool)
+    for v in range(1, n + 1):
+        z = lab == v
+        if int((dist[z] > far).sum()) <= allow:
+            gone |= z
+    fr[gone] = 0
+    return int(gone.sum())
 
 
 def same_as(src, shape, one, k):
