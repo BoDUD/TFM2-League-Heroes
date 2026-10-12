@@ -41,27 +41,28 @@ ID = "league_gragas"
 FX = "asset/league/effects/league_gragas_fx"
 BIG = "asset/league/effects/league_gragas_big"
 
-# Timings (placeholders until the strips are drawn): the punch lands on tick 10, the barrel leaves the hand on tick 12,
-# the charge starts on tick 4 of skill2 and the drink is its tail, the cask is thrown on tick 14.
+# Timings from the strips (assets/source/gragas/codex_strips2, gragas_cells.json): the punch lands on frame 3 (tick 8 of
+# 24), the barrel leaves the hand on frame 3 (tick 9 of 25), the charge starts on tick 4 of skill2 and slams on frame 3
+# (tick 8), the drink is frames 5-7 (from tick 17 of 44), the cask is hurled on frame 3 (tick 10 of 28).
 P = {
     # stats (Melee tank: attack 80 +6, hp 1100 +120, defence 40, mr 30); League's Gragas: 640 +115 hp, 64 AD +3.5,
     # 38 armour, 32 mr, 330 move, 125 range - an AP tank jungler like league_amumu and league_malphite
     "hp": 1150, "hp_g": 120, "atk": 72, "atk_g": 6, "mp": 30, "mp_g": 15, "def": 40, "def_g": 9, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 10,
     # attack: a punch
-    "atk_range": 25000, "atk_dur": 26, "atk_cd": 70, "a_st": 10,
+    "atk_range": 25000, "atk_dur": 24, "atk_cd": 70, "a_st": 8,
     # passive Happy Hour (League: 5.5% max health on a spell cast, 12 s)
     "p_heal": 55, "p_heal3": 85, "p_ap": 20, "p_cd": 720,
     # Q Barrel Roll (League: 850 range, radius 250, 80-240 + 70% AP, slow 40-60% 2 s, cooked 2 s at most, cd 11-6 s)
-    "q_cd": 420, "q_range": 58000, "q_dur": 28, "q_at": 12, "q_fly": 22, "q_wait": 45, "q_r": 19000,
+    "q_cd": 420, "q_range": 58000, "q_dur": 25, "q_at": 9, "q_fly": 22, "q_wait": 45, "q_r": 19000,
     "q_dmg": 95, "q_ratio": 70, "q_slow": 40, "q_slow_t": 120,
     # E Body Slam (League: 600 dash at 900, 80-260 + 60% AP, stun 1 s, cd 14-12 s, 40% back on a hit)
     "e_cd": 600, "e_range": 42000, "e_dur": 44, "e_at": 4, "e_speed": 3200, "e_tick": 12, "e_r": 20000,
     "e_dmg": 85, "e_ratio": 60, "e_stun": 60, "e_refund": 66, "e_combo": 120,
     # W Drunken Rage (League: 10-30% damage reduction 2.5 s; the next attack 7% max health + 20-170 + 70% AP, r 250)
-    "w_at": 26, "w_dr": 20, "w_dr_t": 150, "w_t": 300, "w_r": 17000, "w_dmg": 55, "w_ratio": 50, "w_hp": 6,
+    "w_at": 17, "w_dr": 20, "w_dr_t": 150, "w_t": 300, "w_r": 17000, "w_dmg": 55, "w_ratio": 50, "w_hp": 6,
     # R Explosive Cask (League: 1000 range, radius 350, 200-400 + 80% AP, knock-back 900, cd 100-70 s)
-    "r_cd": 3000, "r_range": 70000, "r_dur": 36, "r_at": 14, "r_fly": 16,
+    "r_cd": 3000, "r_range": 70000, "r_dur": 28, "r_at": 10, "r_fly": 16,
     "r_r": 26000, "r_dmg": 200, "r_ratio": 80, "r_grab": 3000, "r_grab_t": 12,
     
     # his spoken lines, at most one every vo_gap ticks

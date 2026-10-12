@@ -47,7 +47,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 # hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same
-PPU = {"yasuo": 3}
+PPU = {"yasuo": 3, "gragas": 2}   # gragas: dense strips drawn by tools/art/ppu_gragas.py (assets/source/ppu)
 PREFIX = "hd_"
 HEAD = {
     "yasuo": {"src": "yasuo_head.png", "scale": 2, "at": (75, 30), "box": (8, 22, 24, 37), "keep_row": 20,

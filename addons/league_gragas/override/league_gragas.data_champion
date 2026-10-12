@@ -41,9 +41,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_gragas.attack",
-    "duration": 26,
+    "duration": 24,
     "cooltime": 70,
-    "start_timing": 10,
+    "start_timing": 8,
     "cancelable": true,
     "range": 25000,
     "casting_type": "Targeting",
@@ -143,7 +143,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_gragas.skill",
-    "duration": 28,
+    "duration": 25,
     "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
@@ -247,7 +247,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 12,
+          "tick": 9,
           "effects": [
             {
               "type": "Sfx",
@@ -675,7 +675,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 26,
+          "tick": 17,
           "effects": [
             {
               "type": "RandomTarget",
@@ -773,7 +773,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_gragas_aim.ult",
-    "duration": 36,
+    "duration": 28,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -881,7 +881,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 14,
+          "tick": 10,
           "effects": [
             {
               "type": "Native",
