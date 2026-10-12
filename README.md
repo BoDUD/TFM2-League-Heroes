@@ -236,7 +236,7 @@ python tools/art/preview_garen.py         # 写出 docs/preview 里的预览图�
 
 通用部分在 skill 的 `scripts/strips.py`，以后做别的英雄可以直接用。
 
-逐帧预览（高清帧）：[`docs/preview/league_garen_frames.png`](docs/preview/league_garen_frames.png)，特效：[`docs/preview/league_garen_effects.png`](docs/preview/league_garen_effects.png)。
+逐帧预览（高清帧）：[`docs/preview/league_garen_frames.png`](docs/preview/league_garen_frames.png)，特效：[`docs/preview/league_garen_effects.png`](docs/preview/league_garen_effects.png)。改成 PPU 3 新造型之前和之后（游戏里的大小，旁边是德莱厄斯）：[`docs/preview/league_garen_before_after.gif`](docs/preview/league_garen_before_after.gif)。
 
 ## 英雄：艾希
 
