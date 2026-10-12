@@ -637,6 +637,13 @@
         "skill": "扔出酒桶，落地<#ffb900ff>0.75秒<>后爆炸，周围敌人受到<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>2秒<>。",
         "skill2": "冲向敌人，撞到第一个敌人停下：周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>眩晕1秒<>，撞中返还部分冷却。<#ff9028ff>醉酒狂暴<>：随后喝酒，<#ffb900ff>2.5秒<>内受到伤害降低20%，下次普攻对周围敌人造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，英雄另受6%最大生命真实伤害。",
         "ult": "向一名敌方英雄扔出爆破酒桶：周围敌人受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，并被<#ef5350ff>炸飞<>到古拉加斯这边。"
+      },
+      "league_irelia": {
+        "name": "艾瑞莉娅",
+        "attack": "被动<#ff9028ff>艾欧尼亚热诚<>：Q命中或技能命中英雄时获得1层，每层攻速+11%，最多<#ffb900ff>4层6秒<>；满层时普攻额外造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<><#ff9028ff>物理伤害<>。",
+        "skill": "冲向目标造成<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并回复10 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>13%生命。目标带<#ff9028ff>印记<>或被击杀时立刻再冲一次，一次最多<#ffb900ff>3段<>。",
+        "skill2": "两把飞刃合拢，路线上的敌人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>眩晕0.75秒<>，英雄被<#ff9028ff>印记<>。冷却时贴身改用<#ff9028ff>距破之舞<>：蓄力减免50%普攻伤害，再斩出<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理伤害<>。",
+        "ult": "射出刃群，碰到英雄炸开，扇形内敌人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理伤害<>、<#ef5350ff>减速70%并缴械1秒<>，英雄被<#ff9028ff>印记<>；留下刃墙<#ffb900ff>2.5秒<>，墙内敌人减速40%。"
       }
     },
     "skill_name": {
@@ -1094,6 +1101,11 @@
         "skill1": "滚动酒桶",
         "skill2": "肉弹冲击",
         "ult": "爆破酒桶"
+      },
+      "league_irelia": {
+        "skill1": "利刃冲击",
+        "skill2": "比翼双刃",
+        "ult": "先锋之刃"
       }
     }
   },
@@ -1735,6 +1747,13 @@
         "skill": "扔出酒桶，落地<#ffb900ff>0.75秒<>後爆炸，周圍敵人受到<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>2秒<>。",
         "skill2": "衝向敵人，撞到第一個敵人停下：周圍敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩1秒<>，撞中返還部分冷卻。<#ff9028ff>醉酒狂暴<>：隨後喝酒，<#ffb900ff>2.5秒<>內受到傷害降低20%，下次普攻對周圍敵人造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，英雄另受6%最大生命真實傷害。",
         "ult": "向一名敵方英雄扔出爆破酒桶：周圍敵人受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，並被<#ef5350ff>炸飛<>到古拉格斯這邊。"
+      },
+      "league_irelia": {
+        "name": "伊瑞莉雅",
+        "attack": "被動<#ff9028ff>愛歐尼亞狂熱<>：Q命中或技能命中英雄時獲得1層，每層攻速+11%，最多<#ffb900ff>4層6秒<>；滿層時普攻額外造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<><#ff9028ff>物理傷害<>。",
+        "skill": "衝向目標造成<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並回復10 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>13%生命。目標帶<#ff9028ff>印記<>或被擊殺時立刻再衝一次，一次最多<#ffb900ff>3段<>。",
+        "skill2": "兩把飛刃合攏，路線上的敵人受到<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>暈眩0.75秒<>，英雄被<#ff9028ff>印記<>。冷卻時貼身改用<#ff9028ff>不屈祕舞<>：蓄力減免50%普攻傷害，再斬出<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理傷害<>。",
+        "ult": "射出刃群，碰到英雄炸開，扇形內敵人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<><#ff9028ff>物理傷害<>、<#ef5350ff>緩速70%並繳械1秒<>，英雄被<#ff9028ff>印記<>；留下刃牆<#ffb900ff>2.5秒<>，牆內敵人緩速40%。"
       }
     },
     "skill_name": {
@@ -2192,6 +2211,11 @@
         "skill1": "滾動酒桶",
         "skill2": "肉彈衝擊",
         "ult": "爆破酒桶"
+      },
+      "league_irelia": {
+        "skill1": "利刃衝擊",
+        "skill2": "無瑕重刃",
+        "ult": "護劍化形"
       }
     }
   },
@@ -2833,6 +2857,13 @@
         "skill": "Rolls a barrel that bursts <#ffb900ff>0.75s<> after it lands: <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> round it and a <#ef5350ff>40% slow<> for <#ffb900ff>2s<>.",
         "skill2": "Charges and stops on the first enemy in his way: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> round him and a <#ef5350ff>1s stun<>; a hit returns part of the cooldown. <#ff9028ff>Drunken Rage<>: then he drinks - 20% less damage for <#ffb900ff>2.5s<>, and his next attack deals <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> round him, champions also 6% max health as true damage.",
         "ult": "Hurls his cask at an enemy champion: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> round it, and the enemies are <#ef5350ff>blown toward him<>."
+      },
+      "league_irelia": {
+        "name": "Irelia",
+        "attack": "Passive <#ff9028ff>Ionian Fervor<>: Bladesurge hits and spell hits on champions grant a stack of +11% Attack Speed (max <#ffb900ff>4<>, <#ffb900ff>6s<>). At full stacks her attacks deal <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> <#ff9028ff>physical damage<> more.",
+        "skill": "Dashes to the target, dealing <#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> and healing 10 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>13%. If the target was <#ff9028ff>Marked<> or dies, she dashes again at once, up to <#ffb900ff>3<> dashes a cast.",
+        "skill2": "Two blades converge: enemies between take <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> and are <#ef5350ff>stunned 0.75s<>; champions are <#ff9028ff>Marked<>. On cooldown, up close she uses <#ff9028ff>Defiant Dance<>: a guard taking 50% less attack damage, then a strike for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>physical damage<>.",
+        "ult": "Fires blades that burst on the first champion: enemies in the cone take <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<> <#ff9028ff>physical damage<>, are <#ef5350ff>slowed 70% and disarmed 1s<>, champions <#ff9028ff>Marked<>. A blade wall stays <#ffb900ff>2.5s<>, slowing enemies inside 40%."
       }
     },
     "skill_name": {
@@ -3290,6 +3321,11 @@
         "skill1": "Barrel Roll",
         "skill2": "Body Slam",
         "ult": "Explosive Cask"
+      },
+      "league_irelia": {
+        "skill1": "Bladesurge",
+        "skill2": "Flawless Duet",
+        "ult": "Vanguard's Edge"
       }
     }
   },
@@ -3931,6 +3967,13 @@
         "skill": "술통을 굴려 착지 <#ffb900ff>0.75초<> 후 폭발, 주변 적에게 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ffb900ff>2초<> <#ef5350ff>40% 둔화<>.",
         "skill2": "적에게 돌진해 처음 부딪힌 적에서 멈춤: 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1초 기절<>, 적중 시 재사용 대기시간 일부 반환. <#ff9028ff>취중 분노<>: 이어서 술을 마셔 <#ffb900ff>2.5초<> 동안 받는 피해 20% 감소, 다음 기본 공격이 주변 적에게 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>, 챔피언은 최대 체력 6% 고정 피해 추가.",
         "ult": "적 챔피언에게 술통을 던져 주변 적에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>그라가스 쪽으로 날려 보냄<>."
+      },
+      "league_irelia": {
+        "name": "이렐리아",
+        "attack": "기본 지속 효과 <#ff9028ff>아이오니아의 열정<>: 칼날 쇄도 적중, 스킬의 챔피언 적중마다 공격 속도 +11% 중첩(최대 <#ffb900ff>4<>, <#ffb900ff>6초<>). 최대 중첩 시 기본 공격이 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>의 <#ff9028ff>물리 피해<>를 추가로.",
+        "skill": "대상에게 돌진해 <#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, 체력 10 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>13% 회복. 대상이 <#ff9028ff>표식<> 상태거나 죽으면 즉시 다시 돌진(한 번에 최대 <#ffb900ff>3<>회).",
+        "skill2": "두 칼날이 모여 사이의 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75초 기절<>, 챔피언에 <#ff9028ff>표식<>. 재사용 대기 중 근접하면 <#ff9028ff>저항의 춤<>: 받는 기본 공격 피해 50% 감소 후 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>의 <#ff9028ff>물리 피해<>.",
+        "ult": "칼날이 첫 챔피언에서 터져 부채꼴의 적에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>70% 둔화·1초 무장 해제<>, 챔피언에 <#ff9028ff>표식<>. 칼날 벽이 <#ffb900ff>2.5초<> 남아 안의 적 40% 둔화."
       }
     },
     "skill_name": {
@@ -4388,6 +4431,11 @@
         "skill1": "술통 굴리기",
         "skill2": "몸통 박치기",
         "ult": "술통 폭발"
+      },
+      "league_irelia": {
+        "skill1": "칼날 쇄도",
+        "skill2": "쌍검협무",
+        "ult": "선봉진격검"
       }
     }
   },
@@ -5029,6 +5077,13 @@
         "skill": "タルを転がし、着地<#ffb900ff>0.75秒<>後に爆発。周囲の敵に<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>2秒<><#ef5350ff>40%スロウ<>。",
         "skill2": "敵に突進し最初に当たった敵で止まる：周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒スタン<>、命中時CD一部回復。<#ff9028ff>飲みすぎ注意<>：続けて飲み、<#ffb900ff>2.5秒<>間被ダメージ20%軽減、次の通常攻撃が周囲の敵に<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、チャンピオンには最大体力の6%確定ダメージ。",
         "ult": "敵チャンピオンにタルを投げつけ、周囲の敵に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>を与え、<#ef5350ff>グラガスの方へ吹き飛ばす<>。"
+      },
+      "league_irelia": {
+        "name": "イレリア",
+        "attack": "パッシブ<#ff9028ff>アイオニアの熱情<>：瞬刃の命中、スキルのチャンピオン命中ごとに攻撃速度+11%（最大<#ffb900ff>4<>、<#ffb900ff>6秒<>）。最大時、通常攻撃が<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の<#ff9028ff>物理ダメージ<>を追加。",
+        "skill": "対象へダッシュし<#ff9028ff>38<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、体力10 + <i#asset/base/ui/banpick/champion_stat_icon:ad_0>13%回復。対象が<#ff9028ff>マーク<>付きか倒れると即座に再ダッシュ（1回で最大<#ffb900ff>3<>回）。",
+        "skill2": "2本の刃が合わさり間の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒スタン<>、チャンピオンに<#ff9028ff>マーク<>。CD中、近くでは<#ff9028ff>不屈の舞<>：通常攻撃のダメージ50%軽減後、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>の<#ff9028ff>物理ダメージ<>。",
+        "ult": "刃が最初のチャンピオンで炸裂、扇状の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>70%スロウと1秒武装解除<>、チャンピオンに<#ff9028ff>マーク<>。刃の壁が<#ffb900ff>2.5秒<>残り、内側の敵に40%スロウ。"
       }
     },
     "skill_name": {
@@ -5486,6 +5541,11 @@
         "skill1": "タル転がし",
         "skill2": "ボディスラム",
         "ult": "ワシの奢りじゃ！"
+      },
+      "league_irelia": {
+        "skill1": "瞬刃",
+        "skill2": "無欠の連舞",
+        "ult": "先陣の刃"
       }
     }
   }

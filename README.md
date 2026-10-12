@@ -2,9 +2,9 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。英雄都是数据；从 0.97.0 起主包带一个自己的 DLL（`league.dll`，源码 [`addons/league_main`](addons/league_main/src/lib.rs)，`mod.mod_info` 是 `contains_code` / `native`，订阅时游戏会提示这是代码 mod），只做数据做不到的一件事：高清帧（见下）。DLL 只在它认得的游戏版本上挂钩（[`build.rs`](addons/league_main/src/build.rs) 逐字节核对每一处要改、要调用的代码，现在认得 0.6.3 的 Windows 版；用户：「就是你要兼容0.6.3和0.7」），别的版本（比如 0.7 测试版）什么都不改，英雄照旧画 1 倍的帧。
 
-高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索 PPU 3、古拉加斯 PPU 2、泽丽 PPU 3（画成 105%）、弗拉基米尔 PPU 2、卡尔玛 PPU 3）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 3 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：身体是 1 倍帧整 3 倍放大；头换成 Codex 画的那张帅脸，每格 2×2，一格不丢，所有动作同一张脸；泽丽（0.99.0）每一帧都是画的，[`tools/art/ppu_zeri.py`](tools/art/ppu_zeri.py) 从按 Codex 原画读出的高清造型摆出来，见她的一节）。游戏里画出来大小不变、像素细 3 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 3，贴图报的宽高也除以 3，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/3。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。弗拉基米尔、卡尔玛的高清帧是 Codex 照高清造型逐帧重画的（用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」）：[`tools/art/pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) 把现在的动作帧按 PPU 放大成「骨架」，连同造型打包给 Codex（也可以一个包两步：先照一张图画造型，再画全部动作），[`tools/art/import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把交付按格子读回、按锚点放回帧里，写成 `assets/source/ppu/<英雄>_<动作>.png`，`ppu_hd.py` 当画好的高清帧读。
+高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索 PPU 3、古拉加斯 PPU 2、泽丽 PPU 3（画成 105%）、弗拉基米尔 PPU 2、卡尔玛 PPU 3、艾瑞莉娅 PPU 2、艾希 PPU 5.4571）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：亚索最早是身体 1 倍帧整 3 倍放大、头换成 Codex 画的那张帅脸，现在整套是 Codex 重画的，见他的一节；泽丽（0.99.0）每一帧都是画的，[`tools/art/ppu_zeri.py`](tools/art/ppu_zeri.py) 从按 Codex 原画读出的高清造型摆出来，见她的一节）。游戏里画出来大小不变、像素细 PPU 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 PPU，贴图报的宽高也除以 PPU，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/PPU（佛耶戈附身高清英雄时按他身体用的那套图认，一样缩）。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。弗拉基米尔、卡尔玛、艾希、亚索的高清帧是 Codex 照高清造型逐帧重画的（用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」）：[`tools/art/pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) 把现在的动作帧按 PPU 放大成「骨架」，连同造型打包给 Codex（也可以一个包两步：先照一张图画造型，再画全部动作），[`tools/art/import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把交付按格子读回、按锚点放回帧里，写成 `assets/source/ppu/<英雄>_<动作>.png`，`ppu_hd.py` 当画好的高清帧读。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）、辛德拉（`league_syndra`）、佛耶戈（`league_viego`）、泽丽（`league_zeri`）、诺提勒斯（`league_nautilus`）、古拉加斯（`league_gragas`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。第 87 位是中单辛德拉（法师）。第 88 位是打野佛耶戈（战士）。第 89 位是 ADC 泽丽（射手）。第 90 位是辅助诺提勒斯（坦克）。第 92 位是打野古拉加斯（坦克）。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）、莎弥拉（`league_samira`）、派克（`league_pyke`）、格温（`league_gwen`）、卡兹克（`league_khazix`）、布兰德（`league_brand`）、图奇（`league_twitch`）、萨勒芬妮（`league_seraphine`）、雷克顿（`league_renekton`）、莉莉娅（`league_lillia`）、维克托（`league_viktor`）、霞（`league_xayah`）、璐璐（`league_lulu`）、弗拉基米尔（`league_vladimir`）、雷恩加尔（`league_rengar`）、克格莫（`league_kogmaw`）、劫（`league_zed`）、卡尔玛（`league_karma`）、奥拉夫（`league_olaf`）、赫卡里姆（`league_hecarim`）、德莱文（`league_draven`）、泰隆（`league_talon`）、慎（`league_shen`）、赛娜（`league_senna`）、辛德拉（`league_syndra`）、佛耶戈（`league_viego`）、泽丽（`league_zeri`）、诺提勒斯（`league_nautilus`）、艾瑞莉娅（`league_irelia`）、古拉加斯（`league_gragas`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信、中单泽拉斯、ADC 莎弥拉、辅助派克。第十四组有上单格温、打野卡兹克、中单布兰德、ADC 图奇、辅助萨勒芬妮。第十五组有上单雷克顿、打野莉莉娅、中单维克托、ADC 霞（洛的搭档，有联动）、辅助璐璐。用户 10 月 8 日改了名单：泽拉斯是第十三组的中单，布兰德换到第十四组。第 76 位是上单法师弗拉基米尔（用户选的上单）。第 79 位是 ADC 克格莫（射手）。第 80 位是辅助卡尔玛（功能型）。第 81 位是上单奥拉夫（战士）。第 82 位是打野赫卡里姆（战士）。第 84 位是 ADC 德莱文（射手）。第 83 位是中单泰隆（刺客）。第 85 位是上单慎（坦克）。第 86 位是辅助赛娜（射手）。第 87 位是中单辛德拉（法师）。第 88 位是打野佛耶戈（战士）。第 89 位是 ADC 泽丽（射手）。第 90 位是辅助诺提勒斯（坦克）。第 91 位是上单艾瑞莉娅（战士）。第 92 位是打野古拉加斯（坦克）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）、阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）和布兰德的 E→Q（烈火燃烧接火焰烙印，清线交给 W 烈焰之柱）、劫的 W（影分身，一次施放接鬼斩和诸刃）、诺提勒斯的 Q（疏通航道，铁锚钩人）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手；赛娜的 W 也一样，射程内有敌方英雄时朝英雄射；辛德拉的 W 也一样，射程内有敌方英雄时把法球掷向英雄、接着朝他推 E，Q 在 E 冷却好时也先砸英雄）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -174,6 +174,8 @@
 
 ![诺提勒斯演示：他挥锚砸在德莱厄斯身上，被动的冲击炸开、脚下禁锢；退开后 Q 疏通航道：铁锚飞出钩住德莱厄斯，两人被拉到一起；W+E：身上套起护盾，砸地放出三波地震，德莱厄斯被减速，下一锤溅到他身边；R 深海冲击：砸地放出冲击波，从德莱厄斯脚下（击飞）一路冲到身后的盖伦，爆发后眩晕](docs/preview/league_nautilus_showcase.gif?v=head)
 
+![艾瑞莉娅演示：她的浮刀飞过去砍中德莱厄斯；E 比翼双刃：脚下插下一把刀，两把刀沿着穿过德莱厄斯和盖伦的线合拢，两人被眩晕、头顶打上印记；Q 利刃冲击：冲到带印记的德莱厄斯身上，印记被消耗，立刻再冲向盖伦；她退回去放 W 距破之舞：两把刀护身蓄力，再沿直线斩出一道刀光；R 先锋之刃：刀群飞到德莱厄斯身上炸开，两人减速、打上印记，地上插出一圈刀墙](docs/preview/league_irelia_showcase.gif?v=1012i2)
+
 ![古拉加斯演示：他一拳打在德莱厄斯身上；Q 滚动酒桶：酒桶落在德莱厄斯脚下冒泡，0.75 秒后炸开、脚下一滩酒（减速）；E+W：起步的尘土，肚子撞上去（头顶金星眩晕），扛桶喝酒、身上冒红橙热气，下一拳炸开一圈酒浪；R 爆破酒桶：大酒桶落在身后的盖伦脚下爆炸，两个人都被炸到他这边；每放一个技能先喝一口回血（绿金光点）](docs/preview/league_gragas_showcase.gif?v=1012g4)
 
 ## 英雄：盖伦
@@ -243,6 +245,7 @@ python tools/art/preview_garen.py         # 写出 docs/preview 里的预览图�
 | 修正（W 加宽） | 玩家觉得 W 窄。箭雨从 9 支、±28° 改成 13 支、±42°（间隔还是 7°），最后一帧箭尖从左右 35 像素展开到 50 像素，和实际打中的范围（中线左右 60 像素）对得上。判定和伤害都没改，击杀差不变。也试了加宽判定（SDK 模拟，对原版射手 gunner、soldier、archer、gambler）：宽 45000 / 55000 / 60000 / 70000 时，每次 W 命中英雄 0.68 / 0.76 / 0.84 / 0.92 个（每档 72 局），艾希伤害 11307 / 11576 / 11694 / 11951，团队击杀差 +2.40 / +2.58 / +2.26 / +2.03（每档 576 局；同一套数据两批种子差 0.9，都在噪声里）。判定本来就比画面宽，所以没加 |
 | 去掉 | E「鹰击长空」：侦察视野，团战经理2 没有战争迷雾 |
 | 精灵图 | 9 个动作 56 帧：待机、跑步、普攻、Q 连射、Q 发动、W、R、受击、死亡。身高 34 px（含兜帽），和原版一样是 Q 版大头，兜帽不遮脸，蓝眼睛在游戏里看得见。全部正面 3/4 朝右，同一套造型；除受击外，每个动作都按英雄联盟原版动画的时间点渲染姿势参考后生成，首尾帧是原版「待机 ↔ 动作」的过渡姿势。之后按游戏原尺寸重画了一次（18 色，见[下文](#按游戏原尺寸重画拉克丝艾希)） |
+| 高清帧（PPU 5.4571） | Codex 照高清造型逐帧重画全部动作（用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」，交付后「艾希codex不是做完了吗？」「你选一个吧 最合适的」），`import_ppu_strips.py` 读回。每帧用 Codex 自己画的头：把造型的头贴进去，拉弓的帧不对（Codex 把这些帧的头和身体画小了，贴上去头太大、盖住拉弦的手，Q 第 2 帧方向反了）。这批交付的格子停在鞋底上方 2 行，每帧整体下移，落到待机的鞋底上（`--sole-fix`）。弓帧里分开的蓝色短线是弓弦。Codex 画小了 3%～16% 的 11 帧另有补画包（`ashe_fix`），交付后换上 |
 | 特效 | 冰霜箭、W 扇形箭雨（用冰霜箭按 13 个角度拼成，±42°；最初是 9 个角度、±28°，玩家觉得窄；GPT 画的扇形只有 8 支箭、箭长不一，没采用）、Q 连射、命中冰花、Q 专注光环、R 水晶箭、R 命中冰冻 |
 | 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
 | 音频 | 从本地客户端提取的 9 条技能音效和 2 条中文语音（Q、W；国服语音包里 R 没有语音）。不提交到仓库，按下面的命令在本地生成 |
@@ -251,6 +254,8 @@ python tools/art/preview_garen.py         # 写出 docs/preview 里的预览图�
 python tools/lol/extract_ashe.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
 python tools/art/import_ashe.py           # 特效：原图在 assets/source/ashe/，提示词见 ashe/PROMPTS.md
 python tools/art/import_native.py --hero ashe   # 角色图：按游戏原尺寸重画的版本，在 assets/source/native/
+python tools/art/import_ppu_strips.py --hero ashe --delivery <Codex 交付的 ashe-ppu-strips> --sole-fix   # 高清帧
+python tools/art/ppu_hd.py --hero ashe
 python tools/art/preview_ashe.py
 ```
 
@@ -464,6 +469,7 @@ python tools/art/preview_amumu.py
 | 连招 | 用户要求（0.42.9）：「亚索也加点连招」「永恩也是」「小鱼人也顺便加一点连招」。和李青、阿卡丽一样，每个连招由用掉的那个技能自己打出来，不锁技能栏：**R Q**——狂风绝息斩斩击落地后（第 29 tick）接一记较轻的环状出剑（25000 内 15 + 50% 攻击力，是 Q 的一半，也不叠层）；**Q3 E Q**——Q3 的旋风击飞敌方英雄后 2.5 秒内放 E，冲刺第 10 tick 自动环状出剑（就是冲刺中放 Q 的效果，不用 Q：Q3 刚用掉）。两记环状出剑都不耗 Q，所以比 Q 轻：按 Q 的全额 30 + 100% 还叠层时，亚索中路击杀差从 +2.30 涨到 +3.16（720 局），伤害多约 5%。原来就有的 EQ / EQ3 不变。模拟 12 局：R Q 33 次（每次大招都接上），Q3 E Q 4 次。强度（中路对 5 个原版法师，两批各 720 局）：旧版 +2.30 / +3.16，连招版 +2.65 / +2.89，强度不变。 |
 | 修正（0.15.0） | 剑意的护盾写在 `WithSelf` 里（见迦娜一节后的说明）：普攻和 E 是对敌人施放的，护盾也给了被打的敌人；Q 是方向施法，护盾谁也没给。改成只给自己后亚索明显变强：SDK 对战模拟（打中路，对 5 个原版中单，两边、三套队友阵容各 24 局）团队击杀差 +2.06 → +3.16；护盾降到 40 + 40%、剑意改成 15 秒充满后是 +2.30（只降护盾到 40 + 40% 是 +2.67，30 + 30% 是 +2.84） |
 | 精灵图 | 10 个动作 68 帧：待机、跑步、普攻、Q 突刺、Q3 放旋风、EQ 环形斩、E 冲刺、R、受击、死亡。身体按头顶到脚底 30 px 画、头保持原来的大小（马尾另外往上翘），20 色，动作全部取自英雄联盟原版动画 |
+| 高清帧（PPU 3） | Codex 照高清造型（每个 1 倍像素 1.5 格）逐帧重画全部 62 帧（用户：「亚索的也可以帮我重做一下整体」，交付后「完成亚索」；第一轮生图中途断了，EQ 第 6 帧、R 前 3 帧和死亡在原包里补齐），`import_ppu_strips.py` 逐格读回、放大 2 倍（每格 2×2）。每个站着的帧贴上造型的脸和发顶，所有动作同一张脸；不贴马尾（Codex 每帧马尾形状不同，贴造型的会出现两条）。脸的位置在整帧里找（肤色权重 ×3，朝左的帧镜像着找）；鞋底移到待机的鞋底上（这批格子停在鞋底上方）；躺着的死亡第 6、7 帧保留 Codex 的头。待机就是造型 |
 | 特效 | 普攻命中、Q 突刺的风、Q 命中、旋风烈斩就绪、Q3 旋风、击飞、EQ 环形斩、EQ3 环形击飞、E 命中、剑意护盾、R 连斩 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 4 条中文语音（Q、Q3、E、R）。不提交到仓库，按下面的命令在本地生成 |
@@ -473,6 +479,8 @@ python tools/lol/extract_yasuo.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstr
 python tools/lol/native_pose.py assets/source/yasuo/poses.json --out <渲染文件夹> --alpha --parts
 python tools/art/restyle_native.py assets/source/yasuo/poses.json --renders <渲染文件夹>   # 角色图
 python tools/art/import_native.py --hero yasuo     # 套用 yasuo_retouch.json
+python tools/art/import_ppu_strips.py --hero yasuo --delivery <Codex 交付的 yasuo-ppu-strips> --scale 2 --paste-head 27 --head-region "12-17:44-62+18-26:49-62" --head-match "11-26:45-62" --head-search 0 --sole-fix --no-head dead:5,6   # 高清帧
+python tools/art/ppu_hd.py --hero yasuo
 python tools/art/import_yasuo.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/kit/yasuo_combos.py   # 连招写进技能数据（只跑一次，--check 查）
 python tools/fix/fix_yasuo_q3_stamps.py   # Q3 旋风沿路逐格盖章，任何方向都是正的（只跑一次，--check 查）
@@ -3924,6 +3932,40 @@ python addons/league_nautilus/make_override.py   # 钩墙附加包的副本（�
 - 特效：17 张用 Codex 的游戏尺寸版逐格切。
 
 逐帧预览：[`docs/preview/league_nautilus_frames.png`](docs/preview/league_nautilus_frames.png)，特效：[`docs/preview/league_nautilus_effects.png`](docs/preview/league_nautilus_effects.png)。
+
+
+## 英雄：艾瑞莉娅
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（Melee，标签 AD / Melee / CC / Heal），第 91 位英雄。刀锋舞者 艾瑞莉娅：用意念驱动身边浮着的四把刀（用户的造型：「英雄联盟里面刀妹是通过意念驱动身后的武器来攻击的」），Q 冲刺遇到印记或击杀就再冲，E 两刀合拢眩晕一条线，R 刀群打中英雄后炸开、缴械，留下一圈刀墙。用户的选择：技能都按推荐（W 并进 E 的技能位、Q 的真实刷新做成附加包） |
+| 普攻 | 浮刀飞过去砍一下，攻击距离 25000，第 8 tick 命中，攻击间隔 62 tick |
+| 被动 | 「艾欧尼亚热诚」：Q 每打中一个单位、E / W / R 每打中一个英雄叠一层，每层攻速 +11%，最多 4 层 360 tick（6 秒）；满层时普攻额外造成 12 + 20% 攻击力物理伤害，身边的刀发青光 |
+| 技能1 | Q「利刃冲击」：冷却 420 tick（7 秒），冲向 45000 内的敌人（小兵野怪也算），38 + 80% 攻击力物理伤害并回复 10 + 13% 攻击力生命；目标带印记（E、R 打中的英雄）或被这一下打死时立刻再冲一段（先找被控的英雄，再找英雄，再找最近的单位），一次施放最多 3 段。主包里印记和击杀是近似判断（数据读不到目标身上的 buff）；附加包 [`addons/league_irelia`](addons/league_irelia/README.md)（在附加包合集里）换成真实印记和真实击杀，还会借能一刀打死的小兵跳向英雄 |
+| 技能2 | E「比翼双刃」：冷却 720 tick（12 秒），对 50000 内的敌方英雄放，一把刀插在她脚边、一把在目标身后，第 18 tick 会合：从她穿过目标长 80000 的一条线上，敌人受到 60 + 80% 攻击力物理伤害并眩晕 45 tick（0.75 秒），英雄被打上印记（5 秒）。E 冷却时这个技能位放 W「距破之舞」：冷却 720 tick，蓄力 32 tick（期间受到的普攻伤害减半），再沿直线 55000 斩出一刀，40 + 115% 攻击力物理伤害 |
+| 大招 | R「先锋之刃」：冷却 3600 tick（60 秒），两个敌方英雄在 70000 内或一个英雄被控时立刻放，否则蓄着等普攻时再判；刀群（每 tick 6000，飞 85000）碰到第一个英雄停下炸开：身后 35000 的扇形里敌人受到 120 + 85% 攻击力物理伤害、减速 70% 并缴械 60 tick，英雄被打上印记；再留下半径 30000 的刀墙 150 tick（2.5 秒），墙里的敌人减速 40%。R 放出后若 E 好了，紧接着对射程内的英雄放 E |
+| 数值 | 攻击 85（+17）、生命 980（+102）、护甲 32（+8）、魔抗 25（+4）、移速 1000（+11），攻击间隔 62 tick。对战模拟（上路对 6 个基础上单 × 3 套阵容 × 两边 × 两批各 24 个种子，每局 600 秒；用户：「然后你跑平衡吧」）：第一版击杀差 −0.28，明显比本包其他上单弱（鳄鱼 +1.43、格温 +1.32、剑姬 +1.40，两批平均）；Q、E、R、W 倍率、被动攻速、Q 回血、攻击和生命一起加强后 +1.67 / +1.29（平均 +1.48），对 6 个对手都占优（最低对 lancer +0.5） |
+| 精灵图 | 9 个动作 51 帧，Codex 照用户的新造型（浮刀、空手）重画的动作稿，在原稿自己的网格上读回（84 行，用户：「这个最完美」），按 2:1 缩成游戏尺寸，再逐帧对着原稿手修（`assets/source/irelia/design_v2/frames/`）。所有帧用同一张正脸（「在正脸的基础上 做后续的run动作不就行了吗」「剑姬卡密尔都没单独做侧面啊」），脸按原稿 1:1 保留、只压缩头发；待机是手画的身体，四把刀错开上下浮动；跑步是待机的上半身配交叉步的腿（女警、泽丽的做法）|
+| 高密度帧 | 主包的 PPU（league.dll）：刀妹 PPU 2，`hd_<动作>` 直接用 Codex 原稿（读回 84 行，正好是 1x 的两倍），头身比例照原稿，所有帧贴同一张 idle 原稿的脸；跑步照 1x 的做法用原稿的上半身配交叉步的腿（`tools/art/ppu_irelia.py` → `assets/source/ppu/irelia_<动作>.png`，`tools/art/ppu_hd.py` 放进她的图集） |
+| 特效 | Codex 生图的 18 张（游戏尺寸版逐格切，`import_irelia.py`；E、W 的线和 R 的刀群上下对称，其余左右对称）：都是她自己的刀和绯红、青色的光——普攻 / 满层被动 / Q / E / W / R 的打中、满层青光、印记、眩晕、E 脚下出手和两刀会合的线、W 护身的两把刀 / 出手 / 刀光、R 飞出的刀群、刀墙和两种减速 |
+| 音效 | 英雄联盟的音效和配音，版权属于 Riot Games，**不提交到仓库**，本地生成 |
+
+重新生成：
+
+```bash
+python tools/kit/build_irelia.py           # 技能数据，数字都在脚本的参数表 P 里
+python tools/kit/setup_irelia.py           # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/strips_irelia.py          # 动作：读回 Codex 的动作稿、2:1、贴脸、读入手修的帧；--base 写出自动底稿
+python tools/art/import_native.py --hero irelia
+python tools/art/ppu_irelia.py             # PPU 2 的高密度条带（再跑一次 import_native 放进图集）
+python tools/art/import_irelia.py          # 特效
+python addons/league_irelia/make_override.py   # 附加包的副本（主包的艾瑞莉娅改了就重跑）
+python tools/art/preview_irelia.py         # 预览和演示 GIF（她按游戏里的样子画：hd_ 帧、PPU 2）
+```
+
+美术提示词见 [`assets/source/irelia/`](assets/source/irelia/)（`PROMPTS_FX.md` 是特效）。
+
+逐帧预览：[`docs/preview/league_irelia_frames.png`](docs/preview/league_irelia_frames.png)（1x 和游戏里用的 hd_ 高密度帧），特效：[`docs/preview/league_irelia_effects.png`](docs/preview/league_irelia_effects.png)。
 
 ## 英雄：古拉加斯
 
