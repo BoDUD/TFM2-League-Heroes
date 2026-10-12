@@ -56,26 +56,26 @@ BIG = "asset/league/effects/league_irelia_big"
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Irelia:
     # 65 AD +4 (bonus AS 2.5%), 630 +115 hp, 36 armour, 335 move, attack speed 0.656, range 200
-    "hp": 960, "hp_g": 102, "atk": 80, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
+    "hp": 980, "hp_g": 102, "atk": 85, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     # attack
     "atk_range": 25000, "atk_dur": 22, "atk_cd": 62, "atk_st": 8,
     # passive: Ionian Fervor (League: 4 stacks 6 s, +7.5-15% AS each (30-60%), full: 7-19 + 20% bonus AD magic on hit)
-    "p_n": 4, "p_t": 360, "p_as": 9, "p_dmg": 12, "p_ratio": 20,
+    "p_n": 4, "p_t": 360, "p_as": 11, "p_dmg": 12, "p_ratio": 20,
     # skill: Q Bladesurge (League: 600 range, 5-105 + 60% AD, heal 9-14% AD, dash 1400 + MS, cd 11-3 s, refresh on a
     # marked target or a kill)
-    "q_cd": 420, "q_range": 45000, "q_dur": 16, "q_speed": 5000, "q_dmg": 25, "q_ratio": 70, "q_heal": 10,
-    "q_heal_r": 12, "q_n": 3, "q_gap": 6, "q_poll": 150, "q_k": 12,
+    "q_cd": 420, "q_range": 45000, "q_dur": 16, "q_speed": 5000, "q_dmg": 38, "q_ratio": 80, "q_heal": 10,
+    "q_heal_r": 13, "q_n": 3, "q_gap": 6, "q_poll": 150, "q_k": 12,
     # skill2: E Flawless Duet (League: 775, 30-270 + 80% AP magic, stun 0.75 s, mark 5 s, cd 16-10 s) with W Defiant
     # Dance (League: 1.5 s charge, 50% physical damage reduction, 10-60 -> 30-180 + 120% AD at full charge, cd 20-10 s)
     "s2_cd": 300, "e_cd": 720, "e_range": 50000, "e_dur": 22, "e_rel": 18, "e_len": 80000, "e_w": 5000,
-    "e_dmg": 50, "e_ratio": 60, "e_stun": 45, "mark_t": 300,
+    "e_dmg": 60, "e_ratio": 80, "e_stun": 45, "mark_t": 300,
     "w_cd": 720, "w_dur": 44, "w_charge": 32, "w_dr": 50, "w_len": 55000, "w_w": 6000,
-    "w_dmg": 40, "w_ratio": 110, "w_line_t": 16,
+    "w_dmg": 40, "w_ratio": 115, "w_line_t": 16,
     # ult: R Vanguard's Edge (League: 1000 range, speed 2000, 125-375 + 70% AP magic, mark 5 s, wall 2.5 s: slow 90%
     # 1.5 s + disarm on crossing, cd 125/105/85 s)
     "r_cd": 3600, "r_slot": 70000, "r_count": 70000, "r_reach": 55000, "r_arm": 600, "r_hold": 180, "r_anim": 26,
-    "r_rel": 10, "r_speed": 6000, "r_range": 85000, "r_r": 8000, "r_cone": 35000, "r_cos": 700, "r_dmg": 110,
-    "r_ratio": 80, "r_slow": 70, "r_slow_t": 60, "r_dis": 60, "r_wall": 30000, "r_wall_t": 150, "r_wper": 10,
+    "r_rel": 10, "r_speed": 6000, "r_range": 85000, "r_r": 8000, "r_cone": 35000, "r_cos": 700, "r_dmg": 120,
+    "r_ratio": 85, "r_slow": 70, "r_slow_t": 60, "r_dis": 60, "r_wall": 30000, "r_wall_t": 150, "r_wper": 10,
     "r_wslow": 40,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

@@ -15,9 +15,9 @@
     "asset/league/icons/league_irelia_ult"
   ],
   "stat": {
-    "attack": 80,
+    "attack": 85,
     "magic_power": 0,
-    "hp": 960,
+    "hp": 980,
     "defence": 32,
     "magic_resistance": 25,
     "move_speed": 1000,
@@ -344,8 +344,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "Attack",
-                                        "damage": 110,
-                                        "attack_ratio": 80,
+                                        "damage": 120,
+                                        "attack_ratio": 85,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"
@@ -451,7 +451,7 @@
                                                         "tick": 360
                                                       }
                                                     },
-                                                    "attack_speed_mult": 36
+                                                    "attack_speed_mult": 44
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -479,7 +479,7 @@
                                                               "tick": 360
                                                             }
                                                           },
-                                                          "attack_speed_mult": 36
+                                                          "attack_speed_mult": 44
                                                         },
                                                         "only_to_enemy": false
                                                       },
@@ -510,7 +510,7 @@
                                                             "tick": 360
                                                           }
                                                         },
-                                                        "attack_speed_mult": 27
+                                                        "attack_speed_mult": 33
                                                       },
                                                       "only_to_enemy": false
                                                     }
@@ -535,7 +535,7 @@
                                                               "tick": 360
                                                             }
                                                           },
-                                                          "attack_speed_mult": 18
+                                                          "attack_speed_mult": 22
                                                         },
                                                         "only_to_enemy": false
                                                       }
@@ -550,7 +550,7 @@
                                                           "tick": 360
                                                         }
                                                       },
-                                                      "attack_speed_mult": 9
+                                                      "attack_speed_mult": 11
                                                     },
                                                     "only_to_enemy": false
                                                   }
@@ -852,8 +852,8 @@
                 "end_effects": [
                   {
                     "type": "Attack",
-                    "damage": 25,
-                    "attack_ratio": 70,
+                    "damage": 38,
+                    "attack_ratio": 80,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -861,7 +861,7 @@
                   {
                     "type": "Heal",
                     "amount": 10,
-                    "attack_ratio": 12,
+                    "attack_ratio": 13,
                     "ap_ratio": 0,
                     "heal_type": "Caster"
                   },
@@ -1000,7 +1000,7 @@
                                           "tick": 360
                                         }
                                       },
-                                      "attack_speed_mult": 36
+                                      "attack_speed_mult": 44
                                     },
                                     "only_to_enemy": false
                                   }
@@ -1028,7 +1028,7 @@
                                                 "tick": 360
                                               }
                                             },
-                                            "attack_speed_mult": 36
+                                            "attack_speed_mult": 44
                                           },
                                           "only_to_enemy": false
                                         },
@@ -1059,7 +1059,7 @@
                                               "tick": 360
                                             }
                                           },
-                                          "attack_speed_mult": 27
+                                          "attack_speed_mult": 33
                                         },
                                         "only_to_enemy": false
                                       }
@@ -1084,7 +1084,7 @@
                                                 "tick": 360
                                               }
                                             },
-                                            "attack_speed_mult": 18
+                                            "attack_speed_mult": 22
                                           },
                                           "only_to_enemy": false
                                         }
@@ -1099,7 +1099,7 @@
                                             "tick": 360
                                           }
                                         },
-                                        "attack_speed_mult": 9
+                                        "attack_speed_mult": 11
                                       },
                                       "only_to_enemy": false
                                     }
@@ -1280,8 +1280,8 @@
                                                     "end_effects": [
                                                       {
                                                         "type": "Attack",
-                                                        "damage": 25,
-                                                        "attack_ratio": 70,
+                                                        "damage": 38,
+                                                        "attack_ratio": 80,
                                                         "hp_ratio": 0,
                                                         "target_hp_ratio": 0,
                                                         "attack_effect_type": "Target"
@@ -1289,7 +1289,7 @@
                                                       {
                                                         "type": "Heal",
                                                         "amount": 10,
-                                                        "attack_ratio": 12,
+                                                        "attack_ratio": 13,
                                                         "ap_ratio": 0,
                                                         "heal_type": "Caster"
                                                       },
@@ -1450,8 +1450,8 @@
                                                           "end_effects": [
                                                             {
                                                               "type": "Attack",
-                                                              "damage": 25,
-                                                              "attack_ratio": 70,
+                                                              "damage": 38,
+                                                              "attack_ratio": 80,
                                                               "hp_ratio": 0,
                                                               "target_hp_ratio": 0,
                                                               "attack_effect_type": "Target"
@@ -1459,7 +1459,7 @@
                                                             {
                                                               "type": "Heal",
                                                               "amount": 10,
-                                                              "attack_ratio": 12,
+                                                              "attack_ratio": 13,
                                                               "ap_ratio": 0,
                                                               "heal_type": "Caster"
                                                             },
@@ -1605,8 +1605,8 @@
                                                             "end_effects": [
                                                               {
                                                                 "type": "Attack",
-                                                                "damage": 25,
-                                                                "attack_ratio": 70,
+                                                                "damage": 38,
+                                                                "attack_ratio": 80,
                                                                 "hp_ratio": 0,
                                                                 "target_hp_ratio": 0,
                                                                 "attack_effect_type": "Target"
@@ -1614,7 +1614,7 @@
                                                               {
                                                                 "type": "Heal",
                                                                 "amount": 10,
-                                                                "attack_ratio": 12,
+                                                                "attack_ratio": 13,
                                                                 "ap_ratio": 0,
                                                                 "heal_type": "Caster"
                                                               },
@@ -1809,8 +1809,8 @@
                                                 "end_effects": [
                                                   {
                                                     "type": "Attack",
-                                                    "damage": 25,
-                                                    "attack_ratio": 70,
+                                                    "damage": 38,
+                                                    "attack_ratio": 80,
                                                     "hp_ratio": 0,
                                                     "target_hp_ratio": 0,
                                                     "attack_effect_type": "Target"
@@ -1818,7 +1818,7 @@
                                                   {
                                                     "type": "Heal",
                                                     "amount": 10,
-                                                    "attack_ratio": 12,
+                                                    "attack_ratio": 13,
                                                     "ap_ratio": 0,
                                                     "heal_type": "Caster"
                                                   },
@@ -1979,8 +1979,8 @@
                                                       "end_effects": [
                                                         {
                                                           "type": "Attack",
-                                                          "damage": 25,
-                                                          "attack_ratio": 70,
+                                                          "damage": 38,
+                                                          "attack_ratio": 80,
                                                           "hp_ratio": 0,
                                                           "target_hp_ratio": 0,
                                                           "attack_effect_type": "Target"
@@ -1988,7 +1988,7 @@
                                                         {
                                                           "type": "Heal",
                                                           "amount": 10,
-                                                          "attack_ratio": 12,
+                                                          "attack_ratio": 13,
                                                           "ap_ratio": 0,
                                                           "heal_type": "Caster"
                                                         },
@@ -2134,8 +2134,8 @@
                                                         "end_effects": [
                                                           {
                                                             "type": "Attack",
-                                                            "damage": 25,
-                                                            "attack_ratio": 70,
+                                                            "damage": 38,
+                                                            "attack_ratio": 80,
                                                             "hp_ratio": 0,
                                                             "target_hp_ratio": 0,
                                                             "attack_effect_type": "Target"
@@ -2143,7 +2143,7 @@
                                                           {
                                                             "type": "Heal",
                                                             "amount": 10,
-                                                            "attack_ratio": 12,
+                                                            "attack_ratio": 13,
                                                             "ap_ratio": 0,
                                                             "heal_type": "Caster"
                                                           },
@@ -2397,7 +2397,7 @@
                       "effect": {
                         "type": "Attack",
                         "damage": 40,
-                        "attack_ratio": 110,
+                        "attack_ratio": 115,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -2449,7 +2449,7 @@
                                     "tick": 360
                                   }
                                 },
-                                "attack_speed_mult": 36
+                                "attack_speed_mult": 44
                               },
                               "only_to_enemy": false
                             }
@@ -2477,7 +2477,7 @@
                                           "tick": 360
                                         }
                                       },
-                                      "attack_speed_mult": 36
+                                      "attack_speed_mult": 44
                                     },
                                     "only_to_enemy": false
                                   },
@@ -2508,7 +2508,7 @@
                                         "tick": 360
                                       }
                                     },
-                                    "attack_speed_mult": 27
+                                    "attack_speed_mult": 33
                                   },
                                   "only_to_enemy": false
                                 }
@@ -2533,7 +2533,7 @@
                                           "tick": 360
                                         }
                                       },
-                                      "attack_speed_mult": 18
+                                      "attack_speed_mult": 22
                                     },
                                     "only_to_enemy": false
                                   }
@@ -2548,7 +2548,7 @@
                                       "tick": 360
                                     }
                                   },
-                                  "attack_speed_mult": 9
+                                  "attack_speed_mult": 11
                                 },
                                 "only_to_enemy": false
                               }
@@ -2653,8 +2653,8 @@
                 "casting_type": "Targeting",
                 "effect": {
                   "type": "Attack",
-                  "damage": 50,
-                  "attack_ratio": 60,
+                  "damage": 60,
+                  "attack_ratio": 80,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -2762,7 +2762,7 @@
                                   "tick": 360
                                 }
                               },
-                              "attack_speed_mult": 36
+                              "attack_speed_mult": 44
                             },
                             "only_to_enemy": false
                           }
@@ -2790,7 +2790,7 @@
                                         "tick": 360
                                       }
                                     },
-                                    "attack_speed_mult": 36
+                                    "attack_speed_mult": 44
                                   },
                                   "only_to_enemy": false
                                 },
@@ -2821,7 +2821,7 @@
                                       "tick": 360
                                     }
                                   },
-                                  "attack_speed_mult": 27
+                                  "attack_speed_mult": 33
                                 },
                                 "only_to_enemy": false
                               }
@@ -2846,7 +2846,7 @@
                                         "tick": 360
                                       }
                                     },
-                                    "attack_speed_mult": 18
+                                    "attack_speed_mult": 22
                                   },
                                   "only_to_enemy": false
                                 }
@@ -2861,7 +2861,7 @@
                                     "tick": 360
                                   }
                                 },
-                                "attack_speed_mult": 9
+                                "attack_speed_mult": 11
                               },
                               "only_to_enemy": false
                             }
@@ -3098,8 +3098,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "Attack",
-                                  "damage": 110,
-                                  "attack_ratio": 80,
+                                  "damage": 120,
+                                  "attack_ratio": 85,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -3205,7 +3205,7 @@
                                                   "tick": 360
                                                 }
                                               },
-                                              "attack_speed_mult": 36
+                                              "attack_speed_mult": 44
                                             },
                                             "only_to_enemy": false
                                           }
@@ -3233,7 +3233,7 @@
                                                         "tick": 360
                                                       }
                                                     },
-                                                    "attack_speed_mult": 36
+                                                    "attack_speed_mult": 44
                                                   },
                                                   "only_to_enemy": false
                                                 },
@@ -3264,7 +3264,7 @@
                                                       "tick": 360
                                                     }
                                                   },
-                                                  "attack_speed_mult": 27
+                                                  "attack_speed_mult": 33
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -3289,7 +3289,7 @@
                                                         "tick": 360
                                                       }
                                                     },
-                                                    "attack_speed_mult": 18
+                                                    "attack_speed_mult": 22
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -3304,7 +3304,7 @@
                                                     "tick": 360
                                                   }
                                                 },
-                                                "attack_speed_mult": 9
+                                                "attack_speed_mult": 11
                                               },
                                               "only_to_enemy": false
                                             }
@@ -3476,8 +3476,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 50,
-                                    "attack_ratio": 60,
+                                    "damage": 60,
+                                    "attack_ratio": 80,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
@@ -3585,7 +3585,7 @@
                                                     "tick": 360
                                                   }
                                                 },
-                                                "attack_speed_mult": 36
+                                                "attack_speed_mult": 44
                                               },
                                               "only_to_enemy": false
                                             }
@@ -3613,7 +3613,7 @@
                                                           "tick": 360
                                                         }
                                                       },
-                                                      "attack_speed_mult": 36
+                                                      "attack_speed_mult": 44
                                                     },
                                                     "only_to_enemy": false
                                                   },
@@ -3644,7 +3644,7 @@
                                                         "tick": 360
                                                       }
                                                     },
-                                                    "attack_speed_mult": 27
+                                                    "attack_speed_mult": 33
                                                   },
                                                   "only_to_enemy": false
                                                 }
@@ -3669,7 +3669,7 @@
                                                           "tick": 360
                                                         }
                                                       },
-                                                      "attack_speed_mult": 18
+                                                      "attack_speed_mult": 22
                                                     },
                                                     "only_to_enemy": false
                                                   }
@@ -3684,7 +3684,7 @@
                                                       "tick": 360
                                                     }
                                                   },
-                                                  "attack_speed_mult": 9
+                                                  "attack_speed_mult": 11
                                                 },
                                                 "only_to_enemy": false
                                               }
