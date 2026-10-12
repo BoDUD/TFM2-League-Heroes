@@ -82,7 +82,8 @@ def main():
             if k in override:
                 sys.exit(f"{name}: {k} is remapped by another add-on too")
             override[k] = {**v, "remapping": v["remapping"].replace(old, new)}
-        merge(text, load(os.path.join(src, "text", "champion.i18n")))
+        if os.path.isfile(os.path.join(src, "text", "champion.i18n")):     # league_irelia keeps the main pack's texts
+            merge(text, load(os.path.join(src, "text", "champion.i18n")))
         for dep in load(os.path.join(src, "mod.mod_info"))["dependencies"]:
             if dep["mod_id"] == "league" and version_key(dep["version"]) > version_key(need):
                 need = dep["version"]
