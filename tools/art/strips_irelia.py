@@ -128,11 +128,14 @@ FRAMES = os.path.join(DESIGN, "frames")     # the action frames finished by hand
 # the run: the idle's upper body on crossing legs (league_caitlyn's and league_zeri's way, the runs the user approved);
 # body squares (rows, columns of body_idle.txt)
 RUN_TOP = 27                     # the idle's legs from this row down are redrawn; the tabard's tip stays (RUN_TABARD)
-RUN_TABARD = {27: (18, 21), 28: (18, 21)}
-RUN_HIP = (26.5, 16.5, 23.0)     # the hips' row and columns, near (image left) and far: where the idle's thighs hang,
+RUN_TABARD = {27: [(11, 13), (18, 21)], 28: [(18, 21)]}     # and the left hip flap's tip
+RUN_HIP = (26.5, 15.5, 23.0)     # the hips' row and columns, near (image left) and far: where the idle's thighs hang,
 # so the thighs go on from the waist (the far hip four squares in, the waist's right part was left hanging over nothing:
 # 「腿和腰之间有点变形」)
-RUN_FAR = 3.5                    # the far foot: this many squares right of where the near foot is at the same phase
+RUN_FAR = 4.5                    # the far foot: this many squares right of where the near foot is at the same phase
+RUN_THIGH = {False: (4, 2), True: (3, 2)}    # thigh widths at the hip and at the knee, near and far: the near thigh
+# full at the hip so it stays under the left hip flap as it swings forward (a gap under the flap: 「左边要有点变形」)
+RUN_SEAT = 13                    # the near thigh's back reaches this column in its first two rows (under the flap)
 RUN_LEG = (4.6, 6.4)             # thigh (hip -> knee) and shin (knee -> the ankle band), the same in every frame
 RUN_ANKLE = 38.0                 # the ankle band's row with the foot on the ground (the idle's)
 RUN_STEP = [1, 1, 0, 0, 1, 1, 0, 0]      # rows the upper body comes down: as a foot lands, up as the legs pass
@@ -467,7 +470,7 @@ def run_leg(phase, far, step):
     k2, _ = K.elbow((hx, hy), (ax, ay), lt, ls, bend=1)
     kx, ky = k1 if k1[0] >= k2[0] else k2
     cells = {}
-    for p0, p1, (w0, w1), (lit, dark) in (((hx, hy), (kx, ky), (3, 2), ("b", "a")),
+    for p0, p1, (w0, w1), (lit, dark) in (((hx, hy), (kx, ky), RUN_THIGH[far], ("b", "a")),
                                          ((kx, ky), (ax, ay), (2, 2), ("g", "f"))):
         n = int(max(abs(p1[0] - p0[0]), abs(p1[1] - p0[1])) * 4) + 1
         steep = abs(p1[1] - p0[1]) >= abs(p1[0] - p0[0])
@@ -479,6 +482,11 @@ def run_leg(phase, far, step):
             for j in range(w - 1):
                 cells.setdefault((yi, xi - j) if steep else (yi - j, xi), lit)
             cells.setdefault((yi, xi + 1) if steep else (yi + 1, xi), dark)
+    if not far:                         # the seat: the near thigh's back fills in under the left hip flap for its
+        for r in (int(math.floor(hy)) + 1, int(math.floor(hy)) + 2):      # first two rows (the thigh swung forward
+            xs = [c for (rr, c) in cells if rr == r]                       # left a gap there: 「左边要有点变形」)
+            for c in range(RUN_SEAT, min(xs) if xs else RUN_SEAT):
+                cells[(r, c)] = "a"
     kxi, kyi = int(math.floor(kx)), int(math.floor(ky))
     cells.update({(kyi, kxi): "l", (kyi, kxi + 1): "k", (kyi + 1, kxi): "k", (kyi + 1, kxi + 1): "i"})
     if cells.get((kyi + 2, kxi)) == "g":
@@ -497,9 +505,10 @@ def run_frame(body, head, found, k):
     step = RUN_STEP[k]
     up = body.copy()
     for r in range(RUN_TOP, up.shape[0]):
-        keep = RUN_TABARD.get(r, (0, -1))
-        up[r, :keep[0]] = "."
-        up[r, keep[1] + 1:] = "."
+        keep = np.zeros(up.shape[1], bool)
+        for c0, c1 in RUN_TABARD.get(r, []):
+            keep[c0:c1 + 1] = True
+        up[r, ~keep] = "."
     G = np.full((60, 60), ".", "<U1")
     for name in ("top", "upper_left", "lower_left", "lower_right"):
         oy, ox = OFFSET[name]
