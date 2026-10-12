@@ -1110,8 +1110,8 @@
     },
     "league_kassadin": {
       "face": {
-        "x": 2,
-        "y": -18
+        "x": 1,
+        "y": -30
       },
       "center": {
         "x": 0,
