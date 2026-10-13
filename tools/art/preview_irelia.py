@@ -29,7 +29,9 @@ from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_pyke import Me, OnFoe, OnMe  # noqa: E402
 from build_irelia import P  # noqa: E402
-import ppu_irelia  # noqa: E402
+import ppu_irelia  # noqa: E402,F401
+import pixel_down  # noqa: E402
+import ppu_hd  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -53,10 +55,10 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        # her dense frames at the battlefield's size (PPU 2), as the game draws her
+        # her dense frames at the battlefield's size, as the game draws her: league.dll's PPU and size (115 %)
         an = Anim(frames_of(sp, "hd_" + tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
-        an.scale = z / ppu_irelia.PPU
+        an.scale = z * pixel_down.sizes_of().get("irelia", 1.0) / ppu_hd.PPU["irelia"]
         body.append(an)
         t = an.until
         return an

@@ -28,6 +28,8 @@ from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_pyke import Me, OnMe  # noqa: E402
 from build_gragas import P  # noqa: E402
 import ppu_gragas  # noqa: E402
+import pixel_down  # noqa: E402
+import ppu_hd  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -51,10 +53,12 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        # his dense frames at the battlefield's size (PPU 2, then 80%: league_main hd.rs SIZES), as the game draws him
+        # his dense frames at the battlefield's size, as the game draws him: the PPU and size league.dll has now
+        # (tools/art/ppu_hd.py PPU, hd.rs SIZES) - not ppu_gragas.py's own (2 at 80 %), which drew him at 80 % after he
+        # grew and smaller still at 1.45 squares a pixel (「感觉变得更小了？」)
         an = Anim(frames_of(sp, "hd_" + tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
-        an.scale = z * ppu_gragas.SIZE / ppu_gragas.K
+        an.scale = z * pixel_down.sizes_of().get("gragas", 1.0) / ppu_hd.PPU["gragas"]
         body.append(an)
         t = an.until
         return an
