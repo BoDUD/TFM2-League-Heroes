@@ -67,7 +67,10 @@ RESTYLE = {
     "corki": dict(grow=1.2, edge=1, ppu=2.2),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
     "kassadin": dict(edge=0, ppu=2.42),
-    # the 12 frames Codex drew 5-17 % smaller, brought to the others' size first
+    # the frames Codex drew 5-17 % smaller (its image service stopped half way through her pack), brought to the
+    # others' size first - until the completion pack dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix, the
+    # 11 frames) comes back: then import it (import_ppu_strips.py --hero ashe --delivery <it> --fill-from-sheet) and
+    # drop the redrawn frames from `fix`
     "ashe": dict(edge=1, ppu=2.2, fix={("dead", 1): 1.2, ("q_attack", 0): 1.087, ("run", 6): 1.064,
                                        ("skill", 0): 1.064, ("skill", 2): 1.075, ("skill", 3): 1.053,
                                        ("skill", 5): 1.075, ("skill2", 0): 1.087, ("ult", 3): 1.075}),
