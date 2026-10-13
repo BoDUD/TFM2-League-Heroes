@@ -51,13 +51,13 @@ P = {
     # passive: Triumphant Roar (League: 7 stacks, 3 s cooldown, self 5% max hp, allies x1.4)
     "p_need": 3, "p_cd": 300, "p_r": 40000, "p_heal": 40, "p_ap": 20, "p_ally": 50, "p_ally_ap": 30,
     # E: Trample (League: radius 350, 80-230 + 70% AP over 5 s, 5 stomps on champions -> stun 1 s, cd 12.5-9.5 s)
-    "e_cd": 1080, "e_t": 180, "e_period": 30, "e_r": 24000, "e_dmg": 8, "e_ap": 6, "e_hold": 300,
+    "e_cd": 1080, "e_t": 180, "e_period": 30, "e_r": 24000, "e_dmg": 12, "e_ap": 9, "e_hold": 300,
     "e_stun": 60, "e_proc": 50, "e_proc_ap": 50,
     # skill: Q Pulverize (League: radius 375, 60-260 + 80% AP, knock-up 1 s, cd 14-10 s)
-    "pq_t": 600,              # Q's and W's slams: one per pq_t ticks (tools/fix/alistar_pulverize.py TICKS)
-    "q_cd": 600, "q_range": 24000, "q_r": 28000, "q_dur": 30, "q_st": 14, "q_dmg": 50, "q_ap": 50, "q_up": 60,
+    "pq_t": 360,              # Q's and W's slams: one per pq_t ticks (tools/fix/alistar_pulverize.py TICKS)
+    "q_cd": 600, "q_range": 24000, "q_r": 28000, "q_dur": 30, "q_st": 14, "q_dmg": 80, "q_ap": 80, "q_up": 60,
     # skill2: W Headbutt -> Q (League: range 650, 55-330 + 100% AP, knock-back 700, cd 15-10 s)
-    "w_cd": 720, "w_range": 55000, "w_speed": 3500, "w_dmg": 40, "w_ap": 50, "w_hit_r": 8000, "w_kb_speed": 2500,
+    "w_cd": 720, "w_range": 55000, "w_speed": 3500, "w_dmg": 100, "w_ap": 110, "w_hit_r": 8000, "w_kb_speed": 2500,
     "w_kb_t": 8, "wq_dmg": 30, "wq_ap": 30, "w_land": 6, "w_slam": 6, "w_dash_anim": 12, "w_dur": 14,
     # ult: R Unbreakable Will (League: cleanse, 55-75% less damage 7 s, cd 120/100/80 s)
     "r_cd": 3600, "r_arm": 600, "r_arm_range": 70000, "r_r": 32000, "r_t": 420, "r_red": 50, "r_imm": 60,

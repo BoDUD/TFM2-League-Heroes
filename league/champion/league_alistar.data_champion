@@ -604,8 +604,8 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 8,
-                        "attack_ratio": 6,
+                        "damage": 12,
+                        "attack_ratio": 9,
                         "hp_ratio": 0,
                         "can_crit": false
                       },
@@ -844,8 +844,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 8,
-                                "attack_ratio": 6,
+                                "damage": 12,
+                                "attack_ratio": 9,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               },
@@ -1021,7 +1021,7 @@
                   "name": "league_alistar_pq_cd",
                   "duration": {
                     "Time": {
-                      "tick": 600
+                      "tick": 360
                     }
                   }
                 },
@@ -1054,8 +1054,8 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 50,
-                            "attack_ratio": 50,
+                            "damage": 80,
+                            "attack_ratio": 80,
                             "hp_ratio": 0,
                             "can_crit": false
                           },
@@ -1581,8 +1581,8 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 8,
-                        "attack_ratio": 6,
+                        "damage": 12,
+                        "attack_ratio": 9,
                         "hp_ratio": 0,
                         "can_crit": false
                       },
@@ -1802,8 +1802,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 8,
-                                "attack_ratio": 6,
+                                "damage": 12,
+                                "attack_ratio": 9,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               },
@@ -1988,8 +1988,8 @@
               "effects": [
                 {
                   "type": "ApAttack",
-                  "damage": 40,
-                  "attack_ratio": 50,
+                  "damage": 100,
+                  "attack_ratio": 110,
                   "hp_ratio": 0,
                   "can_crit": false
                 },
@@ -2156,7 +2156,7 @@
                       "name": "league_alistar_pq_cd",
                       "duration": {
                         "Time": {
-                          "tick": 600
+                          "tick": 360
                         }
                       }
                     },
