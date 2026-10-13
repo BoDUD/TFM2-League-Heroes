@@ -152,7 +152,7 @@ def _lab(rgb):
     return np.stack([116 * f[..., 1] - 16, 500 * (f[..., 0] - f[..., 1]), 200 * (f[..., 1] - f[..., 2])], -1)
 
 
-def crisp(frames, n=16, passes=2, contrast=1.2, lines=True, keep=None, seed=0):
+def crisp(frames, n=16, passes=2, contrast=1.2, lines=True, keep=None, seed=0, fit=None):
     """A hero's frames brought to flat pixel art like league_zeri's (the user, 2026-10-13: 「铁男感觉还是没泽丽那么像素啊」,
     picked 16 colours + lines from a preview): one palette for every frame (no colour flicker between them) -
     contrast stretched round the hero's mean colour, the non-dark colours cut to n (k-means in Lab, each colour the
@@ -160,9 +160,11 @@ def crisp(frames, n=16, passes=2, contrast=1.2, lines=True, keep=None, seed=0):
     when 4 or more share it); then a dark line on the darker side of every edge between two parts far apart in
     brightness (luminance jump over 70: the square at half its brightness). Outline / black squares stay, and so do the
     ones `keep` names (KEEP).
-    frames: [RGBA uint8] -> new list."""
+    frames: [RGBA uint8] -> new list. fit: the frames the palette is taken from instead (league_mordekaiser's narrowed
+    run: the palette of the frames before, so no other frame changes)."""
     ops = [f[..., 3] > 0 for f in frames]
-    px = np.concatenate([f[o][:, :3].astype(float) for f, o in zip(frames, ops)])
+    src = fit if fit is not None else frames
+    px = np.concatenate([f[f[..., 3] > 0][:, :3].astype(float) for f in src])
     mu = px.mean(0)
     stretch = lambda x: np.clip(mu + (x - mu) * contrast, 0, 255)
     sp = stretch(px)
