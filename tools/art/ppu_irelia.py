@@ -41,7 +41,7 @@ import rigkit as K  # noqa: E402
 import strips_irelia as S  # noqa: E402
 
 PPU = 2
-OUT = os.path.join(ROOT, "assets", "source", "ppu")
+OUT = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 STEM = os.path.join(ROOT, "league", "champions", "league_irelia")
 CENTRE = (64, 88)                # the canvas point at the 1x sheet frames' centre (strips_irelia.PIVOT)
 # the run in the idle read-back's own squares (its waist is higher than twice the hand-drawn 1x body's): the legs are

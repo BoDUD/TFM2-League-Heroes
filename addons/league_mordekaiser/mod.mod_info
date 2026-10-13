@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.104.0"
+    }
+  ],
+  "description": "Test build of Mordekaiser as in League (needs League of Legends Heroes): replaces the main pack's Mordekaiser so Realm of Death curses the enemy champion in reach with the most attack + ability power, steals 10% of its real stats (attack, ability power, armour, magic resistance, health), drags it back when it runs and lures him back onto it, and Indestructible's shield is stored from the damage he deals and takes (up to 30% of his health), healing him from what is left. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-12",
+  "mod_id": "league_mordekaiser",
+  "mod_type": "native",
+  "name": "League Heroes: Mordekaiser's Realm of Death and Indestructible (test)",
+  "version": "0.1.0"
+}

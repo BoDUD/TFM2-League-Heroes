@@ -3,7 +3,7 @@
     "league_garen": {
       "face": {
         "x": 1,
-        "y": -32
+        "y": -37
       },
       "center": {
         "x": 0,
@@ -46,7 +46,7 @@
     },
     "league_soraka": {
       "face": {
-        "x": 5,
+        "x": 7,
         "y": -35
       },
       "center": {
@@ -967,7 +967,7 @@
     "league_karma": {
       "face": {
         "x": 1,
-        "y": -32
+        "y": -34
       },
       "center": {
         "x": 0,
@@ -1067,7 +1067,7 @@
     "league_zeri": {
       "face": {
         "x": 1,
-        "y": -36
+        "y": -38
       },
       "center": {
         "x": 0,
@@ -1101,7 +1101,7 @@
     "league_irelia": {
       "face": {
         "x": 1,
-        "y": -38
+        "y": -44
       },
       "center": {
         "x": 0,
@@ -1120,8 +1120,8 @@
     },
     "league_corki": {
       "face": {
-        "x": 6,
-        "y": -16
+        "x": 7,
+        "y": -22
       },
       "center": {
         "x": 0,
@@ -1130,12 +1130,22 @@
     },
     "league_braum": {
       "face": {
-        "x": 6,
-        "y": -38
+        "x": 8,
+        "y": -41
       },
       "center": {
         "x": 0,
         "y": -12
+      }
+    },
+    "league_mordekaiser": {
+      "face": {
+        "x": 1,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -14
       }
     }
   }

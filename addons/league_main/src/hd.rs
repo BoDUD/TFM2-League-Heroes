@@ -9,17 +9,19 @@
 
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
 pub const HEROES: &[(&str, f32, &str)] = &[
-    ("league_yasuo", 3.0, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
-    ("league_gragas", 2.0, include_str!("../../../league/champions/league_gragas#anim.fanim")),
+    ("league_yasuo", 2.2, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
+    ("league_gragas", 1.76, include_str!("../../../league/champions/league_gragas#anim.fanim")),
     ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
-    ("league_vladimir", 2.0, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
-    ("league_karma", 3.0, include_str!("../../../league/champions/league_karma#anim.fanim")),
-    ("league_ashe", 5.4571, include_str!("../../../league/champions/league_ashe#anim.fanim")),
+    ("league_vladimir", 1.8, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
+    ("league_karma", 2.2, include_str!("../../../league/champions/league_karma#anim.fanim")),
+    ("league_ashe", 2.2, include_str!("../../../league/champions/league_ashe#anim.fanim")),
     ("league_irelia", 2.0, include_str!("../../../league/champions/league_irelia#anim.fanim")),
-    ("league_kassadin", 3.622, include_str!("../../../league/champions/league_kassadin#anim.fanim")),
-    ("league_corki", 5.0, include_str!("../../../league/champions/league_corki#anim.fanim")),
-    ("league_garen", 3.0, include_str!("../../../league/champions/league_garen#anim.fanim")),
-    ("league_braum", 2.881, include_str!("../../../league/champions/league_braum#anim.fanim")),
+    ("league_kassadin", 2.42, include_str!("../../../league/champions/league_kassadin#anim.fanim")),
+    ("league_corki", 2.2, include_str!("../../../league/champions/league_corki#anim.fanim")),
+    ("league_garen", 1.9, include_str!("../../../league/champions/league_garen#anim.fanim")),
+    ("league_braum", 1.98, include_str!("../../../league/champions/league_braum#anim.fanim")),
+    ("league_mordekaiser", 2.0, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
+    ("league_soraka", 2.2, include_str!("../../../league/champions/league_soraka#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -31,14 +33,37 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); his hd frames drawn RAISE
 /// rows higher (tools/art/rig_kassadin.py).
-/// Braum: 「布隆做的也有点大 得缩小一点」 (85%), then 「稍微调大点」 (90%, 39 game px); his hd frames drawn SHIFT rows
-/// lower (tools/art/rig_braum.py).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10), ("league_braum", 0.90)];
+/// Braum: 「布隆做的也有点大 得缩小一点」 (85%), then 「稍微调大点」 (90%, 39 game px); after the restyle (a tenth
+/// shorter) 「布隆也有这个看起来小的问题」 next to Alistar -> 105% (the user took the suggestion: 「按照你的建议选吧」).
+/// His hd frames come SHIFT rows lower from tools/art/rig_braum.py (its 90%) and the restyle lifts them back
+/// (tools/art/ppu_restyle.py RESTYLE braum lift).
+/// Mordekaiser: the user picked 110% with a thicker outline (C, Kassadin's way), then 「铁男感觉做的太大了吧？」 -> 95%,
+/// then 「铁男再稍微调大点」 -> 100%; then 「为什么模型看起来小啊 牛头那种就看起来很大」「铁男再游戏里还是过于高清」 ->
+/// 115% at PPU 2.0 (1.74 squares a game pixel), his frames lifted by the restyle (RESTYLE mordekaiser lift).
+/// Soraka: 「稍微变大点」 -> 110% (her frames lifted 3 squares: tools/art/ppu_restyle.py RESTYLE soraka).
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10),
+                                    ("league_braum", 1.05), ("league_mordekaiser", 1.15),
+                                    ("league_irelia", 1.15), ("league_soraka", 1.10)];
 
 pub const PREFIX: &str = "hd_";
 
+/// `lo_<tag>`: the same frames at [`UI_PPU`] squares a displayed game pixel (tools/art/ppu_hd.py add_lo) - what the BP
+/// grid, the encyclopedia, the pick slots and the pick moment draw (src/lookup.rs ui_table; the user, 2026-10-13:
+/// 「BP界面里看英雄还是太清晰」, picked the 1.5 row of the preview). The battlefield keeps the hd_ frames.
+pub const LO_PREFIX: &str = "lo_";
+pub const UI_PPU: f32 = 1.5;
+
+/// The `"lo_..."` animation names of a .fanim.
+pub fn lo_tags(fanim: &str) -> Vec<String> {
+    keys_with(fanim, LO_PREFIX)
+}
+
 /// The `"hd_..."` animation names of a .fanim (its keys under "anims"; no frame key starts with hd_).
 pub fn hd_tags(fanim: &str) -> Vec<String> {
+    keys_with(fanim, PREFIX)
+}
+
+fn keys_with(fanim: &str, prefix: &str) -> Vec<String> {
     let mut out = Vec::new();
     let b = fanim.as_bytes();
     let mut i = 0;
@@ -51,7 +76,7 @@ pub fn hd_tags(fanim: &str) -> Vec<String> {
         while j < b.len() && b[j].is_ascii_whitespace() {
             j += 1;
         }
-        if j < b.len() && b[j] == b':' && name.starts_with(PREFIX) && !out.iter().any(|t| t == name) {
+        if j < b.len() && b[j] == b':' && name.starts_with(prefix) && !out.iter().any(|t| t == name) {
             out.push(name.to_string());
         }
         i = end + 1;
@@ -66,6 +91,8 @@ pub struct Hero {
     /// the size it is shown at (SIZES; 1.0 when not listed)
     pub size: f32,
     pub tags: Vec<String>,
+    /// the sheet has lo_ frames for every tag (the UI draws those)
+    pub lo: bool,
 }
 
 impl Hero {
@@ -83,6 +110,7 @@ pub fn heroes() -> Vec<Hero> {
             ppu,
             size: SIZES.iter().find(|s| s.0 == id).map_or(1.0, |s| s.1),
             tags: hd_tags(fanim).into_iter().map(|t| t[PREFIX.len()..].to_string()).collect(),
+            lo: !lo_tags(fanim).is_empty(),
         })
         .collect()
 }
@@ -102,6 +130,14 @@ mod tests {
             for t in ["idle", "run", "attack", "hit", "dead"] {
                 assert!(anims.contains(&format!("\"{t}\"")), "{id}: no {t}");
                 assert!(hd.contains(&format!("{PREFIX}{t}")), "{id}: no {PREFIX}{t}");
+            }
+            // lo_ frames: none, or one for every hd_ tag (the UI table maps every tag to its lo_ frames)
+            let lo = lo_tags(fanim);
+            if !lo.is_empty() {
+                for h in &hd {
+                    let want = format!("{LO_PREFIX}{}", &h[PREFIX.len()..]);
+                    assert!(lo.contains(&want), "{id}: no {want} (python tools/art/ppu_hd.py --hero ...)");
+                }
             }
         }
     }

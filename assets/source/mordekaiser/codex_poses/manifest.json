@@ -1,0 +1,12 @@
+{
+  "hero": "mordekaiser",
+  "tool": "built-in image_gen.imagegen",
+  "asset_count": 13,
+  "png_pairs": 13,
+  "grid": 4,
+  "new_palette_colors": 0,
+  "status": "pose_candidates_technical_pass_art_constraints_remaining",
+  "qa": "QA.json",
+  "handoff": "HANDOFF.md",
+  "preview": "preview.html"
+}

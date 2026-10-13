@@ -24,11 +24,19 @@ mod lookup;
 mod view;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.6.23";
+const VERSION: &str = "0.6.53";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 
+/// `cargo test` lines (league_test ...) went into the game's own league.log and made an old game's log look recent
+/// (2026-10-13): the tests log into the temp folder instead, the DLL keeps its path.
+#[cfg(test)]
+fn log_path() -> PathBuf {
+    std::env::temp_dir().join("league_main_test.log")
+}
+
+#[cfg(not(test))]
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("LEAGUE_LOG") {
         return PathBuf::from(path);
