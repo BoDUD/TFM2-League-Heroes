@@ -10,7 +10,7 @@
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
 pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_yasuo", 2.2, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
-    ("league_gragas", 1.76, include_str!("../../../league/champions/league_gragas#anim.fanim")),
+    ("league_gragas", 1.45, include_str!("../../../league/champions/league_gragas#anim.fanim")),
     ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
     ("league_vladimir", 1.8, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
     ("league_karma", 2.2, include_str!("../../../league/champions/league_karma#anim.fanim")),

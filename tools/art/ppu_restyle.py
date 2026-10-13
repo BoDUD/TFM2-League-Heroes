@@ -101,7 +101,9 @@ RESTYLE = {
     # 「酒桶可以稍微放大点吧 现在也太小了」: 90 %, then 「还是太小啊」: 100 % (hd.rs SIZES). His orig frames sit ppu_gragas.py's
     # SHIFT 6 lower (its 80 %): 23 x (1 + 6 / 23 - 1 / 1.00) = 6 orig rows = 5.3 squares -> 5, lifted after the downscale
     # (lift_sq: pixels unchanged)
-    "gragas": dict(edge=0, ppu=1.76, lift_sq=5, face_to=(3, -39), shared_palette=True),
+    # then 「是整体这个模型看着很矮 很小 应该是像素没降够的原因」: coarser, 1.45 squares a game pixel (picked from a
+    # preview); the 6 orig rows are 4.35 of these squares -> 4
+    "gragas": dict(edge=0, ppu=1.45, lift_sq=4, face_to=(3, -39), shared_palette=True),
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
     # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
