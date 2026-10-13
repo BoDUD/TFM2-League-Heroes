@@ -44,38 +44,39 @@ SHADES = {"O": (3, 2, 1), "Y": (244, 250, 246), "X": (236, 251, 241), "F": (189,
 # outline across the wrist - the forearm's bottom row goes on as a dark band), shaded by one highlight at the upper left,
 # the thumb's fold and the knuckles only a few dark squares, the knuckles rounded at the bottom.
 NEAR = [
-    "OIZZFFFFZZPIO",
-    "OZFXXXXFFZPIO",
-    "OFXYYXFFFZPIO",
-    "OFXXXFFFZZPDO",
-    "OZFFFFZZZPPDO",
-    "OZFZPZZZPDDDO",
-    "OPZFFZPZFFDO.",
-    "OPZZPPPZZFDO.",
-    ".OPIPPIPPDO..",
-    "..OIODIODO...",
-    "...O..O.O....",
+    "OIZZFFFFFFZZPIO",
+    "OZFXXXXXFFFZPIO",
+    "OFXYYYXFFFFZPIO",
+    "OFXXXXFFFFZZPDO",
+    "OZFFFFFFZZZPPDO",
+    "OZFFZPZZZZPDDDO",
+    "OPZFFFZPZFFDDO.",
+    "OPZZFFZPZFFZDO.",
+    "OPZZPPZPPZPPDO.",
+    ".OPIPPIPPIPDO..",
+    "..OIODIODIDO...",
+    "...O..O..O.....",
 ]
-# the far fist (image right): the thumb's fold on its inner side (image left)
-FAR = [
-    "OPZZFFFFZIO",
-    "OZFXXFFZZIO",
-    "OFXYXFFZPDO",
-    "ODOFFFZZPDO",
-    "OXDOZZZPPDO",
-    "OXFDOZPPIDO",
-    "OFZDOZFZPDO",
-    ".OZPOPZPIO.",
-    "..OIODIDO..",
-    "...O..O....",
+# the far fist: the near one mirrored - both the same size (the user: 「大小对称点啊」)
+FAR = [line[::-1] for line in NEAR]
+# side A's near fist, smaller: no wider than the arm hanging in front of the hip (「侧身又画的太大」)
+SIDE = [
+    "OIZFFFZPIO",
+    "OZFXXFFZIO",
+    "OFXYXFZZDO",
+    "OFFFFZZPDO",
+    "OZFZPZPDDO",
+    "OPZFFZPFDO",
+    ".OPIPIPDO.",
+    "..OIODIO..",
+    "...O..O...",
 ]
-# side A's near fist: the near one, at the end of the arm hanging in front of the hip
-SIDE = NEAR
-# where each fist goes (top-left square), the box cleared first (Codex's ball / the spiral's leftovers) and the forearm's
-# bottom row (row, first and last column + 1) that takes the outline outside the fist's width
-FRONT_FISTS = [dict(rows=NEAR, at=(91, 18), clear=(91, 104, 14, 37), fore=(91, 14, 35)),
-               dict(rows=FAR, at=(92, 71), clear=(92, 107, 66, 85), fore=(92, 69, 84))]
-SIDE_FISTS = [dict(rows=SIDE, at=(89, 34), clear=(89, 101, 31, 50), fore=(89, 32, 47))]
+# where each fist goes (top-left square: each centred under its forearm), the box cleared first (Codex's ball / the
+# spiral's leftovers) and the forearm's bottom row (row, first and last column + 1) that takes the outline outside the
+# fist's width
+FRONT_FISTS = [dict(rows=NEAR, at=(91, 17), clear=(91, 104, 14, 37), fore=(91, 14, 35)),
+               dict(rows=FAR, at=(92, 69), clear=(92, 107, 66, 85), fore=(92, 69, 84))]
+SIDE_FISTS = [dict(rows=SIDE, at=(89, 36), clear=(89, 101, 31, 50), fore=(89, 32, 48), behind=10)]
 
 
 def grid(path):
@@ -114,7 +115,16 @@ def paint(g, spec):
     r0, r1, c0, c1 = spec["clear"]
     rows = spec["rows"]
     ar, ac = spec["at"]
+    before = g.copy()
     g[r0:r1, c0:c1] = 0
+    if spec.get("behind"):
+        # the smaller fist leaves the hip behind Codex's ball bare: the thigh's own stone below goes on up behind it
+        dy = spec["behind"]
+        for r in range(r0, r1):
+            for c in range(c0, c1):
+                src = before[r + dy, c]
+                if src[3] and int(src[:3].sum()) > 60:
+                    g[r, c] = src
     for i, line in enumerate(rows):
         for j, ch in enumerate(line):
             if ch != ".":
