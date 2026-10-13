@@ -73,11 +73,14 @@ RESTYLE = {
     # then 「铁男感觉还是没泽丽那么像素啊」「飞机 布隆也是」「卡萨丁也是」: flat pixel art (crisp, picked from a preview:
     # 16 colours + lines; Mordekaiser keeps his teal glow as drawn and his dark armour unstretched -
     # 「铁男的眼睛完全看不到了」)
+    # then 「铁男和布隆游戏里偏大了」: Mordekaiser 100 %, Braum 95 % (hd.rs SIZES, picked from a true-scale sheet) - the
+    # frames as they were, moved down by whole squares after the downscale (lift_sq): 11 x 2.0 x (1 / 1.00 - 1 / 1.15)
+    # = 2.9 -> 3, 11.5 x 1.98 x (1 / 0.95 - 1 / 1.05) = 2.3 -> 2; faces x 1.00 / 1.15 and x 0.95 / 1.05 about the soles
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
-                  lift=4 * 2.881 / 1.98 - 1e-6, face_to=(8, -41)),      # (a hair under: the pivot's row keeps its square)
-    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0,
+                  lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(7, -37)),  # (a hair under: the pivot's row keeps its square)
+    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-3,
                         crisp=dict(contrast=1.0, keep="teal"),
-                        face_to=(1, -31)),
+                        face_to=(1, -27)),
     # 「飞机像泽丽那样变大点」
     "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
