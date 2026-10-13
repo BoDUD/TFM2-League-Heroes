@@ -16,13 +16,17 @@ one pixel a square). Here, for every frame:
     them, knuckle creases cut in (Codex's silhouette kept, no ground showing round a smaller fist);
   * idle = the design breathing (the upper body BREATH rows up over the legs and the tail), hit = the design moved 2 and
     1 squares back.
-Then every frame is brought down for the 1x sheet (each 1x pixel the commonest colour of its PPU x PPU squares, frames
-centred on the pivot: FEET 1x rows above the soles) and its dense frame written to assets/source/ppu/galio_<tag>.png +
-.json (ppu_hd.py's drawn strips). Then python tools/art/ppu_hd.py --hero galio adds the hd_ / lo_ tags.
-PPU 2.0 (the user's pick: 76 squares crown to soles = 38 game rows, 52 with the wings).
+Then the run's legs are redrawn (run_legs: Codex's never crossed) and every frame is brought down twice: for the 1x
+sheet (down: 2 x 2 blocks, the face kept) and for the game (dense: 1.5 squares a game pixel, pixel_down.pixelate),
+written to assets/source/ppu/galio_<tag>.png + .json (ppu_hd.py's drawn strips; python tools/art/ppu_hd.py --hero galio
+then adds the hd_ / lo_ tags). Drawn at PPU 2.0 (76 squares crown to soles = 38 game rows, 52 with the wings); shown at
+100 % and 1.5 squares a game pixel - the user, 2026-10-13: 「加里奥在局内看起来太小了」「而且在局内还是太高清了加里奥」
+(he was PPU 2.0 at 85 %), picked from sheets of 85-110 % and of 2.0 / 1.5 / 1.2 / 1 squares a game pixel (1 tried:
+「1太糊了 用1.5」).
 """
 import argparse
 import io
+import math
 import json
 import os
 import subprocess
@@ -37,6 +41,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, HERE)
 import design_galio_hd as DG  # noqa: E402
+import pixel_down as PD  # noqa: E402
+import rigkit as K  # noqa: E402
 import strips as G  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "galio")
@@ -46,6 +52,7 @@ OLD_DESIGN = "b5ba65c5"                  # the 45-colour design Codex drew from 
 STEM = os.path.join(ROOT, "league", "champions", "league_galio")
 PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
 PPU = 2.0
+GAME_PPU = 1.5                          # what league.dll draws: 1.5 squares a game pixel at 100 % (ppu_hd.py PPU)
 COLS, ROWS = 219, 146
 PIV_X, SOLE = 92, 140                   # pack_galio_strips.py
 DESIGN_AT = (42, 37)                    # the cropped design's top-left on that canvas (pack_galio_strips.py's print)
@@ -53,15 +60,12 @@ FEET = 11                               # 1x rows from the pivot down to the sol
 OUTLINE = DG.SHADES["O"]
 PINHOLE = 6
 SPECK = 8
+HEAD_R = 6                              # 1x squares round the eyes where the face is kept (down)
 BREATH = [0, 1, 2, 2, 1, 0]
 WAIST = 66                              # the design's row under the belly: the upper body above it breathes
 LEGS = (34, 68)                         # the design's columns of the legs below the waist (the arms hang outside them)
 TAIL_ROW = 86                           # the design's tail: below this row left of TAIL_COL (it does not breathe)
 TAIL_COL = 30
-# shown at 85 % (hd.rs SIZES; the user: 「这做的也太大了吧 缩小点模型」, picked from a true-scale sheet): the DLL scales about
-# the frame's centre, so the dense frames are drawn SHIFT rows lower and the soles stay on the ground (rig_braum's way)
-SIZE = 0.85
-SHIFT = round((FEET + 0.5) * PPU * (1 / SIZE - 1))
 TAGS = ["run", "attack", "attack2", "skill", "skill2", "w_charge", "w_burst", "ult", "ult_loop", "ult_land", "dead"]
 # the spiral fists Codex drew again: (tag, index) -> [(box rows r0..r1, cols c0..c1 round the spiral on the canvas, the
 # side its knuckles face: "right" for the punch, "down" for a hanging fist)]. Each keeps Codex's silhouette (a smaller
@@ -338,42 +342,164 @@ def breathe(can, mask, k):
 
 
 def down(can):
-    """The dense canvas -> (the 1x frame centred on the pivot, the dense frame of round(PPU x its size))."""
-    px, py = PIV_X + 0.5, SOLE + 1 - FEET * PPU
-    ys, xs = np.nonzero(can[..., 3])
-    hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5))
-    hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5))
-    w1, h1 = 2 * hw + 1, 2 * hh + 1
-    one = np.zeros((h1, w1, 4), np.uint8)
-    for j in range(h1):
-        ya, yb = py + (j - hh - 0.5) * PPU, py + (j - hh + 0.5) * PPU
-        for i in range(w1):
-            xa, xb = px + (i - hw - 0.5) * PPU, px + (i - hw + 0.5) * PPU
-            blk = can[max(0, int(np.floor(ya + 0.5))):max(0, int(np.floor(yb + 0.5))),
-                      max(0, int(np.floor(xa + 0.5))):max(0, int(np.floor(xb + 0.5)))].reshape(-1, 4)
-            if not len(blk) or (blk[:, 3] > 0).sum() * 2 < len(blk):
-                continue
-            cols, n = np.unique(blk[blk[:, 3] > 0][:, :3], axis=0, return_counts=True)
-            one[j, i, :3] = cols[n.argmax()]
-            one[j, i, 3] = 255
-    W, H = round(w1 * PPU), round(h1 * PPU)
-    hx0, hy0 = int(round(px - W / 2.0)), int(round(py - H / 2.0))
-    pad = max(0, -hx0, -hy0, hx0 + W - can.shape[1], hy0 + H - can.shape[0])
-    big = np.pad(can, ((pad, pad), (pad, pad), (0, 0)))
-    hd = big[hy0 + pad:hy0 + pad + H, hx0 + pad:hx0 + pad + W].copy()
-    return one, hd
-
-
-def lower(hd):
-    """The dense frame moved SHIFT rows down (grown SHIFT rows at both ends first when its soles have no room)."""
-    if not SHIFT:
-        return hd
-    rows = np.nonzero(hd[..., 3].any(1))[0]
-    if hd.shape[0] - 1 - rows.max() < SHIFT:
-        hd = np.pad(hd, ((SHIFT, SHIFT), (0, 0), (0, 0)))
-    out = np.zeros_like(hd)
-    out[SHIFT:] = hd[:-SHIFT]
+    """The PPU canvas -> the 1x frame, centred on the pivot's square (FEET 1x rows above the soles). Each 1x square is a
+    2 x 2 block: clear under 2 opaque; the outline on the silhouette's edge where any of it is dark, inside where 3 or
+    more is (the stone's 2-square lines stay, a line a block cuts in half goes); otherwise its commonest light colour;
+    the blue eyes always kept and round them (HEAD_R squares) one light square is enough, so the face and the crown
+    read (a plain commonest-colour vote left a black head: the user picked 1 square a game pixel, 「用1吧」)."""
+    k = int(PPU)
+    px, py = PIV_X + 0.5 - k / 2, SOLE + 1 - FEET * PPU - k / 2          # a block centred on the pivot
+    H, W = can.shape[:2]
+    nx0, ny0 = int(np.ceil(px / k)), int(np.ceil(py / k))
+    Wn, Hn = nx0 + int(np.ceil((W - px) / k)), ny0 + int(np.ceil((H - py) / k))
+    big = np.zeros((Hn * k, Wn * k, 4), np.uint8)
+    ox, oy = nx0 * k - int(round(px)), ny0 * k - int(round(py))
+    sub = can[max(0, -oy):, max(0, -ox):]
+    h, w = min(sub.shape[0], big.shape[0] - max(0, oy)), min(sub.shape[1], big.shape[1] - max(0, ox))
+    big[max(0, oy):max(0, oy) + h, max(0, ox):max(0, ox) + w] = sub[:h, :w]
+    blk = big.reshape(Hn, k, Wn, k, 4).transpose(0, 2, 1, 3, 4).reshape(Hn, Wn, k * k, 4)
+    op = blk[..., 3] > 0
+    rgb = blk[..., :3].astype(int)
+    dark = op & (rgb.sum(-1) < 70)
+    light = op & ~dark
+    eye = op & (rgb[..., 2] > rgb[..., 0] + 40) & (rgb[..., 2] > 150)
+    keep = op.sum(-1) * 2 >= k * k
+    edge = keep & ~ndimage.binary_erosion(keep, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]))
+    near = ndimage.binary_dilation(eye.any(-1), structure=np.ones((3, 3)), iterations=HEAD_R)
+    one = np.zeros((Hn, Wn, 4), np.uint8)
+    for j, i in zip(*np.nonzero(keep)):
+        if eye[j, i].any() and not edge[j, i]:
+            px_ = blk[j, i][eye[j, i]][:, :3]
+        elif (edge[j, i] and dark[j, i].any()) or light[j, i].sum() < (1 if near[j, i] else 2):
+            one[j, i] = (*OUTLINE, 255)
+            continue
+        else:
+            px_ = blk[j, i][light[j, i]][:, :3]
+        cols, n = np.unique(px_, axis=0, return_counts=True)
+        one[j, i] = (*cols[n.argmax()], 255)
+    ys, xs = np.nonzero(one[..., 3])
+    hw, hh = max(nx0 - xs.min(), xs.max() - nx0), max(ny0 - ys.min(), ys.max() - ny0)
+    out = np.zeros((2 * hh + 1, 2 * hw + 1, 4), np.uint8)
+    out[ys - ny0 + hh, xs - nx0 + hw] = one[ys, xs]
+    out, _, _ = G.complete_outline(out, color=OUTLINE, feet=hh + FEET)
     return out
+
+
+# ------------------------------------------------------------------------------------------------ the run's legs
+# Codex's run kept the light leg forward and the dark one back in all 8 frames (the user: 「走路没有交叉步」), so the
+# legs are redrawn on the PPU canvas league_caitlyn's way (fix_caitlyn_run_v2.py, strips_irelia.py RUN_PHASES): one leg
+# in eight phases (only the ankle placed, the knee solved at fixed bone lengths) in the design's stone, the far leg
+# (image right, a step darker, a row higher: the 3/4 body) four phases on; Codex's upper body, arms and tail kept over
+# them, the tail carried to the hips. Numbers in game pixels from the pivot (x right, y down); PPU squares each.
+RUN_LIT, RUN_MID, RUN_DRK = (236, 251, 241), (190, 208, 202), (149, 169, 168)
+RUN_FL, RUN_FM, RUN_FD = (190, 208, 202), (124, 143, 145), (103, 120, 123)
+RUN_G1, RUN_G2, RUN_G3 = (253, 220, 68), (253, 198, 43), (177, 99, 20)
+RUN_CUT = -2                     # rows from RUN_CUT down are redrawn (the legs, the tail's root) ...
+RUN_KEEP = (9, 0, -15, -1)       # ... but the front fist (right of 9, down to row 0) and the back one (left of -15, to -1)
+RUN_TAILX = -13                  # Codex's tail kept left of this column
+RUN_HIP_Y = -3.0
+RUN_NEAR_HX, RUN_FAR_HX = -4.5, 2.5  # the hips: near (image left, full tone), far (image right, a step darker, a row higher)
+RUN_ANK_Y = 8.0                  # a planted ankle (the foot's 3 rows under it, the soles on row 11)
+RUN_LT, RUN_LS = 6.0, 6.0
+RUN_WID = (4.6, 3.2)
+# the ankle's x from the hip and its lift over 8 phases (strips_irelia.py RUN_PHASES 4 on, lifts x1.3: his longer legs)
+RUN_PH = [(4.0, 0), (2.0, 0), (0.0, 0), (-2.5, 1.3), (-4.5, 4.0), (-4.0, 5.2), (1.0, 4.5), (4.0, 2.0)]
+RUN_FOOT = ["LLM..", "LLLLM", "MDMDM"]   # toes forward, the ankle over column 1
+RUN_GUARD = [(-1, 0, RUN_G2), (-1, 1, RUN_G1), (0, 0, RUN_G3), (0, 1, RUN_G2), (0, 2, RUN_G1), (1, 1, RUN_G3)]
+RUN_NEAR = {"upper": [(0, 1, (RUN_LIT, RUN_MID, RUN_DRK))], "fore": [(0, 1, (RUN_MID, RUN_DRK, RUN_FD))],
+            "foot": {"L": RUN_LIT, "M": RUN_MID, "D": RUN_DRK}}
+RUN_FAR = {"upper": [(0, 1, (RUN_FL, RUN_FM, RUN_FD))], "fore": [(0, 1, (RUN_FM, RUN_FD, (80, 94, 98)))],
+           "foot": {"L": RUN_FL, "M": RUN_FM, "D": RUN_FD}}
+
+
+def to_can(x, y):
+    """Game pixels from the pivot -> canvas coordinates (the pivot square's corner: down()'s 1x grid)."""
+    return PIV_X - 0.5 + PPU * x, SOLE - FEET * PPU + PPU * y
+
+
+def run_leg(dst, hip, k, mats, far):
+    """One leg at phase k from its hip (game px): the ankle placed (RUN_PH), the knee solved (rigkit.elbow, bent
+    forward), the thigh and shin drawn in its stone (rigkit.bone_arm), its foot on the ankle, the near leg's gold knee
+    guard; an outline ring PPU squares thick over whatever is under it."""
+    s = int(PPU)
+    ax, lift = RUN_PH[k]
+    hx, hy = hip
+    knee, ankle = K.elbow(hip, (hx + ax, hy + RUN_ANK_Y - RUN_HIP_Y - lift), RUN_LT, RUN_LS, bend=-1)
+    if knee[0] < min(hx, ankle[0]):
+        knee, ankle = K.elbow(hip, ankle, RUN_LT, RUN_LS, bend=1)
+    tmp = np.zeros_like(dst)
+    K.bone_arm(tmp, to_can(*hip), to_can(*knee), to_can(*ankle), mats, width=(RUN_WID[0] * s, RUN_WID[1] * s))
+
+    def block(x, y, c):
+        X, Y = (int(math.floor(v)) for v in to_can(x, y))
+        tmp[max(0, Y):Y + s, max(0, X):X + s] = (*c, 255)
+
+    fx, fy = math.floor(ankle[0]), math.floor(ankle[1])
+    for dy, row in enumerate(RUN_FOOT):
+        for dx, ch in enumerate(row):
+            if ch != ".":
+                block(fx + dx - 1, fy + dy, mats["foot"][ch])
+    if not far:
+        kx, ky = math.floor(knee[0]), math.floor(knee[1])
+        for dy, dx, c in RUN_GUARD:
+            X, Y = (int(math.floor(v)) for v in to_can(kx + dx, ky + dy))
+            if tmp[Y, X, 3]:
+                block(kx + dx, ky + dy, c)
+    m = tmp[..., 3] > 0
+    ring = ndimage.binary_dilation(m, iterations=s) & ~m
+    dst[ring] = (*OUTLINE, 255)
+    dst[m] = tmp[m]
+
+
+def run_legs(can, k):
+    """A run frame's canvas with the legs redrawn at phase k (the far leg k + 4)."""
+    H, W = can.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    x0, y0 = to_can(0, 0)
+    rx, ry = np.floor((xx + 0.5 - x0) / PPU), np.floor((yy + 0.5 - y0) / PPU)
+    fx, fy, bx, by = RUN_KEEP
+    keep = (rx >= fx) & (ry <= fy) | (rx <= bx) & (ry <= by)
+    upper = can.copy()
+    upper[(ry >= RUN_CUT) & ~keep] = 0
+    zone = (ry >= RUN_CUT - 4) & (rx < RUN_TAILX)
+    tail = np.where(zone[..., None], can, 0).astype(np.uint8)
+    upper[zone] = 0
+    out = tail.copy()
+    # the tail's root: from Codex's tail (left of RUN_TAILX) to the near hip, 2 game rows in its greys
+    edge = int(math.floor(to_can(RUN_TAILX, 0)[0])) - 1
+    ys = np.nonzero(tail[:, edge, 3])[0]
+    if len(ys):
+        mid = (ys.min() + ys.max()) // 2
+        r0, r1 = int(mid - PPU), int(mid + PPU)
+        c0, c1 = edge + 1, int(math.floor(to_can(RUN_NEAR_HX, 0)[0]))
+        out[r0:mid, c0:c1] = (*RUN_FL, 255)
+        out[mid:r1, c0:c1] = (*RUN_FM, 255)
+        out[r0 - int(PPU):r0, c0:c1] = (*OUTLINE, 255)
+        out[r1:r1 + int(PPU), c0:c1] = (*OUTLINE, 255)
+    run_leg(out, (RUN_FAR_HX, RUN_HIP_Y - 1), (k + 4) % 8, RUN_FAR, True)
+    run_leg(out, (RUN_NEAR_HX, RUN_HIP_Y), k, RUN_NEAR, False)
+    K.put(out, upper, 0, 0)
+    out[SOLE + 1:] = 0
+    return out
+
+
+def dense(can, one):
+    """The game's frame: the canvas at GAME_PPU squares a game pixel (pixel_down.pixelate, as the 1.5 the user picked
+    was shown), on a frame of round(GAME_PPU x the 1x frame's size) - grown alike at both ends where the drawing needs
+    more - the pivot square's corner at its centre."""
+    x0, y0 = to_can(0, 0)
+    px, py = x0 + PPU / 2, y0 + PPU / 2                    # the pivot square's centre on the canvas
+    lo, (lx, ly) = PD.pixelate(can, GAME_PPU / PPU, (px, py), PD.edge_colour(can))
+    W, H = round(one.shape[1] * GAME_PPU), round(one.shape[0] * GAME_PPU)
+    ys, xs = np.nonzero(lo[..., 3])
+    while W / 2 < max(lx - xs.min(), xs.max() + 1 - lx):
+        W += 2
+    while H / 2 < max(ly - ys.min(), ys.max() + 1 - ly):
+        H += 2
+    f = np.zeros((H, W, 4), np.uint8)
+    ox, oy = int(np.floor(W / 2 - lx + 0.5)), int(np.floor(H / 2 - ly + 0.5))
+    f[ys + oy, xs + ox] = lo[ys, xs]
+    return f
 
 
 def actions():
@@ -402,11 +528,13 @@ def main():
     sheet = {}
     for tag, frames in acts.items():
         ones, hds = [], []
-        for can, t in frames:
-            one, hd = down(can)
-            hd = lower(hd)
+        for k, (can, t) in enumerate(frames):
+            if tag == "run":
+                can = run_legs(can, k)
+                frames[k] = (can, t)
+            one = down(can)
             ones.append((one, round(t, 3)))
-            hds.append(hd)
+            hds.append(dense(can, one))
         sheet[tag] = ones
         H = max(h.shape[0] for h in hds)
         strip = np.zeros((H, sum(h.shape[1] + 1 for h in hds) - 1, 4), np.uint8)

@@ -52,7 +52,7 @@ import strips as G  # noqa: E402
 # his PPU design by tools/art/rig_kassadin.py (134 design rows / 37 game rows); vladimir, karma, ashe,
 # yasuo: Codex's strips read back by tools/art/import_ppu_strips.py; corki: tools/art/rig_corki_hd.py; braum: Codex's
 # strips (tools/art/import_braum_strips.py) brought to the sheets by tools/art/rig_braum.py, 121 rows / 42 (all in assets/source/ppu)
-PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 2.0}
+PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 1.5}
 PREFIX = "hd_"
 # lo_<tag>: the same frames at UI_PPU squares a displayed game pixel - what the BP grid, the encyclopedia, the pick
 # slots and the pick moment draw (league.dll's UI table; the user, 2026-10-13: 「BP界面里看英雄还是太清晰」, picked the
@@ -66,7 +66,7 @@ def plain(tag):
     return not tag.startswith((PREFIX, LO))
 # hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
 # the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much
-SHIFT = {"gragas": 6, "braum": 4, "galio": 4}  # braum / galio: tools/art/rig_braum.py, rig_galio.py SIZE / SHIFT
+SHIFT = {"gragas": 6, "braum": 4}  # braum: tools/art/rig_braum.py SIZE / SHIFT
 # heroes whose dense frames are a new drawing, not the 1x art (league_zeri: Codex's pictures read at 111 rows): the
 # checks against the 1x frame scaled do not apply to them (tools/art/ppu_zeri.py checks its frames)
 REDRAWN = {"zeri"}
