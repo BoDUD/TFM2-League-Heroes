@@ -679,6 +679,13 @@
         "skill": "人形：投出标枪造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，飞得越远越高（最多220%）。<#ff9028ff>推倒<>：下次攻击额外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法伤害<>，对捕猎目标+40%。",
         "skill2": "人形：治疗友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持续<#ffb900ff>7秒<>；冷却时放<#ff9028ff>丛林伏击<>，持续造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法伤害<>。<#ff9028ff>猛扑<>：扑向敌人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法伤害<>；<#ff9028ff>挥击<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>。",
         "ult": "化身美洲狮，重置美洲狮技能，扑向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，落地挥击并准备推倒。"
+      },
+      "league_nilah": {
+        "name": "尼菈",
+        "attack": "<#ff9028ff>喜色川流<>：鞭刃近战攻击。<#ff9028ff>游刃万变<>后<#ffb900ff>4秒<>内，射程+125，攻击扇形顺劈，额外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理伤害<>，并回复伤害18%的生命。",
+        "skill": "朝目标方向甩出鞭刃，对直线上的所有敌人造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<><#ff8a65ff>物理伤害<>，并强化之后<#ffb900ff>4秒<>的攻击。",
+        "skill2": "<#ff9028ff>纵情逐流<>：穿过敌方英雄冲刺，落地对周围造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>60%<><#ff8a65ff>物理伤害<>，<#ffb900ff>2层<>充能。用完时放<#ff9028ff>轻纱飞漾<>：<#ffb900ff>2.25秒<>内闪避所有攻击，技能伤害-25%，移速+20%，附近友方英雄同样获得<#ffb900ff>1.5秒<>。",
+        "ult": "旋转鞭刃<#ffb900ff>1秒<>，每段造成<#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<><#ff8a65ff>物理伤害<>，最后造成<#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<><#ff8a65ff>物理伤害<>并把周围敌人拉到身边；附近友方英雄回复<#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>生命并获得<#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>护盾。"
       }
     },
     "skill_name": {
@@ -1166,6 +1173,11 @@
         "skill1": "标枪投掷 / 推倒",
         "skill2": "野性奔腾 / 猛扑",
         "ult": "美洲狮形态"
+      },
+      "league_nilah": {
+        "skill1": "游刃万变",
+        "skill2": "纵情逐流 / 轻纱飞漾",
+        "ult": "神恩激荡"
       }
     }
   },
@@ -1849,6 +1861,13 @@
         "skill": "人形：擲出標槍造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，飛得越遠越高（最多220%）。<#ff9028ff>擊倒<>：下次攻擊額外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法傷害<>，對狩獵目標+40%。",
         "skill2": "人形：治療友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持續<#ffb900ff>7秒<>；冷卻時放<#ff9028ff>叢林伏擊<>，持續造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法傷害<>。<#ff9028ff>猛撲<>：撲向敵人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法傷害<>；<#ff9028ff>揮擊<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>。",
         "ult": "化身美洲獅，重置美洲獅技能，撲向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，落地揮擊並準備擊倒。"
+      },
+      "league_nilah": {
+        "name": "淣菈",
+        "attack": "<#ff9028ff>樂無止境<>：鞭刃近戰攻擊。<#ff9028ff>百變之刃<>後<#ffb900ff>4秒<>內，射程+125，攻擊扇形順劈，額外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理傷害<>，並回復傷害18%的生命。",
+        "skill": "朝目標方向甩出鞭刃，對直線上的所有敵人造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<><#ff8a65ff>物理傷害<>，並強化之後<#ffb900ff>4秒<>的攻擊。",
+        "skill2": "<#ff9028ff>湍流淩步<>：穿過敵方英雄衝刺，落地對周圍造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>60%<><#ff8a65ff>物理傷害<>，<#ffb900ff>2層<>充能。用完時放<#ff9028ff>歡躍面紗<>：<#ffb900ff>2.25秒<>內閃避所有攻擊，技能傷害-25%，跑速+20%，附近友方英雄同樣獲得<#ffb900ff>1.5秒<>。",
+        "ult": "旋轉鞭刃<#ffb900ff>1秒<>，每段造成<#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<><#ff8a65ff>物理傷害<>，最後造成<#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<><#ff8a65ff>物理傷害<>並把周圍敵人拉到身邊；附近友方英雄回復<#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>生命並獲得<#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>護盾。"
       }
     },
     "skill_name": {
@@ -2336,6 +2355,11 @@
         "skill1": "標槍投擲／擊倒",
         "skill2": "野性奔騰／猛撲",
         "ult": "美洲獅之形"
+      },
+      "league_nilah": {
+        "skill1": "百變之刃",
+        "skill2": "湍流淩步／歡躍面紗",
+        "ult": "神之禮讚"
       }
     }
   },
@@ -3019,6 +3043,13 @@
         "skill": "Human: throws a javelin for <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, more the farther it flies (up to 220%). <#ff9028ff>Takedown<>: her next attack deals <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>physical<> and <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>magic damage<> more, +40% on the hunted.",
         "skill2": "Human: heals an allied champion for <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> and gives 40% attack speed for <#ffb900ff>7s<>; on cooldown she sets a <#ff9028ff>Bushwhack<> trap, <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>magic damage<> a pulse. <#ff9028ff>Pounce<>: leaps for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>magic damage<>; <#ff9028ff>Swipe<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> around her.",
         "ult": "Turns into the cougar, resets the cougar's abilities and pounces on a champion for <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, then swipes and readies Takedown."
+      },
+      "league_nilah": {
+        "name": "Nilah",
+        "attack": "<#ff9028ff>Joy Unending<>: melee whip-blade attacks. For <#ffb900ff>4s<> after <#ff9028ff>Formless Blade<> they reach 125 farther, cut a cone for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> more <#ff8a65ff>physical damage<> and heal her for 18% of the damage.",
+        "skill": "Lashes her whip-blade in a line, dealing <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<> <#ff8a65ff>physical damage<> to every enemy on it, and empowers her attacks for <#ffb900ff>4s<>.",
+        "skill2": "<#ff9028ff>Slipstream<>: dashes through an enemy champion, dealing <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>60%<> <#ff8a65ff>physical damage<> around her landing; <#ffb900ff>2 charges<>. With both spent, <#ff9028ff>Jubilant Veil<>: for <#ffb900ff>2.25s<> she dodges every attack, takes 25% less from abilities and gains 20% move speed; nearby allied champions get the same for <#ffb900ff>1.5s<>.",
+        "ult": "Spins her whip-blade for <#ffb900ff>1s<>, dealing <#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<> <#ff8a65ff>physical damage<> a hit, then <#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<> <#ff8a65ff>physical damage<> and pulls nearby enemies to her; nearby allied champions heal <#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> and gain a <#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> shield."
       }
     },
     "skill_name": {
@@ -3506,6 +3537,11 @@
         "skill1": "Javelin Toss / Takedown",
         "skill2": "Primal Surge / Pounce",
         "ult": "Aspect of the Cougar"
+      },
+      "league_nilah": {
+        "skill1": "Formless Blade",
+        "skill2": "Slipstream / Jubilant Veil",
+        "ult": "Apotheosis"
       }
     }
   },
@@ -4189,6 +4225,13 @@
         "skill": "인간: 창을 던져 <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 멀리 날수록 증가 (최대 220%). <#ff9028ff>숨통 끊기<>: 다음 공격이 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>물리<>와 <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>마법 피해<> 추가, 사냥 대상 +40%.",
         "skill2": "인간: 아군 챔피언 <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> 회복, <#ffb900ff>7초<> 동안 공격 속도 +40%; 대기 중이면 <#ff9028ff>매복 덫<>으로 <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>마법 피해<> 지속. <#ff9028ff>급습<>: 도약해 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>마법 피해<>; <#ff9028ff>할퀴기<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>.",
         "ult": "쿠거로 변해 쿠거 스킬을 초기화하고 챔피언에게 도약해 <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>, 착지 후 할퀴고 숨통 끊기를 준비."
+      },
+      "league_nilah": {
+        "name": "닐라",
+        "attack": "<#ff9028ff>영원한 기쁨<>: 채찍검 근접 공격. <#ff9028ff>무형의 검<> 후 <#ffb900ff>4초<> 동안 사거리 +125, 공격이 부채꼴로 베어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>물리 피해<>를 추가로 주고 피해의 18%만큼 회복.",
+        "skill": "채찍검을 직선으로 휘둘러 모든 적에게 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<> <#ff8a65ff>물리 피해<>, 이후 <#ffb900ff>4초<> 동안 공격 강화.",
+        "skill2": "<#ff9028ff>급류<>: 적 챔피언을 관통해 돌진, 착지 지점 주변에 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>60%<> <#ff8a65ff>물리 피해<>, <#ffb900ff>2회<> 충전. 모두 쓰면 <#ff9028ff>승리의 장막<>: <#ffb900ff>2.25초<> 동안 모든 공격 회피, 스킬 피해 -25%, 이동 속도 +20%; 주변 아군 챔피언도 <#ffb900ff>1.5초<> 동안 같은 효과.",
+        "ult": "<#ffb900ff>1초<> 동안 채찍검을 돌려 <#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<> <#ff8a65ff>물리 피해<>를 반복, 마지막에 <#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<> <#ff8a65ff>물리 피해<>를 주고 주변 적을 끌어당김; 주변 아군 챔피언은 <#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> 회복, <#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> 보호막."
       }
     },
     "skill_name": {
@@ -4676,6 +4719,11 @@
         "skill1": "창 투척 / 숨통 끊기",
         "skill2": "태고의 생명력 / 급습",
         "ult": "쿠거의 상"
+      },
+      "league_nilah": {
+        "skill1": "무형의 검",
+        "skill2": "급류 / 승리의 장막",
+        "ult": "환희"
       }
     }
   },
@@ -5359,6 +5407,13 @@
         "skill": "人間：槍を投げ<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、遠いほど増加（最大220%）。<#ff9028ff>テイクダウン<>：次の通常攻撃に<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<>の<#ff8a65ff>物理<>と<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<>の<#a974ffff>魔法ダメージ<>、狩る相手に+40%。",
         "skill2": "人間：味方チャンピオンを<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>回復、攻撃速度+40%（<#ffb900ff>7秒<>）；クールダウン中は<#ff9028ff>虎挟み<>で<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ジャンプ<>：飛びかかり<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<>の<#a974ffff>魔法ダメージ<>；<#ff9028ff>クロウ<>：<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "クーガーに変身しクーガーのスキルをリセット、チャンピオンへ飛びかかり<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>、着地でクロウ、テイクダウン準備。"
+      },
+      "league_nilah": {
+        "name": "ニーラ",
+        "attack": "<#ff9028ff>終わりなき喜び<>：鞭刃の近接攻撃。<#ff9028ff>形なき刃<>の後<#ffb900ff>4秒<>、射程+125、扇状に斬り<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<>の<#ff8a65ff>物理ダメージ<>を追加、与ダメージの18%回復。",
+        "skill": "鞭刃を直線に振るい、線上の全ての敵に<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<>の<#ff8a65ff>物理ダメージ<>、その後<#ffb900ff>4秒<>通常攻撃を強化。",
+        "skill2": "<#ff9028ff>流撃<>：敵チャンピオンを突き抜けてダッシュ、着地点の周囲に<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>60%<>の<#ff8a65ff>物理ダメージ<>、<#ffb900ff>2回<>チャージ。使い切ると<#ff9028ff>歓喜のヴェール<>：<#ffb900ff>2.25秒<>全ての通常攻撃を回避、スキルダメージ-25%、移動速度+20%、周囲の味方も<#ffb900ff>1.5秒<>同じ効果。",
+        "ult": "<#ffb900ff>1秒<>鞭刃を回し<#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<>の<#ff8a65ff>物理ダメージ<>を繰り返し、最後に<#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<>の<#ff8a65ff>物理ダメージ<>と周囲の敵を引き寄せる；周囲の味方は<#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>回復、<#7dd87dff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>のシールド。"
       }
     },
     "skill_name": {
@@ -5846,6 +5901,11 @@
         "skill1": "槍投げ/テイクダウン",
         "skill2": "高揚/ジャンプ",
         "ult": "クーガーの心"
+      },
+      "league_nilah": {
+        "skill1": "形なき刃",
+        "skill2": "流撃/歓喜のヴェール",
+        "ult": "アポテオシス"
       }
     }
   }
