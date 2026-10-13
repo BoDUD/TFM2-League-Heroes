@@ -68,13 +68,14 @@ RESTYLE = {
     "corki": dict(grow=1.2, edge=1, ppu=2.2),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
     "kassadin": dict(edge=0, ppu=2.42),
-    # the frames Codex drew 5-17 % smaller (its image service stopped half way through her pack), brought to the
-    # others' size first - until the completion pack dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix, the
-    # 11 frames) comes back: then import it (import_ppu_strips.py --hero ashe --delivery <it> --fill-from-sheet) and
-    # drop the redrawn frames from `fix`
-    "ashe": dict(edge=1, ppu=2.2, fix={("dead", 1): 1.2, ("q_attack", 0): 1.087, ("run", 6): 1.064,
-                                       ("skill", 0): 1.064, ("skill", 2): 1.075, ("skill", 3): 1.053,
-                                       ("skill", 5): 1.075, ("skill2", 0): 1.087, ("ult", 3): 1.075}),
+    # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
+    # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
+    # --delivery <it> --fill-from-sheet
+    "ashe": dict(edge=1, ppu=2.2, fix={
+        # the 11 frames of the completion pack (2026-10-13, 「修复寒冰」) came back 3-14 % small again:
+        # each brought to 0.99 of its 1x frame's height, bow left out, like the frames around it
+        ("run", 6): 1.08, ("q_attack", 0): 1.021, ("skill", 0): 1.10, ("skill", 2): 1.125, ("skill", 4): 1.151,
+        ("skill", 5): 1.076, ("skill2", 0): 1.031, ("ult", 3): 1.076, ("ult", 7): 1.021, ("dead", 1): 1.112}),
     # 「吸血鬼我觉得只要降低点像素就好了」
     "vladimir": dict(edge=1, ppu=1.8),
     # 「其他英雄也差不多2.2」「画风要统一」
