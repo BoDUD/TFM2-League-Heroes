@@ -5,7 +5,7 @@ own grid, posed after League's animation.
     python tools/art/pack_galio_strips.py [--out dist/galio_packs/galio_strips_pack]
 
 The design (tools/art/design_galio_hd.py -> assets/source/galio/hd/front.png: picture A read back, the fists drawn oppi's
-way, 85 x 128 canvas, 104 squares wing tips to soles, 45 colours; PPU 2.0) is the idle. Every action is drawn from the
+way, 85 x 128 canvas, 104 squares wing tips to soles, 22 colours in Zeri's flat look; PPU 2.0) is the idle. Every action is drawn from the
 3/4 FRONT (the user, on the side view: 「侧面还是跟怪啊」 -> 「不要侧身，所有动作用正面」, Braum's / Kassadin's way) and posed
 after League's animation (Braum's lesson: 「参考英雄联盟里的动作帧吧」).
 The skeletons: tools/lol/native_pose.py on assets/source/galio/poses.json (--alpha) -> %TEMP%/gl_work/pose_n: League's

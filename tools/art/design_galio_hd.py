@@ -15,7 +15,8 @@ user chose 「我按英雄联盟的拳头逐格手画」. So:
      finger columns, an outline across the wrist) was 「有点诡异」;
   4. no side view: Codex's side A with a hand-drawn fist stayed 「侧面还是跟怪啊」 (the forearm melted into the thigh) and
      the user chose every action from the front (Braum's / Kassadin's way); SIDE / SIDE_FISTS are kept for the record.
-  5. the outer outline grown by one square (edge), the one look's ~1 game pixel.
+  5. the outer outline grown by one square (edge), the one look's ~1 game pixel;
+  6. Zeri's flat look (flat: 12 lit colours, lone squares merged, the eyes kept) - 45 colours / 0.56 -> 22 / 0.46.
 Writes assets/source/galio/hd/front.png (one square = one dense pixel, 85 x 128, soles row 115, standing
 point column 49).
 """
@@ -173,6 +174,34 @@ def edge(g, n=1):
     return g
 
 
+def flat(g, n=12, passes=4, rounds=3):
+    """Zeri's flat look (the user's rule for every PPU hero, 2026-10-13: 「铁男感觉还是没泽丽那么像素啊」, relayed by 布隆;
+    picked for Galio from a before / after next to Zeri): pixel_down.crisp cuts the lit colours to n with majority passes
+    (no added lines: his cracks are lines already), the blue eyes kept ("teal"); then `rounds` passes in which a lone
+    square (no neighbour of its own colour but one) takes the colour 3 or more of its 8 neighbours share."""
+    import pixel_down as pd
+    op = g[..., 3] > 0
+    keep = op & pd.KEEP["teal"](g)
+    a = pd.crisp([g], n=n, passes=passes, contrast=1.0, lines=False, keep="teal")[0]
+    lit = lambda c: int(c[0]) + int(c[1]) + int(c[2]) >= pd.DARK_SUM
+    for _ in range(rounds):
+        out = a.copy()
+        for y in range(1, a.shape[0] - 1):
+            for x in range(1, a.shape[1] - 1):
+                if not op[y, x] or keep[y, x] or not lit(a[y, x]):
+                    continue
+                nb = [tuple(a[y + dy, x + dx, :3]) for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+                      if (dy or dx) and op[y + dy, x + dx] and lit(a[y + dy, x + dx])]
+                if not nb:
+                    continue
+                vals, cnt = np.unique(np.array(nb), axis=0, return_counts=True)
+                me = tuple(a[y, x, :3])
+                if cnt.max() >= 3 and sum(c == me for c in nb) <= 1 and tuple(vals[cnt.argmax()]) != me:
+                    out[y, x, :3] = vals[cnt.argmax()]
+        a = out
+    return a
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--preview")
@@ -187,6 +216,7 @@ def main():
     pinholes(front)
     edge(front)
     pinholes(front)
+    front = flat(front)
     os.makedirs(OUT, exist_ok=True)
     Image.fromarray(front).save(os.path.join(OUT, "front.png"))
     if a.preview:
