@@ -116,7 +116,7 @@ def showcase(out, z=3, step=40):
     arrive = t
     me.moves.append((arrive - 1, arrive, x0, tx - 18))
     lt = arrive + tick(P["r_lt"])
-    under.append(Anim(frames_of(big, "r_land"), lt, tx - 18, gy))
+    over.append(Anim(frames_of(big, "r_land"), lt, tx - 18, gy))       # z 2 in the kit: drawn over the units
     hit("r_hit", lt)
     d.holds.append((lt, lt + tick(P["r_up"])))
     a("ult_land", tick(P["r_land"]))
