@@ -679,6 +679,13 @@
         "skill": "人形：投出标枪造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，飞得越远越高（最多220%）。<#ff9028ff>推倒<>：下次攻击额外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法伤害<>，对捕猎目标+40%。",
         "skill2": "人形：治疗友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持续<#ffb900ff>7秒<>；冷却时放<#ff9028ff>丛林伏击<>，持续造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法伤害<>。<#ff9028ff>猛扑<>：扑向敌人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法伤害<>；<#ff9028ff>挥击<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>。",
         "ult": "化身美洲狮，重置美洲狮技能，扑向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，落地挥击并准备推倒。"
+      },
+      "league_bard": {
+        "name": "巴德",
+        "attack": "射出星光。被动<#ff9028ff>旅者的召唤<>：每<#ffb900ff>4秒<>一只米普随攻击飞出，对目标周围的敌人造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速25%<>（<#ffb900ff>1秒<>）。",
+        "skill": "射出星界能量，命中的第一个敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速60%<>；若其身后还有敌人，两者都受到伤害并<#ef5350ff>眩晕1.2秒<>。",
+        "skill2": "<#ff9028ff>游神圣坛<>：向交战中的友方英雄（或自己）投出圣坛，治疗<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>，移速+30%。<#ff9028ff>神奇旅程<>：被敌人近身时开门，带身边的友方英雄远离，移速+40%（<#ffb900ff>16秒<>一次）。",
+        "ult": "向聚在一起的敌方英雄（或被控制的友方英雄）投出金色法球，范围内所有单位（含友军和自己）<#ef5350ff>时停2.5秒<>：无法行动、无法被选中、不受伤害。"
       }
     },
     "skill_name": {
@@ -1166,6 +1173,11 @@
         "skill1": "标枪投掷 / 推倒",
         "skill2": "野性奔腾 / 猛扑",
         "ult": "美洲狮形态"
+      },
+      "league_bard": {
+        "skill1": "星界束缚",
+        "skill2": "游神圣坛 / 神奇旅程",
+        "ult": "调和命运"
       }
     }
   },
@@ -1849,6 +1861,13 @@
         "skill": "人形：擲出標槍造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，飛得越遠越高（最多220%）。<#ff9028ff>擊倒<>：下次攻擊額外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法傷害<>，對狩獵目標+40%。",
         "skill2": "人形：治療友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持續<#ffb900ff>7秒<>；冷卻時放<#ff9028ff>叢林伏擊<>，持續造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法傷害<>。<#ff9028ff>猛撲<>：撲向敵人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法傷害<>；<#ff9028ff>揮擊<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>。",
         "ult": "化身美洲獅，重置美洲獅技能，撲向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，落地揮擊並準備擊倒。"
+      },
+      "league_bard": {
+        "name": "巴德",
+        "attack": "射出星光。被動<#ff9028ff>旅者引領<>：每<#ffb900ff>4秒<>一隻小精靈隨攻擊飛出，對目標周圍的敵人造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速25%<>（<#ffb900ff>1秒<>）。",
+        "skill": "射出星界能量，命中的第一個敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速60%<>；若其身後還有敵人，兩者都受到傷害並<#ef5350ff>暈眩1.2秒<>。",
+        "skill2": "<#ff9028ff>守望神龕<>：向交戰中的友方英雄（或自己）投出神龕，治療<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>，跑速+30%。<#ff9028ff>奇幻旅程<>：被敵人近身時開門，帶身邊的友方英雄遠離，跑速+40%（<#ffb900ff>16秒<>一次）。",
+        "ult": "向聚在一起的敵方英雄（或被控制的友方英雄）投出金色法球，範圍內所有單位（含友軍和自己）<#ef5350ff>凝滯2.5秒<>：無法行動、無法被選取、不受傷害。"
       }
     },
     "skill_name": {
@@ -2336,6 +2355,11 @@
         "skill1": "標槍投擲／擊倒",
         "skill2": "野性奔騰／猛撲",
         "ult": "美洲獅之形"
+      },
+      "league_bard": {
+        "skill1": "宇宙制約",
+        "skill2": "守望神龕 / 奇幻旅程",
+        "ult": "凝滯命域"
       }
     }
   },
@@ -3019,6 +3043,13 @@
         "skill": "Human: throws a javelin for <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, more the farther it flies (up to 220%). <#ff9028ff>Takedown<>: her next attack deals <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>physical<> and <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>magic damage<> more, +40% on the hunted.",
         "skill2": "Human: heals an allied champion for <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> and gives 40% attack speed for <#ffb900ff>7s<>; on cooldown she sets a <#ff9028ff>Bushwhack<> trap, <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>magic damage<> a pulse. <#ff9028ff>Pounce<>: leaps for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>magic damage<>; <#ff9028ff>Swipe<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> around her.",
         "ult": "Turns into the cougar, resets the cougar's abilities and pounces on a champion for <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, then swipes and readies Takedown."
+      },
+      "league_bard": {
+        "name": "Bard",
+        "attack": "Fires a star bolt. Passive <#ff9028ff>Traveler's Call<>: every <#ffb900ff>4s<> a Meep flies with his attack, dealing <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<> to enemies around the target and <#ef5350ff>slowing them by 25%<> for <#ffb900ff>1s<>.",
+        "skill": "Fires a bolt of cosmic energy: the first enemy hit takes <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed by 60%<>; if another enemy is behind it, both take the damage and are <#ef5350ff>stunned for 1.2s<>.",
+        "skill2": "<#ff9028ff>Caretaker's Shrine<>: throws a shrine to an allied champion in a fight (or himself), healing <#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<> and giving 30% move speed. <#ff9028ff>Magical Journey<>: when enemies close in, opens a door and takes nearby allied champions away with him, +40% move speed (every <#ffb900ff>16s<>).",
+        "ult": "Lobs a golden orb at grouped enemy champions (or an allied champion in crowd control): every unit in the area, allies and Bard included, is put in <#ef5350ff>stasis for 2.5s<> - it cannot act, be targeted or be harmed."
       }
     },
     "skill_name": {
@@ -3506,6 +3537,11 @@
         "skill1": "Javelin Toss / Takedown",
         "skill2": "Primal Surge / Pounce",
         "ult": "Aspect of the Cougar"
+      },
+      "league_bard": {
+        "skill1": "Cosmic Binding",
+        "skill2": "Caretaker's Shrine / Magical Journey",
+        "ult": "Tempered Fate"
       }
     }
   },
@@ -4189,6 +4225,13 @@
         "skill": "인간: 창을 던져 <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 멀리 날수록 증가 (최대 220%). <#ff9028ff>숨통 끊기<>: 다음 공격이 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>물리<>와 <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>마법 피해<> 추가, 사냥 대상 +40%.",
         "skill2": "인간: 아군 챔피언 <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> 회복, <#ffb900ff>7초<> 동안 공격 속도 +40%; 대기 중이면 <#ff9028ff>매복 덫<>으로 <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>마법 피해<> 지속. <#ff9028ff>급습<>: 도약해 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>마법 피해<>; <#ff9028ff>할퀴기<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>.",
         "ult": "쿠거로 변해 쿠거 스킬을 초기화하고 챔피언에게 도약해 <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>, 착지 후 할퀴고 숨통 끊기를 준비."
+      },
+      "league_bard": {
+        "name": "바드",
+        "attack": "별빛을 쏩니다. 기본 지속 효과 <#ff9028ff>방랑자의 부름<>: <#ffb900ff>4초<>마다 정령이 공격과 함께 날아가 대상 주변 적에게 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>25% 둔화<> (<#ffb900ff>1초<>).",
+        "skill": "우주 에너지를 발사해 처음 맞은 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>마법 피해<>와 <#ef5350ff>60% 둔화<>; 뒤에 다른 적이 있으면 둘 다 피해를 입고 <#ef5350ff>1.2초 기절<>.",
+        "skill2": "<#ff9028ff>수호자의 성소<>: 교전 중인 아군 챔피언(또는 자신)에게 성소를 던져 <#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<> 회복, 이동 속도 +30%. <#ff9028ff>신비한 차원문<>: 적이 붙으면 문을 열어 주변 아군 챔피언과 함께 멀어지고 이동 속도 +40% (<#ffb900ff>16초<>마다).",
+        "ult": "모인 적 챔피언(또는 군중 제어된 아군 챔피언)에게 황금 구체를 던져 범위 안 모든 유닛(아군과 바드 포함)을 <#ef5350ff>2.5초 동안 경직<>시킵니다: 행동, 지정, 피해 불가."
       }
     },
     "skill_name": {
@@ -4676,6 +4719,11 @@
         "skill1": "창 투척 / 숨통 끊기",
         "skill2": "태고의 생명력 / 급습",
         "ult": "쿠거의 상"
+      },
+      "league_bard": {
+        "skill1": "우주의 결속",
+        "skill2": "수호자의 성소 / 신비한 차원문",
+        "ult": "운명의 소용돌이"
       }
     }
   },
@@ -5359,6 +5407,13 @@
         "skill": "人間：槍を投げ<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、遠いほど増加（最大220%）。<#ff9028ff>テイクダウン<>：次の通常攻撃に<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<>の<#ff8a65ff>物理<>と<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<>の<#a974ffff>魔法ダメージ<>、狩る相手に+40%。",
         "skill2": "人間：味方チャンピオンを<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>回復、攻撃速度+40%（<#ffb900ff>7秒<>）；クールダウン中は<#ff9028ff>虎挟み<>で<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ジャンプ<>：飛びかかり<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<>の<#a974ffff>魔法ダメージ<>；<#ff9028ff>クロウ<>：<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "クーガーに変身しクーガーのスキルをリセット、チャンピオンへ飛びかかり<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>、着地でクロウ、テイクダウン準備。"
+      },
+      "league_bard": {
+        "name": "バード",
+        "attack": "星の矢を放つ。自動効果<#ff9028ff>旅人の呼び声<>：<#ffb900ff>4秒<>ごとにミープが攻撃と共に飛び、対象周囲の敵に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>25%スロウ<>（<#ffb900ff>1秒<>）。",
+        "skill": "宇宙の力を放ち、最初に当たった敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>60%スロウ<>；後ろに別の敵がいれば両方にダメージと<#ef5350ff>1.2秒スタン<>。",
+        "skill2": "<#ff9028ff>回復の遺物<>：交戦中の味方チャンピオン（か自分）に遺物を投げ<#7cfc00ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>回復、移動速度+30%。<#ff9028ff>精霊の旅路<>：敵に詰められると扉を開き、近くの味方と離脱、移動速度+40%（<#ffb900ff>16秒<>ごと）。",
+        "ult": "固まった敵チャンピオン（かCC中の味方）に金の球を投げ、範囲内の全ユニット（味方と自分も）を<#ef5350ff>2.5秒停止<>：行動・対象指定・ダメージ不可。"
       }
     },
     "skill_name": {
@@ -5846,6 +5901,11 @@
         "skill1": "槍投げ/テイクダウン",
         "skill2": "高揚/ジャンプ",
         "ult": "クーガーの心"
+      },
+      "league_bard": {
+        "skill1": "宇宙の法則",
+        "skill2": "回復の遺物 / 精霊の旅路",
+        "ult": "運命の調律"
       }
     }
   }
