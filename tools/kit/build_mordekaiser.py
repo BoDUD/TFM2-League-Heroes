@@ -16,6 +16,8 @@ add-on addons/league_mordekaiser for the real 10% steal, the tether and W's real
           the mace slams a line from him through the target (q_len, half-width q_w). A counting line on the same tick
           sets q_i1, then q_i2 for a second unit hit; the damage line a tick later reads them: q_dmg + q_ap% AP magic,
           or alone (League's isolation: one enemy hit) q_iso_dmg + q_iso_ap% AP. A champion hit stacks the passive.
+          Its pictures stand upright on points of the line, never turned (Q_STAMPS, tools/art/fx_mordekaiser_q.py):
+          the blow where the mace head lands, three eruptions back along the line a tick apart.
   skill2  E Death's Grasp (断魂一扼) with W Indestructible (不坏之身) folded in on its own cooldown: a `Targeting` cast on
           `EnemyChampion` (e_range) whose own cooldown s2_cd is short; the caster flags e_cd / w_cd are the real
           cooldowns (league_corki's E/W). E: e_at ticks in a claw line from him through the target (e_len, e_w) deals
@@ -209,6 +211,22 @@ def sign(name, length, width, tick):
             "apply": tick, "applied_target": "EnemyWithoutTower", "applied_effects": []}
 
 
+# Obliterate's pictures on the line to the target: (ticks after the slam, picture, game px ahead x 1000). The mace head
+# lands 40 px ahead in his slam frame (at hd.rs SIZES 1.15); the eruptions run back toward him (the user, 2026-10-13:
+# 「铁男1技能的特效感觉也不足」 - Codex's slam at his feet and its crack, a line picture turned with the cast, were small
+# for him and the crack floated above the line on the red side)
+Q_STAMPS = [(0, "q_slam", 40000), (0, "q_burst", 32000), (1, "q_burst", 22000), (2, "q_burst", 12000)]
+
+
+def stamp(name, ahead):
+    """A picture standing upright `ahead` along the line to the target, never turned (league_yasuo Q3's stamps): a
+    hidden projectile that stops there on its first tick (speed over its range) and plays the picture where it
+    stopped."""
+    return {"type": "LinearProjectile", "name": n("q_step"), "speed": 60000, "range": ahead,
+            "shape": circle(0), "penetrate": True, "y_offset": 0, "applied_target": "EnemyChampion",
+            "applied_effects": [], "end_effects": [{"type": "ViewEffect", "name": n(name)}]}
+
+
 def twin(target, effects):
     """A champion-only twin of a melee hit: an invisible projectile reaching the target the same tick."""
     return {"type": "TargetProjectile", "name": n("twin"), "speed": 100000, "y_offset": 0, "applied_target": target,
@@ -279,7 +297,8 @@ def build(p):
     slam_hit = sw("q_i2", combine(*plain), combine(*lonely))
 
     def slam():
-        return combine(sfx("q"), cview("q_slam"), sign("q_crack", p["q_len"], p["q_w"], 24),
+        pics = [delayed(t, stamp(name, ahead)) if t else stamp(name, ahead) for t, name, ahead in Q_STAMPS]
+        return combine(sfx("q"), *pics,
                        strip("q_count", p["q_len"], p["q_w"], 2, 1, "EnemyWithoutTower", [count]),
                        strip("q_line", p["q_len"], p["q_w"], 3, 2, "EnemyWithoutTower", [slam_hit]),
                        strip("q_champ", p["q_len"], p["q_w"], 3, 2, "EnemyChampion", [stack]))
@@ -347,8 +366,8 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("q_crack", BIG, 1), P_("e_beam", BIG, 2)]
-    views_e = [E("a_hit"), E("p_aura", BIG, -1), E("p_hit"), E("q_slam", BIG, -1, False), E("q_hit"),
+    views_p = [P_("e_beam", BIG, 2)]
+    views_e = [E("a_hit"), E("p_aura", BIG, -1), E("p_hit"), E("q_slam", BIG, 1, False), E("q_burst", BIG, 1, False), E("q_hit"),
                E("q_iso_hit"), E("e_hit"), E("w_shield"), E("w_heal"), E("r_cast", BIG, 2, False), E("r_mark"), E("r_realm", BIG, -1, False),
                E("r_pull"), E("r_win")]
     views_b = [B_("r_curse", FX, 3)]
