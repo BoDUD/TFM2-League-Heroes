@@ -9,9 +9,10 @@ user chose 「我按英雄联盟的拳头逐格手画」. So:
   1. front = Codex's galio-front.png read on its 12-px grid (85 x 128 squares), its fist balls cleared;
   2. one palette: the front's own 40 Lab k-means colours (design_varus.kmeans; the read-back had ~2500 near colours),
      side A snapped to it;
-  3. the fists drawn here square for square (NEAR / FAR: as wide as the forearm above, three finger columns with dark
-     creases, the knuckles rounded at the bottom, the thumb over the inner side toward the body, lit from the upper
-     left), each on a box cleared first (Codex's ball and the spiral's leftovers);
+  3. the fists drawn here square for square, oppi's way (NEAR / FAR / SIDE: narrower than the forearm, rounded, joined
+     to the arm without a wrist outline, one highlight, the thumb's fold and the knuckles in a few dark squares), each on
+     a box cleared first (Codex's ball and the spiral's leftovers); the first try (blocks as wide as the forearm, three
+     finger columns, an outline across the wrist) was 「有点诡异」;
   4. side A (the user's pick) = Codex's galio-side-A.png on the same grid, its ball fist replaced the same way.
   5. the outer outline grown by one square (edge), the one look's ~1 game pixel.
 Writes assets/source/galio/hd/front.png and side.png (one square = one dense pixel, 85 x 128, soles row 115, standing
@@ -38,60 +39,43 @@ K = 40
 # the fist, lit from the upper left; the inner side (toward the body) on the right, the knuckles at the bottom
 SHADES = {"O": (3, 2, 1), "Y": (244, 250, 246), "X": (236, 251, 241), "F": (189, 208, 202), "Z": (149, 169, 168),
           "P": (125, 145, 147), "I": (110, 129, 132), "D": (86, 102, 106), "V": (59, 71, 76), "Q": (46, 56, 61)}
-# the near fist (image left): the width of the forearm above it (20 squares), three finger columns with dark creases,
-# the knuckles rounded at the bottom, the thumb over the inner side (toward the body, image right)
+# The fists the way oppi drew his Galio (LoL Reborn, Workshop 3774304166; the user: 「等等拳头有点诡异啊」「你看看oppi怎么画的」
+# about the first, brick-like ones): narrower than the forearm and rounded, the same stone as the arm and joined to it (no
+# outline across the wrist - the forearm's bottom row goes on as a dark band), shaded by one highlight at the upper left,
+# the thumb's fold and the knuckles only a few dark squares, the knuckles rounded at the bottom.
 NEAR = [
-    "OOOOOOOOOOOOOOOOOOOO",
-    "OXXXXXXXXXFFFFFFFZPO",
-    "OXYYYXXXXFFFFFFFZZPO",
-    "OXXXXXFFFFFFFFFZZPIO",
-    "OXFFFFFFFFFFFZZZPPIO",
-    "OFFFFFFFFZZZZPPPOOIO",
-    "OFFFZZZZZZPPPPPOXFIO",
-    "OZFFFZPFFFZPFFZOXFPO",
-    "OZFFFZPFFFZPFFZOFZPO",
-    "OZFFFZPFFFZPFFZOZPIO",
-    "OPZZZPIZZZPIZZPOPIDO",
-    "OPPPPIDPPPIDPPIOOODO",
-    ".OPPPOOPPPOOPPIOOOO.",
-    "..OOO..OOO..OOO.....",
+    "OIZZFFFFZZPIO",
+    "OZFXXXXFFZPIO",
+    "OFXYYXFFFZPIO",
+    "OFXXXFFFZZPDO",
+    "OZFFFFZZZPPDO",
+    "OZFZPZZZPDDDO",
+    "OPZFFZPZFFDO.",
+    "OPZZPPPZZFDO.",
+    ".OPIPPIPPDO..",
+    "..OIODIODO...",
+    "...O..O.O....",
 ]
-# the far fist (image right, 15 squares like its forearm): the thumb on its inner side (image left), lit the same way
+# the far fist (image right): the thumb's fold on its inner side (image left)
 FAR = [
-    "OOOOOOOOOOOOOO.",
-    "OFXXXXXXXFFFFZO",
-    "OXXXXXXFFFFFZPO",
-    "OXXFFFFFFFZZPIO",
-    "OFFFFFFFZZZPPIO",
-    "OIOOFFZZZPPPPIO",
-    "OXFOZZFFZPFFZIO",
-    "OXFOZPFFZPFFZIO",
-    "OFZOZPFFZPFFZIO",
-    "OZPOPIZZPIZZPDO",
-    "OPIOOIPPIDPPIDO",
-    ".OOOPOOPPOOPPO.",
-    "....O..OO..OO..",
+    "OPZZFFFFZIO",
+    "OZFXXFFZZIO",
+    "OFXYXFFZPDO",
+    "ODOFFFZZPDO",
+    "OXDOZZZPPDO",
+    "OXFDOZPPIDO",
+    "OFZDOZFZPDO",
+    ".OZPOPZPIO.",
+    "..OIODIDO..",
+    "...O..O....",
 ]
-# side A's near fist (17 squares, its forearm 15): the back of the hand to the viewer, the thumb in front (image right)
-SIDE = [
-    "OOOOOOOOOOOOOOOOO",
-    "OXXXXXXXXFFFFFZPO",
-    "OXYYYXXXFFFFFZZPO",
-    "OXXXXFFFFFFFZZPIO",
-    "OXFFFFFFFFFZZPPIO",
-    "OFFFFFFZZZZPPOOIO",
-    "OFFZZZZZPPPPOXFIO",
-    "OZFFZPFFFZPPOXFPO",
-    "OZFFZPFFFZPPOFZPO",
-    "OZFFZPFFFZPPOZPIO",
-    "OPZZPIZZZPIIOPIDO",
-    ".OPPOOPPPOOIOOOO.",
-    "..OO..OOO..OO....",
-]
-SIDE_FISTS = [dict(rows=SIDE, at=(89, 32), clear=(89, 101, 31, 50))]
-# where each fist goes (top-left square) and the box cleared first (Codex's ball, the old spiral's leftovers)
-FRONT_FISTS = [dict(rows=NEAR, at=(91, 14), clear=(91, 104, 14, 37)),
-               dict(rows=FAR, at=(92, 69), clear=(92, 107, 66, 85))]
+# side A's near fist: the near one, at the end of the arm hanging in front of the hip
+SIDE = NEAR
+# where each fist goes (top-left square), the box cleared first (Codex's ball / the spiral's leftovers) and the forearm's
+# bottom row (row, first and last column + 1) that takes the outline outside the fist's width
+FRONT_FISTS = [dict(rows=NEAR, at=(91, 18), clear=(91, 104, 14, 37), fore=(91, 14, 35)),
+               dict(rows=FAR, at=(92, 71), clear=(92, 107, 66, 85), fore=(92, 69, 84))]
+SIDE_FISTS = [dict(rows=SIDE, at=(89, 34), clear=(89, 101, 31, 50), fore=(89, 32, 47))]
 
 
 def grid(path):
@@ -130,31 +114,26 @@ def paint(g, spec):
     r0, r1, c0, c1 = spec["clear"]
     rows = spec["rows"]
     ar, ac = spec["at"]
-    before = g.copy()
     g[r0:r1, c0:c1] = 0
     for i, line in enumerate(rows):
         for j, ch in enumerate(line):
             if ch != ".":
-                g[ar + i, ac + j, :3] = SHADES[ch]
-                g[ar + i, ac + j, 3] = 255
+                g[ar + i, ac + j] = (*SHADES[ch], 255)
+    fr, fc0, fc1 = spec["fore"]
+    for c in range(fc0, fc1):
+        if not (ac <= c < ac + len(rows[0])):
+            g[fr, c] = (*SHADES["O"], 255)
     # what the box cut off a neighbour (the leg beside the near fist) gets its outline back on that side
-    near = np.zeros(g.shape[:2], bool)
-    near[ar:ar + len(rows), ac:ac + len(rows[0])] = True
+    fist = np.zeros(g.shape[:2], bool)
+    fist[ar:ar + len(rows), ac:ac + len(rows[0])] = True
     for r in range(r0, r1):
         for c in range(c0, c1):
             if g[r, c, 3]:
                 continue
             for dc in (-1, 1):
                 cc = c + dc
-                if 0 <= cc < g.shape[1] and g[r, cc, 3] and not near[r, cc] and not (c0 <= cc < c1)                         and g[r, cc, :3].sum() > 60:
+                if 0 <= cc < g.shape[1] and g[r, cc, 3] and not fist[r, cc] and not (c0 <= cc < c1)                         and g[r, cc, :3].sum() > 60:
                     g[r, c] = (*SHADES["O"], 255)
-    # a cleared square left as a one-square crack between the fist and the body takes the outline (gap-check)
-    for r in range(r0, r1):
-        for c in range(c0, c1):
-            if g[r, c, 3] or not before[r, c, 3]:
-                continue
-            if (g[r, c - 1, 3] and g[r, c + 1, 3]) or (g[r - 1, c, 3] and g[r + 1, c, 3]):
-                g[r, c] = (*SHADES["O"], 255)
     return g
 
 
@@ -196,11 +175,13 @@ def main():
         paint(front, spec)
     pinholes(front)
     edge(front)
+    pinholes(front)
     side = snap(grid(os.path.join(CODEX, "galio-side-A.png")), pal)
     for spec in SIDE_FISTS:
         paint(side, spec)
     pinholes(side)
     edge(side)
+    pinholes(side)
     os.makedirs(OUT, exist_ok=True)
     Image.fromarray(front).save(os.path.join(OUT, "front.png"))
     Image.fromarray(side).save(os.path.join(OUT, "side.png"))
