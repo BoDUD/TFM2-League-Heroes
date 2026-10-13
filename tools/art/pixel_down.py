@@ -89,3 +89,100 @@ def pixelate(a, k, pivot, outline):
     return despeckle(out), (nx0, ny0)
 
 
+
+
+# ------------------------------------------------------------------------------------------------- flat pixel art
+DARK_SUM = 70                    # r + g + b under this: outline / black lines, never recoloured
+# squares kept as drawn, per hero (ppu_restyle RESTYLE crisp keep): league_mordekaiser's teal glow - his eyes are a few
+# teal squares in his visor, dark ones round bright ones, and the cleanup took them (「铁男的眼睛完全看不到了」)
+KEEP = {"teal": lambda rgb: (rgb[..., 1] > rgb[..., 0] + 40) & (rgb[..., 2] > rgb[..., 0] + 40)}
+
+
+def _lab(rgb):
+    """sRGB (..., 3) 0-255 -> CIE Lab (D65)."""
+    c = rgb / 255.0
+    c = np.where(c > 0.04045, ((c + 0.055) / 1.055) ** 2.4, c / 12.92)
+    xyz = c @ np.array([[0.4124, 0.3576, 0.1805], [0.2126, 0.7152, 0.0722], [0.0193, 0.1192, 0.9505]]).T
+    xyz /= np.array([0.95047, 1.0, 1.08883])
+    f = np.where(xyz > 0.008856, np.cbrt(xyz), 7.787 * xyz + 16 / 116)
+    return np.stack([116 * f[..., 1] - 16, 500 * (f[..., 0] - f[..., 1]), 200 * (f[..., 1] - f[..., 2])], -1)
+
+
+def crisp(frames, n=16, passes=2, contrast=1.2, lines=True, keep=None, seed=0):
+    """A hero's frames brought to flat pixel art like league_zeri's (the user, 2026-10-13: 「铁男感觉还是没泽丽那么像素啊」,
+    picked 16 colours + lines from a preview): one palette for every frame (no colour flicker between them) -
+    contrast stretched round the hero's mean colour, the non-dark colours cut to n (k-means in Lab, each colour the
+    mean of its members); `passes` majority passes (a square unlike its 8 neighbours takes their commonest colour
+    when 4 or more share it); then a dark line on the darker side of every edge between two parts far apart in
+    brightness (luminance jump over 70: the square at half its brightness). Outline / black squares stay, and so do the
+    ones `keep` names (KEEP).
+    frames: [RGBA uint8] -> new list."""
+    ops = [f[..., 3] > 0 for f in frames]
+    px = np.concatenate([f[o][:, :3].astype(float) for f, o in zip(frames, ops)])
+    mu = px.mean(0)
+    stretch = lambda x: np.clip(mu + (x - mu) * contrast, 0, 255)
+    sp = stretch(px)
+    lit = sp.sum(1) >= DARK_SUM
+    rng = np.random.default_rng(seed)
+    sample = sp[lit][rng.choice(int(lit.sum()), min(int(lit.sum()), 40000), replace=False)]
+    lab_s = _lab(sample)
+    centres = lab_s[rng.choice(len(lab_s), n, replace=False)]
+    for _ in range(25):
+        idx = ((lab_s[:, None] - centres[None]) ** 2).sum(-1).argmin(1)
+        for j in range(n):
+            if (idx == j).any():
+                centres[j] = lab_s[idx == j].mean(0)
+    idx = ((lab_s[:, None] - centres[None]) ** 2).sum(-1).argmin(1)
+    colours = np.array([sample[idx == j].mean(0) if (idx == j).any() else sample[0] for j in range(n)])
+    out = []
+    for f, op in zip(frames, ops):
+        a = f.copy()
+        rgb = stretch(a[..., :3].astype(float))
+        glow = (op & KEEP[keep](a[..., :3].astype(int))) if keep else np.zeros_like(op)
+        m = op & ~glow & (rgb.sum(-1) >= DARK_SUM) & (a[..., :3].astype(int).sum(-1) >= DARK_SUM)
+        if m.any():
+            j = ((_lab(rgb[m])[:, None] - centres[None]) ** 2).sum(-1).argmin(1)
+            a[m, :3] = np.clip(colours[j].round(), 0, 255).astype(np.uint8)
+        for _ in range(passes):
+            a = _majority(a, op, glow)
+        if lines:
+            a = _edge_lines(a, op, glow)
+        out.append(a)
+    return out
+
+
+def _majority(a, op, glow):
+    H, W = op.shape
+    key = (a[..., 0].astype(np.int64) << 16) | (a[..., 1].astype(np.int64) << 8) | a[..., 2]
+    key = np.where(op, key, -1)
+    pk = np.pad(key, 1, constant_values=-1)
+    nb = np.stack([pk[1 + dy:1 + dy + H, 1 + dx:1 + dx + W] for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+                   if (dy, dx) != (0, 0)])                       # (8, H, W)
+    same = (nb[:, None] == nb[None]) & (nb[None] >= 0)          # (8, 8, H, W)
+    cnt = same.sum(1)                                           # how many neighbours share neighbour i's colour
+    cnt = np.where(nb >= 0, cnt, 0)
+    best = np.take_along_axis(nb, cnt.argmax(0)[None], 0)[0]
+    bestn = cnt.max(0)
+    own = (nb == key[None]).sum(0)
+    valid = (nb >= 0).sum(0)
+    dark = a[..., :3].astype(int).sum(-1) < DARK_SUM
+    change = op & ~dark & ~glow & (own <= 1) & (bestn >= 4) & (valid >= 6) & (best >= 0)
+    b = a.copy()
+    b[change, 0] = (best[change] >> 16) & 255
+    b[change, 1] = (best[change] >> 8) & 255
+    b[change, 2] = best[change] & 255
+    return b
+
+
+def _edge_lines(a, op, glow, jump=70, k=0.5):
+    lum = a[..., :3].astype(float).mean(-1)
+    H, W = op.shape
+    pl = np.pad(np.where(op, lum, -1e9), 1, constant_values=-1e9)
+    brighter = np.zeros((H, W), bool)
+    for dy, dx in ((0, 1), (1, 0), (0, -1), (-1, 0)):
+        nb = pl[1 + dy:1 + dy + H, 1 + dx:1 + dx + W]
+        brighter |= nb - lum > jump
+    m = op & ~glow & brighter & (lum >= 25)
+    b = a.copy()
+    b[m, :3] = (a[m, :3] * k).astype(np.uint8)
+    return b
