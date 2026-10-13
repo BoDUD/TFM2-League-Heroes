@@ -83,8 +83,11 @@ RESTYLE = {
     "garen": dict(grow=1.12, edge=0, ppu=1.9),
     # 2.2 at his 80 %
     "gragas": dict(edge=0, ppu=1.76),
-    # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」: only 15 % bigger, her look and grid (PPU 2) kept
-    "irelia": dict(grow=1.15, edge=0),
+    # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
+    # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
+    # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
+    # (1 - 1 / 1.15) = 3.0); her pixels untouched
+    "irelia": dict(lift=3, edge=0, face_to=(0, -37)),
 }
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
@@ -345,6 +348,9 @@ def restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach=None
             pivot = (px + m, py + m)
             if ring is not None:
                 put_ring(content, ring, warp, spec["ring"], (m, m))
+    if spec.get("lift"):
+        # moved up whole (lossless): a hero drawn bigger by hd.rs SIZES keeps its soles on the ground
+        pivot = (pivot[0], pivot[1] + spec["lift"])
     if spec.get("grow", 1) != 1:
         # evenly bigger round the pivot column and the ground row (the soles stay FEET below the pivot)
         k = spec["grow"]
@@ -465,7 +471,7 @@ def restyle(hero, spec, write=True, only=None):
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
         out[tag] = res
-    if spec.get("grow", 1) != 1 and new_ppu == ppu and "idle" in out:
+    if spec.get("grow", 1) != 1 and new_ppu == ppu and "idle" in out and not spec.get("lift"):
         # the even-grid growth rounds: put the soles back exactly where the idle's first frame had them
         a0 = frames["idle"][0][0]
         was = np.nonzero(a0[..., 3].any(1))[0].max() + 1 - a0.shape[0] / 2
@@ -519,6 +525,9 @@ def moved_face(hero, spec, frames, ppu):
     with open(keep, encoding="utf-8") as f:
         base = json.load(f)
     fx, fy = base["x"], base["y"]
+    if spec.get("face_to"):
+        new = {"x": spec["face_to"][0], "y": spec["face_to"][1]}
+        return None if new == entry["face"] else (path, cv, entry, new)
     a = frames["idle"][0][0]
     px, py = a.shape[1] / 2, a.shape[0] / 2
     x, y = px + fx * ppu, py + fy * ppu
