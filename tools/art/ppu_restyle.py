@@ -41,6 +41,7 @@ sys.path.insert(0, HERE)
 import ppu_hd as P  # noqa: E402
 import strips as G  # noqa: E402
 from pixel_down import despeckle, edge_colour, palette_of, pixelate, sizes_of  # noqa: E402,F401
+import pixel_down as D  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "ppu")
 ORIG = os.path.join(SRC, "orig")
@@ -69,14 +70,18 @@ RESTYLE = {
     # rig_braum.py's SHIFT 4 lower (its 90 %): 11.5 x 2.881 x (1 + 4 / 33.13 - 1 / 1.05) = 5.6 orig rows = 3.8 squares
     # -> 4; Mordekaiser's (rig_mordekaiser.py SIZE 1.00, FEET 11): 11 x 5 x (1 - 1 / 1.15) = 7.2 orig rows = 2.9 -> 3.
     # The face points scale about the soles (champion_view: (7, -35) x 1.05 / 0.90, (1, -27) x 1.15)
-    "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98,
+    # then 「铁男感觉还是没泽丽那么像素啊」「飞机 布隆也是」「卡萨丁也是」: flat pixel art (crisp, picked from a preview:
+    # 16 colours + lines; Mordekaiser keeps his teal glow as drawn and his dark armour unstretched -
+    # 「铁男的眼睛完全看不到了」)
+    "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
                   lift=4 * 2.881 / 1.98 - 1e-6, face_to=(8, -41)),      # (a hair under: the pivot's row keeps its square)
     "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0,
+                        crisp=dict(contrast=1.0, keep="teal"),
                         face_to=(1, -31)),
     # 「飞机像泽丽那样变大点」
-    "corki": dict(grow=1.2, edge=1, ppu=2.2),
+    "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
-    "kassadin": dict(edge=0, ppu=2.42),
+    "kassadin": dict(edge=0, ppu=2.42, crisp={}),
     # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
     # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
     # --delivery <it> --fill-from-sheet
@@ -499,6 +504,14 @@ def restyle(hero, spec, write=True, only=None):
         if d:
             out = {t: [(c, (pv[0], pv[1] + d), m) for c, pv, m in r] for t, r in out.items()}
             notes.append(f"soles moved {-d} rows back onto the ground")
+    if spec.get("crisp") is not None:
+        # flat pixel art (pixel_down.crisp): one palette over every frame of the hero
+        keys = [(t, i) for t, r in out.items() for i in range(len(r))]
+        flat = D.crisp([out[t][i][0] for t, i in keys], **spec["crisp"])
+        for (t, i), f in zip(keys, flat):
+            c, pv, m = out[t][i]
+            out[t][i] = (f, pv, m)
+        notes.append(f"crisp {spec['crisp']}")
     return out, sheet, ppu, new_ppu, notes, outline
 
 
