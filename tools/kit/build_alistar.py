@@ -17,6 +17,10 @@ Kit (the user's picks, 2026-10-05: all the recommended options, plus 「EQ二连
           (w_dmg + w_ap%) knocks back the champions in front of him (Knockback w_kb_speed x w_kb_t), and w_land ticks
           later he slams where he stands - the same Pulverize ring, catching the champion where the push left him.
           Starts the trample too.
+          Q's slam and W's landing slam share one cooldown, as League's W -> Q is the one Q (the user, 2026-10-13:
+          「牛头EQ后 还能释放一次Q」): either sets pq_cd for q_cd ticks; while it holds Q only tramples and W only
+          headbutts (tools/fix/alistar_pulverize.py puts the same gate into the shipped kit, which carries the
+          red-side pass).
   ult     R Unbreakable Will, armed like league_blitzcrank R: a 3-tick `None` cast on `EnemyChampion` (r_arm_range) arms
           r_armed for r_arm ticks; every action and a pulse every 15 ticks fire it when an enemy champion is within r_r
           or he is crowd-controlled himself: r_imm ticks of crowd-control immunity (League's cleanse), r_red% less damage
@@ -47,12 +51,13 @@ P = {
     # passive: Triumphant Roar (League: 7 stacks, 3 s cooldown, self 5% max hp, allies x1.4)
     "p_need": 3, "p_cd": 300, "p_r": 40000, "p_heal": 40, "p_ap": 20, "p_ally": 50, "p_ally_ap": 30,
     # E: Trample (League: radius 350, 80-230 + 70% AP over 5 s, 5 stomps on champions -> stun 1 s, cd 12.5-9.5 s)
-    "e_cd": 1080, "e_t": 180, "e_period": 30, "e_r": 24000, "e_dmg": 8, "e_ap": 6, "e_hold": 300,
+    "e_cd": 1080, "e_t": 180, "e_period": 30, "e_r": 24000, "e_dmg": 12, "e_ap": 9, "e_hold": 300,
     "e_stun": 60, "e_proc": 50, "e_proc_ap": 50,
     # skill: Q Pulverize (League: radius 375, 60-260 + 80% AP, knock-up 1 s, cd 14-10 s)
-    "q_cd": 600, "q_range": 24000, "q_r": 28000, "q_dur": 30, "q_st": 14, "q_dmg": 50, "q_ap": 50, "q_up": 60,
+    "pq_t": 360,              # Q's and W's slams: one per pq_t ticks (tools/fix/alistar_pulverize.py TICKS)
+    "q_cd": 600, "q_range": 24000, "q_r": 28000, "q_dur": 30, "q_st": 14, "q_dmg": 80, "q_ap": 80, "q_up": 60,
     # skill2: W Headbutt -> Q (League: range 650, 55-330 + 100% AP, knock-back 700, cd 15-10 s)
-    "w_cd": 720, "w_range": 55000, "w_speed": 3500, "w_dmg": 40, "w_ap": 50, "w_hit_r": 8000, "w_kb_speed": 2500,
+    "w_cd": 720, "w_range": 55000, "w_speed": 3500, "w_dmg": 100, "w_ap": 110, "w_hit_r": 8000, "w_kb_speed": 2500,
     "w_kb_t": 8, "wq_dmg": 30, "wq_ap": 30, "w_land": 6, "w_slam": 6, "w_dash_anim": 12, "w_dur": 14,
     # ult: R Unbreakable Will (League: cleanse, 55-75% less damage 7 s, cd 120/100/80 s)
     "r_cd": 3600, "r_arm": 600, "r_arm_range": 70000, "r_r": 32000, "r_t": 420, "r_red": 50, "r_imm": 60,
@@ -221,6 +226,10 @@ def build(p):
                                                              view("q_up")]),
                        around(p["q_r"], "EnemyChampion", [p_stack(), e_count()]))
 
+    def once(e):
+        """A slam only with pq_cd off (Q's and W's share it), pq_cd set as it plays."""
+        return sw("pq_cd", NONE, combine(flag("pq_cd", p["pq_t"]), e))
+
     # ------------------------------------------------------------------ attack (E's stun punch on champions)
     punch = homing("e_punch", 30000, 0, "EnemyChampion",
                    [*rm("e_ready"), ap(p["e_proc"], p["e_proc_ap"]), {"type": "Stun", "duration": p["e_stun"]},
@@ -231,15 +240,16 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: E -> Q
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "None", "EnemyWithoutTower",
-                   combine(r_check, sfx("q_cast"), trample, delayed(p["q_st"] - 1, pulverize("q_slam", p["q_dmg"], p["q_ap"]))))
+                   combine(r_check, sfx("q_cast"), trample,
+                           once(delayed(p["q_st"] - 1, pulverize("q_slam", p["q_dmg"], p["q_ap"])))))
 
     # ------------------------------------------------------------------ skill2: W -> Q
     butt = around(p["w_hit_r"], "EnemyChampion",
                   [ap(p["w_dmg"], p["w_ap"]), {"type": "Knockback", "speed": p["w_kb_speed"], "tick": p["w_kb_t"]},
                    view("w_hit"), tsfx("w_hit"), p_stack()])
     land = [cview("w_butt"), sfx("w_hit"), butt,
-            delayed(p["w_land"], anim("skill", p["q_dur"] - p["q_st"] + p["w_slam"]),
-                    delayed(p["w_slam"], pulverize("w_slam", p["wq_dmg"], p["wq_ap"])))]
+            once(delayed(p["w_land"], anim("skill", p["q_dur"] - p["q_st"] + p["w_slam"]),
+                         delayed(p["w_slam"], pulverize("w_slam", p["wq_dmg"], p["wq_ap"]))))]
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
                     combine(r_check, sfx("w_cast"), cview("w_dash"), anim("skill2", p["w_dash_anim"]), trample,
                             {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"] + 40000,

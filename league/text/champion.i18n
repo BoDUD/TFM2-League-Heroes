@@ -410,8 +410,8 @@
       "league_alistar": {
         "name": "阿利斯塔",
         "attack": "用双拳重击。被动<#ff9028ff>凯旋怒吼<>：控制命中敌方英雄<#ffb900ff>3次<>后怒吼，回复自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周围友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。",
-        "skill": "<#ff9028ff>践踏<>接<#ff9028ff>大地粉碎<>：先践踏<#ffb900ff>3秒<>（每脚<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>），再砸地，周围敌人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。踩中英雄<#ffb900ff>5次<>后，下次普攻<#ef5350ff>眩晕1秒<>。",
-        "skill2": "<#ff9028ff>野蛮冲撞<>接<#ff9028ff>大地粉碎<>：冲向敌方英雄，撞退并造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，随即砸地<#ef5350ff>击飞<>周围敌人，同时开始践踏。",
+        "skill": "<#ff9028ff>践踏<>接<#ff9028ff>大地粉碎<>：先践踏<#ffb900ff>3秒<>（每脚<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>），再砸地，周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。踩中英雄<#ffb900ff>5次<>后，下次普攻<#ef5350ff>眩晕1秒<>。",
+        "skill2": "<#ff9028ff>野蛮冲撞<>接<#ff9028ff>大地粉碎<>：冲向敌方英雄，撞退并造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<><#a974ffff>魔法伤害<>，随即砸地<#ef5350ff>击飞<>周围敌人，同时开始践踏。（和大地粉碎共用：6秒内只砸一次）",
         "ult": "交战时怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>内受到的伤害降低<#ffb900ff>50%<>。"
       },
       "league_varus": {
@@ -672,6 +672,13 @@
         "skill": "挥锤砸向前方一条直线，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>；只砸中一个敌人时改为<#a974ffff>112<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>。",
         "skill2": "甩出断魂之爪，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并把敌人<#ef5350ff>拉到身前<>。冷却中被英雄贴近时改为<#ff9028ff>不坏之身<>：获得<#7ee87eff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60%护盾<>，护盾仍在时回复<#7ee87eff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%生命<>。",
         "ult": "诅咒一名敌方英雄<#ffb900ff>7秒<>：偷取其10%攻击、法强、护甲、魔抗和生命，逃远会被<#ef5350ff>拉回<>；期间将其击杀则回复<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
+      },
+      "league_nidalee": {
+        "name": "奈德丽",
+        "attack": "<#ff9028ff>寻觅<>：标枪或夹子命中英雄将其捕猎<#ffb900ff>4秒<>，期间移速+20%。出手前按战况切换人形（远程）和美洲狮（近战）形态，切换冷却<#ffb900ff>3秒<>。",
+        "skill": "人形：投出标枪造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，飞得越远越高（最多220%）。<#ff9028ff>推倒<>：下次攻击额外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法伤害<>，对捕猎目标+40%。",
+        "skill2": "人形：治疗友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持续<#ffb900ff>7秒<>；冷却时放<#ff9028ff>丛林伏击<>，持续造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法伤害<>。<#ff9028ff>猛扑<>：扑向敌人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法伤害<>；<#ff9028ff>挥击<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>。",
+        "ult": "化身美洲狮，重置美洲狮技能，扑向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，落地挥击并准备推倒。"
       },
       "league_galio": {
         "name": "加里奥",
@@ -1162,6 +1169,11 @@
         "skill2": "断魂一扼",
         "ult": "轮回绝境"
       },
+      "league_nidalee": {
+        "skill1": "标枪投掷 / 推倒",
+        "skill2": "野性奔腾 / 猛扑",
+        "ult": "美洲狮形态"
+      },
       "league_galio": {
         "skill1": "战争罡风",
         "skill2": "正义冲拳",
@@ -1580,8 +1592,8 @@
       "league_alistar": {
         "name": "亞歷斯塔",
         "attack": "用雙拳重擊。被動<#ff9028ff>勝利怒吼<>：控制命中敵方英雄<#ffb900ff>3次<>後怒吼，回復自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周圍友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。",
-        "skill": "<#ff9028ff>蠻牛之力<>接<#ff9028ff>大地粉碎<>：先踐踏<#ffb900ff>3秒<>（每腳<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>），再砸地，周圍敵人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。踩中英雄<#ffb900ff>5次<>後，下次普攻<#ef5350ff>暈眩1秒<>。",
-        "skill2": "<#ff9028ff>野蠻衝撞<>接<#ff9028ff>大地粉碎<>：衝向敵方英雄，撞退並造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，隨即砸地<#ef5350ff>擊飛<>周圍敵人，同時開始踐踏。",
+        "skill": "<#ff9028ff>蠻牛之力<>接<#ff9028ff>大地粉碎<>：先踐踏<#ffb900ff>3秒<>（每腳<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>），再砸地，周圍敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。踩中英雄<#ffb900ff>5次<>後，下次普攻<#ef5350ff>暈眩1秒<>。",
+        "skill2": "<#ff9028ff>野蠻衝撞<>接<#ff9028ff>大地粉碎<>：衝向敵方英雄，撞退並造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<><#a974ffff>魔法傷害<>，隨即砸地<#ef5350ff>擊飛<>周圍敵人，同時開始踐踏。（與大地粉碎共用：6秒內只砸一次）",
         "ult": "交戰時怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>內受到的傷害降低<#ffb900ff>50%<>。"
       },
       "league_varus": {
@@ -1842,6 +1854,13 @@
         "skill": "揮錘砸向前方一條直線，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>；只砸中一個敵人時改為<#a974ffff>112<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>。",
         "skill2": "甩出死之爪，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並把敵人<#ef5350ff>拉到身前<>。冷卻中被英雄貼近時改為<#ff9028ff>不滅之軀<>：獲得<#7ee87eff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60%護盾<>，護盾仍在時回復<#7ee87eff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%生命<>。",
         "ult": "詛咒一名敵方英雄<#ffb900ff>7秒<>：偷取其10%攻擊、法強、護甲、魔抗和生命，逃遠會被<#ef5350ff>拉回<>；期間將其擊殺則回復<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%生命<>。"
+      },
+      "league_nidalee": {
+        "name": "奈德麗",
+        "attack": "<#ff9028ff>穿梭<>：標槍或陷阱命中英雄將其狩獵<#ffb900ff>4秒<>，期間跑速+20%。出手前依戰況切換人形（遠程）和美洲獅（近戰）形態，切換冷卻<#ffb900ff>3秒<>。",
+        "skill": "人形：擲出標槍造成<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，飛得越遠越高（最多220%）。<#ff9028ff>擊倒<>：下次攻擊額外造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<><#ff8a65ff>物理<>和<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法傷害<>，對狩獵目標+40%。",
+        "skill2": "人形：治療友方英雄<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>，攻速+40%持續<#ffb900ff>7秒<>；冷卻時放<#ff9028ff>叢林伏擊<>，持續造成<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法傷害<>。<#ff9028ff>猛撲<>：撲向敵人造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<><#a974ffff>魔法傷害<>；<#ff9028ff>揮擊<>造成<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>。",
+        "ult": "化身美洲獅，重置美洲獅技能，撲向英雄造成<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，落地揮擊並準備擊倒。"
       },
       "league_galio": {
         "name": "加里歐",
@@ -2332,6 +2351,11 @@
         "skill2": "死之爪",
         "ult": "死亡領域"
       },
+      "league_nidalee": {
+        "skill1": "標槍投擲／擊倒",
+        "skill2": "野性奔騰／猛撲",
+        "ult": "美洲獅之形"
+      },
       "league_galio": {
         "skill1": "征戰風暴",
         "skill2": "光榮制裁",
@@ -2750,8 +2774,8 @@
       "league_alistar": {
         "name": "Alistar",
         "attack": "Pounds with both fists. Passive <#ff9028ff>Triumphant Roar<>: after his crowd control lands on enemy champions <#ffb900ff>3 times<> he roars, healing himself <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<> and allied champions nearby <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>.",
-        "skill": "<#ff9028ff>Trample<> into <#ff9028ff>Pulverize<>: he tramples for <#ffb900ff>3s<> (<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> a stomp), then smashes the ground: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<> around him. After <#ffb900ff>5<> stomps on champions his next attack <#ef5350ff>stuns<> for 1s.",
-        "skill2": "<#ff9028ff>Headbutt<> into <#ff9028ff>Pulverize<>: charges an enemy champion, knocks him back for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>, then smashes the ground, <#ef5350ff>knocking up<> enemies around him. Starts Trample too.",
+        "skill": "<#ff9028ff>Trample<> into <#ff9028ff>Pulverize<>: he tramples for <#ffb900ff>3s<> (<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> a stomp), then smashes the ground: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<> around him. After <#ffb900ff>5<> stomps on champions his next attack <#ef5350ff>stuns<> for 1s.",
+        "skill2": "<#ff9028ff>Headbutt<> into <#ff9028ff>Pulverize<>: charges an enemy champion, knocks him back for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<> <#a974ffff>magic damage<>, then smashes the ground, <#ef5350ff>knocking up<> enemies around him. Starts Trample too. (shares Pulverize: one slam every 6 s)",
         "ult": "Roars in a fight: <#ef5350ff>immune to crowd control<> for <#ffb900ff>1s<>, takes <#ffb900ff>50%<> less damage for <#ffb900ff>7s<>."
       },
       "league_varus": {
@@ -3012,6 +3036,13 @@
         "skill": "Slams his mace down a line ahead for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>; hitting a single enemy, <#a974ffff>112<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<> instead.",
         "skill2": "Lashes out a grasp for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, <#ef5350ff>pulling<> enemies to him. On cooldown with a champion close: <#ff9028ff>Indestructible<>, a <#7ee87eff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60% shield<>; if it still holds, he heals <#7ee87eff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%<>.",
         "ult": "Curses an enemy champion for <#ffb900ff>7s<>: steals 10% of its attack, ability power, armour, magic resistance and health and <#ef5350ff>drags it back<> if it runs. Killing it meanwhile heals him <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>."
+      },
+      "league_nidalee": {
+        "name": "Nidalee",
+        "attack": "<#ff9028ff>Prowl<>: javelin and trap hits hunt a champion for <#ffb900ff>4s<> (+20% move speed). Before each attack she switches between human (ranged) and cougar (melee) as the fight needs, every <#ffb900ff>3s<> at most.",
+        "skill": "Human: throws a javelin for <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, more the farther it flies (up to 220%). <#ff9028ff>Takedown<>: her next attack deals <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>physical<> and <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>magic damage<> more, +40% on the hunted.",
+        "skill2": "Human: heals an allied champion for <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> and gives 40% attack speed for <#ffb900ff>7s<>; on cooldown she sets a <#ff9028ff>Bushwhack<> trap, <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>magic damage<> a pulse. <#ff9028ff>Pounce<>: leaps for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>magic damage<>; <#ff9028ff>Swipe<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> around her.",
+        "ult": "Turns into the cougar, resets the cougar's abilities and pounces on a champion for <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, then swipes and readies Takedown."
       },
       "league_galio": {
         "name": "Galio",
@@ -3502,6 +3533,11 @@
         "skill2": "Death's Grasp",
         "ult": "Realm of Death"
       },
+      "league_nidalee": {
+        "skill1": "Javelin Toss / Takedown",
+        "skill2": "Primal Surge / Pounce",
+        "ult": "Aspect of the Cougar"
+      },
       "league_galio": {
         "skill1": "Winds of War",
         "skill2": "Justice Punch",
@@ -3920,8 +3956,8 @@
       "league_alistar": {
         "name": "알리스타",
         "attack": "두 주먹으로 내리칩니다. 기본 지속 효과 <#ff9028ff>승리의 포효<>: 군중 제어를 적 챔피언에게 <#ffb900ff>3번<> 적중시키면 포효해 자신은 <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>, 주변 아군 챔피언은 <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>의 체력을 회복합니다.",
-        "skill": "<#ff9028ff>짓밟기<> 후 <#ff9028ff>분쇄<>: <#ffb900ff>3초<> 동안 짓밟고(한 번에 <#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>) 땅을 내리쳐 주변 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1초 띄워 올립니다<>. 챔피언을 <#ffb900ff>5번<> 밟으면 다음 기본 공격이 <#ef5350ff>1초 기절<>시킵니다.",
-        "skill2": "<#ff9028ff>박치기<> 후 <#ff9028ff>분쇄<>: 적 챔피언에게 돌진해 밀쳐내며 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>를 입히고, 곧바로 땅을 내리쳐 주변 적을 <#ef5350ff>띄워 올립니다<>. 짓밟기도 시작합니다.",
+        "skill": "<#ff9028ff>짓밟기<> 후 <#ff9028ff>분쇄<>: <#ffb900ff>3초<> 동안 짓밟고(한 번에 <#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>) 땅을 내리쳐 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1초 띄워 올립니다<>. 챔피언을 <#ffb900ff>5번<> 밟으면 다음 기본 공격이 <#ef5350ff>1초 기절<>시킵니다.",
+        "skill2": "<#ff9028ff>박치기<> 후 <#ff9028ff>분쇄<>: 적 챔피언에게 돌진해 밀쳐내며 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>의 <#a974ffff>마법 피해<>를 입히고, 곧바로 땅을 내리쳐 주변 적을 <#ef5350ff>띄워 올립니다<>. 짓밟기도 시작합니다. (분쇄와 공유: 6초에 한 번)",
         "ult": "교전 중 포효: <#ffb900ff>1초<> 동안 <#ef5350ff>군중 제어 면역<>, <#ffb900ff>7초<> 동안 받는 피해가 <#ffb900ff>50%<> 감소합니다."
       },
       "league_varus": {
@@ -4182,6 +4218,13 @@
         "skill": "전방 직선을 철퇴로 내리쳐 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>, 적 하나만 맞히면 <#a974ffff>112<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>.",
         "skill2": "손아귀를 뻗어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>를 주고 적을 <#ef5350ff>끌어당김<>. 재사용 대기 중 챔피언이 붙으면 <#ff9028ff>불멸<>: <#7ee87eff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60% 보호막<>, 보호막이 남아 있으면 <#7ee87eff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%<> 회복.",
         "ult": "적 챔피언을 <#ffb900ff>7초<> 저주: 공격력·주문력·방어력·마법 저항력·체력 10% 강탈, 도망치면 <#ef5350ff>끌어옴<>. 그동안 처치하면 <#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<> 회복."
+      },
+      "league_nidalee": {
+        "name": "니달리",
+        "attack": "<#ff9028ff>수풀 배회<>: 창이나 덫에 맞은 챔피언을 <#ffb900ff>4초<> 동안 사냥 (이동 속도 +20%). 공격 전에 상황에 따라 인간(원거리)과 쿠거(근접) 형태를 바꾸며, 전환 대기시간 <#ffb900ff>3초<>.",
+        "skill": "인간: 창을 던져 <#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 멀리 날수록 증가 (최대 220%). <#ff9028ff>숨통 끊기<>: 다음 공격이 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<> <#ff8a65ff>물리<>와 <#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>마법 피해<> 추가, 사냥 대상 +40%.",
+        "skill2": "인간: 아군 챔피언 <#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<> 회복, <#ffb900ff>7초<> 동안 공격 속도 +40%; 대기 중이면 <#ff9028ff>매복 덫<>으로 <#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>마법 피해<> 지속. <#ff9028ff>급습<>: 도약해 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<> <#a974ffff>마법 피해<>; <#ff9028ff>할퀴기<>: <#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>.",
+        "ult": "쿠거로 변해 쿠거 스킬을 초기화하고 챔피언에게 도약해 <#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>, 착지 후 할퀴고 숨통 끊기를 준비."
       },
       "league_galio": {
         "name": "갈리오",
@@ -4672,6 +4715,11 @@
         "skill2": "죽음의 손아귀",
         "ult": "죽음의 세계"
       },
+      "league_nidalee": {
+        "skill1": "창 투척 / 숨통 끊기",
+        "skill2": "태고의 생명력 / 급습",
+        "ult": "쿠거의 상"
+      },
       "league_galio": {
         "skill1": "전장의 돌풍",
         "skill2": "정의의 주먹",
@@ -5090,8 +5138,8 @@
       "league_alistar": {
         "name": "アリスター",
         "attack": "両拳で殴りつける。パッシブ <#ff9028ff>戦士の咆哮<>：行動妨害を敵チャンピオンに<#ffb900ff>3回<>当てると咆哮し、自身は<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周囲の味方チャンピオンは<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>回復。",
-        "skill": "<#ff9028ff>踏破<>から<#ff9028ff>圧砕<>：<#ffb900ff>3秒<>踏み鳴らし（1回<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>）、地面を叩いて周囲の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒のノックアップ<>。チャンピオンを<#ffb900ff>5回<>踏むと次の通常攻撃が<#ef5350ff>1秒スタン<>。",
-        "skill2": "<#ff9028ff>頭突き<>から<#ff9028ff>圧砕<>：敵チャンピオンに突進してノックバックし<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、すぐ地面を叩いて周囲の敵を<#ef5350ff>ノックアップ<>。踏破も始める。",
+        "skill": "<#ff9028ff>踏破<>から<#ff9028ff>圧砕<>：<#ffb900ff>3秒<>踏み鳴らし（1回<#a974ffff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>）、地面を叩いて周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒のノックアップ<>。チャンピオンを<#ffb900ff>5回<>踏むと次の通常攻撃が<#ef5350ff>1秒スタン<>。",
+        "skill2": "<#ff9028ff>頭突き<>から<#ff9028ff>圧砕<>：敵チャンピオンに突進してノックバックし<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>の<#a974ffff>魔法ダメージ<>、すぐ地面を叩いて周囲の敵を<#ef5350ff>ノックアップ<>。踏破も始める。（大地粉砕と共有：6秒に1回）",
         "ult": "戦闘中に咆哮：<#ffb900ff>1秒<><#ef5350ff>行動妨害無効<>、<#ffb900ff>7秒<>間受けるダメージ<#ffb900ff>50%<>軽減。"
       },
       "league_varus": {
@@ -5352,6 +5400,13 @@
         "skill": "前方の直線を鉄槌で叩き<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、敵1体だけなら<#a974ffff>112<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>98%<>。",
         "skill2": "呪縛の手を放ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、敵を<#ef5350ff>引き寄せる<>。CD中に敵が接近すると<#ff9028ff>不滅の鎧<>：<#7ee87eff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>60%のシールド<>、残っていれば<#7ee87eff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>40%<>回復。",
         "ult": "敵チャンピオンを<#ffb900ff>7秒<>呪う：攻撃力・魔力・物防・魔防・体力の10%を奪い、逃げると<#ef5350ff>引き戻す<>。その間に倒すと<#7ee87eff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee87eff>50%<>回復。"
+      },
+      "league_nidalee": {
+        "name": "ニダリー",
+        "attack": "<#ff9028ff>品定め<>：槍か虎挟みが当たったチャンピオンを<#ffb900ff>4秒<>狩る（移動速度+20%）。攻撃の前に戦況で人間（遠隔）とクーガー（近接）を切り替え、間隔<#ffb900ff>3秒<>。",
+        "skill": "人間：槍を投げ<#a974ffff>88<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、遠いほど増加（最大220%）。<#ff9028ff>テイクダウン<>：次の通常攻撃に<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>50%<>の<#ff8a65ff>物理<>と<#a974ffff>52<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<>の<#a974ffff>魔法ダメージ<>、狩る相手に+40%。",
+        "skill2": "人間：味方チャンピオンを<#7dd87dff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>45%<>回復、攻撃速度+40%（<#ffb900ff>7秒<>）；クールダウン中は<#ff9028ff>虎挟み<>で<#a974ffff>18<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ジャンプ<>：飛びかかり<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48%<>の<#a974ffff>魔法ダメージ<>；<#ff9028ff>クロウ<>：<#a974ffff>98<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "クーガーに変身しクーガーのスキルをリセット、チャンピオンへ飛びかかり<#a974ffff>160<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>、着地でクロウ、テイクダウン準備。"
       },
       "league_galio": {
         "name": "ガリオ",
@@ -5841,6 +5896,11 @@
         "skill1": "滅魂の一撃",
         "skill2": "死の呪縛",
         "ult": "死の国"
+      },
+      "league_nidalee": {
+        "skill1": "槍投げ/テイクダウン",
+        "skill2": "高揚/ジャンプ",
+        "ult": "クーガーの心"
       },
       "league_galio": {
         "skill1": "戦の旋風",

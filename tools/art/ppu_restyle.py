@@ -54,7 +54,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
-            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3}
+            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -73,15 +73,23 @@ RESTYLE = {
     # then 「铁男感觉还是没泽丽那么像素啊」「飞机 布隆也是」「卡萨丁也是」: flat pixel art (crisp, picked from a preview:
     # 16 colours + lines; Mordekaiser keeps his teal glow as drawn and his dark armour unstretched -
     # 「铁男的眼睛完全看不到了」)
+    # then 「铁男和布隆游戏里偏大了」: Mordekaiser 100 %, Braum 95 % (hd.rs SIZES, picked from a true-scale sheet) - the
+    # frames as they were, moved down by whole squares after the downscale (lift_sq): 11 x 2.0 x (1 / 1.00 - 1 / 1.15)
+    # = 2.9 -> 3, 11.5 x 1.98 x (1 / 0.95 - 1 / 1.05) = 2.3 -> 2; faces x 1.00 / 1.15 and x 0.95 / 1.05 about the soles
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
-                  lift=4 * 2.881 / 1.98 - 1e-6, face_to=(8, -41)),      # (a hair under: the pivot's row keeps its square)
-    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0,
+                  lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(7, -37)),  # (a hair under: the pivot's row keeps its square)
+    # 「铁男的走路步伐感觉有点大啊」: the run's two striding frames had the soles 42 and 47.5 game px apart (the idle's 31):
+    # their legs brought together from the hips down (narrow: 25 and 40 orig px nearer on each side at the soles)
+    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-3,
+                        stride={"run": (165, {0: 25, 2: 40})},
                         crisp=dict(contrast=1.0, keep="teal"),
-                        face_to=(1, -31)),
+                        face_to=(1, -27)),
     # 「飞机像泽丽那样变大点」
     "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
-    "kassadin": dict(edge=0, ppu=2.42, crisp={}),
+    # 「刀妹和卡萨丁感觉在游戏里偏大啊」: 100 % (hd.rs SIZES). rig_kassadin.py drew his frames RAISE 4 orig rows higher
+    # for its 110 %; lowered 4 x 2.42 / 3.622 = 2.7 -> 3 squares after the downscale
+    "kassadin": dict(edge=0, ppu=2.42, crisp={}, lift_sq=-3, face_to=(1, -31)),
     # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
     # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
     # --delivery <it> --fill-from-sheet
@@ -110,7 +118,8 @@ RESTYLE = {
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
     # (1 - 1 / 1.15) = 3.0); her pixels untouched. Her face point: PR #246's (1, -38) on her head at 100 % (the old (0, -31)
     # cropped her chest), x 1.15 about the soles
-    "irelia": dict(lift=3, edge=0, face_to=(1, -44)),
+    # then 「刀妹和卡萨丁感觉在游戏里偏大啊」: 105 % - lifted 11.5 x 2 x (1 - 1 / 1.05) = 1.1 -> 1 row
+    "irelia": dict(lift=1, edge=0, face_to=(1, -40)),
     # 「下一个可以修正索拉卡」: Codex's PPU 3 redraw (design + 46 frames, the design brought to the actions' size at import),
     # to Zeri's look: Codex drew every head anew (none matches the idle's face), so the body only, every frame alike
     # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel. Then 「稍微变大点」: drawn 110 % by league.dll (hd.rs
@@ -121,13 +130,31 @@ RESTYLE = {
     # lines pass turned its 2-3 squares wide shaft black)
     "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2, lift=3 * 3 / 2.2,
                    face_to=(5, -32), crisp=dict(keep="soraka")),   # face point on her restyled face (#257)
+    # league_nidalee (#97, 「按泽丽标准」): the huntress's head up, her body wider and shorter (Karma's way); the cougar keeps
+    # its shape (FRAMES "none": already chunky) and only comes to the coarser grid
+    # picked from three (「A 头 1.2 / 宽 1.3 / 矮 0.9」); max_err 8000: her Codex-drawn heads differ a little from the design's
+    # and were missed at 1500 (the head then kept its size beside the idle's grown one); the lying and turned frames below
+    # Then 「豹子形态太大了」「还有豹子的像素太高」: the cougar (tags c_*) picked from a true-scale sheet at 75 % (61 x 31 game
+    # px standing -> 46 x 23, Rengar 41 x 40) on a coarser grid, 1.65 squares a game px (coarse: drawn, outlined and
+    # crisped on that grid, then brought to the sheet's 2.2 by nearest - squares of one or two; the palette from the
+    # frames as they were, so the human's stay as they are)
+    "nidalee": dict(face=(33, 59, 51, 78), neck=(65, 61), head=1.2, wide=1.3, short=0.9, band=3, edge=1, ppu=2.2,
+                    max_err=8000, crisp=dict(keep="head"), coarse=dict(prefix="c_", size=0.75, grid=1.65)),
 }
+NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
+                  "c_hit": 2, "c_dead": 6}
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
 FRAMES = {
     **{("zeri", "dead", i): ("lie", "r", 36.5, 3.5) for i in (4, 5, 6, 7)},
     **{("karma", "dead", i): ("lie", "r", 7.5, 17.5) for i in (2, 3, 4, 5, 6, 7)},
     ("karma", "dead", 1): ("up", 20.5, 13.5),
+    **{("nidalee", t, i): ("none",) for t, n in NIDALEE_COUGAR.items() for i in range(n)},
+    # lying (dead 4-6) and the low lunge (skill 5): the body only; hit = the idle moved 4 / 2 back (its neck with it)
+    **{("nidalee", "dead", i): ("body",) for i in (3, 4, 5)},
+    ("nidalee", "skill", 4): ("body",),
+    ("nidalee", "hit", 0): ("up", 1.5, -67.5),
+    ("nidalee", "hit", 1): ("up", 3.5, -67.5),
 }
 
 
@@ -468,9 +495,62 @@ def put_ring(content, ring, warp, k, off):
     content[yy[behind], xx[behind]] = small[ys[behind], xs[behind]]
 
 
+
+def narrow(a, y0, s):
+    """A striding frame's legs brought together (league_mordekaiser's run: 「铁男的走路步伐感觉有点大啊」): every row from
+    y0 down, the back leg's pixels move right and the front leg's left by s x (row - y0) / (soles - y0) dense pixels
+    (rounded) - the soles 2 s nearer, each leg's pixels row for row (nothing squashed), the front leg drawn over the
+    back one where they meet. The legs: the two largest 8-connected parts of the rows below the first row ys (>= y0)
+    from which down they come apart; every other part there goes with the nearer leg; above ys (the hips, the skirt)
+    a row splits at the middle of the gap between the two legs' tops."""
+    op = a[..., 3] > 0
+    sole = int(np.nonzero(op.any(1))[0].max())
+    for ys in range(y0, sole):
+        lab, n = ndimage.label(op[ys:sole + 1], structure=np.ones((3, 3)))
+        if n < 2:
+            continue
+        sizes = ndimage.sum(np.ones_like(lab), lab, index=range(1, n + 1))
+        big = np.argsort(sizes)[::-1][:2] + 1
+        if sizes[big[1] - 1] >= 0.2 * sizes[big[0] - 1]:
+            break
+    else:
+        return a
+    cx = {k: np.nonzero(lab == k)[1].mean() for k in range(1, n + 1)}
+    back, front = sorted(big, key=lambda k: cx[k])
+    side = np.zeros(op.shape, np.int8)                      # 1 back leg, 2 front leg, 0 above ys / clear
+    for k in range(1, n + 1):
+        side[ys:sole + 1][lab == k] = 1 if abs(cx[k] - cx[back]) <= abs(cx[k] - cx[front]) else 2
+    top_b = np.nonzero(lab[0] == back)[0]
+    top_f = np.nonzero(lab[0] == front)[0]
+    split = ((top_b.max() if len(top_b) else cx[back]) + (top_f.min() if len(top_f) else cx[front]) + 1) / 2.0
+    cols = np.arange(op.shape[1])
+    for y in range(y0, ys):
+        side[y][op[y]] = np.where(cols[op[y]] < split, 1, 2)
+    out = a.copy()
+    W = op.shape[1]
+    for y in range(y0, sole + 1):
+        d = int(round(s * (y - y0) / max(1, sole - y0)))
+        if not d:
+            continue
+        new = np.zeros_like(a[y])
+        for leg, dx in ((1, d), (2, -d)):                   # the back leg first, the front one over it
+            xs = np.nonzero(side[y] == leg)[0]
+            to = xs + dx
+            ok = (to >= 0) & (to < W)
+            new[to[ok]] = a[y, xs[ok]]
+        out[y] = new
+    return out
+
 # ----------------------------------------------------------------------------------------------- one hero
 def restyle(hero, spec, write=True, only=None):
     frames, sheet, ppu = read_orig(hero)
+    # legs brought together first (narrow); the frames as they were kept for the crisp palette (every other frame's
+    # colours stay exactly as before)
+    unnarrowed = {}
+    for tag, (y0, shifts) in spec.get("stride", {}).items():
+        for i, k in shifts.items():
+            unnarrowed[(tag, i)] = frames[tag][i][0]
+        frames[tag] = [(narrow(a, y0, shifts[i]) if shifts.get(i) else a, ms) for i, (a, ms) in enumerate(frames[tag])]
     new_ppu = spec.get("ppu", ppu)
     first = frames["idle"][0][0]
     outline = tuple(spec["outline"]) if spec.get("outline") else edge_colour(first)
@@ -490,6 +570,11 @@ def restyle(hero, spec, write=True, only=None):
     reach = spec.get("reach") or float(np.abs(np.nonzero(op)[1] + 0.5 - first.shape[1] / 2).max())
     ring_tpl = ring_template(first, spec) if spec.get("ring") is not None else None
     out, notes = {}, []
+    # coarse (league_nidalee's cougar): those tags' frames drawn `size` times as big on a grid of `grid` squares a game
+    # pixel, the soles kept FEET under the pivot; brought to new_ppu after the crisp. was: (tag, i) -> (the frame as it
+    # would have been, its pivot): the crisp palette, and each frame's soles put back on the row they had there (the
+    # coarse squares alone moved them up to 0.9 game px between frames)
+    co, was = spec.get("coarse"), {}
     # shared_palette: every frame snaps to the commonest colours of all the hero's frames together, not only its own -
     # league_gragas's idle (the hand-finished design, 2597 colours) had no blue among its own 64 commonest, so his
     # trousers came out grey in the idle and blue in every action (「怎么裤子还变色啊」)
@@ -502,10 +587,19 @@ def restyle(hero, spec, write=True, only=None):
         res = []
         for i, (a, ms) in enumerate(fr):
             content, pivot, note = restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach, ring_tpl)
+            e = spec.get("edge", 0)
+            if co and tag.startswith(co["prefix"]):
+                c0, p0 = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
+                was[(tag, i)] = (grow_edge(c0, e, outline), (p0[0] + e, p0[1] + e))
+                content, pivot = pixelate(content, co["grid"] * co["size"] / ppu, pivot, outline, pal=shared)
+                content = grow_edge(content, e, outline)
+                pivot = (pivot[0] + e, pivot[1] + e + FEET * co["grid"] * (co["size"] - 1))
+                res.append((content, pivot, ms))
+                notes.append(f"{tag}[{i}] {note} coarse")
+                continue
             if new_ppu != ppu:
                 content, pivot = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
             content = grow_edge(content, spec.get("edge", 0), outline)
-            e = spec.get("edge", 0)
             pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
@@ -523,11 +617,31 @@ def restyle(hero, spec, write=True, only=None):
     if spec.get("crisp") is not None:
         # flat pixel art (pixel_down.crisp): one palette over every frame of the hero
         keys = [(t, i) for t, r in out.items() for i in range(len(r))]
-        flat = D.crisp([out[t][i][0] for t, i in keys], **spec["crisp"])
+        fit = None
+        if unnarrowed or was:
+            fit = []
+            for t, i in keys:
+                if (t, i) in was:
+                    fit.append(was[(t, i)][0])
+                elif (t, i) in unnarrowed:
+                    c = restyle_frame(hero, t, i, unnarrowed[(t, i)], spec, ppu, tpl, neck_off, outline, reach,
+                                      ring_tpl)[0:2]
+                    if new_ppu != ppu:
+                        c = pixelate(c[0], new_ppu / ppu, c[1], outline, pal=shared)
+                    fit.append(grow_edge(c[0], spec.get("edge", 0), outline))
+                else:
+                    fit.append(out[t][i][0])
+        flat = D.crisp([out[t][i][0] for t, i in keys], fit=fit, **spec["crisp"])
         for (t, i), f in zip(keys, flat):
             c, pv, m = out[t][i]
             out[t][i] = (f, pv, m)
         notes.append(f"crisp {spec['crisp']}")
+    sole = lambda a: np.nonzero(a[..., 3].any(1))[0].max() + 1
+    for (t, i), (c0, p0) in was.items():
+        k = new_ppu / co["grid"]
+        c, pv, m = out[t][i]
+        c = scale_even(c, k)
+        out[t][i] = (c, (pv[0] * k, sole(c) - (sole(c0) - p0[1])), m)
     return out, sheet, ppu, new_ppu, notes, outline
 
 

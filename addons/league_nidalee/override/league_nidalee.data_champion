@@ -1,0 +1,3004 @@
+{
+  "id": "league_nidalee",
+  "category": "Assassin",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "Melee",
+    "Heal"
+  ],
+  "sprite": "asset/league/champions/league_nidalee",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_nidalee_skill",
+    "asset/league/icons/league_nidalee_skill2",
+    "asset/league/icons/league_nidalee_ult"
+  ],
+  "stat": {
+    "attack": 110,
+    "magic_power": 50,
+    "hp": 980,
+    "defence": 28,
+    "magic_resistance": 24,
+    "move_speed": 1100,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 25,
+    "magic_power": 20,
+    "hp": 100,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_nidalee_prowl.attack",
+    "duration": 24,
+    "cooltime": 52,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 23000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_cg",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_hu",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_nidalee_hu",
+                "duration": "Permanent",
+                "range": 27000
+              },
+              "only_to_enemy": false
+            }
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nidalee_tf"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_nidalee_r_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_nidalee_cg",
+                "effect_buff": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nidalee_cq_on",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nidalee_cq_cd",
+                    "effect_buff": {
+                      "type": "SwitchByLevel3",
+                      "effect_start": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_nidalee_hq_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_tf",
+                            "duration": {
+                              "Time": {
+                                "tick": 2
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      },
+                      "effect_level3": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_nidalee_cw_cd",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_nidalee_ce_cd",
+                          "effect_buff": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nidalee_hq_cd",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nidalee_e_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_nidalee_tf",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            },
+                            "effect_none": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nidalee_tf",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_nidalee_near"
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 32000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nidalee_near",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_nidalee_hunt",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nidalee_tf",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_nidalee_near",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_nidalee_hq_cd",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nidalee_tf",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_tf",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_cg",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_nidalee_cg"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_nidalee_hu",
+                    "duration": "Permanent",
+                    "range": 27000
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_nidalee_r_cd"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_nidalee_r_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 180
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "c_transform",
+                  "tick": 8
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_nidalee_tf_human"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_nidalee_tf_human"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nidalee_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nidalee_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_nidalee_vo_human"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_nidalee_hu"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_nidalee_cg",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_nidalee_r_cd"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_nidalee_r_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 180
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "transform",
+                  "tick": 8
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_nidalee_tf_cougar"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_nidalee_tf_cougar"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nidalee_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nidalee_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_nidalee_vo_cougar"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_cg",
+            "effect_buff": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_nidalee_cq_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_nidalee_cq_on"
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "c_skill",
+                    "tick": 22
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_nidalee_cq"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nidalee_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_vo_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nidalee_vo_cq"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 8,
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_nidalee_cq_bite",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nidalee_hunt",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 56,
+                                    "attack_ratio": 210,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Attack",
+                                "damage": 40,
+                                "attack_ratio": 150,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nidalee_hunt",
+                              "effect_buff": {
+                                "type": "ApAttack",
+                                "damage": 72,
+                                "attack_ratio": 86,
+                                "hp_ratio": 0,
+                                "can_crit": false,
+                                "attack_effect_type": "Target"
+                              },
+                              "effect_none": {
+                                "type": "ApAttack",
+                                "damage": 52,
+                                "attack_ratio": 62,
+                                "hp_ratio": 0,
+                                "can_crit": false,
+                                "attack_effect_type": "Target"
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_nidalee_cq_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_nidalee_cq_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterAnimation",
+                    "name": "c_attack",
+                    "tick": 20
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_nidalee_c_swing"
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 7,
+                    "effects": [
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_nidalee_c_claw",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "Enemy",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 0,
+                              "attack_ratio": 100,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_nidalee_c_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_nidalee_c_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_nidalee_a_throw"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 8,
+                  "effects": [
+                    {
+                      "type": "TargetProjectile",
+                      "name": "league_nidalee_a_spear",
+                      "speed": 5000,
+                      "y_offset": 0,
+                      "applied_target": "Enemy",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Attack",
+                            "damage": 0,
+                            "attack_ratio": 100,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_nidalee_a_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_nidalee_a_hit"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_nidalee_prowl.skill",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 85000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_cg",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_hu",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_nidalee_hu",
+                "duration": "Permanent",
+                "range": 27000
+              },
+              "only_to_enemy": false
+            }
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_cg",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_cq_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_nidalee_cq_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_nidalee_cq_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nidalee_cq_on"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nidalee_cq_on",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_nidalee_cq_arm"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_nidalee_cq_arm"
+                  }
+                ]
+              }
+            }
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_hq_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_nidalee_hq_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 360
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "skill",
+                  "tick": 28
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nidalee_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nidalee_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_nidalee_vo_q"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 11,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nidalee_q_d1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nidalee_q_d1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 10
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nidalee_q_d2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nidalee_q_d2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 19
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nidalee_q"
+                        },
+                        {
+                          "type": "LinearProjectile",
+                          "name": "league_nidalee_q_spear",
+                          "penetrate": false,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_nidalee_q_d1",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 88,
+                                      "attack_ratio": 80,
+                                      "hp_ratio": 0,
+                                      "can_crit": false,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_nidalee_q_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_nidalee_q_hit"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_nidalee_q_d2",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 140,
+                                        "attack_ratio": 128,
+                                        "hp_ratio": 0,
+                                        "can_crit": false,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_nidalee_q_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_nidalee_q_hit"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "ApAttack",
+                                        "damage": 193,
+                                        "attack_ratio": 176,
+                                        "hp_ratio": 0,
+                                        "can_crit": false,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_nidalee_q_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_nidalee_q_hit"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "end_effects": [],
+                          "speed": 3000,
+                          "range": 95000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 2500
+                            }
+                          },
+                          "y_offset": 0
+                        },
+                        {
+                          "type": "LinearProjectile",
+                          "name": "league_nidalee_q_twin",
+                          "penetrate": false,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_nidalee_hunted",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 240
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_nidalee_hunt"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nidalee_hunt",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          },
+                                          "move_speed_mult": 20
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "end_effects": [],
+                          "speed": 3000,
+                          "range": 95000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 2500
+                            }
+                          },
+                          "y_offset": 0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_nidalee.skill2",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_cg",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_hu",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_nidalee_hu",
+                "duration": "Permanent",
+                "range": 27000
+              },
+              "only_to_enemy": false
+            }
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_cg",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_cw_cd",
+            "effect_buff": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_nidalee_ce_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_nidalee_e_in"
+                  },
+                  {
+                    "type": "RandomTarget",
+                    "range": 20000,
+                    "casting_target": "EnemyWithoutTower",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nidalee_e_in",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nidalee_e_in",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_ce_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "CasterAnimation",
+                          "name": "c_swipe",
+                          "tick": 20
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nidalee_ce"
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nidalee_ce_swipe"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_nidalee_vo_cd",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_nidalee_vo_cd",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 600
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_nidalee_vo_ce"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 7,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 98,
+                                  "attack_ratio": 80,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_nidalee_ce_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_nidalee_ce_hit"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_nidalee_w_in"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_nidalee_w_far"
+                    },
+                    {
+                      "type": "RandomTarget",
+                      "range": 25000,
+                      "casting_target": "EnemyWithoutTower",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_w_in",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    {
+                      "type": "RandomTarget",
+                      "range": 50000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_w_far",
+                            "duration": {
+                              "Time": {
+                                "tick": 1
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nidalee_hunt",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nidalee_w_far",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_cw_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 150
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 50000,
+                          "casting_target": "EnemyChampion",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "c_pounce",
+                                  "tick": 22
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_nidalee_cw"
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_nidalee_cw_dust"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_nidalee_vo_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nidalee_vo_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_nidalee_vo_cw"
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 3,
+                                  "effects": [
+                                    {
+                                      "type": "MoveToTarget",
+                                      "speed": 4500,
+                                      "range": 80000,
+                                      "end_effects": [
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "ApAttack",
+                                              "damage": 70,
+                                              "attack_ratio": 48,
+                                              "hp_ratio": 0,
+                                              "can_crit": false,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_nidalee_cw_hit"
+                                            },
+                                            {
+                                              "type": "TargetSfx",
+                                              "name": "league_nidalee_cw_hit"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_nidalee_cw_land"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_nidalee_cw_land"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_nidalee_ce_cd",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_nidalee_ce_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 300
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "CasterAnimation",
+                                                "name": "c_swipe",
+                                                "tick": 20
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_nidalee_ce"
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_nidalee_ce_swipe"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_nidalee_vo_cd",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nidalee_vo_cd",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 600
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_nidalee_vo_ce"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 7,
+                                                "effects": [
+                                                  {
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 20000
+                                                      }
+                                                    },
+                                                    "target": "EnemyWithoutTower",
+                                                    "apply_type": "AroundCaster",
+                                                    "effects": [
+                                                      {
+                                                        "type": "ApAttack",
+                                                        "damage": 98,
+                                                        "attack_ratio": 80,
+                                                        "hp_ratio": 0,
+                                                        "can_crit": false,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_nidalee_ce_hit"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_nidalee_ce_hit"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_nidalee_w_in",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nidalee_cw_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 25000,
+                            "casting_target": "EnemyWithoutTower",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "c_pounce",
+                                    "tick": 22
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_nidalee_cw"
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_nidalee_cw_dust"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_nidalee_vo_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_nidalee_vo_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 600
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_nidalee_vo_cw"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 3,
+                                    "effects": [
+                                      {
+                                        "type": "MoveToTarget",
+                                        "speed": 4500,
+                                        "range": 55000,
+                                        "end_effects": [
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 13000
+                                              }
+                                            },
+                                            "target": "EnemyWithoutTower",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "ApAttack",
+                                                "damage": 70,
+                                                "attack_ratio": 48,
+                                                "hp_ratio": 0,
+                                                "can_crit": false,
+                                                "attack_effect_type": "Target"
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_nidalee_cw_hit"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_nidalee_cw_hit"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_nidalee_cw_land"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_nidalee_cw_land"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_nidalee_ce_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_nidalee_ce_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 300
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "CasterAnimation",
+                                                  "name": "c_swipe",
+                                                  "tick": 20
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_nidalee_ce"
+                                                },
+                                                {
+                                                  "type": "CasterViewEffect",
+                                                  "name": "league_nidalee_ce_swipe"
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_nidalee_vo_cd",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_nidalee_vo_cd",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 600
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_nidalee_vo_ce"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "type": "Delayed",
+                                                  "tick": 7,
+                                                  "effects": [
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 20000
+                                                        }
+                                                      },
+                                                      "target": "EnemyWithoutTower",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "ApAttack",
+                                                          "damage": 98,
+                                                          "attack_ratio": 80,
+                                                          "hp_ratio": 0,
+                                                          "can_crit": false,
+                                                          "attack_effect_type": "Target"
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_nidalee_ce_hit"
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_nidalee_ce_hit"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nidalee_w_in",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_cw_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 25000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "c_pounce",
+                                  "tick": 22
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_nidalee_cw"
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_nidalee_cw_dust"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_nidalee_vo_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_nidalee_vo_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_nidalee_vo_cw"
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 3,
+                                  "effects": [
+                                    {
+                                      "type": "MoveToTarget",
+                                      "speed": 4500,
+                                      "range": 55000,
+                                      "end_effects": [
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 13000
+                                            }
+                                          },
+                                          "target": "EnemyWithoutTower",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "ApAttack",
+                                              "damage": 70,
+                                              "attack_ratio": 48,
+                                              "hp_ratio": 0,
+                                              "can_crit": false,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_nidalee_cw_hit"
+                                            },
+                                            {
+                                              "type": "TargetSfx",
+                                              "name": "league_nidalee_cw_hit"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_nidalee_cw_land"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_nidalee_cw_land"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_nidalee_ce_cd",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_nidalee_ce_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 300
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "CasterAnimation",
+                                                "name": "c_swipe",
+                                                "tick": 20
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_nidalee_ce"
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_nidalee_ce_swipe"
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_nidalee_vo_cd",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_nidalee_vo_cd",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 600
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_nidalee_vo_ce"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "type": "Delayed",
+                                                "tick": 7,
+                                                "effects": [
+                                                  {
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 20000
+                                                      }
+                                                    },
+                                                    "target": "EnemyWithoutTower",
+                                                    "apply_type": "AroundCaster",
+                                                    "effects": [
+                                                      {
+                                                        "type": "ApAttack",
+                                                        "damage": 98,
+                                                        "attack_ratio": 80,
+                                                        "hp_ratio": 0,
+                                                        "can_crit": false,
+                                                        "attack_effect_type": "Target"
+                                                      },
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_nidalee_ce_hit"
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_nidalee_ce_hit"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_nidalee_e_cd",
+            "effect_buff": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_nidalee_w_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_nidalee_w_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 660
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill2",
+                    "tick": 22
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_nidalee_w"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nidalee_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_vo_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nidalee_vo_w"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 9,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nidalee_w_cc"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 55000,
+                            "casting_target": "EnemyChampionInCC",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_nidalee_w_cc",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_nidalee_w_cc",
+                            "effect_buff": {
+                              "type": "RandomTarget",
+                              "range": 55000,
+                              "casting_target": "EnemyChampionInCC",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_nidalee_w_lob",
+                                  "travel_time": 16,
+                                  "range": 400000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "range_effect_name": "",
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_nidalee_w_trap"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_nidalee_w_land"
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_nidalee_w_field",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 7000
+                                        }
+                                      },
+                                      "tick": 240,
+                                      "period": 30,
+                                      "first_delay": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 18,
+                                            "attack_ratio": 16,
+                                            "hp_ratio": 0,
+                                            "can_crit": false,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_nidalee_w_snap"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_nidalee_w_snap"
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_nidalee_w_hunt",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 7000
+                                        }
+                                      },
+                                      "tick": 240,
+                                      "period": 30,
+                                      "first_delay": 1,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_nidalee_hunted",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_nidalee_hunt"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_nidalee_hunt",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 240
+                                                        }
+                                                      },
+                                                      "move_speed_mult": 20
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 55000,
+                              "casting_target": "EnemyWithoutTower",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_nidalee_w_lob",
+                                  "travel_time": 16,
+                                  "range": 400000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "range_effect_name": "",
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_nidalee_w_trap"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_nidalee_w_land"
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_nidalee_w_field",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 7000
+                                        }
+                                      },
+                                      "tick": 240,
+                                      "period": 30,
+                                      "first_delay": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 18,
+                                            "attack_ratio": 16,
+                                            "hp_ratio": 0,
+                                            "can_crit": false,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_nidalee_w_snap"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_nidalee_w_snap"
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_nidalee_w_hunt",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 7000
+                                        }
+                                      },
+                                      "tick": 240,
+                                      "period": 30,
+                                      "first_delay": 1,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_nidalee_hunted",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_nidalee_hunt"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_nidalee_hunt",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 240
+                                                        }
+                                                      },
+                                                      "move_speed_mult": 20
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_nidalee_e_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 720
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "skill2",
+                  "tick": 22
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_nidalee_e"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nidalee_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nidalee_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_nidalee_vo_e"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 9,
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 55000,
+                      "casting_target": "AllyChampion",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 45,
+                          "attack_ratio": 0,
+                          "ap_ratio": 45,
+                          "heal_type": "Ally"
+                        },
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_nidalee_e_as",
+                            "duration": {
+                              "Time": {
+                                "tick": 420
+                              }
+                            },
+                            "attack_speed_mult": 40
+                          }
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_nidalee_e_heal"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_nidalee_e_heal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_nidalee_prowl.ult",
+    "duration": 3,
+    "cooltime": 1200,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampionRecentlyAttacked",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_cg",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_nidalee_hu"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nidalee_cg",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_nidalee_r_cd"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_nidalee_r_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_nidalee_tf_cougar"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_nidalee_tf_cougar"
+              }
+            ]
+          }
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_nidalee_cw_cd"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_nidalee_ce_cd"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_nidalee_cq_cd"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nidalee_cq_on"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_nidalee_cq_on",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_nidalee_cw_cd",
+            "duration": {
+              "Time": {
+                "tick": 300
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_nidalee_r_roar"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_nidalee_r"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nidalee_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_nidalee_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_nidalee_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "RandomTarget",
+          "range": 65000,
+          "casting_target": "EnemyChampionRecentlyAttacked",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "c_pounce",
+                  "tick": 22
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_nidalee_cw_dust"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 3,
+                  "effects": [
+                    {
+                      "type": "MoveToTarget",
+                      "speed": 4500,
+                      "range": 95000,
+                      "end_effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 13000
+                            }
+                          },
+                          "target": "EnemyWithoutTower",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 160,
+                              "attack_ratio": 90,
+                              "hp_ratio": 0,
+                              "can_crit": false,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_nidalee_r_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_nidalee_r_hit"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nidalee_cw_land"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nidalee_cw_land"
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nidalee_ce_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "c_swipe",
+                              "tick": 20
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_nidalee_ce"
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_nidalee_ce_swipe"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_nidalee_vo_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_nidalee_vo_cd",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 600
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_nidalee_vo_ce"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 7,
+                              "effects": [
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 20000
+                                    }
+                                  },
+                                  "target": "EnemyWithoutTower",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "ApAttack",
+                                      "damage": 98,
+                                      "attack_ratio": 80,
+                                      "hp_ratio": 0,
+                                      "can_crit": false,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_nidalee_ce_hit"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_nidalee_ce_hit"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_nidalee_a_spear",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "a_spear",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_nidalee_q_spear",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "q_spear",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_nidalee_w_lob",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "w_lob",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_nidalee_a_hit",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_c_hit",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "c_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_cq_hit",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "cq_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_cq_arm",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "cq_arm",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_q_hit",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_e_heal",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "e_heal",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_w_trap",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "w_trap",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_w_snap",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "w_snap",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_cw_dust",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "cw_dust",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_cw_land",
+      "anim": "asset/league/effects/league_nidalee_big",
+      "tag": "cw_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_cw_hit",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "cw_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_ce_swipe",
+      "anim": "asset/league/effects/league_nidalee_big",
+      "tag": "ce_swipe",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_ce_hit",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "ce_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_tf_cougar",
+      "anim": "asset/league/effects/league_nidalee_big",
+      "tag": "tf_cougar",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_tf_human",
+      "anim": "asset/league/effects/league_nidalee_big",
+      "tag": "tf_human",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_r_roar",
+      "anim": "asset/league/effects/league_nidalee_big",
+      "tag": "r_roar",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nidalee_r_hit",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_nidalee_hunted",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "hunted",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_nidalee_e_as",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "e_as",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_nidalee_hunt",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "hunt",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_nidalee_brush",
+      "anim": "asset/league/effects/league_nidalee_fx",
+      "tag": "brush",
+      "repeat": true,
+      "z": -1
+    }
+  ],
+  "passive": {
+    "passive_ref": "league_nidalee:prowl",
+    "params": {
+      "brush_ms": 10,
+      "brush_near_ms": 30,
+      "brush_t": 120,
+      "near": 93000
+    }
+  }
+}

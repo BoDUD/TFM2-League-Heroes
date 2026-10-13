@@ -146,8 +146,10 @@ class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
     def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=(),
-                 hide_submeshes=False, submesh_textures=None, glue=None, legs=None, head_joint="head", opaque=False):
-        w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
+                 hide_submeshes=False, submesh_textures=None, glue=None, legs=None, head_joint="head", opaque=False,
+                 wad=None):
+        # `wad`: the champion WAD holding `champ` when it is a form of another champion (NidaleeCougar in Nidalee's)
+        w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{wad or champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
         skn = P.base_mesh(refs(skin_bin, rb"skn"))
@@ -405,7 +407,7 @@ def main():
     ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
                spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False),
                spec.get("submesh_textures"), spec.get("glue"), spec.get("legs"), spec.get("head_joint", "head"),
-               spec.get("opaque", False))
+               spec.get("opaque", False), spec.get("wad"))
     ch.set_layers(spec.get("layer"))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0

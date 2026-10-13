@@ -1,0 +1,668 @@
+{
+  "sheets": 24,
+  "frames": 108,
+  "technical_checks_passed": true,
+  "art_requirements_fully_verified": false,
+  "checks": [
+    {
+      "file": "nidalee_fx_a_spear.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_q_spear.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_a_hit.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_q_hit.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_hunted.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_hunt.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_e_heal.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_e_as.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_w_lob.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_w_trap.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_w_snap.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_c_hit.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_cq_arm.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_cq_hit.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_cw_dust.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_cw_land.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_cw_hit.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_ce_swipe.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_ce_hit.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_tf_cougar.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_tf_human.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_r_roar.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_r_hit.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "nidalee_fx_brush.png",
+      "dimensions": true,
+      "matches_8x": true,
+      "binary_alpha": true,
+      "palette": true,
+      "symmetry_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "nonempty_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "empty_body_area_clear": true,
+      "bright_pixel_per_frame": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  ]
+}
