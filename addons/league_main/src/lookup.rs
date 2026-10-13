@@ -62,7 +62,10 @@ struct Probe {
 static PROBE: Mutex<Probe> = Mutex::new(Probe { rvas: Vec::new(), dense: Vec::new(), lines: 0 });
 /// texture entry -> (its data, its own vtable, our vtable); texture data -> (width fn, height fn, PPU)
 static PROXIES: LazyLock<Mutex<HashMap<usize, (usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// texture data -> (its width entry, its height entry, the hero's shown divisor, whether the UI draws its lo_ frames)
+static SIZES: LazyLock<Mutex<HashMap<usize, (usize, usize, f32, bool)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// the UI's copies of anim tables: table -> (its ctrl when copied, the copy)
+static UI: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// changed table -> (its ctrl, its battlefield copy)
 static BATTLE: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// anim tables already changed: (table, ctrl)
@@ -246,6 +249,9 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
             return false;
         }
         let Ok(key) = std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)) else { return false };
+        if key.starts_with(hd::LO_PREFIX) {
+            continue; // the UI's frames: left as they are (src/lookup.rs ui_table reads them)
+        }
         let dense = if key.starts_with(hd::PREFIX) { key.to_string() } else { format!("{}{key}", hd::PREFIX) };
         let Some(src) = bucket_of(t, dense.as_bytes()) else {
             wlog(format!("{}: tag {key} has no {dense}: left at 1x - the whole table left alone", hero.id));
@@ -301,7 +307,7 @@ unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
         *e = read(vt + 8 * k, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).unwrap_or(0);
     }
     if let Ok(mut s) = SIZES.lock() {
-        s.insert(data, (table[5], table[6], hero.shown()));
+        s.insert(data, (table[5], table[6], hero.shown(), hero.lo));
     }
     let (sw, sh) = size_stubs()?;
     table[5] = sw;
@@ -319,9 +325,9 @@ type Size = unsafe extern "system" fn(usize) -> f32;
 
 unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
     let e = SIZES.lock().ok().and_then(|s| s.get(&data).copied());
-    let (f, ppu) = match e {
-        Some((w, h, ppu)) => (if which == 0 { w } else { h }, ppu),
-        None => (0, 1.0),
+    let (f, ppu, lo) = match e {
+        Some((w, h, ppu, lo)) => (if which == 0 { w } else { h }, ppu, lo),
+        None => (0, 1.0, false),
     };
     let real = if f != 0 { std::mem::transmute::<usize, Size>(f)(data) } else { f32::NAN };
     let rva = ret.wrapping_sub(MODULE.load(Ordering::Relaxed));
@@ -329,6 +335,8 @@ unsafe fn size_of(data: usize, ret: usize, which: usize) -> f32 {
         1.0
     } else if build().battle_size_ret.contains(&rva) {
         real
+    } else if lo && build().ui_size_ret.contains(&rva) {
+        real / hd::UI_PPU
     } else {
         real / ppu
     };
@@ -370,10 +378,95 @@ unsafe fn after_anim(ptr: usize, len: usize, sp: usize, got: usize) -> usize {
     if !densify_table(got, hero) {
         return got;
     }
-    if build().battle_anim_ret.contains(&q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed))) {
+    let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
+    if build().battle_anim_ret.contains(&rva) {
         return battle_table(got, hero).unwrap_or(got);
     }
+    if hero.lo && build().ui_anim_ret.contains(&rva) {
+        return ui_table(got, hero).unwrap_or(got);
+    }
     got
+}
+
+/// For the UI (the BP grid, the encyclopedia and face icons, the pick slot, the pick moment): a copy of the table whose
+/// every tag holds its lo_ frames with x, y, w, h divided by [`hd::UI_PPU`] - the hero drawn at 1.5 squares a game pixel
+/// there, as large as now (those callers' size asks get the texture's size / UI_PPU, [`size_of`]). Kept, never freed.
+unsafe fn ui_table(t: usize, hero: &Hero) -> Option<usize> {
+    let ctrl = q(t);
+    if let Ok(s) = UI.lock() {
+        if let Some(&(c, sh)) = s.get(&t) {
+            if c == ctrl {
+                return Some(sh);
+            }
+        }
+    }
+    let mask = q(t + 8);
+    if !plausible(ctrl) || mask >= 1 << 20 || (mask + 1) & mask != 0 {
+        return None;
+    }
+    let buckets = mask + 1;
+    let data = ctrl - buckets * BUCKET;
+    let size = buckets * BUCKET + buckets + 16;
+    // first every tag's lo_ frames, read from the table; nothing copied unless every tag has them
+    let mut plan: Vec<(usize, Vec<u8>)> = Vec::new();
+    for i in 0..buckets {
+        if *(ctrl as *const u8).add(i) & 0x80 != 0 {
+            continue;
+        }
+        let b = ctrl - (i + 1) * BUCKET;
+        let (p, n) = (q(b + 8), q(b + 16));
+        if !plausible(p) || n > 64 {
+            return None;
+        }
+        let key = std::slice::from_raw_parts(p as *const u8, n);
+        let lo_key: Vec<u8> = if key.starts_with(hd::LO_PREFIX.as_bytes()) {
+            key.to_vec()
+        } else if key.starts_with(hd::PREFIX.as_bytes()) {
+            [hd::LO_PREFIX.as_bytes(), &key[hd::PREFIX.len()..]].concat()
+        } else {
+            [hd::LO_PREFIX.as_bytes(), key].concat()
+        };
+        let src = bucket_of(t, &lo_key)?;
+        let (fp, fl) = (q(src + 0x20), q(src + 0x28));
+        if !plausible(fp) || fl == 0 || fl > 4096 {
+            return None;
+        }
+        let mut frames = vec![0u8; fl * FRAME];
+        std::ptr::copy_nonoverlapping(fp as *const u8, frames.as_mut_ptr(), fl * FRAME);
+        for f in 0..fl {
+            for k in 0..4 {
+                let at = frames.as_mut_ptr().add(f * FRAME + 4 * k) as *mut f32;
+                std::ptr::write_unaligned(at, std::ptr::read_unaligned(at) / hd::UI_PPU);
+            }
+        }
+        plan.push((b, frames));
+    }
+    let mem: &'static mut [u8] = Box::leak(vec![0u8; size].into_boxed_slice());
+    std::ptr::copy_nonoverlapping(data as *const u8, mem.as_mut_ptr(), size);
+    let base = mem.as_mut_ptr() as usize;
+    for (b, frames) in plan {
+        let fl = frames.len() / FRAME;
+        let frames: &'static mut [u8] = Box::leak(frames.into_boxed_slice());
+        let nb = base + (b - data);
+        std::ptr::write_unaligned((nb + 0x18) as *mut usize, fl);
+        std::ptr::write_unaligned((nb + 0x20) as *mut usize, frames.as_ptr() as usize);
+        std::ptr::write_unaligned((nb + 0x28) as *mut usize, fl);
+    }
+    let head: &'static mut [usize; 6] = Box::leak(Box::new([0usize; 6]));
+    for (k, h) in head.iter_mut().enumerate() {
+        *h = q(t + 8 * k);
+    }
+    head[0] = base + buckets * BUCKET;
+    let sh = head.as_ptr() as usize;
+    if let Ok(mut s) = UI.lock() {
+        s.insert(t, (ctrl, sh));
+    }
+    let check = match game_find(sh, b"idle") {
+        Some(b) => format!("idle: {}", rect_of(b)),
+        None => "idle NOT found".into(),
+    };
+    wlog(format!("{}: UI table {sh:#x} for {t:#x} (lo_ frames / {}); {check}", hero.id, hd::UI_PPU));
+    Some(sh)
 }
 
 /// For the battlefield: a copy of the (changed) table whose frames are the real dense ones - every tag's rects x PPU,
@@ -579,7 +672,7 @@ mod tests {
         let k3 = b"hd_idle".to_vec();
         let f1 = frames(&[[0.0, 0.0, 10.0, 20.0, 0.1]]);
         let f3 = frames(&[[30.0, 60.0, 30.0, 60.0, 0.1]]);
-        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()] };
+        let hero = super::Hero { id: "league_test", ppu: 3.0, size: 1.0, tags: vec!["idle".into()], lo: false };
         unsafe {
             let put = |b: usize, key: &Vec<u8>, fr: &Vec<u8>| {
                 let w = |o: usize, v: usize| std::ptr::write_unaligned((b + o) as *mut usize, v);

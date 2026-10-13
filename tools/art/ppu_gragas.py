@@ -117,7 +117,7 @@ def main():
     tpl = one[HEAD_ROWS[0]:HEAD_ROWS[1], HEAD_COLS[0]:HEAD_COLS[1]]
     tm = tpl[..., 3] > 0
     base = (at[0] + HEAD_ROWS[0], at[1] + HEAD_COLS[0])
-    for tag in [t for t in sheet if not t.startswith(P.PREFIX)]:
+    for tag in [t for t in sheet if P.plain(t)]:
         frames = []
         notes = []
         for i, (f, _) in enumerate(sheet[tag]):

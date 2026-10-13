@@ -364,7 +364,7 @@ def main():
             print(f"{tag}[{i}]: moved {dx}, {dy} onto the idle's feet" + (f", frame grown by {2 * gx} x {2 * gy}" if gx or gy else ""))
     os.makedirs(SRC, exist_ok=True)
     for tag, frames in sheet.items():
-        if tag.startswith(P.PREFIX):
+        if not P.plain(tag):
             continue
         have = got.get(tag, {})
         if sorted(have) != list(range(len(frames))):

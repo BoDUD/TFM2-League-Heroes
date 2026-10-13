@@ -54,6 +54,16 @@ import strips as G  # noqa: E402
 # strips (tools/art/import_braum_strips.py) brought to the sheets by tools/art/rig_braum.py, 121 rows / 42 (all in assets/source/ppu)
 PPU = {"yasuo": 2.2, "gragas": 1.76, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.2}
 PREFIX = "hd_"
+# lo_<tag>: the same frames at UI_PPU squares a displayed game pixel - what the BP grid, the encyclopedia, the pick
+# slots and the pick moment draw (league.dll's UI table; the user, 2026-10-13: 「BP界面里看英雄还是太清晰」, picked the
+# 1.5 row of the preview); made from the hd_ frames here, never drawn by hand
+LO = "lo_"
+UI_PPU = 1.5
+
+
+def plain(tag):
+    """A tag of the 1x animations (not an hd_ / lo_ copy)."""
+    return not tag.startswith((PREFIX, LO))
 # hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
 # the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much
 SHIFT = {"gragas": 6, "braum": 4}  # braum: tools/art/rig_braum.py SIZE / SHIFT
@@ -356,7 +366,7 @@ def add_hd(hero, sheet):
     """Replace `sheet`'s hd_ tags ({tag: [(array, ms)]}) with fresh ones from its 1x tags.
     -> {"drawn": tags, "scaled": tags, "head": {tag: [frame indices with the HEAD]}}."""
     k = PPU[hero]
-    for t in [t for t in sheet if t.startswith(PREFIX)]:
+    for t in [t for t in sheet if not plain(t)]:
         del sheet[t]
     made = {"drawn": [], "scaled": [], "head": {}}
     tpl = tmask = None
@@ -397,17 +407,62 @@ def add_hd(hero, sheet):
             made["head"].setdefault(tag, []).append(f"{i + 1}{flip or ''}({bad})")
         sheet[PREFIX + tag] = out
         made["scaled"].append(tag)
+    add_lo(hero, sheet)
     return made
+
+
+def lo_size(w1, h1):
+    return round(w1 * UI_PPU), round(h1 * UI_PPU)
+
+
+def add_lo(hero, sheet):
+    """lo_<tag> for every tag: its hd_ frames brought to UI_PPU squares a displayed game pixel (tools/art/pixel_down.py;
+    the hero's SIZES size counted in), each on a frame of round(UI_PPU x the 1x size) - grown alike at both ends where
+    the drawing needs more - the pivot at its centre."""
+    import pixel_down as D
+    k = PPU[hero]
+    size = D.sizes_of().get(hero, 1.0)
+    for tag in [t for t in sheet if plain(t)]:
+        out = []
+        for (one, ms), (b, _) in zip(sheet[tag], sheet[PREFIX + tag]):
+            outline = D.edge_colour(b) if (b[..., 3] > 0).any() else (0, 0, 0)
+            lo, (px, py) = D.pixelate(b, UI_PPU * size / k, (b.shape[1] / 2, b.shape[0] / 2), outline)
+            W, H = lo_size(one.shape[1], one.shape[0])
+            op = lo[..., 3] > 0
+            if op.any():
+                ys, xs = np.nonzero(op)
+                while W / 2 < max(px - xs.min(), xs.max() + 1 - px):
+                    W += 2
+                while H / 2 < max(py - ys.min(), ys.max() + 1 - py):
+                    H += 2
+            f = np.zeros((H, W, 4), np.uint8)
+            ox, oy = int(np.floor(W / 2 - px + 0.5)), int(np.floor(H / 2 - py + 0.5))
+            if op.any():
+                ok = (ys + oy >= 0) & (ys + oy < H) & (xs + ox >= 0) & (xs + ox < W)
+                f[ys[ok] + oy, xs[ok] + ox] = lo[ys[ok], xs[ok]]
+            out.append((f, ms))
+        sheet[LO + tag] = out
 
 
 def check(hero, sheet):
     """Every 1x tag has its hd_ tag: as many frames, the same timing, PPU x each size. -> list of problems."""
     k, bad = PPU[hero], []
     for tag, frames in sheet.items():
-        if tag.startswith(PREFIX):
-            if tag[len(PREFIX):] not in sheet:
-                bad.append(f"{tag} has no 1x {tag[len(PREFIX):]}")
+        if not plain(tag):
+            pre = PREFIX if tag.startswith(PREFIX) else LO
+            if tag[len(pre):] not in sheet:
+                bad.append(f"{tag} has no 1x {tag[len(pre):]}")
             continue
+        lo = sheet.get(LO + tag)
+        if lo is None:
+            bad.append(f"{tag} has no {LO}{tag} (the BP / encyclopedia frames: python tools/art/ppu_hd.py --hero {hero})")
+        elif len(lo) != len(frames) or any(abs(m1 - m2) > 1e-6 for (_, m1), (_, m2) in zip(frames, lo)):
+            bad.append(f"{LO}{tag}: {len(lo)} frames or the timing unlike {tag}'s")
+        else:
+            for i, ((a, _), (c, _)) in enumerate(zip(frames, lo)):
+                W, H = lo_size(a.shape[1], a.shape[0])
+                if c.shape[1] < W or c.shape[0] < H or (c.shape[1] - W) % 2 or (c.shape[0] - H) % 2:
+                    bad.append(f"{LO}{tag}[{i}]: {c.shape[1]}x{c.shape[0]}, want {W}x{H} or grown alike at both ends")
         hd = sheet.get(PREFIX + tag)
         if hd is None:
             bad.append(f"{tag} has no {PREFIX}{tag}")
@@ -502,7 +557,7 @@ def review(hero, sheet, out_dir):
     k = PPU[hero]
     os.makedirs(out_dir, exist_ok=True)
     ground = np.array([120, 150, 90, 255], np.uint8)
-    for tag in [t for t in sheet if not t.startswith(PREFIX)]:
+    for tag in [t for t in sheet if plain(t)]:
         rows = []
         for frames, z in ((sheet[tag], 2 * k), (sheet[PREFIX + tag], 2)):
             cells = [up(a, z) for a, _ in frames]

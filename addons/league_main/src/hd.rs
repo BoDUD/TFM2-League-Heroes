@@ -41,8 +41,23 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.0
 
 pub const PREFIX: &str = "hd_";
 
+/// `lo_<tag>`: the same frames at [`UI_PPU`] squares a displayed game pixel (tools/art/ppu_hd.py add_lo) - what the BP
+/// grid, the encyclopedia, the pick slots and the pick moment draw (src/lookup.rs ui_table; the user, 2026-10-13:
+/// 「BP界面里看英雄还是太清晰」, picked the 1.5 row of the preview). The battlefield keeps the hd_ frames.
+pub const LO_PREFIX: &str = "lo_";
+pub const UI_PPU: f32 = 1.5;
+
+/// The `"lo_..."` animation names of a .fanim.
+pub fn lo_tags(fanim: &str) -> Vec<String> {
+    keys_with(fanim, LO_PREFIX)
+}
+
 /// The `"hd_..."` animation names of a .fanim (its keys under "anims"; no frame key starts with hd_).
 pub fn hd_tags(fanim: &str) -> Vec<String> {
+    keys_with(fanim, PREFIX)
+}
+
+fn keys_with(fanim: &str, prefix: &str) -> Vec<String> {
     let mut out = Vec::new();
     let b = fanim.as_bytes();
     let mut i = 0;
@@ -55,7 +70,7 @@ pub fn hd_tags(fanim: &str) -> Vec<String> {
         while j < b.len() && b[j].is_ascii_whitespace() {
             j += 1;
         }
-        if j < b.len() && b[j] == b':' && name.starts_with(PREFIX) && !out.iter().any(|t| t == name) {
+        if j < b.len() && b[j] == b':' && name.starts_with(prefix) && !out.iter().any(|t| t == name) {
             out.push(name.to_string());
         }
         i = end + 1;
@@ -70,6 +85,8 @@ pub struct Hero {
     /// the size it is shown at (SIZES; 1.0 when not listed)
     pub size: f32,
     pub tags: Vec<String>,
+    /// the sheet has lo_ frames for every tag (the UI draws those)
+    pub lo: bool,
 }
 
 impl Hero {
@@ -87,6 +104,7 @@ pub fn heroes() -> Vec<Hero> {
             ppu,
             size: SIZES.iter().find(|s| s.0 == id).map_or(1.0, |s| s.1),
             tags: hd_tags(fanim).into_iter().map(|t| t[PREFIX.len()..].to_string()).collect(),
+            lo: !lo_tags(fanim).is_empty(),
         })
         .collect()
 }
@@ -106,6 +124,14 @@ mod tests {
             for t in ["idle", "run", "attack", "hit", "dead"] {
                 assert!(anims.contains(&format!("\"{t}\"")), "{id}: no {t}");
                 assert!(hd.contains(&format!("{PREFIX}{t}")), "{id}: no {PREFIX}{t}");
+            }
+            // lo_ frames: none, or one for every hd_ tag (the UI table maps every tag to its lo_ frames)
+            let lo = lo_tags(fanim);
+            if !lo.is_empty() {
+                for h in &hd {
+                    let want = format!("{LO_PREFIX}{}", &h[PREFIX.len()..]);
+                    assert!(lo.contains(&want), "{id}: no {want} (python tools/art/ppu_hd.py --hero ...)");
+                }
             }
         }
     }
