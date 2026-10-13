@@ -174,15 +174,12 @@ def edge(g, n=1):
     return g
 
 
-def flat(g, n=12, passes=4, rounds=3):
-    """Zeri's flat look (the user's rule for every PPU hero, 2026-10-13: 「铁男感觉还是没泽丽那么像素啊」, relayed by 布隆;
-    picked for Galio from a before / after next to Zeri): pixel_down.crisp cuts the lit colours to n with majority passes
-    (no added lines: his cracks are lines already), the blue eyes kept ("teal"); then `rounds` passes in which a lone
-    square (no neighbour of its own colour but one) takes the colour 3 or more of its 8 neighbours share."""
+def flat_rounds(a, rounds=3):
+    """`rounds` passes in which a lone square (no neighbour of its own colour but one) takes the colour 3 or more of its
+    8 neighbours share; outline squares and the blue eyes stay."""
     import pixel_down as pd
-    op = g[..., 3] > 0
-    keep = op & pd.KEEP["teal"](g)
-    a = pd.crisp([g], n=n, passes=passes, contrast=1.0, lines=False, keep="teal")[0]
+    op = a[..., 3] > 0
+    keep = op & pd.KEEP["teal"](a)
     lit = lambda c: int(c[0]) + int(c[1]) + int(c[2]) >= pd.DARK_SUM
     for _ in range(rounds):
         out = a.copy()
@@ -202,7 +199,18 @@ def flat(g, n=12, passes=4, rounds=3):
     return a
 
 
+def flat(g, n=12, passes=4, rounds=3):
+    """Zeri's flat look (the user's rule for every PPU hero, 2026-10-13: 「铁男感觉还是没泽丽那么像素啊」, relayed by 布隆;
+    picked for Galio from a before / after next to Zeri): pixel_down.crisp cuts the lit colours to n with majority passes
+    (no added lines: his cracks are lines already), the blue eyes kept ("teal"); then flat_rounds."""
+    import pixel_down as pd
+    a = pd.crisp([g], n=n, passes=passes, contrast=1.0, lines=False, keep="teal")[0]
+    return flat_rounds(a, rounds)
+
+
 def main():
+    """Rebuilds hd/front.png. Note: pixel_down.crisp changed on main after the approved design (435b13b9) was written, so
+    a rerun differs from it in a few squares - the approved file is the one in git; restore it after a rerun."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--preview")
     a = ap.parse_args()

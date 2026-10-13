@@ -23,6 +23,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_mordekaiser", 2.0, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
     ("league_soraka", 2.2, include_str!("../../../league/champions/league_soraka#anim.fanim")),
     ("league_nidalee", 2.2, include_str!("../../../league/champions/league_nidalee#anim.fanim")),
+    ("league_galio", 2.0, include_str!("../../../league/champions/league_galio#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -49,9 +50,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Then 「铁男和布隆游戏里偏大了」: Mordekaiser 100 % (47 game px, Nautilus 51), Braum 95 % (39 px, 55 wide with his
 /// shield), picked from a true-scale sheet; their frames moved down by the restyle (RESTYLE lift_sq).
 /// Soraka: 「稍微变大点」 -> 110% (her frames lifted 3 squares: tools/art/ppu_restyle.py RESTYLE soraka).
+/// Galio: drawn at PPU 2.0 (52 game px with his wings), 「这做的也太大了吧 缩小点模型」 -> 85% (44 px) from a true-scale sheet;
+/// his hd frames drawn SHIFT rows lower (tools/art/rig_galio.py SIZE / SHIFT).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.00),
-                                    ("league_irelia", 1.05), ("league_soraka", 1.10)];
+                                    ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 0.85)];
 
 pub const PREFIX: &str = "hd_";
 
