@@ -112,6 +112,27 @@ def _face(a):
     return m & op
 
 
+def _head(a):
+    """league_nidalee's face only: her skin in the top quarter of the figure (her torso and arms are bare skin too, which
+    `face` would keep whole), grown 2 squares, holes filled; plus green squares there (her eyes, the forehead dot, the
+    cougar's eye and gem) and her vivid reds anywhere."""
+    rgb = a[..., :3].astype(int)
+    op = a[..., 3] > 0
+    skin = op & (rgb[..., 0] > 170) & (rgb[..., 1] > 110) & (rgb[..., 2] > 80) & (rgb[..., 0] - rgb[..., 2] > 40)
+    green = op & (rgb[..., 1] > rgb[..., 0] + 30) & (rgb[..., 1] > rgb[..., 2] + 30)
+    rows = np.nonzero(op.any(1))[0]
+    if not len(rows):
+        return skin
+    top = rows.min() + (rows.max() - rows.min()) // 3
+    skin[top:] = False
+    green[top:] = False
+    m = ndimage.binary_fill_holes(ndimage.binary_dilation(skin, iterations=2)) if skin.any() else skin
+    # her red details (the ponytail's tie, the javelin's bands, the arm rings): the 16-colour cut merged them into skin
+    red = op & (rgb[..., 0] > rgb[..., 1] + 90) & (rgb[..., 0] > rgb[..., 2] + 90)
+    return (m | ndimage.binary_dilation(green, iterations=1) | red) & op
+
+
+
 def _face_blue(a):
     """league_soraka's face: her light blue skin in the top third of the figure (her arms and legs are blue too) grown 2
     squares and its holes filled (eyes, mouth)."""
@@ -139,7 +160,7 @@ def _thin_warm(a):
 
 
 KEEP = {"teal": lambda a: (a[..., 1].astype(int) > a[..., 0] + 40) & (a[..., 2].astype(int) > a[..., 0] + 40),
-        "face": _face, "face_blue": _face_blue, "soraka": lambda a: _face_blue(a) | _thin_warm(a)}
+        "face": _face, "face_blue": _face_blue, "soraka": lambda a: _face_blue(a) | _thin_warm(a), "head": _head}
 
 
 def _lab(rgb):

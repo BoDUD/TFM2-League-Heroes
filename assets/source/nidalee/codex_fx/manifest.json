@@ -1,0 +1,674 @@
+[
+  {
+    "file": "nidalee_fx_a_spear.png",
+    "binding": "view_projectiles `league_nidalee_a_spear`（朝飞行方向转，画成朝右飞；上下对称）",
+    "size": "16 × 4",
+    "frames": 2,
+    "source_size": [
+      576,
+      96
+    ],
+    "pixel_1x_size": [
+      36,
+      6
+    ],
+    "deliverable_8x_size": [
+      288,
+      48
+    ],
+    "symmetry": "top_bottom",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_a_spear.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "05462c5c8fe6faeeab3c76a5078ed11954b57561390c0fd09305c737bb967786",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_q_spear.png",
+    "binding": "view_projectiles `league_nidalee_q_spear`（朝飞行方向转，画成朝右飞；上下对称）",
+    "size": "24 × 8",
+    "frames": 4,
+    "source_size": [
+      1664,
+      160
+    ],
+    "pixel_1x_size": [
+      104,
+      10
+    ],
+    "deliverable_8x_size": [
+      832,
+      80
+    ],
+    "symmetry": "top_bottom",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_q_spear.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "71f76a8d160252d3d4e0389450ee1e7665ef3aa6c300b5b66eaa88851f0ce975",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_a_hit.png",
+    "binding": "view_effects `league_nidalee_a_hit`（跟随，画在人物上面；左右对称）",
+    "size": "10",
+    "frames": 4,
+    "source_size": [
+      768,
+      192
+    ],
+    "pixel_1x_size": [
+      48,
+      12
+    ],
+    "deliverable_8x_size": [
+      384,
+      96
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_a_hit.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "53a748d19e391218d8a46f90182acac5ff89f5f61023e4d5e0ff17bd4c2b9313",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_q_hit.png",
+    "binding": "view_effects `league_nidalee_q_hit`（跟随，画在人物上面；左右对称）",
+    "size": "20",
+    "frames": 5,
+    "source_size": [
+      1760,
+      352
+    ],
+    "pixel_1x_size": [
+      110,
+      22
+    ],
+    "deliverable_8x_size": [
+      880,
+      176
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_q_hit.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "d715501da55f46de3c7c52e7fbb050931694bb4251066c96ece8237b9ccada28",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_hunted.png",
+    "binding": "view_buffs `league_nidalee_hunted`（跟随，画在人物上面；左右对称）",
+    "size": "10 × 12",
+    "frames": 4,
+    "source_size": [
+      768,
+      768
+    ],
+    "pixel_1x_size": [
+      48,
+      48
+    ],
+    "deliverable_8x_size": [
+      384,
+      384
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_hunted.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "f4f6001e174a30a41dbf514151f7ed4419bfce30b696948a9420a50d09522bf9",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_hunt.png",
+    "binding": "view_buffs `league_nidalee_hunt`（跟随，画在人物下面；左右对称）",
+    "size": "18 × 6",
+    "frames": 4,
+    "source_size": [
+      1280,
+      128
+    ],
+    "pixel_1x_size": [
+      80,
+      8
+    ],
+    "deliverable_8x_size": [
+      640,
+      64
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_hunt.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "f0c09004e3ea1e4a50b0be14237a0af505a15083c78a81fc9503f14b86fa2dd0",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_e_heal.png",
+    "binding": "view_effects `league_nidalee_e_heal`（跟随，画在人物上面；左右对称）",
+    "size": "20 × 28",
+    "frames": 6,
+    "source_size": [
+      2112,
+      480
+    ],
+    "pixel_1x_size": [
+      132,
+      30
+    ],
+    "deliverable_8x_size": [
+      1056,
+      240
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_e_heal.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "379e7d1fafdd7945562a7a9be04a3a4fede88f8e1c48d1683cec4d4a8f9cffef",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_e_as.png",
+    "binding": "view_buffs `league_nidalee_e_as`（跟随，画在人物下面；左右对称）",
+    "size": "16 × 6",
+    "frames": 4,
+    "source_size": [
+      1152,
+      128
+    ],
+    "pixel_1x_size": [
+      72,
+      8
+    ],
+    "deliverable_8x_size": [
+      576,
+      64
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_e_as.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "2c8866eec01f5cdc9d33a0878dd09297774ead1895328469eb3fef026416dabc",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_w_lob.png",
+    "binding": "view_projectiles `league_nidalee_w_lob`（抛物线；左右对称）",
+    "size": "8 × 6",
+    "frames": 2,
+    "source_size": [
+      320,
+      128
+    ],
+    "pixel_1x_size": [
+      20,
+      8
+    ],
+    "deliverable_8x_size": [
+      160,
+      64
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_w_lob.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "7bac01355d1cd7b3e0c78a37ad4621fc9c0a96470bb6dd4af547570b66af9313",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_w_trap.png",
+    "binding": "view_effects `league_nidalee_w_trap`（不跟随，画在地上；左右对称）",
+    "size": "18 × 8",
+    "frames": 8,
+    "source_size": [
+      2560,
+      160
+    ],
+    "pixel_1x_size": [
+      160,
+      10
+    ],
+    "deliverable_8x_size": [
+      1280,
+      80
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_w_trap.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "d8c36540f3a94946eb51d3bc722fca5532efee59dcb0a2cd45a1b9a7890071f5",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_w_snap.png",
+    "binding": "view_effects `league_nidalee_w_snap`（跟随，画在人物上面；左右对称）",
+    "size": "16",
+    "frames": 5,
+    "source_size": [
+      1440,
+      288
+    ],
+    "pixel_1x_size": [
+      90,
+      18
+    ],
+    "deliverable_8x_size": [
+      720,
+      144
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_w_snap.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "5c7880b50580b5e168f733b72919429aeb41c0a5ad41403007c64ff3125e00a1",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_c_hit.png",
+    "binding": "view_effects `league_nidalee_c_hit`（跟随，画在人物上面；左右对称）",
+    "size": "12",
+    "frames": 4,
+    "source_size": [
+      896,
+      224
+    ],
+    "pixel_1x_size": [
+      56,
+      14
+    ],
+    "deliverable_8x_size": [
+      448,
+      112
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_c_hit.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "dd55ed1c647d505c097986fe8d2960bb5609af4dbfa80a0e67076b7913268114",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_cq_arm.png",
+    "binding": "view_effects `league_nidalee_cq_arm`（跟随，画在人物上面；左右对称）",
+    "size": "24 × 14",
+    "frames": 4,
+    "source_size": [
+      1664,
+      256
+    ],
+    "pixel_1x_size": [
+      104,
+      16
+    ],
+    "deliverable_8x_size": [
+      832,
+      128
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_cq_arm.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "e14d9dbcfc656de93d08cc8486b4157c386d3c50904a8a36af78a322de782163",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_cq_hit.png",
+    "binding": "view_effects `league_nidalee_cq_hit`（跟随，画在人物上面；左右对称）",
+    "size": "20",
+    "frames": 5,
+    "source_size": [
+      1760,
+      352
+    ],
+    "pixel_1x_size": [
+      110,
+      22
+    ],
+    "deliverable_8x_size": [
+      880,
+      176
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_cq_hit.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "82b48f36ee253728235f22113ca900a750733f547f6c73cffd84c66cd4f1ad70",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_cw_dust.png",
+    "binding": "view_effects `league_nidalee_cw_dust`（跟随，画在人物下面；左右对称）",
+    "size": "30 × 10",
+    "frames": 4,
+    "source_size": [
+      2048,
+      192
+    ],
+    "pixel_1x_size": [
+      128,
+      12
+    ],
+    "deliverable_8x_size": [
+      1024,
+      96
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_cw_dust.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "c655601f01ec5494ca154065d97fc1eb92bd157db1d9a858891bcaddab589896",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_cw_land.png",
+    "binding": "view_effects `league_nidalee_cw_land`（不跟随，画在地上；左右对称）",
+    "size": "32 × 12",
+    "frames": 5,
+    "source_size": [
+      2720,
+      224
+    ],
+    "pixel_1x_size": [
+      170,
+      14
+    ],
+    "deliverable_8x_size": [
+      1360,
+      112
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_cw_land.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "91e53a7a0b33e381a44e725254fc13fad83066260d30f3c5ae6477cd8865af34",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_cw_hit.png",
+    "binding": "view_effects `league_nidalee_cw_hit`（跟随，画在人物上面；左右对称）",
+    "size": "14",
+    "frames": 4,
+    "source_size": [
+      1024,
+      256
+    ],
+    "pixel_1x_size": [
+      64,
+      16
+    ],
+    "deliverable_8x_size": [
+      512,
+      128
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_cw_hit.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "86f723bf6046d2d263b66f1e6c6403c07bbddf54ba65761f9e0613bbbcf97110",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_ce_swipe.png",
+    "binding": "view_effects `league_nidalee_ce_swipe`（跟随，画在人物上面；左右对称）",
+    "size": "44 × 22",
+    "frames": 5,
+    "source_size": [
+      3680,
+      384
+    ],
+    "pixel_1x_size": [
+      230,
+      24
+    ],
+    "deliverable_8x_size": [
+      1840,
+      192
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_ce_swipe.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "fbc00076f13d04e043c7edcf7cf98a78b0b33149b21e8e21f0e7a6d0b5e3f2b4",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_ce_hit.png",
+    "binding": "view_effects `league_nidalee_ce_hit`（跟随，画在人物上面；左右对称）",
+    "size": "12",
+    "frames": 3,
+    "source_size": [
+      672,
+      224
+    ],
+    "pixel_1x_size": [
+      42,
+      14
+    ],
+    "deliverable_8x_size": [
+      336,
+      112
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_ce_hit.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "63cf7f2ed653f171753750404cf6d65112fd8df6969fd3beeec19aaf777a12b8",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_tf_cougar.png",
+    "binding": "view_effects `league_nidalee_tf_cougar`（跟随，画在人物上面；左右对称）",
+    "size": "40 × 44",
+    "frames": 6,
+    "source_size": [
+      4032,
+      736
+    ],
+    "pixel_1x_size": [
+      252,
+      46
+    ],
+    "deliverable_8x_size": [
+      2016,
+      368
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_tf_cougar.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "8368f3f9f65bfe11ec1ea8a65535a7740dc4f37547480acad8665040304251c1",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_tf_human.png",
+    "binding": "view_effects `league_nidalee_tf_human`（跟随，画在人物上面；左右对称）",
+    "size": "50 × 36",
+    "frames": 6,
+    "source_size": [
+      4992,
+      608
+    ],
+    "pixel_1x_size": [
+      312,
+      38
+    ],
+    "deliverable_8x_size": [
+      2496,
+      304
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_tf_human.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "7e6dc206d51b9da6e0faeecc54f4046d974c3b094e0f3bc5f084e31483a69dec",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_r_roar.png",
+    "binding": "view_effects `league_nidalee_r_roar`（跟随，画在人物上面；左右对称）",
+    "size": "40 × 24",
+    "frames": 5,
+    "source_size": [
+      3360,
+      416
+    ],
+    "pixel_1x_size": [
+      210,
+      26
+    ],
+    "deliverable_8x_size": [
+      1680,
+      208
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_r_roar.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "49424914e1c5396a569e8d7a79843c5bf740c379fb7aee7de3085dd334b797be",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_r_hit.png",
+    "binding": "view_effects `league_nidalee_r_hit`（跟随，画在人物上面；左右对称）",
+    "size": "22",
+    "frames": 5,
+    "source_size": [
+      1920,
+      384
+    ],
+    "pixel_1x_size": [
+      120,
+      24
+    ],
+    "deliverable_8x_size": [
+      960,
+      192
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_r_hit.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "4215cd4afd1d1de1dad01788cefaea758708562912e23fcdd5500ab3f6a7a38e",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  },
+  {
+    "file": "nidalee_fx_brush.png",
+    "binding": "view_buffs `league_nidalee_brush`（附加包的副本才用；跟随，画在人物下面；左右对称）",
+    "size": "14 × 5",
+    "frames": 4,
+    "source_size": [
+      1024,
+      112
+    ],
+    "pixel_1x_size": [
+      64,
+      7
+    ],
+    "deliverable_8x_size": [
+      512,
+      56
+    ],
+    "symmetry": "left_right",
+    "status": "generated_technical_checks_passed_visual_review_required",
+    "prompt_file": "prompts/nidalee_fx_brush.txt",
+    "source_registration": "READBACK.json",
+    "raw_sha256": "748fa0f174c63253e4801ef20ad35ec19b5b2cc292edacafe737bf0dbfe128f6",
+    "reference_roles": [
+      "local LoL VFX shapes",
+      "character size",
+      "action emission points"
+    ]
+  }
+]
