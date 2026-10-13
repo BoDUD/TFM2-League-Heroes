@@ -95,7 +95,24 @@ def pixelate(a, k, pivot, outline):
 DARK_SUM = 70                    # r + g + b under this: outline / black lines, never recoloured
 # squares kept as drawn, per hero (ppu_restyle RESTYLE crisp keep): league_mordekaiser's teal glow - his eyes are a few
 # teal squares in his visor, dark ones round bright ones, and the cleanup took them (「铁男的眼睛完全看不到了」)
-KEEP = {"teal": lambda rgb: (rgb[..., 1] > rgb[..., 0] + 40) & (rgb[..., 2] > rgb[..., 0] + 40)}
+def _face(a):
+    """The face: skin in the upper half of the figure grown 2 squares and its holes filled (eyes, brows, mouth) -
+    league_garen's eyes became a black band under the lines pass (「盖伦也要调一下吧 像素」)."""
+    rgb = a[..., :3].astype(int)
+    op = a[..., 3] > 0
+    skin = op & (rgb[..., 0] > 170) & (rgb[..., 1] > 110) & (rgb[..., 2] > 80) & (rgb[..., 0] - rgb[..., 2] > 40)
+    rows = np.nonzero(op.any(1))[0]
+    if not len(rows):
+        return skin
+    skin[rows.min() + (rows.max() - rows.min()) // 2:] = False
+    if not skin.any():
+        return skin
+    m = ndimage.binary_fill_holes(ndimage.binary_dilation(skin, iterations=2))
+    return m & op
+
+
+KEEP = {"teal": lambda a: (a[..., 1].astype(int) > a[..., 0] + 40) & (a[..., 2].astype(int) > a[..., 0] + 40),
+        "face": _face}
 
 
 def _lab(rgb):
@@ -138,7 +155,7 @@ def crisp(frames, n=16, passes=2, contrast=1.2, lines=True, keep=None, seed=0):
     for f, op in zip(frames, ops):
         a = f.copy()
         rgb = stretch(a[..., :3].astype(float))
-        glow = (op & KEEP[keep](a[..., :3].astype(int))) if keep else np.zeros_like(op)
+        glow = (op & KEEP[keep](a)) if keep else np.zeros_like(op)
         m = op & ~glow & (rgb.sum(-1) >= DARK_SUM) & (a[..., :3].astype(int).sum(-1) >= DARK_SUM)
         if m.any():
             j = ((_lab(rgb[m])[:, None] - centres[None]) ** 2).sum(-1).argmin(1)
