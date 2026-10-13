@@ -60,10 +60,19 @@ RESTYLE = {
     # 「卡尔玛太壮了 还需要调」「头上的光环太大」「卡尔玛的像素还可以降一降吧？」
     "karma": dict(face=(38, 62, 33, 58), neck=(45, 64), head=1.2, wide=1.25, short=0.92, band=3, edge=1,
                   ring=0.6, ring_colours=KARMA_RING, ring_rows=40, ppu=2.2, max_err=2200, outline=(15, 3, 16)),
-    # 「布隆铁男可以在壮点 太细了」; 2.2 squares a game pixel at his 90 % (hd.rs SIZES)
-    # (their heads are Codex's own in many frames - not found reliably - so the body only, every frame alike)
-    "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98),
-    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.2),
+    # 「布隆铁男可以在壮点 太细了」 (their heads are Codex's own in many frames - not found reliably - so the body only,
+    # every frame alike). Then, next to Alistar: 「铁男是你压缩的太厉害了吗 为什么模型看起来小啊 牛头那种就看起来很大 布隆
+    # 也有这个看起来小的问题」「铁男再游戏里还是过于高清」 - picked from a size sheet (「按照你的建议选吧」): Braum 105 %
+    # (hd.rs SIZES; 1.89 squares a game pixel), Mordekaiser 115 % at PPU 2.0 (1.74). Drawn bigger by league.dll round the
+    # frame's centre, so the frames are lifted to keep the soles on the ground - by whole squares of the new grid (the
+    # grid runs through the pivot: Braum's squares come out exactly as before, 4 rows higher). Braum's orig frames sit
+    # rig_braum.py's SHIFT 4 lower (its 90 %): 11.5 x 2.881 x (1 + 4 / 33.13 - 1 / 1.05) = 5.6 orig rows = 3.8 squares
+    # -> 4; Mordekaiser's (rig_mordekaiser.py SIZE 1.00, FEET 11): 11 x 5 x (1 - 1 / 1.15) = 7.2 orig rows = 2.9 -> 3.
+    # The face points scale about the soles (champion_view: (7, -35) x 1.05 / 0.90, (1, -27) x 1.15)
+    "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98,
+                  lift=4 * 2.881 / 1.98 - 1e-6, face_to=(8, -41)),      # (a hair under: the pivot's row keeps its square)
+    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0,
+                        face_to=(1, -31)),
     # 「飞机像泽丽那样变大点」
     "corki": dict(grow=1.2, edge=1, ppu=2.2),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)

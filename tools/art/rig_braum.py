@@ -52,6 +52,8 @@ BREATH = [0, 1, 2, 2, 1, 0]
 # grows SHIFT rows at both ends first (its centre, the pivot, kept).
 SIZE = 0.90
 SHIFT = round((FEET + 0.5) * PPU * (1 / SIZE - 1))
+# hd.rs SIZES is 1.05 since 2026-10-13 (「布隆也有这个看起来小的问题」, next to Alistar): tools/art/ppu_restyle.py lifts these
+# frames 6 rows (RESTYLE braum lift) - keep SIZE / SHIFT as they are here
 
 
 def ms(ticks):

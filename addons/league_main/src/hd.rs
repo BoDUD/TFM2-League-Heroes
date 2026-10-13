@@ -20,7 +20,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_corki", 2.2, include_str!("../../../league/champions/league_corki#anim.fanim")),
     ("league_garen", 1.9, include_str!("../../../league/champions/league_garen#anim.fanim")),
     ("league_braum", 1.98, include_str!("../../../league/champions/league_braum#anim.fanim")),
-    ("league_mordekaiser", 2.2, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
+    ("league_mordekaiser", 2.0, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -32,12 +32,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); his hd frames drawn RAISE
 /// rows higher (tools/art/rig_kassadin.py).
-/// Braum: 「布隆做的也有点大 得缩小一点」 (85%), then 「稍微调大点」 (90%, 39 game px); his hd frames drawn SHIFT rows
-/// lower (tools/art/rig_braum.py).
+/// Braum: 「布隆做的也有点大 得缩小一点」 (85%), then 「稍微调大点」 (90%, 39 game px); after the restyle (a tenth
+/// shorter) 「布隆也有这个看起来小的问题」 next to Alistar -> 105% (the user took the suggestion: 「按照你的建议选吧」).
+/// His hd frames come SHIFT rows lower from tools/art/rig_braum.py (its 90%) and the restyle lifts them back
+/// (tools/art/ppu_restyle.py RESTYLE braum lift).
 /// Mordekaiser: the user picked 110% with a thicker outline (C, Kassadin's way), then 「铁男感觉做的太大了吧？」 -> 95%,
-/// then 「铁男再稍微调大点」 -> 100% (49 game px with the mace, his body 43; listed so the history stays readable).
+/// then 「铁男再稍微调大点」 -> 100%; then 「为什么模型看起来小啊 牛头那种就看起来很大」「铁男再游戏里还是过于高清」 ->
+/// 115% at PPU 2.0 (1.74 squares a game pixel), his frames lifted by the restyle (RESTYLE mordekaiser lift).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10),
-                                    ("league_braum", 0.90), ("league_mordekaiser", 1.00),
+                                    ("league_braum", 1.05), ("league_mordekaiser", 1.15),
                                     ("league_irelia", 1.15)];
 
 pub const PREFIX: &str = "hd_";

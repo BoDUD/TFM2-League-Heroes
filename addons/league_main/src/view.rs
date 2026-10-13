@@ -13,6 +13,13 @@
 //! 他们的高清帧，按 id 认就不缩，画出来 2～3 倍大（用户 2026-10-12「Ppu的英雄佛爷戈不会变身失败吧？」）。不再是高清英雄的
 //! 实体（附身结束）把游戏的值写回去。
 //!
+//! 画身体的那一刻再认一次（0.6.50，用户：「佛耶戈变身高清英雄的时候 还是会变的超级大」）：佛耶戈附加包也挂在这个显示更新槽，
+//! 装得比这个包晚，链在我们前面——每帧是游戏的更新 → 我们的缩放 → 它换身体，这一帧我们看到的还是 league_viego，
+//! 不缩，接着画出被附身英雄的高清帧（别人的佛耶戈在战场绘制里 0x231f990 抄资源名，也在我们之后）。战场绘制先调画身体的
+//! 0x230ec30（0x231faa6），之后才在 0x231fb80 读 +0x1b4：所以 0x230ec30 的钩子先按此刻的资源名再算一遍，是高清英雄、
+//! 而这一帧的更新没缩过（佛耶戈），就在这里写 ÷ PPU（另记一份「画时」的记录，附身结束时写回游戏的值）；更新已经缩过的
+//! 照旧不动，不会除两次。
+//!
 //! 只缩身体（0.6.30，用户：「回城时脚下的特效会被遮挡」「英雄脚下的阴影也被遮挡了」）：+0x1b4 套在战场画身体的函数
 //! 0x230ec30 交出的整组绘制命令外面（0x231fb80：组头插一条缩放命令 0x…11、组尾一条恢复 0x…12），组里除了身体还有阴影、
 //! 脚下的圆圈、眩晕 / 嘲讽标记、读条——跟着缩成 1/PPU（艾希 1/5.5），看着像被身体挡住了。所以在 0x230ec30 的入口挂钩：
@@ -65,19 +72,52 @@ pub fn drawn_as<'a>(heroes: &'a [Hero], res: Option<&str>, id: Option<&str>) -> 
     heroes.iter().find(|h| h.id == last)
 }
 
+/// What the body draw does with an entity's scale, `cur` being what +0x1b4 holds as it starts.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum AtDraw {
+    /// drawn with dense frames: write `wrote` (the display update's own value when it shrank it this frame)
+    Write(Scale),
+    /// no longer dense and the value is still the one written here: the game's own value back
+    Restore(f32),
+    Leave,
+}
+
+/// The scale at the body draw. `shrunk`: the display update's record for this entity, `drawn`: the body draw's own,
+/// `shown`: PPU / size of the hero it is drawn as now (None: not a dense hero). Never divides twice.
+pub fn at_draw(shrunk: Option<Scale>, drawn: Option<Scale>, cur: f32, shown: Option<f32>) -> AtDraw {
+    let ours = |s: &Scale| (cur - s.wrote).abs() <= 1e-6;
+    match shown {
+        Some(k) => {
+            let prev = match shrunk {
+                Some(s) if ours(&s) => Some(s), // shrunk by the display update this frame: its base
+                _ => drawn,
+            };
+            AtDraw::Write(next_scale(prev, cur, k))
+        }
+        None => match drawn {
+            Some(d) if ours(&d) => AtDraw::Restore(d.base),
+            _ => AtDraw::Leave,
+        },
+    }
+}
+
 static HEROES: LazyLock<Vec<Hero>> = LazyLock::new(hd::heroes);
 
 struct State {
     scales: Vec<(usize, u64, Scale)>,
     /// the same scales by the entity value's address (what the body draw gets in rdx)
     by_value: Vec<(usize, Scale)>,
+    /// the scales the body draw wrote itself, by the entity value's address (a body swapped after the display update)
+    drawn: Vec<(usize, Scale)>,
     lines: usize,
     /// heroes whose first command list was logged
     seen: Vec<&'static str>,
+    /// "id > hero" pairs whose first body-draw scale was logged
+    noted: Vec<String>,
 }
 
-static STATE: Mutex<State> =
-    Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), lines: 0, seen: Vec::new() });
+static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), lines: 0,
+                                                seen: Vec::new(), noted: Vec::new() });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -223,14 +263,67 @@ static GROW: AtomicUsize = AtomicUsize::new(0);
 type BodyDraw = unsafe extern "system" fn(usize, usize, usize, usize, usize, usize, usize, usize) -> usize;
 type Grow = unsafe extern "system" fn(usize);
 
-/// 0x230ec30 (out Vec, entity value, r8, -, -, stack args 6-8; r9 and the 5th are never read): the game's body draw,
-/// then the extras brought back to the game's size.
+/// 0x230ec30 (out Vec, entity value, r8, -, -, stack args 6-8; r9 and the 5th are never read): the scale for the body
+/// it is drawn with now, the game's body draw, then the extras brought back to the game's size.
 unsafe extern "system" fn body_detour(out: usize, ent: usize, a3: usize, _sp: usize, a5: usize, a6: usize, a7: usize,
                                       a8: usize) -> usize {
     let f: BodyDraw = std::mem::transmute(ORIG_BODY.load(Ordering::Acquire));
+    let sc = std::panic::catch_unwind(|| unsafe { scale_at_draw(ent) }).ok().flatten();
     let r = f(out, ent, a3, 0, a5, a6, a7, a8);
-    let _ = std::panic::catch_unwind(|| unsafe { unshrink_extras(out, ent) });
+    if let Some((s, hero)) = sc {
+        let _ = std::panic::catch_unwind(|| unsafe { unshrink_extras(out, ent, s, hero) });
+    }
     r
+}
+
+/// +0x1b4 of the entity value `ent` set for the hero its body is drawn as at this moment (a body swapper renames it
+/// after the display update: league_viego_soul) -> its scale and hero when that is a dense hero.
+unsafe fn scale_at_draw(ent: usize) -> Option<(Scale, &'static Hero)> {
+    if !plausible(ent) {
+        return None;
+    }
+    let id = string_at(ent + NAME_PTR, ent + NAME_LEN_AT);
+    let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
+    let hero = drawn_as(&HEROES, res, id);
+    let mut st = STATE.try_lock().ok()?;
+    let shrunk = st.by_value.iter().find(|e| e.0 == ent).map(|e| e.1);
+    let at = st.drawn.iter().position(|e| e.0 == ent);
+    let cur = std::ptr::read_unaligned((ent + SCALE) as *const f32);
+    match at_draw(shrunk, at.map(|k| st.drawn[k].1), cur, hero.map(|h| h.shown())) {
+        AtDraw::Write(s) => {
+            let hero = hero?;
+            std::ptr::write_unaligned((ent + SCALE) as *mut f32, s.wrote);
+            match at {
+                Some(k) => st.drawn[k].1 = s,
+                None => {
+                    st.drawn.push((ent, s));
+                    if st.drawn.len() > 256 {
+                        st.drawn.remove(0);
+                    }
+                }
+            }
+            let updated = shrunk.is_some_and(|p| (cur - p.wrote).abs() <= 1e-6);
+            let pair = format!("{} > {}", id.unwrap_or("?"), hero.id);
+            if !updated && !st.noted.contains(&pair) && st.lines < 200 {
+                st.lines += 1;
+                wlog(format!("{}: drawn as {} at the body draw (the display update saw {}) - draw scale {cur:.3} -> {:.3}",
+                    id.unwrap_or("?"), hero.id, res.unwrap_or("?"), s.wrote));
+                st.noted.push(pair);
+            }
+            Some((s, hero))
+        }
+        AtDraw::Restore(base) => {
+            std::ptr::write_unaligned((ent + SCALE) as *mut f32, base);
+            st.drawn.retain(|e| e.0 != ent);
+            None
+        }
+        AtDraw::Leave => {
+            if at.is_some() {
+                st.drawn.retain(|e| e.0 != ent);
+            }
+            None
+        }
+    }
 }
 
 /// The texture name of a sprite command (its String {cap, ptr, len} at +8).
@@ -277,31 +370,18 @@ unsafe fn insert(out: usize, at: usize, cmd: &[u8; CMD]) {
     std::ptr::write_unaligned((out + 0x10) as *mut usize, len + 1);
 }
 
-unsafe fn unshrink_extras(out: usize, ent: usize) {
+/// The commands of the body draw that are not the hero's own sheet (shadow, rings, marks) wrapped back to the game's
+/// size: `sc` is the scale written for this draw, `hero` the dense hero the body is drawn as.
+unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
     if !plausible(out) || !plausible(ent) {
         return;
     }
     let Ok(mut st) = STATE.try_lock() else { return };
-    let Some(sc) = st.by_value.iter().find(|e| e.0 == ent).map(|e| e.1) else {
-        // a dense hero the display update never shrank under this address: say so once (the hook then does nothing)
-        let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
-        if let Some(h) = drawn_as(&HEROES, res, string_at(ent + NAME_PTR, ent + NAME_LEN_AT)) {
-            if !st.seen.contains(&h.id) && st.lines < 200 {
-                st.seen.push(h.id);
-                st.lines += 1;
-                wlog(format!("{}: body draw of entity value {ent:#x} with no scale record ({} recorded) - extras left as they are",
-                    h.id, st.by_value.len()));
-            }
-        }
-        return;
-    };
     let cur = std::ptr::read_unaligned((ent + SCALE) as *const f32);
     if (cur - sc.wrote).abs() > 1e-6 || sc.wrote <= 0.0 {
         return; // not shrunk this frame: everything is at the game's size already
     }
     let k = sc.base / sc.wrote;
-    let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
-    let Some(hero) = drawn_as(&HEROES, res, string_at(ent + NAME_PTR, ent + NAME_LEN_AT)) else { return };
     let (cap, ptr, len) = (q(out), q(out + 8), q(out + 0x10));
     if len == 0 || len > 256 || cap < len || !plausible(ptr) {
         return;
@@ -425,6 +505,30 @@ mod tests {
         assert_eq!(extra_runs(&[0, 0, 1, 0]), vec![(0, 1), (3, 3)]);
         assert_eq!(extra_runs(&[1]), vec![]);
         assert_eq!(extra_runs(&[0, 2, 0, 1, 1, 0, 0]), vec![(0, 0), (2, 2), (5, 6)]);
+    }
+
+    #[test]
+    fn the_body_draw_shrinks_a_body_swapped_after_the_update() {
+        let k = 2.2;
+        // a dense hero the display update shrank this frame: its value kept, no second division
+        let up = Scale { base: 1.0, wrote: 1.0 / k };
+        assert_eq!(at_draw(Some(up), None, 1.0 / k, Some(k)), AtDraw::Write(up));
+        // Viego renamed after the update (it saw league_viego): divided here, from the game's value
+        let s = match at_draw(None, None, 1.0, Some(k)) {
+            AtDraw::Write(s) => s,
+            other => panic!("{other:?}"),
+        };
+        assert_eq!(s, Scale { base: 1.0, wrote: 1.0 / k });
+        // the next frame, the game left our value: the same, not divided again
+        assert_eq!(at_draw(None, Some(s), 1.0 / k, Some(k)), AtDraw::Write(s));
+        // the game wrote its own value again
+        assert_eq!(at_draw(None, Some(s), 1.0, Some(k)), AtDraw::Write(s));
+        // possessing another dense hero (another PPU / size) while our value is still there
+        assert_eq!(at_draw(None, Some(s), 1.0 / k, Some(3.0)), AtDraw::Write(Scale { base: 1.0, wrote: 1.0 / 3.0 }));
+        // the possession over: our value goes, the game's comes back; nothing to do once the game rewrote it
+        assert_eq!(at_draw(None, Some(s), 1.0 / k, None), AtDraw::Restore(1.0));
+        assert_eq!(at_draw(None, Some(s), 1.0, None), AtDraw::Leave);
+        assert_eq!(at_draw(None, None, 1.0, None), AtDraw::Leave);
     }
 
     #[test]

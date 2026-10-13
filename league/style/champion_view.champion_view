@@ -1130,8 +1130,8 @@
     },
     "league_braum": {
       "face": {
-        "x": 7,
-        "y": -35
+        "x": 8,
+        "y": -41
       },
       "center": {
         "x": 0,
@@ -1141,7 +1141,7 @@
     "league_mordekaiser": {
       "face": {
         "x": 1,
-        "y": -27
+        "y": -31
       },
       "center": {
         "x": 0,
