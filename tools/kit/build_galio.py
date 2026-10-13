@@ -49,8 +49,10 @@ ID = "league_galio"
 FX = "asset/league/effects/league_galio_fx"
 BIG = "asset/league/effects/league_galio_big"
 
-# Timings are placeholders until the strips (attack 26 / hit 12, Q 30 / 12, E 36 / charge 10, W charge + release 18,
-# R wind 20).
+# Timings from the strips (assets/source/galio/codex_strips/cells.json, Codex's step 2 after League's clips): attack 420 ms,
+# the punch on frame 3 (140 ms, tick 9); the smash (attack2) 500 ms, the slam on frame 4 (190 ms, tick 12); Q 430 ms, the
+# wing beat on frame 3 (tick 9); E 460 ms, the dash from frame 3 (tick 8); W's release 330 ms, the taunt on frame 3
+# (7 ticks in); R's take-off 260 ms (16 ticks), the landing 440 ms with the slam on frame 2 (4 ticks in).
 # Numbers = candidate d3 of the 10-min classic-SDK simulations (Temp/gl_sim/sim/kd.py, mid lane against the base pyromancer,
 # ice, lightning, wind and white mages, three lineups, both sides, 2026-10-13): +1.43 on seeds 1-24, +1.28 on 25-48
 # (league_xerath +1.51 / +1.04, league_viktor +1.27 / +1.68, league_kassadin +1.22 / +1.55). The draft d0 was -0.16 / +0.05
@@ -62,27 +64,27 @@ P = {
     # magic resistance his own
     "hp": 1150, "hp_g": 115, "atk": 78, "atk_g": 6, "mp": 45, "mp_g": 18, "def": 34, "def_g": 7, "mr": 36, "mr_g": 6,
     "ms": 1000, "ms_g": 10,
-    "atk_range": 25000, "atk_dur": 26, "atk_cd": 72, "atk_st": 12,
+    "atk_range": 25000, "atk_dur": 25, "atk_cd": 72, "atk_st": 9, "p_st": 12, "p_anim": 30,
     # passive Colossal Smash (League: every 5 s, 15-200 + 100% AD + 50% AP + 60% bonus MR, radius ~300)
     "p_cd": 240, "p_r": 16000, "p_dmg": 80, "p_ap": 70,
     # W passive (League: magic shield 6-15% max hp after 12 s without damage)
     "w_ps": 90, "w_ps_ap": 30, "w_ps_t": 300, "w_ps_cd": 720,
     # Q Winds of War (League: 825 range, 70-210 + 75% AP, tornado 2 s 4 ticks of 2% max hp + AP, cd 11-7 s)
-    "q_cd": 420, "q_range": 55000, "q_dur": 30, "q_at": 12, "q_fly": 24, "q_r": 15000, "q_dmg": 120, "q_ap": 80,
+    "q_cd": 420, "q_range": 55000, "q_dur": 26, "q_at": 9, "q_fly": 24, "q_r": 15000, "q_dmg": 120, "q_ap": 80,
     "q_tr": 13000, "q_t": 120, "q_tp": 30, "q_tdmg": 30, "q_tap": 18, "q_fast": 120,
     # skill2 slot: E Justice Punch + W Shield of Durand
     "s2_cd": 60,
     # E Justice Punch (League: 650 dash, 90-250 + 90% AP, knock-up 0.75 s, cd 12-8 s)
-    "e_cd": 600, "e_range": 43000, "e_dur": 36, "e_at": 10, "e_speed": 3600, "e_tick": 12, "e_dmg": 130, "e_ap": 90,
+    "e_cd": 600, "e_range": 43000, "e_dur": 28, "e_at": 8, "e_speed": 3600, "e_tick": 12, "e_dmg": 130, "e_ap": 90,
     "e_up": 45,
     # W Shield of Durand (League: 20-40% DR (half vs physical) while charging up to 2 s + 2 s after, taunt 0.5-1.5 s,
     # 20-140 + 30% AP in 400 units, cd 18-14 s)
     "w_cd": 900, "w_trig": 24000, "w_r": 26000, "w_ch": 50, "w_dr": 40, "w_lin": 60, "w_slow": 15, "w_taunt": 70,
-    "w_dmg": 90, "w_ap": 70, "w_rel": 18,
+    "w_dmg": 90, "w_ap": 70, "w_rel": 20, "w_bt": 7,
     # R Hero's Entrance (League: 4000-5500 range, 2.75 s channel, allies 5 s W shield, 150-450 + 70% AP, knock-up
     # 0.75 s (1.5 s... at the centre in the data) radius 325, cd 180-140 s)
     "r_cd": 4200, "r_arm": 900, "r_poll": 10, "r_reset": 4900, "r_sur": 25000, "r_far": 60000, "r_seen": 25,
-    "r_sh": 150, "r_sh_ap": 50, "r_sh_t": 300, "r_ch": 120, "r_brk": 15, "r_wind": 20,
+    "r_sh": 150, "r_sh_ap": 50, "r_sh_t": 300, "r_ch": 120, "r_brk": 15, "r_wind": 16, "r_lt": 4, "r_land": 26,
     "r_r": 22000, "r_dmg": 220, "r_ap": 90, "r_up": 45, "r_rc": 10000, "r_up_c": 70,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -240,8 +242,8 @@ def build(p):
     ward = NONE if native else sw("w_ps_cd", NONE, on_me(flag("w_ps_cd", p["w_ps_cd"]),
                                                          shield(p["w_ps"], p["w_ps_ap"], p["w_ps_t"]),
                                                          cview("w_ps")))
-    smash = combine(anim("attack2", p["atk_dur"]), flag("p_cd", p["p_cd"]), sfx("p"),
-                    delayed(p["atk_st"] - 1, attack(0, 100), view("p_hit"), tsfx("p_hit"),
+    smash = combine(anim("attack2", p["p_anim"]), flag("p_cd", p["p_cd"]), sfx("p"),
+                    delayed(p["p_st"] - 1, attack(0, 100), view("p_hit"), tsfx("p_hit"),
                             around(p["p_r"], "EnemyWithoutTower", [magic(p["p_dmg"], p["p_ap"])]), cview("p_ring")))
     punch = combine(sfx("a_swing"), delayed(p["atk_st"] - 1, attack(0, 100), view("a_hit"), tsfx("a_hit")))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
@@ -268,12 +270,12 @@ def build(p):
                       delayed(p["e_at"], cview("e_dash"), rush(p["e_speed"], p["e_tick"], "EnemyChampion", e_hits)))
 
     def brace():
-        burst = combine(anim("w_burst", p["w_rel"]), cview("w_burst"), sfx("w_hit"),
+        burst = combine(anim("w_burst", p["w_rel"]), delayed(p["w_bt"], cview("w_burst"), sfx("w_hit"),
                         around(p["w_r"], "EnemyWithoutTower",
                                [magic(p["w_dmg"], p["w_ap"]),
                                 *([{"type": "Native", "effect_ref": "league_galio:taunt"}] if native else
                                   [{"type": "Taunt", "duration": p["w_taunt"]}, buff("w_taunt", p["w_taunt"])])]),
-                        around(p["w_r"], "EnemyChampion", [fast]))
+                        around(p["w_r"], "EnemyChampion", [fast])))
         return combine(flag("w_cd", p["w_cd"]), anim("w_charge", p["w_ch"]), cview("w_charge"), sfx("w"),
                        voice("vo_w", p),
                        refresh("w_dr", p["w_ch"] + p["w_lin"], damaged_reduce=p["w_dr"]),
@@ -287,13 +289,13 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: R Hero's Entrance
     breaks = [delayed(t, pick(1, "AllyChampionInCC", *rm("r_ch"))) for t in range(p["r_brk"], p["r_ch"], p["r_brk"])]
-    land = combine(view("r_land"), sfx("r_land"),
+    land = combine(anim("ult_land", p["r_land"]), delayed(p["r_lt"], view("r_land"), sfx("r_land"),
                    around(p["r_r"], "EnemyWithoutTower", [magic(p["r_dmg"], p["r_ap"]),
                                                          {"type": "Airborne", "duration": p["r_up"]}, view("r_hit")]),
                    around(p["r_rc"], "EnemyWithoutTower", [{"type": "Airborne", "duration": p["r_up_c"]}]),
                    around(p["r_r"], "AllyChampion", [shield(p["r_sh"], p["r_sh_ap"], p["r_sh_t"]),
                                                      buff("r_shield", p["r_sh_t"])]),
-                   anim("ult_land", 24), w_try)
+                   w_try))
 
     def save():
         """On the ally (the probe's hit): the shield now, the channel on him, the flight onto it at the end."""
