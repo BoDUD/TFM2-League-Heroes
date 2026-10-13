@@ -41,6 +41,7 @@ sys.path.insert(0, HERE)
 import ppu_hd as P  # noqa: E402
 import strips as G  # noqa: E402
 from pixel_down import despeckle, edge_colour, palette_of, pixelate, sizes_of  # noqa: E402,F401
+import pixel_down as D  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "ppu")
 ORIG = os.path.join(SRC, "orig")
@@ -53,7 +54,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
-            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "nidalee": 3.8313}
+            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
@@ -69,14 +70,18 @@ RESTYLE = {
     # rig_braum.py's SHIFT 4 lower (its 90 %): 11.5 x 2.881 x (1 + 4 / 33.13 - 1 / 1.05) = 5.6 orig rows = 3.8 squares
     # -> 4; Mordekaiser's (rig_mordekaiser.py SIZE 1.00, FEET 11): 11 x 5 x (1 - 1 / 1.15) = 7.2 orig rows = 2.9 -> 3.
     # The face points scale about the soles (champion_view: (7, -35) x 1.05 / 0.90, (1, -27) x 1.15)
-    "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98,
+    # then 「铁男感觉还是没泽丽那么像素啊」「飞机 布隆也是」「卡萨丁也是」: flat pixel art (crisp, picked from a preview:
+    # 16 colours + lines; Mordekaiser keeps his teal glow as drawn and his dark armour unstretched -
+    # 「铁男的眼睛完全看不到了」)
+    "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
                   lift=4 * 2.881 / 1.98 - 1e-6, face_to=(8, -41)),      # (a hair under: the pivot's row keeps its square)
     "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0,
+                        crisp=dict(contrast=1.0, keep="teal"),
                         face_to=(1, -31)),
     # 「飞机像泽丽那样变大点」
-    "corki": dict(grow=1.2, edge=1, ppu=2.2),
+    "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
-    "kassadin": dict(edge=0, ppu=2.42),
+    "kassadin": dict(edge=0, ppu=2.42, crisp={}),
     # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
     # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
     # --delivery <it> --fill-from-sheet
@@ -90,14 +95,23 @@ RESTYLE = {
     # 「其他英雄也差不多2.2」「画风要统一」
     "yasuo": dict(edge=0, ppu=2.2),
     # 「盖伦在游戏里还是他说 太小 像素太高」: 12 % bigger (37 -> 41 rows, Darius's 42), 1.9 squares a game pixel
-    "garen": dict(grow=1.12, edge=0, ppu=1.9),
+    # 「盖伦也要调一下吧 像素」: the flat pixel art too, his face kept as drawn (the lines pass made his eyes a black band)
+    "garen": dict(grow=1.12, edge=0, ppu=1.9, crisp=dict(keep="face")),
     # 2.2 at his 80 %
     "gragas": dict(edge=0, ppu=1.76),
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
     # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
-    # (1 - 1 / 1.15) = 3.0); her pixels untouched
-    "irelia": dict(lift=3, edge=0, face_to=(0, -37)),
+    # (1 - 1 / 1.15) = 3.0); her pixels untouched. Her face point: PR #246's (1, -38) on her head at 100 % (the old (0, -31)
+    # cropped her chest), x 1.15 about the soles
+    "irelia": dict(lift=3, edge=0, face_to=(1, -44)),
+    # 「下一个可以修正索拉卡」: Codex's PPU 3 redraw (design + 46 frames, the design brought to the actions' size at import),
+    # to Zeri's look: Codex drew every head anew (none matches the idle's face), so the body only, every frame alike
+    # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel. Then 「稍微变大点」: drawn 110 % by league.dll (hd.rs
+    # SIZES), the frames lifted 3 squares of the new grid (her restyled hooves sat a square low; 11.5 x 2.2 x (1 - 1 / 1.1) = 2.3 more) so the hooves stay on the
+    # ground; face (6, -31) x 1.1 and the lift -> (7, -35)
+    "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2, lift=3 * 3 / 2.2,
+                   face_to=(7, -35)),
     # league_nidalee (#97, 「按泽丽标准」): the huntress's head up, her body wider and shorter (Karma's way); the cougar keeps
     # its shape (FRAMES "none": already chunky) and only comes to the coarser grid
     # picked from three (「A 头 1.2 / 宽 1.3 / 矮 0.9」); max_err 8000: her Codex-drawn heads differ a little from the design's
@@ -505,6 +519,14 @@ def restyle(hero, spec, write=True, only=None):
         if d:
             out = {t: [(c, (pv[0], pv[1] + d), m) for c, pv, m in r] for t, r in out.items()}
             notes.append(f"soles moved {-d} rows back onto the ground")
+    if spec.get("crisp") is not None:
+        # flat pixel art (pixel_down.crisp): one palette over every frame of the hero
+        keys = [(t, i) for t, r in out.items() for i in range(len(r))]
+        flat = D.crisp([out[t][i][0] for t, i in keys], **spec["crisp"])
+        for (t, i), f in zip(keys, flat):
+            c, pv, m = out[t][i]
+            out[t][i] = (f, pv, m)
+        notes.append(f"crisp {spec['crisp']}")
     return out, sheet, ppu, new_ppu, notes, outline
 
 

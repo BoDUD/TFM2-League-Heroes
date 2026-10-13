@@ -4,12 +4,13 @@ load).
 
     python tools/art/preview_soraka.py [--out docs/preview]
 
-  league_soraka_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_soraka_frames.png    every animation, frame by frame: her dense (hd_, PPU 2.2) frames as drawn
   league_soraka_effects.png   every effect animation, 3x
   league_soraka_showcase.gif  a scripted fight, timed like the kit: Soraka runs in behind Garen, a
                               starlight bolt, Q Starcall on two mirrored Lee Sins (Rejuvenation on her,
                               then the Equinox field that roots them 1.5 s later), W Astral Infusion on
-                              Garen, R Wish landing on both of them, 3x
+                              Garen, R Wish landing on both of them, 3x; Soraka and Garen from their
+                              dense frames as the battlefield draws them (tools/art/preview_dense.py)
 """
 import argparse
 import os
@@ -22,6 +23,7 @@ sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_leesin import Foe  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -37,13 +39,13 @@ def showcase(out, z=3, step=40):
     gy = 118                                          # pivot row (the Wish pillar rises ~110 px)
     sx, ally_x = 40, 92                               # Soraka, Garen in front of her
     foes = [Foe(lee, 214, gy), Foe(lee, 244, gy)]
-    ally = frames_of(garen, "idle")
+    ally = dense(garen, "idle", "garen", z)
     body, under, over = [], [], []
     t = 0.0
 
     def a(tag, dur=None, loop=False, x0=None, x1=None):
         nonlocal t
-        an = Anim(frames_of(sor, tag), t, sx if x0 is None else x0, gy, loop=loop,
+        an = Anim(dense(sor, tag, "soraka", z), t, sx if x0 is None else x0, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=x1)
         body.append(an)
         t = an.until
@@ -98,12 +100,12 @@ def showcase(out, z=3, step=40):
     end = max(t, root + 1000)
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, px, py, z)
 
     frames, tt = [], 0.0
     ally_total = sum(ms for _, ms in ally)
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:                              # ground effects under the units
             f = an.frame(tt)
             if f is not None:
@@ -120,7 +122,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -138,7 +140,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_soraka_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_soraka_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

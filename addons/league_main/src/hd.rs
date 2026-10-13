@@ -21,6 +21,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_garen", 1.9, include_str!("../../../league/champions/league_garen#anim.fanim")),
     ("league_braum", 1.98, include_str!("../../../league/champions/league_braum#anim.fanim")),
     ("league_mordekaiser", 2.0, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
+    ("league_soraka", 2.2, include_str!("../../../league/champions/league_soraka#anim.fanim")),
     ("league_nidalee", 2.2, include_str!("../../../league/champions/league_nidalee#anim.fanim")),
 ];
 
@@ -40,9 +41,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Mordekaiser: the user picked 110% with a thicker outline (C, Kassadin's way), then 「铁男感觉做的太大了吧？」 -> 95%,
 /// then 「铁男再稍微调大点」 -> 100%; then 「为什么模型看起来小啊 牛头那种就看起来很大」「铁男再游戏里还是过于高清」 ->
 /// 115% at PPU 2.0 (1.74 squares a game pixel), his frames lifted by the restyle (RESTYLE mordekaiser lift).
+/// Soraka: 「稍微变大点」 -> 110% (her frames lifted 3 squares: tools/art/ppu_restyle.py RESTYLE soraka).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10),
                                     ("league_braum", 1.05), ("league_mordekaiser", 1.15),
-                                    ("league_irelia", 1.15)];
+                                    ("league_irelia", 1.15), ("league_soraka", 1.10)];
 
 pub const PREFIX: &str = "hd_";
 
