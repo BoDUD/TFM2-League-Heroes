@@ -53,7 +53,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
-            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2}
+            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "nidalee": 3.8313}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
@@ -98,13 +98,27 @@ RESTYLE = {
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
     # (1 - 1 / 1.15) = 3.0); her pixels untouched
     "irelia": dict(lift=3, edge=0, face_to=(0, -37)),
+    # league_nidalee (#97, 「按泽丽标准」): the huntress's head up, her body wider and shorter (Karma's way); the cougar keeps
+    # its shape (FRAMES "none": already chunky) and only comes to the coarser grid
+    # picked from three (「A 头 1.2 / 宽 1.3 / 矮 0.9」); max_err 8000: her Codex-drawn heads differ a little from the design's
+    # and were missed at 1500 (the head then kept its size beside the idle's grown one); the lying and turned frames below
+    "nidalee": dict(face=(33, 59, 51, 78), neck=(65, 61), head=1.2, wide=1.3, short=0.9, band=3, edge=1, ppu=2.2,
+                    max_err=8000),
 }
+NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
+                  "c_hit": 2, "c_dead": 6}
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
 FRAMES = {
     **{("zeri", "dead", i): ("lie", "r", 36.5, 3.5) for i in (4, 5, 6, 7)},
     **{("karma", "dead", i): ("lie", "r", 7.5, 17.5) for i in (2, 3, 4, 5, 6, 7)},
     ("karma", "dead", 1): ("up", 20.5, 13.5),
+    **{("nidalee", t, i): ("none",) for t, n in NIDALEE_COUGAR.items() for i in range(n)},
+    # lying (dead 4-6) and the low lunge (skill 5): the body only; hit = the idle moved 4 / 2 back (its neck with it)
+    **{("nidalee", "dead", i): ("body",) for i in (3, 4, 5)},
+    ("nidalee", "skill", 4): ("body",),
+    ("nidalee", "hit", 0): ("up", 1.5, -67.5),
+    ("nidalee", "hit", 1): ("up", 3.5, -67.5),
 }
 
 

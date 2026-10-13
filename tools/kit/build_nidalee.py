@@ -48,7 +48,10 @@ ID = "league_nidalee"
 FX = "asset/league/effects/league_nidalee_fx"
 BIG = "asset/league/effects/league_nidalee_big"
 
-# Timings are placeholders until the strips are drawn (step 2).
+# Timings from the strips (assets/source/nidalee/frames/frames.json, Codex's step 2 after League's clips): attack 440 ms, the
+# javelin leaves on frame 3 (150 ms, tick 9); Javelin Toss 550 ms, released on frame 4 (230 ms, tick 14); the spell 400 ms
+# (tick 10); the turns 260 / 270 ms; the claw 340 ms, the hit on frame 3 (tick 8); Takedown's bite 430 ms (tick 9);
+# Pounce 400 ms, off the ground on frame 2 (tick 4); Swipe 350 ms, the sweep on frame 3 (tick 9).
 # Numbers = candidate d10 of the 10-min classic-SDK simulations (Temp/nd_sim/sim/kd.py, jungle against the base demon,
 # circus blade, hunter, inquisitor and ninja, three lineups, both sides, 2026-10-13): +0.95 on seeds 1-24, +1.67 on 25-48
 # (league_evelynn +1.38 / +1.30, league_lillia +1.33 / +1.77, league_khazix +0.97 / +1.16). The draft d0 was -3.99 / -4.24:
@@ -58,29 +61,29 @@ P = {
     # League's Nidalee: 610 +109 hp, 58 AD, 32 armour, 30 mr, 335 move, 525 range (cougar 125)
     "hp": 980, "hp_g": 100, "atk": 110, "atk_g": 25, "mp": 50, "mp_g": 20, "def": 28, "def_g": 7, "mr": 24, "mr_g": 4,
     "ms": 1100, "ms_g": 12,
-    "atk_range": 23000, "atk_dur": 24, "atk_cd": 52, "a_st": 9, "a_speed": 5000,
+    "atk_range": 23000, "atk_dur": 26, "atk_cd": 52, "a_st": 9, "a_speed": 5000,
     # cougar form
-    "h_add": 27000, "c_atk_dur": 20, "c_atk_st": 8, "c_near": 32000, "tf_dur": 8, "r_cd_t": 180,
+    "h_add": 27000, "c_atk_dur": 20, "c_atk_st": 8, "c_near": 32000, "tf_dur": 16, "r_cd_t": 180,
     # passive Prowl (League: hunted 4 s, +30% move speed toward the hunted, pounce 750, takedown +40%)
     "p_t": 240, "p_ms": 20,
     # Q Javelin Toss (League: 1500 range, speed 1300, 50-170 + 50% AP, up to 3.25x at 1300 flown, cd 6 s)
-    "q_cd": 360, "q_range": 85000, "q_dur": 28, "q_at": 12, "q_speed": 3000, "q_w": 2500,
+    "q_cd": 360, "q_range": 85000, "q_dur": 33, "q_at": 14, "q_speed": 3000, "q_w": 2500,
     "q_dmg": 88, "q_ap": 80, "q_t1": 10, "q_t2": 19, "q_mid": 160, "q_far": 220,
     # Takedown (League: next attack -20..130 + 75% AD + 40% AP, more on low health, 1.4x on the hunted, cd 6 s)
-    "cq_cd": 300, "cq_t": 240, "cq_dur": 22, "cq_st": 9, "cq_dmg": 40, "cq_ad": 50, "cq_mdmg": 52, "cq_ap": 62,
+    "cq_cd": 300, "cq_t": 240, "cq_dur": 26, "cq_st": 9, "cq_dmg": 40, "cq_ad": 50, "cq_mdmg": 52, "cq_ap": 62,
     "cq_h": 140,
     # skill2 slot
     "s2_cd": 60, "s2_range": 55000,
     # E Primal Surge (League: heal 25-175 + AP (up to 2x on the hurt), 20-80% attack speed 7 s, cd 12 s)
-    "e_cd": 720, "e_range": 55000, "e_heal": 45, "e_ap": 45, "e_as": 40, "e_as_t": 420, "e_anim": 22, "e_at": 10,
+    "e_cd": 720, "e_range": 55000, "e_heal": 45, "e_ap": 45, "e_as": 40, "e_as_t": 420, "e_anim": 24, "e_at": 10,
     # W Bushwhack (League: 900 range, 40-200 + AP magic over 4 s (% current health), cd 14-9 s)
-    "w_cd": 660, "w_range": 55000, "w_anim": 22, "w_at": 10, "w_fly": 16, "w_r": 7000, "w_life": 240, "w_per": 30,
+    "w_cd": 660, "w_range": 55000, "w_anim": 24, "w_at": 10, "w_fly": 16, "w_r": 7000, "w_life": 240, "w_per": 30,
     "w_dmg": 18, "w_ap": 16,
     # Pounce (League: 375 (750 hunted), 10-280 + 30% AP, radius 235, cd 6 s (1.5-3.5 s hunted))
-    "cw_cd": 300, "cw_cd_h": 150, "cw_r": 25000, "cw_far": 50000, "cw_anim": 22, "cw_go": 4, "cw_at": 14,
+    "cw_cd": 300, "cw_cd_h": 150, "cw_r": 25000, "cw_far": 50000, "cw_anim": 24, "cw_go": 4, "cw_at": 14,
     "cw_speed": 4500, "cw_rad": 13000, "cw_dmg": 70, "cw_ap": 48,
     # Swipe (League: 310 cone 90 deg, 10-370 + 55% AP, cd 6 s)
-    "ce_cd": 300, "ce_r": 20000, "ce_anim": 20, "ce_at": 8, "ce_dmg": 98, "ce_ap": 80,
+    "ce_cd": 300, "ce_r": 20000, "ce_anim": 21, "ce_at": 9, "ce_dmg": 98, "ce_ap": 80,
     # ult: the hunt pounce
     "r_cd": 1200, "r_range": 65000, "r_dmg": 160, "r_ap": 90,
     # her spoken lines, at most one every vo_gap ticks
