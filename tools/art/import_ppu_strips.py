@@ -30,7 +30,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import ppu_hd as P  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "ppu")
+SRC = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 PACKS = os.path.join(ROOT, "dist", "ppu_packs")
 
 
@@ -87,6 +87,22 @@ def place_idle(design, idle1, k):
     return out, (best, y0)
 
 
+def orig_frames(hero, tag):
+    """The frames drawn before (assets/source/ppu/orig/<hero>_<tag>.png and its size list), or None. Not the sheet's
+    dense frames: those are ppu_restyle.py's, at the game's PPU."""
+    png, side = os.path.join(SRC, f"{hero}_{tag}.png"), os.path.join(SRC, f"{hero}_{tag}.json")
+    if not (os.path.isfile(png) and os.path.isfile(side)):
+        return None
+    s = np.asarray(Image.open(png).convert("RGBA"))
+    with open(side, encoding="utf-8") as fh:
+        sizes = json.load(fh)["sizes"]
+    out, x = [], 0
+    for W, H in sizes:
+        out.append(s[:H, x:x + W].copy())
+        x += W + 1
+    return out
+
+
 def write_strip(hero, tag, frames, want):
     """frames left to right, 1 px apart, top-aligned; <hero>_<tag>.json lists the sizes when any is not `want`."""
     h = max(f.shape[0] for f in frames)
@@ -99,11 +115,9 @@ def write_strip(hero, tag, frames, want):
     Image.fromarray(s).save(os.path.join(SRC, f"{hero}_{tag}.png"))
     side = os.path.join(SRC, f"{hero}_{tag}.json")
     sizes = [[int(f.shape[1]), int(f.shape[0])] for f in frames]
-    if sizes != [list(v) for v in want]:
-        with open(side, "w", encoding="utf-8", newline="\n") as fh:
-            json.dump({"sizes": sizes}, fh)
-    elif os.path.isfile(side):
-        os.remove(side)
+    # always the size list (ppu_restyle.py reads it: a 1x idle it padded no longer gives the drawn size)
+    with open(side, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump({"sizes": sizes}, fh)
 
 
 def main():
@@ -175,8 +189,12 @@ def main():
     for folder, c in deliveries[1:]:
         if (c["px_per_square"], c["ppu"]) != (px, cells["ppu"]):
             sys.exit(f"{folder}: px {c['px_per_square']} PPU {c['ppu']}, the first delivery's px {px} PPU {cells['ppu']}")
-    if hero not in P.PPU or abs(P.PPU[hero] - k) > 1e-3:
-        sys.exit(f"{hero}: PPU in tools/art/ppu_hd.py must be {k:g} (the pack's {cells['ppu']:g} x --scale {s})")
+    # the frames go to assets/source/ppu/orig at the pack's PPU; ppu_restyle.py brings them to the game's (ORIG_PPU)
+    import ppu_restyle as RS
+    drawn_at = RS.ORIG_PPU.get(hero, P.PPU.get(hero))
+    if drawn_at is None or abs(drawn_at - k) > 1e-3:
+        sys.exit(f"{hero}: the PPU its frames are drawn at (ppu_restyle.py ORIG_PPU, else ppu_hd.py PPU) must be {k:g} "
+                 f"(the pack's {cells['ppu']:g} x --scale {s})")
     dpath = a.design or os.path.join(PACKS, hero, "design", f"{hero}_design_1x.png")
     design = np.asarray(Image.open(dpath).convert("RGBA")).copy()
     design[..., 3] = np.where(design[..., 3] > 0, 255, 0)
@@ -346,16 +364,18 @@ def main():
             print(f"{tag}[{i}]: moved {dx}, {dy} onto the idle's feet" + (f", frame grown by {2 * gx} x {2 * gy}" if gx or gy else ""))
     os.makedirs(SRC, exist_ok=True)
     for tag, frames in sheet.items():
-        if tag.startswith(P.PREFIX):
+        if not P.plain(tag):
             continue
         have = got.get(tag, {})
         if sorted(have) != list(range(len(frames))):
             lost = [i for i in range(len(frames)) if i not in have]
-            if not a.fill_from_sheet or P.PREFIX + tag not in sheet:
-                sys.exit(f"{tag}: frames {lost} not delivered (--fill-from-sheet keeps the sheet's dense ones)")
+            kept = orig_frames(hero, tag)
+            if not a.fill_from_sheet or kept is None or len(kept) != len(frames):
+                sys.exit(f"{tag}: frames {lost} not delivered (--fill-from-sheet keeps the ones drawn before, "
+                         f"assets/source/ppu/orig/{hero}_{tag}.png)")
             for i in lost:
-                have[i] = sheet[P.PREFIX + tag][i][0]
-            print(f"{tag}: frames {lost} not delivered - the sheet's dense frames kept")
+                have[i] = kept[i]
+            print(f"{tag}: frames {lost} not delivered - the ones drawn before kept")
         want = [(round(f.shape[1] * k), round(f.shape[0] * k)) for f, _ in frames]
         write_strip(hero, tag, [have[i] for i in range(len(frames))], want)
         print(f"assets/source/ppu/{hero}_{tag}.png: {len(frames)} frames")

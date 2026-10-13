@@ -38,7 +38,7 @@ import import_braum_strips as I  # noqa: E402
 PPU = 121 / 42                    # 2.881: the design's 121 rows = 42 game rows
 FEET = 11                         # 1x rows from the pivot down to the soles (the pack's 128-canvas heroes)
 STEM = os.path.join(ROOT, "league", "champions", "league_braum")
-PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
+PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 FRAMES = os.path.join(ROOT, "assets", "source", "braum", "frames")
 OUTLINE = (6, 5, 5)
 THICK = 2                         # the outer outline grown by 2 hd squares: with the drawn one 3 / 2.88 = ~1 game px
@@ -52,6 +52,8 @@ BREATH = [0, 1, 2, 2, 1, 0]
 # grows SHIFT rows at both ends first (its centre, the pivot, kept).
 SIZE = 0.90
 SHIFT = round((FEET + 0.5) * PPU * (1 / SIZE - 1))
+# hd.rs SIZES is 1.05 since 2026-10-13 (「布隆也有这个看起来小的问题」, next to Alistar): tools/art/ppu_restyle.py lifts these
+# frames 6 rows (RESTYLE braum lift) - keep SIZE / SHIFT as they are here
 
 
 def ms(ticks):

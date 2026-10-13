@@ -12,11 +12,14 @@ Downloads, lossless). Kassadin's importer (tools/art/import_kassadin.py) does th
   * one scale per effect (its biggest frame to the prompt's size, SIZE), every game pixel the commonest colour of the
     sheet pixels under it snapped to the prompt's ramps (a brighter one wins: the white cores stay), clear when under
     45% covered;
-  * the red side: the two lines (q_crack, e_beam: turned with the cast) symmetric top to bottom, everything else left to
-    right - the fuller half mirrored onto the other about the frame's own axis, checked square for square;
-  * the two lines laid out from his position: every frame's left edge on the picture's left edge (the crack runs out
-    from him, the grasp leaves his hand), the picture as long as the line (LINE_W);
+  * the red side: the line (e_beam: turned with the cast) symmetric top to bottom, everything else left to right - the
+    fuller half mirrored onto the other about the frame's own axis, checked square for square;
+  * the line laid out from his position: every frame's left edge on the picture's left edge (the grasp leaves his
+    hand), the picture as long as the line (LINE_W);
   * the realm vortex (the add-on's banish picture) looped over the realm's 7 s.
+Obliterate's pictures (q_slam, q_burst, q_hit, q_iso_hit) are drawn by tools/art/fx_mordekaiser_q.py instead (the user:
+「铁男1技能的特效感觉也不足」): Codex's (sheets 1, 3, 4, 5) were small for him, and its crack - a line picture turned
+with the cast - floated above the line on the red side.
 Spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it. Times from the kit
 (build_mordekaiser.P, 60 ticks a second).
 """
@@ -53,14 +56,9 @@ def rows(sheet, band, xs):
 
 # effect -> [(sheet, (y0, y1) band, (x0, x1)) per frame]
 BOXES = {
-    "q_hit": rows(1, (136, 509), [(71, 238), (289, 680), (710, 1161), (1199, 1479)]),
     "p_hit": rows(1, (572, 950), [(110, 455), (558, 979), (1078, 1456)]),
     "p_aura": rows(2, (289, 602), [(21, 613), (651, 1241)]) + rows(2, (693, 998), [(25, 618), (659, 1214)]),
-    "q_crack": rows(3, (302, 577), [(36, 442), (498, 1006), (1024, 1503)])
-    + rows(3, (627, 924), [(33, 515), (549, 986), (1057, 1502)]),
-    "q_slam": rows(4, (230, 576), [(73, 359), (404, 868), (879, 1435)]) + rows(4, (664, 1021), [(66, 712), (769, 1323)]),
     "a_hit": rows(5, (217, 531), [(106, 224), (274, 584), (605, 939), (977, 1191)]),
-    "q_iso_hit": rows(5, (670, 1105), [(38, 186), (196, 500), (505, 790), (810, 1061), (1083, 1219)]),
     "e_beam": rows(6, (244, 563), [(22, 345), (392, 857), (910, 1319), (1379, 1730), (1786, 2147)]),
     "e_hit": rows(7, (68, 469), [(49, 398), (420, 779), (803, 1141), (1158, 1509)]),
     "w_shield": rows(7, (518, 967), [(31, 246), (261, 500), (505, 762), (771, 1047), (1050, 1297), (1313, 1508)]),
@@ -76,13 +74,13 @@ BOXES = {
     + rows(10, (745, 1000), [(293, 556), (639, 897), (981, 1220)]),
 }
 # the biggest frame's size in game px: ("w" | "h", n) (the small ones a little over the prompt's, Kassadin's way)
-SIZE = {"a_hit": ("w", 14), "p_aura": ("w", 50), "p_hit": ("w", 12), "q_crack": ("w", 44), "q_slam": ("w", 30),
-        "q_hit": ("w", 16), "q_iso_hit": ("w", 20), "e_beam": ("w", 54), "e_hit": ("w", 16), "w_shield": ("h", 40),
+SIZE = {"a_hit": ("w", 14), "p_aura": ("w", 50), "p_hit": ("w", 12), "e_beam": ("w", 54), "e_hit": ("w", 16),
+        "w_shield": ("h", 40),
         "w_heal": ("h", 32), "r_cast": ("w", 40), "r_mark": ("w", 16), "r_realm": ("w", 46), "r_pull": ("w", 14),
         "r_win": ("h", 34), "r_curse": ("w", 10)}
-SYM = {"q_crack": "tb", "e_beam": "tb"}               # every other one "lr"
+SYM = {"e_beam": "tb"}                               # every other one "lr"
 AXIS = {}
-LINE_W = {"q_crack": 44, "e_beam": 54}                # the lines' pictures: as long as the line (q_len, e_len)
+LINE_W = {"e_beam": 54}                              # the line's picture: as long as the line (e_len)
 HIT = (0, -14)                  # a hit on the upper body of a 36-44 px unit
 OVER = (0, -36)                 # over a unit's head
 SOLES = (0, 11)                 # on the ground under a unit or a point
@@ -363,11 +361,7 @@ FX = {
     # Darkness Rise: a pulse every p_per 30 ticks (500 ms), the ring round his feet
     "p_aura": ("ring", seq(range(4), [120, 120, 130, 130]), [SOLES]),
     "p_hit": ("core", seq(range(3), [40, 50, 60]), [HIT]),
-    # Q: the crack along its 24-tick picture line (400 ms), on the ground; the slam at his feet
-    "q_crack": ("core", seq(range(6), [60, 60, 70, 70, 70, 70]), [SOLES]),
-    "q_slam": (("feet", 2), seq(range(5), [50, 50, 60, 60, 70]), [SOLES]),
-    "q_hit": ("core", seq(range(4), [40, 50, 60, 70]), [HIT]),
-    "q_iso_hit": ("core", seq(range(5), [40, 50, 60, 70, 80]), [HIT]),
+    # Q: tools/art/fx_mordekaiser_q.py (main() adds them)
     # E: the grasp along its 18-tick picture line (300 ms) from his hand's height
     "e_beam": ("core", seq(range(5), [50, 60, 60, 60, 70]), [(0, -8)]),
     "e_hit": ("core", seq(range(4), [40, 50, 60, 70]), [HIT]),
@@ -385,7 +379,7 @@ FX = {
     # the curse over the cursed one's head while it lasts
     "r_curse": ("core", seq(range(4), [100] * 4), [OVER]),
 }
-BIG = {"p_aura", "q_crack", "q_slam", "e_beam", "r_cast", "r_realm"}
+BIG = {"p_aura", "q_slam", "q_burst", "e_beam", "r_cast", "r_realm"}
 
 
 def ring_anchor(cells):
@@ -413,6 +407,9 @@ def main():
                 out.append((np.zeros((3, 3, 4), np.uint8), ms))
                 continue
             out.append((J.place(cs[k], anc, spots), ms))
+        tables["league_mordekaiser_big" if name in BIG else "league_mordekaiser_fx"][name] = out
+    import fx_mordekaiser_q
+    for name, out in fx_mordekaiser_q.frames().items():
         tables["league_mordekaiser_big" if name in BIG else "league_mordekaiser_fx"][name] = out
     for sheet, tags in tables.items():
         w, h = G.write_sheet(os.path.join(MOD, "effects", sheet), tags, share=True)

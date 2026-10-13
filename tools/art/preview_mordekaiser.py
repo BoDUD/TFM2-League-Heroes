@@ -26,13 +26,12 @@ from preview_ashe import Anim, tick  # noqa: E402
 from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_pyke import Me, OnFoe, OnMe  # noqa: E402
-from build_mordekaiser import P  # noqa: E402
+from build_mordekaiser import P, Q_STAMPS  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_mordekaiser")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_mordekaiser_fx", "league_mordekaiser_big")}
-Q_MID = P["q_len"] / 2000                        # the crack's picture sits at the line's middle (game px ahead)
 E_MID = P["e_len"] / 2000
 
 
@@ -77,10 +76,11 @@ def showcase(out, z=3, step=40):
         a("attack", tick(P["atk_dur"]))
         a("idle", 150, loop=True)
     aura(t, t + 9000)
-    # Obliterate: the slam at his feet, the crack along the line, Darius alone in it: the isolated hit
+    # Obliterate: the blow where the mace lands, the eruptions back along the line (stamped a tick after each hidden
+    # projectile starts), Darius alone in it: the isolated hit
     q = t + tick(P["q_at"])
-    under.append(Anim(frames_of(big, "q_slam"), q, me.pos(q)[0] + 8, gy))
-    under.append(Anim(frames_of(big, "q_crack"), q, me.pos(q)[0] + Q_MID, gy))
+    for dt, tag, ahead in Q_STAMPS:
+        over.append(Anim(frames_of(big, tag), q + tick(dt + 1), me.pos(q)[0] + ahead / 1000, gy))
     hit(d, "q_iso_hit", q + tick(2))
     a("skill", tick(P["q_dur"]))
     a("idle", 300, loop=True)
