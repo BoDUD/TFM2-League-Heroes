@@ -54,7 +54,7 @@ WHITE = np.array([255, 255, 255], float)
 OUTLINE = (12, 9, 19)
 ARM_ELBOW = (66, 62)              # the blade arm's elbow in the design (the forearm unit turns about it)
 SPLIT = 70                        # the robe starts here (under the belt plate); the hands hang lower, with the arms
-SIZE = 1.10                       # league_main hd.rs SIZES: the DLL draws him 110% about his pivot ...
+SIZE = 1.10                       # (hd.rs SIZES is 1.00 since 2026-10-13: ppu_restyle lift_sq -3 undoes this) league_main hd.rs SIZES: the DLL draws him 110% about his pivot ...
 RAISE = round(FEET * PPU * (1 - 1 / SIZE))   # ... so every hd frame is drawn this many hd rows higher: soles on the ground
 THICK = 3                         # the outer outline grown outward by 3 hd squares (with the drawn one ~1 game pixel; the
                                   # base heroes' and the 1x pack heroes' outline is 1 game pixel, his was 0.28)
