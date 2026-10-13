@@ -16,7 +16,7 @@ one pixel a square). Here, for every frame:
     them, knuckle creases cut in (Codex's silhouette kept, no ground showing round a smaller fist);
   * idle = the design breathing (the upper body BREATH rows up over the legs and the tail), hit = the design moved 2 and
     1 squares back.
-Then the run's legs are redrawn (run_legs: Codex's never crossed) and every frame is brought down twice: for the 1x
+Then every frame is brought down twice: for the 1x
 sheet (down: 2 x 2 blocks, the face kept) and for the game (dense: 1.5 squares a game pixel, pixel_down.pixelate),
 written to assets/source/ppu/galio_<tag>.png + .json (ppu_hd.py's drawn strips; python tools/art/ppu_hd.py --hero galio
 then adds the hd_ / lo_ tags). Drawn at PPU 2.0 (76 squares crown to soles = 38 game rows, 52 with the wings); shown at
@@ -26,7 +26,6 @@ then adds the hd_ / lo_ tags). Drawn at PPU 2.0 (76 squares crown to soles = 38 
 """
 import argparse
 import io
-import math
 import json
 import os
 import subprocess
@@ -42,7 +41,6 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import design_galio_hd as DG  # noqa: E402
 import pixel_down as PD  # noqa: E402
-import rigkit as K  # noqa: E402
 import strips as G  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "galio")
@@ -390,110 +388,19 @@ def down(can):
 
 
 # ------------------------------------------------------------------------------------------------ the run's legs
-# Codex's run kept the light leg forward and the dark one back in all 8 frames (the user: 「走路没有交叉步」). Legs drawn
-# along bones read as foreign legs (「腿部变形？」「还是变形啊 你不自己review的吗」), and the design's legs slanted by row
-# shear were deformed too (「不还是变形？」), so the run steps on the design's own two legs exactly as the idle has them
-# (thighs, gold knee guards, shins, the clawed foot), each moved whole - a few px forward and back, lifted as it swings
-# - as the approved heavy runs do (league_braum, league_nautilus, league_gragas, league_alistar: leg shapes kept, never
-# turned); the near foot mirrored (claws forward) and the far leg on the same foot a step darker, the far leg four
-# phases on and drawn first, the outline closed where the cut took it; Codex's upper body, fists and tail kept over
-# them, the tail carried to the hips. Numbers in game pixels from the pivot (x right, y down); PPU squares each.
-RUN_CUT = -2                     # rows from RUN_CUT down are redrawn (the legs, the tail's root) ...
+# Codex's run kept the light leg forward and the dark one back in all 8 frames (the user: 「走路没有交叉步」). Every leg
+# built here from the idle's standing legs read as deformed (bone lines, pasted parts, row shear, whole legs slid:
+# 「腿部变形？」「还是变形啊」「不还是变形？」「看不到这里变形吗」), so Codex redraws the legs of the 8 run frames, alternating
+# (tools/art/pack_galio_run.py, assets/source/galio/RUN_PROMPT.md); until then the run is Codex's first one. The
+# pack's cut: Codex's upper body kept above game row RUN_CUT, the fists and the tail below it.
+RUN_CUT = -2                     # rows from RUN_CUT down are the legs ...
 RUN_KEEP = (9, 0, -15, -1)       # ... but the front fist (right of 9, down to row 0) and the back one (left of -15, to -1)
-RUN_TAILX = -13                  # Codex's tail kept left of this column
-RUN_LEGS = {"near": [(66, 81, 35, 50), (82, 95, 35, 47), (96, 103, 28, 48)],    # design rows r0..r1, columns c0..c1
-            "far": [(66, 81, 51, 64), (82, 95, 48, 64), (96, 103, 49, 71)]}
-RUN_ANKLE = {"near": 95, "far": 96}   # the design row from which the foot moves whole
-RUN_AXIS = 40                    # the near shin's middle column: its foot mirrored about it
-RUN_FAR_FOOT = (15, -1)          # the far leg's foot: the near one (its own is a dark lump with a white speck at this
-                                 # size) moved under the far shin and a row up, a step darker (RUN_DARKER)
-RUN_DARKER = {(236, 251, 241): (190, 208, 202), (244, 250, 246): (190, 208, 202), (190, 208, 202): (124, 143, 145),
-              (149, 169, 168): (103, 120, 123), (124, 143, 145): (103, 120, 123), (103, 120, 123): (60, 73, 78)}
-RUN_RING = 72                    # the legs' own outline ring from this design row down (above it the body covers them)
-# each leg's step over 8 phases, game px from its place in the idle: (x, lift) - planted ahead and sliding back under
-# him (0-4), lifted and carried forward (5-7); the far leg 4 phases on. Whole legs moved, never slanted: the approved
-# heavy runs (league_braum, league_nautilus, league_gragas, league_alistar) step their legs a few px, shapes kept
-RUN_PH = [(3.0, 0), (1.5, 0), (0.0, 0), (-1.5, 0), (-3.0, 0), (-2.0, 1.5), (0.0, 2.5), (2.0, 1.5)]
+RUN_TAILX = -13                  # and the tail left of this column
 
 
 def to_can(x, y):
     """Game pixels from the pivot -> canvas coordinates (the pivot square's corner: down()'s 1x grid)."""
     return PIV_X - 0.5 + PPU * x, SOLE - FEET * PPU + PPU * y
-
-
-def run_pieces():
-    """The design's two legs on the canvas: {name: leg} - each its own squares and only the outline round them."""
-    idle = on_canvas(design())
-    H, W = idle.shape[:2]
-    yy, xx = np.mgrid[0:H, 0:W]
-    x0, y0 = DESIGN_AT
-    dr, dc = yy - y0, xx - x0
-    out = {}
-    for name, boxes in RUN_LEGS.items():
-        m = np.zeros((H, W), bool)
-        for r0, r1, c0, c1 in boxes:
-            m |= (dr >= r0) & (dr <= r1) & (dc >= c0) & (dc <= c1)
-        leg = np.where(m[..., None], idle, 0).astype(np.uint8)
-        op = leg[..., 3] > 0
-        light = op & (leg[..., :3].astype(int).sum(-1) >= 70)
-        leg[op & ~light & ~ndimage.binary_dilation(light, structure=np.ones((3, 3)), iterations=2)] = 0
-        out[name] = leg
-    near, far = out["near"], out["far"]
-    foot = near.copy()
-    foot[:y0 + RUN_ANKLE["near"]] = 0
-    near[y0 + RUN_ANKLE["near"]:] = 0
-    ys, xs = np.nonzero(foot[..., 3])
-    xs = 2 * (x0 + RUN_AXIS) - xs
-    near[ys, xs] = foot[ys, 2 * (x0 + RUN_AXIS) - xs]
-    far[y0 + RUN_ANKLE["far"]:] = 0
-    dx, dy = RUN_FAR_FOOT
-    dark = foot[ys, 2 * (x0 + RUN_AXIS) - xs].copy()
-    for c, d in RUN_DARKER.items():
-        dark[(dark[:, :3] == c).all(-1), :3] = d
-    far[ys + dy, xs + dx] = dark
-    return out
-
-
-def run_legs(can, k, legs=None):
-    """A run frame's canvas with the legs redrawn at phase k (the far leg k + 4)."""
-    legs = legs or run_pieces()
-    H, W = can.shape[:2]
-    yy, xx = np.mgrid[0:H, 0:W]
-    x0, y0 = to_can(0, 0)
-    rx, ry = np.floor((xx + 0.5 - x0) / PPU), np.floor((yy + 0.5 - y0) / PPU)
-    fx, fy, bx, by = RUN_KEEP
-    keep = (rx >= fx) & (ry <= fy) | (rx <= bx) & (ry <= by)
-    upper = can.copy()
-    upper[(ry >= RUN_CUT) & ~keep] = 0
-    zone = (ry >= RUN_CUT - 4) & (rx < RUN_TAILX)
-    tail = np.where(zone[..., None], can, 0).astype(np.uint8)
-    upper[zone] = 0
-    out = tail.copy()
-    # the tail's root: from Codex's tail (left of RUN_TAILX) to the near hip, 2 game rows in its greys
-    edge = int(math.floor(to_can(RUN_TAILX, 0)[0])) - 1
-    ys = np.nonzero(tail[:, edge, 3])[0]
-    if len(ys):
-        mid = (ys.min() + ys.max()) // 2
-        r0, r1 = int(mid - PPU), int(mid + PPU)
-        c0, c1 = edge + 1, DESIGN_AT[0] + RUN_LEGS["near"][0][2] + 2
-        out[r0:mid, c0:c1] = (124, 143, 145, 255)
-        out[mid:r1, c0:c1] = (103, 120, 123, 255)
-        out[r0 - int(PPU):r0, c0:c1] = (*OUTLINE, 255)
-        out[r1:r1 + int(PPU), c0:c1] = (*OUTLINE, 255)
-    y_d = DESIGN_AT[1]
-    for name, ph in (("far", RUN_PH[(k + 4) % 8]), ("near", RUN_PH[k])):
-        dx, lift = ph
-        leg = legs[name]
-        sw = K.shifted(leg, int(round(dx * PPU)), -int(round(lift * PPU)))
-        m = sw[..., 3] > 0
-        light = m & (sw[..., :3].astype(int).sum(-1) >= 70)
-        ring = ndimage.binary_dilation(light, iterations=int(PPU)) & ~m      # only where the cut lost the outline
-        ring[:y_d + RUN_RING] = False
-        out[ring] = (*OUTLINE, 255)
-        out[m] = sw[m]
-    K.put(out, upper, 0, 0)
-    out[SOLE + 1:] = 0
-    return specks(pinholes(close_all(out)))
 
 
 def dense(can, one):
@@ -539,14 +446,10 @@ def main():
     ap.add_argument("--review", help="write every tag's dense frames at 4x on magenta here")
     a = ap.parse_args()
     acts = actions()
-    legs = run_pieces()
     sheet = {}
     for tag, frames in acts.items():
         ones, hds = [], []
-        for k, (can, t) in enumerate(frames):
-            if tag == "run":
-                can = run_legs(can, k, legs)
-                frames[k] = (can, t)
+        for can, t in frames:
             one = down(can)
             ones.append((one, round(t, 3)))
             hds.append(dense(can, one))
