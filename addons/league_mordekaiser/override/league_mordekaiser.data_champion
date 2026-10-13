@@ -1050,18 +1050,100 @@
                         "name": "league_mordekaiser_q"
                       },
                       {
-                        "type": "CasterViewEffect",
-                        "name": "league_mordekaiser_q_slam"
+                        "type": "LinearProjectile",
+                        "name": "league_mordekaiser_q_step",
+                        "speed": 60000,
+                        "range": 40000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "penetrate": true,
+                        "y_offset": 0,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_mordekaiser_q_slam"
+                          }
+                        ]
                       },
                       {
-                        "type": "LineRangeProjectile",
-                        "name": "league_mordekaiser_q_crack",
-                        "width": 6000,
-                        "length": 42000,
-                        "delay": 24,
-                        "apply": 24,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": []
+                        "type": "LinearProjectile",
+                        "name": "league_mordekaiser_q_step",
+                        "speed": 60000,
+                        "range": 32000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "penetrate": true,
+                        "y_offset": 0,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_mordekaiser_q_burst"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "LinearProjectile",
+                            "name": "league_mordekaiser_q_step",
+                            "speed": 60000,
+                            "range": 22000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 0
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": 0,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_mordekaiser_q_burst"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 2,
+                        "effects": [
+                          {
+                            "type": "LinearProjectile",
+                            "name": "league_mordekaiser_q_step",
+                            "speed": 60000,
+                            "range": 12000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 0
+                              }
+                            },
+                            "penetrate": true,
+                            "y_offset": 0,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_mordekaiser_q_burst"
+                              }
+                            ]
+                          }
+                        ]
                       },
                       {
                         "type": "LineRangeProjectile",
@@ -1385,18 +1467,100 @@
                     "name": "league_mordekaiser_q"
                   },
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_mordekaiser_q_slam"
+                    "type": "LinearProjectile",
+                    "name": "league_mordekaiser_q_step",
+                    "speed": 60000,
+                    "range": 40000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "penetrate": true,
+                    "y_offset": 0,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_mordekaiser_q_slam"
+                      }
+                    ]
                   },
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_mordekaiser_q_crack",
-                    "width": 6000,
-                    "length": 42000,
-                    "delay": 24,
-                    "apply": 24,
-                    "applied_target": "EnemyWithoutTower",
-                    "applied_effects": []
+                    "type": "LinearProjectile",
+                    "name": "league_mordekaiser_q_step",
+                    "speed": 60000,
+                    "range": 32000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "penetrate": true,
+                    "y_offset": 0,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_mordekaiser_q_burst"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 1,
+                    "effects": [
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_mordekaiser_q_step",
+                        "speed": 60000,
+                        "range": 22000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "penetrate": true,
+                        "y_offset": 0,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_mordekaiser_q_burst"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 2,
+                    "effects": [
+                      {
+                        "type": "LinearProjectile",
+                        "name": "league_mordekaiser_q_step",
+                        "speed": 60000,
+                        "range": 12000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "penetrate": true,
+                        "y_offset": 0,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_mordekaiser_q_burst"
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     "type": "LineRangeProjectile",
@@ -3261,14 +3425,6 @@
   "view_projectiles": [
     {
       "type": "Animated",
-      "name": "league_mordekaiser_q_crack",
-      "anim": "asset/league/effects/league_mordekaiser_big",
-      "tag": "q_crack",
-      "repeat": true,
-      "z": 1
-    },
-    {
-      "type": "Animated",
       "name": "league_mordekaiser_e_beam",
       "anim": "asset/league/effects/league_mordekaiser_big",
       "tag": "e_beam",
@@ -3306,7 +3462,15 @@
       "name": "league_mordekaiser_q_slam",
       "anim": "asset/league/effects/league_mordekaiser_big",
       "tag": "q_slam",
-      "z": -1,
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_mordekaiser_q_burst",
+      "anim": "asset/league/effects/league_mordekaiser_big",
+      "tag": "q_burst",
+      "z": 1,
       "is_follow": false
     },
     {

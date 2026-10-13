@@ -44,13 +44,15 @@ SRC = os.path.join(ROOT, "assets", "source", "mordekaiser")
 FRONT = os.path.join(SRC, "hd", "front.png")
 POSES = os.path.join(SRC, "codex_poses")
 STEM = os.path.join(ROOT, "league", "champions", "league_mordekaiser")
-PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
+PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 
 PPU = 5.0                         # 246 design rows / 49 game rows
 FEET = 11                         # 1x rows from the pivot down to the soles
-SIZE = 1.00                       # league_main hd.rs SIZES: the DLL draws him at 100% (the user picked 110%, then
+SIZE = 1.00                       # the size these frames are drawn for (the user picked 110%, then
                                   # 「铁男感觉做的太大了吧？」 -> 95% -> 「铁男再稍微调大点」 -> 100%) ...
 RAISE = round(FEET * PPU * (1 - 1 / SIZE))   # ... so every hd frame is drawn this many hd rows higher
+# hd.rs SIZES is 1.15 since 2026-10-13 (「为什么模型看起来小啊 牛头那种就看起来很大」): tools/art/ppu_restyle.py lifts these
+# frames 7 rows (RESTYLE mordekaiser lift) - keep SIZE at 1.00 here
 THICK = 3                         # the outer outline grown outward by 3 hd squares (the user's pick C)
 OUTLINE = (2, 3, 3)
 CW, CH = 480, 420                 # the hd canvas

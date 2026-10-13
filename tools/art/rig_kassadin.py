@@ -45,7 +45,7 @@ import design_kassadin_hd as D  # noqa: E402
 PPU = 3.622                       # 134 design rows / 37 game rows (the user's pick)
 FEET = 11                         # 1x rows from the pivot down to the soles (the pack's 128-canvas heroes: 88 -> 99)
 STEM = os.path.join(ROOT, "league", "champions", "league_kassadin")
-PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
+PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu", "orig")  # the dense frames as drawn; tools/art/ppu_restyle.py makes the strips ppu_hd.py reads from them (2026-10-13)
 CAN = 220                         # the hd canvas (square), the pivot at its middle column
 GROUND = 190                      # the hd row under the robe (the soles' line)
 VOID = np.array([108, 40, 196], float)      # Riftwalk's tint

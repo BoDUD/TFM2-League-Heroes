@@ -289,7 +289,7 @@ def main():
                 "colours": len(cols), "images": []}
     rows_md = []
     for tag, frames in sheet.items():
-        if tag.startswith(P.PREFIX) or tag == "idle" or tag in SKIP.get(hero, ()):
+        if not P.plain(tag) or tag == "idle" or tag in SKIP.get(hero, ()):
             continue
         if only and not any(t == tag for t, _ in only):
             continue
