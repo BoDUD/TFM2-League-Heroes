@@ -53,7 +53,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
-            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2}
+            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
@@ -83,6 +83,8 @@ RESTYLE = {
     "garen": dict(grow=1.12, edge=0, ppu=1.9),
     # 2.2 at his 80 %
     "gragas": dict(edge=0, ppu=1.76),
+    # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」: only 15 % bigger, her look and grid (PPU 2) kept
+    "irelia": dict(grow=1.15, edge=0),
 }
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
@@ -347,8 +349,17 @@ def restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach=None
         # evenly bigger round the pivot column and the ground row (the soles stay FEET below the pivot)
         k = spec["grow"]
         gyc = pivot[1] + FEET * ppu
-        content = scale_even(content, k)
-        pivot = (pivot[0] * k, gyc * k - FEET * ppu)
+        if spec.get("ppu", ppu) == ppu:
+            # no coarser grid follows to even it out: doubled exactly, then brought to k / 2 by area (pixel_down) -
+            # every square the same size, none doubled (league_irelia)
+            big = scale_even(content, 2)
+            content, (qx, qy) = pixelate(big, k / 2, (pivot[0] * 2, pivot[1] * 2), outline)
+            # the grid runs through the pivot, so the soles land FEET * ppu * k under it: the pivot taken that much
+            # lower less FEET * ppu, so they sit FEET * ppu under it again
+            pivot = (float(qx), float(qy) + FEET * ppu * (k - 1))
+        else:
+            content = scale_even(content, k)
+            pivot = (pivot[0] * k, gyc * k - FEET * ppu)
     return content, pivot, note
 
 
@@ -454,6 +465,16 @@ def restyle(hero, spec, write=True, only=None):
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
         out[tag] = res
+    if spec.get("grow", 1) != 1 and new_ppu == ppu and "idle" in out:
+        # the even-grid growth rounds: put the soles back exactly where the idle's first frame had them
+        a0 = frames["idle"][0][0]
+        was = np.nonzero(a0[..., 3].any(1))[0].max() + 1 - a0.shape[0] / 2
+        c0, pv0, _ = out["idle"][0]
+        now = np.nonzero(c0[..., 3].any(1))[0].max() + 1 - pv0[1]
+        d = round(now - was)
+        if d:
+            out = {t: [(c, (pv[0], pv[1] + d), m) for c, pv, m in r] for t, r in out.items()}
+            notes.append(f"soles moved {-d} rows back onto the ground")
     return out, sheet, ppu, new_ppu, notes, outline
 
 
