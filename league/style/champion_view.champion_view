@@ -46,7 +46,7 @@
     },
     "league_soraka": {
       "face": {
-        "x": 5,
+        "x": 7,
         "y": -35
       },
       "center": {
@@ -1100,8 +1100,8 @@
     },
     "league_irelia": {
       "face": {
-        "x": 0,
-        "y": -37
+        "x": 1,
+        "y": -44
       },
       "center": {
         "x": 0,
