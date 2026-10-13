@@ -1985,6 +1985,19 @@
                       "only_to_enemy": false
                     },
                     {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_bard_e_ghost",
+                        "duration": {
+                          "Time": {
+                            "tick": 26
+                          }
+                        },
+                        "ignore_wall": true
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
                       "type": "CasterAnimation",
                       "name": "skill2_e",
                       "tick": 24
@@ -2021,6 +2034,18 @@
                               }
                             },
                             "move_speed_mult": 40
+                          }
+                        },
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_bard_e_ghost",
+                            "duration": {
+                              "Time": {
+                                "tick": 64
+                              }
+                            },
+                            "ignore_wall": true
                           }
                         },
                         {

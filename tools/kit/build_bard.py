@@ -20,7 +20,10 @@ everyone in the zone):
           two enemy champions within e_near or one within e_close - E opens the door: he travels e_speed x e_tick
           units straight away from the nearest enemy champion (MoveBack), every allied champion within e_ride of the
           door is pulled through after him (a Grab that ends on him) and they all get e_ms% move speed for e_ms_t
-          ticks. Else W: a shrine thrown at an allied champion in crowd control, else at a random one within w_r,
+          ticks. The door goes through the jungle's rocks: forced moves (MoveBack, Grab) never stop at the map's
+          walls (SDK simulation 2026-10-13: 78 of 159 long test trips crossed rock, none was cut short; an exit inside
+          a rock is walked out of), and an `ignore_wall` buff over the trip (e_ghost) keeps it so should the game check
+          walls on forced moves. Else W: a shrine thrown at an allied champion in crowd control, else at a random one within w_r,
           else at his feet: w_heal + w_ap% AP heal and w_ms% move speed for w_ms_t ticks.
   ult     R Tempered Fate, armed like league_lulu R: a 3-tick `None` cast on `EnemyChampion` (r_arm_range) arms
           r_armed for r_arm ticks; every attack, Q and W/E check it: an allied champion in crowd control within
@@ -58,7 +61,7 @@ P = {
     "w_cd": 420, "w_range": 90000, "w_dur": 22, "w_st": 1, "w_lag": 9, "w_r": 50000, "w_speed": 4000, "w_y": -2000,
     "w_heal": 110, "w_ap": 50, "w_ms": 30, "w_ms_t": 90,
     "e_cd_t": 960, "e_near": 30000, "e_close": 15000, "e_wind": 9, "e_speed": 4000, "e_tick": 15, "e_ride": 25000,
-    "e_pull": 5000, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
+    "e_pull": 5000, "e_pull_t": 40, "e_ghost": 1, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
     # ult: R Tempered Fate (League: 3400 range, radius 350, 0.5 s cast + flight, stasis 2.5 s; cd 110-80 s)
     "r_cd": 3600, "r_arm": 900, "r_arm_range": 90000, "r_range": 80000, "r_need": 2, "r_anim": 30, "r_travel": 24,
     "r_r": 26000, "r_t": 150,
@@ -281,8 +284,11 @@ def build(p):
                 sw("w_got", NONE, combine(pick(p["w_r"], "AllyNotSelf", throw()), sw("w_got", NONE, w_self))))
 
     e = combine(
-        flag("e_cd", p["e_cd_t"]), anim("skill2_e", p["e_anim"]), sfx("e_cast"), sfx("vo_e"), cview("e_door"),
+        flag("e_cd", p["e_cd_t"]), *([flag("e_ghost", p["e_wind"] + p["e_tick"] + 2, ignore_wall=True)] if p["e_ghost"] else []),
+        anim("skill2_e", p["e_anim"]), sfx("e_cast"), sfx("vo_e"), cview("e_door"),
         around(p["e_ride"], "AllyNotSelf", [buff("e_haste", p["e_ms_t"], move_speed_mult=p["e_ms"]),
+                                            *([buff("e_ghost", p["e_wind"] + p["e_tick"] + p["e_pull_t"],
+                                                    ignore_wall=True)] if p["e_ghost"] else []),
                                             delayed(p["e_wind"] + p["e_tick"], {"type": "Grab", "speed": p["e_pull"]},
                                                     view("e_ride"))]),
         pick(p["e_near"], "EnemyChampion", delayed(p["e_wind"], {"type": "MoveBack", "speed": p["e_speed"],
