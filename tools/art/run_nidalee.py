@@ -42,9 +42,12 @@ LEG_START_FAR = 54
 LEG_END = 82              # the far leg (and its boot toe) up to here; the javelin's shaft right of it
 LEAN = 0.0                # the upper body stands straight like the idle (the user: 「站直了啊」「怎么身体歪的」; a 0.5 lean was tried)
 # per frame: (ankle shift in columns, lift in rows) of the near leg; the far leg takes the phase four frames on
-PHASES = [(0, 0), (-8, 0), (-16, 0), (-24, 4), (-10, 12), (4, 10), (12, 2), (14, 0)]
-FAR_DX = 10               # the far leg's phases sit FAR_DX further forward: the feet converge but never swap sides
-                          # (league_zeri / league_irelia: 「腿和腰之间有点变形」 when the legs crossed over)
+# The user, on legs swinging out to the sides: 「你这对吗 我要的是前后吧？」 - the stride runs front to back: both feet are
+# first brought in under the body (INWARD: the near ankle INWARD columns right, the far one INWARD left, the hips where
+# they are), then the leg in front sits a few columns forward (right) and down on the ground, the one behind a few
+# columns back with its foot kicked up; at frames 1 and 5 they pass each other (the near one drawn in front).
+INWARD = 12
+PHASES = [(0, 0), (-4, 0), (-8, 0), (-10, 10), (-4, 14), (4, 8), (8, 2), (10, 0)]
 BOB = [0] * 8              # the planted sole stays on the ground (the frame is grounded instead)
 RUN_MS = 100
 CRACK = 40
@@ -102,9 +105,8 @@ def run_frame(k):
         m2[ys[keep], xs[keep]] = True
         put(m2, shin, dy=-lift)
 
-    p_far = PHASES[(k + 4) % 8]
-    leg(far, p_far, FAR_DX)
-    leg(near, PHASES[k])
+    leg(far, PHASES[(k + 4) % 8], -INWARD)
+    leg(near, PHASES[k], INWARD)
     lean = lambda y: int(round((HIP - max(y, NECK)) * LEAN)) if y < HIP else 0
     put(body, lean)
     hand = int(round((HIP - 62) * LEAN))
