@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。英雄都是数据；从 0.97.0 起主包带一个自己的 DLL（`league.dll`，源码 [`addons/league_main`](addons/league_main/src/lib.rs)，`mod.mod_info` 是 `contains_code` / `native`，订阅时游戏会提示这是代码 mod），只做数据做不到的一件事：高清帧（见下）。DLL 只在它认得的游戏版本上挂钩（[`build.rs`](addons/league_main/src/build.rs) 逐字节核对每一处要改、要调用的代码，现在认得 0.6.3 的 Windows 版；用户：「就是你要兼容0.6.3和0.7」），别的版本（比如 0.7 测试版）什么都不改，英雄照旧画 1 倍的帧。
 
-高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索 PPU 2.2、古拉加斯 PPU 1.76、泽丽 PPU 3（画成 105%）、弗拉基米尔 PPU 1.8、卡尔玛 PPU 2.2、艾瑞莉娅 PPU 2（画成 115%）、艾希 PPU 2.2、卡萨丁 PPU 2.42、库奇 PPU 2.2、盖伦 PPU 1.9（放大 12%）、布隆 PPU 1.98（画成 105%）、莫德凯撒 PPU 2.0（画成 115%））在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：亚索最早是身体 1 倍帧整 3 倍放大、头换成 Codex 画的那张帅脸，现在整套是 Codex 重画的，见他的一节；泽丽（0.99.0）每一帧都是画的，[`tools/art/ppu_zeri.py`](tools/art/ppu_zeri.py) 从按 Codex 原画读出的高清造型摆出来，见她的一节）。游戏里画出来大小不变、像素细 PPU 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 PPU，贴图报的宽高也除以 PPU，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/PPU（佛耶戈附身高清英雄时按他身体用的那套图认，一样缩；附加包在我们算完缩放之后才换身体，所以画身体的那一刻（0x230ec30）再认一次，0.6.50 起不再变得超级大）。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。弗拉基米尔、卡尔玛、艾希、亚索的高清帧是 Codex 照高清造型逐帧重画的（用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」）：[`tools/art/pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) 把现在的动作帧按 PPU 放大成「骨架」，连同造型打包给 Codex（也可以一个包两步：先照一张图画造型，再画全部动作），[`tools/art/import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把交付按格子读回、按锚点放回帧里，写成 `assets/source/ppu/<英雄>_<动作>.png`，`ppu_hd.py` 当画好的高清帧读。
+高清帧（PPU，0.97.0，用户：「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」）：登记的英雄（现在是亚索 PPU 2.2、古拉加斯 PPU 1.76、泽丽 PPU 3（画成 105%）、弗拉基米尔 PPU 1.8、卡尔玛 PPU 2.2、艾瑞莉娅 PPU 2（画成 115%）、艾希 PPU 2.2、卡萨丁 PPU 2.42、库奇 PPU 2.2、盖伦 PPU 1.9（放大 12%）、布隆 PPU 1.98（画成 105%）、莫德凯撒 PPU 2.0（画成 115%）、索拉卡 PPU 2.2）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大小（[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py)：亚索最早是身体 1 倍帧整 3 倍放大、头换成 Codex 画的那张帅脸，现在整套是 Codex 重画的，见他的一节；泽丽（0.99.0）每一帧都是画的，[`tools/art/ppu_zeri.py`](tools/art/ppu_zeri.py) 从按 Codex 原画读出的高清造型摆出来，见她的一节）。游戏里画出来大小不变、像素细 PPU 倍：DLL 挂在游戏按名字取动画表和贴图的两个函数上，动画表里每个动作都换成高清帧、矩形除以 PPU，贴图报的宽高也除以 PPU，卡牌、图鉴、头像、选人槽位按帧大小画，UV 正好落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿真实的高清帧和宽高，实体的绘制缩放写成 1/PPU（佛耶戈附身高清英雄时按他身体用的那套图认，一样缩；附加包在我们算完缩放之后才换身体，所以画身体的那一刻（0x230ec30）再认一次，0.6.50 起不再变得超级大）。卡牌和图鉴用的 `idle` 也是高清的。日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`。`tools/package_mod.py` 打包和安装时会编译并带上 `league.dll`（需要 cargo）。弗拉基米尔、卡尔玛、艾希、亚索的高清帧是 Codex 照高清造型逐帧重画的（用户：「接下来使用PPU修复吸血鬼和卡尔玛和艾希 做到所有动作帧一致 待机一致」）：[`tools/art/pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) 把现在的动作帧按 PPU 放大成「骨架」，连同造型打包给 Codex（也可以一个包两步：先照一张图画造型，再画全部动作），[`tools/art/import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把交付按格子读回、按锚点放回帧里，写成 `assets/source/ppu/<英雄>_<动作>.png`，`ppu_hd.py` 当画好的高清帧读。
 
 画风统一（2026-10-13，用户：「这几个ppu英雄会导致人物体型很细 不协调 和其他像素风格的英雄不太搭」「太高清了看上去像动画贴图」，看了泽丽的样张后：「泽丽是榜样 其他英雄都按照这种思路来改就行了」「都要像泽丽那样像素多但是有清晰的感觉」「其他英雄也差不多2.2」「要有像素风」）：[`tools/art/ppu_restyle.py`](tools/art/ppu_restyle.py) 从各自原来的高清帧（留在 `assets/source/ppu/orig/`）重做。泽丽、卡尔玛：每帧找到头（待机的脸在帧里匹配），脖子以上等比放大、以下加宽变矮（脚不动，伸出身体的枪、手臂只外移不拉长；躺倒的帧横着做），卡尔玛的光环取出缩小再放回；布隆、莫德凯撒：身体加宽变矮；库奇：整体放大 1.2 倍。除泽丽、艾瑞莉娅外都降到每个游戏像素约 2.2 格（按格子面积平均，再贴回该帧自己最常用的 64 种颜色，近黑占四成以上的格子画成描边，单个异色格子并入四周），弗拉基米尔 1.8；描边细的再往外加一格。头像中心点（champion_view face）跟着头移动。选人界面另有一套帧（用户：「BP界面里看英雄还是太清晰」，看了 2.2 / 1.5 / 1 倍三行的预览选了 1.5）：[`ppu_hd.py`](tools/art/ppu_hd.py) 给每个高清英雄的每个动作从高清帧再做一套每个游戏像素 1.5 格的 `lo_<动作>` 帧，`league.dll` 只在选人网格、图鉴（和头像）、选人槽位、选中瞬间这几处取它们（矩形和贴图尺寸都 ÷ 1.5，画出来一样大），战场照旧画高清帧。
 
@@ -23,7 +23,7 @@
 ![李青连招演示：Q 天音波、回音击、出一拳再天雷破（QQAE）；Q 还在冷却时放 R，回旋踢把德莱厄斯踢飞，飞踢追上去再打一下（QRQ）；第二段 Q 好着时放 R，正面踢把亚索踢进金克丝，紧接着出掌，天音波追上空中的亚索，再回音击冲过去（RQQ）](docs/preview/league_leesin_combos.gif?v=1008idle5)
 ![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](docs/preview/league_leesin_showcase.gif?v=1008idle6)
 
-![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](docs/preview/league_soraka_showcase.gif?v=1008idle6)
+![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](docs/preview/league_soraka_showcase.gif?v=1013ppu)
 
 ![德莱厄斯演示：跑步、E 无情铁手拉人、W 致残打击、普攻叠出血、Q 大杀四方、诺克萨斯之力、R 诺克萨斯断头台](docs/preview/league_darius_showcase.gif?v=1008iw)
 
@@ -376,6 +376,7 @@ python tools/art/preview_leesin.py                 # 逐帧图、特效图、演
 | 生命 | 780，每级 +80，比原版的辅助都低（最低的 `priest` 900 / +80）。原来 880 / +95：用户觉得加强后她在下路太能赖线、对线无解，于是技能数值不动、只降生命和成长，团战里的治疗照旧。SDK 对战模拟（对 `priest`、`bard`、`enchanter`，两边各 60 局）：前 5 分钟她自己的死亡从 0.50 次升到 0.62 次，10 分钟的治疗量只少 2%，团队击杀差 +0.2 → −0.7（在随机波动之内） |
 | 治疗给谁 | W 用 `AllyNotSelf`（除自己以外的友方英雄，不含小兵），R 用 `AllyChampion` 加全图范围。游戏 AI 给友方技能打分时，治疗的价值是"治疗量和目标缺失生命取小"，所以应该会先治疗掉血最多的友方，满血时价值为 0。这是从 mod SDK 的代码里读出来的；用 SDK 跑的对战模拟也对得上：单纯加大 W 的治疗量，实际治疗几乎不涨，加射程、缩冷却、把活力焕发传给队友才涨 |
 | 精灵图 | 8 个动作 52 帧：待机、跑步、普攻、Q 召唤流星、W 举杖、R 祈愿鞠躬、受击、死亡。白发顶到蹄底 35 px，17 色，全部正面 3/4 朝右，按英雄联盟原版动作的时间点画：待机 1.5 秒呼吸一次，跑步是蹄子着地的蹦跳式跑 |
+| 高清帧（PPU 2.2） | 用户：「下一个可以修正索拉卡」。Codex 一个包两步画的：先照原来的造型重画 PPU 3 的高清造型（`assets/source/ppu/soraka_codex.png`，47 色），再照它逐帧重画全部 46 帧动作（`pack_ppu_strips.py`），`import_ppu_strips.py` 读回到 `assets/source/ppu/orig`。造型画得比动作大约 19%（Codex 自己也说角尖到蹄底没对上），导入时按头发顶到蹄底的高度把造型缩到动作的大小（每格取平均色、对回造型自己的颜色），待机和动作一样大。然后照泽丽的样子统一画风（`tools/art/ppu_restyle.py`）：Codex 每帧的头都是重画的、和造型对不上，所以和布隆、铁男一样只改身体——每帧都加宽 1.25 倍、压矮到 0.92，像素降到每个游戏像素约 2.2 格，外描边加 1 格；选人界面用 1.5 格的 `lo_` 帧。头像截取点 (6, −31) |
 | 特效 | 普攻星光弹、命中、流星坠落、活力焕发、星体结界、定身光环、星之灌注、祈愿（头顶的星和落在每个友方身上的光柱） |
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 10 条技能音效和 2 条中文语音（Q 借一句攻击台词，R）。不提交到仓库，按下面的命令在本地生成 |
@@ -397,7 +398,7 @@ python tools/art/preview_soraka.py
 - 结果：17 色，和右边像素同色的比例 29%（原版英雄 18%–46%）；头像截取点 (5, −35)。
 - 特效放大 2 倍后，流星落地环和星体结界约 60 px 宽，所以 Q、E 的半径定为 30000。
 
-逐帧预览：[`docs/preview/league_soraka_frames.png`](docs/preview/league_soraka_frames.png)，特效：[`docs/preview/league_soraka_effects.png`](docs/preview/league_soraka_effects.png)。
+逐帧预览（高清帧）：[`docs/preview/league_soraka_frames.png`](docs/preview/league_soraka_frames.png)，特效：[`docs/preview/league_soraka_effects.png`](docs/preview/league_soraka_effects.png)。改成高清帧之前和之后（游戏里的大小，旁边是德莱厄斯）：[`docs/preview/league_soraka_before_after.gif`](docs/preview/league_soraka_before_after.gif)。
 
 ## 英雄：德莱厄斯
 

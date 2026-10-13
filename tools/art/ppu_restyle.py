@@ -53,7 +53,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
-            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2}
+            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
@@ -98,6 +98,10 @@ RESTYLE = {
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
     # (1 - 1 / 1.15) = 3.0); her pixels untouched
     "irelia": dict(lift=3, edge=0, face_to=(0, -37)),
+    # 「下一个可以修正索拉卡」: Codex's PPU 3 redraw (design + 46 frames, the design brought to the actions' size at import),
+    # to Zeri's look: Codex drew every head anew (none matches the idle's face), so the body only, every frame alike
+    # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel
+    "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2),
 }
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
