@@ -390,36 +390,29 @@ def down(can):
 
 
 # ------------------------------------------------------------------------------------------------ the run's legs
-# Codex's run kept the light leg forward and the dark one back in all 8 frames (the user: 「走路没有交叉步」), so the
-# legs are redrawn on the PPU canvas league_caitlyn's way (fix_caitlyn_run_v2.py, strips_irelia.py RUN_PHASES): one leg
-# in eight phases (only the ankle placed, the knee solved at fixed bone lengths) in the design's stone, the far leg
-# (image right, a step darker, a row higher: the 3/4 body) four phases on; Codex's upper body, arms and tail kept over
-# them, the tail carried to the hips. Numbers in game pixels from the pivot (x right, y down); PPU squares each.
-RUN_LIT, RUN_MID, RUN_DRK = (236, 251, 241), (190, 208, 202), (149, 169, 168)
-RUN_FL, RUN_FM, RUN_FD = (124, 143, 145), (103, 120, 123), (60, 73, 78)
+# Codex's run kept the light leg forward and the dark one back in all 8 frames (the user: 「走路没有交叉步」). Legs drawn
+# along bones with the knee guards and feet pasted on read as foreign legs, thinner than the design's (「腿部变形？」
+# 「还是变形啊 你不自己review的吗」), so the run walks on the design's own two legs, cut from the idle as they are
+# (thighs, gold knee guards, shins, the clawed foot), each turned about its hip by row shear (rigkit.swing_leg: a
+# straight-legged scissor stride, the foot moved whole and lifted as it swings back), the near foot mirrored (claws
+# forward) and the far leg on the same foot a step darker, the far leg four phases on and drawn first, the outline
+# closed where the cut took it; Codex's upper body, fists and tail kept over them, the tail carried to the hips. Numbers
+# in game pixels from the pivot (x right, y down); PPU squares each.
 RUN_CUT = -2                     # rows from RUN_CUT down are redrawn (the legs, the tail's root) ...
 RUN_KEEP = (9, 0, -15, -1)       # ... but the front fist (right of 9, down to row 0) and the back one (left of -15, to -1)
 RUN_TAILX = -13                  # Codex's tail kept left of this column
-RUN_HIP_Y = -3.0
-RUN_NEAR_HX, RUN_FAR_HX = -4.5, 2.5  # the hips: near (image left, full tone), far (image right, a step darker, a row higher)
-RUN_ANK_Y = 8.0                  # a planted ankle (its foot under it, the soles on row 11)
-RUN_LT, RUN_LS = 6.0, 6.0
-RUN_WID = (5.0, 3.0)             # the design's thigh and shin widths (10 and 6 squares)
-# the ankle's x from the hip and its lift over 8 phases (strips_irelia.py RUN_PHASES 4 on); the heel kept low behind
-# (a lift of 5 laid the shin flat: 「腿部变形」)
-RUN_PH = [(4.0, 0), (2.0, 0), (0.0, 0), (-2.5, 1.0), (-4.0, 2.5), (-3.5, 3.0), (0.5, 3.0), (3.5, 1.5)]
-# the design's own pieces (design rows r0..r1, columns c0..c1, the joint's square): the gold knee guards and the near
-# clawed foot, pasted on the knee / ankle as they are (league_garen's run: the idle's own knee guard and boot) - the foot
-# mirrored, its claws forward (the design's point to the front-left), and for the far leg a step darker (the design's
-# far foot is a dark lump at this size)
-RUN_PIECES = {"near_guard": ((79, 88, 39, 48), (44, 84)), "far_guard": ((81, 89, 55, 64), (59, 85)),
-              "foot": ((94, 103, 28, 48), (41, 94))}
+RUN_LEGS = {"near": [(66, 81, 35, 50), (82, 95, 35, 47), (96, 103, 28, 48)],    # design rows r0..r1, columns c0..c1
+            "far": [(66, 81, 51, 64), (82, 95, 48, 64), (96, 103, 49, 71)]}
+RUN_HIP = 70                     # the design row the legs turn about
+RUN_ANKLE = {"near": 95, "far": 96}   # the design row from which the foot moves whole
+RUN_AXIS = 40                    # the near shin's middle column: its foot mirrored about it
+RUN_FAR_FOOT = (15, -1)          # the far leg's foot: the near one (its own is a dark lump with a white speck at this
+                                 # size) moved under the far shin and a row up, a step darker (RUN_DARKER)
 RUN_DARKER = {(236, 251, 241): (190, 208, 202), (244, 250, 246): (190, 208, 202), (190, 208, 202): (124, 143, 145),
               (149, 169, 168): (103, 120, 123), (124, 143, 145): (103, 120, 123), (103, 120, 123): (60, 73, 78)}
-RUN_NEAR = {"upper": [(0, 1, (RUN_LIT, RUN_MID, RUN_DRK))], "fore": [(0, 1, (RUN_MID, RUN_DRK, RUN_FL))],
-            "guard": "near_guard", "dark": False}
-RUN_FAR = {"upper": [(0, 1, (RUN_FL, RUN_FM, RUN_FD))], "fore": [(0, 1, (RUN_FL, RUN_FM, RUN_FD))],
-           "guard": "far_guard", "dark": True}
+RUN_RING = 72                    # the legs' own outline ring from this design row down (above it the body covers them)
+# the ankle's x from its place in the idle and its lift over 8 phases (strips_irelia.py RUN_PHASES 4 on), game px
+RUN_PH = [(4.0, 0), (2.0, 0), (0.0, 0), (-2.5, 1.0), (-4.0, 2.5), (-3.5, 3.0), (0.5, 3.0), (3.5, 1.5)]
 
 
 def to_can(x, y):
@@ -427,48 +420,42 @@ def to_can(x, y):
     return PIV_X - 0.5 + PPU * x, SOLE - FEET * PPU + PPU * y
 
 
-def run_piece(name, mirror=False, dark=False):
-    """A design piece without its outline (the biggest light part and what it encloses) and its joint inside it."""
-    (r0, r1, c0, c1), (jx, jy) = RUN_PIECES[name]
-    p = design()[r0:r1 + 1, c0:c1 + 1].copy()
-    light = (p[..., 3] > 0) & (p[..., :3].astype(int).sum(-1) >= 70)
-    lab, n = ndimage.label(light)
-    if n:
-        big = lab == 1 + int(np.argmax(ndimage.sum(light, lab, range(1, n + 1))))
-        p[~ndimage.binary_fill_holes(big)] = 0
-    jx, jy = jx - c0, jy - r0
-    if mirror:
-        p, jx = p[:, ::-1].copy(), p.shape[1] - 1 - jx
-    if dark:
-        for c, d in RUN_DARKER.items():
-            p[(p[..., :3] == c).all(-1) & (p[..., 3] > 0), :3] = d
-    return p, (jx, jy)
+def run_pieces():
+    """The design's two legs on the canvas: {name: leg} - each its own squares and only the outline round them."""
+    idle = on_canvas(design())
+    H, W = idle.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    x0, y0 = DESIGN_AT
+    dr, dc = yy - y0, xx - x0
+    out = {}
+    for name, boxes in RUN_LEGS.items():
+        m = np.zeros((H, W), bool)
+        for r0, r1, c0, c1 in boxes:
+            m |= (dr >= r0) & (dr <= r1) & (dc >= c0) & (dc <= c1)
+        leg = np.where(m[..., None], idle, 0).astype(np.uint8)
+        op = leg[..., 3] > 0
+        light = op & (leg[..., :3].astype(int).sum(-1) >= 70)
+        leg[op & ~light & ~ndimage.binary_dilation(light, structure=np.ones((3, 3)), iterations=2)] = 0
+        out[name] = leg
+    near, far = out["near"], out["far"]
+    foot = near.copy()
+    foot[:y0 + RUN_ANKLE["near"]] = 0
+    near[y0 + RUN_ANKLE["near"]:] = 0
+    ys, xs = np.nonzero(foot[..., 3])
+    xs = 2 * (x0 + RUN_AXIS) - xs
+    near[ys, xs] = foot[ys, 2 * (x0 + RUN_AXIS) - xs]
+    far[y0 + RUN_ANKLE["far"]:] = 0
+    dx, dy = RUN_FAR_FOOT
+    dark = foot[ys, 2 * (x0 + RUN_AXIS) - xs].copy()
+    for c, d in RUN_DARKER.items():
+        dark[(dark[:, :3] == c).all(-1), :3] = d
+    far[ys + dy, xs + dx] = dark
+    return out
 
 
-def run_leg(dst, hip, k, mats):
-    """One leg at phase k from its hip (game px): the ankle placed (RUN_PH), the knee solved (rigkit.elbow, bent
-    forward), thigh and shin drawn in its stone at the design's widths (rigkit.bone_arm), the design's foot on the ankle
-    and knee guard on the knee, one outline ring PPU squares thick round the whole leg over whatever is under it."""
-    s = int(PPU)
-    ax, lift = RUN_PH[k]
-    hx, hy = hip
-    knee, ankle = K.elbow(hip, (hx + ax, hy + RUN_ANK_Y - RUN_HIP_Y - lift), RUN_LT, RUN_LS, bend=-1)
-    if knee[0] < min(hx, ankle[0]):
-        knee, ankle = K.elbow(hip, ankle, RUN_LT, RUN_LS, bend=1)
-    tmp = np.zeros_like(dst)
-    K.bone_arm(tmp, to_can(*hip), to_can(*knee), to_can(*ankle), mats, width=(RUN_WID[0] * s, RUN_WID[1] * s))
-    for piece, (jx, jy), at in ((*run_piece("foot", mirror=True, dark=mats["dark"]), ankle),
-                                (*run_piece(mats["guard"]), knee)):
-        X, Y = (int(round(v)) for v in to_can(*at))
-        K.put(tmp, piece, X - jx, Y - jy)
-    m = tmp[..., 3] > 0
-    ring = ndimage.binary_dilation(m, iterations=s) & ~m
-    dst[ring] = (*OUTLINE, 255)
-    dst[m] = tmp[m]
-
-
-def run_legs(can, k):
+def run_legs(can, k, legs=None):
     """A run frame's canvas with the legs redrawn at phase k (the far leg k + 4)."""
+    legs = legs or run_pieces()
     H, W = can.shape[:2]
     yy, xx = np.mgrid[0:H, 0:W]
     x0, y0 = to_can(0, 0)
@@ -487,16 +474,25 @@ def run_legs(can, k):
     if len(ys):
         mid = (ys.min() + ys.max()) // 2
         r0, r1 = int(mid - PPU), int(mid + PPU)
-        c0, c1 = edge + 1, int(math.floor(to_can(RUN_NEAR_HX, 0)[0]))
-        out[r0:mid, c0:c1] = (*RUN_FL, 255)
-        out[mid:r1, c0:c1] = (*RUN_FM, 255)
+        c0, c1 = edge + 1, DESIGN_AT[0] + RUN_LEGS["near"][0][2] + 2
+        out[r0:mid, c0:c1] = (124, 143, 145, 255)
+        out[mid:r1, c0:c1] = (103, 120, 123, 255)
         out[r0 - int(PPU):r0, c0:c1] = (*OUTLINE, 255)
         out[r1:r1 + int(PPU), c0:c1] = (*OUTLINE, 255)
-    run_leg(out, (RUN_FAR_HX, RUN_HIP_Y - 1), (k + 4) % 8, RUN_FAR)
-    run_leg(out, (RUN_NEAR_HX, RUN_HIP_Y), k, RUN_NEAR)
+    y_d = DESIGN_AT[1]
+    for name, ph in (("far", RUN_PH[(k + 4) % 8]), ("near", RUN_PH[k])):
+        dx, lift = ph
+        leg = legs[name]
+        sw = K.swing_leg(leg, leg[..., 3] > 0, y_d + RUN_HIP, y_d + RUN_ANKLE[name], dx * PPU, int(round(lift * PPU)))
+        m = sw[..., 3] > 0
+        light = m & (sw[..., :3].astype(int).sum(-1) >= 70)
+        ring = ndimage.binary_dilation(light, iterations=int(PPU)) & ~m      # only where the cut lost the outline
+        ring[:y_d + RUN_RING] = False
+        out[ring] = (*OUTLINE, 255)
+        out[m] = sw[m]
     K.put(out, upper, 0, 0)
     out[SOLE + 1:] = 0
-    return out
+    return specks(pinholes(close_all(out)))
 
 
 def dense(can, one):
@@ -542,12 +538,13 @@ def main():
     ap.add_argument("--review", help="write every tag's dense frames at 4x on magenta here")
     a = ap.parse_args()
     acts = actions()
+    legs = run_pieces()
     sheet = {}
     for tag, frames in acts.items():
         ones, hds = [], []
         for k, (can, t) in enumerate(frames):
             if tag == "run":
-                can = run_legs(can, k)
+                can = run_legs(can, k, legs)
                 frames[k] = (can, t)
             one = down(can)
             ones.append((one, round(t, 3)))
