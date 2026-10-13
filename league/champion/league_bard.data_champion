@@ -18,7 +18,7 @@
   "stat": {
     "attack": 75,
     "magic_power": 30,
-    "hp": 900,
+    "hp": 960,
     "defence": 22,
     "magic_resistance": 24,
     "move_speed": 1000,
@@ -523,7 +523,7 @@
                   "name": "league_bard_p_cd",
                   "duration": {
                     "Time": {
-                      "tick": 240
+                      "tick": 180
                     }
                   }
                 },
@@ -545,8 +545,8 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 35,
-                      "attack_ratio": 40,
+                      "damage": 45,
+                      "attack_ratio": 50,
                       "hp_ratio": 0,
                       "can_crit": false
                     }
@@ -1079,14 +1079,14 @@
                       },
                       {
                         "type": "ApAttack",
-                        "damage": 80,
-                        "attack_ratio": 65,
+                        "damage": 100,
+                        "attack_ratio": 75,
                         "hp_ratio": 0,
                         "can_crit": false
                       },
                       {
                         "type": "Stun",
-                        "duration": 72
+                        "duration": 90
                       },
                       {
                         "type": "ViewEffect",
@@ -1176,8 +1176,8 @@
                     },
                     {
                       "type": "ApAttack",
-                      "damage": 80,
-                      "attack_ratio": 65,
+                      "damage": 100,
+                      "attack_ratio": 75,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -1213,7 +1213,7 @@
                             "effects": [
                               {
                                 "type": "Stun",
-                                "duration": 72
+                                "duration": 90
                               },
                               {
                                 "type": "ViewEffect",
@@ -1726,9 +1726,9 @@
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "Heal",
-                          "amount": 110,
+                          "amount": 140,
                           "attack_ratio": 0,
-                          "ap_ratio": 50,
+                          "ap_ratio": 60,
                           "heal_type": "Ally"
                         }
                       },
@@ -1804,9 +1804,9 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Heal",
-                                "amount": 110,
+                                "amount": 140,
                                 "attack_ratio": 0,
-                                "ap_ratio": 50,
+                                "ap_ratio": 60,
                                 "heal_type": "Ally"
                               }
                             },
@@ -1862,9 +1862,9 @@
                         "effects": [
                           {
                             "type": "Heal",
-                            "amount": 110,
+                            "amount": 140,
                             "attack_ratio": 0,
-                            "ap_ratio": 50,
+                            "ap_ratio": 60,
                             "heal_type": "Caster"
                           },
                           {
@@ -2168,9 +2168,9 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Heal",
-                                "amount": 110,
+                                "amount": 140,
                                 "attack_ratio": 0,
-                                "ap_ratio": 50,
+                                "ap_ratio": 60,
                                 "heal_type": "Ally"
                               }
                             },
@@ -2246,9 +2246,9 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Heal",
-                                      "amount": 110,
+                                      "amount": 140,
                                       "attack_ratio": 0,
-                                      "ap_ratio": 50,
+                                      "ap_ratio": 60,
                                       "heal_type": "Ally"
                                     }
                                   },
@@ -2304,9 +2304,9 @@
                               "effects": [
                                 {
                                   "type": "Heal",
-                                  "amount": 110,
+                                  "amount": 140,
                                   "attack_ratio": 0,
-                                  "ap_ratio": 50,
+                                  "ap_ratio": 60,
                                   "heal_type": "Caster"
                                 },
                                 {

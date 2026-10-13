@@ -44,22 +44,27 @@ ID = "league_bard"
 FX = "asset/league/effects/league_bard_fx"
 BIG = "asset/league/effects/league_bard_big"
 
+# Numbers = candidate d3 of the 10-min classic-SDK simulations (Temp/ba_sim, sim/kd.py --lane 4 against the five base
+# supports, both sides, 3 lineups, 2026-10-13): -0.28 on seeds 1-24, +0.18 on seeds 25-48 (league_lulu -0.06 / -0.33,
+# league_nami +0.04 / -0.02, league_janna -1.14 / -0.94 on the same seeds). The draft d1 was -1.82: Q 80 + 65% with a
+# 1.2 s stun, a Meep 35 + 40% every 4 s, the shrine 110 + 50%, 900 health; R alone was about neutral (-1.51 without it
+# on 12 seeds). Raised: Q 100 + 75%, stun 1.5 s, a Meep 45 + 50% every 3 s, the shrine 140 + 60%, 960 health.
 P = {
     # stats (the pack's ranged supports: Lulu/Janna hp 880-900 +80-90, atk 75-80 +6, ap 30 +15, def 20-22, mr 20-24;
     # Bard's League range 500 is a little short of theirs)
-    "hp": 900, "hp_g": 90, "atk": 75, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
+    "hp": 960, "hp_g": 90, "atk": 75, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 22, "def_g": 7, "mr": 24, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     "atk_range": 52000, "atk_dur": 24, "atk_cd": 90, "atk_st": 11, "a_speed": 5000, "a_y": -1000,
     # passive: Traveler's Call, the Meeps (League: 35 + 40% AP, 1 s slow 25-80%?, a Meep every 8 s)
-    "p_cd": 240, "p_speed": 4500, "p_y": -3000, "p_r": 14000, "p_dmg": 35, "p_ap": 40, "p_slow": 25, "p_slow_t": 60,
+    "p_cd": 180, "p_speed": 4500, "p_y": -3000, "p_r": 14000, "p_dmg": 45, "p_ap": 50, "p_slow": 25, "p_slow_t": 60,
     # skill: Q Cosmic Binding (League: 950 + 525 behind, speed 1500; 80-280 + 65% AP; slow 60% / stun 1-1.8 s;
     # cd 12-7 s)
     "q_cd": 420, "q_range": 65000, "q_dur": 24, "q_st": 10, "q_speed": 6000, "q_reach": 95000, "q_rad": 6000,
-    "q_twin": 18000, "q_win": 9, "q_y": -1000, "q_dmg": 80, "q_ap": 65, "q_slow": 60, "q_slow_t": 72, "q_stun": 72,
+    "q_twin": 18000, "q_win": 9, "q_y": -1000, "q_dmg": 100, "q_ap": 75, "q_slow": 60, "q_slow_t": 72, "q_stun": 90,
     # skill2: W Caretaker's Shrine (League: heal 25-150 -> 50-237.5 + 30-90% AP, ms 17.5-32.5% 1.5 s, 2 charges /
     # 18 s) + E Magical Journey (League: 900 door, ally ms 33-50%, cd 22-16 s)
     "w_cd": 420, "w_range": 90000, "w_dur": 22, "w_st": 1, "w_lag": 9, "w_r": 50000, "w_speed": 4000, "w_y": -2000,
-    "w_heal": 110, "w_ap": 50, "w_ms": 30, "w_ms_t": 90,
+    "w_heal": 140, "w_ap": 60, "w_ms": 30, "w_ms_t": 90,
     "e_cd_t": 960, "e_near": 30000, "e_close": 15000, "e_wind": 9, "e_speed": 4000, "e_tick": 15, "e_ride": 25000,
     "e_pull": 5000, "e_pull_t": 40, "e_ghost": 1, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
     # ult: R Tempered Fate (League: 3400 range, radius 350, 0.5 s cast + flight, stasis 2.5 s; cd 110-80 s)
