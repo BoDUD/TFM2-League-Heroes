@@ -56,6 +56,7 @@ BIG = "asset/league/effects/league_nidalee_big"
 # circus blade, hunter, inquisitor and ninja, three lineups, both sides, 2026-10-13): +0.95 on seeds 1-24, +1.67 on 25-48
 # (league_evelynn +1.38 / +1.30, league_lillia +1.33 / +1.77, league_khazix +0.97 / +1.16). The draft d0 was -3.99 / -4.24:
 # its attack (62 +6 every 62 ticks) was half the base junglers' (120 +30 every 50); human only -2.1, cougar only -3.0.
+# Retimed to the strips' clips (d11, the numbers below): +1.56 on seeds 1-24, +0.97 on 25-48.
 P = {
     # stats (the pack's AP junglers: league_evelynn hp 880 +85, atk 75, mp 50 +20; league_ekko / league_diana);
     # League's Nidalee: 610 +109 hp, 58 AD, 32 armour, 30 mr, 335 move, 525 range (cougar 125)
