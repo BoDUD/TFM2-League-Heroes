@@ -52,11 +52,15 @@ OLD_DESIGN = "b5ba65c5"                  # the 45-colour design Codex drew from 
 STEM = os.path.join(ROOT, "league", "champions", "league_galio")
 PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
 PPU = 2.0
-GAME_PPU = 1.5                          # what league.dll draws: 1.5 squares a game pixel at 100 % (ppu_hd.py PPU)
+GAME_PPU = 1.65                         # the dense frames' squares a 1x pixel (ppu_hd.py PPU): at SIZE 1.10, 1.5 a game pixel
 COLS, ROWS = 219, 146
 PIV_X, SOLE = 92, 140                   # pack_galio_strips.py
 DESIGN_AT = (42, 37)                    # the cropped design's top-left on that canvas (pack_galio_strips.py's print)
 FEET = 11                               # 1x rows from the pivot down to the soles (the pack's 128-canvas heroes)
+# shown at 110 % (hd.rs SIZES; the user: 「在局内还是偏小啊」 - 38 game px crown to soles under 52 with the wings, Darius
+# 42): the DLL scales about the frame's centre, so the dense frames are drawn RAISE rows higher, the soles on the ground
+SIZE = 1.10
+RAISE = round((FEET + 0.5) * GAME_PPU * (1 - 1 / SIZE))
 OUTLINE = DG.SHADES["O"]
 PINHOLE = 6
 SPECK = 8
@@ -392,24 +396,30 @@ def down(can):
 # (image right, a step darker, a row higher: the 3/4 body) four phases on; Codex's upper body, arms and tail kept over
 # them, the tail carried to the hips. Numbers in game pixels from the pivot (x right, y down); PPU squares each.
 RUN_LIT, RUN_MID, RUN_DRK = (236, 251, 241), (190, 208, 202), (149, 169, 168)
-RUN_FL, RUN_FM, RUN_FD = (190, 208, 202), (124, 143, 145), (103, 120, 123)
-RUN_G1, RUN_G2, RUN_G3 = (253, 220, 68), (253, 198, 43), (177, 99, 20)
+RUN_FL, RUN_FM, RUN_FD = (124, 143, 145), (103, 120, 123), (60, 73, 78)
 RUN_CUT = -2                     # rows from RUN_CUT down are redrawn (the legs, the tail's root) ...
 RUN_KEEP = (9, 0, -15, -1)       # ... but the front fist (right of 9, down to row 0) and the back one (left of -15, to -1)
 RUN_TAILX = -13                  # Codex's tail kept left of this column
 RUN_HIP_Y = -3.0
 RUN_NEAR_HX, RUN_FAR_HX = -4.5, 2.5  # the hips: near (image left, full tone), far (image right, a step darker, a row higher)
-RUN_ANK_Y = 8.0                  # a planted ankle (the foot's 3 rows under it, the soles on row 11)
+RUN_ANK_Y = 8.0                  # a planted ankle (its foot under it, the soles on row 11)
 RUN_LT, RUN_LS = 6.0, 6.0
-RUN_WID = (4.6, 3.2)
-# the ankle's x from the hip and its lift over 8 phases (strips_irelia.py RUN_PHASES 4 on, lifts x1.3: his longer legs)
-RUN_PH = [(4.0, 0), (2.0, 0), (0.0, 0), (-2.5, 1.3), (-4.5, 4.0), (-4.0, 5.2), (1.0, 4.5), (4.0, 2.0)]
-RUN_FOOT = ["LLM..", "LLLLM", "MDMDM"]   # toes forward, the ankle over column 1
-RUN_GUARD = [(-1, 0, RUN_G2), (-1, 1, RUN_G1), (0, 0, RUN_G3), (0, 1, RUN_G2), (0, 2, RUN_G1), (1, 1, RUN_G3)]
-RUN_NEAR = {"upper": [(0, 1, (RUN_LIT, RUN_MID, RUN_DRK))], "fore": [(0, 1, (RUN_MID, RUN_DRK, RUN_FD))],
-            "foot": {"L": RUN_LIT, "M": RUN_MID, "D": RUN_DRK}}
-RUN_FAR = {"upper": [(0, 1, (RUN_FL, RUN_FM, RUN_FD))], "fore": [(0, 1, (RUN_FM, RUN_FD, (80, 94, 98)))],
-           "foot": {"L": RUN_FL, "M": RUN_FM, "D": RUN_FD}}
+RUN_WID = (5.0, 3.0)             # the design's thigh and shin widths (10 and 6 squares)
+# the ankle's x from the hip and its lift over 8 phases (strips_irelia.py RUN_PHASES 4 on); the heel kept low behind
+# (a lift of 5 laid the shin flat: 「腿部变形」)
+RUN_PH = [(4.0, 0), (2.0, 0), (0.0, 0), (-2.5, 1.0), (-4.0, 2.5), (-3.5, 3.0), (0.5, 3.0), (3.5, 1.5)]
+# the design's own pieces (design rows r0..r1, columns c0..c1, the joint's square): the gold knee guards and the near
+# clawed foot, pasted on the knee / ankle as they are (league_garen's run: the idle's own knee guard and boot) - the foot
+# mirrored, its claws forward (the design's point to the front-left), and for the far leg a step darker (the design's
+# far foot is a dark lump at this size)
+RUN_PIECES = {"near_guard": ((79, 88, 39, 48), (44, 84)), "far_guard": ((81, 89, 55, 64), (59, 85)),
+              "foot": ((94, 103, 28, 48), (41, 94))}
+RUN_DARKER = {(236, 251, 241): (190, 208, 202), (244, 250, 246): (190, 208, 202), (190, 208, 202): (124, 143, 145),
+              (149, 169, 168): (103, 120, 123), (124, 143, 145): (103, 120, 123), (103, 120, 123): (60, 73, 78)}
+RUN_NEAR = {"upper": [(0, 1, (RUN_LIT, RUN_MID, RUN_DRK))], "fore": [(0, 1, (RUN_MID, RUN_DRK, RUN_FL))],
+            "guard": "near_guard", "dark": False}
+RUN_FAR = {"upper": [(0, 1, (RUN_FL, RUN_FM, RUN_FD))], "fore": [(0, 1, (RUN_FL, RUN_FM, RUN_FD))],
+           "guard": "far_guard", "dark": True}
 
 
 def to_can(x, y):
@@ -417,10 +427,28 @@ def to_can(x, y):
     return PIV_X - 0.5 + PPU * x, SOLE - FEET * PPU + PPU * y
 
 
-def run_leg(dst, hip, k, mats, far):
+def run_piece(name, mirror=False, dark=False):
+    """A design piece without its outline (the biggest light part and what it encloses) and its joint inside it."""
+    (r0, r1, c0, c1), (jx, jy) = RUN_PIECES[name]
+    p = design()[r0:r1 + 1, c0:c1 + 1].copy()
+    light = (p[..., 3] > 0) & (p[..., :3].astype(int).sum(-1) >= 70)
+    lab, n = ndimage.label(light)
+    if n:
+        big = lab == 1 + int(np.argmax(ndimage.sum(light, lab, range(1, n + 1))))
+        p[~ndimage.binary_fill_holes(big)] = 0
+    jx, jy = jx - c0, jy - r0
+    if mirror:
+        p, jx = p[:, ::-1].copy(), p.shape[1] - 1 - jx
+    if dark:
+        for c, d in RUN_DARKER.items():
+            p[(p[..., :3] == c).all(-1) & (p[..., 3] > 0), :3] = d
+    return p, (jx, jy)
+
+
+def run_leg(dst, hip, k, mats):
     """One leg at phase k from its hip (game px): the ankle placed (RUN_PH), the knee solved (rigkit.elbow, bent
-    forward), the thigh and shin drawn in its stone (rigkit.bone_arm), its foot on the ankle, the near leg's gold knee
-    guard; an outline ring PPU squares thick over whatever is under it."""
+    forward), thigh and shin drawn in its stone at the design's widths (rigkit.bone_arm), the design's foot on the ankle
+    and knee guard on the knee, one outline ring PPU squares thick round the whole leg over whatever is under it."""
     s = int(PPU)
     ax, lift = RUN_PH[k]
     hx, hy = hip
@@ -429,22 +457,10 @@ def run_leg(dst, hip, k, mats, far):
         knee, ankle = K.elbow(hip, ankle, RUN_LT, RUN_LS, bend=1)
     tmp = np.zeros_like(dst)
     K.bone_arm(tmp, to_can(*hip), to_can(*knee), to_can(*ankle), mats, width=(RUN_WID[0] * s, RUN_WID[1] * s))
-
-    def block(x, y, c):
-        X, Y = (int(math.floor(v)) for v in to_can(x, y))
-        tmp[max(0, Y):Y + s, max(0, X):X + s] = (*c, 255)
-
-    fx, fy = math.floor(ankle[0]), math.floor(ankle[1])
-    for dy, row in enumerate(RUN_FOOT):
-        for dx, ch in enumerate(row):
-            if ch != ".":
-                block(fx + dx - 1, fy + dy, mats["foot"][ch])
-    if not far:
-        kx, ky = math.floor(knee[0]), math.floor(knee[1])
-        for dy, dx, c in RUN_GUARD:
-            X, Y = (int(math.floor(v)) for v in to_can(kx + dx, ky + dy))
-            if tmp[Y, X, 3]:
-                block(kx + dx, ky + dy, c)
+    for piece, (jx, jy), at in ((*run_piece("foot", mirror=True, dark=mats["dark"]), ankle),
+                                (*run_piece(mats["guard"]), knee)):
+        X, Y = (int(round(v)) for v in to_can(*at))
+        K.put(tmp, piece, X - jx, Y - jy)
     m = tmp[..., 3] > 0
     ring = ndimage.binary_dilation(m, iterations=s) & ~m
     dst[ring] = (*OUTLINE, 255)
@@ -476,29 +492,30 @@ def run_legs(can, k):
         out[mid:r1, c0:c1] = (*RUN_FM, 255)
         out[r0 - int(PPU):r0, c0:c1] = (*OUTLINE, 255)
         out[r1:r1 + int(PPU), c0:c1] = (*OUTLINE, 255)
-    run_leg(out, (RUN_FAR_HX, RUN_HIP_Y - 1), (k + 4) % 8, RUN_FAR, True)
-    run_leg(out, (RUN_NEAR_HX, RUN_HIP_Y), k, RUN_NEAR, False)
+    run_leg(out, (RUN_FAR_HX, RUN_HIP_Y - 1), (k + 4) % 8, RUN_FAR)
+    run_leg(out, (RUN_NEAR_HX, RUN_HIP_Y), k, RUN_NEAR)
     K.put(out, upper, 0, 0)
     out[SOLE + 1:] = 0
     return out
 
 
 def dense(can, one):
-    """The game's frame: the canvas at GAME_PPU squares a game pixel (pixel_down.pixelate, as the 1.5 the user picked
-    was shown), on a frame of round(GAME_PPU x the 1x frame's size) - grown alike at both ends where the drawing needs
+    """The game's frame: the canvas at GAME_PPU squares a 1x pixel (pixel_down.pixelate; GAME_PPU / SIZE = the 1.5 the
+    user picked), RAISE rows up, on a frame of round(GAME_PPU x the 1x frame's size) - grown alike at both ends where the drawing needs
     more - the pivot square's corner at its centre."""
     x0, y0 = to_can(0, 0)
     px, py = x0 + PPU / 2, y0 + PPU / 2                    # the pivot square's centre on the canvas
     lo, (lx, ly) = PD.pixelate(can, GAME_PPU / PPU, (px, py), PD.edge_colour(can))
     W, H = round(one.shape[1] * GAME_PPU), round(one.shape[0] * GAME_PPU)
     ys, xs = np.nonzero(lo[..., 3])
+    ys = ys - RAISE
     while W / 2 < max(lx - xs.min(), xs.max() + 1 - lx):
         W += 2
     while H / 2 < max(ly - ys.min(), ys.max() + 1 - ly):
         H += 2
     f = np.zeros((H, W, 4), np.uint8)
     ox, oy = int(np.floor(W / 2 - lx + 0.5)), int(np.floor(H / 2 - ly + 0.5))
-    f[ys + oy, xs + ox] = lo[ys, xs]
+    f[ys + oy, xs + ox] = lo[ys + RAISE, xs]
     return f
 
 

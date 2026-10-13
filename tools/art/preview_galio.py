@@ -3,7 +3,7 @@
 
     python tools/art/preview_galio.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_galio_frames.png    every animation's dense frames (hd_, PPU 1.5, as league.dll shows them, at 100 %)
+  league_galio_frames.png    every animation's dense frames (hd_, PPU 1.65, as league.dll shows them; drawn at 110 %)
   league_galio_effects.png   every effect animation, 3x
   league_galio_showcase.gif  a scripted fight with Darius in front and Taric beyond him, timed like the kit
                              (tools/kit/build_galio.py, 60 ticks a second): two stone punches; Colossal Smash - the
