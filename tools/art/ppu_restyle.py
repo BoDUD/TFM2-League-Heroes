@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
-    "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
+    "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
     # 「卡尔玛太壮了 还需要调」「头上的光环太大」「卡尔玛的像素还可以降一降吧？」
     "karma": dict(face=(38, 62, 33, 58), neck=(45, 64), head=1.2, wide=1.25, short=0.92, band=3, edge=1,
                   ring=0.6, ring_colours=KARMA_RING, ring_rows=40, ppu=2.2, max_err=2200, outline=(15, 3, 16)),
@@ -91,14 +91,20 @@ RESTYLE = {
         ("run", 6): 1.08, ("q_attack", 0): 1.021, ("skill", 0): 1.10, ("skill", 2): 1.125, ("skill", 4): 1.151,
         ("skill", 5): 1.076, ("skill2", 0): 1.031, ("ult", 3): 1.076, ("ult", 7): 1.021, ("dead", 1): 1.112}),
     # 「吸血鬼我觉得只要降低点像素就好了」
-    "vladimir": dict(edge=1, ppu=1.8),
+    "vladimir": dict(edge=1, ppu=1.8, face_to=(-2, -34)),
     # 「其他英雄也差不多2.2」「画风要统一」
     "yasuo": dict(edge=0, ppu=2.2),
     # 「盖伦在游戏里还是他说 太小 像素太高」: 12 % bigger (37 -> 41 rows, Darius's 42), 1.9 squares a game pixel
     # 「盖伦也要调一下吧 像素」: the flat pixel art too, his face kept as drawn (the lines pass made his eyes a black band)
     "garen": dict(grow=1.12, edge=0, ppu=1.9, crisp=dict(keep="face")),
     # 2.2 at his 80 %
-    "gragas": dict(edge=0, ppu=1.76),
+    # 「酒桶可以稍微放大点吧 现在也太小了」: 90 %, then 「还是太小啊」: 100 % (hd.rs SIZES). His orig frames sit ppu_gragas.py's
+    # SHIFT 6 lower (its 80 %): 23 x (1 + 6 / 23 - 1 / 1.00) = 6 orig rows = 5.3 squares -> 5, lifted after the downscale
+    # (lift_sq: pixels unchanged)
+    # then 「是整体这个模型看着很矮 很小 应该是像素没降够的原因」: coarser, 1.45 squares a game pixel (picked from a
+    # preview); then back to 90 % (「感觉又太大了？」 - the 100 % came from a preview GIF that drew him at 80 %): his frames
+    # sit 3.4 orig rows low for it = 2.5 of these squares -> 2 (soles 11.8 game px under the pivot; 3 put them at 11.2)
+    "gragas": dict(edge=0, ppu=1.45, lift_sq=2, face_to=(3, -35), shared_palette=True),
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
     # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
@@ -110,8 +116,11 @@ RESTYLE = {
     # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel. Then 「稍微变大点」: drawn 110 % by league.dll (hd.rs
     # SIZES), the frames lifted 3 squares of the new grid (her restyled hooves sat a square low; 11.5 x 2.2 x (1 - 1 / 1.1) = 2.3 more) so the hooves stay on the
     # ground; face (6, -31) x 1.1 and the lift -> (7, -35)
+    # Then flat pixel art like the others (crisp; 布隆's note on the user's new standard): her face kept as drawn (her
+    # skin is blue - pixel_down KEEP "soraka": the light blue skin in the top third) and her thin gold staff (the
+    # lines pass turned its 2-3 squares wide shaft black)
     "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2, lift=3 * 3 / 2.2,
-                   face_to=(7, -35)),
+                   face_to=(5, -32), crisp=dict(keep="soraka")),   # face point on her restyled face (#257)
     # league_nidalee (#97, 「按泽丽标准」): the huntress's head up, her body wider and shorter (Karma's way); the cougar keeps
     # its shape (FRAMES "none": already chunky) and only comes to the coarser grid
     # picked from three (「A 头 1.2 / 宽 1.3 / 矮 0.9」); max_err 8000: her Codex-drawn heads differ a little from the design's
@@ -495,6 +504,12 @@ def restyle(hero, spec, write=True, only=None):
     reach = spec.get("reach") or float(np.abs(np.nonzero(op)[1] + 0.5 - first.shape[1] / 2).max())
     ring_tpl = ring_template(first, spec) if spec.get("ring") is not None else None
     out, notes = {}, []
+    # shared_palette: every frame snaps to the commonest colours of all the hero's frames together, not only its own -
+    # league_gragas's idle (the hand-finished design, 2597 colours) had no blue among its own 64 commonest, so his
+    # trousers came out grey in the idle and blue in every action (「怎么裤子还变色啊」)
+    shared = None
+    if spec.get("shared_palette"):
+        shared = np.unique(np.concatenate([palette_of(a) for fr in frames.values() for a, _ in fr]), axis=0)
     for tag, fr in frames.items():
         if only and tag not in only:
             continue
@@ -502,10 +517,10 @@ def restyle(hero, spec, write=True, only=None):
         for i, (a, ms) in enumerate(fr):
             content, pivot, note = restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach, ring_tpl)
             if new_ppu != ppu:
-                content, pivot = pixelate(content, new_ppu / ppu, pivot, outline)
+                content, pivot = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
             content = grow_edge(content, spec.get("edge", 0), outline)
             e = spec.get("edge", 0)
-            pivot = (pivot[0] + e, pivot[1] + e)
+            pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
         out[tag] = res

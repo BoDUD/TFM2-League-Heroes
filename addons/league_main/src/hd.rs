@@ -10,7 +10,7 @@
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
 pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_yasuo", 2.2, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
-    ("league_gragas", 1.76, include_str!("../../../league/champions/league_gragas#anim.fanim")),
+    ("league_gragas", 1.45, include_str!("../../../league/champions/league_gragas#anim.fanim")),
     ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
     ("league_vladimir", 1.8, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
     ("league_karma", 2.2, include_str!("../../../league/champions/league_karma#anim.fanim")),
@@ -30,7 +30,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// the BP slots draw him that much smaller, the UVs unchanged) and the battlefield scale is the game's / PPU x size
 /// (src/view.rs), each about the frame's centre / the unit's position - so the hero's dense frames are drawn lower by
 /// (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were (tools/art/ppu_gragas.py SHIFT).
-/// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too).
+/// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too);
+/// 2026-10-13 after the restyle 「酒桶可以稍微放大点吧 现在也太小了」 -> 90% from a size sheet, then 「还是太小啊」 -> 100% - judged on a preview GIF that
+/// drew him at 80% - then 「感觉又太大了？」 from a true-scale sheet -> 90% (40 game px, Darius 42); his frames
+/// lifted by the restyle (RESTYLE gragas lift_sq).
 /// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); his hd frames drawn RAISE
 /// rows higher (tools/art/rig_kassadin.py).
@@ -42,7 +45,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// then 「铁男再稍微调大点」 -> 100%; then 「为什么模型看起来小啊 牛头那种就看起来很大」「铁男再游戏里还是过于高清」 ->
 /// 115% at PPU 2.0 (1.74 squares a game pixel), his frames lifted by the restyle (RESTYLE mordekaiser lift).
 /// Soraka: 「稍微变大点」 -> 110% (her frames lifted 3 squares: tools/art/ppu_restyle.py RESTYLE soraka).
-pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.80), ("league_zeri", 1.05), ("league_kassadin", 1.10),
+pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.10),
                                     ("league_braum", 1.05), ("league_mordekaiser", 1.15),
                                     ("league_irelia", 1.15), ("league_soraka", 1.10)];
 
