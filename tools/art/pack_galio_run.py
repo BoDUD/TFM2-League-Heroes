@@ -31,10 +31,14 @@ import rig_galio as R  # noqa: E402
 import rigkit as K  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "galio")
-DOC = os.path.join(SRC, "RUN_PROMPT.md")
+DOC = os.path.join(SRC, "RUN_PROMPT_2.md")         # round 2 (round 1: RUN_PROMPT.md -> codex_run/)
+ROUND1 = os.path.join(SRC, "codex_run")
 PX = 7                           # pixels a square, the step-2 pack's grid (219 x 146 squares in 1536 x 1024)
-NEAR_HIP = (-4.5, -3.0)          # game px from the pivot (rig_galio.py's run): the near hip, the far one 7 right, a row up
-FAR_HIP = (2.5, -3.5)
+# game px from the pivot: the hips together under the belly, the far one half a px right and a row up - Codex's first
+# run strides side-on like this; with the idle's 7 px apart the far leg crossed the near one at the knees (round 1:
+# frames 1, 2, 8 tangled)
+NEAR_HIP = (-0.5, -3.0)
+FAR_HIP = (0.0, -3.5)
 THIGH, SHIN = 11.0, 11.0         # squares, hip - knee - hock (the hock is the beast leg's back-bent joint)
 # the near leg's 8 phases in squares from its hip: the toe's x, the toe's lift off the ground, the hock from the toe.
 # planted ahead and sliding back (1-4), pushing off (5), lifted behind (6), swung through (7), reaching (8); the far
@@ -59,6 +63,27 @@ def leg_points(hip_gp, k):
     if knee[0] < min(hx, hock[0]):
         knee, hock = K.elbow((hx, hy), hock, THIGH, SHIN, bend=1)
     return [(hx, hy), knee, hock, toe]
+
+
+def tail_root(can):
+    """Codex's tail (left of RUN_TAILX) carried to the hips: 2 game rows in its greys, outlined, behind the rest."""
+    out = can.copy()
+    edge = int(math.floor(R.to_can(R.RUN_TAILX, 0)[0])) - 1
+    ys = np.nonzero(out[:, edge, 3] > 0)[0]
+    ys = ys[ys > R.to_can(0, R.RUN_CUT - 4)[1]]
+    if not len(ys):
+        return out
+    mid = (ys.min() + ys.max()) // 2
+    r0, r1 = int(mid - R.PPU), int(mid + R.PPU)
+    c0, c1 = edge + 1, int(math.floor(R.to_can(-3.0, 0)[0]))
+    band = np.zeros_like(out)
+    band[r0:mid, c0:c1] = (124, 143, 145, 255)
+    band[mid:r1, c0:c1] = (103, 120, 123, 255)
+    band[r0 - 2:r0, c0:c1] = (*R.OUTLINE, 255)
+    band[r1:r1 + 2, c0:c1] = (*R.OUTLINE, 255)
+    m = (band[..., 3] > 0) & (out[..., 3] == 0)
+    out[m] = band[m]
+    return out
 
 
 def upper_only(can):
@@ -100,7 +125,7 @@ def draw_guide(img, legs):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--out", default=os.path.join(ROOT, "dist", "galio_packs", "galio_run_pack"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "dist", "galio_packs", "galio_run_pack2"))
     a = ap.parse_args()
     out = a.out
     if os.path.isdir(out):
@@ -112,7 +137,7 @@ def main():
     runs = sorted([f for f in cells["frames"] if f["tag"] == "run"], key=lambda f: f["index"])
     for k, f in enumerate(runs):
         can = R.frame("run", f["index"] + 1, table, pal)
-        up = upper_only(can)
+        up = tail_root(upper_only(can))
         big(up).save(os.path.join(out, "now", f"galio_run_{k + 1}.png"))
         legs = [(leg_points(FAR_HIP, (k + 4) % 8), BLUE), (leg_points(NEAR_HIP, k), RED)]
         g = big(up, (255, 255, 255, 255))
@@ -144,6 +169,10 @@ def main():
         strip.alpha_composite(f.resize((w * 6, h * 6), Image.NEAREST), (i * (w + 2) * 6, 0))
     strip.save(os.path.join(out, "ref", "alistar_run_reference.png"))
     shutil.copy(DOC, os.path.join(out, "RUN_PROMPT.md"))
+    # round 1 (what to fix): Codex's delivery next to its first run's leg, the legs' widths measured
+    os.makedirs(os.path.join(out, "round1"))
+    for k in range(len(runs)):
+        shutil.copy(os.path.join(ROUND1, f"galio_run_{k + 1}.png"), os.path.join(out, "round1", f"galio_run_{k + 1}.png"))
     zp = shutil.make_archive(out, "zip", out)
     print(f"{zp}: now/ guide/ x{len(runs)}, ref/ 3")
 
