@@ -46,8 +46,8 @@
     },
     "league_soraka": {
       "face": {
-        "x": 7,
-        "y": -35
+        "x": 5,
+        "y": -32
       },
       "center": {
         "x": 0,
@@ -905,7 +905,7 @@
     "league_vladimir": {
       "face": {
         "x": -2,
-        "y": -38
+        "y": -34
       },
       "center": {
         "x": 0,
@@ -1066,8 +1066,8 @@
     },
     "league_zeri": {
       "face": {
-        "x": 1,
-        "y": -38
+        "x": -1,
+        "y": -33
       },
       "center": {
         "x": 0,
