@@ -95,7 +95,8 @@ RESTYLE = {
     # 「其他英雄也差不多2.2」「画风要统一」
     "yasuo": dict(edge=0, ppu=2.2),
     # 「盖伦在游戏里还是他说 太小 像素太高」: 12 % bigger (37 -> 41 rows, Darius's 42), 1.9 squares a game pixel
-    "garen": dict(grow=1.12, edge=0, ppu=1.9),
+    # 「盖伦也要调一下吧 像素」: the flat pixel art too, his face kept as drawn (the lines pass made his eyes a black band)
+    "garen": dict(grow=1.12, edge=0, ppu=1.9, crisp=dict(keep="face")),
     # 2.2 at his 80 %
     "gragas": dict(edge=0, ppu=1.76),
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
