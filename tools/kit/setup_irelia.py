@@ -35,7 +35,7 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 1, "y": -44}, "center": {"x": 0, "y": -12}}   # her head at hd.rs SIZES 1.15 (PR #246's (1, -38) at 100%)
+VIEW = {"face": {"x": 1, "y": -40}, "center": {"x": 0, "y": -12}}   # her head at hd.rs SIZES 1.05 (PR #246's (1, -38) at 100%)
 
 
 def phy(d, r):

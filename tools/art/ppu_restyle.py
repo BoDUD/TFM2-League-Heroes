@@ -81,7 +81,9 @@ RESTYLE = {
     # 「飞机像泽丽那样变大点」
     "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
-    "kassadin": dict(edge=0, ppu=2.42, crisp={}),
+    # 「刀妹和卡萨丁感觉在游戏里偏大啊」: 100 % (hd.rs SIZES). rig_kassadin.py drew his frames RAISE 4 orig rows higher
+    # for its 110 %; lowered 4 x 2.42 / 3.622 = 2.7 -> 3 squares after the downscale
+    "kassadin": dict(edge=0, ppu=2.42, crisp={}, lift_sq=-3, face_to=(1, -31)),
     # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
     # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
     # --delivery <it> --fill-from-sheet
@@ -110,7 +112,8 @@ RESTYLE = {
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
     # (1 - 1 / 1.15) = 3.0); her pixels untouched. Her face point: PR #246's (1, -38) on her head at 100 % (the old (0, -31)
     # cropped her chest), x 1.15 about the soles
-    "irelia": dict(lift=3, edge=0, face_to=(1, -44)),
+    # then 「刀妹和卡萨丁感觉在游戏里偏大啊」: 105 % - lifted 11.5 x 2 x (1 - 1 / 1.05) = 1.1 -> 1 row
+    "irelia": dict(lift=1, edge=0, face_to=(1, -40)),
     # 「下一个可以修正索拉卡」: Codex's PPU 3 redraw (design + 46 frames, the design brought to the actions' size at import),
     # to Zeri's look: Codex drew every head anew (none matches the idle's face), so the body only, every frame alike
     # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel. Then 「稍微变大点」: drawn 110 % by league.dll (hd.rs
