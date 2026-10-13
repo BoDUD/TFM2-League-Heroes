@@ -74,9 +74,11 @@ BOXES = {
 # the biggest frame's size in game px: ("w" | "h", n) - the prompt's sizes, a little over for the small hits
 SIZE = {"a_hit": ("w", 16), "a_dust": ("w", 14), "p_hit": ("w", 20), "p_ring": ("w", 34), "w_ps": ("w", 40), "q_wind": ("w", 30),
         "q_burst": ("w", 30), "q_tornado": ("h", 36), "q_hit": ("w", 16), "e_dash": ("w", 30), "e_hit": ("h", 24),
-        "w_charge": ("w", 44), "w_burst": ("w", 52), "r_cast": ("h", 50), "r_land": ("w", 46), "r_hit": ("h", 24),
+        "w_charge": ("w", 44), "w_burst": ("w", 52), "r_cast": ("h", 64), "r_land": ("w", 84), "r_hit": ("h", 32),
         "w_taunt": ("w", 14), "r_shield": ("w", 22)}
 SYM = {"q_wind": "tb"}                    # every other one "lr"
+# R drawn big (the user: 「这个R的特效做大点啊」「加里奥的R特效这么小？」): the landing 84 wide (was 46), the channel's light
+# 64 tall (was 50), the hit 32 (was 24)
 
 HIT = (0, -12)                            # a hit on the upper body of a 36-44 px unit
 OVER = (0, -34)                           # over a unit's head
@@ -116,8 +118,8 @@ SEQ = {
 WHERE = {"a_hit": ("core", [HIT]), "p_hit": ("core", [HIT]), "p_ring": ("core", [SOLES]),
          "w_ps": (("feet", 0), [SOLES]), "q_burst": (("feet", 4), [SOLES]), "q_tornado": (("feet", 0), [SOLES]),
          "q_hit": ("core", [HIT]), "e_dash": (("feet", 2), [SOLES]), "e_hit": ("core", [HIT]),
-         "w_charge": (("feet", 0), [SOLES]), "w_burst": (("feet", 5), [SOLES]), "r_cast": (("feet", 3), [SOLES]),
-         "r_land": (("feet", 6), [SOLES]), "r_hit": ("core", [HIT]), "w_taunt": ("core", [OVER]),
+         "w_charge": (("feet", 0), [SOLES]), "w_burst": (("feet", 5), [SOLES]), "r_cast": (("feet", 4), [SOLES]),
+         "r_land": (("feet", 11), [SOLES]), "r_hit": ("core", [HIT]), "w_taunt": ("core", [OVER]),
          "r_shield": (("feet", 0), [SOLES])}
 BIG = {"p_ring", "q_burst", "q_tornado", "w_charge", "w_burst", "r_land"}
 
