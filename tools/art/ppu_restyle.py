@@ -134,8 +134,12 @@ RESTYLE = {
     # its shape (FRAMES "none": already chunky) and only comes to the coarser grid
     # picked from three (「A 头 1.2 / 宽 1.3 / 矮 0.9」); max_err 8000: her Codex-drawn heads differ a little from the design's
     # and were missed at 1500 (the head then kept its size beside the idle's grown one); the lying and turned frames below
+    # Then 「豹子形态太大了」「还有豹子的像素太高」: the cougar (tags c_*) picked from a true-scale sheet at 75 % (61 x 31 game
+    # px standing -> 46 x 23, Rengar 41 x 40) on a coarser grid, 1.65 squares a game px (coarse: drawn, outlined and
+    # crisped on that grid, then brought to the sheet's 2.2 by nearest - squares of one or two; the palette from the
+    # frames as they were, so the human's stay as they are)
     "nidalee": dict(face=(33, 59, 51, 78), neck=(65, 61), head=1.2, wide=1.3, short=0.9, band=3, edge=1, ppu=2.2,
-                    max_err=8000, crisp=dict(keep="head")),
+                    max_err=8000, crisp=dict(keep="head"), coarse=dict(prefix="c_", size=0.75, grid=1.65)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -566,6 +570,11 @@ def restyle(hero, spec, write=True, only=None):
     reach = spec.get("reach") or float(np.abs(np.nonzero(op)[1] + 0.5 - first.shape[1] / 2).max())
     ring_tpl = ring_template(first, spec) if spec.get("ring") is not None else None
     out, notes = {}, []
+    # coarse (league_nidalee's cougar): those tags' frames drawn `size` times as big on a grid of `grid` squares a game
+    # pixel, the soles kept FEET under the pivot; brought to new_ppu after the crisp. was: (tag, i) -> (the frame as it
+    # would have been, its pivot): the crisp palette, and each frame's soles put back on the row they had there (the
+    # coarse squares alone moved them up to 0.9 game px between frames)
+    co, was = spec.get("coarse"), {}
     # shared_palette: every frame snaps to the commonest colours of all the hero's frames together, not only its own -
     # league_gragas's idle (the hand-finished design, 2597 colours) had no blue among its own 64 commonest, so his
     # trousers came out grey in the idle and blue in every action (「怎么裤子还变色啊」)
@@ -578,10 +587,19 @@ def restyle(hero, spec, write=True, only=None):
         res = []
         for i, (a, ms) in enumerate(fr):
             content, pivot, note = restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach, ring_tpl)
+            e = spec.get("edge", 0)
+            if co and tag.startswith(co["prefix"]):
+                c0, p0 = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
+                was[(tag, i)] = (grow_edge(c0, e, outline), (p0[0] + e, p0[1] + e))
+                content, pivot = pixelate(content, co["grid"] * co["size"] / ppu, pivot, outline, pal=shared)
+                content = grow_edge(content, e, outline)
+                pivot = (pivot[0] + e, pivot[1] + e + FEET * co["grid"] * (co["size"] - 1))
+                res.append((content, pivot, ms))
+                notes.append(f"{tag}[{i}] {note} coarse")
+                continue
             if new_ppu != ppu:
                 content, pivot = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
             content = grow_edge(content, spec.get("edge", 0), outline)
-            e = spec.get("edge", 0)
             pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
@@ -600,10 +618,12 @@ def restyle(hero, spec, write=True, only=None):
         # flat pixel art (pixel_down.crisp): one palette over every frame of the hero
         keys = [(t, i) for t, r in out.items() for i in range(len(r))]
         fit = None
-        if unnarrowed:
+        if unnarrowed or was:
             fit = []
             for t, i in keys:
-                if (t, i) in unnarrowed:
+                if (t, i) in was:
+                    fit.append(was[(t, i)][0])
+                elif (t, i) in unnarrowed:
                     c = restyle_frame(hero, t, i, unnarrowed[(t, i)], spec, ppu, tpl, neck_off, outline, reach,
                                       ring_tpl)[0:2]
                     if new_ppu != ppu:
@@ -616,6 +636,12 @@ def restyle(hero, spec, write=True, only=None):
             c, pv, m = out[t][i]
             out[t][i] = (f, pv, m)
         notes.append(f"crisp {spec['crisp']}")
+    sole = lambda a: np.nonzero(a[..., 3].any(1))[0].max() + 1
+    for (t, i), (c0, p0) in was.items():
+        k = new_ppu / co["grid"]
+        c, pv, m = out[t][i]
+        c = scale_even(c, k)
+        out[t][i] = (c, (pv[0] * k, sole(c) - (sole(c0) - p0[1])), m)
     return out, sheet, ppu, new_ppu, notes, outline
 
 
