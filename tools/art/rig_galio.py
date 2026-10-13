@@ -391,19 +391,18 @@ def down(can):
 
 # ------------------------------------------------------------------------------------------------ the run's legs
 # Codex's run kept the light leg forward and the dark one back in all 8 frames (the user: 「走路没有交叉步」). Legs drawn
-# along bones with the knee guards and feet pasted on read as foreign legs, thinner than the design's (「腿部变形？」
-# 「还是变形啊 你不自己review的吗」), so the run walks on the design's own two legs, cut from the idle as they are
-# (thighs, gold knee guards, shins, the clawed foot), each turned about its hip by row shear (rigkit.swing_leg: a
-# straight-legged scissor stride, the foot moved whole and lifted as it swings back), the near foot mirrored (claws
-# forward) and the far leg on the same foot a step darker, the far leg four phases on and drawn first, the outline
-# closed where the cut took it; Codex's upper body, fists and tail kept over them, the tail carried to the hips. Numbers
-# in game pixels from the pivot (x right, y down); PPU squares each.
+# along bones read as foreign legs (「腿部变形？」「还是变形啊 你不自己review的吗」), and the design's legs slanted by row
+# shear were deformed too (「不还是变形？」), so the run steps on the design's own two legs exactly as the idle has them
+# (thighs, gold knee guards, shins, the clawed foot), each moved whole - a few px forward and back, lifted as it swings
+# - as the approved heavy runs do (league_braum, league_nautilus, league_gragas, league_alistar: leg shapes kept, never
+# turned); the near foot mirrored (claws forward) and the far leg on the same foot a step darker, the far leg four
+# phases on and drawn first, the outline closed where the cut took it; Codex's upper body, fists and tail kept over
+# them, the tail carried to the hips. Numbers in game pixels from the pivot (x right, y down); PPU squares each.
 RUN_CUT = -2                     # rows from RUN_CUT down are redrawn (the legs, the tail's root) ...
 RUN_KEEP = (9, 0, -15, -1)       # ... but the front fist (right of 9, down to row 0) and the back one (left of -15, to -1)
 RUN_TAILX = -13                  # Codex's tail kept left of this column
 RUN_LEGS = {"near": [(66, 81, 35, 50), (82, 95, 35, 47), (96, 103, 28, 48)],    # design rows r0..r1, columns c0..c1
             "far": [(66, 81, 51, 64), (82, 95, 48, 64), (96, 103, 49, 71)]}
-RUN_HIP = 70                     # the design row the legs turn about
 RUN_ANKLE = {"near": 95, "far": 96}   # the design row from which the foot moves whole
 RUN_AXIS = 40                    # the near shin's middle column: its foot mirrored about it
 RUN_FAR_FOOT = (15, -1)          # the far leg's foot: the near one (its own is a dark lump with a white speck at this
@@ -411,8 +410,10 @@ RUN_FAR_FOOT = (15, -1)          # the far leg's foot: the near one (its own is 
 RUN_DARKER = {(236, 251, 241): (190, 208, 202), (244, 250, 246): (190, 208, 202), (190, 208, 202): (124, 143, 145),
               (149, 169, 168): (103, 120, 123), (124, 143, 145): (103, 120, 123), (103, 120, 123): (60, 73, 78)}
 RUN_RING = 72                    # the legs' own outline ring from this design row down (above it the body covers them)
-# the ankle's x from its place in the idle and its lift over 8 phases (strips_irelia.py RUN_PHASES 4 on), game px
-RUN_PH = [(4.0, 0), (2.0, 0), (0.0, 0), (-2.5, 1.0), (-4.0, 2.5), (-3.5, 3.0), (0.5, 3.0), (3.5, 1.5)]
+# each leg's step over 8 phases, game px from its place in the idle: (x, lift) - planted ahead and sliding back under
+# him (0-4), lifted and carried forward (5-7); the far leg 4 phases on. Whole legs moved, never slanted: the approved
+# heavy runs (league_braum, league_nautilus, league_gragas, league_alistar) step their legs a few px, shapes kept
+RUN_PH = [(3.0, 0), (1.5, 0), (0.0, 0), (-1.5, 0), (-3.0, 0), (-2.0, 1.5), (0.0, 2.5), (2.0, 1.5)]
 
 
 def to_can(x, y):
@@ -483,7 +484,7 @@ def run_legs(can, k, legs=None):
     for name, ph in (("far", RUN_PH[(k + 4) % 8]), ("near", RUN_PH[k])):
         dx, lift = ph
         leg = legs[name]
-        sw = K.swing_leg(leg, leg[..., 3] > 0, y_d + RUN_HIP, y_d + RUN_ANKLE[name], dx * PPU, int(round(lift * PPU)))
+        sw = K.shifted(leg, int(round(dx * PPU)), -int(round(lift * PPU)))
         m = sw[..., 3] > 0
         light = m & (sw[..., :3].astype(int).sum(-1) >= 70)
         ring = ndimage.binary_dilation(light, iterations=int(PPU)) & ~m      # only where the cut lost the outline
