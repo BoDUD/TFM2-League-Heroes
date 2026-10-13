@@ -29,7 +29,7 @@ with her blue eyes, gold, skin and whites weighted up so the face and the wand's
 then a 1 px dark outline.
 Effects: own palette per sheet, no outline; projectiles anchored on the orb, bursts and marks on
 their centre, the E field on its ring (drawn on the ground, 53 px = its 26500 radius), the Final
-Spark beam from 6 px past the caster to the end of its 340 px rectangle (the view is centred on the
+Spark beam from her staff's head (22 px past the caster) to the end of its 340 px rectangle (the view is centred on the
 LineRangeProjectile and turned to the cast direction; the brightest frame is 35 px thick, the
 rectangle 40 px wide).
 --review DIR writes one alignment sheet per strip (pivot + feet lines, idle silhouette in red).
@@ -311,10 +311,14 @@ def loop(frames_ms, first, last, times, ms):
 
 
 # Final Spark: the LineRangeProjectile is 340 px long (LoL Reborn's numbers); its view is centred on
-# the rectangle, so the caster stands at -170. The beam's drawn left end goes 6 px past her (her wand,
-# whose flash sits a further ~7 px out), the right end at +170.
+# the rectangle, so the caster stands at -170. The beam's drawn left end was 6 px past her, where the floating wand
+# hovered; since she holds the whole staff (2026-10-05) its head is 23-30 px out in the ult frames, so the beam came out
+# of her legs (the user, 2026-10-13: 「拉克丝大招动画错位了」). It starts at the head now, 22 px out (its flash a
+# further ~7 px), the right end at +170; as thick as before (BEAM_SPAN_Y). The line's picture is drawn at her pivot
+# and turned with the cast, so only along it can it move (the head sits 2-9 px higher, inside the 31-35 px beam).
 BEAM_LENGTH = 340
-BEAM_START = 6
+BEAM_START = 22
+BEAM_SPAN_Y = 334                 # the height scale: the beam's thickness as drawn when it started 6 px out
 
 
 def beam_frames(cut):
@@ -325,11 +329,12 @@ def beam_frames(cut):
     left = min(r.bbox(0.3)[0] for r in rows)
     right = max(r.bbox(0.3)[2] for r in rows)
     s = (BEAM_LENGTH - BEAM_START) / float(right - left)
+    sy = BEAM_SPAN_Y / float(right - left)
     out = []
     for r in rows:
         op = r.a[..., 3] > 0.5
         core = int(np.argmax(op.sum(1))) + r.oy          # the row the beam line runs along
-        out.append(G.render(r, s, s, left, core, -BEAM_LENGTH / 2.0 + BEAM_START, 0.0, cut=cut, keep=0.9))
+        out.append(G.render(r, s, sy, left, core, -BEAM_LENGTH / 2.0 + BEAM_START, 0.0, cut=cut, keep=0.9))
     return out, s
 
 
