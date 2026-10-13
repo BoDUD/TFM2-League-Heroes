@@ -45,9 +45,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Mordekaiser: the user picked 110% with a thicker outline (C, Kassadin's way), then 「铁男感觉做的太大了吧？」 -> 95%,
 /// then 「铁男再稍微调大点」 -> 100%; then 「为什么模型看起来小啊 牛头那种就看起来很大」「铁男再游戏里还是过于高清」 ->
 /// 115% at PPU 2.0 (1.74 squares a game pixel), his frames lifted by the restyle (RESTYLE mordekaiser lift).
+/// Then 「铁男和布隆游戏里偏大了」: Mordekaiser 100 % (47 game px, Nautilus 51), Braum 95 % (39 px, 55 wide with his
+/// shield), picked from a true-scale sheet; their frames moved down by the restyle (RESTYLE lift_sq).
 /// Soraka: 「稍微变大点」 -> 110% (her frames lifted 3 squares: tools/art/ppu_restyle.py RESTYLE soraka).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
-                                    ("league_braum", 1.05), ("league_mordekaiser", 1.15),
+                                    ("league_braum", 0.95), ("league_mordekaiser", 1.00),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10)];
 
 pub const PREFIX: &str = "hd_";
