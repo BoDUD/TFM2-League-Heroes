@@ -43,6 +43,10 @@ ID = "league_nilah"
 FX = "asset/league/effects/league_nilah_fx"
 BIG = "asset/league/effects/league_nilah_big"
 
+# Numbers = candidate d3 of the 10-min classic-SDK simulations (Temp/nl_sim/sim/kd.py, bottom lane against the base gunner,
+# soldier, archer, gambler and whip master, three lineups, both sides, 2026-10-13): +1.60 on seeds 1-24 (league_samira
+# +1.69, league_zeri +1.70, league_twitch +1.60). The draft d0 was +3.90 with 4173 healing a game (the others ~830): 18%
+# life steal on the empowered attacks, a 40% cleave and Apotheosis's 60 + 30% heal and shield.
 # Draft timings until the strips: attack 24 ticks, the whip lands on tick 10; Formless Blade 22 (the lash on 9), the spin
 # 20 (on 8); Slipstream's dash 9 ticks; Jubilant Veil 14; Apotheosis 60.
 P = {
@@ -54,10 +58,10 @@ P = {
     # Q Formless Blade (League: 600 line, -10..50 + 100% AD, cd 4 s; then 4 s +125 range, the attacks cut a cone and heal
     # (20% crit-scaled); after E a spin round her)
     "q_cd": 300, "q_range": 60000, "q_dur": 22, "q_at": 9, "q_len": 62000, "q_w": 6000, "q_speed": 15000,
-    "q_dmg": 40, "q_ratio": 110, "q_t": 240, "q_add": 12500, "q_vamp": 18, "q_spl": 40, "q_cone": 700,
+    "q_dmg": 40, "q_ratio": 100, "q_t": 240, "q_add": 12500, "q_vamp": 10, "q_spl": 25, "q_cone": 700,
     "q_spin_dur": 20, "q_spin_at": 8, "q_spin_r": 28000, "eq_t": 90,
     # E Slipstream (League: 2 charges, 26-16 s each, 550 range, dash 600 through the target at 2200, 50-110 + 20% AD)
-    "s2_cd": 60, "e_range": 55000, "e_rc": 540, "e_gap": 40, "e_speed": 8000, "e_tick": 9, "e_dmg": 60, "e_ratio": 60,
+    "s2_cd": 60, "e_range": 55000, "e_rc": 540, "e_gap": 40, "e_speed": 8000, "e_tick": 9, "e_dmg": 60, "e_ratio": 45,
     "e_rad": 16000,
     # W Jubilant Veil (League: 2.25 s dodges every attack, 25% less magic damage, 12.5-27.5% move speed; allies she
     # touches 1.5 s; cd 26-22 s)
@@ -65,7 +69,7 @@ P = {
     # R Apotheosis (League: 1 s, 6 ticks of 15-35 + 18% bonus AD, the last 125-325 + 120% bonus AD and the pull, 400
     # radius; the damage on champions heals / shields allies; cd 110-80 s)
     "r_cd": 2400, "r_range": 35000, "r_rad": 38000, "r_t": 60, "r_per": 10, "r_tdmg": 12, "r_tratio": 20,
-    "r_dmg": 100, "r_ratio": 110, "r_pull": 2500, "r_ally": 50000, "r_heal": 60, "r_heal_ad": 30, "r_sh": 60,
+    "r_dmg": 100, "r_ratio": 110, "r_pull": 2500, "r_ally": 50000, "r_heal": 40, "r_heal_ad": 30, "r_sh": 40,
     "r_sh_ad": 30, "r_sh_t": 180,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

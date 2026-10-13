@@ -118,7 +118,7 @@
                   {
                     "type": "Attack",
                     "damage": 0,
-                    "attack_ratio": 40,
+                    "attack_ratio": 25,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -258,7 +258,7 @@
                       }
                     },
                     "range": 12500,
-                    "vamp": 18
+                    "vamp": 10
                   },
                   "only_to_enemy": false
                 }
@@ -281,7 +281,7 @@
                     {
                       "type": "Attack",
                       "damage": 40,
-                      "attack_ratio": 110,
+                      "attack_ratio": 100,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -370,7 +370,7 @@
                       }
                     },
                     "range": 12500,
-                    "vamp": 18
+                    "vamp": 10
                   },
                   "only_to_enemy": false
                 }
@@ -391,7 +391,7 @@
                       "effect": {
                         "type": "Attack",
                         "damage": 40,
-                        "attack_ratio": 110,
+                        "attack_ratio": 100,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -674,7 +674,7 @@
                       {
                         "type": "Attack",
                         "damage": 60,
-                        "attack_ratio": 60,
+                        "attack_ratio": 45,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -766,7 +766,7 @@
                                   }
                                 },
                                 "range": 12500,
-                                "vamp": 18
+                                "vamp": 10
                               },
                               "only_to_enemy": false
                             }
@@ -789,7 +789,7 @@
                                 {
                                   "type": "Attack",
                                   "damage": 40,
-                                  "attack_ratio": 110,
+                                  "attack_ratio": 100,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -914,7 +914,7 @@
                     {
                       "type": "Attack",
                       "damage": 60,
-                      "attack_ratio": 60,
+                      "attack_ratio": 45,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -1006,7 +1006,7 @@
                                 }
                               },
                               "range": 12500,
-                              "vamp": 18
+                              "vamp": 10
                             },
                             "only_to_enemy": false
                           }
@@ -1029,7 +1029,7 @@
                               {
                                 "type": "Attack",
                                 "damage": 40,
-                                "attack_ratio": 110,
+                                "attack_ratio": 100,
                                 "hp_ratio": 0,
                                 "target_hp_ratio": 0,
                                 "attack_effect_type": "Target"
@@ -1330,14 +1330,14 @@
               "effects": [
                 {
                   "type": "Heal",
-                  "amount": 60,
+                  "amount": 40,
                   "attack_ratio": 30,
                   "ap_ratio": 0,
                   "heal_type": "Ally"
                 },
                 {
                   "type": "Shield",
-                  "amount": 60,
+                  "amount": 40,
                   "attack_ratio": 30,
                   "ap_ratio": 0,
                   "tick": 180
@@ -1412,7 +1412,7 @@
                             }
                           },
                           "range": 12500,
-                          "vamp": 18
+                          "vamp": 10
                         },
                         "only_to_enemy": false
                       }
@@ -1435,7 +1435,7 @@
                           {
                             "type": "Attack",
                             "damage": 40,
-                            "attack_ratio": 110,
+                            "attack_ratio": 100,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
