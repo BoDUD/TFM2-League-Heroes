@@ -98,9 +98,10 @@ RESTYLE = {
     # 「盖伦也要调一下吧 像素」: the flat pixel art too, his face kept as drawn (the lines pass made his eyes a black band)
     "garen": dict(grow=1.12, edge=0, ppu=1.9, crisp=dict(keep="face")),
     # 2.2 at his 80 %
-    # 「酒桶可以稍微放大点吧 现在也太小了」: 90 % (hd.rs SIZES). His orig frames sit ppu_gragas.py's SHIFT 6 lower (its 80 %):
-    # 23 x (1 + 6 / 23 - 1 / 0.90) = 3.4 orig rows = 3 squares, lifted after the downscale (lift_sq: pixels unchanged)
-    "gragas": dict(edge=0, ppu=1.76, lift_sq=3, face_to=(3, -35)),
+    # 「酒桶可以稍微放大点吧 现在也太小了」: 90 %, then 「还是太小啊」: 100 % (hd.rs SIZES). His orig frames sit ppu_gragas.py's
+    # SHIFT 6 lower (its 80 %): 23 x (1 + 6 / 23 - 1 / 1.00) = 6 orig rows = 5.3 squares -> 5, lifted after the downscale
+    # (lift_sq: pixels unchanged)
+    "gragas": dict(edge=0, ppu=1.76, lift_sq=5, face_to=(3, -39), shared_palette=True),
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
     # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
@@ -486,6 +487,12 @@ def restyle(hero, spec, write=True, only=None):
     reach = spec.get("reach") or float(np.abs(np.nonzero(op)[1] + 0.5 - first.shape[1] / 2).max())
     ring_tpl = ring_template(first, spec) if spec.get("ring") is not None else None
     out, notes = {}, []
+    # shared_palette: every frame snaps to the commonest colours of all the hero's frames together, not only its own -
+    # league_gragas's idle (the hand-finished design, 2597 colours) had no blue among its own 64 commonest, so his
+    # trousers came out grey in the idle and blue in every action (「怎么裤子还变色啊」)
+    shared = None
+    if spec.get("shared_palette"):
+        shared = np.unique(np.concatenate([palette_of(a) for fr in frames.values() for a, _ in fr]), axis=0)
     for tag, fr in frames.items():
         if only and tag not in only:
             continue
@@ -493,7 +500,7 @@ def restyle(hero, spec, write=True, only=None):
         for i, (a, ms) in enumerate(fr):
             content, pivot, note = restyle_frame(hero, tag, i, a, spec, ppu, tpl, neck_off, outline, reach, ring_tpl)
             if new_ppu != ppu:
-                content, pivot = pixelate(content, new_ppu / ppu, pivot, outline)
+                content, pivot = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
             content = grow_edge(content, spec.get("edge", 0), outline)
             e = spec.get("edge", 0)
             pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
