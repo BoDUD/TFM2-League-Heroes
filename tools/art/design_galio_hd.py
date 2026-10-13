@@ -13,9 +13,10 @@ user chose 「我按英雄联盟的拳头逐格手画」. So:
      to the arm without a wrist outline, one highlight, the thumb's fold and the knuckles in a few dark squares), each on
      a box cleared first (Codex's ball and the spiral's leftovers); the first try (blocks as wide as the forearm, three
      finger columns, an outline across the wrist) was 「有点诡异」;
-  4. side A (the user's pick) = Codex's galio-side-A.png on the same grid, its ball fist replaced the same way.
+  4. no side view: Codex's side A with a hand-drawn fist stayed 「侧面还是跟怪啊」 (the forearm melted into the thigh) and
+     the user chose every action from the front (Braum's / Kassadin's way); SIDE / SIDE_FISTS are kept for the record.
   5. the outer outline grown by one square (edge), the one look's ~1 game pixel.
-Writes assets/source/galio/hd/front.png and side.png (one square = one dense pixel, 85 x 128, soles row 115, standing
+Writes assets/source/galio/hd/front.png (one square = one dense pixel, 85 x 128, soles row 115, standing
 point column 49).
 """
 import argparse
@@ -186,15 +187,8 @@ def main():
     pinholes(front)
     edge(front)
     pinholes(front)
-    side = snap(grid(os.path.join(CODEX, "galio-side-A.png")), pal)
-    for spec in SIDE_FISTS:
-        paint(side, spec)
-    pinholes(side)
-    edge(side)
-    pinholes(side)
     os.makedirs(OUT, exist_ok=True)
     Image.fromarray(front).save(os.path.join(OUT, "front.png"))
-    Image.fromarray(side).save(os.path.join(OUT, "side.png"))
     if a.preview:
         Image.fromarray(front).resize((COLS * 8, ROWS * 8), Image.NEAREST).save(os.path.join(a.preview, "front_8x.png"))
     print("front", len({tuple(c) for c in front[front[..., 3] > 0][:, :3]}), "colours")
