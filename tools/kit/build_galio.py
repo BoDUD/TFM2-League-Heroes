@@ -58,6 +58,7 @@ BIG = "asset/league/effects/league_galio_big"
 # (league_xerath +1.51 / +1.04, league_viktor +1.27 / +1.68, league_kassadin +1.22 / +1.55). The draft d0 was -0.16 / +0.05
 # (Q 80+60, tornado 15+12, passive 50+50 every 5 s, E 90+70, W 60+50, R 160+70, hp 1100, mp 40, Q cd 8 s); d2 (d3 with
 # Q cd 8 s, passive every 5 s, hp 1100) +1.13 / +0.84.
+# Retimed to the strips (the numbers unchanged): +1.45 / +1.67 (peers +1.33 / +1.42 on average) - kept.
 P = {
     # stats (the pack's melee AP tanks: league_malphite hp 1100 +120, def 40, mr 30, atk 80, mp 30; mid mages mp 40-42);
     # League's Galio: 600 +126 hp, 59 AD, 24 armour +4.7, 32 mr +2.05, 340 move, 150 range - tank stats, mage scaling,
