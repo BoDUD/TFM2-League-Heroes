@@ -40,9 +40,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_bard.attack",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 90,
-    "start_timing": 11,
+    "start_timing": 9,
     "cancelable": true,
     "range": 52000,
     "casting_type": "Targeting",
@@ -129,7 +129,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 30
+                                      "tick": 29
                                     },
                                     {
                                       "type": "Sfx",
@@ -140,54 +140,60 @@
                                       "name": "league_bard_vo_r"
                                     },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_bard_r_orb",
-                                      "travel_time": 24,
-                                      "range": 400000,
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "range_effect_name": "league_bard_r_mark",
-                                      "applied_target": "AllyChampion",
-                                      "applied_effects": [],
-                                      "end_effects": [
+                                      "type": "Delayed",
+                                      "tick": 15,
+                                      "effects": [
                                         {
-                                          "type": "ViewEffect",
-                                          "name": "league_bard_r_dome"
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_bard_r_land"
-                                        },
-                                        {
-                                          "type": "RangeProjectile",
-                                          "name": "league_bard_r_zone",
+                                          "type": "ParabolicProjectile",
+                                          "name": "league_bard_r_orb",
+                                          "travel_time": 24,
+                                          "range": 400000,
                                           "shape": {
                                             "Circle": {
-                                              "radius": 26000
+                                              "radius": 1000
                                             }
                                           },
-                                          "delay": 1,
-                                          "apply": 1,
-                                          "applied_target": "BothWithoutTower",
-                                          "applied_effects": [
+                                          "range_effect_name": "league_bard_r_mark",
+                                          "applied_target": "AllyChampion",
+                                          "applied_effects": [],
+                                          "end_effects": [
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Banish",
-                                                "duration": 150,
-                                                "lock_effect_name": "league_bard_r_lock",
-                                                "end_effect_name": "league_bard_r_free"
-                                              }
+                                              "type": "ViewEffect",
+                                              "name": "league_bard_r_dome"
                                             },
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_bard_r_lock"
-                                              }
+                                              "type": "Sfx",
+                                              "name": "league_bard_r_land"
+                                            },
+                                            {
+                                              "type": "RangeProjectile",
+                                              "name": "league_bard_r_zone",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 26000
+                                                }
+                                              },
+                                              "delay": 1,
+                                              "apply": 1,
+                                              "applied_target": "BothWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Banish",
+                                                    "duration": 150,
+                                                    "lock_effect_name": "league_bard_r_lock",
+                                                    "end_effect_name": "league_bard_r_free"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_bard_r_lock"
+                                                  }
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -302,7 +308,7 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "ult",
-                                        "tick": 30
+                                        "tick": 29
                                       },
                                       {
                                         "type": "Sfx",
@@ -313,54 +319,60 @@
                                         "name": "league_bard_vo_r"
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_bard_r_orb",
-                                        "travel_time": 24,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "range_effect_name": "league_bard_r_mark",
-                                        "applied_target": "EnemyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
+                                        "type": "Delayed",
+                                        "tick": 15,
+                                        "effects": [
                                           {
-                                            "type": "ViewEffect",
-                                            "name": "league_bard_r_dome"
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_bard_r_land"
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_bard_r_zone",
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_bard_r_orb",
+                                            "travel_time": 24,
+                                            "range": 400000,
                                             "shape": {
                                               "Circle": {
-                                                "radius": 26000
+                                                "radius": 1000
                                               }
                                             },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "BothWithoutTower",
-                                            "applied_effects": [
+                                            "range_effect_name": "league_bard_r_mark",
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [],
+                                            "end_effects": [
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Banish",
-                                                  "duration": 150,
-                                                  "lock_effect_name": "league_bard_r_lock",
-                                                  "end_effect_name": "league_bard_r_free"
-                                                }
+                                                "type": "ViewEffect",
+                                                "name": "league_bard_r_dome"
                                               },
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_bard_r_lock"
-                                                }
+                                                "type": "Sfx",
+                                                "name": "league_bard_r_land"
+                                              },
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_bard_r_zone",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "BothWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Banish",
+                                                      "duration": 150,
+                                                      "lock_effect_name": "league_bard_r_lock",
+                                                      "end_effect_name": "league_bard_r_free"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_bard_r_lock"
+                                                    }
+                                                  }
+                                                ]
                                               }
                                             ]
                                           }
@@ -591,9 +603,9 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_bard.skill",
-    "duration": 24,
+    "duration": 27,
     "cooltime": 420,
-    "start_timing": 10,
+    "start_timing": 13,
     "cancelable": false,
     "range": 65000,
     "casting_type": "Targeting",
@@ -680,7 +692,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 30
+                                      "tick": 29
                                     },
                                     {
                                       "type": "Sfx",
@@ -691,54 +703,60 @@
                                       "name": "league_bard_vo_r"
                                     },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_bard_r_orb",
-                                      "travel_time": 24,
-                                      "range": 400000,
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "range_effect_name": "league_bard_r_mark",
-                                      "applied_target": "AllyChampion",
-                                      "applied_effects": [],
-                                      "end_effects": [
+                                      "type": "Delayed",
+                                      "tick": 15,
+                                      "effects": [
                                         {
-                                          "type": "ViewEffect",
-                                          "name": "league_bard_r_dome"
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_bard_r_land"
-                                        },
-                                        {
-                                          "type": "RangeProjectile",
-                                          "name": "league_bard_r_zone",
+                                          "type": "ParabolicProjectile",
+                                          "name": "league_bard_r_orb",
+                                          "travel_time": 24,
+                                          "range": 400000,
                                           "shape": {
                                             "Circle": {
-                                              "radius": 26000
+                                              "radius": 1000
                                             }
                                           },
-                                          "delay": 1,
-                                          "apply": 1,
-                                          "applied_target": "BothWithoutTower",
-                                          "applied_effects": [
+                                          "range_effect_name": "league_bard_r_mark",
+                                          "applied_target": "AllyChampion",
+                                          "applied_effects": [],
+                                          "end_effects": [
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Banish",
-                                                "duration": 150,
-                                                "lock_effect_name": "league_bard_r_lock",
-                                                "end_effect_name": "league_bard_r_free"
-                                              }
+                                              "type": "ViewEffect",
+                                              "name": "league_bard_r_dome"
                                             },
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_bard_r_lock"
-                                              }
+                                              "type": "Sfx",
+                                              "name": "league_bard_r_land"
+                                            },
+                                            {
+                                              "type": "RangeProjectile",
+                                              "name": "league_bard_r_zone",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 26000
+                                                }
+                                              },
+                                              "delay": 1,
+                                              "apply": 1,
+                                              "applied_target": "BothWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Banish",
+                                                    "duration": 150,
+                                                    "lock_effect_name": "league_bard_r_lock",
+                                                    "end_effect_name": "league_bard_r_free"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_bard_r_lock"
+                                                  }
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -853,7 +871,7 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "ult",
-                                        "tick": 30
+                                        "tick": 29
                                       },
                                       {
                                         "type": "Sfx",
@@ -864,54 +882,60 @@
                                         "name": "league_bard_vo_r"
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_bard_r_orb",
-                                        "travel_time": 24,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "range_effect_name": "league_bard_r_mark",
-                                        "applied_target": "EnemyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
+                                        "type": "Delayed",
+                                        "tick": 15,
+                                        "effects": [
                                           {
-                                            "type": "ViewEffect",
-                                            "name": "league_bard_r_dome"
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_bard_r_land"
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_bard_r_zone",
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_bard_r_orb",
+                                            "travel_time": 24,
+                                            "range": 400000,
                                             "shape": {
                                               "Circle": {
-                                                "radius": 26000
+                                                "radius": 1000
                                               }
                                             },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "BothWithoutTower",
-                                            "applied_effects": [
+                                            "range_effect_name": "league_bard_r_mark",
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [],
+                                            "end_effects": [
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Banish",
-                                                  "duration": 150,
-                                                  "lock_effect_name": "league_bard_r_lock",
-                                                  "end_effect_name": "league_bard_r_free"
-                                                }
+                                                "type": "ViewEffect",
+                                                "name": "league_bard_r_dome"
                                               },
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_bard_r_lock"
-                                                }
+                                                "type": "Sfx",
+                                                "name": "league_bard_r_land"
+                                              },
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_bard_r_zone",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "BothWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Banish",
+                                                      "duration": 150,
+                                                      "lock_effect_name": "league_bard_r_lock",
+                                                      "end_effect_name": "league_bard_r_free"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_bard_r_lock"
+                                                    }
+                                                  }
+                                                ]
                                               }
                                             ]
                                           }
@@ -1249,7 +1273,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_bard.skill2",
-    "duration": 22,
+    "duration": 26,
     "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
@@ -1338,7 +1362,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 30
+                                      "tick": 29
                                     },
                                     {
                                       "type": "Sfx",
@@ -1349,54 +1373,60 @@
                                       "name": "league_bard_vo_r"
                                     },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_bard_r_orb",
-                                      "travel_time": 24,
-                                      "range": 400000,
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "range_effect_name": "league_bard_r_mark",
-                                      "applied_target": "AllyChampion",
-                                      "applied_effects": [],
-                                      "end_effects": [
+                                      "type": "Delayed",
+                                      "tick": 15,
+                                      "effects": [
                                         {
-                                          "type": "ViewEffect",
-                                          "name": "league_bard_r_dome"
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_bard_r_land"
-                                        },
-                                        {
-                                          "type": "RangeProjectile",
-                                          "name": "league_bard_r_zone",
+                                          "type": "ParabolicProjectile",
+                                          "name": "league_bard_r_orb",
+                                          "travel_time": 24,
+                                          "range": 400000,
                                           "shape": {
                                             "Circle": {
-                                              "radius": 26000
+                                              "radius": 1000
                                             }
                                           },
-                                          "delay": 1,
-                                          "apply": 1,
-                                          "applied_target": "BothWithoutTower",
-                                          "applied_effects": [
+                                          "range_effect_name": "league_bard_r_mark",
+                                          "applied_target": "AllyChampion",
+                                          "applied_effects": [],
+                                          "end_effects": [
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Banish",
-                                                "duration": 150,
-                                                "lock_effect_name": "league_bard_r_lock",
-                                                "end_effect_name": "league_bard_r_free"
-                                              }
+                                              "type": "ViewEffect",
+                                              "name": "league_bard_r_dome"
                                             },
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_bard_r_lock"
-                                              }
+                                              "type": "Sfx",
+                                              "name": "league_bard_r_land"
+                                            },
+                                            {
+                                              "type": "RangeProjectile",
+                                              "name": "league_bard_r_zone",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 26000
+                                                }
+                                              },
+                                              "delay": 1,
+                                              "apply": 1,
+                                              "applied_target": "BothWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Banish",
+                                                    "duration": 150,
+                                                    "lock_effect_name": "league_bard_r_lock",
+                                                    "end_effect_name": "league_bard_r_free"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_bard_r_lock"
+                                                  }
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -1511,7 +1541,7 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "ult",
-                                        "tick": 30
+                                        "tick": 29
                                       },
                                       {
                                         "type": "Sfx",
@@ -1522,54 +1552,60 @@
                                         "name": "league_bard_vo_r"
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_bard_r_orb",
-                                        "travel_time": 24,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "range_effect_name": "league_bard_r_mark",
-                                        "applied_target": "EnemyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
+                                        "type": "Delayed",
+                                        "tick": 15,
+                                        "effects": [
                                           {
-                                            "type": "ViewEffect",
-                                            "name": "league_bard_r_dome"
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_bard_r_land"
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_bard_r_zone",
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_bard_r_orb",
+                                            "travel_time": 24,
+                                            "range": 400000,
                                             "shape": {
                                               "Circle": {
-                                                "radius": 26000
+                                                "radius": 1000
                                               }
                                             },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "BothWithoutTower",
-                                            "applied_effects": [
+                                            "range_effect_name": "league_bard_r_mark",
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [],
+                                            "end_effects": [
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Banish",
-                                                  "duration": 150,
-                                                  "lock_effect_name": "league_bard_r_lock",
-                                                  "end_effect_name": "league_bard_r_free"
-                                                }
+                                                "type": "ViewEffect",
+                                                "name": "league_bard_r_dome"
                                               },
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_bard_r_lock"
-                                                }
+                                                "type": "Sfx",
+                                                "name": "league_bard_r_land"
+                                              },
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_bard_r_zone",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "BothWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Banish",
+                                                      "duration": 150,
+                                                      "lock_effect_name": "league_bard_r_lock",
+                                                      "end_effect_name": "league_bard_r_free"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_bard_r_lock"
+                                                    }
+                                                  }
+                                                ]
                                               }
                                             ]
                                           }
@@ -2460,7 +2496,7 @@
                                     {
                                       "type": "CasterAnimation",
                                       "name": "ult",
-                                      "tick": 30
+                                      "tick": 29
                                     },
                                     {
                                       "type": "Sfx",
@@ -2471,54 +2507,60 @@
                                       "name": "league_bard_vo_r"
                                     },
                                     {
-                                      "type": "ParabolicProjectile",
-                                      "name": "league_bard_r_orb",
-                                      "travel_time": 24,
-                                      "range": 400000,
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "range_effect_name": "league_bard_r_mark",
-                                      "applied_target": "AllyChampion",
-                                      "applied_effects": [],
-                                      "end_effects": [
+                                      "type": "Delayed",
+                                      "tick": 15,
+                                      "effects": [
                                         {
-                                          "type": "ViewEffect",
-                                          "name": "league_bard_r_dome"
-                                        },
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_bard_r_land"
-                                        },
-                                        {
-                                          "type": "RangeProjectile",
-                                          "name": "league_bard_r_zone",
+                                          "type": "ParabolicProjectile",
+                                          "name": "league_bard_r_orb",
+                                          "travel_time": 24,
+                                          "range": 400000,
                                           "shape": {
                                             "Circle": {
-                                              "radius": 26000
+                                              "radius": 1000
                                             }
                                           },
-                                          "delay": 1,
-                                          "apply": 1,
-                                          "applied_target": "BothWithoutTower",
-                                          "applied_effects": [
+                                          "range_effect_name": "league_bard_r_mark",
+                                          "applied_target": "AllyChampion",
+                                          "applied_effects": [],
+                                          "end_effects": [
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Banish",
-                                                "duration": 150,
-                                                "lock_effect_name": "league_bard_r_lock",
-                                                "end_effect_name": "league_bard_r_free"
-                                              }
+                                              "type": "ViewEffect",
+                                              "name": "league_bard_r_dome"
                                             },
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_bard_r_lock"
-                                              }
+                                              "type": "Sfx",
+                                              "name": "league_bard_r_land"
+                                            },
+                                            {
+                                              "type": "RangeProjectile",
+                                              "name": "league_bard_r_zone",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 26000
+                                                }
+                                              },
+                                              "delay": 1,
+                                              "apply": 1,
+                                              "applied_target": "BothWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Banish",
+                                                    "duration": 150,
+                                                    "lock_effect_name": "league_bard_r_lock",
+                                                    "end_effect_name": "league_bard_r_free"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_bard_r_lock"
+                                                  }
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -2633,7 +2675,7 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "ult",
-                                        "tick": 30
+                                        "tick": 29
                                       },
                                       {
                                         "type": "Sfx",
@@ -2644,54 +2686,60 @@
                                         "name": "league_bard_vo_r"
                                       },
                                       {
-                                        "type": "ParabolicProjectile",
-                                        "name": "league_bard_r_orb",
-                                        "travel_time": 24,
-                                        "range": 400000,
-                                        "shape": {
-                                          "Circle": {
-                                            "radius": 1000
-                                          }
-                                        },
-                                        "range_effect_name": "league_bard_r_mark",
-                                        "applied_target": "EnemyChampion",
-                                        "applied_effects": [],
-                                        "end_effects": [
+                                        "type": "Delayed",
+                                        "tick": 15,
+                                        "effects": [
                                           {
-                                            "type": "ViewEffect",
-                                            "name": "league_bard_r_dome"
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_bard_r_land"
-                                          },
-                                          {
-                                            "type": "RangeProjectile",
-                                            "name": "league_bard_r_zone",
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_bard_r_orb",
+                                            "travel_time": 24,
+                                            "range": 400000,
                                             "shape": {
                                               "Circle": {
-                                                "radius": 26000
+                                                "radius": 1000
                                               }
                                             },
-                                            "delay": 1,
-                                            "apply": 1,
-                                            "applied_target": "BothWithoutTower",
-                                            "applied_effects": [
+                                            "range_effect_name": "league_bard_r_mark",
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [],
+                                            "end_effects": [
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "Banish",
-                                                  "duration": 150,
-                                                  "lock_effect_name": "league_bard_r_lock",
-                                                  "end_effect_name": "league_bard_r_free"
-                                                }
+                                                "type": "ViewEffect",
+                                                "name": "league_bard_r_dome"
                                               },
                                               {
-                                                "casting_type": "Targeting",
-                                                "effect": {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_bard_r_lock"
-                                                }
+                                                "type": "Sfx",
+                                                "name": "league_bard_r_land"
+                                              },
+                                              {
+                                                "type": "RangeProjectile",
+                                                "name": "league_bard_r_zone",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 26000
+                                                  }
+                                                },
+                                                "delay": 1,
+                                                "apply": 1,
+                                                "applied_target": "BothWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "Banish",
+                                                      "duration": 150,
+                                                      "lock_effect_name": "league_bard_r_lock",
+                                                      "end_effect_name": "league_bard_r_free"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_bard_r_lock"
+                                                    }
+                                                  }
+                                                ]
                                               }
                                             ]
                                           }

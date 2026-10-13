@@ -36,7 +36,7 @@ G = "<#7cfc00ff>"      # heals
 C = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 0, "y": -30}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 5, "y": -34}, "center": {"x": 0, "y": -12}}   # tfm2_ase face picked the bell-mouth: the crown is the mane's top over the mask
 
 
 def mag(k):
