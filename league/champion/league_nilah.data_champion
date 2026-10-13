@@ -64,7 +64,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 12,
             "effects": [
               {
                 "type": "TargetProjectile",
@@ -146,7 +146,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 12,
             "effects": [
               {
                 "type": "TargetProjectile",
@@ -231,7 +231,7 @@
             {
               "type": "CasterAnimation",
               "name": "q_spin",
-              "tick": 20
+              "tick": 22
             },
             {
               "type": "Sfx",
@@ -266,7 +266,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 7,
+              "tick": 8,
               "effects": [
                 {
                   "type": "RangeEffect",
@@ -318,7 +318,7 @@
             {
               "type": "CasterAnimation",
               "name": "skill",
-              "tick": 22
+              "tick": 24
             },
             {
               "type": "Sfx",
@@ -378,7 +378,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 8,
+              "tick": 11,
               "effects": [
                 {
                   "type": "LinearProjectile",
@@ -478,7 +478,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "w_cast",
-                  "tick": 14
+                  "tick": 19
                 },
                 {
                   "type": "Sfx",
@@ -613,7 +613,7 @@
               {
                 "type": "CasterAnimation",
                 "name": "skill2",
-                "tick": 11
+                "tick": 19
               },
               {
                 "type": "Sfx",
@@ -659,7 +659,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 9,
+                "tick": 8,
                 "effects": [
                   {
                     "type": "RangeEffect",
@@ -739,7 +739,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "q_spin",
-                          "tick": 20
+                          "tick": 22
                         },
                         {
                           "type": "Sfx",
@@ -774,7 +774,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 7,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "RangeEffect",
@@ -853,7 +853,7 @@
             {
               "type": "CasterAnimation",
               "name": "skill2",
-              "tick": 11
+              "tick": 19
             },
             {
               "type": "Sfx",
@@ -899,7 +899,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 9,
+              "tick": 8,
               "effects": [
                 {
                   "type": "RangeEffect",
@@ -979,7 +979,7 @@
                       {
                         "type": "CasterAnimation",
                         "name": "q_spin",
-                        "tick": 20
+                        "tick": 22
                       },
                       {
                         "type": "Sfx",
@@ -1014,7 +1014,7 @@
                       },
                       {
                         "type": "Delayed",
-                        "tick": 7,
+                        "tick": 8,
                         "effects": [
                           {
                             "type": "RangeEffect",
@@ -1114,7 +1114,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 10,
+          "tick": 7,
           "effects": [
             {
               "type": "RangeEffect",
@@ -1148,7 +1148,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 20,
+          "tick": 14,
           "effects": [
             {
               "type": "RangeEffect",
@@ -1182,7 +1182,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 30,
+          "tick": 21,
           "effects": [
             {
               "type": "RangeEffect",
@@ -1216,7 +1216,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 40,
+          "tick": 28,
           "effects": [
             {
               "type": "RangeEffect",
@@ -1250,7 +1250,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 50,
+          "tick": 35,
           "effects": [
             {
               "type": "RangeEffect",
@@ -1284,7 +1284,41 @@
         },
         {
           "type": "Delayed",
-          "tick": 59,
+          "tick": 42,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 38000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 20,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_nilah_r_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_nilah_r_hit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 46,
           "effects": [
             {
               "type": "RangeEffect",
@@ -1385,7 +1419,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "q_spin",
-                    "tick": 20
+                    "tick": 22
                   },
                   {
                     "type": "Sfx",
@@ -1420,7 +1454,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 8,
+                    "tick": 9,
                     "effects": [
                       {
                         "type": "RangeEffect",

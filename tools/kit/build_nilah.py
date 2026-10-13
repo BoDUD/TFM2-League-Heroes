@@ -47,28 +47,30 @@ BIG = "asset/league/effects/league_nilah_big"
 # soldier, archer, gambler and whip master, three lineups, both sides, 2026-10-13): +1.60 on seeds 1-24 (league_samira
 # +1.69, league_zeri +1.70, league_twitch +1.60). The draft d0 was +3.90 with 4173 healing a game (the others ~830): 18%
 # life steal on the empowered attacks, a 40% cleave and Apotheosis's 60 + 30% heal and shield.
-# Draft timings until the strips: attack 24 ticks, the whip lands on tick 10; Formless Blade 22 (the lash on 9), the spin
-# 20 (on 8); Slipstream's dash 9 ticks; Jubilant Veil 14; Apotheosis 60.
+# Timings from the strips (assets/source/nilah/frames/frames.json): attack 400 ms (24 ticks), the whip lands as frame 4
+# starts (tick 13); Formless Blade 400 ms, the lash on frame 4 (tick 12); the spin 370 ms, the cut on frame 3 (tick 9);
+# Slipstream's strip 310 ms (19 ticks), the dash 8 ticks to the landing frame; Jubilant Veil 320 ms (19); Apotheosis
+# 1000 ms (60), its cuts every r_per ticks through the spin, the pull on frame 7 (tick 46).
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9; league_samira 112 / 1030 / 26;
     # Melee base hp 1000 def 30 mr 25 move 1000); League's Nilah: 570 +101 hp, 58 AD, 27 armour, 32 mr, 340 move,
     # 225 range (melee 125-175), attack speed 0.697
     "hp": 1000, "hp_g": 95, "atk": 104, "atk_g": 21, "def": 26, "def_g": 7, "mr": 18, "mr_g": 3, "ms": 1000, "ms_g": 10,
-    "atk_range": 30000, "atk_dur": 24, "atk_cd": 56, "a_st": 10,
+    "atk_range": 30000, "atk_dur": 24, "atk_cd": 56, "a_st": 13,
     # Q Formless Blade (League: 600 line, -10..50 + 100% AD, cd 4 s; then 4 s +125 range, the attacks cut a cone and heal
     # (20% crit-scaled); after E a spin round her)
-    "q_cd": 300, "q_range": 60000, "q_dur": 22, "q_at": 9, "q_len": 62000, "q_w": 6000, "q_speed": 15000,
+    "q_cd": 300, "q_range": 60000, "q_dur": 24, "q_at": 12, "q_len": 62000, "q_w": 6000, "q_speed": 15000,
     "q_dmg": 40, "q_ratio": 100, "q_t": 240, "q_add": 12500, "q_vamp": 10, "q_spl": 25, "q_cone": 700,
-    "q_spin_dur": 20, "q_spin_at": 8, "q_spin_r": 28000, "eq_t": 90,
+    "q_spin_dur": 22, "q_spin_at": 9, "q_spin_r": 28000, "eq_t": 90,
     # E Slipstream (League: 2 charges, 26-16 s each, 550 range, dash 600 through the target at 2200, 50-110 + 20% AD)
-    "s2_cd": 60, "e_range": 55000, "e_rc": 540, "e_gap": 40, "e_speed": 8000, "e_tick": 9, "e_dmg": 60, "e_ratio": 45,
+    "s2_cd": 60, "e_range": 55000, "e_rc": 540, "e_gap": 40, "e_speed": 8000, "e_tick": 8, "e_anim": 19, "e_dmg": 60, "e_ratio": 45,
     "e_rad": 16000,
     # W Jubilant Veil (League: 2.25 s dodges every attack, 25% less magic damage, 12.5-27.5% move speed; allies she
     # touches 1.5 s; cd 26-22 s)
-    "w_cd": 1200, "w_t": 135, "w_ms": 20, "w_mred": 25, "w_ally_t": 90, "w_r": 18000, "w_dur": 14,
+    "w_cd": 1200, "w_t": 135, "w_ms": 20, "w_mred": 25, "w_ally_t": 90, "w_r": 18000, "w_dur": 19,
     # R Apotheosis (League: 1 s, 6 ticks of 15-35 + 18% bonus AD, the last 125-325 + 120% bonus AD and the pull, 400
     # radius; the damage on champions heals / shields allies; cd 110-80 s)
-    "r_cd": 2400, "r_range": 35000, "r_rad": 38000, "r_t": 60, "r_per": 10, "r_tdmg": 12, "r_tratio": 20,
+    "r_cd": 2400, "r_range": 35000, "r_rad": 38000, "r_t": 60, "r_final": 46, "r_per": 7, "r_tdmg": 12, "r_tratio": 20,
     "r_dmg": 100, "r_ratio": 110, "r_pull": 2500, "r_ally": 50000, "r_heal": 40, "r_heal_ad": 30, "r_sh": 40,
     "r_sh_ad": 30, "r_sh_t": 180,
     # her spoken lines, at most one every vo_gap ticks
@@ -218,7 +220,7 @@ def build(p):
     def dash(charge):
         land = [around(p["e_rad"], "EnemyWithoutTower", [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")]),
                 refresh("eq_on", p["eq_t"]), sw("q_cd", NONE, spin())]
-        return combine(flag(charge, p["e_rc"]), refresh("e_gap", p["e_gap"]), anim("skill2", p["e_tick"] + 2),
+        return combine(flag(charge, p["e_rc"]), refresh("e_gap", p["e_gap"]), anim("skill2", p["e_anim"]),
                        sfx("e"), voice("vo_e", p), cview("e_trail"),
                        {"type": "RushMoveToBack", "speed": p["e_speed"], "applied_effects": []},
                        delayed(p["e_tick"], *land))
@@ -234,8 +236,8 @@ def build(p):
     # ------------------------------------------------------------------ ult: R Apotheosis
     tick_hits = [attack(p["r_tdmg"], p["r_tratio"]), view("r_hit"), tsfx("r_hit")]
     ticks = [delayed(k * p["r_per"], around(p["r_rad"], "EnemyWithoutTower", tick_hits))
-             for k in range(1, p["r_t"] // p["r_per"])]
-    finale = delayed(p["r_t"] - 1,
+             for k in range(1, p["r_final"] // p["r_per"] + 1)]
+    finale = delayed(p["r_final"],
                      around(p["r_rad"], "EnemyWithoutTower",
                             [attack(p["r_dmg"], p["r_ratio"]), {"type": "Grab", "speed": p["r_pull"]},
                              view("r_pull"), tsfx("r_pull")]),
