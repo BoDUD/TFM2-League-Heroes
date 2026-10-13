@@ -54,6 +54,7 @@ P = {
     "e_cd": 1080, "e_t": 180, "e_period": 30, "e_r": 24000, "e_dmg": 8, "e_ap": 6, "e_hold": 300,
     "e_stun": 60, "e_proc": 50, "e_proc_ap": 50,
     # skill: Q Pulverize (League: radius 375, 60-260 + 80% AP, knock-up 1 s, cd 14-10 s)
+    "pq_t": 600,              # Q's and W's slams: one per pq_t ticks (tools/fix/alistar_pulverize.py TICKS)
     "q_cd": 600, "q_range": 24000, "q_r": 28000, "q_dur": 30, "q_st": 14, "q_dmg": 50, "q_ap": 50, "q_up": 60,
     # skill2: W Headbutt -> Q (League: range 650, 55-330 + 100% AP, knock-back 700, cd 15-10 s)
     "w_cd": 720, "w_range": 55000, "w_speed": 3500, "w_dmg": 40, "w_ap": 50, "w_hit_r": 8000, "w_kb_speed": 2500,
@@ -227,7 +228,7 @@ def build(p):
 
     def once(e):
         """A slam only with pq_cd off (Q's and W's share it), pq_cd set as it plays."""
-        return sw("pq_cd", NONE, combine(flag("pq_cd", p["q_cd"]), e))
+        return sw("pq_cd", NONE, combine(flag("pq_cd", p["pq_t"]), e))
 
     # ------------------------------------------------------------------ attack (E's stun punch on champions)
     punch = homing("e_punch", 30000, 0, "EnemyChampion",
