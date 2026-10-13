@@ -100,8 +100,11 @@ RESTYLE = {
     "irelia": dict(lift=3, edge=0, face_to=(0, -37)),
     # 「下一个可以修正索拉卡」: Codex's PPU 3 redraw (design + 46 frames, the design brought to the actions' size at import),
     # to Zeri's look: Codex drew every head anew (none matches the idle's face), so the body only, every frame alike
-    # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel
-    "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2),
+    # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel. Then 「稍微变大点」: drawn 110 % by league.dll (hd.rs
+    # SIZES), the frames lifted 3 squares of the new grid (her restyled hooves sat a square low; 11.5 x 2.2 x (1 - 1 / 1.1) = 2.3 more) so the hooves stay on the
+    # ground; face (6, -31) x 1.1 and the lift -> (7, -35)
+    "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2, lift=3 * 3 / 2.2,
+                   face_to=(7, -35)),
 }
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
