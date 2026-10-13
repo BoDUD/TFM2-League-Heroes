@@ -96,8 +96,9 @@ RESTYLE = {
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
     # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
-    # (1 - 1 / 1.15) = 3.0); her pixels untouched
-    "irelia": dict(lift=3, edge=0, face_to=(0, -37)),
+    # (1 - 1 / 1.15) = 3.0); her pixels untouched. Her face point: PR #246's (1, -38) on her head at 100 % (the old (0, -31)
+    # cropped her chest), x 1.15 about the soles
+    "irelia": dict(lift=3, edge=0, face_to=(1, -44)),
     # 「下一个可以修正索拉卡」: Codex's PPU 3 redraw (design + 46 frames, the design brought to the actions' size at import),
     # to Zeri's look: Codex drew every head anew (none matches the idle's face), so the body only, every frame alike
     # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel. Then 「稍微变大点」: drawn 110 % by league.dll (hd.rs
