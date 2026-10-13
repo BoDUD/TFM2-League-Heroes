@@ -51,7 +51,7 @@ def despeckle(a):
     return out
 
 
-def pixelate(a, k, pivot, outline):
+def pixelate(a, k, pivot, outline, pal=None):
     """`a` (a dense frame, its pivot at `pivot` = (x, y)) brought to k times as many pixels a side (k < 1): squares of
     1/k dense pixels on a grid through the pivot. Each square: the mean of its opaque pixels snapped to the frame's own
     64 commonest colours (clean shading, no stray colours), clear where half or more is clear, the outline colour where
@@ -76,7 +76,8 @@ def pixelate(a, k, pivot, outline):
     dark = np.bincount(cell, weights=((a[..., :3].astype(int).sum(-1) < 70).ravel() * op), minlength=n)
     dark = (dark / np.maximum(tot, 1)).reshape(Hn, Wn)
     keep = ((na > 0) & (na * 2 >= tot)).reshape(Hn, Wn)
-    pal = palette_of(a)
+    if pal is None:
+        pal = palette_of(a)
     rgb = rgb.reshape(Hn, Wn, 3)
     d = ((rgb[..., None, :] - pal[None, None]) ** 2).sum(-1)
     col = pal[np.argmin(d, -1)]
