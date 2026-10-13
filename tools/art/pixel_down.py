@@ -111,8 +111,34 @@ def _face(a):
     return m & op
 
 
+def _face_blue(a):
+    """league_soraka's face: her light blue skin in the top third of the figure (her arms and legs are blue too) grown 2
+    squares and its holes filled (eyes, mouth)."""
+    rgb = a[..., :3].astype(int)
+    op = a[..., 3] > 0
+    skin = op & (rgb[..., 2] > rgb[..., 0] + 30) & (rgb[..., 2] > 150) & (rgb[..., 1] > 100) & (rgb[..., 0] > 80)
+    rows = np.nonzero(op.any(1))[0]
+    if not len(rows):
+        return skin
+    skin[rows.min() + (rows.max() - rows.min()) // 3:] = False
+    if not skin.any():
+        return skin
+    m = ndimage.binary_fill_holes(ndimage.binary_dilation(skin, iterations=2))
+    return m & op
+
+
+def _thin_warm(a):
+    """Thin gold / orange parts (league_soraka's staff: the lines pass turned its 2-3 squares wide shaft black): warm
+    squares that a horizontal or vertical run of 5 cannot cover."""
+    rgb = a[..., :3].astype(int)
+    warm = (a[..., 3] > 0) & (rgb[..., 0] > 150) & (rgb[..., 0] > rgb[..., 2] + 60)
+    wide = (ndimage.binary_opening(warm, structure=np.ones((1, 5))) |
+            ndimage.binary_opening(warm, structure=np.ones((5, 1))))
+    return ndimage.binary_dilation(warm & ~wide) & (a[..., 3] > 0)
+
+
 KEEP = {"teal": lambda a: (a[..., 1].astype(int) > a[..., 0] + 40) & (a[..., 2].astype(int) > a[..., 0] + 40),
-        "face": _face}
+        "face": _face, "face_blue": _face_blue, "soraka": lambda a: _face_blue(a) | _thin_warm(a)}
 
 
 def _lab(rgb):

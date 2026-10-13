@@ -110,8 +110,11 @@ RESTYLE = {
     # (Braum's way): 1.25 wide, 0.92 tall, 2.2 squares a game pixel. Then 「稍微变大点」: drawn 110 % by league.dll (hd.rs
     # SIZES), the frames lifted 3 squares of the new grid (her restyled hooves sat a square low; 11.5 x 2.2 x (1 - 1 / 1.1) = 2.3 more) so the hooves stay on the
     # ground; face (6, -31) x 1.1 and the lift -> (7, -35)
+    # Then flat pixel art like the others (crisp; 布隆's note on the user's new standard): her face kept as drawn (her
+    # skin is blue - pixel_down KEEP "soraka": the light blue skin in the top third) and her thin gold staff (the
+    # lines pass turned its 2-3 squares wide shaft black)
     "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2, lift=3 * 3 / 2.2,
-                   face_to=(7, -35)),
+                   face_to=(7, -35), crisp=dict(keep="soraka")),
 }
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
