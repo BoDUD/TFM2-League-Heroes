@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
-    "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1),
+    "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
     # 「卡尔玛太壮了 还需要调」「头上的光环太大」「卡尔玛的像素还可以降一降吧？」
     "karma": dict(face=(38, 62, 33, 58), neck=(45, 64), head=1.2, wide=1.25, short=0.92, band=3, edge=1,
                   ring=0.6, ring_colours=KARMA_RING, ring_rows=40, ppu=2.2, max_err=2200, outline=(15, 3, 16)),
@@ -91,7 +91,7 @@ RESTYLE = {
         ("run", 6): 1.08, ("q_attack", 0): 1.021, ("skill", 0): 1.10, ("skill", 2): 1.125, ("skill", 4): 1.151,
         ("skill", 5): 1.076, ("skill2", 0): 1.031, ("ult", 3): 1.076, ("ult", 7): 1.021, ("dead", 1): 1.112}),
     # 「吸血鬼我觉得只要降低点像素就好了」
-    "vladimir": dict(edge=1, ppu=1.8),
+    "vladimir": dict(edge=1, ppu=1.8, face_to=(-2, -34)),
     # 「其他英雄也差不多2.2」「画风要统一」
     "yasuo": dict(edge=0, ppu=2.2),
     # 「盖伦在游戏里还是他说 太小 像素太高」: 12 % bigger (37 -> 41 rows, Darius's 42), 1.9 squares a game pixel
@@ -110,7 +110,7 @@ RESTYLE = {
     # SIZES), the frames lifted 3 squares of the new grid (her restyled hooves sat a square low; 11.5 x 2.2 x (1 - 1 / 1.1) = 2.3 more) so the hooves stay on the
     # ground; face (6, -31) x 1.1 and the lift -> (7, -35)
     "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2, lift=3 * 3 / 2.2,
-                   face_to=(7, -35)),
+                   face_to=(5, -32)),
 }
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
