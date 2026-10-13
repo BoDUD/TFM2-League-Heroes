@@ -78,7 +78,8 @@ RESTYLE = {
     "vladimir": dict(edge=1, ppu=1.8),
     # 「其他英雄也差不多2.2」「画风要统一」
     "yasuo": dict(edge=0, ppu=2.2),
-    "garen": dict(edge=0, ppu=2.2),
+    # 「盖伦在游戏里还是他说 太小 像素太高」: 12 % bigger (37 -> 41 rows, Darius's 42), 1.9 squares a game pixel
+    "garen": dict(grow=1.12, edge=0, ppu=1.9),
     # 2.2 at his 80 %
     "gragas": dict(edge=0, ppu=1.76),
 }

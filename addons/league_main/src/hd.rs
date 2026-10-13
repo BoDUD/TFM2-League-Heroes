@@ -18,7 +18,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_irelia", 2.0, include_str!("../../../league/champions/league_irelia#anim.fanim")),
     ("league_kassadin", 2.42, include_str!("../../../league/champions/league_kassadin#anim.fanim")),
     ("league_corki", 2.2, include_str!("../../../league/champions/league_corki#anim.fanim")),
-    ("league_garen", 2.2, include_str!("../../../league/champions/league_garen#anim.fanim")),
+    ("league_garen", 1.9, include_str!("../../../league/champions/league_garen#anim.fanim")),
     ("league_braum", 1.98, include_str!("../../../league/champions/league_braum#anim.fanim")),
     ("league_mordekaiser", 2.2, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
 ];
