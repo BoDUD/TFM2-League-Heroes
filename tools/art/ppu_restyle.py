@@ -54,7 +54,8 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
-            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313}
+            "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
+            "nilah": 2.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -140,6 +141,11 @@ RESTYLE = {
     # frames as they were, so the human's stay as they are)
     "nidalee": dict(face=(33, 59, 51, 78), neck=(65, 61), head=1.2, wide=1.3, short=0.9, band=3, edge=1, ppu=2.2,
                     max_err=8000, crisp=dict(keep="head"), coarse=dict(prefix="c_", size=0.75, grid=1.65)),
+    # league_nilah (#99, 「按泽丽标准」): drawn at the look already (Codex's picture read back square for square, PPU 2.5 -
+    # the user's 「保留 99 格，PPU 2.5」), so only the outer outline grown to the others' two squares (about a game pixel;
+    # hers was one) and every frame lowered for her 90 % (hd.rs SIZES, 「模型别太大」): 11.5 x 2.5 x (1 / 0.9 - 1) = 3.2 -> 3
+    # squares; the face point at her crown (the 1x sheet's 40 px) x 0.9
+    "nilah": dict(edge=1, lift_sq=-3, face_to=(-1, -36)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
