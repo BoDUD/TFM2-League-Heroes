@@ -98,7 +98,9 @@ RESTYLE = {
     # 「盖伦也要调一下吧 像素」: the flat pixel art too, his face kept as drawn (the lines pass made his eyes a black band)
     "garen": dict(grow=1.12, edge=0, ppu=1.9, crisp=dict(keep="face")),
     # 2.2 at his 80 %
-    "gragas": dict(edge=0, ppu=1.76),
+    # 「酒桶可以稍微放大点吧 现在也太小了」: 90 % (hd.rs SIZES). His orig frames sit ppu_gragas.py's SHIFT 6 lower (its 80 %):
+    # 23 x (1 + 6 / 23 - 1 / 0.90) = 3.4 orig rows = 3 squares, lifted after the downscale (lift_sq: pixels unchanged)
+    "gragas": dict(edge=0, ppu=1.76, lift_sq=3, face_to=(3, -35)),
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
     # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x
@@ -494,7 +496,7 @@ def restyle(hero, spec, write=True, only=None):
                 content, pivot = pixelate(content, new_ppu / ppu, pivot, outline)
             content = grow_edge(content, spec.get("edge", 0), outline)
             e = spec.get("edge", 0)
-            pivot = (pivot[0] + e, pivot[1] + e)
+            pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
         out[tag] = res
