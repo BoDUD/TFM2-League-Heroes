@@ -26,6 +26,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -263,14 +264,27 @@ struct State {
     guard: Option<Guard>,
 }
 
-/// (哪一局的哪种模拟, 实体)：R 和 W 是效果，被动是另一个对象，状态放在这里共用。
-type Key = (u32, u64, u64, usize);
+/// (这份模拟的编号, 实体)：R 和 W 是效果，被动是另一个对象，状态放在这里共用。
+type Key = (u64, usize);
 
 static STATES: LazyLock<Mutex<HashMap<Key, State>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// 每份模拟的莫德一个编号，出生时由被动挂在他身上（buff `league_mordekaiser_sim:<编号>`，没有数值、没有画面），R / W 按
+/// 施法者身上的它找到同一份状态。之前按模拟的来历（种类、比赛、局）记：游戏 0.6.4 会同时跑同一局的两份预模拟，来历一样、
+/// 实体编号也一样，两份的 W 护盾攒在了一起（2026-10-14 第 592 场：同一 tick 两份预模拟 466 / 499，画面那份 473），整局从
+/// 第 4 分钟起分了岔——画面上的比赛和预模拟算出的不是同一场（用户：「刚才还是没变身？」：佛耶戈的附身只发生在岔出去的那份里）。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+const SIM_TAG: &str = "league_mordekaiser_sim:";
+
+/// The number the passive hung on `id` when he spawned in this sim (0: none - the shared slot of old).
+pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
+    names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
+}
+
 fn key(sim: &StableSim<'_>, id: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (o.kind, o.match_id, o.set_index, id)
+    let tag = sim.get_entity(id).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i))
+        .map(|b| b.name().to_string())));
+    (tag, id)
 }
 
 fn with_state<T>(sim: &StableSim<'_>, id: usize, f: impl FnOnce(&mut State) -> T) -> T {
@@ -299,6 +313,8 @@ struct Revenant {
     /// The one let out of the realm early (him after a win, the target after his death) and the tick: logged once he
     /// is targetable again, or still banished 30 ticks on (game 0.6.4 holds a banish apart from the other CC).
     out: Option<(usize, usize)>,
+    /// This sim's number (`SIM_TAG`), drawn at his first spawn.
+    sim_no: u64,
 }
 
 /// Lets `id` out of the realm now. Clearing his CC was enough in 0.6.3 (he cast W 4 ticks after a win); 0.6.4 keeps
@@ -421,6 +437,12 @@ impl StablePassive for Revenant {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         let p = self.p;
+        if self.sim_no == 0 {
+            self.sim_no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim_no);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         with_state(sim, me, |s| *s = State { pot: 0.0, fight: 0, realm: None, guard: None });
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -633,5 +655,14 @@ mod tests {
         for x in ["r_curse", "r_steal", "r_keep"] {
             assert!(mk(x).len() <= BUFF_NAME_CAP);
         }
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn each_sim_finds_its_own_number() {
+        let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>().into_iter();
+        assert_eq!(sim_tag(names(&["league_mordekaiser_r_steal", "league_mordekaiser_sim:42"])), 42);
+        assert_eq!(sim_tag(names(&["league_mordekaiser_r_keep"])), 0);
+        assert_eq!(sim_tag(names(&["league_mordekaiser_sim:x"])), 0);
     }
 }

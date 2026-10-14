@@ -21,6 +21,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -260,12 +261,30 @@ impl StableEffectType for Taunt {
 
 // ===================== R 选人 =====================
 
-/// 这一 tick 选好的友军（每个加里奥一份：同一 tick 每个友军都会来问一次，只算一遍）。
-static PICKS: LazyLock<Mutex<HashMap<usize, (usize, Option<usize>)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 这一 tick 选好的友军（每份模拟的每个加里奥一份：同一 tick 每个友军都会来问一次，只算一遍）。键是 (这份模拟的编号,
+/// 加里奥)：之前只按加里奥的实体编号记，几份模拟同时跑（游戏 0.6.4 同一局有两份预模拟）、编号和 tick 又一样时，一份会拿到
+/// 另一份选的人，两份模拟就不一样了（莫德凯撒附加包的同类问题让第 592 场的预模拟和画面分了岔）。
+static PICKS: LazyLock<Mutex<HashMap<(u64, usize), (usize, Option<usize>)>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 每份模拟的加里奥一个编号，出生时由被动挂在他身上（buff `league_galio_sim:<编号>`，没有数值、没有画面）。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+const SIM_TAG: &str = "league_galio_sim:";
+
+/// The number the passive hung on him when he spawned in this sim (0: none).
+pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
+    names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
+}
+
+fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
+    sim.get_entity(me).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i))
+        .map(|b| b.name().to_string())))
+}
 
 fn pick_for(sim: &StableSim<'_>, me: usize) -> Option<usize> {
     let tick = sim.tick();
-    if let Some(&(t, id)) = PICKS.lock().unwrap_or_else(|e| e.into_inner()).get(&me) {
+    let key = (sim_of(sim, me), me);
+    if let Some(&(t, id)) = PICKS.lock().unwrap_or_else(|e| e.into_inner()).get(&key) {
         if t == tick {
             return id;
         }
@@ -291,7 +310,12 @@ fn pick_for(sim: &StableSim<'_>, me: usize) -> Option<usize> {
         });
     }
     let id = choose(&allies, p.r_far as f64);
-    PICKS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, (tick, id));
+    let mut picks = PICKS.lock().unwrap_or_else(|e| e.into_inner());
+    if picks.len() > 4096 {
+        picks.clear(); // finished sims
+    }
+    picks.insert(key, (tick, id));
+    drop(picks);
     if let Some(id) = id {
         if let Some(a) = allies.iter().find(|a| a.id == id) {
             if let Some(k) = counted("entrance") {
@@ -328,6 +352,8 @@ struct Colossus {
     hurt: usize,
     until: usize,
     given: usize,
+    /// This sim's number (`SIM_TAG`), drawn at his first spawn.
+    sim_no: u64,
 }
 
 impl StablePassive for Colossus {
@@ -343,6 +369,12 @@ impl StablePassive for Colossus {
         self.me = me;
         self.hurt = sim.tick();
         self.until = 0;
+        if self.sim_no == 0 {
+            self.sim_no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim_no);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Galio (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -464,5 +496,13 @@ mod tests {
         for x in ["w_taunt", "r_this", "w_ps"] {
             assert!(gl(x).len() <= BUFF_NAME_CAP);
         }
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn each_sim_finds_its_own_number() {
+        let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>().into_iter();
+        assert_eq!(sim_tag(names(&["league_galio_w_ps", "league_galio_sim:7"])), 7);
+        assert_eq!(sim_tag(names(&["league_galio_r_this"])), 0);
     }
 }

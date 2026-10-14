@@ -26,7 +26,7 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
 use std::collections::HashMap;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -331,6 +331,8 @@ struct Guard {
     seen: Vec<(usize, f64)>,
     /// R was armed at the last look (to log the tick it arms: the cast the game shows as an ult).
     was_armed: bool,
+    /// This sim's number (`SIM_TAG`), drawn at his first spawn.
+    sim_no: u64,
 }
 
 impl Guard {
@@ -392,6 +394,15 @@ impl StablePassive for Guard {
         self.p = parse_params(params_json);
     }
 
+    fn on_spawn(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize) {
+        if self.sim_no == 0 {
+            self.sim_no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim_no);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
+    }
+
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         self.look(sim, me, false);
     }
@@ -450,12 +461,22 @@ const READY_T: usize = 3;
 /// AI 钩子又加不上 buff（日志：could not add），所以经由这张表告诉被动。键里有模拟的来历（预模拟 / 观看 / 回放、比赛、局），
 /// 几场模拟同时跑也各算各的：来历常常都是「未知、没有比赛号」、蛮王的编号也一样（第四局日志：按 R 的下一 tick
 /// 照样喝 Q——别的模拟里 R 没好的蛮王把记录删了），所以键里还有模拟的随机种子。
-type SimKey = (u64, u32, u64, u64, u64, usize);
+/// 来历和种子都一样的两份模拟（游戏 0.6.4 同一局同时跑两份预模拟）还是会撞在一起，所以最前面是这份模拟的编号：被动在他出生时
+/// 挂上（buff `league_tryndamere_sim:<编号>`，没有数值、没有画面），AI 钩子从他身上读（它加不上 buff，读得到）。
+type SimKey = (u64, u64, u32, u64, u64, u64, usize);
 static READY: LazyLock<Mutex<HashMap<SimKey, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+const SIM_TAG: &str = "league_tryndamere_sim:";
+
+/// The number the passive hung on him when he spawned in this sim (0: none).
+pub fn sim_tag<'a>(names: impl Iterator<Item = &'a String>) -> u64 {
+    names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
+}
 
 fn sim_key(sim: &StableSim<'_>, id: usize) -> SimKey {
     let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index, id)
+    (sim_tag(buff_names(sim, id).iter()), sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index, id)
 }
 
 /// The first key each side computes goes to the log once (both must agree for the guard to see the hook's record).
@@ -659,6 +680,14 @@ mod tests {
 
     fn now(hp: f64) -> Now {
         Now { hp, top: hp, enemy_near: true, armed: true, r_free: false, raging: false, q_cd: false, fury: 3, controlled: false }
+    }
+
+    #[test]
+    fn each_sim_finds_its_own_number() {
+        let names: Vec<String> = ["league_tryndamere_r_armed", "league_tryndamere_sim:12"].map(String::from).to_vec();
+        assert_eq!(sim_tag(names.iter()), 12);
+        assert_eq!(sim_tag(names[..1].iter()), 0);
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
     }
 
     #[test]
