@@ -1,8 +1,8 @@
 //! 整身变豹：美洲狮形态时奈德丽站着、跑着、挨打、阵亡也是豹子（主包只能用 `CasterAnimation` 换出招的动作，游戏按名字
-//! 自动播的 idle / run / hit / dead 数据换不了）。只在游戏 0.6.3（Windows）上生效，别的版本什么都不做，退回半变身。
+//! 自动播的 idle / run / hit / dead 数据换不了）。只在游戏 0.6.4（Windows）上生效，别的版本什么都不做，退回半变身。
 //!
 //! 照 league_kayn_form 的 view.rs（凯隐的完整变身，2026-10-08 在游戏里认可）：游戏的显示世界每帧调用显示处理表里的更新函数
-//! （rva 0x2808e30），函数指针在 .rdata 的槽 rva 0x3c31358（凯隐、佛耶戈附加包和群里的变身前置也挂在这里，一个接一个调用）。
+//! （rva 0x23312a0；0.6.3 时 0x2808e30），函数指针在 .rdata 的槽 rva 0x3c82db8（0.6.3 时 0x3c31358；凯隐、佛耶戈附加包和群里的变身前置也挂在这里，一个接一个调用）。
 //! 加载时核对函数开头 24 个字节，把槽换成本包的函数：先调用槽里原来的函数，再走一遍显示世界的实体表（+0x138 的哈希表，每格
 //! 0x1d0 字节，值从 +8 开始：+0x38 名字，+0x68 / +0x70 / +0x78 正在播的动画名，+0xb8 / +0xc0 buff 列表）。名字是
 //! `league_nidalee` 的实体身上有美洲狮形态的 buff `league_nidalee_cg` 时，正在播的 idle / run / hit / dead / attack 换成奈德丽
@@ -15,9 +15,9 @@ use std::sync::{Mutex, Once};
 
 use super::{wlog, FORM};
 
-/// 显示处理表里的更新函数（0.6.3）和存它的槽。
-const FN_RVA: usize = 0x2808e30;
-const SLOT_RVA: usize = 0x3c31358;
+/// 显示处理表里的更新函数（0.6.4）和存它的槽。
+const FN_RVA: usize = 0x23312a0;
+const SLOT_RVA: usize = 0x3c82db8;
 /// push r15; push r14; push r13; push r12; push rsi; push rdi; push rbp; push rbx; sub rsp, 0x88; movdqa [rsp+..], xmm7
 const FN_HEAD: [u8; 24] = [0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x55, 0x53, 0x48, 0x81, 0xec, 0x88,
     0x00, 0x00, 0x00, 0x66, 0x0f, 0x7f, 0x7c, 0x24];
@@ -221,7 +221,7 @@ fn install() -> Result<(usize, usize), String> {
     }
     let func = module + FN_RVA;
     if read(func, FN_HEAD.len()).as_deref() != Some(&FN_HEAD[..]) {
-        return Err("not game 0.6.3 (the display handler differs)".into());
+        return Err("not game 0.6.4 (the display handler differs)".into());
     }
     let slot = module + SLOT_RVA;
     let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;

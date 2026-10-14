@@ -16,7 +16,7 @@
 //! - **结束**：时间到、他阵亡、或数据的大招拿掉了 `league_viego_p_on`（英雄联盟：放 R 回到本体）——拿掉外形和类别 buff，
 //!   挂 `league_viego_p_off` 让数据播回到本体的雾。
 //!
-//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形只在游戏 0.6.3 上（显示钩子核对函数开头），别的版本只有数据的黑雾。
+//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形只在游戏 0.6.4 上（显示钩子核对函数开头），别的版本只有数据的黑雾。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_viego_soul.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::fs::OpenOptions;
@@ -432,7 +432,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.3) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,

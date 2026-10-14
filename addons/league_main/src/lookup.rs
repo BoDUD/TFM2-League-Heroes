@@ -1,4 +1,5 @@
-//! 按名字取资源的两个函数上的钩子（游戏 0.6.3）：0x20fc10 取 `<路径>#anim` 动画表，0x16d040 取 `<路径>#sheet` 贴图。
+//! 按名字取资源的两个函数上的钩子（游戏 0.6.4）：0x20fb50 取 `<路径>#anim` 动画表，0x16cf80 取 `<路径>#sheet` 贴图
+//! （0.6.3 时是 0x20fc10 / 0x16d040；地址都在 src/build.rs）。
 //! 入口那 12 个字节（push rbp … push rbx）换成 `mov rax, 跳板; jmp rax`；跳板把栈顶的地址（返回地址在那里）放进 r9
 //! 交给本包的函数，原函数照常执行（原来的 12 个字节 + 跳回入口 + 12）。
 //!
@@ -14,7 +15,7 @@
 //!
 //! UV = 矩形 ÷ 贴图大小，正好落在高清那一块上；画出来的大小 = 矩形宽高 × 各自的缩放，和 1 倍的一样。所以任何按名字
 //! 取帧、按帧大小画的地方都画高清帧，大小、锚点不变，不用再改动作名、写 +0x1b4、改卡牌的指令。绘制命令按名字引用
-//! 贴图（0x22edc70 把「…#sheet」交给 0x1c7880），执行时再取一次——同一个条目，宽高一致。
+//! 贴图（0.6.3 时 BP 格子 0x22edc70 把「…#sheet」交给 0x1c7880），执行时再取一次——同一个条目，宽高一致。
 //!
 //! 另记诊断：每个调用处第一次取英雄图记一行，登记英雄的每个（调用处，名字）也记一行。
 
@@ -32,7 +33,7 @@ const PROLOGUE: [u8; 12] = [0x55, 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54
 /// ctrl: key String {cap, ptr, len}, frames Vec {cap, ptr, len}.
 const BUCKET: usize = 0x30;
 const MAX_LINES: usize = 400;
-// The battlefield body draw (0x230ec30 in 0.6.3) takes its frame from 0x233d8e0 (its anim lookup returns to
+// The battlefield body draw (0x2aaf630 in 0.6.4) takes its frame from 0x2ae8e00 (its anim lookup returns to
 // Build::battle_anim_ret) and sends only the UV: Skia draws UV x the image's real pixels and the pivot is from the
 // frame's size. So there the frames are the real dense ones (rects x PPU back) and the size asks
 // (Build::battle_size_ret) get the real size, and src/view.rs draws the entity at 1 / PPU. Everywhere else (cards,
@@ -650,7 +651,7 @@ pub fn install_once(b: &'static Build) {
 mod tests {
     #[test]
     fn stubs_dump() {
-        let (code, entry, orig) = super::stubs(0x20000, 0x140000000 + 0x20fc10, 0x7ff6_0000_1234);
+        let (code, entry, orig) = super::stubs(0x20000, 0x140000000 + 0x20fb50, 0x7ff6_0000_1234);
         assert_eq!(entry, 0x20000);
         let hex: String = code.iter().map(|b| format!("{b:02x}")).collect();
         println!("STUBS {hex} {:#x}", orig - entry);
