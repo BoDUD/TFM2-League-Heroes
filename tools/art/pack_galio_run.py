@@ -47,6 +47,12 @@ PLANT, PUSH, LIFT, TUCK = (-6, -9), (-3, -10), (-2, -8), (-5, -7)
 PHASES = [(11, 0, PLANT), (6, 0, PLANT), (1, 0, PLANT), (-4, 0, PLANT),
           (-9, 1, PUSH), (-9, 7, LIFT), (1, 6, TUCK), (9, 3, PLANT)]
 RED, BLUE = (255, 40, 40), (40, 110, 255)
+# the cut this pack made (rig_galio's run used it until the run became the idle walking, 2026-10-14): Codex's upper body
+# kept above game row RUN_CUT, the front fist (right of column 9, down to row 0), the back one (left of -15, to -1) and
+# the tail (left of RUN_TAILX) below it
+RUN_CUT = -2
+RUN_KEEP = (9, 0, -15, -1)
+RUN_TAILX = -13
 
 
 def can_xy(x, y):
@@ -65,8 +71,38 @@ def leg_points(hip_gp, k):
     return [(hx, hy), knee, hock, toe]
 
 
-tail_root = lambda can: R.tail_root(can, can)
-upper_only = R.upper_only
+def tail_root(can):
+    """Codex's tail (left of RUN_TAILX) carried to the hips: 2 game rows in its greys, outlined, behind the rest."""
+    out = can.copy()
+    edge = int(math.floor(R.to_can(RUN_TAILX, 0)[0])) - 1
+    ys = np.nonzero(out[:, edge, 3] > 0)[0]
+    ys = ys[ys > R.to_can(0, RUN_CUT - 4)[1]]
+    if not len(ys):
+        return out
+    mid = (ys.min() + ys.max()) // 2
+    r0, r1 = int(mid - R.PPU), int(mid + R.PPU)
+    c0, c1 = edge + 1, int(math.floor(R.to_can(-3.0, 0)[0]))
+    band = np.zeros_like(out)
+    band[r0:mid, c0:c1] = (124, 143, 145, 255)
+    band[mid:r1, c0:c1] = (103, 120, 123, 255)
+    band[r0 - 2:r0, c0:c1] = (*R.OUTLINE, 255)
+    band[r1:r1 + 2, c0:c1] = (*R.OUTLINE, 255)
+    m = (band[..., 3] > 0) & (out[..., 3] == 0)
+    out[m] = band[m]
+    return out
+
+
+def upper_only(can):
+    """The run canvas without its legs (rig_galio.run_legs's cut: the fists and the tail kept)."""
+    H, W = can.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    x0, y0 = R.to_can(0, 0)
+    rx, ry = np.floor((xx + 0.5 - x0) / R.PPU), np.floor((yy + 0.5 - y0) / R.PPU)
+    fx, fy, bx, by = RUN_KEEP
+    keep = (rx >= fx) & (ry <= fy) | (rx <= bx) & (ry <= by) | (rx < RUN_TAILX)
+    out = can.copy()
+    out[(ry >= RUN_CUT) & ~keep] = 0
+    return out
 
 
 def big(a, bg=None):

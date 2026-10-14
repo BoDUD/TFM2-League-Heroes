@@ -15,8 +15,11 @@ one pixel a square). Here, for every frame:
   * the fists: attack 3 / 4 came back with curled spirals again (FISTS): the curl's lines filled with the stone round
     them, knuckle creases cut in (Codex's silhouette kept, no ground showing round a smaller fist);
   * idle = the design breathing (the upper body BREATH rows up over the legs and the tail), hit = the design moved 2 and
-    1 squares back.
-Then the run's legs are drawn (run_legs: Codex's never alternated) and every frame is brought down twice: for the 1x
+    1 squares back; the design with both fists a size smaller and the tail held up off the ground (design());
+  * run = the idle walking, league_nautilus / league_braum's way (walk_frame): Codex's run never alternated its legs, and
+    every sprint after it - legs built here, Codex's redrawn legs traced - read as deformed or 「完全脱节」 (the user:
+    「你向前那样冲刺模型永远会变形」).
+Every frame is then brought down twice: for the 1x
 sheet (down: 2 x 2 blocks, the face kept) and for the game (dense: 1.5 squares a game pixel, pixel_down.pixelate),
 written to assets/source/ppu/galio_<tag>.png + .json (ppu_hd.py's drawn strips; python tools/art/ppu_hd.py --hero galio
 then adds the hd_ / lo_ tags). Drawn at PPU 2.0 (76 squares crown to soles = 38 game rows, 52 with the wings); shown at
@@ -26,7 +29,6 @@ then adds the hd_ / lo_ tags). Drawn at PPU 2.0 (76 squares crown to soles = 38 
 """
 import argparse
 import io
-import math
 import json
 import os
 import subprocess
@@ -42,7 +44,6 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import design_galio_hd as DG  # noqa: E402
 import pixel_down as PD  # noqa: E402
-import rigkit as K  # noqa: E402
 import strips as G  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "galio")
@@ -70,9 +71,7 @@ FIX = (60, 62)                          # every 1x frame (2 x 60 + 1) x (2 x 62 
 BREATH = [0, 1, 2, 2, 1, 0]
 WAIST = 66                              # the design's row under the belly: the upper body above it breathes
 LEGS = (34, 68)                         # the design's columns of the legs below the waist (the arms hang outside them)
-TAIL_ROW = 86                           # the design's tail: below this row left of TAIL_COL (it does not breathe)
-TAIL_COL = 30
-TAGS = ["run", "attack", "attack2", "skill", "skill2", "w_charge", "w_burst", "ult", "ult_loop", "ult_land", "dead"]
+TAGS = ["attack", "attack2", "skill", "skill2", "w_charge", "w_burst", "ult", "ult_loop", "ult_land", "dead"]
 # the spiral fists Codex drew again: (tag, index) -> [(box rows r0..r1, cols c0..c1 round the spiral on the canvas, the
 # side its knuckles face: "right" for the punch, "down" for a hanging fist)]. Each keeps Codex's silhouette (a smaller
 # drawn-in fist left the ground showing round it, the user: 「这里空出来一大块干嘛」): the curl's lines inside it are filled
@@ -91,10 +90,85 @@ def load(p):
     return np.asarray(Image.open(p).convert("RGBA")).copy()
 
 
-def design():
+# The design as the user had it changed for the walk (2026-10-14: 「尾巴怎么长在地上了？」「拳头缩小点不就好了吗 然后尾巴不能
+# 放地上啊」): both fists a size smaller - each loses its two cheapest interior rows and columns (least loss: the squares
+# most like their neighbours), the wrist row joined to the forearm as drawn, the outline and the knuckles kept - and the
+# tail held up TAIL_UP rows, under the smaller near fist (it lay along the ground at the near ankle). hd/front.png stays the
+# approved file; this is applied as it is read.
+FIST_BOXES = (((79, 89, 16, 32), (18, 30)),       # the near fist: design rows, columns (incl.) with its outline; its stone
+              ((79, 91, 68, 84), (70, 82)))       # the far fist (to its knuckle tips' outline)
+FIST_CUT = 2
+TAIL_BOXES = ((85, 90, 0, 13), (90, 90, 14, 35), (91, 98, 0, 28), (91, 95, 29, 34))   # the tail (rows, columns incl.):
+                                 # its tip, its shaft's top outline (shared with the old fist), its shaft - not the
+                                 # near shin's outline at column 35
+TAIL_UP = 6
+
+
+def smaller_fist(d, block, stone, n=FIST_CUT):
+    """A fist less its n cheapest interior rows (under the wrist row, above the knuckles) and columns, still centred and
+    joined at the wrist; the forearm's bottom row outside it takes the outline."""
+    r0, r1, c0, c1 = block
+    b0, b1 = stone
+    box = d[r0:r1 + 1, c0:c1 + 1].copy()
+    k = box[..., 0].astype(int) * 65536 + box[..., 1].astype(int) * 256 + box[..., 2]
+    cost = lambda a, b, c: int((a != b).sum() + (c != b).sum())
+    cols = sorted((cost(k[:, j - 1], k[:, j], k[:, j + 1]), j) for j in range(b0 - c0 + 1, b1 - c0))
+    rows = sorted((cost(k[i - 1], k[i], k[i + 1]), i) for i in range(1, box.shape[0] - 4))
+
+    def pick(c):
+        out = []
+        for _, j in c:
+            if all(abs(j - o) > 1 for o in out):
+                out.append(j)
+            if len(out) == n:
+                return out
+        return out
+
+    gone_c, gone_r = pick(cols), pick(rows)
+    small = box[np.ix_([i for i in range(box.shape[0]) if i not in gone_r],
+                       [j for j in range(box.shape[1]) if j not in gone_c])]
+    d[r0 + 1:r1 + 1, c0:c1 + 1] = 0
+    x = c0 + n // 2
+    d[r0:r0 + small.shape[0], x:x + small.shape[1]] = small
+    for c in range(max(0, c0 - 2), min(d.shape[1], c1 + 3)):
+        if not x <= c < x + small.shape[1] and d[r0, c, 3]:
+            d[r0, c] = (*OUTLINE, 255)
+    return d
+
+
+def tail_up(d, up=TAIL_UP):
+    """The tail's squares moved up `up` rows, behind what is there -> (design, the squares the tail now shows on)."""
+    m = np.zeros(d.shape[:2], bool)
+    for r0, r1, c0, c1 in TAIL_BOXES:
+        m[r0:r1 + 1, c0:c1 + 1] = True
+    m &= d[..., 3] > 0
+    tail = d.copy()
+    d[m] = 0
+    shown = np.zeros_like(m)
+    for y, x in zip(*np.nonzero(m)):
+        if not d[y - up, x, 3]:
+            d[y - up, x] = tail[y, x]
+            shown[y - up, x] = True
+    return d, shown
+
+
+def approved_design():
+    """hd/front.png as approved, cropped: what Codex's frames are recoloured and mended against (lut, crown_gaps)."""
     d = load(DESIGN)
     ys, xs = np.nonzero(d[..., 3])
-    return d[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    return d[ys.min():ys.max() + 1, xs.min():xs.max() + 1].copy()
+
+
+def design_parts():
+    """-> (the design the idle, the walk and the hit are made of, the tail's squares in it)."""
+    d = approved_design()
+    for block, stone in FIST_BOXES:
+        d = smaller_fist(d, block, stone)
+    return tail_up(d)
+
+
+def design():
+    return design_parts()[0]
 
 
 def old_design():
@@ -107,7 +181,7 @@ def old_design():
 
 def lut():
     """Old design colour -> the flat colour the design turned it into most often."""
-    old, new = old_design(), design()
+    old, new = old_design(), approved_design()
     assert old.shape == new.shape
     op = (old[..., 3] > 0) & (new[..., 3] > 0)
     table = {}
@@ -306,7 +380,7 @@ def frame(tag, i, table, pal):
     before = specks(a)
     a, _, _ = G.complete_outline(before, color=OUTLINE, feet=SOLE)
     a = pinholes(outline2(close_all(a)))
-    return crown_gaps(a, before, design())
+    return crown_gaps(a, before, approved_design())
 
 
 def on_canvas(d, dx=0, dy=0):
@@ -321,7 +395,7 @@ def upper_mask(d):
     op = d[..., 3] > 0
     yy, xx = np.mgrid[0:H, 0:W]
     legs = (yy >= WAIST) & (xx >= LEGS[0]) & (xx < LEGS[1])
-    tail = (yy >= TAIL_ROW) & (xx < TAIL_COL)
+    tail = design_parts()[1]                        # the tail held up under the near fist: it does not breathe
     return op & ~legs & ~tail
 
 
@@ -392,484 +466,15 @@ def down(can):
     return out
 
 
-# ------------------------------------------------------------------------------------------------ the run's legs
-# Codex's first run kept the light leg forward and the dark one back in all 8 frames (the user: 「走路没有交叉步」); legs
-# built here read as deformed (「腿部变形？」「还是变形啊」「不还是变形？」「看不到这里变形吗」), so Codex redrew the legs
-# (tools/art/pack_galio_run.py, RUN_PROMPT.md -> assets/source/galio/codex_run/) and they are traced frame by frame
-# (the user: 「Codex的腿你不会拿来用？然后一帧一帧描了修复？」). Its near leg - one leg drawn in eight phases - is the leg:
-# each frame's near leg is Codex's near leg of that frame, the far leg Codex's near leg four frames on (its own far legs
-# never crossed the near ones, their hips 7 px apart, and ran into them in frames 1, 2, 8), moved RUN_FAR_DX squares
-# behind, in the design's darker greys. Traced: the silhouette kept (a one-square gap closed, holes filled, a lone
-# square taken off), repainted flat (a lit rim toward the light, a shadow rim away, mid inside), Codex's claw marks, the
-# design's own knee guard (the idle's far-guard browns on the far leg), a clean 2-square outline; the near leg in front.
-# The tail's shaft carried on to the hips (Codex left the root out): tail_root. At game density run_dense_true and
-# run_dense_clean put right what the averaging made of the legs (blends, notches, a closed pocket). Every version went
-# through an independent pixel review before the user saw it (the user: 「你学尼拉做完后内部review 都没问题了再喊我review」).
-# The cut the pack made: Codex's upper body kept above game row RUN_CUT, the fists and the tail below it.
-RUN_CUT = -2                     # rows from RUN_CUT down are the legs ...
-RUN_KEEP = (9, 0, -15, -1)       # ... but the front fist (right of 9, down to row 0) and the back one (left of -15, to -1)
-RUN_TAILX = -13                  # and the tail left of this column
-RUN_LEGS = os.path.join(SRC, "codex_run")
-# round 1's guide (pack_galio_run.py at 606162b8): the hips, the toe / hock per phase, thigh / shin squares
-RUN_GUIDE_HIPS = {"near": (-4.5, -3.0), "far": (2.5, -3.5)}
-_PLANT, _PUSH, _LIFT, _TUCK = (-6, -9), (-3, -10), (-2, -8), (-5, -7)
-RUN_GUIDE = [(11, 0, _PLANT), (6, 0, _PLANT), (1, 0, _PLANT), (-4, 0, _PLANT), (-9, 1, _PUSH), (-9, 7, _LIFT),
-             (1, 6, _TUCK), (9, 3, _PLANT)]
-RUN_BONE = 11.0
-# the frames where Codex drew its legs into each other: its far leg traced by hand (canvas polygon), the rest the near
-RUN_FAR_AREA = {0: [(92, 113), (101, 113), (101, 122), (96, 126), (91, 127), (89, 122), (92, 119)],
-                1: [(90, 113), (100, 113), (100, 121), (94, 126), (89, 128), (86, 123), (90, 118)],
-                7: [(91, 113), (104, 113), (104, 122), (98, 126), (97, 133), (90, 133), (89, 121), (92, 118)]}
-RUN_FAR_DX_AT = {3: 6}           # frame 4 (0-based 3): its knee showed only as a point behind the near knee
-RUN_FAR_DX = 3                   # the far leg (Codex's near leg four frames on) this many squares to the right: the hips
-                                 # almost together, side-on, so the feet pass each other
-RUN_NEAR_DX = {6: -3}            # frame 7 (0-based 6): its lifted near foot passed right over the planted far one
-RUN_SCRAP = 20                   # a far-leg piece under this many squares left in sight is not shown
-RUN_NEAR = ((236, 251, 241), (190, 208, 202), (149, 169, 168))      # lit, mid, shadow
-RUN_FAR = ((124, 143, 145), (103, 120, 123), (60, 73, 78))
-RUN_CLAW = {"near": (44, 35, 30), "far": (60, 73, 78)}
-RUN_LIGHT = (-0.6, -0.8)         # light from the upper left
-RUN_GUARD = (80, 88, 37, 47)     # the design's near knee guard: rows, columns (its gold only)
-RUN_GUARD_FAR = {(253, 198, 43): (220, 138, 19), (252, 214, 63): (220, 138, 19), (253, 220, 68): (220, 138, 19),
-                 (249, 220, 77): (220, 138, 19), (253, 240, 87): (220, 138, 19), (253, 244, 102): (220, 138, 19),
-                 (220, 138, 19): (177, 99, 20), (177, 99, 20): (104, 48, 8)}   # the idle's far guard: brown, a little gold
-_CROSS = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
-
-
 def to_can(x, y):
     """Game pixels from the pivot -> canvas coordinates (the pivot square's corner: down()'s 1x grid)."""
     return PIV_X - 0.5 + PPU * x, SOLE - FEET * PPU + PPU * y
 
 
-def tail_root(can, tail_from):
-    """The tail's shaft carried on to the hips: its own column at RUN_TAILX (in tail_from, Codex's upper body) - the
-    last run of stone in it with at most 2 outline squares over and under it (the run of the whole column took the back
-    fist's 4-row outline along and stacked it into a black block over the band) - repeated square by square, its top
-    rising evenly to sit right under the body's outline where the legs begin, its underside where it is: a root widening
-    into the hips (Codex's tail curves up into the body; the whole band raised left black pockets under it). Where the
-    body comes within 3 squares of its stone, the band joins it: 2 outline squares under the body's stone (its own
-    outline counted), stone down to the band - no stacked outlines, no slit of background between them. Drawn behind
-    everything, each of its rows stopping at the first leg square it meets (run on, it peeked out between the legs as
-    grey dots)."""
-    out = can.copy()
-    edge = int(math.floor(to_can(RUN_TAILX, 0)[0])) - 1
-    col = tail_from[:, edge]
-    top, bot = int(to_can(0, RUN_CUT - 5)[1]), int(to_can(0, RUN_CUT + 4)[1])
-    lit = col[:, 3].astype(bool) & (col[:, :3].astype(int).sum(-1) >= 70)
-    ink = col[:, 3].astype(bool) & ~lit
-    light = [y for y in range(top, bot) if lit[y]]
-    if not light:
-        return out
-    l0 = l1 = light[-1]
-    while lit[l0 - 1]:
-        l0 -= 1
-    r0, r1 = l0, l1
-    while r0 > l0 - 2 and ink[r0 - 1]:
-        r0 -= 1
-    while r1 < l1 + 2 and ink[r1 + 1]:
-        r1 += 1
-    c1 = int(math.floor(to_can(0.0, 0)[0]))
-    body = tail_from[..., 3] > 0
-    legs = (out[..., 3] > 0) & ~body
-    dark = out[..., 3].astype(bool) & (out[..., :3].astype(int).sum(-1) < 70)
-
-    def under(x):
-        """The body's lowest square over the band's stone at column x, how many outline squares end it there, and
-        whether stone (not background) lies over those."""
-        b = next((y for y in range(l0 - 1, top, -1) if body[y, x]), None)
-        n = 0
-        while b is not None and b - n > top and dark[b - n, x]:
-            n += 1
-        return b, n, b is not None and bool(out[b - n, x, 3])
-
-    cut = int(to_can(0, RUN_CUT)[1])
-    xe = next((x for x in range(edge + 1, c1) if legs[r0 - 6:r1 + 1, x].any()), c1)
-    b, n, _ = under(xe - 1)
-    rise = 0 if b is None else max(0, l0 - max(cut, b + 1 + max(0, 2 - n)))
-    # the band's top stone row per column: the even rise, never dropping again toward the hips, and where the body is
-    # near 1 to 3 outline squares between them (2 under its stone) - a top edge stepping with the body's every notch
-    # read as jagged
-    plan, prev = {}, None
-    for x in range(edge + 1, c1):
-        t = l0 - int(round(rise * min(1.0, (x - edge) / max(1, xe - 1 - edge))))
-        T = t if prev is None else min(t, prev)
-        b, n, stone = under(x)
-        joined = b is not None and b >= cut - 1 and t - b - 1 <= 3     # (not up into a gap Codex left in the body)
-        if joined:
-            lo = b + 1 + (max(0, 2 - n) if stone else 0)
-            T = min(max(T, lo), max(lo, b + 4 - n))
-        plan[x] = (T, joined, b)
-        prev = T
-    stopped = set()
-    for x, (T, joined, b) in plan.items():
-        if joined:
-            for yy in range(b + 1, T):
-                if not out[yy, x, 3] and not legs[yy, x]:
-                    out[yy, x] = (*OUTLINE, 255)
-            rows = []
-        else:
-            rows = [(y - (l0 - T), col[y], ("top", y)) for y in range(r0, l0)]     # its own top outline, raised
-        rows += [(yy, col[l0], ("root", yy)) for yy in range(T, l0)]              # the stone under it, widening
-        rows += [(y, col[y], ("band", y)) for y in range(l0, r1 + 1)]             # the band, its underside as they are
-        for yy, c, key in rows:
-            if key in stopped:
-                continue
-            if legs[yy, x]:
-                stopped.add(key)
-                continue
-            if not out[yy, x, 3]:
-                out[yy, x] = c
-        if x < xe and lit[l0]:
-            thin_ink(out, x, min(T, l0), cut, legs)
-    for x in range(edge - 6, edge + 1):                    # and over Codex's own shaft just left of it (frame 3)
-        ys = [y for y in range(top, bot) if out[y, x, 3] and out[y, x, :3].astype(int).sum() >= 70]
-        if ys:
-            t = ys[-1]
-            while t - 1 in ys:
-                t -= 1
-            if not _gold(out[t:t + 1, x:x + 1])[0, 0]:
-                thin_ink(out, x, t, cut, legs)
-    return out
-
-
-def thin_ink(out, x, t, cut, legs):
-    """Over the tail's stone at column x (its top row t) at most 2 outline squares under the body's stone: 3 or 4
-    (Codex's leftover thigh outline stacked on the band's, frame 3) and the lowest of them become the tail's stone. A
-    deeper black is Codex's own shadow between the thighs and stays; so does an outline with background over it."""
-    light = lambda y: out[y, x, 3] and out[y, x, :3].astype(int).sum() >= 70
-    if legs[t, x] or not light(t):
-        return
-    t0 = t
-    while t > t0 - 2 and light(t - 1):
-        t -= 1                                             # the top of the stone the band joined
-    run = 0
-    while out[t - 1 - run, x, 3] and not light(t - 1 - run):
-        run += 1
-    if 3 <= run <= 4 and light(t - 1 - run):
-        for yy in range(max(t - (run - 2), cut - 3), t):
-            out[yy, x] = out[t, x]
-
-
-def upper_only(can):
-    """The run canvas without its legs (the fists and the tail kept): what the pack gave Codex."""
-    H, W = can.shape[:2]
-    yy, xx = np.mgrid[0:H, 0:W]
-    x0, y0 = to_can(0, 0)
-    rx, ry = np.floor((xx + 0.5 - x0) / PPU), np.floor((yy + 0.5 - y0) / PPU)
-    fx, fy, bx, by = RUN_KEEP
-    keep = (rx >= fx) & (ry <= fy) | (rx <= bx) & (ry <= by) | (rx < RUN_TAILX)
-    out = can.copy()
-    out[(ry >= RUN_CUT) & ~keep] = 0
-    return out
-
-
-RUN_THIGH = (-5.0, -4.0)         # Codex's old far thigh left above the cut (game rows -5 to the cut, columns RUN_TAILX
-                                 # to -4): its dark greys and their outline read as a black block over the tail
-
-
-def strip_old_thigh(base):
-    """The pack's upper body less what is left of Codex's old far thigh between the tail and the hips (its far greys
-    and the outline not next to other stone): the back fist and the belly stay."""
-    out = base.copy()
-    H, W = base.shape[:2]
-    yy, xx = np.mgrid[0:H, 0:W]
-    x0, y0 = to_can(0, 0)
-    rx, ry = (xx + 0.5 - x0) / PPU, (yy + 0.5 - y0) / PPU
-    zone = (ry >= RUN_THIGH[0]) & (ry < RUN_CUT) & (rx >= RUN_TAILX) & (rx <= RUN_THIGH[1])
-    rgb = base[..., :3].astype(int)
-    key = rgb[..., 0] * 65536 + rgb[..., 1] * 256 + rgb[..., 2]
-    op = base[..., 3] > 0
-    far = op & np.isin(key, [r * 65536 + g * 256 + b for r, g, b in RUN_FAR])
-    stone = op & ~_dark(base) & ~far
-    gone = zone & (far | (op & _dark(base) & ~ndimage.binary_dilation(stone, structure=np.ones((3, 3)), iterations=2)))
-    out[gone] = 0
-    return out
-
-
-def run_guide(name, k):
-    """Round 1's skeleton of one leg at phase k: hip, knee, hock, toe (canvas)."""
-    hx, hy = to_can(*RUN_GUIDE_HIPS[name])
-    toe_dx, lift, (hdx, hdy) = RUN_GUIDE[k]
-    toe = (hx + toe_dx, SOLE + 0.5 - lift + (hy - to_can(*RUN_GUIDE_HIPS["near"])[1]))
-    knee, hock = K.elbow((hx, hy), (toe[0] + hdx, toe[1] + hdy), RUN_BONE, RUN_BONE, bend=-1)
-    if knee[0] < min(hx, hock[0]):
-        knee, hock = K.elbow((hx, hy), hock, RUN_BONE, RUN_BONE, bend=1)
-    return [(hx, hy), knee, hock, toe]
-
-
-def _dark(a):
-    return a[..., :3].astype(int).sum(-1) < 70
-
-
-def _gold(a):
-    return (a[..., 3] > 0) & (a[..., 0].astype(int) > a[..., 2].astype(int) + 60)
-
-
-def _inside(poly, shape):
-    """The squares whose centres fall inside a polygon (canvas coordinates)."""
-    H, W = shape
-    yy, xx = np.mgrid[0:H, 0:W]
-    px, py = xx + 0.5, yy + 0.5
-    inside = np.zeros(shape, bool)
-    for (x1, y1), (x2, y2) in zip(poly, poly[1:] + poly[:1]):
-        cross = (y1 > py) != (y2 > py)
-        inside ^= cross & (px < x1 + (py - y1) * (x2 - x1) / ((y2 - y1) if y2 != y1 else 1e-9))
-    return inside
-
-
-def run_split(d, light, k):
-    """Codex's near-leg squares in its frame k: two pieces apart -> the lighter piece (it drew the near leg light, the
-    far one darker); one piece (the legs drawn into each other) -> all but its far leg traced by hand (RUN_FAR_AREA)."""
-    if k in RUN_FAR_AREA:
-        return light & ~_inside(RUN_FAR_AREA[k], light.shape)
-    rgb = d[..., :3].astype(int)
-    key = rgb[..., 0] * 65536 + rgb[..., 1] * 256 + rgb[..., 2]
-    is_light = light & np.isin(key, [r * 65536 + g * 256 + b for r, g, b in RUN_NEAR + ((244, 250, 246),)])
-    is_dark = light & np.isin(key, [r * 65536 + g * 256 + b for r, g, b in RUN_FAR])
-    lab, n = ndimage.label(light, structure=np.ones((3, 3)))
-    sizes = ndimage.sum(light, lab, range(1, n + 1)) if n else []
-    big = [i + 1 for i, z in enumerate(sizes) if z >= 30]
-    share = [is_light[lab == i].sum() / max(1, (is_light | is_dark)[lab == i].sum()) for i in big]
-    return lab == big[int(np.argmax(share))]
-
-
-def _smooth(m):
-    """A leg's silhouette: a one-square gap closed, its holes filled, a lone square sticking out taken off."""
-    m = ndimage.binary_fill_holes(ndimage.binary_closing(m, structure=_CROSS))
-    for _ in range(2):
-        m &= sum(np.roll(m, s, a) for s, a in ((1, 0), (-1, 0), (1, 1), (-1, 1))) >= 2
-    return m
-
-
-def _shade(sil, pts, pal):
-    """Flat faces on a leg silhouette: a lit rim on each row's left (light from the upper left), a shadow rim on its
-    right, mid inside - the same way in every frame."""
-    out = np.zeros((*sil.shape, 4), np.uint8)
-    dist = ndimage.distance_transform_edt(sil)
-    ys, xs = np.nonzero(sil)
-    centre = np.zeros(sil.shape[0])
-    for y in np.unique(ys):
-        centre[y] = xs[ys == y].mean()
-    lit = (xs < centre[ys]) & (dist[ys, xs] <= 2.0)
-    dark = (xs > centre[ys]) & (dist[ys, xs] <= 2.0)
-    out[ys, xs, :3] = np.where(lit[:, None], pal[0], np.where(dark[:, None], pal[2], pal[1]))
-    out[ys, xs, 3] = 255
-    return out
-
-
-def run_prepare(frames):
-    """Codex's near leg in each of its 8 run frames: (the frame the pack gave it, silhouette, claw marks, knee-guard
-    centre, the skeleton it was drawn to)."""
-    out = []
-    for k, (can, _) in enumerate(frames):
-        base = upper_only(can)
-        d = load(os.path.join(RUN_LEGS, f"galio_run_{k + 1}_1x.png"))
-        d[d[..., 3] == 0] = 0
-        added = (d[..., 3] > 0) & (base[..., 3] == 0)
-        light = added & ~_dark(d)
-        near = run_split(d, light, k)
-        sil = _smooth(light & near)
-        pts = run_guide("near", k)
-        foot = np.zeros_like(sil)
-        sy, _ = np.nonzero(sil)
-        if len(sy):
-            foot[sy.max() - 8:] = True
-        bottom = np.zeros_like(sil)
-        ys_, _ = np.nonzero(sil)
-        if len(ys_):
-            bottom[ys_.max() - 1:] = True
-        claws = added & foot & sil & ~bottom & ((d[..., :3] == RUN_CLAW["near"]).all(-1) | _dark(d))
-        inner = claws & ndimage.binary_erosion(sil, structure=_CROSS)
-        if inner.sum() >= 2:
-            claws = inner
-        gold = light & near & _gold(d)
-        centre = tuple(int(round(v)) for v in ndimage.center_of_mass(gold)) if gold.any() else None
-        out.append((base, sil, claws, centre, pts))
-    return out
-
-
-def run_leg_layer(leg, pal, guard, claw, dx=0):
-    _, sil, claws, centre, pts = leg
-    if dx:
-        sil, claws = np.roll(sil, dx, axis=1), np.roll(claws, dx, axis=1)
-        pts = [(x + dx, y) for x, y in pts]
-        centre = (centre[0], centre[1] + dx) if centre else None
-    layer = _shade(sil, pts, pal)
-    layer[claws] = (*claw, 255)
-    if centre:
-        gx, gy = centre[1] - guard.shape[1] // 2, centre[0] - guard.shape[0] // 2
-        K.put(layer, guard, gx, gy)
-        # a one-square gap left between the leg's edge and the guard beside it (frame 5: the guard's top tip stood
-        # alone in the outline) filled with the leg's colour beside it
-        m = layer[..., 3] > 0
-        gap = np.zeros_like(m)
-        gap[gy:gy + guard.shape[0], gx:gx + guard.shape[1]] = True
-        gap &= ~m & np.roll(m, 1, 1) & np.roll(m, -1, 1)
-        layer[gap] = np.roll(layer, 1, 1)[gap]
-    layer[:int(to_can(0, RUN_CUT)[1]) + 1] = 0
-    return layer, layer[..., 3] > 0
-
-
-def run_frame(k, prep, info=None):
-    """Run frame k: Codex's upper body, its near leg of frame k in front, its near leg of frame k + 4 behind as the
-    far leg."""
-    r0, r1, c0, c1 = RUN_GUARD
-    guard = design()[r0:r1, c0:c1].copy()
-    g = _gold(guard)
-    filled = ndimage.binary_fill_holes(g)
-    for y, x in zip(*np.nonzero(filled & ~g)):          # a hole in the guard takes its gold neighbour's colour
-        nb = [guard[y + dy, x + dx] for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))
-              if 0 <= y + dy < g.shape[0] and 0 <= x + dx < g.shape[1] and g[y + dy, x + dx]]
-        if nb:
-            guard[y, x] = nb[0]
-    guard[~filled] = 0
-    for _ in range(2):                                     # a square of it hanging on by one side (the design's gold
-        g = guard[..., 3] > 0                              # tip under its brown edge: a gold dot on the shin) taken off
-        guard[g & (sum(np.pad(g, 1)[1 + dy:1 + dy + g.shape[0], 1 + dx:1 + dx + g.shape[1]]
-                       for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))) <= 1)] = 0
-    guard_far = guard.copy()
-    for c, dc in RUN_GUARD_FAR.items():
-        guard_far[(guard[..., :3] == c).all(-1) & (guard[..., 3] > 0), :3] = dc
-    base = prep[k][0]
-    near, ns = run_leg_layer(prep[k], RUN_NEAR, guard, RUN_CLAW["near"], RUN_NEAR_DX.get(k, 0))
-    far, fs = run_leg_layer(prep[(k + 4) % 8], RUN_FAR, guard_far, RUN_CLAW["far"], RUN_FAR_DX_AT.get(k, RUN_FAR_DX))
-    near_ring = ndimage.binary_dilation(ns, structure=_CROSS, iterations=2)
-    seen = ndimage.binary_opening(fs & ~ns, structure=np.ones((3, 3)))
-    # beyond the near leg's outline, a far strip under 3 squares (far grey showing through beside the near knee guard)
-    # is taken away - but never the foot it stands on (its claws are narrow)
-    beyond = seen & ~near_ring
-    lab_b, nb = ndimage.label(beyond, structure=np.ones((3, 3)))
-    if nb > 1:
-        sizes_b = ndimage.sum(beyond, lab_b, range(1, nb + 1))
-        main = 1 + int(np.argmax(sizes_b))
-        seen &= ~(beyond & (lab_b != main) & (lab_b > 0))
-    lab, n = ndimage.label(seen)
-    if n:
-        sizes = ndimage.sum(seen, lab, range(1, n + 1))
-        seen = np.isin(lab, [i + 1 for i, z in enumerate(sizes) if z >= max(RUN_SCRAP, 0.4 * sizes.max())])
-    # the far foot's sole as traced, its bottom 3 rows (the opening took a heel 2 squares thin off: the foot stood on
-    # its toe alone over a black heel)
-    fy = np.nonzero(fs.any(1))[0]
-    if len(fy) and seen.any():
-        sole = np.zeros_like(fs)
-        sole[fy.max() - 2:] = True
-        seen = ndimage.binary_propagation(seen, structure=np.ones((3, 3)), mask=seen | (fs & sole & ~ns))
-    out = np.zeros_like(base)
-    out[ndimage.binary_dilation(seen, structure=_CROSS, iterations=2) & ~seen] = (*OUTLINE, 255)
-    out[seen] = far[seen]
-    out[near_ring & ~ns] = (*OUTLINE, 255)
-    out[ns] = near[ns]
-    upper = base
-    top = upper[..., 3] > 0
-    out[top] = upper[top]
-    out = tail_root(out, base)
-    out[SOLE + 1:] = 0
-    # the clean-up below the head only (the crown's gaps stay open: a whole-frame pass filled them black)
-    legs = int(to_can(0, -20)[1])
-    clean = close_all(out.copy())
-    tail_x = int(math.floor(to_can(0.0, 0)[0]))
-    filled = pinholes(clean.copy())
-    hips = int(to_can(0, RUN_THIGH[0])[1])
-    clean[hips:, tail_x:] = filled[hips:, tail_x:]         # small holes filled only below the hips and right of the
-                                                           # tail band (Codex's own gaps in the body stay open)
-    zone_top = int(to_can(0, RUN_THIGH[0])[1])
-    loose = specks(clean.copy())
-    clean[zone_top:] = loose[zone_top:]                    # loose outline taken only from the old thigh's zone down
-    out[legs:] = clean[legs:]
-    if info is not None:
-        info.update(near=ns, seen=seen, far=fs)
-    return out
-
-
-def run_dense_true(can, f, grid, ours):
-    """A dense run frame from the waist down: a square mostly over what run_frame drew (`ours`: the legs, their outline,
-    the tail's root - not Codex's tail tip and fists) whose colour lies nowhere under it on the canvas - a mean snapped
-    to a third colour (the knee guard's brown and the shin's white to a grey row under the guard, an outline square and
-    a grey one to a dark-grey dot on the near leg's edge) - takes the canvas colour covering most of it; then single odd
-    squares merged as pixelate does (pixel_down.despeckle)."""
-    xs, ys = grid
-    out = f.copy()
-    top = int(round(f.shape[0] / 2 - RAISE + (RUN_CUT - 0.5) * GAME_PPU)) - 2
-    light = (can[..., 3] > 0) & (can[..., :3].astype(int).sum(-1) >= 70)
-    Hc, Wc = light.shape
-    fixed = np.zeros(f.shape[:2], bool)
-    for Y in range(max(0, top), f.shape[0]):
-        y0, y1 = ys[Y], ys[Y + 1]
-        for X in range(f.shape[1]):
-            p = f[Y, X]
-            if not p[3] or int(p[0]) + int(p[1]) + int(p[2]) < 70:
-                continue
-            x0, x1 = xs[X], xs[X + 1]
-            area, mine, whole = {}, 0.0, 0.0
-            for j in range(max(0, int(np.floor(y0))), min(Hc, int(np.ceil(y1)))):
-                hy = min(y1, j + 1) - max(y0, j)
-                for i in range(max(0, int(np.floor(x0))), min(Wc, int(np.ceil(x1)))):
-                    a = hy * (min(x1, i + 1) - max(x0, i))
-                    if a <= 1e-6:
-                        continue
-                    whole += a
-                    mine += a if ours[j, i] else 0.0
-                    if light[j, i]:
-                        c = tuple(int(v) for v in can[j, i, :3])
-                        area[c] = area.get(c, 0.0) + a
-            if mine * 2 >= whole and area and tuple(int(v) for v in p[:3]) not in area:
-                out[Y, X, :3] = max(area, key=area.get)
-                fixed[Y, X] = True
-    spk = PD.despeckle(out[top:])
-    near = ndimage.binary_dilation(fixed, structure=np.ones((3, 3)))[top:]   # merged only round what was put right
-    out[top:][near] = spk[near]
-    return out
-
-
-def run_dense_clean(f):
-    """A dense run frame's last pass from the waist down: a clear square between two opaque ones (left-right or up-down) gets
-    the outline, and in the waist's outline rows a gap up to 3 squares wide; an outline square with no stone within 2
-    squares (a lone black speck) is cleared."""
-    out = f.copy()
-    top = int(round(f.shape[0] / 2 - RAISE + (RUN_CUT - 0.5) * GAME_PPU)) - 2   # from the waist row down (Codex's
-                                                                                 # upper body as it is)
-    op = out[..., 3] > 0
-    p = np.pad(op, 1)
-    gap = ~op & ((p[1:-1, :-2] & p[1:-1, 2:]) | (p[:-2, 1:-1] & p[2:, 1:-1]))
-    waist = int(round(f.shape[0] / 2 - RAISE + (RUN_CUT - 0.5) * GAME_PPU))
-    for y in range(waist - 2, waist + 3):                  # in the waist's outline rows gaps up to 3 squares wide
-        xs = np.nonzero(op[y])[0]
-        for a, b in zip(xs, xs[1:]):
-            if 1 < b - a <= 4:
-                gap[y, a + 1:b] = True
-    gap[:top] = False
-    out[gap] = (*OUTLINE, 255)
-    op = out[..., 3] > 0
-    light = op & (out[..., :3].astype(int).sum(-1) >= 70)
-    lone = op & ~light & ~ndimage.binary_dilation(light, structure=np.ones((3, 3)), iterations=2)
-    lone[:top] = False
-    out[lone] = 0
-    # round the tail's root (the tip, the belly and the band's start): black with no stone beside it that meets the
-    # background is background - a little pocket there closed up at this density into a 4-5 row black corner
-    op = out[..., 3] > 0
-    light = op & (out[..., :3].astype(int).sum(-1) >= 70)
-    thick = op & ~light & ~ndimage.binary_dilation(light, structure=np.ones((3, 3)))
-    zone = np.zeros_like(thick)
-    W = f.shape[1]
-    zone[waist - 1:waist + 7, int(W / 2 + (RUN_TAILX - 4) * GAME_PPU):int(W / 2 - 0.5 * GAME_PPU)] = True
-    thick &= zone
-    lab, n = ndimage.label(thick, structure=np.ones((3, 3)))
-    if n:
-        p = np.pad(~op, 1)
-        open_ = p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]
-        block = thick[:-1, :-1] & thick[1:, :-1] & thick[:-1, 1:] & thick[1:, 1:]   # a mass, not a 1-row strip
-        mass = np.zeros_like(thick)
-        mass[:-1, :-1] |= block
-        meet = np.intersect1d(np.unique(lab[thick & open_]), np.unique(lab[mass]))
-        out[np.isin(lab, meet[meet > 0])] = 0
-    return out
-
-
-def dense(can, one, grid=False):
+def dense(can, one):
     """The game's frame: the canvas at GAME_PPU squares a 1x pixel (pixel_down.pixelate; GAME_PPU / SIZE = the 1.5 the
     user picked), RAISE rows up, on a frame of round(GAME_PPU x the 1x frame's size) - grown alike at both ends where
-    the drawing needs more - the pivot square's corner at its centre. grid: also the frame's (column, row) edges on the
-    canvas, (xs, ys) - frame column i spans canvas x from xs[i] to xs[i + 1]."""
+    the drawing needs more - the pivot square's corner at its centre."""
     x0, y0 = to_can(0, 0)
     px, py = x0 + PPU / 2, y0 + PPU / 2                    # the pivot square's centre on the canvas
     lo, (lx, ly) = PD.pixelate(can, GAME_PPU / PPU, (px, py), PD.edge_colour(can))
@@ -883,10 +488,78 @@ def dense(can, one, grid=False):
     f = np.zeros((H, W, 4), np.uint8)
     ox, oy = int(np.floor(W / 2 - lx + 0.5)), int(np.floor(H / 2 - ly + 0.5))
     f[ys + oy, xs + ox] = lo[ys + RAISE, xs]
-    if grid:
-        c = PPU / GAME_PPU                                 # pixelate's squares: lo column j from px + (j - lx) c
-        return f, (px + (np.arange(W + 1) - ox - lx) * c, py + (np.arange(H + 1) - oy + RAISE - ly) * c)
     return f
+
+
+# ------------------------------------------------------------------------------------------------ the walk
+# The run is league_nautilus's / league_braum's approved walk (the user: 「你不要向前冲刺交叉腿 你按照泰坦布隆那种走路方式这种
+# 腿就不会变形」「你向前那样冲刺模型永远会变形」, after the traced sprint's legs read as 「完全脱节」): the idle as it is -
+# body, wings, fists, tail - and the design's own two legs under the belly (row WALK_BAND), the near leg (WALK_NEAR) and
+# the far one (WALK_FAR); in each frame a leg is lifted by losing its top rows (the thigh turned toward us, the knee
+# guard hanging from the belly) and moved forward, the legs take turns, the whole figure rises a little; no part turned,
+# sheared or stretched (rig_braum.walk_frame, fix_nautilus_strips2.walk_frame).
+WALK_BAND = 66                           # the design's row under the belly: the legs start below it
+WALK_NEAR = ((67, 96, 36, 51), (96, 104, 29, 51))   # the near leg: design rows, columns (ends exclusive) - its foot wider
+WALK_FAR = ((67, 96, 51, 65), (96, 104, 51, 72))    # the far leg, left of the front fist down to its foot
+# per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (canvas squares:
+# league_nautilus's 1x steps x PPU)
+WALK = [((0, 0), (0, 4), 2), ((0, 0), (2, 6), 4), ((0, 0), (2, 2), 2), ((0, 0), (2, 0), 0),
+        ((0, 4), (0, 0), 2), ((2, 6), (0, 0), 4), ((2, 2), (0, 0), 2), ((2, 0), (0, 0), 0)]
+WALK_MS = 115
+CRACK = 3                                # bare squares a step opens, this many columns wide at most: a crack
+
+
+def walk_frame(idle, near_step, far_step, rise):
+    """The idle canvas with the legs stepping: each leg's squares moved (dx, -lift) after losing their top `lift` rows;
+    the far leg first, the near one over it, the body over both; the whole frame `rise` rows up."""
+    x0, y0 = DESIGN_AT
+    H, W = idle.shape[:2]
+    op = idle[..., 3] > 0
+
+    def part(boxes):
+        m = np.zeros((H, W), bool)
+        for r0, r1, c0, c1 in boxes:
+            m[y0 + r0:y0 + r1, x0 + c0:x0 + c1] = True
+        return m & op
+
+    near, far = part(WALK_NEAR), part(WALK_FAR)
+    band = y0 + WALK_BAND
+    body = idle.copy()
+    body[near | far] = 0
+    out = np.zeros_like(idle)
+    for m, (dx, lift) in ((far, far_step), (near, near_step)):
+        leg = np.where(m[..., None], idle, 0).astype(np.uint8)
+        leg[:band + 1 + lift] = 0
+        ys, xs = np.nonzero(leg[..., 3] > 0)
+        ok = (ys - lift >= 0) & (xs + dx < W)
+        out[ys[ok] - lift, xs[ok] + dx] = leg[ys[ok], xs[ok]]
+    m = body[..., 3] > 0
+    out[m] = body[m]
+    # the cracks a step opens take the outline, in every row a run of at most CRACK columns however tall: squares the
+    # idle covered that the moved legs left bare (the slit behind a leg stepped forward) and new enclosed gaps (the
+    # ground between the legs closed in by a step) - not the ground under a lifted foot (the rows its foot left), and not
+    # what the idle itself shows through (the window between the tail's tip and the fist, the one under the hips)
+    ground = np.zeros_like(op)
+    for m, (dx, lift) in ((far, far_step), (near, near_step)):
+        if lift:
+            ys, xs = np.nonzero(m)
+            ground[ys.max() - lift + 1:ys.max() + 1, xs.min():xs.max() + dx + 1] = True
+    own = ndimage.binary_fill_holes(op) & ~op
+    for _ in range(3):                                     # a filled slit can close off another gap: again
+        wop = out[..., 3] > 0
+        crack = (op & ~wop & ~ground) | (ndimage.binary_fill_holes(wop) & ~wop & ~own)
+        fill = np.zeros_like(crack)
+        for a in (crack, crack.T):                         # thin across the rows or down the columns
+            f = fill if a is crack else fill.T
+            for y in np.nonzero(a.any(1))[0]:
+                xs = np.nonzero(a[y])[0]
+                for run in np.split(xs, np.nonzero(np.diff(xs) > 1)[0] + 1):
+                    if len(run) <= CRACK:
+                        f[y, run] = True
+        if not fill.any():
+            break
+        out[fill] = (*OUTLINE, 255)
+    return np.roll(out, -rise, axis=0)
 
 
 def actions():
@@ -900,7 +573,8 @@ def actions():
     mask = np.zeros(idle.shape[:2], bool)
     x0, y0 = DESIGN_AT
     mask[y0:y0 + d.shape[0], x0:x0 + d.shape[1]] = upper_mask(d)
-    out = {"idle": [(pinholes(close_all(specks(breathe(idle, mask, k))), 2), ms(10)) for k in BREATH]}
+    out = {"idle": [(pinholes(close_all(specks(breathe(idle, mask, k))), 2), ms(10)) for k in BREATH],
+           "run": [(pinholes(close_all(specks(walk_frame(idle, n_, f_, r_))), 2), WALK_MS) for n_, f_, r_ in WALK]}
     for tag in TAGS:
         out[tag] = [(frame(tag, f["index"] + 1, table, pal), f["ms"]) for f in sorted(by_tag[tag], key=lambda f: f["index"])]
     out["hit"] = [(on_canvas(d, dx=-2), 80.0), (on_canvas(d, dx=-1), 120.0)]
@@ -915,18 +589,9 @@ def main():
     sheet = {}
     for tag, frames in acts.items():
         ones, hds = [], []
-        prep = run_prepare(frames) if tag == "run" else None
         for k, (can, t) in enumerate(frames):
-            if tag == "run":
-                can = run_frame(k, prep)
-                frames[k] = (can, t)
             one = down(can)
-            if tag == "run":
-                hd, grid = dense(can, one, grid=True)
-                ours = (can[..., 3] > 0) & ~(prep[k][0][..., 3] > 0)
-                hd = run_dense_clean(run_dense_true(can, hd, grid, ours))
-            else:
-                hd = dense(can, one)
+            hd = dense(can, one)
             ones.append((one, round(t, 3)))
             hds.append(hd)
         sheet[tag] = ones
