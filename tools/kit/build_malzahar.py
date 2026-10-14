@@ -59,6 +59,11 @@ P = {
     "atk_range": 52000, "atk_dur": 26, "atk_cd": 90, "atk_st": 9, "a_speed": 4500, "a_y": -3000,
     # passive: Void Shift
     "p_sh": 90, "p_ap": 40, "p_cd": 720,
+    # 1 = the copy for addons/league_malzahar: its passive league_malzahar:void owns Void Shift as League has it (the
+    # first non-minion hit and the p_linger ticks after it lose p_dr %, no crowd control while it holds; back after
+    # p_cd ticks without champion damage) and every vision's death watch (its native effect league_malzahar:vision on
+    # each unit the bolt hits: dead before e_t is out -> a new vision on the nearest enemy, champions first, e_jump)
+    "native": 0, "p_linger": 15, "p_dr": 90,
     # skill: E Malefic Visions (League: 650, 45-255 + 75% AP over 4 s, cd 11-7 s) + W voidlings (League: 8-10 s)
     "e_cd": 540, "e_range": 65000, "e_dur": 24, "e_st": 1, "e_lag": 9, "e_speed": 5000, "e_y": -3000,
     "e_t": 240, "e_p": 15, "e_dmg": 170, "e_ap": 80, "e_jump": 40000, "e_jumps": 1, "e_land": 18,
@@ -218,7 +223,7 @@ def build(p):
     shift = combine(around(1000, "AllyOnlySelf", [{"type": "Shield", "amount": p["p_sh"], "attack_ratio": 0,
                                                    "ap_ratio": p["p_ap"], "tick": 36000}]),
                     flag("p_shift", "WithShield", cc_immune=True), sfx("p_shift"))
-    passive = sw("p_shift", NONE, sw("p_init", sw("p_cd", NONE, sw("p_wait", combine(shift, *rm("p_wait")), combine(
+    passive = NONE if p["native"] else sw("p_shift", NONE, sw("p_init", sw("p_cd", NONE, sw("p_wait", combine(shift, *rm("p_wait")), combine(
         flag("p_cd", p["p_cd"]), flag("p_wait", "Permanent")))), combine(shift, flag("p_init", "Permanent"))))
 
     # ------------------------------------------------------------------ ult: R Nether Grasp
@@ -249,11 +254,12 @@ def build(p):
     def vision(depth):
         """On the unit the vision reaches: the burn, the voidlings, the death watch (jump while depth < e_jumps)."""
         part = [magic(round(p["e_dmg"] / runs_e), round(p["e_ap"] / runs_e))]
-        if depth < p["e_jumps"]:
+        if depth < p["e_jumps"] and not p["native"]:
             part += [refresh("e_alive", p["e_p"] + 2),
                      drop("e_watch", delayed(p["e_p"] + 3, sw("e_on", sw("e_alive", NONE, jump(depth + 1)))))]
+        watch = [{"type": "Native", "effect_ref": f"{ID}:vision"}] if p["native"] else []
         return combine(refresh("e_on", p["e_t"]), casted(p["e_t"], p["e_p"], *part, kind="Poison"),
-                       casted(p["e_t"], 60, view("e_mark")), view("e_hit"), tsfx("e_hit"), swarm())
+                       casted(p["e_t"], 60, view("e_mark")), view("e_hit"), tsfx("e_hit"), swarm(), *watch)
 
     def champ():
         """On a champion the vision reaches (its champion-only twin): R takes him while r_armed."""
@@ -304,9 +310,16 @@ def build(p):
     views_e = [E("a_hit", FX, 2), E("e_hit", FX, 2), E("e_mark", FX, 2), E("w_spawn", FX, 2), E("w_swarm", FX, -1),
                E("w_bite", FX, 2), E("q_rift", BIG, 2, False), E("q_hit", FX, 2), E("r_grasp", BIG, 2),
                E("r_pool", BIG, -2, False)]
-    views_b = [P_("p_shift", FX, 2)]
+    # e_markb: the add-on's jumped vision (a buff picture: pictures played from native code never showed in game)
+    views_b = [P_("p_shift", FX, 2), {"type": "Animated", "name": n("e_markb"), "anim": FX, "tag": "e_mark",
+                                      "repeat": True, "z": 2}]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": f"{ID}:void",
+                            "params": {k: p[k] for k in ("p_cd", "p_linger", "p_dr", "e_t", "e_p", "e_dmg", "e_ap",
+                                                         "e_jump")}}
     return {
-        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"],
+        "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["ap"], "hp": p["hp"], "defence": p["def"],

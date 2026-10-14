@@ -3489,6 +3489,14 @@
       "tag": "p_shift",
       "repeat": true,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_malzahar_e_markb",
+      "anim": "asset/league/effects/league_malzahar_fx",
+      "tag": "e_mark",
+      "repeat": true,
+      "z": 2
     }
   ]
 }
