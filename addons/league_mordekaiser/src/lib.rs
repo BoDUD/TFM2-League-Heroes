@@ -296,9 +296,32 @@ fn alive_at(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
 struct Revenant {
     p: Params,
     guards: usize,
+    /// The one let out of the realm early (him after a win, the target after his death) and the tick: logged once he
+    /// is targetable again, or still banished 30 ticks on (game 0.6.4 holds a banish apart from the other CC).
+    out: Option<(usize, usize)>,
+}
+
+/// Lets `id` out of the realm now. Clearing his CC was enough in 0.6.3 (he cast W 4 ticks after a win); 0.6.4 keeps
+/// a banish apart from the other CC, so a 1-tick banish goes on top as well - if a new banish replaces the time left,
+/// it ends next tick; if it does not, nothing changes. `out` logs which it was.
+fn let_out(sim: &mut StableSim<'_>, id: usize) {
+    sim.entity_clear_cc(id);
+    sim.entity_banish(id, id, 1, "", "");
 }
 
 impl Revenant {
+    /// The log line for the early exit: when the one let out is targetable again (or still not, 30 ticks on).
+    fn watch_out(&mut self, sim: &StableSim<'_>, me: usize) {
+        let Some((id, since)) = self.out else { return };
+        let t = sim.tick();
+        let free = sim.get_entity(id).is_some_and(|e| !e.is_alive() || e.is_targetable());
+        if free || t >= since + 30 {
+            self.out = None;
+            wlog(format!("{} R OUT: {} {} {} ticks after the realm ended early", head(sim, me), who(sim, id),
+                         if free { "targetable again" } else { "STILL BANISHED" }, t - since));
+        }
+    }
+
     fn decay(&self, sim: &StableSim<'_>, me: usize) {
         let max = sim.get_entity(me).map_or(0, |e| e.hp().1);
         let t = sim.tick();
@@ -342,7 +365,8 @@ impl Revenant {
             (None, _) => {
                 // he died first: the cursed one comes back now
                 with_state(sim, me, |s| s.realm = None);
-                sim.entity_clear_cc(r.target);
+                let_out(sim, r.target);
+                self.out = Some((r.target, t));
                 wlog(format!("{} R LOST: he died in the realm ({} swings vs {}); {} back", head(sim, me), r.swings.0,
                              r.swings.1, who(sim, r.target)));
             }
@@ -354,7 +378,8 @@ impl Revenant {
                 show(sim, "r_win", me);
                 sim.entity_remove_buff(me, &mk("r_keep"));
                 sim.add_buff(me, &steal_buff(&mk("r_keep"), self.p.keep, r.steal, 1));
-                sim.entity_clear_cc(me);
+                let_out(sim, me);
+                self.out = Some((me, t));
                 wlog(format!("{} R WON: {} died in the realm ({} swings vs {}) -> +{amount} hp, {:?} kept {} more ticks",
                              head(sim, me), who(sim, r.target), r.swings.0, r.swings.1, r.steal, self.p.keep));
             }
@@ -425,6 +450,7 @@ impl StablePassive for Revenant {
         self.decay(sim, me);
         self.guard(sim, me);
         self.realm(sim, me);
+        self.watch_out(sim, me);
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {

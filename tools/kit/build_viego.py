@@ -311,9 +311,10 @@ def build(p):
             return buff("mark", p["p_win"])
         # the add-on puts the possession's state on him itself (its buffs, the heal, the cooldowns) and sets p_go /
         # p_off for the pictures and sounds, played by his next action
-        # league_viego_shape: a data buff for the add-on's display hook - the game's display world carries the buffs
-        # the data adds but none the add-on adds (in game 2026-10-11: his q_cd there, never the add-on's p_on or look
-        # buff), so the body swap keys on this one (the victim from the add-on's own record)
+        # league_viego_shape: a data buff for the add-on's display hook - on game 0.6.3 the display world carried the
+        # buffs the data adds but none the add-on adds (in game 2026-10-11: his q_cd there, never the add-on's p_on or
+        # look buff), so the body swap keys on this one (the victim from the add-on's own record); 0.6.4 records what
+        # a native passive does, so the add-on's look buff should reach it too (the hook reads that first)
         show = combine(anim("possess", p["p_anim"]), cview("p_take"), sfx("p"), sfx("p_hit"), voice("vo_p", p),
                        refresh("shape", p["p_t"]))
         take = combine(sw("p_go", combine(*rm("p_go"), show)),
@@ -415,9 +416,10 @@ def build(p):
         views_p += [P_("s_bolt"), P_("s_line")]
         # the assassins' vanishing puff (e_mist)
         views_e += [E("s_hit"), E("s_burst", BIG, 3), E("s_ring", BIG, -1), E("e_mist", BIG, -1, False)]
-        views_b += [B_("s_slow", FX, 3), B_("s_heal", FX, 3), B_("s_haste", FX, 3),
-                    # the possession's mist on the data's shape buff (the add-on's own p_on is never drawn)
-                    {"type": "Animated", "name": n("shape"), "anim": BIG, "tag": "p_on", "repeat": True, "z": 3}]
+        # the possession's mist is the add-on's own p_on (B_("p_on") above): from game 0.6.4 what a native passive adds
+        # is drawn. Until then it was not, and the data's shape buff carried the same mist - both would show now, so the
+        # shape buff is a bare marker again (the add-on's display hook reads its name)
+        views_b += [B_("s_slow", FX, 3), B_("s_heal", FX, 3), B_("s_haste", FX, 3)]
         extra["passive"] = {"passive_ref": "league_viego_soul:possess",
                             "params": {k: p[k] for k in ("p_t", "p_inv", "p_heal", "p_heal_ratio", "p_ad", "p_as", "p_ms",
                                                          "p_skill", "p_ult", "p_win", "soul_r", "soul_t", "s_range")}}
