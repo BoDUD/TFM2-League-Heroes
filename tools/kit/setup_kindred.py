@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_kindred in every language, description + skill_name),
 sound/sfx/league_kindred_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and
-the ban/pick card's point once the sprite is in), mod.mod_info (0.109.0, Kindred named). Only her keys change in the
+the ban/pick card's point once the sprite is in), mod.mod_info (0.110.0, Kindred named). Only her keys change in the
 shared files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: the client's zh_CN string table (千珏 / 永猎双子; 千珏之印, 乱箭之舞, 狼灵狂热, 横生惧意, 羊灵生息; Data Dragon's
 zh_CN swaps name and title) and Data Dragon 16.20.1 (zh_TW 鏡爪 / 鏡爪印記 / 舞動箭矢 / 魔狼狂熱 / 恐懼蔓延 / 神羊喘息,
@@ -27,7 +27,7 @@ from build_kindred import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_kindred"
-VERSION = "0.109.0"
+VERSION = "0.110.0"                  # #102: 塞恩 (league_sion) merged first as #101 / 0.109.0
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 D = "<#ff8a65ff>"      # physical damage

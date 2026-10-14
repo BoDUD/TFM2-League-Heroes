@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_sion": {
+    "remapping": "asset/league_sion/override/league_sion",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_sion/text/champion",
+    "type": "merge"
+  }
+}
