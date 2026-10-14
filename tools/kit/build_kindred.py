@@ -32,13 +32,18 @@ into Lamb's frames; his bites and his pounce are pictures on the targets.
           (Ekko's anchor, radius w_r); every w_per ticks the Wolf bites the first enemy in it (champions first):
           w_dmg + w_ratio% AD.
   ult     R Lamb's Respite (羊灵生息), armed (league_lulu R): a 3-tick cast on the idle tag (`EnemyChampion` within
-          r_arm_range) arms r_armed for r_arm ticks; her arrows check the danger while it lasts: an allied champion in
-          crowd control within r_reach, else - once the fight has gone on (her last r_fight champion hits each within
-          f_t ticks of the one before) - a probe onto a random allied champion within r_reach (her too) counting the
-          enemy champions within r_near of him: r_need or more. Nothing in the data reads health ("low" is the add-on's
-          job); these are the dangers the data can see. A save: the zone round her on r_at (r_r, r_t ticks):
-          every r_per ticks the allied champions in it get r_per + 2 ticks of `undying` (League: health stops at 10%);
-          when it ends, every allied champion in it heals r_heal + r_heal_ad% AD. Unused, the cooldown is refunded.
+          r_arm_range) arms r_armed for r_arm ticks; her arrows check the danger while it lasts. Nothing in the data reads
+          health, so the main pack waits for the dangers it can see (the user: 「千珏r大招逻辑不要乱放」), each through
+          its own hidden lob onto the allied champion in question, whose landing counts the enemy champions within r_near
+          of him and whose 2-tick-later read on him saves: an allied champion in crowd control within r_reach with at
+          least one enemy champion within r_near of him (r_cprobe / r_ccount / r_c1); or, once the fight has gone on (her
+          last r_fight champion hits each within f_t ticks of the one before), a random allied champion within r_reach
+          (her too) with r_need or more enemy champions within r_near of him (r_probe / r_count / r_n1 -> r_n2). The save:
+          the zone round her on r_at (r_r, r_t ticks): every r_per ticks the allied champions in it get r_per + 2 ticks
+          of `undying` (League: health stops at 10%); when it ends, every allied champion in it heals r_heal +
+          r_heal_ad% AD. Unused, the cooldown is refunded. r_now=1 is addons/league_kindred's copy, whose hook casts R
+          when someone in the circle is about to die (it reads health): the slot saves at once - no arming, no refund,
+          no check in her attack.
 """
 import argparse
 import json
@@ -61,15 +66,18 @@ BIG = "asset/league/effects/league_kindred_big"
 # champion-only twin flies with its arrow's speed and height, so both land on the same tick.
 # The slots' own actions are 3-tick casts that force the tag (league_nilah's way): Wolf's Frenzy's skill_cooldown_mult
 # also speeds skill actions, and a forced animation keeps its length.
-# Numbers = candidate d5a of the 10-min classic-SDK simulations (Temp/kn_sim/sim/kd.py --lane 1 against the base demon,
-# circus blade, hunter, inquisitor and ninja, three lineups, both sides, 2026-10-14): +1.38 on seeds 1-24, +1.17 on 25-48
+# Numbers = candidate d6 of the 10-min classic-SDK simulations (Temp/kn_sim/sim/kd.py --lane 1 against the base demon,
+# circus blade, hunter, inquisitor and ninja, three lineups, both sides, 2026-10-14): +1.18 on seeds 1-24, +1.18 on 25-48
 # (league_evelynn +1.38 / +1.30, league_lillia +1.33 / +1.77, league_khazix +0.97 / +1.16, league_nidalee +1.56 / +0.97:
-# peers' average +1.31 / +1.30), damage dealt 9336 / 9338 (peers 6990-9951). The draft d1 (attack 100 +22, arrows on
+# peers' average +1.31 / +1.30), damage dealt 9476 / 9327 (peers 6990-9951). The draft d1 (attack 100 +22, arrows on
 # placeholder ticks 10 / +10 / +14) was +2.85 / +2.15; one change each from it on seeds 1-24: attack 92 +19 +1.13 (d2e,
 # +1.47 on 25-48), 95 +20 +1.83 (+1.32), the Range base's stats (hp 900 +90, defence 20, mr 15, move 1000, attack
 # every 60) +1.58, no range / attack speed on the marks +1.76, the Wolf's bite 15 + 15% +2.08, Q's arrows 30 + 50%
 # +2.41. Retimed to the sheet's release frames and bow heights (d4 = d2e retimed) +1.64 / +1.69; then attack 90 +19
-# (d5a, adopted) +1.38 / +1.17, attack growth 18 (d5b) +1.70 / +0.55.
+# (d5a) +1.38 / +1.17, attack growth 18 (d5b) +1.70 / +0.55. d6 = d5a with R's stricter danger (the crowd-controlled
+# ally needs an enemy champion near him, the fight branch two): 0.23 saves a game instead of 0.81 (120 logged games).
+# The add-on's rule (addons/league_kindred: R when someone in the circle is about to die, on the r_now=1 copy) in a
+# PlayerInputAi hook of the same simulator (Temp/kn_sim/sim/kn_hook.rs, kd_hook.py): +2.09 / +1.96.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9, range 60000, cd 60; the base
     # junglers 120 +30 every 50, hp 900 +80, move 1100 +14); League's Kindred: 595 +104 hp, 65 AD, 29 armour, 33 mr,
@@ -94,10 +102,13 @@ P = {
     "w_cd": 960, "w_anim": 22, "w_at": 5, "w_fight": 70000, "w_t": 510, "w_r": 60000, "w_per": 60, "w_first": 30,
     "w_dmg": 25, "w_ratio": 25, "w_home": 10, "w_cdr": 100,
     # R Lamb's Respite (League: 530 radius round her, 4 s, nobody under 10% health, then heals 225-375; cd 160-120 s)
-    "r_cd": 3000, "r_arm": 900, "r_arm_range": 70000, "r_reach": 50000, "r_near": 25000, "r_need": 1,
+    "r_cd": 3000, "r_arm": 900, "r_arm_range": 70000, "r_reach": 50000, "r_near": 25000, "r_need": 2,
     "r_anim": 32, "r_at": 20, "r_r": 50000, "r_t": 240, "r_per": 6, "r_heal": 150, "r_heal_ad": 40,
-    # the probe's fight gate: her last r_fight champion hits came less than f_t ticks apart (0 = no gate)
+    # the fight branch's gate: her last r_fight champion hits came less than f_t ticks apart (0 = no gate)
     "r_fight": 3, "f_t": 150,
+    # 1 = the copy for addons/league_kindred (its hook casts R when someone in the circle is about to die): the ult slot
+    # saves at once, no arming window, no refund, no danger check in her attack
+    "r_now": 0,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # test builds for the simulator's logs only: 1 = unbound ViewEffects (dbg_*) mark which branch ran
@@ -291,18 +302,28 @@ def build(p):
     k_read = combine(casted(3, 1, *rm("k_a"), kind="Bleed"),
                      on_me(delayed(4, sw("k_a", combine(*rm("k_a"), sw("p_lock", NONE, mark(gain, "p_kill")))))))
 
-    # ------------------------------------------------------------------ R Lamb's Respite (armed; the save)
+    # ------------------------------------------------------------------ R Lamb's Respite (the save; armed or at once)
     safe = field("r_field", p["r_r"], p["r_t"], p["r_per"], 0, "AllyChampion",
                  [buff("r_safe", p["r_per"] + 2, undying=True)],
                  end=[heal_ally(p["r_heal"], p["r_heal_ad"]), view("r_heal"), tsfx("r_heal")])
-    go = combine(*rm("r_armed"), flag("r_got", 1),
-                 on_me(anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
-                       delayed(p["r_at"], cview("r_zone"), anchor("r_anchor", [safe]))))
+    save = on_me(anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
+                 delayed(p["r_at"], cview("r_zone"), anchor("r_anchor", [safe])))
+    go = combine(*rm("r_armed"), save)
+
+    def danger(lob, zone, count, need_flag, name):
+        """A hidden one-tick lob onto the allied champion in hand: its landing counts the enemy champions within r_near
+        of him (`count` runs once per enemy champion there), and 2 ticks later, on him, `need_flag` on her with R still
+        armed is the save (the first probe to save removes r_armed, so a second one that tick finds it gone)."""
+        return drop(lob, zone1(zone, p["r_near"], "EnemyChampion", [count]),
+                    hit=[delayed(2, sw("r_armed", sw(need_flag, mark(go, name))))])
+    # the crowd-control branch: an allied champion in crowd control within r_reach, with an enemy champion within
+    # r_near of him (its own lob, zone and flag: r_cprobe / r_ccount / r_c1)
+    cc_probe = danger("r_cprobe", "r_ccount", flag("r_c1", 4), "r_c1", "r_cc")
+    # the fight branch, once the fight has gone on: a random allied champion within r_reach (her too) with r_need or
+    # more enemy champions within r_near of him (r_probe / r_count / the climb r_n1 -> r_n2)
     need = "r_n2" if p["r_need"] >= 2 else "r_n1"
-    probe = drop("r_probe", zone1("r_count", p["r_near"], "EnemyChampion",
-                                  [sw("r_n1", flag("r_n2", 4), flag("r_n1", 4))]),
-                 hit=[delayed(2, sw("r_armed", sw(need, mark(go, "r_probe"))))])
-    fights = [f"f_{k}" for k in range(1, p["r_fight"] + 1)]
+    fight_probe = danger("r_probe", "r_count", sw("r_n1", flag("r_n2", 4), flag("r_n1", 4)), need, "r_probe")
+    fights = [f"f_{k}" for k in range(1, p["r_fight"] + 1)] if not p["r_now"] else []
 
     def fight_up():
         """One more of her champion hits: f_1..f_k all on, renewed (league_veigar R's rungs), the top one kept."""
@@ -310,10 +331,12 @@ def build(p):
         for k in range(1, p["r_fight"]):
             out = sw(f"f_{k}", combine(*rm(*fights), *[flag(f"f_{j}", p["f_t"]) for j in range(1, k + 2)]), out)
         return sw(f"f_{p['r_fight']}", combine(*rm(*fights), *[flag(f, p["f_t"]) for f in fights]), out)
-    ally_probe = pick(p["r_reach"], "AllyChampion", probe)
-    r_check = sw("r_armed", combine(*rm("r_got", "r_n1", "r_n2"),
-                                    pick(p["r_reach"], "AllyChampionInCC", mark(go, "r_cc")),
-                                    sw("r_got", NONE, sw(fights[-1], ally_probe) if fights else ally_probe)))
+    ally_probe = pick(p["r_reach"], "AllyChampion", fight_probe)
+    # r_now=1 (addons/league_kindred's copy: its hook casts R when someone in the circle is about to die): no check
+    # anywhere, the ult slot saves at once
+    r_check = None if p["r_now"] else sw("r_armed", combine(
+        *rm("r_c1", "r_n1", "r_n2"), pick(p["r_reach"], "AllyChampionInCC", cc_probe),
+        sw(fights[-1], ally_probe) if fights else ally_probe))
 
     # ------------------------------------------------------------------ attack
     # Mounting Dread's count: her arrow hits while the mark lasts; the third sets e_boom for the poll on the marked unit
@@ -388,11 +411,14 @@ def build(p):
     skill2 = action("idle", 3, p["s2_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     flat(combine(pick_w, sw("w_go", w_cast, sw("e_cd", dbg("s2_empty") or NONE, e_cast)))), key="skill2")
 
-    # ------------------------------------------------------------------ ult: arms Lamb's Respite
-    ult = action("idle", 3, p["r_cd"], 1, p["r_arm_range"], "None", "EnemyChampion", flat(combine(
-        *rm("r_armed"), flag("r_armed", p["r_arm"]), dbg("r_arm"), r_check,
-        delayed(p["r_arm"], sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900)))))),
-        key="ult")
+    # ------------------------------------------------------------------ ult: arms Lamb's Respite (r_now=1: saves at once)
+    if p["r_now"]:
+        ult = action("idle", 3, p["r_cd"], 1, p["r_arm_range"], "None", "EnemyChampion", flat(combine(save)), key="ult")
+    else:
+        ult = action("idle", 3, p["r_cd"], 1, p["r_arm_range"], "None", "EnemyChampion", flat(combine(
+            *rm("r_armed"), flag("r_armed", p["r_arm"]), dbg("r_arm"), r_check,
+            delayed(p["r_arm"], sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900)))))),
+            key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

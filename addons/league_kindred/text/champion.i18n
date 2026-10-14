@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_kindred_respite": {
+        "ult": "【附加包】法阵范围内有友方英雄（队友或她自己）快要阵亡时（生命低于<#ffb900ff>30%<>或<#ffb900ff>1秒<>内被打掉三成，且敌方英雄在旁），祝福身边区域：<#ffb900ff>4秒<>内其中的友方英雄不会阵亡，结束时回复<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>10%<>生命。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_kindred_respite": {
+        "ult": "【附加包】法陣範圍內有友方英雄（隊友或她自己）快要陣亡時（生命低於<#ffb900ff>30%<>或<#ffb900ff>1秒<>內被打掉三成，且敵方英雄在旁），祝福身邊區域：<#ffb900ff>4秒<>內其中的友方英雄不會陣亡，結束時回復<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>10%<>生命。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_kindred_respite": {
+        "ult": "[Add-on] When an allied champion in her circle - a teammate or herself - is about to die (below <#ffb900ff>30%<> health, or 30% lost within <#ffb900ff>1s<>, with an enemy champion close), she blesses the ground around her: for <#ffb900ff>4s<> allied champions in it cannot die, and when it ends they heal <#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>10%<>."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_kindred_respite": {
+        "ult": "[애드온] 원 안의 아군 챔피언(아군 또는 자신)이 죽기 직전일 때(체력 <#ffb900ff>30%<> 미만이거나 <#ffb900ff>1초<> 안에 30% 이상 잃고 적 챔피언이 가까이 있을 때) 주변을 축복: <#ffb900ff>4초<> 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 <#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>10%<> 회복."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_kindred_respite": {
+        "ult": "【アドオン】円の中の味方チャンピオン（味方か自身）が倒れそうな時（体力<#ffb900ff>30%<>未満か<#ffb900ff>1秒<>で30%以上失い、敵チャンピオンが近い時）周囲を祝福：<#ffb900ff>4秒<>間、中の味方チャンピオンは倒れず、終了時に<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>10%<>回復。"
+      }
+    }
+  }
+}

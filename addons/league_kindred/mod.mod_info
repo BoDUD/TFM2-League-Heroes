@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.109.0"
+    }
+  ],
+  "description": "Test build of Kindred's Lamb's Respite as in League (needs League of Legends Heroes): replaces the main pack's Kindred so R goes out only when an allied champion in her circle - a teammate or Kindred herself - is about to die (below 30% health, or 30% lost within a second, with an enemy champion close), read from their health, instead of the data pack's guess from crowd control and enemies around. The circle, the undying, the heal and every picture stay the main pack's. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-14",
+  "mod_id": "league_kindred",
+  "mod_type": "native",
+  "name": "League Heroes: Kindred's Lamb's Respite only to save (test)",
+  "version": "0.1.0"
+}

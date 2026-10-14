@@ -61,7 +61,7 @@
             "effects": [
               {
                 "type": "RemoveCasterBuff",
-                "name": "league_kindred_r_got"
+                "name": "league_kindred_r_c1"
               },
               {
                 "type": "RemoveCasterBuff",
@@ -78,149 +78,213 @@
                 "from_projectile": false,
                 "effects": [
                   {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_kindred_r_armed"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_kindred_r_got",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "RangeEffect",
+                    "type": "ParabolicProjectile",
+                    "name": "league_kindred_r_cprobe",
+                    "travel_time": 1,
+                    "range": 400000,
                     "shape": {
                       "Circle": {
                         "radius": 1000
                       }
                     },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
-                    "effects": [
+                    "range_effect_name": "",
+                    "applied_target": "AllyChampion",
+                    "applied_effects": [
                       {
-                        "type": "CasterAnimation",
-                        "name": "ult",
-                        "tick": 32
-                      },
-                      {
-                        "type": "Sfx",
-                        "name": "league_kindred_r"
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_kindred_vo_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Delayed",
+                          "tick": 2,
                           "effects": [
                             {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kindred_r_armed",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kindred_r_c1",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kindred_r_armed"
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "ult",
+                                          "tick": 32
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_kindred_r"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_kindred_vo_cd",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_kindred_vo_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 600
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_kindred_vo_r"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 20,
+                                          "effects": [
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_kindred_r_zone"
+                                            },
+                                            {
+                                              "type": "LinearProjectile",
+                                              "name": "league_kindred_r_anchor",
+                                              "speed": 1,
+                                              "range": 1,
+                                              "y_offset": 5000,
+                                              "penetrate": true,
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [],
+                                              "end_effects": [
+                                                {
+                                                  "type": "RangePeriodProjectile",
+                                                  "name": "league_kindred_r_field",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 50000
+                                                    }
+                                                  },
+                                                  "tick": 240,
+                                                  "period": 6,
+                                                  "first_delay": 0,
+                                                  "applied_target": "AllyChampion",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_kindred_r_safe",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 8
+                                                            }
+                                                          },
+                                                          "undying": true
+                                                        }
+                                                      }
+                                                    }
+                                                  ],
+                                                  "end_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Heal",
+                                                        "amount": 150,
+                                                        "attack_ratio": 40,
+                                                        "ap_ratio": 0,
+                                                        "heal_type": "Ally"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_kindred_r_heal"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_kindred_r_heal"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "end_effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_kindred_r_ccount",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_kindred_vo_cd",
+                                "name": "league_kindred_r_c1",
                                 "duration": {
                                   "Time": {
-                                    "tick": 600
+                                    "tick": 4
                                   }
                                 }
                               },
                               "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_kindred_vo_r"
                             }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 20,
-                        "effects": [
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_kindred_r_zone"
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_kindred_r_anchor",
-                            "speed": 1,
-                            "range": 1,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "RangePeriodProjectile",
-                                "name": "league_kindred_r_field",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 50000
-                                  }
-                                },
-                                "tick": 240,
-                                "period": 6,
-                                "first_delay": 0,
-                                "applied_target": "AllyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_kindred_r_safe",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 8
-                                          }
-                                        },
-                                        "undying": true
-                                      }
-                                    }
-                                  }
-                                ],
-                                "end_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Heal",
-                                      "amount": 150,
-                                      "attack_ratio": 40,
-                                      "ap_ratio": 0,
-                                      "heal_type": "Ally"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_kindred_r_heal"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_kindred_r_heal"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
                           }
                         ]
                       }
@@ -230,267 +294,247 @@
               },
               {
                 "type": "SwitchByBuff",
-                "buff_name": "league_kindred_r_got",
+                "buff_name": "league_kindred_f_3",
                 "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_kindred_f_3",
-                  "effect_buff": {
-                    "type": "RandomTarget",
-                    "range": 50000,
-                    "casting_target": "AllyChampion",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "league_kindred_r_probe",
-                        "travel_time": 1,
-                        "range": 400000,
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
-                          }
-                        },
-                        "range_effect_name": "",
-                        "applied_target": "AllyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Delayed",
-                              "tick": 2,
-                              "effects": [
-                                {
+                  "type": "RandomTarget",
+                  "range": 50000,
+                  "casting_target": "AllyChampion",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "league_kindred_r_probe",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "range_effect_name": "",
+                      "applied_target": "AllyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Delayed",
+                            "tick": 2,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kindred_r_armed",
+                                "effect_buff": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_kindred_r_armed",
+                                  "buff_name": "league_kindred_r_n2",
                                   "effect_buff": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_kindred_r_n1",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_kindred_r_armed"
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_kindred_r_armed"
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
                                         },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_kindred_r_got",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 1
-                                              }
-                                            }
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "ult",
+                                            "tick": 32
                                           },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kindred_r"
                                           },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
-                                            {
-                                              "type": "CasterAnimation",
-                                              "name": "ult",
-                                              "tick": 32
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_kindred_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
                                             },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_kindred_r"
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_kindred_vo_cd",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_kindred_vo_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 600
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "Sfx",
-                                                    "name": "league_kindred_vo_r"
-                                                  }
-                                                ]
-                                              }
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 20,
+                                            "effect_none": {
+                                              "type": "Combine",
                                               "effects": [
                                                 {
-                                                  "type": "CasterViewEffect",
-                                                  "name": "league_kindred_r_zone"
-                                                },
-                                                {
-                                                  "type": "LinearProjectile",
-                                                  "name": "league_kindred_r_anchor",
-                                                  "speed": 1,
-                                                  "range": 1,
-                                                  "y_offset": 5000,
-                                                  "penetrate": true,
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 1000
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kindred_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
                                                     }
                                                   },
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [],
-                                                  "end_effects": [
-                                                    {
-                                                      "type": "RangePeriodProjectile",
-                                                      "name": "league_kindred_r_field",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 50000
-                                                        }
-                                                      },
-                                                      "tick": 240,
-                                                      "period": 6,
-                                                      "first_delay": 0,
-                                                      "applied_target": "AllyChampion",
-                                                      "applied_effects": [
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "AddBuff",
-                                                            "buff_state": {
-                                                              "name": "league_kindred_r_safe",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 8
-                                                                }
-                                                              },
-                                                              "undying": true
-                                                            }
-                                                          }
-                                                        }
-                                                      ],
-                                                      "end_effects": [
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "Heal",
-                                                            "amount": 150,
-                                                            "attack_ratio": 40,
-                                                            "ap_ratio": 0,
-                                                            "heal_type": "Ally"
-                                                          }
-                                                        },
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_kindred_r_heal"
-                                                          }
-                                                        },
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "TargetSfx",
-                                                            "name": "league_kindred_r_heal"
-                                                          }
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_kindred_vo_r"
                                                 }
                                               ]
                                             }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 20,
+                                            "effects": [
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_kindred_r_zone"
+                                              },
+                                              {
+                                                "type": "LinearProjectile",
+                                                "name": "league_kindred_r_anchor",
+                                                "speed": 1,
+                                                "range": 1,
+                                                "y_offset": 5000,
+                                                "penetrate": true,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "RangePeriodProjectile",
+                                                    "name": "league_kindred_r_field",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 50000
+                                                      }
+                                                    },
+                                                    "tick": 240,
+                                                    "period": 6,
+                                                    "first_delay": 0,
+                                                    "applied_target": "AllyChampion",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_kindred_r_safe",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 8
+                                                              }
+                                                            },
+                                                            "undying": true
+                                                          }
+                                                        }
+                                                      }
+                                                    ],
+                                                    "end_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "Heal",
+                                                          "amount": 150,
+                                                          "attack_ratio": 40,
+                                                          "ap_ratio": 0,
+                                                          "heal_type": "Ally"
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_kindred_r_heal"
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_kindred_r_heal"
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
                                   },
                                   "effect_none": {
                                     "type": "Combine",
                                     "effects": []
                                   }
-                                }
-                              ]
-                            }
-                          }
-                        ],
-                        "end_effects": [
-                          {
-                            "type": "RangeProjectile",
-                            "name": "league_kindred_r_count",
-                            "shape": {
-                              "Circle": {
-                                "radius": 25000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_kindred_r_n1",
-                                  "effect_buff": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_r_n2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 4
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  "effect_none": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_r_n1",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 4
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
                                 }
                               }
                             ]
                           }
-                        ]
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
+                        }
+                      ],
+                      "end_effects": [
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_kindred_r_count",
+                          "shape": {
+                            "Circle": {
+                              "radius": 25000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kindred_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kindred_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kindred_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
                 }
               }
             ]
@@ -2466,7 +2510,7 @@
             "effects": [
               {
                 "type": "RemoveCasterBuff",
-                "name": "league_kindred_r_got"
+                "name": "league_kindred_r_c1"
               },
               {
                 "type": "RemoveCasterBuff",
@@ -2483,149 +2527,213 @@
                 "from_projectile": false,
                 "effects": [
                   {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_kindred_r_armed"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_kindred_r_got",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "RangeEffect",
+                    "type": "ParabolicProjectile",
+                    "name": "league_kindred_r_cprobe",
+                    "travel_time": 1,
+                    "range": 400000,
                     "shape": {
                       "Circle": {
                         "radius": 1000
                       }
                     },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
-                    "effects": [
+                    "range_effect_name": "",
+                    "applied_target": "AllyChampion",
+                    "applied_effects": [
                       {
-                        "type": "CasterAnimation",
-                        "name": "ult",
-                        "tick": 32
-                      },
-                      {
-                        "type": "Sfx",
-                        "name": "league_kindred_r"
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_kindred_vo_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Delayed",
+                          "tick": 2,
                           "effects": [
                             {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kindred_r_armed",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kindred_r_c1",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kindred_r_armed"
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "ult",
+                                          "tick": 32
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_kindred_r"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_kindred_vo_cd",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_kindred_vo_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 600
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_kindred_vo_r"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 20,
+                                          "effects": [
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_kindred_r_zone"
+                                            },
+                                            {
+                                              "type": "LinearProjectile",
+                                              "name": "league_kindred_r_anchor",
+                                              "speed": 1,
+                                              "range": 1,
+                                              "y_offset": 5000,
+                                              "penetrate": true,
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [],
+                                              "end_effects": [
+                                                {
+                                                  "type": "RangePeriodProjectile",
+                                                  "name": "league_kindred_r_field",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 50000
+                                                    }
+                                                  },
+                                                  "tick": 240,
+                                                  "period": 6,
+                                                  "first_delay": 0,
+                                                  "applied_target": "AllyChampion",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_kindred_r_safe",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 8
+                                                            }
+                                                          },
+                                                          "undying": true
+                                                        }
+                                                      }
+                                                    }
+                                                  ],
+                                                  "end_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Heal",
+                                                        "amount": 150,
+                                                        "attack_ratio": 40,
+                                                        "ap_ratio": 0,
+                                                        "heal_type": "Ally"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_kindred_r_heal"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_kindred_r_heal"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "end_effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_kindred_r_ccount",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_kindred_vo_cd",
+                                "name": "league_kindred_r_c1",
                                 "duration": {
                                   "Time": {
-                                    "tick": 600
+                                    "tick": 4
                                   }
                                 }
                               },
                               "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_kindred_vo_r"
                             }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 20,
-                        "effects": [
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_kindred_r_zone"
-                          },
-                          {
-                            "type": "LinearProjectile",
-                            "name": "league_kindred_r_anchor",
-                            "speed": 1,
-                            "range": 1,
-                            "y_offset": 5000,
-                            "penetrate": true,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "RangePeriodProjectile",
-                                "name": "league_kindred_r_field",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 50000
-                                  }
-                                },
-                                "tick": 240,
-                                "period": 6,
-                                "first_delay": 0,
-                                "applied_target": "AllyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_kindred_r_safe",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 8
-                                          }
-                                        },
-                                        "undying": true
-                                      }
-                                    }
-                                  }
-                                ],
-                                "end_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Heal",
-                                      "amount": 150,
-                                      "attack_ratio": 40,
-                                      "ap_ratio": 0,
-                                      "heal_type": "Ally"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_kindred_r_heal"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_kindred_r_heal"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
                           }
                         ]
                       }
@@ -2635,267 +2743,247 @@
               },
               {
                 "type": "SwitchByBuff",
-                "buff_name": "league_kindred_r_got",
+                "buff_name": "league_kindred_f_3",
                 "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_kindred_f_3",
-                  "effect_buff": {
-                    "type": "RandomTarget",
-                    "range": 50000,
-                    "casting_target": "AllyChampion",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "ParabolicProjectile",
-                        "name": "league_kindred_r_probe",
-                        "travel_time": 1,
-                        "range": 400000,
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
-                          }
-                        },
-                        "range_effect_name": "",
-                        "applied_target": "AllyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Delayed",
-                              "tick": 2,
-                              "effects": [
-                                {
+                  "type": "RandomTarget",
+                  "range": 50000,
+                  "casting_target": "AllyChampion",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "league_kindred_r_probe",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "range_effect_name": "",
+                      "applied_target": "AllyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Delayed",
+                            "tick": 2,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kindred_r_armed",
+                                "effect_buff": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_kindred_r_armed",
+                                  "buff_name": "league_kindred_r_n2",
                                   "effect_buff": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_kindred_r_n1",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_kindred_r_armed"
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_kindred_r_armed"
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
                                         },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_kindred_r_got",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 1
-                                              }
-                                            }
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "ult",
+                                            "tick": 32
                                           },
-                                          "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "RangeEffect",
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kindred_r"
                                           },
-                                          "target": "AllyOnlySelf",
-                                          "apply_type": "AroundCaster",
-                                          "effects": [
-                                            {
-                                              "type": "CasterAnimation",
-                                              "name": "ult",
-                                              "tick": 32
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_kindred_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
                                             },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_kindred_r"
-                                            },
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_kindred_vo_cd",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              },
-                                              "effect_none": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_kindred_vo_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 600
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  },
-                                                  {
-                                                    "type": "Sfx",
-                                                    "name": "league_kindred_vo_r"
-                                                  }
-                                                ]
-                                              }
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 20,
+                                            "effect_none": {
+                                              "type": "Combine",
                                               "effects": [
                                                 {
-                                                  "type": "CasterViewEffect",
-                                                  "name": "league_kindred_r_zone"
-                                                },
-                                                {
-                                                  "type": "LinearProjectile",
-                                                  "name": "league_kindred_r_anchor",
-                                                  "speed": 1,
-                                                  "range": 1,
-                                                  "y_offset": 5000,
-                                                  "penetrate": true,
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 1000
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kindred_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
                                                     }
                                                   },
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [],
-                                                  "end_effects": [
-                                                    {
-                                                      "type": "RangePeriodProjectile",
-                                                      "name": "league_kindred_r_field",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 50000
-                                                        }
-                                                      },
-                                                      "tick": 240,
-                                                      "period": 6,
-                                                      "first_delay": 0,
-                                                      "applied_target": "AllyChampion",
-                                                      "applied_effects": [
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "AddBuff",
-                                                            "buff_state": {
-                                                              "name": "league_kindred_r_safe",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 8
-                                                                }
-                                                              },
-                                                              "undying": true
-                                                            }
-                                                          }
-                                                        }
-                                                      ],
-                                                      "end_effects": [
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "Heal",
-                                                            "amount": 150,
-                                                            "attack_ratio": 40,
-                                                            "ap_ratio": 0,
-                                                            "heal_type": "Ally"
-                                                          }
-                                                        },
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "ViewEffect",
-                                                            "name": "league_kindred_r_heal"
-                                                          }
-                                                        },
-                                                        {
-                                                          "casting_type": "Targeting",
-                                                          "effect": {
-                                                            "type": "TargetSfx",
-                                                            "name": "league_kindred_r_heal"
-                                                          }
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_kindred_vo_r"
                                                 }
                                               ]
                                             }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 20,
+                                            "effects": [
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_kindred_r_zone"
+                                              },
+                                              {
+                                                "type": "LinearProjectile",
+                                                "name": "league_kindred_r_anchor",
+                                                "speed": 1,
+                                                "range": 1,
+                                                "y_offset": 5000,
+                                                "penetrate": true,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "RangePeriodProjectile",
+                                                    "name": "league_kindred_r_field",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 50000
+                                                      }
+                                                    },
+                                                    "tick": 240,
+                                                    "period": 6,
+                                                    "first_delay": 0,
+                                                    "applied_target": "AllyChampion",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_kindred_r_safe",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 8
+                                                              }
+                                                            },
+                                                            "undying": true
+                                                          }
+                                                        }
+                                                      }
+                                                    ],
+                                                    "end_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "Heal",
+                                                          "amount": 150,
+                                                          "attack_ratio": 40,
+                                                          "ap_ratio": 0,
+                                                          "heal_type": "Ally"
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_kindred_r_heal"
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_kindred_r_heal"
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
                                   },
                                   "effect_none": {
                                     "type": "Combine",
                                     "effects": []
                                   }
-                                }
-                              ]
-                            }
-                          }
-                        ],
-                        "end_effects": [
-                          {
-                            "type": "RangeProjectile",
-                            "name": "league_kindred_r_count",
-                            "shape": {
-                              "Circle": {
-                                "radius": 25000
-                              }
-                            },
-                            "delay": 1,
-                            "apply": 1,
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [
-                              {
-                                "casting_type": "Targeting",
-                                "effect": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_kindred_r_n1",
-                                  "effect_buff": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_r_n2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 4
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  "effect_none": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_r_n1",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 4
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
                                 }
                               }
                             ]
                           }
-                        ]
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
+                        }
+                      ],
+                      "end_effects": [
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_kindred_r_count",
+                          "shape": {
+                            "Circle": {
+                              "radius": 25000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kindred_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kindred_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kindred_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
                 }
               }
             ]

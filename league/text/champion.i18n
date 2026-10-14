@@ -699,7 +699,7 @@
         "attack": "<#ff9028ff>千珏之印<>：羊灵射箭。参与击杀被她攻击过的敌方英雄获得一层印记（阵亡清空）：射程+15、攻速+4%、<#ff9028ff>横生惧意<>+<#a974ffff>8魔法伤害<>。",
         "skill": "跃动一小段（被近身时向后），向附近最多<#ffb900ff>3名<>敌人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理伤害<>，攻速+35%持续<#ffb900ff>4秒<>。在<#ff9028ff>狼灵狂热<>内冷却<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>横生惧意<>：标记敌人并<#ef5350ff>减速30%<>，此后第<#ffb900ff>3次<>攻击命中时狼灵扑咬被标记者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理伤害<>（英雄额外4%最大生命）。冷却时放<#ff9028ff>狼灵狂热<>：<#ffb900ff>8.5秒<>领域，狼灵每秒撕咬其中一个敌人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理伤害<>。",
-        "ult": "交战中友方英雄被控制、或被敌方英雄贴身时，祝福身边区域：<#ffb900ff>4秒<>内其中的友方英雄不会阵亡，结束时回复<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
+        "ult": "友方英雄被控制且身边有敌方英雄，或持续交战中友方英雄（含自己）身边有2名以上敌方英雄时，祝福身边区域：<#ffb900ff>4秒<>内其中的友方英雄不会阵亡，结束时回复<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
       }
     },
     "skill_name": {
@@ -1905,7 +1905,7 @@
         "attack": "<#ff9028ff>鏡爪印記<>：射出箭矢。參與擊殺被她攻擊過的敵方英雄獲得一層印記（陣亡清空）：射程+15、攻速+4%、<#ff9028ff>恐懼蔓延<>+<#a974ffff>8魔法傷害<>。",
         "skill": "躍動一小段（被近身時向後），向附近最多<#ffb900ff>3名<>敵人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理傷害<>，攻速+35%持續<#ffb900ff>4秒<>。在<#ff9028ff>魔狼狂熱<>內冷卻<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>恐懼蔓延<>：標記敵人並<#ef5350ff>緩速30%<>，此後第<#ffb900ff>3次<>攻擊命中時魔狼撲咬被標記者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理傷害<>（英雄額外4%最大生命）。冷卻時放<#ff9028ff>魔狼狂熱<>：<#ffb900ff>8.5秒<>領域，魔狼每秒撕咬其中一個敵人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理傷害<>。",
-        "ult": "交戰中友方英雄被控制、或被敵方英雄貼身時，祝福身邊區域：<#ffb900ff>4秒<>內其中的友方英雄不會陣亡，結束時回復<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
+        "ult": "友方英雄被控制且身邊有敵方英雄，或持續交戰中友方英雄（含自己）身邊有2名以上敵方英雄時，祝福身邊區域：<#ffb900ff>4秒<>內其中的友方英雄不會陣亡，結束時回復<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
       }
     },
     "skill_name": {
@@ -3111,7 +3111,7 @@
         "attack": "<#ff9028ff>Mark of the Kindred<>: Lamb's arrows. Each takedown of an enemy champion she hit gives a mark (lost on death): +15 range, +4% attack speed, <#ff9028ff>Mounting Dread<> +<#a974ffff>8 magic damage<>.",
         "skill": "Leaps a short way (back when an enemy closes in) and shoots an arrow at each of up to <#ffb900ff>3<> nearby enemies for <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>physical damage<>; +35% attack speed for <#ffb900ff>4s<>. Inside <#ff9028ff>Wolf's Frenzy<> the cooldown is <#ffb900ff>4s<>.",
         "skill2": "<#ff9028ff>Mounting Dread<>: marks an enemy and <#ef5350ff>slows it 30%<>; her <#ffb900ff>3rd<> attack hit after it sends Wolf at the marked one for <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>physical damage<> (+4% max health on champions). On cooldown, <#ff9028ff>Wolf's Frenzy<>: for <#ffb900ff>8.5s<> a zone where Wolf bites one enemy every second for <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>physical damage<>.",
-        "ult": "In a fight, when an allied champion is crowd-controlled or an enemy champion closes in, she blesses the ground around her: for <#ffb900ff>4s<> allied champions in it cannot die, then they heal <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>."
+        "ult": "When an allied champion near her is crowd-controlled with an enemy champion beside him, or, in a sustained fight, an allied champion (or she) has 2 or more enemy champions beside him, she blesses the ground around her: for <#ffb900ff>4s<> allied champions in it cannot die, then they heal <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>."
       }
     },
     "skill_name": {
@@ -4317,7 +4317,7 @@
         "attack": "<#ff9028ff>킨드레드의 표식<>: 양의 화살. 공격한 적 챔피언 처치에 관여하면 표식 획득(사망 시 소멸): 사거리 +15, 공격 속도 +4%, <#ff9028ff>차오르는 공포<> <#a974ffff>마법 피해 +8<>.",
         "skill": "짧게 도약(적이 붙으면 뒤로)한 뒤 주변 적 최대 <#ffb900ff>3명<>에게 화살을 한 발씩 쏴 <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>물리 피해<>, 공격 속도 +35% (<#ffb900ff>4초<>). <#ff9028ff>늑대의 광기<> 안에서는 재사용 대기시간 <#ffb900ff>4초<>.",
         "skill2": "<#ff9028ff>차오르는 공포<>: 적에게 표식을 남기고 <#ef5350ff>30% 둔화<>; 이후 <#ffb900ff>3번째<> 공격이 적중하면 늑대가 표식 대상을 덮쳐 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>물리 피해<>(챔피언은 최대 체력의 4% 추가). 재사용 대기 중에는 <#ff9028ff>늑대의 광기<>: <#ffb900ff>8.5초<> 영역, 늑대가 매초 적 하나를 물어 <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>물리 피해<>.",
-        "ult": "교전 중 아군 챔피언이 군중 제어를 받거나 적 챔피언이 붙으면 주변을 축복: <#ffb900ff>4초<> 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<> 회복."
+        "ult": "근처 아군 챔피언이 군중 제어를 받는 중 옆에 적 챔피언이 있거나, 교전이 이어지는 중 아군 챔피언(자신 포함) 옆에 적 챔피언이 2명 이상이면 주변을 축복: <#ffb900ff>4초<> 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<> 회복."
       }
     },
     "skill_name": {
@@ -5523,7 +5523,7 @@
         "attack": "<#ff9028ff>キンドレッドの刻印<>：ラムの矢。攻撃した敵チャンピオンのキルに関与すると刻印（死亡で消滅）：射程+15、攻撃速度+4%、<#ff9028ff>忍び寄る恐怖<>の<#a974ffff>魔法ダメージ+8<>。",
         "skill": "短く跳び（詰められたら後ろへ）、周囲の敵最大<#ffb900ff>3体<>に矢を1本ずつ放ち<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<>の<#ff8a65ff>物理ダメージ<>、攻撃速度+35%（<#ffb900ff>4秒<>）。<#ff9028ff>狼の激昂<>の中ではクールダウン<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>忍び寄る恐怖<>：敵に刻印し<#ef5350ff>30%スロウ<>。その後<#ffb900ff>3回目<>の攻撃でウルフが飛びかかり<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<>の<#ff8a65ff>物理ダメージ<>（チャンピオンは最大体力の4%追加）。CD中は<#ff9028ff>狼の激昂<>：<#ffb900ff>8.5秒<>の領域、ウルフが毎秒敵1体を噛み<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<>の<#ff8a65ff>物理ダメージ<>。",
-        "ult": "戦闘中、味方チャンピオンが行動妨害を受けるか敵チャンピオンに詰められると周囲を祝福：<#ffb900ff>4秒<>間、中の味方チャンピオンは倒れず、終了時に<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>回復。"
+        "ult": "近くの味方チャンピオンが行動妨害中で敵チャンピオンが傍にいるか、戦闘が続く中で味方チャンピオン（自身含む）の傍に敵チャンピオンが2体以上いると周囲を祝福：<#ffb900ff>4秒<>間、中の味方チャンピオンは倒れず、終了時に<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>回復。"
       }
     },
     "skill_name": {

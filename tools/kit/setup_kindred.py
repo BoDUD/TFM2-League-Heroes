@@ -58,7 +58,8 @@ TEXT = {
         "skill2": O + "横生惧意" + E + "：标记敌人并" + R + "减速{e_slow}%" + E + "，此后第" + A + "3次" + E + "攻击命中时狼灵扑咬被标记者，造成" + phys("e") + D + "物理伤害" + E +
                   "（英雄额外{e_hp}%最大生命）。冷却时放" + O + "狼灵狂热" + E + "：" + A + "{w_t}秒" + E + "领域，狼灵{w_every}撕咬其中一个敌人，造成" + phys("w") + D +
                   "物理伤害" + E + "。",
-        "ult": "交战中友方英雄被控制、或被敌方英雄贴身时，祝福身边区域：" + A + "{r_t}秒" + E + "内其中的友方英雄不会阵亡，结束时回复" + HEAL + "生命。",
+        "ult": "友方英雄被控制且身边有敌方英雄，或持续交战中友方英雄（含自己）身边有{r_need}名以上敌方英雄时，祝福身边区域：" + A + "{r_t}秒" + E +
+               "内其中的友方英雄不会阵亡，结束时回复" + HEAL + "生命。",
         "names": ("乱箭之舞", "横生惧意 / 狼灵狂热", "羊灵生息"),
     },
     "zh-hant": {
@@ -70,7 +71,8 @@ TEXT = {
         "skill2": O + "恐懼蔓延" + E + "：標記敵人並" + R + "緩速{e_slow}%" + E + "，此後第" + A + "3次" + E + "攻擊命中時魔狼撲咬被標記者，造成" + phys("e") + D + "物理傷害" + E +
                   "（英雄額外{e_hp}%最大生命）。冷卻時放" + O + "魔狼狂熱" + E + "：" + A + "{w_t}秒" + E + "領域，魔狼{w_every}撕咬其中一個敵人，造成" + phys("w") + D +
                   "物理傷害" + E + "。",
-        "ult": "交戰中友方英雄被控制、或被敵方英雄貼身時，祝福身邊區域：" + A + "{r_t}秒" + E + "內其中的友方英雄不會陣亡，結束時回復" + HEAL + "生命。",
+        "ult": "友方英雄被控制且身邊有敵方英雄，或持續交戰中友方英雄（含自己）身邊有{r_need}名以上敵方英雄時，祝福身邊區域：" + A + "{r_t}秒" + E +
+               "內其中的友方英雄不會陣亡，結束時回復" + HEAL + "生命。",
         "names": ("舞動箭矢", "恐懼蔓延／魔狼狂熱", "神羊喘息"),
     },
     "en": {
@@ -83,7 +85,8 @@ TEXT = {
         "skill2": O + "Mounting Dread" + E + ": marks an enemy and " + R + "slows it {e_slow}%" + E + "; her " + A + "3rd" + E + " attack hit after it sends Wolf at the marked one for " +
                   phys("e") + " " + D + "physical damage" + E + " (+{e_hp}% max health on champions). On cooldown, " + O + "Wolf's Frenzy" + E + ": for " + A + "{w_t}s" + E + " a" +
                   " zone where Wolf bites one enemy {w_every} for " + phys("w") + " " + D + "physical damage" + E + ".",
-        "ult": "In a fight, when an allied champion is crowd-controlled or an enemy champion closes in, she blesses the ground around her: for " + A + "{r_t}s" + E +
+        "ult": "When an allied champion near her is crowd-controlled with an enemy champion beside him, or, in a sustained fight, an allied champion (or she) "
+               "has {r_need} or more enemy champions beside him, she blesses the ground around her: for " + A + "{r_t}s" + E +
                " allied champions in it cannot die, then they heal " + HEAL + ".",
         "names": ("Dance of Arrows", "Mounting Dread / Wolf's Frenzy", "Lamb's Respite"),
     },
@@ -96,7 +99,8 @@ TEXT = {
         "skill2": O + "차오르는 공포" + E + ": 적에게 표식을 남기고 " + R + "{e_slow}% 둔화" + E + "; 이후 " + A + "3번째" + E + " 공격이 적중하면 늑대가 표식 대상을 덮쳐 " + phys("e") + " " + D +
                   "물리 피해" + E + "(챔피언은 최대 체력의 {e_hp}% 추가). 재사용 대기 중에는 " + O + "늑대의 광기" + E + ": " + A + "{w_t}초" + E + " 영역, 늑대가 {w_every} 적 하나를 물어 " +
                   phys("w") + " " + D + "물리 피해" + E + ".",
-        "ult": "교전 중 아군 챔피언이 군중 제어를 받거나 적 챔피언이 붙으면 주변을 축복: " + A + "{r_t}초" + E + " 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 " + HEAL + " 회복.",
+        "ult": "근처 아군 챔피언이 군중 제어를 받는 중 옆에 적 챔피언이 있거나, 교전이 이어지는 중 아군 챔피언(자신 포함) 옆에 적 챔피언이 {r_need}명 이상이면 주변을 축복: " + A +
+               "{r_t}초" + E + " 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 " + HEAL + " 회복.",
         "names": ("화살 세례", "차오르는 공포 / 늑대의 광기", "양의 안식처"),
     },
     "ja": {
@@ -108,7 +112,8 @@ TEXT = {
         "skill2": O + "忍び寄る恐怖" + E + "：敵に刻印し" + R + "{e_slow}%スロウ" + E + "。その後" + A + "3回目" + E + "の攻撃でウルフが飛びかかり" + phys("e") + "の" + D + "物理ダメージ" + E +
                   "（チャンピオンは最大体力の{e_hp}%追加）。CD中は" + O + "狼の激昂" + E + "：" + A + "{w_t}秒" + E + "の領域、ウルフが{w_every}敵1体を噛み" + phys("w") + "の" + D +
                   "物理ダメージ" + E + "。",
-        "ult": "戦闘中、味方チャンピオンが行動妨害を受けるか敵チャンピオンに詰められると周囲を祝福：" + A + "{r_t}秒" + E + "間、中の味方チャンピオンは倒れず、終了時に" + HEAL + "回復。",
+        "ult": "近くの味方チャンピオンが行動妨害中で敵チャンピオンが傍にいるか、戦闘が続く中で味方チャンピオン（自身含む）の傍に敵チャンピオンが{r_need}体以上いると周囲を祝福：" + A +
+               "{r_t}秒" + E + "間、中の味方チャンピオンは倒れず、終了時に" + HEAL + "回復。",
         "names": ("矢の輪舞", "忍び寄る恐怖/狼の激昂", "羊の執行猶予"),
     },
 }
@@ -129,7 +134,7 @@ def secs(t):
 
 def values(p):
     v = {k: p[k] for k in ("q_dmg", "q_ratio", "q_as", "e_slow", "e_dmg", "e_ratio", "e_hp", "w_dmg", "w_ratio",
-                           "r_heal", "r_heal_ad", "p_as")}
+                           "r_heal", "r_heal_ad", "p_as", "r_need")}
     v.update({k: secs(p[k]) for k in ("q_as_t", "w_t", "w_per", "r_t")})
     v["q_zone"] = secs(p["q_cd"] * 100 // (100 + p["w_cdr"]))
     v["p_range"] = p["p_range"] // 100
