@@ -74,7 +74,8 @@ P = {
     "e_cd_t": 960, "e_near": 30000, "e_close": 15000, "e_steps": [10000, 20000, 30000], "e_wind": 9, "e_speed": 4000, "e_tick": 15, "e_ride": 25000,
     "e_pull": 5000, "e_pull_t": 40, "e_ghost": 0, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
     # 1 = the copy for addons/league_bard: its passive picks the door's exit on the map's walls (e_min..e_far away)
-    "native": 0, "e_far": 60000, "e_min": 30000, "e_chase_r": 100000,
+    # through terrain (League's door: a corridor through a wall, ~900 units): a wall within e_reach, out e_far at most
+    "native": 0, "e_far": 90000, "e_min": 30000, "e_reach": 20000, "e_chase_r": 100000,
     # ult: R Tempered Fate (League: 3400 range, radius 350, 0.5 s cast + flight, stasis 2.5 s; cd 110-80 s)
     "r_cd": 3600, "r_arm": 900, "r_arm_range": 90000, "r_range": 80000, "r_need": 2, "r_anim": 29, "r_lag": 15,
     "r_travel": 24,
@@ -332,6 +333,11 @@ def build(p):
     P_ = lambda name, anim_=FX, z=1: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name,
                                       "repeat": True, "z": z}
     views_p = [P_("a_bolt"), P_("p_meep"), P_("q_bolt"), P_("w_shrine"), P_("r_orb", BIG)]
+    if p["native"]:
+        # the add-on's doors: still projectiles it spawns on the spot (a picture played on him follows him, and the door
+        # behind him was hidden the whole time: 「巴德传送门的特效看不到啊」)
+        views_p += [{"type": "Animated", "name": n(k), "anim": BIG, "tag": t, "repeat": False, "z": -1}
+                    for k, t in (("e_door_p", "e_door"), ("e_out_p", "e_door_out"))]
     views_e = [E("a_hit", FX, 2), E("p_hit", FX, 2), E("q_hit", FX, 2), E("q_bind", FX, 2), E("w_land", FX, 2),
                E("e_door", BIG, -1, False), E("e_door_out", BIG, -1), E("e_ride", FX, 2),
                E("r_mark", BIG, -1, False), E("r_dome", BIG, 2, False), E("r_lock", BIG, 2, False),
@@ -340,7 +346,7 @@ def build(p):
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_bard:door",
-                            "params": {k: p[k] for k in ("e_cd_t", "e_wind", "e_anim", "e_tick", "e_far", "e_min", "e_ride",
+                            "params": {k: p[k] for k in ("e_cd_t", "e_wind", "e_anim", "e_tick", "e_far", "e_min", "e_reach", "e_ride",
                                                          "e_near", "e_close", "e_ms", "e_ms_t", "e_chase_r")}}
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Heal"], **extra,

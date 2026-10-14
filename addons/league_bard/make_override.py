@@ -6,8 +6,8 @@ Rebuilds Bard with tools/kit/build_bard.py (its parameter table P), checks that 
 league/champion/league_bard.data_champion (so the copy never drifts from the shipped kit), and writes
 addons/league_bard/override/league_bard.data_champion and .../text/champion.i18n: the build with native=1 -
   * everything of the main pack's kit but E: skill2 is the shrine only, and the add-on's passive league_bard:door
-    opens the door itself - away when dived or hurt, after a hurt enemy champion further off - and moves him and the
-    allies near the door, clear of the map's rocks;
+    opens the door itself, only on a wall (League's corridor through terrain) - away when dived or hurt, after a hurt
+    enemy champion behind a wall - and moves him and the allies near the door through it;
   * skill2's tooltip points to description.league_bard.skill2 with the add-on's wording, so the tooltip in game shows
     whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Bard changes.
@@ -26,17 +26,17 @@ MOD_ID = "league_bard"
 HERO = "league_bard"
 # lang -> (the lead, the main pack's Magical Journey rule in the skill2 text, the add-on's)
 NATIVE = {
-    "zh-hans": ("【智能门】", "被敌人近身时开门，带身边的友方英雄远离，",
-                "被近身或残血时开门往己方撤，远处有残血敌方英雄就开门追，带上身边的友方英雄，出口避开石头，"),
-    "zh-hant": ("【智能門】", "被敵人近身時開門，帶身邊的友方英雄遠離，",
-                "被近身或殘血時開門往己方撤，遠處有殘血敵方英雄就開門追，帶上身邊的友方英雄，出口避開石頭，"),
-    "en": ("[Smart door] ", "when enemies close in, opens a door and takes nearby allied champions away with him,",
-           "opens a door home when dived or hurt, or after a hurt enemy champion far off, with nearby allies, "
-           "clear of rock,"),
-    "ko": ("[똑똑한 문] ", "적이 붙으면 문을 열어 주변 아군 챔피언과 함께 멀어지고",
-           "붙거나 체력이 낮으면 아군 쪽으로, 멀리 약한 적이 있으면 쫓아 바위를 피해 문을 열고 주변 아군과 함께 이동하고"),
-    "ja": ("【賢い扉】", "敵に詰められると扉を開き、近くの味方と離脱、",
-           "詰められるか瀕死で自陣へ、遠くの弱った敵へは追って、岩を避けて扉を開き近くの味方と移動、"),
+    "zh-hans": ("【穿墙门】", "被敌人近身时开门，带身边的友方英雄远离，",
+                "在附近的墙上开门穿到另一边：被近身或残血时往己方撤，墙后有残血敌方英雄就穿墙追，带上身边的友方英雄，"),
+    "zh-hant": ("【穿牆門】", "被敵人近身時開門，帶身邊的友方英雄遠離，",
+                "在附近的牆上開門穿到另一邊：被近身或殘血時往己方撤，牆後有殘血敵方英雄就穿牆追，帶上身邊的友方英雄，"),
+    "en": ("[Wall door] ", "when enemies close in, opens a door and takes nearby allied champions away with him,",
+           "opens a door through a nearby wall: home when dived or hurt, or after a hurt enemy champion behind it, "
+           "with nearby allies,"),
+    "ko": ("[벽 문] ", "적이 붙으면 문을 열어 주변 아군 챔피언과 함께 멀어지고",
+           "근처 벽에 문을 열어 넘어가: 붙거나 체력이 낮으면 아군 쪽으로, 벽 뒤 약한 적은 쫓아가고 주변 아군과 함께하며"),
+    "ja": ("【壁の扉】", "敵に詰められると扉を開き、近くの味方と離脱、",
+           "近くの壁に扉を開け向こう側へ：詰められるか瀕死で自陣へ、壁裏の弱った敵は追い、近くの味方と共に、"),
 }
 
 

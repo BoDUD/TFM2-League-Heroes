@@ -15,8 +15,9 @@
       "e_wind": 9,
       "e_anim": 24,
       "e_tick": 15,
-      "e_far": 60000,
+      "e_far": 90000,
       "e_min": 30000,
+      "e_reach": 20000,
       "e_ride": 25000,
       "e_near": 30000,
       "e_close": 15000,
@@ -2615,6 +2616,22 @@
       "tag": "r_orb",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_e_door_p",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "e_door",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_e_out_p",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "e_door_out",
+      "repeat": false,
+      "z": -1
     }
   ],
   "view_effects": [
