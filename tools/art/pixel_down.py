@@ -51,6 +51,43 @@ def despeckle(a):
     return out
 
 
+def scale_fx(a, k, pivot, mote=0):
+    """An effect picture laid out on a frame, brought to pixelate()'s grid for the same frame size, k and pivot (so it
+    stays on the frame it was drawn on): each square the commonest colour of its drawn pixels where half or more is
+    drawn - no outline and no despeckle (light carries no outline; a lone spark is a spark); pieces under `mote` squares
+    dropped (ppu_hd's check: no specks on a frame). -> (picture, new pivot)."""
+    H, W = a.shape[:2]
+    c = 1.0 / k
+    px, py = pivot
+    nx0, ny0 = int(np.ceil(px / c)), int(np.ceil(py / c))
+    nx1, ny1 = int(np.ceil((W - px) / c)), int(np.ceil((H - py) / c))
+    Wn, Hn = nx0 + nx1, ny0 + ny1
+    cx = np.floor((np.arange(W) + 0.5 - px) / c).astype(int) + nx0
+    cy = np.floor((np.arange(H) + 0.5 - py) / c).astype(int) + ny0
+    cell = (cy[:, None] * Wn + cx[None, :]).ravel()
+    op = (a[..., 3] > 0).ravel()
+    tot = np.bincount(cell, minlength=Hn * Wn)
+    out = np.zeros((Hn * Wn, 4), np.uint8)
+    rgb = a[..., :3].reshape(-1, 3)
+    votes = {}
+    for i in np.nonzero(op)[0]:
+        votes.setdefault(int(cell[i]), []).append(tuple(int(v) for v in rgb[i]))
+    for ci, cols in votes.items():
+        if 2 * len(cols) < tot[ci]:
+            continue
+        vals, cnt = np.unique(np.array(cols), axis=0, return_counts=True)
+        out[ci, :3] = vals[cnt.argmax()]
+        out[ci, 3] = 255
+    out = out.reshape(Hn, Wn, 4)
+    if mote:
+        lbl, n = ndimage.label(out[..., 3] > 0, structure=np.ones((3, 3)))
+        if n:
+            small = np.zeros(n + 1, bool)
+            small[1:] = ndimage.sum(out[..., 3] > 0, lbl, range(1, n + 1)) < mote
+            out[small[lbl]] = 0
+    return out, (nx0, ny0)
+
+
 def pixelate(a, k, pivot, outline, pal=None):
     """`a` (a dense frame, its pivot at `pivot` = (x, y)) brought to k times as many pixels a side (k < 1): squares of
     1/k dense pixels on a grid through the pivot. Each square: the mean of its opaque pixels snapped to the frame's own
