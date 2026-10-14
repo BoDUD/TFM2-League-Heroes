@@ -1,0 +1,50 @@
+{
+  "smolder-model-A.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 1145382,
+    "fully_opaque_pixels": 0,
+    "semi_transparent_pixels": 427482,
+    "bbox_alpha_over_128": [
+      382,
+      132,
+      1128,
+      957
+    ],
+    "grid12_nonuniform_cells": 10880,
+    "grid12_total_cells": 10880,
+    "sha256": "736c6995d55c196c9300aa20aee0f5c0d88e61c1ffc29e3804da1d44ca59f81b",
+    "identical_to_selected_raw": true
+  },
+  "smolder-model-B.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 1101706,
+    "fully_opaque_pixels": 0,
+    "semi_transparent_pixels": 471158,
+    "bbox_alpha_over_128": [
+      333,
+      112,
+      1238,
+      960
+    ],
+    "grid12_nonuniform_cells": 10880,
+    "grid12_total_cells": 10880,
+    "sha256": "7852956ab2d149a3fc843f3fa817a511ac24779f3d0434a53a9bf45e54de8706",
+    "identical_to_selected_raw": true
+  }
+}
