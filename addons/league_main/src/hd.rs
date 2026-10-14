@@ -26,6 +26,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_galio", 1.65, include_str!("../../../league/champions/league_galio#anim.fanim")),
     ("league_nilah", 1.98, include_str!("../../../league/champions/league_nilah#anim.fanim")),
     ("league_kindred", 2.2, include_str!("../../../league/champions/league_kindred#anim.fanim")),
+    ("league_malzahar", 1.38, include_str!("../../../league/champions/league_malzahar#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -61,10 +62,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Corki: grown 1.2x by the restyle (「飞机像泽丽那样变大点」), then 「飞机在游戏里是不是偏大了？」 - 48 x 37 game px, as wide as
 /// Garen and a solid lump - shown at 80 % (「到80%吧」, from a true-scale sheet), then 「太小了库奇 调到90%吧」 -> 90 %;
 /// he flies, so his frames are not lowered.
+/// Malzahar: 115 % from the size sheet (all actions from the 3/4 front), drawn at PPU 2.2 first, then 「像素有点高 降低点需要」 ->
+/// PPU 1.38 (1.2 squares a game pixel at 115 %); he floats, his frames lifted by the restyle (RESTYLE malzahar lift).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.00),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
-                                    ("league_corki", 0.90)];
+                                    ("league_corki", 0.90), ("league_malzahar", 1.15)];
 
 pub const PREFIX: &str = "hd_";
 

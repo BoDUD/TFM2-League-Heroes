@@ -282,6 +282,112 @@
                                     ]
                                   },
                                   {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_malzahar_r_ch",
+                                    "effect_buff": {
+                                      "type": "TargetProjectile",
+                                      "name": "league_malzahar_r_tie",
+                                      "speed": 100000,
+                                      "y_offset": 0,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_malzahar_r_spot",
+                                            "travel_time": 1,
+                                            "range": 400000,
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 0
+                                              }
+                                            },
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [],
+                                            "end_effects": [
+                                              {
+                                                "type": "BackToCasterLinearProjectile",
+                                                "name": "league_malzahar_r_link",
+                                                "speed": 3200,
+                                                "range": 120000,
+                                                "penetrate": true,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 0
+                                                  }
+                                                },
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": []
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "AddCasted",
+                                    "casted_type": "Fire",
+                                    "duration": 149,
+                                    "period": 5,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_malzahar_r_ch",
+                                        "effect_buff": {
+                                          "type": "TargetProjectile",
+                                          "name": "league_malzahar_r_tie",
+                                          "speed": 100000,
+                                          "y_offset": 0,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_malzahar_r_spot",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 0
+                                                  }
+                                                },
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "BackToCasterLinearProjectile",
+                                                    "name": "league_malzahar_r_link",
+                                                    "speed": 3200,
+                                                    "range": 120000,
+                                                    "penetrate": true,
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 0
+                                                      }
+                                                    },
+                                                    "applied_target": "EnemyChampion",
+                                                    "applied_effects": []
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
                                     "type": "ParabolicProjectile",
                                     "name": "league_malzahar_r_drop",
                                     "travel_time": 1,
@@ -689,6 +795,112 @@
                                             {
                                               "type": "ViewEffect",
                                               "name": "league_malzahar_r_grasp"
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_malzahar_r_ch",
+                                    "effect_buff": {
+                                      "type": "TargetProjectile",
+                                      "name": "league_malzahar_r_tie",
+                                      "speed": 100000,
+                                      "y_offset": 0,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ParabolicProjectile",
+                                            "name": "league_malzahar_r_spot",
+                                            "travel_time": 1,
+                                            "range": 400000,
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 0
+                                              }
+                                            },
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [],
+                                            "end_effects": [
+                                              {
+                                                "type": "BackToCasterLinearProjectile",
+                                                "name": "league_malzahar_r_link",
+                                                "speed": 3200,
+                                                "range": 120000,
+                                                "penetrate": true,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 0
+                                                  }
+                                                },
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": []
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "AddCasted",
+                                    "casted_type": "Fire",
+                                    "duration": 149,
+                                    "period": 5,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_malzahar_r_ch",
+                                        "effect_buff": {
+                                          "type": "TargetProjectile",
+                                          "name": "league_malzahar_r_tie",
+                                          "speed": 100000,
+                                          "y_offset": 0,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_malzahar_r_spot",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 0
+                                                  }
+                                                },
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "BackToCasterLinearProjectile",
+                                                    "name": "league_malzahar_r_link",
+                                                    "speed": 3200,
+                                                    "range": 120000,
+                                                    "penetrate": true,
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 0
+                                                      }
+                                                    },
+                                                    "applied_target": "EnemyChampion",
+                                                    "applied_effects": []
+                                                  }
+                                                ]
+                                              }
                                             }
                                           ]
                                         },
@@ -1389,6 +1601,112 @@
                           ]
                         },
                         {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_malzahar_r_ch",
+                          "effect_buff": {
+                            "type": "TargetProjectile",
+                            "name": "league_malzahar_r_tie",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_malzahar_r_spot",
+                                  "travel_time": 1,
+                                  "range": 400000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_malzahar_r_link",
+                                      "speed": 3200,
+                                      "range": 120000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": []
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        {
+                          "type": "AddCasted",
+                          "casted_type": "Fire",
+                          "duration": 149,
+                          "period": 5,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_malzahar_r_ch",
+                              "effect_buff": {
+                                "type": "TargetProjectile",
+                                "name": "league_malzahar_r_tie",
+                                "speed": 100000,
+                                "y_offset": 0,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ParabolicProjectile",
+                                      "name": "league_malzahar_r_spot",
+                                      "travel_time": 1,
+                                      "range": 400000,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 0
+                                        }
+                                      },
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "BackToCasterLinearProjectile",
+                                          "name": "league_malzahar_r_link",
+                                          "speed": 3200,
+                                          "range": 120000,
+                                          "penetrate": true,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 0
+                                            }
+                                          },
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": []
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          ]
+                        },
+                        {
                           "type": "ParabolicProjectile",
                           "name": "league_malzahar_r_drop",
                           "travel_time": 1,
@@ -1638,6 +1956,112 @@
                 ]
               },
               {
+                "type": "SwitchByBuff",
+                "buff_name": "league_malzahar_r_ch",
+                "effect_buff": {
+                  "type": "TargetProjectile",
+                  "name": "league_malzahar_r_tie",
+                  "speed": 100000,
+                  "y_offset": 0,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ParabolicProjectile",
+                        "name": "league_malzahar_r_spot",
+                        "travel_time": 1,
+                        "range": 400000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": [
+                          {
+                            "type": "BackToCasterLinearProjectile",
+                            "name": "league_malzahar_r_link",
+                            "speed": 3200,
+                            "range": 120000,
+                            "penetrate": true,
+                            "shape": {
+                              "Circle": {
+                                "radius": 0
+                              }
+                            },
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": []
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              },
+              {
+                "type": "AddCasted",
+                "casted_type": "Fire",
+                "duration": 149,
+                "period": 5,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_malzahar_r_ch",
+                    "effect_buff": {
+                      "type": "TargetProjectile",
+                      "name": "league_malzahar_r_tie",
+                      "speed": 100000,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ParabolicProjectile",
+                            "name": "league_malzahar_r_spot",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 0
+                              }
+                            },
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_malzahar_r_link",
+                                "speed": 3200,
+                                "range": 120000,
+                                "penetrate": true,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 0
+                                  }
+                                },
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": []
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
                 "type": "ParabolicProjectile",
                 "name": "league_malzahar_r_drop",
                 "travel_time": 1,
@@ -1792,6 +2216,14 @@
       "name": "league_malzahar_e_bolt",
       "anim": "asset/league/effects/league_malzahar_fx",
       "tag": "e_bolt",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_malzahar_r_link",
+      "anim": "asset/league/effects/league_malzahar_fx",
+      "tag": "r_link",
       "repeat": true,
       "z": 1
     }

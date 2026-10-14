@@ -37,6 +37,9 @@ and the passive exact):
           `r_ch`): r_t / r_p waves of r_dmg + r_ap% AP magic damage in equal parts; crowd control on him ends the
           channel at the next check (league_galio R's breaks queued on him) and the stun runs out within r_p ticks.
           Under the target a null zone (r_zone_t ticks, every r_zp ticks z_dmg + z_ap% AP magic damage in r_zr).
+          The beam between them (the user: 「大招没连接线啊」): league_nocturne E's chain - every r_lp ticks while the
+          channel holds a hidden bolt lands on him, a 1-tick lob on his spot, and from there a link (r_link,
+          r_lspeed a tick, r_lspeed x r_lp / 1000 = 16 px long: one beam end to end) flies back to Malzahar.
 """
 import argparse
 import json
@@ -80,7 +83,7 @@ P = {
     "q_dmg": 70, "q_ap": 45, "q_sil": 90, "q_combo": 120,
     # ult: R Nether Grasp (League: 700, 2.5 s, 125-500 + 80% AP, zone 5 s; cd 140-80 s)
     "r_cd": 4200, "r_range": 70000, "r_wait": 16, "r_anim": 21, "r_t": 150, "r_p": 15, "r_brk": 10, "r_dmg": 220, "r_ap": 80,
-    "r_zone_t": 300, "r_zp": 30, "r_zr": 20000, "z_dmg": 10, "z_ap": 5, "r_combo": 120,
+    "r_zone_t": 300, "r_zp": 30, "r_zr": 20000, "z_dmg": 10, "z_ap": 5, "r_combo": 120, "r_lp": 5, "r_lspeed": 3200,
 }
 
 
@@ -243,6 +246,14 @@ def build(p):
                  "period": p["r_zp"], "first_delay": 0, "applied_target": "EnemyWithoutTower",
                  "applied_effects": [T(magic(p["z_dmg"], p["z_ap"]))], "end_effects": []}
 
+    # the beam: a link from his spot back to Malzahar every r_lp ticks while he channels (league_nocturne E's chain)
+    link = sw("r_ch", homing("r_tie", 100000, 0, "EnemyChampion", [
+        {"type": "ParabolicProjectile", "name": n("r_spot"), "travel_time": 1, "range": 400000, "shape": circle(0),
+         "applied_target": "EnemyChampion", "applied_effects": [],
+         "end_effects": [{"type": "BackToCasterLinearProjectile", "name": n("r_link"), "speed": p["r_lspeed"],
+                          "range": p["r_range"] + 50000, "penetrate": True, "shape": circle(0),
+                          "applied_target": "EnemyChampion", "applied_effects": []}]}]))
+
     def grasp():
         """On the champion it takes: a stun renewed by every wave while the channel flag holds."""
         # r_grasp: the void's hands round him, a 15-tick loop played by every wave (gone when the channel breaks)
@@ -250,7 +261,7 @@ def build(p):
                                   magic(round(p["r_dmg"] / runs), round(p["r_ap"] / runs)), tsfx("r_tick"),
                                   view("r_grasp")))
         return combine(*rm("r_armed"), refresh("r_ch", p["r_t"] + 1), sfx("r_cast"), sfx("vo_r"),
-                       wave, casted(p["r_t"] - 1, p["r_p"], wave),
+                       wave, casted(p["r_t"] - 1, p["r_p"], wave), link, casted(p["r_t"] - 1, p["r_lp"], link),
                        drop("r_drop", view("r_pool"), sfx("r_pool"), null_zone),
                        on_me(anim("ult", p["r_anim"]), delayed(p["r_anim"], sw("r_ch", anim("ult_loop", p["r_t"] - p["r_anim"]))),
                              breaks, delayed(p["r_t"], refresh("r_combo", p["r_combo"]))))
@@ -319,7 +330,7 @@ def build(p):
                                       "repeat": True, "z": z}
     # the null zone has no picture of its own (a zone's picture turns with the cast: upside down cast leftward); its
     # ground picture r_pool is a ViewEffect where the lob lands (never turned)
-    views_p = [P_("a_bolt"), P_("e_bolt")]
+    views_p = [P_("a_bolt"), P_("e_bolt"), P_("r_link")]
     views_e = [E("a_hit", FX, 2), E("e_hit", FX, 2), E("e_mark", FX, 2), E("w_spawn", FX, 2), E("w_swarm", FX, -1),
                E("w_bite", FX, 2), E("q_rift", BIG, 2, False), E("q_hit", FX, 2), E("r_grasp", BIG, 2),
                E("r_pool", BIG, -2, False)]

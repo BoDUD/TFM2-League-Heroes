@@ -20,6 +20,8 @@ Spots are game px from the pivot (x forward, y down); a unit's soles are 11 unde
 null zone's middle on the soles; the shield's lowest row 1 over the ground round Malzahar (he floats: boots 2 over it,
 head 31 over the pivot at hd.rs SIZES 1.15).
 Times from the kit (tools/kit/build_malzahar.py P, 60 ticks a second).
+R's beam (the user: 「大招没连接线啊」): r_link, a 16 px link of the chain flying from the grasped champion back to
+him (tools/kit/build_malzahar.py r_lp / r_lspeed), cut from Codex's own beam in q_rift frame 5 (link()).
 """
 import argparse
 import json
@@ -48,7 +50,7 @@ SHEETS = {
     "e_hit": (5, "core", "lr"), "e_mark": (4, "core", "lr"), "w_spawn": (4, "core", "lr"),
     "w_swarm": (4, ("bottom", 0), "lr"), "w_bite": (3, "core", "lr"), "q_rift": (6, ("bottom", 0), "lr"),
     "q_hit": (4, "core", "lr"), "r_grasp": (4, ("bottom", 0), "lr"), "r_pool": (8, "core", "lr"),
-    "p_shift": (4, ("bottom", 0), "lr"),
+    "p_shift": (4, ("bottom", 0), "lr"), "r_link": (4, "core", "tb"),
 }
 # read again from the drafts: (the drawing's size in squares the read maps to, "ring": the largest piece's bounds
 # brought to that size (both ways) / "all": every piece's bounds, one scale (the width's), clear squares round it,
@@ -79,6 +81,8 @@ FX = {
     "q_hit": ("q_hit", seq(range(4), [40, 50, 60, 70]), HIT),
     # the shield while it holds (a buff picture, looped)
     "p_shift": ("p_shift", seq(range(4), [120] * 4), SHELL),
+    # R's beam: each link flies from the champion to him (~16 ticks over 50 px), looped while it flies
+    "r_link": ("r_link", seq(range(4), [50] * 4), (0, 0)),
 }
 BIG = {
     # Q: the rifts open over q_lag 24 ticks (400 ms: frames 1-4), the beams meet as the damage lands (frame 5)
@@ -87,7 +91,11 @@ BIG = {
     "r_grasp": ("r_grasp", seq(range(4), [60, 60, 65, 65]), SOLES),
     "r_pool": ("r_pool", POOL, SOLES),
 }
-TB_TAGS = {"a_bolt", "e_bolt"}
+TB_TAGS = {"a_bolt", "e_bolt", "r_link"}
+# R's beam from Q's: q_rift frame 5's beam between the flash and the rift (its rows 13-15: the white core, the lit
+# edge, the dark rim; columns 9-16: one period of its pattern), the core's lower half mirrored up (symmetric top to
+# bottom, as a flying picture must be); 4 frames, the pattern 2 px further along each (flowing to Malzahar)
+LINK_ROWS, LINK_COLS, LINK_LEN = (13, 16), (9, 17), 17
 
 
 def manifest():
@@ -177,6 +185,18 @@ def reread(name):
     return out
 
 
+def link():
+    c = cells("q_rift", SHEETS["q_rift"][0])[4]
+    half = c[LINK_ROWS[0]:LINK_ROWS[1], LINK_COLS[0]:LINK_COLS[1]]
+    tile = np.concatenate([half[:0:-1], half], 0)
+    per = tile.shape[1]
+    out = []
+    for k in range(4):
+        cols = [(i - 2 * k) % per for i in range(LINK_LEN)]
+        out.append(tile[:, cols].copy())
+    return out
+
+
 def anchor(strip, kind):
     h, w = strip[0].shape[:2]
     if kind == "core":
@@ -189,7 +209,7 @@ def build(table):
     out = {}
     for tag, (src, frames, spot) in table.items():
         n, kind, sym = SHEETS[src]
-        strip = reread(src) if src in REREAD else cells(src, n)
+        strip = link() if src == "r_link" else reread(src) if src in REREAD else cells(src, n)
         B.check_cells(src, strip, sym)
         strip = [B.odd(c, sym) for c in strip]
         anc = anchor(strip, kind)
@@ -220,7 +240,7 @@ def main():
     ap.add_argument("--review", help="write every effect's game frames at 6x here")
     a = ap.parse_args()
     used = {v[0] for table in (FX, BIG) for v in table.values()}
-    if used != set(SHEETS) or set(manifest()) != set(SHEETS):
+    if used != set(SHEETS) or set(manifest()) != set(SHEETS) - {"r_link"}:
         sys.exit(f"sheets not imported: {sorted(set(SHEETS) ^ used)}")
     out, bad = [], []
     for sheet, table in (("league_malzahar_fx", FX), ("league_malzahar_big", BIG)):
