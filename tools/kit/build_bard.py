@@ -335,16 +335,18 @@ def build(p):
     P_ = lambda name, anim_=FX, z=1: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name,
                                       "repeat": True, "z": z}
     views_p = [P_("a_bolt"), P_("p_meep"), P_("q_bolt"), P_("w_shrine"), P_("r_orb", BIG)]
-    if p["native"]:
-        # the add-on's doors: still projectiles it spawns on the spot (a picture played on him follows him, and the door
-        # behind him was hidden the whole time: 「巴德传送门的特效看不到啊」)
-        views_p += [{"type": "Animated", "name": n(k), "anim": BIG, "tag": t, "repeat": False, "z": -1}
-                    for k, t in (("e_door_p", "e_door"), ("e_out_p", "e_door_out"))]
     views_e = [E("a_hit", FX, 2), E("p_hit", FX, 2), E("q_hit", FX, 2), E("q_bind", FX, 2), E("w_land", FX, 2),
                E("e_door", BIG, -1, False), E("e_door_out", BIG, -1), E("e_ride", FX, 2),
                E("r_mark", BIG, -1, False), E("r_dome", BIG, 2, False), E("r_lock", BIG, 2, False),
                E("r_free", BIG, 2, False)]
     views_b = [P_("p_slow", FX, 1), P_("q_slow", FX, 1), P_("w_haste", FX, 1), P_("e_haste", FX, 1)]
+    if p["native"]:
+        # the add-on's door: buff pictures it adds (a picture played from native code never showed in game:
+        # 「开门的特效还是看不到」「你这个特效应该放在墙前面」) - the portal behind him at the wall's face, the exit behind him,
+        # the travel sparkles on an ally taken along
+        views_b += [{"type": "Animated", "name": n(k), "anim": a, "tag": t, "repeat": False, "z": z}
+                    for k, a, t, z in (("e_doorb", BIG, "e_portal", -1), ("e_outb", BIG, "e_portal_out", -1),
+                                       ("e_rideb", FX, "e_ride", 2))]
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_bard:door",

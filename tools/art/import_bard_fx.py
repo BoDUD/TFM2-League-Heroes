@@ -98,6 +98,11 @@ BIG = {
     # E: the door opens, holds while he steps in (e_wind 9 + e_tick 15 ticks = 400 ms), closes; again where he comes out
     "e_door": ("e_door", seq(range(6), [50, 60, 150, 150, 60, 50]), SOLES),
     "e_door_out": ("e_door", seq(range(6), [50, 60, 150, 150, 60, 50]), SOLES),
+    # the add-on's portal at the wall (the user: 「你这个特效应该放在墙前面 LOL不就这样吗 现在还是看不出」): the door x2.5, well
+    # taller than Bard, a buff picture behind him (z -1) while he stands at the wall's face - it opens and shimmers until he
+    # goes through - and on the far side as he steps out (it closes)
+    "e_portal": ("e_door", seq([0, 1, 2, 3, 2, 3, 2, 3], [40, 60, 120, 120, 120, 120, 120, 1000]), SOLES, 2.5),
+    "e_portal_out": ("e_door", seq([2, 3, 2, 4, 5], [100, 100, 100, 60, 1000]), SOLES, 2.5),
     # R: the orb lobbed (r_travel 24 ticks = 400 ms) over its mark, the dome where it lands, every unit in it frozen
     # for r_t 150 ticks (2.5 s: the bubble forms, then holds), the bubble shattering when it ends
     "r_orb": ("r_orb", seq(range(4), [70] * 4), (0, 0)),
@@ -244,15 +249,16 @@ def anchor(strip, kind, scale):
 
 def build(table):
     out = {}
-    for tag, (src, frames, spot) in table.items():
+    for tag, (src, frames, spot, *own) in table.items():
         n, kind, sym = SHEETS[src]
+        scale = own[0] if own else SCALE.get(src, 1.0)
         if src in REREAD:
-            strip = reread(src, SCALE.get(src, 1.0), sym)
+            strip = reread(src, scale, sym)
         else:
             strip = cells(src, n)
         check_cells(src, strip, sym)
         strip = [odd(c, sym) for c in strip]
-        anc = anchor(strip, kind, SCALE.get(src, 1.0))
+        anc = anchor(strip, kind, scale)
         out[tag] = []
         for k, ms in frames:
             if k == J.EMPTY:
@@ -282,7 +288,7 @@ def review(sheets, path, z=6):
     rows = []
     for tags in sheets:
         for name, frames in tags.items():
-            if name in ("e_door_out", "q_slow", "e_haste"):
+            if name in ("e_door_out", "q_slow", "e_haste", "e_portal_out"):
                 continue
             seen, fr = set(), []
             for a, _ in frames:
@@ -312,7 +318,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review", help="write every effect's game frames at 6x here")
     a = ap.parse_args()
-    used = {src for table in (FX, BIG) for src, _, _ in table.values()}
+    used = {v[0] for table in (FX, BIG) for v in table.values()}
     if used != set(SHEETS):
         sys.exit(f"sheets not imported: {sorted(set(SHEETS) - used)}")
     out = []

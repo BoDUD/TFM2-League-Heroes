@@ -17,9 +17,9 @@
 //! 门只开在墙上（用户：「门的逻辑不对吧 只能在墙上放吧」，英雄联盟的神奇旅程是穿过地形的单向通道）：附近没有墙就不开；穿墙
 //! 落点不在墙格里（卡蜜尔钩墙附加包的地图）、离地图边至少 `EDGE`、离起点不超过 `e_far`。
 //!
-//! 开门：冷却 `e_cd_t`、`skill2_e` 动作 `e_anim` tick、门的画面（钉在开门处的不动弹道 `league_bard_e_door_p`，`door_pic`）、
+//! 开门：冷却 `e_cd_t`；他先飞到墙前（入口离墙 `ENTRY_BACK`），门在他身后贴着墙打开（buff 画面 `league_bard_e_doorb`，门的 2.5 倍）、`skill2_e` 动作 `e_anim` tick、
 //! 音效；`e_wind` tick 后他和门边 `e_ride` 内的友方英雄一起在 `e_tick` tick 内强制位移过去（队友同样的位移，那里有墙就落在
-//! 他出口旁，再不行就不带）；到了在出口播出口门（`league_bard_e_out_p`） 和队友身上的 `league_bard_e_ride`，都加速 `e_ms`%
+//! 他出口旁，再不行就不带）；到了出口门在他身后打开（buff 画面 `league_bard_e_outb`），队友身上的 `league_bard_e_rideb`，都加速 `e_ms`%
 //! `e_ms_t` tick（主包的 `league_bard_e_haste`，画面也是主包的）。宿主没挪人时逐 tick 自己走一步（`entity_set_pos`，泰隆的做法）。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局变量，服务端预模拟和你看的那场各算各的。
@@ -61,6 +61,12 @@ pub const BESIDE: f64 = 6_000.0;
 pub const EVERY: usize = 3;
 /// 穿墙的落点离墙的另一边再走这么远（别落在墙边上卡住）。
 pub const MARGIN: f64 = 4_000.0;
+/// 门的入口在墙前这么远（他站在门前，门贴着墙）。
+pub const ENTRY_BACK: f64 = 6_000.0;
+/// 他站在门前的 `e_wind` tick 之外，门的画面再多留几 tick。
+pub const PORTAL_LINGER: usize = 6;
+/// 出口门的画面留多久（tick）。
+pub const OUT_TICKS: usize = 24;
 /// 撤：落地后离最近的敌方英雄至少比现在远这么多。
 pub const ESCAPE_GAIN: f64 = 10_000.0;
 /// 撤：生命低于这个百分比、身边有敌方英雄就走。
@@ -271,8 +277,8 @@ impl Grid {
     }
 
     /// 朝 `dir`（单位向量）穿墙（泰隆附加包的翻墙）：`reach` 内碰到墙、一路穿过去，落在墙另一边 `MARGIN` 处；落点不超过
-    /// `far`、不在墙里、在地图里不贴边。
-    pub fn vault(&self, from: (f64, f64), dir: (f64, f64), reach: f64, far: f64) -> Option<(f64, f64)> {
+    /// `far`、不在墙里、在地图里不贴边。返回 (入口：墙前 `ENTRY_BACK` 处，出口)。
+    pub fn vault(&self, from: (f64, f64), dir: (f64, f64), reach: f64, far: f64) -> Option<((f64, f64), (f64, f64))> {
         let at = |t: f64| (from.0 + dir.0 * t, from.1 + dir.1 * t);
         let mut t = STEP;
         while t <= reach && !self.is_wall(at(t).0, at(t).1) {
@@ -281,11 +287,12 @@ impl Grid {
         if t > reach {
             return None;
         }
+        let entry = at((t - ENTRY_BACK).max(0.0));
         while t <= far && self.is_wall(at(t).0, at(t).1) {
             t += STEP;
         }
         let to = at(t + MARGIN);
-        (t + MARGIN <= far && !self.is_wall(to.0, to.1) && self.roomy(to)).then_some(to)
+        (t + MARGIN <= far && !self.is_wall(to.0, to.1) && self.roomy(to)).then_some((entry, to))
     }
 }
 
@@ -316,6 +323,9 @@ pub struct Foe {
     pub id: usize,
 }
 
+/// 一扇门：入口（墙前）、出口（墙后）。
+pub type Way = ((f64, f64), (f64, f64));
+
 /// 该撤了吗：残血而身边有敌方英雄；敌方英雄贴脸；或身边敌方英雄 2 名以上、比身边的友方英雄（`allies` 个，不算他）多。
 pub fn wants_out(p: &Params, me: (f64, f64), hp_pct: usize, foes: &[Foe], allies: usize) -> bool {
     let near = foes.iter().filter(|f| dist(me, f.at) <= p.e_near as f64).count();
@@ -333,7 +343,7 @@ fn rays() -> impl Iterator<Item = (f64, f64)> {
 /// 撤：背向身边敌人的中心（左右 `SPREAD_DEG`°）、`e_reach` 内有墙的方向，门穿过墙落到另一边（`Grid::vault`），落地后离最近的
 /// 敌方英雄至少远 `ESCAPE_GAIN`；挑离敌人最远、又朝 `home`（己方最近的塔）走得多的那一处。附近没有墙就不开门（英雄联盟的
 /// 门只开在地形上）。
-pub fn plan_exit(p: &Params, g: &Grid, me: (f64, f64), foes: &[(f64, f64)], home: Option<(f64, f64)>) -> Option<(f64, f64)> {
+pub fn plan_exit(p: &Params, g: &Grid, me: (f64, f64), foes: &[(f64, f64)], home: Option<(f64, f64)>) -> Option<Way> {
     let near: Vec<&(f64, f64)> = foes.iter().filter(|f| dist(me, **f) <= p.e_near as f64 * 1.5).collect();
     let away = if near.is_empty() {
         home.and_then(|h| unit((h.0 - me.0, h.1 - me.1)))?
@@ -349,16 +359,16 @@ pub fn plan_exit(p: &Params, g: &Grid, me: (f64, f64), foes: &[(f64, f64)], home
     rays()
         .filter(|d| d.0 * away.0 + d.1 * away.1 >= cos)
         .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
-        .filter(|&to| foes.is_empty() || gap(to) >= now + ESCAPE_GAIN)
-        .map(|to| (to, gap(to) + HOME_W * homeward(to)))
+        .filter(|&(_, to)| foes.is_empty() || gap(to) >= now + ESCAPE_GAIN)
+        .map(|(entry, to)| ((entry, to), gap(to) + HOME_W * homeward(to)))
         .max_by(|a, b| a.1.total_cmp(&b.1))
-        .map(|(to, _)| to)
+        .map(|(door, _)| door)
 }
 
 /// 追：墙后（隔着墙格）、`CHASE_NEAR`..`e_chase_r` 远、生命不高于 `PREY_HP`% 的敌方英雄（最残的先），他自己生命不低于
 /// `CHASE_HP`%——朝目标左右 `CHASE_DEG`° 内找墙穿过去，落点比现在近 `CLOSER` 以上、离目标不近于 `KEEP`，落点旁除了目标最多
 /// 一名敌方英雄。
-pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[Foe]) -> Option<((f64, f64), usize)> {
+pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[Foe]) -> Option<(Way, usize)> {
     if hp_pct < CHASE_HP {
         return None;
     }
@@ -377,12 +387,12 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
         let best = rays()
             .filter(|d| d.0 * toward.0 + d.1 * toward.1 >= cos)
             .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
-            .filter(|&to| {
+            .filter(|&(_, to)| {
                 let d = dist(to, t.at);
                 d + CLOSER <= now && d >= KEEP
             })
-            .filter(|&to| foes.iter().filter(|f| f.id != t.id && dist(to, f.at) <= CROWD_R).count() <= 1)
-            .min_by(|a, b| dist(*a, t.at).total_cmp(&dist(*b, t.at)));
+            .filter(|&(_, to)| foes.iter().filter(|f| f.id != t.id && dist(to, f.at) <= CROWD_R).count() <= 1)
+            .min_by(|a, b| dist(a.1, t.at).total_cmp(&dist(b.1, t.at)));
         if let Some(to) = best {
             return Some((to, t.id));
         }
@@ -400,7 +410,7 @@ pub fn plan_help(
     hp_pct: usize,
     foes: &[Foe],
     friends: &[(usize, (f64, f64))],
-) -> Option<((f64, f64), usize)> {
+) -> Option<(Way, usize)> {
     if hp_pct < HELP_HP || foes.iter().any(|f| dist(me, f.at) <= p.e_near as f64) {
         return None;
     }
@@ -420,8 +430,8 @@ pub fn plan_help(
         let best = rays()
             .filter(|d| d.0 * toward.0 + d.1 * toward.1 >= cos)
             .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
-            .filter(|&to| dist(to, ally) + HELP_GAIN <= now && crowd(to, CROWD_R) <= HELP_CROWD)
-            .min_by(|a, b| dist(*a, ally).total_cmp(&dist(*b, ally)));
+            .filter(|&(_, to)| dist(to, ally) + HELP_GAIN <= now && crowd(to, CROWD_R) <= HELP_CROWD)
+            .min_by(|a, b| dist(a.1, ally).total_cmp(&dist(b.1, ally)));
         if let Some(to) = best {
             return Some((to, id));
         }
@@ -478,48 +488,6 @@ fn hp_pct(sim: &StableSim<'_>, id: usize) -> usize {
     })
 }
 
-/// 门的画面钉在地上的一点：一个不动的弹道（主包副本的 `view_projectiles` 里 `e_door_p` / `e_out_p`，帧是门的帧），朝右
-/// （画面不转）、几乎不动地飞 `ticks` 世界单位，`ticks` tick 后到点消失。原生代码在单位身上播的画面会跟着他走，门画在
-/// 他身后（z -1）就整个被挡住了（用户：「巴德传送门的特效看不到啊」）；弹道的画面是卡蜜尔钩子、库奇导弹验证过的。
-/// 同一处还按地图坐标播一次门的 `view` 画面（原生画面播在地图上的点：每次不同的点都画，魔腾附加包的经验；同一点只画第一次）。
-/// 两样都画出来也只是同一张门叠在同一处。返回 (弹道生成了吗, 坐标画面播了吗)，日志里看哪样管用。
-fn door_pic(sim: &mut StableSim<'_>, me: usize, name: &str, view: &str, at: (f64, f64), ticks: usize) -> (bool, bool) {
-    let team = sim.get_entity(me).map_or(0, |e| e.team());
-    let (x, y) = (at.0.round().max(0.0) as u64, at.1.round().max(0.0) as u64);
-    let spec = ProjectileSpawnV1 {
-        caster_id: me,
-        team,
-        x,
-        y,
-        radius: 1,
-        speed: 1,
-        move_kind: ProjectileMoveKindV1::Linear.code(),
-        target_id: 0,
-        target_x: x + ticks as u64,
-        target_y: y,
-        penetrate: true,
-        attack_type: AttackTypeV1::Skill.code(),
-        casting_type: CastingTypeV1::Position.code(),
-        casting_target: CastingTargetV1::None.code(),
-    };
-    let flew = sim.spawn_projectile(&bd(name), &format!("{ID}:noop"), &spec);
-    if !flew {
-        wlog(format!("{} spawn_projectile({name}) refused", head(sim, me)));
-    }
-    let shown = sim.play_view_effect(&bd(view), me, &InputTargetV1::pos(x, y), 0, 0, 0);
-    (flew, shown)
-}
-
-/// 门的画面播多久（tick，门的帧 520 ms）。
-pub const DOOR_TICKS: usize = 31;
-
-/// 弹道打中什么都不做。
-struct Noop;
-
-impl StableEffectType for Noop {
-    fn apply(&self, _: &mut StableSim<'_>, _: u64, _: usize, _: InputTargetV1) {}
-}
-
 /// 一段正在走的路：谁、去哪、上一 tick 在哪（看宿主有没有挪他）、走到第几 tick 为止、每 tick 走多远。
 #[derive(Clone, Debug)]
 struct Trip {
@@ -530,12 +498,13 @@ struct Trip {
     step: f64,
 }
 
-/// 开了门、还没走的一趟：第几 tick 出发、去哪、带谁（id、他自己的落点）、是撤还是追。
+/// 定下的一趟：第几 tick 到墙前开门（走去墙前的路上）、第几 tick 穿过去（开了门以后）、入口、出口、是撤、追还是支援。
 #[derive(Clone, Debug)]
 struct Pending {
-    at: usize,
+    open_at: usize,
+    go_at: Option<usize>,
+    entry: (f64, f64),
     to: (f64, f64),
-    riders: Vec<(usize, (f64, f64))>,
     why: String,
 }
 
@@ -612,59 +581,82 @@ impl Door {
         let Some(gi) = current(&grids, &champs) else { return };
         let g = &grids[gi];
         let plan = if wants_out(&self.p, here, mine, &foes, allies) {
-            plan_exit(&self.p, g, here, &foes.iter().map(|f| f.at).collect::<Vec<_>>(), home).map(|to| (to, "out".to_string()))
+            plan_exit(&self.p, g, here, &foes.iter().map(|f| f.at).collect::<Vec<_>>(), home).map(|way| (way, "out".to_string()))
         } else {
             plan_chase(&self.p, g, here, mine, &foes)
-                .map(|(to, id)| (to, format!("after #{id}")))
-                .or_else(|| plan_help(&self.p, g, here, mine, &foes, &friends).map(|(to, id)| (to, format!("help #{id}"))))
+                .map(|(way, id)| (way, format!("after #{id}")))
+                .or_else(|| plan_help(&self.p, g, here, mine, &foes, &friends).map(|(way, id)| (way, format!("help #{id}"))))
         };
-        let Some((to, why)) = plan else { return };
-        let riders = friends
-            .iter()
-            .filter(|(_, a)| dist(here, *a) <= self.p.e_ride as f64)
-            .filter_map(|&(id, a)| ride_exit(g, here, to, a).map(|q| (id, q)))
-            .collect();
+        let Some(((entry, to), why)) = plan else { return };
         let tick = sim.tick();
         sim.entity_remove_buff(me, &bd("e_cd"));
         sim.add_buff(me, &BuffV1::timed(&bd("e_cd"), self.p.e_cd_t));
+        self.doors += 1;
+        // to the wall's face first (the door stands there, as in League), then it opens
+        let walk = if dist(here, entry) > 3_000.0 { self.send(sim, me, entry) } else { 0 };
+        self.pending = Some(Pending { open_at: tick + walk, go_at: None, entry, to, why });
+    }
+
+    /// 到了墙前：门在他身后贴着墙打开（buff 画面 `league_bard_e_doorb`，主包特效表的 `e_portal`：门的 2.5 倍，比他高出一大截），
+    /// `skill2_e` 动作、音效；`e_wind` tick 后穿过去。原生代码播的画面游戏里看不到（日志说播了，用户说看不出，剑魔锁链的教训），
+    /// buff 画面是泰隆翻墙验证过的。
+    fn open(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let tick = sim.tick();
+        sim.entity_remove_buff(me, &bd("e_doorb"));
+        sim.add_buff(me, &BuffV1::timed(&bd("e_doorb"), self.p.e_wind + PORTAL_LINGER));
         let mut cc = CcV1::of_kind(CcKindV1::Animation, self.p.e_anim as u64);
         cc.set_name("skill2_e");
         sim.apply_cc(me, &cc);
         let on_me = InputTargetV1::target(me);
-        let (flew, shown) = door_pic(sim, me, "e_door_p", "e_door", here, DOOR_TICKS);
-        if self.doors < 10 {
-            wlog(format!("{} DOOR picture at {}: projectile {flew}, view at the point {shown}", head(sim, me), pt(here)));
-        }
         sim.play_sfx(&bd("e_cast"), me, &on_me);
         sim.play_sfx(&bd("vo_e"), me, &on_me);
-        self.doors += 1;
-        self.pending = Some(Pending { at: tick + self.p.e_wind, to, riders, why });
+        if let Some(p) = self.pending.as_mut() {
+            p.go_at = Some(tick + self.p.e_wind);
+        }
     }
 
-    /// 出发：他和带上的队友一起走；记下到达的时刻。
+    /// 出发：门边 `e_ride` 内的友方英雄和他一起穿过去；门的画面收起；记下到达的时刻。
     fn go(&mut self, sim: &mut StableSim<'_>, me: usize, here: (f64, f64), plan: Pending) {
+        sim.entity_remove_buff(me, &bd("e_doorb"));
         if !landing_ok(sim, plan.to) {
             wlog(format!("{} DOOR #{}: the landing {} is no longer clear, he stays", head(sim, me), self.doors, pt(plan.to)));
             return;
         }
+        let team = sim.get_entity(me).map_or(0, |e| e.team());
+        let mut champs = Vec::new();
+        let mut friends = Vec::new();
+        for i in 0..sim.entity_count() {
+            let Some(u) = sim.entity_at(i) else { continue };
+            if u.is_champion() && u.is_alive() {
+                let (x, y) = u.pos();
+                let at = (x as f64, y as f64);
+                champs.push(at);
+                if u.team() == team && u.id() != me && u.is_targetable() && dist(here, at) <= self.p.e_ride as f64 {
+                    friends.push((u.id(), at));
+                }
+            }
+        }
+        let grids = Grid::builtin();
+        let riders: Vec<(usize, (f64, f64))> = match current(&grids, &champs) {
+            Some(gi) => friends.iter().filter_map(|&(id, a)| ride_exit(&grids[gi], here, plan.to, a).map(|q| (id, q))).collect(),
+            None => Vec::new(),
+        };
         let mut longest = self.send(sim, me, plan.to);
         let mut taken = Vec::new();
         let mut ids = Vec::new();
-        for (id, q) in plan.riders {
-            if sim.get_entity(id).is_some_and(|e| e.is_alive() && e.is_targetable()) {
-                longest = longest.max(self.send(sim, id, q));
-                taken.push(format!("#{id}->{}", pt(q)));
-                ids.push(id);
-            }
+        for (id, q) in riders {
+            longest = longest.max(self.send(sim, id, q));
+            taken.push(format!("#{id}->{}", pt(q)));
+            ids.push(id);
         }
         self.arrive = Some((sim.tick() + longest, ids));
         if self.doors <= 80 || self.doors % 25 == 0 {
             wlog(format!(
-                "{} DOOR #{} {}: {} -> {} ({:.0}), hp {}%, allies [{}]",
+                "{} DOOR #{} {}: at the wall {} -> {} ({:.0}), hp {}%, allies [{}]",
                 head(sim, me),
                 self.doors,
                 plan.why,
-                pt(here),
+                pt(plan.entry),
                 pt(plan.to),
                 dist(here, plan.to),
                 hp_pct(sim, me),
@@ -739,15 +731,15 @@ impl StablePassive for Door {
                 self.arrive = None;
                 if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
                     let on_me = InputTargetV1::target(me);
-                    if let Some(here) = pos(sim, me) {
-                        door_pic(sim, me, "e_out_p", "e_door_out", here, DOOR_TICKS);
-                    }
+                    sim.entity_remove_buff(me, &bd("e_outb"));
+                    sim.add_buff(me, &BuffV1::timed(&bd("e_outb"), OUT_TICKS));
                     sim.play_sfx(&bd("e_out"), me, &on_me);
                     self.haste(sim, me);
                 }
                 for id in ids {
                     if sim.get_entity(id).is_some_and(|e| e.is_alive()) {
-                        sim.play_view_effect(&bd("e_ride"), me, &InputTargetV1::target(id), 0, 0, 0);
+                        sim.entity_remove_buff(id, &bd("e_rideb"));
+                        sim.add_buff(id, &BuffV1::timed(&bd("e_rideb"), 18));
                         self.haste(sim, id);
                     }
                 }
@@ -760,9 +752,13 @@ impl StablePassive for Door {
         }
         let Some(here) = pos(sim, me) else { return };
         if let Some(plan) = self.pending.clone() {
-            if tick >= plan.at {
-                self.pending = None;
-                self.go(sim, me, here, plan);
+            match plan.go_at {
+                None if tick >= plan.open_at => self.open(sim, me),
+                Some(at) if tick >= at => {
+                    self.pending = None;
+                    self.go(sim, me, here, plan);
+                }
+                _ => {}
             }
             return;
         }
@@ -787,7 +783,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v3 (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v4 (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -795,7 +791,6 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:door"), Door::default());
-    module.add_native_effect(format!("{ID}:noop"), Noop);
     host.log(LogLevel::Info, "league_bard v1 loaded (Bard's Magical Journey exits clear of walls).");
 }
 
@@ -855,7 +850,8 @@ mod tests {
         // the wall right behind him, the enemy in front: through the wall, out on its far side
         let me = at(4.6, 4.5);
         let foes = [at(3.8, 4.5)];
-        let to = plan_exit(&p, &g, me, &foes, None).unwrap();
+        let (entry, to) = plan_exit(&p, &g, me, &foes, None).unwrap();
+        assert!(entry.0 < 5.0 * CELL && !g.is_wall(entry.0, entry.1), "the door at the wall's face: {entry:?}");
         assert!(to.0 > 6.0 * CELL && !g.is_wall(to.0, to.1), "{to:?}");
         assert!(g.blocked(me, to), "the door crosses the wall");
     }
@@ -875,7 +871,7 @@ mod tests {
         let g = wall();
         let me = at(4.4, 4.5);
         let prey = foe(at(7.0, 4.4), 30, 7);
-        let (to, id) = plan_chase(&p, &g, me, 80, &[prey]).unwrap();
+        let ((_, to), id) = plan_chase(&p, &g, me, 80, &[prey]).unwrap();
         assert_eq!(id, 7);
         assert!(dist(to, prey.at) + CLOSER <= dist(me, prey.at) && !g.is_wall(to.0, to.1), "{to:?}");
         // not behind a wall (he walks), a healthy target, or Bard hurt: no door
@@ -892,7 +888,7 @@ mod tests {
         let me = at(4.4, 4.5);
         let ally = (3, at(8.0, 4.5));
         let foes = [foe(at(8.6, 4.5), 100, 9)];
-        let (to, id) = plan_help(&p, &g, me, 90, &foes, &[ally]).unwrap();
+        let ((_, to), id) = plan_help(&p, &g, me, 90, &foes, &[ally]).unwrap();
         assert_eq!(id, 3);
         assert!(dist(to, ally.1) + HELP_GAIN <= dist(me, ally.1) && !g.is_wall(to.0, to.1), "{to:?}");
         assert!(g.blocked(me, to), "through the wall");
@@ -925,7 +921,8 @@ mod tests {
             while x < w {
                 if !g.is_wall(x, y) {
                     for (dx, dy) in [(10_000.0, 0.0), (-10_000.0, 0.0), (0.0, 10_000.0), (0.0, -10_000.0)] {
-                        if let Some(to) = plan_exit(&p, g, (x, y), &[(x + dx, y + dy)], None) {
+                        if let Some((entry, to)) = plan_exit(&p, g, (x, y), &[(x + dx, y + dy)], None) {
+                            assert!(!g.is_wall(entry.0, entry.1), "the door stands outside the wall: {entry:?}");
                             assert!(!g.is_wall(to.0, to.1) && g.roomy(to), "({x},{y}) -> {to:?}");
                             assert!(g.blocked((x, y), to), "a door crosses a wall");
                             doors += 1;
@@ -946,7 +943,7 @@ mod tests {
 
     #[test]
     fn the_names_fit() {
-        for x in ["e_cd", "e_haste", "e_ghost", "e_door_p", "e_out_p", "e_ride"] {
+        for x in ["e_cd", "e_haste", "e_ghost", "e_doorb", "e_outb", "e_rideb"] {
             assert!(bd(x).len() <= BUFF_NAME_CAP);
         }
     }

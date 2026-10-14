@@ -2617,22 +2617,6 @@
       "tag": "r_orb",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_bard_e_door_p",
-      "anim": "asset/league/effects/league_bard_big",
-      "tag": "e_door",
-      "repeat": false,
-      "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_bard_e_out_p",
-      "anim": "asset/league/effects/league_bard_big",
-      "tag": "e_door_out",
-      "repeat": false,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -2765,6 +2749,30 @@
       "tag": "e_haste",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_e_doorb",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "e_portal",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_e_outb",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "e_portal_out",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_e_rideb",
+      "anim": "asset/league/effects/league_bard_fx",
+      "tag": "e_ride",
+      "repeat": false,
+      "z": 2
     }
   ]
 }
