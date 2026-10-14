@@ -51,6 +51,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 115% at PPU 2.0 (1.74 squares a game pixel), his frames lifted by the restyle (RESTYLE mordekaiser lift).
 /// Then 「铁男和布隆游戏里偏大了」: Mordekaiser 100 % (47 game px, Nautilus 51), Braum 95 % (39 px, 55 wide with his
 /// shield), picked from a true-scale sheet; their frames moved down by the restyle (RESTYLE lift_sq).
+/// Then on game 0.6.4 (2026-10-14) 「铁男模型太小」「铁男到110%吧」: Mordekaiser 110 % (52 game px).
 /// Soraka: 「稍微变大点」 -> 110% (her frames lifted 3 squares: tools/art/ppu_restyle.py RESTYLE soraka).
 /// Nilah: 「模型别太大 参考泽丽之前改过一版」 -> 90% from a size sheet (about 38 game rows with the blade's tip); her frames
 /// lowered 3 squares by the restyle (RESTYLE nilah lift_sq).
@@ -62,7 +63,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Garen and a solid lump - shown at 80 % (「到80%吧」, from a true-scale sheet), then 「太小了库奇 调到90%吧」 -> 90 %;
 /// he flies, so his frames are not lowered.
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
-                                    ("league_braum", 0.95), ("league_mordekaiser", 1.00),
+                                    ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90)];
 

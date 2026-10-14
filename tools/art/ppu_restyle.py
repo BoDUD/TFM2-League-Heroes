@@ -77,14 +77,16 @@ RESTYLE = {
     # then 「铁男和布隆游戏里偏大了」: Mordekaiser 100 %, Braum 95 % (hd.rs SIZES, picked from a true-scale sheet) - the
     # frames as they were, moved down by whole squares after the downscale (lift_sq): 11 x 2.0 x (1 / 1.00 - 1 / 1.15)
     # = 2.9 -> 3, 11.5 x 1.98 x (1 / 0.95 - 1 / 1.05) = 2.3 -> 2; faces x 1.00 / 1.15 and x 0.95 / 1.05 about the soles
+    # then (game 0.6.4, 2026-10-14) 「铁男模型太小」「铁男到110%吧」: Mordekaiser 110 % - 11 x 2.0 x (1 / 1.10 - 1 / 1.15)
+    # = 0.9 -> 1 square down from the 115 % frames, face (1, -27) x 1.10 about the soles
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
                   lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(7, -37)),  # (a hair under: the pivot's row keeps its square)
     # 「铁男的走路步伐感觉有点大啊」: the run's two striding frames had the soles 42 and 47.5 game px apart (the idle's 31):
     # their legs brought together from the hips down (narrow: 25 and 40 orig px nearer on each side at the soles)
-    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-3,
+    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-1,
                         stride={"run": (165, {0: 25, 2: 40})},
                         crisp=dict(contrast=1.0, keep="teal"),
-                        face_to=(1, -27)),
+                        face_to=(1, -30)),
     # 「飞机像泽丽那样变大点」
     "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
