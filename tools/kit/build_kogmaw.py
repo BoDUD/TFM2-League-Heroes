@@ -8,7 +8,8 @@ itself on (League's W has no cast time) and Icathian Surprise watches for his de
   passive Icathian Surprise (艾卡西亚的惊喜): nothing in the data runs on a death, so each life's first action starts a
           watch on him: an `AddCasted` (period p_watch) lobs a hidden lob onto him that flies p_watch ticks; where it
           lands it asks `RandomTarget {range: 1, AllyOnlySelf}` (which finds no dead caster) whether he lives. The
-          AddCasted stops with him, so exactly one lob in the air finds him dead: there the void form wakes (his `dead`
+          AddCasted stops with him, so exactly one lob in the air finds him dead (and a flag, p_done, wakes the form once
+          while he cannot be found - a revive's untargetable lying - until a lob finds him again): there the void form wakes (his `dead`
           strip: he rises, swells and glows) and p_fuse ticks later it bursts - p_dmg + p_ratio% AD true damage to every
           enemy within p_r. League's form walks at the nearest enemy for 4 s; a dead body cannot walk in data, so it
           bursts where he fell (the burst's ring shows from the start, so enemies can step out).
@@ -242,7 +243,11 @@ def build(p):
                    pick(p["p_seek"], "EnemyChampion",
                         homing("p_form", p["p_speed"], 5000, "EnemyChampion", [view("p_boom"), tsfx("p_boom")]),
                         splash, fp=True))
-    check = combine(pick(1, "AllyOnlySelf", flag("p_live", 1)), sw("p_live", combine(*rm("p_live")), wake))
+    # once: p_done set as the form wakes, cleared when a lob finds him alive again. A revive (the base guardian_spirit's
+    # Summon Sanctuary, 0.6) keeps him from dying, so the watch runs on while he lies untargetable - every lob found no
+    # one and woke a form: 「死后被守护天使复活的时候 在无敌状态下还在一直攻击」
+    check = combine(pick(1, "AllyOnlySelf", flag("p_live", 1)),
+                    sw("p_live", combine(*rm("p_live"), *rm("p_done")), sw("p_done", NONE, combine(flag("p_done", None), wake))))
     watch = casted(p["p_life"], p["p_watch"], lob("p_watch", p["p_watch"] + 1, "AllyOnlySelf", [check]))
     # each life's first action: the watch and Caustic Spittle's passive attack speed (death clears both)
     life = sw("init", NONE, combine(flag("init", None), flag("q_pas", None, attack_speed_mult=p["q_as"]),
