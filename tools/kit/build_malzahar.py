@@ -236,7 +236,7 @@ def build(p):
                                   magic(round(p["r_dmg"] / runs), round(p["r_ap"] / runs)), tsfx("r_tick")))
         return combine(*rm("r_armed"), refresh("r_ch", p["r_t"] + 1), sfx("r_cast"), sfx("vo_r"), view("r_grasp"),
                        wave, casted(p["r_t"] - 1, p["r_p"], wave),
-                       drop("r_drop", view("r_pool"), null_zone),
+                       drop("r_drop", view("r_pool"), sfx("r_pool"), null_zone),
                        on_me(anim("ult", p["r_t"]), breaks, delayed(p["r_t"], refresh("r_combo", p["r_combo"]))))
 
     # ------------------------------------------------------------------ skill: E Malefic Visions + W voidlings

@@ -714,6 +714,13 @@
         "skill": "跃动一小段（被近身时向后），向附近最多<#ffb900ff>3名<>敌人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理伤害<>，攻速+35%持续<#ffb900ff>4秒<>。在<#ff9028ff>狼灵狂热<>内冷却<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>横生惧意<>：标记敌人并<#ef5350ff>减速30%<>，此后第<#ffb900ff>3次<>攻击命中时狼灵扑咬被标记者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理伤害<>（英雄额外4%最大生命）。冷却时放<#ff9028ff>狼灵狂热<>：<#ffb900ff>8.5秒<>领域，狼灵每秒撕咬其中一个敌人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理伤害<>。",
         "ult": "友方英雄被控制且身边有敌方英雄，或持续交战中友方英雄（含自己）身边有2名以上敌方英雄时，祝福身边区域：<#ffb900ff>4秒<>内其中的友方英雄不会阵亡，结束时回复<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
+      },
+      "league_malzahar": {
+        "name": "玛尔扎哈",
+        "attack": "射出虚空弹。被动<#ff9028ff>虚空穿越<>：获得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<>护盾，护盾存在时<#ef5350ff>免疫控制<>；护盾被打破后<#ffb900ff>12秒<>重新获得。",
+        "skill": "<#ff9028ff>煞星幻象<>：<#ffb900ff>4秒<>内造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，目标死亡时跳到附近的敌人身上。<#ff9028ff>虚空虫群<>随之撕咬目标，每<#ffb900ff>0.5秒<>造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>。",
+        "skill2": "在目标两侧打开虚空裂隙，裂隙合拢时对范围内的敌人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并<#ef5350ff>沉默1.5秒<>。",
+        "ult": "压制一名敌方英雄（优先煞星幻象的目标）：引导期间使其<#ef5350ff>眩晕<>，<#ffb900ff>2.5秒<>内造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，脚下留下持续伤害的虚空区域。玛尔扎哈被控制时引导中断。"
       }
     },
     "skill_name": {
@@ -1226,6 +1233,11 @@
         "skill1": "乱箭之舞",
         "skill2": "横生惧意 / 狼灵狂热",
         "ult": "羊灵生息"
+      },
+      "league_malzahar": {
+        "skill1": "煞星幻象 / 虚空虫群",
+        "skill2": "虚空召唤",
+        "ult": "冥府之握"
       }
     }
   },
@@ -1944,6 +1956,13 @@
         "skill": "躍動一小段（被近身時向後），向附近最多<#ffb900ff>3名<>敵人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理傷害<>，攻速+35%持續<#ffb900ff>4秒<>。在<#ff9028ff>魔狼狂熱<>內冷卻<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>恐懼蔓延<>：標記敵人並<#ef5350ff>緩速30%<>，此後第<#ffb900ff>3次<>攻擊命中時魔狼撲咬被標記者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理傷害<>（英雄額外4%最大生命）。冷卻時放<#ff9028ff>魔狼狂熱<>：<#ffb900ff>8.5秒<>領域，魔狼每秒撕咬其中一個敵人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理傷害<>。",
         "ult": "友方英雄被控制且身邊有敵方英雄，或持續交戰中友方英雄（含自己）身邊有2名以上敵方英雄時，祝福身邊區域：<#ffb900ff>4秒<>內其中的友方英雄不會陣亡，結束時回復<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
+      },
+      "league_malzahar": {
+        "name": "馬爾札哈",
+        "attack": "射出虛空彈。被動<#ff9028ff>虛空象限<>：獲得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<>護盾，護盾存在時<#ef5350ff>免疫控場<>；護盾被打破後<#ffb900ff>12秒<>重新獲得。",
+        "skill": "<#ff9028ff>煞星幻象<>：<#ffb900ff>4秒<>內造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，目標死亡時跳到附近的敵人身上。<#ff9028ff>召喚虛靈<>隨之撕咬目標，每<#ffb900ff>0.5秒<>造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>。",
+        "skill2": "在目標兩側打開虛空裂隙，裂隙合攏時對範圍內的敵人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並<#ef5350ff>沉默1.5秒<>。",
+        "ult": "壓制一名敵方英雄（優先煞星幻象的目標）：引導期間使其<#ef5350ff>暈眩<>，<#ffb900ff>2.5秒<>內造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，腳下留下持續傷害的虛空區域。馬爾札哈被控場時引導中斷。"
       }
     },
     "skill_name": {
@@ -2456,6 +2475,11 @@
         "skill1": "舞動箭矢",
         "skill2": "恐懼蔓延／魔狼狂熱",
         "ult": "神羊喘息"
+      },
+      "league_malzahar": {
+        "skill1": "煞星幻象 / 召喚虛靈",
+        "skill2": "虛空召喚",
+        "ult": "冥府之握"
       }
     }
   },
@@ -3174,6 +3198,13 @@
         "skill": "Leaps a short way (back when an enemy closes in) and shoots an arrow at each of up to <#ffb900ff>3<> nearby enemies for <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>physical damage<>; +35% attack speed for <#ffb900ff>4s<>. Inside <#ff9028ff>Wolf's Frenzy<> the cooldown is <#ffb900ff>4s<>.",
         "skill2": "<#ff9028ff>Mounting Dread<>: marks an enemy and <#ef5350ff>slows it 30%<>; her <#ffb900ff>3rd<> attack hit after it sends Wolf at the marked one for <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>physical damage<> (+4% max health on champions). On cooldown, <#ff9028ff>Wolf's Frenzy<>: for <#ffb900ff>8.5s<> a zone where Wolf bites one enemy every second for <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>physical damage<>.",
         "ult": "When an allied champion near her is crowd-controlled with an enemy champion beside him, or, in a sustained fight, an allied champion (or she) has 2 or more enemy champions beside him, she blesses the ground around her: for <#ffb900ff>4s<> allied champions in it cannot die, then they heal <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>."
+      },
+      "league_malzahar": {
+        "name": "Malzahar",
+        "attack": "Fires a void bolt. Passive <#ff9028ff>Void Shift<>: a <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<> shield; while it holds he is <#ef5350ff>immune to crowd control<>. Broken, it returns after <#ffb900ff>12s<>.",
+        "skill": "<#ff9028ff>Malefic Visions<>: deals <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> over <#ffb900ff>4s<>; if the target dies, the vision jumps to a nearby enemy. <#ff9028ff>Void Swarm<>: voidlings bite the target, <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<> every <#ffb900ff>0.5s<>.",
+        "skill2": "Opens two void rifts beside the target; as they close, enemies in the area take <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<> and are <#ef5350ff>silenced for 1.5s<>.",
+        "ult": "Suppresses an enemy champion (the vision's target first): <#ef5350ff>stunned<> while he channels, it takes <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> over <#ffb900ff>2.5s<> and leaves a damaging void zone. Crowd control on Malzahar ends the channel."
       }
     },
     "skill_name": {
@@ -3686,6 +3717,11 @@
         "skill1": "Dance of Arrows",
         "skill2": "Mounting Dread / Wolf's Frenzy",
         "ult": "Lamb's Respite"
+      },
+      "league_malzahar": {
+        "skill1": "Malefic Visions / Void Swarm",
+        "skill2": "Call of the Void",
+        "ult": "Nether Grasp"
       }
     }
   },
@@ -4404,6 +4440,13 @@
         "skill": "짧게 도약(적이 붙으면 뒤로)한 뒤 주변 적 최대 <#ffb900ff>3명<>에게 화살을 한 발씩 쏴 <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>물리 피해<>, 공격 속도 +35% (<#ffb900ff>4초<>). <#ff9028ff>늑대의 광기<> 안에서는 재사용 대기시간 <#ffb900ff>4초<>.",
         "skill2": "<#ff9028ff>차오르는 공포<>: 적에게 표식을 남기고 <#ef5350ff>30% 둔화<>; 이후 <#ffb900ff>3번째<> 공격이 적중하면 늑대가 표식 대상을 덮쳐 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>물리 피해<>(챔피언은 최대 체력의 4% 추가). 재사용 대기 중에는 <#ff9028ff>늑대의 광기<>: <#ffb900ff>8.5초<> 영역, 늑대가 매초 적 하나를 물어 <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>물리 피해<>.",
         "ult": "근처 아군 챔피언이 군중 제어를 받는 중 옆에 적 챔피언이 있거나, 교전이 이어지는 중 아군 챔피언(자신 포함) 옆에 적 챔피언이 2명 이상이면 주변을 축복: <#ffb900ff>4초<> 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<> 회복."
+      },
+      "league_malzahar": {
+        "name": "말자하",
+        "attack": "공허의 화살을 쏩니다. 기본 지속 효과 <#ff9028ff>공허 태세<>: <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<> 보호막, 유지되는 동안 <#ef5350ff>군중 제어 면역<>. 깨지면 <#ffb900ff>12초<> 후 다시 생깁니다.",
+        "skill": "<#ff9028ff>재앙의 환상<>: <#ffb900ff>4초<>에 걸쳐 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 대상이 죽으면 근처 적에게 옮겨갑니다. <#ff9028ff>공허의 무리<>: 공허충이 대상을 물어 <#ffb900ff>0.5초<>마다 <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>마법 피해<>.",
+        "skill2": "대상 양옆에 공허의 균열을 열고, 닫힐 때 범위 안 적에게 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1.5초 침묵<>.",
+        "ult": "적 챔피언 하나를 제압합니다(재앙의 환상 대상 우선): 정신 집중 동안 <#ef5350ff>기절<>, <#ffb900ff>2.5초<>에 걸쳐 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 발밑에 공허 지대를 남깁니다. 말자하가 군중 제어되면 끊깁니다."
       }
     },
     "skill_name": {
@@ -4916,6 +4959,11 @@
         "skill1": "화살 세례",
         "skill2": "차오르는 공포 / 늑대의 광기",
         "ult": "양의 안식처"
+      },
+      "league_malzahar": {
+        "skill1": "재앙의 환상 / 공허의 무리",
+        "skill2": "공허의 부름",
+        "ult": "황천의 손아귀"
       }
     }
   },
@@ -5634,6 +5682,13 @@
         "skill": "短く跳び（詰められたら後ろへ）、周囲の敵最大<#ffb900ff>3体<>に矢を1本ずつ放ち<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<>の<#ff8a65ff>物理ダメージ<>、攻撃速度+35%（<#ffb900ff>4秒<>）。<#ff9028ff>狼の激昂<>の中ではクールダウン<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>忍び寄る恐怖<>：敵に刻印し<#ef5350ff>30%スロウ<>。その後<#ffb900ff>3回目<>の攻撃でウルフが飛びかかり<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<>の<#ff8a65ff>物理ダメージ<>（チャンピオンは最大体力の4%追加）。CD中は<#ff9028ff>狼の激昂<>：<#ffb900ff>8.5秒<>の領域、ウルフが毎秒敵1体を噛み<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<>の<#ff8a65ff>物理ダメージ<>。",
         "ult": "近くの味方チャンピオンが行動妨害中で敵チャンピオンが傍にいるか、戦闘が続く中で味方チャンピオン（自身含む）の傍に敵チャンピオンが2体以上いると周囲を祝福：<#ffb900ff>4秒<>間、中の味方チャンピオンは倒れず、終了時に<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>回復。"
+      },
+      "league_malzahar": {
+        "name": "マルザハール",
+        "attack": "ヴォイドの弾を放つ。自動効果<#ff9028ff>ヴォイドシフト<>：<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<>のシールド、ある間は<#ef5350ff>行動妨害無効<>。破られると<#ffb900ff>12秒<>後に再び得る。",
+        "skill": "<#ff9028ff>虚性侵蝕<>：<#ffb900ff>4秒<>かけて<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、対象が倒れると近くの敵に移る。<#ff9028ff>ヴォイドスワーム<>：ヴォイドリングが対象に噛みつき<#ffb900ff>0.5秒<>ごとに<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill2": "対象の両側にヴォイドの裂け目を開き、閉じる時に範囲内の敵に<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.5秒サイレンス<>。",
+        "ult": "敵チャンピオン1体をサプレッション（虚性侵蝕の対象を優先）：詠唱中<#ef5350ff>スタン<>、<#ffb900ff>2.5秒<>かけて<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、足元にヴォイドの領域を残す。行動妨害で中断。"
       }
     },
     "skill_name": {
@@ -6146,6 +6201,11 @@
         "skill1": "矢の輪舞",
         "skill2": "忍び寄る恐怖/狼の激昂",
         "ult": "羊の執行猶予"
+      },
+      "league_malzahar": {
+        "skill1": "虚性侵蝕 / ヴォイドスワーム",
+        "skill2": "ヴォイドコール",
+        "ult": "ネザーグラスプ"
       }
     }
   }
