@@ -138,84 +138,109 @@
                                     {
                                       "type": "RemoveCasterBuff",
                                       "name": "league_kogmaw_p_live"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kogmaw_p_done"
                                     }
                                   ]
                                 },
                                 "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_vo_p"
-                                    },
-                                    {
-                                      "type": "RandomTarget",
-                                      "range": 70000,
-                                      "casting_target": "EnemyChampion",
-                                      "from_projectile": true,
-                                      "effects": [
-                                        {
-                                          "type": "TargetProjectile",
-                                          "name": "league_kogmaw_p_form",
-                                          "speed": 1800,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            }
-                                          ]
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_kogmaw_p_done",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kogmaw_p_done",
+                                          "duration": "Permanent"
                                         },
-                                        {
-                                          "type": "TargetSplashProjectile",
-                                          "name": "league_kogmaw_p_burst",
-                                          "speed": 1800,
-                                          "range": 12000,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "FixedAttack",
-                                                "damage": 80,
-                                                "attack_ratio": 100,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_vo_p"
+                                          },
+                                          {
+                                            "type": "RandomTarget",
+                                            "range": 70000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": true,
+                                            "effects": [
+                                              {
+                                                "type": "TargetProjectile",
+                                                "name": "league_kogmaw_p_form",
+                                                "speed": 1800,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "TargetSplashProjectile",
+                                                "name": "league_kogmaw_p_burst",
+                                                "speed": 1800,
+                                                "range": 12000,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "FixedAttack",
+                                                      "damage": 80,
+                                                      "attack_ratio": 100,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_hit"
+                                                    }
+                                                  }
+                                                ]
                                               }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_hit"
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 }
                               }
                             ]
@@ -632,84 +657,109 @@
                                     {
                                       "type": "RemoveCasterBuff",
                                       "name": "league_kogmaw_p_live"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kogmaw_p_done"
                                     }
                                   ]
                                 },
                                 "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_vo_p"
-                                    },
-                                    {
-                                      "type": "RandomTarget",
-                                      "range": 70000,
-                                      "casting_target": "EnemyChampion",
-                                      "from_projectile": true,
-                                      "effects": [
-                                        {
-                                          "type": "TargetProjectile",
-                                          "name": "league_kogmaw_p_form",
-                                          "speed": 1800,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            }
-                                          ]
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_kogmaw_p_done",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kogmaw_p_done",
+                                          "duration": "Permanent"
                                         },
-                                        {
-                                          "type": "TargetSplashProjectile",
-                                          "name": "league_kogmaw_p_burst",
-                                          "speed": 1800,
-                                          "range": 12000,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "FixedAttack",
-                                                "damage": 80,
-                                                "attack_ratio": 100,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_vo_p"
+                                          },
+                                          {
+                                            "type": "RandomTarget",
+                                            "range": 70000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": true,
+                                            "effects": [
+                                              {
+                                                "type": "TargetProjectile",
+                                                "name": "league_kogmaw_p_form",
+                                                "speed": 1800,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "TargetSplashProjectile",
+                                                "name": "league_kogmaw_p_burst",
+                                                "speed": 1800,
+                                                "range": 12000,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "FixedAttack",
+                                                      "damage": 80,
+                                                      "attack_ratio": 100,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_hit"
+                                                    }
+                                                  }
+                                                ]
                                               }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_hit"
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 }
                               }
                             ]
@@ -969,84 +1019,109 @@
                                     {
                                       "type": "RemoveCasterBuff",
                                       "name": "league_kogmaw_p_live"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kogmaw_p_done"
                                     }
                                   ]
                                 },
                                 "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_vo_p"
-                                    },
-                                    {
-                                      "type": "RandomTarget",
-                                      "range": 70000,
-                                      "casting_target": "EnemyChampion",
-                                      "from_projectile": true,
-                                      "effects": [
-                                        {
-                                          "type": "TargetProjectile",
-                                          "name": "league_kogmaw_p_form",
-                                          "speed": 1800,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            }
-                                          ]
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_kogmaw_p_done",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kogmaw_p_done",
+                                          "duration": "Permanent"
                                         },
-                                        {
-                                          "type": "TargetSplashProjectile",
-                                          "name": "league_kogmaw_p_burst",
-                                          "speed": 1800,
-                                          "range": 12000,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "FixedAttack",
-                                                "damage": 80,
-                                                "attack_ratio": 100,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_vo_p"
+                                          },
+                                          {
+                                            "type": "RandomTarget",
+                                            "range": 70000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": true,
+                                            "effects": [
+                                              {
+                                                "type": "TargetProjectile",
+                                                "name": "league_kogmaw_p_form",
+                                                "speed": 1800,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "TargetSplashProjectile",
+                                                "name": "league_kogmaw_p_burst",
+                                                "speed": 1800,
+                                                "range": 12000,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "FixedAttack",
+                                                      "damage": 80,
+                                                      "attack_ratio": 100,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_hit"
+                                                    }
+                                                  }
+                                                ]
                                               }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_hit"
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 }
                               }
                             ]
@@ -2080,84 +2155,109 @@
                                     {
                                       "type": "RemoveCasterBuff",
                                       "name": "league_kogmaw_p_live"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kogmaw_p_done"
                                     }
                                   ]
                                 },
                                 "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_p_wake"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_kogmaw_vo_p"
-                                    },
-                                    {
-                                      "type": "RandomTarget",
-                                      "range": 70000,
-                                      "casting_target": "EnemyChampion",
-                                      "from_projectile": true,
-                                      "effects": [
-                                        {
-                                          "type": "TargetProjectile",
-                                          "name": "league_kogmaw_p_form",
-                                          "speed": 1800,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_kogmaw_p_boom"
-                                              }
-                                            }
-                                          ]
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_kogmaw_p_done",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kogmaw_p_done",
+                                          "duration": "Permanent"
                                         },
-                                        {
-                                          "type": "TargetSplashProjectile",
-                                          "name": "league_kogmaw_p_burst",
-                                          "speed": 1800,
-                                          "range": 12000,
-                                          "y_offset": 5000,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "FixedAttack",
-                                                "damage": 80,
-                                                "attack_ratio": 100,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_p_wake"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_kogmaw_vo_p"
+                                          },
+                                          {
+                                            "type": "RandomTarget",
+                                            "range": 70000,
+                                            "casting_target": "EnemyChampion",
+                                            "from_projectile": true,
+                                            "effects": [
+                                              {
+                                                "type": "TargetProjectile",
+                                                "name": "league_kogmaw_p_form",
+                                                "speed": 1800,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyChampion",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_kogmaw_p_boom"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "TargetSplashProjectile",
+                                                "name": "league_kogmaw_p_burst",
+                                                "speed": 1800,
+                                                "range": 12000,
+                                                "y_offset": 5000,
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "FixedAttack",
+                                                      "damage": 80,
+                                                      "attack_ratio": 100,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_kogmaw_p_hit"
+                                                    }
+                                                  }
+                                                ]
                                               }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_kogmaw_p_hit"
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 }
                               }
                             ]
