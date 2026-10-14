@@ -721,6 +721,13 @@
         "skill": "<#ff9028ff>煞星幻象<>：<#ffb900ff>4秒<>内造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，目标死亡时跳到附近的敌人身上。<#ff9028ff>虚空虫群<>随之撕咬目标，每<#ffb900ff>0.5秒<>造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>。",
         "skill2": "在目标两侧打开虚空裂隙，裂隙合拢时对范围内的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并<#ef5350ff>沉默1.5秒<>。",
         "ult": "压制一名敌方英雄（优先煞星幻象的目标）：引导期间使其<#ef5350ff>眩晕<>，<#ffb900ff>2.5秒<>内造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，脚下留下持续伤害的虚空区域。玛尔扎哈被控制时引导中断。"
+      },
+      "league_milio": {
+        "name": "米利欧",
+        "attack": "射出小火球。被动<#ff9028ff>热情洋溢！<>：技能触及的友方获得<#ffb900ff>30%<>攻击力和法术强度（<#ffb900ff>5秒<>），米利欧获得<#ffb900ff>15%<>移速。",
+        "skill": "踢出火球，击退命中的第一个敌人，随后火球落下，对周围敌人造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "<#ff9028ff>融融情谊<>（2次）：友方英雄获得<#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<><#9fd8ffff>护盾<>和<#ffb900ff>16%<>移速（<#ffb900ff>2.5秒<>）。<#ff9028ff>依依不舍<>：在其身上点燃营火<#ffb900ff>6秒<>，每<#ffb900ff>1秒<>治疗周围友方<#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<>并增加攻击距离。",
+        "ult": "友方被控制或被敌人贴身时，为周围友方英雄恢复<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>生命，<#ef5350ff>免疫控制1秒<>并获得<#ffb900ff>65%<>韧性（<#ffb900ff>3秒<>）。"
       }
     },
     "skill_name": {
@@ -1238,6 +1245,11 @@
         "skill1": "煞星幻象 / 虚空虫群",
         "skill2": "虚空召唤",
         "ult": "冥府之握"
+      },
+      "league_milio": {
+        "skill1": "火爆飞踢",
+        "skill2": "融融情谊 / 依依不舍",
+        "ult": "生生不息"
       }
     }
   },
@@ -1963,6 +1975,13 @@
         "skill": "<#ff9028ff>煞星幻象<>：<#ffb900ff>4秒<>內造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，目標死亡時跳到附近的敵人身上。<#ff9028ff>召喚虛靈<>隨之撕咬目標，每<#ffb900ff>0.5秒<>造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>。",
         "skill2": "在目標兩側打開虛空裂隙，裂隙合攏時對範圍內的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並<#ef5350ff>沉默1.5秒<>。",
         "ult": "壓制一名敵方英雄（優先煞星幻象的目標）：引導期間使其<#ef5350ff>暈眩<>，<#ffb900ff>2.5秒<>內造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，腳下留下持續傷害的虛空區域。馬爾札哈被控場時引導中斷。"
+      },
+      "league_milio": {
+        "name": "米里歐",
+        "attack": "射出小火球。被動<#ff9028ff>爐火餘溫<>：技能觸及的友軍獲得<#ffb900ff>30%<>攻擊力和魔法攻擊（<#ffb900ff>5秒<>），米里歐獲得<#ffb900ff>15%<>跑速。",
+        "skill": "踢出火球，擊退命中的第一個敵人，隨後火球落下，對周圍敵人造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "<#ff9028ff>溫暖擁抱<>（2次）：友方英雄獲得<#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<><#9fd8ffff>護盾<>和<#ffb900ff>16%<>跑速（<#ffb900ff>2.5秒<>）。<#ff9028ff>舒適營火<>：在其身上點燃營火<#ffb900ff>6秒<>，每<#ffb900ff>1秒<>治療周圍友軍<#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<>並增加攻擊距離。",
+        "ult": "友軍被控場或被敵人貼身時，為周圍友方英雄恢復<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>生命，<#ef5350ff>免疫控場1秒<>並獲得<#ffb900ff>65%<>韌性（<#ffb900ff>3秒<>）。"
       }
     },
     "skill_name": {
@@ -2480,6 +2499,11 @@
         "skill1": "煞星幻象 / 召喚虛靈",
         "skill2": "虛空召喚",
         "ult": "冥府之握"
+      },
+      "league_milio": {
+        "skill1": "究極火焰球",
+        "skill2": "溫暖擁抱 / 舒適營火",
+        "ult": "賦生燄息"
       }
     }
   },
@@ -3205,6 +3229,13 @@
         "skill": "<#ff9028ff>Malefic Visions<>: deals <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> over <#ffb900ff>4s<>; if the target dies, the vision jumps to a nearby enemy. <#ff9028ff>Void Swarm<>: voidlings bite the target, <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<> every <#ffb900ff>0.5s<>.",
         "skill2": "Opens two void rifts beside the target; as they close, enemies in the area take <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and are <#ef5350ff>silenced for 1.5s<>.",
         "ult": "Suppresses an enemy champion (the vision's target first): <#ef5350ff>stunned<> while he channels, it takes <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> over <#ffb900ff>2.5s<> and leaves a damaging void zone. Crowd control on Malzahar ends the channel."
+      },
+      "league_milio": {
+        "name": "Milio",
+        "attack": "Throws a small fireball. Passive <#ff9028ff>Fired Up!<>: allies his spells touch gain <#ffb900ff>30%<> attack and ability power for <#ffb900ff>5s<>; Milio gains <#ffb900ff>15%<> move speed.",
+        "skill": "Kicks a fireball that knocks back the first enemy hit, then falls on it: enemies around take <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed by 40%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "<#ff9028ff>Warm Hugs<> (2 charges): an allied champion gains a <#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<> <#9fd8ffff>shield<> and <#ffb900ff>16%<> move speed for <#ffb900ff>2.5s<>. <#ff9028ff>Cozy Campfire<>: a fire follows them for <#ffb900ff>6s<>, every <#ffb900ff>1s<> healing allies nearby <#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<> and extending their attack range.",
+        "ult": "When an ally is crowd-controlled or an enemy closes in, allied champions around him heal <#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>, are <#ef5350ff>immune to crowd control for 1s<> and gain <#ffb900ff>65%<> tenacity for <#ffb900ff>3s<>."
       }
     },
     "skill_name": {
@@ -3722,6 +3753,11 @@
         "skill1": "Malefic Visions / Void Swarm",
         "skill2": "Call of the Void",
         "ult": "Nether Grasp"
+      },
+      "league_milio": {
+        "skill1": "Ultra Mega Fire Kick",
+        "skill2": "Warm Hugs / Cozy Campfire",
+        "ult": "Breath of Life"
       }
     }
   },
@@ -4447,6 +4483,13 @@
         "skill": "<#ff9028ff>재앙의 환상<>: <#ffb900ff>4초<>에 걸쳐 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 대상이 죽으면 근처 적에게 옮겨갑니다. <#ff9028ff>공허의 무리<>: 공허충이 대상을 물어 <#ffb900ff>0.5초<>마다 <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>마법 피해<>.",
         "skill2": "대상 양옆에 공허의 균열을 열고, 닫힐 때 범위 안 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1.5초 침묵<>.",
         "ult": "적 챔피언 하나를 제압합니다(재앙의 환상 대상 우선): 정신 집중 동안 <#ef5350ff>기절<>, <#ffb900ff>2.5초<>에 걸쳐 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 발밑에 공허 지대를 남깁니다. 말자하가 군중 제어되면 끊깁니다."
+      },
+      "league_milio": {
+        "name": "밀리오",
+        "attack": "작은 불덩이를 던집니다. 기본 지속 효과 <#ff9028ff>타오르는 힘<>: 스킬이 닿은 아군은 <#ffb900ff>5초<> 동안 공격력과 주문력이 <#ffb900ff>30%<> 증가, 밀리오는 이동 속도 <#ffb900ff>15%<>.",
+        "skill": "불덩이를 차서 처음 맞힌 적을 밀어내고, 떨어지며 주변 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.5초<> 동안 <#ef5350ff>40% 둔화<>.",
+        "skill2": "<#ff9028ff>따스한 포옹<>(2회): 아군 챔피언에게 <#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<> <#9fd8ffff>보호막<>과 이동 속도 <#ffb900ff>16%<>(<#ffb900ff>2.5초<>). <#ff9028ff>아늑한 모닥불<>: <#ffb900ff>6초<> 동안 따라다니며 <#ffb900ff>1초<>마다 주변 아군 <#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<> 회복, 사거리 증가.",
+        "ult": "아군이 군중 제어되거나 적이 붙으면 주변 아군 챔피언이 <#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<> 회복, <#ef5350ff>1초 군중 제어 면역<>, <#ffb900ff>3초<> 동안 강인함 <#ffb900ff>65%<>."
       }
     },
     "skill_name": {
@@ -4964,6 +5007,11 @@
         "skill1": "재앙의 환상 / 공허의 무리",
         "skill2": "공허의 부름",
         "ult": "황천의 손아귀"
+      },
+      "league_milio": {
+        "skill1": "초특급 불꽃 킥",
+        "skill2": "따스한 포옹 / 아늑한 모닥불",
+        "ult": "생명의 온기"
       }
     }
   },
@@ -5689,6 +5737,13 @@
         "skill": "<#ff9028ff>虚性侵蝕<>：<#ffb900ff>4秒<>かけて<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、対象が倒れると近くの敵に移る。<#ff9028ff>ヴォイドスワーム<>：ヴォイドリングが対象に噛みつき<#ffb900ff>0.5秒<>ごとに<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>。",
         "skill2": "対象の両側にヴォイドの裂け目を開き、閉じる時に範囲内の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.5秒サイレンス<>。",
         "ult": "敵チャンピオン1体をサプレッション（虚性侵蝕の対象を優先）：詠唱中<#ef5350ff>スタン<>、<#ffb900ff>2.5秒<>かけて<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、足元にヴォイドの領域を残す。行動妨害で中断。"
+      },
+      "league_milio": {
+        "name": "ミリオ",
+        "attack": "小さな火の玉を投げる。自動効果<#ff9028ff>ファイヤーアップ！<>：スキルが触れた味方は<#ffb900ff>5秒<>攻撃力と魔力<#ffb900ff>30%<>増加、ミリオは移動速度<#ffb900ff>15%<>。",
+        "skill": "火の玉を蹴り、最初の敵をノックバック、落ちた火の玉が周囲の敵に<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1.5秒<><#ef5350ff>40%スロウ<>。",
+        "skill2": "<#ff9028ff>抱擁のぬくもり<>（2回）：味方チャンピオンに<#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<>の<#9fd8ffff>シールド<>と移動速度<#ffb900ff>16%<>（<#ffb900ff>2.5秒<>）。<#ff9028ff>癒しの焚き火<>：<#ffb900ff>6秒<>付き添い、<#ffb900ff>1秒<>ごとに周囲の味方を<#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<>回復、射程増加。",
+        "ult": "味方が行動妨害を受けるか敵に接近された時、周囲の味方チャンピオンを<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>回復、<#ef5350ff>1秒行動妨害無効<>、<#ffb900ff>3秒<>行動妨害耐性<#ffb900ff>65%<>。"
       }
     },
     "skill_name": {
@@ -6206,6 +6261,11 @@
         "skill1": "虚性侵蝕 / ヴォイドスワーム",
         "skill2": "ヴォイドコール",
         "ult": "ネザーグラスプ"
+      },
+      "league_milio": {
+        "skill1": "ウルトラメガファイヤーキック",
+        "skill2": "抱擁のぬくもり / 癒しの焚き火",
+        "ult": "生命の息吹"
       }
     }
   }
