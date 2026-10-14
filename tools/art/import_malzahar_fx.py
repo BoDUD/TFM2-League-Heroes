@@ -20,8 +20,8 @@ Spots are game px from the pivot (x forward, y down); a unit's soles are 11 unde
 null zone's middle on the soles; the shield's lowest row 1 over the ground round Malzahar (he floats: boots 2 over it,
 head 31 over the pivot at hd.rs SIZES 1.15).
 Times from the kit (tools/kit/build_malzahar.py P, 60 ticks a second).
-R's beam (the user: 「大招没连接线啊」): r_link, a 16 px link of the chain flying from the grasped champion back to
-him (tools/kit/build_malzahar.py r_lp / r_lspeed), cut from Codex's own beam in q_rift frame 5 (link()).
+R's beam (the user: 「大招没连接线啊」): r_link, a 16 px link of the chain flying from his hands to the grasped
+champion (tools/kit/build_malzahar.py r_lp / r_lspeed / r_ly), cut from Codex's own beam in q_rift frame 5 (link()).
 """
 import argparse
 import json
@@ -61,6 +61,7 @@ FG = 12                          # a draft pixel this light (its largest channel
 HIT = (0, -12)                   # a hit on the upper body of a 36-44 px unit
 SOLES = (0, 11)                  # on the ground under a unit or a point
 SHELL = (0, 10)                  # the shield's lowest row: 1 over the ground under Malzahar
+LINK_LEAD = 5                    # R's beam hidden its first ticks (r_link below)
 seq = J.seq
 flight = J.flight
 
@@ -81,8 +82,9 @@ FX = {
     "q_hit": ("q_hit", seq(range(4), [40, 50, 60, 70]), HIT),
     # the shield while it holds (a buff picture, looped)
     "p_shift": ("p_shift", seq(range(4), [120] * 4), SHELL),
-    # R's beam: each link flies from the champion to him (~16 ticks over 50 px), looped while it flies
-    "r_link": ("r_link", seq(range(4), [50] * 4), (0, 0)),
+    # R's beam: each link flies from over his pivot to the champion (4 px a tick: ~13-18 ticks), hidden for the first
+    # LINK_LEAD ticks (its first tick points it up, and it starts inside him: his hands are 20 px out)
+    "r_link": ("r_link", flight(4, 50, 350, lead=LINK_LEAD), (0, 0)),
 }
 BIG = {
     # Q: the rifts open over q_lag 24 ticks (400 ms: frames 1-4), the beams meet as the damage lands (frame 5)
@@ -94,7 +96,7 @@ BIG = {
 TB_TAGS = {"a_bolt", "e_bolt", "r_link"}
 # R's beam from Q's: q_rift frame 5's beam between the flash and the rift (its rows 13-15: the white core, the lit
 # edge, the dark rim; columns 9-16: one period of its pattern), the core's lower half mirrored up (symmetric top to
-# bottom, as a flying picture must be); 4 frames, the pattern 2 px further along each (flowing to Malzahar)
+# bottom, as a flying picture must be); 4 frames, the pattern 2 px further along each (flowing on to the champion)
 LINK_ROWS, LINK_COLS, LINK_LEN = (13, 16), (9, 17), 17
 
 

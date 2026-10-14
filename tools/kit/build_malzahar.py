@@ -37,9 +37,11 @@ and the passive exact):
           `r_ch`): r_t / r_p waves of r_dmg + r_ap% AP magic damage in equal parts; crowd control on him ends the
           channel at the next check (league_galio R's breaks queued on him) and the stun runs out within r_p ticks.
           Under the target a null zone (r_zone_t ticks, every r_zp ticks z_dmg + z_ap% AP magic damage in r_zr).
-          The beam between them (the user: 「大招没连接线啊」): league_nocturne E's chain - every r_lp ticks while the
-          channel holds a hidden bolt lands on him, a 1-tick lob on his spot, and from there a link (r_link,
-          r_lspeed a tick, r_lspeed x r_lp / 1000 = 16 px long: one beam end to end) flies back to Malzahar.
+          The beam between them (the user: 「大招没连接线啊」, then 「连接线放脚上的？」 when it ran pivot to pivot - he floats,
+          his pivot 11 px over the ground): every r_lp ticks while the channel holds a link (r_link, a TargetProjectile:
+          it leaves from the caster, lifted 5000 - r_ly = 18 px - his hands in the channel frames - and flies at the
+          champion, r_lspeed a tick, r_lspeed x r_lp / 1000 = 16 px long: one beam end to end; its picture starts
+          hidden for the 5 ticks it takes to pass his hands, import_malzahar_fx.py).
 """
 import argparse
 import json
@@ -83,7 +85,8 @@ P = {
     "q_dmg": 70, "q_ap": 45, "q_sil": 90, "q_combo": 120,
     # ult: R Nether Grasp (League: 700, 2.5 s, 125-500 + 80% AP, zone 5 s; cd 140-80 s)
     "r_cd": 4200, "r_range": 70000, "r_wait": 16, "r_anim": 21, "r_t": 150, "r_p": 15, "r_brk": 10, "r_dmg": 220, "r_ap": 80,
-    "r_zone_t": 300, "r_zp": 30, "r_zr": 20000, "z_dmg": 10, "z_ap": 5, "r_combo": 120, "r_lp": 5, "r_lspeed": 3200,
+    "r_zone_t": 300, "r_zp": 30, "r_zr": 20000, "z_dmg": 10, "z_ap": 5, "r_combo": 120, "r_lp": 4, "r_lspeed": 4000,
+    "r_ly": -13000,
 }
 
 
@@ -246,13 +249,8 @@ def build(p):
                  "period": p["r_zp"], "first_delay": 0, "applied_target": "EnemyWithoutTower",
                  "applied_effects": [T(magic(p["z_dmg"], p["z_ap"]))], "end_effects": []}
 
-    # the beam: a link from his spot back to Malzahar every r_lp ticks while he channels (league_nocturne E's chain)
-    link = sw("r_ch", homing("r_tie", 100000, 0, "EnemyChampion", [
-        {"type": "ParabolicProjectile", "name": n("r_spot"), "travel_time": 1, "range": 400000, "shape": circle(0),
-         "applied_target": "EnemyChampion", "applied_effects": [],
-         "end_effects": [{"type": "BackToCasterLinearProjectile", "name": n("r_link"), "speed": p["r_lspeed"],
-                          "range": p["r_range"] + 50000, "penetrate": True, "shape": circle(0),
-                          "applied_target": "EnemyChampion", "applied_effects": []}]}]))
+    # the beam: a link from his hands at the champion every r_lp ticks while he channels
+    link = sw("r_ch", homing("r_link", p["r_lspeed"], p["r_ly"], "EnemyChampion", []))
 
     def grasp():
         """On the champion it takes: a stun renewed by every wave while the channel flag holds."""

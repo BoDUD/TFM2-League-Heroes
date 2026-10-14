@@ -124,12 +124,15 @@ def showcase(out, z=3, step=40):
     d.holds.append((r0, r0 + tick(P["r_t"])))
     for k in range(P["r_t"] // P["r_p"]):
         on(d, "r_grasp", r0 + tick(P["r_p"] * k), sheet=big)
-    # the beam: a link every r_lp ticks from his spot (a hidden bolt and a 1-tick lob: 2 ticks) back to Malzahar
+    # the beam: a link every r_lp ticks from over his pivot (lifted 5000 - r_ly) at Darius's pivot; its picture's empty
+    # first ticks hide it until it passes his hands
     for k in range(P["r_t"] // P["r_lp"]):
-        s0 = r0 + tick(P["r_lp"] * k + 2)
-        (sx, sy), (ex, ey) = d.pos(s0), me.pos(s0)
-        over.append(Turned(frames_of(small, "r_link"), s0, sx, sy, loop=True,
-                           until=s0 + tick(abs(sx - ex) / (P["r_lspeed"] / 1000.0)), x1=ex, y1=ey))
+        s0 = r0 + tick(P["r_lp"] * k)
+        (mx, my), (ex, ey) = me.pos(s0), d.pos(s0)
+        sy = my - (5000 - P["r_ly"]) / 1000.0
+        over.append(Turned(frames_of(small, "r_link"), s0, mx, int(round(sy)), loop=False,
+                           until=s0 + tick(((ex - mx) ** 2 + (ey - sy) ** 2) ** 0.5 / (P["r_lspeed"] / 1000.0)),
+                           x1=ex, y1=ey))
     a("ult", tick(P["r_anim"]))
     a("ult_loop", tick(P["r_t"] - P["r_anim"]), loop=True)
     for _ in range(4):
