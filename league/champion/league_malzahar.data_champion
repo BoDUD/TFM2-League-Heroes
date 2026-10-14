@@ -229,7 +229,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_malzahar.skill",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
@@ -378,7 +378,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill",
-          "tick": 24
+          "tick": 26
         },
         {
           "type": "SwitchByBuff",
@@ -596,7 +596,26 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "ult",
-                                        "tick": 150
+                                        "tick": 21
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 21,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_malzahar_r_ch",
+                                            "effect_buff": {
+                                              "type": "CasterAnimation",
+                                              "name": "ult_loop",
+                                              "tick": 129
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
                                       },
                                       {
                                         "type": "AddCasted",
@@ -617,6 +636,10 @@
                                               {
                                                 "type": "RemoveCasterAnimation",
                                                 "name": "ult"
+                                              },
+                                              {
+                                                "type": "RemoveCasterAnimation",
+                                                "name": "ult_loop"
                                               }
                                             ]
                                           }
@@ -1076,7 +1099,26 @@
                                                                       {
                                                                         "type": "CasterAnimation",
                                                                         "name": "ult",
-                                                                        "tick": 150
+                                                                        "tick": 21
+                                                                      },
+                                                                      {
+                                                                        "type": "Delayed",
+                                                                        "tick": 21,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_malzahar_r_ch",
+                                                                            "effect_buff": {
+                                                                              "type": "CasterAnimation",
+                                                                              "name": "ult_loop",
+                                                                              "tick": 129
+                                                                            },
+                                                                            "effect_none": {
+                                                                              "type": "Combine",
+                                                                              "effects": []
+                                                                            }
+                                                                          }
+                                                                        ]
                                                                       },
                                                                       {
                                                                         "type": "AddCasted",
@@ -1097,6 +1139,10 @@
                                                                               {
                                                                                 "type": "RemoveCasterAnimation",
                                                                                 "name": "ult"
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterAnimation",
+                                                                                "name": "ult_loop"
                                                                               }
                                                                             ]
                                                                           }
@@ -1575,7 +1621,26 @@
                                       {
                                         "type": "CasterAnimation",
                                         "name": "ult",
-                                        "tick": 150
+                                        "tick": 21
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 21,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_malzahar_r_ch",
+                                            "effect_buff": {
+                                              "type": "CasterAnimation",
+                                              "name": "ult_loop",
+                                              "tick": 129
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
                                       },
                                       {
                                         "type": "AddCasted",
@@ -1596,6 +1661,10 @@
                                               {
                                                 "type": "RemoveCasterAnimation",
                                                 "name": "ult"
+                                              },
+                                              {
+                                                "type": "RemoveCasterAnimation",
+                                                "name": "ult_loop"
                                               }
                                             ]
                                           }
@@ -2055,7 +2124,26 @@
                                                                       {
                                                                         "type": "CasterAnimation",
                                                                         "name": "ult",
-                                                                        "tick": 150
+                                                                        "tick": 21
+                                                                      },
+                                                                      {
+                                                                        "type": "Delayed",
+                                                                        "tick": 21,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_malzahar_r_ch",
+                                                                            "effect_buff": {
+                                                                              "type": "CasterAnimation",
+                                                                              "name": "ult_loop",
+                                                                              "tick": 129
+                                                                            },
+                                                                            "effect_none": {
+                                                                              "type": "Combine",
+                                                                              "effects": []
+                                                                            }
+                                                                          }
+                                                                        ]
                                                                       },
                                                                       {
                                                                         "type": "AddCasted",
@@ -2076,6 +2164,10 @@
                                                                               {
                                                                                 "type": "RemoveCasterAnimation",
                                                                                 "name": "ult"
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterAnimation",
+                                                                                "name": "ult_loop"
                                                                               }
                                                                             ]
                                                                           }
@@ -2351,7 +2443,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_malzahar.skill2",
-    "duration": 26,
+    "duration": 28,
     "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
@@ -2500,7 +2592,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill2",
-          "tick": 26
+          "tick": 28
         },
         {
           "type": "Sfx",
@@ -2508,7 +2600,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 10,
+          "tick": 9,
           "effects": [
             {
               "type": "Sfx",
@@ -3095,7 +3187,26 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult",
-                              "tick": 150
+                              "tick": 21
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 21,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_malzahar_r_ch",
+                                  "effect_buff": {
+                                    "type": "CasterAnimation",
+                                    "name": "ult_loop",
+                                    "tick": 129
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              ]
                             },
                             {
                               "type": "AddCasted",
@@ -3116,6 +3227,10 @@
                                     {
                                       "type": "RemoveCasterAnimation",
                                       "name": "ult"
+                                    },
+                                    {
+                                      "type": "RemoveCasterAnimation",
+                                      "name": "ult_loop"
                                     }
                                   ]
                                 }
@@ -3317,7 +3432,26 @@
                   {
                     "type": "CasterAnimation",
                     "name": "ult",
-                    "tick": 150
+                    "tick": 21
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 21,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_malzahar_r_ch",
+                        "effect_buff": {
+                          "type": "CasterAnimation",
+                          "name": "ult_loop",
+                          "tick": 129
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
                   },
                   {
                     "type": "AddCasted",
@@ -3338,6 +3472,10 @@
                           {
                             "type": "RemoveCasterAnimation",
                             "name": "ult"
+                          },
+                          {
+                            "type": "RemoveCasterAnimation",
+                            "name": "ult_loop"
                           }
                         ]
                       }
@@ -3389,14 +3527,6 @@
       "tag": "e_bolt",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_malzahar_r_zone",
-      "anim": "asset/league/effects/league_malzahar_big",
-      "tag": "r_zone",
-      "repeat": true,
-      "z": -2
     }
   ],
   "view_effects": [

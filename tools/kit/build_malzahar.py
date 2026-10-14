@@ -49,7 +49,9 @@ ID = "league_malzahar"
 FX = "asset/league/effects/league_malzahar_fx"
 BIG = "asset/league/effects/league_malzahar_big"
 
-# Timing: placeholders until the strips exist (Bard's / Syndra's lengths); retimed from the frames later.
+# Timing (2026-10-14) from the frames (assets/source/malzahar/frames, tools/art/import_malzahar_strips.py): the attack's
+# bolt leaves as frame 3 starts (tick 9 of 26), E's vision on frame 3 (tick 9 of 26), Q's hands meet on frame 3 (tick 9
+# of 28: the rifts open), R's start is 21 ticks (4 frames) and its channel loops ult_loop (4 frames, 29 ticks).
 # Numbers: the pack's mid mages' stats (league_syndra: hp 860 +92, atk 76 +7, ap 40 +20, def 18, mr 20); candidate d1 of
 # the 10-min classic-SDK simulations (Temp/mz_sim, sim/kd.py --lane 2 against the five base mages, both sides, 3
 # lineups, 2026-10-14): +1.27 on seeds 1-24, +1.50 on seeds 25-48 (league_syndra +1.62 / +1.53, league_viktor +1.27 /
@@ -69,14 +71,14 @@ P = {
     # each unit the bolt hits: dead before e_t is out -> a new vision on the nearest enemy, champions first, e_jump)
     "native": 0, "p_linger": 15, "p_dr": 90,
     # skill: E Malefic Visions (League: 650, 45-255 + 75% AP over 4 s, cd 11-7 s) + W voidlings (League: 8-10 s)
-    "e_cd": 540, "e_range": 65000, "e_dur": 24, "e_st": 1, "e_lag": 9, "e_speed": 5000, "e_y": -3000,
+    "e_cd": 540, "e_range": 65000, "e_dur": 26, "e_st": 1, "e_lag": 9, "e_speed": 5000, "e_y": -3000,
     "e_t": 240, "e_p": 15, "e_dmg": 170, "e_ap": 80, "e_jump": 40000, "e_jumps": 1, "e_land": 18,
     "w_t": 240, "w_p": 30, "w_dmg": 14, "w_ap": 8,
     # skill2: Q Call of the Void (League: 900, 70-245 + 55% AP, silence 1-2.25 s, cd 6 s)
-    "q_cd": 420, "q_range": 80000, "q_dur": 26, "q_st": 1, "q_wind": 10, "q_lag": 24, "q_r": 18000,
+    "q_cd": 420, "q_range": 80000, "q_dur": 28, "q_st": 1, "q_wind": 9, "q_lag": 24, "q_r": 18000,
     "q_dmg": 70, "q_ap": 45, "q_sil": 90, "q_combo": 120,
     # ult: R Nether Grasp (League: 700, 2.5 s, 125-500 + 80% AP, zone 5 s; cd 140-80 s)
-    "r_cd": 4200, "r_range": 70000, "r_wait": 16, "r_t": 150, "r_p": 15, "r_brk": 10, "r_dmg": 220, "r_ap": 80,
+    "r_cd": 4200, "r_range": 70000, "r_wait": 16, "r_anim": 21, "r_t": 150, "r_p": 15, "r_brk": 10, "r_dmg": 220, "r_ap": 80,
     "r_zone_t": 300, "r_zp": 30, "r_zr": 20000, "z_dmg": 10, "z_ap": 5, "r_combo": 120,
 }
 
@@ -234,7 +236,8 @@ def build(p):
     runs = p["r_t"] // p["r_p"]
     # crowd control on him ends the channel at the next check (league_galio R's breaks, one AddCasted on him)
     breaks = casted(p["r_t"], p["r_brk"], pick(1, "AllyChampionInCC", *rm("r_ch"),
-                                               {"type": "RemoveCasterAnimation", "name": "ult"}), kind="Heal")
+                                               {"type": "RemoveCasterAnimation", "name": "ult"},
+                                               {"type": "RemoveCasterAnimation", "name": "ult_loop"}), kind="Heal")
     null_zone = {"type": "RangePeriodProjectile", "name": n("r_zone"), "shape": circle(p["r_zr"]), "tick": p["r_zone_t"],
                  "period": p["r_zp"], "first_delay": 0, "applied_target": "EnemyWithoutTower",
                  "applied_effects": [T(magic(p["z_dmg"], p["z_ap"]))], "end_effects": []}
@@ -246,7 +249,8 @@ def build(p):
         return combine(*rm("r_armed"), refresh("r_ch", p["r_t"] + 1), sfx("r_cast"), sfx("vo_r"), view("r_grasp"),
                        wave, casted(p["r_t"] - 1, p["r_p"], wave),
                        drop("r_drop", view("r_pool"), sfx("r_pool"), null_zone),
-                       on_me(anim("ult", p["r_t"]), breaks, delayed(p["r_t"], refresh("r_combo", p["r_combo"]))))
+                       on_me(anim("ult", p["r_anim"]), delayed(p["r_anim"], sw("r_ch", anim("ult_loop", p["r_t"] - p["r_anim"]))),
+                             breaks, delayed(p["r_t"], refresh("r_combo", p["r_combo"]))))
 
     # ------------------------------------------------------------------ skill: E Malefic Visions + W voidlings
     runs_e = p["e_t"] // p["e_p"]
@@ -310,7 +314,9 @@ def build(p):
                                                    "z": z, "is_follow": follow}
     P_ = lambda name, anim_=FX, z=1: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name,
                                       "repeat": True, "z": z}
-    views_p = [P_("a_bolt"), P_("e_bolt"), P_("r_zone", BIG, -2)]
+    # the null zone has no picture of its own (a zone's picture turns with the cast: upside down cast leftward); its
+    # ground picture r_pool is a ViewEffect where the lob lands (never turned)
+    views_p = [P_("a_bolt"), P_("e_bolt")]
     views_e = [E("a_hit", FX, 2), E("e_hit", FX, 2), E("e_mark", FX, 2), E("w_spawn", FX, 2), E("w_swarm", FX, -1),
                E("w_bite", FX, 2), E("q_rift", BIG, 2, False), E("q_hit", FX, 2), E("r_grasp", BIG, 2),
                E("r_pool", BIG, -2, False)]

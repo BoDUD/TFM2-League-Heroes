@@ -67,34 +67,48 @@ def draft():
     return np.array(im.crop(im.getbbox()))
 
 
-def glow(a, d, k):
-    """Brightness wins for the marks and the eyes in the head's rows (step 4)."""
+def cells(a, d, k, pivot):
+    """(row, col, ys, xs) for every square of `d` (pixelate's grid of 1 / k draft px through `pivot`) and the draft
+    pixels under it."""
     H, W = a.shape[:2]
+    c = 1.0 / k
+    px, py = pivot
+    nx0, ny0 = int(np.ceil(px / c)), int(np.ceil(py / c))
+    for r in range(d.shape[0]):
+        y0, y1 = (r - ny0) * c + py, (r - ny0 + 1) * c + py
+        ys = slice(max(0, int(np.floor(y0))), min(H, int(np.ceil(y1))))
+        for col in range(d.shape[1]):
+            x0, x1 = (col - nx0) * c + px, (col - nx0 + 1) * c + px
+            xs = slice(max(0, int(np.floor(x0))), min(W, int(np.ceil(x1))))
+            yield r, col, y0, x0, ys, xs
+
+
+def glow(a, d, k, pivot=None, box=None):
+    """Brightness wins for the marks and the eyes (step 4): in the head's rows (the design) or inside `box` (x0, y0,
+    x1, y1 in draft px: round the marks of an action frame)."""
+    H, W = a.shape[:2]
+    pivot = pivot or (W / 2, H)
     s = a[..., :3].astype(int)
     lit = s.sum(-1)
     white = (a[..., 3] > 0) & (lit > 650)
     blue = (a[..., 3] > 0) & (s[..., 2] > 170) & (lit > 420) & ~white
-    c = 1.0 / k
-    Hn, Wn = d.shape[:2]
-    # the grid pixelate used: squares of c draft px through the pivot (W / 2, H)
-    nx0, ny0 = int(np.ceil((W / 2) / c)), int(np.ceil(H / c))
+    if box is not None:
+        inside = np.zeros(white.shape, bool)
+        inside[max(0, box[1]):box[3], max(0, box[0]):box[2]] = True
+        white &= inside
+        blue &= inside
     wcol = np.array(a[white][:, :3].mean(0).round(), np.uint8) if white.any() else np.array([255, 255, 255], np.uint8)
     bcol = np.array(a[blue][:, :3].mean(0).round(), np.uint8) if blue.any() else np.array([120, 170, 255], np.uint8)
-    for r in range(Hn):
-        y0, y1 = (r - ny0) * c + H, (r - ny0 + 1) * c + H
-        if y0 > HEAD * H:
+    for r, col, y0, x0, ys, xs in cells(a, d, k, pivot):
+        if box is None and y0 > HEAD * H:
             break
-        for col in range(Wn):
-            x0, x1 = (col - nx0) * c + W / 2, (col - nx0 + 1) * c + W / 2
-            ys = slice(max(0, int(np.floor(y0))), min(H, int(np.ceil(y1))))
-            xs = slice(max(0, int(np.floor(x0))), min(W, int(np.ceil(x1))))
-            n = white[ys, xs].size
-            if not n:
-                continue
-            if white[ys, xs].sum() >= 0.25 * n:
-                d[r, col, :3], d[r, col, 3] = wcol, 255
-            elif blue[ys, xs].sum() >= 0.34 * n:
-                d[r, col, :3], d[r, col, 3] = bcol, 255
+        n = white[ys, xs].size
+        if not n:
+            continue
+        if white[ys, xs].sum() >= 0.25 * n:
+            d[r, col, :3], d[r, col, 3] = wcol, 255
+        elif blue[ys, xs].sum() >= 0.34 * n:
+            d[r, col, :3], d[r, col, 3] = bcol, 255
     return d
 
 
@@ -102,36 +116,32 @@ GOLDS = np.array([(248, 171, 61), (211, 124, 41), (160, 96, 30)], float)
 SHEATH = np.array([(73, 77, 99), (54, 60, 80)], float)
 
 
-def dagger(a, d, k):
+def dagger(a, d, k, pivot=None):
     """The dagger and the buckle (step 4b): gold wins where 30 % of a square is gold in the draft (snapped to three
     golds), the sheath's blue-grey where 40 % is, in the gold's own band - the mean took them for skin and leather."""
     H, W = a.shape[:2]
+    pivot = pivot or (W / 2, H)
     s = a[..., :3].astype(int)
     r_, g_, b_ = s[..., 0], s[..., 1], s[..., 2]
     op = a[..., 3] > 0
     gold = op & (r_ > 170) & (g_ > 110) & (b_ < 110) & (r_ - b_ > 90)
     sheath = op & (np.abs(r_ - g_) < 30) & (b_ > r_ + 10) & (b_ < 170) & (r_ > 55) & (r_ < 150)
     gy, gx = np.nonzero(gold)
+    if not len(gy):
+        return d
     band = np.zeros(op.shape, bool)
-    band[gy.min() - 3:gy.max() + 4, gx.min() - 3:gx.max() + 4] = True
+    band[max(0, gy.min() - 3):gy.max() + 4, max(0, gx.min() - 3):gx.max() + 4] = True
     sheath &= band
-    c = 1.0 / k
-    nx0, ny0 = int(np.ceil((W / 2) / c)), int(np.ceil(H / c))
-    for r in range(d.shape[0]):
-        y0, y1 = (r - ny0) * c + H, (r - ny0 + 1) * c + H
-        for col in range(d.shape[1]):
-            x0, x1 = (col - nx0) * c + W / 2, (col - nx0 + 1) * c + W / 2
-            ys = slice(max(0, int(np.floor(y0))), min(H, int(np.ceil(y1))))
-            xs = slice(max(0, int(np.floor(x0))), min(W, int(np.ceil(x1))))
-            n = gold[ys, xs].size
-            if not n or d[r, col, 3] == 0:
-                continue
-            for m, pal, th in ((gold, GOLDS, 0.3), (sheath, SHEATH, 0.4)):
-                cell = m[ys, xs]
-                if cell.sum() >= th * n:
-                    mean = s[ys, xs][cell].mean(0)
-                    d[r, col, :3] = pal[((pal - mean) ** 2).sum(1).argmin()].astype(np.uint8)
-                    break
+    for r, col, _, _, ys, xs in cells(a, d, k, pivot):
+        n = gold[ys, xs].size
+        if not n or d[r, col, 3] == 0:
+            continue
+        for m, pal, th in ((gold, GOLDS, 0.3), (sheath, SHEATH, 0.4)):
+            cell = m[ys, xs]
+            if cell.sum() >= th * n:
+                mean = s[ys, xs][cell].mean(0)
+                d[r, col, :3] = pal[((pal - mean) ** 2).sum(1).argmin()].astype(np.uint8)
+                break
     return d
 
 
