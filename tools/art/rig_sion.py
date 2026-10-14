@@ -22,7 +22,8 @@ dense frames by a fraction, so a body moving up and down drew a doubled line acr
 every Codex frame is pixel_down.pixelate'd at 1 / DENSE, his 90 % size built in (no league.dll row). The frames that
 move the design itself are made on the 1x design, whole game pixels at a time, so it never re-samples:
   * idle = the 1x design breathing (the upper body LO_BREATH rows up over the legs), hit = it moved 1 back;
-  * run = it walking league_nautilus / league_braum's way (walk_frame, LO_WALK; the user: 「你向前那样冲刺模型永远会变形」);
+  * run = it walking league_nautilus / league_braum's way (walk_frame, LO_WALK; the user: 「你向前那样冲刺模型永远会变形」),
+    with bigger steps than Nautilus's (his short dark legs between the axe and the gauntlet hardly moved: 「走路像平移？」);
   * ult (R's charge) = the run, faster (the user: 「放大招的时候模型完全变形」 about Codex's hunched charge pose).
 """
 import argparse
@@ -96,10 +97,12 @@ WALK_BAND = 52
 WALK_NEAR = ((53, 62, 31, 50), (62, 75, 28, 50))
 WALK_FAR = ((53, 63, 61, 81), (63, 75, 61, 87))
 CLOTH_BOX = ((53, 75, 50, 61),)       # the loin cloth between them: it hangs from the belt, it does not breathe
-# per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (1x pixels: league_braum's
-# steps over its PPU)
-LO_WALK = [((0, 0), (0, 2), 1), ((0, 0), (1, 3), 2), ((0, 0), (1, 1), 1), ((0, 0), (1, 0), 0),
-           ((0, 2), (0, 0), 1), ((1, 3), (0, 0), 2), ((1, 1), (0, 0), 1), ((1, 0), (0, 0), 0)]
+# per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (1x pixels). Nautilus's
+# steps (forward 1, lifted up to 3, the planted foot still; frames 3 and 7 all but the idle) read as gliding on Sion
+# (2026-10-14: 「走路像平移？」, the user picked from now / A / B: 「塞恩你选一个吧」) - B: the swinging foot goes from 1 behind
+# to 2 ahead, lifted up to 4, the planted one slides back under him from 2 ahead to 1 behind
+LO_WALK = [((1, 0), (-1, 2), 1), ((1, 0), (0, 4), 2), ((0, 0), (1, 3), 1), ((-1, 0), (2, 0), 0),
+           ((-1, 2), (1, 0), 1), ((0, 4), (1, 0), 2), ((1, 3), (0, 0), 1), ((2, 0), (-1, 0), 0)]
 WALK_MS = 115
 CRACK = 3                       # bare squares a step opens, this many columns wide at most: a crack
 SPECK = 8
@@ -1040,7 +1043,8 @@ def lo_design(p):
     belt = np.zeros((ROWS, COLS), bool)
     belt[DESIGN_AT[1] + WALK_BAND] = True
     band = int(np.nonzero(lo_mask(belt, L.shape, piv, p).any(1))[0][0])
-    run = [walk_frame(L, n_, f_, r_, near, far, band) for n_, f_, r_ in LO_WALK]
+    # a lifted foot leaves the 1-2 outline squares it shared with the axe blade / the ground loose: cleared
+    run = [specks(walk_frame(L, n_, f_, r_, near, far, band)) for n_, f_, r_ in LO_WALK]
     head = np.zeros((ROWS, COLS), bool)
     hy, hx = np.nonzero(head_mask(own=True))
     head[hy + DESIGN_AT[1], hx + DESIGN_AT[0]] = True
