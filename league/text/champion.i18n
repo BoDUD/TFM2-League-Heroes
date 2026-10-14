@@ -693,6 +693,13 @@
         "skill": "朝目标方向甩出鞭刃，对直线上的所有敌人造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>100%<><#ff8a65ff>物理伤害<>，并强化之后<#ffb900ff>4秒<>的攻击。",
         "skill2": "<#ff9028ff>纵情逐流<>：穿过敌方英雄冲刺，落地对周围造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>45%<><#ff8a65ff>物理伤害<>，<#ffb900ff>2层<>充能。用完时放<#ff9028ff>轻纱飞漾<>：<#ffb900ff>2.25秒<>内闪避所有攻击，技能伤害-25%，移速+20%，附近友方英雄同样获得<#ffb900ff>1.5秒<>。",
         "ult": "旋转鞭刃<#ffb900ff>1秒<>，每段造成<#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<><#ff8a65ff>物理伤害<>，最后造成<#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<><#ff8a65ff>物理伤害<>并把周围敌人拉到身边；附近友方英雄回复<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>生命并获得<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>护盾。"
+      },
+      "league_bard": {
+        "name": "巴德",
+        "attack": "射出星光。被动<#ff9028ff>旅者的召唤<>：每<#ffb900ff>3秒<>一只米普随攻击飞出，对目标周围的敌人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速25%<>（<#ffb900ff>1秒<>）。",
+        "skill": "射出星界能量，命中的第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速60%<>；若其身后还有敌人，两者都受到伤害并<#ef5350ff>眩晕1.5秒<>。",
+        "skill2": "<#ff9028ff>游神圣坛<>：向交战中的友方英雄（或自己）投出圣坛，治疗<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>，移速+30%。<#ff9028ff>神奇旅程<>：被敌人近身时开门，带身边的友方英雄远离，移速+40%（<#ffb900ff>16秒<>一次）。",
+        "ult": "向聚在一起的敌方英雄（或被控制的友方英雄）投出金色法球，范围内所有单位（含友军、自己和防御塔）<#ef5350ff>时停2.5秒<>：无法行动、无法被选中、不受伤害。"
       }
     },
     "skill_name": {
@@ -1190,6 +1197,11 @@
         "skill1": "游刃万变",
         "skill2": "纵情逐流 / 轻纱飞漾",
         "ult": "神恩激荡"
+      },
+      "league_bard": {
+        "skill1": "星界束缚",
+        "skill2": "游神圣坛 / 神奇旅程",
+        "ult": "调和命运"
       }
     }
   },
@@ -1887,6 +1899,13 @@
         "skill": "朝目標方向甩出鞭刃，對直線上的所有敵人造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>100%<><#ff8a65ff>物理傷害<>，並強化之後<#ffb900ff>4秒<>的攻擊。",
         "skill2": "<#ff9028ff>湍流淩步<>：穿過敵方英雄衝刺，落地對周圍造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>45%<><#ff8a65ff>物理傷害<>，<#ffb900ff>2層<>充能。用完時放<#ff9028ff>歡躍面紗<>：<#ffb900ff>2.25秒<>內閃避所有攻擊，技能傷害-25%，跑速+20%，附近友方英雄同樣獲得<#ffb900ff>1.5秒<>。",
         "ult": "旋轉鞭刃<#ffb900ff>1秒<>，每段造成<#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<><#ff8a65ff>物理傷害<>，最後造成<#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<><#ff8a65ff>物理傷害<>並把周圍敵人拉到身邊；附近友方英雄回復<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>生命並獲得<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>護盾。"
+      },
+      "league_bard": {
+        "name": "巴德",
+        "attack": "射出星光。被動<#ff9028ff>旅者引領<>：每<#ffb900ff>3秒<>一隻小精靈隨攻擊飛出，對目標周圍的敵人造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速25%<>（<#ffb900ff>1秒<>）。",
+        "skill": "射出星界能量，命中的第一個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速60%<>；若其身後還有敵人，兩者都受到傷害並<#ef5350ff>暈眩1.5秒<>。",
+        "skill2": "<#ff9028ff>守望神龕<>：向交戰中的友方英雄（或自己）投出神龕，治療<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>，跑速+30%。<#ff9028ff>奇幻旅程<>：被敵人近身時開門，帶身邊的友方英雄遠離，跑速+40%（<#ffb900ff>16秒<>一次）。",
+        "ult": "向聚在一起的敵方英雄（或被控制的友方英雄）投出金色法球，範圍內所有單位（含友軍、自己和防禦塔）<#ef5350ff>凝滯2.5秒<>：無法行動、無法被選取、不受傷害。"
       }
     },
     "skill_name": {
@@ -2384,6 +2403,11 @@
         "skill1": "百變之刃",
         "skill2": "湍流淩步／歡躍面紗",
         "ult": "神之禮讚"
+      },
+      "league_bard": {
+        "skill1": "宇宙制約",
+        "skill2": "守望神龕 / 奇幻旅程",
+        "ult": "凝滯命域"
       }
     }
   },
@@ -3081,6 +3105,13 @@
         "skill": "Lashes her whip-blade in a line, dealing <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>100%<> <#ff8a65ff>physical damage<> to every enemy on it, and empowers her attacks for <#ffb900ff>4s<>.",
         "skill2": "<#ff9028ff>Slipstream<>: dashes through an enemy champion, dealing <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>45%<> <#ff8a65ff>physical damage<> around her landing; <#ffb900ff>2 charges<>. With both spent, <#ff9028ff>Jubilant Veil<>: for <#ffb900ff>2.25s<> she dodges every attack, takes 25% less from abilities and gains 20% move speed; nearby allied champions get the same for <#ffb900ff>1.5s<>.",
         "ult": "Spins her whip-blade for <#ffb900ff>1s<>, dealing <#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<> <#ff8a65ff>physical damage<> a hit, then <#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<> <#ff8a65ff>physical damage<> and pulls nearby enemies to her; nearby allied champions heal <#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> and gain a <#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> shield."
+      },
+      "league_bard": {
+        "name": "Bard",
+        "attack": "Fires a star bolt. Passive <#ff9028ff>Traveler's Call<>: every <#ffb900ff>3s<> a Meep flies with his attack, dealing <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> to enemies around the target and <#ef5350ff>slowing them by 25%<> for <#ffb900ff>1s<>.",
+        "skill": "Fires a bolt of cosmic energy: the first enemy hit takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed by 60%<>; if another enemy is behind it, both take the damage and are <#ef5350ff>stunned for 1.5s<>.",
+        "skill2": "<#ff9028ff>Caretaker's Shrine<>: throws a shrine to an allied champion in a fight (or himself), healing <#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<> and giving 30% move speed. <#ff9028ff>Magical Journey<>: when enemies close in, opens a door and takes nearby allied champions away with him, +40% move speed (every <#ffb900ff>16s<>).",
+        "ult": "Lobs a golden orb at grouped enemy champions (or an allied champion in crowd control): every unit in the area, allies, Bard and turrets included, is put in <#ef5350ff>stasis for 2.5s<> - it cannot act, be targeted or be harmed."
       }
     },
     "skill_name": {
@@ -3578,6 +3609,11 @@
         "skill1": "Formless Blade",
         "skill2": "Slipstream / Jubilant Veil",
         "ult": "Apotheosis"
+      },
+      "league_bard": {
+        "skill1": "Cosmic Binding",
+        "skill2": "Caretaker's Shrine / Magical Journey",
+        "ult": "Tempered Fate"
       }
     }
   },
@@ -4275,6 +4311,13 @@
         "skill": "채찍검을 직선으로 휘둘러 모든 적에게 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>100%<> <#ff8a65ff>물리 피해<>, 이후 <#ffb900ff>4초<> 동안 공격 강화.",
         "skill2": "<#ff9028ff>급류<>: 적 챔피언을 관통해 돌진, 착지 지점 주변에 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>45%<> <#ff8a65ff>물리 피해<>, <#ffb900ff>2회<> 충전. 모두 쓰면 <#ff9028ff>승리의 장막<>: <#ffb900ff>2.25초<> 동안 모든 공격 회피, 스킬 피해 -25%, 이동 속도 +20%; 주변 아군 챔피언도 <#ffb900ff>1.5초<> 동안 같은 효과.",
         "ult": "<#ffb900ff>1초<> 동안 채찍검을 돌려 <#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<> <#ff8a65ff>물리 피해<>를 반복, 마지막에 <#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<> <#ff8a65ff>물리 피해<>를 주고 주변 적을 끌어당김; 주변 아군 챔피언은 <#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> 회복, <#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<> 보호막."
+      },
+      "league_bard": {
+        "name": "바드",
+        "attack": "별빛을 쏩니다. 기본 지속 효과 <#ff9028ff>방랑자의 부름<>: <#ffb900ff>3초<>마다 정령이 공격과 함께 날아가 대상 주변 적에게 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>25% 둔화<> (<#ffb900ff>1초<>).",
+        "skill": "우주 에너지를 발사해 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>마법 피해<>와 <#ef5350ff>60% 둔화<>; 뒤에 다른 적이 있으면 둘 다 피해를 입고 <#ef5350ff>1.5초 기절<>.",
+        "skill2": "<#ff9028ff>수호자의 성소<>: 교전 중인 아군 챔피언(또는 자신)에게 성소를 던져 <#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<> 회복, 이동 속도 +30%. <#ff9028ff>신비한 차원문<>: 적이 붙으면 문을 열어 주변 아군 챔피언과 함께 멀어지고 이동 속도 +40% (<#ffb900ff>16초<>마다).",
+        "ult": "모인 적 챔피언(또는 군중 제어된 아군 챔피언)에게 황금 구체를 던져 범위 안 모든 유닛(아군, 바드, 포탑 포함)을 <#ef5350ff>2.5초 동안 경직<>시킵니다: 행동, 지정, 피해 불가."
       }
     },
     "skill_name": {
@@ -4772,6 +4815,11 @@
         "skill1": "무형의 검",
         "skill2": "급류 / 승리의 장막",
         "ult": "환희"
+      },
+      "league_bard": {
+        "skill1": "우주의 결속",
+        "skill2": "수호자의 성소 / 신비한 차원문",
+        "ult": "운명의 소용돌이"
       }
     }
   },
@@ -5469,6 +5517,13 @@
         "skill": "鞭刃を直線に振るい、線上の全ての敵に<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>100%<>の<#ff8a65ff>物理ダメージ<>、その後<#ffb900ff>4秒<>通常攻撃を強化。",
         "skill2": "<#ff9028ff>流撃<>：敵チャンピオンを突き抜けてダッシュ、着地点の周囲に<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>45%<>の<#ff8a65ff>物理ダメージ<>、<#ffb900ff>2回<>チャージ。使い切ると<#ff9028ff>歓喜のヴェール<>：<#ffb900ff>2.25秒<>全ての通常攻撃を回避、スキルダメージ-25%、移動速度+20%、周囲の味方も<#ffb900ff>1.5秒<>同じ効果。",
         "ult": "<#ffb900ff>1秒<>鞭刃を回し<#ff8a65ff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>20%<>の<#ff8a65ff>物理ダメージ<>を繰り返し、最後に<#ff8a65ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>110%<>の<#ff8a65ff>物理ダメージ<>と周囲の敵を引き寄せる；周囲の味方は<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>回復、<#7dd87dff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>30%<>のシールド。"
+      },
+      "league_bard": {
+        "name": "バード",
+        "attack": "星の矢を放つ。自動効果<#ff9028ff>旅人の呼び声<>：<#ffb900ff>3秒<>ごとにミープが攻撃と共に飛び、対象周囲の敵に<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>25%スロウ<>（<#ffb900ff>1秒<>）。",
+        "skill": "宇宙の力を放ち、最初に当たった敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>60%スロウ<>；後ろに別の敵がいれば両方にダメージと<#ef5350ff>1.5秒スタン<>。",
+        "skill2": "<#ff9028ff>回復の遺物<>：交戦中の味方チャンピオン（か自分）に遺物を投げ<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>回復、移動速度+30%。<#ff9028ff>精霊の旅路<>：敵に詰められると扉を開き、近くの味方と離脱、移動速度+40%（<#ffb900ff>16秒<>ごと）。",
+        "ult": "固まった敵チャンピオン（かCC中の味方）に金の球を投げ、範囲内の全ユニット（味方・自分・タワーも）を<#ef5350ff>2.5秒停止<>：行動・対象指定・ダメージ不可。"
       }
     },
     "skill_name": {
@@ -5966,6 +6021,11 @@
         "skill1": "形なき刃",
         "skill2": "流撃/歓喜のヴェール",
         "ult": "アポテオシス"
+      },
+      "league_bard": {
+        "skill1": "宇宙の法則",
+        "skill2": "回復の遺物 / 精霊の旅路",
+        "ult": "運命の調律"
       }
     }
   }
