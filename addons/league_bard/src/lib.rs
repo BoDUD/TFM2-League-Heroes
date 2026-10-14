@@ -71,7 +71,7 @@ pub const CLOSER: f64 = 20_000.0;
 /// 追：落点离目标至少这么远（不落在他脸上）。
 pub const KEEP: f64 = 15_000.0;
 /// 追：目标生命不高于这个百分比。
-pub const PREY_HP: usize = 50;
+pub const PREY_HP: usize = 60;
 /// 追：巴德生命不低于这个百分比。
 pub const CHASE_HP: usize = 40;
 /// 追：落点这么远内（除目标外）最多一名敌方英雄。
@@ -143,6 +143,7 @@ pub struct Params {
     pub e_far: usize,
     pub e_min: usize,
     pub e_reach: usize,
+    pub e_fly: usize,
     pub e_ride: usize,
     pub e_near: usize,
     pub e_close: usize,
@@ -158,9 +159,10 @@ impl Default for Params {
             e_wind: 9,
             e_anim: 24,
             e_tick: 15,
-            e_far: 90_000,
+            e_far: 130_000,
             e_min: 30_000,
-            e_reach: 20_000,
+            e_reach: 60_000,
+            e_fly: 6_000,
             e_ride: 25_000,
             e_near: 30_000,
             e_close: 15_000,
@@ -187,6 +189,7 @@ pub fn parse_params(json: &str) -> Params {
             "e_far" => &mut p.e_far,
             "e_min" => &mut p.e_min,
             "e_reach" => &mut p.e_reach,
+            "e_fly" => &mut p.e_fly,
             "e_ride" => &mut p.e_ride,
             "e_near" => &mut p.e_near,
             "e_close" => &mut p.e_close,
@@ -489,10 +492,11 @@ struct Door {
 }
 
 impl Door {
-    fn send(&mut self, sim: &mut StableSim<'_>, id: usize, to: (f64, f64)) {
-        let Some(from) = pos(sim, id) else { return };
-        let ticks = self.p.e_tick.max(1);
+    /// 强制位移过去，`e_fly` 一 tick（至少 `e_tick` tick）；返回要走几 tick。
+    fn send(&mut self, sim: &mut StableSim<'_>, id: usize, to: (f64, f64)) -> usize {
+        let Some(from) = pos(sim, id) else { return 0 };
         let d = dist(from, to);
+        let ticks = ((d / self.p.e_fly.max(500) as f64).ceil() as usize).max(self.p.e_tick.max(1));
         let mut ghost = BuffV1::timed(&bd("e_ghost"), ticks + 3);
         ghost.ignore_wall = true;
         sim.add_buff(id, &ghost);
@@ -502,6 +506,7 @@ impl Door {
         mv.speed = (d / ticks as f64).ceil() as u64;
         sim.apply_cc(id, &mv);
         self.trips.push(Trip { id, goal: to, last: from, until: sim.tick() + ticks + 2, step: d / ticks as f64 });
+        ticks
     }
 
     fn haste(&self, sim: &mut StableSim<'_>, id: usize) {
@@ -579,17 +584,17 @@ impl Door {
             wlog(format!("{} DOOR #{}: the landing {} is no longer clear, he stays", head(sim, me), self.doors, pt(plan.to)));
             return;
         }
-        self.send(sim, me, plan.to);
+        let mut longest = self.send(sim, me, plan.to);
         let mut taken = Vec::new();
         let mut ids = Vec::new();
         for (id, q) in plan.riders {
             if sim.get_entity(id).is_some_and(|e| e.is_alive() && e.is_targetable()) {
-                self.send(sim, id, q);
+                longest = longest.max(self.send(sim, id, q));
                 taken.push(format!("#{id}->{}", pt(q)));
                 ids.push(id);
             }
         }
-        self.arrive = Some((sim.tick() + self.p.e_tick, ids));
+        self.arrive = Some((sim.tick() + longest, ids));
         if self.doors <= 80 || self.doors % 25 == 0 {
             wlog(format!(
                 "{} DOOR #{} {}: {} -> {} ({:.0}), hp {}%, allies [{}]",

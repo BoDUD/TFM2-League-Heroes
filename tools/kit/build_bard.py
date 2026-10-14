@@ -75,7 +75,9 @@ P = {
     "e_pull": 5000, "e_pull_t": 40, "e_ghost": 0, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
     # 1 = the copy for addons/league_bard: its passive picks the door's exit on the map's walls (e_min..e_far away)
     # through terrain (League's door: a corridor through a wall, ~900 units): a wall within e_reach, out e_far at most
-    "native": 0, "e_far": 90000, "e_min": 30000, "e_reach": 20000, "e_chase_r": 100000,
+    # (a wall within e_reach - 20000 found one 15 % of his time in lane, 60000 63 %: 「巴德不放门啊」; League's door is cast
+    # ~900 units), flown at e_fly a tick
+    "native": 0, "e_far": 130000, "e_min": 30000, "e_reach": 60000, "e_fly": 6000, "e_chase_r": 100000,
     # ult: R Tempered Fate (League: 3400 range, radius 350, 0.5 s cast + flight, stasis 2.5 s; cd 110-80 s)
     "r_cd": 3600, "r_arm": 900, "r_arm_range": 90000, "r_range": 80000, "r_need": 2, "r_anim": 29, "r_lag": 15,
     "r_travel": 24,
@@ -346,7 +348,7 @@ def build(p):
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_bard:door",
-                            "params": {k: p[k] for k in ("e_cd_t", "e_wind", "e_anim", "e_tick", "e_far", "e_min", "e_reach", "e_ride",
+                            "params": {k: p[k] for k in ("e_cd_t", "e_wind", "e_anim", "e_tick", "e_far", "e_min", "e_reach", "e_fly", "e_ride",
                                                          "e_near", "e_close", "e_ms", "e_ms_t", "e_chase_r")}}
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Heal"], **extra,
