@@ -297,7 +297,7 @@ def actions():
 def pinholes(hero="kindred", most=3):
     """After tools/art/ppu_restyle.py: enclosed holes of at most `most` pixels in the restyled strips
     (assets/source/ppu/kindred_<tag>.png - the hd_ frames ppu_hd.py reads) take the commonest colour round them.
-    Codex's fur and the Wolf's mane carry such pinholes, the design too; at 2.86 a game pixel they read as specks of
+    Codex's fur and the Wolf's mane carry such pinholes, the design too; at 2.2 a game pixel they read as specks of
     ground (memory gap-check). Then the effects drawn into her frames go on (bake)."""
     from scipy import ndimage
     src = os.path.join(ROOT, "assets", "source", "ppu")
@@ -362,6 +362,7 @@ def pinholes(hero="kindred", most=3):
 BAKE_DIR = os.path.join(I.SRC, "fx_bake")
 BAKE_CELLS = os.path.join(I.SRC, "fx_bake_cells.json")
 UNDER = {"q_trail"}                # behind her (tools/art/pack_kindred_fx.py BAKE); the others over her
+MOTE = 4                           # a picture keeps its pieces of this many squares and more (import_kindred_fx.MOTE)
 
 
 def bake(hds, sheet, k1):
@@ -386,30 +387,53 @@ def bake(hds, sheet, k1):
         ov = rgba(path)
         x0, y0, W, H = c["frame"]
         f = hds[tag][k - 1]
-        if (f.shape[1], f.shape[0]) != (W, H):
-            sys.exit(f"{key}: {tag} frame {k} is {f.shape[1]}x{f.shape[0]}, its guide's {W}x{H}: the frames changed "
-                     "since the effects pack (tools/art/pack_kindred_fx.py) - its guides and Codex's pictures no longer fit")
         ys, xs = np.nonzero(ov[..., 3] > 0)
         if not len(xs):
             continue
-        fx, fy = xs - x0, ys - y0
+        fx, fy = xs - x0, ys - y0                     # on the guide's frame
+        colours = ov[ys, xs]
+        guide = c.get("ppu", k1)
+        if abs(guide - k1) > 1e-6:
+            # drawn on her frames at the guide's density (2.86, 2026-10-14; the user then picked 2.2): the picture
+            # brought to this one round the pivot (pixel_down.scale_fx) and set on the frame as fit() sets the figure
+            import pixel_down as PD
+            ox_, oy_ = min(0, int(fx.min())), min(0, int(fy.min()))
+            img = np.zeros((max(H, int(fy.max()) + 1) - oy_, max(W, int(fx.max()) + 1) - ox_, 4), np.uint8)
+            img[fy - oy_, fx - ox_] = colours
+            pv = (np.floor(W / 2.0 + 0.5) - ox_, np.floor(H / 2.0 + 0.5) - oy_)
+            sc, (pnx, pny) = PD.scale_fx(img, k1 / guide, pv)
+            # motes the scaling left under MOTE squares go (the import's rule: no specks on her frames)
+            from scipy import ndimage
+            lbl, nl = ndimage.label(sc[..., 3] > 0, structure=np.ones((3, 3)))
+            if nl:
+                small = np.zeros(nl + 1, bool)
+                small[1:] = ndimage.sum(sc[..., 3] > 0, lbl, range(1, nl + 1)) < MOTE
+                sc[small[lbl]] = 0
+            sy_, sx_ = np.nonzero(sc[..., 3] > 0)
+            H, W = f.shape[:2]
+            fx = sx_ + int(np.floor(W / 2.0 - pnx + 0.5))
+            fy = sy_ + int(np.floor(H / 2.0 - pny + 0.5))
+            colours = sc[sy_, sx_]
+        elif (f.shape[1], f.shape[0]) != (W, H):
+            sys.exit(f"{key}: {tag} frame {k} is {f.shape[1]}x{f.shape[0]}, its guide's {W}x{H}: the frames changed "
+                     "since the effects pack (tools/art/pack_kindred_fx.py) - its guides and Codex's pictures no longer fit")
         gx = int(max(0, -fx.min(), fx.max() + 1 - W))
         gy = int(max(0, -fy.min(), fy.max() + 1 - H))
         if gx or gy:
             f = np.pad(f, ((gy, gy), (gx, gx), (0, 0)))
         px, py = fx + gx, fy + gy
-        put = f[py, px, 3] == 0 if under else np.ones(len(xs), bool)
-        f[py[put], px[put]] = ov[ys[put], xs[put]]
+        put = f[py, px, 3] == 0 if under else np.ones(len(fx), bool)
+        f[py[put], px[put]] = colours[put]
         hds[tag][k - 1] = f
-        # the 1x frame: each pixel's squares (2.86 a pixel, both frames centred on the pivot)
+        # the 1x frame: each pixel's squares (k1 a pixel, both frames centred on the pivot)
         a = sheet[tag][k - 1][0]
         h1, w1 = a.shape[:2]
         i = np.floor((fx + 0.5 - W / 2.0) / k1 + w1 / 2.0).astype(int)
         j = np.floor((fy + 0.5 - H / 2.0) / k1 + h1 / 2.0).astype(int)
         inside = (i >= 0) & (i < w1) & (j >= 0) & (j < h1)
         cell = {}
-        for ii, jj, y, x in zip(i[inside], j[inside], ys[inside], xs[inside]):
-            cell.setdefault((jj, ii), []).append(tuple(int(v) for v in ov[y, x, :3]))
+        for ii, jj, col in zip(i[inside], j[inside], colours[inside]):
+            cell.setdefault((jj, ii), []).append(tuple(int(v) for v in col[:3]))
         for (jj, ii), cols in cell.items():
             if len(cols) < 0.5 * k1 * k1 or (under and a[jj, ii, 3] > 0):
                 continue
