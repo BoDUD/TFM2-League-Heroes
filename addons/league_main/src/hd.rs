@@ -25,9 +25,6 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_nidalee", 2.2, include_str!("../../../league/champions/league_nidalee#anim.fanim")),
     ("league_galio", 1.65, include_str!("../../../league/champions/league_galio#anim.fanim")),
     ("league_nilah", 2.5, include_str!("../../../league/champions/league_nilah#anim.fanim")),
-    // Sion: the PPU design is Codex's draft square for square, 67 squares crown to soles for 44 game px (the user:
-    // 「用PPU优化一下 调稍微清晰一点」, picked 1.5 from a true-scale sheet; tools/art/rig_sion.py)
-    ("league_sion", 1.52, include_str!("../../../league/champions/league_sion#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -60,16 +57,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 100 % at PPU 1.5 (tools/art/rig_galio.py dense), picked from true-scale sheets; then 「在局内还是偏小啊」 (38 game px
 /// crown to soles, Darius 42) -> 110 % at PPU 1.65 (still 1.5 squares a game pixel), his dense frames drawn RAISE rows higher (rig_galio.py
 /// SIZE / RAISE).
-/// Sion: 「模型太大了吧 和铁男差不多大就行了吧」 -> 80 % (Mordekaiser's body area on a true-scale sheet), then 「调成90%」 ->
-/// 90 % (about 60 x 44 game px with his axe, 1.69 squares a game pixel), his dense frames drawn SHIFT rows lower
-/// (tools/art/rig_sion.py SIZE / SHIFT).
 /// Corki: grown 1.2x by the restyle (「飞机像泽丽那样变大点」), then 「飞机在游戏里是不是偏大了？」 - 48 x 37 game px, as wide as
 /// Garen and a solid lump - shown at 80 % (「到80%吧」, from a true-scale sheet), then 「太小了库奇 调到90%吧」 -> 90 %;
 /// he flies, so his frames are not lowered.
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.00),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
-                                    ("league_corki", 0.90), ("league_sion", 0.90)];
+                                    ("league_corki", 0.90)];
 
 pub const PREFIX: &str = "hd_";
 

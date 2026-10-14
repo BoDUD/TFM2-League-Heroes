@@ -3,7 +3,7 @@
 
     python tools/art/preview_sion.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_sion_frames.png    every animation's dense frames (hd_, PPU 1.52, as league.dll shows them; drawn at 90 %)
+  league_sion_frames.png    every animation's frames (1x, his 90 % built in)
   league_sion_effects.png   every effect animation, 3x
   league_sion_showcase.gif  a scripted fight with Darius, timed like the kit (tools/kit/build_sion.py, 60 ticks a
                             second): two axe chops; Decimating Smash - the charge with its line on the ground, the slam
@@ -24,7 +24,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "kit"))
 from preview_annie import Held  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
-from preview_dense import dense, dense_rows, put  # noqa: E402
+from preview_dense import put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_pyke import Me, OnFoe, OnMe  # noqa: E402
 from build_sion import P  # noqa: E402
@@ -50,7 +50,7 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False):
         nonlocal t
         x, y = me.pos(t)
-        an = Anim(dense(sp, tag, "sion", z), t, x, y, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(frames_of(sp, tag), t, x, y, loop=loop, until=(t + dur) if dur else None)
         an.pos = me.pos
         body.append(an)
         t = an.until
@@ -167,7 +167,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_sion_frames.png"), z=1))
+        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_sion_frames.png")))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():

@@ -16,16 +16,16 @@ design's head into every frame by translation (its HEAD_POLY). Here, for every f
     cleared, pinholes filled (specks, pinholes);
   * W (skill2_w): Codex's frame 2 swung the axe overhead and drew the far gauntlet as a block - dropped; the flex is
     frames 1, 3, 3 (held), then the design;
-  * idle = the design breathing (the upper body BREATH rows up over the legs), hit = the design moved 2 and 1 squares
-    back, run = the design walking league_nautilus / league_braum's way (walk_frame; the user: 「你向前那样冲刺模型永远会变形」),
-    ult (R's charge) = Codex's charge pose, its upper body bobbing over its planted legs (ULT_BOB).
-The canvas is the game's density (PPU 1.52: the design's 67 squares crown to soles for 44 game px). Each frame is then
-written twice (tools/art/rig_bard.py's way): the dense frame (the canvas itself round the pivot -> assets/source/ppu/
-sion_<tag>.png + .json, ppu_hd.py's drawn strips) and the 1x frame (pixel_down.pixelate at 1 / PPU) for the sheet's
-plain tags; `python tools/art/ppu_hd.py --hero sion` then adds the hd_ / lo_ tags.
+The canvas is the design's density (PPU 1.52: the design's 67 squares crown to soles for 44 game px). The sheet is
+1x (the user, 2026-10-14: 「画质太高清了 要调低像素」, picked 1x over 1.3 and the dense frames; the game scaled the
+dense frames by a fraction, so a body moving up and down drew a doubled line across the legs - 「上下摆动造成模型变形了腿部」):
+every Codex frame is pixel_down.pixelate'd at 1 / DENSE, his 90 % size built in (no league.dll row). The frames that
+move the design itself are made on the 1x design, whole game pixels at a time, so it never re-samples:
+  * idle = the 1x design breathing (the upper body LO_BREATH rows up over the legs), hit = it moved 1 back;
+  * run = it walking league_nautilus / league_braum's way (walk_frame, LO_WALK; the user: 「你向前那样冲刺模型永远会变形」);
+  * ult (R's charge) = the run, faster (the user: 「放大招的时候模型完全变形」 about Codex's hunched charge pose).
 """
 import argparse
-import json
 import os
 import sys
 
@@ -46,15 +46,12 @@ CODEX = os.path.join(SRC, "codex_strips")
 DESIGN = os.path.join(SRC, "hd", "front.png")
 FRAMES = os.path.join(SRC, "frames")
 STEM = os.path.join(ROOT, "league", "champions", "league_sion")
-PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
 PPU = 1.52                      # canvas squares a game pixel (design_sion.HD_PPU)
 FEET = 11                       # 1x rows from the pivot down to the soles (the pack's 128-canvas heroes)
-# On the battlefield he is drawn at SIZE of the 1x size (addons/league_main/src/hd.rs SIZES; the user, 2026-10-14:
-# 「模型太大了吧 和铁男差不多大就行了吧」 -> 80 % (Mordekaiser's body area on a true-scale sheet), then 「调成90%」 ->
-# 90 %, 1.69 squares a game pixel): the DLL scales about the frame's centre, so every dense frame is drawn SHIFT rows
-# lower - the soles, (FEET + 0.5) x PPU under the pivot, land there again (tools/art/rig_braum.py's way)
+# He is SIZE of the design's size (the user, 2026-10-14: 「模型太大了吧 和铁男差不多大就行了吧」, then 「调成90%」): the 1x
+# frames take one game pixel for every DENSE canvas squares
 SIZE = 0.90
-SHIFT = round((FEET + 0.5) * PPU * (1 / SIZE - 1))
+DENSE = PPU / SIZE
 COLS, ROWS = 219, 146
 PIV_X, SOLE = 100, 140          # pack_sion_strips.py
 DESIGN_AT = (43, 66)            # the design's top-left on the canvas (pack_sion_strips.py's print)
@@ -91,7 +88,7 @@ SCALE_FIX = {("skill", 1): 0.91,
              # E's frame 2 stood on legs 5 rows long and a trim of them broke the axe beside them (the reviewer): the
              # whole frame a size down instead
              ("skill2", 2): 0.92}
-BREATH = [0, 1, 2, 2, 1, 0]
+LO_BREATH = [0, 0, 1, 1, 1, 0]   # 1x rows (league_nautilus's)
 IDLE_MS = 160
 # the design's legs (rows, columns; ends exclusive): under the belt (WALK_BAND), clear of the axe blade at the near
 # side and of the far hand hanging beside the far thigh
@@ -99,25 +96,15 @@ WALK_BAND = 52
 WALK_NEAR = ((53, 62, 31, 50), (62, 75, 28, 50))
 WALK_FAR = ((53, 63, 61, 81), (63, 75, 61, 87))
 CLOTH_BOX = ((53, 75, 50, 61),)       # the loin cloth between them: it hangs from the belt, it does not breathe
-# per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (canvas squares:
-# league_nautilus's 1x steps x PPU, as league_galio's)
-WALK = [((0, 0), (0, 3), 2), ((0, 0), (2, 5), 3), ((0, 0), (2, 2), 2), ((0, 0), (2, 0), 0),
-        ((0, 3), (0, 0), 2), ((2, 5), (0, 0), 3), ((2, 2), (0, 0), 2), ((2, 0), (0, 0), 0)]
+# per frame: the near leg's (columns forward, rows lifted), the far leg's, the figure's rise (1x pixels: league_braum's
+# steps over its PPU)
+LO_WALK = [((0, 0), (0, 2), 1), ((0, 0), (1, 3), 2), ((0, 0), (1, 1), 1), ((0, 0), (1, 0), 0),
+           ((0, 2), (0, 0), 1), ((1, 3), (0, 0), 2), ((1, 1), (0, 0), 1), ((1, 0), (0, 0), 0)]
 WALK_MS = 115
 CRACK = 3                       # bare squares a step opens, this many columns wide at most: a crack
 SPECK = 8
 PINHOLE = 6
-# R's charge: Codex's charge pose (ult 1, brought to the design's size by its own measure) is a sprint stride, one foot
-# off the ground - the user's rule for the big heroes: no sprint (「你向前那样冲刺模型永远会变形」). Its upper body charges on
-# the design's own legs walking (walk_frame's steps): its legs (canvas rows from ULT_CUT[0], columns ULT_CUT[1]..[2]) go,
-# the rest is moved ULT_SHIFT (rows, columns) so its belt's lower edge sits on the design's (WALK_BAND) over the legs'
-# middle; the near arm with the axe and the far arm hanging beside the far leg stay as drawn.
-# Cut at its chest (the reviewer: its near thigh, drawn beside its belt, stacked a second thigh and knee over the
-# design's): the design's waist under it (ULT_WAIST: belt and furnace, design rows, columns), the legs from the belt.
-ULT_CUT = (101, 73, 130)
-ULT_WAIST = ((38, 53, 36, 70),)       # from column 36: the design's haft top stays out
-ULT_SHIFT = (5, -8)
-ULT_MS = 104                    # 8 steps over R's 50-tick charge
+ULT_MS = 104                    # R's charge: the run's 8 steps over its 50-tick charge
 # the design's far boot (canvas rows, columns of the idle) for a far leg Codex left off at the knee
 FAR_BOOT = (128, 141, 105, 129)
 # hand fixes after the review (2026-10-14, an independent reviewer's 12 defects), on each Codex frame after its cut and
@@ -175,8 +162,6 @@ FIX = {
     ("skill2_w", 3): [("neck", 100, 105, 67), ("clear", (58, 92, 70, 98)), ("clear", (65, 98, 68, 101)),
                       ("clear", (62, 98, 62, 99)), ("clear", (63, 99, 64, 99)), ("clear", (57, 96, 57, 96)),
                       ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)), ("ring", (40, 95, 58, 112))],
-    # (the scaled frame, before ULT_SHIFT) Codex's wrap bits under the near armpit
-    ("ult", 1): [("stake",), ("clear", (80, 97, 84, 100)), ("axe", (20, 102, 66, 130), None)],
     ("ult_hit", 1): [("axe", (39, 106, 84, 126), None, "ring"), ("legs", 111, 6)],
     ("ult_hit", 2): [("stake",), ("axe", (148, 117, 182, 141), None), ("lower", 1), ("ring", (145, 110, 162, 127))],
     # its blade keeps Codex's squares: lowered 6, the ground hides half of it, and the resized one cracked (the reviewer)
@@ -429,10 +414,9 @@ def scale_of(tag):
 
 
 def actions():
-    d = design()
-    idle = on_canvas(d)
-    out = {"idle": [(tidy(breathe(idle, upper(idle), k)), IDLE_MS) for k in BREATH],
-           "run": [(tidy(walk_frame(idle, n_, f_, r_)), WALK_MS) for n_, f_, r_ in WALK]}
+    """Codex's tags as canvases ("design" = the idle canvas)."""
+    idle = on_canvas(design())
+    out = {}
     for tag, nums in TAGS.items():
         f = scale_of(tag)
         frames = []
@@ -443,8 +427,6 @@ def actions():
             p, off = scaled_frame(codex(tag, n), f * SCALE_FIX.get((tag, n), 1.0))
             frames.append((tidy(fixed(tag, pos, p, off)), ms))
         out[tag] = frames
-    out["hit"] = [(tidy(on_canvas(d, dx=-2)), 80.0), (tidy(on_canvas(d, dx=-1)), 120.0)]
-    out["ult"] = [(f, ULT_MS) for f in charge()]
     return out
 
 
@@ -867,31 +849,6 @@ def fixed(tag, pos, a, off):
     return a
 
 
-def charge():
-    """R's charge frames: Codex's charge pose's upper body (cut at its chest: ULT_CUT) over the design's waist (its belt
-    and furnace, ULT_WAIST) and its legs walking - Codex's near thigh, drawn beside its belt, stacked a second thigh over
-    the design's (the reviewer)."""
-    u = codex("ult", 1)
-    u, off = scaled_frame(u, 1.0 / body_scale(u))
-    u = fixed("ult", 1, u, off)
-    r0, c0, c1 = ULT_CUT
-    u[r0:, c0:c1] = 0
-    dy, dx = ULT_SHIFT
-    top = np.zeros_like(u)
-    ys, xs = np.nonzero(u[..., 3] > 0)
-    top[ys + dy, xs + dx] = u[ys, xs]
-    legs = on_canvas(design())
-    legs[~box_mask(WALK_NEAR + WALK_FAR + CLOTH_BOX + ULT_WAIST)] = 0
-    out = []
-    for n_, f_, r_ in WALK:
-        w = walk_frame(legs, n_, f_, r_)
-        t = np.roll(top, -r_, axis=0)
-        m = t[..., 3] > 0
-        w[m] = t[m]
-        out.append(tidy(largest(w)))
-    return out
-
-
 def largest(a):
     """Only the figure's own piece (8-connected): the cut leaves the near boot's edge column behind as a loose stick."""
     lab, n = ndimage.label(a[..., 3] > 0, structure=np.ones((3, 3)))
@@ -932,19 +889,13 @@ def breathe(can, mask, k):
     return out
 
 
-def upper(can):
-    """The idle's squares that breathe: all but the legs and the loin cloth."""
-    return (can[..., 3] > 0) & ~box_mask(WALK_NEAR + WALK_FAR + CLOTH_BOX)
-
-
-def walk_frame(idle, near_step, far_step, rise):
-    """league_galio's / league_braum's walk on the idle: each leg's squares moved (dx, -lift) after losing their top
-    `lift` rows; the far leg first, the near one over it, the body over both; the whole frame `rise` rows up; the cracks
-    a step opens take the outline."""
+def walk_frame(idle, near_step, far_step, rise, near, far, band):
+    """league_galio's / league_braum's walk on the idle: each leg's squares (the masks) moved (dx, -lift) after losing
+    their top `lift` rows under the belt's row `band`; the far leg first, the near one over it, the body over both; the
+    whole frame `rise` rows up; the cracks a step opens take the outline."""
     H, W = idle.shape[:2]
     op = idle[..., 3] > 0
-    near, far = box_mask(WALK_NEAR) & op, box_mask(WALK_FAR) & op
-    band = DESIGN_AT[1] + WALK_BAND
+    near, far = near & op, far & op
     body = idle.copy()
     body[near | far] = 0
     out = np.zeros_like(idle)
@@ -981,7 +932,7 @@ def walk_frame(idle, near_step, far_step, rise):
 
 def review_sheet(frames, path, z=4):
     tiles = [Image.fromarray(c) for c, _ in frames]
-    op = np.zeros((ROWS, COLS), bool)
+    op = np.zeros(frames[0][0].shape[:2], bool)
     for c, _ in frames:
         op |= c[..., 3] > 0
     ys, xs = np.nonzero(op)
@@ -995,83 +946,144 @@ def review_sheet(frames, path, z=4):
 
 
 ORDER = ["idle", "run", "attack", "skill_charge", "skill", "skill2", "skill2_w", "ult", "ult_hit", "hit", "dead"]
+MARGIN = 6                      # 1x pixels round the 1x design's grid: room to step and flinch
 
 
 def pivot():
     """The pivot's centre on the canvas: the standing column's centre, (FEET + 0.5) 1x rows above the soles' bottom
-    edge (tools/art/rig_bard.py's)."""
-    return PIV_X + 0.5, SOLE + 1 - (FEET + 0.5) * PPU
+    edge (tools/art/rig_bard.py's), a 1x row being DENSE canvas rows."""
+    return PIV_X + 0.5, SOLE + 1 - (FEET + 0.5) * DENSE
 
 
-def one_x(can, p):
-    """The 1x frame: pixel_down.pixelate at 1 / PPU on a grid whose square round the pivot is centred on it; odd size,
-    the pivot's square in the middle, and wide and tall enough that round(PPU x its size) holds the dense frame without
-    growing it (the DLL wants hd_idle exactly round(PPU x the 1x width))."""
+def lo_grid(can, p):
+    """pixel_down.pixelate at 1 / DENSE on a grid whose square round the pivot is centred on it, MARGIN clear 1x pixels
+    round it -> (1x grid, the pivot square's (column, row))."""
     px, py = p
-    lo, (nx0, ny0) = PD.pixelate(can, 1 / PPU, (px - PPU / 2, py - PPU / 2), OUTLINE)
+    lo, (nx0, ny0) = PD.pixelate(can, 1 / DENSE, (px - DENSE / 2, py - DENSE / 2), OUTLINE)
+    return np.pad(lo, ((MARGIN, MARGIN), (MARGIN, MARGIN), (0, 0))), (nx0 + MARGIN, ny0 + MARGIN)
+
+
+def lo_mask(m, shape, piv, p):
+    """A canvas mask on a 1x grid (lo_grid's): each 1x square takes the canvas square under its centre."""
+    px, py = p
+    nx0, ny0 = piv
+    cols = np.floor(px + (np.arange(shape[1]) - nx0) * DENSE).astype(int)
+    rows = np.floor(py + (np.arange(shape[0]) - ny0) * DENSE).astype(int)
+    ok_r, ok_c = (rows >= 0) & (rows < m.shape[0]), (cols >= 0) & (cols < m.shape[1])
+    out = np.zeros(shape[:2], bool)
+    out[np.ix_(ok_r, ok_c)] = m[np.ix_(rows[ok_r], cols[ok_c])]
+    return out
+
+
+# a Codex frame's face on the 1x grid came out of the pixelation's phase: dull or one lit eye, a see-through square
+# between the ribbon and the stake (the reviewer) - the 1x idle's own head (head_mask(own), its squares) is matched on
+# the frame (the offset with the most squares alike) and pasted there: one face in every frame
+HOLE = 3                        # enclosed clear 1x squares in a piece this small: pinholes, filled
+
+
+def head_lo(lo, idle, hm):
+    """The 1x idle's head (its squares in hm) pasted where it matches the 1x frame best."""
+    ys, xs = np.nonzero(hm)
+    want = idle[ys, xs]
+    H, W = lo.shape[:2]
+    best = (-1, 0, 0)
+    for dy in range(-ys.min(), H - ys.max()):
+        for dx in range(-xs.min(), W - xs.max()):
+            n = int((lo[ys + dy, xs + dx] == want).all(-1).sum())
+            if n > best[0]:
+                best = (n, dy, dx)
+    _, dy, dx = best
+    out = lo.copy()
+    out[ys + dy, xs + dx] = want
+    return out
+
+
+def pinholes_lo(lo):
+    """Enclosed clear pieces of HOLE squares or fewer filled: with the colour all their opaque neighbours share when
+    none is the outline, else the outline (a crack between two parts)."""
+    op = lo[..., 3] > 0
+    lab, n = ndimage.label(ndimage.binary_fill_holes(op) & ~op)
+    out = lo.copy()
+    for k in range(1, n + 1):
+        ys, xs = np.nonzero(lab == k)
+        if len(ys) > HOLE:
+            continue
+        near = set()
+        for y, x in zip(ys, xs):
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                if op[y + dy, x + dx]:
+                    near.add(tuple(int(v) for v in lo[y + dy, x + dx, :3]))
+        c = near.pop() if len(near) == 1 and OUTLINE not in near else OUTLINE
+        out[ys, xs] = (*c, 255)
+    return out
+
+
+def framed(lo, piv):
+    """The 1x frame: odd size, the pivot's square in the middle; the outline closed."""
+    nx0, ny0 = piv
     ys, xs = np.nonzero(lo[..., 3])
     hw, hh = max(nx0 - xs.min(), xs.max() - nx0), max(ny0 - ys.min(), ys.max() - ny0)
-    dy, dx = np.nonzero(can[..., 3])
-    need_w = max(px - dx.min(), dx.max() + 1 - px)
-    need_h = max(py - dy.min(), dy.max() + 1 - py)
-    while round((2 * hw + 1) * PPU) / 2 < need_w:
-        hw += 1
-    while round((2 * hh + 1) * PPU) / 2 < need_h:
-        hh += 1
     out = np.zeros((2 * hh + 1, 2 * hw + 1, 4), np.uint8)
     out[ys - ny0 + hh, xs - nx0 + hw] = lo[ys, xs]
     out, _, _ = G.complete_outline(out, color=OUTLINE, feet=hh + FEET)
     return out
 
 
-def dense(can, one, p):
-    """The game's frame: the canvas SHIFT rows lower on a frame of round(PPU x the 1x frame's size), grown alike at
-    both ends where the drawing needs more, the pivot at its centre."""
-    lx, ly = p
-    W, H = round(one.shape[1] * PPU), round(one.shape[0] * PPU)
-    ys, xs = np.nonzero(can[..., 3])
-    yd = ys + SHIFT
-    while W / 2 < max(lx - xs.min(), xs.max() + 1 - lx):
-        W += 2
-    while H / 2 < max(ly - yd.min(), yd.max() + 1 - ly):
-        H += 2
-    f = np.zeros((H, W, 4), np.uint8)
-    ox, oy = int(np.floor(W / 2 - lx + 0.5)), int(np.floor(H / 2 - ly + 0.5))
-    f[yd + oy, xs + ox] = can[ys, xs]
-    return f
+def lo_design(p):
+    """The 1x design's idle / run / hit / ult frames, moved whole 1x pixels at a time -> ({tag: [(grid, ms)]}, the
+    pivot square, (the 1x design, its head's squares))."""
+    L, piv = lo_grid(tidy(on_canvas(design())), p)
+    op = L[..., 3] > 0
+    legs = lo_mask(box_mask(WALK_NEAR + WALK_FAR + CLOTH_BOX), L.shape, piv, p)
+    near = lo_mask(box_mask(WALK_NEAR), L.shape, piv, p)
+    far = lo_mask(box_mask(WALK_FAR), L.shape, piv, p)
+    belt = np.zeros((ROWS, COLS), bool)
+    belt[DESIGN_AT[1] + WALK_BAND] = True
+    band = int(np.nonzero(lo_mask(belt, L.shape, piv, p).any(1))[0][0])
+    run = [walk_frame(L, n_, f_, r_, near, far, band) for n_, f_, r_ in LO_WALK]
+    head = np.zeros((ROWS, COLS), bool)
+    hy, hx = np.nonzero(head_mask(own=True))
+    head[hy + DESIGN_AT[1], hx + DESIGN_AT[0]] = True
+    hm = lo_mask(head, L.shape, piv, p) & op
+    out = {"idle": [(breathe(L, op & ~legs, k), IDLE_MS) for k in LO_BREATH],
+           "run": [(f, WALK_MS) for f in run],
+           "ult": [(f, ULT_MS) for f in run],
+           "hit": [(np.roll(L, -1, axis=1), 80.0), (np.roll(L, -1, axis=1), 120.0)]}
+    return out, piv, (L, hm)
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--review", help="write every tag's canvas frames at 4x on magenta here")
+    ap.add_argument("--review", help="write every tag's 1x frames at 8x on magenta here")
     ap.add_argument("--frames-only", action="store_true", help="only the review sheets, no game files")
     a = ap.parse_args()
-    acts = actions()
     p = pivot()
+    lo, piv, idle = lo_design(p)
+    acts = actions()
     sheet = {}
     for tag in ORDER:
-        frames = acts[tag]
+        if tag in lo:
+            ones = [(framed(g, piv), round(float(ms), 3)) for g, ms in lo[tag]]
+        else:
+            ones = []
+            for can, ms in acts[tag]:
+                g, gp = lo_grid(can, p)
+                if g.shape != idle[0].shape or (g != idle[0]).any():   # a closing frame is the idle itself, as drawn
+                    g = pinholes_lo(head_lo(g, *idle))
+                ones.append((framed(g, gp), round(float(ms), 3)))
         if a.review:
             os.makedirs(a.review, exist_ok=True)
-            review_sheet(frames, os.path.join(a.review, f"sion_{tag}.png"))
-        if a.frames_only:
-            continue
-        ones, hds = [], []
-        for can, ms in frames:
-            one = one_x(can, p)
-            ones.append((one, round(float(ms), 3)))
-            hds.append(dense(can, one, p))
+            H = max(f.shape[0] for f, _ in ones)
+            W = max(f.shape[1] for f, _ in ones)
+            tiles = []
+            for f, ms in ones:
+                t = np.zeros((H, W, 4), np.uint8)
+                y0, x0 = (H - f.shape[0]) // 2, (W - f.shape[1]) // 2
+                t[y0:y0 + f.shape[0], x0:x0 + f.shape[1]] = f
+                tiles.append((t, ms))
+            review_sheet(tiles, os.path.join(a.review, f"sion_{tag}.png"), z=8)
         sheet[tag] = ones
-        H = max(h.shape[0] for h in hds)
-        strip = np.zeros((H, sum(h.shape[1] + 1 for h in hds) - 1, 4), np.uint8)
-        x = 0
-        for h in hds:
-            strip[:h.shape[0], x:x + h.shape[1]] = h
-            x += h.shape[1] + 1
-        Image.fromarray(strip).save(os.path.join(PPU_SRC, f"sion_{tag}.png"))
-        with open(os.path.join(PPU_SRC, f"sion_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
-            json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds]}, f)
-    if sheet:
+    if not a.frames_only:
         w, h = G.write_sheet(STEM, sheet)
         print(f"league/champions/league_sion#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(f)}" for t, f in sheet.items()))
 
