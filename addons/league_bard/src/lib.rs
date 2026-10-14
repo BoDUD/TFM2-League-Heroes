@@ -672,7 +672,18 @@ impl Door {
         for mut t in std::mem::take(&mut self.trips) {
             let Some(here) = pos(sim, t.id) else { continue };
             let d = dist(here, t.goal);
-            if d < t.step.max(500.0) || tick > t.until {
+            if d < t.step.max(500.0) {
+                continue;
+            }
+            // 被放逐（巴德自己的 R 之类，不可选中）：游戏 0.6.4 起放逐中的单位不移动，宿主的强制位移也停下——这里也不挪他，
+            // 行程等着（截止时间顺延），放逐结束再走完，不会把人留在墙里。
+            if sim.get_entity(t.id).is_some_and(|e| !e.is_targetable()) {
+                t.until += 1;
+                t.last = here;
+                keep.push(t);
+                continue;
+            }
+            if tick > t.until {
                 continue;
             }
             if dist(t.last, here) < 1.0 {

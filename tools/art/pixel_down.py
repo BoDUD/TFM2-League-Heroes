@@ -196,8 +196,31 @@ def _thin_warm(a):
     return ndimage.binary_dilation(warm & ~wide) & (a[..., 3] > 0)
 
 
+def _mask_face(a, up=9, down=5, side=4):
+    """league_kassadin's masked face (game 0.6.4: 「卡萨丁脸部太糊」 - the 16 colours took his orange eyes, the majority
+    pass ate the helmet's ridge and the lines pass blotched the mask): found by the eyes, the warm squares in the top 40 %
+    of the figure; from `up` squares above them (the ridge) to `down` below (the mask, the tubes' tops), `side` either
+    way, every square but the helmet's purple (that one is in the palette, so no seam) kept as the downscale left it.
+    No eyes in sight (lying, turned away): nothing kept."""
+    rgb = a[..., :3].astype(int)
+    op = a[..., 3] > 0
+    rows = np.nonzero(op.any(1))[0]
+    out = np.zeros_like(op)
+    if not len(rows):
+        return out
+    warm = op & (rgb[..., 0] > 150) & (rgb[..., 0] > rgb[..., 2] + 60) & (rgb[..., 0] > rgb[..., 1] + 20)
+    warm[rows.min() + (rows.max() - rows.min()) * 2 // 5:] = False
+    if not warm.any():
+        return out
+    ys, xs = np.nonzero(warm)
+    out[max(0, ys.min() - up):ys.max() + down + 1, max(0, xs.min() - side):xs.max() + side + 1] = True
+    purple = (rgb[..., 2] > rgb[..., 0] + 20) & (rgb[..., 2] > rgb[..., 1] + 40)
+    return out & op & ~purple
+
+
 KEEP = {"teal": lambda a: (a[..., 1].astype(int) > a[..., 0] + 40) & (a[..., 2].astype(int) > a[..., 0] + 40),
-        "face": _face, "face_blue": _face_blue, "soraka": lambda a: _face_blue(a) | _thin_warm(a), "head": _head}
+        "face": _face, "face_blue": _face_blue, "soraka": lambda a: _face_blue(a) | _thin_warm(a), "head": _head,
+        "mask_face": _mask_face}
 
 
 def _lab(rgb):

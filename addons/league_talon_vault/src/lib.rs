@@ -479,6 +479,13 @@ impl Path {
         let Some(to) = self.goal else { return };
         let speed = self.p.e_speed.max(500) as f64;
         let d = dist(here, to);
+        if d >= speed && sim.get_entity(me).is_some_and(|e| !e.is_targetable()) {
+            // 被放逐（巴德的 R 之类）：游戏 0.6.4 起放逐中的单位不动、宿主的强制位移也停下——这里也不挪他，行程等着
+            // （截止时间顺延），放逐结束再走完，不会把他留在墙里
+            self.until += 1;
+            self.last = Some(here);
+            return;
+        }
         if d < speed || tick > self.until {
             self.goal = None;
             self.last = None;
@@ -517,6 +524,7 @@ impl StablePassive for Path {
             return;
         }
         let team = e.team();
+        let targetable = e.is_targetable();
         let Some(here) = pos(sim, me) else { return };
         if self.goal.is_some() || self.haste_at.is_some() {
             self.follow(sim, me, here);
@@ -524,7 +532,8 @@ impl StablePassive for Path {
                 return;
             }
         }
-        if sim.tick() % EVERY != 0 || has_buff(sim, me, &tl("e_cd")) || has_cc(sim, me, &NO_VAULT) {
+        // 被放逐时不出 E（游戏 0.6.4 起放逐中不能出招；本包自己出手，不经宿主的判断）
+        if sim.tick() % EVERY != 0 || has_buff(sim, me, &tl("e_cd")) || has_cc(sim, me, &NO_VAULT) || !targetable {
             return;
         }
         let mut champs = Vec::new();

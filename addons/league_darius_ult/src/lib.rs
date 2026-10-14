@@ -386,6 +386,12 @@ impl StablePassive for OwnKill {
                 self.cast = Some(tick);
                 self.target = None;
             }
+            // a refresh (the main pack's kill refresh, or this passive's own-kill refund): the 2-tick ult_cooldown_mult
+            // leaves about 1% of R's 3000 ticks (29); from game 0.6.4 the rest goes too, a full reset as in League
+            // (entity_reduce_cooldown - false on older games, which keep the 29)
+            if was > c + REFRESH_DROP && c > 0 && sim.entity_reduce_cooldown(me, SkillSlotV1::Ult, c) {
+                wlog(format!("{} R REFRESH: its last {c} ticks cut as well, R ready now", head(sim, me)));
+            }
         }
         self.last_cd = cd;
         let Some(t0) = self.cast else { return };

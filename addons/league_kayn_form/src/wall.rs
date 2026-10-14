@@ -154,8 +154,11 @@ impl Walker {
             let d = dist(here, to);
             if d < speed {
                 self.goal = None;
-            } else if self.last.is_some_and(|l| dist(l, here) < 1.0) {
-                // the host did not move him (stopped at the wall): a step of his own
+            } else if self.last.is_some_and(|l| dist(l, here) < 1.0)
+                && sim.get_entity(me).is_some_and(|e| e.is_targetable())
+            {
+                // the host did not move him (stopped at the wall): a step of his own - not while banished (game 0.6.4:
+                // a banished unit does not move; the goal stays and the steps go on once it is over)
                 let next = (here.0 + (to.0 - here.0) / d * speed, here.1 + (to.1 - here.1) / d * speed);
                 sim.entity_set_pos(me, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
             }

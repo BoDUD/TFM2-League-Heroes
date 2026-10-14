@@ -301,7 +301,11 @@ impl StablePassive for Joy {
                 let extra_h = bonus(heal, self.p.amp, &mut rem_h);
                 let extra_s = bonus(shield, self.p.amp, &mut rem_s);
                 if extra_h > 0 {
-                    sim.heal(me, id, extra_h);
+                    // 加成的那一份直接加到血上，不另飘一个数字：游戏 0.6.4 起原生被动的 heal 会显示绿色数字，每次队友回血
+                    // 后一 tick 多一个 +1～+3 的小数字（0.6.3 的日志：一局几百到一千多次）；英雄联盟里加成就在原来那个治疗里。
+                    if let Some((hp, max)) = sim.get_entity(id).filter(|u| u.is_alive()).map(|u| u.hp()) {
+                        sim.entity_set_hp(id, (hp + extra_h).min(max));
+                    }
                 }
                 if extra_s > 0 {
                     sim.entity_add_shield(id, extra_s, SHIELD_T);

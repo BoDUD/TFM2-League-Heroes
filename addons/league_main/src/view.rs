@@ -1,9 +1,9 @@
-//! 战场上的大小（游戏 0.6.3，Windows）：战场画身体的 0x230ec30 只给绘制命令 UV，不给大小——Skia 按「UV × 图的真实像素」
+//! 战场上的大小（游戏 0.6.4，Windows）：战场画身体的 0x2aaf630 只给绘制命令 UV，不给大小——Skia 按「UV × 图的真实像素」
 //! 画，锚点按帧的宽高算。所以战场取到的是真实的高清帧（src/lookup.rs 的战场影子表），画出来 PPU 倍大；这里把实体的
-//! 绘制缩放（显示世界实体值 +0x1b4，战场绘制函数 0x231fb80 读的那个数，绕实体位置缩放整套命令）写成「游戏的值 ÷ PPU」，
+//! 绘制缩放（显示世界实体值 +0x1b4，战场绘制函数 0x2abfdc0 读的那个数，绕实体位置缩放整套命令）写成「游戏的值 ÷ PPU」，
 //! 大小、锚点都回到 1 倍（0.4.3 没有这一步：「游戏里变成了巨人」）。
 //!
-//! 和凯隐 / 佛耶戈附加包挂在同一个显示更新槽（rva 0x3c31358，函数 0x2808e30，核对开头 24 个字节）：先调用槽里原来的
+//! 和凯隐 / 佛耶戈附加包挂在同一个显示更新槽（rva 0x3c82db8，函数 0x23312a0，核对开头 24 个字节）：先调用槽里原来的
 //! 函数，再走一遍显示世界的实体表（+0x138 的哈希表，每格 0x1d0 字节，值从 +8 开始），英雄 id（+0x40 / +0x48）登记了的
 //! 实体写缩放。游戏自己的值每帧记下（[`Scale`]：是我们上一帧写的就沿用记下的，不是就当作游戏的新值），不会除两次。
 //! 不改动作名：战场影子表里每个动作都是高清帧，眩晕之类不按动作名画的时候也一样（「被宝石打中后模型突然变小」）。
@@ -15,14 +15,15 @@
 //!
 //! 画身体的那一刻再认一次（0.6.50，用户：「佛耶戈变身高清英雄的时候 还是会变的超级大」）：佛耶戈附加包也挂在这个显示更新槽，
 //! 装得比这个包晚，链在我们前面——每帧是游戏的更新 → 我们的缩放 → 它换身体，这一帧我们看到的还是 league_viego，
-//! 不缩，接着画出被附身英雄的高清帧（别人的佛耶戈在战场绘制里 0x231f990 抄资源名，也在我们之后）。战场绘制先调画身体的
-//! 0x230ec30（0x231faa6），之后才在 0x231fb80 读 +0x1b4：所以 0x230ec30 的钩子先按此刻的资源名再算一遍，是高清英雄、
+//! 不缩，接着画出被附身英雄的高清帧（别人的佛耶戈 0.6.3 时在战场绘制里 0x231f990 抄资源名，也在我们之后）。战场绘制先调画身体的
+//! 0x2aaf630（0x2abfcd5），之后才在 0x2abfdc0 读 +0x1b4：所以 0x2aaf630 的钩子先按此刻的资源名再算一遍，是高清英雄、
 //! 而这一帧的更新没缩过（佛耶戈），就在这里写 ÷ PPU（另记一份「画时」的记录，附身结束时写回游戏的值）；更新已经缩过的
-//! 照旧不动，不会除两次。
+//! 照旧不动，不会除两次。下一帧更新看到的已是被附身英雄、自己还没有记录：从「画时」的记录接着算（0.7.1，用户：「佛耶戈
+//! 不能变身PPU英雄？」）——游戏没把 +0x1b4 写回自己的值时，否则会把画时写的 ÷ PPU 当成游戏的值再除一次，附身后小 PPU 倍。
 //!
 //! 只缩身体（0.6.30，用户：「回城时脚下的特效会被遮挡」「英雄脚下的阴影也被遮挡了」）：+0x1b4 套在战场画身体的函数
-//! 0x230ec30 交出的整组绘制命令外面（0x231fb80：组头插一条缩放命令 0x…11、组尾一条恢复 0x…12），组里除了身体还有阴影、
-//! 脚下的圆圈、眩晕 / 嘲讽标记、读条——跟着缩成 1/PPU（艾希 1/5.5），看着像被身体挡住了。所以在 0x230ec30 的入口挂钩：
+//! 0x2aaf630 交出的整组绘制命令外面（0x2abfdc0：组头插一条缩放命令 0x…11、组尾一条恢复 0x…12），组里除了身体还有阴影、
+//! 脚下的圆圈、眩晕 / 嘲讽标记、读条——跟着缩成 1/PPU（艾希 1/5.5），看着像被身体挡住了。所以在 0x2aaf630 的入口挂钩：
 //! 它照常画完，组里不是这个英雄自己那张图（`…/league_<英雄>#sheet`）的命令，连着的一段段各套一对「放大 PPU 倍」的
 //! 缩放 / 恢复命令（和游戏自己的一样：绕同一个点、平移 (1 - k) × 点、x y 都乘 k），外面那层 ÷ PPU 一抵消，就是游戏
 //! 原来的大小；身体照旧 ÷ PPU。别处读 +0x1b4 的画法不受影响。
@@ -62,6 +63,14 @@ pub fn next_scale(prev: Option<Scale>, cur: f32, ppu: f32) -> Scale {
         _ => cur,
     };
     Scale { base, wrote: base / ppu }
+}
+
+/// The record the display update divides from: its own for this entity, else the body draw's. A body swapped after
+/// the update (league_viego_soul: the update saw league_viego) was first divided at the body draw; the next update sees
+/// the victim's name with no record of its own, and if the game left the body draw's value in +0x1b4 that value would
+/// be taken for the game's own and divided again (the possessed hero drawn PPU times too small).
+pub fn update_prev(own: Option<Scale>, drawn: Option<Scale>) -> Option<Scale> {
+    own.or(drawn)
 }
 
 /// The registered hero an entity is drawn as: by its body's resource name (`.../league_zeri#anim` or the bare id) when
@@ -215,7 +224,8 @@ unsafe fn shrink(world: usize) {
         };
         let name = res.unwrap_or(hero.id);
         let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
-        let s = next_scale(at.map(|k| st.scales[k].2), cur, hero.shown());
+        let s = next_scale(update_prev(at.map(|k| st.scales[k].2), st.drawn.iter().find(|e| e.0 == v).map(|e| e.1)),
+                           cur, hero.shown());
         std::ptr::write_unaligned((v + SCALE) as *mut f32, s.wrote);
         match st.by_value.iter().position(|e| e.0 == v) {
             Some(k) => st.by_value[k].1 = s,
@@ -263,7 +273,7 @@ static GROW: AtomicUsize = AtomicUsize::new(0);
 type BodyDraw = unsafe extern "system" fn(usize, usize, usize, usize, usize, usize, usize, usize) -> usize;
 type Grow = unsafe extern "system" fn(usize);
 
-/// 0x230ec30 (out Vec, entity value, r8, -, -, stack args 6-8; r9 and the 5th are never read): the scale for the body
+/// 0x2aaf630 (out Vec, entity value, r8, -, -, stack args 6-8; r9 and the 5th are never read): the scale for the body
 /// it is drawn with now, the game's body draw, then the extras brought back to the game's size.
 unsafe extern "system" fn body_detour(out: usize, ent: usize, a3: usize, _sp: usize, a5: usize, a6: usize, a7: usize,
                                       a8: usize) -> usize {
@@ -529,6 +539,23 @@ mod tests {
         assert_eq!(at_draw(None, Some(s), 1.0 / k, None), AtDraw::Restore(1.0));
         assert_eq!(at_draw(None, Some(s), 1.0, None), AtDraw::Leave);
         assert_eq!(at_draw(None, None, 1.0, None), AtDraw::Leave);
+    }
+
+    #[test]
+    fn a_swapped_body_is_divided_once_frame_after_frame() {
+        let k = 2.2;
+        // frame 1: the update saw league_viego (nothing), the add-on swapped the body, the body draw divided
+        let AtDraw::Write(first) = at_draw(None, None, 1.0, Some(k)) else { panic!() };
+        // frame 2, the game left the body draw's value: the update sees the victim with no record of its own
+        let s = next_scale(update_prev(None, Some(first)), 1.0 / k, k);
+        assert_eq!(s, Scale { base: 1.0, wrote: 1.0 / k });
+        assert_ne!(next_scale(None, 1.0 / k, k).wrote, s.wrote); // without the body draw's record: divided twice
+        // frame 2, the game wrote its own value again: the same
+        assert_eq!(next_scale(update_prev(None, Some(first)), 1.0, k), s);
+        // the body draw of frame 2 keeps the update's value
+        assert_eq!(at_draw(Some(s), Some(first), 1.0 / k, Some(k)), AtDraw::Write(s));
+        // from frame 3 the update has its own record
+        assert_eq!(next_scale(update_prev(Some(s), Some(first)), 1.0 / k, k), s);
     }
 
     #[test]
