@@ -46,7 +46,7 @@ RAW = os.path.join(SRC, "codex_grid", "raw", "B-01.png")
 OUT = os.path.join(SRC, "hd", "front.png")
 WORK = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Temp", "mz_work", "design")
 K = (14, 12, 18)
-ROWS = 77                     # 35 game px at PPU 2.2
+ROWS = 48                     # 34.8 game px at PPU 1.38 (1.2 squares a shown game pixel at hd.rs SIZES 1.15)
 HEAD = 0.36                   # the head's share of the height (hood tip to the scarf's bottom)
 
 
@@ -145,12 +145,16 @@ def dagger(a, d, k, pivot=None):
     return d
 
 
-# step 5: (row, col) -> colour on the cropped 60 x 77 design; '.' = the hood's magenta
-MARKS = ["..n..", ".nWn.", "nWnWn", ".nWn.", "..n.."]
-MARK_AT = (6, 30)
-FACE = {"W": (245, 250, 251), "n": (33, 145, 235), ".": (228, 14, 101), "c": (117, 1, 57)}
-EYES = [(12, 29), (12, 30), (12, 33), (12, 34)]
-CLOTH = [(13, c) for c in range(29, 36)] + [(11, 32)]
+# step 5: (row, col) -> colour on the cropped 38 x 48 design; '.' = the hood's magenta. At 1.38 squares a game pixel
+# (the user's 1.2 shown at 115 %) the marks are a 3 x 3 diamond of four white points round a blue core, the eyes one
+# white square each under a dark brow, a square of shadow between them, the face cloth under them.
+MARKS = [".W.", "WnW", ".W."]
+MARK_AT = (4, 19)
+FACE = {"W": (245, 250, 251), "n": (33, 145, 235), ".": (228, 14, 101), "c": (117, 1, 57), "K": (14, 12, 18)}
+BROW = [(7, c) for c in range(17, 22)]
+EYES = [(8, 18), (8, 20)]
+SHADE = [(8, 17), (8, 19), (8, 21)]
+CLOTH = [(9, c) for c in range(17, 22)]
 
 
 def face(d):
@@ -158,10 +162,9 @@ def face(d):
     for r, row in enumerate(MARKS):
         for c, ch in enumerate(row):
             d[r0 + r, c0 + c, :3], d[r0 + r, c0 + c, 3] = FACE[ch], 255
-    for r, c in EYES:
-        d[r, c, :3] = FACE["W"]
-    for r, c in CLOTH:
-        d[r, c, :3] = FACE["c"]
+    for cells, key in ((BROW, "K"), (SHADE, "K"), (EYES, "W"), (CLOTH, "c")):
+        for r, c in cells:
+            d[r, c, :3], d[r, c, 3] = FACE[key], 255
     return d
 
 
@@ -173,7 +176,7 @@ def calm(d):
     lit = op & (d[..., :3].astype(int).sum(-1) >= 70)
     keep = np.zeros(op.shape, bool)
     keep[MARK_AT[0]:MARK_AT[0] + len(MARKS), MARK_AT[1]:MARK_AT[1] + len(MARKS[0])] = True
-    for r, c in EYES + CLOTH:
+    for r, c in BROW + SHADE + EYES + CLOTH:
         keep[r, c] = True
     for _ in range(PASSES):
         e = PD._majority(d, op, keep | ~lit)

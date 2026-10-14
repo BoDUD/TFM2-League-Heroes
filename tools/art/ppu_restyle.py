@@ -55,7 +55,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
-            "nilah": 2.5, "kindred": 154 / 34, "malzahar": 2.2}
+            "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -155,12 +155,12 @@ RESTYLE = {
     # the outer outline grown to about a game pixel. 2026-10-14 the user: 「有点太高清了？降点像素」 - from a sheet of
     # densities picked 2.2 (Ashe's, Nidalee's, Yasuo's)
     "kindred": dict(ppu=2.2, edge=1),
-    # league_malzahar (#103): Codex's drafts cut to the design's grid at the user's density (2.2, tools/art/
-    # import_malzahar_strips.py, rig_malzahar.py), so no proportion or density change; the outer outline grown to about
-    # a game pixel like the others; drawn 115 % by league.dll (hd.rs SIZES, the user's pick) round the frame's centre,
-    # so every frame lifted 11.5 x 2.2 x (1 - 1 / 1.15) = 3.3 -> 3 rows (the ground row stays on the ground)
-    # the face point: his eyes under the hood from the ground, x 1.15 about it (setup_malzahar.py VIEW)
-    "malzahar": dict(ppu=2.2, edge=1, lift=3, face_to=(4, -39)),
+    # league_malzahar (#103): Codex's drafts cut to the design's grid at the user's density (tools/art/
+    # import_malzahar_strips.py, rig_malzahar.py: 2.2 first, then 「像素有点高 降低点需要」 -> 1.2 squares a shown game pixel
+    # picked from a sheet = PPU 1.38 at his 115 %), so no proportion or density change here; the outer outline grown a
+    # square like the others; drawn 115 % by league.dll (hd.rs SIZES) round the frame's centre, so every frame lifted
+    # 11.5 x 1.38 x (1 - 1 / 1.15) = 2.1 -> 2 rows (the ground row stays on the ground)
+    "malzahar": dict(ppu=1.38, edge=1, lift=2, face_to=(4, -39)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

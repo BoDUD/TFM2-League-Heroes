@@ -4,14 +4,15 @@ league_kindred's way (tools/art/rig_kindred.py).
 
     python tools/art/rig_malzahar.py [--review DIR]
 
-The frames are drawn at PPU 2.2 (one design square a dense pixel: the user's density, league_zeri's look), on a canvas
+The frames are drawn at PPU 1.38 (one design square a dense pixel: 1.2 squares a shown game pixel at 115 %, the user's
+pick after 2.2 read too fine - 「像素有点高 降低点需要」), on a canvas
 whose standing column is PIV_C and ground row SOLE (frames.json); the pivot: the standing column's centre, FEET 1x rows
-above the ground row's bottom edge. He floats: the idle's boots hang 6 squares over the ground row (2.7 game px), the
+above the ground row's bottom edge. He floats: the idle's boots hang 4 squares over the ground row (2.9 game px), the
 death lies on it.
 Writes assets/source/ppu/orig/malzahar_<tag>.png / .json (the dense frames, each round(PPU x its 1x frame) round the
 pivot) and league/champions/league_malzahar#sheet.png / #anim.fanim (the 1x tags: each 1x pixel the commonest colour
 of its squares; the fallback without league.dll). Then tools/art/ppu_restyle.py --hero malzahar (RESTYLE: the outline
-grown to about a game pixel, the frames lifted for hd.rs SIZES 1.15) and tools/art/ppu_hd.py --hero malzahar.
+grown a square, the frames lifted for hd.rs SIZES 1.15) and tools/art/ppu_hd.py --hero malzahar.
 """
 import argparse
 import json
@@ -27,7 +28,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
 
-PPU = 2.2                         # dense squares a game pixel
+PPU = 1.38                        # dense squares a game pixel (the user's 1.2 shown at hd.rs SIZES 1.15)
 FEET = 11                         # 1x rows from the pivot down to the ground row (the pack's 128-canvas heroes)
 FRAMES = os.path.join(ROOT, "assets", "source", "malzahar", "frames")
 STEM = os.path.join(ROOT, "league", "champions", "league_malzahar")

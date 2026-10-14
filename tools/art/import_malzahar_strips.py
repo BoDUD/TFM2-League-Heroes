@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """league_malzahar's action frames from Codex's step-2 fine drafts (assets/source/malzahar/codex_strips) on the design's
-grid (PPU 2.2: one square = one dense pixel), the way tools/art/design_malzahar.py made the design.
+grid (PPU 1.38 - the user's 1.2 squares a shown game pixel at 115 %: one square = one dense pixel), the way
+tools/art/design_malzahar.py made the design.
 
     python tools/art/import_malzahar_strips.py [--review DIR]
 
 Codex drew the 35 frames as fine drafts (~5-px squares) on the pack's canvas (tools/art/pack_malzahar_strips.py:
-1536 x 1024, a design square 10 px, his lowest point on y 960, his middle on x 700), each a little bigger or smaller
+1536 x 1024, the design 770 px tall, his lowest point on y 960, his middle on x 700), each a little bigger or smaller
 than the design and drifting (its HANDOFF). So per frame:
   * the head: the four diamond marks found (white squares next to their blue rims; the eyes have none) and the frame's
     size against the design's head by normalised cross-correlation over scales (HEADS, measured 2026-10-14 with
@@ -48,13 +49,13 @@ SRC = D.SRC
 CODEX = os.path.join(SRC, "codex_strips")
 OUT = os.path.join(SRC, "frames")
 K = D.K
-PX = 10.0                          # pack canvas px a design square at size 1 (pack_malzahar_strips.py PX)
+PX = 770.0 / 48                    # pack canvas px a design square at size 1 (the pack drew the design 770 px tall)
 REF = (756.0, 283.0)               # the design draft's marks centre on the pack canvas (design/malzahar_on_canvas.png)
-COLS, ROWS = 160, 112              # the frame canvas (design squares)
-DX, DY = 50, 22                    # the design's top-left square on the canvas
-DESIGN_MARKS = (32, 8)             # the design's marks centre square (col, row): MARK_AT + 2
-SOLE = DY + 76 + 6                 # the ground row: the design's boots hang 6 squares (2.7 game px) over it - he floats
-PIV_C = DX + 26                    # the standing column (under the boots' middle, the pack's x 700)
+COLS, ROWS = 100, 72               # the frame canvas (design squares)
+DX, DY = 31, 14                    # the design's top-left square on the canvas
+DESIGN_MARKS = (20, 5)             # the design's marks centre square (col, row): MARK_AT + 1
+SOLE = DY + 47 + 4                 # the ground row: the design's boots hang 4 squares (2.9 game px) over it - he floats
+PIV_C = DX + 16                    # the standing column (under the boots' middle, the pack's x 700)
 TAGS = [("run", 6), ("attack", 5), ("skill", 5), ("skill2", 5), ("ult", 4), ("ult_loop", 4), ("dead", 6)]
 # marks centre (pack canvas px) and head scale per frame (headmatch.py, NCC 0.70-0.89; the lying death frames' match
 # is poor and their scale comes from the standing ones), and the body: marks to the lowest point over the design's
@@ -87,16 +88,16 @@ DEAD_FALL = 3                      # the index (0-based) of the in-between: dead
 # loop, and its fourth frame threw the cloth tail up over the hood (its HANDOFF): the loop is frames 1, 2, 3, 2 with
 # the marks held where ult 4 has them, LOOP_DY lower (he sinks into the crouch)
 LOOP_USE = [1, 2, 3, 2]
-LOOP_DY = 4
+LOOP_DY = 2
 # per-frame moves (squares) over Codex's placement: (dx, dy) - Codex drew attack 1 (the wind-up) 7.6 squares right of
 # the idle and attack 2 back over it (a jump each way), ult 1 (gathering) 4.4 right
-PLACE = {"attack_1": (-5, 0), "ult_1": (-3, 0)}
+PLACE = {"attack_1": (-3, 0), "ult_1": (-2, 0)}
 # the glide: Codex drew it drifting forward (the marks 11 to 30 squares ahead of the idle's, its hips 0 to 12): the marks
 # held RUN_LEAN squares ahead of the idle's - Codex's lean (marks to hips 12-18 squares, mean 14.2) with the hips' mean
 # over the standing point - and RUN_DY up, bobbing RUN_BOB (no sliding back and forth inside the loop)
-RUN_LEAN = 8.8
-RUN_DY = -1
-RUN_BOB = [0, -1, -2, -2, -1, 0]
+RUN_LEAN = 5.5
+RUN_DY = 0
+RUN_BOB = [0, -1, -1, -1, 0, 0]
 
 
 def design():
@@ -159,23 +160,23 @@ def cut(a, s, marks, at, pal):
     return can
 
 
-# the design's face opening under the marks: brow line, both eyes, the face cloth (design rows 11-13, cols 27-35)
-OPEN_ROWS, OPEN_COLS = (11, 14), (27, 36)
+# the design's face opening under the marks: brow line, both eyes, the face cloth (design rows 7-9, cols 17-21)
+OPEN_ROWS, OPEN_COLS = (7, 10), (17, 22)
 GLOW = [(245, 250, 251), (33, 145, 235)]       # the marks' and eyes' white and blue (the design's palette)
 
 
 def face(can, mc, mr, eyes=True):
     """One face: Codex's own glow round the head cleared (its eyes and marks drawn a square off the design's would read
-    as four eyes), then the design's marks (5 x 5 centred on (mc, mr)) and, where the head is upright, its face opening
+    as four eyes), then the design's marks (3 x 3 centred on (mc, mr)) and, where the head is upright, its face opening
     (brow, eyes, cloth) at the design's offsets. Tilted heads keep their own eyes: only the ring round the marks is
     cleared there."""
     d = design()
     dr, dc = mr - DESIGN_MARKS[1], mc - DESIGN_MARKS[0]
     clear = np.zeros(can.shape[:2], bool)
     if eyes:
-        clear[mr - 3:mr + (OPEN_ROWS[1] - DESIGN_MARKS[1]) + 2, mc - 7:mc + 7] = True
+        clear[mr - 2:mr + (OPEN_ROWS[1] - DESIGN_MARKS[1]) + 1, mc - 5:mc + 4] = True
     else:
-        clear[mr - 3:mr + 4, mc - 3:mc + 4] = True
+        clear[mr - 2:mr + 3, mc - 2:mc + 3] = True
     rgb = can[..., :3].astype(int)
     glow = np.zeros(clear.shape, bool)
     for g in GLOW:
@@ -183,8 +184,8 @@ def face(can, mc, mr, eyes=True):
     # the marks' ring: any square there that is neither the hood's magenta nor the outline is Codex's rim (light blue,
     # lilac, its grey-violet mix)
     ring = np.zeros(clear.shape, bool)
-    ring[mr - 3:mr + 4, mc - 3:mc + 4] = True
-    ring[mr - 2:mr + 3, mc - 2:mc + 3] = False
+    ring[mr - 2:mr + 3, mc - 2:mc + 3] = True
+    ring[mr - 1:mr + 2, mc - 1:mc + 2] = False
     hood = (rgb[..., 0] >= 100) & (rgb[..., 1] * 10 < rgb[..., 0] * 3)
     outline = rgb.sum(-1) < 70
     bad = clear & (can[..., 3] > 0) & (glow | (ring & ~hood & ~outline))
@@ -197,7 +198,7 @@ def face(can, mc, mr, eyes=True):
             can[y, x, :3] = cols[cnt.argmax()]
     for r, row in enumerate(D.MARKS):
         for c, ch in enumerate(row):
-            can[mr - 2 + r, mc - 2 + c, :3], can[mr - 2 + r, mc - 2 + c, 3] = D.FACE[ch], 255
+            can[mr - 1 + r, mc - 1 + c, :3], can[mr - 1 + r, mc - 1 + c, 3] = D.FACE[ch], 255
     if eyes:
         for r in range(*OPEN_ROWS):
             for c in range(*OPEN_COLS):
@@ -281,7 +282,7 @@ def frame(key, size, pal):
     mc, mr = int(np.floor(at_c + pdx)), int(np.floor(at_r + pdy))
     can = face(can, mc, mr, eyes=key not in FACE_SKIP)
     keep = np.zeros(can.shape[:2], bool)
-    keep[mr - 3:mr + 7, mc - 6:mc + 5] = True
+    keep[mr - 2:mr + 5, mc - 4:mc + 3] = True
     can = finish(can, keep)
     if tag == "dead":
         ys, xs = np.nonzero(can[..., 3] > 0)
@@ -308,7 +309,7 @@ def on_canvas(dx=0, dy=0):
 
 
 # the idle: the design floating - the whole figure a square up and back down (no part moves alone)
-IDLE = [(0, 160), (-1, 160), (-2, 200), (-1, 160)]
+IDLE = [(0, 160), (-1, 160), (-1, 200), (0, 160)]
 
 
 def idle_frames():
