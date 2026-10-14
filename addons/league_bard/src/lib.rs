@@ -63,10 +63,10 @@ pub const EVERY: usize = 3;
 pub const MARGIN: f64 = 4_000.0;
 /// 门的入口在墙前这么远（他站在门前，门贴着墙）。
 pub const ENTRY_BACK: f64 = 6_000.0;
-/// 他站在门前的 `e_wind` tick 之外，门的画面再多留几 tick。
-pub const PORTAL_LINGER: usize = 6;
-/// 出口门的画面留多久（tick）。
-pub const OUT_TICKS: usize = 24;
+/// 他在墙前的门前站多久才穿进去（tick）：门开、闪光，看得见（0.15 秒时门只开出一条线：「为什么还是没特效？」）。
+pub const STAND: usize = 24;
+/// 出了门他在出口门前站多久（tick），出口门开了再收。
+pub const OUT_STAND: usize = 24;
 /// 撤：落地后离最近的敌方英雄至少比现在远这么多。
 pub const ESCAPE_GAIN: f64 = 10_000.0;
 /// 撤：生命低于这个百分比、身边有敌方英雄就走。
@@ -598,20 +598,20 @@ impl Door {
     }
 
     /// 到了墙前：门在他身后贴着墙打开（buff 画面 `league_bard_e_doorb`，主包特效表的 `e_portal`：门的 2.5 倍，比他高出一大截），
-    /// `skill2_e` 动作、音效；`e_wind` tick 后穿过去。原生代码播的画面游戏里看不到（日志说播了，用户说看不出，剑魔锁链的教训），
+    /// `skill2_e` 动作、音效；他站 `STAND` tick 后穿过去。原生代码播的画面游戏里看不到（日志说播了，用户说看不出，剑魔锁链的教训），
     /// buff 画面是泰隆翻墙验证过的。
     fn open(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let tick = sim.tick();
         sim.entity_remove_buff(me, &bd("e_doorb"));
-        sim.add_buff(me, &BuffV1::timed(&bd("e_doorb"), self.p.e_wind + PORTAL_LINGER));
-        let mut cc = CcV1::of_kind(CcKindV1::Animation, self.p.e_anim as u64);
+        sim.add_buff(me, &BuffV1::timed(&bd("e_doorb"), STAND + 2));
+        let mut cc = CcV1::of_kind(CcKindV1::Animation, self.p.e_anim.max(STAND) as u64);
         cc.set_name("skill2_e");
         sim.apply_cc(me, &cc);
         let on_me = InputTargetV1::target(me);
         sim.play_sfx(&bd("e_cast"), me, &on_me);
         sim.play_sfx(&bd("vo_e"), me, &on_me);
         if let Some(p) = self.pending.as_mut() {
-            p.go_at = Some(tick + self.p.e_wind);
+            p.go_at = Some(tick + STAND);
         }
     }
 
@@ -732,7 +732,10 @@ impl StablePassive for Door {
                 if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
                     let on_me = InputTargetV1::target(me);
                     sim.entity_remove_buff(me, &bd("e_outb"));
-                    sim.add_buff(me, &BuffV1::timed(&bd("e_outb"), OUT_TICKS));
+                    sim.add_buff(me, &BuffV1::timed(&bd("e_outb"), OUT_STAND + 2));
+                    let mut cc = CcV1::of_kind(CcKindV1::Animation, OUT_STAND as u64);
+                    cc.set_name("skill2_e");
+                    sim.apply_cc(me, &cc);
                     sim.play_sfx(&bd("e_out"), me, &on_me);
                     self.haste(sim, me);
                 }
@@ -783,7 +786,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v4 (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v5 (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

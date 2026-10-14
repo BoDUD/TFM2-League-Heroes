@@ -340,13 +340,13 @@ def build(p):
                E("r_mark", BIG, -1, False), E("r_dome", BIG, 2, False), E("r_lock", BIG, 2, False),
                E("r_free", BIG, 2, False)]
     views_b = [P_("p_slow", FX, 1), P_("q_slow", FX, 1), P_("w_haste", FX, 1), P_("e_haste", FX, 1)]
-    if p["native"]:
-        # the add-on's door: buff pictures it adds (a picture played from native code never showed in game:
-        # 「开门的特效还是看不到」「你这个特效应该放在墙前面」) - the portal behind him at the wall's face, the exit behind him,
-        # the travel sparkles on an ally taken along
-        views_b += [{"type": "Animated", "name": n(k), "anim": a, "tag": t, "repeat": False, "z": z}
-                    for k, a, t, z in (("e_doorb", BIG, "e_portal", -1), ("e_outb", BIG, "e_portal_out", -1),
-                                       ("e_rideb", FX, "e_ride", 2))]
+    # the add-on's door: buff pictures it adds (a picture played from native code never showed in game:
+    # 「开门的特效还是看不到」「你这个特效应该放在墙前面」) - the portal behind him at the wall's face, the exit behind him,
+    # the travel sparkles on an ally taken along; bound in the main pack too (unused there) so a client reading the main
+    # pack's views finds them
+    views_b += [{"type": "Animated", "name": n(k), "anim": a, "tag": t, "repeat": False, "z": z}
+                for k, a, t, z in (("e_doorb", BIG, "e_portal", -1), ("e_outb", BIG, "e_portal_out", -1),
+                                   ("e_rideb", FX, "e_ride", 2))]
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_bard:door",
