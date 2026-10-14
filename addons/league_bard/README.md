@@ -17,7 +17,7 @@
 - `mod.override_info` 把主包的巴德换成 `override/` 里的副本（`make_override.py` 从主包生成，主包的巴德改了就重跑）：
   `tools/kit/build_bard.py` 的 `native=1`：技能 2 只剩圣坛；`passive` 挂本包的被动 `league_bard:door`（参数是参数表 P 里 E 的数字）；
   技能 2 的说明换成 `description.league_bard.skill2`（开头「【穿墙门】」），游戏里看说明就知道副本生效了没有。
-- 被动 `door`（`src/lib.rs`）：开门时挂冷却 `league_bard_e_cd`，他先飞到墙前的入口，门在他身后贴着墙打开：buff 画面 `league_bard_e_doorb`（主包特效表 `league_bard_big` 的 `e_portal`，门的 2.5 倍），他播 `skill2_e` 动作（`Animation` 控制把他定在门口）站 24 tick；然后他和队友一起穿墙强制位移到出口（期间 `ignore_wall`，每 tick 6000），队友身上 `league_bard_e_rideb`；到了出口门 `league_bard_e_outb`（`e_portal_out`）在他身后打开，再站 24 tick，都加速 40%。宿主没挪人时逐 tick 自己走一步（泰隆的做法）。门的画面挂成 buff，因为原生代码直接播的画面游戏里不显示：在他身上播的跟着他走、被他挡住，钉在地上的不动弹道和在地图点上播的画面接口都返回成功、游戏里却看不到（剑魔锁链附加包也是这样）；原生加的 buff 画面看得见（凯尔的翅膀、泰隆的弧线）。三个 buff 的画面在主包的巴德里也绑着（`view_buffs`，主包自己用不到，lint 报 WARN 是预期的）。
+- 被动 `door`（`src/lib.rs`）：开门时挂冷却 `league_bard_e_cd`，他先飞到墙前的入口，门在他身后贴着墙打开：buff 画面 `league_bard_e_doorb`（主包特效表 `league_bard_big` 的 `e_portal`，门的 2.5 倍），他播 `skill2_e` 动作（`Animation` 控制把他定在门口）站 24 tick；然后他和队友一起穿墙强制位移到出口（期间 `ignore_wall`，每 tick 6000），队友身上 `league_bard_e_rideb`；到了出口门 `league_bard_e_outb`（`e_portal_out`）在他身后打开，再站 24 tick，都加速 40%。宿主没挪人时逐 tick 自己走一步（泰隆的做法）。门的画面挂成 buff，因为原生代码直接播的画面游戏里不显示：在他身上播的跟着他走、被他挡住，钉在地上的不动弹道和在地图点上播的画面接口都返回成功、游戏里却看不到（剑魔锁链附加包也是这样）；原生加的 buff 画面看得见（凯尔的翅膀、泰隆的弧线）。（以上是游戏 0.6.3 的情况；0.6.4 起原生被动里播的画面和声音也会显示，开门、到达的声音现在听得到，门的画面仍是 buff。）三个 buff 的画面在主包的巴德里也绑着（`view_buffs`，主包自己用不到，lint 报 WARN 是预期的）。
   墙是卡蜜尔钩墙附加包的那份地图（`league_camille_wall/src/maps.rs`，5v5 地图 90 格，每格 32000）。
 - 测试：`cargo test -p league_bard`（含在真实 5v5 地图上逐点检查出口不碰墙）。
 
