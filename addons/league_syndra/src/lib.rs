@@ -269,6 +269,12 @@ impl Grab {
             self.held = None;
             return;
         }
+        if sim.get_entity(h.unit).is_some_and(|u| !u.is_targetable()) {
+            // banished in her hands (Bard's R...): game 0.6.4 does not move a banished unit, nor does she - let go
+            wlog(format!("{} the lifted {} was banished: let go", head(sim, me), who(sim, h.unit)));
+            self.held = None;
+            return;
+        }
         // the throw follows the target while it flies, as the data's lob lands where he stood at the release
         let k = tick.saturating_sub(h.start);
         if k <= self.p.w_rel && alive(sim, h.target) {

@@ -837,15 +837,25 @@ fn in_arena(sim: &StableSim<'_>, id: usize) -> bool {
     has_buff(sim, id, &camille("r_on"))
 }
 
-/// R 开始了：停掉正在进行的 E（拉人、挂墙、扑），不再排下一 tick。
-fn stop_for_ult(sim: &mut StableSim<'_>, caster: usize) -> bool {
-    if !in_ult(sim, caster) {
+/// 她被放逐了（不可选中：巴德的 R 之类，她自己的数据里没有不可选中）。游戏 0.6.4 起放逐中不能移动、不能出招。
+fn banished(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| e.is_alive() && !e.is_targetable())
+}
+
+/// R 开始了，或她被放逐了：停掉正在进行的 E（拉人、挂墙、扑），不再排下一 tick（放逐中本包逐步挪她，0.6.4 前宿主的强制
+/// 位移照样推着被放逐的人走，所以从没轮到本包；0.6.4 起宿主停下，本包也不能挪她、让她落地出伤害和眩晕）。
+fn stop_e(sim: &mut StableSim<'_>, caster: usize) -> bool {
+    let why = if in_ult(sim, caster) {
+        "her R started"
+    } else if banished(sim, caster) {
+        "she is banished"
+    } else {
         return false;
-    }
+    };
     for flag in [PULL, DASH, WAIT] {
         sim.entity_remove_buff(caster, flag);
     }
-    wlog(format!("{} E stopped: her R started", head(sim, caster)));
+    wlog(format!("{} E stopped: {why}", head(sim, caster)));
     true
 }
 
@@ -957,7 +967,8 @@ static MISSES: AtomicUsize = AtomicUsize::new(0);
 /// `vel`：被动量的敌方英雄速度（数据层的脉冲调用时没有，当他们站着不动）。
 fn decide(sim: &mut StableSim<'_>, caster: usize, escape: bool, vel: &Velocities) {
     let Some(here) = alive(sim, caster) else { return };
-    let busy = ["e_cd", "e_got"].iter().any(|f| has_buff(sim, caster, &camille(f))) || in_ult(sim, caster);
+    let busy = ["e_cd", "e_got"].iter().any(|f| has_buff(sim, caster, &camille(f))) || in_ult(sim, caster)
+        || banished(sim, caster);
     if busy || has_cc(sim, caster, &NO_CAST) {
         return;
     }
@@ -1091,7 +1102,7 @@ fn pull(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: bo
 /// 拉向墙的每一 tick：到了就挂在墙上，`CLING` tick 后接第二段。
 fn watch(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: bool) {
     let (Some(hook), Some(here)) = (input_pos(&input), alive(sim, caster)) else { return };
-    if stop_for_ult(sim, caster) {
+    if stop_e(sim, caster) {
         return;
     }
     let left = dist(here, hook);
@@ -1117,7 +1128,7 @@ fn watch(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: b
 /// 中间有墙的不扑；场上没有能扑的敌方英雄（或她被控住了）才从墙上落下。
 fn e2(sim: &mut StableSim<'_>, caster: usize) {
     let Some(here) = alive(sim, caster) else { return };
-    if stop_for_ult(sim, caster) {
+    if stop_e(sim, caster) {
         return;
     }
     sim.entity_remove_buff(caster, WAIT);
@@ -1161,7 +1172,7 @@ fn e2(sim: &mut StableSim<'_>, caster: usize) {
 /// 逃跑的第二段：从墙边朝远离敌人的方向冲开。
 fn flee(sim: &mut StableSim<'_>, caster: usize) {
     let Some(here) = alive(sim, caster) else { return };
-    if stop_for_ult(sim, caster) {
+    if stop_e(sim, caster) {
         return;
     }
     let us = units(sim);
@@ -1182,7 +1193,7 @@ fn flee(sim: &mut StableSim<'_>, caster: usize) {
 /// E2 / 逃跑第二段的每一 tick：到了就落地（突进）或结束（逃跑）。
 fn dash(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: bool) {
     let Some(here) = alive(sim, caster) else { return };
-    if stop_for_ult(sim, caster) {
+    if stop_e(sim, caster) {
         return;
     }
     let goal = if escape { input_pos(&input) } else { alive(sim, input.target_id) };

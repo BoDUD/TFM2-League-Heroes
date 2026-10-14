@@ -16,7 +16,7 @@
 //! - **结束**：时间到、他阵亡、或数据的大招拿掉了 `league_viego_p_on`（英雄联盟：放 R 回到本体）——拿掉外形和类别 buff，
 //!   挂 `league_viego_p_off` 让数据播回到本体的雾。
 //!
-//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形只在游戏 0.6.3 上（显示钩子核对函数开头），别的版本只有数据的黑雾。
+//! 原生代码只做判断和 buff；画面、伤害在数据里。整身外形只在游戏 0.6.4 上（显示钩子核对函数开头），别的版本只有数据的黑雾。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_viego_soul.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::fs::OpenOptions;
@@ -408,6 +408,8 @@ impl StablePassive for Possess {
         }
         // a soul he cannot reach but within soul_dash: he dashes onto it (League: he goes and takes the soul; the AI
         // never walked to one - the user's game had one soul, 56000 away, never taken: 「可能是地上没有魂」)
+        // not while he is banished (game 0.6.4: a banished unit neither moves nor acts)
+        let alive = alive && sim.get_entity(me).is_some_and(|e| e.is_targetable());
         if alive && now >= self.dash_until && self.reachable(mpos).is_none() {
             if let Some((pos, name)) = self.dashable(mpos).map(|s| (s.pos, s.name.clone())) {
                 let ticks = force_move(sim, me, (mpos.0 as f64, mpos.1 as f64), (pos.0 as f64, pos.1 as f64), DASH_SPEED);
@@ -432,7 +434,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.3) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,

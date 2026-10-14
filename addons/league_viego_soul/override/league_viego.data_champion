@@ -2906,14 +2906,6 @@
       "tag": "s_haste",
       "repeat": true,
       "z": 3
-    },
-    {
-      "type": "Animated",
-      "name": "league_viego_shape",
-      "anim": "asset/league/effects/league_viego_big",
-      "tag": "p_on",
-      "repeat": true,
-      "z": 3
     }
   ]
 }

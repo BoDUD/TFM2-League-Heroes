@@ -1,8 +1,8 @@
-//! 整身附身：附身时佛耶戈整个身体（站、跑、出招、挨打）画成被附身的那个英雄。只在游戏 0.6.3（Windows）上生效，别的版本
+//! 整身附身：附身时佛耶戈整个身体（站、跑、出招、挨打）画成被附身的那个英雄。只在游戏 0.6.4（Windows）上生效，别的版本
 //! 什么都不做，附身就只有数据里的亡魂黑雾。
 //!
 //! 和凯隐附加包（league_kayn_form/src/view.rs）挂在同一个地方：游戏的显示世界每帧调用显示处理表里的更新函数
-//! （rva 0x2808e30），函数指针在 .rdata 的槽 rva 0x3c31358 里。加载时核对函数开头 24 个字节，把槽换成本包的函数：先调用
+//! （rva 0x23312a0；0.6.3 时 0x2808e30），函数指针在 .rdata 的槽 rva 0x3c82db8 里（0.6.3 时 0x3c31358）。加载时核对函数开头 24 个字节，把槽换成本包的函数：先调用
 //! 槽里原来的函数（原版的，或先装好的凯隐附加包 / 变身前置，一个接一个），再走一遍显示世界的实体表（+0x138 的哈希表，每格
 //! 0x1d0 字节，值从 +8 开始）：值 +0x38 是英雄 id（String：+0x40 指针、+0x48 长度），**+0x50 / +0x58 / +0x60 是身体用哪套
 //! 图的资源名**（String），+0x68 / +0x70 / +0x78 是正在播的动画名，+0xb8 / +0xc0 是 buff 列表（每个 0x28 字节，名字指针 +8、
@@ -30,8 +30,8 @@ use std::sync::{Mutex, Once};
 use super::{souls, wlog, HERO, LOOK};
 use mod_api_stable::{StableClient, StableExtension};
 
-const FN_RVA: usize = 0x2808e30;
-const SLOT_RVA: usize = 0x3c31358;
+const FN_RVA: usize = 0x23312a0;
+const SLOT_RVA: usize = 0x3c82db8;
 /// push r15; push r14; push r13; push r12; push rsi; push rdi; push rbp; push rbx; sub rsp, 0x88; movdqa [rsp+..], xmm7
 const FN_HEAD: [u8; 24] = [0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x55, 0x53, 0x48, 0x81, 0xec, 0x88,
     0x00, 0x00, 0x00, 0x66, 0x0f, 0x7f, 0x7c, 0x24];
@@ -514,7 +514,7 @@ fn install() -> Result<(usize, usize), String> {
     }
     let func = module + FN_RVA;
     if read(func, FN_HEAD.len()).as_deref() != Some(&FN_HEAD[..]) {
-        return Err("not game 0.6.3 (the display handler differs)".into());
+        return Err("not game 0.6.4 (the display handler differs)".into());
     }
     let slot = module + SLOT_RVA;
     let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;

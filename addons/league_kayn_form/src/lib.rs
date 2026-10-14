@@ -409,7 +409,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:orbs"), Orbs::default());
     view::install_once();
-    host.log(LogLevel::Info, "league_kayn_form loaded (Kayn's Darkin Scythe as in League: melee/ranged hits, the form survives death, the whole body transforms on game 0.6.3).");
+    host.log(LogLevel::Info, "league_kayn_form loaded (Kayn's Darkin Scythe as in League: melee/ranged hits, the form survives death, the whole body transforms on game 0.6.4).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

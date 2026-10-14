@@ -1,8 +1,8 @@
 //! 完整变身：变身后凯隐站着、跑着、挨打、阵亡也是形态的样子（主包只能换出招的动作，游戏按名字自动播的
-//! idle / run / hit / dead 数据换不了）。只在游戏 0.6.3（Windows）上生效，别的版本什么都不做，退回半变身。
+//! idle / run / hit / dead 数据换不了）。只在游戏 0.6.4（Windows）上生效，别的版本什么都不做，退回半变身。
 //!
-//! 游戏的显示世界每帧调用一张显示处理表里的更新函数（rva 0x2808e30）：原版恶魔就在这里把正在播的动画名 run 换成
-//! archfiend_run（两套都在恶魔自己的图里）。函数指针在 .rdata 的槽 rva 0x3c31358 里（群里的变身前置
+//! 游戏的显示世界每帧调用一张显示处理表里的更新函数（rva 0x23312a0）：原版恶魔就在这里把正在播的动画名 run 换成
+//! archfiend_run（两套都在恶魔自己的图里）。函数指针在 .rdata 的槽 rva 0x3c82db8 里（群里的变身前置
 //! tfm2_transform_core 也挂在这里）。加载时核对函数开头 24 个字节，把槽换成本包的函数：先调用槽里原来的函数（原版的，
 //! 或先装好的变身前置），再走一遍显示世界的实体表（+0x138 的哈希表，每格 0x1d0 字节，值从 +8 开始）：
 //! 值 +0x38 是名字（String：+0x40 指针、+0x48 长度），+0x68 / +0x70 / +0x78 是正在播的动画名（String），
@@ -15,6 +15,8 @@
 //! 2026-10-08 先试过照 0.6.2 改名字的最后一个字母（league_kayd ……）：日志里换上了，战场上的身体没跟着换
 //! （「不行还是会变回来」）——0.6.3 画身体不再每帧按名字取图。
 //! 开发过程：0.6.2 侦察 mod v1–v8（2026-10-06）；0.6.3 探针 v9–v11 + 静态分析（2026-10-08，C:/tfm2/scratch/view_probe*）。
+//! 0.6.4（2026-10-14）：同一个函数（开头 48 字节和 0.6.3 一样）搬到 0x23312a0，槽在 0x3c82db8，实体表和值的字段没变
+//! （league_main/src/build.rs 的说明）；0.6.3 的地址（0x2808e30 / 0x3c31358）不再认。
 
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -22,9 +24,9 @@ use std::sync::{Mutex, Once};
 
 use super::{wlog, FORM_D, FORM_S};
 
-/// 显示处理表里的更新函数（0.6.3）和存它的槽。
-const FN_RVA: usize = 0x2808e30;
-const SLOT_RVA: usize = 0x3c31358;
+/// 显示处理表里的更新函数（0.6.4）和存它的槽。
+const FN_RVA: usize = 0x23312a0;
+const SLOT_RVA: usize = 0x3c82db8;
 /// push r15; push r14; push r13; push r12; push rsi; push rdi; push rbp; push rbx; sub rsp, 0x88; movdqa [rsp+..], xmm7
 const FN_HEAD: [u8; 24] = [0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x55, 0x53, 0x48, 0x81, 0xec, 0x88,
     0x00, 0x00, 0x00, 0x66, 0x0f, 0x7f, 0x7c, 0x24];
@@ -276,7 +278,7 @@ fn install() -> Result<(usize, usize), String> {
     }
     let func = module + FN_RVA;
     if read(func, FN_HEAD.len()).as_deref() != Some(&FN_HEAD[..]) {
-        return Err("not game 0.6.3 (the display handler differs)".into());
+        return Err("not game 0.6.4 (the display handler differs)".into());
     }
     let slot = module + SLOT_RVA;
     let cur = read(slot, 8).map(|b| usize::from_le_bytes(b.try_into().unwrap())).ok_or("the slot is unreadable")?;

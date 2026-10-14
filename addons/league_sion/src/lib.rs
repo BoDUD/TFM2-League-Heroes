@@ -183,6 +183,9 @@ struct Glory {
     /// 最后一个打他的（倒下时算击杀）。
     last_hit: Option<usize>,
     next_guard: usize,
+    /// 这条命里见过他 1 血以上：游戏 0.6.4 开局第 0 tick 读到的血量还是 0，那不是致命伤（每局第一条命都在 0 tick 变成亡灵、
+    /// 9 秒后倒下，用户：「塞恩有bug吧 开局血掉光？」）。
+    alive_seen: bool,
 }
 
 impl Glory {
@@ -253,6 +256,7 @@ impl StablePassive for Glory {
         self.zombie = None;
         self.last_hit = None;
         self.next_guard = 0;
+        self.alive_seen = false;
         self.stack_buff(sim, me);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
@@ -282,8 +286,11 @@ impl StablePassive for Glory {
         if !self.ready {
             return;
         }
+        if hp > 1 {
+            self.alive_seen = true;
+        }
         self.guard(sim, me, now);
-        if hp <= 1 {
+        if hp <= 1 && self.alive_seen {
             let list: Vec<(String, bool)> = buffs(sim, me).iter().map(|b| (b.name().to_string(), b.undying)).collect();
             if !other_undying(&list) {
                 self.rise(sim, me, now);
@@ -306,6 +313,18 @@ impl StablePassive for Glory {
                 wlog(format!("{} FURNACE #{k}: {} killed, max health +{} in all", head(sim, me), who(sim, victim),
                              self.stacks));
             }
+        }
+    }
+
+    /// 小兵、野怪的击杀（游戏 0.6.4 起才有这个回调；`on_kill` 只管英雄，所以之前附加包里打死小兵野怪一直没加生命）：
+    /// 照说明「每击杀一个单位 +`k_u`」。大小龙等史诗野怪奖励全队，两个回调都不触发。
+    fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
+        let camp = sim.get_entity(victim).and_then(|v| v.kind()) == Some(EntityKindV1::Jungle);
+        self.stacks += kill_hp(false, &self.p);
+        self.stack_buff(sim, me);
+        if let Some(k) = counted("unit") {
+            wlog(format!("{} FURNACE unit kill #{k} ({}): max health +{} in all", head(sim, me),
+                         if camp { "camp" } else { "minion" }, self.stacks));
         }
     }
 
