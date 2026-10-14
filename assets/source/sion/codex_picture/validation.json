@@ -1,0 +1,59 @@
+{
+  "A": {
+    "size": [
+      1536,
+      1024
+    ],
+    "logical_size": [
+      85,
+      56
+    ],
+    "opaque_colors": 24,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_exact": true,
+    "transparent_remainders": true,
+    "last_opaque_row": 52,
+    "eye_pixels_yx": [
+      [
+        13,
+        50
+      ],
+      [
+        13,
+        53
+      ]
+    ]
+  },
+  "B": {
+    "size": [
+      1536,
+      1024
+    ],
+    "logical_size": [
+      85,
+      56
+    ],
+    "opaque_colors": 24,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "grid_exact": true,
+    "transparent_remainders": true,
+    "last_opaque_row": 52,
+    "eye_pixels_yx": [
+      [
+        13,
+        50
+      ],
+      [
+        13,
+        53
+      ]
+    ]
+  },
+  "shared_pixels_outside_near_arm_and_axe_identical": true
+}
