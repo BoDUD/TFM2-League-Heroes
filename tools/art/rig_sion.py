@@ -87,7 +87,10 @@ MS = {
 }
 # frames still bigger than their neighbours after their tag's factor, by eye and measure (body_scale): Q's slam frame 1
 # came out 13 % over the charge it follows (both arms up, shoulders wider) - shrunk again by this much
-SCALE_FIX = {("skill", 1): 0.91}
+SCALE_FIX = {("skill", 1): 0.91,
+             # E's frame 2 stood on legs 5 rows long and a trim of them broke the axe beside them (the reviewer): the
+             # whole frame a size down instead
+             ("skill2", 2): 0.92}
 BREATH = [0, 1, 2, 2, 1, 0]
 IDLE_MS = 160
 # the design's legs (rows, columns; ends exclusive): under the belt (WALK_BAND), clear of the axe blade at the near
@@ -147,7 +150,7 @@ FIX = {
     ("attack", 2): [("legs", 109, 8), ("cloth", (92, 112, 114, 132)), ("ink", [(113, 130), (114, 130), (113, 119),
                                                                             (113, 120)])],
     # the haft came out of the crotch: a fist on it; the back lower leg set on the ground along its slope
-    ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3), ("stretch", 112, 127, 118, 4)],
+    ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3), ("stretch", 112, 126, 118, 4)],
     ("attack", 4): [("axe", (156, 113, 196, 141), None), ("lower", 3), ("stretch", 105, 125, 116, 3),
                     ("ring", (156, 118, 176, 137))],
     ("skill_charge", 1): [("stake",), ("slit", (123, 113, 130, 120)), ("axe", (24, 60, 53, 96), None)],
@@ -160,8 +163,7 @@ FIX = {
     ("skill2", 1): [("neck", 86, 91, 66), ("clear", (92, 68, 95, 73)), ("pauldron", 0, 0),
                     ("ink", [(91, 81), (91, 82), (92, 82), (93, 83)]), ("plates", (124, 95, 144, 101))],
     ("skill2", 2): [("neck", 91, 96, 62), ("clear", (97, 64, 100, 68)), ("pauldron", 0, 0),
-                    ("axe", (38, 112, 80, 141), None), ("legs", 112, 5), ("plates", (128, 96, 151, 102)),
-                    ("stretch", 69, 94, 120, 1)],
+                    ("plates", (128, 96, 151, 102)), ("lower", 2)],
     ("skill2", 3): [("stake",), ("lower", 1), ("slit", (87, 104, 99, 115)), ("slit", (82, 117, 89, 123)),
                     ("slit", (117, 80, 128, 87))],
     ("skill2", 4): [("stake",), ("lower", 1)],
@@ -174,7 +176,7 @@ FIX = {
                       ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)), ("ring", (40, 95, 58, 112))],
     # (the scaled frame, before ULT_SHIFT) Codex's wrap bits under the near armpit
     ("ult", 1): [("stake",), ("clear", (80, 97, 84, 100)), ("axe", (20, 102, 66, 130), None)],
-    ("ult_hit", 1): [("axe", (39, 106, 84, 126), None), ("legs", 111, 6)],
+    ("ult_hit", 1): [("axe", (39, 106, 84, 126), None, "ring"), ("legs", 111, 6)],
     ("ult_hit", 2): [("stake",), ("axe", (148, 117, 182, 141), None), ("lower", 1), ("ring", (145, 110, 162, 127))],
     # its blade keeps Codex's squares: lowered 6, the ground hides half of it, and the resized one cracked (the reviewer)
     ("ult_hit", 3): [("stake",), ("lower", 6), ("ring", (118, 114, 136, 136))],
@@ -555,6 +557,7 @@ def blade_of(a, box):
     skin = np.zeros(op.shape, bool)
     for c in SKIN_ONLY:
         skin |= op & (a[..., :3] == c).all(-1)
+    skin &= inb                         # a hand inside the box: a tight box keeps the blade's own steel
     near_skin = ndimage.binary_dilation(skin, structure=np.ones((3, 3)), iterations=2)
     steel = np.zeros(op.shape, bool)
     for c in BLADE:
@@ -780,7 +783,8 @@ def fixed(tag, pos, a, off):
         if op[0] == "axe":
             box = op[1]
             m, area = blade_of(a, box)
-            ring = ring_at(a, box) or op[2]
+            near = (box[0] - 4, box[1] - 16, box[2] + 4, box[3])          # the ring may sit just above a tight box
+            ring = ring_at(a, box) or ring_at(a, near) or op[2]
             ys, xs = np.nonzero(m)
             sub = np.zeros((ys.max() - ys.min() + 1, xs.max() - xs.min() + 1, 4), np.uint8)
             sub[ys - ys.min(), xs - xs.min()] = a[ys, xs]
@@ -791,7 +795,23 @@ def fixed(tag, pos, a, off):
                 sub, anchor = resampled(sub, s, anchor)
             a[m] = 0
             follow = len(op) > 3 and op[3] == "ring"
-            axe = (sub, anchor, (int(ys[i]), int(xs[i])), ring if follow and ring_at(a, box) else None, box)
+            axe = (sub, anchor, (int(ys[i]), int(xs[i])), ring if follow and ring_at(a, near) else None, near)
+        elif op[0] == "axehead":
+            # the whole axe head in boxes (steel, the socket, the haft's end; no skin), lifted before a trim and put
+            # back unscaled with the bone ring (the steel alone left the socket behind: a black wedge in the blade)
+            m = np.zeros((ROWS, COLS), bool)
+            for x0, y0, x1, y1 in op[1]:
+                m[y0:y1 + 1, x0:x1 + 1] = True
+            sk = np.zeros_like(m)
+            for c in SKIN_ONLY:
+                sk |= (a[..., 3] > 0) & (a[..., :3] == c).all(-1)
+            m &= (a[..., 3] > 0) & ~ndimage.binary_dilation(sk, iterations=1)
+            r0 = ring_at(a, op[2])
+            ys, xs = np.nonzero(m)
+            sub = np.zeros((ys.max() - ys.min() + 1, xs.max() - xs.min() + 1, 4), np.uint8)
+            sub[ys - ys.min(), xs - xs.min()] = a[ys, xs]
+            a[m] = 0
+            axe = (sub, (0, 0), (int(ys.min()), int(xs.min())), r0, op[2])
         elif op[0] == "clear":
             a = clear(a, op[1], head)
         elif op[0] == "stake":
