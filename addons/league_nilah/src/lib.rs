@@ -162,14 +162,17 @@ pub struct Seen {
     pub shield: usize,
 }
 
-/// 这 tick 涨了多少生命、多少护盾该加成（复活、最大生命变了、自然回血不算）。
+/// 这 tick 涨了多少生命、多少护盾该加成（复活、最大生命变了、自然回血不算）。一下涨的护盾比最大生命还多的不算：那是别的
+/// 英雄数据里的机制护盾（维克托、卡莎、凯尔、卡兹克、辛德拉、崔丝塔娜测等级 / 吸伤害用的 1000000 点、1 tick 的护盾；
+/// 2026-10-14 日志里给维克托补了 151537 点、3 秒，等于 3 秒无敌）。
 pub fn gains(before: Seen, now: Seen) -> (usize, usize) {
     if !before.alive || !now.alive || before.max != now.max {
         return (0, 0);
     }
     let heal = now.hp.saturating_sub(before.hp);
     let heal = if heal >= MIN_HEAL { heal } else { 0 };
-    (heal, now.shield.saturating_sub(before.shield))
+    let shield = now.shield.saturating_sub(before.shield);
+    (heal, if shield > now.max { 0 } else { shield })
 }
 
 /// 加成的量（按百分之一攒着零头，`rem` 是攒下的零头 x100）。
@@ -501,6 +504,9 @@ mod tests {
         assert_eq!(gains(s(false, 0, 1000, 0), s(true, 1000, 1000, 0)), (0, 0)); // respawn
         assert_eq!(gains(s(true, 500, 1000, 0), s(true, 590, 1090, 0)), (0, 0)); // level up
         assert_eq!(gains(s(true, 500, 1000, 50), s(true, 400, 1000, 20)), (0, 0)); // damage
+        // a kit's probe / soak shield (1000000 for a tick) is no shield to amplify
+        assert_eq!(gains(s(true, 900, 1000, 250), s(true, 900, 1000, 1_010_250)), (0, 0));
+        assert_eq!(gains(s(true, 900, 1000, 0), s(true, 900, 1000, 1000)), (0, 1000));
     }
 
     #[test]
