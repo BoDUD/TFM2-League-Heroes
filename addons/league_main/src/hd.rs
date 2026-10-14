@@ -23,6 +23,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_mordekaiser", 2.0, include_str!("../../../league/champions/league_mordekaiser#anim.fanim")),
     ("league_soraka", 2.2, include_str!("../../../league/champions/league_soraka#anim.fanim")),
     ("league_nidalee", 2.2, include_str!("../../../league/champions/league_nidalee#anim.fanim")),
+    ("league_galio", 1.65, include_str!("../../../league/champions/league_galio#anim.fanim")),
     ("league_nilah", 2.5, include_str!("../../../league/champions/league_nilah#anim.fanim")),
 ];
 
@@ -52,9 +53,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Soraka: 「稍微变大点」 -> 110% (her frames lifted 3 squares: tools/art/ppu_restyle.py RESTYLE soraka).
 /// Nilah: 「模型别太大 参考泽丽之前改过一版」 -> 90% from a size sheet (about 38 game rows with the blade's tip); her frames
 /// lowered 3 squares by the restyle (RESTYLE nilah lift_sq).
+/// Galio: PPU 2.0 at 85 % first (「这做的也太大了吧 缩小点模型」), then 「加里奥在局内看起来太小了」「而且在局内还是太高清了」 ->
+/// 100 % at PPU 1.5 (tools/art/rig_galio.py dense), picked from true-scale sheets; then 「在局内还是偏小啊」 (38 game px
+/// crown to soles, Darius 42) -> 110 % at PPU 1.65 (still 1.5 squares a game pixel), his dense frames drawn RAISE rows higher (rig_galio.py
+/// SIZE / RAISE).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.00),
-                                    ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_nilah", 0.90)];
+                                    ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90)];
 
 pub const PREFIX: &str = "hd_";
 

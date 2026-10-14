@@ -113,7 +113,7 @@ RESTYLE = {
     # then 「是整体这个模型看着很矮 很小 应该是像素没降够的原因」: coarser, 1.45 squares a game pixel (picked from a
     # preview); then back to 90 % (「感觉又太大了？」 - the 100 % came from a preview GIF that drew him at 80 %): his frames
     # sit 3.4 orig rows low for it = 2.5 of these squares -> 2 (soles 11.8 game px under the pivot; 3 put them at 11.2)
-    "gragas": dict(edge=0, ppu=1.45, lift_sq=2, face_to=(3, -35), shared_palette=True),
+    "gragas": dict(edge=0, ppu=1.45, lift_sq=2, face_to=(2, -40), shared_palette=True),
     # 「刀妹感觉是完美的不用改」, then 「刀妹在游戏里看着也太小了啊」 (「就用1.15」): drawn 15 % bigger by league.dll
     # (hd.rs SIZES 1.15), not resampled - the area resample darkened her navy hair and suit (「刀妹有点怪啊」); every frame
     # lifted 3 dense rows so the soles stay on the ground under the growth round the frame's centre (11.5 x 2 x

@@ -34,8 +34,9 @@ O = "<#ff9028ff>"      # names
 A = "<#ffb900ff>"      # durations, counts
 G = "<#7dd87dff>"      # heals, shields
 E = "<>"
-# champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 4, "y": -32}, "center": {"x": 0, "y": -12}}
+# champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28); the face is
+# where tools/art/ppu_restyle.py puts it for her 90 % frames (RESTYLE nilah face_to)
+VIEW = {"face": {"x": -1, "y": -36}, "center": {"x": 0, "y": -12}}
 
 
 def phys(k):
