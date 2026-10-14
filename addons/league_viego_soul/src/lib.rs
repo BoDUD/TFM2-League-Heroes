@@ -408,6 +408,8 @@ impl StablePassive for Possess {
         }
         // a soul he cannot reach but within soul_dash: he dashes onto it (League: he goes and takes the soul; the AI
         // never walked to one - the user's game had one soul, 56000 away, never taken: 「可能是地上没有魂」)
+        // not while he is banished (game 0.6.4: a banished unit neither moves nor acts)
+        let alive = alive && sim.get_entity(me).is_some_and(|e| e.is_targetable());
         if alive && now >= self.dash_until && self.reachable(mpos).is_none() {
             if let Some((pos, name)) = self.dashable(mpos).map(|s| (s.pos, s.name.clone())) {
                 let ticks = force_move(sim, me, (mpos.0 as f64, mpos.1 as f64), (pos.0 as f64, pos.1 as f64), DASH_SPEED);
