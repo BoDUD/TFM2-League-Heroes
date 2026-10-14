@@ -1,0 +1,273 @@
+{
+ "hero": "nilah",
+ "champ": "Nilah",
+ "camera": {
+  "yaw": 70,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "Idle1@0",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "Run@0",
+     115
+    ],
+    [
+     "Run@175",
+     115
+    ],
+    [
+     "Run@350",
+     115
+    ],
+    [
+     "Run@525",
+     115
+    ],
+    [
+     "Run@700",
+     115
+    ],
+    [
+     "Run@875",
+     115
+    ],
+    [
+     "Run@1050",
+     115
+    ],
+    [
+     "Run@1225",
+     115
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Idle1@0>Attack1a@0:0.6",
+     70
+    ],
+    [
+     "Attack1a@178",
+     70
+    ],
+    [
+     "Attack1b@44",
+     70
+    ],
+    [
+     "Attack1b@133",
+     90
+    ],
+    [
+     "Attack1c@300>Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "attack_q": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Idle1@0>Attack1_Emp_a@0:0.6",
+     70
+    ],
+    [
+     "Attack1_Emp_a@178",
+     70
+    ],
+    [
+     "Attack1_Emp_b@89",
+     70
+    ],
+    [
+     "Attack1_Emp_b@178",
+     90
+    ],
+    [
+     "Attack1_Emp_c@700>Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Idle1@0>Spell1a@0:0.6",
+     60
+    ],
+    [
+     "Spell1a@100",
+     60
+    ],
+    [
+     "Spell1b@33",
+     70
+    ],
+    [
+     "Spell1b@133",
+     100
+    ],
+    [
+     "Spell1c@200>Idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "q_spin": {
+   "lunge": 0.2,
+   "frames": [
+    [
+     "Attack1_Emp_c@0",
+     70
+    ],
+    [
+     "Attack1_Emp_c@200",
+     70
+    ],
+    [
+     "Attack1_Emp_c@400",
+     70
+    ],
+    [
+     "Attack1_Emp_c@600",
+     70
+    ],
+    [
+     "Attack1_Emp_c@780>Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "Spell3_Cast@72",
+     60
+    ],
+    [
+     "Spell3_Cast@289",
+     70
+    ],
+    [
+     "Spell3a@467",
+     80
+    ],
+    [
+     "Spell3a@583>Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "w_cast": {
+   "lunge": 0.2,
+   "frames": [
+    [
+     "Spell2@0",
+     60
+    ],
+    [
+     "Spell2@267",
+     80
+    ],
+    [
+     "Spell2@533",
+     80
+    ],
+    [
+     "Spell2@750>Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.2,
+   "frames": [
+    [
+     "Spell4@0",
+     125
+    ],
+    [
+     "Spell4@200",
+     125
+    ],
+    [
+     "Spell4@400",
+     125
+    ],
+    [
+     "Spell4@600",
+     125
+    ],
+    [
+     "Spell4@800",
+     125
+    ],
+    [
+     "Spell4@1000",
+     125
+    ],
+    [
+     "Spell4@1200",
+     125
+    ],
+    [
+     "Spell4@1500>Idle1@0:0.5",
+     125
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "Death@0",
+     120
+    ],
+    [
+     "Death@433",
+     120
+    ],
+    [
+     "Death@867",
+     150
+    ],
+    [
+     "Death@1300",
+     150
+    ],
+    [
+     "Death@1733",
+     200
+    ],
+    [
+     "Death@2400",
+     400
+    ]
+   ]
+  }
+ }
+}
