@@ -1,18 +1,22 @@
-//! 巴德附加包：「神奇旅程」的门开在墙外（用户：「巴德的传送别乱放啊 逻辑改一改」，选了「往己方后撤，不穿墙」）。
+//! 巴德附加包：「神奇旅程」什么时候开、往哪开都由本包决定（用户：「巴德的传送别乱放啊 逻辑改一改」「往己方后撤，不穿墙」，
+//! 然后「传送门还是有点怪 你也要用来追人啊 智能一点 现在一局比赛里放不出来几次都」）。
 //!
-//! 主包是纯数据：被近身时开门，巴德朝离最近的敌方英雄的反方向强制位移（MoveBack），身边的友方英雄被拉过去。引擎的强制位移
-//! 不管地图的墙，模拟里四成左右穿过野区的石头、落在石头里（2026-10-14），看着像乱传。
-//! `mod.override_info` 把主包的巴德换成 `override/` 里的副本（tools/kit/build_bard.py 的 native=1）：开门的时机、门、画面、
-//! 音效、加速都和主包一样，只是不再 MoveBack / 拉人，改由本包的被动 `league_bard:door` 送：
+//! 主包是纯数据：技能 2 被放出来、又正好被近身时才开门（一局没几次），朝最近敌人的反方向强制位移；引擎的强制位移不管地图的墙，
+//! 四成左右穿过野区的石头。`mod.override_info` 把主包的巴德换成 `override/` 里的副本（tools/kit/build_bard.py 的 native=1）：
+//! 技能 2 只剩圣坛，门全归本包的被动 `league_bard:door`。被动每 `EVERY` tick 看一次，门好了（他身上没有 `league_bard_e_cd`）、
+//! 他活着、没被控时：
+//! - **撤**（`wants_out`）：生命低于 `LOW_HP`% 而 `e_near` 内有敌方英雄；或 `e_close` 内有敌方英雄；或 `e_near` 内敌方英雄
+//!   2 名以上、比身边的友方英雄多——背向身边敌人的中心（左右 `SPREAD_DEG`°），落地后离敌人最远、朝己方最近的塔走得多
+//!   （`plan_exit`）；
+//! - **追**（`plan_chase`）：`CHASE_NEAR`..`e_chase_r` 远、生命不高于 `PREY_HP`% 的敌方英雄（最残的先），他自己生命不低于
+//!   `CHASE_HP`%——朝目标左右 `CHASE_DEG`° 内开门，落点比现在近 `CLOSER` 以上、离目标不近于 `KEEP`，落点旁除了目标最多一名
+//!   敌方英雄。
+//! 出口都在 `e_min`..`e_far` 内，一路和落点都不碰墙格（卡蜜尔钩墙附加包的地图），离地图边至少 `EDGE`。
 //!
-//! 数据开门 `e_wind` tick 后给他一个 `league_bard_e_go` 标记，被动看到就找出口：
-//! - 方向：背向身边敌方英雄的中心（`e_near` 的 1.5 倍内；一个都没有就朝己方最近的塔），左右 `SPREAD_DEG` 度内 `RAYS` 条射线；
-//! - 每条射线从 `e_far` 往回缩到 `e_min`（步长 `RETRY`），取第一个能用的点：在地图里、离地图边至少 `EDGE`、不在墙格里，
-//!   而且直线一路不穿墙；
-//! - 选落地后离最近的敌方英雄最远、又朝己方最近的塔走得多（`HOME_W` 权重）的那一个；都不行就不动（门照开，加速照给）。
-//!
-//! 巴德用 `e_tick` tick 强制位移过去（和数据里出口门、加速的时刻对齐）；开门时离他 `e_ride` 内的友方英雄跟着走同样的位移，
-//! 他们的落点不行就落到巴德的出口旁，再不行就不带。宿主没挪人（撞墙停了）时逐 tick 自己走一步（`entity_set_pos`，泰隆的做法）。
+//! 开门：冷却 `e_cd_t`、`skill2_e` 动作 `e_anim` tick、门的画面 `league_bard_e_door`（播在他身上；数据里不跟随，留在原地）、
+//! 音效；`e_wind` tick 后他和门边 `e_ride` 内的友方英雄一起在 `e_tick` tick 内强制位移过去（队友同样的位移，那里有墙就落在
+//! 他出口旁，再不行就不带）；到了播出口门 `league_bard_e_door_out` 和队友身上的 `league_bard_e_ride`，都加速 `e_ms`%
+//! `e_ms_t` tick（主包的 `league_bard_e_haste`，画面也是主包的）。宿主没挪人时逐 tick 自己走一步（`entity_set_pos`，泰隆的做法）。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局变量，服务端预模拟和你看的那场各算各的。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_bard.log`，每次启动游戏重写。
@@ -51,6 +55,24 @@ pub const EDGE: f64 = 8_000.0;
 pub const HOME_W: f64 = 0.5;
 /// 队友落不到同样位移处时，落在巴德出口旁这么远。
 pub const BESIDE: f64 = 6_000.0;
+/// 每隔几 tick 看一次。
+pub const EVERY: usize = 3;
+/// 撤：生命低于这个百分比、身边有敌方英雄就走。
+pub const LOW_HP: usize = 45;
+/// 追：朝目标左右这么多度内。
+pub const CHASE_DEG: f64 = 35.0;
+/// 追：比这近不开门（普攻够得着）。
+pub const CHASE_NEAR: f64 = 45_000.0;
+/// 追：落点要比现在近这么多。
+pub const CLOSER: f64 = 20_000.0;
+/// 追：落点离目标至少这么远（不落在他脸上）。
+pub const KEEP: f64 = 15_000.0;
+/// 追：目标生命不高于这个百分比。
+pub const PREY_HP: usize = 50;
+/// 追：巴德生命不低于这个百分比。
+pub const CHASE_HP: usize = 40;
+/// 追：落点这么远内（除目标外）最多一名敌方英雄。
+pub const CROWD_R: f64 = 30_000.0;
 
 // ===================== 日志 =====================
 
@@ -111,16 +133,36 @@ fn pt(p: (f64, f64)) -> String {
 /// 主包参数表 P 里本包用到的数字（`passive.params`，全是非负整数）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Params {
+    pub e_cd_t: usize,
+    pub e_wind: usize,
+    pub e_anim: usize,
     pub e_tick: usize,
     pub e_far: usize,
     pub e_min: usize,
     pub e_ride: usize,
     pub e_near: usize,
+    pub e_close: usize,
+    pub e_ms: usize,
+    pub e_ms_t: usize,
+    pub e_chase_r: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { e_tick: 15, e_far: 60_000, e_min: 30_000, e_ride: 25_000, e_near: 30_000 }
+        Self {
+            e_cd_t: 960,
+            e_wind: 9,
+            e_anim: 24,
+            e_tick: 15,
+            e_far: 60_000,
+            e_min: 30_000,
+            e_ride: 25_000,
+            e_near: 30_000,
+            e_close: 15_000,
+            e_ms: 40,
+            e_ms_t: 120,
+            e_chase_r: 100_000,
+        }
     }
 }
 
@@ -133,11 +175,18 @@ pub fn parse_params(json: &str) -> Params {
         let k = k.trim().trim_matches('"');
         let Ok(v) = v.trim().parse::<usize>() else { continue };
         let slot = match k {
+            "e_cd_t" => &mut p.e_cd_t,
+            "e_wind" => &mut p.e_wind,
+            "e_anim" => &mut p.e_anim,
             "e_tick" => &mut p.e_tick,
             "e_far" => &mut p.e_far,
             "e_min" => &mut p.e_min,
             "e_ride" => &mut p.e_ride,
             "e_near" => &mut p.e_near,
+            "e_close" => &mut p.e_close,
+            "e_ms" => &mut p.e_ms,
+            "e_ms_t" => &mut p.e_ms_t,
+            "e_chase_r" => &mut p.e_chase_r,
             _ => continue,
         };
         *slot = v;
@@ -268,6 +317,71 @@ pub fn ride_exit(g: &Grid, me: (f64, f64), to: (f64, f64), ally: (f64, f64)) -> 
     [Some(same), side, Some(to)].into_iter().flatten().find(|&q| g.clear(ally, q))
 }
 
+// ===================== 什么时候开 =====================
+
+/// 一个敌方英雄：位置、生命百分比、id。
+#[derive(Clone, Copy, Debug)]
+pub struct Foe {
+    pub at: (f64, f64),
+    pub hp_pct: usize,
+    pub id: usize,
+}
+
+/// 该撤了吗：残血而身边有敌方英雄；敌方英雄贴脸；或身边敌方英雄 2 名以上、比身边的友方英雄（`allies` 个，不算他）多。
+pub fn wants_out(p: &Params, me: (f64, f64), hp_pct: usize, foes: &[Foe], allies: usize) -> bool {
+    let near = foes.iter().filter(|f| dist(me, f.at) <= p.e_near as f64).count();
+    let close = foes.iter().any(|f| dist(me, f.at) <= p.e_close as f64);
+    (hp_pct < LOW_HP && near >= 1) || close || (near >= 2 && near > allies + 1)
+}
+
+/// 追：远处残血的敌方英雄（最残的先），朝他开门，落点近了 `CLOSER` 以上、离他不近于 `KEEP`、旁边不是人堆。
+pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[Foe]) -> Option<((f64, f64), usize)> {
+    if hp_pct < CHASE_HP {
+        return None;
+    }
+    let mut prey: Vec<&Foe> = foes
+        .iter()
+        .filter(|f| {
+            let d = dist(me, f.at);
+            f.hp_pct <= PREY_HP && d > CHASE_NEAR && d <= p.e_chase_r as f64
+        })
+        .collect();
+    prey.sort_by_key(|f| f.hp_pct);
+    let cos = CHASE_DEG.to_radians().cos();
+    let far = p.e_far as f64;
+    let min = (p.e_min as f64).min(far);
+    for t in prey {
+        let Some(toward) = unit((t.at.0 - me.0, t.at.1 - me.1)) else { continue };
+        let now = dist(me, t.at);
+        let best = (0..RAYS)
+            .map(|i| {
+                let a = i as f64 * std::f64::consts::TAU / RAYS as f64;
+                (a.cos(), a.sin())
+            })
+            .filter(|d| d.0 * toward.0 + d.1 * toward.1 >= cos)
+            .flat_map(|d| {
+                let mut out = Vec::new();
+                let mut s = far;
+                while s >= min {
+                    out.push((me.0 + d.0 * s, me.1 + d.1 * s));
+                    s -= RETRY;
+                }
+                out
+            })
+            .filter(|&to| g.clear(me, to))
+            .filter(|&to| {
+                let d = dist(to, t.at);
+                d + CLOSER <= now && d >= KEEP
+            })
+            .filter(|&to| foes.iter().filter(|f| f.id != t.id && dist(to, f.at) <= CROWD_R).count() <= 1)
+            .min_by(|a, b| dist(*a, t.at).total_cmp(&dist(*b, t.at)));
+        if let Some(to) = best {
+            return Some((to, t.id));
+        }
+    }
+    None
+}
+
 // ===================== 小工具 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -283,6 +397,32 @@ fn pos(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
 
 // ===================== 被动 =====================
 
+fn has_cc(sim: &StableSim<'_>, id: usize, kinds: &[CcKindV1]) -> bool {
+    sim.get_entity(id).is_some_and(|e| {
+        (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind)))
+    })
+}
+
+/// 不能开门的状态：硬控、沉默、禁位移技能、正被强制位移（泰隆附加包的那张表）。
+const NO_DOOR: [CcKindV1; 9] = [
+    CcKindV1::Airborne,
+    CcKindV1::Stun,
+    CcKindV1::Bind,
+    CcKindV1::Taunt,
+    CcKindV1::Fear,
+    CcKindV1::Charm,
+    CcKindV1::BlockSkill,
+    CcKindV1::BlockMoveSkill,
+    CcKindV1::ForceMove,
+];
+
+fn hp_pct(sim: &StableSim<'_>, id: usize) -> usize {
+    sim.get_entity(id).map_or(100, |e| {
+        let (hp, max) = e.hp();
+        hp * 100 / max.max(1)
+    })
+}
+
 /// 一段正在走的路：谁、去哪、上一 tick 在哪（看宿主有没有挪他）、走到第几 tick 为止、每 tick 走多远。
 #[derive(Clone, Debug)]
 struct Trip {
@@ -293,17 +433,28 @@ struct Trip {
     step: f64,
 }
 
-/// 每个巴德一份：参数、正在走的路、上次开门的 tick（一个 3-tick 的标记只送一次）。
+/// 开了门、还没走的一趟：第几 tick 出发、去哪、带谁（id、他自己的落点）、是撤还是追。
+#[derive(Clone, Debug)]
+struct Pending {
+    at: usize,
+    to: (f64, f64),
+    riders: Vec<(usize, (f64, f64))>,
+    why: String,
+}
+
+/// 每个巴德一份：参数、开了门待走的一趟、正在走的路、到达的时刻（出口门和加速）、开门次数。
 #[derive(Clone, Default)]
 struct Door {
     p: Params,
+    pending: Option<Pending>,
     trips: Vec<Trip>,
-    opened: Option<usize>,
+    arrive: Option<(usize, Vec<usize>)>,
     doors: usize,
 }
 
 impl Door {
-    fn send(&mut self, sim: &mut StableSim<'_>, id: usize, from: (f64, f64), to: (f64, f64)) {
+    fn send(&mut self, sim: &mut StableSim<'_>, id: usize, to: (f64, f64)) {
+        let Some(from) = pos(sim, id) else { return };
         let ticks = self.p.e_tick.max(1);
         let d = dist(from, to);
         let mut mv = CcV1::of_kind(CcKindV1::ForceMove, ticks as u64);
@@ -314,11 +465,20 @@ impl Door {
         self.trips.push(Trip { id, goal: to, last: from, until: sim.tick() + ticks + 2, step: d / ticks as f64 });
     }
 
-    fn open(&mut self, sim: &mut StableSim<'_>, me: usize, here: (f64, f64)) {
+    fn haste(&self, sim: &mut StableSim<'_>, id: usize) {
+        let name = bd("e_haste");
+        sim.entity_remove_buff(id, &name);
+        let mut b = BuffV1::timed(&name, self.p.e_ms_t);
+        b.move_speed_mult = self.p.e_ms as i32;
+        sim.add_buff(id, &b);
+    }
+
+    /// 看局面：撤或追，挑好出口就开门（动作、门、音效、冷却），`e_wind` tick 后出发。
+    fn decide(&mut self, sim: &mut StableSim<'_>, me: usize, here: (f64, f64)) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         let mut champs = Vec::new();
         let mut foes = Vec::new();
-        let mut riders = Vec::new();
+        let mut friends = Vec::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if !u.is_champion() || !u.is_alive() {
@@ -329,12 +489,15 @@ impl Door {
             champs.push(at);
             if u.team() != team {
                 if u.is_targetable() {
-                    foes.push(at);
+                    let (hp, max) = u.hp();
+                    foes.push(Foe { at, hp_pct: hp * 100 / max.max(1), id: u.id() });
                 }
-            } else if u.id() != me && u.is_targetable() && dist(here, at) <= self.p.e_ride as f64 {
-                riders.push((u.id(), at));
+            } else if u.id() != me && u.is_targetable() {
+                friends.push((u.id(), at));
             }
         }
+        let allies = friends.iter().filter(|(_, a)| dist(here, *a) <= self.p.e_near as f64).count();
+        let mine = hp_pct(sim, me);
         let home = (0..sim.tower_count())
             .filter_map(|k| sim.get_entity(sim.tower_id_at(k)))
             .filter(|t| t.team() == team && t.is_alive())
@@ -346,28 +509,58 @@ impl Door {
         let grids = Grid::builtin();
         let Some(gi) = current(&grids, &champs) else { return };
         let g = &grids[gi];
-        self.doors += 1;
-        let Some(to) = plan_exit(&self.p, g, here, &foes, home) else {
-            wlog(format!("{} DOOR #{}: no exit clear of rock from {} (map {gi}): he stays", head(sim, me), self.doors, pt(here)));
-            return;
+        let plan = if wants_out(&self.p, here, mine, &foes, allies) {
+            plan_exit(&self.p, g, here, &foes.iter().map(|f| f.at).collect::<Vec<_>>(), home).map(|to| (to, "out".to_string()))
+        } else {
+            plan_chase(&self.p, g, here, mine, &foes).map(|(to, id)| (to, format!("after #{id}")))
         };
-        self.send(sim, me, here, to);
+        let Some((to, why)) = plan else { return };
+        let riders = friends
+            .iter()
+            .filter(|(_, a)| dist(here, *a) <= self.p.e_ride as f64)
+            .filter_map(|&(id, a)| ride_exit(g, here, to, a).map(|q| (id, q)))
+            .collect();
+        let tick = sim.tick();
+        sim.entity_remove_buff(me, &bd("e_cd"));
+        sim.add_buff(me, &BuffV1::timed(&bd("e_cd"), self.p.e_cd_t));
+        let mut cc = CcV1::of_kind(CcKindV1::Animation, self.p.e_anim as u64);
+        cc.set_name("skill2_e");
+        sim.apply_cc(me, &cc);
+        let on_me = InputTargetV1::target(me);
+        sim.play_view_effect(&bd("e_door"), me, &on_me, 0, 0, 0);
+        sim.play_sfx(&bd("e_cast"), me, &on_me);
+        sim.play_sfx(&bd("vo_e"), me, &on_me);
+        self.doors += 1;
+        self.pending = Some(Pending { at: tick + self.p.e_wind, to, riders, why });
+    }
+
+    /// 出发：他和带上的队友一起走；记下到达的时刻。
+    fn go(&mut self, sim: &mut StableSim<'_>, me: usize, here: (f64, f64), plan: Pending) {
+        if !g_clear_now(sim, here, plan.to) {
+            wlog(format!("{} DOOR #{}: the way to {} is no longer clear, he stays", head(sim, me), self.doors, pt(plan.to)));
+            return;
+        }
+        self.send(sim, me, plan.to);
         let mut taken = Vec::new();
-        for (id, at) in riders {
-            if let Some(q) = ride_exit(g, here, to, at) {
-                self.send(sim, id, at, q);
-                taken.push(format!("#{id} {}->{}", pt(at), pt(q)));
+        let mut ids = Vec::new();
+        for (id, q) in plan.riders {
+            if sim.get_entity(id).is_some_and(|e| e.is_alive() && e.is_targetable()) {
+                self.send(sim, id, q);
+                taken.push(format!("#{id}->{}", pt(q)));
+                ids.push(id);
             }
         }
-        if self.doors <= 60 || self.doors % 25 == 0 {
+        self.arrive = Some((sim.tick() + self.p.e_tick, ids));
+        if self.doors <= 80 || self.doors % 25 == 0 {
             wlog(format!(
-                "{} DOOR #{}: {} -> {} ({:.0}, map {gi}, home {}), allies [{}]",
+                "{} DOOR #{} {}: {} -> {} ({:.0}), hp {}%, allies [{}]",
                 head(sim, me),
                 self.doors,
+                plan.why,
                 pt(here),
-                pt(to),
-                dist(here, to),
-                home.map_or("-".to_string(), pt),
+                pt(plan.to),
+                dist(here, plan.to),
+                hp_pct(sim, me),
                 taken.join(", ")
             ));
         }
@@ -397,6 +590,21 @@ impl Door {
     }
 }
 
+/// 出发那一刻再看一次路（门开着的几 tick 里他可能被推开了）。
+fn g_clear_now(sim: &StableSim<'_>, here: (f64, f64), to: (f64, f64)) -> bool {
+    let mut champs = Vec::new();
+    for i in 0..sim.entity_count() {
+        if let Some(u) = sim.entity_at(i) {
+            if u.is_champion() && u.is_alive() {
+                let (x, y) = u.pos();
+                champs.push((x as f64, y as f64));
+            }
+        }
+    }
+    let grids = Grid::builtin();
+    current(&grids, &champs).is_some_and(|gi| grids[gi].clear(here, to))
+}
+
 impl StablePassive for Door {
     fn clone_box(&self) -> Box<dyn StablePassive> {
         Box::new(self.clone())
@@ -407,8 +615,9 @@ impl StablePassive for Door {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.pending = None;
         self.trips.clear();
-        self.opened = None;
+        self.arrive = None;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Bard (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
@@ -417,22 +626,47 @@ impl StablePassive for Door {
         if !self.trips.is_empty() {
             self.follow(sim);
         }
-        let Some(e) = sim.get_entity(me) else { return };
-        if !e.is_alive() {
-            return;
-        }
         let tick = sim.tick();
-        if !has_buff(sim, me, &bd("e_go")) || self.opened.is_some_and(|t| tick <= t + 4) {
+        if let Some((at, ids)) = self.arrive.clone() {
+            if tick >= at {
+                self.arrive = None;
+                if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
+                    let on_me = InputTargetV1::target(me);
+                    sim.play_view_effect(&bd("e_door_out"), me, &on_me, 0, 0, 0);
+                    sim.play_sfx(&bd("e_out"), me, &on_me);
+                    self.haste(sim, me);
+                }
+                for id in ids {
+                    if sim.get_entity(id).is_some_and(|e| e.is_alive()) {
+                        sim.play_view_effect(&bd("e_ride"), me, &InputTargetV1::target(id), 0, 0, 0);
+                        self.haste(sim, id);
+                    }
+                }
+            }
+        }
+        let Some(e) = sim.get_entity(me) else { return };
+        if !e.is_alive() || !e.is_targetable() {
+            self.pending = None;
             return;
         }
-        self.opened = Some(tick);
-        if let Some(here) = pos(sim, me) {
-            self.open(sim, me, here);
+        let Some(here) = pos(sim, me) else { return };
+        if let Some(plan) = self.pending.clone() {
+            if tick >= plan.at {
+                self.pending = None;
+                self.go(sim, me, here, plan);
+            }
+            return;
         }
+        if tick % EVERY != 0 || !self.trips.is_empty() || has_buff(sim, me, &bd("e_cd")) || has_cc(sim, me, &NO_DOOR) {
+            return;
+        }
+        self.decide(sim, me, here);
     }
 
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
+        self.pending = None;
         self.trips.clear();
+        self.arrive = None;
     }
 }
 
@@ -571,8 +805,58 @@ mod tests {
         assert_eq!(Grid::builtin()[0].walls(), 90);
     }
 
+    fn foe(p: (f64, f64), hp_pct: usize, id: usize) -> Foe {
+        Foe { at: p, hp_pct, id }
+    }
+
+    #[test]
+    fn when_he_leaves() {
+        let p = Params::default();
+        let me = at(5.0, 5.0);
+        // hurt with one near; one right on him; two near and he alone
+        assert!(wants_out(&p, me, 30, &[foe(at(5.8, 5.0), 100, 1)], 0));
+        assert!(wants_out(&p, me, 100, &[foe(at(5.3, 5.0), 100, 1)], 3));
+        assert!(wants_out(&p, me, 100, &[foe(at(5.8, 5.0), 100, 1), foe(at(5.0, 5.8), 100, 2)], 0));
+        // healthy with one at arm's length, or two near and allies with him: he stays
+        assert!(!wants_out(&p, me, 100, &[foe(at(5.8, 5.0), 100, 1)], 0));
+        assert!(!wants_out(&p, me, 100, &[foe(at(5.8, 5.0), 100, 1), foe(at(5.0, 5.8), 100, 2)], 2));
+    }
+
+    #[test]
+    fn he_chases_a_hurt_champion_through_his_door() {
+        let p = Params::default();
+        let g = Grid::from_rows(&vec![".........."; 10]);
+        let me = at(2.0, 5.0);
+        let prey = foe(at(5.0, 5.0), 30, 7);
+        let (to, id) = plan_chase(&p, &g, me, 80, &[prey]).unwrap();
+        assert_eq!(id, 7);
+        assert!(dist(to, prey.at) + CLOSER <= dist(me, prey.at) && dist(to, prey.at) >= KEEP, "{to:?}");
+        // healthy target, or Bard hurt, or already close: no door
+        assert!(plan_chase(&p, &g, me, 80, &[foe(at(5.0, 5.0), 90, 7)]).is_none());
+        assert!(plan_chase(&p, &g, me, 20, &[prey]).is_none());
+        assert!(plan_chase(&p, &g, me, 80, &[foe(at(3.0, 5.0), 30, 7)]).is_none());
+        // not into a crowd: wherever it lands, at most one enemy but the prey within CROWD_R
+        let crowd = [prey, foe(at(4.2, 5.0), 100, 8), foe(at(4.2, 4.6), 100, 9), foe(at(4.2, 5.4), 100, 10)];
+        if let Some((to, _)) = plan_chase(&p, &g, me, 80, &crowd) {
+            assert!(crowd[1..].iter().filter(|f| dist(to, f.at) <= CROWD_R).count() <= 1, "{to:?}");
+        }
+    }
+
+    #[test]
+    fn a_chase_never_crosses_a_wall() {
+        let p = Params::default();
+        let g = wall();
+        // the prey behind the wall: the door goes round it or not at all, never through
+        let me = at(3.5, 4.5);
+        if let Some((to, _)) = plan_chase(&p, &g, me, 80, &[foe(at(7.0, 4.5), 30, 7)]) {
+            assert!(g.clear(me, to), "{to:?}");
+        }
+    }
+
     #[test]
     fn the_names_fit() {
-        assert!(bd("e_go").len() <= BUFF_NAME_CAP);
+        for x in ["e_cd", "e_haste", "e_door", "e_door_out", "e_ride"] {
+            assert!(bd(x).len() <= BUFF_NAME_CAP);
+        }
     }
 }

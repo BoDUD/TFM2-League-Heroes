@@ -74,7 +74,7 @@ P = {
     "e_cd_t": 960, "e_near": 30000, "e_close": 15000, "e_steps": [10000, 20000, 30000], "e_wind": 9, "e_speed": 4000, "e_tick": 15, "e_ride": 25000,
     "e_pull": 5000, "e_pull_t": 40, "e_ghost": 0, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
     # 1 = the copy for addons/league_bard: its passive picks the door's exit on the map's walls (e_min..e_far away)
-    "native": 0, "e_far": 60000, "e_min": 30000,
+    "native": 0, "e_far": 60000, "e_min": 30000, "e_chase_r": 100000,
     # ult: R Tempered Fate (League: 3400 range, radius 350, 0.5 s cast + flight, stasis 2.5 s; cd 110-80 s)
     "r_cd": 3600, "r_arm": 900, "r_arm_range": 90000, "r_range": 80000, "r_need": 2, "r_anim": 29, "r_lag": 15,
     "r_travel": 24,
@@ -321,8 +321,10 @@ def build(p):
     count = combine(*rm("e_n1", "e_n2"),
                     around(p["e_near"], "EnemyChampion", [sw("e_n1", flag("e_n2", 1), flag("e_n1", 1))]),
                     pick(p["e_close"], "EnemyChampion", flag("e_n2", 1)))
+    # the add-on's copy: E is all the passive's (when to open the door - away when dived, after a hurt champion - and
+    # where), skill2 is the shrine only
     skill2 = action("skill2", p["w_dur"], p["w_cd"], p["w_st"], p["w_range"], "Targeting", "EnemyChampion", flat(combine(
-        r_check, sw("e_cd", w, combine(count, sw("e_n2", e, w), *rm("e_n1", "e_n2"))))))
+        r_check, w if p["native"] else sw("e_cd", w, combine(count, sw("e_n2", e, w), *rm("e_n1", "e_n2"))))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=1, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -338,7 +340,8 @@ def build(p):
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_bard:door",
-                            "params": {k: p[k] for k in ("e_tick", "e_far", "e_min", "e_ride", "e_near")}}
+                            "params": {k: p[k] for k in ("e_cd_t", "e_wind", "e_anim", "e_tick", "e_far", "e_min", "e_ride",
+                                                         "e_near", "e_close", "e_ms", "e_ms_t", "e_chase_r")}}
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

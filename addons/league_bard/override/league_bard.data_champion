@@ -11,11 +11,18 @@
   "passive": {
     "passive_ref": "league_bard:door",
     "params": {
+      "e_cd_t": 960,
+      "e_wind": 9,
+      "e_anim": 24,
       "e_tick": 15,
       "e_far": 60000,
       "e_min": 30000,
       "e_ride": 25000,
-      "e_near": 30000
+      "e_near": 30000,
+      "e_close": 15000,
+      "e_ms": 40,
+      "e_ms_t": 120,
+      "e_chase_r": 100000
     }
   },
   "sprite": "asset/league/champions/league_bard",
@@ -1821,381 +1828,175 @@
           }
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_bard_e_cd",
-          "effect_buff": {
-            "type": "Delayed",
-            "tick": 9,
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_w_got"
-              },
-              {
-                "type": "Sfx",
-                "name": "league_bard_w_cast"
-              },
-              {
-                "type": "Sfx",
-                "name": "league_bard_vo_w"
-              },
-              {
-                "type": "RandomTarget",
-                "range": 50000,
-                "casting_target": "AllyChampionInCC",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_bard_w_got",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_bard_w_got"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_bard_w_cast"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_bard_vo_w"
+            },
+            {
+              "type": "RandomTarget",
+              "range": 50000,
+              "casting_target": "AllyChampionInCC",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_bard_w_got",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
                       }
-                    },
-                    "only_to_enemy": false
+                    }
                   },
-                  {
-                    "type": "TargetProjectile",
-                    "name": "league_bard_w_shrine",
-                    "speed": 4000,
-                    "y_offset": -2000,
-                    "applied_target": "AllyChampion",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Heal",
-                          "amount": 140,
-                          "attack_ratio": 0,
-                          "ap_ratio": 60,
-                          "heal_type": "Ally"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "AddBuff",
-                          "buff_state": {
-                            "name": "league_bard_w_haste",
-                            "duration": {
-                              "Time": {
-                                "tick": 90
-                              }
-                            },
-                            "move_speed_mult": 30
-                          }
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "ViewEffect",
-                          "name": "league_bard_w_land"
-                        }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "TargetSfx",
-                          "name": "league_bard_w_heal"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_bard_w_got",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
+                  "only_to_enemy": false
                 },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
+                {
+                  "type": "TargetProjectile",
+                  "name": "league_bard_w_shrine",
+                  "speed": 4000,
+                  "y_offset": -2000,
+                  "applied_target": "AllyChampion",
+                  "applied_effects": [
                     {
-                      "type": "RandomTarget",
-                      "range": 50000,
-                      "casting_target": "AllyNotSelf",
-                      "from_projectile": false,
-                      "effects": [
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_bard_w_got",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "TargetProjectile",
-                          "name": "league_bard_w_shrine",
-                          "speed": 4000,
-                          "y_offset": -2000,
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Heal",
-                                "amount": 140,
-                                "attack_ratio": 0,
-                                "ap_ratio": 60,
-                                "heal_type": "Ally"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "AddBuff",
-                                "buff_state": {
-                                  "name": "league_bard_w_haste",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 90
-                                    }
-                                  },
-                                  "move_speed_mult": 30
-                                }
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ViewEffect",
-                                "name": "league_bard_w_land"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "TargetSfx",
-                                "name": "league_bard_w_heal"
-                              }
-                            }
-                          ]
-                        }
-                      ]
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Heal",
+                        "amount": 140,
+                        "attack_ratio": 0,
+                        "ap_ratio": 60,
+                        "heal_type": "Ally"
+                      }
                     },
                     {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_bard_w_got",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
-                      },
-                      "effect_none": {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 1000
-                          }
-                        },
-                        "target": "AllyOnlySelf",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Heal",
-                            "amount": 140,
-                            "attack_ratio": 0,
-                            "ap_ratio": 60,
-                            "heal_type": "Caster"
-                          },
-                          {
-                            "type": "AddBuff",
-                            "buff_state": {
-                              "name": "league_bard_w_haste",
-                              "duration": {
-                                "Time": {
-                                  "tick": 90
-                                }
-                              },
-                              "move_speed_mult": 30
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_bard_w_haste",
+                          "duration": {
+                            "Time": {
+                              "tick": 90
                             }
                           },
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_bard_w_land"
-                          },
-                          {
-                            "type": "Sfx",
-                            "name": "league_bard_w_heal"
-                          }
-                        ]
+                          "move_speed_mult": 30
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_bard_w_land"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_bard_w_heal"
                       }
                     }
                   ]
                 }
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_e_n1"
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_bard_w_got",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
               },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_e_n2"
-              },
-              {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 30000
-                  }
-                },
-                "target": "EnemyChampion",
-                "apply_type": "AroundCaster",
+              "effect_none": {
+                "type": "Combine",
                 "effects": [
                   {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_bard_e_n1",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_bard_e_n2",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_bard_e_n1",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "RandomTarget",
-                "range": 15000,
-                "casting_target": "EnemyChampion",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_bard_e_n2",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_bard_e_n2",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_bard_e_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 960
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "CasterAnimation",
-                      "name": "skill2_e",
-                      "tick": 24
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_bard_e_cast"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_bard_vo_e"
-                    },
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_bard_e_door"
-                    },
-                    {
-                      "type": "RangeEffect",
-                      "shape": {
-                        "Circle": {
-                          "radius": 25000
-                        }
-                      },
-                      "target": "AllyNotSelf",
-                      "apply_type": "AroundCaster",
-                      "effects": [
-                        {
-                          "type": "AddBuff",
-                          "buff_state": {
-                            "name": "league_bard_e_haste",
-                            "duration": {
-                              "Time": {
-                                "tick": 120
-                              }
-                            },
-                            "move_speed_mult": 40
+                    "type": "RandomTarget",
+                    "range": 50000,
+                    "casting_target": "AllyNotSelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_bard_w_got",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
                           }
                         },
-                        {
-                          "type": "Delayed",
-                          "tick": 24,
-                          "effects": [
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_bard_e_ride"
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_bard_w_shrine",
+                        "speed": 4000,
+                        "y_offset": -2000,
+                        "applied_target": "AllyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Heal",
+                              "amount": 140,
+                              "attack_ratio": 0,
+                              "ap_ratio": 60,
+                              "heal_type": "Ally"
                             }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Delayed",
-                      "tick": 9,
-                      "effects": [
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_bard_e_go",
-                            "duration": {
-                              "Time": {
-                                "tick": 3
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_bard_w_haste",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 90
+                                  }
+                                },
+                                "move_speed_mult": 30
                               }
                             }
                           },
-                          "only_to_enemy": false
-                        }
-                      ]
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_bard_w_land"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "league_bard_w_heal"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_bard_w_got",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
                     },
-                    {
+                    "effect_none": {
                       "type": "RangeEffect",
                       "shape": {
                         "Circle": {
@@ -2206,260 +2007,39 @@
                       "apply_type": "AroundCaster",
                       "effects": [
                         {
+                          "type": "Heal",
+                          "amount": 140,
+                          "attack_ratio": 0,
+                          "ap_ratio": 60,
+                          "heal_type": "Caster"
+                        },
+                        {
                           "type": "AddBuff",
                           "buff_state": {
-                            "name": "league_bard_e_haste",
+                            "name": "league_bard_w_haste",
                             "duration": {
                               "Time": {
-                                "tick": 120
+                                "tick": 90
                               }
                             },
-                            "move_speed_mult": 40
+                            "move_speed_mult": 30
                           }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Delayed",
-                      "tick": 24,
-                      "effects": [
+                        },
                         {
-                          "type": "CasterViewEffect",
-                          "name": "league_bard_e_door_out"
+                          "type": "ViewEffect",
+                          "name": "league_bard_w_land"
                         },
                         {
                           "type": "Sfx",
-                          "name": "league_bard_e_out"
+                          "name": "league_bard_w_heal"
                         }
                       ]
                     }
-                  ]
-                },
-                "effect_none": {
-                  "type": "Delayed",
-                  "tick": 9,
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_bard_w_got"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_bard_w_cast"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_bard_vo_w"
-                    },
-                    {
-                      "type": "RandomTarget",
-                      "range": 50000,
-                      "casting_target": "AllyChampionInCC",
-                      "from_projectile": false,
-                      "effects": [
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_bard_w_got",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "TargetProjectile",
-                          "name": "league_bard_w_shrine",
-                          "speed": 4000,
-                          "y_offset": -2000,
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Heal",
-                                "amount": 140,
-                                "attack_ratio": 0,
-                                "ap_ratio": 60,
-                                "heal_type": "Ally"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "AddBuff",
-                                "buff_state": {
-                                  "name": "league_bard_w_haste",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 90
-                                    }
-                                  },
-                                  "move_speed_mult": 30
-                                }
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ViewEffect",
-                                "name": "league_bard_w_land"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "TargetSfx",
-                                "name": "league_bard_w_heal"
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_bard_w_got",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RandomTarget",
-                            "range": 50000,
-                            "casting_target": "AllyNotSelf",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_bard_w_got",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 1
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              },
-                              {
-                                "type": "TargetProjectile",
-                                "name": "league_bard_w_shrine",
-                                "speed": 4000,
-                                "y_offset": -2000,
-                                "applied_target": "AllyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Heal",
-                                      "amount": 140,
-                                      "attack_ratio": 0,
-                                      "ap_ratio": 60,
-                                      "heal_type": "Ally"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_bard_w_haste",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 90
-                                          }
-                                        },
-                                        "move_speed_mult": 30
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_bard_w_land"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_bard_w_heal"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_bard_w_got",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "RangeEffect",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 1000
-                                }
-                              },
-                              "target": "AllyOnlySelf",
-                              "apply_type": "AroundCaster",
-                              "effects": [
-                                {
-                                  "type": "Heal",
-                                  "amount": 140,
-                                  "attack_ratio": 0,
-                                  "ap_ratio": 60,
-                                  "heal_type": "Caster"
-                                },
-                                {
-                                  "type": "AddBuff",
-                                  "buff_state": {
-                                    "name": "league_bard_w_haste",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 90
-                                      }
-                                    },
-                                    "move_speed_mult": 30
-                                  }
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "league_bard_w_land"
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_bard_w_heal"
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_e_n1"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_e_n2"
+                  }
+                ]
               }
-            ]
-          }
+            }
+          ]
         }
       ]
     }
