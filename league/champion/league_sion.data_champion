@@ -346,7 +346,7 @@
                         "name": "league_sion_q_slam",
                         "width": 10000,
                         "length": 50000,
-                        "delay": 12,
+                        "delay": 31,
                         "apply": 1,
                         "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
@@ -1024,6 +1024,14 @@
       "tag": "q_warn",
       "repeat": true,
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_sion_q_slam",
+      "anim": "asset/league/effects/league_sion_big",
+      "tag": "q_slam",
+      "repeat": false,
+      "z": -1
     }
   ],
   "view_effects": [
@@ -1096,7 +1104,7 @@
     {
       "type": "Animated",
       "name": "league_sion_w_sh",
-      "anim": "asset/league/effects/league_sion_fx",
+      "anim": "asset/league/effects/league_sion_big",
       "tag": "w_sh",
       "repeat": true,
       "z": 3
@@ -1104,10 +1112,10 @@
     {
       "type": "Animated",
       "name": "league_sion_r_go",
-      "anim": "asset/league/effects/league_sion_fx",
+      "anim": "asset/league/effects/league_sion_big",
       "tag": "r_go",
       "repeat": true,
-      "z": 3
+      "z": -1
     },
     {
       "type": "Animated",
@@ -1120,7 +1128,7 @@
     {
       "type": "Animated",
       "name": "league_sion_p_zombie",
-      "anim": "asset/league/effects/league_sion_fx",
+      "anim": "asset/league/effects/league_sion_big",
       "tag": "p_zombie",
       "repeat": true,
       "z": 3

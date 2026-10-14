@@ -265,7 +265,7 @@ def build(p):
     breaks = [delayed(t, pick(1, "AllyChampionInCC", *rm("q_ch"))) for t in range(p["q_brk"], p["q_ch"], p["q_brk"])]
     slam = combine(*rm("q_ch"), anim("skill", p["q_rel"]),
                    delayed(p["q_hit"], sfx("q_hit"),
-                           band("q_slam", p["q_w"], p["q_len"], 12, 1, "EnemyWithoutTower",
+                           band("q_slam", p["q_w"], p["q_len"], 31, 1, "EnemyWithoutTower",
                                 [attack(p["q_dmg"], p["q_ratio"]), {"type": "Airborne", "duration": p["q_up"]},
                                  view("q_hit")])))
     skill = action("skill", p["q_ch"] + p["q_rel"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower",
@@ -314,10 +314,14 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    views_p = [P_("e_roar"), P_("q_warn", BIG, -1)]
+    # Q's line while he charges (looped) and its smash cracking along it once (its band lasts the picture's 500 ms;
+    # it hits on its first tick all the same), both on the ground
+    views_p = [P_("e_roar"), P_("q_warn", BIG, -1),
+               {"type": "Animated", "name": n("q_slam"), "anim": BIG, "tag": "q_slam", "repeat": False, "z": -1}]
     views_e = [E("a_hit"), E("k_soul", FX, 3), E("q_hit"), E("e_hit"), E("w_burst", BIG, 2, False), E("w_hit"),
                E("r_hit"), E("r_crash", BIG, 2, False)]
-    views_b = [B_("w_sh", FX, 3), B_("r_go", FX, 3), B_("e_shred", FX, 3), B_("p_zombie", FX, 3)]
+    # the shield and the zombie's fire round him over him (their middles bare), the charge's glow under him
+    views_b = [B_("w_sh", BIG, 3), B_("r_go", BIG, -1), B_("e_shred", FX, 3), B_("p_zombie", BIG, 3)]
     kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
