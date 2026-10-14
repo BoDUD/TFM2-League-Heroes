@@ -4,9 +4,10 @@
 
 Codex drew take 3 (assets/source/smolder/codex_model/raw/smolder-front-attempt-03.png) on ~12-px squares, not the
 16-px grid asked: horn tips to soles 75 of its squares, 1:1 that is PPU 2.3 at 32 game rows. The user kept PPU 1.5
-(「PPU 1.5」 after a density sheet where the 1.5 cut's face was mush), so the figure comes down to 48 rows:
+(「PPU 1.5」 after a density sheet where the 1.5 cut's face was mush), so the figure comes down to 41 rows (48 first,
+then 「感觉太大 得缩小一点」 and 85 % from dist/smolder_packs/review/smolder_sizes.png):
   1. read 1:1 on its own grid (regrid.py), hard alpha at 128, its own 32 k-means colours, one majority pass (own());
-  2. brought to 48 rows horn tips -> soles by AREA VOTES, not means (a mean mixes neighbours into muddy new colours):
+  2. brought to 41 rows horn tips -> soles by AREA VOTES, not means (a mean mixes neighbours into muddy new colours):
      each new square takes the commonest drawn colour it covers, the near-black one where dark covers 40 % or more,
      clear where half or more is clear; the grid sits on the soles and the figure's middle column;
   3. the face redrawn by hand (FACE: the near eye 7 x 5 with rim, white, teal iris, pupil and a highlight; the far
@@ -36,23 +37,23 @@ from design_smolder_cut import kmeans_palette  # noqa: E402
 
 SRC = os.path.join(REPO, "assets", "source", "smolder")
 TAKE = os.path.join(SRC, "codex_model", "raw", "smolder-front-attempt-03.png")
-ROWS = 48                    # horn tips -> soles (32 game rows at PPU 1.5)
+ROWS = 41                    # horn tips -> soles: 48 (32 game rows) shown first, the user: 「感觉太大 得缩小一点」 -> 85 %
 PPU = 1.5
 L = string.ascii_letters + string.digits
 # hand edits after the vote: (row, first column, letters of the vote's own colour table)
 FACE = [
-    (13, 44, "zgggggu"),      # near eye: rim
-    (14, 44, "gvvjcvgu"),     #   white, teal iris, pupil, highlight
-    (15, 44, "gvvjccgu"),
-    (16, 44, "ugvjjigu"),
-    (17, 44, "uugggguA"),     #   lower rim
-    (12, 56, "ugggu"),        # far eye by the head's edge
-    (13, 56, "gvjcu"),
-    (14, 56, "gvjcu"),
-    (15, 56, "ugiju"),
-    (18, 50, "gAAAAAAAAg"),   # the grin's corners
-    (19, 51, "gggggggg"),     #   its line
-    (20, 51, "zzvppvAA"),     #   two teeth, the open mouth between
+    (11, 35, "zugggggu"),     # near eye: rim
+    (12, 36, "gvvjvjg"),      #   white, teal iris, a highlight over the pupil
+    (13, 36, "gvvjcjg"),      #   the pupil
+    (14, 36, "ugvjjig"),
+    (15, 37, "uggggu"),       #   lower rim
+    (10, 47, "ugggu"),        # far eye by the head's edge
+    (11, 47, "gvjcu"),
+    (12, 47, "gvjcu"),
+    (13, 47, "ugiju"),
+    (15, 43, "gAAAAAAg"),     # the grin's corners
+    (16, 43, "zggggggu"),     #   its line
+    (17, 44, "zvppvu"),       #   two teeth, the open mouth between
 ]
 
 
