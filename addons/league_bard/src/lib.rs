@@ -481,7 +481,9 @@ fn hp_pct(sim: &StableSim<'_>, id: usize) -> usize {
 /// 门的画面钉在地上的一点：一个不动的弹道（主包副本的 `view_projectiles` 里 `e_door_p` / `e_out_p`，帧是门的帧），朝右
 /// （画面不转）、几乎不动地飞 `ticks` 世界单位，`ticks` tick 后到点消失。原生代码在单位身上播的画面会跟着他走，门画在
 /// 他身后（z -1）就整个被挡住了（用户：「巴德传送门的特效看不到啊」）；弹道的画面是卡蜜尔钩子、库奇导弹验证过的。
-fn door_pic(sim: &mut StableSim<'_>, me: usize, name: &str, at: (f64, f64), ticks: usize) {
+/// 同一处还按地图坐标播一次门的 `view` 画面（原生画面播在地图上的点：每次不同的点都画，魔腾附加包的经验；同一点只画第一次）。
+/// 两样都画出来也只是同一张门叠在同一处。返回 (弹道生成了吗, 坐标画面播了吗)，日志里看哪样管用。
+fn door_pic(sim: &mut StableSim<'_>, me: usize, name: &str, view: &str, at: (f64, f64), ticks: usize) -> (bool, bool) {
     let team = sim.get_entity(me).map_or(0, |e| e.team());
     let (x, y) = (at.0.round().max(0.0) as u64, at.1.round().max(0.0) as u64);
     let spec = ProjectileSpawnV1 {
@@ -500,9 +502,12 @@ fn door_pic(sim: &mut StableSim<'_>, me: usize, name: &str, at: (f64, f64), tick
         casting_type: CastingTypeV1::Position.code(),
         casting_target: CastingTargetV1::None.code(),
     };
-    if !sim.spawn_projectile(&bd(name), &format!("{ID}:noop"), &spec) {
+    let flew = sim.spawn_projectile(&bd(name), &format!("{ID}:noop"), &spec);
+    if !flew {
         wlog(format!("{} spawn_projectile({name}) refused", head(sim, me)));
     }
+    let shown = sim.play_view_effect(&bd(view), me, &InputTargetV1::pos(x, y), 0, 0, 0);
+    (flew, shown)
 }
 
 /// 门的画面播多久（tick，门的帧 520 ms）。
@@ -626,7 +631,10 @@ impl Door {
         cc.set_name("skill2_e");
         sim.apply_cc(me, &cc);
         let on_me = InputTargetV1::target(me);
-        door_pic(sim, me, "e_door_p", here, DOOR_TICKS);
+        let (flew, shown) = door_pic(sim, me, "e_door_p", "e_door", here, DOOR_TICKS);
+        if self.doors < 10 {
+            wlog(format!("{} DOOR picture at {}: projectile {flew}, view at the point {shown}", head(sim, me), pt(here)));
+        }
         sim.play_sfx(&bd("e_cast"), me, &on_me);
         sim.play_sfx(&bd("vo_e"), me, &on_me);
         self.doors += 1;
@@ -732,7 +740,7 @@ impl StablePassive for Door {
                 if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
                     let on_me = InputTargetV1::target(me);
                     if let Some(here) = pos(sim, me) {
-                        door_pic(sim, me, "e_out_p", here, DOOR_TICKS);
+                        door_pic(sim, me, "e_out_p", "e_door_out", here, DOOR_TICKS);
                     }
                     sim.play_sfx(&bd("e_out"), me, &on_me);
                     self.haste(sim, me);
@@ -779,7 +787,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v2 (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v3 (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
