@@ -719,7 +719,7 @@
         "name": "玛尔扎哈",
         "attack": "射出虚空弹。被动<#ff9028ff>虚空穿越<>：获得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<>护盾，护盾存在时<#ef5350ff>免疫控制<>；护盾被打破后<#ffb900ff>12秒<>重新获得。",
         "skill": "<#ff9028ff>煞星幻象<>：<#ffb900ff>4秒<>内造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，目标死亡时跳到附近的敌人身上。<#ff9028ff>虚空虫群<>随之撕咬目标，每<#ffb900ff>0.5秒<>造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法伤害<>。",
-        "skill2": "在目标两侧打开虚空裂隙，裂隙合拢时对范围内的敌人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>并<#ef5350ff>沉默1.5秒<>。",
+        "skill2": "在目标两侧打开虚空裂隙，裂隙合拢时对范围内的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并<#ef5350ff>沉默1.5秒<>。",
         "ult": "压制一名敌方英雄（优先煞星幻象的目标）：引导期间使其<#ef5350ff>眩晕<>，<#ffb900ff>2.5秒<>内造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，脚下留下持续伤害的虚空区域。玛尔扎哈被控制时引导中断。"
       }
     },
@@ -1961,7 +1961,7 @@
         "name": "馬爾札哈",
         "attack": "射出虛空彈。被動<#ff9028ff>虛空象限<>：獲得<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<>護盾，護盾存在時<#ef5350ff>免疫控場<>；護盾被打破後<#ffb900ff>12秒<>重新獲得。",
         "skill": "<#ff9028ff>煞星幻象<>：<#ffb900ff>4秒<>內造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，目標死亡時跳到附近的敵人身上。<#ff9028ff>召喚虛靈<>隨之撕咬目標，每<#ffb900ff>0.5秒<>造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<><#a974ffff>魔法傷害<>。",
-        "skill2": "在目標兩側打開虛空裂隙，裂隙合攏時對範圍內的敵人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>並<#ef5350ff>沉默1.5秒<>。",
+        "skill2": "在目標兩側打開虛空裂隙，裂隙合攏時對範圍內的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並<#ef5350ff>沉默1.5秒<>。",
         "ult": "壓制一名敵方英雄（優先煞星幻象的目標）：引導期間使其<#ef5350ff>暈眩<>，<#ffb900ff>2.5秒<>內造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，腳下留下持續傷害的虛空區域。馬爾札哈被控場時引導中斷。"
       }
     },
@@ -3203,7 +3203,7 @@
         "name": "Malzahar",
         "attack": "Fires a void bolt. Passive <#ff9028ff>Void Shift<>: a <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<> shield; while it holds he is <#ef5350ff>immune to crowd control<>. Broken, it returns after <#ffb900ff>12s<>.",
         "skill": "<#ff9028ff>Malefic Visions<>: deals <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> over <#ffb900ff>4s<>; if the target dies, the vision jumps to a nearby enemy. <#ff9028ff>Void Swarm<>: voidlings bite the target, <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>magic damage<> every <#ffb900ff>0.5s<>.",
-        "skill2": "Opens two void rifts beside the target; as they close, enemies in the area take <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<> and are <#ef5350ff>silenced for 1.5s<>.",
+        "skill2": "Opens two void rifts beside the target; as they close, enemies in the area take <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and are <#ef5350ff>silenced for 1.5s<>.",
         "ult": "Suppresses an enemy champion (the vision's target first): <#ef5350ff>stunned<> while he channels, it takes <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> over <#ffb900ff>2.5s<> and leaves a damaging void zone. Crowd control on Malzahar ends the channel."
       }
     },
@@ -4445,7 +4445,7 @@
         "name": "말자하",
         "attack": "공허의 화살을 쏩니다. 기본 지속 효과 <#ff9028ff>공허 태세<>: <#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<> 보호막, 유지되는 동안 <#ef5350ff>군중 제어 면역<>. 깨지면 <#ffb900ff>12초<> 후 다시 생깁니다.",
         "skill": "<#ff9028ff>재앙의 환상<>: <#ffb900ff>4초<>에 걸쳐 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 대상이 죽으면 근처 적에게 옮겨갑니다. <#ff9028ff>공허의 무리<>: 공허충이 대상을 물어 <#ffb900ff>0.5초<>마다 <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<> <#a974ffff>마법 피해<>.",
-        "skill2": "대상 양옆에 공허의 균열을 열고, 닫힐 때 범위 안 적에게 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1.5초 침묵<>.",
+        "skill2": "대상 양옆에 공허의 균열을 열고, 닫힐 때 범위 안 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1.5초 침묵<>.",
         "ult": "적 챔피언 하나를 제압합니다(재앙의 환상 대상 우선): 정신 집중 동안 <#ef5350ff>기절<>, <#ffb900ff>2.5초<>에 걸쳐 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>, 발밑에 공허 지대를 남깁니다. 말자하가 군중 제어되면 끊깁니다."
       }
     },
@@ -5687,7 +5687,7 @@
         "name": "マルザハール",
         "attack": "ヴォイドの弾を放つ。自動効果<#ff9028ff>ヴォイドシフト<>：<#ffb900ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#ffb900ff>40%<>のシールド、ある間は<#ef5350ff>行動妨害無効<>。破られると<#ffb900ff>12秒<>後に再び得る。",
         "skill": "<#ff9028ff>虚性侵蝕<>：<#ffb900ff>4秒<>かけて<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、対象が倒れると近くの敵に移る。<#ff9028ff>ヴォイドスワーム<>：ヴォイドリングが対象に噛みつき<#ffb900ff>0.5秒<>ごとに<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>。",
-        "skill2": "対象の両側にヴォイドの裂け目を開き、閉じる時に範囲内の敵に<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.5秒サイレンス<>。",
+        "skill2": "対象の両側にヴォイドの裂け目を開き、閉じる時に範囲内の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.5秒サイレンス<>。",
         "ult": "敵チャンピオン1体をサプレッション（虚性侵蝕の対象を優先）：詠唱中<#ef5350ff>スタン<>、<#ffb900ff>2.5秒<>かけて<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、足元にヴォイドの領域を残す。行動妨害で中断。"
       }
     },

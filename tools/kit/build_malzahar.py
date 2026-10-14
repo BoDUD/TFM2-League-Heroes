@@ -50,7 +50,11 @@ FX = "asset/league/effects/league_malzahar_fx"
 BIG = "asset/league/effects/league_malzahar_big"
 
 # Timing: placeholders until the strips exist (Bard's / Syndra's lengths); retimed from the frames later.
-# Numbers = draft d0: the pack's mid mages (league_syndra: hp 860 +92, atk 76 +7, ap 40 +20, def 18, mr 20).
+# Numbers: the pack's mid mages' stats (league_syndra: hp 860 +92, atk 76 +7, ap 40 +20, def 18, mr 20); candidate d1 of
+# the 10-min classic-SDK simulations (Temp/mz_sim, sim/kd.py --lane 2 against the five base mages, both sides, 3
+# lineups, 2026-10-14): +1.27 on seeds 1-24, +1.50 on seeds 25-48 (league_syndra +1.62 / +1.53, league_viktor +1.27 /
+# +1.68, league_xerath +1.51 / +1.04, league_annie +1.54 / +1.32). The draft d0 (Q 85 + 55%) was +2.69 / +2.24; E and
+# the voidlings cut instead (d3: E 140 + 65%, bites 11 + 6%) +1.51 / +1.02, both cut (d4) +0.48 on 12 seeds.
 P = {
     # stats
     "hp": 860, "hp_g": 92, "atk": 76, "atk_g": 7, "ap": 40, "ap_g": 20, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
@@ -70,7 +74,7 @@ P = {
     "w_t": 240, "w_p": 30, "w_dmg": 14, "w_ap": 8,
     # skill2: Q Call of the Void (League: 900, 70-245 + 55% AP, silence 1-2.25 s, cd 6 s)
     "q_cd": 420, "q_range": 80000, "q_dur": 26, "q_st": 1, "q_wind": 10, "q_lag": 24, "q_r": 18000,
-    "q_dmg": 85, "q_ap": 55, "q_sil": 90, "q_combo": 120,
+    "q_dmg": 70, "q_ap": 45, "q_sil": 90, "q_combo": 120,
     # ult: R Nether Grasp (League: 700, 2.5 s, 125-500 + 80% AP, zone 5 s; cd 140-80 s)
     "r_cd": 4200, "r_range": 70000, "r_wait": 16, "r_t": 150, "r_p": 15, "r_brk": 10, "r_dmg": 220, "r_ap": 80,
     "r_zone_t": 300, "r_zp": 30, "r_zr": 20000, "z_dmg": 10, "z_ap": 5, "r_combo": 120,
