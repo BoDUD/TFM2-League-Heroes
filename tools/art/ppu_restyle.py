@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 sys.path.insert(0, HERE)
 import ppu_hd as P  # noqa: E402
 import strips as G  # noqa: E402
-from pixel_down import despeckle, edge_colour, palette_of, pixelate, sizes_of  # noqa: E402,F401
+from pixel_down import despeckle, edge_colour, palette_of, pixelate, scale_fx, sizes_of  # noqa: E402,F401
 import pixel_down as D  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "ppu")
@@ -55,7 +55,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
-            "nilah": 2.5}
+            "nilah": 2.5, "kindred": 154 / 34}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -145,8 +145,16 @@ RESTYLE = {
     # the user's 「保留 99 格，PPU 2.5」), so only the outer outline grown to the others' two squares (about a game pixel;
     # hers was one) and every frame lowered for her 90 % (hd.rs SIZES, 「模型别太大」): 11.5 x 2.5 x (1 / 0.9 - 1) = 3.2 -> 3
     # squares; the face point at her crown (the 1x sheet's 40 px) x 0.9; fx: her whips and the dash's wake
-    # (tools/art/fx_nilah.py, laid out by rig_nilah.py in orig/nilah_<tag>.over.png / .under.png) put on after the outline
-    "nilah": dict(edge=1, lift_sq=-3, face_to=(-1, -36), fx=True),
+    # (tools/art/fx_nilah.py, laid out by rig_nilah.py in orig/nilah_<tag>.over.png / .under.png) put on after the outline.
+    # 2026-10-14 the user: 「尼拉好像也太高清了」 - from a sheet of densities picked 2.2 squares a shown game pixel (Ashe's,
+    # Nidalee's): ppu 1.98 at her 90 % (it was 2.5 / 0.9 = 2.78); her whips brought to the same grid (scale_fx)
+    "nilah": dict(edge=1, lift_sq=-3, face_to=(-1, -36), fx=True, ppu=1.98),
+    # league_kindred (#101): Codex's picture B read back square for square (rig_kindred.py: 154 squares from the mask's
+    # ear tips to the hooves = the 34 game rows the user picked, 「模型还得缩小」), brought to Zeri's density - her 3.0 at
+    # 105 %, 2.86 squares a game pixel (the user: 「泽丽密度（最后统一重做）」); no proportion change (the approved design);
+    # the outer outline grown to about a game pixel. 2026-10-14 the user: 「有点太高清了？降点像素」 - from a sheet of
+    # densities picked 2.2 (Ashe's, Nidalee's, Yasuo's)
+    "kindred": dict(ppu=2.2, edge=1),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -643,13 +651,18 @@ def restyle(hero, spec, write=True, only=None):
                 res.append((content, pivot, ms))
                 notes.append(f"{tag}[{i}] {note} coarse")
                 continue
+            pivot0 = pivot
             if new_ppu != ppu:
                 content, pivot = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
             content = grow_edge(content, spec.get("edge", 0), outline)
-            if spec.get("fx") and new_ppu == ppu and not spec.get("fix"):
+            if spec.get("fx") and not spec.get("fix"):
                 if i == 0:
                     fx = read_fx(hero, tag)
-                content = put_fx(content, e, fx[0][i], fx[1][i])
+                over, under = fx[0][i], fx[1][i]
+                if new_ppu != ppu:
+                    # on the frame's own new grid (the same size, pivot and k as its pixelate), without its outline
+                    over, under = (None if f_ is None else scale_fx(f_, new_ppu / ppu, pivot0, mote=4)[0] for f_ in (over, under))
+                content = put_fx(content, e, over, under)
             pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
