@@ -309,6 +309,18 @@ impl StablePassive for Glory {
         }
     }
 
+    /// 小兵、野怪的击杀（游戏 0.6.4 起才有这个回调；`on_kill` 只管英雄，所以之前附加包里打死小兵野怪一直没加生命）：
+    /// 照说明「每击杀一个单位 +`k_u`」。大小龙等史诗野怪奖励全队，两个回调都不触发。
+    fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
+        let camp = sim.get_entity(victim).and_then(|v| v.kind()) == Some(EntityKindV1::Jungle);
+        self.stacks += kill_hp(false, &self.p);
+        self.stack_buff(sim, me);
+        if let Some(k) = counted("unit") {
+            wlog(format!("{} FURNACE unit kill #{k} ({}): max health +{} in all", head(sim, me),
+                         if camp { "camp" } else { "minion" }, self.stacks));
+        }
+    }
+
     fn on_dead(&mut self, _: &mut StableSim<'_>, _: usize) {
         self.zombie = None;
         self.ready = false;
