@@ -128,9 +128,10 @@ FAR_BOOT = (128, 141, 105, 129)
 #       the knee);
 #   ("stake",): Codex's wider stake beside the pasted one cleared (stake());
 #   ("neck", x0, x1, y0): Codex's neck lines beside the jaw cleared down to the shoulder (neck());
-#   ("axe", box, ring): the blade inside box taken out and put back last, where its foot went, at most the design's size
-#       (the reviewer: up to 382 squares of steel against the design's 247); ring: its foot's (row, column) when the
-#       bone ring is hidden;
+#   ("axe", box, ring[, "ring"]): the blade inside box taken out and put back last, where its foot went, at most the
+#       design's size (the reviewer: up to 382 squares of steel against the design's 247); ring: its foot's (row,
+#       column) when the bone ring is hidden; "ring": it follows the bone ring (kept out of a leg trim) instead;
+#   ("haft", box): after the blade is back, a slit between it and the haft filled with the haft's wood;
 #   ("foot", x0, x1, y0, k): a boot Codex left floating set down k rows (foot());
 #   ("fist", x0, y0): a fist (FIST) on the haft; ("pauldron", dy, dx): the design's pauldron, moved as the head
 #       (E and W drew it a third smaller, as loose plates); ("plates", box): the forearm's wrap as iron plates;
@@ -146,7 +147,7 @@ FIX = {
     ("attack", 2): [("legs", 109, 8), ("cloth", (92, 112, 114, 132)), ("ink", [(113, 130), (114, 130), (113, 119),
                                                                             (113, 120)])],
     # the haft came out of the crotch: a fist on it; the back lower leg set on the ground along its slope
-    ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3), ("stretch", 110, 127, 122, 1)],
+    ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3), ("stretch", 112, 127, 118, 4)],
     ("attack", 4): [("axe", (156, 113, 196, 141), None), ("lower", 3), ("stretch", 105, 125, 116, 3),
                     ("ring", (156, 118, 176, 137))],
     ("skill_charge", 1): [("stake",), ("slit", (123, 113, 130, 120)), ("axe", (24, 60, 53, 96), None)],
@@ -180,9 +181,10 @@ FIX = {
     # the loin cloth swelled to 166 squares (the design's 99): the design's
     ("ult_hit", 4): [("cloth", (88, 108, 116, 136)), ("slit", (128, 108, 133, 113)), ("axe", (128, 122, 176, 141), None),
                      ("lower", 4), ("stretch", 108, 127, 122, 1)],
-    ("dead", 1): [("neck", 83, 88, 59), ("axe", (38, 119, 74, 141), None), ("legs", 109, 8, (115, 123)),
+    ("dead", 1): [("neck", 83, 88, 59), ("axe", (38, 119, 74, 141), None, "ring"), ("legs", 109, 8, (115, 123)),
+                  ("haft", (57, 131, 66, 137)),
                   ("cloth", (104, 112, 120, 128))],
-    ("dead", 2): [("neck", 93, 98, 53), ("slit", (128, 93, 129, 96)), ("axe", (46, 117, 84, 141), None),
+    ("dead", 2): [("neck", 93, 98, 53), ("slit", (128, 93, 129, 96)), ("axe", (46, 117, 84, 141), None, "ring"),
                   ("legs", 107, 10, (112, 121)), ("lower", 1), ("clear", (99, 68, 99, 72)),
                   ("ink", [(76, 124), (75, 127)]), ("stretch", 83, 107, 118, 1)],
     ("dead", 3): [("slit", (91, 106, 94, 110))],
@@ -736,6 +738,20 @@ def ring_fix(a, box):
     return a
 
 
+def haft_fill(a, box):
+    """Bare squares in box (x0, y0, x1, y1) with the figure on two opposite sides take the haft's dark wood."""
+    x0, y0, x1, y1 = box
+    for _ in range(4):
+        op = a[..., 3] > 0
+        fill = [(y, x) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1) if not op[y, x] and
+                any(op[y + dy, x + dx] and op[y - dy, x - dx] for dy, dx in ((0, 1), (1, 0), (1, 1), (1, -1)))]
+        if not fill:
+            break
+        for y, x in fill:
+            a[y, x] = (51, 31, 27, 255)
+    return a
+
+
 def stretch(a, x0, x1, y0, k):
     """A lower leg Codex left floating set down k rows: in columns x0..x1 the rows from y0 to the soles are drawn
     k rows longer (each row nearest above, spread evenly) - the shin grows along its own slope, the boot lands."""
@@ -759,7 +775,7 @@ def fixed(tag, pos, a, off):
     """FIX's operations for this frame, in order; an axe blade taken out ("axe") goes back last where its foot went,
     no bigger than the design's (AXE_AREA)."""
     head = head_at(off)
-    axe, maps, rings = None, [], []
+    axe, maps, rings, hafts = None, [], [], []
     for op in FIX.get((tag, pos), ()):
         if op[0] == "axe":
             box = op[1]
@@ -774,7 +790,8 @@ def fixed(tag, pos, a, off):
             if s < AXE_TOL:
                 sub, anchor = resampled(sub, s, anchor)
             a[m] = 0
-            axe = (sub, anchor, (int(ys[i]), int(xs[i])), ring if ring_at(a, box) else None, box)
+            follow = len(op) > 3 and op[3] == "ring"
+            axe = (sub, anchor, (int(ys[i]), int(xs[i])), ring if follow and ring_at(a, box) else None, box)
         elif op[0] == "clear":
             a = clear(a, op[1], head)
         elif op[0] == "stake":
@@ -801,6 +818,8 @@ def fixed(tag, pos, a, off):
             a = slit(a, op[1])
         elif op[0] == "ring":
             rings.append(op[1])
+        elif op[0] == "haft":
+            hafts.append(op[1])
         elif op[0] == "stretch":
             a = stretch(a, *op[1:])
         elif op[0] == "ink":
@@ -810,9 +829,9 @@ def fixed(tag, pos, a, off):
     if axe:
         sub, (ay, ax), (py, px), ring0, (bx0, by0, bx1, by1) = axe
         ring1 = ring_at(a, (bx0 - 4, by0 - 4, bx1 + 4, min(SOLE, by1 + 14))) if ring0 else None
-        if ring1:               # with the ring (its rows kept): the haft between them keeps its length (the reviewer:
-            py += int(round(ring1[0] - ring0[0]))           # moved by its own row, a trim left a hole at the haft)
-            px += int(round(ring1[1] - ring0[1]))
+        if ring1:               # with the ring (its rows kept out of a trim: dead 1/2) - by its own row a trim left a
+            py += int(round(ring1[0] - ring0[0]))           # hole at the haft; elsewhere the ring itself moved with the
+            px += int(round(ring1[1] - ring0[1]))           # stretches and trims, so the blade keeps its own row's mapping
         else:
             for src in maps:
                 py = moved_row(py, src)
@@ -822,6 +841,8 @@ def fixed(tag, pos, a, off):
         a[yy[ok], xx[ok]] = sub[ys[ok], xs[ok]]
     for box in rings:                   # over the blade put back
         a = ring_fix(a, box)
+    for box in hafts:                   # a slit left between the haft and the blade: the haft's dark wood
+        a = haft_fill(a, box)
     return a
 
 
