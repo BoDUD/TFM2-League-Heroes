@@ -22,12 +22,15 @@ native add-on addons/league_sion):
           - else W ready and an enemy champion within w_trig: a shield of w_sh + w_ad% AD for w_t ticks; still holding
             any of it after w_det ticks, it blasts: every enemy within w_r takes w_dmg + w_hp% of his maximum health as
             magic damage (League: 40-140 + 14% max health after 3 s, the shield 6 s).
-  ult     R Unstoppable Onslaught (蛮横冲撞): a `Targeting` cast on `EnemyChampion` (r_range): immune to crowd control he
-          charges (`RushTime`, r_speed a tick for at most r_tick ticks) and stops on the first enemy champion: the
-          longer he ran, the harder it hits - two caster flags laid at the start (r_d1 for r_b1 ticks, r_d2 for r_b2,
-          league_xerath E's way) pick r_dmg1 / r_dmg2 / r_dmg3 + r_ratio% AD and a knock-up of r_up1 / r_up2 / r_up3
-          ticks; every enemy within r_r of him is slowed r_slow% for r_slow_t (League: 150-450 -> 400-1200 by distance,
-          0.75-1.75 s knock-up).
+  ult     R Unstoppable Onslaught (蛮横冲撞): immune to crowd control he charges (`RushTime`, r_speed a tick for at most
+          r_tick ticks) and stops on the first enemy champion: the longer he ran, the harder it hits - two caster flags
+          laid at the start (r_d1 for r_b1 ticks, r_d2 for r_b2, league_xerath E's way) pick r_dmg1 / r_dmg2 / r_dmg3 +
+          r_ratio% AD and a knock-up of r_up1 / r_up2 / r_up3 ticks; every enemy within r_r of him is slowed r_slow% for
+          r_slow_t (League: 150-450 -> 400-1200 by distance, 0.75-1.75 s knock-up). When to charge (the user: 「塞恩r大招
+          逻辑不能乱放」「救队友也可以放啊 开团也可以放啊」): the slot only arms it for r_arm_t ticks (r_armed 1, league_galio
+          R's way) and a poll every r_poll ticks fires it to save an ally in crowd control (at an enemy champion beside
+          that ally), in a teamfight (r_team allies round him) or to follow up a champion his team is hitting with an ally
+          beside him - never alone in his lane; unused, the cooldown is capped (r_armed 0: the old cast on sight).
 """
 import argparse
 import json
@@ -70,6 +73,10 @@ P = {
     "r_cd": 3600, "r_range": 90000, "r_speed": 2400, "r_tick": 50, "r_b1": 16, "r_b2": 32, "r_hitanim": 25,
     "r_dmg1": 200, "r_dmg2": 300, "r_dmg3": 400, "r_ratio": 100, "r_up1": 45, "r_up2": 70, "r_up3": 95,
     "r_r": 24000, "r_slow": 40, "r_slow_t": 150,
+    # R armed (r_armed 1): the window r_arm_t, polled every r_poll; save within r_save at a champion within r_peel of the
+    # ally, teamfight with r_team allies within r_near; unused, the cooldown capped (ult_cooldown_mult r_reset)
+    "r_armed": 1, "r_arm_t": 600, "r_poll": 10, "r_save": 60000, "r_peel": 30000, "r_near": 50000, "r_team": 2,
+    "r_reset": 4900,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_sion: its passive brings him back as Glory in Death's zombie
@@ -301,11 +308,46 @@ def build(p):
               view("r_hit"), tsfx("r_hit"),
               on_me(*rm("r_go", "r_d1", "r_d2"), anim("ult_hit", p["r_hitanim"]), cview("r_crash")),
               around(p["r_r"], "EnemyWithoutTower", [buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"])])]
-    ult = action("ult", p["r_tick"] + p["r_hitanim"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(refresh("r_go", p["r_tick"] + 2, cc_immune=True), flag("r_d1", p["r_b1"]),
-                         flag("r_d2", p["r_b2"]), anim("ult", p["r_tick"]), sfx("r"), voice("vo_r", p),
-                         rush(p["r_speed"], p["r_tick"], "EnemyChampion", r_hits),
-                         delayed(p["r_tick"] + 1, *rm("r_go", "r_d1", "r_d2"))))
+    def charge():
+        """The charge itself (immune to crowd control, the damage tier by how long he ran), at the target in hand."""
+        return combine(refresh("r_go", p["r_tick"] + 2, cc_immune=True), flag("r_d1", p["r_b1"]),
+                       flag("r_d2", p["r_b2"]), anim("ult", p["r_tick"]), sfx("r"), voice("vo_r", p),
+                       rush(p["r_speed"], p["r_tick"], "EnemyChampion", r_hits),
+                       delayed(p["r_tick"] + 1, *rm("r_go", "r_d1", "r_d2")))
+
+    if not p["r_armed"]:
+        ult = action("ult", p["r_tick"] + p["r_hitanim"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
+                     charge())
+    else:
+        # The AI casts an ult slot on EnemyChampion as it closes in, at champions at full health, alone or not (the
+        # user: 「塞恩r大招逻辑不能乱放」「救队友也可以放啊 开团也可以放啊」): the slot only arms it (league_galio R's way)
+        # and a poll every r_poll ticks fires it when it is worth it - never while he is crowd-controlled himself:
+        #   save:      an allied champion in crowd control within r_save of him - at an enemy champion within r_peel of
+        #              that ally (a homing probe at the ally picks one);
+        #   teamfight: r_team allied champions besides him within r_near - at an enemy champion within r_range;
+        #   follow-up: an ally within r_near and an enemy champion his team hit just now (EnemyChampionRecentlyAttacked)
+        #              within r_range - at that one (a gank, a fight his team is in; never his lane duel alone).
+        # Champions round him are counted league_kayle R's way: a ladder of 3-tick caster flags r_n1..r_n3 climbed once
+        # per champion (him included), read a tick later. Unused, the window ends with the cooldown capped.
+        def fire():
+            return combine(*rm("r_arm"), charge())
+
+        save = homing("r_probe", 1000000, "AllyChampionInCC",
+                      [pick(p["r_peel"], "EnemyChampion", sw("r_arm", fire()), proj=True)])
+        count = around(p["r_near"], "AllyChampion",
+                       [sw("r_n2", sw("r_n3", NONE, flag("r_n3", 3)), sw("r_n1", flag("r_n2", 3), flag("r_n1", 3)))])
+        team = sw(f"r_n{p['r_team'] + 1}", pick(p["r_range"], "EnemyChampion", sw("r_arm", fire())))
+        follow = sw("r_n2", pick(p["r_range"], "EnemyChampionRecentlyAttacked", sw("r_arm", fire())))
+        others = combine(*rm("r_n1", "r_n2", "r_n3"), count, delayed(1, team, follow, *rm("r_n1", "r_n2", "r_n3")))
+        poll = sw("r_arm", combine(
+            pick(1, "AllyChampionInCC", flag("r_me", 1)),
+            sw("r_me", combine(*rm("r_me")), combine(
+                pick(p["r_save"], "AllyChampionInCC", flag("r_cc", 1)),
+                sw("r_cc", combine(*rm("r_cc"), pick(p["r_save"], "AllyChampionInCC", save)), others)))))
+        reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
+        ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "None", "EnemyChampion",
+                     combine(refresh("r_arm", p["r_arm_t"]),
+                             on_me(casted(p["r_arm_t"], p["r_poll"], poll), delayed(p["r_arm_t"], reset))), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

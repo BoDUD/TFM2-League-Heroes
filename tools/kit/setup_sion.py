@@ -63,7 +63,7 @@ TEXT = {
         "skill2": "怒吼穿过小兵，造成" + mhp("e_dmg", "e_hp") + M + "魔法伤害" + E + "，" + R + "减速{e_slow}%" + E + "，护甲降低{e_shred}%。" + O + "灵魂熔炉" + E +
                   "：获得" + SH + "护盾，" + A + "{w_det}秒" + E + "后护盾仍在则爆炸，造成" + mhp("w_dmg", "w_hp") + M + "魔法伤害" + E + "。",
         "ult": "免疫控制冲向敌方英雄，撞到第一个英雄造成" + RD + O + "物理伤害" + E + "并" + R + "击飞{r_up1}-{r_up3}秒" + E + "（冲得越远越强），周围敌人" + R +
-               "减速{r_slow}%" + E + "。",
+               "减速{r_slow}%" + E + "。救被控的队友、团战、和队友一起追击时才冲。",
         "names": ("残虐猛击", "杀手怒吼", "蛮横冲撞"),
     },
     "zh-hant": {
@@ -74,7 +74,7 @@ TEXT = {
         "skill2": "怒吼穿過小兵，造成" + mhp("e_dmg", "e_hp") + M + "魔法傷害" + E + "，" + R + "緩速{e_slow}%" + E + "，護甲降低{e_shred}%。" + O + "魂魄熔爐" + E +
                   "：獲得" + SH + "護盾，" + A + "{w_det}秒" + E + "後護盾仍在則爆炸，造成" + mhp("w_dmg", "w_hp") + M + "魔法傷害" + E + "。",
         "ult": "免疫控制衝向敵方英雄，撞到第一個英雄造成" + RD + O + "物理傷害" + E + "並" + R + "擊飛{r_up1}-{r_up3}秒" + E + "（衝得越遠越強），周圍敵人" + R +
-               "緩速{r_slow}%" + E + "。",
+               "緩速{r_slow}%" + E + "。救被控的隊友、團戰、和隊友一起追擊時才衝。",
         "names": ("巨幅毀滅", "殺戮怒吼", "猛烈狂擊"),
     },
     "en": {
@@ -87,7 +87,8 @@ TEXT = {
                   O + "Soul Furnace" + E + ": a " + SH + " shield; still holding it after " + A + "{w_det}s" + E + ", it blasts nearby enemies for " +
                   mhp("w_dmg", "w_hp") + " " + M + "magic damage" + E + ".",
         "ult": "Charges at an enemy champion, immune to crowd control: the first champion hit takes " + RD + " " + O + "physical damage" + E + " and is " + R +
-               "knocked up {r_up1}-{r_up3}s" + E + " (the farther he ran, the more); nearby enemies are " + R + "slowed {r_slow}%" + E + ".",
+               "knocked up {r_up1}-{r_up3}s" + E + " (the farther he ran, the more); nearby enemies are " + R + "slowed {r_slow}%" + E +
+               ". Saved for an ally in crowd control, a teamfight or a chase beside an ally.",
         "names": ("Decimating Smash", "Roar of the Slayer", "Unstoppable Onslaught"),
     },
     "ko": {
@@ -98,7 +99,7 @@ TEXT = {
         "skill2": "미니언을 꿰뚫는 포효로 " + mhp("e_dmg", "e_hp") + " " + M + "마법 피해" + E + ", " + R + "{e_slow}% 둔화" + E + ", 방어력 {e_shred}% 감소. " + O +
                   "영혼의 용광로" + E + ": " + SH + " 보호막, " + A + "{w_det}초" + E + " 후 남아 있으면 폭발해 " + mhp("w_dmg", "w_hp") + " " + M + "마법 피해" + E + ".",
         "ult": "군중 제어 면역으로 적 챔피언에게 돌진, 처음 부딪힌 챔피언에게 " + RD + " " + O + "물리 피해" + E + "와 " + R + "{r_up1}-{r_up3}초 에어본" + E +
-               "(멀리 달릴수록 강함), 주변 적 " + R + "{r_slow}% 둔화" + E + ".",
+               "(멀리 달릴수록 강함), 주변 적 " + R + "{r_slow}% 둔화" + E + ". 군중 제어에 걸린 아군 구출, 한타, 아군과 함께 추격할 때만 사용.",
         "names": ("대량 학살 강타", "학살자의 포효", "멈출 수 없는 맹공"),
     },
     "ja": {
@@ -109,7 +110,7 @@ TEXT = {
         "skill2": "ミニオンを貫く雄叫びで" + mhp("e_dmg", "e_hp") + "の" + M + "魔法ダメージ" + E + "、" + R + "{e_slow}%スロウ" + E + "、物理防御{e_shred}%低下。" + O +
                   "魂の炉心" + E + "：" + SH + "のシールド、" + A + "{w_det}秒" + E + "後に残っていれば爆発し" + mhp("w_dmg", "w_hp") + "の" + M + "魔法ダメージ" + E + "。",
         "ult": "行動妨害無効で敵チャンピオンへ突進、最初に当たったチャンピオンに" + RD + "の" + O + "物理ダメージ" + E + "と" + R + "{r_up1}-{r_up3}秒ノックアップ" +
-               E + "（遠いほど強力）、周囲の敵に" + R + "{r_slow}%スロウ" + E + "。",
+               E + "（遠いほど強力）、周囲の敵に" + R + "{r_slow}%スロウ" + E + "。行動妨害を受けた味方の救出、集団戦、味方との追撃でのみ使用。",
         "names": ("破滅の斧", "殺意の雄叫び", "猪突猛進"),
     },
 }

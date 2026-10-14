@@ -741,14 +741,14 @@
     }
   },
   "ult": {
-    "action_name": "ult",
+    "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_sion.ult",
-    "duration": 75,
+    "duration": 3,
     "cooltime": 3600,
     "start_timing": 1,
     "cancelable": false,
     "range": 90000,
-    "casting_type": "Targeting",
+    "casting_type": "None",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
@@ -759,249 +759,1137 @@
           "effects": [
             {
               "type": "RemoveCasterBuff",
-              "name": "league_sion_r_go"
+              "name": "league_sion_r_arm"
             },
             {
               "type": "AddCasterBuff",
               "buff_state": {
-                "name": "league_sion_r_go",
+                "name": "league_sion_r_arm",
                 "duration": {
                   "Time": {
-                    "tick": 52
+                    "tick": 600
                   }
-                },
-                "cc_immune": true
+                }
               },
               "only_to_enemy": false
             }
           ]
         },
         {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_sion_r_d1",
-            "duration": {
-              "Time": {
-                "tick": 16
-              }
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
             }
           },
-          "only_to_enemy": false
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_sion_r_d2",
-            "duration": {
-              "Time": {
-                "tick": 32
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
-        {
-          "type": "CasterAnimation",
-          "name": "ult",
-          "tick": 50
-        },
-        {
-          "type": "Sfx",
-          "name": "league_sion_r"
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_sion_vo_cd",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_sion_vo_cd",
-                  "duration": {
-                    "Time": {
-                      "tick": 600
-                    }
-                  }
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "Sfx",
-                "name": "league_sion_vo_r"
-              }
-            ]
-          }
-        },
-        {
-          "type": "RushTime",
-          "speed": 2400,
-          "tick": 50,
-          "range": 12000,
-          "casting_target": "EnemyChampion",
-          "penetrate": false,
-          "applied_effects": [
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_sion_r_d1",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "Attack",
-                      "damage": 200,
-                      "attack_ratio": 100,
-                      "hp_ratio": 0,
-                      "target_hp_ratio": 0,
-                      "attack_effect_type": "Target"
-                    },
-                    {
-                      "type": "Airborne",
-                      "duration": 45
-                    }
-                  ]
-                },
-                "effect_none": {
+              "type": "AddCasted",
+              "casted_type": "Heal",
+              "duration": 600,
+              "period": 10,
+              "effects": [
+                {
                   "type": "SwitchByBuff",
-                  "buff_name": "league_sion_r_d2",
+                  "buff_name": "league_sion_r_arm",
                   "effect_buff": {
                     "type": "Combine",
                     "effects": [
                       {
-                        "type": "Attack",
-                        "damage": 300,
-                        "attack_ratio": 100,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyChampionInCC",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_sion_r_me",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
                       },
                       {
-                        "type": "Airborne",
-                        "duration": 70
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_sion_r_me",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_sion_r_me"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RandomTarget",
+                              "range": 60000,
+                              "casting_target": "AllyChampionInCC",
+                              "from_projectile": false,
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_sion_r_cc",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_sion_r_cc",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_sion_r_cc"
+                                  },
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 60000,
+                                    "casting_target": "AllyChampionInCC",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_sion_r_probe",
+                                        "speed": 1000000,
+                                        "y_offset": 0,
+                                        "applied_target": "AllyChampionInCC",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "RandomTarget",
+                                              "range": 30000,
+                                              "casting_target": "EnemyChampion",
+                                              "from_projectile": true,
+                                              "effects": [
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_sion_r_arm",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_sion_r_arm"
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_sion_r_go"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_sion_r_go",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 52
+                                                                    }
+                                                                  },
+                                                                  "cc_immune": true
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_sion_r_d1",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 16
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_sion_r_d2",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 32
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "CasterAnimation",
+                                                            "name": "ult",
+                                                            "tick": 50
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_sion_r"
+                                                          },
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_sion_vo_cd",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_sion_vo_cd",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 600
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                },
+                                                                {
+                                                                  "type": "Sfx",
+                                                                  "name": "league_sion_vo_r"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          {
+                                                            "type": "RushTime",
+                                                            "speed": 2400,
+                                                            "tick": 50,
+                                                            "range": 12000,
+                                                            "casting_target": "EnemyChampion",
+                                                            "penetrate": false,
+                                                            "applied_effects": [
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_sion_r_d1",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Attack",
+                                                                        "damage": 200,
+                                                                        "attack_ratio": 100,
+                                                                        "hp_ratio": 0,
+                                                                        "target_hp_ratio": 0,
+                                                                        "attack_effect_type": "Target"
+                                                                      },
+                                                                      {
+                                                                        "type": "Airborne",
+                                                                        "duration": 45
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_sion_r_d2",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "Attack",
+                                                                          "damage": 300,
+                                                                          "attack_ratio": 100,
+                                                                          "hp_ratio": 0,
+                                                                          "target_hp_ratio": 0,
+                                                                          "attack_effect_type": "Target"
+                                                                        },
+                                                                        {
+                                                                          "type": "Airborne",
+                                                                          "duration": 70
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "Attack",
+                                                                          "damage": 400,
+                                                                          "attack_ratio": 100,
+                                                                          "hp_ratio": 0,
+                                                                          "target_hp_ratio": 0,
+                                                                          "attack_effect_type": "Target"
+                                                                        },
+                                                                        {
+                                                                          "type": "Airborne",
+                                                                          "duration": 95
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_sion_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "TargetSfx",
+                                                                  "name": "league_sion_r_hit"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "RangeEffect",
+                                                                  "shape": {
+                                                                    "Circle": {
+                                                                      "radius": 1000
+                                                                    }
+                                                                  },
+                                                                  "target": "AllyOnlySelf",
+                                                                  "apply_type": "AroundCaster",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_sion_r_go"
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_sion_r_d1"
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_sion_r_d2"
+                                                                    },
+                                                                    {
+                                                                      "type": "CasterAnimation",
+                                                                      "name": "ult_hit",
+                                                                      "tick": 25
+                                                                    },
+                                                                    {
+                                                                      "type": "CasterViewEffect",
+                                                                      "name": "league_sion_r_crash"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "RangeEffect",
+                                                                  "shape": {
+                                                                    "Circle": {
+                                                                      "radius": 24000
+                                                                    }
+                                                                  },
+                                                                  "target": "EnemyWithoutTower",
+                                                                  "apply_type": "AroundCaster",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_sion_r_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 150
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -40
+                                                                      }
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 51,
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_sion_r_go"
+                                                              },
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_sion_r_d1"
+                                                              },
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_sion_r_d2"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_sion_r_n1"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_sion_r_n2"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_sion_r_n3"
+                                  },
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 50000
+                                      }
+                                    },
+                                    "target": "AllyChampion",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_sion_r_n2",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_sion_r_n3",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_sion_r_n3",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 3
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_sion_r_n1",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_sion_r_n2",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 3
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          "effect_none": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_sion_r_n1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 3
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 1,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_sion_r_n3",
+                                        "effect_buff": {
+                                          "type": "RandomTarget",
+                                          "range": 90000,
+                                          "casting_target": "EnemyChampion",
+                                          "from_projectile": false,
+                                          "effects": [
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_sion_r_arm",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_sion_r_arm"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_go"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_sion_r_go",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 52
+                                                                }
+                                                              },
+                                                              "cc_immune": true
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_sion_r_d1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 16
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_sion_r_d2",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 32
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "CasterAnimation",
+                                                        "name": "ult",
+                                                        "tick": 50
+                                                      },
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_sion_r"
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_sion_vo_cd",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_sion_vo_cd",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 600
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_sion_vo_r"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "RushTime",
+                                                        "speed": 2400,
+                                                        "tick": 50,
+                                                        "range": 12000,
+                                                        "casting_target": "EnemyChampion",
+                                                        "penetrate": false,
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_sion_r_d1",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "Attack",
+                                                                    "damage": 200,
+                                                                    "attack_ratio": 100,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  {
+                                                                    "type": "Airborne",
+                                                                    "duration": 45
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_sion_r_d2",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Attack",
+                                                                      "damage": 300,
+                                                                      "attack_ratio": 100,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 0,
+                                                                      "attack_effect_type": "Target"
+                                                                    },
+                                                                    {
+                                                                      "type": "Airborne",
+                                                                      "duration": 70
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Attack",
+                                                                      "damage": 400,
+                                                                      "attack_ratio": 100,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 0,
+                                                                      "attack_effect_type": "Target"
+                                                                    },
+                                                                    {
+                                                                      "type": "Airborne",
+                                                                      "duration": 95
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_sion_r_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_sion_r_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1000
+                                                                }
+                                                              },
+                                                              "target": "AllyOnlySelf",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_sion_r_go"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_sion_r_d1"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_sion_r_d2"
+                                                                },
+                                                                {
+                                                                  "type": "CasterAnimation",
+                                                                  "name": "ult_hit",
+                                                                  "tick": 25
+                                                                },
+                                                                {
+                                                                  "type": "CasterViewEffect",
+                                                                  "name": "league_sion_r_crash"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 24000
+                                                                }
+                                                              },
+                                                              "target": "EnemyWithoutTower",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_sion_r_slow",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 150
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -40
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 51,
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_go"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_d1"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_d2"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_sion_r_n2",
+                                        "effect_buff": {
+                                          "type": "RandomTarget",
+                                          "range": 90000,
+                                          "casting_target": "EnemyChampionRecentlyAttacked",
+                                          "from_projectile": false,
+                                          "effects": [
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_sion_r_arm",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_sion_r_arm"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_go"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_sion_r_go",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 52
+                                                                }
+                                                              },
+                                                              "cc_immune": true
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_sion_r_d1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 16
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_sion_r_d2",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 32
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "CasterAnimation",
+                                                        "name": "ult",
+                                                        "tick": 50
+                                                      },
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_sion_r"
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_sion_vo_cd",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_sion_vo_cd",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 600
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_sion_vo_r"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "RushTime",
+                                                        "speed": 2400,
+                                                        "tick": 50,
+                                                        "range": 12000,
+                                                        "casting_target": "EnemyChampion",
+                                                        "penetrate": false,
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_sion_r_d1",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "Attack",
+                                                                    "damage": 200,
+                                                                    "attack_ratio": 100,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  {
+                                                                    "type": "Airborne",
+                                                                    "duration": 45
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_sion_r_d2",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Attack",
+                                                                      "damage": 300,
+                                                                      "attack_ratio": 100,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 0,
+                                                                      "attack_effect_type": "Target"
+                                                                    },
+                                                                    {
+                                                                      "type": "Airborne",
+                                                                      "duration": 70
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Attack",
+                                                                      "damage": 400,
+                                                                      "attack_ratio": 100,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 0,
+                                                                      "attack_effect_type": "Target"
+                                                                    },
+                                                                    {
+                                                                      "type": "Airborne",
+                                                                      "duration": 95
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_sion_r_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_sion_r_hit"
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 1000
+                                                                }
+                                                              },
+                                                              "target": "AllyOnlySelf",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_sion_r_go"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_sion_r_d1"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_sion_r_d2"
+                                                                },
+                                                                {
+                                                                  "type": "CasterAnimation",
+                                                                  "name": "ult_hit",
+                                                                  "tick": 25
+                                                                },
+                                                                {
+                                                                  "type": "CasterViewEffect",
+                                                                  "name": "league_sion_r_crash"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "RangeEffect",
+                                                              "shape": {
+                                                                "Circle": {
+                                                                  "radius": 24000
+                                                                }
+                                                              },
+                                                              "target": "EnemyWithoutTower",
+                                                              "apply_type": "AroundCaster",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_sion_r_slow",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 150
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -40
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 51,
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_go"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_d1"
+                                                          },
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_sion_r_d2"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_sion_r_n1"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_sion_r_n2"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_sion_r_n3"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
                       }
                     ]
                   },
                   "effect_none": {
                     "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 400,
-                        "attack_ratio": 100,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "Airborne",
-                        "duration": 95
-                      }
-                    ]
+                    "effects": []
                   }
                 }
-              }
+              ]
             },
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "league_sion_r_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "TargetSfx",
-                "name": "league_sion_r_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 1000
-                  }
-                },
-                "target": "AllyOnlySelf",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_sion_r_go"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_sion_r_d1"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_sion_r_d2"
-                  },
-                  {
-                    "type": "CasterAnimation",
-                    "name": "ult_hit",
-                    "tick": 25
-                  },
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_sion_r_crash"
-                  }
-                ]
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 24000
-                  }
-                },
-                "target": "EnemyWithoutTower",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_sion_r_slow",
-                      "duration": {
-                        "Time": {
-                          "tick": 150
-                        }
+              "type": "Delayed",
+              "tick": 600,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_sion_r_arm",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_sion_r_arm"
                       },
-                      "move_speed_mult": -40
-                    }
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_sion_r_reset",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          },
+                          "ult_cooldown_mult": 4900
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
                   }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 51,
-          "effects": [
-            {
-              "type": "RemoveCasterBuff",
-              "name": "league_sion_r_go"
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "league_sion_r_d1"
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "league_sion_r_d2"
+                }
+              ]
             }
           ]
         }

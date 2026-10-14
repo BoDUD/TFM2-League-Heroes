@@ -109,9 +109,82 @@ PINHOLE = 6
 # the design's own legs walking (walk_frame's steps): its legs (canvas rows from ULT_CUT[0], columns ULT_CUT[1]..[2]) go,
 # the rest is moved ULT_SHIFT (rows, columns) so its belt's lower edge sits on the design's (WALK_BAND) over the legs'
 # middle; the near arm with the axe and the far arm hanging beside the far leg stay as drawn.
-ULT_CUT = (114, 76, 129)
+# Cut at its chest (the reviewer: its near thigh, drawn beside its belt, stacked a second thigh and knee over the
+# design's): the design's waist under it (ULT_WAIST: belt and furnace, design rows, columns), the legs from the belt.
+ULT_CUT = (101, 73, 130)
+ULT_WAIST = ((38, 53, 36, 70),)       # from column 36: the design's haft top stays out
 ULT_SHIFT = (5, -8)
 ULT_MS = 104                    # 8 steps over R's 50-tick charge
+# the design's far boot (canvas rows, columns of the idle) for a far leg Codex left off at the knee
+FAR_BOOT = (128, 141, 105, 129)
+# hand fixes after the review (2026-10-14, an independent reviewer's 12 defects), on each Codex frame after its cut and
+# paste, before tidy - (tag, play position from 1) -> operations in order:
+#   ("clear", (x0, y0, x1, y1)): every square in the box (inclusive) but the pasted head's own is cleared - Codex's old
+#       stake, skull-top and neck lines beside the pasted head (tidy outlines what they leave);
+#   ("lower", k): the frame k rows down, nothing under SOLE (the planted boots on the ground; a blade on it bites in);
+#   ("legs", b0, n): n whole rows taken from rows b0..SOLE-1, the least loss (legs Codex drew too long);
+#   ("boot", x0): the design's far boot behind the frame, its sole on SOLE from column x0 (Q's slam: the far leg ended at
+#       the knee);
+#   ("stake",): Codex's wider stake beside the pasted one cleared (stake());
+#   ("neck", x0, x1, y0): Codex's neck lines beside the jaw cleared down to the shoulder (neck());
+#   ("axe", box, ring): the blade inside box taken out and put back last, where its foot went, at most the design's size
+#       (the reviewer: up to 382 squares of steel against the design's 247); ring: its foot's (row, column) when the
+#       bone ring is hidden;
+#   ("foot", x0, x1, y0, k): a boot Codex left floating set down k rows (foot());
+#   ("fist", x0, y0): a fist (FIST) on the haft; ("pauldron", dy, dx): the design's pauldron, moved as the head
+#       (E and W drew it a third smaller, as loose plates); ("plates", box): the forearm's wrap as iron plates;
+#   ("cloth", box): the design's loin cloth for Codex's; ("slit", box): 1-square slits between limbs closed;
+#   ("ring", box): a bone ring drawn bigger than the design's 6 x 6 swapped for the design's (after the axe is back);
+#   ("stretch", x0, x1, y0, k): a floating lower leg drawn k rows longer down to the ground (stretch());
+#   ("ink", [(x, y), ...]): squares that take the outline
+FIX = {
+    # the axe's second spike over its head, the haft's butt past the arm and two lone line squares (it read
+    # double-headed); a fist on the haft
+    ("attack", 1): [("clear", (61, 40, 73, 48)), ("clear", (68, 49, 73, 54)), ("clear", (89, 59, 94, 68)),
+                    ("clear", (60, 47, 60, 47)), ("clear", (93, 69, 93, 69)), ("fist", 70, 55)],
+    ("attack", 2): [("legs", 109, 8), ("cloth", (92, 112, 114, 132))],
+    # the haft came out of the crotch: a fist on it; the back lower leg set on the ground along its slope
+    ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3)],
+    ("attack", 4): [("axe", (156, 113, 196, 141), None), ("lower", 3), ("stretch", 99, 114, 116, 3),
+                    ("ring", (156, 118, 176, 137))],
+    ("skill_charge", 1): [("stake",), ("slit", (123, 113, 130, 120)), ("axe", (24, 60, 53, 96), None)],
+    ("skill_charge", 2): [("axe", (24, 52, 58, 88), None)],
+    ("skill", 1): [("slit", (68, 67, 75, 75)), ("slit", (75, 72, 81, 82)), ("ring", (64, 70, 82, 86))],
+    ("skill", 2): [("clear", (88, 69, 101, 71)), ("axe", (141, 90, 181, 131), None), ("legs", 111, 6),
+                   ("ring", (144, 100, 162, 120))],
+    ("skill", 3): [("lower", 12), ("boot", 124), ("ring", (138, 125, 158, 141))],
+    ("skill", 4): [("stake",), ("lower", 13), ("boot", 124), ("ring", (138, 125, 158, 141))],
+    ("skill2", 1): [("neck", 86, 91, 66), ("clear", (92, 68, 95, 73)), ("pauldron", 0, 0),
+                    ("ink", [(91, 81), (91, 82), (92, 82), (93, 83)]), ("plates", (124, 95, 144, 101))],
+    ("skill2", 2): [("neck", 91, 96, 62), ("clear", (97, 64, 100, 68)), ("pauldron", 0, 0),
+                    ("axe", (38, 112, 80, 141), None), ("legs", 112, 5), ("plates", (128, 96, 151, 102))],
+    ("skill2", 3): [("stake",), ("lower", 1), ("slit", (87, 104, 99, 115)), ("slit", (82, 117, 89, 123)),
+                    ("slit", (117, 80, 128, 87))],
+    ("skill2", 4): [("stake",), ("lower", 1)],
+    ("skill2_w", 1): [("pauldron", 0, 0), ("plates", (132, 99, 148, 104))],
+    ("skill2_w", 2): [("neck", 100, 105, 67), ("clear", (58, 92, 70, 98)), ("clear", (65, 98, 68, 101)),
+                      ("clear", (62, 98, 62, 99)), ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)),
+                      ("ring", (40, 95, 58, 112))],
+    ("skill2_w", 3): [("neck", 100, 105, 67), ("clear", (58, 92, 70, 98)), ("clear", (65, 98, 68, 101)),
+                      ("clear", (62, 98, 62, 99)), ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)),
+                      ("ring", (40, 95, 58, 112))],
+    # (the scaled frame, before ULT_SHIFT) Codex's wrap bits under the near armpit
+    ("ult", 1): [("stake",), ("clear", (80, 97, 84, 100)), ("axe", (20, 102, 66, 130), None)],
+    ("ult_hit", 1): [("axe", (39, 106, 84, 126), None), ("legs", 111, 6)],
+    ("ult_hit", 2): [("stake",), ("axe", (148, 117, 182, 141), None), ("lower", 1), ("ring", (145, 110, 162, 127))],
+    ("ult_hit", 3): [("stake",), ("axe", (118, 121, 166, 141), None), ("lower", 6), ("ring", (118, 114, 136, 136))],
+    # the loin cloth swelled to 166 squares (the design's 99): the design's
+    ("ult_hit", 4): [("cloth", (88, 108, 116, 136)), ("slit", (128, 108, 133, 113)), ("axe", (128, 122, 176, 141), None),
+                     ("lower", 4)],
+    ("dead", 1): [("neck", 83, 88, 59), ("axe", (38, 119, 74, 141), None), ("legs", 109, 8),
+                  ("cloth", (104, 112, 120, 128))],
+    ("dead", 2): [("neck", 93, 98, 53), ("slit", (128, 93, 129, 96)), ("axe", (46, 117, 84, 141), None),
+                  ("legs", 107, 10), ("lower", 1), ("clear", (99, 68, 99, 72))],
+    ("dead", 3): [("slit", (91, 106, 94, 110))],
+    ("dead", 4): [("neck", 97, 102, 66), ("clear", (103, 66, 106, 72))],
+    ("dead", 5): [("stake",), ("slit", (93, 118, 97, 122))],
+    ("dead", 6): [("stake",), ("slit", (93, 118, 97, 122))],
+}
 
 
 def load(p):
@@ -132,13 +205,21 @@ def on_canvas(d, dx=0, dy=0):
 def head_mask(own=False):
     """The head object's squares in the design (HEAD_POLY, opaque); own: without the shoulder's edge the polygon takes in
     left of the head (rows 13-14, columns before 50) - Codex pasted those design squares too, a grey stroke beside the
-    head wherever the shoulder is lower than the design's."""
+    head wherever the shoulder is lower than the design's - nor the shoulder's skin the polygon takes in under the jaw's
+    left corner (rows 16 on, columns up to 53: the reviewer's light sliver beside the jaw in every frame whose shoulder
+    sits elsewhere)."""
     d = design()
     m = Image.new("L", (d.shape[1], d.shape[0]))
     ImageDraw.Draw(m).polygon(HEAD_POLY, fill=255)
     m = (np.asarray(m) > 0) & (d[..., 3] > 0)
     if own:
         m[13:15, :50] = False
+        skin = np.zeros_like(m)
+        for c in SKIN:
+            skin |= (d[..., :3] == c).all(-1)
+        skin[:16] = False
+        skin[:, 54:] = False
+        m &= ~skin
     return m
 
 
@@ -306,7 +387,8 @@ RIBBON = [(251, 38, 24), (129, 0, 1), (156, 1, 5), (252, 99, 46)]   # the ribbon
 def scaled_frame(a, f):
     """A Codex frame without its head, shrunk by f, the design's head pasted back on the shrunken neck. Squares of the
     ribbon's reds outside the pasted head are what Codex's own generated ribbon left (its restore script cleared most):
-    they go too (a red tatter under the ribbon)."""
+    they go too (a red tatter under the ribbon). -> (the canvas, not yet tidied; the head's offset (rows, columns) from
+    its place in the design)."""
     dy, dx = find_head(a)
     hm = head_mask()
     ys, xs = np.nonzero(hm)
@@ -317,7 +399,17 @@ def scaled_frame(a, f):
         b[(b[..., :3] == c).all(-1) & (b[..., 3] > 0)] = 0
     s, ymap, xmap = shrink(b, f)
     ny, nx = ymap(NECK[0] + y0 + dy), xmap(NECK[1] + x0 + dx)
-    return tidy(paste_head(s, ny - (NECK[0] + y0), nx - (NECK[1] + x0)))
+    off = (ny - (NECK[0] + y0), nx - (NECK[1] + x0))
+    return paste_head(s, *off), off
+
+
+def head_at(off):
+    """The pasted head's own squares on the canvas (head_mask(own=True) moved by off)."""
+    m = np.zeros((ROWS, COLS), bool)
+    ys, xs = np.nonzero(head_mask(own=True))
+    x0, y0 = DESIGN_AT
+    m[ys + y0 + off[0], xs + x0 + off[1]] = True
+    return m
 
 
 def scale_of(tag):
@@ -334,19 +426,400 @@ def actions():
     for tag, nums in TAGS.items():
         f = scale_of(tag)
         frames = []
-        for n, ms in zip(nums, MS[tag]):
-            fix = SCALE_FIX.get((tag, n), 1.0)
-            frames.append((tidy(idle.copy()) if n == "design" else scaled_frame(codex(tag, n), f * fix), ms))
+        for pos, (n, ms) in enumerate(zip(nums, MS[tag]), 1):
+            if n == "design":
+                frames.append((tidy(idle.copy()), ms))
+                continue
+            p, off = scaled_frame(codex(tag, n), f * SCALE_FIX.get((tag, n), 1.0))
+            frames.append((tidy(fixed(tag, pos, p, off)), ms))
         out[tag] = frames
     out["hit"] = [(tidy(on_canvas(d, dx=-2)), 80.0), (tidy(on_canvas(d, dx=-1)), 120.0)]
     out["ult"] = [(f, ULT_MS) for f in charge()]
     return out
 
 
+def clear(a, box, head):
+    """Every square in the box (x0, y0, x1, y1, inclusive) but the pasted head's own, cleared."""
+    x0, y0, x1, y1 = box
+    m = np.zeros(head.shape, bool)
+    m[y0:y1 + 1, x0:x1 + 1] = True
+    a[m & ~head] = 0
+    return a
+
+
+def rows_moved(a, src):
+    """a's rows src (kept, top to bottom) set down to end on SOLE; the rows over them bare."""
+    out = np.zeros_like(a)
+    out[SOLE + 1 - len(src):SOLE + 1] = a[src]
+    return out
+
+
+def lower(a, k):
+    """The frame k rows down, nothing under SOLE. -> (frame, the rows kept)"""
+    src = list(range(SOLE + 1 - k))
+    return rows_moved(a, src), src
+
+
+def drop_rows(a, b0, n):
+    """n whole rows taken from rows b0..SOLE-1, the ones most like a neighbour; everything above moves down.
+    -> (frame, the rows kept)"""
+    k = keys(a)
+    rows = list(range(b0, SOLE))
+    kept = [rows[i] for i in least([k[y] for y in rows], len(rows) - n)]
+    gone = set(rows) - set(kept)
+    src = [y for y in range(SOLE + 1) if y not in gone]
+    return rows_moved(a, src), src
+
+
+def moved_row(y, src):
+    """Where row y went when the rows src were kept and set down on SOLE (a dropped row: its nearest kept one's)."""
+    src = np.array(src)
+    return SOLE + 1 - len(src) + int(np.abs(src - y).argmin())
+
+
+def foot(a, x0, x1, y0, k):
+    """A boot set down k rows onto the ground: columns x0..x1 from row y0 move k rows down, the k rows they leave take
+    the row above them (the shin grows)."""
+    sub = a[y0:SOLE + 1 - k, x0:x1 + 1].copy()
+    a[y0 + k:SOLE + 1, x0:x1 + 1] = sub
+    a[y0:y0 + k, x0:x1 + 1] = a[y0 - 1, x0:x1 + 1]
+    return a
+
+
+def far_boot(a, x0):
+    """The design's far boot (FAR_BOOT, its rows on the idle canvas) behind the frame: its sole on SOLE from column x0,
+    drawn only where the frame is bare."""
+    r0, r1, c0, c1 = FAR_BOOT
+    boot = on_canvas(design())[r0:r1, c0:c1]
+    sub = a[SOLE + 1 - (r1 - r0):SOLE + 1, x0:x0 + (c1 - c0)]
+    m = (sub[..., 3] == 0) & (boot[..., 3] > 0)
+    sub[m] = boot[m]
+    return a
+
+
+def stake(a, off):
+    """Codex's wider stake beside the pasted one: dark squares where the design's stake band (head rows 0-8, design
+    columns 54-61) is bare, cleared."""
+    d = design()
+    band = d[..., 3] == 0
+    band[9:] = False
+    band[:, :54] = False
+    band[:, 62:] = False
+    ys, xs = np.nonzero(band)
+    yy, xx = ys + DESIGN_AT[1] + off[0], xs + DESIGN_AT[0] + off[1]
+    p = a[yy, xx]
+    dark = (p[:, 3] > 0) & (p[:, :3].astype(int).sum(1) < 250)
+    a[yy[dark], xx[dark]] = 0
+    return a
+
+
+def neck(a, x0, x1, y0, head):
+    """Codex's neck lines beside the jaw (columns x0..x1): in each column, every square from row y0 down to the
+    shoulder's first light square that is not the pasted head, cleared."""
+    for x in range(x0, x1 + 1):
+        for y in range(y0, SOLE):
+            p = a[y, x]
+            if head[y, x]:
+                continue
+            if p[3] and int(p[:3].astype(int).sum()) >= 250:
+                break
+            a[y, x] = 0
+    return a
+
+
+BLADE = [(157, 158, 188), (114, 125, 140), (209, 222, 235)]   # the axe blade's steels (the first is skin too)
+BLADE_HI = (209, 222, 235)                                      # its edge's highlight, the blade's alone: the seed
+RING = [(152, 150, 128), (212, 208, 178)]                       # the bone ring at the blade's foot
+AXE_AREA = 247                                                  # the design's blade, squares of its steels
+AXE_TOL = 0.95                  # a blade within a tenth of the design's area keeps its squares
+
+
+SKIN_ONLY = [(125, 110, 151), (189, 202, 219), (94, 69, 112)]   # skin tones the blade never uses
+
+
+def blade_of(a, box):
+    """The axe blade inside box (x0, y0, x1, y1): its steel squares joined to the edge's highlight - the shared pale
+    steel only where no skin tone touches it (a hand on the haft is not the blade: the reviewer saw hands cut out and
+    pasted back shrunk) - what they enclose and the outline round them. -> (mask, its steel squares)"""
+    x0, y0, x1, y1 = box
+    op = a[..., 3] > 0
+    inb = np.zeros(op.shape, bool)
+    inb[y0:y1 + 1, x0:x1 + 1] = True
+    skin = np.zeros(op.shape, bool)
+    for c in SKIN_ONLY:
+        skin |= op & (a[..., :3] == c).all(-1)
+    near_skin = ndimage.binary_dilation(skin, structure=np.ones((3, 3)), iterations=2)
+    steel = np.zeros(op.shape, bool)
+    for c in BLADE:
+        m = op & (a[..., :3] == c).all(-1)
+        if c == BLADE[0]:
+            m &= ~near_skin
+        steel |= m
+    steel &= inb
+    lab, _ = ndimage.label(steel)
+    hi = steel & (a[..., :3] == BLADE_HI).all(-1)
+    m = np.isin(lab, list(set(np.unique(lab[hi]).tolist()) - {0}))
+    ring = np.zeros(op.shape, bool)
+    for c in RING:
+        ring |= op & (a[..., :3] == c).all(-1)
+    ring = ndimage.binary_dilation(ndimage.binary_fill_holes(ring), structure=np.ones((3, 3)))
+    body = ndimage.binary_fill_holes(m) & op & inb & ~skin & ~ring
+    rim = ndimage.binary_dilation(body, structure=np.ones((3, 3))) & ~body & op & inb & ~ring &         (a[..., :3] == OUTLINE).all(-1)
+    return body | rim, int((m & steel).sum())
+
+
+def ring_at(a, box):
+    """The bone ring's middle inside box (row, column), None when it is hidden."""
+    x0, y0, x1, y1 = box
+    m = np.zeros(a.shape[:2], bool)
+    for c in RING:
+        m |= (a[..., 3] > 0) & (a[..., :3] == c).all(-1)
+    m[:y0] = m[y1 + 1:] = False
+    m[:, :x0] = m[:, x1 + 1:] = False
+    ys, xs = np.nonzero(m)
+    return (float(ys.mean()), float(xs.mean())) if len(ys) else None
+
+
+def resampled(sub, s, anchor):
+    """The object `sub` (its own box) at s of its size, every square the commonest colour of the squares under it (the
+    edge's highlight wins from a quarter: a 1-square edge line survives) when they cover half of it - the crescent keeps
+    its curve, where deleting whole rows and columns sawed its edge (the reviewer). -> (object, where `anchor` went)"""
+    H, W = sub.shape[:2]
+    h, w = max(1, round(H * s)), max(1, round(W * s))
+    out = np.zeros((h, w, 4), np.uint8)
+    for j in range(h):
+        y0, y1 = int(np.floor(j * H / h)), max(int(np.floor(j * H / h)) + 1, int(np.ceil((j + 1) * H / h)))
+        for i in range(w):
+            x0, x1 = int(np.floor(i * W / w)), max(int(np.floor(i * W / w)) + 1, int(np.ceil((i + 1) * W / w)))
+            win = sub[y0:y1, x0:x1].reshape(-1, 4)
+            op = win[:, 3] > 0
+            if op.mean() < 0.5:
+                continue
+            cols, cnt = np.unique(win[op][:, :3], axis=0, return_counts=True)
+            hi = [k for k, c in enumerate(cols) if tuple(c) == BLADE_HI]
+            k = hi[0] if hi and cnt[hi[0]] >= 0.25 * len(win) else int(cnt.argmax())
+            out[j, i, :3], out[j, i, 3] = cols[k], 255
+    return out, (min(h - 1, int(anchor[0] * h / H)), min(w - 1, int(anchor[1] * w / W)))
+
+
+# a fist round the haft where Codex drew none (the design's near fist: dark wrap, black lines; light from the top left)
+FIST = [". B B B B B . .",
+        "B k k m b b B .",
+        "B m k b B b b B",
+        "B b b B b b b B",
+        "B b B d b B b B",
+        ". B b b b b B .",
+        ". . B B B B . ."]
+# pale knuckles over the wrap (the design's near hand: the reviewer saw plain brown blobs)
+FIST_COLOURS = {"B": OUTLINE, "b": (51, 31, 27), "d": (78, 51, 42), "k": (189, 202, 219), "m": (157, 158, 188)}
+IRON_OF = {(117, 61, 32): (65, 69, 75), (91, 47, 25): (39, 40, 44), (78, 51, 42): (65, 69, 75),
+           (51, 31, 27): (39, 40, 44)}      # the forearm's wrap as the gauntlet's iron plates
+CLOTHS = [(108, 97, 55), (38, 42, 30)]      # the loin cloth and its fold
+
+
+def fist(a, x0, y0):
+    for j, row in enumerate(FIST):
+        for i, ch in enumerate(row.split()):
+            if ch != ".":
+                a[y0 + j, x0 + i] = (*FIST_COLOURS[ch], 255)
+    return a
+
+
+def pauldron_mask():
+    """The design's spiked pauldron on the idle canvas: its iron and lines right of the head, down to row 97 (under it
+    the far arm hangs), the largest piece."""
+    idle = on_canvas(design())
+    reg = np.zeros((ROWS, COLS), bool)
+    reg[70:98, 104:141] = True
+    m = np.zeros_like(reg)
+    for c in [(39, 40, 44), (65, 69, 75), (114, 125, 140), OUTLINE]:
+        m |= (idle[..., 3] > 0) & (idle[..., :3] == c).all(-1)
+    m &= reg & ~head_at((0, 0))
+    lab, n = ndimage.label(m, structure=np.ones((3, 3)))
+    m = lab == 1 + int(np.argmax(ndimage.sum(m, lab, range(1, n + 1))))
+    return ndimage.binary_fill_holes(m) & (idle[..., 3] > 0) & ~head_at((0, 0))
+
+
+def pauldron(a, off, dy, dx):
+    """The design's pauldron pasted on the far shoulder: moved as the head is, and (dy, dx) more."""
+    idle = on_canvas(design())
+    ys, xs = np.nonzero(pauldron_mask())
+    a[ys + off[0] + dy, xs + off[1] + dx] = idle[ys, xs]
+    return a
+
+
+def plates(a, box):
+    """The forearm's wrap in box (x0, y0, x1, y1) as iron plates (IRON_OF)."""
+    x0, y0, x1, y1 = box
+    sub = a[y0:y1 + 1, x0:x1 + 1]
+    for c, to in IRON_OF.items():
+        sub[(sub[..., 3] > 0) & (sub[..., :3] == c).all(-1), :3] = to
+    return a
+
+
+def cloth(a, box):
+    """The loin cloth in box (x0, y0, x1, y1) replaced by the design's: Codex's cloth squares cleared, the design's cloth
+    pasted with its top row on the cleared cloth's and its middle under the cleared cloth's middle."""
+    x0, y0, x1, y1 = box
+    m = np.zeros((ROWS, COLS), bool)
+    for c in CLOTHS:
+        m |= (a[..., 3] > 0) & (a[..., :3] == c).all(-1)
+    m[:y0] = m[y1 + 1:] = False
+    m[:, :x0] = m[:, x1 + 1:] = False
+    main = m & (a[..., :3] == CLOTHS[0]).all(-1)
+    ys, xs = np.nonzero(main)
+    top, mid = ys.min(), (xs.min() + xs.max()) / 2
+    a[m] = 0
+    # its outline too: dark squares round it that line nothing else light (the reviewer: the old cloth's black line
+    # stayed, pockets of ground inside it)
+    op = a[..., 3] > 0
+    light = op & (a[..., :3].astype(int).sum(-1) >= 70)
+    near_light = ndimage.binary_dilation(light, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]))
+    rim = ndimage.binary_dilation(m, structure=np.ones((3, 3))) & op & ~light & ~near_light
+    a[rim] = 0
+    idle = on_canvas(design())
+    dm = np.zeros((ROWS, COLS), bool)
+    for c in CLOTHS:
+        dm |= (idle[..., 3] > 0) & (idle[..., :3] == c).all(-1)
+    dm &= box_mask(CLOTH_BOX)
+    dy_, dx_ = np.nonzero(dm)
+    oy, ox = top - dy_.min(), int(round(mid - (dx_.min() + dx_.max()) / 2))
+    a[dy_ + oy, dx_ + ox] = idle[dy_, dx_]
+    return a
+
+
+def slit(a, box):
+    """1-square slits between limbs in box (x0, y0, x1, y1): bare squares with the figure on two opposite sides (left
+    and right, above and below, or across a diagonal) take the outline, until none is left."""
+    x0, y0, x1, y1 = box
+    for _ in range(6):
+        op = a[..., 3] > 0
+        fill = []
+        for y in range(y0, y1 + 1):
+            for x in range(x0, x1 + 1):
+                if op[y, x]:
+                    continue
+                if any(op[y + dy, x + dx] and op[y - dy, x - dx] for dy, dx in ((0, 1), (1, 0), (1, 1), (1, -1))):
+                    fill.append((y, x))
+        if not fill:
+            break
+        for y, x in fill:
+            a[y, x] = (*OUTLINE, 255)
+    return a
+
+
+def ring_fix(a, box):
+    """A bone ring Codex drew bigger than the design's (in box): its squares darkened, the design's ring set on its
+    middle (the haft and the hand round it are dark already)."""
+    x0, y0, x1, y1 = box
+    m = np.zeros((ROWS, COLS), bool)
+    for c in RING:
+        m |= (a[..., 3] > 0) & (a[..., :3] == c).all(-1)
+    m[:y0] = m[y1 + 1:] = False
+    m[:, :x0] = m[:, x1 + 1:] = False
+    ys, xs = np.nonzero(m)
+    if not len(ys) or (ys.max() - ys.min() < 6 and xs.max() - xs.min() < 6):
+        return a
+    cy, cx = ys.mean(), xs.mean()
+    a[m, :3] = OUTLINE
+    idle = on_canvas(design())
+    d = np.zeros((ROWS, COLS), bool)
+    for c in RING:
+        d |= (idle[..., 3] > 0) & (idle[..., :3] == c).all(-1)
+    d[:105] = False
+    dy_, dx_ = np.nonzero(d)
+    oy, ox = int(round(cy - dy_.mean())), int(round(cx - dx_.mean()))
+    a[dy_ + oy, dx_ + ox] = idle[dy_, dx_]
+    return a
+
+
+def stretch(a, x0, x1, y0, k):
+    """A lower leg Codex left floating set down k rows: in columns x0..x1 the rows from y0 to the soles are drawn
+    k rows longer (each row nearest above, spread evenly) - the shin grows along its own slope, the boot lands."""
+    n = SOLE + 1 - y0
+    src = a[y0:SOLE + 1 - k, x0:x1 + 1].copy()
+    a[y0:SOLE + 1, x0:x1 + 1] = src[np.minimum(src.shape[0] - 1, (np.arange(n) * (n - k) // n))]
+    return a
+
+
+def ink(a, pts):
+    for x, y in pts:
+        a[y, x] = (*OUTLINE, 255)
+    return a
+
+
+def fixed(tag, pos, a, off):
+    """FIX's operations for this frame, in order; an axe blade taken out ("axe") goes back last where its foot went,
+    no bigger than the design's (AXE_AREA)."""
+    head = head_at(off)
+    axe, maps, rings = None, [], []
+    for op in FIX.get((tag, pos), ()):
+        if op[0] == "axe":
+            box = op[1]
+            m, area = blade_of(a, box)
+            ring = ring_at(a, box) or op[2]
+            ys, xs = np.nonzero(m)
+            sub = np.zeros((ys.max() - ys.min() + 1, xs.max() - xs.min() + 1, 4), np.uint8)
+            sub[ys - ys.min(), xs - xs.min()] = a[ys, xs]
+            i = int(((ys - ring[0]) ** 2 + (xs - ring[1]) ** 2).argmin())      # the blade's square at the ring
+            anchor = (int(ys[i] - ys.min()), int(xs[i] - xs.min()))
+            s = min(1.0, (AXE_AREA / area) ** 0.5) if area else 1.0
+            if s < AXE_TOL:
+                sub, anchor = resampled(sub, s, anchor)
+            a[m] = 0
+            axe = (sub, anchor, (int(ys[i]), int(xs[i])))
+        elif op[0] == "clear":
+            a = clear(a, op[1], head)
+        elif op[0] == "stake":
+            a = stake(a, off)
+        elif op[0] == "neck":
+            a = neck(a, op[1], op[2], op[3], head)
+        elif op[0] in ("lower", "legs"):
+            a, src = lower(a, op[1]) if op[0] == "lower" else drop_rows(a, op[1], op[2])
+            head = rows_moved(head[..., None].astype(np.uint8), src)[..., 0] > 0
+            maps.append(src)
+        elif op[0] == "boot":
+            a = far_boot(a, op[1])
+        elif op[0] == "foot":
+            a = foot(a, *op[1:])
+        elif op[0] == "fist":
+            a = fist(a, op[1], op[2])
+        elif op[0] == "pauldron":
+            a = pauldron(a, off, op[1], op[2])
+        elif op[0] == "plates":
+            a = plates(a, op[1])
+        elif op[0] == "cloth":
+            a = cloth(a, op[1])
+        elif op[0] == "slit":
+            a = slit(a, op[1])
+        elif op[0] == "ring":
+            rings.append(op[1])
+        elif op[0] == "stretch":
+            a = stretch(a, *op[1:])
+        elif op[0] == "ink":
+            a = ink(a, op[1])
+        else:
+            raise ValueError(op)
+    if axe:
+        sub, (ay, ax), (py, px) = axe
+        for src in maps:
+            py = moved_row(py, src)
+        ys, xs = np.nonzero(sub[..., 3] > 0)
+        yy, xx = ys + py - ay, xs + px - ax
+        ok = (yy >= 0) & (yy <= SOLE) & (xx >= 0) & (xx < COLS)
+        a[yy[ok], xx[ok]] = sub[ys[ok], xs[ok]]
+    for box in rings:                   # over the blade put back
+        a = ring_fix(a, box)
+    return a
+
+
 def charge():
-    """R's charge frames: Codex's charge pose's upper body over the design's legs walking."""
+    """R's charge frames: Codex's charge pose's upper body (cut at its chest: ULT_CUT) over the design's waist (its belt
+    and furnace, ULT_WAIST) and its legs walking - Codex's near thigh, drawn beside its belt, stacked a second thigh over
+    the design's (the reviewer)."""
     u = codex("ult", 1)
-    u = scaled_frame(u, 1.0 / body_scale(u))
+    u, off = scaled_frame(u, 1.0 / body_scale(u))
+    u = fixed("ult", 1, u, off)
     r0, c0, c1 = ULT_CUT
     u[r0:, c0:c1] = 0
     dy, dx = ULT_SHIFT
@@ -354,7 +827,7 @@ def charge():
     ys, xs = np.nonzero(u[..., 3] > 0)
     top[ys + dy, xs + dx] = u[ys, xs]
     legs = on_canvas(design())
-    legs[~box_mask(WALK_NEAR + WALK_FAR + CLOTH_BOX)] = 0
+    legs[~box_mask(WALK_NEAR + WALK_FAR + CLOTH_BOX + ULT_WAIST)] = 0
     out = []
     for n_, f_, r_ in WALK:
         w = walk_frame(legs, n_, f_, r_)
@@ -383,7 +856,10 @@ def box_mask(boxes, dy=0, dx=0):
 
 
 def breathe(can, mask, k):
-    """The masked squares moved k rows up; the squares they uncover take the colour of the square under them."""
+    """The masked squares moved k rows up; of the squares they uncover only those right over the squares that stay
+    (the legs and the loin cloth: the belt's seam) take the colour of the square under them - every other edge just
+    moves (the reviewer: filling under every moved edge from the moved squares blinked pixels at the stake, the
+    ribbon, the pauldron and the hands)."""
     if k == 0:
         return can.copy()
     out = can.copy()
@@ -399,8 +875,6 @@ def breathe(can, mask, k):
                 below += 1
             if below < can.shape[0] and rest[below, x, 3] > 0:
                 out[y, x] = rest[below, x]
-            elif below < can.shape[0] and out[below, x, 3] > 0:
-                out[y, x] = out[below, x]
     return out
 
 
