@@ -18,7 +18,8 @@
 //! 不缩，接着画出被附身英雄的高清帧（别人的佛耶戈 0.6.3 时在战场绘制里 0x231f990 抄资源名，也在我们之后）。战场绘制先调画身体的
 //! 0x2aaf630（0x2abfcd5），之后才在 0x2abfdc0 读 +0x1b4：所以 0x2aaf630 的钩子先按此刻的资源名再算一遍，是高清英雄、
 //! 而这一帧的更新没缩过（佛耶戈），就在这里写 ÷ PPU（另记一份「画时」的记录，附身结束时写回游戏的值）；更新已经缩过的
-//! 照旧不动，不会除两次。
+//! 照旧不动，不会除两次。下一帧更新看到的已是被附身英雄、自己还没有记录：从「画时」的记录接着算（0.7.1，用户：「佛耶戈
+//! 不能变身PPU英雄？」）——游戏没把 +0x1b4 写回自己的值时，否则会把画时写的 ÷ PPU 当成游戏的值再除一次，附身后小 PPU 倍。
 //!
 //! 只缩身体（0.6.30，用户：「回城时脚下的特效会被遮挡」「英雄脚下的阴影也被遮挡了」）：+0x1b4 套在战场画身体的函数
 //! 0x2aaf630 交出的整组绘制命令外面（0x2abfdc0：组头插一条缩放命令 0x…11、组尾一条恢复 0x…12），组里除了身体还有阴影、
@@ -62,6 +63,14 @@ pub fn next_scale(prev: Option<Scale>, cur: f32, ppu: f32) -> Scale {
         _ => cur,
     };
     Scale { base, wrote: base / ppu }
+}
+
+/// The record the display update divides from: its own for this entity, else the body draw's. A body swapped after
+/// the update (league_viego_soul: the update saw league_viego) was first divided at the body draw; the next update sees
+/// the victim's name with no record of its own, and if the game left the body draw's value in +0x1b4 that value would
+/// be taken for the game's own and divided again (the possessed hero drawn PPU times too small).
+pub fn update_prev(own: Option<Scale>, drawn: Option<Scale>) -> Option<Scale> {
+    own.or(drawn)
 }
 
 /// The registered hero an entity is drawn as: by its body's resource name (`.../league_zeri#anim` or the bare id) when
@@ -215,7 +224,8 @@ unsafe fn shrink(world: usize) {
         };
         let name = res.unwrap_or(hero.id);
         let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
-        let s = next_scale(at.map(|k| st.scales[k].2), cur, hero.shown());
+        let s = next_scale(update_prev(at.map(|k| st.scales[k].2), st.drawn.iter().find(|e| e.0 == v).map(|e| e.1)),
+                           cur, hero.shown());
         std::ptr::write_unaligned((v + SCALE) as *mut f32, s.wrote);
         match st.by_value.iter().position(|e| e.0 == v) {
             Some(k) => st.by_value[k].1 = s,
@@ -529,6 +539,23 @@ mod tests {
         assert_eq!(at_draw(None, Some(s), 1.0 / k, None), AtDraw::Restore(1.0));
         assert_eq!(at_draw(None, Some(s), 1.0, None), AtDraw::Leave);
         assert_eq!(at_draw(None, None, 1.0, None), AtDraw::Leave);
+    }
+
+    #[test]
+    fn a_swapped_body_is_divided_once_frame_after_frame() {
+        let k = 2.2;
+        // frame 1: the update saw league_viego (nothing), the add-on swapped the body, the body draw divided
+        let AtDraw::Write(first) = at_draw(None, None, 1.0, Some(k)) else { panic!() };
+        // frame 2, the game left the body draw's value: the update sees the victim with no record of its own
+        let s = next_scale(update_prev(None, Some(first)), 1.0 / k, k);
+        assert_eq!(s, Scale { base: 1.0, wrote: 1.0 / k });
+        assert_ne!(next_scale(None, 1.0 / k, k).wrote, s.wrote); // without the body draw's record: divided twice
+        // frame 2, the game wrote its own value again: the same
+        assert_eq!(next_scale(update_prev(None, Some(first)), 1.0, k), s);
+        // the body draw of frame 2 keeps the update's value
+        assert_eq!(at_draw(Some(s), Some(first), 1.0 / k, Some(k)), AtDraw::Write(s));
+        // from frame 3 the update has its own record
+        assert_eq!(next_scale(update_prev(Some(s), Some(first)), 1.0 / k, k), s);
     }
 
     #[test]
