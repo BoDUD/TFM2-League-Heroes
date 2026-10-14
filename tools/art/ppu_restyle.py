@@ -92,7 +92,7 @@ RESTYLE = {
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
     # 「刀妹和卡萨丁感觉在游戏里偏大啊」: 100 % (hd.rs SIZES). rig_kassadin.py drew his frames RAISE 4 orig rows higher
     # for its 110 %; lowered 4 x 2.42 / 3.622 = 2.7 -> 3 squares after the downscale
-    "kassadin": dict(edge=0, ppu=2.42, crisp={}, lift_sq=-3, face_to=(1, -31)),
+    "kassadin": dict(edge=0, ppu=2.42, crisp=dict(keep="mask_face"), lift_sq=-3, face_to=(1, -31)),
     # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
     # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
     # --delivery <it> --fill-from-sheet
