@@ -3,7 +3,8 @@
 
     python tools/art/design_kindred_hd.py [--preview DIR]
 
-The user's picks (2026-10-14): picture B; the Wolf about 70 %; Lamb about 40 game rows, the picture read back 1:1 (no
+The user's picks (2026-10-14): picture B; the Wolf about 55 %; Lamb 34 game rows ear tips to hooves (「模型还得缩小」,
+85 % of the first 40), Zeri's density at the end (ppu_restyle); until then the picture read back 1:1 (no
 resampling of Lamb). So:
   1. picture B with a hard alpha (Codex's alpha never reached 255: a soft haze round both figures; >= ALPHA is figure);
   2. read back on its own grid (regrid.py's boundary search at SQ px: Codex drew ~5.5-px squares, not the 8 asked for;
@@ -37,7 +38,7 @@ OUT = os.path.join(SRC, "hd")
 SQ = 5.5
 K = 40
 ALPHA = 160
-WOLF_SCALE = 0.70
+WOLF_SCALE = 0.55               # the user: 70 % first, then 「狼再小一些」 (2026-10-14)
 NEAR = 8                      # a loose mane tuft lies within this many squares of the wolf's head + mane
 
 
