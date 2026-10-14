@@ -122,7 +122,8 @@ FAR_BOOT = (128, 141, 105, 129)
 #   ("clear", (x0, y0, x1, y1)): every square in the box (inclusive) but the pasted head's own is cleared - Codex's old
 #       stake, skull-top and neck lines beside the pasted head (tidy outlines what they leave);
 #   ("lower", k): the frame k rows down, nothing under SOLE (the planted boots on the ground; a blade on it bites in);
-#   ("legs", b0, n): n whole rows taken from rows b0..SOLE-1, the least loss (legs Codex drew too long);
+#   ("legs", b0, n[, (r0, r1)]): n whole rows taken from rows b0..SOLE-1, the least loss (legs Codex drew too long),
+#       rows r0..r1 kept (the bone ring beside the legs: the trim flattened it);
 #   ("boot", x0): the design's far boot behind the frame, its sole on SOLE from column x0 (Q's slam: the far leg ended at
 #       the knee);
 #   ("stake",): Codex's wider stake beside the pasted one cleared (stake());
@@ -142,44 +143,48 @@ FIX = {
     # double-headed); a fist on the haft
     ("attack", 1): [("clear", (61, 40, 73, 48)), ("clear", (68, 49, 73, 54)), ("clear", (89, 59, 94, 68)),
                     ("clear", (60, 47, 60, 47)), ("clear", (93, 69, 93, 69)), ("fist", 70, 55)],
-    ("attack", 2): [("legs", 109, 8), ("cloth", (92, 112, 114, 132))],
+    ("attack", 2): [("legs", 109, 8), ("cloth", (92, 112, 114, 132)), ("ink", [(113, 130), (114, 130), (113, 119),
+                                                                            (113, 120)])],
     # the haft came out of the crotch: a fist on it; the back lower leg set on the ground along its slope
     ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3)],
-    ("attack", 4): [("axe", (156, 113, 196, 141), None), ("lower", 3), ("stretch", 99, 114, 116, 3),
+    ("attack", 4): [("axe", (156, 113, 196, 141), None), ("lower", 3), ("stretch", 105, 125, 116, 3),
                     ("ring", (156, 118, 176, 137))],
     ("skill_charge", 1): [("stake",), ("slit", (123, 113, 130, 120)), ("axe", (24, 60, 53, 96), None)],
     ("skill_charge", 2): [("axe", (24, 52, 58, 88), None)],
     ("skill", 1): [("slit", (68, 67, 75, 75)), ("slit", (75, 72, 81, 82)), ("ring", (64, 70, 82, 86))],
     ("skill", 2): [("clear", (88, 69, 101, 71)), ("axe", (141, 90, 181, 131), None), ("legs", 111, 6),
-                   ("ring", (144, 100, 162, 120))],
+                   ("stretch", 57, 88, 122, 1), ("ring", (144, 100, 162, 120))],
     ("skill", 3): [("lower", 12), ("boot", 124), ("ring", (138, 125, 158, 141))],
     ("skill", 4): [("stake",), ("lower", 13), ("boot", 124), ("ring", (138, 125, 158, 141))],
     ("skill2", 1): [("neck", 86, 91, 66), ("clear", (92, 68, 95, 73)), ("pauldron", 0, 0),
                     ("ink", [(91, 81), (91, 82), (92, 82), (93, 83)]), ("plates", (124, 95, 144, 101))],
     ("skill2", 2): [("neck", 91, 96, 62), ("clear", (97, 64, 100, 68)), ("pauldron", 0, 0),
-                    ("axe", (38, 112, 80, 141), None), ("legs", 112, 5), ("plates", (128, 96, 151, 102))],
+                    ("axe", (38, 112, 80, 141), None), ("legs", 112, 5), ("plates", (128, 96, 151, 102)),
+                    ("stretch", 69, 94, 120, 1)],
     ("skill2", 3): [("stake",), ("lower", 1), ("slit", (87, 104, 99, 115)), ("slit", (82, 117, 89, 123)),
                     ("slit", (117, 80, 128, 87))],
     ("skill2", 4): [("stake",), ("lower", 1)],
     ("skill2_w", 1): [("pauldron", 0, 0), ("plates", (132, 99, 148, 104))],
     ("skill2_w", 2): [("neck", 100, 105, 67), ("clear", (58, 92, 70, 98)), ("clear", (65, 98, 68, 101)),
-                      ("clear", (62, 98, 62, 99)), ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)),
-                      ("ring", (40, 95, 58, 112))],
+                      ("clear", (62, 98, 62, 99)), ("clear", (63, 99, 64, 99)), ("clear", (57, 96, 57, 96)),
+                      ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)), ("ring", (40, 95, 58, 112))],
     ("skill2_w", 3): [("neck", 100, 105, 67), ("clear", (58, 92, 70, 98)), ("clear", (65, 98, 68, 101)),
-                      ("clear", (62, 98, 62, 99)), ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)),
-                      ("ring", (40, 95, 58, 112))],
+                      ("clear", (62, 98, 62, 99)), ("clear", (63, 99, 64, 99)), ("clear", (57, 96, 57, 96)),
+                      ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)), ("ring", (40, 95, 58, 112))],
     # (the scaled frame, before ULT_SHIFT) Codex's wrap bits under the near armpit
     ("ult", 1): [("stake",), ("clear", (80, 97, 84, 100)), ("axe", (20, 102, 66, 130), None)],
     ("ult_hit", 1): [("axe", (39, 106, 84, 126), None), ("legs", 111, 6)],
     ("ult_hit", 2): [("stake",), ("axe", (148, 117, 182, 141), None), ("lower", 1), ("ring", (145, 110, 162, 127))],
-    ("ult_hit", 3): [("stake",), ("axe", (118, 121, 166, 141), None), ("lower", 6), ("ring", (118, 114, 136, 136))],
+    # its blade keeps Codex's squares: lowered 6, the ground hides half of it, and the resized one cracked (the reviewer)
+    ("ult_hit", 3): [("stake",), ("lower", 6), ("ring", (118, 114, 136, 136))],
     # the loin cloth swelled to 166 squares (the design's 99): the design's
     ("ult_hit", 4): [("cloth", (88, 108, 116, 136)), ("slit", (128, 108, 133, 113)), ("axe", (128, 122, 176, 141), None),
-                     ("lower", 4)],
-    ("dead", 1): [("neck", 83, 88, 59), ("axe", (38, 119, 74, 141), None), ("legs", 109, 8),
+                     ("lower", 4), ("stretch", 108, 127, 122, 1)],
+    ("dead", 1): [("neck", 83, 88, 59), ("axe", (38, 119, 74, 141), None), ("legs", 109, 8, (115, 123)),
                   ("cloth", (104, 112, 120, 128))],
     ("dead", 2): [("neck", 93, 98, 53), ("slit", (128, 93, 129, 96)), ("axe", (46, 117, 84, 141), None),
-                  ("legs", 107, 10), ("lower", 1), ("clear", (99, 68, 99, 72))],
+                  ("legs", 107, 10, (112, 121)), ("lower", 1), ("clear", (99, 68, 99, 72)),
+                  ("ink", [(76, 124), (75, 127)]), ("stretch", 83, 107, 118, 1)],
     ("dead", 3): [("slit", (91, 106, 94, 110))],
     ("dead", 4): [("neck", 97, 102, 66), ("clear", (103, 66, 106, 72))],
     ("dead", 5): [("stake",), ("slit", (93, 118, 97, 122))],
@@ -460,11 +465,11 @@ def lower(a, k):
     return rows_moved(a, src), src
 
 
-def drop_rows(a, b0, n):
-    """n whole rows taken from rows b0..SOLE-1, the ones most like a neighbour; everything above moves down.
-    -> (frame, the rows kept)"""
+def drop_rows(a, b0, n, keep=None):
+    """n whole rows taken from rows b0..SOLE-1 (but the rows of keep (r0, r1)), the ones most like a neighbour;
+    everything above moves down. -> (frame, the rows kept)"""
     k = keys(a)
-    rows = list(range(b0, SOLE))
+    rows = [y for y in range(b0, SOLE) if not keep or not keep[0] <= y <= keep[1]]
     kept = [rows[i] for i in least([k[y] for y in rows], len(rows) - n)]
     gone = set(rows) - set(kept)
     src = [y for y in range(SOLE + 1) if y not in gone]
@@ -531,7 +536,7 @@ BLADE = [(157, 158, 188), (114, 125, 140), (209, 222, 235)]   # the axe blade's 
 BLADE_HI = (209, 222, 235)                                      # its edge's highlight, the blade's alone: the seed
 RING = [(152, 150, 128), (212, 208, 178)]                       # the bone ring at the blade's foot
 AXE_AREA = 247                                                  # the design's blade, squares of its steels
-AXE_TOL = 0.95                  # a blade within a tenth of the design's area keeps its squares
+AXE_TOL = 0.92                  # a blade within a sixth of the design's area keeps its squares (resizing costs)
 
 
 SKIN_ONLY = [(125, 110, 151), (189, 202, 219), (94, 69, 112)]   # skin tones the blade never uses
@@ -581,9 +586,9 @@ def ring_at(a, box):
 
 
 def resampled(sub, s, anchor):
-    """The object `sub` (its own box) at s of its size, every square the commonest colour of the squares under it (the
-    edge's highlight wins from a quarter: a 1-square edge line survives) when they cover half of it - the crescent keeps
-    its curve, where deleting whole rows and columns sawed its edge (the reviewer). -> (object, where `anchor` went)"""
+    """The object `sub` (its own box) at s of its size, every square the commonest colour of the squares under it when
+    they cover half of it - the crescent keeps its curve, where deleting whole rows and columns sawed its edge (the
+    reviewer; letting the edge's highlight win from a quarter whitened the blades). -> (object, where `anchor` went)"""
     H, W = sub.shape[:2]
     h, w = max(1, round(H * s)), max(1, round(W * s))
     out = np.zeros((h, w, 4), np.uint8)
@@ -596,9 +601,7 @@ def resampled(sub, s, anchor):
             if op.mean() < 0.5:
                 continue
             cols, cnt = np.unique(win[op][:, :3], axis=0, return_counts=True)
-            hi = [k for k, c in enumerate(cols) if tuple(c) == BLADE_HI]
-            k = hi[0] if hi and cnt[hi[0]] >= 0.25 * len(win) else int(cnt.argmax())
-            out[j, i, :3], out[j, i, 3] = cols[k], 255
+            out[j, i, :3], out[j, i, 3] = cols[int(cnt.argmax())], 255
     return out, (min(h - 1, int(anchor[0] * h / H)), min(w - 1, int(anchor[1] * w / W)))
 
 
@@ -775,7 +778,7 @@ def fixed(tag, pos, a, off):
         elif op[0] == "neck":
             a = neck(a, op[1], op[2], op[3], head)
         elif op[0] in ("lower", "legs"):
-            a, src = lower(a, op[1]) if op[0] == "lower" else drop_rows(a, op[1], op[2])
+            a, src = lower(a, op[1]) if op[0] == "lower" else drop_rows(a, *op[1:])
             head = rows_moved(head[..., None].astype(np.uint8), src)[..., 0] > 0
             maps.append(src)
         elif op[0] == "boot":
