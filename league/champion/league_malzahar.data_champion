@@ -467,10 +467,6 @@
                                     "name": "league_malzahar_vo_r"
                                   },
                                   {
-                                    "type": "ViewEffect",
-                                    "name": "league_malzahar_r_grasp"
-                                  },
-                                  {
                                     "type": "SwitchByBuff",
                                     "buff_name": "league_malzahar_r_ch",
                                     "effect_buff": {
@@ -490,6 +486,10 @@
                                         {
                                           "type": "TargetSfx",
                                           "name": "league_malzahar_r_tick"
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_malzahar_r_grasp"
                                         }
                                       ]
                                     },
@@ -524,6 +524,10 @@
                                             {
                                               "type": "TargetSfx",
                                               "name": "league_malzahar_r_tick"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_malzahar_r_grasp"
                                             }
                                           ]
                                         },
@@ -970,10 +974,6 @@
                                                                     "name": "league_malzahar_vo_r"
                                                                   },
                                                                   {
-                                                                    "type": "ViewEffect",
-                                                                    "name": "league_malzahar_r_grasp"
-                                                                  },
-                                                                  {
                                                                     "type": "SwitchByBuff",
                                                                     "buff_name": "league_malzahar_r_ch",
                                                                     "effect_buff": {
@@ -993,6 +993,10 @@
                                                                         {
                                                                           "type": "TargetSfx",
                                                                           "name": "league_malzahar_r_tick"
+                                                                        },
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_malzahar_r_grasp"
                                                                         }
                                                                       ]
                                                                     },
@@ -1027,6 +1031,10 @@
                                                                             {
                                                                               "type": "TargetSfx",
                                                                               "name": "league_malzahar_r_tick"
+                                                                            },
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_malzahar_r_grasp"
                                                                             }
                                                                           ]
                                                                         },
@@ -1492,10 +1500,6 @@
                                     "name": "league_malzahar_vo_r"
                                   },
                                   {
-                                    "type": "ViewEffect",
-                                    "name": "league_malzahar_r_grasp"
-                                  },
-                                  {
                                     "type": "SwitchByBuff",
                                     "buff_name": "league_malzahar_r_ch",
                                     "effect_buff": {
@@ -1515,6 +1519,10 @@
                                         {
                                           "type": "TargetSfx",
                                           "name": "league_malzahar_r_tick"
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_malzahar_r_grasp"
                                         }
                                       ]
                                     },
@@ -1549,6 +1557,10 @@
                                             {
                                               "type": "TargetSfx",
                                               "name": "league_malzahar_r_tick"
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_malzahar_r_grasp"
                                             }
                                           ]
                                         },
@@ -1995,10 +2007,6 @@
                                                                     "name": "league_malzahar_vo_r"
                                                                   },
                                                                   {
-                                                                    "type": "ViewEffect",
-                                                                    "name": "league_malzahar_r_grasp"
-                                                                  },
-                                                                  {
                                                                     "type": "SwitchByBuff",
                                                                     "buff_name": "league_malzahar_r_ch",
                                                                     "effect_buff": {
@@ -2018,6 +2026,10 @@
                                                                         {
                                                                           "type": "TargetSfx",
                                                                           "name": "league_malzahar_r_tick"
+                                                                        },
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_malzahar_r_grasp"
                                                                         }
                                                                       ]
                                                                     },
@@ -2052,6 +2064,10 @@
                                                                             {
                                                                               "type": "TargetSfx",
                                                                               "name": "league_malzahar_r_tick"
+                                                                            },
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_malzahar_r_grasp"
                                                                             }
                                                                           ]
                                                                         },
@@ -3058,10 +3074,6 @@
                           "name": "league_malzahar_vo_r"
                         },
                         {
-                          "type": "ViewEffect",
-                          "name": "league_malzahar_r_grasp"
-                        },
-                        {
                           "type": "SwitchByBuff",
                           "buff_name": "league_malzahar_r_ch",
                           "effect_buff": {
@@ -3081,6 +3093,10 @@
                               {
                                 "type": "TargetSfx",
                                 "name": "league_malzahar_r_tick"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_malzahar_r_grasp"
                               }
                             ]
                           },
@@ -3115,6 +3131,10 @@
                                   {
                                     "type": "TargetSfx",
                                     "name": "league_malzahar_r_tick"
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_malzahar_r_grasp"
                                   }
                                 ]
                               },
@@ -3303,10 +3323,6 @@
                 "name": "league_malzahar_vo_r"
               },
               {
-                "type": "ViewEffect",
-                "name": "league_malzahar_r_grasp"
-              },
-              {
                 "type": "SwitchByBuff",
                 "buff_name": "league_malzahar_r_ch",
                 "effect_buff": {
@@ -3326,6 +3342,10 @@
                     {
                       "type": "TargetSfx",
                       "name": "league_malzahar_r_tick"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_malzahar_r_grasp"
                     }
                   ]
                 },
@@ -3360,6 +3380,10 @@
                         {
                           "type": "TargetSfx",
                           "name": "league_malzahar_r_tick"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_malzahar_r_grasp"
                         }
                       ]
                     },

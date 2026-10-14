@@ -245,9 +245,11 @@ def build(p):
 
     def grasp():
         """On the champion it takes: a stun renewed by every wave while the channel flag holds."""
+        # r_grasp: the void's hands round him, a 15-tick loop played by every wave (gone when the channel breaks)
         wave = sw("r_ch", combine({"type": "Stun", "duration": p["r_p"] + 1},
-                                  magic(round(p["r_dmg"] / runs), round(p["r_ap"] / runs)), tsfx("r_tick")))
-        return combine(*rm("r_armed"), refresh("r_ch", p["r_t"] + 1), sfx("r_cast"), sfx("vo_r"), view("r_grasp"),
+                                  magic(round(p["r_dmg"] / runs), round(p["r_ap"] / runs)), tsfx("r_tick"),
+                                  view("r_grasp")))
+        return combine(*rm("r_armed"), refresh("r_ch", p["r_t"] + 1), sfx("r_cast"), sfx("vo_r"),
                        wave, casted(p["r_t"] - 1, p["r_p"], wave),
                        drop("r_drop", view("r_pool"), sfx("r_pool"), null_zone),
                        on_me(anim("ult", p["r_anim"]), delayed(p["r_anim"], sw("r_ch", anim("ult_loop", p["r_t"] - p["r_anim"]))),
