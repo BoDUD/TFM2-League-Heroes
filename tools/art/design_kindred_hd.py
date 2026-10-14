@@ -111,6 +111,155 @@ def shrink_wolf(wolf, pal):
     return small, (y0 + ny - py, x0 + nx - px)
 
 
+# the side takes (assets/source/kindred/codex_model, step 1): Codex drew ~6-px squares; per take the mask's ear tips
+# (outline top), the hooves' lowest row and the hooves' middle in its pixels -> the front's EAR_ROW, SOLE_ROW, MID_COL
+EAR_ROW, SOLE_ROW, MID_COL = 12, 165, 162
+SIDES = {"A": (93, 1006, 838), "B": (96, 998, 810)}
+SIDE_W = 250                  # B's bow reaches column 233
+# the front's mask head (one face in every frame, memory one-face-all-frames): the mask's own squares - the piece of
+# non-fur, non-outline squares holding the near eye - and the outline round it, inside this box (rows, cols)
+HEAD_BOX = (10, 58, 150, 183)
+EYE = (38, 162)
+
+
+def mask_piece(a, eye, box):
+    """(rows, cols) boolean of the mask: the 4-connected non-fur, non-outline piece holding `eye`, inside `box`, plus
+    the outline squares within 2 of it."""
+    r0, r1, c0, c1 = box
+    op = a[..., 3] > 0
+    rgb = a[..., :3].astype(float)
+    lab = dv.srgb2lab(rgb)
+    dark = rgb.sum(-1) < 90
+    fur = (lab[..., 0] > 60) & (lab[..., 1] > -15) & (lab[..., 2] < 5)
+    inner = op & ~dark & ~fur
+    inner[:r0] = inner[r1:] = False
+    inner[:, :c0] = inner[:, c1:] = False
+    lbl, _ = ndimage.label(inner)
+    piece = lbl == lbl[eye]
+    ring = ndimage.binary_dilation(piece, iterations=2) & dark & op
+    return piece | ring
+
+
+side_left = [None]
+
+
+# the mask's outline on the front design (row, col), drawn round it by eye at 10x (fhead review 2026-10-14): ear tips,
+# the right cheek, the snout tip, the left cheek; every non-fur square inside is the mask
+MASK_POLY = [(11, 151), (11, 183), (47, 184), (59, 177), (59, 167), (35, 154), (22, 151)]
+
+
+def poly_mask(shape, poly):
+    from PIL import ImageDraw
+    im = Image.new("L", (shape[1], shape[0]), 0)
+    ImageDraw.Draw(im).polygon([(c, r) for r, c in poly], fill=1, outline=1)
+    return np.array(im) > 0
+
+
+def paste_head(front, sd):
+    """The front's mask (mask_piece) laid on the side take where it matches best (the side's own mask squares as the
+    target, +-12 squares round the same spot), the side's own mask squares it does not cover turned to the outline."""
+    rgbf = front[..., :3].astype(float)
+    labf = dv.srgb2lab(rgbf)
+    furf = (labf[..., 0] > 60) & (labf[..., 1] > -15) & (labf[..., 2] < 5)
+    fm = poly_mask(front.shape, MASK_POLY) & (front[..., 3] > 0) & ~furf
+    darkf = rgbf.sum(-1) < 90
+    fm &= ~darkf | ndimage.binary_dilation(fm & ~darkf, structure=np.ones((3, 3)), iterations=2)  # only its own ring
+    rgb = sd[..., :3].astype(float)
+    lab = dv.srgb2lab(rgb)
+    cand = (sd[..., 3] > 0) & (rgb.sum(-1) >= 90) & ~((lab[..., 0] > 60) & (lab[..., 1] > -15) & (lab[..., 2] < 5))
+    ys, xs = np.nonzero(fm)
+    best = None
+    for dy in range(-14, 15):
+        for dx in range(-14, 15):
+            yy, xx = ys + dy, xs + dx
+            ok = (yy >= 0) & (yy < sd.shape[0]) & (xx >= 0) & (xx < sd.shape[1])
+            d = np.abs(front[ys[ok], xs[ok], :3].astype(int) - sd[yy[ok], xx[ok], :3].astype(int)).sum(-1)
+            score = (d < 60).sum()
+            if best is None or score > best[0]:
+                best = (score, dy, dx)
+    _, dy, dx = best
+    out = sd.copy()
+    cover = np.zeros_like(cand)
+    cover[ys + dy, xs + dx] = True
+    out[ys + dy, xs + dx] = front[ys, xs]
+    # what is left of the side's own mask round the pasted one (A: its far ear behind, specks off the snout): non-fur
+    # squares outside the pasted mask, above the cheek, from the mask's left edge rightwards, touching the background
+    r0, c0 = min(r for r, _ in MASK_POLY) + dy, min(c for _, c in MASK_POLY) + dx
+    r1, c1 = 47 + dy, max(c for _, c in MASK_POLY) + dx + 6
+    zone = np.zeros_like(cand)
+    zone[max(r0 - 8, 0):r1, c0:c1] = True
+    left = zone & ~cover & (out[..., 3] > 0) & ~((lab[..., 0] > 60) & (lab[..., 1] > -15) & (lab[..., 2] < 5))
+    left &= ~((lab[..., 1] < -20) & (lab[..., 0] > 70))           # the bow's pale teal tip
+    lbl, n = ndimage.label(left, structure=np.ones((3, 3)))
+    bgd = ndimage.binary_dilation(out[..., 3] == 0, structure=np.ones((3, 3)))
+    gone = 0
+    for k in range(1, n + 1):
+        piece = lbl == k
+        if (piece & bgd).any() and piece.sum() < 60:
+            out[piece] = 0
+            gone += int(piece.sum())
+    print("side's own mask squares cleared:", gone)
+    # loose outline specks (1-4 squares of outline with nothing but background and outline round them)
+    op = out[..., 3] > 0
+    dk = op & (out[..., :3].astype(int).sum(-1) < 90)
+    lbl, n = ndimage.label(dk, structure=np.ones((3, 3)))
+    lit = ndimage.binary_dilation(op & ~dk, structure=np.ones((3, 3)))
+    for k in range(1, n + 1):
+        piece = lbl == k
+        if piece.sum() <= 4 and not (piece & lit).any():
+            out[piece] = 0
+    print("head pasted at", (dy, dx))
+    return out
+
+
+def side(take, pal):
+    """Codex's side take on the front's grid: every pixel snapped to the palette, each square the palette colour most
+    of its pixels have (an area vote, no mixed colours), scaled so the ear tips and the hooves land on the front's rows."""
+    a = np.array(Image.open(os.path.join(SRC, "codex_model", f"kindred-side-lamb-{take}.png")).convert("RGBA"))
+    op = a[..., 3] >= ALPHA
+    ear, sole, mid = SIDES[take]
+    s = (sole + 1 - ear) / (SOLE_ROW + 1 - EAR_ROW)
+    idx = np.full(op.shape, -1)
+    lab = dv.srgb2lab(a[op][:, :3].astype(float))
+    pl = dv.srgb2lab(pal.astype(float))
+    idx[op] = ((lab[:, None] - pl[None]) ** 2).sum(-1).argmin(1)
+    H, W = 166, SIDE_W
+    g = np.zeros((H, W, 4), np.uint8)
+    for r in range(H):
+        y0 = sole + 1 - (SOLE_ROW + 1 - r) * s
+        for c in range(W):
+            x0 = mid + (c - MID_COL - 0.5) * s
+            ya, yb, xa, xb = int(round(y0)), int(round(y0 + s)), int(round(x0)), int(round(x0 + s))
+            if yb <= 0 or xb <= 0 or ya >= a.shape[0] or xa >= a.shape[1]:
+                continue
+            cell = idx[max(ya, 0):yb, max(xa, 0):xb].ravel()
+            if (cell >= 0).sum() * 2 < cell.size:
+                continue
+            v = np.bincount(cell[cell >= 0], minlength=len(pal))
+            g[r, c, :3] = pal[v.argmax()]
+            g[r, c, 3] = 255
+    print(f"side {take}: {s:.2f} px a square")
+    return g
+
+
+def wolf_side(pal, front_wolf):
+    """Codex's wolf profile at the front wolf's size: the same area (its own drawing came out 881 x 506 px, ~2x the
+    asked size), by pixel_down.pixelate of the palette-snapped picture (the same tool that made the front wolf)."""
+    a = np.array(Image.open(os.path.join(SRC, "codex_model", "kindred-side-wolf.png")).convert("RGBA"))
+    a[..., 3] = np.where(a[..., 3] >= ALPHA, 255, 0)
+    op = a[..., 3] > 0
+    lab = dv.srgb2lab(a[op][:, :3].astype(float))
+    pl = dv.srgb2lab(pal.astype(float))
+    a[op, :3] = pal[((lab[:, None] - pl[None]) ** 2).sum(-1).argmin(1)]
+    ys, xs = np.nonzero(op)
+    a = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    area = (front_wolf[..., 3] > 0).sum()
+    k = np.sqrt(area / (a[..., 3] > 0).sum())
+    small, _ = pd.pixelate(a, k, (a.shape[1], a.shape[0] // 2), pd.edge_colour(a), pal=pal.astype(float))
+    print("wolf side", a.shape[:2], "->", small.shape[:2], "k %.3f" % k)
+    return small
+
+
 def build():
     pic = load("kindred-model-B.png")
     lamb = load("kindred-model-B-lamb.png")[..., 3] > 0
@@ -129,23 +278,26 @@ def build():
     whole[lm] = lam[lm]                            # Lamb over Wolf
     print("grid", one.shape[:2], "lamb squares", int(lm.sum()), "wolf squares", int((wol[..., 3] > 0).sum()),
           "colours", len(pal))
-    return whole, lam, wol
+    return whole, lam, wol, pal
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--preview")
     a = ap.parse_args()
-    whole, lam, wol = build()
+    whole, lam, wol, pal = build()
+    sides = {t: paste_head(lam, side(t, pal)) for t in SIDES}
+    wside = wolf_side(pal, wol)
     os.makedirs(OUT, exist_ok=True)
-    for name, im in (("front", whole), ("front_lamb", lam), ("front_wolf", wol)):
+    for name, im in (("front", whole), ("front_lamb", lam), ("front_wolf", wol), ("side_A_raw", sides["A"]),
+                     ("side_B_raw", sides["B"]), ("side_wolf", wside)):
         Image.fromarray(im).save(os.path.join(OUT, name + ".png"))
     if a.preview:
         os.makedirs(a.preview, exist_ok=True)
         z = 5
         h, w = whole.shape[:2]
         bg = Image.new("RGBA", (w * 3 * z + 40, h * z), (255, 0, 255, 255))
-        for i, im in enumerate((whole, lam, wol)):
+        for i, im in enumerate((lam, sides["A"], sides["B"])):
             bg.alpha_composite(Image.fromarray(im).resize((w * z, h * z), Image.NEAREST), (i * (w * z + 20), 0))
         bg.convert("RGB").save(os.path.join(a.preview, "kindred_design.png"))
 
