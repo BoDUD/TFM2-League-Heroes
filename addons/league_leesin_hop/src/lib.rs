@@ -505,7 +505,8 @@ fn follow(sim: &mut StableSim<'_>, lee: usize) {
     let (_, walls) = scan(sim);
     let spot = follow_spot(walls, (tx as f64, ty as f64), dir, keep);
     let off = dist(here, spot);
-    if off > 1.0 {
+    // 被放逐（巴德的 R 之类，不可选中）时不挪他：游戏 0.6.4 起放逐中的单位不动
+    if off > 1.0 && me.is_targetable() {
         let step = INSEC_SPEED.min(off);
         let next = (here.0 + (spot.0 - here.0) / off * step, here.1 + (spot.1 - here.1) / off * step);
         sim.entity_set_pos(lee, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
@@ -519,6 +520,12 @@ fn follow(sim: &mut StableSim<'_>, lee: usize) {
 fn dash(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     let Some(me) = sim.get_entity(lee) else { return };
     if !me.is_alive() || input.kind != InputTargetKindV1::Pos.code() {
+        return;
+    }
+    let name = format!("{ID}:dash");
+    if !me.is_targetable() {
+        // 被放逐（巴德的 R 之类）：游戏 0.6.4 起放逐中的单位不动、宿主的强制位移也停下——这里也不挪、不补，等放逐结束再接着冲
+        sim.queue_effect(&name, AttackTypeV1::Skill, lee, &input, 1);
         return;
     }
     let (x, y) = me.pos();
@@ -553,7 +560,6 @@ fn dash(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
             sim.add_buff(lee, &BuffV1::timed(REDO, 2));
         }
     }
-    let name = format!("{ID}:dash");
     sim.queue_effect(&name, AttackTypeV1::Skill, lee, &input, 1);
 }
 

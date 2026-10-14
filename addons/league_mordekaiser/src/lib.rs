@@ -39,6 +39,13 @@ fn mk(x: &str) -> String {
     format!("league_mordekaiser_{x}")
 }
 
+/// 主包在这一刻播的画面和声音（名字一样：`league_mordekaiser_<x>`），播在他身上。
+fn show(sim: &mut StableSim<'_>, x: &str, me: usize) {
+    let on = InputTargetV1::target(me);
+    sim.play_view_effect(&mk(x), me, &on, 0, 0, 0);
+    sim.play_sfx(&mk(x), me, &on);
+}
+
 // ===================== 数值（主包 build_mordekaiser.P） =====================
 
 /// 大招：射程（r_range）、持续（r_t）、偷多少 %（r_steal）、嘲讽（r_taunt）。
@@ -317,6 +324,8 @@ impl Revenant {
         let amount = left * self.p.w_heal / 100;
         if amount > 0 {
             sim.heal(me, me, amount);
+            // 主包这一刻播的画面和声音（副本里绑着，0.6.3 原生被动播不出来；0.6.4 起被动里播的看得见）
+            show(sim, "w_heal", me);
         }
         self.guards += 1;
         if self.guards <= 40 || self.guards % 25 == 0 {
@@ -342,6 +351,7 @@ impl Revenant {
                 with_state(sim, me, |s| s.realm = None);
                 let amount = self.p.kill + self.p.kill_ap * ms.magic_power / 100;
                 sim.heal(me, me, amount);
+                show(sim, "r_win", me);
                 sim.entity_remove_buff(me, &mk("r_keep"));
                 sim.add_buff(me, &steal_buff(&mk("r_keep"), self.p.keep, r.steal, 1));
                 sim.entity_clear_cc(me);
