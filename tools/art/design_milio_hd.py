@@ -12,7 +12,8 @@ One face (memory one-face-all-frames): the side view gets the front's head - hai
 nothing of the shoulders - placed where it matches the side's own head best (masked colour distance over shifts),
 the side's own head cleared under it first.
 Writes assets/source/milio/hd/front.png (boy + spirit), front_boy.png, front_spirit.png (the same canvas each),
-side.png (the boy only) and design.json (canvas, standing columns, soles row).
+side.png (the boy only), head.png (the pasted head: the template every action frame gets) and design.json (canvas,
+standing columns, soles row, the head's top-left on side.png and front.png).
 """
 import argparse
 import json
@@ -167,11 +168,19 @@ def main():
     Image.fromarray(sp_only).save(os.path.join(SRC, "hd", "front_spirit.png"))
     sc = np.nonzero(side[..., 3].any(0))[0]
     side = side[sy.min():sy.max() + 1, sc.min():sc.max() + 1]
+    # the head template (what every frame gets, memory one-face-all-frames) and its top-left on the cropped side.png
+    hy, hx = np.nonzero(hm)
+    head = fb[hy.min():hy.max() + 1, hx.min():hx.max() + 1].copy()
+    head[~hm[hy.min():hy.max() + 1, hx.min():hx.max() + 1]] = 0
+    Image.fromarray(head).save(os.path.join(SRC, "hd", "head.png"))
+    head_at = [int(at[0] - sy.min()), int(at[1] - sc.min())]
+    front_head_at = [int(hy.min()), int(hx.min())]
     Image.fromarray(side).save(os.path.join(SRC, "hd", "side.png"))
     info = {"front": {"size": [int(front.shape[1]), int(front.shape[0])], "hair_top": int(top), "soles": int(sole),
                       "standing_col": float(mid)},
             "side": {"size": [int(side.shape[1]), int(side.shape[0])], "hair_top": 0, "soles": int(side.shape[0] - 1),
                      "standing_col": float((sfeet.min() + sfeet.max()) / 2 - sc.min())},
+            "head": {"size": [int(head.shape[1]), int(head.shape[0])], "side_at": head_at, "front_at": front_head_at},
             "rows": int(rows), "game_rows": 32, "final_ppu": 2.2, "palette": [[int(v) for v in c] for c in pal.round()]}
     json.dump(info, open(os.path.join(SRC, "hd", "design.json"), "w"), indent=1)
     if a.check:

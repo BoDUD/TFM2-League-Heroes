@@ -17,6 +17,20 @@
   "soles": 95,
   "standing_col": 22.0
  },
+ "head": {
+  "size": [
+   41,
+   37
+  ],
+  "side_at": [
+   0,
+   4
+  ],
+  "front_at": [
+   0,
+   21
+  ]
+ },
  "rows": 95,
  "game_rows": 32,
  "final_ppu": 2.2,
