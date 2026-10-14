@@ -48,8 +48,6 @@ pub const STEP: f64 = 1_000.0;
 pub const RAYS: usize = 48;
 /// 背向敌人的方向左右这么多度内。
 pub const SPREAD_DEG: f64 = 75.0;
-/// 一条射线上出口往回缩的步长。
-pub const RETRY: f64 = 4_000.0;
 /// 出口离地图边至少这么远。
 pub const EDGE: f64 = 8_000.0;
 /// 朝己方塔每走 1 的分（离敌人每远 1 算 1）。
@@ -253,11 +251,6 @@ impl Grid {
             let t = i as f64 / n as f64;
             self.is_wall(a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t)
         })
-    }
-
-    /// 从 `a` 走到 `b` 行吗：终点在地图里不贴边，一路没有墙。
-    pub fn clear(&self, a: (f64, f64), b: (f64, f64)) -> bool {
-        self.roomy(b) && !self.blocked(a, b)
     }
 
     /// 朝 `dir`（单位向量）穿墙（泰隆附加包的翻墙）：`reach` 内碰到墙、一路穿过去，落在墙另一边 `MARGIN` 处；落点不超过
