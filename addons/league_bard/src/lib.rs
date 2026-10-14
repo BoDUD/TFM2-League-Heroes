@@ -11,6 +11,9 @@
 //! - **追**（`plan_chase`）：墙后、`CHASE_NEAR`..`e_chase_r` 远、生命不高于 `PREY_HP`% 的敌方英雄（最残的先），他自己生命不低于
 //!   `CHASE_HP`%——朝目标左右 `CHASE_DEG`° 内找墙穿过去，落点比现在近 `CLOSER` 以上、离目标不近于 `KEEP`，落点旁除了目标
 //!   最多一名敌方英雄。
+//! - **支援**（`plan_help`）：没危险、没人可追时，`HELP_NEAR`..`HELP_FAR` 远、身边有敌方英雄的友方英雄（敌人最多的先），他自己
+//!   生命不低于 `HELP_HP`%——朝队友找墙穿过去，落点离队友近 `HELP_GAIN` 以上、旁边敌方英雄不多于 `HELP_CROWD` 名
+//!   （「加上吧 开门去支援」）。
 //! 门只开在墙上（用户：「门的逻辑不对吧 只能在墙上放吧」，英雄联盟的神奇旅程是穿过地形的单向通道）：附近没有墙就不开；穿墙
 //! 落点不在墙格里（卡蜜尔钩墙附加包的地图）、离地图边至少 `EDGE`、离起点不超过 `e_far`。
 //!
@@ -76,6 +79,17 @@ pub const PREY_HP: usize = 60;
 pub const CHASE_HP: usize = 40;
 /// 追：落点这么远内（除目标外）最多一名敌方英雄。
 pub const CROWD_R: f64 = 30_000.0;
+/// 支援：队友这么远内有敌方英雄就是在打架。
+pub const FIGHT_R: f64 = 35_000.0;
+/// 支援：队友离他这么远以上才开门（近了走过去）、这么远以内才去。
+pub const HELP_NEAR: f64 = 60_000.0;
+pub const HELP_FAR: f64 = 220_000.0;
+/// 支援：巴德生命不低于这个百分比、身边 `e_near` 内没有敌方英雄。
+pub const HELP_HP: usize = 50;
+/// 支援：落点要比现在离队友近这么多。
+pub const HELP_GAIN: f64 = 30_000.0;
+/// 支援：落点这么远内的敌方英雄不多于 2 名（不一头扎进人堆）。
+pub const HELP_CROWD: usize = 2;
 
 // ===================== 日志 =====================
 
@@ -376,6 +390,45 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
     None
 }
 
+/// 支援：远处（`HELP_NEAR`..`HELP_FAR`）正在打架（`FIGHT_R` 内有敌方英雄）的友方英雄，他自己生命不低于 `HELP_HP`%、身边
+/// 没有敌方英雄——朝那个队友左右 `CHASE_DEG`° 内找墙穿过去，落点离队友近 `HELP_GAIN` 以上、旁边（`CROWD_R`）敌方英雄不多于
+/// `HELP_CROWD` 名；先帮身边敌人最多的那一个（英雄联盟里巴德常这样开门游走支援）。
+pub fn plan_help(
+    p: &Params,
+    g: &Grid,
+    me: (f64, f64),
+    hp_pct: usize,
+    foes: &[Foe],
+    friends: &[(usize, (f64, f64))],
+) -> Option<((f64, f64), usize)> {
+    if hp_pct < HELP_HP || foes.iter().any(|f| dist(me, f.at) <= p.e_near as f64) {
+        return None;
+    }
+    let crowd = |q: (f64, f64), r: f64| foes.iter().filter(|f| dist(q, f.at) <= r).count();
+    let mut fights: Vec<&(usize, (f64, f64))> = friends
+        .iter()
+        .filter(|(_, a)| {
+            let d = dist(me, *a);
+            d >= HELP_NEAR && d <= HELP_FAR && crowd(*a, FIGHT_R) >= 1
+        })
+        .collect();
+    fights.sort_by_key(|(_, a)| std::cmp::Reverse(crowd(*a, FIGHT_R)));
+    let cos = CHASE_DEG.to_radians().cos();
+    for &(id, ally) in fights {
+        let Some(toward) = unit((ally.0 - me.0, ally.1 - me.1)) else { continue };
+        let now = dist(me, ally);
+        let best = rays()
+            .filter(|d| d.0 * toward.0 + d.1 * toward.1 >= cos)
+            .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
+            .filter(|&to| dist(to, ally) + HELP_GAIN <= now && crowd(to, CROWD_R) <= HELP_CROWD)
+            .min_by(|a, b| dist(*a, ally).total_cmp(&dist(*b, ally)));
+        if let Some(to) = best {
+            return Some((to, id));
+        }
+    }
+    None
+}
+
 /// 跟着走的队友的落点：同样的位移；不行就巴德出口旁（朝队友原来那边 `BESIDE`），再不行就巴德的出口；落点要在地图里、
 /// 不在墙格里（路上穿墙，和他一样）。都不行就不带。
 pub fn ride_exit(g: &Grid, me: (f64, f64), to: (f64, f64), ally: (f64, f64)) -> Option<(f64, f64)> {
@@ -556,7 +609,9 @@ impl Door {
         let plan = if wants_out(&self.p, here, mine, &foes, allies) {
             plan_exit(&self.p, g, here, &foes.iter().map(|f| f.at).collect::<Vec<_>>(), home).map(|to| (to, "out".to_string()))
         } else {
-            plan_chase(&self.p, g, here, mine, &foes).map(|(to, id)| (to, format!("after #{id}")))
+            plan_chase(&self.p, g, here, mine, &foes)
+                .map(|(to, id)| (to, format!("after #{id}")))
+                .or_else(|| plan_help(&self.p, g, here, mine, &foes, &friends).map(|(to, id)| (to, format!("help #{id}"))))
         };
         let Some((to, why)) = plan else { return };
         let riders = friends
@@ -820,6 +875,23 @@ mod tests {
         assert!(plan_chase(&p, &open, me, 80, &[prey]).is_none());
         assert!(plan_chase(&p, &g, me, 80, &[foe(at(7.0, 4.4), 90, 7)]).is_none());
         assert!(plan_chase(&p, &g, me, 20, &[prey]).is_none());
+    }
+
+    #[test]
+    fn he_doors_over_to_an_ally_in_a_fight() {
+        let p = Params::default();
+        let g = wall();
+        let me = at(4.4, 4.5);
+        let ally = (3, at(8.0, 4.5));
+        let foes = [foe(at(8.6, 4.5), 100, 9)];
+        let (to, id) = plan_help(&p, &g, me, 90, &foes, &[ally]).unwrap();
+        assert_eq!(id, 3);
+        assert!(dist(to, ally.1) + HELP_GAIN <= dist(me, ally.1) && !g.is_wall(to.0, to.1), "{to:?}");
+        assert!(g.blocked(me, to), "through the wall");
+        // the ally not fighting, Bard hurt, or an enemy on Bard: no door
+        assert!(plan_help(&p, &g, me, 90, &[foe(at(1.0, 9.0), 100, 9)], &[ally]).is_none());
+        assert!(plan_help(&p, &g, me, 30, &foes, &[ally]).is_none());
+        assert!(plan_help(&p, &g, me, 90, &[foes[0], foe(at(4.0, 4.5), 100, 8)], &[ally]).is_none());
     }
 
     #[test]

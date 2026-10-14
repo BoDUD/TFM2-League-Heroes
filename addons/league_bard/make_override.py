@@ -27,16 +27,16 @@ HERO = "league_bard"
 # lang -> (the lead, the main pack's Magical Journey rule in the skill2 text, the add-on's)
 NATIVE = {
     "zh-hans": ("【穿墙门】", "被敌人近身时开门，带身边的友方英雄远离，",
-                "在附近的墙上开门穿到另一边：被近身或残血时往己方撤，墙后有残血敌方英雄就穿墙追，带上身边的友方英雄，"),
+                "在附近的墙上开门穿到另一边：被近身或残血时往己方撤，墙后有残血敌人就追，或去支援交战的队友，带上身边的友方英雄，"),
     "zh-hant": ("【穿牆門】", "被敵人近身時開門，帶身邊的友方英雄遠離，",
-                "在附近的牆上開門穿到另一邊：被近身或殘血時往己方撤，牆後有殘血敵方英雄就穿牆追，帶上身邊的友方英雄，"),
+                "在附近的牆上開門穿到另一邊：被近身或殘血時往己方撤，牆後有殘血敵人就追，或去支援交戰的隊友，帶上身邊的友方英雄，"),
     "en": ("[Wall door] ", "when enemies close in, opens a door and takes nearby allied champions away with him,",
-           "opens a door through a nearby wall: home when dived or hurt, or after a hurt enemy champion behind it, "
-           "with nearby allies,"),
+           "opens a door through a nearby wall: home when dived or hurt, after a hurt foe behind it, or to an ally "
+           "in a fight, with nearby allies,"),
     "ko": ("[벽 문] ", "적이 붙으면 문을 열어 주변 아군 챔피언과 함께 멀어지고",
-           "근처 벽에 문을 열어 넘어가: 붙거나 체력이 낮으면 아군 쪽으로, 벽 뒤 약한 적은 쫓아가고 주변 아군과 함께하며"),
+           "근처 벽에 문을 열어 넘어가: 붙거나 약하면 아군 쪽으로, 벽 뒤 약한 적은 추격, 싸우는 아군은 지원, 주변 아군과 함께하며"),
     "ja": ("【壁の扉】", "敵に詰められると扉を開き、近くの味方と離脱、",
-           "近くの壁に扉を開け向こう側へ：詰められるか瀕死で自陣へ、壁裏の弱った敵は追い、近くの味方と共に、"),
+           "近くの壁に扉を開け向こう側へ：詰められるか瀕死で自陣へ、壁裏の弱った敵は追い、交戦中の味方へ援護、近くの味方と共に、"),
 }
 
 
