@@ -46,11 +46,17 @@ BIG = "asset/league/effects/league_sion_big"
 # Timings from the frames (tools/art/rig_sion.py MS): the axe chop 410 ms, the blade down on frame 4 (210 ms, tick 13);
 # Q's charge 670 ms (skill_charge), the slam 400 ms with the axe on the ground on frame 3 (120 ms, tick 7); E 410 ms, the
 # roar on frame 3 (130 ms, tick 8); W 390 ms; R's charge 8 x 104 ms (50 ticks), the crash 420 ms.
+# Numbers = candidate b3 of the 10-min classic-SDK simulations (Temp/sn_sim/sim/kd.py, top lane against the base fighter,
+# executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-14): +0.77 on seeds 1-12,
+# +0.43 on 13-24 (league_renekton +1.78 / +2.05, league_darius +1.73 / +1.75, league_mordekaiser +1.32 / +0.75,
+# league_garen -1.05 / -1.41). The draft d0 was -1.90 (Q 1 s charge, a narrow line); d5 (Q 0.67 s, 50000 x 10000, the
+# damage up) +0.19 / -0.03, the R armed (r_arm) +0.24 / -0.12; more damage (atk 94, Q 160) -0.44 / -0.29, more health and
+# armour (b2: 1350, 40, shield 200) +0.76 / -0.08 - a tank, he wins by lasting.
 P = {
     # stats (the pack's AD tanks top: league_darius hp 1080 +105, atk 90 +18, def 34 +8, mr 26 +4; league_garen 1100
     # +110, 88 +17; league_malphite 1100 +120): League's Sion 655 +87 hp, 68 AD, 36 armour +4.2, 32 mr +2.05, 345 move,
     # 175 range - the tankiest of them, a slow axe
-    "hp": 1250, "hp_g": 125, "atk": 88, "atk_g": 16, "mp": 0, "mp_g": 0, "def": 36, "def_g": 8, "mr": 28, "mr_g": 4,
+    "hp": 1400, "hp_g": 140, "atk": 88, "atk_g": 16, "mp": 0, "mp_g": 0, "def": 42, "def_g": 8, "mr": 32, "mr_g": 4,
     "ms": 980, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 25, "atk_cd": 64, "atk_st": 13,
     # Soul Furnace stacks (League: +4 hp a minion, +15 a champion / large monster); the add-on's own: every kill,
@@ -67,7 +73,7 @@ P = {
     "e_cd": 480, "e_range": 50000, "e_dur": 25, "e_at": 8, "e_speed": 3000, "e_len": 52000, "e_rad": 6000,
     "e_dmg": 120, "e_hp": 4, "e_slow": 40, "e_slow_t": 120, "e_shred": 20, "e_shred_t": 240,
     # W (League: shield 60-120 + 8-16% max hp 6 s, blast after 3 s: 40-140 + 14% max hp magic r 400, cd 15-11 s)
-    "w_cd": 720, "w_trig": 26000, "w_anim": 23, "w_sh": 160, "w_ad": 100, "w_t": 360, "w_det": 180, "w_r": 26000,
+    "w_cd": 720, "w_trig": 26000, "w_anim": 23, "w_sh": 220, "w_ad": 100, "w_t": 360, "w_det": 180, "w_r": 26000,
     "w_dmg": 80, "w_hp": 8,
     # R Unstoppable Onslaught (League: 150-450 + 40% bonus AD -> 400-1200 + 80%, knock-up 0.75-1.75 s, slow, cd 140-60 s)
     "r_cd": 3600, "r_range": 90000, "r_speed": 2400, "r_tick": 50, "r_b1": 16, "r_b2": 32, "r_hitanim": 25,

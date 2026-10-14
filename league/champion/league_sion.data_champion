@@ -18,9 +18,9 @@
   "stat": {
     "attack": 88,
     "magic_power": 0,
-    "hp": 1250,
-    "defence": 36,
-    "magic_resistance": 28,
+    "hp": 1400,
+    "defence": 42,
+    "magic_resistance": 32,
     "move_speed": 980,
     "hp_regen": 0,
     "stack": 0,
@@ -29,7 +29,7 @@
   "growth": {
     "attack": 16,
     "magic_power": 0,
-    "hp": 125,
+    "hp": 140,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 10,
@@ -519,7 +519,7 @@
                         "effects": [
                           {
                             "type": "Shield",
-                            "amount": 160,
+                            "amount": 220,
                             "attack_ratio": 100,
                             "ap_ratio": 0,
                             "tick": 360
