@@ -700,6 +700,13 @@
         "skill": "射出星界能量，命中的第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速60%<>；若其身后还有敌人，两者都受到伤害并<#ef5350ff>眩晕1.5秒<>。",
         "skill2": "<#ff9028ff>游神圣坛<>：向交战中的友方英雄（或自己）投出圣坛，治疗<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>，移速+30%。<#ff9028ff>神奇旅程<>：被敌人近身时开门，带身边的友方英雄远离，移速+40%（<#ffb900ff>16秒<>一次）。",
         "ult": "向聚在一起的敌方英雄（或被控制的友方英雄）投出金色法球，范围内所有单位（含友军、自己和防御塔）<#ef5350ff>时停2.5秒<>：无法行动、无法被选中、不受伤害。"
+      },
+      "league_sion": {
+        "name": "赛恩",
+        "attack": "<#ff9028ff>灵魂熔炉<>被动：普攻每击杀一个单位，永久获得<#6aff55ff>6<>点最大生命值（阵亡后重新累积）。",
+        "skill": "蓄力<#ffb900ff>0.67秒<>后向前砸地，直线上的敌人受到<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.83秒<>；蓄力时被控制会打断。",
+        "skill2": "怒吼穿过小兵，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法伤害<>，<#ef5350ff>减速40%<>，护甲降低20%。<#ff9028ff>灵魂熔炉<>：获得<#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<>护盾，<#ffb900ff>3秒<>后护盾仍在则爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<><#a974ffff>魔法伤害<>。",
+        "ult": "免疫控制冲向敌方英雄，撞到第一个英雄造成<#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.75-1.58秒<>（冲得越远越强），周围敌人<#ef5350ff>减速40%<>。救被控的队友、团战、和队友一起追击时才冲。"
       }
     },
     "skill_name": {
@@ -1202,6 +1209,11 @@
         "skill1": "星界束缚",
         "skill2": "游神圣坛 / 神奇旅程",
         "ult": "调和命运"
+      },
+      "league_sion": {
+        "skill1": "残虐猛击",
+        "skill2": "杀手怒吼",
+        "ult": "蛮横冲撞"
       }
     }
   },
@@ -1906,6 +1918,13 @@
         "skill": "射出星界能量，命中的第一個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速60%<>；若其身後還有敵人，兩者都受到傷害並<#ef5350ff>暈眩1.5秒<>。",
         "skill2": "<#ff9028ff>守望神龕<>：向交戰中的友方英雄（或自己）投出神龕，治療<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>，跑速+30%。<#ff9028ff>奇幻旅程<>：被敵人近身時開門，帶身邊的友方英雄遠離，跑速+40%（<#ffb900ff>16秒<>一次）。",
         "ult": "向聚在一起的敵方英雄（或被控制的友方英雄）投出金色法球，範圍內所有單位（含友軍、自己和防禦塔）<#ef5350ff>凝滯2.5秒<>：無法行動、無法被選取、不受傷害。"
+      },
+      "league_sion": {
+        "name": "賽恩",
+        "attack": "<#ff9028ff>魂魄熔爐<>被動：普攻每擊殺一個單位，永久獲得<#6aff55ff>6<>點最大生命值（陣亡後重新累積）。",
+        "skill": "蓄力<#ffb900ff>0.67秒<>後向前砸地，直線上的敵人受到<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.83秒<>；蓄力時被控制會打斷。",
+        "skill2": "怒吼穿過小兵，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法傷害<>，<#ef5350ff>緩速40%<>，護甲降低20%。<#ff9028ff>魂魄熔爐<>：獲得<#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<>護盾，<#ffb900ff>3秒<>後護盾仍在則爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<><#a974ffff>魔法傷害<>。",
+        "ult": "免疫控制衝向敵方英雄，撞到第一個英雄造成<#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.75-1.58秒<>（衝得越遠越強），周圍敵人<#ef5350ff>緩速40%<>。救被控的隊友、團戰、和隊友一起追擊時才衝。"
       }
     },
     "skill_name": {
@@ -2408,6 +2427,11 @@
         "skill1": "宇宙制約",
         "skill2": "守望神龕 / 奇幻旅程",
         "ult": "凝滯命域"
+      },
+      "league_sion": {
+        "skill1": "巨幅毀滅",
+        "skill2": "殺戮怒吼",
+        "ult": "猛烈狂擊"
       }
     }
   },
@@ -3112,6 +3136,13 @@
         "skill": "Fires a bolt of cosmic energy: the first enemy hit takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed by 60%<>; if another enemy is behind it, both take the damage and are <#ef5350ff>stunned for 1.5s<>.",
         "skill2": "<#ff9028ff>Caretaker's Shrine<>: throws a shrine to an allied champion in a fight (or himself), healing <#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<> and giving 30% move speed. <#ff9028ff>Magical Journey<>: when enemies close in, opens a door and takes nearby allied champions away with him, +40% move speed (every <#ffb900ff>16s<>).",
         "ult": "Lobs a golden orb at grouped enemy champions (or an allied champion in crowd control): every unit in the area, allies, Bard and turrets included, is put in <#ef5350ff>stasis for 2.5s<> - it cannot act, be targeted or be harmed."
+      },
+      "league_sion": {
+        "name": "Sion",
+        "attack": "<#ff9028ff>Soul Furnace<> passive: each unit his attack kills grants <#6aff55ff>6<> maximum health for good (lost on death).",
+        "skill": "Charges for <#ffb900ff>0.67s<>, then smashes the line in front: <#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> <#ff9028ff>physical damage<> and <#ef5350ff>knocked up 0.83s<>. Crowd control on him breaks the charge.",
+        "skill2": "Roars through minions: <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>magic damage<>, <#ef5350ff>slowed 40%<> and armour -20%. <#ff9028ff>Soul Furnace<>: a <#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<> shield; still holding it after <#ffb900ff>3s<>, it blasts nearby enemies for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<> <#a974ffff>magic damage<>.",
+        "ult": "Charges at an enemy champion, immune to crowd control: the first champion hit takes <#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and is <#ef5350ff>knocked up 0.75-1.58s<> (the farther he ran, the more); nearby enemies are <#ef5350ff>slowed 40%<>. Saved for an ally in crowd control, a teamfight or a chase beside an ally."
       }
     },
     "skill_name": {
@@ -3614,6 +3645,11 @@
         "skill1": "Cosmic Binding",
         "skill2": "Caretaker's Shrine / Magical Journey",
         "ult": "Tempered Fate"
+      },
+      "league_sion": {
+        "skill1": "Decimating Smash",
+        "skill2": "Roar of the Slayer",
+        "ult": "Unstoppable Onslaught"
       }
     }
   },
@@ -4318,6 +4354,13 @@
         "skill": "우주 에너지를 발사해 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>마법 피해<>와 <#ef5350ff>60% 둔화<>; 뒤에 다른 적이 있으면 둘 다 피해를 입고 <#ef5350ff>1.5초 기절<>.",
         "skill2": "<#ff9028ff>수호자의 성소<>: 교전 중인 아군 챔피언(또는 자신)에게 성소를 던져 <#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<> 회복, 이동 속도 +30%. <#ff9028ff>신비한 차원문<>: 적이 붙으면 문을 열어 주변 아군 챔피언과 함께 멀어지고 이동 속도 +40% (<#ffb900ff>16초<>마다).",
         "ult": "모인 적 챔피언(또는 군중 제어된 아군 챔피언)에게 황금 구체를 던져 범위 안 모든 유닛(아군, 바드, 포탑 포함)을 <#ef5350ff>2.5초 동안 경직<>시킵니다: 행동, 지정, 피해 불가."
+      },
+      "league_sion": {
+        "name": "사이온",
+        "attack": "<#ff9028ff>영혼의 용광로<> 기본 지속 효과: 기본 공격으로 처치한 대상마다 최대 체력 <#6aff55ff>6<> 영구 증가(사망 시 초기화).",
+        "skill": "<#ffb900ff>0.67초<> 충전 후 앞의 직선을 내려찍어 <#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 에어본<>. 충전 중 군중 제어에 걸리면 취소.",
+        "skill2": "미니언을 꿰뚫는 포효로 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>마법 피해<>, <#ef5350ff>40% 둔화<>, 방어력 20% 감소. <#ff9028ff>영혼의 용광로<>: <#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<> 보호막, <#ffb900ff>3초<> 후 남아 있으면 폭발해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<> <#a974ffff>마법 피해<>.",
+        "ult": "군중 제어 면역으로 적 챔피언에게 돌진, 처음 부딪힌 챔피언에게 <#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75-1.58초 에어본<>(멀리 달릴수록 강함), 주변 적 <#ef5350ff>40% 둔화<>. 군중 제어에 걸린 아군 구출, 한타, 아군과 함께 추격할 때만 사용."
       }
     },
     "skill_name": {
@@ -4820,6 +4863,11 @@
         "skill1": "우주의 결속",
         "skill2": "수호자의 성소 / 신비한 차원문",
         "ult": "운명의 소용돌이"
+      },
+      "league_sion": {
+        "skill1": "대량 학살 강타",
+        "skill2": "학살자의 포효",
+        "ult": "멈출 수 없는 맹공"
       }
     }
   },
@@ -5524,6 +5572,13 @@
         "skill": "宇宙の力を放ち、最初に当たった敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>60%スロウ<>；後ろに別の敵がいれば両方にダメージと<#ef5350ff>1.5秒スタン<>。",
         "skill2": "<#ff9028ff>回復の遺物<>：交戦中の味方チャンピオン（か自分）に遺物を投げ<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>回復、移動速度+30%。<#ff9028ff>精霊の旅路<>：敵に詰められると扉を開き、近くの味方と離脱、移動速度+40%（<#ffb900ff>16秒<>ごと）。",
         "ult": "固まった敵チャンピオン（かCC中の味方）に金の球を投げ、範囲内の全ユニット（味方・自分・タワーも）を<#ef5350ff>2.5秒停止<>：行動・対象指定・ダメージ不可。"
+      },
+      "league_sion": {
+        "name": "サイオン",
+        "attack": "<#ff9028ff>魂の炉心<>自動効果：通常攻撃でユニットを倒すたび最大体力が<#6aff55ff>6<>永続増加（死亡でリセット）。",
+        "skill": "<#ffb900ff>0.67秒<>溜めて前方の直線を叩きつけ、<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒ノックアップ<>。溜め中に行動妨害を受けると中断。",
+        "skill2": "ミニオンを貫く雄叫びで<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>40%スロウ<>、物理防御20%低下。<#ff9028ff>魂の炉心<>：<#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<>のシールド、<#ffb900ff>3秒<>後に残っていれば爆発し<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "行動妨害無効で敵チャンピオンへ突進、最初に当たったチャンピオンに<#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75-1.58秒ノックアップ<>（遠いほど強力）、周囲の敵に<#ef5350ff>40%スロウ<>。行動妨害を受けた味方の救出、集団戦、味方との追撃でのみ使用。"
       }
     },
     "skill_name": {
@@ -6026,6 +6081,11 @@
         "skill1": "宇宙の法則",
         "skill2": "回復の遺物 / 精霊の旅路",
         "ult": "運命の調律"
+      },
+      "league_sion": {
+        "skill1": "破滅の斧",
+        "skill2": "殺意の雄叫び",
+        "ult": "猪突猛進"
       }
     }
   }

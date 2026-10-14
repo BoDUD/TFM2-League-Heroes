@@ -1,0 +1,1046 @@
+{
+  "asset_count": 15,
+  "frame_count": 66,
+  "engine": "built-in image_gen",
+  "assets": [
+    {
+      "file": "sion_fx_a_hit.png",
+      "frames": 4,
+      "width": 14,
+      "height": 14,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_a_hit.png",
+      "raw": "raw/sion_fx_a_hit.png",
+      "binding": "view_effects `league_sion_a_hit`（跟随，画在人物上面；左右对称）",
+      "game_effect_size": "12",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          6,
+          6,
+          8,
+          8
+        ],
+        [
+          6,
+          2,
+          8,
+          13
+        ],
+        [
+          3,
+          4,
+          11,
+          10
+        ],
+        [
+          3,
+          4,
+          11,
+          5
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E"
+      ],
+      "symmetry_replaced_cells": [
+        3,
+        0,
+        5,
+        0
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "b44a158e696adb20c4e0fc15362779dd73740ad57a0cd5dbbb9ca8e25fa06a50"
+    },
+    {
+      "file": "sion_fx_k_soul.png",
+      "frames": 5,
+      "width": 16,
+      "height": 26,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_k_soul.png",
+      "raw": "raw/sion_fx_k_soul-repair.png",
+      "binding": "view_effects `league_sion_k_soul`（跟随，画在人物上面，z 3；左右对称）",
+      "game_effect_size": "14 × 24",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          5,
+          5,
+          11,
+          15
+        ],
+        [
+          4,
+          8,
+          12,
+          23
+        ],
+        [
+          6,
+          12,
+          10,
+          18
+        ],
+        [
+          2,
+          5,
+          14,
+          24
+        ],
+        [
+          5,
+          11,
+          11,
+          16
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E"
+      ],
+      "symmetry_replaced_cells": [
+        32,
+        39,
+        14,
+        40,
+        11
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "1b5459179a19a23e9c459340fb5afc883803d9fef5acd0d65f1392a985e901dd"
+    },
+    {
+      "file": "sion_fx_q_warn.png",
+      "frames": 4,
+      "width": 54,
+      "height": 26,
+      "symmetry": "vertical",
+      "loop": true,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_q_warn.png",
+      "raw": "raw/sion_fx_q_warn.png",
+      "binding": "view_projectiles `league_sion_q_warn`（LineRangeProjectile：画在人物下面，朝施放方向转，画成朝右；上下对称；左端是他站的地方）",
+      "game_effect_size": "52 × 24",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          5,
+          7,
+          50,
+          19
+        ],
+        [
+          3,
+          7,
+          50,
+          19
+        ],
+        [
+          6,
+          7,
+          50,
+          19
+        ],
+        [
+          4,
+          7,
+          50,
+          19
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E"
+      ],
+      "symmetry_replaced_cells": [
+        85,
+        91,
+        47,
+        51
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "89116fe09c26968873dddabfa08f334a643c724b4879370fd4fdea84359ba435"
+    },
+    {
+      "file": "sion_fx_q_slam.png",
+      "frames": 5,
+      "width": 54,
+      "height": 26,
+      "symmetry": "vertical",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_q_slam.png",
+      "raw": "raw/sion_fx_q_slam-repair.png",
+      "binding": "view_projectiles `league_sion_q_slam`（新加：Q 砸地那一下的 LineRangeProjectile，画在人物下面，朝施放方向转，画成朝右；上下对称；左端是他站的地方；播一次）",
+      "game_effect_size": "52 × 24",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          0,
+          6,
+          16,
+          20
+        ],
+        [
+          0,
+          3,
+          44,
+          23
+        ],
+        [
+          0,
+          3,
+          53,
+          23
+        ],
+        [
+          0,
+          4,
+          54,
+          22
+        ],
+        [
+          0,
+          8,
+          54,
+          18
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#E8DECF",
+        "#C2B39C",
+        "#94846E",
+        "#66584A",
+        "#40362E"
+      ],
+      "symmetry_replaced_cells": [
+        28,
+        74,
+        211,
+        150,
+        137
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "2812c872c4d3f5d0e1f024236fa2f490db7c3f252fdf3f90c86c68c1f3f68ba2"
+    },
+    {
+      "file": "sion_fx_q_hit.png",
+      "frames": 5,
+      "width": 20,
+      "height": 26,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_q_hit.png",
+      "raw": "raw/sion_fx_q_hit.png",
+      "binding": "view_effects `league_sion_q_hit`（跟随，画在人物上面；左右对称）",
+      "game_effect_size": "18 × 24",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          8,
+          14,
+          12,
+          20
+        ],
+        [
+          3,
+          8,
+          17,
+          25
+        ],
+        [
+          2,
+          7,
+          18,
+          24
+        ],
+        [
+          3,
+          3,
+          17,
+          24
+        ],
+        [
+          5,
+          20,
+          15,
+          21
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#E8DECF",
+        "#C2B39C",
+        "#94846E",
+        "#66584A",
+        "#40362E"
+      ],
+      "symmetry_replaced_cells": [
+        14,
+        36,
+        56,
+        18,
+        3
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "9632358f6b03c12ab25d7fbcddb0f9012fc9b589c689e31e2e85983e5c49e371"
+    },
+    {
+      "file": "sion_fx_e_roar.png",
+      "frames": 4,
+      "width": 16,
+      "height": 24,
+      "symmetry": "vertical",
+      "loop": true,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_e_roar.png",
+      "raw": "raw/sion_fx_e_roar.png",
+      "binding": "view_projectiles `league_sion_e_roar`（朝飞行方向转，画成朝右飞；上下对称）",
+      "game_effect_size": "14 × 22",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          3,
+          3,
+          15,
+          21
+        ],
+        [
+          3,
+          3,
+          15,
+          21
+        ],
+        [
+          3,
+          3,
+          15,
+          21
+        ],
+        [
+          3,
+          3,
+          15,
+          21
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E"
+      ],
+      "symmetry_replaced_cells": [
+        26,
+        30,
+        34,
+        24
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "be72fb2427e496c27c634cb15898a2379b3843b8455a6ac2b663b0d15faa3f79"
+    },
+    {
+      "file": "sion_fx_e_hit.png",
+      "frames": 4,
+      "width": 18,
+      "height": 18,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_e_hit.png",
+      "raw": "raw/sion_fx_e_hit.png",
+      "binding": "view_effects `league_sion_e_hit`（跟随，画在人物上面；左右对称）",
+      "game_effect_size": "16",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          6,
+          6,
+          12,
+          12
+        ],
+        [
+          2,
+          3,
+          16,
+          15
+        ],
+        [
+          1,
+          2,
+          17,
+          15
+        ],
+        [
+          3,
+          4,
+          15,
+          14
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E"
+      ],
+      "symmetry_replaced_cells": [
+        2,
+        22,
+        10,
+        4
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "e228e41e6dca07bdb08f3963dbcaac65453094ed542ce1b855f235eed9dc6119"
+    },
+    {
+      "file": "sion_fx_e_shred.png",
+      "frames": 4,
+      "width": 12,
+      "height": 12,
+      "symmetry": "horizontal",
+      "loop": true,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_e_shred.png",
+      "raw": "raw/sion_fx_e_shred-repair.png",
+      "binding": "view_buffs `league_sion_e_shred`（跟随，画在人物上面；左右对称）",
+      "game_effect_size": "10 × 10",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          2,
+          1,
+          10,
+          10
+        ],
+        [
+          1,
+          1,
+          11,
+          11
+        ],
+        [
+          2,
+          1,
+          10,
+          10
+        ],
+        [
+          1,
+          1,
+          11,
+          11
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#E8DECF",
+        "#C2B39C",
+        "#94846E",
+        "#66584A",
+        "#40362E"
+      ],
+      "symmetry_replaced_cells": [
+        26,
+        23,
+        24,
+        25
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "80736842b3292d1a51cc663f341d4c2ac1d7b9ece570e9e33562d2b085ae8904"
+    },
+    {
+      "file": "sion_fx_w_sh.png",
+      "frames": 4,
+      "width": 56,
+      "height": 54,
+      "symmetry": "horizontal",
+      "loop": true,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_w_sh.png",
+      "raw": "raw/sion_fx_w_sh-repair.png",
+      "binding": "view_buffs `league_sion_w_sh`（跟随，画在人物上面；左右对称；中间人形位置留空）",
+      "game_effect_size": "54 × 52",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          5,
+          3,
+          51,
+          52
+        ],
+        [
+          3,
+          2,
+          53,
+          52
+        ],
+        [
+          5,
+          3,
+          51,
+          51
+        ],
+        [
+          3,
+          1,
+          53,
+          51
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#FFF4D6",
+        "#FFD27A",
+        "#FF9A3A",
+        "#E85A1A"
+      ],
+      "symmetry_replaced_cells": [
+        361,
+        373,
+        369,
+        380
+      ],
+      "transparent_reserve_cleared_cells": [
+        354,
+        282,
+        338,
+        276
+      ],
+      "sha256": "8af297caeaa2bbba0c4881893f912b439483167e8cf6450e32df4208effd3b4e"
+    },
+    {
+      "file": "sion_fx_w_burst.png",
+      "frames": 5,
+      "width": 54,
+      "height": 30,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_w_burst.png",
+      "raw": "raw/sion_fx_w_burst.png",
+      "binding": "view_effects `league_sion_w_burst`（不跟随，画在人物上面；左右对称）",
+      "game_effect_size": "52 × 28",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          16,
+          20,
+          38,
+          29
+        ],
+        [
+          2,
+          18,
+          52,
+          30
+        ],
+        [
+          1,
+          8,
+          53,
+          29
+        ],
+        [
+          1,
+          17,
+          53,
+          30
+        ],
+        [
+          2,
+          12,
+          52,
+          27
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#FFF4D6",
+        "#FFD27A",
+        "#FF9A3A",
+        "#E85A1A",
+        "#6A4A52",
+        "#45303A",
+        "#2A1C22"
+      ],
+      "symmetry_replaced_cells": [
+        16,
+        105,
+        60,
+        19,
+        8
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        48,
+        138,
+        118,
+        66
+      ],
+      "sha256": "970db2f2cfe36dd04c7ee1300a8bb031ea92152dc7aa50e993cbdd5c8087a8da"
+    },
+    {
+      "file": "sion_fx_w_hit.png",
+      "frames": 4,
+      "width": 16,
+      "height": 16,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_w_hit.png",
+      "raw": "raw/sion_fx_w_hit.png",
+      "binding": "view_effects `league_sion_w_hit`（跟随，画在人物上面；左右对称）",
+      "game_effect_size": "14",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          6,
+          6,
+          10,
+          10
+        ],
+        [
+          2,
+          5,
+          14,
+          13
+        ],
+        [
+          2,
+          4,
+          14,
+          13
+        ],
+        [
+          2,
+          9,
+          14,
+          13
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#FFF4D6",
+        "#FFD27A",
+        "#FF9A3A",
+        "#E85A1A",
+        "#6A4A52",
+        "#45303A",
+        "#2A1C22"
+      ],
+      "symmetry_replaced_cells": [
+        1,
+        1,
+        11,
+        0
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "4d9da84af562a2aabd16a8869008ccd82ceb2a0bc4ac6ba90df7c24edb74eee6"
+    },
+    {
+      "file": "sion_fx_r_go.png",
+      "frames": 4,
+      "width": 52,
+      "height": 38,
+      "symmetry": "horizontal",
+      "loop": true,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_r_go.png",
+      "raw": "raw/sion_fx_r_go.png",
+      "binding": "view_buffs `league_sion_r_go`（跟随，画在人物下面；左右对称；中间人形位置留空）",
+      "game_effect_size": "50 × 36",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          5,
+          27,
+          47,
+          36
+        ],
+        [
+          2,
+          25,
+          50,
+          36
+        ],
+        [
+          3,
+          9,
+          49,
+          33
+        ],
+        [
+          1,
+          15,
+          51,
+          33
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#E8DECF",
+        "#C2B39C",
+        "#94846E",
+        "#66584A",
+        "#40362E"
+      ],
+      "symmetry_replaced_cells": [
+        31,
+        152,
+        47,
+        230
+      ],
+      "transparent_reserve_cleared_cells": [
+        24,
+        52,
+        156,
+        194
+      ],
+      "sha256": "f1919c3b30128a84f2568aa2fb3b8eaf6115e135a69b99c14ea86ab0915e079a"
+    },
+    {
+      "file": "sion_fx_r_crash.png",
+      "frames": 6,
+      "width": 82,
+      "height": 46,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_r_crash.png",
+      "raw": "raw/sion_fx_r_crash.png",
+      "binding": "view_effects `league_sion_r_crash`（不跟随，画在人物下面；左右对称）",
+      "game_effect_size": "80 × 44",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          19,
+          25,
+          63,
+          39
+        ],
+        [
+          3,
+          24,
+          79,
+          39
+        ],
+        [
+          3,
+          14,
+          79,
+          42
+        ],
+        [
+          2,
+          7,
+          80,
+          40
+        ],
+        [
+          4,
+          13,
+          78,
+          40
+        ],
+        [
+          8,
+          24,
+          74,
+          37
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#E8DECF",
+        "#C2B39C",
+        "#94846E",
+        "#66584A",
+        "#40362E"
+      ],
+      "symmetry_replaced_cells": [
+        63,
+        57,
+        250,
+        95,
+        47,
+        35
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "b9fdc01ca203c0474dd81cc4d8af90c104dfb315c6dc2767026f89a686eb0d39"
+    },
+    {
+      "file": "sion_fx_r_hit.png",
+      "frames": 4,
+      "width": 20,
+      "height": 30,
+      "symmetry": "horizontal",
+      "loop": false,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_r_hit.png",
+      "raw": "raw/sion_fx_r_hit.png",
+      "binding": "view_effects `league_sion_r_hit`（跟随，画在人物上面；左右对称）",
+      "game_effect_size": "18 × 28",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          4,
+          14,
+          16,
+          26
+        ],
+        [
+          1,
+          10,
+          19,
+          27
+        ],
+        [
+          4,
+          4,
+          16,
+          23
+        ],
+        [
+          4,
+          11,
+          16,
+          22
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E"
+      ],
+      "symmetry_replaced_cells": [
+        25,
+        5,
+        25,
+        3
+      ],
+      "transparent_reserve_cleared_cells": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sha256": "577e5298305a4257cf37ef5b13c8efe709187bab451853bb6845e57cca190dd9"
+    },
+    {
+      "file": "sion_fx_p_zombie.png",
+      "frames": 4,
+      "width": 58,
+      "height": 58,
+      "symmetry": "horizontal",
+      "loop": true,
+      "layout": "one horizontal row, row-major",
+      "scale": 8,
+      "pixel_1x": "pixel_1x/sion_fx_p_zombie.png",
+      "raw": "raw/sion_fx_p_zombie-repair.png",
+      "binding": "view_buffs `league_sion_p_zombie`（附加包加的 buff；跟随，画在人物上面；左右对称；中间人形位置留空）",
+      "game_effect_size": "56 × 56",
+      "visible_bounds_xyxy_exclusive": [
+        [
+          1,
+          2,
+          57,
+          56
+        ],
+        [
+          2,
+          2,
+          56,
+          56
+        ],
+        [
+          1,
+          3,
+          57,
+          56
+        ],
+        [
+          2,
+          1,
+          56,
+          56
+        ]
+      ],
+      "frame_duration_ms": null,
+      "preview_duration_ms": 120,
+      "palette": [
+        "#FFFFFF",
+        "#FFE2D6",
+        "#FF9C7A",
+        "#FF4A3A",
+        "#D41E2C",
+        "#8E0E1E",
+        "#6A4A52",
+        "#45303A",
+        "#2A1C22"
+      ],
+      "symmetry_replaced_cells": [
+        195,
+        460,
+        198,
+        446
+      ],
+      "transparent_reserve_cleared_cells": [
+        264,
+        328,
+        304,
+        348
+      ],
+      "sha256": "dc74c814c8c5b5efe07a0f7009af766ae51c5577f0735673e5bcdf250f1c83bb"
+    }
+  ]
+}

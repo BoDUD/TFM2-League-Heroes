@@ -1,0 +1,215 @@
+{
+ "hero": "sion",
+ "champ": "Sion",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 44,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "sion_idle1@0",
+ "tags": {
+  "attack": {
+   "lunge": 0.4,
+   "release": 3,
+   "frames": [
+    [
+     "sion_idle1@0>sion_attack1@120:0.5",
+     70
+    ],
+    [
+     "sion_attack1@262",
+     80
+    ],
+    [
+     "sion_attack1@400",
+     60
+    ],
+    [
+     "sion_attack1@524",
+     90
+    ],
+    [
+     "sion_attack1@786>sion_idle1@0:0.5",
+     110
+    ]
+   ]
+  },
+  "skill_charge": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "sion_idle1@0>sion_spell1_chrg@200:0.6",
+     200
+    ],
+    [
+     "sion_spell1_chrg@700",
+     250
+    ],
+    [
+     "sion_spell1_chrg@1430",
+     250
+    ],
+    [
+     "sion_spell1_chrg@1860",
+     300
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "sion_spell1_hit2@0",
+     60
+    ],
+    [
+     "sion_spell1_hit2@95",
+     60
+    ],
+    [
+     "sion_spell1_hit2@190",
+     80
+    ],
+    [
+     "sion_spell1_hit2@330",
+     100
+    ],
+    [
+     "sion_spell1_hit2@330>sion_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "sion_idle1@0>sion_spell3@95:0.5",
+     60
+    ],
+    [
+     "sion_spell3@190",
+     70
+    ],
+    [
+     "sion_spell3@380",
+     90
+    ],
+    [
+     "sion_spell3@475",
+     90
+    ],
+    [
+     "sion_spell3@667>sion_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2_w": {
+   "lunge": 0.0,
+   "release": 2,
+   "frames": [
+    [
+     "sion_spell2_b@0",
+     60
+    ],
+    [
+     "sion_spell2_b@120",
+     60
+    ],
+    [
+     "sion_spell2_b@240",
+     90
+    ],
+    [
+     "sion_spell2_b@430",
+     120
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "sion_spell4_run@0",
+     120
+    ],
+    [
+     "sion_spell4_run@267",
+     120
+    ]
+   ]
+  },
+  "ult_hit": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "sion_spell4_hit@0",
+     60
+    ],
+    [
+     "sion_spell4_hit@70",
+     60
+    ],
+    [
+     "sion_spell4_hit@140",
+     80
+    ],
+    [
+     "sion_spell4_hit@280",
+     100
+    ],
+    [
+     "sion_spell4_hit@500>sion_idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "flat": true,
+   "frames": [
+    [
+     "sion_death@0",
+     100
+    ],
+    [
+     "sion_death@714",
+     120
+    ],
+    [
+     "sion_death@1428",
+     150
+    ],
+    [
+     "sion_death@2140",
+     150
+    ],
+    [
+     "sion_death@2500",
+     200
+    ],
+    [
+     "sion_death@2857",
+     400
+    ]
+   ]
+  }
+ }
+}
