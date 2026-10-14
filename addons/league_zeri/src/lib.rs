@@ -320,6 +320,74 @@ struct Pulse {
     at: Option<((f64, f64), (f64, f64))>,
 }
 
+/// 诊断（2026-10-14，用户：「泽丽的普攻和技能没有打出伤害」）：每个泽丽前 `DIAG_ATTACKS` 次普攻、`DIAG_PULSES` 次 W，
+/// 记下她的弹道每 tick 在哪、70000 以内的敌人在哪、打中了谁（`on_attack`，技能也算）——看真引擎里弹道是飞到目标身上，还是
+/// 从头顶飞过（离线模拟器里两样都打得中，日志行都以 DIAG 开头）。
+#[derive(Clone, Default)]
+struct Diag {
+    attacks: usize,
+    pulses: usize,
+    /// what is being watched (attack / W), its number and the tick it began
+    open: Option<(&'static str, usize, usize)>,
+}
+
+const DIAG_ATTACKS: usize = 16;
+const DIAG_PULSES: usize = 8;
+const DIAG_TICKS: usize = 18;
+
+impl Diag {
+    fn begin(&mut self, sim: &StableSim<'_>, me: usize, kind: &'static str) {
+        let n = if kind == "attack" { &mut self.attacks } else { &mut self.pulses };
+        if *n >= if kind == "attack" { DIAG_ATTACKS } else { DIAG_PULSES } {
+            return;
+        }
+        *n += 1;
+        let n = *n;
+        let tick = sim.tick();
+        self.open = Some((kind, n, tick));
+        let Some(at) = pos(sim, me) else { return };
+        let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
+        let mut foes: Vec<(f64, String)> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.is_alive() && u.team() != team && u.is_targetable())
+            .filter_map(|u| {
+                let (x, y) = u.pos();
+                let d = dist(at, (x as f64, y as f64));
+                (d <= 70000.0).then(|| (d, format!("{} {} d {d:.0}", who(sim, u.id()), pt((x as f64, y as f64)))))
+            })
+            .collect();
+        foes.sort_by(|a, b| a.0.total_cmp(&b.0));
+        let list: Vec<String> = foes.into_iter().take(6).map(|f| f.1).collect();
+        wlog(format!("{} DIAG {kind} #{n}: she is at {}, enemies near: [{}], her projectiles: {:?}", head(sim, me), pt(at),
+                     list.join("; "), mine(sim, me).iter().map(|p| pt(*p)).collect::<Vec<_>>()));
+    }
+
+    fn tick(&mut self, sim: &StableSim<'_>, me: usize) {
+        let Some((kind, n, start)) = self.open else { return };
+        let k = sim.tick().saturating_sub(start);
+        if k > DIAG_TICKS {
+            self.open = None;
+            return;
+        }
+        if k == 0 {
+            return;
+        }
+        let shots: Vec<String> = (0..sim.projectile_count())
+            .filter_map(|i| sim.projectile_at(i))
+            .filter(|p| p.caster_id == me)
+            .map(|p| format!("{}{}", pt((p.x as f64, p.y as f64)), if p.is_end { " end" } else { "" }))
+            .collect();
+        wlog(format!("{} DIAG {kind} #{n} +{k}: her projectiles {shots:?}", head(sim, me)));
+    }
+
+    fn hit(&self, sim: &StableSim<'_>, me: usize, target: usize, damage: usize) {
+        let Some((kind, n, start)) = self.open else { return };
+        let at = pos(sim, target).map_or("-".into(), pt);
+        wlog(format!("{} DIAG {kind} #{n} +{}: HIT {} at {at} for {damage}", head(sim, me), sim.tick().saturating_sub(start),
+                     who(sim, target)));
+    }
+}
+
 /// 每个泽丽一份：参数、地图、正在跟的脉冲、已处理到哪个 tick 的施放、计数。
 #[derive(Clone, Default)]
 struct Battery {
@@ -330,6 +398,7 @@ struct Battery {
     lasers: usize,
     pulses: usize,
     steals: usize,
+    diag: Diag,
 }
 
 impl Battery {
@@ -441,6 +510,7 @@ impl StablePassive for Battery {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        self.diag.tick(sim, me);
         if !alive(sim, me) {
             self.pulse = None;
             return;
@@ -460,10 +530,16 @@ impl StablePassive for Battery {
                 let at = pos(sim, me).map_or("-".into(), pt);
                 wlog(format!("{} W #{}: pulse fired from {at}", head(sim, me), self.pulses));
             }
+            self.diag.begin(sim, me, "W");
         }
     }
 
+    fn on_base_attack(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        self.diag.begin(sim, me, "attack");
+    }
+
     fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, damage: &mut usize) {
+        self.diag.hit(sim, me, target, *damage);
         let Some(t) = sim.get_entity(target) else { return };
         let shield = t.shield();
         let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
