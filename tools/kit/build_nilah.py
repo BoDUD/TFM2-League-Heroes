@@ -221,7 +221,7 @@ def build(p):
         land = [around(p["e_rad"], "EnemyWithoutTower", [attack(p["e_dmg"], p["e_ratio"]), view("e_hit"), tsfx("e_hit")]),
                 refresh("eq_on", p["eq_t"]), sw("q_cd", NONE, spin())]
         return combine(flag(charge, p["e_rc"]), refresh("e_gap", p["e_gap"]), anim("skill2", p["e_anim"]),
-                       sfx("e"), voice("vo_e", p), cview("e_trail"),
+                       sfx("e"), voice("vo_e", p),
                        {"type": "RushMoveToBack", "speed": p["e_speed"], "applied_effects": []},
                        delayed(p["e_tick"], *land))
     veil = dict(base_attack_damaged_reduce=100, skill_damaged_reduce=p["w_mred"], move_speed_mult=p["w_ms"])
@@ -258,7 +258,7 @@ def build(p):
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_e = [E("a_hit"), E("qa_hit"), E("q_hit"), E("eq_hit"), E("eq_spin", BIG, 3), E("e_hit"), E("e_trail", FX, 1),
+    views_e = [E("a_hit"), E("qa_hit"), E("q_hit"), E("eq_hit"), E("eq_spin", BIG, 3), E("e_hit"),
                E("w_ally"), E("r_hit"), E("r_pull"), E("r_heal"), E("r_spin", BIG, 3), E("r_burst", BIG, 3)]
     views_b = [B_("q_on", FX, 3), B_("w_on", BIG, 3), B_("w_ally", BIG, 3)]
     kit = {

@@ -15,6 +15,10 @@ The look follows league_zeri's (「按泽丽标准」): these frames are the one
 assets/source/ppu/orig/nilah_<tag>.png (ppu 2.5); tools/art/ppu_restyle.py (RESTYLE["nilah"]) grows the outer outline
 to two squares (about a game pixel, as on Zeri, Nidalee, Soraka, Karma) and lowers the frames for the 90 %, and writes
 the strips tools/art/ppu_hd.py reads.
+The whips and the dash's wake (tools/art/fx_nilah.py -> assets/source/nilah/fx_bake/<tag>_<frame>[_under].png, on the
+frames' canvas widened for Q's reach) go over (or under) those frames: in the 1x tags after the figure's outline, and
+for the dense frames in their own strips orig/nilah_<tag>.over.png / .under.png that ppu_restyle.py puts on after it
+grows the outline (an effect has no outline); each frame is made wide enough for them.
 Writes league/champions/league_nilah#sheet.png / #anim.fanim: the 1x tags (each dense frame brought down by PPU, every
 1x pixel the commonest colour of its squares; the fallback without league.dll), frames centred on the pivot.
 """
@@ -45,6 +49,7 @@ BREATH = [0, 1, 2, 2, 1, 0]
 BREATH_MS = 170
 HIT_DX = 4
 HIT = [(HIT_DX, True, 90), (HIT_DX // 2, False, 120)]
+BAKE = os.path.join(I.SRC, "fx_bake")
 ORDER = ["idle", "run", "attack", "attack_q", "skill", "q_spin", "skill2", "w_cast", "ult", "hit", "dead"]
 
 
@@ -100,14 +105,15 @@ def hit(can, dx, flash):
     return out
 
 
-def down(can, piv):
-    """The dense canvas -> (the 1x frame centred on the pivot, the dense frame of round(PPU x its size)). The pivot:
-    column piv's centre, FEET 1x rows above the soles' bottom edge. Every 1x pixel takes the commonest colour of the
-    dense squares under it (clear when most of them are clear)."""
-    px, py = piv + 0.5, I.SOLE + 1 - FEET * PPU
-    ys, xs = np.nonzero(can[..., 3])
-    hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5))
-    hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5))
+def widen(a, w):
+    if a is None or a.shape[1] >= w:
+        return a
+    return np.pad(a, ((0, 0), (0, w - a.shape[1]), (0, 0)))
+
+
+def one_of(can, px, py, hw, hh, need=0.5):
+    """The 1x frame (2 hw + 1 by 2 hh + 1, centred on (px, py)): every pixel the commonest colour of the dense squares
+    under it, clear when fewer than `need` of them are drawn."""
     w1, h1 = 2 * hw + 1, 2 * hh + 1
     one = np.zeros((h1, w1, 4), np.uint8)
     for j in range(h1):
@@ -116,19 +122,69 @@ def down(can, piv):
             xa, xb = px + (i - hw - 0.5) * PPU, px + (i - hw + 0.5) * PPU
             blk = can[max(0, int(np.floor(ya + 0.5))):max(0, int(np.floor(yb + 0.5))),
                       max(0, int(np.floor(xa + 0.5))):max(0, int(np.floor(xb + 0.5)))].reshape(-1, 4)
-            if not len(blk) or (blk[:, 3] > 0).sum() * 2 < len(blk):
+            if not len(blk) or (blk[:, 3] > 0).sum() < need * len(blk):
                 continue
             cols, n = np.unique(blk[blk[:, 3] > 0][:, :3], axis=0, return_counts=True)
             one[j, i, :3] = cols[n.argmax()]
             one[j, i, 3] = 255
-    one = G.complete_outline(one)[0]
-    W, H = round(w1 * PPU), round(h1 * PPU)
+    return one
+
+
+def crop_hd(can, px, py, W, H):
     hx0, hy0 = int(round(px - W / 2.0)), int(round(py - H / 2.0))
     hd = np.zeros((H, W, 4), np.uint8)
     sx0, sy0 = max(0, hx0), max(0, hy0)
     sub = can[sy0:min(can.shape[0], hy0 + H), sx0:min(can.shape[1], hx0 + W)]
     hd[sy0 - hy0:sy0 - hy0 + sub.shape[0], sx0 - hx0:sx0 - hx0 + sub.shape[1]] = sub
-    return one, hd
+    return hd
+
+
+def down(can, piv, over=None, under=None):
+    """The dense canvas -> (the 1x frame centred on the pivot, the dense frame of round(PPU x its size), the effects'
+    dense frames (over, under; None where none)). The pivot: column piv's centre, FEET 1x rows above the soles' bottom
+    edge. The frame is wide enough for the effects too; in the 1x frame they go on after the figure's outline (an
+    effect pixel where a third of its squares are drawn)."""
+    w = max(x.shape[1] for x in (can, over, under) if x is not None)
+    can, over, under = widen(can, w), widen(over, w), widen(under, w)
+    px, py = piv + 0.5, I.SOLE + 1 - FEET * PPU
+    every = can[..., 3] > 0
+    for x in (over, under):
+        if x is not None:
+            every = every | (x[..., 3] > 0)
+    ys, xs = np.nonzero(every)
+    hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5))
+    hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5))
+    one = G.complete_outline(one_of(can, px, py, hw, hh))[0]
+    if under is not None:
+        u = one_of(under, px, py, hw, hh, 1 / 3)
+        m = (u[..., 3] > 0) & (one[..., 3] == 0)
+        one[m] = u[m]
+    if over is not None:
+        o = one_of(over, px, py, hw, hh, 1 / 3)
+        m = o[..., 3] > 0
+        one[m] = o[m]
+    W, H = round((2 * hw + 1) * PPU), round((2 * hh + 1) * PPU)
+    fx = tuple(None if x is None else crop_hd(x, px, py, W, H) for x in (over, under))
+    return one, crop_hd(can, px, py, W, H), fx
+
+
+def baked(tag, k):
+    """The effects drawn into frame k (1-based) of tag: (over, under) canvases or None."""
+    out = []
+    for suf in ("", "_under"):
+        path = os.path.join(BAKE, f"{tag}_{k}{suf}.png")
+        out.append(np.asarray(Image.open(path).convert("RGBA")).copy() if os.path.isfile(path) else None)
+    return tuple(out)
+
+
+def strip_of(frames):
+    H = max(h.shape[0] for h in frames)
+    strip = np.zeros((H, sum(h.shape[1] + 1 for h in frames) - 1, 4), np.uint8)
+    x = 0
+    for h in frames:
+        strip[:h.shape[0], x:x + h.shape[1]] = h
+        x += h.shape[1] + 1
+    return strip
 
 
 def actions():
@@ -157,19 +213,21 @@ def main():
     sheet = {}
     os.makedirs(ORIG, exist_ok=True)
     for tag, frames in acts.items():
-        ones, hds = [], []
-        for can, t in frames:
-            one, hd = down(can, I.PIV)
+        ones, hds, fxs = [], [], []
+        for k, (can, t) in enumerate(frames, 1):
+            one, hd, fx = down(can, I.PIV, *baked(tag, k))
             ones.append((one, float(t)))
             hds.append(hd)
+            fxs.append(fx)
         sheet[tag] = ones
-        H = max(h.shape[0] for h in hds)
-        strip = np.zeros((H, sum(h.shape[1] + 1 for h in hds) - 1, 4), np.uint8)
-        x = 0
-        for h in hds:
-            strip[:h.shape[0], x:x + h.shape[1]] = h
-            x += h.shape[1] + 1
-        Image.fromarray(strip).save(os.path.join(ORIG, f"nilah_{tag}.png"))
+        Image.fromarray(strip_of(hds)).save(os.path.join(ORIG, f"nilah_{tag}.png"))
+        for j, suf in enumerate(("over", "under")):
+            path = os.path.join(ORIG, f"nilah_{tag}.{suf}.png")
+            if any(f[j] is not None for f in fxs):
+                Image.fromarray(strip_of([f[j] if f[j] is not None else np.zeros_like(h)
+                                          for f, h in zip(fxs, hds)])).save(path)
+            elif os.path.isfile(path):
+                os.remove(path)
         with open(os.path.join(ORIG, f"nilah_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
             json.dump({"sizes": [[h.shape[1], h.shape[0]] for h in hds], "ppu": PPU}, f)
         if a.review:

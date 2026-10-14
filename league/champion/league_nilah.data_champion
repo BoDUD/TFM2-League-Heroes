@@ -649,10 +649,6 @@
                 }
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_nilah_e_trail"
-              },
-              {
                 "type": "RushMoveToBack",
                 "speed": 8000,
                 "applied_effects": []
@@ -887,10 +883,6 @@
                   }
                 ]
               }
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_nilah_e_trail"
             },
             {
               "type": "RushMoveToBack",
@@ -1542,14 +1534,6 @@
       "anim": "asset/league/effects/league_nilah_fx",
       "tag": "e_hit",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_nilah_e_trail",
-      "anim": "asset/league/effects/league_nilah_fx",
-      "tag": "e_trail",
-      "z": 1,
       "is_follow": true
     },
     {

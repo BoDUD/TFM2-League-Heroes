@@ -144,8 +144,9 @@ RESTYLE = {
     # league_nilah (#99, 「按泽丽标准」): drawn at the look already (Codex's picture read back square for square, PPU 2.5 -
     # the user's 「保留 99 格，PPU 2.5」), so only the outer outline grown to the others' two squares (about a game pixel;
     # hers was one) and every frame lowered for her 90 % (hd.rs SIZES, 「模型别太大」): 11.5 x 2.5 x (1 / 0.9 - 1) = 3.2 -> 3
-    # squares; the face point at her crown (the 1x sheet's 40 px) x 0.9
-    "nilah": dict(edge=1, lift_sq=-3, face_to=(-1, -36)),
+    # squares; the face point at her crown (the 1x sheet's 40 px) x 0.9; fx: her whips and the dash's wake
+    # (tools/art/fx_nilah.py, laid out by rig_nilah.py in orig/nilah_<tag>.over.png / .under.png) put on after the outline
+    "nilah": dict(edge=1, lift_sq=-3, face_to=(-1, -36), fx=True),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
@@ -198,6 +199,45 @@ def read_orig(hero):
             x += W + 1
         out[t] = [(a, ms) for a, (_, ms) in zip(frames, hd)]
     return out, sheet, ORIG_PPU.get(hero, meta.get("ppu", P.PPU[hero]))
+
+
+def read_fx(hero, tag):
+    """The effects a rig laid out for this tag's frames (orig/<hero>_<tag>.over.png / .under.png, cut like its frames):
+    (over frames, under frames), a list of None for a strip that is not there."""
+    side = os.path.join(ORIG, f"{hero}_{tag}.json")
+    if not os.path.isfile(side):
+        return None, None
+    with open(side, encoding="utf-8") as f:
+        sizes = json.load(f)["sizes"]
+    out = []
+    for suf in ("over", "under"):
+        png = os.path.join(ORIG, f"{hero}_{tag}.{suf}.png")
+        if not os.path.isfile(png):
+            out.append([None] * len(sizes))
+            continue
+        s = np.asarray(Image.open(png).convert("RGBA"))
+        frames, x = [], 0
+        for W, H in sizes:
+            a = s[:H, x:x + W].copy()
+            frames.append(a if a[..., 3].any() else None)
+            x += W + 1
+        out.append(frames)
+    return out
+
+
+def put_fx(content, e, over, under):
+    """The effects on a restyled frame: their squares as drawn on its frame before the restyle (the content is that
+    frame grown e squares at each side by the outline)."""
+    content = content.copy()
+    for a, top in ((under, False), (over, True)):
+        if a is None:
+            continue
+        a = np.pad(a, ((e, e), (e, e), (0, 0)))[:content.shape[0], :content.shape[1]]
+        m = a[..., 3] > 0
+        if not top:
+            m &= content[..., 3] == 0
+        content[m] = a[m]
+    return content
 
 
 # ----------------------------------------------------------------------------------------------- the head
@@ -606,6 +646,10 @@ def restyle(hero, spec, write=True, only=None):
             if new_ppu != ppu:
                 content, pivot = pixelate(content, new_ppu / ppu, pivot, outline, pal=shared)
             content = grow_edge(content, spec.get("edge", 0), outline)
+            if spec.get("fx") and new_ppu == ppu and not spec.get("fix"):
+                if i == 0:
+                    fx = read_fx(hero, tag)
+                content = put_fx(content, e, fx[0][i], fx[1][i])
             pivot = (pivot[0] + e, pivot[1] + e + spec.get("lift_sq", 0))   # lift_sq: whole rows of the new grid
             res.append((content, pivot, ms))
             notes.append(f"{tag}[{i}] {note}")
