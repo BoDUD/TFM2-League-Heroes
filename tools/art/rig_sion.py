@@ -49,6 +49,12 @@ STEM = os.path.join(ROOT, "league", "champions", "league_sion")
 PPU_SRC = os.path.join(ROOT, "assets", "source", "ppu")
 PPU = 1.52                      # canvas squares a game pixel (design_sion.HD_PPU)
 FEET = 11                       # 1x rows from the pivot down to the soles (the pack's 128-canvas heroes)
+# On the battlefield he is drawn at SIZE of the 1x size (addons/league_main/src/hd.rs SIZES; the user, 2026-10-14:
+# 「模型太大了吧 和铁男差不多大就行了吧」 -> 80 % (Mordekaiser's body area on a true-scale sheet), then 「调成90%」 ->
+# 90 %, 1.69 squares a game pixel): the DLL scales about the frame's centre, so every dense frame is drawn SHIFT rows
+# lower - the soles, (FEET + 0.5) x PPU under the pivot, land there again (tools/art/rig_braum.py's way)
+SIZE = 0.90
+SHIFT = round((FEET + 0.5) * PPU * (1 / SIZE - 1))
 COLS, ROWS = 219, 146
 PIV_X, SOLE = 100, 140          # pack_sion_strips.py
 DESIGN_AT = (43, 66)            # the design's top-left on the canvas (pack_sion_strips.py's print)
@@ -75,7 +81,7 @@ TAGS = {
 }
 # frame times (ms): the pack's cells.json; skill2_w: frame 2 dropped, frame 3 shown in its place and held
 MS = {
-    "attack": [70, 80, 60, 90, 110], "skill_charge": [200, 250, 250, 300], "skill": [60, 60, 80, 100, 100],
+    "attack": [70, 80, 60, 90, 110], "skill_charge": [130, 170, 170, 200], "skill": [60, 60, 80, 100, 100],
     "skill2": [60, 70, 90, 90, 100], "skill2_w": [60, 90, 120, 120], "ult_hit": [60, 60, 80, 100, 120],
     "dead": [100, 120, 150, 150, 200, 400],
 }
@@ -491,18 +497,19 @@ def one_x(can, p):
 
 
 def dense(can, one, p):
-    """The game's frame: the canvas on a frame of round(PPU x the 1x frame's size), grown alike at both ends where the
-    drawing needs more, the pivot at its centre."""
+    """The game's frame: the canvas SHIFT rows lower on a frame of round(PPU x the 1x frame's size), grown alike at
+    both ends where the drawing needs more, the pivot at its centre."""
     lx, ly = p
     W, H = round(one.shape[1] * PPU), round(one.shape[0] * PPU)
     ys, xs = np.nonzero(can[..., 3])
+    yd = ys + SHIFT
     while W / 2 < max(lx - xs.min(), xs.max() + 1 - lx):
         W += 2
-    while H / 2 < max(ly - ys.min(), ys.max() + 1 - ly):
+    while H / 2 < max(ly - yd.min(), yd.max() + 1 - ly):
         H += 2
     f = np.zeros((H, W, 4), np.uint8)
     ox, oy = int(np.floor(W / 2 - lx + 0.5)), int(np.floor(H / 2 - ly + 0.5))
-    f[ys + oy, xs + ox] = can[ys, xs]
+    f[yd + oy, xs + ox] = can[ys, xs]
     return f
 
 

@@ -16,9 +16,9 @@
     "asset/league/icons/league_sion_ult"
   ],
   "stat": {
-    "attack": 82,
+    "attack": 88,
     "magic_power": 0,
-    "hp": 1160,
+    "hp": 1250,
     "defence": 36,
     "magic_resistance": 28,
     "move_speed": 980,
@@ -27,9 +27,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 15,
+    "attack": 16,
     "magic_power": 0,
-    "hp": 118,
+    "hp": 125,
     "defence": 8,
     "magic_resistance": 4,
     "move_speed": 10,
@@ -41,7 +41,7 @@
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_sion.attack",
     "duration": 25,
-    "cooltime": 72,
+    "cooltime": 64,
     "start_timing": 1,
     "cancelable": true,
     "range": 25000,
@@ -180,8 +180,8 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_sion.skill",
-    "duration": 84,
-    "cooltime": 480,
+    "duration": 64,
+    "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
     "range": 34000,
@@ -194,7 +194,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill_charge",
-          "tick": 60
+          "tick": 40
         },
         {
           "type": "Sfx",
@@ -242,7 +242,7 @@
                 "name": "league_sion_q_ch",
                 "duration": {
                   "Time": {
-                    "tick": 62
+                    "tick": 42
                   }
                 }
               },
@@ -253,10 +253,10 @@
         {
           "type": "LineRangeProjectile",
           "name": "league_sion_q_warn",
-          "width": 7000,
-          "length": 44000,
-          "delay": 69,
-          "apply": 69,
+          "width": 10000,
+          "length": 50000,
+          "delay": 49,
+          "apply": 49,
           "applied_target": "EnemyChampion",
           "applied_effects": []
         },
@@ -319,42 +319,6 @@
           "tick": 40,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_sion_q_ch"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 50,
-          "effects": [
-            {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_sion_q_ch"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 60,
-          "effects": [
-            {
               "type": "SwitchByBuff",
               "buff_name": "league_sion_q_ch",
               "effect_buff": {
@@ -380,8 +344,8 @@
                       {
                         "type": "LineRangeProjectile",
                         "name": "league_sion_q_slam",
-                        "width": 7000,
-                        "length": 44000,
+                        "width": 10000,
+                        "length": 50000,
                         "delay": 12,
                         "apply": 1,
                         "applied_target": "EnemyWithoutTower",
@@ -390,8 +354,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 110,
-                              "attack_ratio": 150,
+                              "damage": 140,
+                              "attack_ratio": 180,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -555,8 +519,8 @@
                         "effects": [
                           {
                             "type": "Shield",
-                            "amount": 120,
-                            "attack_ratio": 80,
+                            "amount": 160,
+                            "attack_ratio": 100,
                             "ap_ratio": 0,
                             "tick": 360
                           },
@@ -608,9 +572,9 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 60,
+                                      "damage": 80,
                                       "attack_ratio": 0,
-                                      "hp_ratio": 6,
+                                      "hp_ratio": 8,
                                       "can_crit": false,
                                       "attack_effect_type": "Target"
                                     },
@@ -650,7 +614,7 @@
               "name": "league_sion_e_cd",
               "duration": {
                 "Time": {
-                  "tick": 540
+                  "tick": 480
                 }
               }
             },
@@ -708,9 +672,9 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 90,
+                      "damage": 120,
                       "attack_ratio": 0,
-                      "hp_ratio": 3,
+                      "hp_ratio": 4,
                       "can_crit": false,
                       "attack_effect_type": "Target"
                     }
@@ -892,8 +856,8 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 150,
-                      "attack_ratio": 80,
+                      "damage": 200,
+                      "attack_ratio": 100,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -912,8 +876,8 @@
                     "effects": [
                       {
                         "type": "Attack",
-                        "damage": 230,
-                        "attack_ratio": 80,
+                        "damage": 300,
+                        "attack_ratio": 100,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -929,8 +893,8 @@
                     "effects": [
                       {
                         "type": "Attack",
-                        "damage": 320,
-                        "attack_ratio": 80,
+                        "damage": 400,
+                        "attack_ratio": 100,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"

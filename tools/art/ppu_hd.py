@@ -66,7 +66,7 @@ def plain(tag):
     return not tag.startswith((PREFIX, LO))
 # hero -> dense px every dense frame is drawn lower (a hero shown smaller on the battlefield, league_main hd.rs SIZES:
 # the soles stay on the ground; tools/art/ppu_gragas.py SHIFT) - the checks compare against the 1x frame moved as much
-SHIFT = {"gragas": 6, "braum": 4}  # braum: tools/art/rig_braum.py SIZE / SHIFT
+SHIFT = {"gragas": 6, "braum": 4, "sion": 2}  # braum, sion: tools/art/rig_braum.py / rig_sion.py SIZE / SHIFT
 # heroes whose dense frames are a new drawing, not the 1x art (league_zeri: Codex's pictures read at 111 rows): the
 # checks against the 1x frame scaled do not apply to them (tools/art/ppu_zeri.py checks its frames)
 REDRAWN = {"zeri"}

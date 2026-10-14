@@ -60,9 +60,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 100 % at PPU 1.5 (tools/art/rig_galio.py dense), picked from true-scale sheets; then 「在局内还是偏小啊」 (38 game px
 /// crown to soles, Darius 42) -> 110 % at PPU 1.65 (still 1.5 squares a game pixel), his dense frames drawn RAISE rows higher (rig_galio.py
 /// SIZE / RAISE).
+/// Sion: 「模型太大了吧 和铁男差不多大就行了吧」 -> 80 % (Mordekaiser's body area on a true-scale sheet), then 「调成90%」 ->
+/// 90 % (about 60 x 44 game px with his axe, 1.69 squares a game pixel), his dense frames drawn SHIFT rows lower
+/// (tools/art/rig_sion.py SIZE / SHIFT).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.00),
-                                    ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90)];
+                                    ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
+                                    ("league_sion", 0.90)];
 
 pub const PREFIX: &str = "hd_";
 
