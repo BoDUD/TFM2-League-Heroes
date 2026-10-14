@@ -146,7 +146,7 @@ FIX = {
     ("attack", 2): [("legs", 109, 8), ("cloth", (92, 112, 114, 132)), ("ink", [(113, 130), (114, 130), (113, 119),
                                                                             (113, 120)])],
     # the haft came out of the crotch: a fist on it; the back lower leg set on the ground along its slope
-    ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3)],
+    ("attack", 3): [("fist", 112, 111), ("stretch", 58, 90, 116, 3), ("stretch", 110, 127, 122, 1)],
     ("attack", 4): [("axe", (156, 113, 196, 141), None), ("lower", 3), ("stretch", 105, 125, 116, 3),
                     ("ring", (156, 118, 176, 137))],
     ("skill_charge", 1): [("stake",), ("slit", (123, 113, 130, 120)), ("axe", (24, 60, 53, 96), None)],
@@ -164,7 +164,7 @@ FIX = {
     ("skill2", 3): [("stake",), ("lower", 1), ("slit", (87, 104, 99, 115)), ("slit", (82, 117, 89, 123)),
                     ("slit", (117, 80, 128, 87))],
     ("skill2", 4): [("stake",), ("lower", 1)],
-    ("skill2_w", 1): [("pauldron", 0, 0), ("plates", (132, 99, 148, 104))],
+    ("skill2_w", 1): [("pauldron", 0, 0), ("plates", (132, 99, 148, 104)), ("stretch", 77, 100, 120, 1)],
     ("skill2_w", 2): [("neck", 100, 105, 67), ("clear", (58, 92, 70, 98)), ("clear", (65, 98, 68, 101)),
                       ("clear", (62, 98, 62, 99)), ("clear", (63, 99, 64, 99)), ("clear", (57, 96, 57, 96)),
                       ("pauldron", 0, 0), ("plates", (136, 91, 152, 97)), ("ring", (40, 95, 58, 112))],
@@ -742,6 +742,10 @@ def stretch(a, x0, x1, y0, k):
     n = SOLE + 1 - y0
     src = a[y0:SOLE + 1 - k, x0:x1 + 1].copy()
     a[y0:SOLE + 1, x0:x1 + 1] = src[np.minimum(src.shape[0] - 1, (np.arange(n) * (n - k) // n))]
+    for x in range(x0, x1 + 1):         # a sole line doubled by the stretch: the upper one takes the boot's colour
+        line = [(a[y, x, 3] > 0) and tuple(a[y, x, :3]) == OUTLINE for y in (SOLE, SOLE - 1, SOLE - 2)]
+        if line[0] and line[1] and not line[2] and a[SOLE - 2, x, 3] > 0:
+            a[SOLE - 1, x] = a[SOLE - 2, x]
     return a
 
 
@@ -770,7 +774,7 @@ def fixed(tag, pos, a, off):
             if s < AXE_TOL:
                 sub, anchor = resampled(sub, s, anchor)
             a[m] = 0
-            axe = (sub, anchor, (int(ys[i]), int(xs[i])))
+            axe = (sub, anchor, (int(ys[i]), int(xs[i])), ring if ring_at(a, box) else None, box)
         elif op[0] == "clear":
             a = clear(a, op[1], head)
         elif op[0] == "stake":
@@ -804,9 +808,14 @@ def fixed(tag, pos, a, off):
         else:
             raise ValueError(op)
     if axe:
-        sub, (ay, ax), (py, px) = axe
-        for src in maps:
-            py = moved_row(py, src)
+        sub, (ay, ax), (py, px), ring0, (bx0, by0, bx1, by1) = axe
+        ring1 = ring_at(a, (bx0 - 4, by0 - 4, bx1 + 4, min(SOLE, by1 + 14))) if ring0 else None
+        if ring1:               # with the ring (its rows kept): the haft between them keeps its length (the reviewer:
+            py += int(round(ring1[0] - ring0[0]))           # moved by its own row, a trim left a hole at the haft)
+            px += int(round(ring1[1] - ring0[1]))
+        else:
+            for src in maps:
+                py = moved_row(py, src)
         ys, xs = np.nonzero(sub[..., 3] > 0)
         yy, xx = ys + py - ay, xs + px - ax
         ok = (yy >= 0) & (yy <= SOLE) & (xx >= 0) & (xx < COLS)
