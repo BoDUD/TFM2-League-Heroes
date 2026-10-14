@@ -3,7 +3,11 @@
 做吗特效」) from assets/source/nilah/PROMPTS_FX.md - the same names, frame counts, sizes and ramps - as the game sheets
 league_nilah_fx and league_nilah_big.
 
-    python tools/art/fx_nilah.py [--review DIR]      # DIR: every effect at 6x and a GIF of each on her idle
+    python tools/art/fx_nilah.py --drawn [--review DIR]      # DIR: every effect at 6x and a GIF of each on her idle
+
+SUPERSEDED: the sheets now come from Codex's overview (tools/art/import_nilah_fx.py, the user: 「你拿我给你的这个修复啊
+这个特效好啊」); this file keeps the effects table (FX: spots, times, sheets), Pic / Dense and review() that tool uses,
+and writes its own drawings only with --drawn.
 
 Every picture is hard-edged pixel art in game pixels, no outline: her water ramp (white core to deep blue) and the joy
 ramp (pastel pink, lilac, sky, mint, gold) for the veil, the heal and the storm's glints. Brighter squares win where two
@@ -745,7 +749,10 @@ def check(pics):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review", help="write every effect at 6x and GIFs on her idle here")
+    ap.add_argument("--drawn", action="store_true", help="really overwrite the sheets with these drawings")
     a = ap.parse_args()
+    if not a.drawn:
+        sys.exit("the sheets come from tools/art/import_nilah_fx.py; pass --drawn to write these drawings instead")
     pics = build()
     bad = check(pics)
     if bad:
