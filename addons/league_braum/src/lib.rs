@@ -500,7 +500,10 @@ impl StablePassive for Heart {
         if back == 0 {
             return;
         }
-        sim.heal(me, me, back);
+        // 挡下的伤害直接把血加回去（和赵信的远程减伤一样，entity_set_hp）：游戏 0.6.4 起原生被动的 heal 会飘绿色数字、
+        // 记进治疗量、吃重伤——每次正面挨打一个 +数字，像是在回血；英雄联盟的坚不可摧是减伤。
+        let Some((hp, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
+        sim.entity_set_hp(me, (hp + back).min(max));
         self.blocked += back;
         if let Some(n) = counted("block") {
             wlog(format!("{} BLOCK #{n} {} hit {damage} from the front -> {back} back{}", head(sim, me),

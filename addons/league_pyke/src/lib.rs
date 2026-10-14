@@ -310,6 +310,12 @@ fn after(sim: &mut StableSim<'_>, caster: usize) {
         reset.duration_kind = BuffDurationV1::Time.code();
         reset.ult_cooldown_mult = 10_000;
         sim.add_buff(caster, &reset);
+        // the multiplier leaves about 1% of R's cooldown; from game 0.6.4 the rest goes too, a full reset
+        // (entity_reduce_cooldown - false on older games, where the multiplier alone stays)
+        let left = sim.get_entity(caster).and_then(|e| e.cooldown(SkillSlotV1::Ult)).map_or(0, |c| c.remaining);
+        if left > 0 {
+            sim.entity_reduce_cooldown(caster, SkillSlotV1::Ult, left);
+        }
         let at_me = InputTargetV1::target(caster);
         sim.play_view_effect(&format!("{HERO}_r_reset"), caster, &at_me, 0, 0, 0);
         sim.play_sfx(&format!("{HERO}_r_reset"), caster, &at_me);

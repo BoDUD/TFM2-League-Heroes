@@ -335,7 +335,8 @@ fn watch(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     if d <= ARRIVE || sim.tick() > input.target_id || has_cc(sim, caster, &NO_PULL[..6]) {
         return;
     }
-    if dist(last, here) < 1.0 {
+    // 被放逐（巴德的 R 之类，不可选中）时不挪他：游戏 0.6.4 起放逐中的单位不动，宿主的强制位移也停下
+    if dist(last, here) < 1.0 && sim.get_entity(caster).is_some_and(|e| e.is_targetable()) {
         let s = Q_DASH.min(d);
         let next = (here.0 + (to.0 - here.0) / d * s, here.1 + (to.1 - here.1) / d * s);
         sim.entity_set_pos(caster, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);

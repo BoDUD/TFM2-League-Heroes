@@ -55,7 +55,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
-            "nilah": 2.5, "kindred": 154 / 34}
+            "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -77,20 +77,22 @@ RESTYLE = {
     # then 「铁男和布隆游戏里偏大了」: Mordekaiser 100 %, Braum 95 % (hd.rs SIZES, picked from a true-scale sheet) - the
     # frames as they were, moved down by whole squares after the downscale (lift_sq): 11 x 2.0 x (1 / 1.00 - 1 / 1.15)
     # = 2.9 -> 3, 11.5 x 1.98 x (1 / 0.95 - 1 / 1.05) = 2.3 -> 2; faces x 1.00 / 1.15 and x 0.95 / 1.05 about the soles
+    # then (game 0.6.4, 2026-10-14) 「铁男模型太小」「铁男到110%吧」: Mordekaiser 110 % - 11 x 2.0 x (1 / 1.10 - 1 / 1.15)
+    # = 0.9 -> 1 square down from the 115 % frames, face (1, -27) x 1.10 about the soles
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
                   lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(7, -37)),  # (a hair under: the pivot's row keeps its square)
     # 「铁男的走路步伐感觉有点大啊」: the run's two striding frames had the soles 42 and 47.5 game px apart (the idle's 31):
     # their legs brought together from the hips down (narrow: 25 and 40 orig px nearer on each side at the soles)
-    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-3,
+    "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-1,
                         stride={"run": (165, {0: 25, 2: 40})},
                         crisp=dict(contrast=1.0, keep="teal"),
-                        face_to=(1, -27)),
+                        face_to=(1, -30)),
     # 「飞机像泽丽那样变大点」
     "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
     # 「刀妹和卡萨丁感觉在游戏里偏大啊」: 100 % (hd.rs SIZES). rig_kassadin.py drew his frames RAISE 4 orig rows higher
     # for its 110 %; lowered 4 x 2.42 / 3.622 = 2.7 -> 3 squares after the downscale
-    "kassadin": dict(edge=0, ppu=2.42, crisp={}, lift_sq=-3, face_to=(1, -31)),
+    "kassadin": dict(edge=0, ppu=2.42, crisp=dict(keep="mask_face"), lift_sq=-3, face_to=(1, -31)),
     # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
     # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
     # --delivery <it> --fill-from-sheet
@@ -155,6 +157,12 @@ RESTYLE = {
     # the outer outline grown to about a game pixel. 2026-10-14 the user: 「有点太高清了？降点像素」 - from a sheet of
     # densities picked 2.2 (Ashe's, Nidalee's, Yasuo's)
     "kindred": dict(ppu=2.2, edge=1),
+    # league_malzahar (#103): Codex's drafts cut to the design's grid at the user's density (tools/art/
+    # import_malzahar_strips.py, rig_malzahar.py: 2.2 first, then 「像素有点高 降低点需要」 -> 1.2 squares a shown game pixel
+    # picked from a sheet = PPU 1.38 at his 115 %), so no proportion or density change here; the outer outline grown a
+    # square like the others; drawn 115 % by league.dll (hd.rs SIZES) round the frame's centre, so every frame lifted
+    # 11.5 x 1.38 x (1 - 1 / 1.15) = 2.1 -> 2 rows (the ground row stays on the ground)
+    "malzahar": dict(ppu=1.38, edge=1, lift=2, face_to=(4, -39)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

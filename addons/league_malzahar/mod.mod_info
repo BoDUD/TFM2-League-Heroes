@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.111.0"
+    }
+  ],
+  "description": "Test build of Malzahar as in League (needs League of Legends Heroes): replaces the main pack's Malzahar so Void Shift works like League's (the first non-minion hit and the moment after it lose 90% of their damage, no crowd control while it holds, back after a while without champion damage) and Malefic Visions jump to the nearest enemy, champions first, every time their target dies. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-14",
+  "mod_id": "league_malzahar",
+  "mod_type": "native",
+  "name": "League Heroes: Malzahar's Void Shift and Visions (test)",
+  "version": "0.1.0"
+}

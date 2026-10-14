@@ -40,7 +40,7 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_nidalee_prowl.attack",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 52,
     "start_timing": 1,
     "cancelable": true,
@@ -312,7 +312,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "c_transform",
-                  "tick": 8
+                  "tick": 16
                 },
                 {
                   "type": "CasterViewEffect",
@@ -392,7 +392,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "transform",
-                  "tick": 8
+                  "tick": 16
                 },
                 {
                   "type": "CasterViewEffect",
@@ -450,7 +450,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "c_skill",
-                    "tick": 22
+                    "tick": 26
                   },
                   {
                     "type": "Sfx",
@@ -805,7 +805,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "skill",
-                  "tick": 28
+                  "tick": 33
                 },
                 {
                   "type": "SwitchByBuff",
@@ -838,7 +838,7 @@
                 },
                 {
                   "type": "Delayed",
-                  "tick": 11,
+                  "tick": 13,
                   "effects": [
                     {
                       "type": "Combine",
@@ -1159,7 +1159,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "c_swipe",
-                          "tick": 20
+                          "tick": 21
                         },
                         {
                           "type": "Sfx",
@@ -1200,7 +1200,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 7,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "RangeEffect",
@@ -1331,7 +1331,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "c_pounce",
-                                  "tick": 22
+                                  "tick": 24
                                 },
                                 {
                                   "type": "Sfx",
@@ -1440,7 +1440,7 @@
                                               {
                                                 "type": "CasterAnimation",
                                                 "name": "c_swipe",
-                                                "tick": 20
+                                                "tick": 21
                                               },
                                               {
                                                 "type": "Sfx",
@@ -1481,7 +1481,7 @@
                                               },
                                               {
                                                 "type": "Delayed",
-                                                "tick": 7,
+                                                "tick": 8,
                                                 "effects": [
                                                   {
                                                     "type": "RangeEffect",
@@ -1556,7 +1556,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "c_pounce",
-                                    "tick": 22
+                                    "tick": 24
                                   },
                                   {
                                     "type": "Sfx",
@@ -1665,7 +1665,7 @@
                                                 {
                                                   "type": "CasterAnimation",
                                                   "name": "c_swipe",
-                                                  "tick": 20
+                                                  "tick": 21
                                                 },
                                                 {
                                                   "type": "Sfx",
@@ -1706,7 +1706,7 @@
                                                 },
                                                 {
                                                   "type": "Delayed",
-                                                  "tick": 7,
+                                                  "tick": 8,
                                                   "effects": [
                                                     {
                                                       "type": "RangeEffect",
@@ -1787,7 +1787,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "c_pounce",
-                                  "tick": 22
+                                  "tick": 24
                                 },
                                 {
                                   "type": "Sfx",
@@ -1896,7 +1896,7 @@
                                               {
                                                 "type": "CasterAnimation",
                                                 "name": "c_swipe",
-                                                "tick": 20
+                                                "tick": 21
                                               },
                                               {
                                                 "type": "Sfx",
@@ -1937,7 +1937,7 @@
                                               },
                                               {
                                                 "type": "Delayed",
-                                                "tick": 7,
+                                                "tick": 8,
                                                 "effects": [
                                                   {
                                                     "type": "RangeEffect",
@@ -2019,7 +2019,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "skill2",
-                    "tick": 22
+                    "tick": 24
                   },
                   {
                     "type": "Sfx",
@@ -2394,7 +2394,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "skill2",
-                  "tick": 22
+                  "tick": 24
                 },
                 {
                   "type": "Sfx",
@@ -2639,7 +2639,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "c_pounce",
-                  "tick": 22
+                  "tick": 24
                 },
                 {
                   "type": "CasterViewEffect",
@@ -2708,7 +2708,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "c_swipe",
-                              "tick": 20
+                              "tick": 21
                             },
                             {
                               "type": "Sfx",
@@ -2749,7 +2749,7 @@
                             },
                             {
                               "type": "Delayed",
-                              "tick": 7,
+                              "tick": 8,
                               "effects": [
                                 {
                                   "type": "RangeEffect",

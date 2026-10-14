@@ -218,9 +218,12 @@ fn hp_share((now, max): (usize, usize)) -> f64 {
 const NO_CAST: [CcKindV1; 7] =
     [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
 
+/// Controlled, or banished (untargetable: game 0.6.4 holds a banished unit from acting - and the rune is cast here,
+/// not through the host's own checks).
 fn controlled(sim: &StableSim<'_>, id: usize) -> bool {
-    sim.get_entity(id)
-        .is_some_and(|e| (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_CAST.iter().any(|k| k.code() == c.kind))))
+    sim.get_entity(id).is_some_and(|e| {
+        !e.is_targetable() || (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_CAST.iter().any(|k| k.code() == c.kind)))
+    })
 }
 
 /// 每个基兰一份：己方英雄最近 `BURST_T` tick 的生命比例（每 `GUARD_EVERY` tick 记一笔）。
