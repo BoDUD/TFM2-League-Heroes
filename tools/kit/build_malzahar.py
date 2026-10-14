@@ -57,6 +57,7 @@ BIG = "asset/league/effects/league_malzahar_big"
 # lineups, 2026-10-14): +1.27 on seeds 1-24, +1.50 on seeds 25-48 (league_syndra +1.62 / +1.53, league_viktor +1.27 /
 # +1.68, league_xerath +1.51 / +1.04, league_annie +1.54 / +1.32). The draft d0 (Q 85 + 55%) was +2.69 / +2.24; E and
 # the voidlings cut instead (d3: E 140 + 65%, bites 11 + 6%) +1.51 / +1.02, both cut (d4) +0.48 on 12 seeds.
+# Retimed to the frames (r1, the same numbers): +1.63 / +1.61 - inside the peers' spread, kept.
 P = {
     # stats
     "hp": 860, "hp_g": 92, "atk": 76, "atk_g": 7, "ap": 40, "ap_g": 20, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
