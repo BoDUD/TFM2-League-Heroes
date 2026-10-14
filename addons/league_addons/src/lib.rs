@@ -121,6 +121,9 @@ mod galio;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_nilah/src/lib.rs"]
 mod nilah;
+#[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_sion/src/lib.rs"]
+mod sion;
 
 pub const ID: &str = "league_addons";
 
@@ -174,10 +177,11 @@ fn init(host: &StableHost) -> StableMod {
     nidalee::register(host, &mut module);
     galio::register(host, &mut module);
     nilah::register(host, &mut module);
+    sion::register(host, &mut module);
     module.set_map_customizer(MapReaders);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health, Rengar's leap from the map's bushes, Zed's Contempt and Death Mark from health and damage, Olaf's Berserker Rage from missing health, Talon's Assassin's Path over walls, Senna's Mist and Veigar's ability power kept through death, Syndra's W lifting minions and monsters, Viego's possession, Zeri's wall laser and shield steal, Nautilus's Dredge Line hooking walls, Darius's Noxian Guillotine only for a kill or under Noxian Might, Gragas's Explosive Cask aimed behind the enemies, Irelia's Bladesurge resets and wave hops, Kassadin's exact Void Stone, Force Pulse charged by casts nearby and Riftwalk's landing, Corki's missiles aimed and Valkyrie escapes, Braum's Concussive Blows per champion (allies' attacks too), Unbreakable from the shield's side and Glacial Fissure's line, Mordekaiser's Realm of Death duel and Indestructible from the damage, Nidalee's whole-body cougar, Prowl in brush and her javelin's and hunt pounce's targets, Galio's Shield of Durand after 12 s untouched, its taunt by the champions near and Hero's Entrance beside the ally in the worst fight, Nilah's Joy Unending heals and shields, Jubilant Veil when struck and Apotheosis's timing.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard, Pyke exact execute, Kha'Zix vision and evolutions, Gwen % max-health magic cuts, Fiora's Grand Challenge Vitals, Vayne's Silver Bolts per target, Brand Blaze stacks on each enemy, Renekton's Fury below half health, Lillia's Dream Dust magic and a sleep that breaks on damage, Kayle's ascension kept through death, Vladimir's Sanguine Pool at low health, Rengar's leap from the map's bushes, Zed's Contempt and Death Mark from health and damage, Olaf's Berserker Rage from missing health, Talon's Assassin's Path over walls, Senna's Mist and Veigar's ability power kept through death, Syndra's W lifting minions and monsters, Viego's possession, Zeri's wall laser and shield steal, Nautilus's Dredge Line hooking walls, Darius's Noxian Guillotine only for a kill or under Noxian Might, Gragas's Explosive Cask aimed behind the enemies, Irelia's Bladesurge resets and wave hops, Kassadin's exact Void Stone, Force Pulse charged by casts nearby and Riftwalk's landing, Corki's missiles aimed and Valkyrie escapes, Braum's Concussive Blows per champion (allies' attacks too), Unbreakable from the shield's side and Glacial Fissure's line, Mordekaiser's Realm of Death duel and Indestructible from the damage, Nidalee's whole-body cougar, Prowl in brush and her javelin's and hunt pounce's targets, Galio's Shield of Durand after 12 s untouched, its taunt by the champions near and Hero's Entrance beside the ally in the worst fight, Nilah's Joy Unending heals and shields, Jubilant Veil when struck and Apotheosis's timing, Sion's Glory in Death zombie and Soul Furnace from every kill.",
     );
     module
 }
