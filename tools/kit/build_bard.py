@@ -18,20 +18,23 @@ everyone in the zone):
   skill2  W Caretaker's Shrine + E Magical Journey: a `Targeting` cast on `EnemyChampion` (w_range), so it comes in
           fights only (league_janna E's way). With E off its own cooldown (`e_cd`, e_cd_t ticks) and Bard dived -
           two enemy champions within e_near or one within e_close - E opens the door: he travels e_speed x e_tick
-          units straight away from the nearest enemy champion (MoveBack), every allied champion within e_ride of the
-          door is pulled through after him (a Grab that ends on him) and they all get e_ms% move speed for e_ms_t
-          ticks. The door goes through the jungle's rocks: forced moves (MoveBack, Grab) never stop at the map's
-          walls (SDK simulation 2026-10-13: 78 of 159 long test trips crossed rock, none was cut short; an exit inside
-          a rock is walked out of), and an `ignore_wall` buff over the trip (e_ghost) keeps it so should the game check
-          walls on forced moves. Else W: a shrine thrown at an allied champion in crowd control, else at a random one within w_r,
+          units straight away from the nearest enemy champion (MoveBack from the first ring of e_steps with one in it;
+          a random one within e_near crossed to odd places), every allied champion within e_ride of the door is
+          pulled through after him (a Grab that ends on him) and they all get e_ms% move speed for e_ms_t ticks.
+          Forced moves never stop at the map's rocks (SDK simulation 2026-10-13/14: about 4 in 10 trips crossed or
+          ended in one, the user: 「巴德的传送别乱放啊」), and data cannot read walls: the add-on addons/league_bard
+          (native=1 here) picks the exit on the map's wall grid, back toward his side and clear of rock, and moves him
+          and the allies there. Else W: a shrine thrown at an allied champion in crowd control, else at a random one within w_r,
           else at his feet: w_heal + w_ap% AP heal and w_ms% move speed for w_ms_t ticks.
   ult     R Tempered Fate, armed like league_lulu R: a 3-tick `None` cast on `EnemyChampion` (r_arm_range) arms
           r_armed for r_arm ticks; every attack, Q and W/E check it: an allied champion in crowd control within
           r_range with an enemy champion within r_r of him is frozen with them (the save), else a probe on a random
           enemy champion within r_range counts the champions within r_r of him: r_need enemies and no ally (Bard
-          neither) -> the golden orb is lobbed there (r_travel ticks) and every unit in r_r but towers - enemies,
-          allies, Bard - is banished for r_t ticks (League's stasis: untargetable, nothing it can do, nothing reaches
-          it; the Banish plays r_lock on each for as long and r_free as it ends). Unused, the cooldown is refunded.
+          neither) -> the golden orb is lobbed there (r_travel ticks) and every unit in r_r - enemies, allies, Bard,
+          towers (League: "champions, minions, monsters, and turrets") - is banished for r_t ticks (League's stasis:
+          untargetable, nothing it can do, nothing reaches it; the Banish plays r_lock on each for as long and r_free
+          as it ends). A tower keeps shooting through a Banish or a Stun (SDK simulation 2026-10-14), so r_tower
+          (-99% attack speed and attack for r_t) silences it. Unused, the cooldown is refunded.
 """
 import argparse
 import json
@@ -68,8 +71,10 @@ P = {
     # 18 s) + E Magical Journey (League: 900 door, ally ms 33-50%, cd 22-16 s)
     "w_cd": 420, "w_range": 90000, "w_dur": 26, "w_st": 1, "w_lag": 9, "w_r": 50000, "w_speed": 4000, "w_y": -2000,
     "w_heal": 140, "w_ap": 60, "w_ms": 30, "w_ms_t": 90,
-    "e_cd_t": 960, "e_near": 30000, "e_close": 15000, "e_wind": 9, "e_speed": 4000, "e_tick": 15, "e_ride": 25000,
-    "e_pull": 5000, "e_pull_t": 40, "e_ghost": 1, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
+    "e_cd_t": 960, "e_near": 30000, "e_close": 15000, "e_steps": [10000, 20000, 30000], "e_wind": 9, "e_speed": 4000, "e_tick": 15, "e_ride": 25000,
+    "e_pull": 5000, "e_pull_t": 40, "e_ghost": 0, "e_ms": 40, "e_ms_t": 120, "e_anim": 24,
+    # 1 = the copy for addons/league_bard: its passive picks the door's exit on the map's walls (e_min..e_far away)
+    "native": 0, "e_far": 60000, "e_min": 30000,
     # ult: R Tempered Fate (League: 3400 range, radius 350, 0.5 s cast + flight, stasis 2.5 s; cd 110-80 s)
     "r_cd": 3600, "r_arm": 900, "r_arm_range": 90000, "r_range": 80000, "r_need": 2, "r_anim": 29, "r_lag": 15,
     "r_travel": 24,
@@ -224,8 +229,8 @@ def build(p):
         return {"type": "RangeProjectile", "name": n(name), "shape": circle(radius), "delay": 1, "apply": 1,
                 "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
-    stasis = zone("r_zone", p["r_r"], "BothWithoutTower",
-                  [{"type": "Banish", "duration": p["r_t"], "lock_effect_name": n("r_lock"),
+    stasis = zone("r_zone", p["r_r"], "Both",
+                  [buff("r_tower", p["r_t"], attack_speed_mult=-99, attack_mult=-99), {"type": "Banish", "duration": p["r_t"], "lock_effect_name": n("r_lock"),
                     "end_effect_name": n("r_free")}, tsfx("r_lock")])
 
     def fire(target):
@@ -292,16 +297,24 @@ def build(p):
     w = delayed(p["w_lag"], *rm("w_got"), sfx("w_cast"), sfx("vo_w"), pick(p["w_r"], "AllyChampionInCC", throw()),
                 sw("w_got", NONE, combine(pick(p["w_r"], "AllyNotSelf", throw()), sw("w_got", NONE, w_self))))
 
+    if p["native"]:
+        # the add-on's door (addons/league_bard): its passive picks the exit on the map's wall grid - back toward
+        # his own side, no rock on the way or where it ends - and moves him and the allies near the door there over
+        # e_tick ticks from the e_go flag on; the data keeps the door, the pictures, the sounds and the haste
+        ride = [buff("e_haste", p["e_ms_t"], move_speed_mult=p["e_ms"]), delayed(p["e_wind"] + p["e_tick"], view("e_ride"))]
+        travel = [delayed(p["e_wind"], flag("e_go", 3))]
+    else:
+        ride = [buff("e_haste", p["e_ms_t"], move_speed_mult=p["e_ms"]),
+                *([buff("e_ghost", p["e_wind"] + p["e_tick"] + p["e_pull_t"], ignore_wall=True)] if p["e_ghost"] else []),
+                delayed(p["e_wind"] + p["e_tick"], {"type": "Grab", "speed": p["e_pull"]}, view("e_ride"))]
+        # away from the nearest enemy champion: the first ring of e_steps with one in it (a RandomTarget per ring)
+        travel = [*rm("e_go"), *[sw("e_go", NONE, pick(r, "EnemyChampion", flag("e_go", 1), delayed(p["e_wind"], {
+            "type": "MoveBack", "speed": p["e_speed"], "tick": p["e_tick"]}))) for r in p["e_steps"]]]
     e = combine(
-        flag("e_cd", p["e_cd_t"]), *([flag("e_ghost", p["e_wind"] + p["e_tick"] + 2, ignore_wall=True)] if p["e_ghost"] else []),
+        flag("e_cd", p["e_cd_t"]), *([flag("e_ghost", p["e_wind"] + p["e_tick"] + 2, ignore_wall=True)]
+                                     if p["e_ghost"] and not p["native"] else []),
         anim("skill2_e", p["e_anim"]), sfx("e_cast"), sfx("vo_e"), cview("e_door"),
-        around(p["e_ride"], "AllyNotSelf", [buff("e_haste", p["e_ms_t"], move_speed_mult=p["e_ms"]),
-                                            *([buff("e_ghost", p["e_wind"] + p["e_tick"] + p["e_pull_t"],
-                                                    ignore_wall=True)] if p["e_ghost"] else []),
-                                            delayed(p["e_wind"] + p["e_tick"], {"type": "Grab", "speed": p["e_pull"]},
-                                                    view("e_ride"))]),
-        pick(p["e_near"], "EnemyChampion", delayed(p["e_wind"], {"type": "MoveBack", "speed": p["e_speed"],
-                                                                 "tick": p["e_tick"]})),
+        around(p["e_ride"], "AllyNotSelf", ride), *travel,
         around(1000, "AllyOnlySelf", [buff("e_haste", p["e_ms_t"], move_speed_mult=p["e_ms"])]),
         delayed(p["e_wind"] + p["e_tick"], cview("e_door_out"), sfx("e_out")))
     # dived? two enemy champions within e_near (the n1 -> n2 ladder) or one within e_close
@@ -322,8 +335,12 @@ def build(p):
                E("r_mark", BIG, -1, False), E("r_dome", BIG, 2, False), E("r_lock", BIG, 2, False),
                E("r_free", BIG, 2, False)]
     views_b = [P_("p_slow", FX, 1), P_("q_slow", FX, 1), P_("w_haste", FX, 1), P_("e_haste", FX, 1)]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": "league_bard:door",
+                            "params": {k: p[k] for k in ("e_tick", "e_far", "e_min", "e_ride", "e_near")}}
     return {
-        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Heal"],
+        "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": p["ap"], "hp": p["hp"], "defence": p["def"],

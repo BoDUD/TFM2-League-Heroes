@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.108.0"
+    }
+  ],
+  "description": "Test build of Bard's Magical Journey with the door's exit clear of the map's rocks (needs League of Legends Heroes): replaces the main pack's Bard so the door he opens when enemies close in leads back toward his own side, never into or through a jungle rock, and the allied champions near the door travel with him. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-14",
+  "mod_id": "league_bard",
+  "mod_type": "native",
+  "name": "League Heroes: Bard's Magical Journey clear of walls (test)",
+  "version": "0.1.0"
+}

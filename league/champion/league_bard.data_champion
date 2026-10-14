@@ -175,8 +175,24 @@
                                               },
                                               "delay": 1,
                                               "apply": 1,
-                                              "applied_target": "BothWithoutTower",
+                                              "applied_target": "Both",
                                               "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_bard_r_tower",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 150
+                                                        }
+                                                      },
+                                                      "attack_speed_mult": -99,
+                                                      "attack_mult": -99
+                                                    }
+                                                  }
+                                                },
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
@@ -354,8 +370,24 @@
                                                 },
                                                 "delay": 1,
                                                 "apply": 1,
-                                                "applied_target": "BothWithoutTower",
+                                                "applied_target": "Both",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_bard_r_tower",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 150
+                                                          }
+                                                        },
+                                                        "attack_speed_mult": -99,
+                                                        "attack_mult": -99
+                                                      }
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
@@ -738,8 +770,24 @@
                                               },
                                               "delay": 1,
                                               "apply": 1,
-                                              "applied_target": "BothWithoutTower",
+                                              "applied_target": "Both",
                                               "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_bard_r_tower",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 150
+                                                        }
+                                                      },
+                                                      "attack_speed_mult": -99,
+                                                      "attack_mult": -99
+                                                    }
+                                                  }
+                                                },
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
@@ -917,8 +965,24 @@
                                                 },
                                                 "delay": 1,
                                                 "apply": 1,
-                                                "applied_target": "BothWithoutTower",
+                                                "applied_target": "Both",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_bard_r_tower",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 150
+                                                          }
+                                                        },
+                                                        "attack_speed_mult": -99,
+                                                        "attack_mult": -99
+                                                      }
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
@@ -1408,8 +1472,24 @@
                                               },
                                               "delay": 1,
                                               "apply": 1,
-                                              "applied_target": "BothWithoutTower",
+                                              "applied_target": "Both",
                                               "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_bard_r_tower",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 150
+                                                        }
+                                                      },
+                                                      "attack_speed_mult": -99,
+                                                      "attack_mult": -99
+                                                    }
+                                                  }
+                                                },
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
@@ -1587,8 +1667,24 @@
                                                 },
                                                 "delay": 1,
                                                 "apply": 1,
-                                                "applied_target": "BothWithoutTower",
+                                                "applied_target": "Both",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_bard_r_tower",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 150
+                                                          }
+                                                        },
+                                                        "attack_speed_mult": -99,
+                                                        "attack_mult": -99
+                                                      }
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
@@ -2021,19 +2117,6 @@
                       "only_to_enemy": false
                     },
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_bard_e_ghost",
-                        "duration": {
-                          "Time": {
-                            "tick": 26
-                          }
-                        },
-                        "ignore_wall": true
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
                       "type": "CasterAnimation",
                       "name": "skill2_e",
                       "tick": 24
@@ -2073,18 +2156,6 @@
                           }
                         },
                         {
-                          "type": "AddBuff",
-                          "buff_state": {
-                            "name": "league_bard_e_ghost",
-                            "duration": {
-                              "Time": {
-                                "tick": 64
-                              }
-                            },
-                            "ignore_wall": true
-                          }
-                        },
-                        {
                           "type": "Delayed",
                           "tick": 24,
                           "effects": [
@@ -2101,23 +2172,125 @@
                       ]
                     },
                     {
-                      "type": "RandomTarget",
-                      "range": 30000,
-                      "casting_target": "EnemyChampion",
-                      "from_projectile": false,
-                      "effects": [
-                        {
-                          "type": "Delayed",
-                          "tick": 9,
-                          "effects": [
-                            {
-                              "type": "MoveBack",
-                              "speed": 4000,
-                              "tick": 15
-                            }
-                          ]
-                        }
-                      ]
+                      "type": "RemoveCasterBuff",
+                      "name": "league_bard_e_go"
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_bard_e_go",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 10000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_bard_e_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 9,
+                            "effects": [
+                              {
+                                "type": "MoveBack",
+                                "speed": 4000,
+                                "tick": 15
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_bard_e_go",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 20000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_bard_e_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 9,
+                            "effects": [
+                              {
+                                "type": "MoveBack",
+                                "speed": 4000,
+                                "tick": 15
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_bard_e_go",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_bard_e_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 9,
+                            "effects": [
+                              {
+                                "type": "MoveBack",
+                                "speed": 4000,
+                                "tick": 15
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     },
                     {
                       "type": "RangeEffect",
@@ -2542,8 +2715,24 @@
                                               },
                                               "delay": 1,
                                               "apply": 1,
-                                              "applied_target": "BothWithoutTower",
+                                              "applied_target": "Both",
                                               "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_bard_r_tower",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 150
+                                                        }
+                                                      },
+                                                      "attack_speed_mult": -99,
+                                                      "attack_mult": -99
+                                                    }
+                                                  }
+                                                },
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
@@ -2721,8 +2910,24 @@
                                                 },
                                                 "delay": 1,
                                                 "apply": 1,
-                                                "applied_target": "BothWithoutTower",
+                                                "applied_target": "Both",
                                                 "applied_effects": [
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "AddBuff",
+                                                      "buff_state": {
+                                                        "name": "league_bard_r_tower",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 150
+                                                          }
+                                                        },
+                                                        "attack_speed_mult": -99,
+                                                        "attack_mult": -99
+                                                      }
+                                                    }
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {

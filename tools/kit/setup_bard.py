@@ -54,7 +54,7 @@ TEXT = {
                  C + "眩晕{q_stun}秒" + E + "。",
         "skill2": O + "游神圣坛" + E + "：向交战中的友方英雄（或自己）投出圣坛，治疗" + HEAL + "，移速+{w_ms}%。" + O + "神奇旅程" + E + "：被敌人近身时开门，带身边的友方英雄远离，移速+{e_ms}%（" +
                   A + "{e_cd}秒" + E + "一次）。",
-        "ult": "向聚在一起的敌方英雄（或被控制的友方英雄）投出金色法球，范围内所有单位（含友军和自己）" + C + "时停{r_t}秒" + E + "：无法行动、无法被选中、不受伤害。",
+        "ult": "向聚在一起的敌方英雄（或被控制的友方英雄）投出金色法球，范围内所有单位（含友军、自己和防御塔）" + C + "时停{r_t}秒" + E + "：无法行动、无法被选中、不受伤害。",
         "names": ("星界束缚", "游神圣坛 / 神奇旅程", "调和命运"),
     },
     "zh-hant": {
@@ -65,7 +65,7 @@ TEXT = {
                  C + "暈眩{q_stun}秒" + E + "。",
         "skill2": O + "守望神龕" + E + "：向交戰中的友方英雄（或自己）投出神龕，治療" + HEAL + "，跑速+{w_ms}%。" + O + "奇幻旅程" + E + "：被敵人近身時開門，帶身邊的友方英雄遠離，跑速+{e_ms}%（" +
                   A + "{e_cd}秒" + E + "一次）。",
-        "ult": "向聚在一起的敵方英雄（或被控制的友方英雄）投出金色法球，範圍內所有單位（含友軍和自己）" + C + "凝滯{r_t}秒" + E + "：無法行動、無法被選取、不受傷害。",
+        "ult": "向聚在一起的敵方英雄（或被控制的友方英雄）投出金色法球，範圍內所有單位（含友軍、自己和防禦塔）" + C + "凝滯{r_t}秒" + E + "：無法行動、無法被選取、不受傷害。",
         "names": ("宇宙制約", "守望神龕 / 奇幻旅程", "凝滯命域"),
     },
     "en": {
@@ -77,7 +77,7 @@ TEXT = {
         "skill2": O + "Caretaker's Shrine" + E + ": throws a shrine to an allied champion in a fight (or himself), healing " + HEAL + " and giving {w_ms}% move speed. " + O +
                   "Magical Journey" + E + ": when enemies close in, opens a door and takes nearby allied champions away with him, +{e_ms}% move speed (every " + A +
                   "{e_cd}s" + E + ").",
-        "ult": "Lobs a golden orb at grouped enemy champions (or an allied champion in crowd control): every unit in the area, allies and Bard included, is put in " +
+        "ult": "Lobs a golden orb at grouped enemy champions (or an allied champion in crowd control): every unit in the area, allies, Bard and turrets included, is put in " +
                C + "stasis for {r_t}s" + E + " - it cannot act, be targeted or be harmed.",
         "names": ("Cosmic Binding", "Caretaker's Shrine / Magical Journey", "Tempered Fate"),
     },
@@ -89,7 +89,7 @@ TEXT = {
                  "{q_stun}초 기절" + E + ".",
         "skill2": O + "수호자의 성소" + E + ": 교전 중인 아군 챔피언(또는 자신)에게 성소를 던져 " + HEAL + " 회복, 이동 속도 +{w_ms}%. " + O + "신비한 차원문" + E +
                   ": 적이 붙으면 문을 열어 주변 아군 챔피언과 함께 멀어지고 이동 속도 +{e_ms}% (" + A + "{e_cd}초" + E + "마다).",
-        "ult": "모인 적 챔피언(또는 군중 제어된 아군 챔피언)에게 황금 구체를 던져 범위 안 모든 유닛(아군과 바드 포함)을 " + C + "{r_t}초 동안 경직" + E +
+        "ult": "모인 적 챔피언(또는 군중 제어된 아군 챔피언)에게 황금 구체를 던져 범위 안 모든 유닛(아군, 바드, 포탑 포함)을 " + C + "{r_t}초 동안 경직" + E +
                "시킵니다: 행동, 지정, 피해 불가.",
         "names": ("우주의 결속", "수호자의 성소 / 신비한 차원문", "운명의 소용돌이"),
     },
@@ -101,7 +101,7 @@ TEXT = {
                  C + "{q_stun}秒スタン" + E + "。",
         "skill2": O + "回復の遺物" + E + "：交戦中の味方チャンピオン（か自分）に遺物を投げ" + HEAL + "回復、移動速度+{w_ms}%。" + O + "精霊の旅路" + E +
                   "：敵に詰められると扉を開き、近くの味方と離脱、移動速度+{e_ms}%（" + A + "{e_cd}秒" + E + "ごと）。",
-        "ult": "固まった敵チャンピオン（かCC中の味方）に金の球を投げ、範囲内の全ユニット（味方と自分も）を" + C + "{r_t}秒停止" + E + "：行動・対象指定・ダメージ不可。",
+        "ult": "固まった敵チャンピオン（かCC中の味方）に金の球を投げ、範囲内の全ユニット（味方・自分・タワーも）を" + C + "{r_t}秒停止" + E + "：行動・対象指定・ダメージ不可。",
         "names": ("宇宙の法則", "回復の遺物 / 精霊の旅路", "運命の調律"),
     },
 }
