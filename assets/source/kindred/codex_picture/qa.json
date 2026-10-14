@@ -1,0 +1,98 @@
+[
+  {
+    "file": "kindred-model-A-lamb.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1258062,
+    "partial_alpha_pixels": 314802,
+    "alpha_over_200_bbox": [
+      746,
+      63,
+      1339,
+      1001
+    ]
+  },
+  {
+    "file": "kindred-model-A-wolf.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1266343,
+    "partial_alpha_pixels": 306521,
+    "alpha_over_200_bbox": [
+      64,
+      143,
+      911,
+      736
+    ]
+  },
+  {
+    "file": "kindred-model-A.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1006654,
+    "partial_alpha_pixels": 566210,
+    "alpha_over_200_bbox": [
+      88,
+      63,
+      1338,
+      1001
+    ]
+  },
+  {
+    "file": "kindred-model-B-lamb.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1221360,
+    "partial_alpha_pixels": 351504,
+    "alpha_over_200_bbox": [
+      738,
+      62,
+      1361,
+      984
+    ]
+  },
+  {
+    "file": "kindred-model-B-wolf.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1322714,
+    "partial_alpha_pixels": 250150,
+    "alpha_over_200_bbox": [
+      81,
+      275,
+      845,
+      810
+    ]
+  },
+  {
+    "file": "kindred-model-B.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 907916,
+    "partial_alpha_pixels": 664948,
+    "alpha_over_200_bbox": [
+      101,
+      61,
+      1360,
+      986
+    ]
+  }
+]

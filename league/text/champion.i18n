@@ -707,6 +707,13 @@
         "skill": "蓄力<#ffb900ff>0.67秒<>后向前砸地，直线上的敌人受到<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.83秒<>；蓄力时被控制会打断。",
         "skill2": "怒吼穿过小兵，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法伤害<>，<#ef5350ff>减速40%<>，护甲降低20%。<#ff9028ff>灵魂熔炉<>：获得<#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<>护盾，<#ffb900ff>3秒<>后护盾仍在则爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<><#a974ffff>魔法伤害<>。",
         "ult": "免疫控制冲向敌方英雄，撞到第一个英雄造成<#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.75-1.58秒<>（冲得越远越强），周围敌人<#ef5350ff>减速40%<>。救被控的队友、团战、和队友一起追击时才冲。"
+      },
+      "league_kindred": {
+        "name": "千珏",
+        "attack": "<#ff9028ff>千珏之印<>：羊灵射箭。参与击杀被她攻击过的敌方英雄获得一层印记（阵亡清空）：射程+15、攻速+4%、<#ff9028ff>横生惧意<>+<#a974ffff>8魔法伤害<>。",
+        "skill": "跃动一小段（被近身时向后），向附近最多<#ffb900ff>3名<>敌人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理伤害<>，攻速+35%持续<#ffb900ff>4秒<>。在<#ff9028ff>狼灵狂热<>内冷却<#ffb900ff>4秒<>。",
+        "skill2": "<#ff9028ff>横生惧意<>：标记敌人并<#ef5350ff>减速30%<>，此后第<#ffb900ff>3次<>攻击命中时狼灵扑咬被标记者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理伤害<>（英雄额外4%最大生命）。冷却时放<#ff9028ff>狼灵狂热<>：<#ffb900ff>8.5秒<>领域，狼灵每秒撕咬其中一个敌人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理伤害<>。",
+        "ult": "友方英雄被控制且身边有敌方英雄，或持续交战中友方英雄（含自己）身边有2名以上敌方英雄时，祝福身边区域：<#ffb900ff>4秒<>内其中的友方英雄不会阵亡，结束时回复<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
       }
     },
     "skill_name": {
@@ -1214,6 +1221,11 @@
         "skill1": "残虐猛击",
         "skill2": "杀手怒吼",
         "ult": "蛮横冲撞"
+      },
+      "league_kindred": {
+        "skill1": "乱箭之舞",
+        "skill2": "横生惧意 / 狼灵狂热",
+        "ult": "羊灵生息"
       }
     }
   },
@@ -1925,6 +1937,13 @@
         "skill": "蓄力<#ffb900ff>0.67秒<>後向前砸地，直線上的敵人受到<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.83秒<>；蓄力時被控制會打斷。",
         "skill2": "怒吼穿過小兵，造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法傷害<>，<#ef5350ff>緩速40%<>，護甲降低20%。<#ff9028ff>魂魄熔爐<>：獲得<#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<>護盾，<#ffb900ff>3秒<>後護盾仍在則爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<><#a974ffff>魔法傷害<>。",
         "ult": "免疫控制衝向敵方英雄，撞到第一個英雄造成<#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.75-1.58秒<>（衝得越遠越強），周圍敵人<#ef5350ff>緩速40%<>。救被控的隊友、團戰、和隊友一起追擊時才衝。"
+      },
+      "league_kindred": {
+        "name": "鏡爪",
+        "attack": "<#ff9028ff>鏡爪印記<>：射出箭矢。參與擊殺被她攻擊過的敵方英雄獲得一層印記（陣亡清空）：射程+15、攻速+4%、<#ff9028ff>恐懼蔓延<>+<#a974ffff>8魔法傷害<>。",
+        "skill": "躍動一小段（被近身時向後），向附近最多<#ffb900ff>3名<>敵人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理傷害<>，攻速+35%持續<#ffb900ff>4秒<>。在<#ff9028ff>魔狼狂熱<>內冷卻<#ffb900ff>4秒<>。",
+        "skill2": "<#ff9028ff>恐懼蔓延<>：標記敵人並<#ef5350ff>緩速30%<>，此後第<#ffb900ff>3次<>攻擊命中時魔狼撲咬被標記者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理傷害<>（英雄額外4%最大生命）。冷卻時放<#ff9028ff>魔狼狂熱<>：<#ffb900ff>8.5秒<>領域，魔狼每秒撕咬其中一個敵人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理傷害<>。",
+        "ult": "友方英雄被控制且身邊有敵方英雄，或持續交戰中友方英雄（含自己）身邊有2名以上敵方英雄時，祝福身邊區域：<#ffb900ff>4秒<>內其中的友方英雄不會陣亡，結束時回復<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
       }
     },
     "skill_name": {
@@ -2432,6 +2451,11 @@
         "skill1": "巨幅毀滅",
         "skill2": "殺戮怒吼",
         "ult": "猛烈狂擊"
+      },
+      "league_kindred": {
+        "skill1": "舞動箭矢",
+        "skill2": "恐懼蔓延／魔狼狂熱",
+        "ult": "神羊喘息"
       }
     }
   },
@@ -3143,6 +3167,13 @@
         "skill": "Charges for <#ffb900ff>0.67s<>, then smashes the line in front: <#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> <#ff9028ff>physical damage<> and <#ef5350ff>knocked up 0.83s<>. Crowd control on him breaks the charge.",
         "skill2": "Roars through minions: <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>magic damage<>, <#ef5350ff>slowed 40%<> and armour -20%. <#ff9028ff>Soul Furnace<>: a <#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<> shield; still holding it after <#ffb900ff>3s<>, it blasts nearby enemies for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<> <#a974ffff>magic damage<>.",
         "ult": "Charges at an enemy champion, immune to crowd control: the first champion hit takes <#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and is <#ef5350ff>knocked up 0.75-1.58s<> (the farther he ran, the more); nearby enemies are <#ef5350ff>slowed 40%<>. Saved for an ally in crowd control, a teamfight or a chase beside an ally."
+      },
+      "league_kindred": {
+        "name": "Kindred",
+        "attack": "<#ff9028ff>Mark of the Kindred<>: Lamb's arrows. Each takedown of an enemy champion she hit gives a mark (lost on death): +15 range, +4% attack speed, <#ff9028ff>Mounting Dread<> +<#a974ffff>8 magic damage<>.",
+        "skill": "Leaps a short way (back when an enemy closes in) and shoots an arrow at each of up to <#ffb900ff>3<> nearby enemies for <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>physical damage<>; +35% attack speed for <#ffb900ff>4s<>. Inside <#ff9028ff>Wolf's Frenzy<> the cooldown is <#ffb900ff>4s<>.",
+        "skill2": "<#ff9028ff>Mounting Dread<>: marks an enemy and <#ef5350ff>slows it 30%<>; her <#ffb900ff>3rd<> attack hit after it sends Wolf at the marked one for <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>physical damage<> (+4% max health on champions). On cooldown, <#ff9028ff>Wolf's Frenzy<>: for <#ffb900ff>8.5s<> a zone where Wolf bites one enemy every second for <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>physical damage<>.",
+        "ult": "When an allied champion near her is crowd-controlled with an enemy champion beside him, or, in a sustained fight, an allied champion (or she) has 2 or more enemy champions beside him, she blesses the ground around her: for <#ffb900ff>4s<> allied champions in it cannot die, then they heal <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>."
       }
     },
     "skill_name": {
@@ -3650,6 +3681,11 @@
         "skill1": "Decimating Smash",
         "skill2": "Roar of the Slayer",
         "ult": "Unstoppable Onslaught"
+      },
+      "league_kindred": {
+        "skill1": "Dance of Arrows",
+        "skill2": "Mounting Dread / Wolf's Frenzy",
+        "ult": "Lamb's Respite"
       }
     }
   },
@@ -4361,6 +4397,13 @@
         "skill": "<#ffb900ff>0.67초<> 충전 후 앞의 직선을 내려찍어 <#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.83초 에어본<>. 충전 중 군중 제어에 걸리면 취소.",
         "skill2": "미니언을 꿰뚫는 포효로 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>마법 피해<>, <#ef5350ff>40% 둔화<>, 방어력 20% 감소. <#ff9028ff>영혼의 용광로<>: <#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<> 보호막, <#ffb900ff>3초<> 후 남아 있으면 폭발해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<> <#a974ffff>마법 피해<>.",
         "ult": "군중 제어 면역으로 적 챔피언에게 돌진, 처음 부딪힌 챔피언에게 <#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>0.75-1.58초 에어본<>(멀리 달릴수록 강함), 주변 적 <#ef5350ff>40% 둔화<>. 군중 제어에 걸린 아군 구출, 한타, 아군과 함께 추격할 때만 사용."
+      },
+      "league_kindred": {
+        "name": "킨드레드",
+        "attack": "<#ff9028ff>킨드레드의 표식<>: 양의 화살. 공격한 적 챔피언 처치에 관여하면 표식 획득(사망 시 소멸): 사거리 +15, 공격 속도 +4%, <#ff9028ff>차오르는 공포<> <#a974ffff>마법 피해 +8<>.",
+        "skill": "짧게 도약(적이 붙으면 뒤로)한 뒤 주변 적 최대 <#ffb900ff>3명<>에게 화살을 한 발씩 쏴 <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>물리 피해<>, 공격 속도 +35% (<#ffb900ff>4초<>). <#ff9028ff>늑대의 광기<> 안에서는 재사용 대기시간 <#ffb900ff>4초<>.",
+        "skill2": "<#ff9028ff>차오르는 공포<>: 적에게 표식을 남기고 <#ef5350ff>30% 둔화<>; 이후 <#ffb900ff>3번째<> 공격이 적중하면 늑대가 표식 대상을 덮쳐 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>물리 피해<>(챔피언은 최대 체력의 4% 추가). 재사용 대기 중에는 <#ff9028ff>늑대의 광기<>: <#ffb900ff>8.5초<> 영역, 늑대가 매초 적 하나를 물어 <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>물리 피해<>.",
+        "ult": "근처 아군 챔피언이 군중 제어를 받는 중 옆에 적 챔피언이 있거나, 교전이 이어지는 중 아군 챔피언(자신 포함) 옆에 적 챔피언이 2명 이상이면 주변을 축복: <#ffb900ff>4초<> 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<> 회복."
       }
     },
     "skill_name": {
@@ -4868,6 +4911,11 @@
         "skill1": "대량 학살 강타",
         "skill2": "학살자의 포효",
         "ult": "멈출 수 없는 맹공"
+      },
+      "league_kindred": {
+        "skill1": "화살 세례",
+        "skill2": "차오르는 공포 / 늑대의 광기",
+        "ult": "양의 안식처"
       }
     }
   },
@@ -5579,6 +5627,13 @@
         "skill": "<#ffb900ff>0.67秒<>溜めて前方の直線を叩きつけ、<#ff9028ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒ノックアップ<>。溜め中に行動妨害を受けると中断。",
         "skill2": "ミニオンを貫く雄叫びで<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>40%スロウ<>、物理防御20%低下。<#ff9028ff>魂の炉心<>：<#e8d44dff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100%<>のシールド、<#ffb900ff>3秒<>後に残っていれば爆発し<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>8%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "行動妨害無効で敵チャンピオンへ突進、最初に当たったチャンピオンに<#ff9028ff>200-400<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75-1.58秒ノックアップ<>（遠いほど強力）、周囲の敵に<#ef5350ff>40%スロウ<>。行動妨害を受けた味方の救出、集団戦、味方との追撃でのみ使用。"
+      },
+      "league_kindred": {
+        "name": "キンドレッド",
+        "attack": "<#ff9028ff>キンドレッドの刻印<>：ラムの矢。攻撃した敵チャンピオンのキルに関与すると刻印（死亡で消滅）：射程+15、攻撃速度+4%、<#ff9028ff>忍び寄る恐怖<>の<#a974ffff>魔法ダメージ+8<>。",
+        "skill": "短く跳び（詰められたら後ろへ）、周囲の敵最大<#ffb900ff>3体<>に矢を1本ずつ放ち<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<>の<#ff8a65ff>物理ダメージ<>、攻撃速度+35%（<#ffb900ff>4秒<>）。<#ff9028ff>狼の激昂<>の中ではクールダウン<#ffb900ff>4秒<>。",
+        "skill2": "<#ff9028ff>忍び寄る恐怖<>：敵に刻印し<#ef5350ff>30%スロウ<>。その後<#ffb900ff>3回目<>の攻撃でウルフが飛びかかり<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<>の<#ff8a65ff>物理ダメージ<>（チャンピオンは最大体力の4%追加）。CD中は<#ff9028ff>狼の激昂<>：<#ffb900ff>8.5秒<>の領域、ウルフが毎秒敵1体を噛み<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<>の<#ff8a65ff>物理ダメージ<>。",
+        "ult": "近くの味方チャンピオンが行動妨害中で敵チャンピオンが傍にいるか、戦闘が続く中で味方チャンピオン（自身含む）の傍に敵チャンピオンが2体以上いると周囲を祝福：<#ffb900ff>4秒<>間、中の味方チャンピオンは倒れず、終了時に<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>回復。"
       }
     },
     "skill_name": {
@@ -6086,6 +6141,11 @@
         "skill1": "破滅の斧",
         "skill2": "殺意の雄叫び",
         "ult": "猪突猛進"
+      },
+      "league_kindred": {
+        "skill1": "矢の輪舞",
+        "skill2": "忍び寄る恐怖/狼の激昂",
+        "ult": "羊の執行猶予"
       }
     }
   }

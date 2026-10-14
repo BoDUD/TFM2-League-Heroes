@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_kindred": {
+    "remapping": "asset/league_kindred/override/league_kindred",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_kindred/text/champion",
+    "type": "merge"
+  }
+}

@@ -1,0 +1,226 @@
+{
+ "hero": "kindred",
+ "champ": "Kindred",
+ "hide_submeshes": true,
+ "camera": {
+  "yaw": 70,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 34,
+ "cell": [
+  128,
+  128,
+  28
+ ],
+ "design": "Lamb_Idle_loop@0",
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "Lamb_run@0",
+     125
+    ],
+    [
+     "Lamb_run@125",
+     125
+    ],
+    [
+     "Lamb_run@250",
+     125
+    ],
+    [
+     "Lamb_run@375",
+     125
+    ],
+    [
+     "Lamb_run@500",
+     125
+    ],
+    [
+     "Lamb_run@625",
+     125
+    ],
+    [
+     "Lamb_run@750",
+     125
+    ],
+    [
+     "Lamb_run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Lamb_Idle_loop@0>Lamb_Attack1@0:0.6",
+     80
+    ],
+    [
+     "Lamb_Attack1@120",
+     80
+    ],
+    [
+     "Lamb_Attack1@273",
+     90
+    ],
+    [
+     "Lamb_Attack1@547",
+     90
+    ],
+    [
+     "Lamb_Attack1@2187>Lamb_Idle_loop@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "travel": 0.4,
+   "release": 5,
+   "frames": [
+    [
+     "Lamb_Spell1Forward@0",
+     60
+    ],
+    [
+     "Lamb_Spell1Forward@67",
+     60
+    ],
+    [
+     "Lamb_Spell1Forward@133",
+     60
+    ],
+    [
+     "Lamb_Spell1Forward@200",
+     60
+    ],
+    [
+     "Lamb_Spell1Forward@333",
+     80
+    ],
+    [
+     "Lamb_Spell1Forward@533",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Lamb_Idle_loop@0>Lamb_Spell3@0:0.6",
+     80
+    ],
+    [
+     "Lamb_Spell3@233",
+     80
+    ],
+    [
+     "Lamb_Spell3@467",
+     90
+    ],
+    [
+     "Lamb_Spell3@933",
+     90
+    ],
+    [
+     "Lamb_Spell3@1867>Lamb_Idle_loop@0:0.5",
+     100
+    ]
+   ]
+  },
+  "w_cast": {
+   "lunge": 0.3,
+   "rise": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Lamb_Spell2@0",
+     80
+    ],
+    [
+     "Lamb_Spell2@167",
+     80
+    ],
+    [
+     "Lamb_Spell2@500",
+     100
+    ],
+    [
+     "Lamb_Spell2@1333",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Lamb_Spell4@0",
+     80
+    ],
+    [
+     "Lamb_Spell4@207",
+     80
+    ],
+    [
+     "Lamb_Spell4@413",
+     80
+    ],
+    [
+     "Lamb_Spell4@827",
+     100
+    ],
+    [
+     "Lamb_Spell4@1240",
+     100
+    ],
+    [
+     "Lamb_Spell4@1653",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "travel": 0.3,
+   "frames": [
+    [
+     "Lamb_Death@0",
+     100
+    ],
+    [
+     "Lamb_Death@433",
+     100
+    ],
+    [
+     "Lamb_Death@867",
+     100
+    ],
+    [
+     "Lamb_Death@1300",
+     120
+    ],
+    [
+     "Lamb_Death@2167",
+     150
+    ],
+    [
+     "Lamb_Death@3033",
+     400
+    ]
+   ]
+  }
+ }
+}
