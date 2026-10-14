@@ -40,33 +40,34 @@ ID = "league_sion"
 FX = "asset/league/effects/league_sion_fx"
 BIG = "asset/league/effects/league_sion_big"
 
-# Timings: placeholders until the strips (step 2) - attack 430 ms with the chop on tick 10, Q's charge 1 s then the
-# slam 300 ms, E 420 ms with the roar on tick 9, R a run loop. Numbers: draft d0 (simulations pending).
+# Timings from the frames (tools/art/rig_sion.py MS): the axe chop 410 ms, the blade down on frame 4 (210 ms, tick 13);
+# Q's charge 1 s (skill_charge), the slam 400 ms with the axe on the ground on frame 3 (120 ms, tick 7); E 410 ms, the
+# roar on frame 3 (130 ms, tick 8); W 390 ms; R's charge 8 x 104 ms (50 ticks), the crash 420 ms.
 P = {
     # stats (the pack's AD tanks top: league_darius hp 1080 +105, atk 90 +18, def 34 +8, mr 26 +4; league_garen 1100
     # +110, 88 +17; league_malphite 1100 +120): League's Sion 655 +87 hp, 68 AD, 36 armour +4.2, 32 mr +2.05, 345 move,
     # 175 range - the tankiest of them, a slow axe
     "hp": 1160, "hp_g": 118, "atk": 82, "atk_g": 15, "mp": 0, "mp_g": 0, "def": 36, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 980, "ms_g": 10,
-    "atk_range": 25000, "atk_dur": 26, "atk_cd": 72, "atk_st": 10,
+    "atk_range": 25000, "atk_dur": 25, "atk_cd": 72, "atk_st": 13,
     # Soul Furnace stacks (League: +4 hp a minion, +15 a champion / large monster); the add-on's own: every kill,
     # k_u a unit, k_c a champion, kept through death
     "k_hp": 6, "k_u": 4, "k_c": 15,
     # Glory in Death, the add-on's zombie (League: ~9 s, attack speed up, 100% life steal, no abilities)
     "z_t": 540, "z_as": 60, "z_vamp": 100,
     # Q Decimating Smash (League: cd 11-6 s, up to 2 s charge, 30-110 + 45-75% AD -> 90-330 + 135-225% AD, cone 720)
-    "q_cd": 480, "q_range": 34000, "q_ch": 60, "q_brk": 10, "q_rel": 18, "q_hit": 6, "q_len": 44000, "q_w": 7000,
+    "q_cd": 480, "q_range": 34000, "q_ch": 60, "q_brk": 10, "q_rel": 24, "q_hit": 7, "q_len": 44000, "q_w": 7000,
     "q_dmg": 110, "q_ratio": 150, "q_up": 50,
     # skill2 slot: E Roar of the Slayer + W Soul Furnace
     "s2_cd": 60,
     # E (League: 800 line, 65-205 + 55% AP magic, slow 40-60% 2.5 s, armour -20% 4 s, cd 13-8 s)
-    "e_cd": 540, "e_range": 50000, "e_dur": 26, "e_at": 9, "e_speed": 3000, "e_len": 52000, "e_rad": 6000,
+    "e_cd": 540, "e_range": 50000, "e_dur": 25, "e_at": 8, "e_speed": 3000, "e_len": 52000, "e_rad": 6000,
     "e_dmg": 90, "e_hp": 3, "e_slow": 40, "e_slow_t": 120, "e_shred": 20, "e_shred_t": 240,
     # W (League: shield 60-120 + 8-16% max hp 6 s, blast after 3 s: 40-140 + 14% max hp magic r 400, cd 15-11 s)
-    "w_cd": 720, "w_trig": 26000, "w_anim": 20, "w_sh": 120, "w_ad": 80, "w_t": 360, "w_det": 180, "w_r": 26000,
+    "w_cd": 720, "w_trig": 26000, "w_anim": 23, "w_sh": 120, "w_ad": 80, "w_t": 360, "w_det": 180, "w_r": 26000,
     "w_dmg": 60, "w_hp": 6,
     # R Unstoppable Onslaught (League: 150-450 + 40% bonus AD -> 400-1200 + 80%, knock-up 0.75-1.75 s, slow, cd 140-60 s)
-    "r_cd": 3600, "r_range": 90000, "r_speed": 2400, "r_tick": 50, "r_b1": 16, "r_b2": 32, "r_hitanim": 24,
+    "r_cd": 3600, "r_range": 90000, "r_speed": 2400, "r_tick": 50, "r_b1": 16, "r_b2": 32, "r_hitanim": 25,
     "r_dmg1": 150, "r_dmg2": 230, "r_dmg3": 320, "r_ratio": 80, "r_up1": 45, "r_up2": 70, "r_up3": 95,
     "r_r": 24000, "r_slow": 40, "r_slow_t": 150,
     # his spoken lines, at most one every vo_gap ticks

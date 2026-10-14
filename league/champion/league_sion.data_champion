@@ -40,7 +40,7 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_sion.attack",
-    "duration": 26,
+    "duration": 25,
     "cooltime": 72,
     "start_timing": 1,
     "cancelable": true,
@@ -57,7 +57,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 9,
+          "tick": 12,
           "effects": [
             {
               "type": "Combine",
@@ -180,7 +180,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_sion.skill",
-    "duration": 78,
+    "duration": 84,
     "cooltime": 480,
     "start_timing": 1,
     "cancelable": false,
@@ -255,8 +255,8 @@
           "name": "league_sion_q_warn",
           "width": 7000,
           "length": 44000,
-          "delay": 68,
-          "apply": 68,
+          "delay": 69,
+          "apply": 69,
           "applied_target": "EnemyChampion",
           "applied_effects": []
         },
@@ -367,11 +367,11 @@
                   {
                     "type": "CasterAnimation",
                     "name": "skill",
-                    "tick": 18
+                    "tick": 24
                   },
                   {
                     "type": "Delayed",
-                    "tick": 6,
+                    "tick": 7,
                     "effects": [
                       {
                         "type": "Sfx",
@@ -508,7 +508,7 @@
                       {
                         "type": "CasterAnimation",
                         "name": "skill2_w",
-                        "tick": 20
+                        "tick": 23
                       },
                       {
                         "type": "Sfx",
@@ -659,7 +659,7 @@
           {
             "type": "CasterAnimation",
             "name": "skill2",
-            "tick": 26
+            "tick": 25
           },
           {
             "type": "Sfx",
@@ -696,7 +696,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 9,
+            "tick": 8,
             "effects": [
               {
                 "type": "LinearProjectile",
@@ -779,7 +779,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_sion.ult",
-    "duration": 74,
+    "duration": 75,
     "cooltime": 3600,
     "start_timing": 1,
     "cancelable": false,
@@ -985,7 +985,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "ult_hit",
-                    "tick": 24
+                    "tick": 25
                   },
                   {
                     "type": "CasterViewEffect",

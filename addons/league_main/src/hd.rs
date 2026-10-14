@@ -25,6 +25,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_nidalee", 2.2, include_str!("../../../league/champions/league_nidalee#anim.fanim")),
     ("league_galio", 1.65, include_str!("../../../league/champions/league_galio#anim.fanim")),
     ("league_nilah", 2.5, include_str!("../../../league/champions/league_nilah#anim.fanim")),
+    // Sion: the PPU design is Codex's draft square for square, 67 squares crown to soles for 44 game px (the user:
+    // 「用PPU优化一下 调稍微清晰一点」, picked 1.5 from a true-scale sheet; tools/art/rig_sion.py)
+    ("league_sion", 1.52, include_str!("../../../league/champions/league_sion#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

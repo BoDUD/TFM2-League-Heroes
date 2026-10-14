@@ -1,0 +1,1866 @@
+{
+  "expected": 36,
+  "completed": 36,
+  "frames": [
+    {
+      "file": "sion_attack_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4858,
+      "colors": 27,
+      "bbox_cells": [
+        33,
+        34,
+        156,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 0,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        54,
+        60
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        33,
+        34,
+        156,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_attack_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5369,
+      "colors": 26,
+      "bbox_cells": [
+        31,
+        22,
+        141,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 3,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        50,
+        53
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        31,
+        22,
+        141,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_attack_3.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 3709,
+      "colors": 26,
+      "bbox_cells": [
+        63,
+        65,
+        158,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 0,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        62,
+        64
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        63,
+        64,
+        158,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_attack_4.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4820,
+      "colors": 26,
+      "bbox_cells": [
+        52,
+        58,
+        202,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        54,
+        58
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        52,
+        58,
+        202,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_attack_5.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4750,
+      "colors": 26,
+      "bbox_cells": [
+        61,
+        52,
+        159,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 67,
+      "floor_translation_cells": -4,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_attack_5.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        43,
+        66
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "Canonical supplied idle, used for the explicitly requested recovery-to-idle frame.",
+      "weapon_rigid_identity_checked": true,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        43,
+        66,
+        144,
+        141
+      ],
+      "head_pixel_identity_checked": true
+    },
+    {
+      "file": "sion_skill_charge_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5289,
+      "colors": 27,
+      "bbox_cells": [
+        19,
+        48,
+        157,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 3,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        58,
+        72
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        19,
+        48,
+        157,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_charge_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5339,
+      "colors": 26,
+      "bbox_cells": [
+        16,
+        43,
+        163,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 2,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        65,
+        64
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        16,
+        43,
+        163,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_charge_3.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5510,
+      "colors": 25,
+      "bbox_cells": [
+        70,
+        19,
+        151,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 4,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        56,
+        56
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        70,
+        19,
+        151,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_charge_4.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4262,
+      "colors": 25,
+      "bbox_cells": [
+        70,
+        20,
+        141,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_skill_charge_4.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        56,
+        56
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "Charge3 reused; only the generated overhead axe/hand region above row53 translated1logicalcell upward; trunk, head and legs unchanged. Original generated charge4 retained in raw.",
+      "upper_region_shift_exact": true,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        70,
+        18,
+        151,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5940,
+      "colors": 26,
+      "bbox_cells": [
+        46,
+        5,
+        151,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 3,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        52,
+        54
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        46,
+        5,
+        151,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5020,
+      "colors": 27,
+      "bbox_cells": [
+        58,
+        54,
+        187,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 6,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_skill_2-repair-01.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        51,
+        53
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        58,
+        53,
+        187,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_3.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4630,
+      "colors": 26,
+      "bbox_cells": [
+        60,
+        58,
+        184,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 38,
+      "floor_translation_cells": -3,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        66,
+        60
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 2,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        60,
+        58,
+        184,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_4.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4562,
+      "colors": 27,
+      "bbox_cells": [
+        57,
+        64,
+        181,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 106,
+      "floor_translation_cells": -5,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_skill_4.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        66,
+        65
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        57,
+        64,
+        181,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill_5.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4497,
+      "colors": 26,
+      "bbox_cells": [
+        65,
+        62,
+        153,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 50,
+      "floor_translation_cells": -3,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_skill_5.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        43,
+        66
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "Canonical supplied idle, used for the explicitly requested recovery-to-idle frame.",
+      "weapon_rigid_identity_checked": true,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        43,
+        66,
+        144,
+        141
+      ],
+      "head_pixel_identity_checked": true
+    },
+    {
+      "file": "sion_skill2_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4765,
+      "colors": 27,
+      "bbox_cells": [
+        44,
+        60,
+        159,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 7,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_reason": "Could not confidently detect paired front-facing red eyes; no forced edit performed.",
+      "head_translation_cells": [
+        41,
+        55
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 3,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        44,
+        55,
+        159,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill2_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5708,
+      "colors": 27,
+      "bbox_cells": [
+        34,
+        51,
+        168,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        46,
+        50
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        34,
+        50,
+        168,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill2_3.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5296,
+      "colors": 26,
+      "bbox_cells": [
+        48,
+        67,
+        174,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 0,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        76,
+        69
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 2,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        48,
+        67,
+        174,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill2_4.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5162,
+      "colors": 27,
+      "bbox_cells": [
+        49,
+        64,
+        169,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 131,
+      "floor_translation_cells": -3,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_skill2_4.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        68,
+        63
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        49,
+        63,
+        169,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill2_5.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5007,
+      "colors": 26,
+      "bbox_cells": [
+        46,
+        57,
+        153,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_skill2_5.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        43,
+        66
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "Canonical supplied idle, used for the explicitly requested recovery-to-idle frame.",
+      "weapon_rigid_identity_checked": true,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        43,
+        66,
+        144,
+        141
+      ],
+      "head_pixel_identity_checked": true
+    },
+    {
+      "file": "sion_skill2_w_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4498,
+      "colors": 26,
+      "bbox_cells": [
+        36,
+        65,
+        165,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        51,
+        62
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        36,
+        62,
+        165,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill2_w_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5163,
+      "colors": 26,
+      "bbox_cells": [
+        59,
+        39,
+        148,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 2,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        52,
+        64
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        59,
+        39,
+        148,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill2_w_3.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4946,
+      "colors": 26,
+      "bbox_cells": [
+        15,
+        62,
+        164,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 0,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        56,
+        56
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        15,
+        56,
+        164,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_skill2_w_4.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4624,
+      "colors": 26,
+      "bbox_cells": [
+        51,
+        64,
+        158,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_skill2_w_4.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        43,
+        66
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "Canonical supplied idle, used for the explicitly requested recovery-to-idle frame.",
+      "weapon_rigid_identity_checked": true,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        43,
+        66,
+        144,
+        141
+      ],
+      "head_pixel_identity_checked": true
+    },
+    {
+      "file": "sion_ult_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5012,
+      "colors": 26,
+      "bbox_cells": [
+        15,
+        70,
+        160,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 61,
+      "floor_translation_cells": -5,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        68,
+        70
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        15,
+        70,
+        160,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_ult_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4929,
+      "colors": 26,
+      "bbox_cells": [
+        13,
+        71,
+        156,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 3,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        68,
+        70
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "R charge frame1 reused to lock the upper body, as the supplied brief explicitly delegates replacement of both walking legs to the next stage; generated stride2 remains in raw.",
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        15,
+        70,
+        160,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_ult_hit_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4883,
+      "colors": 26,
+      "bbox_cells": [
+        39,
+        54,
+        170,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 0,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        62,
+        57
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        39,
+        57,
+        170,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_ult_hit_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4356,
+      "colors": 25,
+      "bbox_cells": [
+        72,
+        62,
+        186,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        51,
+        61
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 26,
+      "bbox_final_cells": [
+        72,
+        61,
+        186,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_ult_hit_3.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4992,
+      "colors": 26,
+      "bbox_cells": [
+        60,
+        61,
+        169,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 23,
+      "floor_translation_cells": -2,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        60,
+        62
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        60,
+        61,
+        169,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_ult_hit_4.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5735,
+      "colors": 26,
+      "bbox_cells": [
+        53,
+        56,
+        181,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 21,
+      "floor_translation_cells": -1,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_ult_hit_4.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        61,
+        57
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        53,
+        56,
+        181,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_ult_hit_5.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4611,
+      "colors": 26,
+      "bbox_cells": [
+        57,
+        65,
+        155,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 0,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_ult_hit_5.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        43,
+        66
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "Canonical supplied idle, used for the explicitly requested recovery-to-idle frame.",
+      "weapon_rigid_identity_checked": true,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        43,
+        66,
+        144,
+        141
+      ],
+      "head_pixel_identity_checked": true
+    },
+    {
+      "file": "sion_dead_1.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5457,
+      "colors": 26,
+      "bbox_cells": [
+        38,
+        52,
+        167,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 5,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        37,
+        45
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 1,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        38,
+        45,
+        167,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_dead_2.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 6144,
+      "colors": 27,
+      "bbox_cells": [
+        46,
+        44,
+        169,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 0,
+      "floor_translation_cells": 0,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "head_restored": true,
+      "head_translation_cells": [
+        49,
+        38
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        46,
+        38,
+        169,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_dead_3.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4068,
+      "colors": 26,
+      "bbox_cells": [
+        54,
+        64,
+        159,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 43,
+      "floor_translation_cells": -4,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_dead_3-repair-01.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        48,
+        62
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        54,
+        62,
+        159,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_dead_4.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 4544,
+      "colors": 26,
+      "bbox_cells": [
+        47,
+        57,
+        168,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 19,
+      "floor_translation_cells": -2,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_dead_4.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        54,
+        53
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 10,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        47,
+        53,
+        168,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_dead_5.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5438,
+      "colors": 27,
+      "bbox_cells": [
+        40,
+        66,
+        186,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 67,
+      "floor_translation_cells": -4,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_dead_5.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        67,
+        69
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 2,
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        40,
+        68,
+        186,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    },
+    {
+      "file": "sion_dead_6.png",
+      "grid": [
+        219,
+        146
+      ],
+      "px_per_square": 7,
+      "size": [
+        1536,
+        1024
+      ],
+      "opaque_cells": 5181,
+      "colors": 25,
+      "bbox_cells": [
+        52,
+        65,
+        176,
+        141
+      ],
+      "source_cells_below_ground_before_alignment": 84,
+      "floor_translation_cells": -5,
+      "cells_below_ground_removed": 0,
+      "majority_readback": true,
+      "palette_source": "design/sion_palette.png",
+      "raw_alpha_range": [
+        0,
+        254
+      ],
+      "raw_source_file": "sion_dead_6.png",
+      "head_restored": true,
+      "head_translation_cells": [
+        67,
+        69
+      ],
+      "head_canonical_cells": 315,
+      "head_byte_match": true,
+      "detached_noise_cells_removed": 0,
+      "final_source_reuse": "Frame5 copied for the explicitly still final death frame6.",
+      "exact_grid": true,
+      "hard_alpha": true,
+      "palette_only": true,
+      "transparent_remainder": true,
+      "nothing_below_ground": true,
+      "colors_final": 27,
+      "bbox_final_cells": [
+        40,
+        68,
+        186,
+        141
+      ],
+      "head_pixel_identity_checked": true,
+      "weapon_rigid_identity_checked": false
+    }
+  ]
+}

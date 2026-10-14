@@ -38,8 +38,8 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#6aff55ff>"      # health
 Y = "<#e8d44dff>"      # shields
 E = "<>"
-# champion_view: set from the imported sprite (tfm2_ase.py face) - a placeholder until the sheet is in
-VIEW = {"face": {"x": 2, "y": -36}, "center": {"x": 0, "y": -14}}
+# champion_view: tfm2_ase.py face on the sheet (2026-10-14: crown 41 px above the feet, head centre +2.8)
+VIEW = {"face": {"x": 4, "y": -41}, "center": {"x": 0, "y": -14}}
 
 
 def phy(d, r):
