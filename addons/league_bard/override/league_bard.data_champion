@@ -180,7 +180,7 @@
                                               "name": "league_bard_r_zone",
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 26000
+                                                  "radius": 36000
                                                 }
                                               },
                                               "delay": 1,
@@ -247,7 +247,7 @@
                         "name": "league_bard_r_scount",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -375,7 +375,7 @@
                                                 "name": "league_bard_r_zone",
                                                 "shape": {
                                                   "Circle": {
-                                                    "radius": 26000
+                                                    "radius": 36000
                                                   }
                                                 },
                                                 "delay": 1,
@@ -443,7 +443,7 @@
                         "name": "league_bard_r_count",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -488,7 +488,7 @@
                         "name": "league_bard_r_allies",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -775,7 +775,7 @@
                                               "name": "league_bard_r_zone",
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 26000
+                                                  "radius": 36000
                                                 }
                                               },
                                               "delay": 1,
@@ -842,7 +842,7 @@
                         "name": "league_bard_r_scount",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -970,7 +970,7 @@
                                                 "name": "league_bard_r_zone",
                                                 "shape": {
                                                   "Circle": {
-                                                    "radius": 26000
+                                                    "radius": 36000
                                                   }
                                                 },
                                                 "delay": 1,
@@ -1038,7 +1038,7 @@
                         "name": "league_bard_r_count",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -1083,7 +1083,7 @@
                         "name": "league_bard_r_allies",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -1477,7 +1477,7 @@
                                               "name": "league_bard_r_zone",
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 26000
+                                                  "radius": 36000
                                                 }
                                               },
                                               "delay": 1,
@@ -1544,7 +1544,7 @@
                         "name": "league_bard_r_scount",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -1672,7 +1672,7 @@
                                                 "name": "league_bard_r_zone",
                                                 "shape": {
                                                   "Circle": {
-                                                    "radius": 26000
+                                                    "radius": 36000
                                                   }
                                                 },
                                                 "delay": 1,
@@ -1740,7 +1740,7 @@
                         "name": "league_bard_r_count",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -1785,7 +1785,7 @@
                         "name": "league_bard_r_allies",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -2613,7 +2613,7 @@
                                               "name": "league_bard_r_zone",
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 26000
+                                                  "radius": 36000
                                                 }
                                               },
                                               "delay": 1,
@@ -2680,7 +2680,7 @@
                         "name": "league_bard_r_scount",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -2808,7 +2808,7 @@
                                                 "name": "league_bard_r_zone",
                                                 "shape": {
                                                   "Circle": {
-                                                    "radius": 26000
+                                                    "radius": 36000
                                                   }
                                                 },
                                                 "delay": 1,
@@ -2876,7 +2876,7 @@
                         "name": "league_bard_r_count",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,
@@ -2921,7 +2921,7 @@
                         "name": "league_bard_r_allies",
                         "shape": {
                           "Circle": {
-                            "radius": 26000
+                            "radius": 36000
                           }
                         },
                         "delay": 1,

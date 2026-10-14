@@ -22,6 +22,7 @@ slow) on the ground, the frozen figure's feet on the soles and the shattering bu
 Times from the kit (tools/kit/build_bard.py P, 60 ticks a second).
 """
 import argparse
+import json
 import os
 import sys
 
@@ -38,19 +39,37 @@ import import_jhin as J  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "bard", "codex_fx", "bard-fx", "pixel_1x")
 MOD = os.path.join(ROOT, "league")
 
-# sheet -> (frames, anchor: "core" (the middle) or a row of the delivered cell (on its middle column), symmetry)
+# sheet -> (frames, anchor on the middle column: "core" (the drawing's middle), ("bottom", k): k 1x squares (times the
+# sheet's SCALE) above the drawing's lowest row, "widest": the widest row of the last frame (a ground ring's middle),
+# ("row", r): row r of the delivered cell, symmetry)
 SHEETS = {
     "a_bolt": (4, "core", "tb"), "a_hit": (4, "core", "lr"), "p_meep": (4, "core", "tb"),
     "p_hit": (5, "core", "lr"), "q_bolt": (4, "core", "tb"), "q_hit": (5, "core", "lr"),
-    "q_bind": (6, 7, "lr"), "w_shrine": (4, "core", "tb"), "w_land": (6, 25, "lr"),
-    "e_door": (6, 30, "lr"), "e_ride": (4, 21, "lr"), "r_orb": (4, "core", "both"),
-    "r_mark": (6, 11, "lr"), "r_dome": (5, 33, "lr"), "r_lock": (6, 24, "lr"),
-    "r_free": (4, 17, "lr"), "slow": (4, "core", "lr"), "haste": (4, 8, "lr"),
+    "q_bind": (6, "core", "lr"), "w_shrine": (4, "core", "tb"), "w_land": (6, ("row", 25), "lr"),
+    "e_door": (6, ("bottom", 0), "lr"), "e_ride": (4, ("bottom", 0), "lr"), "r_orb": (4, "core", "both"),
+    "r_mark": (6, "widest", "lr"), "r_dome": (5, ("bottom", 5), "lr"), "r_lock": (6, ("bottom", 6), "lr"),
+    "r_free": (4, "core", "lr"), "slow": (4, "core", "lr"), "haste": (4, ("row", 8), "lr"),
 }
+# R drawn bigger (the user, 2026-10-14: 「R的特效做大点」, with the zone League's size, r_r 26000 -> 36000): these sheets
+# are read again from Codex's own drafts (raw/, its read-back's way: the drawing's bounds over all frames brought to
+# its 1x extent times SCALE, every square the majority of the draft's opaque pixels snapped to the sheet's palette,
+# mirrored squares voting together) - the ground ring and the dome with the zone, the orb with them, the bubble a unit
+# tall
+SCALE = {"r_orb": 1.4, "r_mark": 1.4, "r_dome": 1.4, "r_lock": 1.25, "r_free": 1.25,
+         # the door a little taller than Bard, so it shows round him (z -1, behind him)
+         "e_door": 1.5}
+RAW = os.path.join(ROOT, "assets", "source", "bard", "codex_fx", "bard-fx")
+# read again from Codex's drafts (the user: 「是不是codex的特效你没完全用啊 好怪啊」): its read-back (pixel_1x) cleared the
+# stun ring's front and back (only two side bits left) and the door's starry tunnel, and thinned the travel sparkles to
+# lines; and R's pictures, drawn bigger. The small hits and bolts keep Codex's read-back (cleaner than a new read)
+REREAD = {"q_bind", "e_door", "e_ride"} | set(SCALE)
+MARGIN = 2                      # clear squares round a re-read drawing
 HIT = (0, -12)                  # a hit on the upper body of a 36-44 px unit
 WAIST = (0, -4)
 SOLES = (0, 11)                 # on the ground under a unit or a point
-BUBBLE = (0, 3)                 # the middle of R's bubble (its figure's feet on the soles)
+# the middle of R's bubble (its drawing's middle) where the bubble's is: its figure's feet (6 squares above its lowest row,
+# times SCALE) on the soles
+BUBBLE = (0, 11 - ((round(30 * SCALE["r_lock"]) - 1) / 2 - round(6 * SCALE["r_lock"])))
 seq = J.seq
 flight = J.flight
 
@@ -83,7 +102,9 @@ BIG = {
     # for r_t 150 ticks (2.5 s: the bubble forms, then holds), the bubble shattering when it ends
     "r_orb": ("r_orb", seq(range(4), [70] * 4), (0, 0)),
     "r_mark": ("r_mark", seq(range(6), [60, 60, 70, 70, 70, 70]), SOLES),
-    "r_dome": ("r_dome", seq(range(5), [40, 60, 80, 100, 120]), SOLES),
+    # the dome stands over the zone for the whole stasis (r_t 150 ticks = 2.5 s; 0.4 s was missed in game: 「现在R好像
+    # 不是用的这个特效？」): it lands (frames 1-3), its rim and its stars take turns (3 / 4), it fades (5)
+    "r_dome": ("r_dome", seq([0, 1, 2] + [3, 2] * 4 + [4], [40, 60, 80] + [260] * 8 + [240]), SOLES),
     "r_lock": ("r_lock", seq(range(6), [100, 480, 480, 480, 480, 480]), SOLES),
     "r_free": ("r_free", seq(range(4), [50, 60, 70, 80]), BUBBLE),
 }
@@ -98,6 +119,95 @@ def cells(name, n):
     if w * n != a.shape[1]:
         sys.exit(f"bard_fx_{name}.png: {a.shape[1]} px is not {n} equal cells")
     return [a[:, k * w:(k + 1) * w].copy() for k in range(n)]
+
+
+BRIGHT = 200                    # a colour this light (0.3 R + 0.59 G + 0.11 B) is a core, a ray or a star
+
+
+def LUM(pal):
+    return pal @ np.array([0.3, 0.59, 0.11])
+
+
+def BRIGHT_OF(pal):
+    return LUM(pal) >= BRIGHT
+
+
+def manifest():
+    with open(G.lp(os.path.join(RAW, "manifest.json")), encoding="utf-8") as f:
+        return {a["tag"]: a for a in json.load(f)["assets"]}
+
+
+def reread(name, scale, sym):
+    """The sheet read again from Codex's draft: the drawing's bounds over all frames brought to the prompt's size
+    (manifest `size`) times `scale`, MARGIN clear squares round it."""
+    a = manifest()[name]
+    raw = np.asarray(Image.open(G.lp(os.path.join(RAW, "raw", a["raw_file"]))).convert("RGBA")).astype(float)
+    pal = np.array([[int(h[i:i + 2], 16) for i in (1, 3, 5)] for h in a["palette"]], float)
+    n = a["frames"]
+    tw = raw.shape[1] / n
+    op = raw[..., 3] > 128
+    # each frame in its own equal tile; pieces of the next frames' drawings reaching into a tile (touching its left or
+    # right side) are not its own
+    from scipy import ndimage
+    b = []
+    for k in range(n):
+        x0, x1 = int(round(k * tw)), int(round((k + 1) * tw))
+        lab, m = ndimage.label(op[:, x0:x1], structure=np.ones((3, 3)))
+        edge = set(np.unique(lab[:, 0])) | set(np.unique(lab[:, -1]))
+        area = np.bincount(lab.ravel())
+        for i in edge - {0}:
+            if area[i] < 0.03 * area[1:].sum():
+                op[:, x0:x1][lab == i] = False
+        yy, xx = np.nonzero(op[:, x0:x1])
+        b.append((xx.min(), xx.max() + 1, yy.min(), yy.max() + 1))
+    gx0, gx1 = min(x[0] for x in b), max(x[1] for x in b)
+    gy0, gy1 = min(x[2] for x in b), max(x[3] for x in b)
+    size = [int(v) for v in a["size"].replace("×", " ").split()]
+    sw, sh = size if len(size) == 2 else size * 2
+    W0, H0 = round(sw * scale), round(sh * scale)            # the prompt's size in game px (the read-back's extent)
+    sx, sy = (gx1 - gx0) / W0, (gy1 - gy0) / H0
+    W, H = W0 + 2 * MARGIN, H0 + 2 * MARGIN
+    snap = ((raw[..., None, :3] - pal[None, None]) ** 2).sum(-1).argmin(-1)
+    cells = []
+    for k in range(n):
+        votes = np.zeros((H, W, len(pal)))
+        cover = np.zeros((H, W))
+        for j in range(H):
+            y0, y1 = max(0, int(round(gy0 + (j - MARGIN) * sy))), max(0, int(round(gy0 + (j + 1 - MARGIN) * sy)))
+            for i in range(W):
+                x0 = max(0, int(round(k * tw + gx0 + (i - MARGIN) * sx)))
+                x1 = max(0, int(round(k * tw + gx0 + (i + 1 - MARGIN) * sx)))
+                o = op[y0:y1, x0:x1]
+                if o.size:
+                    cover[j, i] = o.mean()
+                    if o.any():
+                        votes[j, i] = np.bincount(snap[y0:y1, x0:x1][o], minlength=len(pal))
+        if sym in ("lr", "both"):
+            votes, cover = votes + votes[:, ::-1], (cover + cover[:, ::-1]) / 2
+        if sym in ("tb", "both"):
+            votes, cover = votes + votes[::-1], (cover + cover[::-1]) / 2
+        c = np.zeros((H, W, 4), np.uint8)
+        tot = votes.sum(-1)
+        share = votes / np.maximum(tot, 1)[..., None] * cover[..., None]       # of the square's whole area
+        lit = share[..., BRIGHT_OF(pal)].sum(-1)
+        for j in range(H):
+            for i in range(W):
+                if lit[j, i] >= 0.2:            # a bright core or a thin ray: the brightest colour with a tenth or more
+                    ids = [q for q in np.argsort(-LUM(pal)) if share[j, i, q] >= 0.1 and LUM(pal)[q] >= BRIGHT]
+                    best = ids[0] if ids else int(np.argmax(np.where(BRIGHT_OF(pal), share[j, i], -1)))
+                elif cover[j, i] >= 0.45:       # else the commonest, a brighter one from 35%
+                    best = int(np.argmax(share[j, i]))
+                    for q in np.argsort(-LUM(pal)):
+                        if share[j, i, q] / max(cover[j, i], 1e-9) >= 0.35:
+                            if LUM(pal)[q] > LUM(pal)[best]:
+                                best = int(q)
+                            break
+                else:
+                    continue
+                c[j, i, :3] = pal[best].astype(np.uint8)
+                c[j, i, 3] = 255
+        cells.append(c)
+    return cells
 
 
 def check_cells(name, strip, sym):
@@ -120,21 +230,29 @@ def odd(c, sym):
     return c
 
 
-def anchor(cell, kind):
-    h, w = cell.shape[:2]
+def anchor(strip, kind, scale):
+    h, w = strip[0].shape[:2]
     if kind == "core":
         return [(w - 1) / 2, (h - 1) / 2]
-    return [(w - 1) / 2, kind]
+    if kind[0] == "row":
+        return [(w - 1) / 2, kind[1]]
+    if kind == "widest":
+        rows = (strip[-1][..., 3] > 0).sum(1)
+        return [(w - 1) / 2, int(np.argmax(rows))]
+    return [(w - 1) / 2, h - 1 - MARGIN - round(kind[1] * scale)]
 
 
 def build(table):
     out = {}
     for tag, (src, frames, spot) in table.items():
         n, kind, sym = SHEETS[src]
-        strip = cells(src, n)
+        if src in REREAD:
+            strip = reread(src, SCALE.get(src, 1.0), sym)
+        else:
+            strip = cells(src, n)
         check_cells(src, strip, sym)
         strip = [odd(c, sym) for c in strip]
-        anc = anchor(strip[0], kind)
+        anc = anchor(strip, kind, SCALE.get(src, 1.0))
         out[tag] = []
         for k, ms in frames:
             if k == J.EMPTY:

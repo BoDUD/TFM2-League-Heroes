@@ -78,7 +78,7 @@ P = {
     # ult: R Tempered Fate (League: 3400 range, radius 350, 0.5 s cast + flight, stasis 2.5 s; cd 110-80 s)
     "r_cd": 3600, "r_arm": 900, "r_arm_range": 90000, "r_range": 80000, "r_need": 2, "r_anim": 29, "r_lag": 15,
     "r_travel": 24,
-    "r_r": 26000, "r_t": 150,
+    "r_r": 36000, "r_t": 150,
 }
 
 
