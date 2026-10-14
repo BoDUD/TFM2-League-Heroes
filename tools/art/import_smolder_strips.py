@@ -24,8 +24,14 @@ the design draft (it followed the skeletons). So per frame:
   * one face (memory one-face-all-frames): the design's eyes (FACE "eyes") and grin ("full") pasted on the frame's face
     where the head is the design's way up; the frames not listed keep Codex's own face (eyes shut: the sneeze, the shout
     thrown back, the death);
-  * the outline closed (strips.complete_outline), specks gone, one-square cracks and pinholes closed, one calm pass (a
-    lit square never turns outline), every near-black square the one outline colour K.
+  * the outline closed (strips.complete_outline; only the outline counts as dark - the navies are colour), specks
+    gone, one-square cracks and pockets closed (in the legs' bottom 8 rows a crack only where closing it walls off no
+    ground: the gaps between the feet stay), pockets of up to 9 squares through the body filled with the colour round
+    them, one calm pass (a lit square never turns outline), the tips' outline, every near-black square the one outline
+    colour K;
+  * hand fixes after a reviewer agent's four rounds (PAINT): the run's support frames stand on the idle's own hind paw,
+    E 2-3 without the cape left under the spread wings, dead 3's eyes shut, the far horn outlined off the wing in Q 2-3,
+    R 3's wing tips off the ground, attack 4's hopping paw lifted, attack 5's near front foot the idle's, single squares.
 idle = the design breathing (everything above the legs a square up and back), hit = the design 2 / 1 squares back with
 a white flash on the first frame.
 """
@@ -118,6 +124,7 @@ RUN_LEAN = 2
 # the frames that end an action back in the standing pose: laid over the idle (overlap_dx)
 RETURN = {"attack_5", "skill_5", "skill2_5", "skill2_e_8", "ult_5"}
 LINE_LUM = 20                      # luminance under this: the outline (K is 4, the darkest colour, navy (32, 30, 71), 35)
+FEET_BAND = 8                      # rows over the lowest one where no gap is closed (the legs' gaps are ground)
 HOLE_MAX = 9                       # enclosed pockets up to this many squares become outline (holes())
 PAINT = {}                         # per-frame hand fixes after the finish (filled below the helpers)
 
@@ -201,9 +208,12 @@ def shift(a, dx, dy):
     return out
 
 
-def close_small(a, most=4):
+def close_small(a, most=4, floor=None):
     """Ground showing inside the figure (memory gap-check): enclosed clear pockets of `most` squares or fewer and
-    one-square cracks between two drawn squares (left-right or up-down) become outline."""
+    one-square cracks between two drawn squares (left-right or up-down) become outline. From row `floor` down (the
+    legs) no pocket is closed and a crack only one at a time where closing it walls off no ground: the gaps between the
+    feet stay open (round 2: the front feet fused), the notches where the legs meet the belly and the gaps in the sole
+    lines close (round 3: 121 of them were left open)."""
     while True:
         op = a[..., 3] > 0
         lab, n = ndimage.label(~op)
@@ -213,11 +223,37 @@ def close_small(a, most=4):
             if j not in border and (lab == j).sum() <= most:
                 fill |= lab == j
         p = np.pad(op, 1)
-        fill |= ~op & ((p[:-2, 1:-1] & p[2:, 1:-1]) | (p[1:-1, :-2] & p[1:-1, 2:]))
-        if not fill.any():
+        crack = ~op & ((p[:-2, 1:-1] & p[2:, 1:-1]) | (p[1:-1, :-2] & p[1:-1, 2:]))
+        fill |= crack
+        if floor is not None:
+            fill[floor:] = False
+        if fill.any():
+            a[fill, :3] = K
+            a[fill, 3] = 255
+            continue
+        if floor is None:
             return a
-        a[fill, :3] = K
-        a[fill, 3] = 255
+        changed = False
+        for y, x in zip(*np.nonzero(crack[floor:])):
+            y += floor
+            op = a[..., 3] > 0
+            if op[y, x]:
+                continue
+            outside = ndimage.label(~op)[0]
+            outer = set(np.unique(np.concatenate([outside[0], outside[-1], outside[:, 0], outside[:, -1]])))
+            trial = op.copy()
+            trial[y, x] = True
+            lab2 = ndimage.label(~trial)[0]
+            outer2 = set(np.unique(np.concatenate([lab2[0], lab2[-1], lab2[:, 0], lab2[:, -1]])))
+            # clear squares still reaching the edge after the fill: none may be cut off
+            reach = np.isin(lab2, list(outer2 - {0}))
+            before = np.isin(outside, list(outer - {0}))
+            if (before & ~trial & ~reach).any():
+                continue
+            a[y, x] = (*K, 255)
+            changed = True
+        if not changed:
+            return a
 
 
 def pinholes(a, most=3):
@@ -248,35 +284,49 @@ def specks(a, most=2):
     return a
 
 
-def holes(a, most=HOLE_MAX):
-    """Enclosed clear pockets of `most` squares or fewer become outline (the reviewer's 6-8 square slits through the
-    mane / wing where the design has none); the tail's curl and the gaps under the wings are bigger and stay."""
+def holes(a, most=HOLE_MAX, floor=None):
+    """Enclosed clear pockets of `most` squares or fewer through the body (the reviewer's 6-8 square slits through the
+    mane / wing where the design has none) take the commonest colour round them - not black (round 2: filled black they
+    read as blotches) - and none reaching row `floor` (the gaps between the legs are ground); the tail's curl and the
+    gaps under the wings are bigger and stay."""
     op = a[..., 3] > 0
     lab, n = ndimage.label(~op)
     border = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]])))
+    lit = op & (a[..., :3].astype(int).sum(-1) >= DARK)
     for j in range(1, n + 1):
         m = lab == j
-        if j not in border and m.sum() <= most:
+        if j in border or m.sum() > most:
+            continue
+        if floor is not None and np.nonzero(m.any(1))[0][-1] >= floor:
+            continue
+        ring = ndimage.binary_dilation(m, structure=np.ones((3, 3)), iterations=2) & lit
+        if ring.any():
+            cols, cnt = np.unique(a[ring][:, :3], axis=0, return_counts=True)
+            a[m, :3] = cols[cnt.argmax()]
+        else:
             a[m, :3] = K
-            a[m, 3] = 255
+        a[m, 3] = 255
     return a
 
 
-def caps(a, feet):
-    """The outline the cut loses at the tips: over every lit square with clear above in the figure's top 6 rows (the
-    flame tufts, the horn and wing tips) and under every lit square with clear below in the feet's rows (the ground row
-    itself takes the outline: nothing goes under it)."""
+def caps(a):
+    """The outline the cut loses at the tips of the figure's top 6 rows (the flame tufts, the horn and wing tips): a lit
+    square with clear above gets an outline square over it where it is 2 or more wide; a 1-wide tip turns outline itself
+    (round 2: capped, the 1-square flame tips grew into 2-3 square spikes - the design's tufts end blunt)."""
     op = a[..., 3] > 0
     lit = op & (a[..., :3].astype(int).sum(-1) >= DARK)
     top = int(np.nonzero(op.any(1))[0][0])
+    W = a.shape[1]
+    tips, caps_ = [], []
     for y, x in zip(*np.nonzero(lit)):
-        if top <= y <= top + 5 and y > 0 and not op[y - 1, x]:
-            a[y - 1, x] = (*K, 255)
-        if y >= SOLE - 8 and (y + 1 >= ROWS or not op[y + 1, x]):
-            if feet is not None and y >= feet:
-                a[y, x] = (*K, 255)
-            elif y + 1 < ROWS:
-                a[y + 1, x] = (*K, 255)
+        if not (top <= y <= top + 5) or y == 0 or op[y - 1, x]:
+            continue
+        side = (x > 0 and lit[y, x - 1]) or (x + 1 < W and lit[y, x + 1])
+        (caps_ if side else tips).append((y, x))
+    for y, x in caps_:
+        a[y - 1, x] = (*K, 255)
+    for y, x in tips:
+        a[y, x] = (*K, 255)
     return a
 
 
@@ -288,15 +338,16 @@ def finish(can, keep, feet=None):
     # dark=LINE_LUM: only the outline itself is "dark" - the wings' navies (luminance 35-65) are colour and get an
     # outline too (with complete_outline's default 70 the navy wing edges stayed open: e_4's underside, the chest)
     can, _, _ = G.complete_outline(can, color=K, feet=feet, dark=LINE_LUM)
-    can = close_small(can)
+    floor = (feet if feet is not None else lowest(can)) - FEET_BAND
+    can = close_small(can, floor=floor)
     op = can[..., 3] > 0
     lit = op & (can[..., :3].astype(int).sum(-1) >= DARK)
     e = PD._majority(can, op, keep | ~lit)
     grew = (e[..., :3].astype(int).sum(-1) < DARK) & lit
     e[grew] = can[grew]
     e = pinholes(e)
-    e = holes(e)
-    e = caps(e, feet)
+    e = holes(e, floor=floor)
+    e = caps(e)
     if feet is not None:
         e[feet + 1:] = 0
     dark = (e[..., 3] > 0) & (e[..., :3].astype(int).sum(-1) < DARK)
@@ -406,7 +457,8 @@ def tag_frames(tag, n, pal, idle):
             can, keep = paste_face(can, face_at(k, dx + pdx, dy + pdy), FACE[k])
         can = finish(can, keep, feet)
         if k in PAINT:
-            can = PAINT[k](can)
+            f = PAINT[k]
+            can = f(can, idle) if f.__code__.co_argcount == 2 else f(can)
         out.append(can)
     return out
 
@@ -503,34 +555,54 @@ def trim(box):
     return fix
 
 
-HIND = (36, 57)                    # the run's hind leg columns (canvas): everything left of the front legs
-HIND_REACH = 3                     # a hind foot this many rows or fewer over the ground is planted
+HIND = (36, 57)                    # the run's near hind leg columns (canvas): everything left of the front legs
+STANCE = {1, 2, 6, 7, 8}           # run frames whose near hind leg reaches back (the support phase); 3-5 swing it forward
+PAW = (78, 83, 45, 55)
+NAVIES = [(32, 30, 71), (40, 40, 93), (54, 60, 126)]
+SHIN = (148, 10, 68)             # the idle's near hind paw (rows 78-82, columns 45-54): the design's own foot
 
 
-def plant_hind(can):
-    """The run: Codex drew the hind feet 2-5 rows over the ground in every frame (the reviewer: it read as hopping on the
-    front legs). Where the hind foot is HIND_REACH rows or fewer up, its lower leg is drawn that much longer - the rows
-    from 3 over the foot's bottom moved down onto the ground row, the row they left repeated - so the hind foot stands
-    on the ground; the frames with the hind leg swung forward (2 rows or more higher) keep it lifted."""
-    x0, x1 = HIND
-    op = can[..., 3] > 0
-    rows = np.nonzero(op[66:SOLE + 1, x0:x1].any(1))[0]
-    if not len(rows):
+def plant_hind(k):
+    """The run: Codex drew the near hind paw lifted in every frame (the reviewer: it read as hopping on the front legs).
+    In the support frames (STANCE) the idle's own hind paw - 5 rows, a flat sole with its toes - is laid on the ground
+    row under the frame's hind leg (centred on the leg's lowest 3 rows), the leg's old lifted tip under it cleared
+    (round 2: lengthening the shin by repeating a row made stilts with 1-3 square soles); the swing frames keep theirs."""
+    def fix(can, idle):
+        if k not in STANCE:
+            return can
+        x0, x1 = HIND
+        op = can[..., 3] > 0
+        rows = np.nonzero(op[66:SOLE + 1, x0:x1].any(1))[0]
+        rb = 66 + int(rows[-1])
+        xs = np.nonzero(op[rb - 2:rb + 1, x0:x1].any(0))[0] + x0
+        cx = (xs.min() + xs.max()) / 2.0
+        r0, r1, c0, c1 = PAW
+        paw = idle[r0:r1, c0:c1]
+        ox = int(round(cx - (c0 + c1 - 1) / 2.0)) + c0
+        lo, hi = max(x0, ox - 1), min(x1, ox + (c1 - c0) + 1)
+        can[r0 + 1:SOLE + 1, lo:hi] = 0                     # the old lifted tip
+        m = paw[..., 3] > 0
+        sub = can[r0:r1, ox:ox + (c1 - c0)]
+        sub[m] = paw[m]
+        # Codex's own navy toes left just over the pasted paw (round 3: two toe bands on one leg) take the shin's maroon
+        band = can[r0 - 2:r0, lo:hi]
+        navy = (band[..., 3] > 0) & np.isin(band[..., :3].astype(int) @ [65536, 256, 1],
+                                            [r * 65536 + g * 256 + b for r, g, b in NAVIES])
+        band[navy, :3] = SHIN
+        can, _, _ = G.complete_outline(can, color=K, feet=SOLE, dark=LINE_LUM)
+        return close_small(can, floor=SOLE - FEET_BAND)       # the cracks round the new paw (not the legs' gaps)
+    return fix
+
+
+def from_idle(box):
+    """The squares inside `box` taken from the idle's first frame (attack 5 ends standing as the idle does, but Codex
+    drew its near front foot a row up: it dropped a row when the idle came back - round 3)."""
+    x0, y0, x1, y1 = box
+
+    def fix(can, idle):
+        can[y0:y1, x0:x1] = idle[y0:y1, x0:x1]
         return can
-    rb = 66 + int(rows[-1])
-    g = SOLE - rb
-    if g < 1 or g > HIND_REACH:
-        return can
-    rc = rb - 3
-    cols = [x for x in range(x0, x1) if op[rc:rb + 1, x].any()]
-    old = can.copy()
-    for x in cols:
-        for r in range(rb, rc - 1, -1):
-            can[r + g, x] = old[r, x]
-        for r in range(rc, rc + g):
-            can[r, x] = old[rc, x]
-    can, _, _ = G.complete_outline(can, color=K, feet=SOLE, dark=LINE_LUM)
-    return close_small(can)
+    return fix
 
 
 def chain(*fixes):
@@ -582,9 +654,10 @@ def idle_frames():
     mask = op & (yy < DY + WAIST)
     out = []
     for k, ms in IDLE:
-        b = breathe(can, mask, k)
-        b, _, _ = G.complete_outline(b, color=K, feet=SOLE, dark=LINE_LUM)   # the waist's step opens the chest's edge
-        out.append((close_small(b), float(ms)))
+        b = close_small(breathe(can, mask, k))
+        if k:                                          # the waist's step leaves the chest's edge open: its two squares
+            b[DY + 34:DY + 36, DX + 53] = (*K, 255)
+        out.append((b, float(ms)))
     return out
 
 
@@ -601,7 +674,7 @@ def hit_frames(idle):
 
 
 PAINT.update({
-    **{f"run_{i}": plant_hind for i in range(1, 9)},
+    **{f"run_{i}": plant_hind(i) for i in range(1, 9)},
     "ult_3": trim((30, 79, 47, 82)),
     # Q 2-3: the far horn and its flame outlined off the wing's root (the reviewer: the root swallowed the horn)
     "skill_2": horn_ring((66, 43, 76, 54)),
@@ -614,8 +687,14 @@ PAINT.update({
     "dead_3": patch([(52, 62, "nnn"),
                      (53, 60, "naaaat"), (54, 59, "nannnnat"), (55, 59, "nnnnntt"), (56, 60, "nnnt"),
                      (49, 70, "nn"), (50, 70, "aaa"), (51, 70, "nn")]),
-    "skill2_e_2": decape((28, 57, 51, 70), (31, 45)),
-    "skill2_e_3": decape((24, 54, 48, 67), (26, 43)),
+    "skill2_e_2": chain(decape((28, 57, 51, 70), (31, 45)), patch([(66, 42, "a")])),
+    "skill2_e_3": chain(decape((24, 54, 48, 67), (26, 43)), patch([(62, 34, "a"), (63, 39, "a")])),
+    # E 7: a 2-row block of outline joined the cape's tip to the tail fin under it (round 2: a black bump)
+    "skill2_e_7": patch([(48, 28, "aa.."), (49, 28, "..")]),
+    # attack 4, the hop: the near front paw stood on the ground again once the soles' stubs were ignored - its sole
+    # row cleared, its bottom row the outline: a square up (round 2)
+    "attack_4": patch([(82, 62, "...."), (81, 62, "aaaa")]),
+    "attack_5": from_idle((70, 77, 83, 83)),
 })
 
 
