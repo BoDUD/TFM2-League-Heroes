@@ -1,0 +1,30 @@
+{
+ "hero": "milio",
+ "champ": "Milio",
+ "hide_submeshes": true,
+ "camera": {"yaw": 65, "pitch": 20, "mirror": false},
+ "chibi": {"head": 1.35, "legs": 0.9, "hair": 1.0},
+ "height": 32,
+ "cell": [128, 128, 28],
+ "design": "spell4_idle_in@600",
+ "tags": {
+  "run": {"frames": [["run_alt_2@0", 117], ["run_alt_2@117", 117], ["run_alt_2@233", 117], ["run_alt_2@350", 117],
+                     ["run_alt_2@467", 117], ["run_alt_2@583", 117], ["run_alt_2@700", 117], ["run_alt_2@817", 117]]},
+  "attack": {"lunge": 0.3, "release": 3,
+             "frames": [["spell4_idle_in@600>attack1@0:0.6", 100], ["attack1@56", 80], ["attack1@167", 100],
+                        ["attack1@222", 120], ["attack1@278>spell4_idle_in@600:0.5", 120]]},
+  "skill": {"lunge": 0.3, "rise": 0.3, "release": 4,
+            "frames": [["spell1_0@0", 80], ["spell1_0@72", 80], ["spell1_0@144", 80], ["spell1_0@217", 100],
+                       ["spell1_0@289", 100], ["spell1_0@400>spell4_idle_in@600:0.4", 120]]},
+  "skill2": {"lunge": 0.3, "release": 3,
+             "frames": [["spell4_idle_in@600>spell3_still_a@0:0.6", 100], ["spell3_still_a@161", 100],
+                        ["spell3_still_a@322", 120], ["spell3_still_a@483", 120],
+                        ["spell3_still_a@806>spell4_idle_in@600:0.5", 120]]},
+  "ult": {"lunge": 0.3, "rise": 0.12, "release": 4,
+          "frames": [["spell4@0", 100], ["spell4@133", 100], ["spell4@267", 100], ["spell4@400", 120],
+                     ["spell4@600", 120], ["spell4@767>spell4_idle_in@600:0.5", 140]]},
+  "dead": {"travel": 0.3, "flat": true,
+           "frames": [["death@0", 120], ["death@200", 120], ["death@400", 120], ["death@667", 150], ["death@1333", 200],
+                      ["death@2667", 400]]}
+ }
+}
