@@ -159,7 +159,7 @@
 
 ![卡尔玛演示：她掌心射出一道翠绿灵弹打德莱厄斯，鼓舞自动给自己套上翠绿护盾、脚下生风；Q 心灵烈焰：带粉色火舌的灵火撞上德莱厄斯炸开，脚下一圈小灵火减速；W 坚定不移：一道光束射中他，腰间亮起灵光，连线一节节流回她身边，1.3 秒后灵光锁扣紧把他定住；她双手合十开梵咒，身边绕起灵光，定身接灵光闪耀：更大的灵火炸开，地上留下灵火圈，1.5 秒后整圈爆发](docs/preview/league_karma_showcase.gif?v=1014g)
 
-![奥拉夫演示：他仰头怒吼开诸神黄昏，脚下烧起怒火；冲到德莱厄斯面前掷出逆流投掷：斧头翻滚着飞过去，砍中的地方冒出冰蓝寒气减速，斧头插进地里；双斧跃起鲁莽挥击砸下，冰蓝 X 形劈痕；普攻劈砍时怒吼挺过去，身后亮起血气；德莱厄斯后退，他走过去捡回斧头；残血时狂战之怒满层，肩上冒出红色怒气](docs/preview/league_olaf_showcase.gif?v=1014g)
+![奥拉夫演示：他仰头怒吼开诸神黄昏，脚下烧起怒火；冲到德莱厄斯面前掷出逆流投掷：斧头翻滚着飞过去，砍中的地方冒出冰蓝寒气减速，斧头插进地里；双斧跃起鲁莽挥击砸下，冰蓝 X 形劈痕；普攻劈砍时怒吼挺过去，身后亮起血气；德莱厄斯后退，他走过去捡回斧头；残血时狂战之怒满层，肩上冒出红色怒气](docs/preview/league_olaf_showcase.gif?v=1015t)
 
 ![赫卡里姆演示：他从远处毁灭冲锋，起步扬起尘土、蹄下燃着幽灵火，冲满三段一刀砸在德莱厄斯身上把他撞退，撞完蹄下生风；他跟上挥戟，Q 暴走：身边转出一圈幽灵刀光，身边有敌方英雄，恐惧之灵自动开启：地上炸开一圈幽灵、脚下绕着幽灵圈、每秒从德莱厄斯身上抽出一缕灵魂，马身两侧亮起暴走层数的幽灵火；R 暗影冲击：他扬蹄召出暗影，带着幽灵骑兵冲向盖伦，骑兵穿过德莱厄斯砍出暗影刀光，落地冲击波裂开地面，盖伦头顶冒出幽灵骷髅被吓跑](docs/preview/league_hecarim_showcase.gif?v=1014g)
 
@@ -3571,14 +3571,14 @@ python tools/art/import_olaf.py         # 特效（--raw assets/source/olaf/code
 python tools/art/preview_olaf.py        # 逐帧预览、特效表、演示 GIF
 ```
 
-美术（动作的提示词见 [`assets/source/olaf/MODEL_STRIPS_v2.md`](assets/source/olaf/MODEL_STRIPS_v2.md)，瘦身见 [`SLIM_PACK.md`](assets/source/olaf/SLIM_PACK.md) 和 [`SLIM_STRIPS.md`](assets/source/olaf/SLIM_STRIPS.md)，大小和跑步见 [`SIZE_RUN.md`](assets/source/olaf/SIZE_RUN.md) 和 [`RUN_CROSS.md`](assets/source/olaf/RUN_CROSS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/olaf/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/olaf/codex_model/)、[`codex_strips_v2/`](assets/source/olaf/codex_strips_v2/)、[`codex_slim/`](assets/source/olaf/codex_slim/)、[`codex_strips_slim/`](assets/source/olaf/codex_strips_slim/)、[`codex_strips_size/`](assets/source/olaf/codex_strips_size/)、[`codex_run_cross/`](assets/source/olaf/codex_run_cross/)、[`codex_fx/`](assets/source/olaf/codex_fx/)）：
+美术（动作的提示词见 [`assets/source/olaf/MODEL_STRIPS_v2.md`](assets/source/olaf/MODEL_STRIPS_v2.md)，瘦身见 [`SLIM_PACK.md`](assets/source/olaf/SLIM_PACK.md) 和 [`SLIM_STRIPS.md`](assets/source/olaf/SLIM_STRIPS.md)，大小和跑步见 [`SIZE_RUN.md`](assets/source/olaf/SIZE_RUN.md) 和 [`RUN_CROSS.md`](assets/source/olaf/RUN_CROSS.md)，普攻过渡帧见 [`ATTACK_TWEEN.md`](assets/source/olaf/ATTACK_TWEEN.md)，特效的见 [`PROMPTS_FX.md`](assets/source/olaf/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](assets/source/olaf/codex_model/)、[`codex_strips_v2/`](assets/source/olaf/codex_strips_v2/)、[`codex_slim/`](assets/source/olaf/codex_slim/)、[`codex_strips_slim/`](assets/source/olaf/codex_strips_slim/)、[`codex_strips_size/`](assets/source/olaf/codex_strips_size/)、[`codex_run_cross/`](assets/source/olaf/codex_run_cross/)、[`codex_attack_tween/`](assets/source/olaf/codex_attack_tween/)、[`codex_fx/`](assets/source/olaf/codex_fx/)）：
 
 - 原画：Codex 画了待机（A，两手各一把斧）和 Q 举斧蓄力（B）两版，A 用作造型，B 给 Q 的动作参考。
 - 造型：Codex 第二轮的生图原稿按格读回（48 × 45），用户选 42 行；删行时头上的角整只保留（「头上的角要完整」），再按材质归色精修（「再精修一下吧 有点模糊啊」），嘴用之前那版。之后用户「奥拉夫稍微瘦一点 肌肉明显点」：Codex 在定稿上画了 A / B 两版瘦身，用户选 B（肩那一段 37 → 32 格，手臂、肩膀、大腿的肌肉用皮肤三档颜色分块），头换回定稿的头，43 × 36。
-- 动作：Codex 第一版的身体比造型大、头整块贴上去带着一条肩毛；用造型零件重摆的版本被退回（用户：「身体太奇怪了吧。。。和英雄联盟也不一样啊」）。第二版让 Codex 照英雄联盟原版逐帧把整个人一起画（提示词按原版骨骼量了每帧的腿、胯、身体、手：跑步弓身冲锋后脚高踢、普攻右手举斧下劈、Q 左手高举再弓步掷斧、E 下蹲跃起双斧砸地、R 仰头怒吼双斧交叉、死亡跪下再向前扑倒），`fix_olaf_strips.py` 在 Codex 画头的位置换上定稿的头、把用描边色画的黑靴子和背心改回深棕皮革、补掉漏光的小孔；瘦身后 Codex 再拿通过的动作条当骨架换成新身材（`codex_strips_slim`），头沿用通过那版每帧的位置。用户：「非常好」。进游戏后用户：「奥拉夫跑动时为什么变大一圈 好违和」「还有跑动姿势太浮夸了吧」——Codex 把所有动作照待机的大小重画（`codex_strips_size`）；仍偏大的 R、死亡缩到 85%、E 到 90%，画瘦了的受击改用瘦身版缩到 80%（整行整列删除，不重新采样，头不动：`import_native.py` 的 `SHRINK_TAGS`）。跑步先是两只脚都钉在原地（「感觉像在平移」），再让 Codex 照逐帧的腿部引导图画交叉步（`codex_run_cross`：着地的脚往后蹬，另一条腿后踢再越过去）；它第 6 帧把刚落地的脚又抬起来，去掉这帧，跑步 7 帧；每帧落到地面线上，头跟着躯干起伏。
+- 动作：Codex 第一版的身体比造型大、头整块贴上去带着一条肩毛；用造型零件重摆的版本被退回（用户：「身体太奇怪了吧。。。和英雄联盟也不一样啊」）。第二版让 Codex 照英雄联盟原版逐帧把整个人一起画（提示词按原版骨骼量了每帧的腿、胯、身体、手：跑步弓身冲锋后脚高踢、普攻右手举斧下劈、Q 左手高举再弓步掷斧、E 下蹲跃起双斧砸地、R 仰头怒吼双斧交叉、死亡跪下再向前扑倒），`fix_olaf_strips.py` 在 Codex 画头的位置换上定稿的头、把用描边色画的黑靴子和背心改回深棕皮革、补掉漏光的小孔；瘦身后 Codex 再拿通过的动作条当骨架换成新身材（`codex_strips_slim`），头沿用通过那版每帧的位置。用户：「非常好」。进游戏后用户：「奥拉夫跑动时为什么变大一圈 好违和」「还有跑动姿势太浮夸了吧」——Codex 把所有动作照待机的大小重画（`codex_strips_size`）；仍偏大的 R、死亡缩到 85%、E 到 90%，画瘦了的受击改用瘦身版缩到 80%（整行整列删除，不重新采样，头不动：`import_native.py` 的 `SHRINK_TAGS`）。跑步先是两只脚都钉在原地（「感觉像在平移」），再让 Codex 照逐帧的腿部引导图画交叉步（`codex_run_cross`：着地的脚往后蹬，另一条腿后踢再越过去）；它第 6 帧把刚落地的脚又抬起来，去掉这帧，跑步 7 帧；每帧落到地面线上，头跟着躯干起伏。之后用户：「奥拉夫战斗时有很强的顿挫感」——查下来节奏、技能树都正常，是普攻每一刀都从正面待机一下切到侧身大开步、最后从低位前冲一下弹回站直；用户选了「首尾各补一帧过渡，其余帧不动」，Codex 画了两帧（[`ATTACK_TWEEN.md`](assets/source/olaf/ATTACK_TWEEN.md)，交付在 `codex_attack_tween/`）：起手半转身抬斧，接在待机和普攻 1 之间；收招从前冲起身一半，接在普攻 5 和 6 之间。整段仍是 400 毫秒、第 4 帧（第 12 tick）出伤，帧时长 40 / 50 / 50 / 60 / 70 / 50 / 40 / 40（`fix_olaf_strips.py` 的 `TWEEN`）。
 - 特效：Codex 第 3 步的 13 张生图原稿；挺过去的血气光环原稿是一整圈很厚的火，和大招的火分不开，只留亮边。
 
-逐帧预览：[`docs/preview/league_olaf_frames.png`](docs/preview/league_olaf_frames.png?v=1014g)，特效：[`docs/preview/league_olaf_effects.png`](docs/preview/league_olaf_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_olaf_frames.png`](docs/preview/league_olaf_frames.png?v=1015t)，特效：[`docs/preview/league_olaf_effects.png`](docs/preview/league_olaf_effects.png?v=1015t)。
 
 可选的扩展包 [`addons/league_olaf_rage`](addons/league_olaf_rage/README.md)（原生代码，主包不装它也完整）：读真实的生命，已损失 15% 起一层狂怒，之后每多 17% 再一层，和英雄联盟一样按血量给攻速和吸血。
 
