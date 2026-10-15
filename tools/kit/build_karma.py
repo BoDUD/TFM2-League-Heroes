@@ -21,8 +21,8 @@ slots: Inner Flame is `skill`, Focused Resolve `skill2`, Mantra the `ult`; Inspi
           and takes the damage again. Mantra -> Renewal (重焕新生), only when she is crowded (two enemy champions within
           w_crowd of her - nothing reads her health): a heal of rw_heal + rw_ap% AP at once and the root rw_root long.
   E       Inspire (鼓舞, automatic): every attack, Q, W and Mantra checks it while the caster flag e_cd is off: an
-          allied champion in crowd control within e_range first, then one random ally there with an enemy champion
-          within e_near of him (league_lulu R's probe), then herself with an enemy champion within e_self of her. The
+          allied champion in crowd control within e_range first, then up to e_tries random allies there one after
+          another, the first with an enemy champion within e_near of him (league_lulu R's probe), then herself with an enemy champion within e_self of her. The
           pick gets a shield of e_sh + e_ap% AP for e_t ticks and e_ms% move speed for e_ht ticks. Mantra -> Defiance
           (不屈之心): every allied champion within re_r of him (her too) gets re_sh + re_ap% AP more shield and the haste.
   ult     R Mantra (真言): a 3-tick `None` cast on `EnemyChampion` (r_range) arms `mantra` for r_arm ticks (her hands
@@ -73,7 +73,7 @@ P = {
     "w_champ_only": 1, "w_dmg": 60, "w_ap": 40, "w_root": 100, "w_crowd": 35000, "rw_heal": 110, "rw_ap": 40, "rw_root": 140,
     # E Inspire (League: 800 range, shield 80-200 + 50% AP 2.5 s, haste 40% decaying over 1.5 s, cd 10-9 s;
     # Defiance: allies within 650 of the target, +shield, haste)
-    "e_cd": 540, "e_range": 50000, "e_near": 55000, "e_self": 40000, "e_sh": 110, "e_ap": 50, "e_t": 150, "e_ms": 35,
+    "e_cd": 540, "e_range": 50000, "e_near": 90000, "e_self": 40000, "e_tries": 4, "e_gap": 4, "e_sh": 110, "e_ap": 50, "e_t": 150, "e_ms": 35,
     "e_ht": 90, "e_anim": 16, "re_r": 30000, "re_sh": 60, "re_ap": 30,
     # ult: R Mantra (League: next spell empowered within 8 s, cd 40-34 s)
     "r_cd": 2100, "r_range": 70000, "r_arm": 360, "r_anim": 18,
@@ -281,21 +281,36 @@ def build(p):
         return combine(*head, on_me(body) if self_ else body)
 
     probe = lob("e_probe", [zone("e_count", p["e_near"], 1, 1, "EnemyChampion", [flag("e_n1", 4)])],
-                target="AllyChampion", hit=[delayed(2, sw("e_n1", sw("e_got", NONE, e_go())))])
+                target="AllyChampion", hit=[delayed(2, sw("e_n1", sw("e_cd", NONE, sw("e_got", NONE, e_go()))))])
 
     def e_check():
-        """The automatic Inspire: an ally in crowd control, an ally pressed, then herself pressed."""
+        """The automatic Inspire: an ally in crowd control, an ally pressed, then herself pressed.
+        The pressed ally: e_tries random allies one after another, e_gap ticks apart (each probe's `e_n1` flag is the
+        caster's own, so probes running at once would answer for each other); she shields herself only when none of
+        them was pressed. One random probe let her keep it for herself (a player: "Karma's passive shield seems to only
+        be used on herself when fighting rather than a teammate"; 4 simulated games: 48 on her, 10 on allies)."""
+        # every step behind e_cd too: e_got lasts 3 ticks, shorter than e_gap, and a shield spent by an earlier try
+        # must stop the later ones (the first version shielded one archer three times in 16 ticks)
+        tries = [delayed(1 + k * p["e_gap"], *rm("e_n1"), sw("e_cd", NONE, sw("e_got", NONE,
+                                                                               pick(p["e_range"], "AllyNotSelf", probe))))
+                 for k in range(p["e_tries"])]
+        last = 1 + p["e_tries"] * p["e_gap"]
         return sw("e_cd", NONE, combine(
             *rm("e_got", "e_n1", "e_me"),
             pick(p["e_range"], "AllyChampionInCC", e_go()),
-            sw("e_got", NONE, pick(p["e_range"], "AllyNotSelf", probe)),
-            around(p["e_self"], "EnemyChampion", [flag("e_me", 6)]),
-            delayed(4, sw("e_got", NONE, sw("e_me", e_go(self_=True))))))
+            *tries,
+            delayed(last, *rm("e_me"), around(p["e_self"], "EnemyChampion", [flag("e_me", 6)])),
+            delayed(last + 2, sw("e_cd", NONE, sw("e_got", NONE, sw("e_me", e_go(self_=True)))))))
+
+    # Q and W only raise e_ask: the check itself (with its e_tries probes) runs in a watcher her attack hangs on her (an
+    # AddCasted is not copied every tick; the skill trees are - memory skill-tree-size)
+    e_watch = sw("e_watch", NONE, combine(flag("e_watch", 598), on_me(casted(600, 2, sw("e_ask", combine(*rm("e_ask"),
+                                                                                                       e_check()))))))
 
     # ------------------------------------------------------------------ attack: the spirit bolt
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy", combine(
         sfx("a_cast"), homing("a_bolt", p["a_speed"], p["a_y"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
-        on_me(gather(), delayed(2, e_check()))), atype="BaseAttack", cancel=True)
+        e_watch, on_me(gather(), delayed(2, e_check()))), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Inner Flame / Soulflare
     def burst(emp):
@@ -327,7 +342,7 @@ def build(p):
     skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Direction", "EnemyWithoutTower",
                    sw("q_cd", NONE, combine(
                        sw("mantra", combine(q_spend(True), flame(True)), combine(q_spend(False), flame(False))),
-                       on_me(gather(), delayed(2, e_check())))))
+                       on_me(gather(), refresh("e_ask", 4)))))
 
     # ------------------------------------------------------------------ skill2: W Focused Resolve / Renewal
     tie = homing("w_tie", 100000, 0, "EnemyWithoutTower", [
@@ -362,7 +377,7 @@ def build(p):
         *rm("c1", "c2"), around(p["w_crowd"], "EnemyChampion", [sw("c1", flag("c2", p["w_st"] + 2),
                                                                     flag("c1", p["w_st"] + 2))]),
         delayed(p["w_st"] - 1, *rm("w_champ", "w_renew"), sw("mantra", sw("c2", w_emp, w_plain), w_plain), resolve(),
-                on_me(delayed(2, e_check())))))
+                on_me(refresh("e_ask", 4)))))
 
     # ------------------------------------------------------------------ ult: R Mantra (arms the next spell)
     refund = sw("mantra", combine(*rm("mantra"), refresh("r_ref", 3, ult_cooldown_mult=4900)))
