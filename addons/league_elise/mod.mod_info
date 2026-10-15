@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.115.0"
+    }
+  ],
+  "description": "Test build of Elise as in League (needs League of Legends Heroes): replaces the main pack's Elise so in Spider Form her whole body is the spider (standing, running, hit and dead too, game 0.6.4), the Cocoon goes at a champion with no minion, monster or other champion in the way (a held one first, else the nearest), Rappel drops on the lowest-health champion and the cocoon hunt (her ult) on a held champion first, else the lowest. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-15",
+  "mod_id": "league_elise",
+  "mod_type": "native",
+  "name": "League Heroes: Elise's whole-body spider and the Cocoon / Rappel / hunt targets (test)",
+  "version": "0.1.0"
+}

@@ -1,0 +1,42 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_elise_queen": {
+        "skill2": "【附加包】人形：向线上没被挡的英雄吐茧造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并晕眩<#ffb900ff>1.67秒<>；冷却时放<#ff9028ff>自爆蜘蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。<#ff9028ff>盘丝<>：升空不可选中，落到血最少的英雄身上；冷却时<#ff9028ff>掠行狂暴<>，攻速+60%。",
+        "ult": "【附加包】向被控住或血最少的英雄吐茧，立即化身蜘蛛并重置蜘蛛技能，盘丝落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，再施放剧毒之蜇。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_elise_queen": {
+        "skill2": "【附加包】人形：向線上沒被擋的英雄吐繭造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並暈眩<#ffb900ff>1.67秒<>；冷卻時放<#ff9028ff>爆裂毒蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。<#ff9028ff>韌絲飛躍<>：升空無法選取，落到血最少的英雄身上；冷卻時<#ff9028ff>掠食者的狂喜<>，攻速+60%。",
+        "ult": "【附加包】向被控住或血最少的英雄吐繭，立即化身蜘蛛並重置蜘蛛技能，韌絲飛躍落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，再施放毒咬。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_elise_queen": {
+        "skill2": "[Add-on] Human: a cocoon at a champion with a clear line for <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> that stuns <#ffb900ff>1.67s<>; on cooldown a <#ff9028ff>Volatile Spiderling<> for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>Rappel<>: rises out of reach and drops on the lowest champion; on cooldown <#ff9028ff>Skittering Frenzy<>, +60% attack speed.",
+        "ult": "[Add-on] Spits a cocoon at the held or lowest champion, turns into the spider at once with her spider abilities reset, rappels onto it for <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and bites."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_elise_queen": {
+        "skill2": "[애드온] 인간: 막히지 않은 챔피언에게 고치로 <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.67초<> 기절; 대기 중이면 <#ff9028ff>위험한 새끼 거미<> <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>줄타기<>: 대상 지정 불가로 올라가 체력이 가장 낮은 챔피언에게 내려옴; 대기 중이면 <#ff9028ff>광란의 질주<>, 공격 속도 +60%.",
+        "ult": "[애드온] 기절했거나 체력이 가장 낮은 챔피언에게 고치를 뱉고 즉시 거미로 변해 거미 스킬을 초기화, 줄타기로 내려와 <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 후 독이빨."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_elise_queen": {
+        "skill2": "【アドオン】人間：遮られないチャンピオンへ繭で<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>1.67秒<>スタン；クールダウン中は<#ff9028ff>子蜘蛛爆弾<>で<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>。<#ff9028ff>蜘蛛の糸<>：対象不可で上昇し体力の最も低いチャンピオンへ降下；クールダウン中は<#ff9028ff>猛食<>、攻撃速度+60%。",
+        "ult": "【アドオン】拘束中か体力の最も低いチャンピオンへ繭を吐き、即座に蜘蛛に変身して蜘蛛のスキルをリセット、蜘蛛の糸で降下し<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、毒牙を放つ。"
+      }
+    }
+  }
+}
