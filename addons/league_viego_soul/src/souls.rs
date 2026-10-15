@@ -59,6 +59,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_diana", "assassin", &["attack", "attack_p", "dead", "hit", "idle", "run", "skill", "skill2", "skill2_w", "ult"]),
     ("league_draven", "range", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_ekko", "assassin", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult", "ult_arrive"]),
+    ("league_elise", "assassin", &["attack", "c_attack", "c_dead", "c_hit", "c_idle", "c_land", "c_run", "c_skill", "c_skill2", "c_transform", "dead", "hd_attack", "hd_c_attack", "hd_c_dead", "hd_c_hit", "hd_c_idle", "hd_c_land", "hd_c_run", "hd_c_skill", "hd_c_skill2", "hd_c_transform", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_transform", "hit", "idle", "lo_attack", "lo_c_attack", "lo_c_dead", "lo_c_hit", "lo_c_idle", "lo_c_land", "lo_c_run", "lo_c_skill", "lo_c_skill2", "lo_c_transform", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_transform", "run", "skill", "skill2", "transform"]),
     ("league_evelynn", "assassin", &["attack", "attack_e", "attack_e2", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_ezreal", "range", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "skill_w", "ult"]),
     ("league_fiddlesticks", "mage", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult", "ult_land", "w_loop"]),

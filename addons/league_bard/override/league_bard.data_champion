@@ -24,7 +24,13 @@
       "e_close": 15000,
       "e_ms": 40,
       "e_ms_t": 120,
-      "e_chase_r": 100000
+      "e_chase_r": 100000,
+      "r_range": 80000,
+      "r_arm_range": 90000,
+      "r_r": 36000,
+      "r_t": 150,
+      "r_lag": 15,
+      "r_travel": 24
     }
   },
   "sprite": "asset/league/champions/league_bard",
@@ -2058,276 +2064,118 @@
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "RemoveCasterBuff",
-          "name": "league_bard_r_armed"
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_bard_r_armed",
-            "duration": {
-              "Time": {
-                "tick": 900
-              }
-            }
+      "type": "SwitchByBuff",
+      "buff_name": "league_bard_r_drk",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_bard_r_drk"
           },
-          "only_to_enemy": false
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_bard_r_armed",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_r_got"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_r_n1"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_r_n2"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_r_a1"
-              },
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_bard_r_s1"
-              },
-              {
-                "type": "RandomTarget",
-                "range": 80000,
-                "casting_target": "AllyChampionInCC",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "ParabolicProjectile",
-                    "name": "league_bard_r_sprobe",
-                    "travel_time": 1,
-                    "range": 400000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "applied_target": "AllyChampion",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Delayed",
-                          "tick": 2,
-                          "effects": [
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_bard_r_armed",
-                              "effect_buff": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_bard_r_s1",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_bard_r_armed"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_bard_r_got",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 1
-                                          }
-                                        }
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "CasterAnimation",
-                                      "name": "ult",
-                                      "tick": 29
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_bard_r_cast"
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_bard_vo_r"
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 15,
-                                      "effects": [
-                                        {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_bard_r_orb",
-                                          "travel_time": 24,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "range_effect_name": "league_bard_r_mark",
-                                          "applied_target": "AllyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_bard_r_dome"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_bard_r_land"
-                                            },
-                                            {
-                                              "type": "RangeProjectile",
-                                              "name": "league_bard_r_zone",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 36000
-                                                }
-                                              },
-                                              "delay": 1,
-                                              "apply": 1,
-                                              "applied_target": "Both",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "AddBuff",
-                                                    "buff_state": {
-                                                      "name": "league_bard_r_tower",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 150
-                                                        }
-                                                      },
-                                                      "attack_speed_mult": -99,
-                                                      "attack_mult": -99
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Banish",
-                                                    "duration": 150,
-                                                    "lock_effect_name": "league_bard_r_lock",
-                                                    "end_effect_name": "league_bard_r_free"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_bard_r_lock"
-                                                  }
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": []
-                                }
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            }
-                          ]
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "league_bard_r_drkgo",
+              "duration": {
+                "Time": {
+                  "tick": 4
+                }
+              }
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "ult",
+            "tick": 29
+          },
+          {
+            "type": "Sfx",
+            "name": "league_bard_r_cast"
+          },
+          {
+            "type": "Sfx",
+            "name": "league_bard_vo_r"
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_bard_r_armed"
+          },
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "league_bard_r_armed",
+              "duration": {
+                "Time": {
+                  "tick": 900
+                }
+              }
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_bard_r_armed",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_bard_r_got"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_bard_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_bard_r_n2"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_bard_r_a1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_bard_r_s1"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 80000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "league_bard_r_sprobe",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
                         }
-                      }
-                    ],
-                    "end_effects": [
-                      {
-                        "type": "RangeProjectile",
-                        "name": "league_bard_r_scount",
-                        "shape": {
-                          "Circle": {
-                            "radius": 36000
-                          }
-                        },
-                        "delay": 1,
-                        "apply": 1,
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_bard_r_s1",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 4
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "RandomTarget",
-                "range": 80000,
-                "casting_target": "EnemyChampion",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "ParabolicProjectile",
-                    "name": "league_bard_r_probe",
-                    "travel_time": 1,
-                    "range": 400000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "applied_target": "EnemyChampion",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "Delayed",
-                          "tick": 2,
-                          "effects": [
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_bard_r_armed",
-                              "effect_buff": {
+                      },
+                      "applied_target": "AllyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Delayed",
+                            "tick": 2,
+                            "effects": [
+                              {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_bard_r_n2",
+                                "buff_name": "league_bard_r_armed",
                                 "effect_buff": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_bard_r_a1",
+                                  "buff_name": "league_bard_r_s1",
                                   "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
                                     "type": "Combine",
                                     "effects": [
                                       {
@@ -2374,7 +2222,7 @@
                                               }
                                             },
                                             "range_effect_name": "league_bard_r_mark",
-                                            "applied_target": "EnemyChampion",
+                                            "applied_target": "AllyChampion",
                                             "applied_effects": [],
                                             "end_effects": [
                                               {
@@ -2436,56 +2284,281 @@
                                         ]
                                       }
                                     ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
                                   }
                                 },
                                 "effect_none": {
                                   "type": "Combine",
                                   "effects": []
                                 }
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "end_effects": [
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_bard_r_scount",
+                          "shape": {
+                            "Circle": {
+                              "radius": 36000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_bard_r_s1",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 4
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
                               }
                             }
                           ]
                         }
-                      }
-                    ],
-                    "end_effects": [
-                      {
-                        "type": "RangeProjectile",
-                        "name": "league_bard_r_count",
-                        "shape": {
-                          "Circle": {
-                            "radius": 36000
-                          }
-                        },
-                        "delay": 1,
-                        "apply": 1,
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_bard_r_n1",
-                              "effect_buff": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_bard_r_n2",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 4
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 80000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ParabolicProjectile",
+                      "name": "league_bard_r_probe",
+                      "travel_time": 1,
+                      "range": 400000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Delayed",
+                            "tick": 2,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_bard_r_armed",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_bard_r_n2",
+                                  "effect_buff": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_bard_r_a1",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_bard_r_armed"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_bard_r_got",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "ult",
+                                          "tick": 29
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_bard_r_cast"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_bard_vo_r"
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 15,
+                                          "effects": [
+                                            {
+                                              "type": "ParabolicProjectile",
+                                              "name": "league_bard_r_orb",
+                                              "travel_time": 24,
+                                              "range": 400000,
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "range_effect_name": "league_bard_r_mark",
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [],
+                                              "end_effects": [
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_bard_r_dome"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_bard_r_land"
+                                                },
+                                                {
+                                                  "type": "RangeProjectile",
+                                                  "name": "league_bard_r_zone",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 36000
+                                                    }
+                                                  },
+                                                  "delay": 1,
+                                                  "apply": 1,
+                                                  "applied_target": "Both",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_bard_r_tower",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 150
+                                                            }
+                                                          },
+                                                          "attack_speed_mult": -99,
+                                                          "attack_mult": -99
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "Banish",
+                                                        "duration": 150,
+                                                        "lock_effect_name": "league_bard_r_lock",
+                                                        "end_effect_name": "league_bard_r_free"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_bard_r_lock"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
                                     }
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
                                   }
                                 },
-                                "only_to_enemy": false
-                              },
-                              "effect_none": {
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "end_effects": [
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_bard_r_count",
+                          "shape": {
+                            "Circle": {
+                              "radius": 36000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_bard_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_bard_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_bard_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 4
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_bard_r_allies",
+                          "shape": {
+                            "Circle": {
+                              "radius": 36000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "AllyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_bard_r_n1",
+                                  "name": "league_bard_r_a1",
                                   "duration": {
                                     "Time": {
                                       "tick": 4
@@ -2495,86 +2568,57 @@
                                 "only_to_enemy": false
                               }
                             }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "RangeProjectile",
-                        "name": "league_bard_r_allies",
-                        "shape": {
-                          "Circle": {
-                            "radius": 36000
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": []
+            }
+          },
+          {
+            "type": "Delayed",
+            "tick": 900,
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_bard_r_armed",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_bard_r_armed"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_bard_r_refund",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
                           }
                         },
-                        "delay": 1,
-                        "apply": 1,
-                        "applied_target": "AllyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_bard_r_a1",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 4
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+                        "ult_cooldown_mult": 4900
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
               }
             ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": []
           }
-        },
-        {
-          "type": "Delayed",
-          "tick": 900,
-          "effects": [
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_bard_r_armed",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_bard_r_armed"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_bard_r_refund",
-                      "duration": {
-                        "Time": {
-                          "tick": 3
-                        }
-                      },
-                      "ult_cooldown_mult": 4900
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
-            }
-          ]
-        }
-      ]
+        ]
+      }
     }
   },
   "view_projectiles": [
@@ -2771,6 +2815,22 @@
       "name": "league_bard_e_rideb",
       "anim": "asset/league/effects/league_bard_fx",
       "tag": "e_ride",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_r_markb",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "r_mark",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_r_domeb",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "r_dome",
       "repeat": false,
       "z": 2
     }

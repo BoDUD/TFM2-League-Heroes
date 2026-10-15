@@ -1,0 +1,652 @@
+[
+  {
+    "file": "elise_run_1.png",
+    "errors": [],
+    "bbox_cells": [
+      75,
+      40,
+      139,
+      139
+    ]
+  },
+  {
+    "file": "elise_run_2.png",
+    "errors": [],
+    "bbox_cells": [
+      74,
+      30,
+      141,
+      139
+    ]
+  },
+  {
+    "file": "elise_run_3.png",
+    "errors": [],
+    "bbox_cells": [
+      76,
+      37,
+      141,
+      139
+    ]
+  },
+  {
+    "file": "elise_run_4.png",
+    "errors": [],
+    "bbox_cells": [
+      78,
+      38,
+      142,
+      139
+    ]
+  },
+  {
+    "file": "elise_run_5.png",
+    "errors": [],
+    "bbox_cells": [
+      77,
+      35,
+      141,
+      139
+    ]
+  },
+  {
+    "file": "elise_run_6.png",
+    "errors": [],
+    "bbox_cells": [
+      77,
+      35,
+      138,
+      139
+    ]
+  },
+  {
+    "file": "elise_run_7.png",
+    "errors": [],
+    "bbox_cells": [
+      80,
+      41,
+      134,
+      139
+    ]
+  },
+  {
+    "file": "elise_run_8.png",
+    "errors": [],
+    "bbox_cells": [
+      78,
+      40,
+      136,
+      139
+    ]
+  },
+  {
+    "file": "elise_attack_1.png",
+    "errors": [],
+    "bbox_cells": [
+      57,
+      36,
+      135,
+      139
+    ]
+  },
+  {
+    "file": "elise_attack_2.png",
+    "errors": [],
+    "bbox_cells": [
+      70,
+      30,
+      137,
+      139
+    ]
+  },
+  {
+    "file": "elise_attack_3.png",
+    "errors": [],
+    "bbox_cells": [
+      70,
+      25,
+      151,
+      139
+    ]
+  },
+  {
+    "file": "elise_attack_4.png",
+    "errors": [],
+    "bbox_cells": [
+      73,
+      27,
+      139,
+      139
+    ]
+  },
+  {
+    "file": "elise_attack_5.png",
+    "errors": [],
+    "bbox_cells": [
+      66,
+      28,
+      148,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill_1.png",
+    "errors": [],
+    "bbox_cells": [
+      63,
+      28,
+      122,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill_2.png",
+    "errors": [],
+    "bbox_cells": [
+      66,
+      35,
+      154,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill_3.png",
+    "errors": [],
+    "bbox_cells": [
+      60,
+      51,
+      155,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill_4.png",
+    "errors": [],
+    "bbox_cells": [
+      52,
+      46,
+      127,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill_5.png",
+    "errors": [],
+    "bbox_cells": [
+      56,
+      41,
+      133,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill2_1.png",
+    "errors": [],
+    "bbox_cells": [
+      53,
+      40,
+      134,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill2_2.png",
+    "errors": [],
+    "bbox_cells": [
+      79,
+      27,
+      181,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill2_3.png",
+    "errors": [],
+    "bbox_cells": [
+      85,
+      25,
+      180,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill2_4.png",
+    "errors": [],
+    "bbox_cells": [
+      81,
+      28,
+      131,
+      139
+    ]
+  },
+  {
+    "file": "elise_skill2_5.png",
+    "errors": [],
+    "bbox_cells": [
+      65,
+      36,
+      136,
+      139
+    ]
+  },
+  {
+    "file": "elise_transform_1.png",
+    "errors": [],
+    "bbox_cells": [
+      56,
+      13,
+      147,
+      139
+    ]
+  },
+  {
+    "file": "elise_transform_2.png",
+    "errors": [],
+    "bbox_cells": [
+      72,
+      18,
+      129,
+      139
+    ]
+  },
+  {
+    "file": "elise_transform_3.png",
+    "errors": [],
+    "bbox_cells": [
+      72,
+      57,
+      129,
+      139
+    ]
+  },
+  {
+    "file": "elise_dead_1.png",
+    "errors": [],
+    "bbox_cells": [
+      66,
+      33,
+      138,
+      139
+    ]
+  },
+  {
+    "file": "elise_dead_2.png",
+    "errors": [],
+    "bbox_cells": [
+      75,
+      49,
+      144,
+      139
+    ]
+  },
+  {
+    "file": "elise_dead_3.png",
+    "errors": [],
+    "bbox_cells": [
+      74,
+      63,
+      150,
+      139
+    ]
+  },
+  {
+    "file": "elise_dead_4.png",
+    "errors": [],
+    "bbox_cells": [
+      75,
+      74,
+      151,
+      139
+    ]
+  },
+  {
+    "file": "elise_dead_5.png",
+    "errors": [],
+    "bbox_cells": [
+      22,
+      100,
+      150,
+      139
+    ]
+  },
+  {
+    "file": "elise_dead_6.png",
+    "errors": [],
+    "bbox_cells": [
+      21,
+      97,
+      147,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_1.png",
+    "errors": [],
+    "bbox_cells": [
+      60,
+      75,
+      182,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_2.png",
+    "errors": [],
+    "bbox_cells": [
+      53,
+      78,
+      177,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_3.png",
+    "errors": [],
+    "bbox_cells": [
+      52,
+      72,
+      175,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_4.png",
+    "errors": [],
+    "bbox_cells": [
+      52,
+      75,
+      186,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_5.png",
+    "errors": [],
+    "bbox_cells": [
+      52,
+      74,
+      184,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_6.png",
+    "errors": [],
+    "bbox_cells": [
+      51,
+      74,
+      183,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_7.png",
+    "errors": [],
+    "bbox_cells": [
+      48,
+      75,
+      177,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_run_8.png",
+    "errors": [],
+    "bbox_cells": [
+      46,
+      77,
+      181,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_attack_1.png",
+    "errors": [],
+    "bbox_cells": [
+      51,
+      71,
+      176,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_attack_2.png",
+    "errors": [],
+    "bbox_cells": [
+      52,
+      58,
+      169,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_attack_3.png",
+    "errors": [],
+    "bbox_cells": [
+      48,
+      64,
+      177,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_attack_4.png",
+    "errors": [],
+    "bbox_cells": [
+      48,
+      68,
+      170,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_skill_1.png",
+    "errors": [],
+    "bbox_cells": [
+      62,
+      73,
+      171,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_skill_2.png",
+    "errors": [],
+    "bbox_cells": [
+      55,
+      49,
+      181,
+      128
+    ]
+  },
+  {
+    "file": "elise_c_skill_3.png",
+    "errors": [],
+    "bbox_cells": [
+      52,
+      27,
+      183,
+      121
+    ]
+  },
+  {
+    "file": "elise_c_skill_4.png",
+    "errors": [],
+    "bbox_cells": [
+      54,
+      81,
+      180,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_skill_5.png",
+    "errors": [],
+    "bbox_cells": [
+      56,
+      79,
+      164,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_skill2_1.png",
+    "errors": [],
+    "bbox_cells": [
+      46,
+      75,
+      173,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_skill2_2.png",
+    "errors": [],
+    "bbox_cells": [
+      60,
+      63,
+      168,
+      134
+    ]
+  },
+  {
+    "file": "elise_c_skill2_3.png",
+    "errors": [],
+    "bbox_cells": [
+      72,
+      54,
+      165,
+      128
+    ]
+  },
+  {
+    "file": "elise_c_skill2_4.png",
+    "errors": [],
+    "bbox_cells": [
+      77,
+      4,
+      145,
+      73
+    ]
+  },
+  {
+    "file": "elise_c_land_1.png",
+    "errors": [],
+    "bbox_cells": [
+      54,
+      24,
+      173,
+      122
+    ]
+  },
+  {
+    "file": "elise_c_land_2.png",
+    "errors": [],
+    "bbox_cells": [
+      45,
+      82,
+      182,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_land_3.png",
+    "errors": [],
+    "bbox_cells": [
+      61,
+      77,
+      169,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_transform_1.png",
+    "errors": [],
+    "bbox_cells": [
+      51,
+      64,
+      168,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_transform_2.png",
+    "errors": [],
+    "bbox_cells": [
+      46,
+      65,
+      182,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_transform_3.png",
+    "errors": [],
+    "bbox_cells": [
+      57,
+      69,
+      159,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_dead_1.png",
+    "errors": [],
+    "bbox_cells": [
+      67,
+      76,
+      175,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_dead_2.png",
+    "errors": [],
+    "bbox_cells": [
+      61,
+      71,
+      161,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_dead_3.png",
+    "errors": [],
+    "bbox_cells": [
+      65,
+      70,
+      160,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_dead_4.png",
+    "errors": [],
+    "bbox_cells": [
+      66,
+      76,
+      160,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_dead_5.png",
+    "errors": [],
+    "bbox_cells": [
+      66,
+      75,
+      160,
+      139
+    ]
+  },
+  {
+    "file": "elise_c_dead_6.png",
+    "errors": [],
+    "bbox_cells": [
+      66,
+      76,
+      154,
+      139
+    ]
+  }
+]

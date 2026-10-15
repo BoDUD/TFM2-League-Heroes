@@ -749,6 +749,13 @@
         "skill": "掷出弹射之刃，造成<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法伤害<>，再弹向附近<#ffb900ff>2<>个敌人；匕首落在第一个目标身后。<#ff9028ff>瞬步<>就绪且匕首旁有敌人时，瞬步到匕首处。",
         "skill2": "<#ff9028ff>瞬步<>就绪时先瞬步到敌方英雄身边，造成<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<><#a974ffff>魔法伤害<>（冷却<#ffb900ff>10秒<>）；再把匕首抛向空中，<#ffb900ff>1.25秒<>后落地，获得逐渐衰减的<#ffffffff>移速+60%<>。",
         "ult": "原地旋转引导<#ffb900ff>2.5秒<>，向周围的敌方英雄连续掷出匕首，共造成<#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<><#a974ffff>魔法伤害<>并使其<#ef5350ff>治疗效果-60%<>。受到控制时中断。"
+      },
+      "league_elise": {
+        "name": "伊莉丝",
+        "attack": "<#ff9028ff>蜘蛛女皇<>：人形技能命中积攒小蜘蛛（最多3只）。出手前按战况切换人形（远程）和蜘蛛（近战），冷却<#ffb900ff>4秒<>。蜘蛛普攻额外造成<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>并回血，每只小蜘蛛撕咬<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
+        "skill": "人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>和<#ffb900ff>3%<>最大生命真实伤害。<#ff9028ff>剧毒之蜇<>：扑向敌人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>和<#ffb900ff>5%<>最大生命真实伤害。",
+        "skill2": "人形：吐茧造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并晕眩<#ffb900ff>1.67秒<>；冷却时放<#ff9028ff>自爆蜘蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。<#ff9028ff>盘丝<>：升空不可选中，落到英雄身上；冷却时<#ff9028ff>掠行狂暴<>，攻速+60%。",
+        "ult": "向英雄吐茧，立即化身蜘蛛并重置蜘蛛技能，盘丝落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，再施放剧毒之蜇。"
       }
     },
     "skill_name": {
@@ -1286,6 +1293,11 @@
         "skill1": "弹射之刃",
         "skill2": "伺机待发",
         "ult": "死亡莲华"
+      },
+      "league_elise": {
+        "skill1": "神经毒素 / 剧毒之蜇",
+        "skill2": "结茧 / 盘丝",
+        "ult": "蜘蛛形态"
       }
     }
   },
@@ -2039,6 +2051,13 @@
         "skill": "擲出彈射利刃，造成<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法傷害<>，再彈向附近<#ffb900ff>2<>個敵人；匕首落在第一個目標身後。<#ff9028ff>瞬步<>就緒且匕首旁有敵人時，瞬步到匕首處。",
         "skill2": "<#ff9028ff>瞬步<>就緒時先瞬步到敵方英雄身邊，造成<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<><#a974ffff>魔法傷害<>（冷卻<#ffb900ff>10秒<>）；再把匕首拋向空中，<#ffb900ff>1.25秒<>後落地，獲得逐漸衰減的<#ffffffff>跑速+60%<>。",
         "ult": "原地旋轉引導<#ffb900ff>2.5秒<>，向周圍的敵方英雄連續擲出匕首，共造成<#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<><#a974ffff>魔法傷害<>並使其<#ef5350ff>治療效果-60%<>。受到控制時中斷。"
+      },
+      "league_elise": {
+        "name": "伊莉絲",
+        "attack": "<#ff9028ff>蜘蛛女王<>：人形技能命中累積小蜘蛛（最多3隻）。出手前依戰況切換人形（遠程）和蜘蛛（近戰），冷卻<#ffb900ff>4秒<>。蜘蛛普攻額外造成<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>並回血，每隻小蜘蛛撕咬<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
+        "skill": "人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>和<#ffb900ff>3%<>最大生命真實傷害。<#ff9028ff>毒咬<>：撲向敵人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>和<#ffb900ff>5%<>最大生命真實傷害。",
+        "skill2": "人形：吐繭造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並暈眩<#ffb900ff>1.67秒<>；冷卻時放<#ff9028ff>爆裂毒蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。<#ff9028ff>韌絲飛躍<>：升空無法選取，落到英雄身上；冷卻時<#ff9028ff>掠食者的狂喜<>，攻速+60%。",
+        "ult": "向英雄吐繭，立即化身蜘蛛並重置蜘蛛技能，韌絲飛躍落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，再施放毒咬。"
       }
     },
     "skill_name": {
@@ -2576,6 +2595,11 @@
         "skill1": "彈射利刃",
         "skill2": "備戰",
         "ult": "死亡蓮花"
+      },
+      "league_elise": {
+        "skill1": "神經毒素／毒咬",
+        "skill2": "盤纏蛛絲／韌絲飛躍",
+        "ult": "蜘蛛型態"
       }
     }
   },
@@ -3329,6 +3353,13 @@
         "skill": "Throws a bouncing blade for <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>magic damage<> that bounces to <#ffb900ff>2<> nearby enemies; the dagger lands behind the first target. If <#ff9028ff>Shunpo<> is ready and an enemy is near the dagger, she blinks to it.",
         "skill2": "If <#ff9028ff>Shunpo<> is ready she first blinks to an enemy champion for <#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<> <#a974ffff>magic damage<> (cooldown <#ffb900ff>10s<>); then tosses a dagger into the air that lands after <#ffb900ff>1.25s<>, gaining <#ffffffff>60% move speed<> that decays.",
         "ult": "Channels for <#ffb900ff>2.5s<>, throwing daggers at nearby enemy champions for <#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<> <#a974ffff>magic damage<> in total and <#ef5350ff>60% reduced healing<>. Crowd control interrupts it."
+      },
+      "league_elise": {
+        "name": "Elise",
+        "attack": "<#ff9028ff>Spider Queen<>: human ability hits gather spiderlings (up to 3). Before each attack she switches between human (ranged) and spider (melee) as the fight needs, every <#ffb900ff>4s<> at most. Spider attacks deal <#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<> more and heal her; each spiderling bites for <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>.",
+        "skill": "Human: a venom bolt for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ffb900ff>3%<> max health true damage. <#ff9028ff>Venomous Bite<>: lunges for <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ffb900ff>5%<> max health true damage.",
+        "skill2": "Human: a cocoon for <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> that stuns <#ffb900ff>1.67s<>; on cooldown a <#ff9028ff>Volatile Spiderling<> for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>Rappel<>: rises out of reach and drops on a champion; on cooldown <#ff9028ff>Skittering Frenzy<>, +60% attack speed.",
+        "ult": "Spits a cocoon at a champion, turns into the spider at once with her spider abilities reset, rappels onto it for <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and bites."
       }
     },
     "skill_name": {
@@ -3866,6 +3897,11 @@
         "skill1": "Bouncing Blade",
         "skill2": "Preparation",
         "ult": "Death Lotus"
+      },
+      "league_elise": {
+        "skill1": "Neurotoxin / Venomous Bite",
+        "skill2": "Cocoon / Rappel",
+        "ult": "Spider Form"
       }
     }
   },
@@ -4619,6 +4655,13 @@
         "skill": "튕기는 단검을 던져 <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>마법 피해<>, 주변 적 <#ffb900ff>2<>명에게 튕김; 단검은 첫 대상 뒤에 떨어짐. <#ff9028ff>순보<>가 준비되고 단검 근처에 적이 있으면 단검으로 순보.",
         "skill2": "<#ff9028ff>순보<>가 준비되면 먼저 적 챔피언에게 순보해 <#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<> <#a974ffff>마법 피해<>(대기시간 <#ffb900ff>10초<>); 이후 단검을 공중에 던져 <#ffb900ff>1.25초<> 뒤 떨어지며 점차 감소하는 <#ffffffff>이동 속도 +60%<>.",
         "ult": "<#ffb900ff>2.5초<> 동안 정신을 집중해 주변 적 챔피언에게 단검을 던져 총 <#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<> <#a974ffff>마법 피해<>와 <#ef5350ff>치유 감소 60%<>. 군중 제어 시 중단."
+      },
+      "league_elise": {
+        "name": "엘리스",
+        "attack": "<#ff9028ff>거미 여왕<>: 인간 스킬 적중 시 새끼 거미 축적 (최대 3). 공격 전에 상황에 따라 인간(원거리)과 거미(근접) 형태를 바꾸며, 전환 대기시간 <#ffb900ff>4초<>. 거미 공격은 <#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>마법 피해<> 추가와 회복, 새끼 거미마다 <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>.",
+        "skill": "인간: 독을 쏘아 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 최대 체력 <#ffb900ff>3%<> 고정 피해. <#ff9028ff>독이빨<>: 달려들어 <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 최대 체력 <#ffb900ff>5%<> 고정 피해.",
+        "skill2": "인간: 고치로 <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.67초<> 기절; 대기 중이면 <#ff9028ff>위험한 새끼 거미<> <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>줄타기<>: 대상 지정 불가로 올라가 챔피언에게 내려옴; 대기 중이면 <#ff9028ff>광란의 질주<>, 공격 속도 +60%.",
+        "ult": "챔피언에게 고치를 뱉고 즉시 거미로 변해 거미 스킬을 초기화, 줄타기로 내려와 <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 후 독이빨."
       }
     },
     "skill_name": {
@@ -5156,6 +5199,11 @@
         "skill1": "단검 투척",
         "skill2": "준비",
         "ult": "죽음의 연꽃"
+      },
+      "league_elise": {
+        "skill1": "신경독 / 독이빨",
+        "skill2": "고치 / 줄타기",
+        "ult": "거미 형태"
       }
     }
   },
@@ -5909,6 +5957,13 @@
         "skill": "跳ね返るナイフを投げ<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<>の<#a974ffff>魔法ダメージ<>、近くの敵<#ffb900ff>2<>体に跳ね返る。短剣は最初の対象の後ろに落ちる。<#ff9028ff>瞬歩<>が使用可能で短剣の近くに敵がいれば短剣へ瞬歩。",
         "skill2": "<#ff9028ff>瞬歩<>が使用可能なら先に敵チャンピオンへ瞬歩し<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<>の<#a974ffff>魔法ダメージ<>（CD<#ffb900ff>10秒<>）。短剣を宙に投げ<#ffb900ff>1.25秒<>後に落下、減衰する<#ffffffff>移動速度+60%<>。",
         "ult": "<#ffb900ff>2.5秒<>間詠唱し、周囲の敵チャンピオンに短剣を投げ続け合計<#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>回復量-60%<>。行動妨害で中断。"
+      },
+      "league_elise": {
+        "name": "エリス",
+        "attack": "<#ff9028ff>蜘蛛の女帝<>：人間のスキル命中で子蜘蛛を蓄積（最大3）。攻撃の前に戦況で人間（遠隔）と蜘蛛（近接）を切り替え、間隔<#ffb900ff>4秒<>。蜘蛛の通常攻撃は<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>追加と回復、子蜘蛛ごとに<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
+        "skill": "人間：毒を放ち<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と最大体力<#ffb900ff>3%<>の確定ダメージ。<#ff9028ff>毒牙<>：飛びかかり<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と最大体力<#ffb900ff>5%<>の確定ダメージ。",
+        "skill2": "人間：繭で<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>1.67秒<>スタン；クールダウン中は<#ff9028ff>子蜘蛛爆弾<>で<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>。<#ff9028ff>蜘蛛の糸<>：対象不可で上昇しチャンピオンへ降下；クールダウン中は<#ff9028ff>猛食<>、攻撃速度+60%。",
+        "ult": "チャンピオンへ繭を吐き、即座に蜘蛛に変身して蜘蛛のスキルをリセット、蜘蛛の糸で降下し<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、毒牙を放つ。"
       }
     },
     "skill_name": {
@@ -6446,6 +6501,11 @@
         "skill1": "バウンドナイフ",
         "skill2": "プリペレーション",
         "ult": "デスロータス"
+      },
+      "league_elise": {
+        "skill1": "神経毒/毒牙",
+        "skill2": "繭化/蜘蛛の糸",
+        "ult": "蜘蛛形態"
       }
     }
   }
