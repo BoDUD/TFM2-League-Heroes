@@ -1,0 +1,2792 @@
+{
+  "id": "league_jayce",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Range",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_jayce",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_jayce_skill",
+    "asset/league/icons/league_jayce_skill2",
+    "asset/league/icons/league_jayce_ult"
+  ],
+  "stat": {
+    "attack": 88,
+    "magic_power": 20,
+    "hp": 1080,
+    "defence": 34,
+    "magic_resistance": 28,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 8,
+    "hp": 106,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_jayce.attack",
+    "duration": 24,
+    "cooltime": 64,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jayce_tf"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jayce_r_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_jayce_cn",
+                "effect_buff": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jayce_hyper",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jayce_near"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 30000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jayce_near",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_jayce_hq_cd",
+                        "effect_buff": {
+                          "type": "SwitchByLevel3",
+                          "effect_start": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_level3": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jayce_he_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jayce_near",
+                              "effect_buff": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jayce_tf",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jayce_cq_cd",
+                                "effect_buff": {
+                                  "type": "SwitchByLevel3",
+                                  "effect_start": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_jayce_tf",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 2
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_level3": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_jayce_cw_cd",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_jayce_tf",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_jayce_near",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jayce_tf",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jayce_cq_cd",
+                            "effect_buff": {
+                              "type": "SwitchByLevel3",
+                              "effect_start": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jayce_tf",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_level3": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jayce_cw_cd",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jayce_tf",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jayce_hq_cd",
+                  "effect_buff": {
+                    "type": "SwitchByLevel3",
+                    "effect_start": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_tf",
+                        "duration": {
+                          "Time": {
+                            "tick": 2
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_level3": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_jayce_he_cd",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jayce_tf",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jayce_tf",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_jayce_cn",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_jayce_cn"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_jayce_shred_on"
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jayce_r_cd"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_r_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jayce_haste"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_haste",
+                        "duration": {
+                          "Time": {
+                            "tick": 60
+                          }
+                        },
+                        "move_speed_mult": 25
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jayce_guard"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_guard",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": 25,
+                        "magic_resistance_mult": 25
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "tf_h",
+                  "tick": 14
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_jayce_tf_spark"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_jayce_tf_h"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jayce_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jayce_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_jayce_vo_tf_h"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_jayce_cn",
+                    "duration": "Permanent",
+                    "range": 25000
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jayce_r_cd"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_r_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jayce_haste"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_haste",
+                        "duration": {
+                          "Time": {
+                            "tick": 60
+                          }
+                        },
+                        "move_speed_mult": 25
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_jayce_shred_on"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_shred_on",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "tf_c",
+                  "tick": 14
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_jayce_tf_spark"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_jayce_tf_c"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jayce_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jayce_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_jayce_vo_tf_c"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_jayce_cn",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "c_attack",
+                  "tick": 20
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jayce_hyper",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_jayce_hc2",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jayce_hyper"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jayce_hc1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jayce_hc2"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_jayce_hc1",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jayce_hc2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 216
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jayce_hc1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 216
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        }
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_jayce_h_shot"
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_jayce_shred_on",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jayce_shred_on"
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 7,
+                              "effects": [
+                                {
+                                  "type": "TargetProjectile",
+                                  "name": "league_jayce_c_bolt",
+                                  "speed": 6000,
+                                  "y_offset": 0,
+                                  "applied_target": "Enemy",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 0,
+                                        "attack_ratio": 120,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_jayce_c_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_jayce_c_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_jayce_shred",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 300
+                                            }
+                                          },
+                                          "defence_mult": -20,
+                                          "magic_resistance_mult": -20
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_jayce_shred"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Delayed",
+                          "tick": 7,
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "league_jayce_c_bolt",
+                              "speed": 6000,
+                              "y_offset": 0,
+                              "applied_target": "Enemy",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 120,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_jayce_c_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_jayce_c_hit"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_jayce_c_shot"
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_jayce_shred_on",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jayce_shred_on"
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 7,
+                              "effects": [
+                                {
+                                  "type": "TargetProjectile",
+                                  "name": "league_jayce_c_bolt",
+                                  "speed": 6000,
+                                  "y_offset": 0,
+                                  "applied_target": "Enemy",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 0,
+                                        "attack_ratio": 100,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_jayce_c_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_jayce_c_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_jayce_shred",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 300
+                                            }
+                                          },
+                                          "defence_mult": -20,
+                                          "magic_resistance_mult": -20
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_jayce_shred"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Delayed",
+                          "tick": 7,
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "league_jayce_c_bolt",
+                              "speed": 6000,
+                              "y_offset": 0,
+                              "applied_target": "Enemy",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 0,
+                                    "attack_ratio": 100,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_jayce_c_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_jayce_c_hit"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_jayce_a_swing"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 11,
+                  "effects": [
+                    {
+                      "type": "TargetProjectile",
+                      "name": "league_jayce_a_swing",
+                      "speed": 100000,
+                      "y_offset": 0,
+                      "applied_target": "Enemy",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Attack",
+                            "damage": 0,
+                            "attack_ratio": 100,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_jayce_a_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_jayce_a_hit"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_jayce.skill",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_jayce_cn",
+      "effect_buff": {
+        "type": "SwitchByBuff",
+        "buff_name": "league_jayce_cq_cd",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": []
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jayce_cq_cd",
+                "duration": {
+                  "Time": {
+                    "tick": 420
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "c_skill",
+              "tick": 24
+            },
+            {
+              "type": "Sfx",
+              "name": "league_jayce_cq"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jayce_vo_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_vo_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_jayce_vo_cq"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Delayed",
+              "tick": 9,
+              "effects": [
+                {
+                  "type": "LinearProjectile",
+                  "name": "league_jayce_cq_orb",
+                  "penetrate": false,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [],
+                  "end_effects": [
+                    {
+                      "type": "RangeProjectile",
+                      "name": "league_jayce_cq_area",
+                      "shape": {
+                        "Circle": {
+                          "radius": 15000
+                        }
+                      },
+                      "delay": 1,
+                      "apply": 1,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Attack",
+                            "damage": 80,
+                            "attack_ratio": 115,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_jayce_cq_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_jayce_cq_hit"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_jayce_cq_boom"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_jayce_cq_boom"
+                    }
+                  ],
+                  "speed": 5500,
+                  "range": 80000,
+                  "shape": {
+                    "Circle": {
+                      "radius": 3000
+                    }
+                  },
+                  "y_offset": 0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "effect_none": {
+        "type": "SwitchByBuff",
+        "buff_name": "league_jayce_hq_cd",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": []
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jayce_q_in"
+            },
+            {
+              "type": "RandomTarget",
+              "range": 48000,
+              "casting_target": "EnemyWithoutTower",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_jayce_q_in",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jayce_q_in",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_hq_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 480
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill",
+                    "tick": 30
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_jayce_q_leap"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_jayce_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jayce_vo_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_jayce_vo_q"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 5,
+                    "effects": [
+                      {
+                        "type": "MoveToTarget",
+                        "speed": 4000,
+                        "range": 105000,
+                        "end_effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 18000
+                              }
+                            },
+                            "target": "EnemyWithoutTower",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 70,
+                                "attack_ratio": 105,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_jayce_q_slow",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 120
+                                    }
+                                  },
+                                  "move_speed_mult": -40
+                                }
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_jayce_q_hit"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_jayce_q_hit"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_jayce_q_land"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_jayce_q_land"
+                          },
+                          {
+                            "type": "SwitchByLevel3",
+                            "effect_start": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_level3": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jayce_he_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jayce_e_in"
+                                  },
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 28000,
+                                    "casting_target": "EnemyWithoutTower",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_jayce_e_in",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_jayce_e_in",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_jayce_he_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 540
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill2",
+                                          "tick": 24
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_jayce_e_cast"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_jayce_vo_cd",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_jayce_vo_cd",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 600
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_jayce_vo_e"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 9,
+                                          "effects": [
+                                            {
+                                              "type": "RandomTarget",
+                                              "range": 1,
+                                              "casting_target": "AllyOnlySelf",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_jayce_e_c"
+                                                    },
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_jayce_e_in"
+                                                    },
+                                                    {
+                                                      "type": "RandomTarget",
+                                                      "range": 28000,
+                                                      "casting_target": "EnemyChampion",
+                                                      "from_projectile": false,
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_jayce_e_c",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "RandomTarget",
+                                                      "range": 28000,
+                                                      "casting_target": "EnemyWithoutTower",
+                                                      "from_projectile": false,
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_jayce_e_in",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 1
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_jayce_e_c",
+                                                      "effect_buff": {
+                                                        "type": "RandomTarget",
+                                                        "range": 28000,
+                                                        "casting_target": "EnemyChampion",
+                                                        "from_projectile": false,
+                                                        "effects": [
+                                                          {
+                                                            "type": "TargetProjectile",
+                                                            "name": "league_jayce_e_blow",
+                                                            "speed": 100000,
+                                                            "y_offset": 0,
+                                                            "applied_target": "EnemyWithoutTower",
+                                                            "applied_effects": [
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 40,
+                                                                  "attack_ratio": 60,
+                                                                  "hp_ratio": 0,
+                                                                  "can_crit": false,
+                                                                  "attack_effect_type": "Target"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "Knockback",
+                                                                  "speed": 2500,
+                                                                  "tick": 14
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_jayce_e_blow"
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "TargetSfx",
+                                                                  "name": "league_jayce_e_blow"
+                                                                }
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "TargetProjectile",
+                                                            "name": "league_jayce_e_twin",
+                                                            "speed": 100000,
+                                                            "y_offset": 0,
+                                                            "applied_target": "EnemyChampion",
+                                                            "applied_effects": [
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "FixedAttack",
+                                                                  "damage": 0,
+                                                                  "attack_ratio": 0,
+                                                                  "hp_ratio": 0,
+                                                                  "target_hp_ratio": 7,
+                                                                  "attack_effect_type": "Target"
+                                                                }
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_jayce_e_in",
+                                                        "effect_buff": {
+                                                          "type": "RandomTarget",
+                                                          "range": 28000,
+                                                          "casting_target": "EnemyWithoutTower",
+                                                          "from_projectile": false,
+                                                          "effects": [
+                                                            {
+                                                              "type": "TargetProjectile",
+                                                              "name": "league_jayce_e_blow",
+                                                              "speed": 100000,
+                                                              "y_offset": 0,
+                                                              "applied_target": "EnemyWithoutTower",
+                                                              "applied_effects": [
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "ApAttack",
+                                                                    "damage": 40,
+                                                                    "attack_ratio": 60,
+                                                                    "hp_ratio": 0,
+                                                                    "can_crit": false,
+                                                                    "attack_effect_type": "Target"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "Knockback",
+                                                                    "speed": 2500,
+                                                                    "tick": 14
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_jayce_e_blow"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "TargetSfx",
+                                                                    "name": "league_jayce_e_blow"
+                                                                  }
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "type": "TargetProjectile",
+                                                              "name": "league_jayce_e_twin",
+                                                              "speed": 100000,
+                                                              "y_offset": 0,
+                                                              "applied_target": "EnemyChampion",
+                                                              "applied_effects": [
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "FixedAttack",
+                                                                    "damage": 0,
+                                                                    "attack_ratio": 0,
+                                                                    "hp_ratio": 0,
+                                                                    "target_hp_ratio": 7,
+                                                                    "attack_effect_type": "Target"
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "skill2": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_jayce.skill2",
+    "duration": 3,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_jayce_cn",
+      "effect_buff": {
+        "type": "SwitchByBuff",
+        "buff_name": "league_jayce_cw_cd",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": []
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jayce_w_c"
+            },
+            {
+              "type": "RandomTarget",
+              "range": 55000,
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_jayce_w_c",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jayce_w_c",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_cw_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "c_skill2",
+                    "tick": 20
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_jayce_hyper"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jayce_hc1"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jayce_hc2"
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jayce_hyper"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jayce_hyper",
+                          "duration": {
+                            "Time": {
+                              "tick": 216
+                            }
+                          },
+                          "attack_speed_mult": 120
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        }
+      },
+      "effect_none": {
+        "type": "SwitchByBuff",
+        "buff_name": "league_jayce_he_cd",
+        "effect_buff": {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jayce_hw_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_jayce_w_c"
+              },
+              {
+                "type": "RandomTarget",
+                "range": 30000,
+                "casting_target": "EnemyChampion",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_w_c",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_jayce_w_c",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jayce_hw_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "CasterAnimation",
+                      "name": "w_cast",
+                      "tick": 20
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_jayce_w_field"
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_jayce_w_field"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 7,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 37,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 67,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 97,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 127,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 157,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 187,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 217,
+                      "effects": [
+                        {
+                          "type": "RandomTarget",
+                          "range": 1,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 20000
+                                }
+                              },
+                              "target": "EnemyWithoutTower",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 14,
+                                  "attack_ratio": 12,
+                                  "hp_ratio": 0,
+                                  "can_crit": false,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_jayce_w_zap"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            ]
+          }
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jayce_e_in"
+            },
+            {
+              "type": "RandomTarget",
+              "range": 28000,
+              "casting_target": "EnemyWithoutTower",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_jayce_e_in",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jayce_e_in",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_he_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 540
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill2",
+                    "tick": 24
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_jayce_e_cast"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_jayce_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jayce_vo_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_jayce_vo_e"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 9,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jayce_e_c"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jayce_e_in"
+                              },
+                              {
+                                "type": "RandomTarget",
+                                "range": 28000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_jayce_e_c",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RandomTarget",
+                                "range": 28000,
+                                "casting_target": "EnemyWithoutTower",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_jayce_e_in",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jayce_e_c",
+                                "effect_buff": {
+                                  "type": "RandomTarget",
+                                  "range": 28000,
+                                  "casting_target": "EnemyChampion",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "TargetProjectile",
+                                      "name": "league_jayce_e_blow",
+                                      "speed": 100000,
+                                      "y_offset": 0,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 40,
+                                            "attack_ratio": 60,
+                                            "hp_ratio": 0,
+                                            "can_crit": false,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Knockback",
+                                            "speed": 2500,
+                                            "tick": 14
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_jayce_e_blow"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_jayce_e_blow"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "TargetProjectile",
+                                      "name": "league_jayce_e_twin",
+                                      "speed": 100000,
+                                      "y_offset": 0,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "FixedAttack",
+                                            "damage": 0,
+                                            "attack_ratio": 0,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 7,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_jayce_e_in",
+                                  "effect_buff": {
+                                    "type": "RandomTarget",
+                                    "range": 28000,
+                                    "casting_target": "EnemyWithoutTower",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_jayce_e_blow",
+                                        "speed": 100000,
+                                        "y_offset": 0,
+                                        "applied_target": "EnemyWithoutTower",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ApAttack",
+                                              "damage": 40,
+                                              "attack_ratio": 60,
+                                              "hp_ratio": 0,
+                                              "can_crit": false,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "Knockback",
+                                              "speed": 2500,
+                                              "tick": 14
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_jayce_e_blow"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "TargetSfx",
+                                              "name": "league_jayce_e_blow"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "TargetProjectile",
+                                        "name": "league_jayce_e_twin",
+                                        "speed": 100000,
+                                        "y_offset": 0,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "FixedAttack",
+                                              "damage": 0,
+                                              "attack_ratio": 0,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 7,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_jayce.ult",
+    "duration": 3,
+    "cooltime": 1500,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 90000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jayce_cn",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jayce_cn",
+                  "duration": "Permanent",
+                  "range": 25000
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jayce_r_cd"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_r_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jayce_haste"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_haste",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      },
+                      "move_speed_mult": 25
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jayce_shred_on"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jayce_shred_on",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_jayce_tf_spark"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jayce_tf_c"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 30
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_jayce_gate"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_jayce_gate"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jayce_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jayce_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jayce_vo_r"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jayce_g_haste"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jayce_g_haste",
+                "duration": {
+                  "Time": {
+                    "tick": 180
+                  }
+                },
+                "move_speed_mult": 40
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_jayce_gq"
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "league_jayce_gq_orb",
+              "penetrate": false,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_jayce_gq_area",
+                  "shape": {
+                    "Circle": {
+                      "radius": 21000
+                    }
+                  },
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 112,
+                        "attack_ratio": 161,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_jayce_gq_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_jayce_cq_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_jayce_gq_boom"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_jayce_gq_boom"
+                }
+              ],
+              "speed": 9000,
+              "range": 115000,
+              "shape": {
+                "Circle": {
+                  "radius": 3500
+                }
+              },
+              "y_offset": 0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_jayce_c_bolt",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "c_bolt",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_jayce_cq_orb",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "cq_orb",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_jayce_gq_orb",
+      "anim": "asset/league/effects/league_jayce_big",
+      "tag": "gq_orb",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_jayce_a_hit",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_c_hit",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "c_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_q_land",
+      "anim": "asset/league/effects/league_jayce_big",
+      "tag": "q_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_q_hit",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_e_blow",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "e_blow",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_w_field",
+      "anim": "asset/league/effects/league_jayce_big",
+      "tag": "w_field",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_w_zap",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "w_zap",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_cq_hit",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "cq_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_cq_boom",
+      "anim": "asset/league/effects/league_jayce_big",
+      "tag": "cq_boom",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_gate",
+      "anim": "asset/league/effects/league_jayce_big",
+      "tag": "gate",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_gq_hit",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "gq_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_gq_boom",
+      "anim": "asset/league/effects/league_jayce_big",
+      "tag": "gq_boom",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_jayce_tf_spark",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "tf_spark",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_jayce_q_slow",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_jayce_hyper",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "hyper",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_jayce_shred",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "shred",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_jayce_haste",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "haste",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_jayce_g_haste",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "haste",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_jayce_guard",
+      "anim": "asset/league/effects/league_jayce_fx",
+      "tag": "guard",
+      "repeat": true,
+      "z": 2
+    }
+  ]
+}
