@@ -1220,7 +1220,7 @@
     },
     "league_smolder": {
       "face": {
-        "x": -2,
+        "x": 4,
         "y": -25
       },
       "center": {

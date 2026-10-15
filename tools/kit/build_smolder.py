@@ -4,7 +4,8 @@
 
 Kit (the user's picks, 2026-10-14: a bot-lane AD carry; Q as skill on waves and camps too; W as skill2 with E on its own
 flag when he is dived or chasing, Bard's way; R as ult; the passive as data stacks, Veigar's way, with all three Q tiers;
-the add-on league_smolder - stacks kept through death, the tier-3 execute, a smart E over walls - comes later):
+the add-on league_smolder - stacks kept through death, the tier-3 execute, a smart E over walls - builds its copy with
+native=1, addons/league_smolder/make_override.py):
   passive Dragon Practice (龙之研习): every stack is one more instance of the `Permanent` caster buff p_st (+1 ability
           power: the gauge Q, W and E read for their per-stack damage, as league_veigar's and league_kindred's marks;
           nothing else of his reads ability power and he buys none). A champion Q hits (its champion-only twin, from tier
@@ -116,6 +117,10 @@ P = {
     "r_dmg": 110, "r_ratio": 80, "r_sweet": 50, "r_slow": 40, "r_slow_t": 120, "r_heal": 80, "r_heal_ad": 30,
     # his spoken lines (Q, W, E), at most one every vo_gap ticks
     "vo_gap": 600,
+    # 1 = the copy for addons/league_smolder (its make_override.py): skill2 is the sneeze only, E is the add-on's passive
+    # league_smolder:dragon (it also keeps the stacks through death), the tier-3 Q damage calls league_smolder:execute;
+    # the passive's own numbers: the longest flight e_far (over a wall; e_plain without one) at e_fly a tick
+    "native": 0, "e_far": 60000, "e_plain": 36000, "e_fly": 3000, "e_exec": 65,
     # test builds for the simulator's logs only: 1 = unbound ViewEffects (dbg_*) mark which branch ran
     "dbg": 0,
 }
@@ -347,11 +352,14 @@ def build(p):
     burn = casted(p["q_burn_t"], p["q_burn_p"], true_dmg(p["q_burn_dmg"], p["q_burn_ratio"], p["q_burn_hp"]),
                   view("q_burn"), kind="Fire")
 
+    # the add-on's execute below e_exec / 10 % health (the tier-3 hit; native code reads health)
+    execute = {"type": "Native", "effect_ref": f"{ID}:execute"} if p["native"] else None
+
     def q_hit(pct=100, pic="q_hit"):
         """The Q damage on one unit (pct% of it), the stacks' part, the tier-3 burn."""
         return combine(attack(p["q_dmg"] * pct // 100, p["q_ratio"] * pct // 100),
                        sw("p_has", magic(0, p["q_stack"] * pct // 100)), view(pic), tsfx(pic),
-                       sw("t3", combine(burn, tsfx("q_burn"))) if pct == 100 else None)
+                       sw("t3", combine(burn, tsfx("q_burn"), execute)) if pct == 100 else None)
 
     # tier 1+: the explosion round the target's spot (the target included), a tick after the bolt's hit; its champion
     # zone gives the stacks; tier 2 lays the blowback's picture from the same spot, away from him
@@ -418,8 +426,9 @@ def build(p):
         sw("e_n2", flag("e_go", 1), combine(
             pick(p["e_reach"], "EnemyChampion", flag("e_in", 1)),
             sw("e_in", NONE, pick(p["e_chase"], "EnemyChampionRecentlyAttacked", flag("e_go", 1), flag("e_fwd", 1))))))))
+    # the add-on's copy: E is all the passive's (when, where - over walls - and the shots), skill2 the sneeze alone
     skill2 = action("idle", 3, p["w_cd"], 1, p["w_range"], "Targeting", p["w_target"],
-                    flat(combine(decide, sw("e_go", e_cast, w_cast))), key="skill2")
+                    flat(w_cast if p["native"] else combine(decide, sw("e_go", e_cast, w_cast))), key="skill2")
 
     # ------------------------------------------------------------------ ult: R MMOOOMMMM!
     sweet = p["r_sweet"]
@@ -448,6 +457,12 @@ def build(p):
                E("w_boom", BIG, 2, False), E("w_xhit", tag="w_hit"), E("e_hit"), E("r_hit"), E("r_heal"),
                E("p_up", FX, 3)]
     views_b = [P_("w_slow", tag="slow"), P_("r_slow", tag="slow"), P_("e_haste", z=-1)]
+    extra = {}
+    if p["native"]:
+        keys = ("e_cd_t", "e_anim", "e_wind", "e_tick", "e_far", "e_plain", "e_fly", "e_near", "e_close", "e_reach",
+                "e_chase", "e_ms", "e_ms_t", "e_n", "e_gap", "e_shot0", "e_r", "e_sspeed", "e_dmg", "e_ratio", "e_stack",
+                "e_exec", "p_base", "p_pend", "t3", "vo_gap")
+        extra["passive"] = {"passive_ref": f"{ID}:dragon", "params": {k: p[k] for k in keys}}
     return {
         "id": ID, "category": "Range", "tags": ["AD", "Range", "Dot"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
@@ -457,7 +472,7 @@ def build(p):
         "growth": {"attack": p["atk_g"], "magic_power": 0, "hp": p["hp_g"], "defence": p["def_g"],
                    "magic_resistance": p["mr_g"], "move_speed": p["ms_g"], "hp_regen": 0, "stack": 0, "crit_chance": 0},
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
-        "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
+        "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b, **extra,
     }
 
 

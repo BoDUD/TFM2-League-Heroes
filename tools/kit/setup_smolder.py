@@ -40,10 +40,9 @@ G = "<#6aff55ff>"      # heals
 W = "<#f5f5f5ff>"      # true damage
 S = "<#ffffffff>"      # move speed
 E = "<>"
-# champion_view: a placeholder until the sheet is final - tfm2_ase.py face on the 2026-10-15 1x sheet (crown 25 px over
-# the feet, head centre x -3.8): (-2, -25); centre: his body, a small quadruped (-10). Re-measure on the final sheet
-# (and with hd.rs's PPU scale) and pass --face.
-VIEW = {"face": {"x": -2, "y": -25}, "center": {"x": 0, "y": -10}}
+# champion_view: the face on the final sheet (2026-10-15): his head's centre 4 px forward (tfm2_ase.py's -2 sat on the
+# crest), 25 up; centre: his body, a small quadruped (-10).
+VIEW = {"face": {"x": 4, "y": -25}, "center": {"x": 0, "y": -10}}
 
 
 def phys(k):
