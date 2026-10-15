@@ -665,6 +665,8 @@ def run(a):
                                    "pasted": name not in NO_HEAD}
             print(f"{name}: scale {s:.2f}, head at {head}, old head squares cleared {n_old}")
         if tag == "run":
+            for name, can in finished.items():            # Codex's own eight, before the reorder (pack_milio_run.py)
+                Image.fromarray(to_rgba(can)).save(os.path.join(OUT, f"codex_{name}.png"))
             order = []
             for k, (src, swapped) in enumerate(RUN_ORDER, 1):
                 can = swap_legs(src, finished[src]) if swapped else finished[src]
