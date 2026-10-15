@@ -54,6 +54,13 @@ SRC = os.path.join(ROOT, "assets", "source", "olaf", "codex_strips_size")
 # ... and the run: Codex's cross-step on the guide (codex_run_cross: 「你看看对吗 交叉步都没有？」, then 「Codex 重画跑步」)
 SRC_CROSS = os.path.join(ROOT, "assets", "source", "olaf", "codex_run_cross")
 TAG_SRC = {"hit": SRC_SLIM, "run": SRC_CROSS}
+# The swing's two in-between frames (Codex 2026-10-15, ATTACK_TWEEN.md; the user on the stutter in fights: 「奥拉夫普攻首尾各补
+# 一帧过渡（起手从待机姿势转过去、收招回到待机），其余帧不动」): t1 between the front-facing idle and the side-on wind-up,
+# t2 between the low lunge (frame 5) and standing up (frame 6). The swing keeps 400 ms with the hit frame (4) at 200 ms
+# (the kit's tick 12).
+SRC_TWEEN = os.path.join(ROOT, "assets", "source", "olaf", "codex_attack_tween")
+TWEEN = [(0, "t1"), (6, "t2")]                  # (index in the new order, file)
+TWEEN_MS = [40, 50, 50, 60, 70, 50, 40, 40]
 RUN_DROP = {6}                     # Codex's cross-step frames left out (1-based)
 REFINE = 7                        # squares the head may move from its approved place (the bodies shrank: heads sit lower)
 NEW_POSE = {"run"}                 # tags drawn anew (the calm run): the head goes where Codex drew it
@@ -447,6 +454,19 @@ def build(P, tag, report=None):
     return out, ms
 
 
+def tween(frames):
+    """The swing with Codex's two in-between frames put in (TWEEN) and the durations TWEEN_MS."""
+    frames = list(frames)
+    for at, name in TWEEN:
+        cell = np.asarray(Image.open(K.lp(os.path.join(SRC_TWEEN, "native", f"{name}.png"))).convert("RGBA")).copy()
+        cell[cell[..., 3] < 128] = 0
+        c = np.zeros((128, 128, 4), np.uint8)
+        K.put(c, cell, PIVOT[0] - CELL_PIVOT[0], PIVOT[1] - CELL_PIVOT[1])
+        c[SOLES + 1:] = 0
+        frames.insert(at, tidy(c))
+    return frames, list(TWEEN_MS)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -461,6 +481,8 @@ def main():
     report = []
     for tag in CODEX_TAGS:
         built[tag], ms[tag] = build(H, tag, report)
+    if os.path.isdir(K.lp(SRC_TWEEN)):
+        built["attack"], ms["attack"] = tween(built["attack"])
     if a.heads:
         for r in report:
             print(r)

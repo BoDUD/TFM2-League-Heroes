@@ -24,7 +24,7 @@
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.114.3 以上）要装着并启用；玩家装的是附加包合集 `league_addons`，巴德的部分和这里一样。
+1. 主包（League of Legends Heroes 0.115.2 以上）要装着并启用；玩家装的是附加包合集 `league_addons`，巴德的部分和这里一样。
 2. 看巴德技能 2 的说明：开头是「【穿墙门】」就说明副本生效了。
 3. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_bard.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `DOOR #2 out: at the wall (412000,288000) -> (452000,281000) (40610), hp 38%, allies [#21->...]`：撤（墙前的入口 -> 出口）；
