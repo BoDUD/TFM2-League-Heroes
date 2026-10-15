@@ -1,0 +1,1896 @@
+{
+  "status": "all20_delivered_with_visual_limitations",
+  "requested_sheets": 20,
+  "delivered_sheets": 20,
+  "missing": [],
+  "method": "Generated source only. Equal horizontal frame slots; remove empty vertical letterbox while retaining all quantized content; nearest allowed-palette classification including transparent black; opacity-majority then most frequent foreground-color voting on each logical cell; mirror-paired cell histograms pooled for exact per-frame symmetry (ties prefer opaque, then brighter); explicitly reserved figure areas cleared; nearest-neighbor integer expansion. No hand-drawn or procedurally invented VFX.",
+  "sheets": [
+    {
+      "name": "a_bolt",
+      "file": "smolder_fx_a_bolt.png",
+      "frames": 4,
+      "frame_size_1x": [
+        10,
+        8
+      ],
+      "sheet_size_1x": [
+        40,
+        8
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        320,
+        64
+      ],
+      "symmetry": "vertical",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_a_bolt.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_a_bolt.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "9ffa0f4d89d5679bfbb3e22756ec01bccf7c05791898ffa32e816bc64ae7ef30",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        198,
+        1983,
+        595
+      ],
+      "source_grid_step_xy": [
+        49.575,
+        49.625
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        5,
+        3,
+        4,
+        3
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 16,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 14,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 16,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 14,
+          "bright_core_pixels": 2
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "a_hit",
+      "file": "smolder_fx_a_hit.png",
+      "frames": 4,
+      "frame_size_1x": [
+        12,
+        12
+      ],
+      "sheet_size_1x": [
+        48,
+        12
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        384,
+        96
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_a_hit.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_a_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "3ee54672fba5a4b6ff53fda812cffe80b16313d0397470acd7b4499c33da2e07",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        80,
+        2172,
+        623
+      ],
+      "source_grid_step_xy": [
+        45.25,
+        45.25
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        1,
+        3,
+        1,
+        1
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 4,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 26,
+          "bright_core_pixels": 4
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 10,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 2,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "q_bolt",
+      "file": "smolder_fx_q_bolt.png",
+      "frames": 4,
+      "frame_size_1x": [
+        16,
+        11
+      ],
+      "sheet_size_1x": [
+        64,
+        11
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        512,
+        88
+      ],
+      "symmetry": "vertical",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_q_bolt.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_q_bolt.png",
+      "raw_size": [
+        1908,
+        824
+      ],
+      "raw_sha256": "951aa233a8efd532672aa256acc36007e044130db89379caf045d4af7a8ff801",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        222,
+        1908,
+        550
+      ],
+      "source_grid_step_xy": [
+        29.8125,
+        29.818181818181817
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#FFF0FA",
+        "#FFB0DC",
+        "#FF6FC0",
+        "#E0409E",
+        "#A0287E",
+        "#5E1A6E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        12,
+        12,
+        15,
+        12
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 47,
+          "bright_core_pixels": 5
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 52,
+          "bright_core_pixels": 4
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 56,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 53,
+          "bright_core_pixels": 4
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "q_hit",
+      "file": "smolder_fx_q_hit.png",
+      "frames": 4,
+      "frame_size_1x": [
+        18,
+        18
+      ],
+      "sheet_size_1x": [
+        72,
+        18
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        576,
+        144
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_q_hit.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_q_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "c210f47837b44afeaf2bf1d0137b4d1f9d0a0e969888bb0fa936638260d0349f",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        86,
+        2172,
+        630
+      ],
+      "source_grid_step_xy": [
+        30.166666666666668,
+        30.22222222222222
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        2,
+        32,
+        9,
+        1
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 18,
+          "bright_core_pixels": 8
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 62,
+          "bright_core_pixels": 16
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 46,
+          "bright_core_pixels": 6
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 4,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "q_t1",
+      "file": "smolder_fx_q_t1.png",
+      "frames": 6,
+      "frame_size_1x": [
+        46,
+        28
+      ],
+      "sheet_size_1x": [
+        276,
+        28
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        2208,
+        224
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_q_t1.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_q_t1.png",
+      "raw_size": [
+        2112,
+        744
+      ],
+      "raw_sha256": "bab341a5b733657f4e9ff11e10fa66b204dc98f8f01e8249e30cea045814a98e",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        196,
+        2112,
+        535
+      ],
+      "source_grid_step_xy": [
+        7.6521739130434785,
+        12.107142857142858
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#B8A89E",
+        "#7A6A62",
+        "#4A3A38",
+        "#2A1C22"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        21,
+        157,
+        254,
+        158,
+        61,
+        14
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 94,
+          "bright_core_pixels": 18
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 338,
+          "bright_core_pixels": 30
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 562,
+          "bright_core_pixels": 78
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 336,
+          "bright_core_pixels": 4
+        },
+        {
+          "frame": 4,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 180,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 5,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 94,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "q_t2",
+      "file": "smolder_fx_q_t2.png",
+      "frames": 5,
+      "frame_size_1x": [
+        48,
+        20
+      ],
+      "sheet_size_1x": [
+        240,
+        20
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        1920,
+        160
+      ],
+      "symmetry": "vertical",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_q_t2.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_q_t2.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "6657474656c2a19bb8d1915a41a2ebdae7a2a07b76794185ac682ffad639896e",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        138,
+        2172,
+        560
+      ],
+      "source_grid_step_xy": [
+        9.049999999999999,
+        21.1
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        21,
+        41,
+        54,
+        40,
+        36
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 114,
+          "bright_core_pixels": 18
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 140,
+          "bright_core_pixels": 16
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 148,
+          "bright_core_pixels": 16
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 158,
+          "bright_core_pixels": 16
+        },
+        {
+          "frame": 4,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 32,
+          "bright_core_pixels": 2
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "q_t2_hit",
+      "file": "smolder_fx_q_t2_hit.png",
+      "frames": 3,
+      "frame_size_1x": [
+        12,
+        12
+      ],
+      "sheet_size_1x": [
+        36,
+        12
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        288,
+        96
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_q_t2_hit.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_q_t2_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "e8f063e68d15fede8d9e3c2e9e190b21165493a532d09e1ff6ca9ea17a09ebc1",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "source_grid_step_xy": [
+        60.333333333333336,
+        60.333333333333336
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        2,
+        4,
+        0
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 8,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 26,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 4,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "q_burn",
+      "file": "smolder_fx_q_burn.png",
+      "frames": 4,
+      "frame_size_1x": [
+        20,
+        24
+      ],
+      "sheet_size_1x": [
+        80,
+        24
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        640,
+        192
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_q_burn.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_q_burn.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "4067fcf1a0080111d1dbf929100b177f5f3f10aa69d3575ae204c16e591c8996",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        24,
+        2172,
+        676
+      ],
+      "source_grid_step_xy": [
+        27.15,
+        27.166666666666668
+      ],
+      "palette": [
+        "#FFF0FA",
+        "#FFB0DC",
+        "#FF6FC0",
+        "#E0409E",
+        "#A0287E",
+        "#5E1A6E",
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": [
+        6,
+        4,
+        14,
+        22
+      ],
+      "reserved_pixels_cleared": 34,
+      "symmetry_pixels_changed_per_frame": [
+        38,
+        25,
+        13,
+        27
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 94,
+          "bright_core_pixels": 12
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 86,
+          "bright_core_pixels": 16
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 88,
+          "bright_core_pixels": 14
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 90,
+          "bright_core_pixels": 12
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "w_bolt",
+      "file": "smolder_fx_w_bolt.png",
+      "frames": 4,
+      "frame_size_1x": [
+        18,
+        12
+      ],
+      "sheet_size_1x": [
+        72,
+        12
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        576,
+        96
+      ],
+      "symmetry": "vertical",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_w_bolt.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_w_bolt.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "61cdec00e462ef813e235ff282b0e45d71d52a68138b73669accd84d8b185d84",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        162,
+        2172,
+        552
+      ],
+      "source_grid_step_xy": [
+        30.166666666666668,
+        32.5
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#B8A89E",
+        "#7A6A62",
+        "#4A3A38",
+        "#2A1C22"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        12,
+        24,
+        26,
+        22
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 40,
+          "bright_core_pixels": 4
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 56,
+          "bright_core_pixels": 4
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 64,
+          "bright_core_pixels": 4
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 48,
+          "bright_core_pixels": 4
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "w_hit",
+      "file": "smolder_fx_w_hit.png",
+      "frames": 4,
+      "frame_size_1x": [
+        14,
+        14
+      ],
+      "sheet_size_1x": [
+        56,
+        14
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        448,
+        112
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_w_hit.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_w_hit.png",
+      "raw_size": [
+        2079,
+        756
+      ],
+      "raw_sha256": "cbf2f5d96aefb61e50a7fe85be52c4a0c06aedd8a9b1e12a33b958d47f00fddf",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        106,
+        2079,
+        626
+      ],
+      "source_grid_step_xy": [
+        37.125,
+        37.142857142857146
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#B8A89E",
+        "#7A6A62",
+        "#4A3A38",
+        "#2A1C22"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        0,
+        5,
+        3,
+        0
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 8,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 60,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 38,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 26,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "w_boom",
+      "file": "smolder_fx_w_boom.png",
+      "frames": 6,
+      "frame_size_1x": [
+        52,
+        30
+      ],
+      "sheet_size_1x": [
+        312,
+        30
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        2496,
+        240
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_w_boom.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_w_boom.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "b2a8a6a3f865589db20c0f1436f31fc35cd2e6057c35d15d9ffc5385151fbdc6",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        165,
+        2172,
+        515
+      ],
+      "source_grid_step_xy": [
+        6.961538461538462,
+        11.666666666666666
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#B8A89E",
+        "#7A6A62",
+        "#4A3A38",
+        "#2A1C22"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        77,
+        387,
+        617,
+        357,
+        219,
+        112
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 184,
+          "bright_core_pixels": 40
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 690,
+          "bright_core_pixels": 92
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 1210,
+          "bright_core_pixels": 174
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 664,
+          "bright_core_pixels": 48
+        },
+        {
+          "frame": 4,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 450,
+          "bright_core_pixels": 8
+        },
+        {
+          "frame": 5,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 316,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "e_shot",
+      "file": "smolder_fx_e_shot.png",
+      "frames": 3,
+      "frame_size_1x": [
+        8,
+        6
+      ],
+      "sheet_size_1x": [
+        24,
+        6
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        192,
+        48
+      ],
+      "symmetry": "vertical",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_e_shot-attempt-02.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_e_shot.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "aff2392d8cbae236d114acb6c6d04bfcf2be87b677f3fb5ee81edb1cc57904fc",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        66,
+        2172,
+        621
+      ],
+      "source_grid_step_xy": [
+        90.5,
+        92.5
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        1,
+        0,
+        0
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 16,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 18,
+          "bright_core_pixels": 4
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 16,
+          "bright_core_pixels": 4
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "e_hit",
+      "file": "smolder_fx_e_hit.png",
+      "frames": 3,
+      "frame_size_1x": [
+        10,
+        10
+      ],
+      "sheet_size_1x": [
+        30,
+        10
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        240,
+        80
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_e_hit-attempt-02.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_e_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "515a7bf3a3e5af4b0838c04d69efa64d966fbded80c622e8ced7edfa0b978aca",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "source_grid_step_xy": [
+        72.4,
+        72.4
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        5,
+        1,
+        1
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 6,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 12,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 2,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "e_haste",
+      "file": "smolder_fx_e_haste.png",
+      "frames": 4,
+      "frame_size_1x": [
+        32,
+        10
+      ],
+      "sheet_size_1x": [
+        128,
+        10
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        1024,
+        80
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_e_haste.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_e_haste.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "05263188757de5a3fe3f228aa371fd51a3c9bc889e748f85393f2b38ec88fae8",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        185,
+        2172,
+        517
+      ],
+      "source_grid_step_xy": [
+        16.96875,
+        33.2
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#B8A89E",
+        "#7A6A62",
+        "#4A3A38",
+        "#2A1C22"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        39,
+        24,
+        34,
+        40
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 60,
+          "bright_core_pixels": 18
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 66,
+          "bright_core_pixels": 12
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 72,
+          "bright_core_pixels": 20
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 62,
+          "bright_core_pixels": 16
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "r_mom",
+      "file": "smolder_fx_r_mom.png",
+      "frames": 4,
+      "frame_size_1x": [
+        50,
+        42
+      ],
+      "sheet_size_1x": [
+        200,
+        42
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        1600,
+        336
+      ],
+      "symmetry": "vertical",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_r_mom-attempt-02.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_r_mom.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "a6ddfe9328fd361e752d5538e9b03ea06de82988b1f2dd465cb8e4dad2f21f17",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        0,
+        2172,
+        717
+      ],
+      "source_grid_step_xy": [
+        10.86,
+        17.071428571428573
+      ],
+      "palette": [
+        "#5A3A6A",
+        "#3E2450",
+        "#2A1638",
+        "#180C22",
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        76,
+        75,
+        64,
+        78
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 482,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 420,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 334,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 374,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "r_fire",
+      "file": "smolder_fx_r_fire.png",
+      "frames": 4,
+      "frame_size_1x": [
+        132,
+        24
+      ],
+      "sheet_size_1x": [
+        528,
+        24
+      ],
+      "display_scale": 4,
+      "sheet_size_display": [
+        2112,
+        96
+      ],
+      "symmetry": "vertical",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_r_fire.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_r_fire.png",
+      "raw_size": [
+        2149,
+        732
+      ],
+      "raw_sha256": "60cf39c3956d6bdf164f7a03ae96ff9b0f8a9e0d8146badcadbe9657a44cbcf1",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        198,
+        2149,
+        517
+      ],
+      "source_grid_step_xy": [
+        4.070075757575758,
+        13.291666666666666
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#B8A89E",
+        "#7A6A62",
+        "#4A3A38",
+        "#2A1C22"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        145,
+        147,
+        130,
+        64
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 1098,
+          "bright_core_pixels": 58
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 1906,
+          "bright_core_pixels": 158
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 1466,
+          "bright_core_pixels": 92
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 890,
+          "bright_core_pixels": 2
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true,
+      "both_horizontal_edges_nonempty_each_frame": true
+    },
+    {
+      "name": "r_hit",
+      "file": "smolder_fx_r_hit.png",
+      "frames": 4,
+      "frame_size_1x": [
+        18,
+        18
+      ],
+      "sheet_size_1x": [
+        72,
+        18
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        576,
+        144
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_r_hit.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_r_hit.png",
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw_sha256": "3cfc29a6a2c384ca56abfcf870fe5193f88b3b6660c5fc51c7b8391144eb3ae9",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        76,
+        2048,
+        631
+      ],
+      "source_grid_step_xy": [
+        28.444444444444443,
+        30.833333333333332
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        4,
+        10,
+        15,
+        1
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 20,
+          "bright_core_pixels": 8
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 112,
+          "bright_core_pixels": 6
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 94,
+          "bright_core_pixels": 8
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 10,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "r_heal",
+      "file": "smolder_fx_r_heal.png",
+      "frames": 5,
+      "frame_size_1x": [
+        18,
+        24
+      ],
+      "sheet_size_1x": [
+        90,
+        24
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        720,
+        192
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_r_heal.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_r_heal.png",
+      "raw_size": [
+        2103,
+        748
+      ],
+      "raw_sha256": "f13addc66ebb24d22a701f8b2e5efe1828e058598b2c5578f18b73e53609bd28",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        50,
+        2103,
+        707
+      ],
+      "source_grid_step_xy": [
+        23.366666666666667,
+        27.375
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFE6EE",
+        "#FFB8CC",
+        "#FF86A8",
+        "#E85A86",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": [
+        5,
+        10,
+        13,
+        24
+      ],
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        14,
+        7,
+        11,
+        36,
+        2
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 16,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 42,
+          "bright_core_pixels": 12
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 60,
+          "bright_core_pixels": 28
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 44,
+          "bright_core_pixels": 14
+        },
+        {
+          "frame": 4,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 6,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "p_up",
+      "file": "smolder_fx_p_up.png",
+      "frames": 6,
+      "frame_size_1x": [
+        34,
+        36
+      ],
+      "sheet_size_1x": [
+        204,
+        36
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        1632,
+        288
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_p_up.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_p_up.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_sha256": "f687ed4c3fd09bee248f81c97412ce6b9ee59881256265ae13b5ef97910583cf",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        70,
+        2172,
+        642
+      ],
+      "source_grid_step_xy": [
+        10.647058823529411,
+        15.88888888888889
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E",
+        "#FFF0FA",
+        "#FFB0DC",
+        "#FF6FC0",
+        "#E0409E",
+        "#A0287E",
+        "#5E1A6E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": [
+        6,
+        12,
+        28,
+        34
+      ],
+      "reserved_pixels_cleared": 384,
+      "symmetry_pixels_changed_per_frame": [
+        53,
+        112,
+        257,
+        48,
+        39,
+        8
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 44,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 90,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 280,
+          "bright_core_pixels": 34
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 130,
+          "bright_core_pixels": 10
+        },
+        {
+          "frame": 4,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 30,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 5,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 2,
+          "bright_core_pixels": 0
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    },
+    {
+      "name": "slow",
+      "file": "smolder_fx_slow.png",
+      "frames": 4,
+      "frame_size_1x": [
+        20,
+        8
+      ],
+      "sheet_size_1x": [
+        80,
+        8
+      ],
+      "display_scale": 8,
+      "sheet_size_display": [
+        640,
+        64
+      ],
+      "symmetry": "horizontal",
+      "status": "generated_and_read_back",
+      "raw_file": "raw/smolder_fx_slow.png",
+      "pixel_1x_file": "pixel_1x/smolder_fx_slow.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_sha256": "99de919ca5f1d5ac711f3e016b96eb5116bc561697f59129e7ab30f705d490b3",
+      "source_copy_verified": true,
+      "source_crop": [
+        0,
+        260,
+        1983,
+        522
+      ],
+      "source_grid_step_xy": [
+        24.7875,
+        32.75
+      ],
+      "palette": [
+        "#B8A89E",
+        "#7A6A62",
+        "#4A3A38",
+        "#2A1C22",
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFD95E",
+        "#FFA62E",
+        "#FF6E1F",
+        "#E8381A",
+        "#A8181E"
+      ],
+      "palette_only": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "reserved_empty_rect": null,
+      "reserved_pixels_cleared": 0,
+      "symmetry_pixels_changed_per_frame": [
+        6,
+        8,
+        6,
+        9
+      ],
+      "frames_validation": [
+        {
+          "frame": 0,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 52,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 1,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 54,
+          "bright_core_pixels": 2
+        },
+        {
+          "frame": 2,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 52,
+          "bright_core_pixels": 0
+        },
+        {
+          "frame": 3,
+          "symmetry_mismatched_pixels": 0,
+          "visible_pixels": 54,
+          "bright_core_pixels": 2
+        }
+      ],
+      "display_matches_nearest_expansion": true,
+      "reserved_area_verified": true
+    }
+  ],
+  "generated_raw_sheets": 23,
+  "total_animation_frames": 85,
+  "visual_issues": {
+    "all": [
+      "Raw generator did not respect exact native size/uniform16px grid;readback uses recorded normalized area-majority sampling. Exact core size,ember count,ring dimensions and seamless loop remain approximate."
+    ],
+    "e_hit": [
+      "First flash reads back as yellow rather than white core."
+    ],
+    "r_mom": [
+      "Selected retake faces right. Orange rim discontinuous after voting;raw first top wing close to canvas edge."
+    ],
+    "r_hit": [
+      "Raw glow removed by alpha/palette readback. Flame-tongue count approximate."
+    ],
+    "r_heal": [
+      "Heart and sparkles simplified."
+    ],
+    "p_up": [
+      "Ground ring and upper star simplified."
+    ]
+  }
+}

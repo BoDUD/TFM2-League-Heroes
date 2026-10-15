@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_smolder": {
+        "attack": "喷出小火球。被动<#ff9028ff>龙之研习<>：技能命中英雄、龙息击杀单位各获得1层（【附加包】死后保留），每层使龙息、喷嚏、扑棱火球各+<#a974ffff>0.75/1.65/0.25魔法伤害<>。龙息在<#ffb900ff>10/25/40层<>时依次获得爆炸、反冲火球、灼烧。",
+        "skill": "喷吐火球，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<><#ff8a65ff>物理伤害<>。<#ffb900ff>10层<>：爆炸波及周围敌人；<#ffb900ff>25层<>：向目标身后喷出反冲火球（50%伤害）；<#ffb900ff>40层<>：灼烧<#ffb900ff>3秒<>，每秒造成<#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1%最大生命真实伤害<>；【附加包】生命低于<#ffb900ff>6.5%<>的敌人被处决。",
+        "skill2": "打喷嚏喷出火焰，造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理伤害<>并<#ef5350ff>减速35%<>，命中英雄时爆炸，再造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理伤害<>。【附加包】被近身或追残血时随时可用，能飞过墙：<#ff9028ff>扑棱，扑棱，扑棱！<>：飞起并<#ffffffff>加速40%<>，向残血敌人连发<#ffb900ff>5<>枚火球，各<#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<><#ff8a65ff>物理伤害<>。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_smolder": {
+        "attack": "噴出小火球。被動<#ff9028ff>龍性精通<>：技能命中英雄、龍息擊殺單位各獲得1層（【擴充包】死後保留），每層使龍息、噴嚏、振翼火球各+<#a974ffff>0.75/1.65/0.25魔法傷害<>。龍息在<#ffb900ff>10/25/40層<>時依次獲得爆炸、反衝火球、灼燒。",
+        "skill": "噴吐火球，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<><#ff8a65ff>物理傷害<>。<#ffb900ff>10層<>：爆炸波及周圍敵人；<#ffb900ff>25層<>：向目標身後噴出反衝火球（50%傷害）；<#ffb900ff>40層<>：灼燒<#ffb900ff>3秒<>，每秒造成<#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1%最大生命真實傷害<>；【擴充包】生命低於<#ffb900ff>6.5%<>的敵人被處決。",
+        "skill2": "打噴嚏噴出火焰，造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理傷害<>並<#ef5350ff>緩速35%<>，命中英雄時爆炸，再造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理傷害<>。【擴充包】被近身或追殘血時隨時可用，能飛過牆：<#ff9028ff>振翼高飛<>：飛起並<#ffffffff>加速40%<>，向殘血敵人連發<#ffb900ff>5<>枚火球，各<#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<><#ff8a65ff>物理傷害<>。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_smolder": {
+        "attack": "Spits a small fireball. Passive <#ff9028ff>Dragon Practice<>: each champion his abilities hit and each unit his breath kills gives a stack (kept through death: add-on), adding <#a974ffff>0.75/1.65/0.25 magic damage<> to the breath, the sneeze and each flight fireball. At <#ffb900ff>10/25/40<> stacks the breath gains an explosion, blowback fireballs and a burn.",
+        "skill": "Breathes a fireball for <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<> <#ff8a65ff>physical damage<>. <#ffb900ff>10<> stacks: it explodes on the enemies around the target. <#ffb900ff>25<>: fireballs blow back behind the target (50% damage). <#ffb900ff>40<>: it burns for <#ffb900ff>3s<>, <#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1% max health true damage<> a second; [Add-on] enemies below <#ffb900ff>6.5%<> health are executed.",
+        "skill2": "Sneezes fire for <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>physical damage<> and a <#ef5350ff>35% slow<>; on a champion it explodes for <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>physical damage<>. [Add-on] Any time he is dived or chases a wounded foe, over walls too: <#ff9028ff>Flap, Flap, Flap<> - he flies, gains <#ffffffff>40% move speed<> and fires <#ffb900ff>5<> fireballs at the weakest enemy, <#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<> <#ff8a65ff>physical damage<> each."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_smolder": {
+        "attack": "작은 불덩이를 뱉습니다. 기본 지속 효과 <#ff9028ff>용 훈련<>: 스킬로 챔피언을 맞히거나 숨결로 적을 처치할 때마다 1중첩([확장팩] 사망 후 유지), 중첩마다 숨결, 재채기, 비행 불덩이에 <#a974ffff>0.75/1.65/0.25 마법 피해<> 추가. <#ffb900ff>10/25/40중첩<>에서 숨결이 폭발, 역류 화염구, 화상을 얻습니다.",
+        "skill": "불덩이를 뿜어 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<> <#ff8a65ff>물리 피해<>. <#ffb900ff>10중첩<>: 대상 주변 적에게 폭발. <#ffb900ff>25중첩<>: 대상 뒤로 역류 화염구(50% 피해). <#ffb900ff>40중첩<>: <#ffb900ff>3초<> 동안 화상, 초당 <#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1% 최대 체력 고정 피해<>. [확장팩] 체력 <#ffb900ff>6.5%<> 미만 적 처형.",
+        "skill2": "재채기로 불을 뿜어 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>물리 피해<>와 <#ef5350ff>35% 둔화<>, 챔피언에게 맞으면 폭발해 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>물리 피해<>. [확장팩] 적이 붙거나 약한 적을 쫓을 때 언제든, 벽 너머로도 <#ff9028ff>펄럭펄럭<>: 날아오르며 <#ffffffff>이동 속도 +40%<>, 약한 적에게 불덩이 <#ffb900ff>5개<>(각 <#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<> <#ff8a65ff>물리 피해<>)."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_smolder": {
+        "attack": "小さな火の玉を吐く。自動効果<#ff9028ff>駆けだしドラゴン<>：スキルでチャンピオンに命中、ブレスで敵を倒すたびに1スタック（【拡張】死後も保持）、スタックごとにブレス・くしゃみ・飛行中の火の玉に<#a974ffff>0.75/1.65/0.25魔法ダメージ<>追加。<#ffb900ff>10/25/40<>でブレスが爆発・逆噴射・炎上を得る。",
+        "skill": "火の玉を吐き<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<>の<#ff8a65ff>物理ダメージ<>。<#ffb900ff>10<>：周囲の敵に爆発。<#ffb900ff>25<>：対象の後方へ火球（50%）。<#ffb900ff>40<>：<#ffb900ff>3秒<>炎上、毎秒<#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1%最大体力の確定ダメージ<>。【拡張】体力<#ffb900ff>6.5%<>未満の敵は処刑。",
+        "skill2": "くしゃみで炎を吹き<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<>の<#ff8a65ff>物理ダメージ<>と<#ef5350ff>35%スロウ<>、チャンピオンに当たると爆発し<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<>の<#ff8a65ff>物理ダメージ<>。【拡張】詰められた時か弱った敵を追う時、壁越しにも<#ff9028ff>パタパタパタ<>：飛び上がり<#ffffffff>移動速度+40%<>、弱った敵に火の玉<#ffb900ff>5発<>（各<#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<>）。"
+      }
+    }
+  }
+}
