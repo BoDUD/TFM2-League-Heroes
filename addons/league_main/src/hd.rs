@@ -33,6 +33,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_jayce", 1.5, include_str!("../../../league/champions/league_jayce#anim.fanim")),
     ("league_elise", 1.8, include_str!("../../../league/champions/league_elise#anim.fanim")),
     ("league_katarina", 1.5, include_str!("../../../league/champions/league_katarina#anim.fanim")),
+    // Kalista: PPU 1.4 (the user's pick), drawn at 85 % in her frames themselves (「大小 85%，PPU 1.4」), so no SIZES row
+    ("league_kalista", 1.4, include_str!("../../../league/champions/league_kalista#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

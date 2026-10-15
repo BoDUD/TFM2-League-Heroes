@@ -13,7 +13,7 @@ PPU sheet 「大小 85%，PPU 1.4」. The 85 % is baked into the frames (league_
   * one head: the design's whole head (import_kalista_strips HEAD) brought down once, the eyes kept (a square EYE or
     more of the glowing eye white turns white, DARK_LINE or more near-black turns the outline), pasted on every frame
     where the dense head matched at score <= HEAD_EXACT (Codex's frames and the run: the design head is there
-    exactly); the turned lying frames keep their own;
+    exactly); the lying frames get it turned a quarter left where the turned design head matched;
   * idle: the design breathing (above the waist up BREATH squares, the spear in her hand carried whole);
     hit: the design moved HIT_DX back, a white flash on the first frame;
   * tidy: the outline closed, 1-square slits and small holes filled, loose specks off.
@@ -147,6 +147,26 @@ def to_ppu(a, head=True):
     return tidy(out), (nx0, ny0)
 
 
+ROT_HEAD = np.rot90(I.HEAD, 1).copy()                  # the lying frames' head: the design's, a quarter left
+ROT_CORE = np.rot90(I.CORE, 1).copy()
+
+
+def paste_lying_head(p, a, corner):
+    """The PPU head turned a quarter left, pasted where the dense lying frame holds the turned design head."""
+    s, ox, oy = I.find_head(a, guess=(70, 100), rng=60, template=ROT_HEAD, core=ROT_CORE)
+    if s > HEAD_EXACT:
+        return p
+    patch = np.rot90(HEADP[0], 1)
+    cx, cy = grid(a, *corner)
+    j, i = cy[oy], cx[ox]
+    out = p.copy()
+    ys, xs = np.nonzero(patch[..., 3] > 0)
+    ty, tx = ys + j, xs + i
+    ok = (ty >= 0) & (ty < out.shape[0]) & (tx >= 0) & (tx < out.shape[1])
+    out[ty[ok], tx[ok]] = patch[ys[ok], xs[ok]]
+    return out
+
+
 def cracks(a):
     out = a.copy()
     for _ in range(2):
@@ -255,6 +275,8 @@ def actions():
             a = np.asarray(Image.open(lp(os.path.join(FRAMES, e["file"]))).convert("RGBA")).copy()
             lying = tag == "dead" and e["file"] in ("dead_4.png", "dead_5.png", "dead_6.png")
             p, corner = to_ppu(a, head=not lying)
+            if lying:
+                p = tidy(paste_lying_head(p, a, corner))
             out[tag].append((p, corner, e["ms"]))
     return {t: out[t] for t in ORDER}
 

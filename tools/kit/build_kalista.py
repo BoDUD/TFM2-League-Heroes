@@ -52,29 +52,33 @@ ID = "league_kalista"
 FX = "asset/league/effects/league_kalista_fx"
 BIG = "asset/league/effects/league_kalista_big"
 
-# Numbers: draft d0 from League's ratios; to be set by the 10-min classic-SDK simulations (kl_sim/sim/kd.py --lane 3).
+# Numbers: the 10-min classic-SDK simulations (kl_sim/sim/kd.py --lane 3 against gunner, soldier, archer and gambler,
+# three lineups, both sides, 8 seeds each, 2026-10-15/16): the League-ratio draft d0 -1.83; Rend from the attack at e_need
+# and the slot tried every e_try 90 ticks -0.41..-0.92; e_need 3, Rend 15 + 40% a spear, Q 80 -> +0.03; hp 950 and W 10%
+# -> +0.97; attack 104 +1.09, Q 7 s +1.17 (both here). Timed to the strips (attack and Q released on their third frame,
+# Rend's yank on E's second, the hop 12 ticks, R's call 24 and throw 18).
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Kalista: 525 range,
     # 59 AD, 560 +114 hp, 24 armour, 330 move, attack speed 0.694, basic attacks 90% AD
-    "hp": 900, "hp_g": 88, "atk": 100, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
+    "hp": 950, "hp_g": 88, "atk": 104, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     # attack: the spear leaves her hand on a_st
-    "atk_range": 52500, "atk_dur": 22, "atk_cd": 50, "a_st": 6, "a_ratio": 90, "spear_speed": 8000, "spear_y": -3000,
+    "atk_range": 52500, "atk_dur": 24, "atk_cd": 50, "a_st": 7, "a_ratio": 90, "spear_speed": 8000, "spear_y": -3000,
     # spears and the ladder
-    "sp_t": 240, "sp_pic": 12, "e_need": 4,
+    "sp_t": 240, "sp_pic": 12, "e_need": 3,
     # W Soul-Marked (League: 14% max health magic, 6 s per target, needs the Oathsworn's hit too)
-    "w_r": 45000, "w_hp": 8, "w_cd": 300,
+    "w_r": 45000, "w_hp": 10, "w_cd": 300,
     # passive Martial Poise (League: a hop of ~300 units after each attack)
-    "hop_thr": 40000, "hop_v": 1800, "hop_t": 9, "k_hold": 40, "k_read": 4,
+    "hop_thr": 40000, "hop_v": 1800, "hop_t": 10, "k_hold": 40, "k_read": 4,
     # skill: Q Pierce (League: 1150 range, 20-120 + 105% AD, 0.25 s cast, width 80, passes through a unit it kills,
     # cd 8 s)
-    "q_cd": 480, "q_range": 100000, "q_dur": 18, "q_rel": 10, "q_speed": 9000, "q_len": 115000,
-    "q_rad": 5000, "q_y": -3000, "q_dmg": 60, "q_ratio": 105,
+    "q_cd": 420, "q_range": 100000, "q_dur": 24, "q_rel": 7, "q_speed": 9000, "q_len": 115000,
+    "q_rad": 5000, "q_y": -3000, "q_dmg": 80, "q_ratio": 105,
     # skill2: E Rend (League: 1100 range; 5-85 + 70% AD the first spear, 8-24 + 23-36% AD each more, slow 10-50% 2 s,
     # cd 14-6 s, reset on a kill)
-    "e_cd": 600, "e_try": 30, "e_range": 100000, "e_reach": 110000, "e_anim": 20, "e_rel": 8,
-    "e_dmg": 12, "e_ratio": 32, "e_slow": 8, "e_slow_t": 120,
+    "e_cd": 600, "e_try": 90, "e_range": 100000, "e_reach": 110000, "e_anim": 23, "e_rel": 4,
+    "e_dmg": 15, "e_ratio": 40, "e_slow": 8, "e_slow_t": 120,
     # ult: R Fate's Call (League: 1100 range, the Oathsworn drawn in up to 4 s, launched to knock up 1-1.5 s, cd 150 s)
-    "r_cd": 4800, "r_range": 90000, "r_bind": 70000, "r_anim": 24, "r_hold": 30, "r_grab_v": 4000, "r_safe": 90,
+    "r_cd": 4800, "r_range": 90000, "r_bind": 70000, "r_anim": 24, "r_throw": 18, "r_hold": 30, "r_grab_v": 4000, "r_safe": 90,
     "r_v": 3000, "r_fly": 40, "r_catch": 14000, "r_kr": 26000, "r_up": 75, "r_dmg": 80, "r_ratio": 60,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -343,8 +347,8 @@ def build(p):
                            [{"type": "Pull", "speed": p["r_v"], "tick": p["r_fly"]}, view("r_fly")]),
                       catch("r_catch", p["r_catch"], p["r_fly"] + 4, "AllyChampionInCC", land)])
     fire = combine(anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
-                   delayed(p["r_hold"], lives(refresh("r_fly", p["r_fly"] + 6), sfx("r_fly"), voice("vo_r_fly", p),
-                                              launch)))
+                   delayed(p["r_hold"], lives(refresh("r_fly", p["r_fly"] + 6), anim("ult2", p["r_throw"]), sfx("r_fly"),
+                                              voice("vo_r_fly", p), launch)))
     refund = flag("r_refund", 3, ult_cooldown_mult=4900)
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(*rm("r_got"), pick(p["r_bind"], "AllyNotSelf", *take), sw("r_got", fire, refund)), key="ult")
