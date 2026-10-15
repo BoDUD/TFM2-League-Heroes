@@ -10,9 +10,9 @@ below to their media, decodes them with vgmstream and writes mono 16-bit WAVs to
 His events (named in skin0.bin): the tongue slap TahmKenchBasicAttack_OnCast / _OnHit; An Acquired Taste's stack
 TahmKenchP_buffactivate; Tongue Lash TahmKenchQ_OnCast, TahmKenchQMissile_hit / _stun and TahmKenchQ_heal; Abyssal Dive
 TahmKenchW_OnCast (the dive), _warning_enemy (the bubbles where he comes up) and TahmKenchWKnockup_OnBuffCast (the
-landing); Thick Skin TahmKenchE_heal and TahmKenchEShield_buffdeactivate (the shield); Devour
+landing); Thick Skin TahmKenchEShield_buffdeactivate (the shield); Devour
 TahmKenchRTargetEnemy_buffactivate (an enemy swallowed), TahmKenchR_buffactivate (an ally) and _buffdeactivate (the
-spit). Voice: TahmKenchQ / W / E_cast3D, Attack2DGeneral for the devour, Spell3DREnd for the spit.
+spit). Voice: TahmKenchQ / W / E_cast3D, Attack2DGeneral for the devour.
 Icons: TahmKenchQ = skill, TahmKenchW = skill2, TahmKenchRWrapper = ult; E and the passive are written too
 (league_tahmkench_e / _passive, for the README).
 """
@@ -48,7 +48,6 @@ CLIPS = {
     "league_tahmkench_sfx_w": (P + "W_OnCast", 733648669, 1.6, -11),
     "league_tahmkench_sfx_w_warn": (P + "W_warning_enemy", 33213547, 1.4, -12),
     "league_tahmkench_sfx_w_land": (P + "WKnockup_OnBuffCast", 986811136, 1.2, -10),
-    "league_tahmkench_sfx_e_heal": (P + "E_heal", 386786145, 1.6, -13),
     "league_tahmkench_sfx_e_shield": (P + "EShield_buffdeactivate", 770914236, 1.0, -12),
     "league_tahmkench_sfx_r_enemy": (P + "RTargetEnemy_buffactivate", 569292774, 2.6, -10),
     "league_tahmkench_sfx_r_ally": (P + "R_buffactivate", 197067368, 1.6, -11),
@@ -57,7 +56,6 @@ CLIPS = {
     "league_tahmkench_sfx_vo_w": (V + "TahmKenchW_cast3D", 1603871270, 1.6, -6),
     "league_tahmkench_sfx_vo_e": (V + "TahmKenchE_cast3D", 1763100268, 2.4, -6),
     "league_tahmkench_sfx_vo_r": (V + "Attack2DGeneral", 464219399, 3.0, -6),
-    "league_tahmkench_sfx_vo_r_end": (V + "Spell3DREnd", 502953741, 1.6, -6),
 }
 I = "ASSETS/Characters/TahmKench/HUD/Icons2D/"
 ICONS = {  # TFM2 slot -> Riot icon
