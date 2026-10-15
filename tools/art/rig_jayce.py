@@ -719,11 +719,72 @@ def pinholes():
         for a, _ in sheet[tag]:
             n1 += fill_holes(a, 2, shade=False)
     print(f"jayce: {total} squares of the restyled frames and {n1} 1x pixels filled")
+    print(f"jayce: {bake(hds, sheet)} pictures laid into his frames")
     for tag in ORDER:
         Image.fromarray(strip_of(hds[tag])).save(os.path.join(src, f"jayce_{tag}.png"))
         with open(os.path.join(src, f"jayce_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
             json.dump({"sizes": [[a.shape[1], a.shape[0]] for a in hds[tag]]}, f)
     G.write_sheet(STEM, sheet)
+
+
+BAKE_DIR = os.path.join(SRC, "fx_bake")
+BAKE_CELLS = os.path.join(SRC, "fx_bake_cells.json")
+
+
+def bake(hds, sheet):
+    """tools/art/import_jayce_fx.py's pictures for his frames (assets/source/jayce/fx_bake/<name>_<k>.png on the guide
+    canvas of fx_bake_cells.json, drawn by Codex on his finished dense frames at this PPU) laid over the restyled frames -
+    after the restyle's outline, so they get none; a frame they reach out of is grown alike at both ends (its centre,
+    the pivot, kept). The 1x frame (the fallback) takes each pixel's commonest colour of the picture's squares under it
+    where half of them are drawn, inside its own box (league_kindred's rig_kindred.bake)."""
+    if not os.path.isfile(BAKE_CELLS):
+        return 0
+    with open(BAKE_CELLS, encoding="utf-8") as f:
+        cells = json.load(f)
+    n = 0
+    for key, c in cells.items():
+        path = os.path.join(BAKE_DIR, key + ".png")
+        if not os.path.isfile(path):
+            continue
+        name, k = key.rsplit("_", 1)
+        k = int(k)
+        tag = c["into"].split()[0][len("hd_"):]
+        if abs(c.get("ppu", PPU) - PPU) > 1e-6:
+            sys.exit(f"{key}: drawn at PPU {c.get('ppu')}, the frames are at {PPU}: redo the effects pack")
+        ov = rgba(path)
+        x0, y0, W, H = c["frame"]
+        f = hds[tag][k - 1]
+        if (f.shape[1], f.shape[0]) != (W, H):
+            sys.exit(f"{key}: {tag} frame {k} is {f.shape[1]}x{f.shape[0]}, its guide's {W}x{H}: the frames changed "
+                     "since the effects pack (tools/art/pack_jayce_fx.py)")
+        ys, xs = np.nonzero(ov[..., 3] > 0)
+        if not len(xs):
+            continue
+        fx, fy = xs - x0, ys - y0
+        colours = ov[ys, xs]
+        gx = int(max(0, -fx.min(), fx.max() + 1 - W))
+        gy = int(max(0, -fy.min(), fy.max() + 1 - H))
+        if gx or gy:
+            f = np.pad(f, ((gy, gy), (gx, gx), (0, 0)))
+        px, py = fx + gx, fy + gy
+        f[py, px] = colours
+        hds[tag][k - 1] = f
+        a = sheet[tag][k - 1][0]
+        h1, w1 = a.shape[:2]
+        i = np.floor((fx + 0.5 - W / 2.0) / PPU + w1 / 2.0).astype(int)
+        j = np.floor((fy + 0.5 - H / 2.0) / PPU + h1 / 2.0).astype(int)
+        inside = (i >= 0) & (i < w1) & (j >= 0) & (j < h1)
+        cell = {}
+        for ii, jj, col in zip(i[inside], j[inside], colours[inside]):
+            cell.setdefault((jj, ii), []).append(tuple(int(v) for v in col[:3]))
+        for (jj, ii), cols in cell.items():
+            if len(cols) < 0.5 * PPU * PPU:
+                continue
+            vals, cnt = np.unique(np.array(cols), axis=0, return_counts=True)
+            a[jj, ii, :3] = vals[cnt.argmax()]
+            a[jj, ii, 3] = 255
+        n += 1
+    return n
 
 
 def main():

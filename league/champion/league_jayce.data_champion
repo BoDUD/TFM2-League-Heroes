@@ -379,7 +379,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "tf_h",
-                  "tick": 14
+                  "tick": 20
                 },
                 {
                   "type": "CasterViewEffect",
@@ -499,7 +499,7 @@
                 {
                   "type": "CasterAnimation",
                   "name": "tf_c",
-                  "tick": 14
+                  "tick": 20
                 },
                 {
                   "type": "CasterViewEffect",
@@ -623,13 +623,13 @@
                             },
                             {
                               "type": "Delayed",
-                              "tick": 7,
+                              "tick": 5,
                               "effects": [
                                 {
                                   "type": "TargetProjectile",
                                   "name": "league_jayce_c_bolt",
                                   "speed": 6000,
-                                  "y_offset": 0,
+                                  "y_offset": -4000,
                                   "applied_target": "Enemy",
                                   "applied_effects": [
                                     {
@@ -688,13 +688,13 @@
                         },
                         "effect_none": {
                           "type": "Delayed",
-                          "tick": 7,
+                          "tick": 5,
                           "effects": [
                             {
                               "type": "TargetProjectile",
                               "name": "league_jayce_c_bolt",
                               "speed": 6000,
-                              "y_offset": 0,
+                              "y_offset": -4000,
                               "applied_target": "Enemy",
                               "applied_effects": [
                                 {
@@ -748,13 +748,13 @@
                             },
                             {
                               "type": "Delayed",
-                              "tick": 7,
+                              "tick": 5,
                               "effects": [
                                 {
                                   "type": "TargetProjectile",
                                   "name": "league_jayce_c_bolt",
                                   "speed": 6000,
-                                  "y_offset": 0,
+                                  "y_offset": -4000,
                                   "applied_target": "Enemy",
                                   "applied_effects": [
                                     {
@@ -813,13 +813,13 @@
                         },
                         "effect_none": {
                           "type": "Delayed",
-                          "tick": 7,
+                          "tick": 5,
                           "effects": [
                             {
                               "type": "TargetProjectile",
                               "name": "league_jayce_c_bolt",
                               "speed": 6000,
-                              "y_offset": 0,
+                              "y_offset": -4000,
                               "applied_target": "Enemy",
                               "applied_effects": [
                                 {
@@ -866,7 +866,7 @@
                 },
                 {
                   "type": "Delayed",
-                  "tick": 11,
+                  "tick": 17,
                   "effects": [
                     {
                       "type": "TargetProjectile",
@@ -950,7 +950,7 @@
             {
               "type": "CasterAnimation",
               "name": "c_skill",
-              "tick": 24
+              "tick": 34
             },
             {
               "type": "Sfx",
@@ -987,7 +987,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 9,
+              "tick": 19,
               "effects": [
                 {
                   "type": "LinearProjectile",
@@ -1051,7 +1051,7 @@
                       "radius": 3000
                     }
                   },
-                  "y_offset": 0
+                  "y_offset": -3300
                 }
               ]
             }
@@ -1113,7 +1113,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "skill",
-                    "tick": 30
+                    "tick": 40
                   },
                   {
                     "type": "Sfx",
@@ -1150,7 +1150,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 5,
+                    "tick": 10,
                     "effects": [
                       {
                         "type": "MoveToTarget",
@@ -1266,7 +1266,7 @@
                                         {
                                           "type": "CasterAnimation",
                                           "name": "skill2",
-                                          "tick": 24
+                                          "tick": 34
                                         },
                                         {
                                           "type": "Sfx",
@@ -1303,7 +1303,7 @@
                                         },
                                         {
                                           "type": "Delayed",
-                                          "tick": 9,
+                                          "tick": 17,
                                           "effects": [
                                             {
                                               "type": "RandomTarget",
@@ -1616,7 +1616,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "c_skill2",
-                    "tick": 20
+                    "tick": 26
                   },
                   {
                     "type": "Sfx",
@@ -1720,7 +1720,7 @@
                     {
                       "type": "CasterAnimation",
                       "name": "w_cast",
-                      "tick": 20
+                      "tick": 26
                     },
                     {
                       "type": "Sfx",
@@ -1732,7 +1732,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 7,
+                      "tick": 12,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -1770,7 +1770,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 37,
+                      "tick": 42,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -1808,7 +1808,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 67,
+                      "tick": 72,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -1846,7 +1846,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 97,
+                      "tick": 102,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -1884,7 +1884,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 127,
+                      "tick": 132,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -1922,7 +1922,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 157,
+                      "tick": 162,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -1960,7 +1960,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 187,
+                      "tick": 192,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -1998,7 +1998,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 217,
+                      "tick": 222,
                       "effects": [
                         {
                           "type": "RandomTarget",
@@ -2092,7 +2092,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "skill2",
-                    "tick": 24
+                    "tick": 34
                   },
                   {
                     "type": "Sfx",
@@ -2129,7 +2129,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 9,
+                    "tick": 17,
                     "effects": [
                       {
                         "type": "RandomTarget",
@@ -2469,7 +2469,7 @@
         {
           "type": "CasterAnimation",
           "name": "ult",
-          "tick": 30
+          "tick": 40
         },
         {
           "type": "CasterViewEffect",
@@ -2532,7 +2532,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 13,
+          "tick": 25,
           "effects": [
             {
               "type": "Sfx",
@@ -2600,7 +2600,7 @@
                   "radius": 3500
                 }
               },
-              "y_offset": 0
+              "y_offset": -6700
             }
           ]
         }
@@ -2711,7 +2711,7 @@
       "name": "league_jayce_gate",
       "anim": "asset/league/effects/league_jayce_big",
       "tag": "gate",
-      "z": 1,
+      "z": -1,
       "is_follow": false
     },
     {

@@ -58,10 +58,13 @@ ID = "league_jayce"
 FX = "asset/league/effects/league_jayce_fx"
 BIG = "asset/league/effects/league_jayce_big"
 
-# Placeholder timings (no strips yet; retime from the frames later): attack 24 ticks, the hammer lands on tick 12; the
-# cannon shot 20, the bolt leaves on tick 8; To the Skies 30, off the ground on tick 6, the leap at q_speed; Shock Blast 24,
-# the orb on tick 10; Thundering Blow 24, the blow on tick 10; Lightning Field 20, the first pulse on tick 8; Hyper Charge
-# 20; the ult 30, the orb on tick 14; the turns 14.
+# Timings from the strips (assets/source/jayce/codex_strips/timing.json, Codex's step 2 after League's clips): the hammer
+# swing 640 ms, the blow on frame 4 (280 ms: tick 18); the cannon shot 380 ms, the bolt on frame 2 (80 ms: tick 6); To the
+# Skies 680 ms, off the ground on frame 2 (tick 11, the leap at q_speed lands by frame 5's slam, 400 ms); Shock Blast
+# 580 ms, the orb on frame 4 (320 ms: tick 20); Thundering Blow 660 ms, the blow on frame 4 (tick 18); Lightning Field
+# 480 ms, the raised hammer on frame 3 (200 ms: tick 13); Hyper Charge 480 ms; the ult 720 ms, the orb on frame 5 (420 ms:
+# tick 26); the turns 340 ms (20 ticks). Heights (a projectile starts 5000 - y_offset above the pivot, 1000 a game px):
+# the muzzle 9 game px over the pivot in c_attack 2 (c_y -4000), 8.3 in c_skill 4 (cq_y -3300), 11.7 in ult 5 (r_y -6700).
 # Numbers = candidate d5 of the 10-min classic-SDK simulations (%LOCALAPPDATA%/Temp/jy_sim, sim/kd.py --lane 0 against
 # the base fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-15): +0.89
 # on seeds 1-24, +0.81 on 25-48; the pack's top laners on the same seeds: league_darius +1.73 / +1.36, league_renekton
@@ -75,32 +78,32 @@ P = {
     # range. A little ability power (league_jax's way) so Thundering Blow and Lightning Field grow with his level.
     "hp": 1080, "hp_g": 106, "atk": 88, "atk_g": 18, "mp": 20, "mp_g": 8, "def": 34, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 12,
-    "atk_range": 25000, "atk_dur": 24, "atk_cd": 64, "a_st": 12,
+    "atk_range": 25000, "atk_dur": 24, "atk_cd": 64, "a_st": 18,
     # cannon form: reach atk_range + c_add (League 500 against 125); the bolt
-    "c_add": 25000, "c_atk_dur": 20, "c_st": 8, "c_speed": 6000, "c_y": 0,
+    "c_add": 25000, "c_atk_dur": 20, "c_st": 6, "c_speed": 6000, "c_y": -4000,
     # the switch (League R: cd 6 s), the rules' reach for "dived"
-    "tf_dur": 14, "r_cd_t": 360, "d_near": 30000,
+    "tf_dur": 20, "r_cd_t": 360, "d_near": 30000,
     # passive Hextech Capacitor + the transforms (League: +30 move speed 0.75 s; shred 10-35% 5 s)
     "p_ms": 25, "p_mt": 60, "p_sh": 20, "p_sh_t": 300, "p_sh_on": 360, "p_arm": 25, "p_arm_t": 240,
     # skill slot (both forms; the forms' own cooldowns are caster flags)
     "s_cd": 60, "s_range": 75000,
     # hammer Q To the Skies (League: 600, 10-310 + 120% bonus AD r ~275, slow 30-60% 2 s, cd 18-6 s)
-    "q_cd": 480, "q_rng": 48000, "q_anim": 30, "q_go": 6, "q_speed": 4000, "q_r": 18000, "q_dmg": 70, "q_ad": 105,
+    "q_cd": 480, "q_rng": 48000, "q_anim": 40, "q_go": 11, "q_speed": 4000, "q_r": 18000, "q_dmg": 70, "q_ad": 105,
     "q_slow": 40, "q_slow_t": 120, "q_probe": 1,
     # cannon Q Shock Blast (League: 1050, speed 1450, 39-285 + 130% bonus AD, r 210, cd 8 s)
-    "cq_cd": 420, "cq_anim": 24, "cq_at": 10, "cq_speed": 5500, "cq_len": 80000, "cq_w": 3000, "cq_y": 0, "cq_r": 15000,
+    "cq_cd": 420, "cq_anim": 34, "cq_at": 20, "cq_speed": 5500, "cq_len": 80000, "cq_w": 3000, "cq_y": -3300, "cq_r": 15000,
     "cq_dmg": 80, "cq_ad": 115,
     # skill2 slot
     "s2_cd": 60, "s2_range": 55000,
     # hammer E Thundering Blow (League: 240, 8-24% max hp + 100% bonus AD magic, knock-back 600 in 0.35 s, cd 20-10 s)
-    "e_cd": 540, "e_r": 28000, "e_anim": 24, "e_at": 10, "e_dmg": 40, "e_ap": 60, "e_hp": 7, "e_kb_speed": 2500,
+    "e_cd": 540, "e_r": 28000, "e_anim": 34, "e_at": 18, "e_dmg": 40, "e_ap": 60, "e_hp": 7, "e_kb_speed": 2500,
     "e_kb_t": 14,
     # hammer W Lightning Field (League: r 285, 80-440 + 100% AP magic over 4 s, cd 10 s)
-    "w_cd": 600, "w_near": 30000, "w_anim": 20, "w_at": 8, "w_r": 20000, "w_n": 8, "w_per": 30, "w_dmg": 14, "w_ap": 12,
+    "w_cd": 600, "w_near": 30000, "w_anim": 26, "w_at": 13, "w_r": 20000, "w_n": 8, "w_per": 30, "w_dmg": 14, "w_ap": 12,
     # cannon W Hyper Charge (League: 3 shots in 3.6 s at 62-110% AD, attack speed to the maximum, cd 14.6-5 s)
-    "cw_cd": 600, "cw_near": 55000, "cw_anim": 20, "hc_t": 216, "hc_as": 120, "hc_ad": 120,
+    "cw_cd": 600, "cw_near": 55000, "cw_anim": 26, "hc_t": 216, "hc_as": 120, "hc_ad": 120,
     # ult 「加速电炮」 (League E -> Q: gate ms 30-60% 3 s, the orb at 2350 to 2000 range, x1.4 damage)
-    "r_cd": 1500, "r_range": 90000, "r_anim": 30, "r_at": 14, "r_speed": 9000, "r_len": 115000, "r_w": 3500, "r_y": 0,
+    "r_cd": 1500, "r_range": 90000, "r_anim": 40, "r_at": 26, "r_speed": 9000, "r_len": 115000, "r_w": 3500, "r_y": -6700,
     "r_rad": 21000, "r_amp": 140, "g_ms": 40, "g_t": 180,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -368,7 +371,7 @@ def build(p):
                                                 "repeat": True, "z": z}
     views_p = [P_("c_bolt"), P_("cq_orb"), P_("gq_orb", BIG)]
     views_e = [E("a_hit"), E("c_hit"), E("q_land", BIG, -1, False), E("q_hit"), E("e_blow"), E("w_field", BIG, -1),
-               E("w_zap"), E("cq_hit"), E("cq_boom", BIG, 2, False), E("gate", BIG, 1, False), E("gq_hit"),
+               E("w_zap"), E("cq_hit"), E("cq_boom", BIG, 2, False), E("gate", BIG, -1, False), E("gq_hit"),
                E("gq_boom", BIG, 2, False), E("tf_spark", FX, 3)]
     views_b = [B_("q_slow", FX, 1), B_("hyper", FX, 2), B_("shred", FX, 2), B_("haste", FX, -1),
                B_("g_haste", FX, -1, "haste"), B_("guard", FX, 2)]
