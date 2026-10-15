@@ -2,7 +2,7 @@
   "zh-hans": {
     "description": {
       "league_milio_fired": {
-        "attack": "【附加包】射出小火球。被动<#ff9028ff>热情洋溢！<>：技能触及的友方（营火每跳也算）下一次命中敌人时将其点燃，<#ffb900ff>1.5秒<>内造成<#a974ffff>20-100<>（随等级）<#a974ffff>魔法伤害<>；米利欧获得<#ffb900ff>15%<>移速。",
+        "attack": "【附加包】射出小火球。被动<#ff9028ff>热情洋溢！<>：技能触及的友方（营火每跳也算）获得<#ffb900ff>20%<>攻击力和法强，下一次命中敌人时将其点燃，<#ffb900ff>1.5秒<>内造成<#a974ffff>20-100<>（随等级）<#a974ffff>魔法伤害<>（加成随之消失，最多<#ffb900ff>5秒<>）；米利欧获得<#ffb900ff>15%<>移速。",
         "ult": "【附加包】周围友方英雄被控制、生命低于<#ffb900ff>30%<>或<#ffb900ff>1秒<>内被打掉三成（敌方英雄在旁）时，<#ef5350ff>解除<>周围友方英雄的控制，恢复<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>生命，<#ef5350ff>免疫控制1秒<>并获得<#ffb900ff>65%<>韧性（<#ffb900ff>3秒<>）。"
       }
     }
@@ -10,7 +10,7 @@
   "zh-hant": {
     "description": {
       "league_milio_fired": {
-        "attack": "【附加包】射出小火球。被動<#ff9028ff>爐火餘溫<>：技能觸及的友軍（營火每跳也算）下一次命中敵人時將其點燃，<#ffb900ff>1.5秒<>內造成<#a974ffff>20-100<>（隨等級）<#a974ffff>魔法傷害<>；米里歐獲得<#ffb900ff>15%<>跑速。",
+        "attack": "【附加包】射出小火球。被動<#ff9028ff>爐火餘溫<>：技能觸及的友軍（營火每跳也算）獲得<#ffb900ff>20%<>攻擊力和魔攻，下一次命中敵人時將其點燃，<#ffb900ff>1.5秒<>內造成<#a974ffff>20-100<>（隨等級）<#a974ffff>魔法傷害<>（加成隨之消失，最多<#ffb900ff>5秒<>）；米里歐獲得<#ffb900ff>15%<>跑速。",
         "ult": "【附加包】周圍友方英雄被控場、生命低於<#ffb900ff>30%<>或<#ffb900ff>1秒<>內被打掉三成（敵方英雄在旁）時，<#ef5350ff>解除<>周圍友方英雄的控場，恢復<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>生命，<#ef5350ff>免疫控場1秒<>並獲得<#ffb900ff>65%<>韌性（<#ffb900ff>3秒<>）。"
       }
     }
@@ -18,7 +18,7 @@
   "en": {
     "description": {
       "league_milio_fired": {
-        "attack": "[Add-on] Throws a small fireball. Passive <#ff9028ff>Fired Up!<>: allies his spells touch (each campfire pulse too) set the enemy they hit next ablaze for <#a974ffff>20-100<> <#a974ffff>magic damage<> (by level) over <#ffb900ff>1.5s<>; Milio gains <#ffb900ff>15%<> move speed.",
+        "attack": "[Add-on] Throws a small fireball. Passive <#ff9028ff>Fired Up!<>: allies his spells touch (each campfire pulse too) gain <#ffb900ff>20%<> attack and ability power and set the enemy they hit next ablaze for <#a974ffff>20-100<> <#a974ffff>magic damage<> (by level) over <#ffb900ff>1.5s<> (the bonus ends with that hit, <#ffb900ff>5s<> at most); Milio gains <#ffb900ff>15%<> move speed.",
         "ult": "[Add-on] When an allied champion around him is crowd-controlled, below <#ffb900ff>30%<> health or lost 30% within <#ffb900ff>1s<> (an enemy champion close), allied champions around him are <#ef5350ff>cleansed<>, heal <#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>, are <#ef5350ff>immune to crowd control for 1s<> and gain <#ffb900ff>65%<> tenacity for <#ffb900ff>3s<>."
       }
     }
@@ -26,7 +26,7 @@
   "ko": {
     "description": {
       "league_milio_fired": {
-        "attack": "[애드온] 작은 불덩이를 던집니다. 기본 지속 효과 <#ff9028ff>타오르는 힘<>: 스킬이 닿은 아군(모닥불 매 회복 포함)이 다음에 맞힌 적을 불태워 <#ffb900ff>1.5초<> 동안 <#a974ffff>20-100<>(레벨 비례) <#a974ffff>마법 피해<>, 밀리오는 이동 속도 <#ffb900ff>15%<>.",
+        "attack": "[애드온] 작은 불덩이를 던집니다. 기본 지속 효과 <#ff9028ff>타오르는 힘<>: 스킬이 닿은 아군(모닥불 매 회복 포함)이 공격력과 주문력 <#ffb900ff>20%<> 증가, 다음에 맞힌 적을 불태워 <#ffb900ff>1.5초<> 동안 <#a974ffff>20-100<>(레벨 비례) <#a974ffff>마법 피해<>(증가는 그 공격으로 끝, 최대 <#ffb900ff>5초<>), 밀리오는 이동 속도 <#ffb900ff>15%<>.",
         "ult": "[애드온] 주변 아군 챔피언이 군중 제어되거나 체력 <#ffb900ff>30%<> 미만이거나 <#ffb900ff>1초<> 안에 30%를 잃으면(적 챔피언 근처) 주변 아군 챔피언의 <#ef5350ff>군중 제어 해제<>, <#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<> 회복, <#ef5350ff>1초 군중 제어 면역<>, <#ffb900ff>3초<> 동안 강인함 <#ffb900ff>65%<>."
       }
     }
@@ -34,7 +34,7 @@
   "ja": {
     "description": {
       "league_milio_fired": {
-        "attack": "【アドオン】小さな火の玉を投げる。自動効果<#ff9028ff>ファイヤーアップ！<>：スキルが触れた味方（焚き火の回復ごとにも）が次に攻撃した敵を燃やし、<#ffb900ff>1.5秒<>で<#a974ffff>20-100<>（レベル比例）の<#a974ffff>魔法ダメージ<>、ミリオは移動速度<#ffb900ff>15%<>。",
+        "attack": "【アドオン】小さな火の玉を投げる。自動効果<#ff9028ff>ファイヤーアップ！<>：スキルが触れた味方（焚き火の回復ごとにも）が攻撃力と魔力<#ffb900ff>20%<>増加、次に攻撃した敵を燃やし、<#ffb900ff>1.5秒<>で<#a974ffff>20-100<>（レベル比例）の<#a974ffff>魔法ダメージ<>（増加はその攻撃で終了、最大<#ffb900ff>5秒<>）、ミリオは移動速度<#ffb900ff>15%<>。",
         "ult": "【アドオン】周囲の味方チャンピオンが行動妨害を受けるか体力<#ffb900ff>30%<>未満か<#ffb900ff>1秒<>で30%失った時（敵チャンピオンが近い時）、周囲の味方の<#ef5350ff>行動妨害を解除<>、<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>回復、<#ef5350ff>1秒行動妨害無効<>、<#ffb900ff>3秒<>行動妨害耐性<#ffb900ff>65%<>。"
       }
     }
