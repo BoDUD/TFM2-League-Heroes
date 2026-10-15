@@ -3,8 +3,9 @@
 //! 主包是纯数据：数据里没有「另一个单位打中了谁」的时机，所以主包的热情洋溢！是 E / R 触及的友方 +30% 攻击力和法强 5 秒；
 //! 数据也读不到生命，R 按控制和身边的敌人猜什么时候放。`mod.override_info` 把主包的米利欧换成 `override/` 里的副本
 //! （`make_override.py` 用 `tools/kit/build_milio.py` 生成）：
-//! - `league_milio_fired` 只当记号（攻击力、法强加成 0，画面照旧），营火每一跳也给周围友方挂上（英雄联盟的营火每次治疗都
-//!   附带热情洋溢！）；被动是本包的原生被动 `league_milio:fired`（数字在英雄数据的 `passive.params`）；
+//! - `league_milio_fired` 是热情洋溢！的记号（画面照旧；攻击力、法强加成从主包的 30% 降到 `make_override.MARK` 20%，只到下一次命中
+//!   为止——只有灼烧时模拟里他掉到 -2.1），营火每一跳也给周围友方挂上（英雄联盟的营火每次治疗都附带热情洋溢！）；被动是本包的原生
+//!   被动 `league_milio:fired`（数字在英雄数据的 `passive.params`）；
 //! - R 用 `r_now=1`：一放出就生效（不再待命、不再在普攻和技能里查危险），R 的那圈里每个友方英雄先过本包的原生效果
 //!   `league_milio:cleanse`（真的解控）。
 //!
@@ -49,7 +50,7 @@ use rules::*;
 
 const ID: &str = "league_milio";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 /// 主包的米利欧。
 pub const HERO: &str = "league_milio";
 /// 热情洋溢！的记号（主包的 buff，副本里没有数值，画面照旧）。
@@ -859,7 +860,8 @@ impl StablePlayerAi for UltAi {
                     saved: who(&sim, a.id),
                 }),
                 _ if wants_ult => match nearest {
-                    Some((t, d, _)) if d <= ATTACK_RANGE => Do::Hold(Some(t), None, line),
+                    // in reach: attack him (if the attack is not taken, step toward him - never let the R through)
+                    Some((t, d, p)) if d <= ATTACK_RANGE => Do::Hold(Some(t), Some(p), line),
                     Some((_, _, p)) => Do::Hold(None, Some(p), line),
                     None => Do::Hold(None, Some(me.pos()), line),
                 },

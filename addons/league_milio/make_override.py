@@ -7,7 +7,8 @@ league/champion/league_milio.data_champion byte for byte (so the copy never drif
 src/rules.rs's R numbers are the kit's (R_CAST_RANGE = r_arm_range, R_RADIUS = r_r, R_REL = R_REL, ATTACK_RANGE =
 atk_range), and writes addons/league_milio/override/league_milio.data_champion and .../text/champion.i18n:
   * the build with r_now=1 (R fires Breath of Life on the cast itself - the AI hook league_milio:ult decides when) and
-    p_atk = p_ap = 0 (league_milio_fired is only the mark of Fired Up!, its picture unchanged), plus NUMBERS;
+    p_atk = p_ap = MARK (league_milio_fired marks the ally for Fired Up!'s burn, its picture unchanged; MARK % attack and
+    ability power stay on it for balance, see below), plus NUMBERS;
   * passive league_milio:fired with PASSIVE as its params (the burn on the marked ally's next hit);
   * the native effect league_milio:cleanse first in R's circle (a real cleanse of the CC already on an ally);
   * league_milio_fired also on every ally a Cozy Campfire pulse heals (League's hearth applies Fired Up! each pulse);
@@ -34,22 +35,27 @@ HERO = "league_milio"
 PASSIVE = {"burn_hi": 100, "burn_lo": 20, "burn_p": 15, "burn_t": 90, "mon_cap": 100}
 # the copy's own kit numbers on top of P (balance of the add-on version; empty = the main pack's)
 NUMBERS = {}
+# attack / ability power % the mark itself still gives for its p_t ticks. League's Fired Up! gives none, but with the
+# burn alone the add-on's Milio fell to -2.12 / ... in the hooked classic-SDK simulation (scratchpad mi_hook.rs, kdm.py,
+# lane 4 vs priest / monk / bard / pythoness / spirit_caller, seeds 1-12; main pack d9 +0.28): 15 -> -0.37, 20 -> +0.24,
+# 30 -> +0.87 (the burn and R by health on top); 20 keeps him where the main pack's Milio is
+MARK = 20
 A, G, C, O, M, E = setup.A, setup.G, setup.C, setup.O, setup.M, setup.E
 RH = setup.RH
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[애드온] ", "ja": "【アドオン】"}
 BURN = M + "{burn_lo}-{burn_hi}" + E
 ATTACK = {
-    "zh-hans": "射出小火球。被动" + O + "热情洋溢！" + E + "：技能触及的友方（营火每跳也算）下一次命中敌人时将其点燃，" + A + "{burn_t}秒" + E +
-               "内造成" + BURN + "（随等级）" + M + "魔法伤害" + E + "；米利欧获得" + A + "{p_ms}%" + E + "移速。",
-    "zh-hant": "射出小火球。被動" + O + "爐火餘溫" + E + "：技能觸及的友軍（營火每跳也算）下一次命中敵人時將其點燃，" + A + "{burn_t}秒" + E +
-               "內造成" + BURN + "（隨等級）" + M + "魔法傷害" + E + "；米里歐獲得" + A + "{p_ms}%" + E + "跑速。",
-    "en": "Throws a small fireball. Passive " + O + "Fired Up!" + E + ": allies his spells touch (each campfire pulse too) set the "
+    "zh-hans": "射出小火球。被动" + O + "热情洋溢！" + E + "：技能触及的友方（营火每跳也算）{mark_zh}下一次命中敌人时将其点燃，" + A + "{burn_t}秒" + E +
+               "内造成" + BURN + "（随等级）" + M + "魔法伤害" + E + "{mark_end_zh}；米利欧获得" + A + "{p_ms}%" + E + "移速。",
+    "zh-hant": "射出小火球。被動" + O + "爐火餘溫" + E + "：技能觸及的友軍（營火每跳也算）{mark_zt}下一次命中敵人時將其點燃，" + A + "{burn_t}秒" + E +
+               "內造成" + BURN + "（隨等級）" + M + "魔法傷害" + E + "{mark_end_zt}；米里歐獲得" + A + "{p_ms}%" + E + "跑速。",
+    "en": "Throws a small fireball. Passive " + O + "Fired Up!" + E + ": allies his spells touch (each campfire pulse too) {mark_en}set the "
           "enemy they hit next ablaze for " + BURN + " " + M + "magic damage" + E + " (by level) over " + A + "{burn_t}s" + E +
-          "; Milio gains " + A + "{p_ms}%" + E + " move speed.",
-    "ko": "작은 불덩이를 던집니다. 기본 지속 효과 " + O + "타오르는 힘" + E + ": 스킬이 닿은 아군(모닥불 매 회복 포함)이 다음에 맞힌 적을 불태워 " + A +
-          "{burn_t}초" + E + " 동안 " + BURN + "(레벨 비례) " + M + "마법 피해" + E + ", 밀리오는 이동 속도 " + A + "{p_ms}%" + E + ".",
-    "ja": "小さな火の玉を投げる。自動効果" + O + "ファイヤーアップ！" + E + "：スキルが触れた味方（焚き火の回復ごとにも）が次に攻撃した敵を燃やし、" + A +
-          "{burn_t}秒" + E + "で" + BURN + "（レベル比例）の" + M + "魔法ダメージ" + E + "、ミリオは移動速度" + A + "{p_ms}%" + E + "。",
+          "{mark_end_en}; Milio gains " + A + "{p_ms}%" + E + " move speed.",
+    "ko": "작은 불덩이를 던집니다. 기본 지속 효과 " + O + "타오르는 힘" + E + ": 스킬이 닿은 아군(모닥불 매 회복 포함)이 {mark_ko}다음에 맞힌 적을 불태워 " + A +
+          "{burn_t}초" + E + " 동안 " + BURN + "(레벨 비례) " + M + "마법 피해" + E + "{mark_end_ko}, 밀리오는 이동 속도 " + A + "{p_ms}%" + E + ".",
+    "ja": "小さな火の玉を投げる。自動効果" + O + "ファイヤーアップ！" + E + "：スキルが触れた味方（焚き火の回復ごとにも）が{mark_ja}次に攻撃した敵を燃やし、" + A +
+          "{burn_t}秒" + E + "で" + BURN + "（レベル比例）の" + M + "魔法ダメージ" + E + "{mark_end_ja}、ミリオは移動速度" + A + "{p_ms}%" + E + "。",
 }
 ULT = {
     "zh-hans": "周围友方英雄被控制、生命低于" + A + "30%" + E + "或" + A + "1秒" + E + "内被打掉三成（敌方英雄在旁）时，" + C + "解除" + E +
@@ -119,7 +125,7 @@ def main():
     if off:
         sys.exit("src/rules.rs's R numbers are not the kit's (rules.rs, kit): %s" % off)
 
-    q = dict(p, r_now=1, p_atk=0, p_ap=0, **NUMBERS)
+    q = dict(p, r_now=1, p_atk=MARK, p_ap=MARK, **NUMBERS)
     champion = kit.build(q)
     if json.dumps(champion["ult"]) == json.dumps(kit.build(p)["ult"]):
         sys.exit("r_now=1 left R as it was: update this script")
@@ -127,8 +133,9 @@ def main():
     # the mark: no stats on any league_milio_fired in the copy (E's hug and R's breath)
     for d in walk(champion):
         bs = d.get("buff_state")
-        if isinstance(bs, dict) and bs.get("name") == fired and (bs.get("attack_mult") or bs.get("magic_power_mult")):
-            sys.exit("a league_milio_fired with stats left in the copy: update this script")
+        if isinstance(bs, dict) and bs.get("name") == fired and (bs.get("attack_mult", 0), bs.get("magic_power_mult", 0)) != (
+                q["p_atk"], q["p_ap"]):
+            sys.exit("a league_milio_fired with other stats than MARK in the copy: update this script")
     mark = next(copy.deepcopy(d) for d in walk(champion) if d.get("type") == "AddBuff"
                 and d.get("buff_state", {}).get("name") == fired)
     # R's circle: the cleanse first
@@ -149,6 +156,16 @@ def main():
 
     values = setup.values(q)
     values.update({"burn_lo": PASSIVE["burn_lo"], "burn_hi": PASSIVE["burn_hi"], "burn_t": setup.secs(PASSIVE["burn_t"])})
+    m = A + f"{MARK}%" + E
+    t = A + setup.secs(q["p_t"])
+    values.update({
+        "mark_zh": f"获得{m}攻击力和法强，" if MARK else "", "mark_end_zh": f"（加成随之消失，最多{t}秒{E}）" if MARK else "",
+        "mark_zt": f"獲得{m}攻擊力和魔攻，" if MARK else "", "mark_end_zt": f"（加成隨之消失，最多{t}秒{E}）" if MARK else "",
+        "mark_en": f"gain {m} attack and ability power and " if MARK else "",
+        "mark_end_en": f" (the bonus ends with that hit, {t}s{E} at most)" if MARK else "",
+        "mark_ko": f"공격력과 주문력 {m} 증가, " if MARK else "", "mark_end_ko": f"(증가는 그 공격으로 끝, 최대 {t}초{E})" if MARK else "",
+        "mark_ja": f"攻撃力と魔力{m}増加、" if MARK else "", "mark_end_ja": f"（増加はその攻撃で終了、最大{t}秒{E}）" if MARK else "",
+    })
     texts = {lang: {"attack": (LEAD[lang] + ATTACK[lang]).format(**values), "ult": (LEAD[lang] + ULT[lang]).format(**values)}
              for lang in ATTACK}
     long = {f"{lang}.{k}": setup.shown_length(t) for lang, d in texts.items() for k, t in d.items()
