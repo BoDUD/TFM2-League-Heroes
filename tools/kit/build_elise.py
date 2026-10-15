@@ -87,7 +87,8 @@ P = {
     "r_cd": 1200, "r_range": 75000, "r_go": 16, "r_up": 30, "r_dmg": 120, "r_ap": 70,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
-    # 1 = the copy for addons/league_elise (the whole-body spider and the target picks need nothing in the data)
+    # 1 = the copy for addons/league_elise: passive league_elise:queen; skill2 and the ult cast on the target the add-on's
+    # AI hook picks (the Cocoon and Rappel go at it instead of a random champion in reach)
     "native": 0,
     # test builds for the balance runs: 1 = human only, 2 = spider from the first attack on
     "lock": 0,
@@ -214,6 +215,7 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 def build(p):
+    nat = bool(p["native"])
     # ------------------------------------------------------------------ passive: the spiderlings
     # a human ability hit adds one (sl1 -> sl2 -> sl3); permanent flags, cleared by her death
     grow = on_me(sw("sl3", NONE, sw("sl2", flag("sl3", None), sw("sl1", flag("sl2", None), flag("sl1", None)))))
@@ -282,13 +284,14 @@ def build(p):
                    combine(human, sw("sp", sw("cq_cd", NONE, in_bite), sw("q_cd", NONE, neuro))), key="skill")
 
     # ------------------------------------------------------------------ skill2: Cocoon + Spiderling / Rappel + Frenzy
-    def aimed(rng, target, at, shot):
+    def aimed(rng, target, at, shot, direct=False):
         """The shot leaves on tick `at` toward where the target stood 8 ticks before (league_caitlyn Q's lock): a hidden
-        8-tick lob onto that spot starts it, so a champion who keeps walking dodges it."""
-        return delayed(at - 9, pick(rng, target, {"type": "ParabolicProjectile", "name": n("aim"), "travel_time": 8,
-                                                  "range": rng + 10000, "range_effect_name": "",
-                                                  "shape": circle(1), "applied_target": target,
-                                                  "applied_effects": [], "end_effects": [shot]}))
+        8-tick lob onto that spot starts it, so a champion who keeps walking dodges it. `direct`: at the cast's own
+        target (the add-on's copy), else at a random `target` in reach."""
+        lob = {"type": "ParabolicProjectile", "name": n("aim"), "travel_time": 8, "range": rng + 10000,
+               "range_effect_name": "", "shape": circle(1), "applied_target": target, "applied_effects": [],
+               "end_effects": [shot]}
+        return delayed(at - 9, lob if direct else pick(rng, target, lob))
 
     def cocoon_line():
         hits = [magic(p["e_dmg"], p["e_ap"]), {"type": "Stun", "duration": p["e_stun"]}, view("e_hit"),
@@ -296,7 +299,7 @@ def build(p):
         return line("e_web", p["e_speed"], p["e_range"] + 10000, p["e_w"], "EnemyWithoutTower", False, hits)
 
     e_cast = combine(flag("e_cd", p["e_cd"]), anim("skill2", p["e_anim"]), sfx("e"), voice("vo_e", p),
-                     aimed(p["e_range"], "EnemyChampion", p["e_at"], cocoon_line()))
+                     aimed(p["e_range"], "EnemyChampion", p["e_at"], cocoon_line(), direct=nat))
     w_hit = [around(p["w_rad"], "EnemyWithoutTower", [magic(p["w_dmg"], p["w_ap"]), view("w_hit"), grow]),
              view("w_boom"), tsfx("w_boom")]
     w_line = line("w_spider", p["w_speed"], p["w_range"] + 10000, p["w_w"], "EnemyWithoutTower", False, w_hit)
@@ -318,11 +321,11 @@ def build(p):
                      cview("cw_frenzy"), sfx("cw"), voice("vo_cw", p))
     s_probe = combine(*rm("e_in", "w_in"), pick(p["ce_r"], "EnemyChampion", flag("e_in", 1)),
                       pick(p["cw_near"], "EnemyWithoutTower", flag("w_in", 1)))
-    go_rappel = combine(flag("ce_cd", p["ce_cd"]), pick(p["ce_r"], "EnemyChampion",
-                                                        rappel(p["ce_up"], p["ce_dmg"], p["ce_ap"])))
+    drop_on = rappel(p["ce_up"], p["ce_dmg"], p["ce_ap"])
+    go_rappel = combine(flag("ce_cd", p["ce_cd"]), drop_on if nat else pick(p["ce_r"], "EnemyChampion", drop_on))
     spider_s2 = combine(s_probe, sw("ce_cd", sw("cw_cd", NONE, sw("w_in", frenzy)),
                                     sw("e_in", go_rappel, sw("cw_cd", NONE, sw("w_in", frenzy)))))
-    skill2 = action("idle", 3, p["s2_cd"], 1, p["s2_range"], "None", "EnemyWithoutTower",
+    skill2 = action("idle", 3, p["s2_cd"], 1, p["s2_range"], "Targeting" if nat else "None", "EnemyWithoutTower",
                     combine(human, sw("sp", spider_s2, human_s2)), key="skill2")
 
     # ------------------------------------------------------------------ ult: the cocoon hunt
@@ -330,16 +333,19 @@ def build(p):
         # the cast's target: the cocoon flies at it, the rappel and the bite land on it
         bite_hit = [magic(p["cq_dmg"], p["cq_ap"]), maxhp(p["cq_hp"]), view("cq_hit"), tsfx("cq_hit")]
         human_open = sw("sp", NONE, combine(anim("skill2", p["e_anim"]), sfx("e"), flag("e_cd", p["e_cd"]),
-                                            aimed(p["r_range"], target, p["e_at"], cocoon_line())))
+                                            aimed(p["r_range"], target, p["e_at"], cocoon_line(), direct=nat)))
         drop = combine(*rm("cq_cd", "ce_cd", "cw_cd"), flag("ce_cd", p["ce_cd"]), flag("cq_cd", p["cq_cd"]),
                        rappel(p["r_up"], p["r_dmg"], p["r_ap"],
                               [anim("c_skill", p["cq_dur"]), sfx("cq"),
                                delayed(p["cq_go"], *bite_hit)]))
-        return pick(p["r_range"], target, combine(human_open, cview("r_cast"), sfx("r"), voice("vo_r", p),
-                                                  delayed(p["r_go"], instant_spider, drop)))
-    r_go = combine(*rm("r_cc"), pick(p["r_range"], "EnemyChampionInCC", flag("r_cc", 1)),
-                   sw("r_cc", hunt("EnemyChampionInCC"), hunt("EnemyChampionRecentlyAttacked")))
-    ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "None", "EnemyChampionRecentlyAttacked", r_go, key="ult")
+        body = combine(human_open, cview("r_cast"), sfx("r"), voice("vo_r", p), delayed(p["r_go"], instant_spider, drop))
+        return body if nat else pick(p["r_range"], target, body)
+    if nat:     # the add-on's AI hook picks the champion (in crowd control first, else the lowest health)
+        ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", hunt("EnemyChampion"), key="ult")
+    else:
+        r_go = combine(*rm("r_cc"), pick(p["r_range"], "EnemyChampionInCC", flag("r_cc", 1)),
+                       sw("r_cc", hunt("EnemyChampionInCC"), hunt("EnemyChampionRecentlyAttacked")))
+        ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "None", "EnemyChampionRecentlyAttacked", r_go, key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -364,6 +370,9 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if nat:
+        kit["passive"] = {"passive_ref": "league_elise:queen",
+                          "params": {"ce_r": p["ce_r"], "e_range": p["e_range"], "e_w": p["e_w"], "r_range": p["r_range"]}}
     return kit
 
 

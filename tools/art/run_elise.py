@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""The huntress's run, drawn from her design: the upper body as it stands, the legs in a crossing stride
+"""SUPERSEDED (2026-10-15, the user: 「腿变形你问我可以吗？」 - shearing the legs is deformation): the run is Codex's legs
+(tools/art/pack_elise_run.py -> tools/art/import_elise_run.py); only masks(), HIP / LEG_SPLIT / NEAR_TOP_COL / CLAW_ROW and
+SINK below are still used, by those two. Do not run main() for the shipped run.
+
+The huntress's run, drawn from her design: the upper body as it stands, the legs in a crossing stride
 (assets/source/elise/frames run_1..8.png + faces.json; the rest of frames/ untouched). Run after import_elise_strips.py.
 
     python tools/art/run_elise.py [--review DIR]
