@@ -32,7 +32,8 @@ DENS = 1.5
 ROWS = round(BODY * DENS)   # 57 squares
 # take -> the hair top's row in the 1024x1536 picture (the soles = the lowest opaque row)
 CROWN = {"K1": 699, "K2": 725}
-SIDE = {}
+# step 1 (Codex image_gen, 2026-10-15, assets/source/katarina/codex_side): the side-on takes, 3/4 to the right
+SIDE = {"side-1": 601, "side-2": 612}
 BEND = {}
 PEERS = [("talon", "idle", 1.0, 1.0), ("zed", "idle", 1.0, 1.0), ("akali", "idle", 1.0, 1.0),
          ("leblanc", "idle", 1.0, 1.0), ("kassadin", "hd_idle", 2.42, 1.0), ("jayce", "hd_idle", 1.5, 1.0)]
@@ -114,7 +115,7 @@ def main():
     sheet.save(os.path.join(a.review, "katarina_takes.png"))
     # 2. game size x4 next to the peers, soles on one line; then the 1.5-density cuts themselves x4
     z = 4
-    row = [(f"katarina {t}", game_size(cuts[t])) for t in CROWN] + [(p[0], peer(*p)) for p in PEERS]
+    row = [(f"katarina {t}", game_size(cuts[t])) for t in ["K1"] + list(SIDE)] + [(p[0], peer(*p)) for p in PEERS]
     hmax = max(im.height for _, im in row)
     W = sum(im.width + 8 for _, im in row) * z + 20
     can = Image.new("RGB", (W, (hmax + 14) * z + 20), (90, 110, 70))
