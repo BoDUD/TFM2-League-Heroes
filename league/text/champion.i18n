@@ -743,6 +743,13 @@
         "skill2": "锤：击退敌人，造成<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>，对英雄另加<#f5f5f5ff>8%最大生命值真实伤害<>；冷却时<#ff9028ff>闪电领域<>每<#ffb900ff>0.5秒<>造成<#a974ffff>14<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法伤害<>。炮：之后3次攻击<#ceff99ff>攻速+120%<>，造成<#ff9028ff>120%<>攻击力伤害。",
         "ult": "变为炮形态，放置加速之门（<#ffffffff>移速+40%<>，<#ffb900ff>3秒<>），向敌方英雄射出加速电能球，造成<#ff9028ff>140<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>161%<><#ff9028ff>物理伤害<>，爆炸范围更大。"
       },
+      "league_katarina": {
+        "name": "卡特琳娜",
+        "attack": "<#ff9028ff>贪婪<>：被她伤害过的敌方英雄<#ffb900ff>3秒<>内阵亡时，Q、W冷却刷新，瞬步就绪。落地的匕首留<#ffb900ff>4秒<>，捡起时旋斩周围敌人，造成<#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>，瞬步冷却降为<#ffb900ff>2秒<>。",
+        "skill": "掷出弹射之刃，造成<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法伤害<>，再弹向附近<#ffb900ff>2<>个敌人；匕首落在第一个目标身后。<#ff9028ff>瞬步<>就绪且匕首旁有敌方英雄时，瞬步到匕首处。",
+        "skill2": "<#ff9028ff>瞬步<>就绪时先瞬步到敌方英雄身边，造成<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<><#a974ffff>魔法伤害<>（冷却<#ffb900ff>10秒<>）；再把匕首抛向空中，<#ffb900ff>1.25秒<>后落地，获得逐渐衰减的<#ffffffff>移速+60%<>。",
+        "ult": "原地旋转引导<#ffb900ff>2.5秒<>，向周围的敌方英雄连续掷出匕首，共造成<#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<><#a974ffff>魔法伤害<>并使其<#ef5350ff>治疗效果-60%<>。受到控制时中断。"
+      },
       "league_elise": {
         "name": "伊莉丝",
         "attack": "<#ff9028ff>蜘蛛女皇<>：人形技能命中积攒小蜘蛛（最多3只）。出手前按战况切换人形（远程）和蜘蛛（近战），冷却<#ffb900ff>4秒<>。蜘蛛普攻额外造成<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>并回血，每只小蜘蛛撕咬<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
@@ -1281,6 +1288,11 @@
         "skill1": "苍穹之跃 / 电能震荡",
         "skill2": "雷霆一击 / 超能电荷",
         "ult": "加速之门"
+      },
+      "league_katarina": {
+        "skill1": "弹射之刃",
+        "skill2": "伺机待发",
+        "ult": "死亡莲华"
       },
       "league_elise": {
         "skill1": "神经毒素 / 剧毒之蜇",
@@ -2033,6 +2045,13 @@
         "skill2": "錘：擊退敵人，造成<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>，對英雄另加<#f5f5f5ff>8%最大生命真實傷害<>；冷卻時<#ff9028ff>離子領域<>每<#ffb900ff>0.5秒<>造成<#a974ffff>14<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<><#a974ffff>魔法傷害<>。砲：之後3次攻擊<#ceff99ff>攻速+120%<>，造成<#ff9028ff>120%<>攻擊力傷害。",
         "ult": "變為砲形態，放置中子加速裝置（<#ffffffff>跑速+40%<>，<#ffb900ff>3秒<>），向敵方英雄射出加速電能球，造成<#ff9028ff>140<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>161%<><#ff9028ff>物理傷害<>，爆炸範圍更大。"
       },
+      "league_katarina": {
+        "name": "卡特蓮娜",
+        "attack": "<#ff9028ff>貪婪<>：被她傷害過的敵方英雄<#ffb900ff>3秒<>內陣亡時，Q、W冷卻刷新，瞬步就緒。落地的匕首留<#ffb900ff>4秒<>，撿起時旋斬周圍敵人，造成<#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>，瞬步冷卻降為<#ffb900ff>2秒<>。",
+        "skill": "擲出彈射利刃，造成<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<><#a974ffff>魔法傷害<>，再彈向附近<#ffb900ff>2<>個敵人；匕首落在第一個目標身後。<#ff9028ff>瞬步<>就緒且匕首旁有敵方英雄時，瞬步到匕首處。",
+        "skill2": "<#ff9028ff>瞬步<>就緒時先瞬步到敵方英雄身邊，造成<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<><#a974ffff>魔法傷害<>（冷卻<#ffb900ff>10秒<>）；再把匕首拋向空中，<#ffb900ff>1.25秒<>後落地，獲得逐漸衰減的<#ffffffff>跑速+60%<>。",
+        "ult": "原地旋轉引導<#ffb900ff>2.5秒<>，向周圍的敵方英雄連續擲出匕首，共造成<#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<><#a974ffff>魔法傷害<>並使其<#ef5350ff>治療效果-60%<>。受到控制時中斷。"
+      },
       "league_elise": {
         "name": "伊莉絲",
         "attack": "<#ff9028ff>蜘蛛女王<>：人形技能命中累積小蜘蛛（最多3隻）。出手前依戰況切換人形（遠程）和蜘蛛（近戰），冷卻<#ffb900ff>4秒<>。蜘蛛普攻額外造成<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>並回血，每隻小蜘蛛撕咬<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
@@ -2571,6 +2590,11 @@
         "skill1": "浩瀚無垠／電磁脈衝",
         "skill2": "風馳電掣／超頻導體",
         "ult": "中子加速裝置"
+      },
+      "league_katarina": {
+        "skill1": "彈射利刃",
+        "skill2": "備戰",
+        "ult": "死亡蓮花"
       },
       "league_elise": {
         "skill1": "神經毒素／毒咬",
@@ -3323,6 +3347,13 @@
         "skill2": "Hammer: knocks an enemy back for <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, plus <#f5f5f5ff>8% of a champion's max health as true damage<>; on cooldown <#ff9028ff>Lightning Field<> deals <#a974ffff>14<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>magic damage<> around him every <#ffb900ff>0.5s<>. Cannon: <#ff9028ff>Hyper Charge<> - his next 3 attacks gain <#ceff99ff>120% attack speed<> and deal <#ff9028ff>120%<> AD.",
         "ult": "Turns into the cannon, places the Acceleration Gate (<#ffffffff>40% move speed<> for <#ffb900ff>3s<>) and fires an accelerated orb at a champion: faster and farther, <#ff9028ff>140<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>161%<> <#ff9028ff>physical damage<> in a larger burst."
       },
+      "league_katarina": {
+        "name": "Katarina",
+        "attack": "<#ff9028ff>Voracity<>: when an enemy champion she damaged dies within <#ffb900ff>3s<>, Q and W refresh and Shunpo is ready. Daggers on the ground last <#ffb900ff>4s<>; picking one up slashes nearby enemies for <#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> and cuts Shunpo's cooldown to <#ffb900ff>2s<>.",
+        "skill": "Throws a bouncing blade for <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>magic damage<> that bounces to <#ffb900ff>2<> nearby enemies; the dagger lands behind the first target. If <#ff9028ff>Shunpo<> is ready and an enemy champion is near the dagger, she blinks to it.",
+        "skill2": "If <#ff9028ff>Shunpo<> is ready she first blinks to an enemy champion for <#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<> <#a974ffff>magic damage<> (cooldown <#ffb900ff>10s<>); then tosses a dagger into the air that lands after <#ffb900ff>1.25s<>, gaining <#ffffffff>60% move speed<> that decays.",
+        "ult": "Channels for <#ffb900ff>2.5s<>, throwing daggers at nearby enemy champions for <#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<> <#a974ffff>magic damage<> in total and <#ef5350ff>60% reduced healing<>. Crowd control interrupts it."
+      },
       "league_elise": {
         "name": "Elise",
         "attack": "<#ff9028ff>Spider Queen<>: human ability hits gather spiderlings (up to 3). Before each attack she switches between human (ranged) and spider (melee) as the fight needs, every <#ffb900ff>4s<> at most. Spider attacks deal <#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<> more and heal her; each spiderling bites for <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>.",
@@ -3861,6 +3892,11 @@
         "skill1": "To the Skies! / Shock Blast",
         "skill2": "Thundering Blow / Hyper Charge",
         "ult": "Acceleration Gate"
+      },
+      "league_katarina": {
+        "skill1": "Bouncing Blade",
+        "skill2": "Preparation",
+        "ult": "Death Lotus"
       },
       "league_elise": {
         "skill1": "Neurotoxin / Venomous Bite",
@@ -4613,6 +4649,13 @@
         "skill2": "해머: 적을 밀쳐내며 <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, 챔피언에게 <#f5f5f5ff>최대 체력 8% 고정 피해<> 추가; 대기 중이면 <#ff9028ff>전류 역장<>이 <#ffb900ff>0.5초<>마다 <#a974ffff>14<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> <#a974ffff>마법 피해<>. 캐논: 다음 공격 3회 <#ceff99ff>공격 속도 +120%<>, 공격력의 <#ff9028ff>120%<> 피해.",
         "ult": "캐논으로 변해 가속 관문을 설치하고(<#ffffffff>이동 속도 +40%<> <#ffb900ff>3초<>) 챔피언에게 가속된 구체를 발사해 <#ff9028ff>140<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>161%<> <#ff9028ff>물리 피해<>, 폭발 범위 증가."
       },
+      "league_katarina": {
+        "name": "카타리나",
+        "attack": "<#ff9028ff>탐욕<>: 그녀가 피해를 입힌 적 챔피언이 <#ffb900ff>3초<> 안에 죽으면 Q, W 재사용 대기시간 초기화, 순보 준비. 바닥의 단검은 <#ffb900ff>4초<> 유지, 주우면 주변 적에게 <#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>마법 피해<>, 순보 대기시간 <#ffb900ff>2초<>로 감소.",
+        "skill": "튕기는 단검을 던져 <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<> <#a974ffff>마법 피해<>, 주변 적 <#ffb900ff>2<>명에게 튕김; 단검은 첫 대상 뒤에 떨어짐. <#ff9028ff>순보<>가 준비되고 단검 근처에 적 챔피언이 있으면 단검으로 순보.",
+        "skill2": "<#ff9028ff>순보<>가 준비되면 먼저 적 챔피언에게 순보해 <#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<> <#a974ffff>마법 피해<>(대기시간 <#ffb900ff>10초<>); 이후 단검을 공중에 던져 <#ffb900ff>1.25초<> 뒤 떨어지며 점차 감소하는 <#ffffffff>이동 속도 +60%<>.",
+        "ult": "<#ffb900ff>2.5초<> 동안 정신을 집중해 주변 적 챔피언에게 단검을 던져 총 <#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<> <#a974ffff>마법 피해<>와 <#ef5350ff>치유 감소 60%<>. 군중 제어 시 중단."
+      },
       "league_elise": {
         "name": "엘리스",
         "attack": "<#ff9028ff>거미 여왕<>: 인간 스킬 적중 시 새끼 거미 축적 (최대 3). 공격 전에 상황에 따라 인간(원거리)과 거미(근접) 형태를 바꾸며, 전환 대기시간 <#ffb900ff>4초<>. 거미 공격은 <#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>마법 피해<> 추가와 회복, 새끼 거미마다 <#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>.",
@@ -5151,6 +5194,11 @@
         "skill1": "하늘로! / 전격 폭발",
         "skill2": "천둥 강타 / 초전하",
         "ult": "가속 관문"
+      },
+      "league_katarina": {
+        "skill1": "단검 투척",
+        "skill2": "준비",
+        "ult": "죽음의 연꽃"
       },
       "league_elise": {
         "skill1": "신경독 / 독이빨",
@@ -5903,6 +5951,13 @@
         "skill2": "ハンマー：敵をノックバックし<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、チャンピオンに<#f5f5f5ff>最大体力8%の確定ダメージ<>；CD中は<#ff9028ff>ライトニング<>が<#ffb900ff>0.5秒<>ごとに<#a974ffff>14<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>の<#a974ffff>魔法ダメージ<>。キャノン：次の3回の攻撃は<#ceff99ff>攻撃速度+120%<>、攻撃力の<#ff9028ff>120%<>。",
         "ult": "キャノンに変形しアクセルゲートを設置（<#ffffffff>移動速度+40%<>、<#ffb900ff>3秒<>）、チャンピオンへ加速した球を放ち<#ff9028ff>140<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>161%<>の<#ff9028ff>物理ダメージ<>、爆発範囲拡大。"
       },
+      "league_katarina": {
+        "name": "カタリナ",
+        "attack": "<#ff9028ff>貪欲なる暗殺者<>：彼女がダメージを与えた敵チャンピオンが<#ffb900ff>3秒<>以内に倒れるとQ・WのCD解消、瞬歩使用可能。落ちた短剣は<#ffb900ff>4秒<>残り、拾うと周囲の敵に<#a974ffff>138<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、瞬歩のCDが<#ffb900ff>2秒<>に。",
+        "skill": "跳ね返るナイフを投げ<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>62%<>の<#a974ffff>魔法ダメージ<>、近くの敵<#ffb900ff>2<>体に跳ね返る。短剣は最初の対象の後ろに落ちる。<#ff9028ff>瞬歩<>が使用可能で短剣の近くに敵チャンピオンがいれば短剣へ瞬歩。",
+        "skill2": "<#ff9028ff>瞬歩<>が使用可能なら先に敵チャンピオンへ瞬歩し<#a974ffff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>38%<>の<#a974ffff>魔法ダメージ<>（CD<#ffb900ff>10秒<>）。短剣を宙に投げ<#ffb900ff>1.25秒<>後に落下、減衰する<#ffffffff>移動速度+60%<>。",
+        "ult": "<#ffb900ff>2.5秒<>間詠唱し、周囲の敵チャンピオンに短剣を投げ続け合計<#a974ffff>650<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>350%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>回復量-60%<>。行動妨害で中断。"
+      },
       "league_elise": {
         "name": "エリス",
         "attack": "<#ff9028ff>蜘蛛の女帝<>：人間のスキル命中で子蜘蛛を蓄積（最大3）。攻撃の前に戦況で人間（遠隔）と蜘蛛（近接）を切り替え、間隔<#ffb900ff>4秒<>。蜘蛛の通常攻撃は<#a974ffff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>追加と回復、子蜘蛛ごとに<#a974ffff>12<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>。",
@@ -6441,6 +6496,11 @@
         "skill1": "スカイバスター/ショックブラスト",
         "skill2": "サンダーブロー/ハイパーチャージ",
         "ult": "アクセルゲート"
+      },
+      "league_katarina": {
+        "skill1": "バウンドナイフ",
+        "skill2": "プリペレーション",
+        "ult": "デスロータス"
       },
       "league_elise": {
         "skill1": "神経毒/毒牙",
