@@ -46,25 +46,33 @@ FX = "asset/league/effects/league_katarina_fx"
 BIG = "asset/league/effects/league_katarina_big"
 
 # Timings are placeholders until the strips (the attack's stab on tick 8, Q's throw on 8, W's toss on 8).
+# Numbers = candidate k2 of the 10-min classic-SDK simulations (Temp/kt_sim, sim/kd.py --lane 2 against the five base
+# mages, both sides, 3 lineups, 2026-10-15): +1.49 on seeds 1-12, +1.12 on seeds 13-24 (league_talon +1.22 on 1-12; the
+# pack's mid peers +1.0..+1.7). On the way: the draft d0 -2.88; Q's dagger on a fixed 80000 line blinked her deep past
+# close targets (now a lob onto the struck spot); R cast at its 50000 ring's edge threw 1-9 daggers before the champion
+# walked out (now cast within 30000, the channel ends when nobody is in reach two volleys running); W + Shunpo on any
+# champion in range dove her in alone (now only on a champion already fighting, EnemyChampionRecentlyAttacked: about
+# +0.7); then numbers alone moved nothing (hp, cooldowns, R x1.35: -1.1..+0.2) until every spell's damage went up:
+# x1.5 +3.25, x1.2 +0.15, x1.25 = k2.
 P = {
     # stats (the pack's mid assassins: league_talon hp 930 +88, atk 122 +25, def 26 +8, mr 18 +4, ms 1100 +13)
-    "hp": 1020, "hp_g": 86, "atk": 105, "atk_g": 13, "ap": 40, "ap_g": 22, "def": 32, "def_g": 8, "mr": 24, "mr_g": 4,
+    "hp": 1020, "hp_g": 92, "atk": 112, "atk_g": 13, "ap": 40, "ap_g": 26, "def": 32, "def_g": 8, "mr": 24, "mr_g": 4,
     "ms": 1100, "ms_g": 13,
     # attack (League 125 range)
     "atk_range": 23000, "atk_dur": 24, "atk_cd": 55, "atk_st": 8,
     # passive Voracity (League: takedown within 3 s -> basic cooldowns -15 s)
     "p_win": 180, "p_cdr": 10000,
     # Sheathed Blades (League: 340 radius, 68-308 + 60% bonus AD + 70-100% AP; Shunpo -78%; daggers last 4 s)
-    "d_life": 240, "d_step": 40, "pick_r": 9000, "p_r": 30000, "p_dmg": 110, "p_ap": 80, "p_anim": 12,
+    "d_life": 240, "d_step": 40, "pick_r": 9000, "p_r": 30000, "p_dmg": 138, "p_ap": 100, "p_anim": 12,
     # skill: Q Bouncing Blade (League: 625, 80-200 + 35% AP, 2 bounces, the dagger lands 350 behind ~1.1 s later)
-    "q_cd": 480, "q_range": 62500, "q_dur": 24, "q_at": 8, "q_speed": 5000, "q_y": -3000, "q_dmg": 120, "q_ap": 50,
+    "q_cd": 480, "q_range": 62500, "q_dur": 24, "q_at": 8, "q_speed": 5000, "q_y": -3000, "q_dmg": 150, "q_ap": 62,
     "q_bn": 2, "q_b": 30000, "q_blag": 6, "q_fall": 40,
     # E Shunpo (League: 725, 20-80 + 40% AD + 25% AP, cd 14-8 s)
-    "e_cd": 600, "e_short": 120, "e_dmg": 60, "e_ap": 30, "e_anim": 8,
+    "e_cd": 600, "e_short": 120, "e_dmg": 75, "e_ap": 38, "e_anim": 8,
     # skill2: W Preparation (League: 50-90% move speed fading over 1.25 s, the dagger lands after 1.25 s, cd 15-11 s)
-    "w_cd": 660, "w_range": 55000, "w_dur": 20, "w_at": 6, "w_fall": 75, "w_ms": 60,
+    "w_cd": 660, "w_range": 55000, "w_tgt": "EnemyChampionRecentlyAttacked", "w_e": 1, "w_dur": 20, "w_at": 6, "w_fall": 75, "w_ms": 60,
     # ult: R Death Lotus (League: 550 radius, 2.5 s, 15 daggers at up to 3 champions, 25-50 + 19% AP each, 60% GW)
-    "r_cd": 3600, "r_range": 30000, "r_tgt": "EnemyChampion", "r_r": 50000, "r_t": 150, "r_p": 10, "r_brk": 10, "r_dmg": 520, "r_ap": 280,
+    "r_cd": 3600, "r_range": 30000, "r_tgt": "EnemyChampion", "r_r": 50000, "r_t": 150, "r_p": 10, "r_brk": 10, "r_dmg": 650, "r_ap": 350,
     "r_gw": 60, "r_gw_t": 180, "r_speed": 6000, "r_y": -3000, "r_track": 30, "r_ring": 30,
     # voice
     "vo_gap": 240,
@@ -328,8 +336,8 @@ def build(p):
                         track(), on_me(blink_in(), delayed(p["e_anim"], anim("skill2", p["w_dur"]))), tossed(p["e_anim"]))
     # one dagger in the tree (the per-tick copy of skill2 stays small): its anchor leaves e_anim + w_at ticks in either
     # way - without the blink she stands in the toss meanwhile, on the same spot
-    skill2 = action("skill2", p["w_dur"] + p["e_anim"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
-                    flat(combine(arm, sw("e_cd", tossed(0), shunpo_in), voice("vo_w", p), haste,
+    skill2 = action("skill2", p["w_dur"] + p["e_anim"], p["w_cd"], 1, p["w_range"], "Targeting", p["w_tgt"],
+                    flat(combine(arm, sw("e_cd", tossed(0), shunpo_in) if p["w_e"] else tossed(0), voice("vo_w", p), haste,
                                  delayed(p["e_anim"] + p["w_at"] - 1, dagger(w_dagger)))))
 
     # ------------------------------------------------------------------ ult: R Death Lotus
