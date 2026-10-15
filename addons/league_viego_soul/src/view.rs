@@ -388,7 +388,7 @@ unsafe fn dress_viego(world: usize) {
         };
         // the soul's buffs are logged whenever they change (the first BUFF_LINES other changes too)
         let soulish = buffs.iter().any(|b| b.starts_with(b"league_viego_soul") || b.starts_with(b"league_viego_p_")
-            || *b == SHAPE);
+            || b.starts_with(b"league_viego_sim:") || *b == SHAPE);
         if st.buff_lines < BUFF_LINES || soulish {
             let joined = buffs.join(&b", "[..]);
             if !st.buffsets.iter().any(|b| b.0 == world && b.1 == key && b.2 == joined) {
