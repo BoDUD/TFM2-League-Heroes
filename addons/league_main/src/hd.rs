@@ -27,6 +27,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_nilah", 1.98, include_str!("../../../league/champions/league_nilah#anim.fanim")),
     ("league_kindred", 2.2, include_str!("../../../league/champions/league_kindred#anim.fanim")),
     ("league_malzahar", 1.38, include_str!("../../../league/champions/league_malzahar#anim.fanim")),
+    // Smolder: PPU 1.5 (the user's pick), drawn at 85 % in his design itself (「感觉太大 得缩小一点」), so no SIZES row
+    ("league_smolder", 1.5, include_str!("../../../league/champions/league_smolder#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
