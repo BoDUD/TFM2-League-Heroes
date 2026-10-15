@@ -124,21 +124,67 @@ def prepare(delivery):
     print(len(meta), "frames ->", CODEX)
 
 
+RUN_CUT = 54                      # tools/art/pack_jayce_run.py CUT: the legs were cut this many rows under the crown
+RUN_COAT = [(17, 24, 45), (30, 36, 52)]   # the coat tails' navies
+
+
+def raw_read(path):
+    """Codex's raw draft (1536 x 1024, the pack's 5-px grid) read back square for square: a square with 13 or more
+    pixels of alpha >= 128 is drawn, its colour the commonest of its pixels snapped to the design's colours."""
+    a = np.asarray(Image.open(path).convert("RGBA")).astype(int)
+    out = np.zeros((ROWS, COLS, 4), np.uint8)
+    for r in range(ROWS):
+        for c in range(COLS):
+            blk = a[r * 5:r * 5 + 5, c * 5:c * 5 + 5].reshape(-1, 4)
+            m = blk[:, 3] >= 128
+            if m.sum() < 13:
+                continue
+            idx = ((blk[m][:, :3][:, None, :].astype(float) - PALF[None]) ** 2).sum(-1).argmin(1)
+            v, cnt = np.unique(idx, return_counts=True)
+            out[r, c, :3] = PAL[v[cnt.argmax()]]
+            out[r, c, 3] = 255
+    return out
+
+
 def prepare_run(delivery):
     """The run redo (Codex, outputs/jayce_run_done.zip: tools/art/pack_jayce_run.py's leg lines redrawn, the upper bodies
-    kept): its 1x frames replace codex_strips' run / c_run, each moved down whole until its lowest square stands on the
-    ground row (Codex left the planted boot 1-5 rows over it in 8 frames)."""
+    kept): its 1x frames replace codex_strips' run / c_run. Codex kept the old coat tails over the new legs wherever they
+    overlap, so the far leg of frames 1-2 and 5-6 hid behind the coat (a boot stub; my own 8x review): the legs are read
+    again from its raw draft below the cut (crown + RUN_CUT, the pack's legs.json) - pieces of 25 squares or more in
+    neither the coat's navies nor the outline, with their outline ring - and laid OVER the coat. Then each frame moves down
+    whole until its lowest square stands on the ground row (Codex left the planted boot 1-5 rows over it in 8 frames)."""
+    plan = json.load(open(os.path.join(delivery, "references", "legs.json"), encoding="utf-8"))         if os.path.isfile(os.path.join(delivery, "references", "legs.json")) else         json.load(open(os.path.join(ROOT, "dist", "jayce_packs", "jayce_run_pack", "legs.json"), encoding="utf-8"))
     for tag in ("run", "c_run"):
         for k in range(1, 9):
-            a = rgba(os.path.join(delivery, f"jayce_{tag}_{k}_1x.png"))
+            name = f"jayce_{tag}_{k}"
+            a = rgba(os.path.join(delivery, name + "_1x.png"))
+            rr = raw_read(os.path.join(delivery, "raw", name + ".png"))
+            cut = plan[name + ".png"]["crown"] + RUN_CUT
+            rgb = rr[..., :3].astype(int)
+            coat = np.zeros(rr.shape[:2], bool)
+            for c in RUN_COAT:
+                coat |= np.all(rgb == np.array(c), axis=-1)
+            dark = rgb.sum(-1) < 90
+            leg = (rr[..., 3] > 0) & ~coat & ~dark
+            leg[:cut] = False
+            lbl, n = ndimage.label(leg, structure=np.ones((3, 3)))
+            keep = np.zeros_like(leg)
+            for i in range(1, n + 1):
+                if (lbl == i).sum() >= 25:
+                    keep |= lbl == i
+            ring = ndimage.binary_dilation(keep, structure=np.ones((3, 3))) & dark & (rr[..., 3] > 0)
+            ring[:cut] = False
+            m = keep | ring
+            a[m] = rr[m]
             low = int(np.nonzero(a[..., 3].any(1))[0].max())
             d = SOLE - low
             if d > 0:
                 b = np.zeros_like(a)
                 b[d:] = a[:-d]
                 a = b
-            Image.fromarray(a).save(os.path.join(CODEX, f"jayce_{tag}_{k}.png"))
-            print(f"{tag} {k}: down {max(0, d)}")
+            a[SOLE + 1:] = 0
+            Image.fromarray(a).save(os.path.join(CODEX, name + ".png"))
+            print(f"{tag} {k}: legs over the coat {int(m.sum())} squares, down {max(0, d)}")
 
 
 def frame(tag, k):
