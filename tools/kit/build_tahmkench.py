@@ -54,27 +54,30 @@ FX = "asset/league/effects/league_tahmkench_fx"
 BIG = "asset/league/effects/league_tahmkench_big"
 
 # Timings: a draft until the strips are in (then from league/champions/league_tahmkench#anim.fanim).
-# Numbers: the first draft from league_braum's b3 (the pack's tank supports).
+# Numbers: the first draft from league_braum's b3 (the pack's tank supports) was -4.1 a game in the support lane (classic
+# SDK, priest / monk / bard / pythoness / spirit caller, 3 lineups, both sides); the gated W and g6 (hp 1750, def 50,
+# mr 32, atk 85, Q 140, W 130, passive 20 + 2%, Thick Skin 15% and a 120 shield, R 180, Q 6 s, W 15 s): -0.85 on seeds
+# 1-12 (league_braum -0.21 / -0.26 in the same batches). To be re-run after the strips retime his casts.
 P = {
     # stats (League's Tahm Kench: 640 +103 hp, 56 AD, 39 armour, 32 mr, 335 move, 175 range)
-    "hp": 1350, "hp_g": 120, "atk": 75, "atk_g": 6, "mp": 25, "mp_g": 15, "def": 40, "def_g": 7, "mr": 28, "mr_g": 4,
+    "hp": 1750, "hp_g": 120, "atk": 85, "atk_g": 6, "mp": 25, "mp_g": 15, "def": 50, "def_g": 7, "mr": 32, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
     "atk_range": 28000, "atk_dur": 26, "atk_cd": 80, "atk_st": 12,
     # passive An Acquired Taste (League: 8-60 + 2.5% bonus hp on attacks; stacks 5 s, 3 at most)
-    "p_dmg": 10, "p_hp": 1, "p_hold": 300,
+    "p_dmg": 20, "p_hp": 2, "p_hold": 300,
     # Thick Skin folded in (League: 15-27% of damage stored, shield = the store, cd 3 s)
-    "e_red": 10, "e_cd": 720, "e_near": 35000, "e_sh": 70, "e_sh_ap": 80, "e_t": 150,
+    "e_red": 15, "e_cd": 720, "e_near": 35000, "e_sh": 120, "e_sh_ap": 80, "e_t": 150,
     # Q Tongue Lash (League: 900 range, speed 2800, 80-280 + 70% AP, slow 40% 2 s, heal 10-30 + 3% missing hp on a
     # champion, stun 1.25 s at 3 stacks, cd 7-5 s)
-    "q_cd": 420, "q_range": 60000, "q_dur": 27, "q_at": 11, "q_speed": 6000, "q_w": 3000, "q_dmg": 90, "q_ap": 60,
+    "q_cd": 360, "q_range": 60000, "q_dur": 27, "q_at": 11, "q_speed": 6000, "q_w": 3000, "q_dmg": 140, "q_ap": 60,
     "q_hp": 2, "q_slow": 40, "q_slow_t": 90, "q_heal": 40, "q_heal_ap": 30, "q_stun": 75,
     # W Abyssal Dive (League: 1000-1200 range, 1.35 s under, 100-250 + 100% AP, knock-up 1 s in 275, cd 21-17 s)
-    "w_cd": 1080, "w_range": 70000, "w_anim": 24, "w_sink": 14, "w_up": 60, "w_land": 20, "w_rad": 14000,
-    "w_dmg": 100, "w_ap": 70, "w_hp": 2, "w_air": 60, "s2_cd": 60, "w_ally_r": 50000,
+    "w_cd": 900, "w_range": 70000, "w_anim": 24, "w_sink": 14, "w_up": 60, "w_land": 20, "w_rad": 14000,
+    "w_dmg": 130, "w_ap": 70, "w_hp": 2, "w_air": 60, "s2_cd": 60, "w_ally_r": 50000,
     # R Devour (League: enemy 2.5 s, 100-400 + 15% AP + 5-9% target max hp; ally 2.5 s, shield 400-1000 + 100% AP;
     # cd 120-80 s)
     "r_cd": 3600, "r_range": 50000, "r_arm": 900, "r_anim": 30, "r_reach": 30000, "r_ally_r": 40000, "r_n": 50000,
-    "r_t": 150, "r_dmg": 120, "r_ap": 50, "r_hp": 3, "r_thp": 6,
+    "r_t": 150, "r_dmg": 180, "r_ap": 50, "r_hp": 3, "r_thp": 6,
     "r_ally_t": 150, "r_sh": 150, "r_sh_ap": 100, "r_sh_t": 180,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
