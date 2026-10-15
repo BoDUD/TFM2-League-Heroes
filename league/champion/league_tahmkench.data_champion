@@ -3248,12 +3248,12 @@
     "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_tahmkench.skill2",
     "duration": 3,
-    "cooltime": 1080,
+    "cooltime": 60,
     "start_timing": 1,
     "cancelable": false,
     "range": 70000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyChampionRecentlyAttacked",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -3437,21 +3437,8 @@
           }
         },
         {
-          "type": "CasterAnimation",
-          "name": "skill2",
-          "tick": 24
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_tahmkench_w_down"
-        },
-        {
-          "type": "Sfx",
-          "name": "league_tahmkench_w"
-        },
-        {
           "type": "SwitchByBuff",
-          "buff_name": "league_tahmkench_vo_cd",
+          "buff_name": "league_tahmkench_w_cd",
           "effect_buff": {
             "type": "Combine",
             "effects": []
@@ -3460,871 +3447,112 @@
             "type": "Combine",
             "effects": [
               {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_tahmkench_vo_cd",
-                  "duration": {
-                    "Time": {
-                      "tick": 600
-                    }
-                  }
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "Sfx",
-                "name": "league_tahmkench_vo_w"
-              }
-            ]
-          }
-        },
-        {
-          "type": "Delayed",
-          "tick": 14,
-          "effects": [
-            {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "ParabolicProjectile",
-                  "name": "league_tahmkench_w_warn",
-                  "travel_time": 1,
-                  "range": 90000,
-                  "range_effect_name": "",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1
-                    }
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_tahmkench_a1"
                   },
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [],
-                  "end_effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_tahmkench_w_warn"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_tahmkench_w_warn"
-                    }
-                  ]
-                },
-                {
-                  "type": "ParabolicProjectile",
-                  "name": "league_tahmkench_w_go",
-                  "travel_time": 60,
-                  "range": 90000,
-                  "range_effect_name": "",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1
-                    }
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_tahmkench_a2"
                   },
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [],
-                  "end_effects": [
-                    {
-                      "type": "Teleport"
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_tahmkench_a3"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 50000
+                      }
                     },
-                    {
-                      "type": "CasterAnimation",
-                      "name": "w_land",
-                      "tick": 20
-                    },
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_tahmkench_w_up"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_tahmkench_w_land"
-                    },
-                    {
-                      "type": "RangeProjectile",
-                      "name": "league_tahmkench_w_hit",
-                      "shape": {
-                        "Circle": {
-                          "radius": 14000
-                        }
-                      },
-                      "delay": 1,
-                      "apply": 1,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ApAttack",
-                            "damage": 100,
-                            "attack_ratio": 70,
-                            "hp_ratio": 2,
-                            "can_crit": false,
-                            "attack_effect_type": "Target"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Airborne",
-                            "duration": 60
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ViewEffect",
-                            "name": "league_tahmkench_w_hit"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "RangeProjectile",
-                      "name": "league_tahmkench_w_champ",
-                      "shape": {
-                        "Circle": {
-                          "radius": 14000
-                        }
-                      },
-                      "delay": 1,
-                      "apply": 1,
-                      "applied_target": "EnemyChampion",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_tahmkench_w_one",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_tahmkench_w_one",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 3
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_tahmkench_t3",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_tahmkench_t3"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_tahmkench_t3",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_tahmkench_t2"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_tahmkench_t2",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_tahmkench_t1"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_tahmkench_t1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_tahmkench_t_pip1",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 300
-                                            }
-                                          }
-                                        }
-                                      },
-                                      {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_tahmkench_t_pip2",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 300
-                                            }
-                                          }
-                                        }
-                                      },
-                                      {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_tahmkench_t_pip3",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 300
-                                            }
-                                          }
-                                        }
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_tahmkench_r_armed",
-                                        "effect_buff": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_tahmkench_r_lock",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_tahmkench_r_lock",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 3
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tahmkench_r_armed"
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_tahmkench_t1"
-                                                  },
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_tahmkench_t2"
-                                                  },
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_tahmkench_t3"
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
-                                                  }
-                                                },
-                                                "target": "AllyOnlySelf",
-                                                "apply_type": "AroundCaster",
-                                                "effects": [
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "CasterAnimation",
-                                                        "name": "ult",
-                                                        "tick": 30
-                                                      },
-                                                      {
-                                                        "type": "CasterViewEffect",
-                                                        "name": "league_tahmkench_r_gulp"
-                                                      },
-                                                      {
-                                                        "type": "Sfx",
-                                                        "name": "league_tahmkench_r_enemy"
-                                                      },
-                                                      {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_tahmkench_vo_cd",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": []
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "AddCasterBuff",
-                                                              "buff_state": {
-                                                                "name": "league_tahmkench_vo_cd",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 600
-                                                                  }
-                                                                }
-                                                              },
-                                                              "only_to_enemy": false
-                                                            },
-                                                            {
-                                                              "type": "Sfx",
-                                                              "name": "league_tahmkench_vo_r"
-                                                            }
-                                                          ]
-                                                        }
-                                                      }
-                                                    ]
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_tahmkench_r_full"
-                                                      },
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_tahmkench_r_full",
-                                                          "duration": {
-                                                            "Time": {
-                                                              "tick": 150
-                                                            }
-                                                          }
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Banish",
-                                                "duration": 150
-                                              },
-                                              {
-                                                "type": "ApAttack",
-                                                "damage": 120,
-                                                "attack_ratio": 50,
-                                                "hp_ratio": 3,
-                                                "can_crit": false,
-                                                "attack_effect_type": "Target"
-                                              },
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 0,
-                                                "attack_ratio": 0,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 6
-                                              },
-                                              {
-                                                "type": "AddBuff",
-                                                "buff_state": {
-                                                  "name": "league_tahmkench_r_enemy",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 150
-                                                    }
-                                                  }
-                                                }
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_tahmkench_r_in"
-                                              },
-                                              {
-                                                "type": "Delayed",
-                                                "tick": 150,
-                                                "effects": [
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_tahmkench_r_spit"
-                                                  },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_tahmkench_r_spit"
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_tahmkench_t2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_tahmkench_t3"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_tahmkench_t3",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_tahmkench_t2"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_tahmkench_t2",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_tahmkench_t1"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_tahmkench_t1",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_tahmkench_t_pip1",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 300
-                                              }
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_tahmkench_t_pip2",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 300
-                                              }
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_tahmkench_t_pip3",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 300
-                                              }
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "type": "TargetSfx",
-                                          "name": "league_tahmkench_p_stack"
-                                        },
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_tahmkench_r_armed",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_tahmkench_r_lock",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_tahmkench_r_lock",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 3
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_tahmkench_r_armed"
-                                                },
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tahmkench_t1"
-                                                    },
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tahmkench_t2"
-                                                    },
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tahmkench_t3"
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "RangeEffect",
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 1000
-                                                    }
-                                                  },
-                                                  "target": "AllyOnlySelf",
-                                                  "apply_type": "AroundCaster",
-                                                  "effects": [
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "CasterAnimation",
-                                                          "name": "ult",
-                                                          "tick": 30
-                                                        },
-                                                        {
-                                                          "type": "CasterViewEffect",
-                                                          "name": "league_tahmkench_r_gulp"
-                                                        },
-                                                        {
-                                                          "type": "Sfx",
-                                                          "name": "league_tahmkench_r_enemy"
-                                                        },
-                                                        {
-                                                          "type": "SwitchByBuff",
-                                                          "buff_name": "league_tahmkench_vo_cd",
-                                                          "effect_buff": {
-                                                            "type": "Combine",
-                                                            "effects": []
-                                                          },
-                                                          "effect_none": {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "AddCasterBuff",
-                                                                "buff_state": {
-                                                                  "name": "league_tahmkench_vo_cd",
-                                                                  "duration": {
-                                                                    "Time": {
-                                                                      "tick": 600
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "only_to_enemy": false
-                                                              },
-                                                              {
-                                                                "type": "Sfx",
-                                                                "name": "league_tahmkench_vo_r"
-                                                              }
-                                                            ]
-                                                          }
-                                                        }
-                                                      ]
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_tahmkench_r_full"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_tahmkench_r_full",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 150
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "Banish",
-                                                  "duration": 150
-                                                },
-                                                {
-                                                  "type": "ApAttack",
-                                                  "damage": 120,
-                                                  "attack_ratio": 50,
-                                                  "hp_ratio": 3,
-                                                  "can_crit": false,
-                                                  "attack_effect_type": "Target"
-                                                },
-                                                {
-                                                  "type": "FixedAttack",
-                                                  "damage": 0,
-                                                  "attack_ratio": 0,
-                                                  "hp_ratio": 0,
-                                                  "target_hp_ratio": 6
-                                                },
-                                                {
-                                                  "type": "AddBuff",
-                                                  "buff_state": {
-                                                    "name": "league_tahmkench_r_enemy",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 150
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_tahmkench_r_in"
-                                                },
-                                                {
-                                                  "type": "Delayed",
-                                                  "tick": 150,
-                                                  "effects": [
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_tahmkench_r_spit"
-                                                    },
-                                                    {
-                                                      "type": "TargetSfx",
-                                                      "name": "league_tahmkench_r_spit"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_tahmkench_t1",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tahmkench_t2"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_tahmkench_t2",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 300
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tahmkench_t1"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_tahmkench_t1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 300
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "AddBuff",
-                                            "buff_state": {
-                                              "name": "league_tahmkench_t_pip1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            }
-                                          },
-                                          {
-                                            "type": "AddBuff",
-                                            "buff_state": {
-                                              "name": "league_tahmkench_t_pip2",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_tahmkench_t1"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_tahmkench_t1",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 300
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "AddBuff",
-                                            "buff_state": {
-                                              "name": "league_tahmkench_t_pip1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 300
-                                                }
-                                              }
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_tahmkench_r_armed",
-                      "effect_buff": {
+                    "target": "AllyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_tahmkench_r_busy",
+                        "buff_name": "league_tahmkench_a2",
                         "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_tahmkench_a3",
+                            "duration": {
+                              "Time": {
+                                "tick": 3
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
                         },
                         "effect_none": {
-                          "type": "Combine",
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_tahmkench_a1",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_tahmkench_a2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 3
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_tahmkench_a1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 3
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_tahmkench_w_cc"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_tahmkench_w_ok"
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_tahmkench_w_probe",
+                    "speed": 100000,
+                    "y_offset": 0,
+                    "applied_target": "EnemyChampionInCC",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
                           "effects": [
                             {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_tahmkench_r_busy",
+                                "name": "league_tahmkench_w_cc",
                                 "duration": {
                                   "Time": {
                                     "tick": 3
@@ -4332,89 +3560,256 @@
                                 }
                               },
                               "only_to_enemy": false
-                            },
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 2,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_tahmkench_a2",
+                    "effect_buff": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_tahmkench_w_cc",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_tahmkench_w_ok",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_tahmkench_a3",
+                        "effect_buff": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_tahmkench_w_ok",
+                            "duration": {
+                              "Time": {
+                                "tick": 3
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 3,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_tahmkench_w_ok",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_tahmkench_w_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 1080
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "CasterAnimation",
+                          "name": "skill2",
+                          "tick": 24
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_tahmkench_w_down"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_tahmkench_w"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_tahmkench_vo_cd",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_tahmkench_vo_cd",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 600
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_tahmkench_vo_w"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 14,
+                          "effects": [
                             {
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_tahmkench_r_n1"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_tahmkench_r_n2"
-                                },
-                                {
-                                  "type": "RangeEffect",
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_tahmkench_w_warn",
+                                  "travel_time": 1,
+                                  "range": 90000,
+                                  "range_effect_name": "",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 50000
+                                      "radius": 1
                                     }
                                   },
-                                  "target": "EnemyChampion",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
                                     {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_tahmkench_r_n1",
-                                      "effect_buff": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_tahmkench_r_n2",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 3
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      "effect_none": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_tahmkench_r_n1",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 3
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
+                                      "type": "ViewEffect",
+                                      "name": "league_tahmkench_w_warn"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_tahmkench_w_warn"
                                     }
                                   ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 1,
-                              "effects": [
+                                },
                                 {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_tahmkench_r_n2",
-                                  "effect_buff": {
-                                    "type": "RandomTarget",
-                                    "range": 40000,
-                                    "casting_target": "AllyChampionInCC",
-                                    "from_projectile": false,
-                                    "effects": [
-                                      {
-                                        "type": "TargetProjectile",
-                                        "name": "league_tahmkench_r_probe",
-                                        "speed": 100000,
-                                        "y_offset": 0,
-                                        "applied_target": "AllyNotSelf",
-                                        "applied_effects": [
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_tahmkench_w_go",
+                                  "travel_time": 60,
+                                  "range": 90000,
+                                  "range_effect_name": "",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1
+                                    }
+                                  },
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "Teleport"
+                                    },
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "w_land",
+                                      "tick": 20
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_tahmkench_w_up"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_tahmkench_w_land"
+                                    },
+                                    {
+                                      "type": "RangeProjectile",
+                                      "name": "league_tahmkench_w_hit",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 14000
+                                        }
+                                      },
+                                      "delay": 1,
+                                      "apply": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 100,
+                                            "attack_ratio": 70,
+                                            "hp_ratio": 2,
+                                            "can_crit": false,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Airborne",
+                                            "duration": 60
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_tahmkench_w_hit"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "RangeProjectile",
+                                      "name": "league_tahmkench_w_champ",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 14000
+                                        }
+                                      },
+                                      "delay": 1,
+                                      "apply": 1,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_tahmkench_w_one",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_tahmkench_r_lock",
+                                                    "name": "league_tahmkench_w_one",
                                                     "duration": {
                                                       "Time": {
                                                         "tick": 3
@@ -4424,38 +3819,113 @@
                                                   "only_to_enemy": false
                                                 },
                                                 {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_tahmkench_r_armed"
-                                                },
-                                                {
-                                                  "type": "RangeEffect",
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 1000
-                                                    }
-                                                  },
-                                                  "target": "AllyOnlySelf",
-                                                  "apply_type": "AroundCaster",
-                                                  "effects": [
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "CasterAnimation",
-                                                          "name": "ult",
-                                                          "tick": 30
-                                                        },
-                                                        {
-                                                          "type": "CasterViewEffect",
-                                                          "name": "league_tahmkench_r_gulp"
-                                                        },
-                                                        {
-                                                          "type": "Sfx",
-                                                          "name": "league_tahmkench_r_ally"
-                                                        },
-                                                        {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_tahmkench_t3",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_tahmkench_t3"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tahmkench_t3",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 300
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_tahmkench_t2"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tahmkench_t2",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 300
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_tahmkench_t1"
+                                                          },
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tahmkench_t1",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 300
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_tahmkench_t_pip1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 300
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_tahmkench_t_pip2",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 300
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_tahmkench_t_pip3",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 300
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_tahmkench_r_armed",
+                                                        "effect_buff": {
                                                           "type": "SwitchByBuff",
-                                                          "buff_name": "league_tahmkench_vo_cd",
+                                                          "buff_name": "league_tahmkench_r_lock",
                                                           "effect_buff": {
                                                             "type": "Combine",
                                                             "effects": []
@@ -4466,347 +3936,1093 @@
                                                               {
                                                                 "type": "AddCasterBuff",
                                                                 "buff_state": {
-                                                                  "name": "league_tahmkench_vo_cd",
+                                                                  "name": "league_tahmkench_r_lock",
                                                                   "duration": {
                                                                     "Time": {
-                                                                      "tick": 600
+                                                                      "tick": 3
                                                                     }
                                                                   }
                                                                 },
                                                                 "only_to_enemy": false
                                                               },
                                                               {
-                                                                "type": "Sfx",
-                                                                "name": "league_tahmkench_vo_r"
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_tahmkench_r_armed"
+                                                              },
+                                                              {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_tahmkench_t1"
+                                                                  },
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_tahmkench_t2"
+                                                                  },
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_tahmkench_t3"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "RangeEffect",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 1000
+                                                                  }
+                                                                },
+                                                                "target": "AllyOnlySelf",
+                                                                "apply_type": "AroundCaster",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "CasterAnimation",
+                                                                        "name": "ult",
+                                                                        "tick": 30
+                                                                      },
+                                                                      {
+                                                                        "type": "CasterViewEffect",
+                                                                        "name": "league_tahmkench_r_gulp"
+                                                                      },
+                                                                      {
+                                                                        "type": "Sfx",
+                                                                        "name": "league_tahmkench_r_enemy"
+                                                                      },
+                                                                      {
+                                                                        "type": "SwitchByBuff",
+                                                                        "buff_name": "league_tahmkench_vo_cd",
+                                                                        "effect_buff": {
+                                                                          "type": "Combine",
+                                                                          "effects": []
+                                                                        },
+                                                                        "effect_none": {
+                                                                          "type": "Combine",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "AddCasterBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_tahmkench_vo_cd",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 600
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "only_to_enemy": false
+                                                                            },
+                                                                            {
+                                                                              "type": "Sfx",
+                                                                              "name": "league_tahmkench_vo_r"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "RemoveCasterBuff",
+                                                                        "name": "league_tahmkench_r_full"
+                                                                      },
+                                                                      {
+                                                                        "type": "AddCasterBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_tahmkench_r_full",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 150
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "only_to_enemy": false
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "Banish",
+                                                                "duration": 150
+                                                              },
+                                                              {
+                                                                "type": "ApAttack",
+                                                                "damage": 120,
+                                                                "attack_ratio": 50,
+                                                                "hp_ratio": 3,
+                                                                "can_crit": false,
+                                                                "attack_effect_type": "Target"
+                                                              },
+                                                              {
+                                                                "type": "FixedAttack",
+                                                                "damage": 0,
+                                                                "attack_ratio": 0,
+                                                                "hp_ratio": 0,
+                                                                "target_hp_ratio": 6
+                                                              },
+                                                              {
+                                                                "type": "AddBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_tahmkench_r_enemy",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 150
+                                                                    }
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_tahmkench_r_in"
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 150,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_tahmkench_r_spit"
+                                                                  },
+                                                                  {
+                                                                    "type": "TargetSfx",
+                                                                    "name": "league_tahmkench_r_spit"
+                                                                  }
+                                                                ]
                                                               }
                                                             ]
+                                                          }
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        }
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_tahmkench_t2",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_tahmkench_t3"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_tahmkench_t3",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 300
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_tahmkench_t2"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_tahmkench_t2",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 300
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_tahmkench_t1"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_tahmkench_t1",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 300
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_tahmkench_t_pip1",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 300
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_tahmkench_t_pip2",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 300
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_tahmkench_t_pip3",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 300
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_tahmkench_p_stack"
+                                                        },
+                                                        {
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_tahmkench_r_armed",
+                                                          "effect_buff": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_tahmkench_r_lock",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_tahmkench_r_lock",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 3
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_tahmkench_r_armed"
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_tahmkench_t1"
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_tahmkench_t2"
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_tahmkench_t3"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "RangeEffect",
+                                                                  "shape": {
+                                                                    "Circle": {
+                                                                      "radius": 1000
+                                                                    }
+                                                                  },
+                                                                  "target": "AllyOnlySelf",
+                                                                  "apply_type": "AroundCaster",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "CasterAnimation",
+                                                                          "name": "ult",
+                                                                          "tick": 30
+                                                                        },
+                                                                        {
+                                                                          "type": "CasterViewEffect",
+                                                                          "name": "league_tahmkench_r_gulp"
+                                                                        },
+                                                                        {
+                                                                          "type": "Sfx",
+                                                                          "name": "league_tahmkench_r_enemy"
+                                                                        },
+                                                                        {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_tahmkench_vo_cd",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_tahmkench_vo_cd",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 600
+                                                                                    }
+                                                                                  }
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              },
+                                                                              {
+                                                                                "type": "Sfx",
+                                                                                "name": "league_tahmkench_vo_r"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_tahmkench_r_full"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_tahmkench_r_full",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 150
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "Banish",
+                                                                  "duration": 150
+                                                                },
+                                                                {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 120,
+                                                                  "attack_ratio": 50,
+                                                                  "hp_ratio": 3,
+                                                                  "can_crit": false,
+                                                                  "attack_effect_type": "Target"
+                                                                },
+                                                                {
+                                                                  "type": "FixedAttack",
+                                                                  "damage": 0,
+                                                                  "attack_ratio": 0,
+                                                                  "hp_ratio": 0,
+                                                                  "target_hp_ratio": 6
+                                                                },
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_tahmkench_r_enemy",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 150
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_tahmkench_r_in"
+                                                                },
+                                                                {
+                                                                  "type": "Delayed",
+                                                                  "tick": 150,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_tahmkench_r_spit"
+                                                                    },
+                                                                    {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_tahmkench_r_spit"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          "effect_none": {
+                                                            "type": "Combine",
+                                                            "effects": []
                                                           }
                                                         }
                                                       ]
                                                     },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_tahmkench_r_full"
-                                                        },
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_tahmkench_r_full",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 150
+                                                    "effect_none": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_tahmkench_t1",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_tahmkench_t2"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_tahmkench_t2",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 300
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_tahmkench_t1"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_tahmkench_t1",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 300
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "AddBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tahmkench_t_pip1",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 300
+                                                                }
                                                               }
                                                             }
                                                           },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "AddBuff",
-                                                  "buff_state": {
-                                                    "name": "league_tahmkench_r_ally",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 150
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "type": "Banish",
-                                                  "duration": 150
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_tahmkench_r_in"
-                                                },
-                                                {
-                                                  "type": "Delayed",
-                                                  "tick": 150,
-                                                  "effects": [
-                                                    {
-                                                      "type": "Shield",
-                                                      "amount": 150,
-                                                      "attack_ratio": 0,
-                                                      "ap_ratio": 100,
-                                                      "tick": 180
-                                                    },
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_tahmkench_r_spit"
-                                                    },
-                                                    {
-                                                      "type": "TargetSfx",
-                                                      "name": "league_tahmkench_r_spit"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  }
-                                }
-                              ]
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 3,
-                              "effects": [
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_tahmkench_r_lock",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_tahmkench_r_armed",
-                                    "effect_buff": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_tahmkench_t3",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_tahmkench_r_e"
-                                          },
-                                          {
-                                            "type": "RandomTarget",
-                                            "range": 30000,
-                                            "casting_target": "EnemyChampionRecentlyAttacked",
-                                            "from_projectile": false,
-                                            "effects": [
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_tahmkench_r_e",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 3
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_tahmkench_r_e",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_tahmkench_r_armed"
-                                                },
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tahmkench_t1"
-                                                    },
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tahmkench_t2"
-                                                    },
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tahmkench_t3"
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "CasterAnimation",
-                                                      "name": "ult",
-                                                      "tick": 30
-                                                    },
-                                                    {
-                                                      "type": "CasterViewEffect",
-                                                      "name": "league_tahmkench_r_gulp"
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_tahmkench_r_enemy"
-                                                    },
-                                                    {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_tahmkench_vo_cd",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": []
+                                                          {
+                                                            "type": "AddBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tahmkench_t_pip2",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 300
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        ]
                                                       },
                                                       "effect_none": {
                                                         "type": "Combine",
                                                         "effects": [
                                                           {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_tahmkench_vo_cd",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 600
-                                                                }
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_tahmkench_t1"
+                                                              },
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_tahmkench_t1",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 300
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
                                                               }
-                                                            },
-                                                            "only_to_enemy": false
+                                                            ]
                                                           },
                                                           {
-                                                            "type": "Sfx",
-                                                            "name": "league_tahmkench_vo_r"
+                                                            "type": "AddBuff",
+                                                            "buff_state": {
+                                                              "name": "league_tahmkench_t_pip1",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 300
+                                                                }
+                                                              }
+                                                            }
                                                           }
                                                         ]
                                                       }
                                                     }
-                                                  ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_tahmkench_r_armed",
+                                      "effect_buff": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_tahmkench_r_busy",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_tahmkench_r_busy",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 3
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_tahmkench_r_n1"
                                                 },
                                                 {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_tahmkench_r_full"
-                                                    },
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_tahmkench_r_full",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 150
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_tahmkench_r_n2"
+                                                },
+                                                {
+                                                  "type": "RangeEffect",
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 50000
                                                     }
-                                                  ]
-                                                },
-                                                {
-                                                  "type": "RandomTarget",
-                                                  "range": 30000,
-                                                  "casting_target": "EnemyChampionRecentlyAttacked",
-                                                  "from_projectile": false,
+                                                  },
+                                                  "target": "EnemyChampion",
+                                                  "apply_type": "AroundCaster",
                                                   "effects": [
                                                     {
-                                                      "type": "Banish",
-                                                      "duration": 150
-                                                    },
-                                                    {
-                                                      "type": "ApAttack",
-                                                      "damage": 120,
-                                                      "attack_ratio": 50,
-                                                      "hp_ratio": 3,
-                                                      "can_crit": false,
-                                                      "attack_effect_type": "Target"
-                                                    },
-                                                    {
-                                                      "type": "FixedAttack",
-                                                      "damage": 0,
-                                                      "attack_ratio": 0,
-                                                      "hp_ratio": 0,
-                                                      "target_hp_ratio": 6
-                                                    },
-                                                    {
-                                                      "type": "AddBuff",
-                                                      "buff_state": {
-                                                        "name": "league_tahmkench_r_enemy",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 150
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_tahmkench_r_n1",
+                                                      "effect_buff": {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_tahmkench_r_n2",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 3
+                                                            }
                                                           }
-                                                        }
-                                                      }
-                                                    },
-                                                    {
-                                                      "type": "ViewEffect",
-                                                      "name": "league_tahmkench_r_in"
-                                                    },
-                                                    {
-                                                      "type": "Delayed",
-                                                      "tick": 150,
-                                                      "effects": [
-                                                        {
-                                                          "type": "ViewEffect",
-                                                          "name": "league_tahmkench_r_spit"
                                                         },
-                                                        {
-                                                          "type": "TargetSfx",
-                                                          "name": "league_tahmkench_r_spit"
-                                                        }
-                                                      ]
+                                                        "only_to_enemy": false
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_tahmkench_r_n1",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 3
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
                                                     }
                                                   ]
                                                 }
                                               ]
                                             },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 1,
+                                              "effects": [
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_tahmkench_r_n2",
+                                                  "effect_buff": {
+                                                    "type": "RandomTarget",
+                                                    "range": 40000,
+                                                    "casting_target": "AllyChampionInCC",
+                                                    "from_projectile": false,
+                                                    "effects": [
+                                                      {
+                                                        "type": "TargetProjectile",
+                                                        "name": "league_tahmkench_r_probe",
+                                                        "speed": 100000,
+                                                        "y_offset": 0,
+                                                        "applied_target": "AllyNotSelf",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_tahmkench_r_lock",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 3
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_tahmkench_r_armed"
+                                                                },
+                                                                {
+                                                                  "type": "RangeEffect",
+                                                                  "shape": {
+                                                                    "Circle": {
+                                                                      "radius": 1000
+                                                                    }
+                                                                  },
+                                                                  "target": "AllyOnlySelf",
+                                                                  "apply_type": "AroundCaster",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "CasterAnimation",
+                                                                          "name": "ult",
+                                                                          "tick": 30
+                                                                        },
+                                                                        {
+                                                                          "type": "CasterViewEffect",
+                                                                          "name": "league_tahmkench_r_gulp"
+                                                                        },
+                                                                        {
+                                                                          "type": "Sfx",
+                                                                          "name": "league_tahmkench_r_ally"
+                                                                        },
+                                                                        {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_tahmkench_vo_cd",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_tahmkench_vo_cd",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 600
+                                                                                    }
+                                                                                  }
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              },
+                                                                              {
+                                                                                "type": "Sfx",
+                                                                                "name": "league_tahmkench_vo_r"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_tahmkench_r_full"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_tahmkench_r_full",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 150
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_tahmkench_r_ally",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 150
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "type": "Banish",
+                                                                  "duration": 150
+                                                                },
+                                                                {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_tahmkench_r_in"
+                                                                },
+                                                                {
+                                                                  "type": "Delayed",
+                                                                  "tick": 150,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Shield",
+                                                                      "amount": 150,
+                                                                      "attack_ratio": 0,
+                                                                      "ap_ratio": 100,
+                                                                      "tick": 180
+                                                                    },
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_tahmkench_r_spit"
+                                                                    },
+                                                                    {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_tahmkench_r_spit"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 3,
+                                              "effects": [
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_tahmkench_r_lock",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_tahmkench_r_armed",
+                                                    "effect_buff": {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_tahmkench_t3",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "RemoveCasterBuff",
+                                                            "name": "league_tahmkench_r_e"
+                                                          },
+                                                          {
+                                                            "type": "RandomTarget",
+                                                            "range": 30000,
+                                                            "casting_target": "EnemyChampionRecentlyAttacked",
+                                                            "from_projectile": false,
+                                                            "effects": [
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_tahmkench_r_e",
+                                                                  "duration": {
+                                                                    "Time": {
+                                                                      "tick": 3
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "only_to_enemy": false
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_tahmkench_r_e",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_tahmkench_r_armed"
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_tahmkench_t1"
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_tahmkench_t2"
+                                                                    },
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_tahmkench_t3"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "CasterAnimation",
+                                                                      "name": "ult",
+                                                                      "tick": 30
+                                                                    },
+                                                                    {
+                                                                      "type": "CasterViewEffect",
+                                                                      "name": "league_tahmkench_r_gulp"
+                                                                    },
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_tahmkench_r_enemy"
+                                                                    },
+                                                                    {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_tahmkench_vo_cd",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": []
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_tahmkench_vo_cd",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 600
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "Sfx",
+                                                                            "name": "league_tahmkench_vo_r"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_tahmkench_r_full"
+                                                                    },
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_tahmkench_r_full",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 150
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "type": "RandomTarget",
+                                                                  "range": 30000,
+                                                                  "casting_target": "EnemyChampionRecentlyAttacked",
+                                                                  "from_projectile": false,
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Banish",
+                                                                      "duration": 150
+                                                                    },
+                                                                    {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 120,
+                                                                      "attack_ratio": 50,
+                                                                      "hp_ratio": 3,
+                                                                      "can_crit": false,
+                                                                      "attack_effect_type": "Target"
+                                                                    },
+                                                                    {
+                                                                      "type": "FixedAttack",
+                                                                      "damage": 0,
+                                                                      "attack_ratio": 0,
+                                                                      "hp_ratio": 0,
+                                                                      "target_hp_ratio": 6
+                                                                    },
+                                                                    {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_tahmkench_r_enemy",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 150
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_tahmkench_r_in"
+                                                                    },
+                                                                    {
+                                                                      "type": "Delayed",
+                                                                      "tick": 150,
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_tahmkench_r_spit"
+                                                                        },
+                                                                        {
+                                                                          "type": "TargetSfx",
+                                                                          "name": "league_tahmkench_r_spit"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            }
+                                                          }
+                                                        ]
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  }
+                                                }
+                                              ]
                                             }
-                                          }
-                                        ]
+                                          ]
+                                        }
                                       },
                                       "effect_none": {
                                         "type": "Combine",
                                         "effects": []
                                       }
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
                                     }
-                                  }
+                                  ]
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "Banish",
+                                      "duration": 60
+                                    }
+                                  ]
                                 }
                               ]
                             }
                           ]
                         }
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
                     }
-                  ]
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
-                    }
-                  },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "Banish",
-                      "duration": 60
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

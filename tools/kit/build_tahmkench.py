@@ -22,7 +22,10 @@ skill2, R Devour as the ult, E Thick Skin folded into the passive; R saves an al
           is a champion (a champion-only twin on the same line, its flag read a tick after the hit) he heals
           q_heal + q_heal_ap% AP and the champion gets a stack - at three stacks the tongue stuns q_stun ticks and eats
           them, unless Devour is armed (then the stacks stay for it, the pros' Q -> R).
-  skill2  W Abyssal Dive (深渊潜航): a `Targeting` cast on `EnemyChampion` (w_range): he sinks (w_sink ticks), banished
+  skill2  W Abyssal Dive (深渊潜航), only at a good moment (the user: 「W也别乱放 看好时机」): a `Targeting` cast on the
+          champion his team is fighting (EnemyChampionRecentlyAttacked), never without an allied champion within
+          w_ally_r: with one only when that champion is in crowd control (the knock-up chains it), with two or more
+          anyway; else nothing and the slot (s2_cd) checks again. With native=1 the add-on's AI hook picks. On the chosen champion (w_range) he sinks (w_sink ticks), banished
           (nobody can target him) for w_up ticks while bubbles mark the spot where the champion stood when he went
           under, then comes up there (Teleport by a hidden lob locked at the dive): w_dmg + w_ap% AP + w_hp% of his
           maximum health and a knock-up w_air ticks round the landing (w_rad), a stack on the champions hit (one a dive).
@@ -67,7 +70,7 @@ P = {
     "q_hp": 2, "q_slow": 40, "q_slow_t": 90, "q_heal": 40, "q_heal_ap": 30, "q_stun": 75,
     # W Abyssal Dive (League: 1000-1200 range, 1.35 s under, 100-250 + 100% AP, knock-up 1 s in 275, cd 21-17 s)
     "w_cd": 1080, "w_range": 70000, "w_anim": 24, "w_sink": 14, "w_up": 60, "w_land": 20, "w_rad": 14000,
-    "w_dmg": 100, "w_ap": 70, "w_hp": 2, "w_air": 60,
+    "w_dmg": 100, "w_ap": 70, "w_hp": 2, "w_air": 60, "s2_cd": 60, "w_ally_r": 50000,
     # R Devour (League: enemy 2.5 s, 100-400 + 15% AP + 5-9% target max hp; ally 2.5 s, shield 400-1000 + 100% AP;
     # cd 120-80 s)
     "r_cd": 3600, "r_range": 50000, "r_arm": 900, "r_anim": 30, "r_reach": 30000, "r_ally_r": 40000, "r_n": 50000,
@@ -310,10 +313,25 @@ def build(p):
     dive = combine(lob("w_warn", 1, p["w_range"] + 20000, "EnemyChampion", [view("w_warn"), sfx("w_warn")]),
                    lob("w_go", p["w_up"], p["w_range"] + 20000, "EnemyChampion", landing),
                    on_me({"type": "Banish", "duration": p["w_up"]}))
-    skill2 = action("idle", 3, p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion",
-                    combine(life, skin, anim("skill2", p["w_anim"]), cview("w_down"), sfx("w"), voice("vo_w", p),
-                            delayed(p["w_sink"], dive)),
-                    key="skill2")
+    go = combine(flag("w_cd", p["w_cd"]), anim("skill2", p["w_anim"]), cview("w_down"), sfx("w"), voice("vo_w", p),
+                 delayed(p["w_sink"], dive))
+    if nat:     # the add-on's AI hook picks the champion (or refuses the dive) - the slot dives on the cast's target
+        skill2 = action("idle", 3, p["w_cd"], 1, p["w_range"], "Targeting", "EnemyChampion", combine(life, skin, go),
+                        key="skill2")
+    else:
+        # never alone, only at a good moment (「W也别乱放 看好时机」), on the champion his team is fighting: with an allied
+        # champion within w_ally_r only when that champion is in crowd control (the knock-up chains it: a homing probe
+        # whose applied_target EnemyChampionInCC is tested on the hit), with two or more allies anyway; else nothing
+        # and the slot (s2_cd) checks again. Allies are counted with AllyChampion (him too: n allies = a{n+1}).
+        allies = combine(*rm("a1", "a2", "a3"),
+                         around(p["w_ally_r"], "AllyChampion", [sw("a2", flag("a3", 3), sw("a1", flag("a2", 3),
+                                                                                             flag("a1", 3)))]))
+        probe = combine(*rm("w_cc", "w_ok"), homing("w_probe", 100000, "EnemyChampionInCC", [on_me(flag("w_cc", 3))]))
+        ok = sw("a2", sw("w_cc", flag("w_ok", 3), sw("a3", flag("w_ok", 3))))
+        skill2 = action("idle", 3, p["s2_cd"], 1, p["w_range"], "Targeting", "EnemyChampionRecentlyAttacked",
+                        combine(life, skin, sw("w_cd", NONE, combine(allies, probe, delayed(2, ok),
+                                                                     delayed(3, sw("w_ok", go))))),
+                        key="skill2")
 
     # ------------------------------------------------------------------ ult: arm (and check at once)
     retry = p["r_cd"] * 100 // 60 - 100      # cooltime x 100 / (100 + mult) = 60 ticks
