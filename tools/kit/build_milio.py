@@ -53,9 +53,11 @@ ID = "league_milio"
 FX = "asset/league/effects/league_milio_fx"
 BIG = "asset/league/effects/league_milio_fx_big"
 
-# Release ticks - PLACEHOLDERS until the strips are drawn (peers' values); retime to the final frames:
-#   ATK_REL the fireball leaves (tick of ATK_DUR), Q_REL the kick's foot meets the ball, E_REL the hug leaves his hands,
-#   R_REL the heal lands after the ult animation starts (R_ANIM ticks of `ult`).
+# Release ticks, checked against the final frames (tools/art/rig_milio.py TIMING, 2026-10-15): the fireball leaves in
+# attack frame 3 (ticks 10-16, the ball drawn at his palm), the kick in skill frame 4 (13-18, the ball at his foot), the
+# hug in skill2 frame 3 (11-17, the flame leaving his raised palm), the heal in ult frame 4 (17-25, the arms thrown
+# open). Heights from the same frames (a projectile starts 5000 - y_offset above the pivot, 1000 a game px): the palm
+# 6 px up (a_y -1000), the kicking foot 12 (q_y -7000), the raised palm 23 (e_y -18000).
 ATK_DUR, ATK_REL = 26, 14
 Q_DUR, Q_REL = 28, 17
 E_DUR, E_REL = 24, 15
@@ -74,18 +76,18 @@ P = {
     # def 20-24, mr 20-24, range 55000-60000, attack cooldown 90; League 525 range -> 53000 next to Bard's 52000)
     "hp": 950, "hp_g": 88, "atk": 85, "atk_g": 6, "ap": 30, "ap_g": 15, "def": 20, "def_g": 7, "mr": 22, "mr_g": 4,
     "ms": 1000, "ms_g": 10,
-    "atk_range": 53000, "atk_dur": ATK_DUR, "atk_cd": 90, "atk_st": ATK_REL, "a_speed": 4500, "a_y": -3000,
+    "atk_range": 53000, "atk_dur": ATK_DUR, "atk_cd": 90, "atk_st": ATK_REL, "a_speed": 4500, "a_y": -1000,
     # passive: Fired Up!
     "p_t": 300, "p_atk": 30, "p_ap": 30, "p_ms": 15, "p_mt": 90,
     # skill: Q Ultra Mega Fire Kick (League: 1200 range, width 45, knock-back 140 / 340, fall 0.8 s r 250, 80-320 + AP,
     # slow 40-60% 1.5 s, cd 12-8 s)
     "q_cd": 420, "q_range": 75000, "q_dur": Q_DUR, "q_st": Q_REL, "q_speed": 6000, "q_reach": 85000, "q_rad": 5000,
-    "q_y": 3000, "q_kb_speed": 2000, "q_kb_t": 7, "q_fall": 36, "q_r": 25000, "q_dmg": 120, "q_ap": 70, "q_slow": 40,
+    "q_y": -7000, "q_kb_speed": 2000, "q_kb_t": 7, "q_fall": 36, "q_r": 25000, "q_dmg": 120, "q_ap": 70, "q_slow": 40,
     "q_slow_t": 90, "q_ally_r": 60000, "q_dive": 30000, "q_thru": 0,
     # skill2: E Warm Hugs (League: 650, shield 45-165 + AP 2.5 s, +12-20% move speed, 2 charges) + W Cozy Campfire
     # (League: 650, 6 s, r 350, 70-150 + 15% AP, +10-20% range, cd 29-21 s)
     "e_cd": 1080, "e_uses": 2, "e_range": 90000, "e_dur": E_DUR, "e_st": E_REL, "e_near": 30000, "e_ally_r": 65000,
-    "e_speed": 6000, "e_y": -3000, "e_sh": 80, "e_ap": 40, "e_t": 150, "e_ms": 16,
+    "e_speed": 6000, "e_y": -18000, "e_sh": 80, "e_ap": 40, "e_t": 150, "e_ms": 16,
     "w_cd": 1500, "w_t": 360, "w_p": 60, "w_r": 35000, "w_h": 22, "w_hap": 4, "w_rng": 7000,
     # ult: R Breath of Life (League: r 800 round him, heal 150-350 + AP, cleanse, 65% tenacity 3 s; cd 160-130 s)
     "r_cd": 3600, "r_arm": 600, "r_arm_range": 75000, "r_r": 75000, "r_dive": 30000, "r_near": 25000, "r_need": 1,

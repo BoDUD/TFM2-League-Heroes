@@ -452,7 +452,7 @@
           "type": "TargetProjectile",
           "name": "league_milio_a_ball",
           "speed": 4500,
-          "y_offset": -3000,
+          "y_offset": -1000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -1067,7 +1067,7 @@
                                 "radius": 5000
                               }
                             },
-                            "y_offset": 3000
+                            "y_offset": -7000
                           }
                         ]
                       }
@@ -1227,7 +1227,7 @@
                         "radius": 5000
                       }
                     },
-                    "y_offset": 3000
+                    "y_offset": -7000
                   }
                 ]
               }
@@ -1374,7 +1374,7 @@
                         "radius": 5000
                       }
                     },
-                    "y_offset": 3000
+                    "y_offset": -7000
                   }
                 ]
               }
@@ -1852,7 +1852,7 @@
                         "type": "TargetProjectile",
                         "name": "league_milio_e_ball",
                         "speed": 6000,
-                        "y_offset": -3000,
+                        "y_offset": -18000,
                         "applied_target": "AllyChampion",
                         "applied_effects": [
                           {
@@ -2121,7 +2121,7 @@
                     "type": "TargetProjectile",
                     "name": "league_milio_e_ball",
                     "speed": 6000,
-                    "y_offset": -3000,
+                    "y_offset": -18000,
                     "applied_target": "AllyChampion",
                     "applied_effects": [
                       {
