@@ -124,6 +124,23 @@ def prepare(delivery):
     print(len(meta), "frames ->", CODEX)
 
 
+def prepare_run(delivery):
+    """The run redo (Codex, outputs/jayce_run_done.zip: tools/art/pack_jayce_run.py's leg lines redrawn, the upper bodies
+    kept): its 1x frames replace codex_strips' run / c_run, each moved down whole until its lowest square stands on the
+    ground row (Codex left the planted boot 1-5 rows over it in 8 frames)."""
+    for tag in ("run", "c_run"):
+        for k in range(1, 9):
+            a = rgba(os.path.join(delivery, f"jayce_{tag}_{k}_1x.png"))
+            low = int(np.nonzero(a[..., 3].any(1))[0].max())
+            d = SOLE - low
+            if d > 0:
+                b = np.zeros_like(a)
+                b[d:] = a[:-d]
+                a = b
+            Image.fromarray(a).save(os.path.join(CODEX, f"jayce_{tag}_{k}.png"))
+            print(f"{tag} {k}: down {max(0, d)}")
+
+
 def frame(tag, k):
     return rgba(os.path.join(CODEX, f"jayce_{tag}_{k}.png"))
 
@@ -375,7 +392,7 @@ def tidy(a):
 MATCH = {}
 
 
-FRAME_SCALE = {("run", 8): 1.11,   # Codex's last run frame drawn 11 % taller (crown to soles 59 rows against 53)
+FRAME_SCALE = {# (run 8 was drawn 11 % taller; the run redo was drawn on the frame already brought down: no entry)
                # heads drawn at 0.85 of the design's, the bodies for them: the bodies brought up to the head
                ("skill2", 4): 0.96, ("skill2", 5): 0.96, ("w_cast", 3): 0.92}
 ALIGN = {"run", "c_run"}          # loops held by the head: each frame moved across so its head sits at the loop's median
@@ -666,11 +683,15 @@ def pinholes():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--prepare", metavar="DELIVERY")
+    ap.add_argument("--prepare-run", metavar="DELIVERY", help="the run redo's 1x frames -> codex_strips run / c_run")
     ap.add_argument("--review", help="write every tag's PPU frames at 3x here")
     ap.add_argument("--pinholes", action="store_true")
     a = ap.parse_args()
     if a.prepare:
         prepare(a.prepare)
+        return
+    if a.prepare_run:
+        prepare_run(a.prepare_run)
         return
     if a.pinholes:
         pinholes()
