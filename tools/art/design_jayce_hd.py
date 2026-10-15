@@ -130,7 +130,9 @@ def head_mask(f, crown):
         m &= ~(dark & ~ndimage.binary_dilation(m & ~dark, structure=np.ones((3, 3), bool)))
     lab, n = ndimage.label(m)
     top = lab[crown:crown + 3][lab[crown:crown + 3] > 0]
-    return np.isin(lab, np.unique(top)) if len(top) else m
+    keep = np.isin(lab, np.unique(top)) if len(top) else m
+    # the squares the colour rules took out INSIDE the head (an eye's dark corner, the lips' red) go back in
+    return ndimage.binary_fill_holes(keep) & (f[..., 3] > 0)
 
 
 def paste_head(dst, crown, head, hmask):

@@ -67,12 +67,19 @@ SCALE_TOL = 9.0                   # never: Codex drew the heads 0.85-1.15 of the
                                   # (w_cast / ult bodies stand as tall as the design with 0.9 heads) - so the frames
                                   # keep their size and only the head is replaced
 SCALE_FIX = {}                    # tag -> scale, where the median head match is wrong
-NO_HEAD = {("dead", 3), ("dead", 4), ("dead", 5), ("dead", 6)}
+NO_HEAD = {("dead", 4), ("dead", 5), ("dead", 6)}
+DROP = {("skill", 4): 9, ("skill", 5): 5}   # native rows down: the feet floated over the ground while the hammer head
+                                            # touched it (the slam); what goes under the ground row is cut
+# shafts Codex drew 4 rows thick (outline, light, mid, outline) that the downscale broke into dashes: native box
+# (top outline row, first col, last col) redrawn at PPU as outline / light / mid / outline rows, each column's
+# colours the native column's own (grey, red grip, gold bands)
+SHAFT = {("attack", 4): (136, 162, 203), ("attack", 5): (136, 160, 203)}
 IDLE_MS = 150
 BREATH = [0, 0, 1, 1, 1, 1, 0, 0]
 HIT_DX = 4
 HIT = [(HIT_DX, True, 90), (HIT_DX // 2, False, 120)]
 HOLE_FILL = 12
+CROSS_MIN = 6
 
 
 def rgba(path):
@@ -92,6 +99,10 @@ PAL = palette()
 PALF = PAL.astype(float)
 OUTLINE = tuple(int(v) for v in PAL[0])
 HEAD = rgba(os.path.join(HD, "head.png"))
+
+
+def snap1(c):
+    return PAL[int(((PALF - np.asarray(c, float)) ** 2).sum(1).argmin())]
 
 
 def is_skin(a):
@@ -166,7 +177,17 @@ def head_match(a, scales=SCALES):
 
 
 def rescale(a, s):
-    """a drawn s times the design's size -> the design's size, round the pivot."""
+    """a drawn s times the design's size -> the design's size, round the pivot (pixelate to shrink; to enlarge,
+    nearest neighbour - pixelate leaves cells without a pixel there: clear seams)."""
+    if s < 1.0:
+        H, W = a.shape[:2]
+        k = 1.0 / s
+        ys = np.floor((np.arange(H) + 0.5 - PIVOT[1]) / k + PIVOT[1]).astype(int)
+        xs = np.floor((np.arange(W) + 0.5 - PIVOT[0]) / k + PIVOT[0]).astype(int)
+        ok = (ys[:, None] >= 0) & (ys[:, None] < H) & (xs[None, :] >= 0) & (xs[None, :] < W)
+        out = np.zeros_like(a)
+        out[ok] = a[np.clip(ys, 0, H - 1)[:, None], np.clip(xs, 0, W - 1)[None, :]][ok]
+        return out
     out, (nx0, ny0) = PD.pixelate(a, 1.0 / s, PIVOT, OUTLINE, PALF)
     can = np.zeros_like(a)
     r0, c0 = int(round(PIVOT[1] - ny0)), int(round(PIVOT[0] - nx0))
@@ -175,8 +196,38 @@ def rescale(a, s):
 
 
 # ------------------------------------------------------------------------------------------------- the grid
+LIGHT = 600                       # r + g + b over this: the cream fur collar, eye whites, the shafts' light rows
+LIGHT_SHARE = 0.34                # a PPU square at least this much light in the native frame turns light: pixelate's
+                                  # mean and dark rules ate the thin fur crescent behind the cannon form's head (review
+                                  # round 1: a white "+" in c_idle, dark brown in c_hit)
+
+
 def down2(a, pivot=PIVOT):
     out, (nx0, ny0) = PD.pixelate(a, K, pivot, OUTLINE, PALF)
+    H, W = a.shape[:2]
+    c = 1.0 / K
+    px, py = pivot
+    cx = np.floor((np.arange(W) + 0.5 - px) / c).astype(int) + nx0
+    cy = np.floor((np.arange(H) + 0.5 - py) / c).astype(int) + ny0
+    Hn, Wn = out.shape[:2]
+    ok_x, ok_y = (cx >= 0) & (cx < Wn), (cy >= 0) & (cy < Hn)
+    rgb = a[..., :3].astype(int)
+    light = (a[..., 3] > 0) & (rgb.sum(-1) > LIGHT)
+    if light.any():
+        cell = (cy[:, None] * Wn + cx[None, :])
+        valid = ok_y[:, None] & ok_x[None, :]
+        tot = np.bincount(cell[valid], minlength=Hn * Wn).reshape(Hn, Wn)
+        n = np.bincount(cell[valid & light], minlength=Hn * Wn).reshape(Hn, Wn)
+        turn = (n >= LIGHT_SHARE * np.maximum(tot, 1)) & (out[..., 3] > 0) & (out[..., :3].astype(int).sum(-1) <= LIGHT)
+        if turn.any():
+            ys, xs = np.nonzero(light & valid)
+            keys = cy[ys] * Wn + cx[xs]
+            for k in np.unique(cell[valid & light]):
+                r, q = divmod(int(k), Wn)
+                if not turn[r, q]:
+                    continue
+                cols, cnt = np.unique(a[ys[keys == k], xs[keys == k], :3], axis=0, return_counts=True)
+                out[r, q, :3] = snap1(cols[cnt.argmax()])
     return out, (nx0, ny0)
 
 
@@ -233,15 +284,21 @@ def with_head(native, head, old=None):
     hairy = is_skin(native) | ((rgb[..., 0] < 130) & (rgb[..., 0] > rgb[..., 2]) & (rgb.sum(-1) < 260)) | \
         (rgb.sum(-1) < 90)
     cross = hm & (native[..., 3] > 0) & np.any(native[..., :3] != tpl[..., :3], axis=-1) & ~hairy
+    # only real crossings stay in front: pieces of CROSS_MIN squares or more that join something outside the head
+    # (an arm, the shaft) - Codex's own eye whites, teeth and nose specks are not (review round 1)
+    lbl, n = ndimage.label(cross)
+    outside = ndimage.binary_dilation((native[..., 3] > 0) & ~hm, structure=np.ones((3, 3), bool))
+    red = (rgb[..., 0] > 110) & (rgb[..., 1] < 60) & (rgb[..., 2] < 60)
+    for k in range(1, n + 1):
+        piece = lbl == k
+        # Codex's scarf drawn up over the chin (ult 1) is not a crossing either: mostly scarf red
+        if piece.sum() < CROSS_MIN or not (piece & outside).any() or (piece & red).sum() * 2 > piece.sum():
+            cross &= ~piece
     body = native.copy()
     body[hm & ~cross] = 0
     if old is not None:
         om = ndimage.binary_dilation(codex_head_mask(hm.shape, old), iterations=1)
         body[om & hairy & ~cross] = 0
-    # Codex's own head reaching out of the template (hair a square wider, the old ear): its hair / skin squares
-    # touching the template's box within 2 squares cleared too
-    ring = ndimage.binary_dilation(hm, iterations=2) & ~hm
-    body[ring & hairy & (native[..., 3] > 0) & ~cross] = 0
     small, corner = down2(body)
     am = np.zeros_like(native)
     am[cross] = (255, 255, 255, 255)
@@ -252,8 +309,27 @@ def with_head(native, head, old=None):
     return out, corner
 
 
+def cracks(a):
+    """1-square slits of ground into the body (review round 1, memory gap-check): a clear square with drawn squares
+    on both sides (left and right, or above and below) and inside the figure's own row / column extent, filled with the
+    outline - twice, for 2-square-long slits seen as one."""
+    out = a.copy()
+    for _ in range(2):
+        op = out[..., 3] > 0
+        lr = np.zeros_like(op)
+        lr[:, 1:-1] = op[:, :-2] & op[:, 2:]
+        ud = np.zeros_like(op)
+        ud[1:-1] = op[:-2] & op[2:]
+        m = (lr | ud) & ~op
+        if not m.any():
+            break
+        out[m, :3] = OUTLINE
+        out[m, 3] = 255
+    return out
+
+
 def tidy(a):
-    out = G.complete_outline(a, color=OUTLINE)[0]
+    out = G.complete_outline(cracks(a), color=OUTLINE)[0]
     op = out[..., 3] > 0
     holes = ndimage.binary_fill_holes(op) & ~op
     lbl, n = ndimage.label(holes)
@@ -283,10 +359,34 @@ def tidy(a):
 MATCH = {}
 
 
+FRAME_SCALE = {("run", 8): 1.11,   # Codex's last run frame drawn 11 % taller (crown to soles 59 rows against 53)
+               # heads drawn at 0.85 of the design's, the bodies for them: the bodies brought up to the head
+               ("skill2", 4): 0.92, ("skill2", 5): 0.92, ("w_cast", 3): 0.92}
+ALIGN = {"run", "c_run"}          # loops held by the head: each frame moved across so its head sits at the loop's median
+                                  # column (Codex drew run 8 20 squares and c_run 6-8 10-15 squares ahead of the rest)
+
+
+def shift_x(a, dx):
+    out = np.zeros_like(a)
+    if dx > 0:
+        out[:, dx:] = a[:, :-dx]
+    elif dx < 0:
+        out[:, :dx] = a[:, -dx:]
+    else:
+        out = a.copy()
+    return out
+
+
 def matched(tag, n):
     """The tag's frames at the design's size and where the head sits in each: (frames, heads, scale)."""
     raw = [frame(tag, k) for k in range(1, n + 1)]
+    raw = [rescale(a, FRAME_SCALE[(tag, k)]) if (tag, k) in FRAME_SCALE else a for k, a in enumerate(raw, 1)]
     ms = [head_match(a) for a in raw]
+    if tag in ALIGN:
+        mid = float(np.median([m[3] + HEAD.shape[1] * m[1] / 2.0 for m in ms]))
+        dxs = [int(round(mid - (m[3] + HEAD.shape[1] * m[1] / 2.0))) for m in ms]
+        raw = [shift_x(a, dx) for a, dx in zip(raw, dxs)]
+        ms = [(m[0], m[1], m[2], m[3] + dx) for m, dx in zip(ms, dxs)]
     s = SCALE_FIX.get(tag, float(np.median([m[1] for m in ms])))
     if abs(s - 1.0) > SCALE_TOL:
         raw = [rescale(a, s) for a in raw]
@@ -296,14 +396,49 @@ def matched(tag, n):
     return raw, [(m[1], m[2], m[3]) for m in ms], s
 
 
+def drop(a, d):
+    out = np.zeros_like(a)
+    out[d:] = a[:-d]
+    out[SOLE + 1:] = 0
+    return out
+
+
+def shaft(small, native, corner, box):
+    """The shaft redrawn on the PPU frame (SHAFT): 4 rows, its colours per column from the native one."""
+    r0, c0, c1 = box
+    out = small.copy()
+    y, _ = to_grid(r0, c0, corner)
+    _, x0 = to_grid(r0, c0, corner)
+    _, x1 = to_grid(r0, c1, corner)
+    for x in range(x0, x1 + 1):
+        nc = int(round((x + 0.5 - corner[0]) / K + PIVOT[0] - 0.5))
+        lo, hi = max(c0, nc - 1), min(c1, nc + 1)
+        light = native[r0 + 1, lo:hi + 1]
+        mid = native[r0 + 2:r0 + 4, lo:hi + 1].reshape(-1, 4)
+        if not (light[..., 3] > 0).any() or not (mid[..., 3] > 0).any():
+            continue
+        lc = snap1(np.median(light[light[..., 3] > 0][:, :3], 0))
+        mc = snap1(np.median(mid[mid[..., 3] > 0][:, :3], 0))
+        for dy, col in enumerate((OUTLINE, lc, mc, OUTLINE)):
+            out[y + dy, x, :3] = col
+            out[y + dy, x, 3] = 255
+    return out
+
+
 def action(tag, n, ms):
     frames, heads, _ = matched(tag, n)
     out = []
     for k, (a, head) in enumerate(zip(frames, heads), 1):
+        if (tag, k) in DROP:
+            d = DROP[(tag, k)]
+            a = drop(a, d)
+            head = (head[0], head[1] + d, head[2])
         if (tag, k) in NO_HEAD:
             small, corner = down2(a)
         else:
             small, corner = with_head(a, design_place(head), old=head)
+        if (tag, k) in SHAFT:
+            small = shaft(small, a, corner, SHAFT[(tag, k)])
         out.append((tidy(small), corner, ms[f"{tag}_{k}"]))
     return out
 
