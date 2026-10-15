@@ -256,10 +256,16 @@ def build(p):
     r_check = sw("r_armed", combine(
         *rm("r_got", "r_n1", "r_n2", "r_a1", "r_s1"), pick(p["r_range"], "AllyChampionInCC", save),
         pick(p["r_range"], "EnemyChampion", probe)))
-    ult = action("idle", 3, p["r_cd"], 1, p["r_arm_range"], "None", "EnemyChampion", flat(combine(
+    arm = flat(combine(
         *rm("r_armed"), flag("r_armed", p["r_arm"]), r_check,
-        delayed(p["r_arm"], sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900)))))),
-        key="ult")
+        delayed(p["r_arm"], sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900))))))
+    if p["native"]:
+        # the add-on's drake stall (「给巴德加上争大小龙时主动对龙放大招拖时间」): its passive keeps r_drk on him while a
+        # drake or Baron is being taken by enemies with no ally in the circle, its AI hook casts the ult then; the cast
+        # plays here and r_drkgo tells the passive to lob the orb onto the drake and hold everything in the circle
+        arm = sw("r_drk", combine(*rm("r_drk"), flag("r_drkgo", 4), anim("ult", p["r_anim"]), sfx("r_cast"),
+                                  sfx("vo_r")), arm)
+    ult = action("idle", 3, p["r_cd"], 1, p["r_arm_range"], "None", "EnemyChampion", arm, key="ult")
 
     # ------------------------------------------------------------------ attack + passive: the Meeps
     meep = splash("p_meep", p["p_speed"], p["p_r"], p["p_y"], "EnemyWithoutTower",
@@ -347,11 +353,15 @@ def build(p):
     views_b += [{"type": "Animated", "name": n(k), "anim": a, "tag": t, "repeat": False, "z": z}
                 for k, a, t, z in (("e_doorb", BIG, "e_portal", -1), ("e_outb", BIG, "e_portal_out", -1),
                                    ("e_rideb", FX, "e_ride", 2))]
+    # the add-on's drake stall: the orb's ring on the drake while it flies, the dome where it lands
+    views_b += [{"type": "Animated", "name": n("r_markb"), "anim": BIG, "tag": "r_mark", "repeat": True, "z": -1},
+                {"type": "Animated", "name": n("r_domeb"), "anim": BIG, "tag": "r_dome", "repeat": False, "z": 2}]
     extra = {}
     if p["native"]:
         extra["passive"] = {"passive_ref": "league_bard:door",
                             "params": {k: p[k] for k in ("e_cd_t", "e_wind", "e_anim", "e_tick", "e_far", "e_min", "e_reach", "e_fly", "e_ride",
-                                                         "e_near", "e_close", "e_ms", "e_ms_t", "e_chase_r")}}
+                                                         "e_near", "e_close", "e_ms", "e_ms_t", "e_chase_r",
+                                                         "r_range", "r_arm_range", "r_r", "r_t", "r_lag", "r_travel")}}
     return {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "Range", "CC", "Heal"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

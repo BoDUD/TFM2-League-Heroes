@@ -97,6 +97,13 @@ pub const HELP_GAIN: f64 = 30_000.0;
 /// 支援：落点这么远内的敌方英雄不多于 2 名（不一头扎进人堆）。
 pub const HELP_CROWD: usize = 2;
 
+/// 争龙：大小龙这么远内有敌方英雄，就是对面在打龙。
+pub const CONTEST_R: f64 = 35_000.0;
+/// 争龙：龙的生命低于这个百分比（已经有人在打）。
+pub const TAKEN_HP: usize = 95;
+/// 争龙：`league_bard_r_drk` 标记挂几 tick（每 `EVERY` tick 重挂；副本的大招读到它就对龙放）。
+pub const DRK_T: usize = 6;
+
 // ===================== 日志 =====================
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
@@ -170,6 +177,12 @@ pub struct Params {
     pub e_ms: usize,
     pub e_ms_t: usize,
     pub e_chase_r: usize,
+    pub r_range: usize,
+    pub r_arm_range: usize,
+    pub r_r: usize,
+    pub r_t: usize,
+    pub r_lag: usize,
+    pub r_travel: usize,
 }
 
 impl Default for Params {
@@ -189,6 +202,12 @@ impl Default for Params {
             e_ms: 40,
             e_ms_t: 120,
             e_chase_r: 100_000,
+            r_range: 80_000,
+            r_arm_range: 90_000,
+            r_r: 36_000,
+            r_t: 150,
+            r_lag: 15,
+            r_travel: 24,
         }
     }
 }
@@ -216,6 +235,12 @@ pub fn parse_params(json: &str) -> Params {
             "e_ms" => &mut p.e_ms,
             "e_ms_t" => &mut p.e_ms_t,
             "e_chase_r" => &mut p.e_chase_r,
+            "r_range" => &mut p.r_range,
+            "r_arm_range" => &mut p.r_arm_range,
+            "r_r" => &mut p.r_r,
+            "r_t" => &mut p.r_t,
+            "r_lag" => &mut p.r_lag,
+            "r_travel" => &mut p.r_travel,
             _ => continue,
         };
         *slot = v;
@@ -447,6 +472,60 @@ pub fn ride_exit(g: &Grid, me: (f64, f64), to: (f64, f64), ally: (f64, f64)) -> 
     [Some(same), side, Some(to)].into_iter().flatten().find(|&q| g.roomy(q) && !g.is_wall(q.0, q.1))
 }
 
+// ===================== 争龙：对大小龙放大招 =====================
+
+/// 一条大小龙：实体、位置、生命百分比、是不是大龙。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Obj {
+    pub id: usize,
+    pub at: (f64, f64),
+    pub hp_pct: usize,
+    pub epic: bool,
+}
+
+/// 争龙时冻哪条龙（用户：「给巴德加上争大小龙时主动对龙放大招拖时间」，英雄联盟里巴德用命运之轮把龙定住、等队友赶到）：
+/// 大招射程 `r_range` 内、生命低于 `TAKEN_HP`%（已经有人在打）、`CONTEST_R` 内有敌方英雄、命运之轮的圈 `r_r` 里没有友方英雄
+/// （巴德自己也不在，免得把自己人一起冻住），而且 `r_arm_range` 内有敌方英雄（大招放得出来）。大龙先，其次身边敌人多的。
+pub fn pick_objective(p: &Params, me: (f64, f64), objs: &[Obj], foes: &[(f64, f64)], allies: &[(f64, f64)]) -> Option<Obj> {
+    if !foes.iter().any(|f| dist(me, *f) <= p.r_arm_range as f64) {
+        return None;
+    }
+    objs.iter()
+        .filter(|o| dist(me, o.at) <= p.r_range as f64 && o.hp_pct < TAKEN_HP)
+        .filter(|o| !allies.iter().any(|a| dist(*a, o.at) <= p.r_r as f64))
+        .map(|o| (*o, foes.iter().filter(|f| dist(**f, o.at) <= CONTEST_R).count()))
+        .filter(|(_, n)| *n > 0)
+        .max_by_key(|(o, n)| (o.epic, *n))
+        .map(|(o, _)| o)
+}
+
+/// 场上的局面：巴德的位置、看得见的大小龙、看得见的敌方英雄、友方英雄（含他自己）。
+fn objective_now(sim: &StableSim<'_>, p: &Params, me: usize) -> Option<Obj> {
+    let e = sim.get_entity(me)?;
+    let team = e.team();
+    let here = (e.pos().0 as f64, e.pos().1 as f64);
+    let (mut objs, mut foes, mut allies) = (Vec::new(), Vec::new(), Vec::new());
+    for i in 0..sim.entity_count() {
+        let Some(u) = sim.entity_at(i) else { continue };
+        if !u.is_alive() {
+            continue;
+        }
+        let at = (u.pos().0 as f64, u.pos().1 as f64);
+        match u.kind() {
+            Some(k @ (EntityKindV1::Epic | EntityKindV1::Serpen)) => {
+                if u.is_targetable() && sim.is_visible(team, u.id()) {
+                    let (hp, max) = u.hp();
+                    objs.push(Obj { id: u.id(), at, hp_pct: hp * 100 / max.max(1), epic: k == EntityKindV1::Epic });
+                }
+            }
+            _ if u.is_champion() && u.team() == team => allies.push(at),
+            _ if u.is_champion() && sim.is_visible(team, u.id()) => foes.push(at),
+            _ => {}
+        }
+    }
+    pick_objective(p, here, &objs, &foes, &allies)
+}
+
 // ===================== 小工具 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -516,6 +595,9 @@ struct Door {
     trips: Vec<Trip>,
     arrive: Option<(usize, Vec<usize>)>,
     doors: usize,
+    /// 对龙放的大招：落地的 tick、龙、落点。
+    drake_at: Option<(usize, usize, (f64, f64))>,
+    stalls: usize,
 }
 
 impl Door {
@@ -542,6 +624,48 @@ impl Door {
         let mut b = BuffV1::timed(&name, self.p.e_ms_t);
         b.move_speed_mult = self.p.e_ms as i32;
         sim.add_buff(id, &b);
+    }
+
+    /// 副本的大招读到 `league_bard_r_drk` 放了出来（`league_bard_r_drkgo`）：金球飞向龙（龙身上 `league_bard_r_markb` 的圈），
+    /// `r_lag + r_travel` tick 后落地。
+    fn stall(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let tick = sim.tick();
+        sim.entity_remove_buff(me, &bd("r_drkgo"));
+        let Some(o) = objective_now(sim, &self.p, me) else {
+            wlog(format!("{} STALL: cast, but no contested drake any more", head(sim, me)));
+            return;
+        };
+        let fly = self.p.r_lag + self.p.r_travel;
+        self.drake_at = Some((tick + fly, o.id, o.at));
+        sim.entity_remove_buff(o.id, &bd("r_markb"));
+        sim.add_buff(o.id, &BuffV1::timed(&bd("r_markb"), fly));
+        self.stalls += 1;
+        wlog(format!("{} STALL #{}: {} #{} at {} ({}% hp), lands in {fly} ticks", head(sim, me), self.stalls,
+                     if o.epic { "baron" } else { "drake" }, o.id, pt(o.at), o.hp_pct));
+    }
+
+    /// 金球落地：龙身上 `league_bard_r_domeb`、落地声，圈 `r_r` 里所有单位（塔除外）定住 `r_t` tick（主包命运之轮的放逐）。
+    fn land(&mut self, sim: &mut StableSim<'_>, me: usize, oid: usize, spot: (f64, f64)) {
+        let alive = sim.get_entity(oid).is_some_and(|e| e.is_alive());
+        let spot = if alive { pos(sim, oid).unwrap_or(spot) } else { spot };
+        sim.play_sfx(&bd("r_land"), me, &InputTargetV1::pos(spot.0 as u64, spot.1 as u64));
+        if alive {
+            sim.entity_remove_buff(oid, &bd("r_domeb"));
+            sim.add_buff(oid, &BuffV1::timed(&bd("r_domeb"), 30));
+        }
+        let mut held = Vec::new();
+        for i in 0..sim.entity_count() {
+            let Some(u) = sim.entity_at(i) else { continue };
+            if !u.is_alive() || u.is_tower() || matches!(u.kind(), Some(EntityKindV1::Nexus | EntityKindV1::Tower)) {
+                continue;
+            }
+            if dist((u.pos().0 as f64, u.pos().1 as f64), spot) <= self.p.r_r as f64 {
+                held.push(u.id());
+            }
+        }
+        let n = held.iter().filter(|&&id| sim.entity_banish(me, id, self.p.r_t, &bd("r_lock"), &bd("r_free"))).count();
+        wlog(format!("{} STALL lands at {}: {n} of {} units held {} ticks {:?}", head(sim, me), pt(spot), held.len(),
+                     self.p.r_t, held));
     }
 
     /// 看局面：撤或追，挑好出口就开门（动作、门、音效、冷却），`e_wind` tick 后出发。
@@ -728,6 +852,7 @@ impl StablePassive for Door {
         self.pending = None;
         self.trips.clear();
         self.arrive = None;
+        self.drake_at = None;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Bard (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
@@ -737,6 +862,12 @@ impl StablePassive for Door {
             self.follow(sim);
         }
         let tick = sim.tick();
+        if let Some((at, oid, spot)) = self.drake_at {
+            if tick >= at {
+                self.drake_at = None;
+                self.land(sim, me, oid, spot);
+            }
+        }
         if let Some((at, ids)) = self.arrive.clone() {
             if tick >= at {
                 self.arrive = None;
@@ -764,6 +895,17 @@ impl StablePassive for Door {
             self.pending = None;
             return;
         }
+        if has_buff(sim, me, &bd("r_drkgo")) && self.drake_at.is_none() {
+            self.stall(sim, me);
+        }
+        if tick % EVERY == 0 {
+            // the flag the copy's ult reads: on while a drake is contested and his ult could stall it
+            let want = self.drake_at.is_none() && objective_now(sim, &self.p, me).is_some();
+            sim.entity_remove_buff(me, &bd("r_drk"));
+            if want {
+                sim.add_buff(me, &BuffV1::timed(&bd("r_drk"), DRK_T));
+            }
+        }
         let Some(here) = pos(sim, me) else { return };
         if let Some(plan) = self.pending.clone() {
             match plan.go_at {
@@ -789,6 +931,46 @@ impl StablePassive for Door {
     }
 }
 
+// ===================== AI 钩子：争龙时放大招 =====================
+
+/// 他身上有 `league_bard_r_drk`（被动看到有人在打龙）时，把这一刻的操作换成放大招（副本的大招是 `None` 施放，读到标记就对龙放）。
+#[derive(Clone, Default)]
+struct DrakeAi;
+
+impl StablePlayerAi for DrakeAi {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:drake")
+    }
+
+    fn priority(&self) -> i32 {
+        100
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.champion_name == ID
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        if base.is_some_and(|b| InputKindV1::from_code(b.kind) == Some(InputKindV1::Ult)) {
+            return None;
+        }
+        let player = ctx.player_id();
+        {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion()?;
+            if !me.is_alive() || !has_buff(&sim, me.id(), &bd("r_drk")) {
+                return None;
+            }
+        }
+        let input = InputV1::action(InputKindV1::Ult, InputTargetV1::NONE);
+        ctx.is_valid_input(&input).then_some(input)
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -805,6 +987,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:door"), Door::default());
+    module.add_player_input_ai(DrakeAi);
     host.log(LogLevel::Info, "league_bard v1 loaded (Bard's Magical Journey exits clear of walls).");
 }
 
@@ -953,6 +1136,33 @@ mod tests {
     #[test]
     fn the_moba_map_has_its_ninety_wall_cells() {
         assert_eq!(Grid::builtin()[0].walls(), 90);
+    }
+
+    #[test]
+    fn he_stalls_a_drake_the_enemies_are_taking() {
+        let p = Params::default();
+        let drake = Obj { id: 9, at: (500_000.0, 500_000.0), hp_pct: 70, epic: false };
+        let me = (440_000.0, 500_000.0);
+        let foe_on_it = [(520_000.0, 510_000.0)];
+        // enemies on a hurt drake, no ally in the circle: stall it
+        assert_eq!(pick_objective(&p, me, &[drake], &foe_on_it, &[me]), Some(drake));
+        // his own jungler on it: no (the stasis would hold him too)
+        assert_eq!(pick_objective(&p, me, &[drake], &foe_on_it, &[me, (495_000.0, 500_000.0)]), None);
+        // nobody hitting it yet (full health) or no enemy beside it: no
+        assert_eq!(pick_objective(&p, me, &[Obj { hp_pct: 100, ..drake }], &foe_on_it, &[me]), None);
+        assert_eq!(pick_objective(&p, me, &[drake], &[(560_000.0, 560_000.0)], &[me]), None);
+        // out of the ult's reach: no
+        assert_eq!(pick_objective(&p, (380_000.0, 500_000.0), &[drake], &foe_on_it, &[]), None);
+        // Baron before the drake
+        let baron = Obj { id: 10, at: (470_000.0, 450_000.0), hp_pct: 80, epic: true };
+        let foes = [(520_000.0, 510_000.0), (480_000.0, 440_000.0)];
+        assert_eq!(pick_objective(&p, me, &[drake, baron], &foes, &[me]).map(|o| o.id), Some(10));
+    }
+
+    #[test]
+    fn the_ult_numbers_come_from_the_champion_data() {
+        let p = parse_params(r#"{"r_range":81000,"r_r":35000,"r_t":140,"r_lag":14,"r_travel":20,"r_arm_range":91000}"#);
+        assert_eq!((p.r_range, p.r_r, p.r_t, p.r_lag, p.r_travel, p.r_arm_range), (81_000, 35_000, 140, 14, 20, 91_000));
     }
 
     #[test]

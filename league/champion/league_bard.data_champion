@@ -3288,6 +3288,22 @@
       "tag": "e_ride",
       "repeat": false,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_r_markb",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "r_mark",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_bard_r_domeb",
+      "anim": "asset/league/effects/league_bard_big",
+      "tag": "r_dome",
+      "repeat": false,
+      "z": 2
     }
   ]
 }
