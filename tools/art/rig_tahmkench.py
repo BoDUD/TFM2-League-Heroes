@@ -4,6 +4,8 @@
 
     python tools/art/rig_tahmkench.py --review DIR      # every tag at the design's density, 3x, + a GIF per tag
     python tools/art/rig_tahmkench.py                   # the frames at PPU -> assets/source/ppu/orig + the 1x sheet
+    python tools/art/ppu_restyle.py --hero tahmkench && python tools/art/rig_tahmkench.py --pinholes &&
+        python tools/art/ppu_hd.py --hero tahmkench
 
 The design (assets/source/tahmkench/hd/A.png, 151 x 125 squares: hat top to soles, 2.98 squares a game pixel) is cut
 into parts by fixed square ranges and posed only losslessly (memory no-deformation-lossless-poses): whole-part moves,
@@ -46,7 +48,8 @@ import pixel_down as PD  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "tahmkench")
 STEM = os.path.join(ROOT, "league", "champions", "league_tahmkench")
 ORIG = os.path.join(ROOT, "assets", "source", "ppu", "orig")
-PPU = 1.8                                   # the user's pick (2026-10-16, by the recommendation)
+PPU = 1.5                                   # the user's pick: 1.8 by the recommendation, then 「感觉太高清了 降低点像素」 -
+                                            # shown 1.8 / 1.6 / 1.5 / 1.4 / 1.3 / 1.2 at one game size: 「塔姆用 PPU 1.5」
 DESIGN = np.asarray(Image.open(os.path.join(SRC, "hd", "A.png")).convert("RGBA")).copy()
 DH, DW = DESIGN.shape[:2]                   # 125 x 151
 GAME_ROWS = 42
@@ -514,6 +517,34 @@ def export(acts, review_dir=None):
     print(f"league/champions/league_tahmkench#sheet.png {w}x{h}: " + ", ".join(f"{t} {len(f)}" for t, f in sheet.items()))
 
 
+def pinholes(most=4):
+    """After tools/art/ppu_restyle.py: enclosed gaps of up to `most` squares in the restyled strips
+    (assets/source/ppu/tahmkench_<tag>.png) take the commonest colour round them. Then ppu_hd.py again."""
+    src = os.path.join(ROOT, "assets", "source", "ppu")
+    total = 0
+    for tag in ORDER:
+        meta = json.load(open(os.path.join(src, f"tahmkench_{tag}.json"), encoding="utf-8"))
+        strip = np.asarray(Image.open(os.path.join(src, f"tahmkench_{tag}.png")).convert("RGBA")).copy()
+        x = 0
+        for W, H in meta["sizes"]:
+            f = strip[:H, x:x + W]
+            op = f[..., 3] > 0
+            holes = ndimage.binary_fill_holes(op) & ~op
+            lbl, n = ndimage.label(holes)
+            for k in range(1, n + 1):
+                m = lbl == k
+                if m.sum() > most:
+                    continue
+                ring = ndimage.binary_dilation(m, structure=np.ones((3, 3))) & op
+                cols, cnt = np.unique(f[ring][:, :3], axis=0, return_counts=True)
+                f[m, :3] = cols[cnt.argmax()]
+                f[m, 3] = 255
+                total += int(m.sum())
+            x += W + 1
+        Image.fromarray(strip).save(os.path.join(src, f"tahmkench_{tag}.png"))
+    print(f"tahmkench: {total} pinhole squares filled")
+
+
 # ------------------------------------------------------------------------------------------------- review
 def review(acts, out_dir, z=3):
     os.makedirs(out_dir, exist_ok=True)
@@ -545,7 +576,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--review", help="the native frames at 3x and a GIF per tag here (nothing written to the repo)")
     ap.add_argument("--ppu-review", help="also the PPU frames at 4x here")
+    ap.add_argument("--pinholes", action="store_true", help="after ppu_restyle.py: fill the restyled strips' pinholes")
     a = ap.parse_args()
+    if a.pinholes:
+        pinholes()
+        return
     acts = frames()
     if a.review:
         review(acts, a.review)
