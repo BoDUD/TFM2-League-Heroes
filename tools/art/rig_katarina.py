@@ -51,8 +51,9 @@ PIV, SOLE = 90, 118               # the standing column and the soles' row
 PIVOT = (PIV + 0.5, SOLE + 1)     # the native pivot: the standing column's middle on the ground line
 INFO = json.load(open(os.path.join(HD, "design.json"), encoding="utf-8"))
 NATIVE = INFO["rows"] / INFO["game_rows"]     # design squares a game pixel (68 / 38)
-PPU = 1.7895                      # the user's pick: the design's own density (68 / 38), the frames as Codex drew them -
-                                  # 1.5 first, then 「脸部用PPU调清晰点吧」: the downscale had lost the green eyes and the scar
+PPU = 1.5                         # the user's pick: 1.5 first, then 「脸部用PPU调清晰点吧」 -> the design's own density
+                                  # 1.7895 (68 / 38, the frames as Codex drew them); then 「卡特琳娜太高清了 降低点像素」,
+                                  # shown 1.79 / 1.6 / 1.5 / 1.4 side by side: 「卡特琳娜用 PPU 1.5」
 K = PPU / NATIVE
 FEET = 11                         # 1x rows from the pivot down to the ground row (the pack's 128-canvas heroes)
 

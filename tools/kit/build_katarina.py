@@ -21,7 +21,7 @@ E owns no slot, its cooldown is a caster flag; the add-on addons/league_katarina
           tick q_at the spinning blade flies at the target (homing): q_dmg + q_ap% AP magic damage, then q_bn bounces
           q_blag ticks apart to a unit within q_b of the one it hit (a `RandomTarget`: it may take the same unit again).
           The dagger lands q_fall ticks after the blade struck, on the spot the first target stood (a hidden lob
-          from her; League: 350 behind it, ~1 s later); with Shunpo ready and an enemy within p_r of the dagger
+          from her; League: 350 behind it, ~1 s later); with Shunpo ready and an enemy champion within p_r of the dagger
           she blinks onto it at once (`Teleport` from the landing's own `Delayed`) and picks it up.
   skill2  W Preparation (伺机待发) + Shunpo in: a `Targeting` cast on `EnemyChampion` (w_range). With Shunpo ready she
           first blinks onto the champion (`Teleport`; e_dmg + e_ap% AP magic damage) and `e_cd` starts; then she tosses
@@ -302,8 +302,10 @@ def build(p):
     bounces = [delayed(p["q_blag"] * (k + 1), pick(p["q_b"], "EnemyWithoutTower", *hit_q, fp=True))
                for k in range(p["q_bn"])]
     twin = homing("q_twin", p["q_speed"], p["q_y"], "EnemyChampion", [track()])
-    # Shunpo onto the landed dagger: an enemy near it (a zone at the point raises qe_go) and e_cd off
-    qe = [zone("qe_probe", p["p_r"], "EnemyWithoutTower", [refresh("qe_go", 4)]),
+    # Shunpo onto the landed dagger: an enemy champion near it (a zone at the point raises qe_go) and e_cd off - only
+    # champions: on any enemy she blinked from dagger to dagger in camps and waves (the user: 「卡特琳娜出现乱移动的情况
+    # 查一下 打蚂蚱的时候」), there she walks to the dagger and picks it up
+    qe = [zone("qe_probe", p["p_r"], "EnemyChampion", [refresh("qe_go", 4)]),
           delayed(2, sw("qe_go", sw("e_cd", NONE, combine(*rm("qe_go"), blink_out(), {"type": "Teleport"},
                                                              on_me(blink_in())))))]
 

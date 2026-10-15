@@ -712,7 +712,7 @@
                               },
                               "delay": 1,
                               "apply": 1,
-                              "applied_target": "EnemyWithoutTower",
+                              "applied_target": "EnemyChampion",
                               "applied_effects": [
                                 {
                                   "casting_type": "Targeting",
@@ -1077,7 +1077,7 @@
                                 },
                                 "delay": 1,
                                 "apply": 1,
-                                "applied_target": "EnemyWithoutTower",
+                                "applied_target": "EnemyChampion",
                                 "applied_effects": [
                                   {
                                     "casting_type": "Targeting",
@@ -1435,7 +1435,7 @@
                                 },
                                 "delay": 1,
                                 "apply": 1,
-                                "applied_target": "EnemyWithoutTower",
+                                "applied_target": "EnemyChampion",
                                 "applied_effects": [
                                   {
                                     "casting_type": "Targeting",

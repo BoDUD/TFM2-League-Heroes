@@ -57,7 +57,7 @@ TEXT = {
         "attack": O + "贪婪" + E + "：被她伤害过的敌方英雄" + A + "{p_win}秒" + E + "内阵亡时，Q、W冷却刷新，瞬步就绪。落地的匕首留" + A + "{d_life}秒" + E +
                   "，捡起时旋斩周围敌人，造成" + mag("p") + M + "魔法伤害" + E + "，瞬步冷却降为" + A + "{e_short}秒" + E + "。",
         "skill": "掷出弹射之刃，造成" + mag("q") + M + "魔法伤害" + E + "，再弹向附近" + A + "{q_bn}" + E + "个敌人；匕首落在第一个目标身后。" + O + "瞬步" + E +
-                 "就绪且匕首旁有敌人时，瞬步到匕首处。",
+                 "就绪且匕首旁有敌方英雄时，瞬步到匕首处。",
         "skill2": O + "瞬步" + E + "就绪时先瞬步到敌方英雄身边，造成" + mag("e") + M + "魔法伤害" + E + "（冷却" + A + "{e_cd}秒" + E + "）；再把匕首抛向空中，" + A +
                   "{w_fall}秒" + E + "后落地，获得逐渐衰减的" + W + "移速+{w_ms}%" + E + "。",
         "ult": "原地旋转引导" + A + "{r_t}秒" + E + "，向周围的敌方英雄连续掷出匕首，共造成" + mag("r") + M + "魔法伤害" + E + "并使其" + C + "治疗效果-{r_gw}%" + E +
@@ -69,7 +69,7 @@ TEXT = {
         "attack": O + "貪婪" + E + "：被她傷害過的敵方英雄" + A + "{p_win}秒" + E + "內陣亡時，Q、W冷卻刷新，瞬步就緒。落地的匕首留" + A + "{d_life}秒" + E +
                   "，撿起時旋斬周圍敵人，造成" + mag("p") + M + "魔法傷害" + E + "，瞬步冷卻降為" + A + "{e_short}秒" + E + "。",
         "skill": "擲出彈射利刃，造成" + mag("q") + M + "魔法傷害" + E + "，再彈向附近" + A + "{q_bn}" + E + "個敵人；匕首落在第一個目標身後。" + O + "瞬步" + E +
-                 "就緒且匕首旁有敵人時，瞬步到匕首處。",
+                 "就緒且匕首旁有敵方英雄時，瞬步到匕首處。",
         "skill2": O + "瞬步" + E + "就緒時先瞬步到敵方英雄身邊，造成" + mag("e") + M + "魔法傷害" + E + "（冷卻" + A + "{e_cd}秒" + E + "）；再把匕首拋向空中，" + A +
                   "{w_fall}秒" + E + "後落地，獲得逐漸衰減的" + W + "跑速+{w_ms}%" + E + "。",
         "ult": "原地旋轉引導" + A + "{r_t}秒" + E + "，向周圍的敵方英雄連續擲出匕首，共造成" + mag("r") + M + "魔法傷害" + E + "並使其" + C + "治療效果-{r_gw}%" + E +
@@ -82,7 +82,7 @@ TEXT = {
                   "Daggers on the ground last " + A + "{d_life}s" + E + "; picking one up slashes nearby enemies for " + mag("p") + " " + M + "magic damage" + E +
                   " and cuts Shunpo's cooldown to " + A + "{e_short}s" + E + ".",
         "skill": "Throws a bouncing blade for " + mag("q") + " " + M + "magic damage" + E + " that bounces to " + A + "{q_bn}" + E + " nearby enemies; the dagger "
-                 "lands behind the first target. If " + O + "Shunpo" + E + " is ready and an enemy is near the dagger, she blinks to it.",
+                 "lands behind the first target. If " + O + "Shunpo" + E + " is ready and an enemy champion is near the dagger, she blinks to it.",
         "skill2": "If " + O + "Shunpo" + E + " is ready she first blinks to an enemy champion for " + mag("e") + " " + M + "magic damage" + E + " (cooldown " + A +
                   "{e_cd}s" + E + "); then tosses a dagger into the air that lands after " + A + "{w_fall}s" + E + ", gaining " + W + "{w_ms}% move speed" + E +
                   " that decays.",
@@ -95,7 +95,7 @@ TEXT = {
         "attack": O + "탐욕" + E + ": 그녀가 피해를 입힌 적 챔피언이 " + A + "{p_win}초" + E + " 안에 죽으면 Q, W 재사용 대기시간 초기화, 순보 준비. 바닥의 단검은 " + A +
                   "{d_life}초" + E + " 유지, 주우면 주변 적에게 " + mag("p") + " " + M + "마법 피해" + E + ", 순보 대기시간 " + A + "{e_short}초" + E + "로 감소.",
         "skill": "튕기는 단검을 던져 " + mag("q") + " " + M + "마법 피해" + E + ", 주변 적 " + A + "{q_bn}" + E + "명에게 튕김; 단검은 첫 대상 뒤에 떨어짐. " + O + "순보" + E +
-                 "가 준비되고 단검 근처에 적이 있으면 단검으로 순보.",
+                 "가 준비되고 단검 근처에 적 챔피언이 있으면 단검으로 순보.",
         "skill2": O + "순보" + E + "가 준비되면 먼저 적 챔피언에게 순보해 " + mag("e") + " " + M + "마법 피해" + E + "(대기시간 " + A + "{e_cd}초" + E + "); 이후 단검을 공중에 "
                   "던져 " + A + "{w_fall}초" + E + " 뒤 떨어지며 점차 감소하는 " + W + "이동 속도 +{w_ms}%" + E + ".",
         "ult": A + "{r_t}초" + E + " 동안 정신을 집중해 주변 적 챔피언에게 단검을 던져 총 " + mag("r") + " " + M + "마법 피해" + E + "와 " + C + "치유 감소 {r_gw}%" + E +
@@ -107,7 +107,7 @@ TEXT = {
         "attack": O + "貪欲なる暗殺者" + E + "：彼女がダメージを与えた敵チャンピオンが" + A + "{p_win}秒" + E + "以内に倒れるとQ・WのCD解消、瞬歩使用可能。落ちた短剣は" + A +
                   "{d_life}秒" + E + "残り、拾うと周囲の敵に" + mag("p") + "の" + M + "魔法ダメージ" + E + "、瞬歩のCDが" + A + "{e_short}秒" + E + "に。",
         "skill": "跳ね返るナイフを投げ" + mag("q") + "の" + M + "魔法ダメージ" + E + "、近くの敵" + A + "{q_bn}" + E + "体に跳ね返る。短剣は最初の対象の後ろに落ちる。" + O +
-                 "瞬歩" + E + "が使用可能で短剣の近くに敵がいれば短剣へ瞬歩。",
+                 "瞬歩" + E + "が使用可能で短剣の近くに敵チャンピオンがいれば短剣へ瞬歩。",
         "skill2": O + "瞬歩" + E + "が使用可能なら先に敵チャンピオンへ瞬歩し" + mag("e") + "の" + M + "魔法ダメージ" + E + "（CD" + A + "{e_cd}秒" + E + "）。短剣を宙に投げ" +
                   A + "{w_fall}秒" + E + "後に落下、減衰する" + W + "移動速度+{w_ms}%" + E + "。",
         "ult": A + "{r_t}秒" + E + "間詠唱し、周囲の敵チャンピオンに短剣を投げ続け合計" + mag("r") + "の" + M + "魔法ダメージ" + E + "と" + C + "回復量-{r_gw}%" + E +
