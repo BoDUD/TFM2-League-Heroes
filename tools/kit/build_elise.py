@@ -78,7 +78,7 @@ P = {
     "w_cd": 720, "w_range": 65000, "w_anim": 24, "w_at": 10, "w_speed": 2500, "w_w": 3000, "w_rad": 10000,
     "w_dmg": 70, "w_ap": 70,
     # Rappel (League: up 2 s, descends within 750, cd 22-14 s)
-    "ce_cd": 900, "ce_r": 50000, "ce_anim": 20, "ce_up": 45, "ce_rad": 12000, "ce_dmg": 40, "ce_ap": 30,
+    "ce_cd": 900, "ce_r": 50000, "ce_anim": 20, "ce_up": 45, "cl_anim": 18, "ce_rad": 12000, "ce_dmg": 40, "ce_ap": 30,
     # Skittering Frenzy (League: +60-100% attack speed 3 s, cd 10 s)
     "cw_cd": 600, "cw_near": 25000, "cw_as": 60, "cw_t": 180,
     # ult: the cocoon hunt
@@ -305,7 +305,8 @@ def build(p):
     human_s2 = combine(c_in, sw("e_cd", sw("w_cd", NONE, w_cast), sw("e_in", e_cast, sw("w_cd", NONE, w_cast))))
 
     def rappel(up, dmg, ap, extra=()):
-        land = [around(p["ce_rad"], "EnemyWithoutTower", [magic(dmg, ap), view("ce_hit"), tsfx("ce_hit")]),
+        land = [anim("c_land", p["cl_anim"]),
+                around(p["ce_rad"], "EnemyWithoutTower", [magic(dmg, ap), view("ce_hit"), tsfx("ce_hit")]),
                 cview("ce_land"), sfx("ce_land"), *extra]
         # rise: banished (untargetable) where she stands; drop: Teleport onto the target the cast picked
         return combine(anim("c_skill2", p["ce_anim"]), sfx("ce"), cview("ce_up"), voice("vo_ce", p),
