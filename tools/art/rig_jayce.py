@@ -301,10 +301,20 @@ def with_head(native, head, old=None):
     body[hm & ~cross] = 0
     if old is not None:
         om = ndimage.binary_dilation(codex_head_mask(hm.shape, old), iterations=1)
-        # Codex's hair standing up over the design head's crown (review round 2: 3-4 rows left above it)
-        for up in range(1, 6):
-            om[:-up] |= om[up:]
         body[om & hairy & ~cross] = 0
+        # Codex's hair standing up over the design head's crown (review round 2: 3-4 rows left above it): up to 5 rows
+        # over the old head, its hair browns only (review round 3: the outline and sleeves of raised arms went too)
+        up_m = np.zeros_like(om)
+        for up in range(1, 6):
+            up_m[:-up] |= om[up:]
+        hair_only = (rgb[..., 0] < 130) & (rgb[..., 0] > rgb[..., 2] + 15) & (rgb.sum(-1) >= 90) & (rgb.sum(-1) < 260)
+        lone = up_m & ~om & hair_only & ~cross & (native[..., 3] > 0)
+        # only pieces of it that touch the old head (a brown sleeve elsewhere stays)
+        lbl, n = ndimage.label(lone)
+        near = ndimage.binary_dilation(om, iterations=1)
+        for k in range(1, n + 1):
+            if (lbl == k)[near].any():
+                body[lbl == k] = 0
     small, corner = down2(body)
     am = np.zeros_like(native)
     am[cross] = (255, 255, 255, 255)
