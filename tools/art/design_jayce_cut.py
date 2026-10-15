@@ -32,7 +32,9 @@ ROWS = round(BODY * DENS)   # 57 squares
 # take -> the hair top's row in the 1024x1536 / 1536x1024 picture (the soles = the lowest opaque row)
 CROWN = {"hammer-A1": 388, "hammer-A2": 490, "cannon-B1": 148, "cannon-B2": 103}
 # the cannon stance bends the knees (League's ranged idle stands ~5 % lower): the same man, so fewer rows crown-soles
-BEND = {"cannon-B1": 0.95, "cannon-B2": 0.95}
+BEND = {"cannon-B1": 0.95, "cannon-B2": 0.95, "cannon-side-1": 0.95, "cannon-side-2": 0.95}
+# step 1 redo (Codex image_gen, 2026-10-15, assets/source/jayce/codex_side): the side-on takes, 3/4 to the right
+SIDE = {"hammer-side-1": 375, "hammer-side-2": 487, "cannon-side-1": 60, "cannon-side-2": 65}
 PEERS = [("darius", "idle", 1.0, 1.0), ("garen", "hd_idle", 1.9, 1.0), ("renekton", "idle", 1.0, 1.0),
          ("aatrox", "idle", 1.0, 1.0), ("sion", "idle", 1.0, 1.0)]
 
@@ -46,12 +48,13 @@ def kpal(a, n=32):
 
 
 def cut(take):
-    a = np.array(Image.open(os.path.join(SRC, "codex_picture", f"jayce-{take}.png")).convert("RGBA"))
+    folder = "codex_side" if take in SIDE else "codex_picture"
+    a = np.array(Image.open(os.path.join(SRC, folder, f"jayce-{take}.png")).convert("RGBA"))
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
     op = a[..., 3] > 0
     ys = np.nonzero(op.any(1))[0]
     sole = ys.max() + 1
-    k = ROWS * BEND.get(take, 1.0) / (sole - CROWN[take])
+    k = ROWS * BEND.get(take, 1.0) / (sole - {**CROWN, **SIDE}[take])
     xs = np.nonzero(op[sole - 40:sole].any(0))[0]
     pivot = (int(round((xs.min() + xs.max()) / 2)), int(sole))
     f, piv = PD.pixelate(a, k, pivot, PD.edge_colour(a), kpal(a))
@@ -82,7 +85,7 @@ def main():
     a = ap.parse_args()
     os.makedirs(os.path.join(SRC, "hd"), exist_ok=True)
     cuts = {}
-    for take in CROWN:
+    for take in list(CROWN) + list(SIDE):
         f, piv = cut(take)
         Image.fromarray(f).save(os.path.join(SRC, "hd", f"cut_{take}.png"))
         cuts[take] = f
