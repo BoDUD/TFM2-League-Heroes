@@ -728,6 +728,13 @@
         "skill": "喷吐火球，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<><#ff8a65ff>物理伤害<>。<#ffb900ff>10层<>：爆炸波及周围敌人；<#ffb900ff>25层<>：向目标身后喷出反冲火球（50%伤害）；<#ffb900ff>40层<>：灼烧<#ffb900ff>3秒<>，每秒造成<#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1%最大生命真实伤害<>。",
         "skill2": "打喷嚏喷出火焰，造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理伤害<>并<#ef5350ff>减速35%<>，命中英雄时爆炸，再造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理伤害<>。被近身或追击残血时改用<#ff9028ff>扑棱，扑棱，扑棱！<>：飞起并<#ffffffff>加速40%<>，向残血敌人连发<#ffb900ff>5<>枚火球，各<#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<><#ff8a65ff>物理伤害<>。",
         "ult": "呼唤妈妈沿直线喷火，造成<#ff8a65ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>80%<><#ff8a65ff>物理伤害<>，中心的敌人多受<#ffb900ff>50%<>伤害并<#ef5350ff>减速40%<>（<#ffb900ff>2秒<>）。斯莫德站在中心线上时回复<#6aff55ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30%<>生命。"
+      },
+      "league_milio": {
+        "name": "米利欧",
+        "attack": "射出小火球。被动<#ff9028ff>热情洋溢！<>：技能触及的友方获得<#ffb900ff>30%<>攻击力和法术强度（<#ffb900ff>5秒<>），米利欧获得<#ffb900ff>15%<>移速。",
+        "skill": "踢出火球，击退命中的第一个敌人，随后火球落下，对周围敌人造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "<#ff9028ff>融融情谊<>（2次）：友方英雄获得<#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<><#9fd8ffff>护盾<>和<#ffb900ff>16%<>移速（<#ffb900ff>2.5秒<>）。<#ff9028ff>依依不舍<>：在其身上点燃营火<#ffb900ff>6秒<>，每<#ffb900ff>1秒<>治疗周围友方<#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<>并增加攻击距离。",
+        "ult": "友方被控制或被敌人贴身时，为周围友方英雄恢复<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>生命，<#ef5350ff>免疫控制1秒<>并获得<#ffb900ff>65%<>韧性（<#ffb900ff>3秒<>）。"
       }
     },
     "skill_name": {
@@ -1250,6 +1257,11 @@
         "skill1": "超级灼热龙息",
         "skill2": "阿嚏！ / 扑棱，扑棱，扑棱！",
         "ult": "妈----！"
+      },
+      "league_milio": {
+        "skill1": "火爆飞踢",
+        "skill2": "融融情谊 / 依依不舍",
+        "ult": "生生不息"
       }
     }
   },
@@ -1982,6 +1994,13 @@
         "skill": "噴吐火球，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<><#ff8a65ff>物理傷害<>。<#ffb900ff>10層<>：爆炸波及周圍敵人；<#ffb900ff>25層<>：向目標身後噴出反衝火球（50%傷害）；<#ffb900ff>40層<>：灼燒<#ffb900ff>3秒<>，每秒造成<#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1%最大生命真實傷害<>。",
         "skill2": "打噴嚏噴出火焰，造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理傷害<>並<#ef5350ff>緩速35%<>，命中英雄時爆炸，再造成<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<><#ff8a65ff>物理傷害<>。被近身或追擊殘血時改用<#ff9028ff>振翼高飛<>：飛起並<#ffffffff>加速40%<>，向殘血敵人連發<#ffb900ff>5<>枚火球，各<#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<><#ff8a65ff>物理傷害<>。",
         "ult": "呼喚媽媽沿直線噴火，造成<#ff8a65ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>80%<><#ff8a65ff>物理傷害<>，中心的敵人多受<#ffb900ff>50%<>傷害並<#ef5350ff>緩速40%<>（<#ffb900ff>2秒<>）。史矛德站在中心線上時回復<#6aff55ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30%<>生命。"
+      },
+      "league_milio": {
+        "name": "米里歐",
+        "attack": "射出小火球。被動<#ff9028ff>爐火餘溫<>：技能觸及的友軍獲得<#ffb900ff>30%<>攻擊力和魔法攻擊（<#ffb900ff>5秒<>），米里歐獲得<#ffb900ff>15%<>跑速。",
+        "skill": "踢出火球，擊退命中的第一個敵人，隨後火球落下，對周圍敵人造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "<#ff9028ff>溫暖擁抱<>（2次）：友方英雄獲得<#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<><#9fd8ffff>護盾<>和<#ffb900ff>16%<>跑速（<#ffb900ff>2.5秒<>）。<#ff9028ff>舒適營火<>：在其身上點燃營火<#ffb900ff>6秒<>，每<#ffb900ff>1秒<>治療周圍友軍<#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<>並增加攻擊距離。",
+        "ult": "友軍被控場或被敵人貼身時，為周圍友方英雄恢復<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>生命，<#ef5350ff>免疫控場1秒<>並獲得<#ffb900ff>65%<>韌性（<#ffb900ff>3秒<>）。"
       }
     },
     "skill_name": {
@@ -2504,6 +2523,11 @@
         "skill1": "激灼龍息",
         "skill2": "悶燃黏嚏 / 振翼高飛",
         "ult": "媽媽幫我！"
+      },
+      "league_milio": {
+        "skill1": "究極火焰球",
+        "skill2": "溫暖擁抱 / 舒適營火",
+        "ult": "賦生燄息"
       }
     }
   },
@@ -3236,6 +3260,13 @@
         "skill": "Breathes a fireball for <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<> <#ff8a65ff>physical damage<>. <#ffb900ff>10<> stacks: it explodes on the enemies around the target. <#ffb900ff>25<>: fireballs blow back behind the target (50% damage). <#ffb900ff>40<>: it burns for <#ffb900ff>3s<>, <#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1% max health true damage<> a second.",
         "skill2": "Sneezes fire for <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>physical damage<> and a <#ef5350ff>35% slow<>; on a champion it explodes for <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>physical damage<>. When dived, or chasing a wounded enemy: <#ff9028ff>Flap, Flap, Flap<> - he flies, gains <#ffffffff>40% move speed<> and fires <#ffb900ff>5<> fireballs at the weakest enemy, <#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<> <#ff8a65ff>physical damage<> each.",
         "ult": "Calls his mother, who breathes fire along a line: <#ff8a65ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>80%<> <#ff8a65ff>physical damage<>; enemies in the middle take <#ffb900ff>50%<> more and are <#ef5350ff>slowed 40%<> for <#ffb900ff>2s<>. If Smolder stands on the middle line he heals <#6aff55ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30%<>."
+      },
+      "league_milio": {
+        "name": "Milio",
+        "attack": "Throws a small fireball. Passive <#ff9028ff>Fired Up!<>: allies his spells touch gain <#ffb900ff>30%<> attack and ability power for <#ffb900ff>5s<>; Milio gains <#ffb900ff>15%<> move speed.",
+        "skill": "Kicks a fireball that knocks back the first enemy hit, then falls on it: enemies around take <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and are <#ef5350ff>slowed by 40%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "<#ff9028ff>Warm Hugs<> (2 charges): an allied champion gains a <#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<> <#9fd8ffff>shield<> and <#ffb900ff>16%<> move speed for <#ffb900ff>2.5s<>. <#ff9028ff>Cozy Campfire<>: a fire follows them for <#ffb900ff>6s<>, every <#ffb900ff>1s<> healing allies nearby <#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<> and extending their attack range.",
+        "ult": "When an ally is crowd-controlled or an enemy closes in, allied champions around him heal <#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>, are <#ef5350ff>immune to crowd control for 1s<> and gain <#ffb900ff>65%<> tenacity for <#ffb900ff>3s<>."
       }
     },
     "skill_name": {
@@ -3758,6 +3789,11 @@
         "skill1": "Super Scorcher Breath",
         "skill2": "Achooo! / Flap, Flap, Flap",
         "ult": "MMOOOMMMM!"
+      },
+      "league_milio": {
+        "skill1": "Ultra Mega Fire Kick",
+        "skill2": "Warm Hugs / Cozy Campfire",
+        "ult": "Breath of Life"
       }
     }
   },
@@ -4490,6 +4526,13 @@
         "skill": "불덩이를 뿜어 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<> <#ff8a65ff>물리 피해<>. <#ffb900ff>10중첩<>: 대상 주변 적에게 폭발. <#ffb900ff>25중첩<>: 대상 뒤로 역류 화염구(50% 피해). <#ffb900ff>40중첩<>: <#ffb900ff>3초<> 동안 화상, 초당 <#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1% 최대 체력 고정 피해<>.",
         "skill2": "재채기로 불을 뿜어 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>물리 피해<>와 <#ef5350ff>35% 둔화<>, 챔피언에게 맞으면 폭발해 <#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<> <#ff8a65ff>물리 피해<>. 적이 붙거나 약한 적을 쫓을 때는 <#ff9028ff>펄럭펄럭<>: 날아오르며 <#ffffffff>이동 속도 +40%<>, 약한 적에게 불덩이 <#ffb900ff>5개<>(각 <#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<> <#ff8a65ff>물리 피해<>).",
         "ult": "엄마를 불러 직선으로 불을 뿜습니다: <#ff8a65ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>80%<> <#ff8a65ff>물리 피해<>, 중앙의 적은 <#ffb900ff>50%<> 추가 피해와 <#ef5350ff>40% 둔화<>(<#ffb900ff>2초<>). 스몰더가 중앙선 위에 있으면 <#6aff55ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30%<> 회복."
+      },
+      "league_milio": {
+        "name": "밀리오",
+        "attack": "작은 불덩이를 던집니다. 기본 지속 효과 <#ff9028ff>타오르는 힘<>: 스킬이 닿은 아군은 <#ffb900ff>5초<> 동안 공격력과 주문력이 <#ffb900ff>30%<> 증가, 밀리오는 이동 속도 <#ffb900ff>15%<>.",
+        "skill": "불덩이를 차서 처음 맞힌 적을 밀어내고, 떨어지며 주변 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.5초<> 동안 <#ef5350ff>40% 둔화<>.",
+        "skill2": "<#ff9028ff>따스한 포옹<>(2회): 아군 챔피언에게 <#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<> <#9fd8ffff>보호막<>과 이동 속도 <#ffb900ff>16%<>(<#ffb900ff>2.5초<>). <#ff9028ff>아늑한 모닥불<>: <#ffb900ff>6초<> 동안 따라다니며 <#ffb900ff>1초<>마다 주변 아군 <#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<> 회복, 사거리 증가.",
+        "ult": "아군이 군중 제어되거나 적이 붙으면 주변 아군 챔피언이 <#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<> 회복, <#ef5350ff>1초 군중 제어 면역<>, <#ffb900ff>3초<> 동안 강인함 <#ffb900ff>65%<>."
       }
     },
     "skill_name": {
@@ -5012,6 +5055,11 @@
         "skill1": "초강력 화염 숨결",
         "skill2": "에취! / 펄럭펄럭",
         "ult": "엄마아아아!"
+      },
+      "league_milio": {
+        "skill1": "초특급 불꽃 킥",
+        "skill2": "따스한 포옹 / 아늑한 모닥불",
+        "ult": "생명의 온기"
       }
     }
   },
@@ -5744,6 +5792,13 @@
         "skill": "火の玉を吐き<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>120%<>の<#ff8a65ff>物理ダメージ<>。<#ffb900ff>10<>：周囲の敵に爆発。<#ffb900ff>25<>：対象の後方へ火球（50%）。<#ffb900ff>40<>：<#ffb900ff>3秒<>炎上、毎秒<#f5f5f5ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>10%<>+<#f5f5f5ff>1%最大体力の確定ダメージ<>。",
         "skill2": "くしゃみで炎を吹き<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<>の<#ff8a65ff>物理ダメージ<>と<#ef5350ff>35%スロウ<>、チャンピオンに当たると爆発し<#ff8a65ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>40%<>の<#ff8a65ff>物理ダメージ<>。詰められた時か弱った敵を追う時は<#ff9028ff>パタパタパタ<>：飛び上がり<#ffffffff>移動速度+40%<>、弱った敵に火の玉<#ffb900ff>5発<>（各<#ff8a65ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>30%<>）。",
         "ult": "ママを呼び直線上に炎を吐かせる：<#ff8a65ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>80%<>の<#ff8a65ff>物理ダメージ<>、中央の敵は<#ffb900ff>50%<>増加と<#ef5350ff>40%スロウ<>（<#ffb900ff>2秒<>）。スモルダーが中央線上にいれば<#6aff55ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30%<>回復。"
+      },
+      "league_milio": {
+        "name": "ミリオ",
+        "attack": "小さな火の玉を投げる。自動効果<#ff9028ff>ファイヤーアップ！<>：スキルが触れた味方は<#ffb900ff>5秒<>攻撃力と魔力<#ffb900ff>30%<>増加、ミリオは移動速度<#ffb900ff>15%<>。",
+        "skill": "火の玉を蹴り、最初の敵をノックバック、落ちた火の玉が周囲の敵に<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1.5秒<><#ef5350ff>40%スロウ<>。",
+        "skill2": "<#ff9028ff>抱擁のぬくもり<>（2回）：味方チャンピオンに<#9fd8ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#9fd8ffff>40%<>の<#9fd8ffff>シールド<>と移動速度<#ffb900ff>16%<>（<#ffb900ff>2.5秒<>）。<#ff9028ff>癒しの焚き火<>：<#ffb900ff>6秒<>付き添い、<#ffb900ff>1秒<>ごとに周囲の味方を<#7cfc00ff>22<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>4%<>回復、射程増加。",
+        "ult": "味方が行動妨害を受けるか敵に接近された時、周囲の味方チャンピオンを<#7cfc00ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>50%<>回復、<#ef5350ff>1秒行動妨害無効<>、<#ffb900ff>3秒<>行動妨害耐性<#ffb900ff>65%<>。"
       }
     },
     "skill_name": {
@@ -6266,6 +6321,11 @@
         "skill1": "スーパーこげこげブレス",
         "skill2": "くしゅん！/パタパタパタ",
         "ult": "ママーッ！！"
+      },
+      "league_milio": {
+        "skill1": "ウルトラメガファイヤーキック",
+        "skill2": "抱擁のぬくもり / 癒しの焚き火",
+        "ult": "生命の息吹"
       }
     }
   }
