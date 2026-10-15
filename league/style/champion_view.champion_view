@@ -1218,6 +1218,16 @@
         "y": -16
       }
     },
+    "league_smolder": {
+      "face": {
+        "x": 4,
+        "y": -25
+      },
+      "center": {
+        "x": 0,
+        "y": -10
+      }
+    },
     "league_milio": {
       "face": {
         "x": 0,

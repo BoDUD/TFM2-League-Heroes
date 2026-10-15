@@ -1,0 +1,98 @@
+{
+  "smolder-front": {
+    "size": [
+      1536,
+      1024
+    ],
+    "alpha_min_max": [
+      0,
+      254
+    ],
+    "alpha_zero": 931808,
+    "alpha_255": 0,
+    "alpha_semitransparent": 641056,
+    "visible_cells_16": 2913,
+    "nonuniform_visible_cells_16": 2913,
+    "visible_rgb_color_count": 116744,
+    "bbox_alpha_over_128": [
+      222,
+      70,
+      1349,
+      989
+    ],
+    "identical_to_raw": true,
+    "sha256": "234e8e51731a89bebcb431eb9408d8433cdb305129a868726f45be221f7f62ba",
+    "readback_size": [
+      96,
+      64
+    ],
+    "readback_alpha_min_max": [
+      0,
+      254
+    ]
+  },
+  "smolder-front-2": {
+    "size": [
+      1536,
+      1024
+    ],
+    "alpha_min_max": [
+      0,
+      254
+    ],
+    "alpha_zero": 969641,
+    "alpha_255": 0,
+    "alpha_semitransparent": 603223,
+    "visible_cells_16": 2837,
+    "nonuniform_visible_cells_16": 2837,
+    "visible_rgb_color_count": 161034,
+    "bbox_alpha_over_128": [
+      226,
+      87,
+      1295,
+      998
+    ],
+    "identical_to_raw": true,
+    "sha256": "2ef9e8845802ddd76ac4230e2006da728041f1c17567f5b544becaefd09089f0",
+    "readback_size": [
+      96,
+      64
+    ],
+    "readback_alpha_min_max": [
+      0,
+      254
+    ]
+  },
+  "smolder-front-3": {
+    "size": [
+      1536,
+      1024
+    ],
+    "alpha_min_max": [
+      0,
+      254
+    ],
+    "alpha_zero": 796296,
+    "alpha_255": 0,
+    "alpha_semitransparent": 776568,
+    "visible_cells_16": 3704,
+    "nonuniform_visible_cells_16": 3704,
+    "visible_rgb_color_count": 136291,
+    "bbox_alpha_over_128": [
+      159,
+      12,
+      1383,
+      1012
+    ],
+    "identical_to_raw": true,
+    "sha256": "6ea213e18645ff0352b615a594694d674096ded2259d461c0fce9d501d1dc9ae",
+    "readback_size": [
+      96,
+      64
+    ],
+    "readback_alpha_min_max": [
+      0,
+      254
+    ]
+  }
+}

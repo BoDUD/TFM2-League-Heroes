@@ -37,8 +37,8 @@ C = "<#ef5350ff>"      # crowd control
 S = "<#9fd8ffff>"      # shields
 G = "<#7cfc00ff>"      # heals
 E = "<>"
-# champion_view: a placeholder until the sprite is in (the art session sets the real face from tfm2_ase.py face)
-VIEW = {"face": {"x": 1, "y": -34}, "center": {"x": 0, "y": -12}}
+# champion_view: the face point at his crown (tools/art/rig_milio.py face_point; ppu_restyle RESTYLE milio face_to)
+VIEW = {"face": {"x": 0, "y": -30}, "center": {"x": 0, "y": -12}}
 
 
 def mag(k):
