@@ -263,6 +263,9 @@ def frame_heads(tag, n):
     out = []
     for k in range(1, n + 1):
         name = f"{tag}_{k}"
+        if tag == "run" and "run_redo" in meta:          # tools/art/import_milio_run.py (the legs crossing)
+            out.append(tuple(meta["run_redo"][k - 1]["head_at"]))
+            continue
         if tag == "run":
             name = meta["run_order"][k - 1][0]
         out.append(tuple(meta["heads"][name]["at"]))
