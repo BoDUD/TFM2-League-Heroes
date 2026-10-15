@@ -68,7 +68,7 @@ SCALE_TOL = 9.0                   # never: Codex drew the heads 0.85-1.15 of the
                                   # keep their size and only the head is replaced
 SCALE_FIX = {}                    # tag -> scale, where the median head match is wrong
 NO_HEAD = {("dead", 4), ("dead", 5), ("dead", 6)}
-DROP = {("skill", 4): 9, ("skill", 5): 5}   # native rows down: the feet floated over the ground while the hammer head
+DROP = {("skill", 4): 6, ("skill", 5): 7}   # native rows down: the feet floated over the ground while the hammer head
                                             # touched it (the slam); what goes under the ground row is cut
 # shafts Codex drew 4 rows thick (outline, light, mid, outline) that the downscale broke into dashes: native box
 # (top outline row, first col, last col) redrawn at PPU as outline / light / mid / outline rows, each column's
@@ -212,13 +212,16 @@ def down2(a, pivot=PIVOT):
     Hn, Wn = out.shape[:2]
     ok_x, ok_y = (cx >= 0) & (cx < Wn), (cy >= 0) & (cy < Hn)
     rgb = a[..., :3].astype(int)
-    light = (a[..., 3] > 0) & (rgb.sum(-1) > LIGHT)
+    # only the fur's creams and whites (grey-ish: little spread between the channels), not the golds, the muzzle
+    # rings' lights or the shafts (review round 2: the rule lit inner outlines all over)
+    light = (a[..., 3] > 0) & (rgb.sum(-1) > LIGHT) & (rgb.max(-1) - rgb.min(-1) < 60)
     if light.any():
         cell = (cy[:, None] * Wn + cx[None, :])
         valid = ok_y[:, None] & ok_x[None, :]
         tot = np.bincount(cell[valid], minlength=Hn * Wn).reshape(Hn, Wn)
         n = np.bincount(cell[valid & light], minlength=Hn * Wn).reshape(Hn, Wn)
-        turn = (n >= LIGHT_SHARE * np.maximum(tot, 1)) & (out[..., 3] > 0) & (out[..., :3].astype(int).sum(-1) <= LIGHT)
+        isline = np.all(out[..., :3] == np.array(OUTLINE, np.uint8), axis=-1)
+        turn = (n >= LIGHT_SHARE * np.maximum(tot, 1)) & (out[..., 3] > 0) &             (out[..., :3].astype(int).sum(-1) <= LIGHT) & ~isline
         if turn.any():
             ys, xs = np.nonzero(light & valid)
             keys = cy[ys] * Wn + cx[xs]
@@ -298,6 +301,9 @@ def with_head(native, head, old=None):
     body[hm & ~cross] = 0
     if old is not None:
         om = ndimage.binary_dilation(codex_head_mask(hm.shape, old), iterations=1)
+        # Codex's hair standing up over the design head's crown (review round 2: 3-4 rows left above it)
+        for up in range(1, 6):
+            om[:-up] |= om[up:]
         body[om & hairy & ~cross] = 0
     small, corner = down2(body)
     am = np.zeros_like(native)
@@ -361,7 +367,7 @@ MATCH = {}
 
 FRAME_SCALE = {("run", 8): 1.11,   # Codex's last run frame drawn 11 % taller (crown to soles 59 rows against 53)
                # heads drawn at 0.85 of the design's, the bodies for them: the bodies brought up to the head
-               ("skill2", 4): 0.92, ("skill2", 5): 0.92, ("w_cast", 3): 0.92}
+               ("skill2", 4): 0.96, ("skill2", 5): 0.96, ("w_cast", 3): 0.92}
 ALIGN = {"run", "c_run"}          # loops held by the head: each frame moved across so its head sits at the loop's median
                                   # column (Codex drew run 8 20 squares and c_run 6-8 10-15 squares ahead of the rest)
 
@@ -397,9 +403,14 @@ def matched(tag, n):
 
 
 def drop(a, d):
+    """a moved d rows down; what falls under the ground row is cut and the cut edge (the hammer head) gets the
+    outline on the ground row."""
     out = np.zeros_like(a)
     out[d:] = a[:-d]
+    cut = (out[SOLE + 1:, :, 3] > 0).any(0)
     out[SOLE + 1:] = 0
+    edge = cut & (out[SOLE, :, 3] > 0)
+    out[SOLE, edge, :3] = OUTLINE
     return out
 
 
@@ -574,6 +585,24 @@ def face_point(head_corner):
 PIN_FILL = 30
 
 
+def sole_stubs(a):
+    """Outline squares hanging under the soles (the restyle's grown outline, review round 2): below the lowest row
+    with 3 or more drawn squares, a square with no lit square right above it is cleared."""
+    out = a.copy()
+    op = out[..., 3] > 0
+    rows = np.nonzero(op.sum(1) >= 3)[0]
+    if not len(rows):
+        return out
+    base = rows.max()
+    lit = op & (out[..., :3].astype(int).sum(-1) >= 90)
+    for y in range(base + 1, out.shape[0]):
+        for x in np.nonzero(op[y])[0]:
+            if not lit[y - 1, x] or not lit[y, x]:
+                out[y, x] = 0
+                op[y, x] = False
+    return out
+
+
 def fill_holes(a, most, shade=True):
     op = a[..., 3] > 0
     holes = ndimage.binary_fill_holes(op) & ~op
@@ -605,6 +634,7 @@ def pinholes():
         x, frames = 0, []
         for W, H in meta["sizes"]:
             f = strip[:H, x:x + W].copy()
+            f = sole_stubs(cracks(f))
             total += fill_holes(f, PIN_FILL)
             frames.append(f)
             x += W + 1
