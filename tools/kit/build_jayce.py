@@ -42,10 +42,10 @@ the pros' combos):
           g_t ticks; League 30-60% 3 s) and fires the accelerated orb at the champion: r_speed, flying past minions to the
           first champion on its line (a 25-s ult a minion must not eat), bursting within r_rad for r_amp% of Shock Blast's
           damage (League x1.4, faster and longer).
-Add-on (later, addons/league_jayce, not built here): native=1 adds the passive league_jayce:hextech (params below); the
-add-on reads `league_jayce_cn` (the cannon form, the view swap), `league_jayce_r_cd`, `league_jayce_hyper`,
-`league_jayce_shred_on`, and finds the knock-back and the gate shot by their names (`league_jayce_e_blow`,
-`league_jayce_gq_orb`).
+Add-on (addons/league_jayce, its make_override.py builds the copy): native=1 adds the passive league_jayce:hextech (params
+kb_speed, kb_t, gate_range, gate_dmg, gate_ad: the knock-back and the gate shot's reach and damage) and swaps the
+champion blow's `Knockback` for the native effect league_jayce:blow (the same push, aimed toward his side); the add-on
+reads `league_jayce_cn` (the cannon form, the view swap) and aims the ult (an AI hook).
 """
 import argparse
 import json
@@ -65,18 +65,21 @@ BIG = "asset/league/effects/league_jayce_big"
 # 480 ms, the raised hammer on frame 3 (200 ms: tick 13); Hyper Charge 480 ms; the ult 720 ms, the orb on frame 5 (420 ms:
 # tick 26); the turns 340 ms (20 ticks). Heights (a projectile starts 5000 - y_offset above the pivot, 1000 a game px):
 # the muzzle 9 game px over the pivot in c_attack 2 (c_y -4000), 8.3 in c_skill 4 (cq_y -3300), 11.7 in ult 5 (r_y -6700).
-# Numbers = candidate d5 of the 10-min classic-SDK simulations (%LOCALAPPDATA%/Temp/jy_sim, sim/kd.py --lane 0 against
-# the base fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-15): +0.89
-# on seeds 1-24, +0.81 on 25-48; the pack's top laners on the same seeds: league_darius +1.73 / +1.36, league_renekton
-# +1.78 / +1.07, league_aatrox +1.32 / +1.16, league_garen -1.05 / -1.57 (their mean +0.95 / +0.51). The draft d0 (hp 1000
-# +102, armour 30, mr 26, Q 60 + 100%, Shock Blast 70 + 110%, E 6%) was -0.10 / -0.29; its bulk alone (d1) +0.73 on seeds
-# 1-24; d2 (Q 80 + 110%, Shock Blast 90 + 120%, E 8%) +1.47 / +1.16. q_probe 0 (the leap always onto the cast target) was
-# no different (+0.75 against d1's +0.73). Rerun once the strips set the timings.
+# Numbers = candidate t5 of the 10-min classic-SDK simulations (%LOCALAPPDATA%/Temp/jy_sim, sim/kd.py --lane 0 against
+# the base fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 2026-10-15), run
+# again after the strips set the timings: +0.85 on seeds 1-24, +0.80 on 25-48; the pack's top laners on the same seeds:
+# league_darius +1.73 / +1.36, league_renekton +1.78 / +1.07, league_aatrox +1.32 / +1.16, league_garen -1.05 / -1.57
+# (their mean +0.95 / +0.51). The placeholder-timed d5 (hp 1080, attack 88 + 18, Q 70, Shock Blast 80, E 7%) was +0.89 /
+# +0.81; with the strips' longer wind-ups -0.28 / -0.55; t1 (attack 94, Q 80, Shock Blast 90, E 8%) +0.48, t2 (hp 1140,
+# armour 38, mr 30, attack 92) +0.24, t3 (attack 94 + 19, hp 1120, Q 80, Shock Blast 90) +0.65 / +0.60, t4 (t3 with
+# attack 96, hp 1140) +0.73. Before them: the draft d0 (hp 1000 +102, armour 30, mr 26, Q 60 + 100%, Shock Blast 70 +
+# 110%, E 6%) -0.10 / -0.29; d2 (Q 80 + 110%, Shock Blast 90 + 120%, E 8%) +1.47 / +1.16 on placeholder timings; q_probe
+# 0 (the leap always onto the cast target) no different.
 P = {
     # stats (the pack's top fighters: league_darius 90 +18 / 1080 +105, league_garen 88 +17 / 1100 +110, league_riven,
     # league_fiora 85-88 +18 / 950-980 +100); League's Jayce: 590 +109 hp, 59 AD, 22 armour, 30 mr, 335 move, 125 / 500
     # range. A little ability power (league_jax's way) so Thundering Blow and Lightning Field grow with his level.
-    "hp": 1080, "hp_g": 106, "atk": 88, "atk_g": 18, "mp": 20, "mp_g": 8, "def": 34, "def_g": 8, "mr": 28, "mr_g": 4,
+    "hp": 1120, "hp_g": 106, "atk": 94, "atk_g": 19, "mp": 20, "mp_g": 8, "def": 34, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 12,
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 64, "a_st": 18,
     # cannon form: reach atk_range + c_add (League 500 against 125); the bolt
@@ -88,15 +91,15 @@ P = {
     # skill slot (both forms; the forms' own cooldowns are caster flags)
     "s_cd": 60, "s_range": 75000,
     # hammer Q To the Skies (League: 600, 10-310 + 120% bonus AD r ~275, slow 30-60% 2 s, cd 18-6 s)
-    "q_cd": 480, "q_rng": 48000, "q_anim": 40, "q_go": 11, "q_speed": 4000, "q_r": 18000, "q_dmg": 70, "q_ad": 105,
+    "q_cd": 480, "q_rng": 48000, "q_anim": 40, "q_go": 11, "q_speed": 4000, "q_r": 18000, "q_dmg": 90, "q_ad": 105,
     "q_slow": 40, "q_slow_t": 120, "q_probe": 1,
     # cannon Q Shock Blast (League: 1050, speed 1450, 39-285 + 130% bonus AD, r 210, cd 8 s)
     "cq_cd": 420, "cq_anim": 34, "cq_at": 20, "cq_speed": 5500, "cq_len": 80000, "cq_w": 3000, "cq_y": -3300, "cq_r": 15000,
-    "cq_dmg": 80, "cq_ad": 115,
+    "cq_dmg": 100, "cq_ad": 115,
     # skill2 slot
     "s2_cd": 60, "s2_range": 55000,
     # hammer E Thundering Blow (League: 240, 8-24% max hp + 100% bonus AD magic, knock-back 600 in 0.35 s, cd 20-10 s)
-    "e_cd": 540, "e_r": 28000, "e_anim": 34, "e_at": 18, "e_dmg": 40, "e_ap": 60, "e_hp": 7, "e_kb_speed": 2500,
+    "e_cd": 540, "e_r": 28000, "e_anim": 34, "e_at": 18, "e_dmg": 40, "e_ap": 60, "e_hp": 8, "e_kb_speed": 2500,
     "e_kb_t": 14,
     # hammer W Lightning Field (League: r 285, 80-440 + 100% AP magic over 4 s, cd 10 s)
     "w_cd": 600, "w_near": 30000, "w_anim": 26, "w_at": 13, "w_r": 20000, "w_n": 8, "w_per": 30, "w_dmg": 14, "w_ap": 12,
@@ -107,7 +110,7 @@ P = {
     "r_rad": 21000, "r_amp": 140, "g_ms": 40, "g_t": 180,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
-    # 1 = the copy for addons/league_jayce: passive league_jayce:hextech (the add-on's knock-back direction and gate aim)
+    # 1 = the copy for addons/league_jayce: passive league_jayce:hextech + the native champion knock-back (league_jayce:blow)
     "native": 0,
     # test builds for the balance runs: 1 = hammer only, 2 = cannon from the first attack on
     "lock": 0,
@@ -303,8 +306,10 @@ def build(p):
 
     # ------------------------------------------------------------------ skill2's pieces (Q's landing plays the blow too)
     def blow(target):
-        hits = [magic(p["e_dmg"], p["e_ap"]), {"type": "Knockback", "speed": p["e_kb_speed"], "tick": p["e_kb_t"]},
-                view("e_blow"), tsfx("e_blow")]
+        kb = {"type": "Knockback", "speed": p["e_kb_speed"], "tick": p["e_kb_t"]}
+        if p["native"] and target == "EnemyChampion":     # the add-on pushes champions toward his side
+            kb = {"type": "Native", "effect_ref": "league_jayce:blow"}
+        hits = [magic(p["e_dmg"], p["e_ap"]), kb, view("e_blow"), tsfx("e_blow")]
         return pick(p["e_r"], target, homing("e_blow", 100000, 0, "EnemyWithoutTower", hits),
                     homing("e_twin", 100000, 0, "EnemyChampion", [true_hp(p["e_hp"])]))
 
@@ -388,7 +393,9 @@ def build(p):
     }
     if p["native"]:
         kit["passive"] = {"passive_ref": "league_jayce:hextech",
-                          "params": {"kb_speed": p["e_kb_speed"], "kb_t": p["e_kb_t"], "gate_range": p["r_range"]}}
+                          "params": {"gate_ad": p["cq_ad"] * p["r_amp"] // 100,
+                                     "gate_dmg": p["cq_dmg"] * p["r_amp"] // 100, "gate_range": p["r_range"],
+                                     "kb_speed": p["e_kb_speed"], "kb_t": p["e_kb_t"]}}
     return kit
 
 

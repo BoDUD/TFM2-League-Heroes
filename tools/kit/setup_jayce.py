@@ -42,8 +42,8 @@ S = "<#ceff99ff>"      # attack speed
 R = "<#ffdd8eff>"      # armour / magic resistance
 T = "<#f5f5f5ff>"      # true damage
 E = "<>"
-# champion_view: placeholder until the sprite is in (tfm2_ase.py face)
-VIEW = {"face": {"x": 0, "y": -30}, "center": {"x": 0, "y": -12}}
+# champion_view: the face as ppu_restyle.py sets it (RESTYLE face_to), the centre from the idle
+VIEW = {"face": {"x": 0, "y": -38}, "center": {"x": 0, "y": -12}}
 
 
 def phys(k):
