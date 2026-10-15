@@ -48,8 +48,9 @@ import pixel_down as PD  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "tahmkench")
 STEM = os.path.join(ROOT, "league", "champions", "league_tahmkench")
 ORIG = os.path.join(ROOT, "assets", "source", "ppu", "orig")
-PPU = 1.5                                   # the user's pick: 1.8 by the recommendation, then 「感觉太高清了 降低点像素」 -
-                                            # shown 1.8 / 1.6 / 1.5 / 1.4 / 1.3 / 1.2 at one game size: 「塔姆用 PPU 1.5」
+PPU = 1.2                                   # the user's pick: 1.8 by the recommendation, then 「感觉太高清了 降低点像素」 -
+                                            # shown 1.8 / 1.6 / 1.5 / 1.4 / 1.3 / 1.2 at one game size: 「塔姆用 PPU 1.5」,
+                                            # then 「降到1.2吧」
 DESIGN = np.asarray(Image.open(os.path.join(SRC, "hd", "A.png")).convert("RGBA")).copy()
 DH, DW = DESIGN.shape[:2]                   # 125 x 151
 GAME_ROWS = 42
@@ -411,9 +412,42 @@ PALF = PAL.astype(float)
 K = PPU / NATIVE
 
 
+EYE = {(177, 230, 47), (223, 246, 77), (236, 249, 134), (89, 220, 67), (102, 132, 32)}
+GOLD = {(221, 161, 40), (246, 203, 68), (177, 124, 30)}
+KEEP = [(EYE, 0.2), (GOLD, 0.34)]          # small features kept through the coarse grid (league_elise's eye-keeping face):
+                                           # a square this much of these colours takes their commonest one
+
+
 def down2(a):
-    """The native frame brought to PPU squares a game pixel on a grid through the pivot (pixel_down.pixelate)."""
+    """The native frame brought to PPU squares a game pixel on a grid through the pivot (pixel_down.pixelate), then
+    the eye and the gold rings kept (KEEP)."""
     out, (nx0, ny0) = PD.pixelate(a, K, PIVOT, OUTLINE, PALF)
+    H, W = a.shape[:2]
+    c = 1.0 / K
+    px, py = PIVOT
+    Hn, Wn = out.shape[:2]
+    cx = np.floor((np.arange(W) + 0.5 - px) / c).astype(int) + nx0
+    cy = np.floor((np.arange(H) + 0.5 - py) / c).astype(int) + ny0
+    ok = ((cy >= 0) & (cy < Hn))[:, None] & ((cx >= 0) & (cx < Wn))[None, :]
+    cell = cy[:, None] * Wn + cx[None, :]
+    tot = np.bincount(cell[ok], minlength=Hn * Wn)
+    rgb = a[..., :3]
+    for cols, share in KEEP:
+        m = np.zeros((H, W), bool)
+        for col_ in cols:
+            m |= np.all(rgb == np.array(col_, np.uint8), axis=-1)
+        m &= a[..., 3] > 0
+        if not m.any():
+            continue
+        n = np.bincount(cell[ok & m], minlength=Hn * Wn)
+        hit = np.nonzero((n >= share * np.maximum(tot, 1)) & (n > 0))[0]
+        ys, xs = np.nonzero(ok & m)
+        keys = cell[ys, xs]
+        for k in hit:
+            r, q = divmod(int(k), Wn)
+            vals, cnt = np.unique(rgb[ys[keys == k], xs[keys == k]], axis=0, return_counts=True)
+            out[r, q, :3] = vals[cnt.argmax()]
+            out[r, q, 3] = 255
     return out, (nx0, ny0)
 
 
