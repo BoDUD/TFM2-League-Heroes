@@ -38,7 +38,7 @@ A = "<#ffb900ff>"      # durations, counts
 G = "<#7dd87dff>"      # heals
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 5, "y": -34}, "center": {"x": 0, "y": -12}}   # moved with the head by tools/art/ppu_restyle.py
+VIEW = {"face": {"x": 3, "y": -36}, "center": {"x": 0, "y": -12}}   # moved with the head by tools/art/ppu_restyle.py
 
 
 def mag(k):

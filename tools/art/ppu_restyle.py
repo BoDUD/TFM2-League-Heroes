@@ -80,7 +80,7 @@ RESTYLE = {
     # then (game 0.6.4, 2026-10-14) 「铁男模型太小」「铁男到110%吧」: Mordekaiser 110 % - 11 x 2.0 x (1 / 1.10 - 1 / 1.15)
     # = 0.9 -> 1 square down from the 115 % frames, face (1, -27) x 1.10 about the soles
     "braum": dict(body_only=True, head=1.0, wide=1.2, short=0.94, edge=0, ppu=1.98, crisp={},
-                  lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(7, -37)),  # (a hair under: the pivot's row keeps its square)
+                  lift=4 * 2.881 / 1.98 - 1e-6, lift_sq=-2, face_to=(2, -40)),  # (a hair under: the pivot's row keeps its square)
     # 「铁男的走路步伐感觉有点大啊」: the run's two striding frames had the soles 42 and 47.5 game px apart (the idle's 31):
     # their legs brought together from the hips down (narrow: 25 and 40 orig px nearer on each side at the soles)
     "mordekaiser": dict(body_only=True, head=1.0, wide=1.25, short=0.94, edge=0, ppu=2.0, lift=3 * 5 / 2.0, lift_sq=-1,
@@ -88,11 +88,11 @@ RESTYLE = {
                         crisp=dict(contrast=1.0, keep="teal"),
                         face_to=(1, -30)),
     # 「飞机像泽丽那样变大点」
-    "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}),
+    "corki": dict(grow=1.2, edge=1, ppu=2.2, crisp={}, face_to=(3, -33)),
     # 「卡萨丁可以降低点像素之类的 ... 画风要统一」 (2.2 at his 110 %)
     # 「刀妹和卡萨丁感觉在游戏里偏大啊」: 100 % (hd.rs SIZES). rig_kassadin.py drew his frames RAISE 4 orig rows higher
     # for its 110 %; lowered 4 x 2.42 / 3.622 = 2.7 -> 3 squares after the downscale
-    "kassadin": dict(edge=0, ppu=2.42, crisp=dict(keep="mask_face"), lift_sq=-3, face_to=(1, -31)),
+    "kassadin": dict(edge=0, ppu=2.42, crisp=dict(keep="mask_face"), lift_sq=-3, face_to=(1, -36)),
     # Ashe: the 11 frames her first pack never finished (Codex's image service stopped) redrawn in the completion pack
     # dist/ppu_packs/ashe_fix (pack_ppu_strips.py --name ashe_fix), imported with import_ppu_strips.py --hero ashe
     # --delivery <it> --fill-from-sheet
@@ -142,7 +142,7 @@ RESTYLE = {
     # crisped on that grid, then brought to the sheet's 2.2 by nearest - squares of one or two; the palette from the
     # frames as they were, so the human's stay as they are)
     "nidalee": dict(face=(33, 59, 51, 78), neck=(65, 61), head=1.2, wide=1.3, short=0.9, band=3, edge=1, ppu=2.2,
-                    max_err=8000, crisp=dict(keep="head"), coarse=dict(prefix="c_", size=0.75, grid=1.65)),
+                    max_err=8000, crisp=dict(keep="head"), coarse=dict(prefix="c_", size=0.75, grid=1.65), face_to=(3, -36)),
     # league_nilah (#99, 「按泽丽标准」): drawn at the look already (Codex's picture read back square for square, PPU 2.5 -
     # the user's 「保留 99 格，PPU 2.5」), so only the outer outline grown to the others' two squares (about a game pixel;
     # hers was one) and every frame lowered for her 90 % (hd.rs SIZES, 「模型别太大」): 11.5 x 2.5 x (1 / 0.9 - 1) = 3.2 -> 3

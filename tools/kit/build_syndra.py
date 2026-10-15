@@ -189,6 +189,15 @@ def on_me(*effects):
     return around(1000, "AllyOnlySelf", effects)
 
 
+def unseen(*effects):
+    """Effects run at once but kept out of the 0.6.x AI's damage table: the AI reads the kit between ticks with
+    SwitchByBuff choosing by the caster's buffs, and `pr_go` lives only inside this Combine (added, read, removed in
+    one go - league_jinx's attack reads its `near` flag the same way). The level probe's self-hit (100 x a stat under a
+    99% cut) read as a 600000-900000 hit on every enemy near the hero, so lane AIs within 150000 recalled (LANERECALL-S1
+    nuke, game 0.6.4 trace, 2026-10-15)."""
+    return combine(flag("pr_go", 1), sw("pr_go", combine(*effects)), *rm("pr_go"))
+
+
 def casted(duration, period, *effects, kind="Heal"):
     return {"type": "AddCasted", "casted_type": kind, "duration": duration, "period": period, "effects": list(effects)}
 
@@ -252,11 +261,11 @@ def build(p, native=False):
 
     def probe_pass(stage, then):
         amp = combine(on_me(*guard(), shield(100, 0, 3), shield(p["soak"], 0, 1), flag("pr_amp", "shield")),
-                      on_me(casted(1, 1, true_self(9900))),
+                      unseen(on_me(casted(1, 1, true_self(9900)))),
                       delayed(2, sw("pr_amp", then)))
         test = combine(on_me(*guard(), shield(threshold(p[stages[stage]]), 0, 3), shield(p["soak"], 0, 1),
                              flag("pr_lv", "shield")),
-                       on_me(casted(1, 1, attack(0, 1000000))),
+                       unseen(on_me(casted(1, 1, attack(0, 1000000)))),
                        delayed(2, sw("pr_lv", NONE, amp)))
         # a WithShield flag with no shield of her own: a shield is on her already, it would hold the probe's flag
         return combine(flag("pr_sh", "shield"), delayed(2, sw("pr_sh", NONE, test)))

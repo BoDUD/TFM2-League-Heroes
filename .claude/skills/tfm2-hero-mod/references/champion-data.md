@@ -3913,6 +3913,20 @@ its real `cooltime`; keep a flag only where another action must know it (Q's slo
 
 ## 8. Gotchas
 
+**From game 0.6.3 a hit on the caster counts as a threat to every enemy near him (lane recall, 2026-10-15).** The 0.6.x
+lane AI recalls when it expects to die: `my_die = (its health - nuke) x 60 / dps` (trace with the environment
+variable `LANE_RECALL_TRACE=1`: `LANERECALL-S1 ... nuke= dps=` on stdout). `nuke` / `dps` add up, for every visible
+enemy champion within 150000 at 40%+ health, a per-matchup table built from each slot's effect estimate: Combine,
+Delayed, WithSelf, projectiles (applied and end effects), `RangeEffect` and `AddCasted` add their children up -
+whoever the children land on - and `SwitchByBuff` takes the branch the caster's buffs pick at that moment (crowd
+control is the maximum, not a sum). So a self-hit that is meant to be soaked - the level probes of league_viktor,
+league_syndra and league_khazix (100 x a stat under a 99% cut, 9900 true damage against a guard shield) - read as a
+600000-970000 hit, `my_die` 0 for every enemy around him and around any ally standing with him, and the lanes walked
+home. Put such hits in `unseen(...)` (tools/kit/build_viktor.py):
+`Combine[AddCasterBuff pr_go 1 tick, SwitchByBuff pr_go {hit}, RemoveCasterBuff pr_go]` - applied at once, and
+between ticks the flag is never there, so the table sees the empty branch (classic SDK sampling: Viktor's attack
+estimate 2479924 -> 313, the stages at the same levels). The classic SDK has no such recall: check it in game.
+
 **A native view effect played on a fixed map point draws once (league_nocturne_dark 0.4.0 -> 0.4.1, 2026-10-09).** `StableSim::play_view_effect` with `InputTargetV1::pos` at the map centre returned true and the sim logged the veil on every ult, but the client darkened the screen only on the first one (「第一个大是会黑的」). Played on Nocturne (`InputTargetV1::target`, the view `is_follow: false`) every layer shows (15 ults, 45 layers, 「每次都黑了」). Play native pictures on an entity, never on the same point twice.
 
 **From game 0.6.4 a native passive's calls are drawn; a banish holds (2026-10-14, the SDK 0.6.4 adaptation, PR #275).** Until 0.6.3 a `StablePassive` hook (on_update, on_attack, on_damaged, on_kill ...) ran without the frame the match records into: its `play_view_effect` / `play_sfx`, the projectiles it spawned, its heal and gold numbers, the buffs it added (league_viego_soul's look buff) never reached the screen, so add-ons put pictures on data buffs instead (Viego's `league_viego_shape`, Bard's door). From 0.6.4 they all show - do not add a second picture for a passive's call (Viego's mist was drawn twice until the data's copy went), and a passive's `heal` now shows a green number each time: refunds that stand for damage reduction (Braum's Unbreakable, Nilah's heal bonus, Xin Zhao's guard) use `entity_set_hp`. Native effects (`StableEffectType::apply`, `queue_effect`) always had the frame. A banished unit no longer moves or acts and knockbacks stop: an add-on that steps a unit itself when "the host did not move it" (`entity_set_pos`) or casts for it must skip it while `!is_targetable()` (wait, do not drop a trip through a wall). Minion and camp kills reach a passive through `on_unit_kill` (ABI 10); `on_kill` is champions only.

@@ -739,8 +739,8 @@
                                         "tick": 300
                                       }
                                     },
-                                    "attack_mult": 0,
-                                    "magic_power_mult": 0
+                                    "attack_mult": 20,
+                                    "magic_power_mult": 20
                                   }
                                 },
                                 {
@@ -897,8 +897,8 @@
                                                         "tick": 300
                                                       }
                                                     },
-                                                    "attack_mult": 0,
-                                                    "magic_power_mult": 0
+                                                    "attack_mult": 20,
+                                                    "magic_power_mult": 20
                                                   }
                                                 }
                                               }
@@ -1024,8 +1024,8 @@
                                     "tick": 300
                                   }
                                 },
-                                "attack_mult": 0,
-                                "magic_power_mult": 0
+                                "attack_mult": 20,
+                                "magic_power_mult": 20
                               }
                             },
                             {
@@ -1182,8 +1182,8 @@
                                                     "tick": 300
                                                   }
                                                 },
-                                                "attack_mult": 0,
-                                                "magic_power_mult": 0
+                                                "attack_mult": 20,
+                                                "magic_power_mult": 20
                                               }
                                             }
                                           }
@@ -1269,8 +1269,8 @@
                               "tick": 300
                             }
                           },
-                          "attack_mult": 0,
-                          "magic_power_mult": 0
+                          "attack_mult": 20,
+                          "magic_power_mult": 20
                         }
                       },
                       {
@@ -1424,8 +1424,8 @@
                                               "tick": 300
                                             }
                                           },
-                                          "attack_mult": 0,
-                                          "magic_power_mult": 0
+                                          "attack_mult": 20,
+                                          "magic_power_mult": 20
                                         }
                                       }
                                     }
@@ -1556,8 +1556,8 @@
                             "tick": 300
                           }
                         },
-                        "attack_mult": 0,
-                        "magic_power_mult": 0
+                        "attack_mult": 20,
+                        "magic_power_mult": 20
                       }
                     },
                     {

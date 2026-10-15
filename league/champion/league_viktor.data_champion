@@ -249,30 +249,64 @@
                                   ]
                                 },
                                 {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
+                                  "type": "Combine",
                                   "effects": [
                                     {
-                                      "type": "AddCasted",
-                                      "casted_type": "Heal",
-                                      "duration": 1,
-                                      "period": 1,
-                                      "effects": [
-                                        {
-                                          "type": "Attack",
-                                          "damage": 0,
-                                          "attack_ratio": 1000000,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_viktor_pr_go",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
                                         }
-                                      ]
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_viktor_pr_go",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RangeEffect",
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "target": "AllyOnlySelf",
+                                            "apply_type": "AroundCaster",
+                                            "effects": [
+                                              {
+                                                "type": "AddCasted",
+                                                "casted_type": "Heal",
+                                                "duration": 1,
+                                                "period": 1,
+                                                "effects": [
+                                                  {
+                                                    "type": "Attack",
+                                                    "damage": 0,
+                                                    "attack_ratio": 1000000,
+                                                    "hp_ratio": 0,
+                                                    "target_hp_ratio": 0,
+                                                    "attack_effect_type": "Target"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_viktor_pr_go"
                                     }
                                   ]
                                 },
@@ -370,30 +404,64 @@
                                             ]
                                           },
                                           {
-                                            "type": "RangeEffect",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 1000
-                                              }
-                                            },
-                                            "target": "AllyOnlySelf",
-                                            "apply_type": "AroundCaster",
+                                            "type": "Combine",
                                             "effects": [
                                               {
-                                                "type": "AddCasted",
-                                                "casted_type": "Heal",
-                                                "duration": 1,
-                                                "period": 1,
-                                                "effects": [
-                                                  {
-                                                    "type": "FixedAttack",
-                                                    "damage": 9900,
-                                                    "attack_ratio": 0,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_viktor_pr_go",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
                                                   }
-                                                ]
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_viktor_pr_go",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 1000
+                                                        }
+                                                      },
+                                                      "target": "AllyOnlySelf",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasted",
+                                                          "casted_type": "Heal",
+                                                          "duration": 1,
+                                                          "period": 1,
+                                                          "effects": [
+                                                            {
+                                                              "type": "FixedAttack",
+                                                              "damage": 9900,
+                                                              "attack_ratio": 0,
+                                                              "hp_ratio": 0,
+                                                              "target_hp_ratio": 0,
+                                                              "attack_effect_type": "Target"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_viktor_pr_go"
                                               }
                                             ]
                                           },
@@ -523,30 +591,64 @@
                                                                         ]
                                                                       },
                                                                       {
-                                                                        "type": "RangeEffect",
-                                                                        "shape": {
-                                                                          "Circle": {
-                                                                            "radius": 1000
-                                                                          }
-                                                                        },
-                                                                        "target": "AllyOnlySelf",
-                                                                        "apply_type": "AroundCaster",
+                                                                        "type": "Combine",
                                                                         "effects": [
                                                                           {
-                                                                            "type": "AddCasted",
-                                                                            "casted_type": "Heal",
-                                                                            "duration": 1,
-                                                                            "period": 1,
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "Attack",
-                                                                                "damage": 0,
-                                                                                "attack_ratio": 1000000,
-                                                                                "hp_ratio": 0,
-                                                                                "target_hp_ratio": 0,
-                                                                                "attack_effect_type": "Target"
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_viktor_pr_go",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 1
+                                                                                }
                                                                               }
-                                                                            ]
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          },
+                                                                          {
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_viktor_pr_go",
+                                                                            "effect_buff": {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "RangeEffect",
+                                                                                  "shape": {
+                                                                                    "Circle": {
+                                                                                      "radius": 1000
+                                                                                    }
+                                                                                  },
+                                                                                  "target": "AllyOnlySelf",
+                                                                                  "apply_type": "AroundCaster",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "AddCasted",
+                                                                                      "casted_type": "Heal",
+                                                                                      "duration": 1,
+                                                                                      "period": 1,
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "Attack",
+                                                                                          "damage": 0,
+                                                                                          "attack_ratio": 1000000,
+                                                                                          "hp_ratio": 0,
+                                                                                          "target_hp_ratio": 0,
+                                                                                          "attack_effect_type": "Target"
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            "effect_none": {
+                                                                              "type": "Combine",
+                                                                              "effects": []
+                                                                            }
+                                                                          },
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_viktor_pr_go"
                                                                           }
                                                                         ]
                                                                       },
@@ -644,30 +746,64 @@
                                                                                   ]
                                                                                 },
                                                                                 {
-                                                                                  "type": "RangeEffect",
-                                                                                  "shape": {
-                                                                                    "Circle": {
-                                                                                      "radius": 1000
-                                                                                    }
-                                                                                  },
-                                                                                  "target": "AllyOnlySelf",
-                                                                                  "apply_type": "AroundCaster",
+                                                                                  "type": "Combine",
                                                                                   "effects": [
                                                                                     {
-                                                                                      "type": "AddCasted",
-                                                                                      "casted_type": "Heal",
-                                                                                      "duration": 1,
-                                                                                      "period": 1,
-                                                                                      "effects": [
-                                                                                        {
-                                                                                          "type": "FixedAttack",
-                                                                                          "damage": 9900,
-                                                                                          "attack_ratio": 0,
-                                                                                          "hp_ratio": 0,
-                                                                                          "target_hp_ratio": 0,
-                                                                                          "attack_effect_type": "Target"
+                                                                                      "type": "AddCasterBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_viktor_pr_go",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 1
+                                                                                          }
                                                                                         }
-                                                                                      ]
+                                                                                      },
+                                                                                      "only_to_enemy": false
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "SwitchByBuff",
+                                                                                      "buff_name": "league_viktor_pr_go",
+                                                                                      "effect_buff": {
+                                                                                        "type": "Combine",
+                                                                                        "effects": [
+                                                                                          {
+                                                                                            "type": "RangeEffect",
+                                                                                            "shape": {
+                                                                                              "Circle": {
+                                                                                                "radius": 1000
+                                                                                              }
+                                                                                            },
+                                                                                            "target": "AllyOnlySelf",
+                                                                                            "apply_type": "AroundCaster",
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "AddCasted",
+                                                                                                "casted_type": "Heal",
+                                                                                                "duration": 1,
+                                                                                                "period": 1,
+                                                                                                "effects": [
+                                                                                                  {
+                                                                                                    "type": "FixedAttack",
+                                                                                                    "damage": 9900,
+                                                                                                    "attack_ratio": 0,
+                                                                                                    "hp_ratio": 0,
+                                                                                                    "target_hp_ratio": 0,
+                                                                                                    "attack_effect_type": "Target"
+                                                                                                  }
+                                                                                                ]
+                                                                                              }
+                                                                                            ]
+                                                                                          }
+                                                                                        ]
+                                                                                      },
+                                                                                      "effect_none": {
+                                                                                        "type": "Combine",
+                                                                                        "effects": []
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "RemoveCasterBuff",
+                                                                                      "name": "league_viktor_pr_go"
                                                                                     }
                                                                                   ]
                                                                                 },
@@ -870,30 +1006,64 @@
                                     ]
                                   },
                                   {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 1000
-                                      }
-                                    },
-                                    "target": "AllyOnlySelf",
-                                    "apply_type": "AroundCaster",
+                                    "type": "Combine",
                                     "effects": [
                                       {
-                                        "type": "AddCasted",
-                                        "casted_type": "Heal",
-                                        "duration": 1,
-                                        "period": 1,
-                                        "effects": [
-                                          {
-                                            "type": "Attack",
-                                            "damage": 0,
-                                            "attack_ratio": 1000000,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_viktor_pr_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
                                           }
-                                        ]
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_viktor_pr_go",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasted",
+                                                  "casted_type": "Heal",
+                                                  "duration": 1,
+                                                  "period": 1,
+                                                  "effects": [
+                                                    {
+                                                      "type": "Attack",
+                                                      "damage": 0,
+                                                      "attack_ratio": 1000000,
+                                                      "hp_ratio": 0,
+                                                      "target_hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_viktor_pr_go"
                                       }
                                     ]
                                   },
@@ -991,30 +1161,64 @@
                                               ]
                                             },
                                             {
-                                              "type": "RangeEffect",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 1000
-                                                }
-                                              },
-                                              "target": "AllyOnlySelf",
-                                              "apply_type": "AroundCaster",
+                                              "type": "Combine",
                                               "effects": [
                                                 {
-                                                  "type": "AddCasted",
-                                                  "casted_type": "Heal",
-                                                  "duration": 1,
-                                                  "period": 1,
-                                                  "effects": [
-                                                    {
-                                                      "type": "FixedAttack",
-                                                      "damage": 9900,
-                                                      "attack_ratio": 0,
-                                                      "hp_ratio": 0,
-                                                      "target_hp_ratio": 0,
-                                                      "attack_effect_type": "Target"
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_viktor_pr_go",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 1
+                                                      }
                                                     }
-                                                  ]
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_viktor_pr_go",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangeEffect",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 1000
+                                                          }
+                                                        },
+                                                        "target": "AllyOnlySelf",
+                                                        "apply_type": "AroundCaster",
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasted",
+                                                            "casted_type": "Heal",
+                                                            "duration": 1,
+                                                            "period": 1,
+                                                            "effects": [
+                                                              {
+                                                                "type": "FixedAttack",
+                                                                "damage": 9900,
+                                                                "attack_ratio": 0,
+                                                                "hp_ratio": 0,
+                                                                "target_hp_ratio": 0,
+                                                                "attack_effect_type": "Target"
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  }
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_viktor_pr_go"
                                                 }
                                               ]
                                             },
@@ -1144,30 +1348,64 @@
                                                                           ]
                                                                         },
                                                                         {
-                                                                          "type": "RangeEffect",
-                                                                          "shape": {
-                                                                            "Circle": {
-                                                                              "radius": 1000
-                                                                            }
-                                                                          },
-                                                                          "target": "AllyOnlySelf",
-                                                                          "apply_type": "AroundCaster",
+                                                                          "type": "Combine",
                                                                           "effects": [
                                                                             {
-                                                                              "type": "AddCasted",
-                                                                              "casted_type": "Heal",
-                                                                              "duration": 1,
-                                                                              "period": 1,
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "Attack",
-                                                                                  "damage": 0,
-                                                                                  "attack_ratio": 1000000,
-                                                                                  "hp_ratio": 0,
-                                                                                  "target_hp_ratio": 0,
-                                                                                  "attack_effect_type": "Target"
+                                                                              "type": "AddCasterBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_viktor_pr_go",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 1
+                                                                                  }
                                                                                 }
-                                                                              ]
+                                                                              },
+                                                                              "only_to_enemy": false
+                                                                            },
+                                                                            {
+                                                                              "type": "SwitchByBuff",
+                                                                              "buff_name": "league_viktor_pr_go",
+                                                                              "effect_buff": {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RangeEffect",
+                                                                                    "shape": {
+                                                                                      "Circle": {
+                                                                                        "radius": 1000
+                                                                                      }
+                                                                                    },
+                                                                                    "target": "AllyOnlySelf",
+                                                                                    "apply_type": "AroundCaster",
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "AddCasted",
+                                                                                        "casted_type": "Heal",
+                                                                                        "duration": 1,
+                                                                                        "period": 1,
+                                                                                        "effects": [
+                                                                                          {
+                                                                                            "type": "Attack",
+                                                                                            "damage": 0,
+                                                                                            "attack_ratio": 1000000,
+                                                                                            "hp_ratio": 0,
+                                                                                            "target_hp_ratio": 0,
+                                                                                            "attack_effect_type": "Target"
+                                                                                          }
+                                                                                        ]
+                                                                                      }
+                                                                                    ]
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              "effect_none": {
+                                                                                "type": "Combine",
+                                                                                "effects": []
+                                                                              }
+                                                                            },
+                                                                            {
+                                                                              "type": "RemoveCasterBuff",
+                                                                              "name": "league_viktor_pr_go"
                                                                             }
                                                                           ]
                                                                         },
@@ -1265,30 +1503,64 @@
                                                                                     ]
                                                                                   },
                                                                                   {
-                                                                                    "type": "RangeEffect",
-                                                                                    "shape": {
-                                                                                      "Circle": {
-                                                                                        "radius": 1000
-                                                                                      }
-                                                                                    },
-                                                                                    "target": "AllyOnlySelf",
-                                                                                    "apply_type": "AroundCaster",
+                                                                                    "type": "Combine",
                                                                                     "effects": [
                                                                                       {
-                                                                                        "type": "AddCasted",
-                                                                                        "casted_type": "Heal",
-                                                                                        "duration": 1,
-                                                                                        "period": 1,
-                                                                                        "effects": [
-                                                                                          {
-                                                                                            "type": "FixedAttack",
-                                                                                            "damage": 9900,
-                                                                                            "attack_ratio": 0,
-                                                                                            "hp_ratio": 0,
-                                                                                            "target_hp_ratio": 0,
-                                                                                            "attack_effect_type": "Target"
+                                                                                        "type": "AddCasterBuff",
+                                                                                        "buff_state": {
+                                                                                          "name": "league_viktor_pr_go",
+                                                                                          "duration": {
+                                                                                            "Time": {
+                                                                                              "tick": 1
+                                                                                            }
                                                                                           }
-                                                                                        ]
+                                                                                        },
+                                                                                        "only_to_enemy": false
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "SwitchByBuff",
+                                                                                        "buff_name": "league_viktor_pr_go",
+                                                                                        "effect_buff": {
+                                                                                          "type": "Combine",
+                                                                                          "effects": [
+                                                                                            {
+                                                                                              "type": "RangeEffect",
+                                                                                              "shape": {
+                                                                                                "Circle": {
+                                                                                                  "radius": 1000
+                                                                                                }
+                                                                                              },
+                                                                                              "target": "AllyOnlySelf",
+                                                                                              "apply_type": "AroundCaster",
+                                                                                              "effects": [
+                                                                                                {
+                                                                                                  "type": "AddCasted",
+                                                                                                  "casted_type": "Heal",
+                                                                                                  "duration": 1,
+                                                                                                  "period": 1,
+                                                                                                  "effects": [
+                                                                                                    {
+                                                                                                      "type": "FixedAttack",
+                                                                                                      "damage": 9900,
+                                                                                                      "attack_ratio": 0,
+                                                                                                      "hp_ratio": 0,
+                                                                                                      "target_hp_ratio": 0,
+                                                                                                      "attack_effect_type": "Target"
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        },
+                                                                                        "effect_none": {
+                                                                                          "type": "Combine",
+                                                                                          "effects": []
+                                                                                        }
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "RemoveCasterBuff",
+                                                                                        "name": "league_viktor_pr_go"
                                                                                       }
                                                                                     ]
                                                                                   },
@@ -1491,30 +1763,64 @@
                                       ]
                                     },
                                     {
-                                      "type": "RangeEffect",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "target": "AllyOnlySelf",
-                                      "apply_type": "AroundCaster",
+                                      "type": "Combine",
                                       "effects": [
                                         {
-                                          "type": "AddCasted",
-                                          "casted_type": "Heal",
-                                          "duration": 1,
-                                          "period": 1,
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 1000000,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_viktor_pr_go",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
                                             }
-                                          ]
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_viktor_pr_go",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "target": "AllyOnlySelf",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasted",
+                                                    "casted_type": "Heal",
+                                                    "duration": 1,
+                                                    "period": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 0,
+                                                        "attack_ratio": 1000000,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_viktor_pr_go"
                                         }
                                       ]
                                     },
@@ -1612,30 +1918,64 @@
                                                 ]
                                               },
                                               {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
-                                                  }
-                                                },
-                                                "target": "AllyOnlySelf",
-                                                "apply_type": "AroundCaster",
+                                                "type": "Combine",
                                                 "effects": [
                                                   {
-                                                    "type": "AddCasted",
-                                                    "casted_type": "Heal",
-                                                    "duration": 1,
-                                                    "period": 1,
-                                                    "effects": [
-                                                      {
-                                                        "type": "FixedAttack",
-                                                        "damage": 9900,
-                                                        "attack_ratio": 0,
-                                                        "hp_ratio": 0,
-                                                        "target_hp_ratio": 0,
-                                                        "attack_effect_type": "Target"
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_viktor_pr_go",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 1
+                                                        }
                                                       }
-                                                    ]
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_viktor_pr_go",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "target": "AllyOnlySelf",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasted",
+                                                              "casted_type": "Heal",
+                                                              "duration": 1,
+                                                              "period": 1,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "FixedAttack",
+                                                                  "damage": 9900,
+                                                                  "attack_ratio": 0,
+                                                                  "hp_ratio": 0,
+                                                                  "target_hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_viktor_pr_go"
                                                   }
                                                 ]
                                               },
@@ -1765,30 +2105,64 @@
                                                                             ]
                                                                           },
                                                                           {
-                                                                            "type": "RangeEffect",
-                                                                            "shape": {
-                                                                              "Circle": {
-                                                                                "radius": 1000
-                                                                              }
-                                                                            },
-                                                                            "target": "AllyOnlySelf",
-                                                                            "apply_type": "AroundCaster",
+                                                                            "type": "Combine",
                                                                             "effects": [
                                                                               {
-                                                                                "type": "AddCasted",
-                                                                                "casted_type": "Heal",
-                                                                                "duration": 1,
-                                                                                "period": 1,
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "Attack",
-                                                                                    "damage": 0,
-                                                                                    "attack_ratio": 1000000,
-                                                                                    "hp_ratio": 0,
-                                                                                    "target_hp_ratio": 0,
-                                                                                    "attack_effect_type": "Target"
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_viktor_pr_go",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 1
+                                                                                    }
                                                                                   }
-                                                                                ]
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              },
+                                                                              {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_viktor_pr_go",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "RangeEffect",
+                                                                                      "shape": {
+                                                                                        "Circle": {
+                                                                                          "radius": 1000
+                                                                                        }
+                                                                                      },
+                                                                                      "target": "AllyOnlySelf",
+                                                                                      "apply_type": "AroundCaster",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "AddCasted",
+                                                                                          "casted_type": "Heal",
+                                                                                          "duration": 1,
+                                                                                          "period": 1,
+                                                                                          "effects": [
+                                                                                            {
+                                                                                              "type": "Attack",
+                                                                                              "damage": 0,
+                                                                                              "attack_ratio": 1000000,
+                                                                                              "hp_ratio": 0,
+                                                                                              "target_hp_ratio": 0,
+                                                                                              "attack_effect_type": "Target"
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_viktor_pr_go"
                                                                               }
                                                                             ]
                                                                           },
@@ -1886,30 +2260,64 @@
                                                                                       ]
                                                                                     },
                                                                                     {
-                                                                                      "type": "RangeEffect",
-                                                                                      "shape": {
-                                                                                        "Circle": {
-                                                                                          "radius": 1000
-                                                                                        }
-                                                                                      },
-                                                                                      "target": "AllyOnlySelf",
-                                                                                      "apply_type": "AroundCaster",
+                                                                                      "type": "Combine",
                                                                                       "effects": [
                                                                                         {
-                                                                                          "type": "AddCasted",
-                                                                                          "casted_type": "Heal",
-                                                                                          "duration": 1,
-                                                                                          "period": 1,
-                                                                                          "effects": [
-                                                                                            {
-                                                                                              "type": "FixedAttack",
-                                                                                              "damage": 9900,
-                                                                                              "attack_ratio": 0,
-                                                                                              "hp_ratio": 0,
-                                                                                              "target_hp_ratio": 0,
-                                                                                              "attack_effect_type": "Target"
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_viktor_pr_go",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 1
+                                                                                              }
                                                                                             }
-                                                                                          ]
+                                                                                          },
+                                                                                          "only_to_enemy": false
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "SwitchByBuff",
+                                                                                          "buff_name": "league_viktor_pr_go",
+                                                                                          "effect_buff": {
+                                                                                            "type": "Combine",
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "RangeEffect",
+                                                                                                "shape": {
+                                                                                                  "Circle": {
+                                                                                                    "radius": 1000
+                                                                                                  }
+                                                                                                },
+                                                                                                "target": "AllyOnlySelf",
+                                                                                                "apply_type": "AroundCaster",
+                                                                                                "effects": [
+                                                                                                  {
+                                                                                                    "type": "AddCasted",
+                                                                                                    "casted_type": "Heal",
+                                                                                                    "duration": 1,
+                                                                                                    "period": 1,
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "FixedAttack",
+                                                                                                        "damage": 9900,
+                                                                                                        "attack_ratio": 0,
+                                                                                                        "hp_ratio": 0,
+                                                                                                        "target_hp_ratio": 0,
+                                                                                                        "attack_effect_type": "Target"
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  }
+                                                                                                ]
+                                                                                              }
+                                                                                            ]
+                                                                                          },
+                                                                                          "effect_none": {
+                                                                                            "type": "Combine",
+                                                                                            "effects": []
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_viktor_pr_go"
                                                                                         }
                                                                                       ]
                                                                                     },
@@ -2109,30 +2517,64 @@
                                       ]
                                     },
                                     {
-                                      "type": "RangeEffect",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "target": "AllyOnlySelf",
-                                      "apply_type": "AroundCaster",
+                                      "type": "Combine",
                                       "effects": [
                                         {
-                                          "type": "AddCasted",
-                                          "casted_type": "Heal",
-                                          "duration": 1,
-                                          "period": 1,
-                                          "effects": [
-                                            {
-                                              "type": "Attack",
-                                              "damage": 0,
-                                              "attack_ratio": 1000000,
-                                              "hp_ratio": 0,
-                                              "target_hp_ratio": 0,
-                                              "attack_effect_type": "Target"
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_viktor_pr_go",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
                                             }
-                                          ]
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_viktor_pr_go",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RangeEffect",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1000
+                                                  }
+                                                },
+                                                "target": "AllyOnlySelf",
+                                                "apply_type": "AroundCaster",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasted",
+                                                    "casted_type": "Heal",
+                                                    "duration": 1,
+                                                    "period": 1,
+                                                    "effects": [
+                                                      {
+                                                        "type": "Attack",
+                                                        "damage": 0,
+                                                        "attack_ratio": 1000000,
+                                                        "hp_ratio": 0,
+                                                        "target_hp_ratio": 0,
+                                                        "attack_effect_type": "Target"
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_viktor_pr_go"
                                         }
                                       ]
                                     },
@@ -2230,30 +2672,64 @@
                                                 ]
                                               },
                                               {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
-                                                  }
-                                                },
-                                                "target": "AllyOnlySelf",
-                                                "apply_type": "AroundCaster",
+                                                "type": "Combine",
                                                 "effects": [
                                                   {
-                                                    "type": "AddCasted",
-                                                    "casted_type": "Heal",
-                                                    "duration": 1,
-                                                    "period": 1,
-                                                    "effects": [
-                                                      {
-                                                        "type": "FixedAttack",
-                                                        "damage": 9900,
-                                                        "attack_ratio": 0,
-                                                        "hp_ratio": 0,
-                                                        "target_hp_ratio": 0,
-                                                        "attack_effect_type": "Target"
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_viktor_pr_go",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 1
+                                                        }
                                                       }
-                                                    ]
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_viktor_pr_go",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RangeEffect",
+                                                          "shape": {
+                                                            "Circle": {
+                                                              "radius": 1000
+                                                            }
+                                                          },
+                                                          "target": "AllyOnlySelf",
+                                                          "apply_type": "AroundCaster",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasted",
+                                                              "casted_type": "Heal",
+                                                              "duration": 1,
+                                                              "period": 1,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "FixedAttack",
+                                                                  "damage": 9900,
+                                                                  "attack_ratio": 0,
+                                                                  "hp_ratio": 0,
+                                                                  "target_hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_viktor_pr_go"
                                                   }
                                                 ]
                                               },
@@ -2383,30 +2859,64 @@
                                                                             ]
                                                                           },
                                                                           {
-                                                                            "type": "RangeEffect",
-                                                                            "shape": {
-                                                                              "Circle": {
-                                                                                "radius": 1000
-                                                                              }
-                                                                            },
-                                                                            "target": "AllyOnlySelf",
-                                                                            "apply_type": "AroundCaster",
+                                                                            "type": "Combine",
                                                                             "effects": [
                                                                               {
-                                                                                "type": "AddCasted",
-                                                                                "casted_type": "Heal",
-                                                                                "duration": 1,
-                                                                                "period": 1,
-                                                                                "effects": [
-                                                                                  {
-                                                                                    "type": "Attack",
-                                                                                    "damage": 0,
-                                                                                    "attack_ratio": 1000000,
-                                                                                    "hp_ratio": 0,
-                                                                                    "target_hp_ratio": 0,
-                                                                                    "attack_effect_type": "Target"
+                                                                                "type": "AddCasterBuff",
+                                                                                "buff_state": {
+                                                                                  "name": "league_viktor_pr_go",
+                                                                                  "duration": {
+                                                                                    "Time": {
+                                                                                      "tick": 1
+                                                                                    }
                                                                                   }
-                                                                                ]
+                                                                                },
+                                                                                "only_to_enemy": false
+                                                                              },
+                                                                              {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_viktor_pr_go",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "RangeEffect",
+                                                                                      "shape": {
+                                                                                        "Circle": {
+                                                                                          "radius": 1000
+                                                                                        }
+                                                                                      },
+                                                                                      "target": "AllyOnlySelf",
+                                                                                      "apply_type": "AroundCaster",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "AddCasted",
+                                                                                          "casted_type": "Heal",
+                                                                                          "duration": 1,
+                                                                                          "period": 1,
+                                                                                          "effects": [
+                                                                                            {
+                                                                                              "type": "Attack",
+                                                                                              "damage": 0,
+                                                                                              "attack_ratio": 1000000,
+                                                                                              "hp_ratio": 0,
+                                                                                              "target_hp_ratio": 0,
+                                                                                              "attack_effect_type": "Target"
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_viktor_pr_go"
                                                                               }
                                                                             ]
                                                                           },
@@ -2504,30 +3014,64 @@
                                                                                       ]
                                                                                     },
                                                                                     {
-                                                                                      "type": "RangeEffect",
-                                                                                      "shape": {
-                                                                                        "Circle": {
-                                                                                          "radius": 1000
-                                                                                        }
-                                                                                      },
-                                                                                      "target": "AllyOnlySelf",
-                                                                                      "apply_type": "AroundCaster",
+                                                                                      "type": "Combine",
                                                                                       "effects": [
                                                                                         {
-                                                                                          "type": "AddCasted",
-                                                                                          "casted_type": "Heal",
-                                                                                          "duration": 1,
-                                                                                          "period": 1,
-                                                                                          "effects": [
-                                                                                            {
-                                                                                              "type": "FixedAttack",
-                                                                                              "damage": 9900,
-                                                                                              "attack_ratio": 0,
-                                                                                              "hp_ratio": 0,
-                                                                                              "target_hp_ratio": 0,
-                                                                                              "attack_effect_type": "Target"
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_viktor_pr_go",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 1
+                                                                                              }
                                                                                             }
-                                                                                          ]
+                                                                                          },
+                                                                                          "only_to_enemy": false
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "SwitchByBuff",
+                                                                                          "buff_name": "league_viktor_pr_go",
+                                                                                          "effect_buff": {
+                                                                                            "type": "Combine",
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "RangeEffect",
+                                                                                                "shape": {
+                                                                                                  "Circle": {
+                                                                                                    "radius": 1000
+                                                                                                  }
+                                                                                                },
+                                                                                                "target": "AllyOnlySelf",
+                                                                                                "apply_type": "AroundCaster",
+                                                                                                "effects": [
+                                                                                                  {
+                                                                                                    "type": "AddCasted",
+                                                                                                    "casted_type": "Heal",
+                                                                                                    "duration": 1,
+                                                                                                    "period": 1,
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "FixedAttack",
+                                                                                                        "damage": 9900,
+                                                                                                        "attack_ratio": 0,
+                                                                                                        "hp_ratio": 0,
+                                                                                                        "target_hp_ratio": 0,
+                                                                                                        "attack_effect_type": "Target"
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  }
+                                                                                                ]
+                                                                                              }
+                                                                                            ]
+                                                                                          },
+                                                                                          "effect_none": {
+                                                                                            "type": "Combine",
+                                                                                            "effects": []
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_viktor_pr_go"
                                                                                         }
                                                                                       ]
                                                                                     },
