@@ -29,7 +29,9 @@ Refuge runs on its own when the spirit blade comes back with an enemy champion n
           least r_far from him (a fight he is not in). That ally gets r_sh + r_sh_ratio% AD of shield for r_sh_t;
           he channels r_ch ticks (crowd control on him every 15 ticks breaks it) and teleports onto it. Unused,
           the window ends with the cooldown capped (the AI arms it again on the next approach).
-          The add-on addons/league_shen_unite (native=1) picks the ally by health instead (League's rule).
+          The add-on addons/league_shen_shield (native=1) gives that shield from his maximum health instead
+          (r_sh_base + r_sh_hp% of it; a player: "Shen ult scales with ad wouldn't it be better if it scaled with hp?"
+          - a data Shield reads no health).
 """
 import argparse
 import json
@@ -75,8 +77,9 @@ P = {
     "r_sh": 260, "r_sh_ratio": 60, "r_sh_t": 300, "r_ch": 150, "r_brk": 15, "r_wind": 18,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
-    # 1 = the copy for addons/league_shen_unite: its native passive picks the ally by health and sets r_pick
-    "native": 0,
+    # 1 = the copy for addons/league_shen_shield: no data shield on the ally, its native passive gives r_sh_base +
+    # r_sh_hp% of Shen's maximum health when league_shen_r_shield shows on him
+    "native": 0, "r_sh_base": 150, "r_sh_hp": 12,
 }
 
 
@@ -287,7 +290,8 @@ def build(p):
     def save():
         """On the ally (the probe's hit): the shield now, the channel on him, the teleport onto it at the end."""
         return combine(*rm("r_arm", "r_seen"), refresh("r_ch", p["r_ch"] + 2),
-                       shield(p["r_sh"], p["r_sh_ratio"], p["r_sh_t"]), buff("r_shield", p["r_sh_t"]),
+                       *([] if native else [shield(p["r_sh"], p["r_sh_ratio"], p["r_sh_t"])]),
+                       buff("r_shield", p["r_sh_t"]),
                        sfx("r_ally"),
                        on_me(anim("ult", p["r_wind"]), delayed(p["r_wind"], anim("ult_loop", p["r_ch"] - p["r_wind"])), cview("r_cast"), sfx("r"), voice("vo_r", p), ki, *breaks),
                        delayed(p["r_ch"], sw("r_ch", combine(*rm("r_ch"), {"type": "Teleport"}, view("r_land"),
@@ -304,12 +308,9 @@ def build(p):
                                    sw("r_e", combine(*rm("r_e"), sw("r_seen", save(), refresh("r_seen", p["r_seen"]))))))
         return homing("r_probe", 1000000, 0, "AllyChampion", [far, go])
 
-    if native:  # the add-on marks the ally to save (lowest health) with r_pick on him: only that one is probed
-        look = sw("r_pick", pick(960000, "AllyNotSelf", probe(True)))
-    else:
-        look = combine(pick(960000, "AllyChampionInCC", flag("r_cc", 1)),
-                       sw("r_cc", combine(*rm("r_cc"), pick(960000, "AllyChampionInCC", probe(True))),
-                          pick(960000, "AllyNotSelf", probe(False))))
+    look = combine(pick(960000, "AllyChampionInCC", flag("r_cc", 1)),
+                   sw("r_cc", combine(*rm("r_cc"), pick(960000, "AllyChampionInCC", probe(True))),
+                      pick(960000, "AllyNotSelf", probe(False))))
     poll = combine(pick(1, "AllyChampionInCC", flag("r_me", 1)),
                    sw("r_me", combine(*rm("r_me")), sw("r_arm", sw("r_ch", NONE, look))))
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
@@ -331,7 +332,8 @@ def build(p):
                B_("r_shield", BIG, 3), B_("r_ch", BIG, 3)]   # r_ch: the channel's light on him while it lasts
     extra = {}
     if native:
-        extra["passive"] = {"passive_ref": "league_shen_unite:unite", "params": {}}
+        extra["passive"] = {"passive_ref": "league_shen_shield:shield",
+                            "params": {k: p[k] for k in ("r_sh_base", "r_sh_hp", "r_sh_t")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
@@ -360,7 +362,7 @@ def main():
     ap_.add_argument("--params", help="json file with overrides")
     ap_.add_argument("--out", default=OUT)
     ap_.add_argument("--nodes", action="store_true")
-    ap_.add_argument("--native", action="store_true", help="the add-on's copy (the ally picked by health)")
+    ap_.add_argument("--native", action="store_true", help="the add-on's copy (the shield from his health)")
     a = ap_.parse_args()
     p = dict(P)
     if a.params:
