@@ -101,6 +101,13 @@ pub fn at_draw(shrunk: Option<Scale>, drawn: Option<Scale>, cur: f32, shown: Opt
                 Some(s) if ours(&s) => Some(s), // shrunk by the display update this frame: its base
                 _ => drawn,
             };
+            // No record at all and the value already at or under a base of 1 divided: a copy of an entity the
+            // display update had shrunk (the match-result screen draws the heroes from copies carrying the divided
+            // scale: Zeri 0.350 -> 0.122, Mordekaiser 0.550 -> 0.303, a dot each, 2026-10-15) - taken as divided.
+            // The game never scales a unit under 1 / PPU on its own; a growth effect (1.5) still comes out above.
+            if prev.is_none() && cur <= 1.0 / k + 1e-4 {
+                return AtDraw::Write(Scale { base: cur * k, wrote: cur });
+            }
             AtDraw::Write(next_scale(prev, cur, k))
         }
         None => match drawn {
@@ -535,6 +542,11 @@ mod tests {
         assert_eq!(at_draw(None, Some(s), 1.0, Some(k)), AtDraw::Write(s));
         // possessing another dense hero (another PPU / size) while our value is still there
         assert_eq!(at_draw(None, Some(s), 1.0 / k, Some(3.0)), AtDraw::Write(Scale { base: 1.0, wrote: 1.0 / 3.0 }));
+        // a copy with the divided value and no record (the match-result screen): taken as divided, not divided again
+        assert_eq!(at_draw(None, None, 1.0 / k, Some(k)), AtDraw::Write(Scale { base: 1.0, wrote: 1.0 / k }));
+        assert_eq!(at_draw(None, None, 0.55 / 2.0, Some(2.0)), AtDraw::Write(Scale { base: 0.55, wrote: 0.275 }));
+        // a growth effect's value with no record: divided
+        assert_eq!(at_draw(None, None, 1.5, Some(k)), AtDraw::Write(Scale { base: 1.5, wrote: 1.5 / k }));
         // the possession over: our value goes, the game's comes back; nothing to do once the game rewrote it
         assert_eq!(at_draw(None, Some(s), 1.0 / k, None), AtDraw::Restore(1.0));
         assert_eq!(at_draw(None, Some(s), 1.0, None), AtDraw::Leave);

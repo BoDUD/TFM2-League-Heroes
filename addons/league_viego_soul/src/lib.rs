@@ -41,6 +41,11 @@ pub const SAFE: &str = "league_viego_p_safe";
 pub const CDR: &str = "league_viego_p_cdr";
 pub const GO: &str = "league_viego_p_go";
 pub const OFF: &str = "league_viego_p_off";
+/// 每份模拟的佛耶戈一个编号（`league_viego_sim:<编号>`，没有数值、没有画面）：2v2 这类对局来历都是「未知」，游戏同时跑整轮
+/// 好几场、每场好几遍，日志里分不清屏幕放的是哪一遍（用户：「画面根本没附身啊」，别的模拟里附身 PPU 英雄很多次）；屏幕上
+/// 的佛耶戈身上带着编号，显示钩子记下它，这份模拟的每一行（出生时的对阵名单、灵魂、附身）就对得上了。
+pub const SIM_TAG: &str = "league_viego_sim:";
+static NEXT_SIM: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(1);
 /// 五套招式（数据副本里 `league_viego_soul_<类别>`）。
 pub const CATS: [&str; 5] = ["melee", "range", "mage", "util", "assassin"];
 
@@ -224,6 +229,8 @@ pub struct Possess {
     pub dash_until: usize,
     /// What the sim showed of the possession's data side (p_go taken, shape on), for the log: 0.1.6.
     pub seen: (bool, bool),
+    /// This sim's number (`SIM_TAG`), drawn at the first update.
+    pub sim_no: u64,
 }
 
 impl Possess {
@@ -338,10 +345,22 @@ impl StablePassive for Possess {
         let (alive, team, mpos) = (e.is_alive(), e.team(), e.pos());
         if !self.started {
             self.started = true;
+            if self.sim_no == 0 {
+                self.sim_no = NEXT_SIM.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+            }
             if let Some((m, s)) = on_screen(sim) {
                 view::note_view(m, s);
                 wlog(format!("{} the passive is on (team {team}); this sim is the one the screen replays", head(sim, me)));
             }
+            let lineup: Vec<String> = (0..sim.champion_count())
+                .filter_map(|i| sim.get_entity(sim.champion_id_at(i)))
+                .map(|c| format!("{}#{}{}", c.name().unwrap_or_default(), c.id(), if c.team() == team { "" } else { "*" }))
+                .collect();
+            wlog(format!("{} SIM {}: champions [{}] (* = enemies)", head(sim, me), self.sim_no, lineup.join(", ")));
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim_no);
+        if alive && !buff_names(sim, me).iter().any(|b| *b == tag) {
+            sim.add_buff(me, &BuffV1::named(&tag));
         }
         if alive != self.was_alive {
             self.was_alive = alive;
