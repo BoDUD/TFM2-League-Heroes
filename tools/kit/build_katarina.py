@@ -30,7 +30,9 @@ E owns no slot, its cooldown is a caster flag; the add-on addons/league_katarina
   ult     R Death Lotus (死亡莲华): a `Targeting` cast on `EnemyChampionRecentlyAttacked` (r_range). She channels r_t
           ticks (`CasterAnimation` holds her): every r_p ticks a dagger flies at each enemy champion within r_r: r_dmg +
           r_ap% AP magic damage in r_t / r_p equal parts and r_gw% healing cut (grievous wounds) for r_gw_t. Crowd
-          control on her ends the channel at the next check (league_malzahar R's breaks).
+          control on her ends the channel at the next check (league_malzahar R's breaks); so does nobody in reach for
+          two volleys running (the champions walked out: League's player would move on). Cast only within r_range
+          (30000: after Shunpo in, League's pros' E-W-R).
 """
 import argparse
 import json
@@ -62,7 +64,7 @@ P = {
     # skill2: W Preparation (League: 50-90% move speed fading over 1.25 s, the dagger lands after 1.25 s, cd 15-11 s)
     "w_cd": 660, "w_range": 55000, "w_dur": 20, "w_at": 6, "w_fall": 75, "w_ms": 60,
     # ult: R Death Lotus (League: 550 radius, 2.5 s, 15 daggers at up to 3 champions, 25-50 + 19% AP each, 60% GW)
-    "r_cd": 3600, "r_range": 40000, "r_tgt": "EnemyChampion", "r_r": 50000, "r_t": 150, "r_p": 10, "r_brk": 10, "r_dmg": 520, "r_ap": 280,
+    "r_cd": 3600, "r_range": 30000, "r_tgt": "EnemyChampion", "r_r": 50000, "r_t": 150, "r_p": 10, "r_brk": 10, "r_dmg": 520, "r_ap": 280,
     "r_gw": 60, "r_gw_t": 180, "r_speed": 6000, "r_y": -3000, "r_track": 30, "r_ring": 30,
     # voice
     "vo_gap": 240,
@@ -337,13 +339,19 @@ def build(p):
     knife = homing("r_dagger", p["r_speed"], p["r_y"], "EnemyChampion",
                    [magic(round(p["r_dmg"] / runs), round(p["r_ap"] / runs)),
                     buff("r_gw", p["r_gw_t"], heal_reduce=p["r_gw"]), view("r_hit"), tsfx("r_hit")])
-    volley = sw("r_ch", around(p["r_r"], "EnemyChampion", [knife]))
+    # every volley that finds a champion keeps r_seen up two volleys long; a check every r_p ticks from the second
+    # volley on ends the channel when it lapsed (nobody in reach twice running: the champions walked out - League's
+    # player would move and cancel it; the AI would stand there spinning at nothing)
+    volley = sw("r_ch", around(p["r_r"], "EnemyChampion", [knife, refresh("r_seen", 2 * p["r_p"] + 1)]))
+    stop = combine(*rm("r_ch"), {"type": "RemoveCasterAnimation", "name": "ult"})
+    idle_end = sw("r_ch", sw("r_seen", NONE, stop))
     marks = sw("r_ch", around(p["r_r"], "EnemyChampion", [track()]))
     ring = sw("r_ch", cview("r_lotus"))
     ult = action("ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", p["r_tgt"], flat(combine(
         arm, refresh("r_ch", p["r_t"] + 1), anim("ult", p["r_t"]), sfx("r_lotus"), sfx("vo_r"),
         on_me(volley, casted(p["r_t"] - 1, p["r_p"], volley), marks, casted(p["r_t"] - 1, p["r_track"], marks),
-              ring, casted(p["r_t"] - 1, p["r_ring"], ring), breaks))), key="ult")
+              ring, casted(p["r_t"] - 1, p["r_ring"], ring), breaks,
+              delayed(2 * p["r_p"] - 1, idle_end, casted(p["r_t"] - 2 * p["r_p"], p["r_p"], idle_end))))), key="ult")
 
     # ------------------------------------------------------------------ attack
     a_twin = homing("a_twin", 100000, 0, "EnemyChampion", [track()])

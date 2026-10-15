@@ -55,7 +55,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
-            "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5}
+            "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "katarina": 1.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -172,6 +172,10 @@ RESTYLE = {
     # by tools/art/rig_jayce.py (38 game rows crown to soles; one head brought down once for every frame), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at his crown
     "jayce": dict(ppu=1.5, edge=1, face_to=(0, -38)),
+    # league_katarina (#107): Codex's strips on the design's grid brought to the user's 1.5 squares a game pixel by
+    # tools/art/rig_katarina.py (38 game rows crown to soles; one head brought down once for every frame), so no
+    # proportion or density change here; the outer outline grown a square like the others; the face point at her crown
+    "katarina": dict(ppu=1.5, edge=1, face_to=(0, -38)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
