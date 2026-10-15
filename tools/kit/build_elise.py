@@ -52,33 +52,35 @@ ID = "league_elise"
 FX = "asset/league/effects/league_elise_fx"
 BIG = "asset/league/effects/league_elise_big"
 
-# Timings: placeholders until Codex's strips (step 2) - the attack 440 ms with the spit on tick 9, the spells about
-# 400 ms, the transform 16 ticks (league_nidalee's measured clips); retimed to the frames once they are in.
+# Timings from the strips (league/champions/league_elise#anim.fanim, Codex's step 2 after League's clips): the spit
+# 440 ms, released on frame 3 (tick 10); Neurotoxin and the Cocoon / Spiderling cast 450 ms, released on frame 3 (tick
+# 10); the turns 270 ms; the bite 330 ms, the hit on frame 3 (tick 9); Venomous Bite 410 ms, off the ground on frame 2
+# (tick 4); Rappel's rise 300 ms, at the top on frame 4 (tick 13: the banish starts there), the drop 250 ms.
 # Numbers: the first draft from league_nidalee's d11 (the pack's AP junglers); balance runs below the P table.
 P = {
     # stats (League's Elise: 650 +109 hp, 55 AD, 30 armour, 30 mr, 330 move, 550 range (spider 125))
     "hp": 990, "hp_g": 100, "atk": 108, "atk_g": 24, "mp": 50, "mp_g": 20, "def": 28, "def_g": 7, "mr": 24, "mr_g": 4,
     "ms": 1080, "ms_g": 12,
-    "atk_range": 23000, "atk_dur": 26, "atk_cd": 52, "a_st": 9, "a_speed": 4500,
+    "atk_range": 23000, "atk_dur": 26, "atk_cd": 52, "a_st": 10, "a_speed": 4500,
     # spider form (League: +move speed 10-25, melee 125, attacks +10-50 + 30% AP magic and heal 4-8 + 10% AP)
-    "h_add": 27000, "c_atk_dur": 20, "c_atk_st": 8, "c_near": 32000, "tf_dur": 16, "r_cd_t": 240, "sp_ms": 10,
+    "h_add": 27000, "c_atk_dur": 20, "c_atk_st": 9, "c_near": 32000, "tf_dur": 16, "r_cd_t": 240, "sp_ms": 10,
     "c_dmg": 20, "c_ap": 25, "c_heal": 6, "c_hap": 10,
     # passive spiderlings (League: 2-4, each 10-70 + 15% AP magic a bite)
     "sl_dmg": 12, "sl_ap": 10, "sl_fz": 150,
     # Q Neurotoxin (League: 575 range, 40-200 + 4% (+3% per 100 AP) current health, cd 6 s)
-    "q_cd": 360, "q_range": 55000, "q_dur": 24, "q_at": 10, "q_speed": 4500, "q_dmg": 70, "q_ap": 60, "q_hp": 3,
+    "q_cd": 360, "q_range": 55000, "q_dur": 27, "q_at": 10, "q_speed": 4500, "q_dmg": 70, "q_ap": 60, "q_hp": 3,
     # Venomous Bite (League: 475 leap, 70-270 + 8% (+3% per 100 AP) missing health, cd 6 s)
-    "cq_cd": 360, "cq_r": 35000, "cq_dur": 24, "cq_go": 4, "cq_speed": 5000, "cq_dmg": 80, "cq_ap": 70, "cq_hp": 5,
+    "cq_cd": 360, "cq_r": 35000, "cq_dur": 25, "cq_go": 4, "cq_speed": 5000, "cq_dmg": 80, "cq_ap": 70, "cq_hp": 5,
     # skill2 slot
     "s2_cd": 60, "s2_range": 75000,
     # E Cocoon (League: 1100 range, 60 width, 55-235 + 80% AP, stun 1.6-2.4 s, cd 12-10 s)
-    "e_cd": 660, "e_range": 75000, "e_anim": 24, "e_at": 10, "e_speed": 4500, "e_w": 2500, "e_dmg": 60, "e_ap": 50,
+    "e_cd": 660, "e_range": 75000, "e_anim": 27, "e_at": 10, "e_speed": 4500, "e_w": 2500, "e_dmg": 60, "e_ap": 50,
     "e_stun": 100,
     # W Volatile Spiderling (League: 950 range, 60-220 + 95% AP, cd 12 s)
-    "w_cd": 720, "w_range": 65000, "w_anim": 24, "w_at": 10, "w_speed": 2500, "w_w": 3000, "w_rad": 10000,
+    "w_cd": 720, "w_range": 65000, "w_anim": 27, "w_at": 10, "w_speed": 2500, "w_w": 3000, "w_rad": 10000,
     "w_dmg": 70, "w_ap": 70,
     # Rappel (League: up 2 s, descends within 750, cd 22-14 s)
-    "ce_cd": 900, "ce_r": 50000, "ce_anim": 20, "ce_up": 45, "cl_anim": 18, "ce_rad": 12000, "ce_dmg": 40, "ce_ap": 30,
+    "ce_cd": 900, "ce_r": 50000, "ce_anim": 18, "ce_rise": 13, "ce_up": 45, "cl_anim": 15, "ce_rad": 12000, "ce_dmg": 40, "ce_ap": 30,
     # Skittering Frenzy (League: +60-100% attack speed 3 s, cd 10 s)
     "cw_cd": 600, "cw_near": 25000, "cw_as": 60, "cw_t": 180,
     # ult: the cocoon hunt
@@ -310,8 +312,8 @@ def build(p):
                 cview("ce_land"), sfx("ce_land"), *extra]
         # rise: banished (untargetable) where she stands; drop: Teleport onto the target the cast picked
         return combine(anim("c_skill2", p["ce_anim"]), sfx("ce"), cview("ce_up"), voice("vo_ce", p),
-                       on_me({"type": "Banish", "duration": up}),
-                       delayed(up, {"type": "Teleport"}, *land))
+                       delayed(p["ce_rise"], on_me({"type": "Banish", "duration": up})),
+                       delayed(p["ce_rise"] + up, {"type": "Teleport"}, *land))
     frenzy = combine(flag("cw_cd", p["cw_cd"]), refresh("cw_on", p["cw_t"], attack_speed_mult=p["cw_as"]),
                      cview("cw_frenzy"), sfx("cw"), voice("vo_cw", p))
     s_probe = combine(*rm("e_in", "w_in"), pick(p["ce_r"], "EnemyChampion", flag("e_in", 1)),
