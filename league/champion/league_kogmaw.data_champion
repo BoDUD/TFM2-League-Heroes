@@ -1265,482 +1265,133 @@
                         "effects": [
                           {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_kogmaw_r_lock",
+                            "buff_name": "league_kogmaw_r_vol",
                             "effect_buff": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_kogmaw_r_vol",
-                              "effect_buff": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_kogmaw_r_c1",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_kogmaw_r_c1"
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_kogmaw_r_vol"
-                                    },
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_kogmaw_r_shot"
-                                        },
-                                        {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_kogmaw_r_lob",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_kogmaw_r_mark"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_kogmaw_r_fall"
-                                            },
-                                            {
-                                              "type": "RangeProjectile",
-                                              "name": "league_kogmaw_r_blast",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 15000
-                                                }
-                                              },
-                                              "delay": 40,
-                                              "apply": 40,
-                                              "applied_target": "EnemyWithoutTower",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Attack",
-                                                    "damage": 90,
-                                                    "attack_ratio": 65,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_kogmaw_r_hit"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_kogmaw_r_hit"
-                                                  }
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "RangeProjectile",
-                                              "name": "league_kogmaw_r_exec",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 15000
-                                                }
-                                              },
-                                              "delay": 40,
-                                              "apply": 40,
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "FixedAttack",
-                                                    "damage": 50,
-                                                    "attack_ratio": 35,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Delayed",
-                                                    "tick": 1,
-                                                    "effects": [
-                                                      {
-                                                        "type": "Heal",
-                                                        "amount": 50,
-                                                        "attack_ratio": 35,
-                                                        "ap_ratio": 0,
-                                                        "heal_type": "Any"
-                                                      }
-                                                    ]
-                                                  }
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 32,
-                                              "effects": [
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_kogmaw_r_fall"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_kogmaw_r_c1"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_kogmaw_r_c1",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Sfx",
-                                          "name": "league_kogmaw_r_shot"
-                                        },
-                                        {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_kogmaw_r_lob",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_kogmaw_r_mark"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_kogmaw_r_fall"
-                                            },
-                                            {
-                                              "type": "RangeProjectile",
-                                              "name": "league_kogmaw_r_blast",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 15000
-                                                }
-                                              },
-                                              "delay": 40,
-                                              "apply": 40,
-                                              "applied_target": "EnemyWithoutTower",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Attack",
-                                                    "damage": 90,
-                                                    "attack_ratio": 65,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_kogmaw_r_hit"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_kogmaw_r_hit"
-                                                  }
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "RangeProjectile",
-                                              "name": "league_kogmaw_r_exec",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 15000
-                                                }
-                                              },
-                                              "delay": 40,
-                                              "apply": 40,
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "FixedAttack",
-                                                    "damage": 50,
-                                                    "attack_ratio": 35,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Delayed",
-                                                    "tick": 1,
-                                                    "effects": [
-                                                      {
-                                                        "type": "Heal",
-                                                        "amount": 50,
-                                                        "attack_ratio": 35,
-                                                        "ap_ratio": 0,
-                                                        "heal_type": "Any"
-                                                      }
-                                                    ]
-                                                  }
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 32,
-                                              "effects": [
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_kogmaw_r_fall"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            },
-                            "effect_none": {
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kogmaw_r_c1"
+                                  "type": "Sfx",
+                                  "name": "league_kogmaw_r_shot"
                                 },
                                 {
-                                  "type": "Combine",
-                                  "effects": [
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_kogmaw_r_lob",
+                                  "travel_time": 1,
+                                  "range": 400000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "range_effect_name": "",
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [],
+                                  "end_effects": [
                                     {
-                                      "type": "Combine",
-                                      "effects": [
+                                      "type": "ViewEffect",
+                                      "name": "league_kogmaw_r_mark"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_kogmaw_r_fall"
+                                    },
+                                    {
+                                      "type": "RangeProjectile",
+                                      "name": "league_kogmaw_r_blast",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 15000
+                                        }
+                                      },
+                                      "delay": 40,
+                                      "apply": 40,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
                                         {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_kogmaw_r_lock"
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Attack",
+                                            "damage": 90,
+                                            "attack_ratio": 65,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
                                         },
                                         {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_kogmaw_r_lock",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 1200
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_kogmaw_r_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_kogmaw_r_hit"
+                                          }
                                         }
                                       ]
                                     },
                                     {
-                                      "type": "Combine",
-                                      "effects": [
+                                      "type": "RangeProjectile",
+                                      "name": "league_kogmaw_r_exec",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 15000
+                                        }
+                                      },
+                                      "delay": 40,
+                                      "apply": 40,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
                                         {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_kogmaw_r_vol"
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "FixedAttack",
+                                            "damage": 50,
+                                            "attack_ratio": 35,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
                                         },
                                         {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_kogmaw_r_vol",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Delayed",
+                                            "tick": 1,
+                                            "effects": [
+                                              {
+                                                "type": "Heal",
+                                                "amount": 50,
+                                                "attack_ratio": 35,
+                                                "ap_ratio": 0,
+                                                "heal_type": "Any"
                                               }
-                                            }
-                                          },
-                                          "only_to_enemy": false
+                                            ]
+                                          }
                                         }
                                       ]
                                     },
                                     {
-                                      "type": "Combine",
+                                      "type": "Delayed",
+                                      "tick": 32,
                                       "effects": [
                                         {
-                                          "type": "Sfx",
-                                          "name": "league_kogmaw_r_shot"
-                                        },
-                                        {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_kogmaw_r_lob",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 1000
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_kogmaw_r_mark"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_kogmaw_r_fall"
-                                            },
-                                            {
-                                              "type": "RangeProjectile",
-                                              "name": "league_kogmaw_r_blast",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 15000
-                                                }
-                                              },
-                                              "delay": 40,
-                                              "apply": 40,
-                                              "applied_target": "EnemyWithoutTower",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Attack",
-                                                    "damage": 90,
-                                                    "attack_ratio": 65,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_kogmaw_r_hit"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_kogmaw_r_hit"
-                                                  }
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "RangeProjectile",
-                                              "name": "league_kogmaw_r_exec",
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 15000
-                                                }
-                                              },
-                                              "delay": 40,
-                                              "apply": 40,
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": [
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "FixedAttack",
-                                                    "damage": 50,
-                                                    "attack_ratio": 35,
-                                                    "hp_ratio": 0,
-                                                    "target_hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  }
-                                                },
-                                                {
-                                                  "casting_type": "Targeting",
-                                                  "effect": {
-                                                    "type": "Delayed",
-                                                    "tick": 1,
-                                                    "effects": [
-                                                      {
-                                                        "type": "Heal",
-                                                        "amount": 50,
-                                                        "attack_ratio": 35,
-                                                        "ap_ratio": 0,
-                                                        "heal_type": "Any"
-                                                      }
-                                                    ]
-                                                  }
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 32,
-                                              "effects": [
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_kogmaw_r_fall"
-                                                }
-                                              ]
-                                            }
-                                          ]
+                                          "type": "ViewEffect",
+                                          "name": "league_kogmaw_r_fall"
                                         }
                                       ]
                                     }
                                   ]
                                 }
                               ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
                             }
                           }
                         ]
@@ -2056,7 +1707,7 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_kogmaw.ult",
     "duration": 37,
-    "cooltime": 50,
+    "cooltime": 1200,
     "start_timing": 1,
     "cancelable": false,
     "range": 130000,
@@ -2273,382 +1924,402 @@
         },
         {
           "type": "SwitchByBuff",
-          "buff_name": "league_kogmaw_r_lock",
+          "buff_name": "league_kogmaw_r_vol",
           "effect_buff": {
             "type": "SwitchByBuff",
-            "buff_name": "league_kogmaw_r_vol",
+            "buff_name": "league_kogmaw_r_c1",
             "effect_buff": {
-              "type": "SwitchByBuff",
-              "buff_name": "league_kogmaw_r_c1",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_kogmaw_r_c1"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_kogmaw_r_vol"
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "CasterAnimation",
-                        "name": "ult",
-                        "tick": 37
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kogmaw_r_c1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kogmaw_r_vol"
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "ult",
+                      "tick": 37
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kogmaw_vo_cd",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
                       },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_kogmaw_vo_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_kogmaw_vo_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 600
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_kogmaw_vo_r"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 17,
+                      "effect_none": {
+                        "type": "Combine",
                         "effects": [
                           {
-                            "type": "Sfx",
-                            "name": "league_kogmaw_r_shot"
-                          },
-                          {
-                            "type": "ParabolicProjectile",
-                            "name": "league_kogmaw_r_lob",
-                            "travel_time": 1,
-                            "range": 400000,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_kogmaw_vo_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 600
+                                }
                               }
                             },
-                            "range_effect_name": "",
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "ViewEffect",
-                                "name": "league_kogmaw_r_mark"
-                              },
-                              {
-                                "type": "Sfx",
-                                "name": "league_kogmaw_r_fall"
-                              },
-                              {
-                                "type": "RangeProjectile",
-                                "name": "league_kogmaw_r_blast",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 15000
-                                  }
-                                },
-                                "delay": 40,
-                                "apply": 40,
-                                "applied_target": "EnemyWithoutTower",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Attack",
-                                      "damage": 90,
-                                      "attack_ratio": 65,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_kogmaw_r_hit"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_kogmaw_r_hit"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeProjectile",
-                                "name": "league_kogmaw_r_exec",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 15000
-                                  }
-                                },
-                                "delay": 40,
-                                "apply": 40,
-                                "applied_target": "EnemyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "FixedAttack",
-                                      "damage": 50,
-                                      "attack_ratio": 35,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Delayed",
-                                      "tick": 1,
-                                      "effects": [
-                                        {
-                                          "type": "Heal",
-                                          "amount": 50,
-                                          "attack_ratio": 35,
-                                          "ap_ratio": 0,
-                                          "heal_type": "Any"
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Delayed",
-                                "tick": 32,
-                                "effects": [
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_kogmaw_r_fall"
-                                  }
-                                ]
-                              }
-                            ]
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_kogmaw_vo_r"
                           }
                         ]
                       }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_kogmaw_r_c1"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_kogmaw_r_c1",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 17,
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "league_kogmaw_r_shot"
+                        },
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_kogmaw_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
                             }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "CasterAnimation",
-                        "name": "ult",
-                        "tick": 37
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_kogmaw_vo_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
+                          },
+                          "range_effect_name": "",
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [],
+                          "end_effects": [
                             {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_kogmaw_vo_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 600
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
+                              "type": "ViewEffect",
+                              "name": "league_kogmaw_r_mark"
                             },
                             {
                               "type": "Sfx",
-                              "name": "league_kogmaw_vo_r"
+                              "name": "league_kogmaw_r_fall"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kogmaw_r_blast",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 15000
+                                }
+                              },
+                              "delay": 40,
+                              "apply": 40,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 90,
+                                    "attack_ratio": 65,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_kogmaw_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_kogmaw_r_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kogmaw_r_exec",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 15000
+                                }
+                              },
+                              "delay": 40,
+                              "apply": 40,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "FixedAttack",
+                                    "damage": 50,
+                                    "attack_ratio": 35,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Delayed",
+                                    "tick": 1,
+                                    "effects": [
+                                      {
+                                        "type": "Heal",
+                                        "amount": 50,
+                                        "attack_ratio": 35,
+                                        "ap_ratio": 0,
+                                        "heal_type": "Any"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 32,
+                              "effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_kogmaw_r_fall"
+                                }
+                              ]
                             }
                           ]
                         }
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 17,
-                        "effects": [
-                          {
-                            "type": "Sfx",
-                            "name": "league_kogmaw_r_shot"
-                          },
-                          {
-                            "type": "ParabolicProjectile",
-                            "name": "league_kogmaw_r_lob",
-                            "travel_time": 1,
-                            "range": 400000,
-                            "shape": {
-                              "Circle": {
-                                "radius": 1000
-                              }
-                            },
-                            "range_effect_name": "",
-                            "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "ViewEffect",
-                                "name": "league_kogmaw_r_mark"
-                              },
-                              {
-                                "type": "Sfx",
-                                "name": "league_kogmaw_r_fall"
-                              },
-                              {
-                                "type": "RangeProjectile",
-                                "name": "league_kogmaw_r_blast",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 15000
-                                  }
-                                },
-                                "delay": 40,
-                                "apply": 40,
-                                "applied_target": "EnemyWithoutTower",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Attack",
-                                      "damage": 90,
-                                      "attack_ratio": 65,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_kogmaw_r_hit"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_kogmaw_r_hit"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeProjectile",
-                                "name": "league_kogmaw_r_exec",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 15000
-                                  }
-                                },
-                                "delay": 40,
-                                "apply": 40,
-                                "applied_target": "EnemyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "FixedAttack",
-                                      "damage": 50,
-                                      "attack_ratio": 35,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Delayed",
-                                      "tick": 1,
-                                      "effects": [
-                                        {
-                                          "type": "Heal",
-                                          "amount": 50,
-                                          "attack_ratio": 35,
-                                          "ap_ratio": 0,
-                                          "heal_type": "Any"
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Delayed",
-                                "tick": 32,
-                                "effects": [
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_kogmaw_r_fall"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
+                      ]
+                    }
+                  ]
+                }
+              ]
             },
             "effect_none": {
               "type": "Combine",
-              "effects": []
+              "effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_kogmaw_r_c1"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kogmaw_r_c1",
+                        "duration": {
+                          "Time": {
+                            "tick": 1200
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "ult",
+                      "tick": 37
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kogmaw_vo_cd",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_kogmaw_vo_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 600
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_kogmaw_vo_r"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 17,
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "league_kogmaw_r_shot"
+                        },
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_kogmaw_r_lob",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "range_effect_name": "",
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_kogmaw_r_mark"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_kogmaw_r_fall"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kogmaw_r_blast",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 15000
+                                }
+                              },
+                              "delay": 40,
+                              "apply": 40,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 90,
+                                    "attack_ratio": 65,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_kogmaw_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_kogmaw_r_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kogmaw_r_exec",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 15000
+                                }
+                              },
+                              "delay": 40,
+                              "apply": 40,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "FixedAttack",
+                                    "damage": 50,
+                                    "attack_ratio": 35,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Delayed",
+                                    "tick": 1,
+                                    "effects": [
+                                      {
+                                        "type": "Heal",
+                                        "amount": 50,
+                                        "attack_ratio": 35,
+                                        "ap_ratio": 0,
+                                        "heal_type": "Any"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 32,
+                              "effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_kogmaw_r_fall"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 2,
+                  "effects": [
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_kogmaw_r_cap"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_kogmaw_r_cap",
+                            "duration": {
+                              "Time": {
+                                "tick": 2
+                              }
+                            },
+                            "ult_cooldown_mult": 2300
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           },
           "effect_none": {
@@ -2662,207 +2333,209 @@
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_kogmaw_r_lock"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_kogmaw_r_lock",
-                          "duration": {
-                            "Time": {
-                              "tick": 1200
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
+                    "type": "RemoveCasterBuff",
+                    "name": "league_kogmaw_r_vol"
                   },
                   {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_kogmaw_r_vol"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_kogmaw_r_vol",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "CasterAnimation",
-                        "name": "ult",
-                        "tick": 37
-                      },
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_kogmaw_vo_cd",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": []
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_kogmaw_vo_cd",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 600
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_kogmaw_vo_r"
-                            }
-                          ]
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kogmaw_r_vol",
+                      "duration": {
+                        "Time": {
+                          "tick": 1200
                         }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterAnimation",
+                    "name": "ult",
+                    "tick": 37
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_kogmaw_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_kogmaw_vo_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 600
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_kogmaw_vo_r"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 17,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_kogmaw_r_shot"
                       },
                       {
-                        "type": "Delayed",
-                        "tick": 17,
-                        "effects": [
+                        "type": "ParabolicProjectile",
+                        "name": "league_kogmaw_r_lob",
+                        "travel_time": 1,
+                        "range": 400000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "range_effect_name": "",
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [],
+                        "end_effects": [
                           {
-                            "type": "Sfx",
-                            "name": "league_kogmaw_r_shot"
+                            "type": "ViewEffect",
+                            "name": "league_kogmaw_r_mark"
                           },
                           {
-                            "type": "ParabolicProjectile",
-                            "name": "league_kogmaw_r_lob",
-                            "travel_time": 1,
-                            "range": 400000,
+                            "type": "Sfx",
+                            "name": "league_kogmaw_r_fall"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_kogmaw_r_blast",
                             "shape": {
                               "Circle": {
-                                "radius": 1000
+                                "radius": 15000
                               }
                             },
-                            "range_effect_name": "",
+                            "delay": 40,
+                            "apply": 40,
                             "applied_target": "EnemyWithoutTower",
-                            "applied_effects": [],
-                            "end_effects": [
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 90,
+                                  "attack_ratio": 65,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_kogmaw_r_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_kogmaw_r_hit"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_kogmaw_r_exec",
+                            "shape": {
+                              "Circle": {
+                                "radius": 15000
+                              }
+                            },
+                            "delay": 40,
+                            "apply": 40,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "FixedAttack",
+                                  "damage": 50,
+                                  "attack_ratio": 35,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Delayed",
+                                  "tick": 1,
+                                  "effects": [
+                                    {
+                                      "type": "Heal",
+                                      "amount": 50,
+                                      "attack_ratio": 35,
+                                      "ap_ratio": 0,
+                                      "heal_type": "Any"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 32,
+                            "effects": [
                               {
                                 "type": "ViewEffect",
-                                "name": "league_kogmaw_r_mark"
-                              },
-                              {
-                                "type": "Sfx",
                                 "name": "league_kogmaw_r_fall"
-                              },
-                              {
-                                "type": "RangeProjectile",
-                                "name": "league_kogmaw_r_blast",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 15000
-                                  }
-                                },
-                                "delay": 40,
-                                "apply": 40,
-                                "applied_target": "EnemyWithoutTower",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Attack",
-                                      "damage": 90,
-                                      "attack_ratio": 65,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "ViewEffect",
-                                      "name": "league_kogmaw_r_hit"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_kogmaw_r_hit"
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeProjectile",
-                                "name": "league_kogmaw_r_exec",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 15000
-                                  }
-                                },
-                                "delay": 40,
-                                "apply": 40,
-                                "applied_target": "EnemyChampion",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "FixedAttack",
-                                      "damage": 50,
-                                      "attack_ratio": 35,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "Delayed",
-                                      "tick": 1,
-                                      "effects": [
-                                        {
-                                          "type": "Heal",
-                                          "amount": 50,
-                                          "attack_ratio": 35,
-                                          "ap_ratio": 0,
-                                          "heal_type": "Any"
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Delayed",
-                                "tick": 32,
-                                "effects": [
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_kogmaw_r_fall"
-                                  }
-                                ]
                               }
                             ]
                           }
                         ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 2,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_kogmaw_r_cap"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_kogmaw_r_cap",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          },
+                          "ult_cooldown_mult": 2300
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   }
