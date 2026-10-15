@@ -40,7 +40,7 @@ R = "<#ffdd8eff>"      # armour / magic resistance
 T = "<#f5f5f5ff>"      # true damage
 E = "<>"
 # champion_view: a placeholder face until the sprite (tfm2_ase.py face), the centre from the idle
-VIEW = {"face": {"x": 0, "y": -32}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 0, "y": -37}, "center": {"x": 0, "y": -12}}
 
 
 def phys(k):

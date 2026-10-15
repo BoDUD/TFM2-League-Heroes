@@ -175,7 +175,7 @@ RESTYLE = {
     # league_katarina (#107): Codex's strips on the design's grid brought to the user's 1.5 squares a game pixel by
     # tools/art/rig_katarina.py (38 game rows crown to soles; one head brought down once for every frame), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at her crown
-    "katarina": dict(ppu=1.5, edge=1, face_to=(0, -38)),
+    "katarina": dict(ppu=1.5, edge=1, face_to=(0, -37)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
