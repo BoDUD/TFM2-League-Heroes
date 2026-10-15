@@ -1,0 +1,350 @@
+{
+  "method": "Direct native-cell pixel painting; each cell emitted as a 12x12 solid rectangle. No resampling.",
+  "files": [
+    {
+      "file": "jayce-cannon-front-body.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        432,
+        204,
+        924,
+        852
+      ],
+      "colors_from_front_palette": true
+    },
+    {
+      "file": "jayce-cannon-front-weapon.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        144,
+        432,
+        1128,
+        696
+      ],
+      "colors_from_front_palette": true
+    },
+    {
+      "file": "jayce-cannon-front.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        144,
+        204,
+        1128,
+        852
+      ],
+      "colors_from_front_palette": true,
+      "head_identical_cell_for_cell": true,
+      "hair_top_row": 17,
+      "lowest_visible_row": 70,
+      "height_hair_to_sole_rows": 54,
+      "sole_runs": [
+        [
+          36,
+          47
+        ],
+        [
+          60,
+          73
+        ]
+      ],
+      "standing_midpoint_column": 54.0
+    },
+    {
+      "file": "jayce-cannon-side-A.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        144,
+        204,
+        1128,
+        852
+      ],
+      "colors_from_front_palette": true,
+      "head_identical_cell_for_cell": true,
+      "hair_top_row": 17,
+      "lowest_visible_row": 70,
+      "height_hair_to_sole_rows": 54,
+      "sole_runs": [
+        [
+          39,
+          53
+        ],
+        [
+          55,
+          69
+        ]
+      ],
+      "standing_midpoint_column": 54.0
+    },
+    {
+      "file": "jayce-cannon-side-B.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        144,
+        204,
+        1128,
+        852
+      ],
+      "colors_from_front_palette": true,
+      "head_identical_cell_for_cell": true,
+      "hair_top_row": 17,
+      "lowest_visible_row": 70,
+      "height_hair_to_sole_rows": 54,
+      "sole_runs": [
+        [
+          39,
+          53
+        ],
+        [
+          55,
+          69
+        ]
+      ],
+      "standing_midpoint_column": 54.0
+    },
+    {
+      "file": "jayce-hammer-front-body.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        360,
+        528,
+        852,
+        1212
+      ],
+      "colors_from_front_palette": true
+    },
+    {
+      "file": "jayce-hammer-front-weapon.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        192,
+        336,
+        852,
+        1152
+      ],
+      "colors_from_front_palette": true
+    },
+    {
+      "file": "jayce-hammer-front.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        192,
+        336,
+        852,
+        1212
+      ],
+      "colors_from_front_palette": true,
+      "head_identical_cell_for_cell": true,
+      "hair_top_row": 44,
+      "lowest_visible_row": 100,
+      "height_hair_to_sole_rows": 57,
+      "sole_runs": [
+        [
+          30,
+          41
+        ],
+        [
+          54,
+          67
+        ]
+      ],
+      "standing_midpoint_column": 48.0
+    },
+    {
+      "file": "jayce-hammer-side-A.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        372,
+        348,
+        984,
+        1212
+      ],
+      "colors_from_front_palette": true,
+      "head_identical_cell_for_cell": true,
+      "hair_top_row": 44,
+      "lowest_visible_row": 100,
+      "height_hair_to_sole_rows": 57,
+      "sole_runs": [
+        [
+          33,
+          47
+        ],
+        [
+          49,
+          63
+        ]
+      ],
+      "standing_midpoint_column": 48.0
+    },
+    {
+      "file": "jayce-hammer-side-B.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "size_ok": true,
+      "cell_size": 12,
+      "every_cell_uniform": true,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "hard_alpha": true,
+      "bottom_clear": true,
+      "right_remainder_clear": true,
+      "bottom_remainder_clear": true,
+      "bbox": [
+        372,
+        348,
+        984,
+        1212
+      ],
+      "colors_from_front_palette": true,
+      "head_identical_cell_for_cell": true,
+      "hair_top_row": 44,
+      "lowest_visible_row": 100,
+      "height_hair_to_sole_rows": 57,
+      "sole_runs": [
+        [
+          33,
+          47
+        ],
+        [
+          49,
+          63
+        ]
+      ],
+      "standing_midpoint_column": 48.0
+    }
+  ],
+  "layer_reconstruction": {
+    "hammer": true,
+    "cannon": true
+  },
+  "failures": []
+}

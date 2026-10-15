@@ -1,0 +1,6189 @@
+{
+  "title": "Jayce step3 VFX",
+  "asset_count": 31,
+  "fx_sheets": 21,
+  "bake_overlays": 10,
+  "generator": "native image_gen",
+  "raw_policy": "Unmodified native originals, byte-for-byte copies",
+  "output_policy": "FX sheets8px per game cell; bake6px per HD cell. Majority visible-colour readback, hard alpha, palette quantization, source placement normalization, exact symmetry correction. No procedural VFX shapes.",
+  "import_performed": false,
+  "source_reference_texture_included": false,
+  "assets": [
+    {
+      "file": "jayce_fx_c_bolt.png",
+      "pixel_1x": "pixel_1x/jayce_fx_c_bolt.png",
+      "raw": "raw/jayce_fx_c_bolt.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_c_bolt.png",
+      "generator": "image_gen",
+      "grid": [
+        48,
+        7
+      ],
+      "output_px": 8,
+      "dimensions": [
+        384,
+        56
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        12,
+        7
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 21,
+          "pixel_1x_rect": [
+            0,
+            0,
+            12,
+            7
+          ],
+          "output_rect": [
+            0,
+            0,
+            96,
+            56
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 24,
+          "pixel_1x_rect": [
+            12,
+            0,
+            12,
+            7
+          ],
+          "output_rect": [
+            96,
+            0,
+            96,
+            56
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 21,
+          "pixel_1x_rect": [
+            24,
+            0,
+            12,
+            7
+          ],
+          "output_rect": [
+            192,
+            0,
+            96,
+            56
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 16,
+          "pixel_1x_rect": [
+            36,
+            0,
+            12,
+            7
+          ],
+          "output_rect": [
+            288,
+            0,
+            96,
+            56
+          ]
+        }
+      ],
+      "symmetry": [
+        "tb"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_c_bolt.png",
+        "binding": "view_projectiles `league_jayce_c_bolt`（朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "10 × 5",
+        "sheet": "fx"
+      },
+      "raw_sha256": "7b3cf5a58647e05b608d0798a2ffd5c2dad8a977b9dc50457029a44fab40264e",
+      "file_sha256": "431bd257ca6f8dda6a444a36b0aa7befc9c9fdd9215aff86453d22fe5f4b93d1",
+      "pixel_1x_sha256": "715f37a1acc08c8b05b681e91e488b4e44060b9bf72f092b9209233ee651c351",
+      "raw_dimensions": [
+        2171,
+        724
+      ],
+      "readback_crop": [
+        0,
+        243.8,
+        2171,
+        511.2
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            243.8,
+            2171,
+            511.2
+          ],
+          "grid": [
+            48,
+            7
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2171,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 15,
+      "dark_blue_outline_cells_removed": 14,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_cq_orb.png",
+      "pixel_1x": "pixel_1x/jayce_fx_cq_orb.png",
+      "raw": "raw/jayce_fx_cq_orb.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_cq_orb.png",
+      "generator": "image_gen",
+      "grid": [
+        72,
+        12
+      ],
+      "output_px": 8,
+      "dimensions": [
+        576,
+        96
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        18,
+        12
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 72,
+          "pixel_1x_rect": [
+            0,
+            0,
+            18,
+            12
+          ],
+          "output_rect": [
+            0,
+            0,
+            144,
+            96
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 72,
+          "pixel_1x_rect": [
+            18,
+            0,
+            18,
+            12
+          ],
+          "output_rect": [
+            144,
+            0,
+            144,
+            96
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 78,
+          "pixel_1x_rect": [
+            36,
+            0,
+            18,
+            12
+          ],
+          "output_rect": [
+            288,
+            0,
+            144,
+            96
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 68,
+          "pixel_1x_rect": [
+            54,
+            0,
+            18,
+            12
+          ],
+          "output_rect": [
+            432,
+            0,
+            144,
+            96
+          ]
+        }
+      ],
+      "symmetry": [
+        "tb"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_cq_orb.png",
+        "binding": "view_projectiles `league_jayce_cq_orb`（朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "16 × 10",
+        "sheet": "fx"
+      },
+      "raw_sha256": "06228f53ca94b70bbf3c52faca89c63be3864905c6ecc0850df598e17e736219",
+      "file_sha256": "b832c60f17bdcd3ce14bf72681d204f500934010745658d6412ab410f6ac1cad",
+      "pixel_1x_sha256": "eb23f4ec68b1a6fc18d42a0dc3ce765792b11422b2cfc546b4f7e2880af7ee8e",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        211.2,
+        2172,
+        568.8
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            211.2,
+            2172,
+            568.8
+          ],
+          "grid": [
+            72,
+            12
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 77,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_gq_orb.png",
+      "pixel_1x": "pixel_1x/jayce_fx_gq_orb.png",
+      "raw": "raw/jayce_fx_gq_orb.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_gq_orb.png",
+      "generator": "image_gen",
+      "grid": [
+        120,
+        18
+      ],
+      "output_px": 8,
+      "dimensions": [
+        960,
+        144
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        30,
+        18
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 168,
+          "pixel_1x_rect": [
+            0,
+            0,
+            30,
+            18
+          ],
+          "output_rect": [
+            0,
+            0,
+            240,
+            144
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 162,
+          "pixel_1x_rect": [
+            30,
+            0,
+            30,
+            18
+          ],
+          "output_rect": [
+            240,
+            0,
+            240,
+            144
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 156,
+          "pixel_1x_rect": [
+            60,
+            0,
+            30,
+            18
+          ],
+          "output_rect": [
+            480,
+            0,
+            240,
+            144
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 160,
+          "pixel_1x_rect": [
+            90,
+            0,
+            30,
+            18
+          ],
+          "output_rect": [
+            720,
+            0,
+            240,
+            144
+          ]
+        }
+      ],
+      "symmetry": [
+        "tb"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_gq_orb.png",
+        "binding": "view_projectiles `league_jayce_gq_orb`（BIG，朝飞行方向转，画成朝右飞；上下对称）",
+        "size": "26 × 14",
+        "sheet": "big"
+      },
+      "raw_sha256": "18986e2ebb33f41ba60993896f74c897f83f5762883480c0e4051b4a92c6eca6",
+      "file_sha256": "1d95e156fdd6c36ad422504beed3bbc7b84dfbbca1aa4024ed3c695acce51e3a",
+      "pixel_1x_sha256": "d6e911857f8a36f4147fe0da2dffa50f7b7030becd298d60cea17e2bac4241af",
+      "raw_dimensions": [
+        1983,
+        793
+      ],
+      "readback_crop": [
+        0,
+        207.42857142857142,
+        1983,
+        599.5714285714286
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            207.42857142857142,
+            1983,
+            599.5714285714286
+          ],
+          "grid": [
+            120,
+            18
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            1983,
+            793
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 198,
+      "dark_blue_outline_cells_removed": 1,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/jayce_fx_a_hit.png",
+      "raw": "raw/jayce_fx_a_hit.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_a_hit.png",
+      "generator": "image_gen",
+      "grid": [
+        64,
+        16
+      ],
+      "output_px": 8,
+      "dimensions": [
+        512,
+        128
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        16,
+        16
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 16,
+          "pixel_1x_rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            0,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 60,
+          "pixel_1x_rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            128,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 78,
+          "pixel_1x_rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            256,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 26,
+          "pixel_1x_rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            384,
+            0,
+            128,
+            128
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_a_hit.png",
+        "binding": "view_effects `league_jayce_a_hit`（跟随，画在人物上面；左右对称）",
+        "size": "14",
+        "sheet": "fx"
+      },
+      "raw_sha256": "79f3e7a95c4b2aaf2910ed97bce011350ae7509de6faa20ff88c21b1280c91ca",
+      "file_sha256": "86c6bd1715c52d784a3dd0647c65d48586850eaa2589f793ebd0bdf4cb0bf9a5",
+      "pixel_1x_sha256": "20affb0e701459614aff4a94c3eec4b0e80b9ed2e808bef408ab389398e5d843",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        141.28571428571428,
+        2172,
+        600.7142857142858
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            -93.35714285714283,
+            142.78571428571428,
+            560.3571428571429,
+            602.2142857142858
+          ],
+          "grid": [
+            16,
+            16
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            438,
+            724
+          ]
+        },
+        {
+          "crop": [
+            417.14285714285717,
+            144.78571428571428,
+            1070.857142857143,
+            604.2142857142858
+          ],
+          "grid": [
+            16,
+            16
+          ],
+          "offset": [
+            16,
+            0
+          ],
+          "clip": [
+            438,
+            0,
+            1003,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1029.142857142857,
+            141.28571428571428,
+            1682.857142857143,
+            600.7142857142858
+          ],
+          "grid": [
+            16,
+            16
+          ],
+          "offset": [
+            32,
+            0
+          ],
+          "clip": [
+            1003,
+            0,
+            1708,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1632.642857142857,
+            144.28571428571428,
+            2286.3571428571427,
+            603.7142857142858
+          ],
+          "grid": [
+            16,
+            16
+          ],
+          "offset": [
+            48,
+            0
+          ],
+          "clip": [
+            1708,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 12,
+      "dark_blue_outline_cells_removed": 1,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_c_hit.png",
+      "pixel_1x": "pixel_1x/jayce_fx_c_hit.png",
+      "raw": "raw/jayce_fx_c_hit.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_c_hit.png",
+      "generator": "image_gen",
+      "grid": [
+        56,
+        14
+      ],
+      "output_px": 8,
+      "dimensions": [
+        448,
+        112
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        14,
+        14
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 10,
+          "pixel_1x_rect": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            0,
+            0,
+            112,
+            112
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 40,
+          "pixel_1x_rect": [
+            14,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            112,
+            0,
+            112,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 38,
+          "pixel_1x_rect": [
+            28,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            224,
+            0,
+            112,
+            112
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 18,
+          "pixel_1x_rect": [
+            42,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            336,
+            0,
+            112,
+            112
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_c_hit.png",
+        "binding": "view_effects `league_jayce_c_hit`（跟随，画在人物上面；左右对称）",
+        "size": "12",
+        "sheet": "fx"
+      },
+      "raw_sha256": "308f3d3512dd415bd37dec6765d46733b23efa78d1209878a86b60036ed5a780",
+      "file_sha256": "b7ea04831674c201165e57968bbae59089e4ffc95804728cf39e4e3b1eea4b9f",
+      "pixel_1x_sha256": "ef8881fd29efa058fd914ea8e2221204140a5c15c98adc503ba7032300331699",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        135.0,
+        2172,
+        611.0
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            135.0,
+            2172,
+            611.0
+          ],
+          "grid": [
+            56,
+            14
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 18,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/jayce_fx_q_hit.png",
+      "raw": "raw/jayce_fx_q_hit.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_q_hit.png",
+      "generator": "image_gen",
+      "grid": [
+        72,
+        20
+      ],
+      "output_px": 8,
+      "dimensions": [
+        576,
+        160
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        18,
+        20
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 22,
+          "pixel_1x_rect": [
+            0,
+            0,
+            18,
+            20
+          ],
+          "output_rect": [
+            0,
+            0,
+            144,
+            160
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 74,
+          "pixel_1x_rect": [
+            18,
+            0,
+            18,
+            20
+          ],
+          "output_rect": [
+            144,
+            0,
+            144,
+            160
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 118,
+          "pixel_1x_rect": [
+            36,
+            0,
+            18,
+            20
+          ],
+          "output_rect": [
+            288,
+            0,
+            144,
+            160
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 46,
+          "pixel_1x_rect": [
+            54,
+            0,
+            18,
+            20
+          ],
+          "output_rect": [
+            432,
+            0,
+            144,
+            160
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_q_hit.png",
+        "binding": "view_effects `league_jayce_q_hit`（跟随，画在人物上面；左右对称）",
+        "size": "16 × 18",
+        "sheet": "fx"
+      },
+      "raw_sha256": "7afb102a0ed9967c624795bf0545904282cd7db15cd85c1aa43f7767b1d87e58",
+      "file_sha256": "cdd1aafeb2d2d8d721e7ad31e8ecd5cb0e08178893f84bdfa9daf0d3481a3c44",
+      "pixel_1x_sha256": "8445c872af1250482a563c923edddf02c8cff954a8612caf6735e034de2e2038",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        0,
+        2172,
+        714.4444444444445
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            0,
+            2172,
+            714.4444444444445
+          ],
+          "grid": [
+            72,
+            20
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": [
+        6,
+        0,
+        6,
+        18
+      ],
+      "body_gap_opaque_cells_removed": 48,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 20,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_e_blow.png",
+      "pixel_1x": "pixel_1x/jayce_fx_e_blow.png",
+      "raw": "raw/jayce_fx_e_blow.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_e_blow.png",
+      "generator": "image_gen",
+      "grid": [
+        110,
+        22
+      ],
+      "output_px": 8,
+      "dimensions": [
+        880,
+        176
+      ],
+      "frame_count": 5,
+      "frame_grid": [
+        22,
+        22
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 24,
+          "pixel_1x_rect": [
+            0,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            0,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 100,
+          "pixel_1x_rect": [
+            22,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            176,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 188,
+          "pixel_1x_rect": [
+            44,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            352,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 106,
+          "pixel_1x_rect": [
+            66,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            528,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 5,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 10,
+          "pixel_1x_rect": [
+            88,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            704,
+            0,
+            176,
+            176
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_e_blow.png",
+        "binding": "view_effects `league_jayce_e_blow`（跟随，画在人物上面；左右对称）",
+        "size": "20",
+        "sheet": "fx"
+      },
+      "raw_sha256": "81758701eb59e03044040f57269b9ab3a3a9505df1a8b6c7d7eeb96088a138e4",
+      "file_sha256": "196e21d8e2398b0c100e247d2446d1ab5adffba143c623f0a1c8e0924933b533",
+      "pixel_1x_sha256": "83fd8f03d4621f7828d178571b5b10a99d5d60454c0469154eb80913e0b73c3d",
+      "raw_dimensions": [
+        1983,
+        793
+      ],
+      "readback_crop": [
+        0,
+        117.35000000000002,
+        1983,
+        681.65
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            -140.0,
+            114.85000000000002,
+            410.0,
+            679.15
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            238,
+            793
+          ]
+        },
+        {
+          "crop": [
+            167.0,
+            117.35000000000002,
+            717.0,
+            681.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            22,
+            0
+          ],
+          "clip": [
+            238,
+            0,
+            626,
+            793
+          ]
+        },
+        {
+          "crop": [
+            631.0,
+            117.35000000000002,
+            1181.0,
+            681.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            44,
+            0
+          ],
+          "clip": [
+            626,
+            0,
+            1175,
+            793
+          ]
+        },
+        {
+          "crop": [
+            1130.0,
+            133.35000000000002,
+            1680.0,
+            697.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            66,
+            0
+          ],
+          "clip": [
+            1175,
+            0,
+            1650,
+            793
+          ]
+        },
+        {
+          "crop": [
+            1535.0,
+            136.35000000000002,
+            2085.0,
+            700.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            88,
+            0
+          ],
+          "clip": [
+            1650,
+            0,
+            1983,
+            793
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 73,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_w_zap.png",
+      "pixel_1x": "pixel_1x/jayce_fx_w_zap.png",
+      "raw": "raw/jayce_fx_w_zap.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_w_zap.png",
+      "generator": "image_gen",
+      "grid": [
+        36,
+        18
+      ],
+      "output_px": 8,
+      "dimensions": [
+        288,
+        144
+      ],
+      "frame_count": 3,
+      "frame_grid": [
+        12,
+        18
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 48,
+          "pixel_1x_rect": [
+            0,
+            0,
+            12,
+            18
+          ],
+          "output_rect": [
+            0,
+            0,
+            96,
+            144
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 74,
+          "pixel_1x_rect": [
+            12,
+            0,
+            12,
+            18
+          ],
+          "output_rect": [
+            96,
+            0,
+            96,
+            144
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 50,
+          "pixel_1x_rect": [
+            24,
+            0,
+            12,
+            18
+          ],
+          "output_rect": [
+            192,
+            0,
+            96,
+            144
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_w_zap.png",
+        "binding": "view_effects `league_jayce_w_zap`（跟随，画在人物上面；左右对称）",
+        "size": "10 × 16",
+        "sheet": "fx"
+      },
+      "raw_sha256": "7325b42b1041d1b1f9d198f1f90ef8bd1bff09306cbaa7d8defb3e385c556a94",
+      "file_sha256": "a6b354feea3a1367aae8255f7a4656fe2a0cdd6a209d7e47870fdae3688864af",
+      "pixel_1x_sha256": "1608bf98fe8bf380c6ef758bc111f3fda3a061bd4824ddadcdc8f3d42039b51f",
+      "raw_dimensions": [
+        1774,
+        887
+      ],
+      "readback_crop": [
+        0,
+        0,
+        1774,
+        887
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            0,
+            1774,
+            887
+          ],
+          "grid": [
+            36,
+            18
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            1774,
+            887
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 63,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_cq_hit.png",
+      "pixel_1x": "pixel_1x/jayce_fx_cq_hit.png",
+      "raw": "raw/jayce_fx_cq_hit.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_cq_hit.png",
+      "generator": "image_gen",
+      "grid": [
+        64,
+        16
+      ],
+      "output_px": 8,
+      "dimensions": [
+        512,
+        128
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        16,
+        16
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 34,
+          "pixel_1x_rect": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            0,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 70,
+          "pixel_1x_rect": [
+            16,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            128,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 98,
+          "pixel_1x_rect": [
+            32,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            256,
+            0,
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 30,
+          "pixel_1x_rect": [
+            48,
+            0,
+            16,
+            16
+          ],
+          "output_rect": [
+            384,
+            0,
+            128,
+            128
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_cq_hit.png",
+        "binding": "view_effects `league_jayce_cq_hit`（跟随，画在人物上面；左右对称）",
+        "size": "14",
+        "sheet": "fx"
+      },
+      "raw_sha256": "674a2b54e84c275300a1fcdb64af0b1bb6993d9b7863963194156382f2194857",
+      "file_sha256": "973ed5d924df522c882ffe3d65c1c48706af2d6effed1b76c8c5de9ce5fa6b6f",
+      "pixel_1x_sha256": "bfc6c65229e69a6773d9deeb025eb030ab07a1cff769bf08b1c06a9ab1651175",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        93.42857142857144,
+        2172,
+        630.5714285714286
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            93.42857142857144,
+            2172,
+            630.5714285714286
+          ],
+          "grid": [
+            64,
+            16
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 22,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_gq_hit.png",
+      "pixel_1x": "pixel_1x/jayce_fx_gq_hit.png",
+      "raw": "raw/jayce_fx_gq_hit.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_gq_hit.png",
+      "generator": "image_gen",
+      "grid": [
+        110,
+        22
+      ],
+      "output_px": 8,
+      "dimensions": [
+        880,
+        176
+      ],
+      "frame_count": 5,
+      "frame_grid": [
+        22,
+        22
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 54,
+          "pixel_1x_rect": [
+            0,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            0,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 150,
+          "pixel_1x_rect": [
+            22,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            176,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 184,
+          "pixel_1x_rect": [
+            44,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            352,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 114,
+          "pixel_1x_rect": [
+            66,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            528,
+            0,
+            176,
+            176
+          ]
+        },
+        {
+          "index": 5,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 48,
+          "pixel_1x_rect": [
+            88,
+            0,
+            22,
+            22
+          ],
+          "output_rect": [
+            704,
+            0,
+            176,
+            176
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_gq_hit.png",
+        "binding": "view_effects `league_jayce_gq_hit`（跟随，画在人物上面；左右对称）",
+        "size": "20",
+        "sheet": "fx"
+      },
+      "raw_sha256": "fb2de5e39828a38ddc9a03d1e00e4a311f32ab5273b1a9a1cae843e073d63f73",
+      "file_sha256": "46225e12e518168fbfe5a21ba741fd123150200cb610d646433327253059e1a1",
+      "pixel_1x_sha256": "1604b1a56fabfdcf4dc9371abfed5ddc7cdfa39a93a8131005cb5080b8d61cdf",
+      "raw_dimensions": [
+        2171,
+        724
+      ],
+      "readback_crop": [
+        0,
+        102.35000000000002,
+        2171,
+        622.65
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            -46.85000000000002,
+            102.35000000000002,
+            477.85,
+            622.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            389,
+            724
+          ]
+        },
+        {
+          "crop": [
+            361.15,
+            102.85000000000002,
+            885.85,
+            623.15
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            22,
+            0
+          ],
+          "clip": [
+            389,
+            0,
+            834,
+            724
+          ]
+        },
+        {
+          "crop": [
+            823.15,
+            102.35000000000002,
+            1347.85,
+            622.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            44,
+            0
+          ],
+          "clip": [
+            834,
+            0,
+            1337,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1282.15,
+            103.35000000000002,
+            1806.85,
+            623.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            66,
+            0
+          ],
+          "clip": [
+            1337,
+            0,
+            1770,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1705.65,
+            103.35000000000002,
+            2230.35,
+            623.65
+          ],
+          "grid": [
+            22,
+            22
+          ],
+          "offset": [
+            88,
+            0
+          ],
+          "clip": [
+            1770,
+            0,
+            2171,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 59,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_tf_spark.png",
+      "pixel_1x": "pixel_1x/jayce_fx_tf_spark.png",
+      "raw": "raw/jayce_fx_tf_spark.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_tf_spark.png",
+      "generator": "image_gen",
+      "grid": [
+        120,
+        36
+      ],
+      "output_px": 8,
+      "dimensions": [
+        960,
+        288
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        30,
+        36
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 94,
+          "pixel_1x_rect": [
+            0,
+            0,
+            30,
+            36
+          ],
+          "output_rect": [
+            0,
+            0,
+            240,
+            288
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 202,
+          "pixel_1x_rect": [
+            30,
+            0,
+            30,
+            36
+          ],
+          "output_rect": [
+            240,
+            0,
+            240,
+            288
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 300,
+          "pixel_1x_rect": [
+            60,
+            0,
+            30,
+            36
+          ],
+          "output_rect": [
+            480,
+            0,
+            240,
+            288
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 116,
+          "pixel_1x_rect": [
+            90,
+            0,
+            30,
+            36
+          ],
+          "output_rect": [
+            720,
+            0,
+            240,
+            288
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_tf_spark.png",
+        "binding": "view_effects `league_jayce_tf_spark`（CasterViewEffect，跟随，画在人物上面；**严格左右对称**）",
+        "size": "28 × 34",
+        "sheet": "fx"
+      },
+      "raw_sha256": "bb5efa7f81d5e45f1226b51cd1f33d35fe1589e33da6fae96091113c357fbc81",
+      "file_sha256": "233c80ed7d0330dbead191d798514177895ddc5a6ece0fe88b5e0d3b38fae632",
+      "pixel_1x_sha256": "1858c90bab5a8353bd0cf225e8687406dc6eb28f81e887fd8233bc4914430e98",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        7.617647058823536,
+        2172,
+        705.3823529411765
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            7.617647058823536,
+            2172,
+            705.3823529411765
+          ],
+          "grid": [
+            120,
+            36
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": [
+        10,
+        8,
+        10,
+        26
+      ],
+      "body_gap_opaque_cells_removed": 75,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 229,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_q_land.png",
+      "pixel_1x": "pixel_1x/jayce_fx_q_land.png",
+      "raw": "raw/jayce_fx_q_land.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_q_land.png",
+      "generator": "image_gen",
+      "grid": [
+        264,
+        28
+      ],
+      "output_px": 8,
+      "dimensions": [
+        2112,
+        224
+      ],
+      "frame_count": 6,
+      "frame_grid": [
+        44,
+        28
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 56,
+          "pixel_1x_rect": [
+            0,
+            0,
+            44,
+            28
+          ],
+          "output_rect": [
+            0,
+            0,
+            352,
+            224
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 262,
+          "pixel_1x_rect": [
+            44,
+            0,
+            44,
+            28
+          ],
+          "output_rect": [
+            352,
+            0,
+            352,
+            224
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 180,
+          "pixel_1x_rect": [
+            88,
+            0,
+            44,
+            28
+          ],
+          "output_rect": [
+            704,
+            0,
+            352,
+            224
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 318,
+          "pixel_1x_rect": [
+            132,
+            0,
+            44,
+            28
+          ],
+          "output_rect": [
+            1056,
+            0,
+            352,
+            224
+          ]
+        },
+        {
+          "index": 5,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 176,
+          "pixel_1x_rect": [
+            176,
+            0,
+            44,
+            28
+          ],
+          "output_rect": [
+            1408,
+            0,
+            352,
+            224
+          ]
+        },
+        {
+          "index": 6,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 24,
+          "pixel_1x_rect": [
+            220,
+            0,
+            44,
+            28
+          ],
+          "output_rect": [
+            1760,
+            0,
+            352,
+            224
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_q_land.png",
+        "binding": "view_effects `league_jayce_q_land`（BIG，不跟随，留在落点；左右对称）",
+        "size": "40 × 24",
+        "sheet": "big"
+      },
+      "raw_sha256": "8f566155a0a3a73cdf42be356be7a403d4c8362abc208f420280fa06f631346a",
+      "file_sha256": "94b2912703edd7e3cc3cdd43cdd9af7447947e6ae6239c8ef3ebd934cb1185c0",
+      "pixel_1x_sha256": "966d67e92bec70a8f0e4c51b4b42bcb60972af9c79c3ef295cfb73bd4cd3ab3f",
+      "raw_dimensions": [
+        2171,
+        724
+      ],
+      "readback_crop": [
+        0,
+        229.66666666666666,
+        2171,
+        542.3333333333334
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            -88.05000000000001,
+            229.66666666666666,
+            386.05,
+            542.3333333333334
+          ],
+          "grid": [
+            44,
+            28
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            275,
+            724
+          ]
+        },
+        {
+          "crop": [
+            226.95,
+            229.66666666666666,
+            701.05,
+            542.3333333333334
+          ],
+          "grid": [
+            44,
+            28
+          ],
+          "offset": [
+            44,
+            0
+          ],
+          "clip": [
+            275,
+            0,
+            628,
+            724
+          ]
+        },
+        {
+          "crop": [
+            609.45,
+            229.66666666666666,
+            1083.55,
+            542.3333333333334
+          ],
+          "grid": [
+            44,
+            28
+          ],
+          "offset": [
+            88,
+            0
+          ],
+          "clip": [
+            628,
+            0,
+            1044,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1022.45,
+            229.66666666666666,
+            1496.55,
+            542.3333333333334
+          ],
+          "grid": [
+            44,
+            28
+          ],
+          "offset": [
+            132,
+            0
+          ],
+          "clip": [
+            1044,
+            0,
+            1493,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1466.45,
+            229.66666666666666,
+            1940.55,
+            542.3333333333334
+          ],
+          "grid": [
+            44,
+            28
+          ],
+          "offset": [
+            176,
+            0
+          ],
+          "clip": [
+            1493,
+            0,
+            1918,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1801.45,
+            229.66666666666666,
+            2275.55,
+            542.3333333333334
+          ],
+          "grid": [
+            44,
+            28
+          ],
+          "offset": [
+            220,
+            0
+          ],
+          "clip": [
+            1918,
+            0,
+            2171,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 369,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_w_field.png",
+      "pixel_1x": "pixel_1x/jayce_fx_w_field.png",
+      "raw": "raw/jayce_fx_w_field.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_w_field.png",
+      "generator": "image_gen",
+      "grid": [
+        384,
+        22
+      ],
+      "output_px": 8,
+      "dimensions": [
+        3072,
+        176
+      ],
+      "frame_count": 8,
+      "frame_grid": [
+        48,
+        22
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 288,
+          "pixel_1x_rect": [
+            0,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            0,
+            0,
+            384,
+            176
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 312,
+          "pixel_1x_rect": [
+            48,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            384,
+            0,
+            384,
+            176
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 244,
+          "pixel_1x_rect": [
+            96,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            768,
+            0,
+            384,
+            176
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 244,
+          "pixel_1x_rect": [
+            144,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            1152,
+            0,
+            384,
+            176
+          ]
+        },
+        {
+          "index": 5,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 236,
+          "pixel_1x_rect": [
+            192,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            1536,
+            0,
+            384,
+            176
+          ]
+        },
+        {
+          "index": 6,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 216,
+          "pixel_1x_rect": [
+            240,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            1920,
+            0,
+            384,
+            176
+          ]
+        },
+        {
+          "index": 7,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 316,
+          "pixel_1x_rect": [
+            288,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            2304,
+            0,
+            384,
+            176
+          ]
+        },
+        {
+          "index": 8,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "tb_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 252,
+          "pixel_1x_rect": [
+            336,
+            0,
+            48,
+            22
+          ],
+          "output_rect": [
+            2688,
+            0,
+            384,
+            176
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr",
+        "tb"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_w_field.png",
+        "binding": "view_effects `league_jayce_w_field`（BIG，跟随，画在人物下面；左右对称、上下对称；8 帧摊满 4 秒）",
+        "size": "44 × 18",
+        "sheet": "big"
+      },
+      "raw_sha256": "ddd04cab3270d41580496412403d1e0c6e5225eaf9ed18e64a27619d33b14fdc",
+      "file_sha256": "410c98bfcb33f2e9c0617244a3d92b87ab7f93c416c61ce339b68becaf507fa0",
+      "pixel_1x_sha256": "14f1410766632bbe9fcfa9cd1226fb007b29fd2e6cbbcde52a41f9d1e6682542",
+      "raw_dimensions": [
+        2171,
+        724
+      ],
+      "readback_crop": [
+        0,
+        280.8888888888889,
+        2171,
+        436.11111111111114
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            280.8888888888889,
+            2171,
+            436.11111111111114
+          ],
+          "grid": [
+            384,
+            22
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2171,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 1314,
+      "dark_blue_outline_cells_removed": 44,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 500,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_cq_boom.png",
+      "pixel_1x": "pixel_1x/jayce_fx_cq_boom.png",
+      "raw": "raw/jayce_fx_cq_boom.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_cq_boom.png",
+      "generator": "image_gen",
+      "grid": [
+        170,
+        34
+      ],
+      "output_px": 8,
+      "dimensions": [
+        1360,
+        272
+      ],
+      "frame_count": 5,
+      "frame_grid": [
+        34,
+        34
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 62,
+          "pixel_1x_rect": [
+            0,
+            0,
+            34,
+            34
+          ],
+          "output_rect": [
+            0,
+            0,
+            272,
+            272
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 152,
+          "pixel_1x_rect": [
+            34,
+            0,
+            34,
+            34
+          ],
+          "output_rect": [
+            272,
+            0,
+            272,
+            272
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 354,
+          "pixel_1x_rect": [
+            68,
+            0,
+            34,
+            34
+          ],
+          "output_rect": [
+            544,
+            0,
+            272,
+            272
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 350,
+          "pixel_1x_rect": [
+            102,
+            0,
+            34,
+            34
+          ],
+          "output_rect": [
+            816,
+            0,
+            272,
+            272
+          ]
+        },
+        {
+          "index": 5,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 96,
+          "pixel_1x_rect": [
+            136,
+            0,
+            34,
+            34
+          ],
+          "output_rect": [
+            1088,
+            0,
+            272,
+            272
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_cq_boom.png",
+        "binding": "view_effects `league_jayce_cq_boom`（BIG，不跟随，留在爆点；左右对称）",
+        "size": "30",
+        "sheet": "big"
+      },
+      "raw_sha256": "4733c923f8ad86eb53a6ac3d8a0e9adab9d393eb6adaa21cd1e233dc8fbc75fe",
+      "file_sha256": "96a5718d8f6eddb9b3197f96c4b41d4bf1be53747fa47803b0bf37977cbee6cf",
+      "pixel_1x_sha256": "1aafd094d3c61499cae50285dda7bb43ab785e5eb7a8b8a3c9deda7ade9d781c",
+      "raw_dimensions": [
+        2170,
+        725
+      ],
+      "readback_crop": [
+        0,
+        92.93333333333334,
+        2170,
+        638.0666666666666
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            -94.76666666666665,
+            94.93333333333328,
+            436.76666666666665,
+            640.0666666666667
+          ],
+          "grid": [
+            34,
+            34
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            335,
+            725
+          ]
+        },
+        {
+          "crop": [
+            272.73333333333335,
+            95.43333333333328,
+            804.2666666666667,
+            640.5666666666667
+          ],
+          "grid": [
+            34,
+            34
+          ],
+          "offset": [
+            34,
+            0
+          ],
+          "clip": [
+            335,
+            0,
+            716,
+            725
+          ]
+        },
+        {
+          "crop": [
+            716.2333333333333,
+            94.43333333333328,
+            1247.7666666666667,
+            639.5666666666667
+          ],
+          "grid": [
+            34,
+            34
+          ],
+          "offset": [
+            68,
+            0
+          ],
+          "clip": [
+            716,
+            0,
+            1224,
+            725
+          ]
+        },
+        {
+          "crop": [
+            1213.7333333333333,
+            92.93333333333328,
+            1745.2666666666667,
+            638.0666666666667
+          ],
+          "grid": [
+            34,
+            34
+          ],
+          "offset": [
+            102,
+            0
+          ],
+          "clip": [
+            1224,
+            0,
+            1746,
+            725
+          ]
+        },
+        {
+          "crop": [
+            1698.7333333333333,
+            92.93333333333328,
+            2230.2666666666664,
+            638.0666666666667
+          ],
+          "grid": [
+            34,
+            34
+          ],
+          "offset": [
+            136,
+            0
+          ],
+          "clip": [
+            1746,
+            0,
+            2170,
+            725
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 168,
+      "dark_blue_outline_cells_removed": 10,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_gq_boom.png",
+      "pixel_1x": "pixel_1x/jayce_fx_gq_boom.png",
+      "raw": "raw/jayce_fx_gq_boom.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_gq_boom.png",
+      "generator": "image_gen",
+      "grid": [
+        276,
+        46
+      ],
+      "output_px": 8,
+      "dimensions": [
+        2208,
+        368
+      ],
+      "frame_count": 6,
+      "frame_grid": [
+        46,
+        46
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 88,
+          "pixel_1x_rect": [
+            0,
+            0,
+            46,
+            46
+          ],
+          "output_rect": [
+            0,
+            0,
+            368,
+            368
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 354,
+          "pixel_1x_rect": [
+            46,
+            0,
+            46,
+            46
+          ],
+          "output_rect": [
+            368,
+            0,
+            368,
+            368
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 512,
+          "pixel_1x_rect": [
+            92,
+            0,
+            46,
+            46
+          ],
+          "output_rect": [
+            736,
+            0,
+            368,
+            368
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 594,
+          "pixel_1x_rect": [
+            138,
+            0,
+            46,
+            46
+          ],
+          "output_rect": [
+            1104,
+            0,
+            368,
+            368
+          ]
+        },
+        {
+          "index": 5,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 308,
+          "pixel_1x_rect": [
+            184,
+            0,
+            46,
+            46
+          ],
+          "output_rect": [
+            1472,
+            0,
+            368,
+            368
+          ]
+        },
+        {
+          "index": 6,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 124,
+          "pixel_1x_rect": [
+            230,
+            0,
+            46,
+            46
+          ],
+          "output_rect": [
+            1840,
+            0,
+            368,
+            368
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_gq_boom.png",
+        "binding": "view_effects `league_jayce_gq_boom`（BIG，不跟随，留在爆点；左右对称）",
+        "size": "42",
+        "sheet": "big"
+      },
+      "raw_sha256": "88d02a898bcefd1a386771ed0040d624b7b23636f32d5cb351d39ea1a4f0fc22",
+      "file_sha256": "484707a4e2ed75cfff3e2068fd158d6d209da5b551efa5cab6d50ab93ce6bf93",
+      "pixel_1x_sha256": "9b854750618b00035638d4eddd483f4fb2be3a43ead9fa1a2b5f26d98723be44",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        115.85714285714283,
+        2172,
+        648.1428571428571
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            -102.45238095238096,
+            116.85714285714289,
+            402.45238095238096,
+            649.1428571428571
+          ],
+          "grid": [
+            46,
+            46
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            258,
+            724
+          ]
+        },
+        {
+          "crop": [
+            192.54761904761904,
+            116.85714285714289,
+            697.452380952381,
+            649.1428571428571
+          ],
+          "grid": [
+            46,
+            46
+          ],
+          "offset": [
+            46,
+            0
+          ],
+          "clip": [
+            258,
+            0,
+            606,
+            724
+          ]
+        },
+        {
+          "crop": [
+            548.047619047619,
+            116.85714285714289,
+            1052.952380952381,
+            649.1428571428571
+          ],
+          "grid": [
+            46,
+            46
+          ],
+          "offset": [
+            92,
+            0
+          ],
+          "clip": [
+            606,
+            0,
+            990,
+            724
+          ]
+        },
+        {
+          "crop": [
+            976.047619047619,
+            115.85714285714289,
+            1480.952380952381,
+            648.1428571428571
+          ],
+          "grid": [
+            46,
+            46
+          ],
+          "offset": [
+            138,
+            0
+          ],
+          "clip": [
+            990,
+            0,
+            1462,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1401.047619047619,
+            114.35714285714289,
+            1905.952380952381,
+            646.6428571428571
+          ],
+          "grid": [
+            46,
+            46
+          ],
+          "offset": [
+            184,
+            0
+          ],
+          "clip": [
+            1462,
+            0,
+            1850,
+            724
+          ]
+        },
+        {
+          "crop": [
+            1742.547619047619,
+            121.35714285714289,
+            2247.4523809523807,
+            653.6428571428571
+          ],
+          "grid": [
+            46,
+            46
+          ],
+          "offset": [
+            230,
+            0
+          ],
+          "clip": [
+            1850,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 467,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_gate.png",
+      "pixel_1x": "pixel_1x/jayce_fx_gate.png",
+      "raw": "raw/jayce_fx_gate.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_gate.png",
+      "generator": "image_gen",
+      "grid": [
+        228,
+        44
+      ],
+      "output_px": 8,
+      "dimensions": [
+        1824,
+        352
+      ],
+      "frame_count": 6,
+      "frame_grid": [
+        38,
+        44
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 210,
+          "pixel_1x_rect": [
+            0,
+            0,
+            38,
+            44
+          ],
+          "output_rect": [
+            0,
+            0,
+            304,
+            352
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 494,
+          "pixel_1x_rect": [
+            38,
+            0,
+            38,
+            44
+          ],
+          "output_rect": [
+            304,
+            0,
+            304,
+            352
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 728,
+          "pixel_1x_rect": [
+            76,
+            0,
+            38,
+            44
+          ],
+          "output_rect": [
+            608,
+            0,
+            304,
+            352
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 1142,
+          "pixel_1x_rect": [
+            114,
+            0,
+            38,
+            44
+          ],
+          "output_rect": [
+            912,
+            0,
+            304,
+            352
+          ]
+        },
+        {
+          "index": 5,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 1140,
+          "pixel_1x_rect": [
+            152,
+            0,
+            38,
+            44
+          ],
+          "output_rect": [
+            1216,
+            0,
+            304,
+            352
+          ]
+        },
+        {
+          "index": 6,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 808,
+          "pixel_1x_rect": [
+            190,
+            0,
+            38,
+            44
+          ],
+          "output_rect": [
+            1520,
+            0,
+            304,
+            352
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#CFF8FF",
+        "#5EE6F2",
+        "#2BB0C8",
+        "#1F6F96",
+        "#E8C46A",
+        "#A9782E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_gate.png",
+        "binding": "view_effects `league_jayce_gate`（BIG，不跟随，留在放门的地方；**严格左右对称**）",
+        "size": "34 × 40",
+        "sheet": "big"
+      },
+      "raw_sha256": "bf5d648bc86f9e633ebbc437d299b5e246083d2c2e30859961ec8dda851bfae8",
+      "file_sha256": "777bd2d7a77c62ccb972859111e4dbfce9a3bb5887f45cbf792694ca7b879629",
+      "pixel_1x_sha256": "0a98bc0d846241f72e7591cd4c59c3182658b6f73bd3c0719b99c5b56bff36d0",
+      "raw_dimensions": [
+        2171,
+        724
+      ],
+      "readback_crop": [
+        0,
+        64.30000000000001,
+        2171,
+        629.7
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            64.30000000000001,
+            2171,
+            629.7
+          ],
+          "grid": [
+            228,
+            44
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2171,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 478,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 200,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_q_slow.png",
+      "pixel_1x": "pixel_1x/jayce_fx_q_slow.png",
+      "raw": "raw/jayce_fx_q_slow.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_q_slow.png",
+      "generator": "image_gen",
+      "grid": [
+        72,
+        10
+      ],
+      "output_px": 8,
+      "dimensions": [
+        576,
+        80
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        18,
+        10
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 34,
+          "pixel_1x_rect": [
+            0,
+            0,
+            18,
+            10
+          ],
+          "output_rect": [
+            0,
+            0,
+            144,
+            80
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 40,
+          "pixel_1x_rect": [
+            18,
+            0,
+            18,
+            10
+          ],
+          "output_rect": [
+            144,
+            0,
+            144,
+            80
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 40,
+          "pixel_1x_rect": [
+            36,
+            0,
+            18,
+            10
+          ],
+          "output_rect": [
+            288,
+            0,
+            144,
+            80
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 46,
+          "pixel_1x_rect": [
+            54,
+            0,
+            18,
+            10
+          ],
+          "output_rect": [
+            432,
+            0,
+            144,
+            80
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_q_slow.png",
+        "binding": "view_buffs `league_jayce_q_slow`（跟随，画在人物下面；左右对称）",
+        "size": "16 × 8",
+        "sheet": "fx"
+      },
+      "raw_sha256": "9b8d7464031f2bdf74c12ae8042c8b2e6ea7ed50b153bd5859280fa657f767ea",
+      "file_sha256": "8830f78bcf050582e82ee57b07695138ca0e149975f1ce98ed187164d628c5b9",
+      "pixel_1x_sha256": "686a7f8a52e745145523fe75bee047457bec14c4ca26f741561cce991ff42537",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        305.875,
+        2172,
+        547.125
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            305.875,
+            2172,
+            547.125
+          ],
+          "grid": [
+            72,
+            10
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 27,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_hyper.png",
+      "pixel_1x": "pixel_1x/jayce_fx_hyper.png",
+      "raw": "raw/jayce_fx_hyper.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_hyper.png",
+      "generator": "image_gen",
+      "grid": [
+        112,
+        32
+      ],
+      "output_px": 8,
+      "dimensions": [
+        896,
+        256
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        28,
+        32
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 80,
+          "pixel_1x_rect": [
+            0,
+            0,
+            28,
+            32
+          ],
+          "output_rect": [
+            0,
+            0,
+            224,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 96,
+          "pixel_1x_rect": [
+            28,
+            0,
+            28,
+            32
+          ],
+          "output_rect": [
+            224,
+            0,
+            224,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 92,
+          "pixel_1x_rect": [
+            56,
+            0,
+            28,
+            32
+          ],
+          "output_rect": [
+            448,
+            0,
+            224,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "body_gap_empty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 90,
+          "pixel_1x_rect": [
+            84,
+            0,
+            28,
+            32
+          ],
+          "output_rect": [
+            672,
+            0,
+            224,
+            256
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_hyper.png",
+        "binding": "view_buffs `league_jayce_hyper`（跟随，画在人物上面；左右对称）",
+        "size": "26 × 30",
+        "sheet": "fx"
+      },
+      "raw_sha256": "ef3342bc2d8817b99ce48f783105c81e2104294884b4c11ffe039e4cbe9b5452",
+      "file_sha256": "cecec38bbaed7bdac861634a0b02edd9c79f8d0bf87a1f9f1b35f19a9cc012bb",
+      "pixel_1x_sha256": "da8abd3779486021f54df03a54a1c1dd4d59daf47e1a5cba6eeae2b516ad2ca2",
+      "raw_dimensions": [
+        2171,
+        724
+      ],
+      "readback_crop": [
+        0,
+        60.5,
+        2171,
+        652.5
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            60.5,
+            2171,
+            652.5
+          ],
+          "grid": [
+            112,
+            32
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2171,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": [
+        9,
+        6,
+        10,
+        24
+      ],
+      "body_gap_opaque_cells_removed": 1,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 88,
+      "dark_blue_outline_cells_removed": 2,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_shred.png",
+      "pixel_1x": "pixel_1x/jayce_fx_shred.png",
+      "raw": "raw/jayce_fx_shred.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_shred.png",
+      "generator": "image_gen",
+      "grid": [
+        56,
+        14
+      ],
+      "output_px": 8,
+      "dimensions": [
+        448,
+        112
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        14,
+        14
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "shape_lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 60,
+          "pixel_1x_rect": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            0,
+            0,
+            112,
+            112
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "shape_lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 66,
+          "pixel_1x_rect": [
+            14,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            112,
+            0,
+            112,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "shape_lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 60,
+          "pixel_1x_rect": [
+            28,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            224,
+            0,
+            112,
+            112
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "shape_lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 56,
+          "pixel_1x_rect": [
+            42,
+            0,
+            14,
+            14
+          ],
+          "output_rect": [
+            336,
+            0,
+            112,
+            112
+          ]
+        }
+      ],
+      "symmetry": [
+        "shape_lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#9FE6FF",
+        "#3FA9F5",
+        "#FFD25A",
+        "#E08A2A",
+        "#7A4A9E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_shred.png",
+        "binding": "view_buffs `league_jayce_shred`（跟随，画在人物上面；左右对称）",
+        "size": "12 × 12",
+        "sheet": "fx"
+      },
+      "raw_sha256": "3121409732fed617d8f008ceed8a35e563c51e7f4f122947db160c7029f429c9",
+      "file_sha256": "01c805eaa7ad86cfc0b68f13d0b570efb5ee95f82b071f19b9cba49667f2efac",
+      "pixel_1x_sha256": "fe9282cac5ec581d289b3b4362a32f39a917b60d41575cae5779e7119486906a",
+      "raw_dimensions": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        89.91666666666669,
+        2172,
+        665.0833333333333
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            89.91666666666669,
+            2172,
+            665.0833333333333
+          ],
+          "grid": [
+            56,
+            14
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2172,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 6,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_haste.png",
+      "pixel_1x": "pixel_1x/jayce_fx_haste.png",
+      "raw": "raw/jayce_fx_haste.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_haste.png",
+      "generator": "image_gen",
+      "grid": [
+        88,
+        10
+      ],
+      "output_px": 8,
+      "dimensions": [
+        704,
+        80
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        22,
+        10
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 68,
+          "pixel_1x_rect": [
+            0,
+            0,
+            22,
+            10
+          ],
+          "output_rect": [
+            0,
+            0,
+            176,
+            80
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 62,
+          "pixel_1x_rect": [
+            22,
+            0,
+            22,
+            10
+          ],
+          "output_rect": [
+            176,
+            0,
+            176,
+            80
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 58,
+          "pixel_1x_rect": [
+            44,
+            0,
+            22,
+            10
+          ],
+          "output_rect": [
+            352,
+            0,
+            176,
+            80
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 50,
+          "pixel_1x_rect": [
+            66,
+            0,
+            22,
+            10
+          ],
+          "output_rect": [
+            528,
+            0,
+            176,
+            80
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#D6F6FF",
+        "#8FE3FF",
+        "#48B9F0"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_haste.png",
+        "binding": "view_buffs `league_jayce_haste`、`league_jayce_g_haste`（跟随，画在人物下面；左右对称）",
+        "size": "20 × 8",
+        "sheet": "fx"
+      },
+      "raw_sha256": "80895ec798537fbd038551ce59534acaf27f11640bed69d6f4fe7a13ebdbeb27",
+      "file_sha256": "b912a981357d7187e06a9d1cc7618dd6bf7d25d633171f7d49338b339fa5ab69",
+      "pixel_1x_sha256": "ae6747f5e9aaf272a742c1a0d4c637d6657b6ed15f4c76c63f6787e20da1c02d",
+      "raw_dimensions": [
+        2079,
+        756
+      ],
+      "readback_crop": [
+        0,
+        261.125,
+        2079,
+        559.875
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            261.125,
+            2079,
+            559.875
+          ],
+          "grid": [
+            88,
+            10
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2079,
+            756
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 19,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_fx_guard.png",
+      "pixel_1x": "pixel_1x/jayce_fx_guard.png",
+      "raw": "raw/jayce_fx_guard.png",
+      "kind": "fx",
+      "prompt_id": "jayce_fx_guard.png",
+      "generator": "image_gen",
+      "grid": [
+        112,
+        34
+      ],
+      "output_px": 8,
+      "dimensions": [
+        896,
+        272
+      ],
+      "frame_count": 4,
+      "frame_grid": [
+        28,
+        34
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 164,
+          "pixel_1x_rect": [
+            0,
+            0,
+            28,
+            34
+          ],
+          "output_rect": [
+            0,
+            0,
+            224,
+            272
+          ]
+        },
+        {
+          "index": 2,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 158,
+          "pixel_1x_rect": [
+            28,
+            0,
+            28,
+            34
+          ],
+          "output_rect": [
+            224,
+            0,
+            224,
+            272
+          ]
+        },
+        {
+          "index": 3,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 160,
+          "pixel_1x_rect": [
+            56,
+            0,
+            28,
+            34
+          ],
+          "output_rect": [
+            448,
+            0,
+            224,
+            272
+          ]
+        },
+        {
+          "index": 4,
+          "checks": {
+            "nonempty": true,
+            "lr_exact": true,
+            "bright_core": true
+          },
+          "occupied_cells": 160,
+          "pixel_1x_rect": [
+            84,
+            0,
+            28,
+            34
+          ],
+          "output_rect": [
+            672,
+            0,
+            224,
+            272
+          ]
+        }
+      ],
+      "symmetry": [
+        "lr"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_fx_guard.png",
+        "binding": "view_buffs `league_jayce_guard`（跟随，画在人物上面；左右对称）",
+        "size": "26 × 32",
+        "sheet": "fx"
+      },
+      "raw_sha256": "c1acb4077c6f0d9aaf55a4383d80fb8ffbab2c451b3cf5a112850b6e11a6d032",
+      "file_sha256": "587e78bbb91b36ae7237503dd7b46b19d4d8356b81df96c235b2cc48f23a35f0",
+      "pixel_1x_sha256": "a2391903ae0f8160e459d9d2a92f48a4f808abdd2eee89e16d2452050107c725",
+      "raw_dimensions": [
+        2171,
+        724
+      ],
+      "readback_crop": [
+        0,
+        59.65625,
+        2171,
+        615.34375
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            0,
+            59.65625,
+            2171,
+            615.34375
+          ],
+          "grid": [
+            112,
+            34
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            2171,
+            724
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": null,
+      "symmetry_corrected_cells": 64,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true
+      },
+      "preview_frame_duration_ms": 100,
+      "duration_status": "specified4s field /1.2s gate; other durations preview only"
+    },
+    {
+      "file": "jayce_bake_a_swipe_4.png",
+      "pixel_1x": "pixel_1x/jayce_bake_a_swipe_4.png",
+      "raw": "raw/jayce_bake_a_swipe_4.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_a_swipe_4.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 687,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_a_swipe_4.png",
+        "into": "hd_attack 4",
+        "layer": "over"
+      },
+      "raw_sha256": "8f01c301820d12a5c6924ba66ac6d7aa6b98548bd8cc4878b41de564f089284f",
+      "file_sha256": "efc5c868072ca99984bc1910053a3c142dee5554476c24391d82e439b3c5f89c",
+      "pixel_1x_sha256": "03bab7122b8b5e5eacd1562cdcc172de757807485786310c226ddde12d8d583f",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        283,
+        102,
+        1492,
+        871
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            283,
+            102,
+            1492,
+            871
+          ],
+          "grid": [
+            52,
+            52
+          ],
+          "offset": [
+            144,
+            28
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        144,
+        28,
+        196,
+        80
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          65,
+          49,
+          126,
+          72
+        ],
+        "into": "hd_attack 4",
+        "ppu": 1.5,
+        "cyan": [
+          189,
+          67
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        123,
+        49,
+        142,
+        70
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_q_slam_5.png",
+      "pixel_1x": "pixel_1x/jayce_bake_q_slam_5.png",
+      "raw": "raw/jayce_bake_q_slam_5.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_q_slam_5.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 552,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_q_slam_5.png",
+        "into": "hd_skill 5",
+        "layer": "over"
+      },
+      "raw_sha256": "d19bae1d7fb15a854506a18f228cd06175a2e1fb15cc32d6ce33afd33ee3c2db",
+      "file_sha256": "c1b39a4210492010007e86566ca13a9b74f6dbd42742e414077b5ef82d9cabc3",
+      "pixel_1x_sha256": "d7d6acce8a102f0950b8ef36726cc5f8fa2afb1702737b3d31a09536cf3ababa",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        574,
+        57,
+        1495,
+        982
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            574,
+            57,
+            1495,
+            982
+          ],
+          "grid": [
+            43,
+            38
+          ],
+          "offset": [
+            167,
+            61
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        167,
+        61,
+        210,
+        99
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 49,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          63,
+          54,
+          130,
+          62
+        ],
+        "into": "hd_skill 5",
+        "ppu": 1.5,
+        "cyan": [
+          191,
+          88
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        137,
+        55,
+        153,
+        69
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_e_arc_4.png",
+      "pixel_1x": "pixel_1x/jayce_bake_e_arc_4.png",
+      "raw": "raw/jayce_bake_e_arc_4.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_e_arc_4.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 721,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_e_arc_4.png",
+        "into": "hd_skill2 4",
+        "layer": "over"
+      },
+      "raw_sha256": "8b1503911946c63eab58b229fbc46a107241af8476fa3827a694b95536bd57e1",
+      "file_sha256": "2aeb2e10855cc30bf73464dd18b13e7a9988b8af0effac337d7d9e00db916cca",
+      "pixel_1x_sha256": "d55e5b4810f02b0dadd10925f2956d618e528df5db2d07df6f747294c13e492a",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        291,
+        41,
+        1472,
+        994
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            291,
+            41,
+            1472,
+            994
+          ],
+          "grid": [
+            45,
+            62
+          ],
+          "offset": [
+            152,
+            8
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        152,
+        8,
+        197,
+        70
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          60,
+          11,
+          136,
+          148
+        ],
+        "into": "hd_skill2 4",
+        "ppu": 1.5,
+        "cyan": [
+          188,
+          20
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        121,
+        47,
+        134,
+        61
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_w_crown_3.png",
+      "pixel_1x": "pixel_1x/jayce_bake_w_crown_3.png",
+      "raw": "raw/jayce_bake_w_crown_3.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_w_crown_3.png",
+      "generator": "image_gen",
+      "grid": [
+        170,
+        256
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1020,
+        1536
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        170,
+        256
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 371,
+          "pixel_1x_rect": [
+            0,
+            0,
+            170,
+            256
+          ],
+          "output_rect": [
+            0,
+            0,
+            1020,
+            1536
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_w_crown_3.png",
+        "into": "hd_w_cast 3",
+        "layer": "over"
+      },
+      "raw_sha256": "dbee47aa4d7c14caff08c9612e1fccd77f3fa6a2ccb8fab4643e662a0563f4d5",
+      "file_sha256": "9ec959a0d3cf47c60cef4b3714f403c81f593da7be359b0bd747239b35fa5217",
+      "pixel_1x_sha256": "b69412e4b8c1083dbf2df7f6327b8b844e9e0e953b2522ae30040d374306ff9b",
+      "raw_dimensions": [
+        1024,
+        1536
+      ],
+      "readback_crop": [
+        127,
+        0,
+        945,
+        773
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            127,
+            0,
+            945,
+            773
+          ],
+          "grid": [
+            36,
+            38
+          ],
+          "offset": [
+            59,
+            10
+          ],
+          "clip": [
+            0,
+            0,
+            1024,
+            1536
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        59,
+        10,
+        95,
+        48
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 44,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          170,
+          256
+        ],
+        "px": 6,
+        "frame": [
+          57,
+          38,
+          56,
+          180
+        ],
+        "into": "hd_w_cast 3",
+        "ppu": 1.5,
+        "cyan": [
+          77,
+          39
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        84,
+        91,
+        101,
+        111
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_c_flash_2.png",
+      "pixel_1x": "pixel_1x/jayce_bake_c_flash_2.png",
+      "raw": "raw/jayce_bake_c_flash_2.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_c_flash_2.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 251,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_c_flash_2.png",
+        "into": "hd_c_attack 2",
+        "layer": "over"
+      },
+      "raw_sha256": "ec8bda19c9745e2c3779eaa9318632cc7931dccba62c4fb87400992f839b1651",
+      "file_sha256": "2366b5e6c2a62847b383695ea2d4520b68f2bdac21d0fae136c0fc5e994ba96d",
+      "pixel_1x_sha256": "6d68606141518e72f9c83616821c663c9f4b091ff56681718ee3e6a7f05bb2b6",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        818,
+        305,
+        1474,
+        671
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            818,
+            305,
+            1474,
+            671
+          ],
+          "grid": [
+            31,
+            24
+          ],
+          "offset": [
+            168,
+            59
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        168,
+        59,
+        199,
+        83
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 34,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          80,
+          47,
+          96,
+          76
+        ],
+        "into": "hd_c_attack 2",
+        "ppu": 1.5,
+        "cyan": [
+          174,
+          71
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        117,
+        49,
+        129,
+        63
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_cq_charge_3.png",
+      "pixel_1x": "pixel_1x/jayce_bake_cq_charge_3.png",
+      "raw": "raw/jayce_bake_cq_charge_3.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_cq_charge_3.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 221,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_cq_charge_3.png",
+        "into": "hd_c_skill 3",
+        "layer": "over"
+      },
+      "raw_sha256": "21a13eb8ab4ac89fdf4944d87ea74a10e083c2566b489b97321f9fac6d468251",
+      "file_sha256": "6f2e28ad5e51a6d857438bfc5fe2b39692fc50d63b017919f15182d01ae1de98",
+      "pixel_1x_sha256": "65c37c19ff82a6d6c53a96fb22991e9b72c63656dae846434b7949f8000b091f",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        736,
+        28,
+        1437,
+        665
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            736,
+            28,
+            1437,
+            665
+          ],
+          "grid": [
+            25,
+            22
+          ],
+          "offset": [
+            130,
+            1
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        130,
+        1,
+        155,
+        23
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          97,
+          18,
+          62,
+          134
+        ],
+        "into": "hd_c_skill 3",
+        "ppu": 1.5,
+        "cyan": [
+          146,
+          19
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        120,
+        48,
+        133,
+        62
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_cq_fire_4.png",
+      "pixel_1x": "pixel_1x/jayce_bake_cq_fire_4.png",
+      "raw": "raw/jayce_bake_cq_fire_4.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_cq_fire_4.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 411,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_cq_fire_4.png",
+        "into": "hd_c_skill 4",
+        "layer": "over"
+      },
+      "raw_sha256": "34a4c5b0831b5bfad6e7f05754a9c088500b4126de0620bdb7ad866e39fe6b55",
+      "file_sha256": "365c45a87753017673a0c11ef3481daab44c152c68e127734ae8de85d6f0100f",
+      "pixel_1x_sha256": "0d76af8c6a10e34b11bbd8f2bbd6048371f960d86ce9bccd55e3f478c51d085d",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        412,
+        227,
+        1503,
+        742
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            412,
+            227,
+            1503,
+            742
+          ],
+          "grid": [
+            33,
+            28
+          ],
+          "offset": [
+            169,
+            58
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        169,
+        58,
+        202,
+        86
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 2,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          76,
+          48,
+          104,
+          74
+        ],
+        "into": "hd_c_skill 4",
+        "ppu": 1.5,
+        "cyan": [
+          178,
+          72
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        116,
+        51,
+        129,
+        64
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_hyper_glow_3.png",
+      "pixel_1x": "pixel_1x/jayce_bake_hyper_glow_3.png",
+      "raw": "raw/jayce_bake_hyper_glow_3.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_hyper_glow_3.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 430,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_hyper_glow_3.png",
+        "into": "hd_c_skill2 3",
+        "layer": "over"
+      },
+      "raw_sha256": "8c3790f05771e44d2f291297a95af415380ccba0d95268e9977738921d7cba1e",
+      "file_sha256": "60ed6103355d1319855f3ce7864a0692dde28e85aeda9945cd62cef9c759f6eb",
+      "pixel_1x_sha256": "aac7be4f01220954d4d699f8c77d56e23e4a8d5f1724f9084b0728279c53b3ed",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        98,
+        130,
+        1484,
+        763
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            98,
+            130,
+            1484,
+            763
+          ],
+          "grid": [
+            37,
+            29
+          ],
+          "offset": [
+            142,
+            29
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        142,
+        29,
+        179,
+        58
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          83,
+          35,
+          90,
+          100
+        ],
+        "into": "hd_c_skill2 3",
+        "ppu": 1.5,
+        "cyan": [
+          168,
+          40
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        123,
+        49,
+        135,
+        63
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_g_charge_4.png",
+      "pixel_1x": "pixel_1x/jayce_bake_g_charge_4.png",
+      "raw": "raw/jayce_bake_g_charge_4.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_g_charge_4.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 382,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_g_charge_4.png",
+        "into": "hd_ult 4",
+        "layer": "over"
+      },
+      "raw_sha256": "6f37312d8c5159b803dc4a0ffa5e23f589cc3b60bcbeb352aac74dff33c35b4d",
+      "file_sha256": "334d3db9598f3f4bdfd24d08728e356a277cea268d00fdd2a7d24678bc543790",
+      "pixel_1x_sha256": "305795d7c7f3f34a2809307e220700bf373cfa0064a8be3ef7cb5fe4f017ff2e",
+      "raw_dimensions": [
+        1538,
+        1022
+      ],
+      "readback_crop": [
+        720,
+        13,
+        1441,
+        630
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            720,
+            13,
+            1441,
+            630
+          ],
+          "grid": [
+            35,
+            24
+          ],
+          "offset": [
+            134,
+            0
+          ],
+          "clip": [
+            0,
+            0,
+            1538,
+            1022
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        134,
+        0,
+        169,
+        24
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 5,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          96,
+          15,
+          64,
+          140
+        ],
+        "into": "hd_ult 4",
+        "ppu": 1.5,
+        "cyan": [
+          151,
+          16
+        ]
+      },
+      "anchor_distance_cells": 1.0,
+      "face_exclusion_cells": [
+        121,
+        54,
+        134,
+        71
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    },
+    {
+      "file": "jayce_bake_g_fire_5.png",
+      "pixel_1x": "pixel_1x/jayce_bake_g_fire_5.png",
+      "raw": "raw/jayce_bake_g_fire_5.png",
+      "kind": "bake",
+      "prompt_id": "jayce_bake_g_fire_5.png",
+      "generator": "image_gen",
+      "grid": [
+        256,
+        170
+      ],
+      "output_px": 6,
+      "dimensions": [
+        1536,
+        1020
+      ],
+      "frame_count": 1,
+      "frame_grid": [
+        256,
+        170
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "checks": {
+            "nonempty": true,
+            "bright_core": true
+          },
+          "occupied_cells": 689,
+          "pixel_1x_rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "output_rect": [
+            0,
+            0,
+            1536,
+            1020
+          ]
+        }
+      ],
+      "symmetry": [],
+      "palette": [
+        "#FFFFFF",
+        "#E6FDFF",
+        "#9FEFFF",
+        "#4FD2FF",
+        "#2C8FE8",
+        "#2350B8",
+        "#FFF4C8",
+        "#FFD86A",
+        "#F5A93A",
+        "#C8741E"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": {
+        "file": "jayce_bake_g_fire_5.png",
+        "into": "hd_ult 5",
+        "layer": "over"
+      },
+      "raw_sha256": "3527b297215b401dc4b00d74584d297b9e1953d70c4c491799ddcb09ff7b5eda",
+      "file_sha256": "9353edf5f40c30a5e14bc3c4c282e4d8750187d92e0808949b3e4e0eb4f62c6b",
+      "pixel_1x_sha256": "d7a84f81952b1e1131c90a0482adf83c3eff8ced539b5fd064bffdd7aef78791",
+      "raw_dimensions": [
+        1536,
+        1024
+      ],
+      "readback_crop": [
+        174,
+        234,
+        1464,
+        770
+      ],
+      "readback_regions": [
+        {
+          "crop": [
+            174,
+            234,
+            1464,
+            770
+          ],
+          "grid": [
+            43,
+            35
+          ],
+          "offset": [
+            181,
+            50
+          ],
+          "clip": [
+            0,
+            0,
+            1536,
+            1024
+          ]
+        }
+      ],
+      "body_gap_cells": null,
+      "body_gap_opaque_cells_removed": 0,
+      "guide_placement_cells": [
+        181,
+        50,
+        224,
+        85
+      ],
+      "symmetry_corrected_cells": 0,
+      "dark_blue_outline_cells_removed": 0,
+      "checks": {
+        "dimensions": true,
+        "pixel_1x_dimensions": true,
+        "exact_grid_copy": true,
+        "hard_alpha": true,
+        "palette_only": true,
+        "raw_original_hash": true,
+        "nonempty": true,
+        "face_clear": true,
+        "main_has_3x3_body": true
+      },
+      "bake": {
+        "canvas": [
+          256,
+          170
+        ],
+        "px": 6,
+        "frame": [
+          61,
+          41,
+          134,
+          88
+        ],
+        "into": "hd_ult 5",
+        "ppu": 1.5,
+        "cyan": [
+          193,
+          67
+        ]
+      },
+      "anchor_distance_cells": 0.0,
+      "face_exclusion_cells": [
+        124,
+        45,
+        138,
+        61
+      ],
+      "minimum_all_strokes_3cells": "not exhaustively certified; main3x3 body checked"
+    }
+  ]
+}

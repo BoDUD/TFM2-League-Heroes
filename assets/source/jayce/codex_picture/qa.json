@@ -1,0 +1,74 @@
+[
+  {
+    "file": "jayce-cannon-B1.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "alpha_bbox_over_200": [
+      225,
+      148,
+      1375,
+      955
+    ]
+  },
+  {
+    "file": "jayce-cannon-B2.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "alpha_bbox_over_200": [
+      308,
+      104,
+      1400,
+      966
+    ]
+  },
+  {
+    "file": "jayce-hammer-A1.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "alpha_bbox_over_200": [
+      15,
+      25,
+      980,
+      1521
+    ]
+  },
+  {
+    "file": "jayce-hammer-A2.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "alpha_bbox_over_200": [
+      29,
+      237,
+      924,
+      1498
+    ]
+  }
+]

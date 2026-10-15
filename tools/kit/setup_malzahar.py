@@ -40,7 +40,10 @@ E = "<>"
 # face: his eyes under the hood (the crown rule finds the scarf's top; tfm2_ase.py face on the 1x sheet: the crown 27 px
 # over his boots, which hang 4.5 px over the ground), from the ground and x 1.15 (hd.rs SIZES) about it: (4, -39); centre:
 # his hips, floating (-16). lint_mod's crown check reads the 1x sheet at 100 % from his boots: a WARN there is expected.
-VIEW = {"face": {"x": 4, "y": -39}, "center": {"x": 0, "y": -16}}
+# banpick_center -8 (2026-10-15, user: 「蚂蚱在BP界面位置偏高」): without it the card stands him on his centre -16 and he
+# hovers (idle feet 8 px under the pivot, others 11-12), so the hood touched the card top; -8 puts his feet on the
+# canvas bottom like the others'
+VIEW = {"face": {"x": 4, "y": -39}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def mag(k):

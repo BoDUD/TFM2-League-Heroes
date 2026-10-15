@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_jayce": {
+    "remapping": "asset/league_jayce/override/league_jayce",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_jayce/text/champion",
+    "type": "merge"
+  }
+}
