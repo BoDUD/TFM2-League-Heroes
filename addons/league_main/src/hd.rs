@@ -30,6 +30,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Smolder: PPU 1.5 (the user's pick), drawn at 85 % in his design itself (「感觉太大 得缩小一点」), so no SIZES row
     ("league_smolder", 1.5, include_str!("../../../league/champions/league_smolder#anim.fanim")),
     ("league_milio", 2.2, include_str!("../../../league/champions/league_milio#anim.fanim")),
+    ("league_jayce", 1.5, include_str!("../../../league/champions/league_jayce#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
