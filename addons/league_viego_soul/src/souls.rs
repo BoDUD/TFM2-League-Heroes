@@ -94,6 +94,7 @@ pub const SOULS: &[(&str, &str, &[&str])] = &[
     ("league_malphite", "melee", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult", "ult_slam"]),
     ("league_malzahar", "mage", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_ult", "hd_ult_loop", "hit", "idle", "lo_attack", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_ult", "lo_ult_loop", "run", "skill", "skill2", "ult", "ult_loop"]),
     ("league_masteryi", "assassin", &["attack", "attack2", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
+    ("league_milio", "util", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_ult", "hit", "idle", "lo_attack", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_ult", "run", "skill", "skill2", "ult"]),
     ("league_missfortune", "range", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),
     ("league_mordekaiser", "melee", &["attack", "dead", "hd_attack", "hd_dead", "hd_hit", "hd_idle", "hd_run", "hd_skill", "hd_skill2", "hd_skill2_w", "hd_ult", "hit", "idle", "lo_attack", "lo_dead", "lo_hit", "lo_idle", "lo_run", "lo_skill", "lo_skill2", "lo_skill2_w", "lo_ult", "run", "skill", "skill2", "skill2_w", "ult"]),
     ("league_morgana", "util", &["attack", "dead", "hit", "idle", "run", "skill", "skill2", "ult"]),

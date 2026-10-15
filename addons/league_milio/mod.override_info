@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_milio": {
+    "remapping": "asset/league_milio/override/league_milio",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_milio/text/champion",
+    "type": "merge"
+  }
+}
