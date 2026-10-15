@@ -179,18 +179,22 @@ def shelf_pack(sizes, width):
 def idle_pads(anim):
     """{tag: clear pixels round each of its frames}: IDLE_PAD round the idle, and round a dense hero's hd_idle (the cards
     draw it with league.dll, past its rect just as far in game pixels) IDLE_PAD x its density - hd_idle's frame width
-    over the idle's (league_corki's card showed the bottom of the frame packed above his hd_idle: 「上面特效进来了」)."""
+    over the idle's (league_corki's card showed the bottom of the frame packed above his hd_idle: 「上面特效进来了」) - and
+    round its lo_idle the same (the ban/pick card draws the lo_ frames: league_smolder's showed the feet of the lo_run
+    frame packed 1 px above his lo_idle, 「BP界面你把头顶特效塞进去了？」)."""
     anims = anim.get("anims", {})
     pads = {"idle": IDLE_PAD}
-    one, hd = anims.get("idle", {}).get("frames", []), anims.get("hd_idle", {}).get("frames", [])
-    if one and hd:
-        k = float(hd[0]["data"]["w"]) / max(1.0, float(one[0]["data"]["w"]))
-        pads["hd_idle"] = int(math.ceil(IDLE_PAD * max(1.0, k)))
+    one = anims.get("idle", {}).get("frames", [])
+    for tag in ("hd_idle", "lo_idle"):
+        dense = anims.get(tag, {}).get("frames", [])
+        if one and dense:
+            k = float(dense[0]["data"]["w"]) / max(1.0, float(one[0]["data"]["w"]))
+            pads[tag] = int(math.ceil(IDLE_PAD * max(1.0, k)))
     return pads
 
 
 def idle_clear(px, anim):
-    """No opaque pixel within its pad of an idle (or hd_idle) frame's rect, outside it (a sheet kept as it is must be)."""
+    """No opaque pixel within its pad of an idle (or hd_idle / lo_idle) frame's rect, outside it (a sheet kept as it is must be)."""
     op = px[..., 3] > 0
     for tag, pad in idle_pads(anim).items():
         for fr in anim.get("anims", {}).get(tag, {}).get("frames", []):
