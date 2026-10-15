@@ -51,7 +51,8 @@ PIV, SOLE = 90, 118               # the standing column and the soles' row
 PIVOT = (PIV + 0.5, SOLE + 1)     # the native pivot: the standing column's middle on the ground line
 INFO = json.load(open(os.path.join(HD, "design.json"), encoding="utf-8"))
 NATIVE = INFO["rows"] / INFO["game_rows"]     # design squares a game pixel (68 / 38)
-PPU = 1.5                         # the user's pick
+PPU = 1.7895                      # the user's pick: the design's own density (68 / 38), the frames as Codex drew them -
+                                  # 1.5 first, then 「脸部用PPU调清晰点吧」: the downscale had lost the green eyes and the scar
 K = PPU / NATIVE
 FEET = 11                         # 1x rows from the pivot down to the ground row (the pack's 128-canvas heroes)
 
@@ -204,6 +205,8 @@ LIGHT_SHARE = 0.34                # a PPU square at least this much light in the
 
 
 def down2(a, pivot=PIVOT):
+    if abs(K - 1.0) < 1e-3:                   # PPU = the design's density: no resampling, the frame as drawn
+        return a.copy(), (float(pivot[0]), float(pivot[1]))
     out, (nx0, ny0) = PD.pixelate(a, K, pivot, OUTLINE, PALF)
     H, W = a.shape[:2]
     c = 1.0 / K
@@ -648,7 +651,7 @@ def pinholes():
         for a, _ in sheet[tag]:
             n1 += fill_holes(a, 2, shade=False)
     print(f"katarina: {total} squares of the restyled frames and {n1} 1x pixels filled")
-    print(f"katarina: {bake(hds, sheet)} pictures laid into his frames")
+    print(f"katarina: {bake(hds, sheet)} pictures laid into her frames")
     for tag in ORDER:
         Image.fromarray(strip_of(hds[tag])).save(os.path.join(src, f"katarina_{tag}.png"))
         with open(os.path.join(src, f"katarina_{tag}.json"), "w", encoding="utf-8", newline="\n") as f:
@@ -678,11 +681,19 @@ def bake(hds, sheet):
         name, k = key.rsplit("_", 1)
         k = int(k)
         tag = c["into"].split()[0][len("hd_"):]
-        if abs(c.get("ppu", PPU) - PPU) > 1e-6:
-            sys.exit(f"{key}: drawn at PPU {c.get('ppu')}, the frames are at {PPU}: redo the effects pack")
         ov = rgba(path)
         x0, y0, W, H = c["frame"]
         f = hds[tag][k - 1]
+        drawn_at = c.get("ppu", PPU)
+        if abs(drawn_at - PPU) > 1e-6:
+            # the pack's guides were her frames at PPU 1.5 (sent before the switch to 1.7895): the picture scaled by
+            # PPU / drawn_at about the old frame's centre (nearest), onto the new frame's box round the same centre
+            s = PPU / drawn_at
+            cx, cy = x0 + W / 2.0, y0 + H / 2.0
+            im = Image.fromarray(ov)
+            ov = np.asarray(im.resize((round(im.width * s), round(im.height * s)), Image.NEAREST)).copy()
+            W, H = f.shape[1], f.shape[0]
+            x0, y0 = int(round(cx * s - W / 2.0)), int(round(cy * s - H / 2.0))
         if (f.shape[1], f.shape[0]) != (W, H):
             sys.exit(f"{key}: {tag} frame {k} is {f.shape[1]}x{f.shape[0]}, its guide's {W}x{H}: the frames changed "
                      "since the effects pack (tools/art/pack_katarina_fx.py)")
