@@ -1,0 +1,318 @@
+{
+  "status": "passed",
+  "effects": 18,
+  "frames": 86,
+  "checks": [
+    {
+      "file": "reksai_fx_a_hit.png",
+      "frames": 4,
+      "size_1x": [
+        48,
+        12
+      ],
+      "size_8x": [
+        384,
+        96
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_q_hit.png",
+      "frames": 4,
+      "size_1x": [
+        72,
+        18
+      ],
+      "size_8x": [
+        576,
+        144
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_e_hit.png",
+      "frames": 5,
+      "size_1x": [
+        100,
+        20
+      ],
+      "size_8x": [
+        800,
+        160
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_q2_cast.png",
+      "frames": 4,
+      "size_1x": [
+        152,
+        18
+      ],
+      "size_8x": [
+        1216,
+        144
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_q2_shot.png",
+      "frames": 4,
+      "size_1x": [
+        72,
+        10
+      ],
+      "size_8x": [
+        576,
+        80
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_q2_hit.png",
+      "frames": 5,
+      "size_1x": [
+        90,
+        18
+      ],
+      "size_8x": [
+        720,
+        144
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_w_dig.png",
+      "frames": 5,
+      "size_1x": [
+        260,
+        24
+      ],
+      "size_8x": [
+        2080,
+        192
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_w_burst.png",
+      "frames": 6,
+      "size_1x": [
+        276,
+        38
+      ],
+      "size_8x": [
+        2208,
+        304
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_w_up.png",
+      "frames": 5,
+      "size_1x": [
+        100,
+        26
+      ],
+      "size_8x": [
+        800,
+        208
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_w_heal.png",
+      "frames": 6,
+      "size_1x": [
+        312,
+        44
+      ],
+      "size_8x": [
+        2496,
+        352
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_r_dive.png",
+      "frames": 6,
+      "size_1x": [
+        252,
+        20
+      ],
+      "size_8x": [
+        2016,
+        160
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_r_burst.png",
+      "frames": 5,
+      "size_1x": [
+        190,
+        34
+      ],
+      "size_8x": [
+        1520,
+        272
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_r_hit.png",
+      "frames": 6,
+      "size_1x": [
+        192,
+        32
+      ],
+      "size_8x": [
+        1536,
+        256
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_p_full.png",
+      "frames": 4,
+      "size_1x": [
+        72,
+        12
+      ],
+      "size_8x": [
+        576,
+        96
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_q_buff.png",
+      "frames": 4,
+      "size_1x": [
+        192,
+        12
+      ],
+      "size_8x": [
+        1536,
+        96
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_r_mark.png",
+      "frames": 4,
+      "size_1x": [
+        48,
+        12
+      ],
+      "size_8x": [
+        384,
+        96
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_e_tunnel.png",
+      "frames": 4,
+      "size_1x": [
+        104,
+        12
+      ],
+      "size_8x": [
+        832,
+        96
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    },
+    {
+      "file": "reksai_fx_e_break.png",
+      "frames": 5,
+      "size_1x": [
+        140,
+        18
+      ],
+      "size_8x": [
+        1120,
+        144
+      ],
+      "hard_alpha": true,
+      "symmetry": true,
+      "exact_nearest_neighbor_8x": true,
+      "palette": true,
+      "raw_hash": true
+    }
+  ],
+  "visual_notes": [
+    "Some fading, dirt-only, or dim loop phases have no white/pale core; see manifest.frame_checks.",
+    "No engine integration or in-game visual/timing test performed.",
+    "Extraction uses modal visible colors and a 25% visibility coverage threshold; it is not a strict RGBA-majority vote including transparency."
+  ]
+}
