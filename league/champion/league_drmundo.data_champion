@@ -1,0 +1,4318 @@
+{
+  "id": "league_drmundo",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "Heal"
+  ],
+  "sprite": "asset/league/champions/league_drmundo",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_drmundo_skill",
+    "asset/league/icons/league_drmundo_skill2",
+    "asset/league/icons/league_drmundo_ult"
+  ],
+  "stat": {
+    "attack": 96,
+    "magic_power": 0,
+    "hp": 1350,
+    "defence": 38,
+    "magic_resistance": 28,
+    "move_speed": 1000,
+    "hp_regen": 6,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 20,
+    "magic_power": 0,
+    "hp": 125,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 1,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_drmundo.attack",
+    "duration": 24,
+    "cooltime": 68,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_target": "Enemy",
+    "casting_type": "Targeting",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_life",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_drmundo_life",
+                      "duration": {
+                        "Time": {
+                          "tick": 36000
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 150,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 36000
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_drmundo_hs",
+                          "duration": "WithShield"
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 36000,
+                        "period": 3,
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyChampionInCC",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_p_cd",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_drmundo_p_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2400
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_drmundo_p_imm",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "cc_immune": true
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_drmundo_p_shake"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_drmundo_p_shake"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_drmundo_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_drmundo_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_drmundo_vo_p"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "ParabolicProjectile",
+                                      "name": "league_drmundo_p_drop",
+                                      "travel_time": 20,
+                                      "range": 30000,
+                                      "range_effect_name": "",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1
+                                        }
+                                      },
+                                      "applied_target": "AllyOnlySelf",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_drmundo_can"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_drmundo_can",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_drmundo_p_land"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_drmundo_p_land"
+                                        },
+                                        {
+                                          "type": "RangePeriodProjectile",
+                                          "name": "league_drmundo_p_tank",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9000
+                                            }
+                                          },
+                                          "tick": 600,
+                                          "period": 6,
+                                          "first_delay": 30,
+                                          "applied_target": "AllyOnlySelf",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_drmundo_can",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_can"
+                                                    },
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_p_cd"
+                                                    },
+                                                    {
+                                                      "type": "Heal",
+                                                      "amount": 60,
+                                                      "attack_ratio": 60,
+                                                      "ap_ratio": 0,
+                                                      "heal_type": "Caster"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_pick"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_drmundo_p_pick"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_drmundo_p_cd",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1440
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        },
+                                        {
+                                          "type": "RangePeriodProjectile",
+                                          "name": "league_drmundo_p_tank_e",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9000
+                                            }
+                                          },
+                                          "tick": 600,
+                                          "period": 6,
+                                          "first_delay": 30,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_drmundo_can",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_can"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_break"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_drmundo_p_break"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_hs",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "FixedAttack",
+                        "damage": 150,
+                        "attack_ratio": 0,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_h2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h3"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_drmundo_h1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_drmundo_h2"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_h2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_drmundo_h1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_h1",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_drmundo_h1"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_drmundo_h1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 150,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 36000
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_drmundo_hs",
+                          "duration": "WithShield"
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_r_armed",
+              "effect_buff": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_drmundo_r_lock",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_h3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_drmundo_r_e"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_r_e",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_drmundo_r_e",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_r_armed",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_drmundo_r_armed"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_drmundo_r_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 6
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 30
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_drmundo_r_cast"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_drmundo_r"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_drmundo_vo_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_drmundo_vo_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 600
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_drmundo_vo_r"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "Heal",
+                                    "amount": 200,
+                                    "attack_ratio": 100,
+                                    "ap_ratio": 0,
+                                    "heal_type": "Caster"
+                                  },
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_drmundo_r_on"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_drmundo_r_on",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          },
+                                          "hp": 200,
+                                          "hp_regen": 40,
+                                          "move_speed_mult": 25
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_drmundo_e_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_drmundo_a_swing"
+              },
+              {
+                "type": "Delayed",
+                "tick": 10,
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_drmundo_a_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_drmundo_a_hit"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_drmundo_e_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 420
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "attack_e",
+                "tick": 26
+              },
+              {
+                "type": "Sfx",
+                "name": "league_drmundo_e"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_drmundo_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_drmundo_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_drmundo_vo_e"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 9,
+                "effects": [
+                  {
+                    "type": "ParabolicProjectile",
+                    "name": "league_drmundo_e_corpse",
+                    "travel_time": 9,
+                    "range": 60000,
+                    "range_effect_name": "",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_drmundo_e_k",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_e_k"
+                            },
+                            {
+                              "type": "LinearProjectile",
+                              "name": "league_drmundo_e_fling",
+                              "penetrate": true,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Attack",
+                                    "damage": 40,
+                                    "attack_ratio": 60,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_drmundo_e_fling_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "league_drmundo_e_fling_hit"
+                                  }
+                                }
+                              ],
+                              "end_effects": [],
+                              "speed": 4000,
+                              "range": 70000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 5000
+                                }
+                              },
+                              "y_offset": 0
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_drmundo_e_fling"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_drmundo_e_k",
+                      "duration": {
+                        "Time": {
+                          "tick": 12
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Attack",
+                    "damage": 80,
+                    "attack_ratio": 160,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 1,
+                    "effects": [
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 3,
+                        "period": 1,
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_drmundo_e_k"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_drmundo_e_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_drmundo_e_hit"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_drmundo.skill",
+    "duration": 26,
+    "cooltime": 260,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_target": "EnemyWithoutTower",
+    "casting_type": "Targeting",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_life",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_drmundo_life",
+                      "duration": {
+                        "Time": {
+                          "tick": 36000
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 150,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 36000
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_drmundo_hs",
+                          "duration": "WithShield"
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 36000,
+                        "period": 3,
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyChampionInCC",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_p_cd",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_drmundo_p_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2400
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_drmundo_p_imm",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "cc_immune": true
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_drmundo_p_shake"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_drmundo_p_shake"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_drmundo_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_drmundo_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_drmundo_vo_p"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "ParabolicProjectile",
+                                      "name": "league_drmundo_p_drop",
+                                      "travel_time": 20,
+                                      "range": 30000,
+                                      "range_effect_name": "",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1
+                                        }
+                                      },
+                                      "applied_target": "AllyOnlySelf",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_drmundo_can"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_drmundo_can",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_drmundo_p_land"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_drmundo_p_land"
+                                        },
+                                        {
+                                          "type": "RangePeriodProjectile",
+                                          "name": "league_drmundo_p_tank",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9000
+                                            }
+                                          },
+                                          "tick": 600,
+                                          "period": 6,
+                                          "first_delay": 30,
+                                          "applied_target": "AllyOnlySelf",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_drmundo_can",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_can"
+                                                    },
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_p_cd"
+                                                    },
+                                                    {
+                                                      "type": "Heal",
+                                                      "amount": 60,
+                                                      "attack_ratio": 60,
+                                                      "ap_ratio": 0,
+                                                      "heal_type": "Caster"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_pick"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_drmundo_p_pick"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_drmundo_p_cd",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1440
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        },
+                                        {
+                                          "type": "RangePeriodProjectile",
+                                          "name": "league_drmundo_p_tank_e",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9000
+                                            }
+                                          },
+                                          "tick": 600,
+                                          "period": 6,
+                                          "first_delay": 30,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_drmundo_can",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_can"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_break"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_drmundo_p_break"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_hs",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "FixedAttack",
+                        "damage": 150,
+                        "attack_ratio": 0,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_h2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h3"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_drmundo_h1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_drmundo_h2"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_h2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_drmundo_h1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_h1",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_drmundo_h1"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_drmundo_h1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 150,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 36000
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_drmundo_hs",
+                          "duration": "WithShield"
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_r_armed",
+              "effect_buff": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_drmundo_r_lock",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_h3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_drmundo_r_e"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_r_e",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_drmundo_r_e",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_r_armed",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_drmundo_r_armed"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_drmundo_r_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 6
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 30
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_drmundo_r_cast"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_drmundo_r"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_drmundo_vo_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_drmundo_vo_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 600
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_drmundo_vo_r"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "Heal",
+                                    "amount": 200,
+                                    "attack_ratio": 100,
+                                    "ap_ratio": 0,
+                                    "heal_type": "Caster"
+                                  },
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_drmundo_r_on"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_drmundo_r_on",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          },
+                                          "hp": 200,
+                                          "hp_regen": 40,
+                                          "move_speed_mult": 25
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_drmundo_q"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_drmundo_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_drmundo_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_drmundo_vo_q"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 2,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "league_drmundo_q_aim",
+              "travel_time": 8,
+              "range": 80000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_drmundo_q_saw",
+                      "penetrate": false,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ApAttack",
+                            "damage": 140,
+                            "attack_ratio": 0,
+                            "hp_ratio": 0,
+                            "can_crit": false,
+                            "attack_effect_type": "Target"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_drmundo_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 120
+                                }
+                              },
+                              "move_speed_mult": -40
+                            }
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "target": "AllyOnlySelf",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "Heal",
+                                "amount": 20,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_drmundo_q_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_drmundo_q_hit"
+                          }
+                        }
+                      ],
+                      "end_effects": [],
+                      "speed": 6500,
+                      "range": 80000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 3200
+                        }
+                      },
+                      "y_offset": 0
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_drmundo_q_twin",
+                      "penetrate": false,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "FixedAttack",
+                                "damage": 0,
+                                "attack_ratio": 0,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 9
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "Heal",
+                                    "amount": 40,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 0,
+                                    "heal_type": "Caster"
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_drmundo_q_heal"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_drmundo_q_heal"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "end_effects": [],
+                      "speed": 6500,
+                      "range": 80000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 3200
+                        }
+                      },
+                      "y_offset": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_drmundo.skill2",
+    "duration": 14,
+    "cooltime": 900,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 22000,
+    "casting_target": "EnemyWithoutTower",
+    "casting_type": "Targeting",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_life",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_drmundo_life",
+                      "duration": {
+                        "Time": {
+                          "tick": 36000
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 150,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 36000
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_drmundo_hs",
+                          "duration": "WithShield"
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 36000,
+                        "period": 3,
+                        "effects": [
+                          {
+                            "type": "RandomTarget",
+                            "range": 1,
+                            "casting_target": "AllyChampionInCC",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_p_cd",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_drmundo_p_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2400
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_drmundo_p_imm",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 90
+                                          }
+                                        },
+                                        "cc_immune": true
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_drmundo_p_shake"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_drmundo_p_shake"
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_drmundo_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_drmundo_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_drmundo_vo_p"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "ParabolicProjectile",
+                                      "name": "league_drmundo_p_drop",
+                                      "travel_time": 20,
+                                      "range": 30000,
+                                      "range_effect_name": "",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1
+                                        }
+                                      },
+                                      "applied_target": "AllyOnlySelf",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_drmundo_can"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_drmundo_can",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_drmundo_p_land"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_drmundo_p_land"
+                                        },
+                                        {
+                                          "type": "RangePeriodProjectile",
+                                          "name": "league_drmundo_p_tank",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9000
+                                            }
+                                          },
+                                          "tick": 600,
+                                          "period": 6,
+                                          "first_delay": 30,
+                                          "applied_target": "AllyOnlySelf",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_drmundo_can",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_can"
+                                                    },
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_p_cd"
+                                                    },
+                                                    {
+                                                      "type": "Heal",
+                                                      "amount": 60,
+                                                      "attack_ratio": 60,
+                                                      "ap_ratio": 0,
+                                                      "heal_type": "Caster"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_pick"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_drmundo_p_pick"
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_drmundo_p_cd",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 1440
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        },
+                                        {
+                                          "type": "RangePeriodProjectile",
+                                          "name": "league_drmundo_p_tank_e",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 9000
+                                            }
+                                          },
+                                          "tick": 600,
+                                          "period": 6,
+                                          "first_delay": 30,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_drmundo_can",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_drmundo_can"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_break"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_drmundo_p_break"
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          "end_effects": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_hs",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "FixedAttack",
+                        "damage": 150,
+                        "attack_ratio": 0,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_h2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h3"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_drmundo_h1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_h1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_drmundo_h1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_drmundo_h2"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_h2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_drmundo_h1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_h1",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 300
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_drmundo_h1"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_drmundo_h1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Shield",
+                            "amount": 150,
+                            "attack_ratio": 0,
+                            "ap_ratio": 0,
+                            "tick": 36000
+                          }
+                        ]
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_drmundo_hs",
+                          "duration": "WithShield"
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_r_armed",
+              "effect_buff": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_drmundo_r_lock",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_h3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_drmundo_r_e"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_r_e",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_drmundo_r_e",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_r_armed",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_drmundo_r_armed"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_drmundo_r_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 6
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "ult",
+                                    "tick": 30
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_drmundo_r_cast"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_drmundo_r"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_drmundo_vo_cd",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_drmundo_vo_cd",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 600
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_drmundo_vo_r"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "Heal",
+                                    "amount": 200,
+                                    "attack_ratio": 100,
+                                    "ap_ratio": 0,
+                                    "heal_type": "Caster"
+                                  },
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_drmundo_r_on"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_drmundo_r_on",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          },
+                                          "hp": 200,
+                                          "hp_regen": 40,
+                                          "move_speed_mult": 25
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_drmundo_w_on"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_drmundo_w_on",
+                "duration": {
+                  "Time": {
+                    "tick": 242
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill2",
+          "tick": 14
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_drmundo_w_start"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_drmundo_w"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_drmundo_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_drmundo_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_drmundo_vo_w"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Shield",
+                  "amount": 1,
+                  "attack_ratio": 0,
+                  "ap_ratio": 0,
+                  "tick": 250
+                }
+              ]
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_drmundo_ws",
+                "duration": "WithShield"
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "AddCasted",
+              "casted_type": "Heal",
+              "duration": 239,
+              "period": 20,
+              "effects": [
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 22000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 18,
+                      "attack_ratio": 0,
+                      "hp_ratio": 0,
+                      "can_crit": false,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 6,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_drmundo_w_zap"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 30,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_ws",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 1,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "tick": 250
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_ws",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 212,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_full",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 30,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_w_half",
+                                "effect_buff": {
+                                  "type": "Heal",
+                                  "amount": 15,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 60,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_ws",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 1,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "tick": 250
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_ws",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 182,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_full",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 30,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_w_half",
+                                "effect_buff": {
+                                  "type": "Heal",
+                                  "amount": 15,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 90,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_ws",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 1,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "tick": 250
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_ws",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 152,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_full",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 30,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_w_half",
+                                "effect_buff": {
+                                  "type": "Heal",
+                                  "amount": 15,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 120,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_ws",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 1,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "tick": 250
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_ws",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 122,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_full",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 30,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_w_half",
+                                "effect_buff": {
+                                  "type": "Heal",
+                                  "amount": 15,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 150,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_ws",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 1,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "tick": 250
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_ws",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 92,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_full",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 30,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_w_half",
+                                "effect_buff": {
+                                  "type": "Heal",
+                                  "amount": 15,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 180,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_ws",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 1,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "tick": 250
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_ws",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 62,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_full",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 30,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_w_half",
+                                "effect_buff": {
+                                  "type": "Heal",
+                                  "amount": 15,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 210,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_drmundo_ws",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 1,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "tick": 250
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_ws",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 32,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_full",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 30,
+                                "attack_ratio": 0,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_w_half",
+                                "effect_buff": {
+                                  "type": "Heal",
+                                  "amount": 15,
+                                  "attack_ratio": 0,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 240,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_drmundo_w_on",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_drmundo_w_full"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_drmundo_w_half"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_drmundo_w_ch"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_drmundo_w_any"
+                      },
+                      {
+                        "type": "CasterAnimation",
+                        "name": "skill2_end",
+                        "tick": 12
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_drmundo_w_burst"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_drmundo_w_end"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 22000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 90,
+                            "attack_ratio": 0,
+                            "hp_ratio": 0,
+                            "can_crit": false,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Attack",
+                            "damage": 0,
+                            "attack_ratio": 30,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_drmundo_w_end_hit"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_drmundo_w_any",
+                              "duration": {
+                                "Time": {
+                                  "tick": 4
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 22000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_drmundo_w_ch",
+                              "duration": {
+                                "Time": {
+                                  "tick": 4
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_drmundo_w_ch",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_drmundo_w_full",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 4
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_drmundo_w_any",
+                              "effect_buff": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_w_half",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 4
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_drmundo.ult",
+    "duration": 3,
+    "cooltime": 4800,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_target": "EnemyChampion",
+    "casting_type": "Targeting",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_drmundo_life",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_drmundo_life",
+                  "duration": {
+                    "Time": {
+                      "tick": 36000
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Shield",
+                        "amount": 150,
+                        "attack_ratio": 0,
+                        "ap_ratio": 0,
+                        "tick": 36000
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_drmundo_hs",
+                      "duration": "WithShield"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 36000,
+                    "period": 3,
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 1,
+                        "casting_target": "AllyChampionInCC",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_drmundo_p_cd",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_drmundo_p_cd",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2400
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_drmundo_p_imm",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 90
+                                      }
+                                    },
+                                    "cc_immune": true
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_drmundo_p_shake"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_drmundo_p_shake"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_drmundo_vo_cd",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_drmundo_vo_cd",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 600
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "Sfx",
+                                        "name": "league_drmundo_vo_p"
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "ParabolicProjectile",
+                                  "name": "league_drmundo_p_drop",
+                                  "travel_time": 20,
+                                  "range": 30000,
+                                  "range_effect_name": "",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1
+                                    }
+                                  },
+                                  "applied_target": "AllyOnlySelf",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_drmundo_can"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_drmundo_can",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 600
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_drmundo_p_land"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_drmundo_p_land"
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_drmundo_p_tank",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 9000
+                                        }
+                                      },
+                                      "tick": 600,
+                                      "period": 6,
+                                      "first_delay": 30,
+                                      "applied_target": "AllyOnlySelf",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_drmundo_can",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_drmundo_can"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_drmundo_p_cd"
+                                                },
+                                                {
+                                                  "type": "Heal",
+                                                  "amount": 60,
+                                                  "attack_ratio": 60,
+                                                  "ap_ratio": 0,
+                                                  "heal_type": "Caster"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_drmundo_p_pick"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_drmundo_p_pick"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_drmundo_p_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 1440
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_drmundo_p_tank_e",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 9000
+                                        }
+                                      },
+                                      "tick": 600,
+                                      "period": 6,
+                                      "first_delay": 30,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_drmundo_can",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_drmundo_can"
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_drmundo_p_break"
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_drmundo_p_break"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_drmundo_r_armed"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_drmundo_r_armed",
+                "duration": {
+                  "Time": {
+                    "tick": 900
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_drmundo_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_drmundo_r_lock",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_h3",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_drmundo_r_e"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 40000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_drmundo_r_e",
+                              "duration": {
+                                "Time": {
+                                  "tick": 3
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 1,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_drmundo_r_e",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_drmundo_r_armed",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_drmundo_r_armed"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_drmundo_r_lock",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 6
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "ult",
+                                "tick": 30
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_drmundo_r_cast"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_drmundo_r"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_drmundo_vo_cd",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_drmundo_vo_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 600
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_drmundo_vo_r"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "Heal",
+                                "amount": 200,
+                                "attack_ratio": 100,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_drmundo_r_on"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_drmundo_r_on",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 600
+                                        }
+                                      },
+                                      "hp": 200,
+                                      "hp_regen": 40,
+                                      "move_speed_mult": 25
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 899,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_drmundo_r_armed",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_drmundo_r_armed"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_drmundo_r_retry",
+                      "duration": {
+                        "Time": {
+                          "tick": 3
+                        }
+                      },
+                      "ult_cooldown_mult": 7900
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_drmundo_q_saw",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "q_saw",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_drmundo_e_fling",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "e_fling",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_drmundo_p_tank",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "p_tank",
+      "repeat": true,
+      "z": 0
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_drmundo_a_hit",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_e_hit",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_e_fling_hit",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "e_fling_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_q_hit",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_q_heal",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "q_heal",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_w_start",
+      "anim": "asset/league/effects/league_drmundo_big",
+      "tag": "w_start",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_w_zap",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "w_zap",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_w_burst",
+      "anim": "asset/league/effects/league_drmundo_big",
+      "tag": "w_burst",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_w_end_hit",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "w_end_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_r_cast",
+      "anim": "asset/league/effects/league_drmundo_big",
+      "tag": "r_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_p_shake",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "p_shake",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_p_land",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "p_land",
+      "z": 0,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_p_pick",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "p_pick",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_p_break",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "p_break",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_drmundo_q_slow",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_drmundo_w_on",
+      "anim": "asset/league/effects/league_drmundo_big",
+      "tag": "w_on",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_drmundo_r_on",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "r_on",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
