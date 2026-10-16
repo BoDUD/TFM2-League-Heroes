@@ -8,7 +8,7 @@ Step 0 (assets/source/tahmkench/codex_picture, 2026-10-15, Codex new-chat-6): A 
 of 8 px hat to soles (its HANDOFF: "not on the 11-px grid", figure ~985 px). regrid.py reads each one pixel per drawn
 square at SIZE; the painted colours of both are cut to COLOURS together by k-means in Lab (design_varus.kmeans, the
 Nidalee / Elise way), alpha 0/255 (Codex's soft edge of alpha < 128 dropped). The game shows it at the PPU the user
-picks from tools/art/review_tahmkench_ppu.py.
+picks (1.8 -> 1.5 -> 1.2, compared side by side at game size).
 """
 import argparse
 import os
