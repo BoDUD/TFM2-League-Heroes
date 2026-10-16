@@ -687,131 +687,160 @@
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_kaisa_probe_guard",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 3
-                                          }
-                                        },
-                                        "damaged_reduce": 99
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_kaisa_probe_undying",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 2
-                                          }
-                                        },
-                                        "undying": true
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "Shield",
-                                      "amount": 10,
-                                      "attack_ratio": 0,
-                                      "ap_ratio": 0,
-                                      "tick": 3
-                                    },
-                                    {
-                                      "type": "Shield",
-                                      "amount": 1000000,
-                                      "attack_ratio": 0,
-                                      "ap_ratio": 0,
-                                      "tick": 1
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_kaisa_probe_q",
-                                        "duration": "WithShield"
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "FixedAttack",
-                                      "damage": 0,
-                                      "attack_ratio": 500,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 2,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_kaisa_probe_q",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_kaisa_evo_q",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_kaisa_evo_q",
-                                                "duration": "Permanent"
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kaisa_pr_go",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
                                       }
                                     }
-                                  ]
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_kaisa_pr_go",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_kaisa_probe_guard",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 3
+                                                }
+                                              },
+                                              "damaged_reduce": 99
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_kaisa_probe_undying",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 2
+                                                }
+                                              },
+                                              "undying": true
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Shield",
+                                            "amount": 10,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 0,
+                                            "tick": 3
+                                          },
+                                          {
+                                            "type": "Shield",
+                                            "amount": 1000000,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 0,
+                                            "tick": 1
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_kaisa_probe_q",
+                                              "duration": "WithShield"
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "FixedAttack",
+                                            "damage": 0,
+                                            "attack_ratio": 500,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 2,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_kaisa_probe_q",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_kaisa_evo_q",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_kaisa_evo_q",
+                                                      "duration": "Permanent"
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kaisa_pr_go"
                                 }
                               ]
                             }
@@ -853,6 +882,667 @@
                                     "effects": []
                                   },
                                   "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kaisa_pr_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_kaisa_pr_go",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kaisa_probe_guard",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 3
+                                                      }
+                                                    },
+                                                    "damaged_reduce": 99
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kaisa_probe_undying",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 2
+                                                      }
+                                                    },
+                                                    "undying": true
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Shield",
+                                                  "amount": 32,
+                                                  "attack_ratio": 0,
+                                                  "ap_ratio": 0,
+                                                  "tick": 3
+                                                },
+                                                {
+                                                  "type": "Shield",
+                                                  "amount": 1000000,
+                                                  "attack_ratio": 0,
+                                                  "ap_ratio": 0,
+                                                  "tick": 1
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kaisa_probe_e",
+                                                    "duration": "WithShield"
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "target": "AllyOnlySelf",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 0,
+                                                  "attack_ratio": 0,
+                                                  "hp_ratio": 200,
+                                                  "target_hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "Delayed",
+                                              "tick": 2,
+                                              "effects": [
+                                                {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_kaisa_probe_e",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_kaisa_evo_e",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_kaisa_evo_e",
+                                                                "duration": "Permanent"
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "Delayed",
+                                                        "tick": 3,
+                                                        "effects": [
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "AddCasterBuff",
+                                                                "buff_state": {
+                                                                  "name": "league_kaisa_probe_shielded",
+                                                                  "duration": "WithShield"
+                                                                },
+                                                                "only_to_enemy": false
+                                                              },
+                                                              {
+                                                                "type": "Delayed",
+                                                                "tick": 2,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_kaisa_probe_shielded",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": []
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_kaisa_pr_go",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 1
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        },
+                                                                        {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_kaisa_pr_go",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "RangeEffect",
+                                                                                "shape": {
+                                                                                  "Circle": {
+                                                                                    "radius": 1000
+                                                                                  }
+                                                                                },
+                                                                                "target": "AllyOnlySelf",
+                                                                                "apply_type": "AroundCaster",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_kaisa_probe_guard",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 3
+                                                                                        }
+                                                                                      },
+                                                                                      "damaged_reduce": 99
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              {
+                                                                                "type": "RangeEffect",
+                                                                                "shape": {
+                                                                                  "Circle": {
+                                                                                    "radius": 1000
+                                                                                  }
+                                                                                },
+                                                                                "target": "AllyOnlySelf",
+                                                                                "apply_type": "AroundCaster",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_kaisa_probe_undying",
+                                                                                      "duration": {
+                                                                                        "Time": {
+                                                                                          "tick": 2
+                                                                                        }
+                                                                                      },
+                                                                                      "undying": true
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Shield",
+                                                                                    "amount": 37,
+                                                                                    "attack_ratio": 0,
+                                                                                    "ap_ratio": 0,
+                                                                                    "tick": 3
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Shield",
+                                                                                    "amount": 1000000,
+                                                                                    "attack_ratio": 0,
+                                                                                    "ap_ratio": 0,
+                                                                                    "tick": 1
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "AddCasterBuff",
+                                                                                    "buff_state": {
+                                                                                      "name": "league_kaisa_probe_w",
+                                                                                      "duration": "WithShield"
+                                                                                    },
+                                                                                    "only_to_enemy": false
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              {
+                                                                                "type": "RangeEffect",
+                                                                                "shape": {
+                                                                                  "Circle": {
+                                                                                    "radius": 1000
+                                                                                  }
+                                                                                },
+                                                                                "target": "AllyOnlySelf",
+                                                                                "apply_type": "AroundCaster",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "FixedAttack",
+                                                                                    "damage": 0,
+                                                                                    "attack_ratio": 0,
+                                                                                    "hp_ratio": 200,
+                                                                                    "target_hp_ratio": 0,
+                                                                                    "attack_effect_type": "Target"
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              {
+                                                                                "type": "Delayed",
+                                                                                "tick": 2,
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "SwitchByBuff",
+                                                                                    "buff_name": "league_kaisa_probe_w",
+                                                                                    "effect_buff": {
+                                                                                      "type": "Combine",
+                                                                                      "effects": []
+                                                                                    },
+                                                                                    "effect_none": {
+                                                                                      "type": "SwitchByBuff",
+                                                                                      "buff_name": "league_kaisa_evo_w",
+                                                                                      "effect_buff": {
+                                                                                        "type": "Combine",
+                                                                                        "effects": []
+                                                                                      },
+                                                                                      "effect_none": {
+                                                                                        "type": "Combine",
+                                                                                        "effects": [
+                                                                                          {
+                                                                                            "type": "AddCasterBuff",
+                                                                                            "buff_state": {
+                                                                                              "name": "league_kaisa_evo_w",
+                                                                                              "duration": "Permanent"
+                                                                                            },
+                                                                                            "only_to_enemy": false
+                                                                                          }
+                                                                                        ]
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "Combine",
+                                                                            "effects": []
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_kaisa_pr_go"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_kaisa_pr_go"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_kaisa_probe_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_kaisa_probe_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 900
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_kaisa_evo_q",
+                "effect_buff": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kaisa_evo_e",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_kaisa_evo_w",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_kaisa_probe_shielded",
+                            "duration": "WithShield"
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 2,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kaisa_probe_shielded",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_kaisa_pr_go",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_kaisa_pr_go",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_kaisa_probe_guard",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 3
+                                                  }
+                                                },
+                                                "damaged_reduce": 99
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_kaisa_probe_undying",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 2
+                                                  }
+                                                },
+                                                "undying": true
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 37,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 0,
+                                              "tick": 3
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 1000000,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 0,
+                                              "tick": 1
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_kaisa_probe_w",
+                                                "duration": "WithShield"
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "RangeEffect",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "target": "AllyOnlySelf",
+                                          "apply_type": "AroundCaster",
+                                          "effects": [
+                                            {
+                                              "type": "FixedAttack",
+                                              "damage": 0,
+                                              "attack_ratio": 0,
+                                              "hp_ratio": 200,
+                                              "target_hp_ratio": 0,
+                                              "attack_effect_type": "Target"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 2,
+                                          "effects": [
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_kaisa_probe_w",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_kaisa_pass_evo_w",
+                                                "effect_buff": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_kaisa_evo_w",
+                                                  "effect_buff": {
+                                                    "type": "Combine",
+                                                    "effects": []
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_kaisa_evo_w",
+                                                          "duration": "Permanent"
+                                                        },
+                                                        "only_to_enemy": false
+                                                      },
+                                                      {
+                                                        "type": "CasterViewEffect",
+                                                        "name": "league_kaisa_evolve"
+                                                      },
+                                                      {
+                                                        "type": "Sfx",
+                                                        "name": "league_kaisa_evolve"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "effect_none": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_kaisa_pass_evo_w",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 3600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_kaisa_pr_go"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_kaisa_probe_shielded",
+                          "duration": "WithShield"
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 2,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kaisa_probe_shielded",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kaisa_pr_go",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 1
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_kaisa_pr_go",
+                                  "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
@@ -959,608 +1649,63 @@
                                               "effects": []
                                             },
                                             "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "SwitchByBuff",
-                                                  "buff_name": "league_kaisa_evo_e",
-                                                  "effect_buff": {
-                                                    "type": "Combine",
-                                                    "effects": []
-                                                  },
-                                                  "effect_none": {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "AddCasterBuff",
-                                                        "buff_state": {
-                                                          "name": "league_kaisa_evo_e",
-                                                          "duration": "Permanent"
-                                                        },
-                                                        "only_to_enemy": false
-                                                      }
-                                                    ]
-                                                  }
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_kaisa_pass_evo_e",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_kaisa_evo_e",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
                                                 },
-                                                {
-                                                  "type": "Delayed",
-                                                  "tick": 3,
+                                                "effect_none": {
+                                                  "type": "Combine",
                                                   "effects": [
                                                     {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_kaisa_probe_shielded",
-                                                            "duration": "WithShield"
-                                                          },
-                                                          "only_to_enemy": false
-                                                        },
-                                                        {
-                                                          "type": "Delayed",
-                                                          "tick": 2,
-                                                          "effects": [
-                                                            {
-                                                              "type": "SwitchByBuff",
-                                                              "buff_name": "league_kaisa_probe_shielded",
-                                                              "effect_buff": {
-                                                                "type": "Combine",
-                                                                "effects": []
-                                                              },
-                                                              "effect_none": {
-                                                                "type": "Combine",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 1000
-                                                                      }
-                                                                    },
-                                                                    "target": "AllyOnlySelf",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_kaisa_probe_guard",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 3
-                                                                            }
-                                                                          },
-                                                                          "damaged_reduce": 99
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 1000
-                                                                      }
-                                                                    },
-                                                                    "target": "AllyOnlySelf",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_kaisa_probe_undying",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 2
-                                                                            }
-                                                                          },
-                                                                          "undying": true
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      },
-                                                                      {
-                                                                        "type": "Shield",
-                                                                        "amount": 37,
-                                                                        "attack_ratio": 0,
-                                                                        "ap_ratio": 0,
-                                                                        "tick": 3
-                                                                      },
-                                                                      {
-                                                                        "type": "Shield",
-                                                                        "amount": 1000000,
-                                                                        "attack_ratio": 0,
-                                                                        "ap_ratio": 0,
-                                                                        "tick": 1
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_kaisa_probe_w",
-                                                                          "duration": "WithShield"
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "RangeEffect",
-                                                                    "shape": {
-                                                                      "Circle": {
-                                                                        "radius": 1000
-                                                                      }
-                                                                    },
-                                                                    "target": "AllyOnlySelf",
-                                                                    "apply_type": "AroundCaster",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "FixedAttack",
-                                                                        "damage": 0,
-                                                                        "attack_ratio": 0,
-                                                                        "hp_ratio": 200,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "Delayed",
-                                                                    "tick": 2,
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "SwitchByBuff",
-                                                                        "buff_name": "league_kaisa_probe_w",
-                                                                        "effect_buff": {
-                                                                          "type": "Combine",
-                                                                          "effects": []
-                                                                        },
-                                                                        "effect_none": {
-                                                                          "type": "SwitchByBuff",
-                                                                          "buff_name": "league_kaisa_evo_w",
-                                                                          "effect_buff": {
-                                                                            "type": "Combine",
-                                                                            "effects": []
-                                                                          },
-                                                                          "effect_none": {
-                                                                            "type": "Combine",
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "AddCasterBuff",
-                                                                                "buff_state": {
-                                                                                  "name": "league_kaisa_evo_w",
-                                                                                  "duration": "Permanent"
-                                                                                },
-                                                                                "only_to_enemy": false
-                                                                              }
-                                                                            ]
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              }
-                                                            }
-                                                          ]
-                                                        }
-                                                      ]
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_kaisa_evo_e",
+                                                        "duration": "Permanent"
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "CasterViewEffect",
+                                                      "name": "league_kaisa_evolve"
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_kaisa_evolve"
                                                     }
                                                   ]
                                                 }
-                                              ]
+                                              },
+                                              "effect_none": {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_kaisa_pass_evo_e",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 3600
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
                                             }
                                           }
                                         ]
                                       }
                                     ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
                                   }
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_kaisa_probe_cd",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_kaisa_probe_cd",
-                  "duration": {
-                    "Time": {
-                      "tick": 900
-                    }
-                  }
-                },
-                "only_to_enemy": false
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_kaisa_evo_q",
-                "effect_buff": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_kaisa_evo_e",
-                  "effect_buff": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kaisa_evo_w",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": []
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_kaisa_probe_shielded",
-                            "duration": "WithShield"
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "Delayed",
-                          "tick": 2,
-                          "effects": [
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_kaisa_probe_shielded",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": []
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 1000
-                                      }
-                                    },
-                                    "target": "AllyOnlySelf",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kaisa_probe_guard",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 3
-                                            }
-                                          },
-                                          "damaged_reduce": 99
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 1000
-                                      }
-                                    },
-                                    "target": "AllyOnlySelf",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kaisa_probe_undying",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 2
-                                            }
-                                          },
-                                          "undying": true
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "Shield",
-                                        "amount": 37,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 0,
-                                        "tick": 3
-                                      },
-                                      {
-                                        "type": "Shield",
-                                        "amount": 1000000,
-                                        "attack_ratio": 0,
-                                        "ap_ratio": 0,
-                                        "tick": 1
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kaisa_probe_w",
-                                          "duration": "WithShield"
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "RangeEffect",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 1000
-                                      }
-                                    },
-                                    "target": "AllyOnlySelf",
-                                    "apply_type": "AroundCaster",
-                                    "effects": [
-                                      {
-                                        "type": "FixedAttack",
-                                        "damage": 0,
-                                        "attack_ratio": 0,
-                                        "hp_ratio": 200,
-                                        "target_hp_ratio": 0,
-                                        "attack_effect_type": "Target"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 2,
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_kaisa_probe_w",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_kaisa_pass_evo_w",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_kaisa_evo_w",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_kaisa_evo_w",
-                                                    "duration": "Permanent"
-                                                  },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
-                                                  "type": "CasterViewEffect",
-                                                  "name": "league_kaisa_evolve"
-                                                },
-                                                {
-                                                  "type": "Sfx",
-                                                  "name": "league_kaisa_evolve"
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_kaisa_pass_evo_w",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 3600
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_kaisa_probe_shielded",
-                          "duration": "WithShield"
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 2,
-                        "effects": [
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kaisa_probe_shielded",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_kaisa_probe_guard",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 3
-                                          }
-                                        },
-                                        "damaged_reduce": 99
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
                                 },
                                 {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_kaisa_probe_undying",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 2
-                                          }
-                                        },
-                                        "undying": true
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "Shield",
-                                      "amount": 32,
-                                      "attack_ratio": 0,
-                                      "ap_ratio": 0,
-                                      "tick": 3
-                                    },
-                                    {
-                                      "type": "Shield",
-                                      "amount": 1000000,
-                                      "attack_ratio": 0,
-                                      "ap_ratio": 0,
-                                      "tick": 1
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_kaisa_probe_e",
-                                        "duration": "WithShield"
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1000
-                                    }
-                                  },
-                                  "target": "AllyOnlySelf",
-                                  "apply_type": "AroundCaster",
-                                  "effects": [
-                                    {
-                                      "type": "FixedAttack",
-                                      "damage": 0,
-                                      "attack_ratio": 0,
-                                      "hp_ratio": 200,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 2,
-                                  "effects": [
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_kaisa_probe_e",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_kaisa_pass_evo_e",
-                                        "effect_buff": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_kaisa_evo_e",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_kaisa_evo_e",
-                                                  "duration": "Permanent"
-                                                },
-                                                "only_to_enemy": false
-                                              },
-                                              {
-                                                "type": "CasterViewEffect",
-                                                "name": "league_kaisa_evolve"
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_kaisa_evolve"
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        "effect_none": {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_kaisa_pass_evo_e",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 3600
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      }
-                                    }
-                                  ]
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kaisa_pr_go"
                                 }
                               ]
                             }
@@ -1596,155 +1741,184 @@
                             "type": "Combine",
                             "effects": [
                               {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kaisa_probe_guard",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 3
-                                        }
-                                      },
-                                      "damaged_reduce": 99
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kaisa_probe_undying",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 2
-                                        }
-                                      },
-                                      "undying": true
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "Shield",
-                                    "amount": 10,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 0,
-                                    "tick": 3
-                                  },
-                                  {
-                                    "type": "Shield",
-                                    "amount": 1000000,
-                                    "attack_ratio": 0,
-                                    "ap_ratio": 0,
-                                    "tick": 1
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kaisa_probe_q",
-                                      "duration": "WithShield"
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "FixedAttack",
-                                    "damage": 0,
-                                    "attack_ratio": 500,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "Delayed",
-                                "tick": 2,
-                                "effects": [
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_kaisa_probe_q",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_kaisa_pass_evo_q",
-                                      "effect_buff": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_kaisa_evo_q",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_kaisa_evo_q",
-                                                "duration": "Permanent"
-                                              },
-                                              "only_to_enemy": false
-                                            },
-                                            {
-                                              "type": "CasterViewEffect",
-                                              "name": "league_kaisa_evolve"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_kaisa_evolve"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      "effect_none": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kaisa_pass_evo_q",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 3600
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      }
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_kaisa_pr_go",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
                                     }
                                   }
-                                ]
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kaisa_pr_go",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kaisa_probe_guard",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 3
+                                              }
+                                            },
+                                            "damaged_reduce": 99
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kaisa_probe_undying",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 2
+                                              }
+                                            },
+                                            "undying": true
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Shield",
+                                          "amount": 10,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 3
+                                        },
+                                        {
+                                          "type": "Shield",
+                                          "amount": 1000000,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 1
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kaisa_probe_q",
+                                            "duration": "WithShield"
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "FixedAttack",
+                                          "damage": 0,
+                                          "attack_ratio": 500,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 0,
+                                          "attack_effect_type": "Target"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 2,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_kaisa_probe_q",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_kaisa_pass_evo_q",
+                                            "effect_buff": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_kaisa_evo_q",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_kaisa_evo_q",
+                                                      "duration": "Permanent"
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "CasterViewEffect",
+                                                    "name": "league_kaisa_evolve"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_kaisa_evolve"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_kaisa_pass_evo_q",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 3600
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_kaisa_pr_go"
                               }
                             ]
                           }

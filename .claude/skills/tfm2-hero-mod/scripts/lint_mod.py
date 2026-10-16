@@ -311,11 +311,12 @@ def sfx_names(node):
 
 
 def untargeted_moves(node, under_random=False):
-    """Count MoveToTarget nodes that are not inside a RandomTarget (they need the action's target)."""
+    """Count MoveToTarget nodes that are not inside a RandomTarget or a projectile's applied_effects (they need the
+    action's target; a projectile's applied effects have the unit it hit - league_leesin W's lob onto an ally, 0.124.2)."""
     if isinstance(node, dict):
         here = node.get("type") == "MoveToTarget" and not under_random
         under = under_random or node.get("type") == "RandomTarget"
-        return int(here) + sum(untargeted_moves(v, under) for v in node.values())
+        return int(here) + sum(untargeted_moves(v, under or k == "applied_effects") for k, v in node.items())
     if isinstance(node, list):
         return sum(untargeted_moves(v, under_random) for v in node)
     return 0
