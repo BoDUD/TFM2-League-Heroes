@@ -220,9 +220,10 @@ def diffuse_textures(paths, skin_bin=None, skn=None):
     after the mesh. Teemo's skin has three colour maps, and the harmonica's (`Teemo_Base_Harmonica_TX_CM`,
     for a submesh that is hidden) sorted first and turned the whole model brass; for every earlier hero
     the texture after the mesh is the one the name rules picked. Camille's bin spells the folder `skins/base/`, so
-    the folder is matched in any case."""
+    the folder is matched in any case. Urgot's only `_TX_CM` maps are particle textures (`Particles/Urgot_Base_Q_Projectile_TX_CM`)
+    and turned him lime green; particles never count."""
     base = [p for p in paths if "/base/" in p.lower()]
-    named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I) and not re.search(r"trail", p, re.I)]
+    named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I) and not re.search(r"trail|/particles/", p, re.I)]
     found = named or [p for p in base if not re.search(r"loadscreen|square|circle|icon|/particles/", p, re.I)]
     if skin_bin is not None and skn is not None:
         at = skin_bin.find(skn.encode("latin1"))

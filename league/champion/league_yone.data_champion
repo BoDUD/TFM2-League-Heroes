@@ -5673,16 +5673,6 @@
             "name": "league_yone_r_cast"
           },
           {
-            "type": "LineRangeProjectile",
-            "name": "league_yone_r_line",
-            "width": 20000,
-            "length": 90000,
-            "delay": 34,
-            "apply": 999,
-            "applied_target": "EnemyWithoutTower",
-            "applied_effects": []
-          },
-          {
             "type": "Delayed",
             "tick": 7,
             "effects": [
@@ -6483,16 +6473,6 @@
           {
             "type": "Sfx",
             "name": "league_yone_r_cast"
-          },
-          {
-            "type": "LineRangeProjectile",
-            "name": "league_yone_r_line",
-            "width": 20000,
-            "length": 90000,
-            "delay": 34,
-            "apply": 999,
-            "applied_target": "EnemyWithoutTower",
-            "applied_effects": []
           },
           {
             "type": "Delayed",
@@ -7313,14 +7293,6 @@
       "name": "league_yone_w_cone",
       "anim": "asset/league/effects/league_yone_big",
       "tag": "w_cone",
-      "repeat": false,
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_yone_r_line",
-      "anim": "asset/league/effects/league_yone_big",
-      "tag": "r_line",
       "repeat": false,
       "z": 1
     }

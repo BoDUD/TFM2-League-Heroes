@@ -1,0 +1,26 @@
+{
+  "urgot-model-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  "urgot-model-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  }
+}
