@@ -613,6 +613,11 @@ def main():
     ap.add_argument("--hide-submesh", action="append", default=[], metavar="NAME",
                     help="leave out this submesh (repeatable; Yone's skin hides both swords at first, so name his demon, "
                          "emote props and smears instead)")
+    ap.add_argument("--hide-joints", metavar="REGEX",
+                    help="leave out the triangles whose vertices mostly follow a joint matching REGEX or one below it "
+                         "(a prop skinned into the body's one submesh: Orianna's ball, 'Ball|Spinnig')")
+    ap.add_argument("--only-joints", metavar="REGEX",
+                    help="the opposite: draw only those triangles (the prop alone)")
     ap.add_argument("--submesh-texture", action="append", default=[], metavar="SUBMESH=TEXTURE",
                     help="colour a submesh with another of the skin's maps, named by a part of its file name "
                          "(repeatable; Yone: Katana=Swords_TX, GhostKatana=Swords_TX)")
@@ -640,6 +645,10 @@ def main():
     if args.hide_submesh:
         tris = drop_submeshes(tris, skn_submeshes(skn_bytes), set(args.hide_submesh))
     joints, influences = read_skl(w.read_path(skl.lower()))
+    for rx, keep_it in ((args.hide_joints, False), (args.only_joints, True)):
+        if rx:
+            prop = chain_vertices(joints, influences, verts, re.compile(rx, re.I))
+            tris = tris[prop[tris].all(axis=1) == keep_it] if keep_it else tris[~prop[tris].any(axis=1)]
     influences, hair_re = keep_parts(joints, influences, verts, {k: float(r) for k, r in (x.split(":") for x in args.keep)})
     tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))
     if args.opaque:

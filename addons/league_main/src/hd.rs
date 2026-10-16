@@ -40,6 +40,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_drmundo", 1.5, include_str!("../../../league/champions/league_drmundo#anim.fanim")),
     // Pantheon: PPU 1.5 (the user's pick), his strips drawn at that density on the design's grid, so no SIZES row
     ("league_pantheon", 1.5, include_str!("../../../league/champions/league_pantheon#anim.fanim")),
+    // Orianna: PPU 2.2 (the user's pick after 1.5 read muddy and 2.6 too sharp: 「PPU 2.2（84 行）」), posed by
+    // tools/art/rig_orianna.py on that grid, so no SIZES row
+    ("league_orianna", 2.2, include_str!("../../../league/champions/league_orianna#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py), PPU 1.5 at
     // their old heights (Jax made chibi first: tools/art/chibi_warp.py), so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

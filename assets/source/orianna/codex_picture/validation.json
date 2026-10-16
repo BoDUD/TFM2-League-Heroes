@@ -1,0 +1,34 @@
+{
+  "orianna-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1287287,
+    "opaque_pixels": 1113,
+    "partial_alpha_pixels": 284116,
+    "alpha_bbox": [
+      21,
+      21,
+      1236,
+      1254
+    ]
+  },
+  "orianna-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1250849,
+    "opaque_pixels": 956,
+    "partial_alpha_pixels": 320711,
+    "alpha_bbox": [
+      25,
+      20,
+      1240,
+      1254
+    ]
+  }
+}

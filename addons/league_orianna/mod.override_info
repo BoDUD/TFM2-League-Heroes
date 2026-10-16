@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_orianna": {
+    "remapping": "asset/league_orianna/override/league_orianna",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_orianna/text/champion",
+    "type": "merge"
+  }
+}

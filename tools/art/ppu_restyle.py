@@ -56,7 +56,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
-            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5,
+            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2,
             **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'riven', 'darius', 'leona', 'jax')}}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
@@ -199,6 +199,10 @@ RESTYLE = {
     # (「选A 40尺寸 PPU1.5」), ordered and moved by whole squares by tools/art/rig_pantheon.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at his helmet's crown
     "pantheon": dict(ppu=1.5, edge=1, face_to=(-3, -36)),
+    # league_orianna (#113): posed from the approved design's own squares at the user's 2.2 squares a game pixel by
+    # tools/art/rig_orianna.py (「PPU 2.2（84 行）」, 38 game rows bun to soles), so no proportion or density change
+    # here; the outer outline grown a square like the others; the face point at her crown (tfm2_ase.py face)
+    "orianna": dict(ppu=2.2, edge=1, face_to=(-4, -37)),
     # the 2026-10-16 redo of seven heroes from Codex's pictures (league_jax made chibi first, tools/art/chibi_warp.py),
     # posed from the designs by tools/art/rig_<hero>_hd.py (tools/art/ppu_rig.py) at PPU 1.5 (「参照塔姆那样慢慢做」):
     # only the outer outline grown a square, the face point at the new head
