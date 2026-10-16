@@ -49,6 +49,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Rell: PPU 1.5 (the user's pick), posed by tools/art/rig_rell.py on that grid (mounted 44 game rows, on foot 40), so no
     // SIZES row
     ("league_rell", 1.5, include_str!("../../../league/champions/league_rell#anim.fanim")),
+    // Rek'Sai: Codex's step-1 takes read back square for square (A 57 rows = the user's 36 game px), posed by
+    // tools/art/rig_reksai.py on that grid (57 / 36 = 1.58), pixelated to 1.2 by ppu_restyle (the user: 「雷克赛像素太高
+    // 需要降低」, picked 1.2); no SIZES row
+    ("league_reksai", 1.2, include_str!("../../../league/champions/league_reksai#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
