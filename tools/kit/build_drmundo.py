@@ -34,9 +34,11 @@ with fixed numbers, maximum-health shares and his own hit count, and the add-on 
           final zap (w_end + w_end_ad% AD) - a champion in it pays every queued heal in full, only minions or monsters
           half, nothing in it nothing. With native=1 the add-on stores w_store% of the real damage taken and heals it.
   ult     R Maximum Dosage (极限剂量), cast at the right moment (the user's rule 「看好时机」): the slot arms it (r_arm ticks);
-          each of his actions while armed fires it when his hit count (the same sensor read on his attacks, Q and W:
-          h1 -> h2 -> h3, h_hold ticks each) reached h3 and an enemy champion stands within r_n - he has been hit in
-          three checks running in a fight. It heals r_heal + r_heal_ad% AD at once and for r_t ticks gives r_hp maximum
+          each of his actions while armed fires it when his damage count reached h{r_need} and an enemy champion stands
+          within r_n: a shield of h_sens points with a WithShield flag, read on his attacks, Q and W - broken, he
+          took h_sens damage since it was armed: the read takes those points from him as true damage (the shield
+          gives nothing away), climbs h1 -> h2 -> h3 (h_hold ticks each) and arms it again - 3 x h_sens taken with
+          no gap of h_hold ticks, the danger the data can see. It heals r_heal + r_heal_ad% AD at once and for r_t ticks gives r_hp maximum
           health, r_regen health a second and r_ms% move speed. An unused window caps the cooldown at 60 ticks.
           With native=1 the add-on fires it by his real health (below r_low% or r_burst% lost within a second) and
           heals r_miss% of his missing health.
@@ -73,8 +75,8 @@ P = {
     # health, healed 100% if the end zap hits a champion, else 50%; cd 17-13 s)
     "w_cd": 900, "w_rad": 22000, "w_anim": 14, "w_n": 12, "w_per": 20, "g_per": 30, "w_tick": 12, "w_ad": 6,
     "w_end": 60, "w_end_ad": 30, "w_g": 30, "w_end_anim": 12, "w_store": 75,
-    # the hit count R reads (league_sett's sensor, read on his attack, Q and W)
-    "h_hold": 240,
+    # the damage count R reads (a shield of h_sens read on his attack, Q and W, its points paid back)
+    "h_sens": 250, "h_hold": 240, "r_need": 3,
     # R Maximum Dosage (League: 20-30% missing hp at once, 20-40% max hp over 10 s, 15-35% move speed; cd 110-80 s)
     "r_cd": 4800, "r_range": 50000, "r_arm": 900, "r_anim": 30, "r_n": 40000, "r_t": 600,
     "r_heal": 200, "r_heal_ad": 100, "r_hp": 200, "r_regen": 40, "r_ms": 25, "r_low": 40, "r_burst": 25, "r_miss": 25,
@@ -252,12 +254,16 @@ def build(p):
     nat = bool(p["native"])
 
     # ------------------------------------------------------------------ the hit sensor (R reads h1..h3)
-    # a 1-point shield and a WithShield flag: the flag gone = he took damage since the last read
-    arm_sensor = combine(on_me(shield(1, LIFE)), flag("hs", "shield"))
+    # an h_sens-point shield and a WithShield flag: the flag gone = he took h_sens damage since it was armed; the read
+    # takes those h_sens points from him as true damage (the shield gave none away) and climbs the ladder
+    arm_sensor = combine(on_me(shield(p["h_sens"], LIFE)), flag("hs", "shield"))
     h = p["h_hold"]
     climb = sw("h2", combine(refresh("h3", h), refresh("h2", h), refresh("h1", h)),
                sw("h1", combine(refresh("h2", h), refresh("h1", h)), refresh("h1", h)))
-    sense = sw("hs", NONE, combine(climb, arm_sensor))
+    repay = on_me({"type": "FixedAttack", "damage": p["h_sens"], "attack_ratio": 0, "hp_ratio": 0, "target_hp_ratio": 0})
+    sense = sw("hs", NONE, combine(repay, climb, arm_sensor))
+    if nat:     # the add-on reads his real health: no sensor
+        arm_sensor = sense = None
 
     # ------------------------------------------------------------------ passive: shake off the first crowd control
     can_pick = sw("can", combine(*rm("can", "p_cd"), heal(p["p_heal"], p["p_heal_ad"]), view("p_pick"), sfx("p_pick"),
@@ -279,7 +285,7 @@ def build(p):
                    voice("vo_r", p), heal(p["r_heal"], p["r_heal_ad"]) if not nat else native("dose"),
                    refresh("r_on", p["r_t"], hp=p["r_hp"], hp_regen=p["r_regen"], move_speed_mult=p["r_ms"]))
     count = combine(*rm("r_e"), around(p["r_n"], "EnemyChampion", [flag("r_e", 3)]))
-    r_check = sw("r_armed", sw("r_lock", NONE, sw("h3", combine(count, delayed(1, sw("r_e", sw("r_armed", dose)))))))
+    r_check = sw("r_armed", sw("r_lock", NONE, sw(f"h{p['r_need']}", combine(count, delayed(1, sw("r_e", sw("r_armed", dose)))))))
     if nat:     # the add-on's AI hook fires the slot itself by his real health
         r_check = NONE
     pre = combine(life, sense, r_check)
