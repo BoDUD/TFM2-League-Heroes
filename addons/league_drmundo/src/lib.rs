@@ -35,7 +35,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_drmundo";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 const HERO: &str = "league_drmundo";
 
 // ===================== 数值 =====================
@@ -51,6 +51,12 @@ pub const SHAKE_PCT: usize = 7;
 /// 12 种子对六个基础上单 −0.26：只在安全时去）。
 pub const CAN_PCT: usize = 85;
 pub const SAFE: f64 = 35_000.0;
+/// 已经站在药罐上（这么近）就不再「走过去」：药罐落地后 p_arm tick 才能捡，0.1.1 让他站在上面干等，和塔姆对打时看着像卡住。
+pub const ON_TANK: f64 = 4_000.0;
+/// 诊断：他活着、STUCK_NEAR 以内有敌方英雄，却 STUCK_TICKS 没挪过 STUCK_MOVE、也没有任何动作或控制，就记一行 STUCK。
+pub const STUCK_TICKS: usize = 90;
+pub const STUCK_MOVE: f64 = 500.0;
+pub const STUCK_NEAR: f64 = 30_000.0;
 pub const CAN_REACH: f64 = 45_000.0;
 /// 丢出后这么久还没落地就算没丢成（数据 3 tick 一次的自检 + p_fly 20 tick 的飞行）。
 pub const LAND_WAIT: usize = 60;
@@ -172,9 +178,9 @@ pub fn shake_cost(hp: usize) -> usize {
     (hp * SHAKE_PCT / 100).min(hp.saturating_sub(1))
 }
 
-/// 去不去捡药罐：生命 %、离药罐多远、身边（SAFE 以内）的敌方英雄数。
+/// 去不去捡药罐：生命 %、离药罐多远、身边（SAFE 以内）的敌方英雄数（看不见、选不中的也算：潜进地下的塔姆、隐身的敌人）。
 pub fn tank_ok(hp_pct: usize, d: f64, foes_near: usize) -> bool {
-    hp_pct < CAN_PCT && d <= CAN_REACH && foes_near == 0
+    hp_pct < CAN_PCT && d > ON_TANK && d <= CAN_REACH && foes_near == 0
 }
 
 /// 药罐没了没有：`can` 在身上就还在；不在的话，落过地（`seen`）就是没了，没落过地的等 LAND_WAIT。
@@ -215,10 +221,15 @@ fn hard_cc(sim: &StableSim<'_>, id: usize) -> bool {
 
 /// 敌队活着、能选中的英雄的位置。
 fn foes(sim: &StableSim<'_>, team: usize) -> Vec<(usize, (f64, f64))> {
+    champions_of(sim, team, true)
+}
+
+/// 敌队活着的英雄（`targetable`：只要能选中的）。
+fn champions_of(sim: &StableSim<'_>, team: usize, targetable: bool) -> Vec<(usize, (f64, f64))> {
     let mut out = Vec::new();
     for i in 0..sim.entity_count() {
         let Some(u) = sim.entity_at(i) else { continue };
-        if u.team() == team || !u.is_alive() || !u.is_targetable() || !u.is_champion() {
+        if u.team() == team || !u.is_alive() || (targetable && !u.is_targetable()) || !u.is_champion() {
             continue;
         }
         let (x, y) = u.pos();
@@ -308,6 +319,13 @@ struct State {
     walking: bool,
     /// 上个 tick p_cd 还剩多少（捡起时数据把冷却重设成缩短后的，就不是正好少 1）。
     cd_left: usize,
+    /// 诊断：上次挪动的位置和 tick、这段有没有记过 STUCK；AI 钩子最近一次的决定（tick、基础 AI 要做的、改成了什么）。
+    still_at: (f64, f64),
+    still_since: usize,
+    still_logged: bool,
+    ai_tick: usize,
+    ai_base: &'static str,
+    ai_did: &'static str,
 }
 
 /// (这份模拟的编号, 蒙多的 entity id) -> 状态。
@@ -528,6 +546,39 @@ impl Pleases {
         }
     }
 
+    /// 诊断：活着、身边有敌方英雄，却 STUCK_TICKS 既没挪位置也没出手（没有动作或控制）-> 记一行 STUCK（AI 的决定、buff）。
+    fn watch(&self, sim: &StableSim<'_>, me: usize) {
+        let Some(e) = sim.get_entity(me) else { return };
+        let now = sim.tick() as usize;
+        let at = (e.pos().0 as f64, e.pos().1 as f64);
+        let near = within(&champions_of(sim, e.team(), false), at, STUCK_NEAR);
+        // any control, his own attack / cast animations included (game 0.6.4 records those as CcKindV1::Animation), is not stuck
+        let busy = e.cc_count() > 0;
+        let line = with_state(self.key(me), |s| {
+            if busy || near == 0 || dist(at, s.still_at) > STUCK_MOVE {
+                s.still_at = at;
+                s.still_since = now;
+                s.still_logged = false;
+                return None;
+            }
+            if s.still_logged || now < s.still_since + STUCK_TICKS {
+                return None;
+            }
+            s.still_logged = true;
+            Some(format!("STUCK: {} ticks without moving, {} enemy champions within {STUCK_NEAR:.0}, {}% hp; AI {} ticks ago: base {} -> {}",
+                         now - s.still_since, near, pct(e.hp().0, e.hp().1), now.saturating_sub(s.ai_tick), s.ai_base, s.ai_did))
+        });
+        let Some(line) = line else { return };
+        let ccs: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).map(|c| {
+            CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"))
+        }).collect();
+        let buffs: Vec<String> = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string())
+            .filter(|n| !n.starts_with(SIM_TAG)).collect();
+        if let Some(n) = counted("stuck") {
+            wlog(format!("{} {line}; cc [{}]; buffs [{}] #{n}", head(sim, me), ccs.join(", "), buffs.join(", ")));
+        }
+    }
+
     /// 攻击力随额外生命涨（e_bonus‰）。
     fn bonus(&mut self, sim: &mut StableSim<'_>, me: usize) {
         if sim.tick() % 30 != 0 {
@@ -581,6 +632,7 @@ impl StablePassive for Pleases {
         self.record_hp(sim, me);
         self.shake(sim, me);
         self.tank(sim, me);
+        self.watch(sim, me);
         self.bonus(sim, me);
     }
 
@@ -647,7 +699,7 @@ impl Ai {
         let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some(s.can_at));
         if let Some(c) = can.filter(|_| has(sim, me, &md("can"))) {
             let d = dist(at, c);
-            let foes_near = within(&enemies, at, SAFE);
+            let foes_near = within(&champions_of(sim, team, false), at, SAFE);
             if tank_ok(pct(hp, max), d, foes_near) {
                 let started = with_state(key, |s| !std::mem::replace(&mut s.walking, true));
                 let line = started.then(|| {
@@ -662,10 +714,14 @@ impl Ai {
             return None;
         }
         let why = format!("R HELD: {}% hp, {lost}% lost in 1 s, {near} enemy champions near", pct(hp, max));
-        let target = current.filter(|c| enemies.iter().any(|f| f.0 == *c));
+        // attack R's target instead; gone from sight: the nearest enemy champion (0.1.1 walked onto his own spot = stood still);
+        // nobody to hit: let the base AI cast it
+        let target = current.filter(|c| enemies.iter().any(|f| f.0 == *c)).or_else(|| {
+            enemies.iter().filter(|f| dist(f.1, at) <= R_RANGE).min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at))).map(|f| f.0)
+        });
         Some(match target {
             Some(t) => Plan::Instead(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), Some(("held", why))),
-            None => Plan::Instead(InputV1::move_to(at.0.max(0.0) as u64, at.1.max(0.0) as u64), Some(("held", why))),
+            None => Plan::Keep,
         })
     }
 }
@@ -698,8 +754,20 @@ impl StablePlayerAi for Ai {
             if !me.is_alive() {
                 return None;
             }
-            let plan = self.plan(&sim, me.id(), kind, current)?;
-            (plan, head(&sim, me.id()))
+            let key = (sim_of(&sim, me.id()), me.id());
+            let plan = self.plan(&sim, me.id(), kind, current);
+            let did = match &plan {
+                None | Some(Plan::Keep) => "kept",
+                Some(Plan::Instead(i, _)) if i.kind == InputKindV1::Move.code() => "move",
+                Some(Plan::Instead(..)) => "attack",
+            };
+            let now = sim.tick() as usize;
+            with_state(key, |s| {
+                s.ai_tick = now;
+                s.ai_base = kind_name(kind);
+                s.ai_did = did;
+            });
+            (plan?, head(&sim, me.id()))
         };
         match plan {
             Plan::Keep => None,
@@ -715,6 +783,17 @@ impl StablePlayerAi for Ai {
                 Some(input)
             }
         }
+    }
+}
+
+fn kind_name(k: InputKindV1) -> &'static str {
+    match k {
+        InputKindV1::Move => "move",
+        InputKindV1::Return => "return",
+        InputKindV1::Attack => "attack",
+        InputKindV1::Skill => "skill",
+        InputKindV1::Skill2 => "skill2",
+        InputKindV1::Ult => "ult",
     }
 }
 
@@ -802,6 +881,7 @@ mod tests {
     #[test]
     fn when_to_walk_to_the_tank() {
         assert!(tank_ok(70, 20_000.0, 0));
+        assert!(!tank_ok(70, 1_000.0, 0), "already on it: no standing still on it until it arms");
         assert!(!tank_ok(70, 5_000.0, 1), "an enemy champion near: keep fighting");
         assert!(!tank_ok(90, 0.0, 0), "nearly full");
         assert!(!tank_ok(50, 50_000.0, 0), "too far");
