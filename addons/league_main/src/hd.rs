@@ -49,6 +49,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Rell: PPU 1.5 (the user's pick), posed by tools/art/rig_rell.py on that grid (mounted 44 game rows, on foot 40), so no
     // SIZES row
     ("league_rell", 1.5, include_str!("../../../league/champions/league_rell#anim.fanim")),
+    // Rek'Sai: Codex's step-1 takes read back square for square (A 57 rows = the user's 36 game px), posed by
+    // tools/art/rig_reksai.py on that grid (57 / 36 = 1.58), pixelated to 1.2 by ppu_restyle (the user: 「雷克赛像素太高
+    // 需要降低」, picked 1.2); no SIZES row
+    ("league_reksai", 1.2, include_str!("../../../league/champions/league_reksai#anim.fanim")),
     // Urgot: posed at 1.5 squares a game pixel by tools/art/rig_urgot.py (「炮顶到腿尖 42 px，PPU 1.5」), brought to 1.2 by
     // ppu_restyle after the user saw him in game (「现在像素太高 要降低点」 -> 「1.2」); the size unchanged, so no SIZES row
     ("league_urgot", 1.2, include_str!("../../../league/champions/league_urgot#anim.fanim")),

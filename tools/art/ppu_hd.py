@@ -52,7 +52,7 @@ import strips as G  # noqa: E402
 # his PPU design by tools/art/rig_kassadin.py (134 design rows / 37 game rows); vladimir, karma, ashe,
 # yasuo: Codex's strips read back by tools/art/import_ppu_strips.py; corki: tools/art/rig_corki_hd.py; braum: Codex's
 # strips (tools/art/import_braum_strips.py) brought to the sheets by tools/art/rig_braum.py, 121 rows / 42 (all in assets/source/ppu)
-PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 1.65, "nilah": 1.98, "kindred": 2.2, "malzahar": 1.38, "smolder": 1.5, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5, "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2}
+PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 1.65, "nilah": 1.98, "kindred": 2.2, "malzahar": 1.38, "smolder": 1.5, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5, "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "reksai": 1.2, "urgot": 1.2}
 PREFIX = "hd_"
 # lo_<tag>: the same frames at UI_PPU squares a displayed game pixel - what the BP grid, the encyclopedia, the pick
 # slots and the pick moment draw (league.dll's UI table; the user, 2026-10-13: 「BP界面里看英雄还是太清晰」, picked the
