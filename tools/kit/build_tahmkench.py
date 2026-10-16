@@ -61,7 +61,8 @@ BIG = "asset/league/effects/league_tahmkench_big"
 # mr 32, atk 85, Q 140, W 130, passive 20 + 2%, Thick Skin 15% and a 120 shield, R 180, Q 6 s, W 15 s): -0.85 on seeds
 # 1-12 (league_braum -0.21 / -0.26 in the same batches). Retimed to the frames (Q 4 ticks later) it fell to -1.55 / -2.42;
 # b4 (hp 1900, def 55, Q 170, W 130 -> 160, passive 30 + 2%, Thick Skin's shield 160, R 220): -0.76 / -0.77 on seeds
-# 1-12 / 25-36 (league_braum -0.26 / +0.05; b1 tank only -0.92 / -1.32, b2 damage only -1.16 / -1.91).
+# 1-12 / 25-36 (league_braum -0.26 / +0.05; b1 tank only -0.92 / -1.32, b2 damage only -1.16 / -1.91;
+# b5 hp 2000 def 60 -1.07, b6 Q 5.5 s R 50 s -0.91 on seeds 1-12: kept b4).
 P = {
     # stats (League's Tahm Kench: 640 +103 hp, 56 AD, 39 armour, 32 mr, 335 move, 175 range)
     "hp": 1900, "hp_g": 120, "atk": 85, "atk_g": 6, "mp": 25, "mp_g": 15, "def": 55, "def_g": 7, "mr": 32, "mr_g": 4,
