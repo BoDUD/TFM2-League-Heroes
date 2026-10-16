@@ -34,10 +34,32 @@ SHOULDER = (28.5, 18.5)
 SWORD_ARM = [(24, 13), (31, 13), (33, 20), (37, 25), (39, 30), (41, 33), (52, 40), (64, 44), (66, 50), (66, 61),
              (58, 61), (50, 56), (42, 50), (38, 46), (35, 41), (32, 40), (31, 35), (29, 30), (26, 25), (24, 20)]
 BAND = 41                                    # legs start below this row
-SPLIT = 21                                   # the column between her legs
-# league_braum's WALK at PPU 1.5: (near leg (columns forward, rows lifted), far leg, the figure's rise)
-WALK = [((0, 0), (0, 4), 1), ((0, 0), (3, 6), 3), ((0, 0), (3, 3), 1), ((0, 0), (3, 0), 0),
-        ((0, 4), (0, 0), 1), ((3, 6), (0, 0), 3), ((3, 3), (0, 0), 1), ((3, 0), (0, 0), 0)]
+# her legs jointed (「锐雯腿部有点变形」: stepped league_braum's way they lost their top rows and slid under the skirt):
+# thigh and lower leg drawn from the picture, turned about hip and knee, the knee solved at her own lengths
+# her legs, each one rigid piece drawn from the picture and turned about her hip (「锐雯的腿还是变形吧」: bent at the
+# knee - a thigh and a lower leg turned apart - the knee showed a step). (hip, knee, sole) in design squares
+NEAR = ((15.5, 33.2), (9, 44.2), (3.5, 58.8))
+FAR = ((27.5, 34.5), (34.5, 45.5), (42, 59.3))
+# the run: her wide stance kept, a foot at a time swung out and up about its hip (the back foot kicking back, the front
+# one reaching forward), the body down a row as it lands; degrees (counter-clockwise on screen) of the near / far leg
+WALK = [(0, 0), (-5, 0), (-10, 0), (-5, 0), (0, 0), (0, 5), (0, 10), (0, 5)]
+RUN_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+
+
+def vertical(leg):
+    """Degrees that turn the leg (hip to sole) straight down."""
+    (hx, hy), _, (sx, sy) = leg
+    return -float(np.degrees(np.arctan2(sx - hx, sy - hy)))
+
+
+def leg_props(name, leg):
+    """The thigh and the lower leg (with the boot, a square past the sole) as polygons for Design.cut_props - both
+    turned alike about the hip, one rigid leg."""
+    hip, knee, sole = (np.array(v, float) for v in leg)
+    d = sole - knee
+    end = sole + d / np.hypot(*d) * 1.2
+    return {name + "_thigh": R.band(tuple(hip), tuple(knee), 3.3, 3.0),
+            name + "_lower": R.band(tuple(knee), tuple(end), 3.3, 4.6)}
 
 
 def reforged(pic):
@@ -77,61 +99,55 @@ def design():
     D = R.Design(HERO, PPU, ROWS)
     D.px = PIVOT_COL
     DESIGN = D
-    # the chest and side the sword arm hid (the arm raised, they show)
-    D.cut_props({"sword": SWORD_ARM}, fills=[[(22, 12), (27, 13), (28, 20), (27.5, 27), (27, 33), (22, 33)]])
-    yy, xx = np.mgrid[0:D.H, 0:D.W]
-    op = D.d[..., 3] > 0
-    D.part("far_leg", op & (yy > BAND) & (xx > SPLIT))
-    D.part("near_leg", op & (yy > BAND) & (xx <= SPLIT))
+    # the chest and side the sword arm hid (the arm raised, they show); the legs hide nothing (close=0: closed over,
+    # the gap between them came back as body)
+    D.cut_props({"sword": SWORD_ARM, **leg_props("n", NEAR), **leg_props("f", FAR)}, close=0,
+                fills=[[(22, 12), (27, 13), (28, 20), (27.5, 27), (27, 33), (22, 33)]])
     D.part("upper", D.rest(), take=False)
     D.green = reforged(D.pic)
     return D
 
 
 def make_rig(D):
-    """The rig, the cracks a step opens between the legs and the skirt closed (from BAND - 6 down)."""
-    rig = R.Rig(D)
-    rig.fill_rows = (BAND - 6, D.ground)
-    rig.idle_canvas = pose(rig)
-    return rig
+    """The rig (her jointed legs open no cracks to close)."""
+    return R.Rig(D)
 
 
-def hip(D, leg):
-    """A leg's top middle column (design squares): it is mirrored about it to close her stance for the fall."""
-    ys, xs = np.nonzero(D.parts[leg])
-    top = ys <= ys.min() + 2
-    return (xs[top].min() + xs[top].max() + 1) / 2
-
-
-def pose(rig, up=(0, 0), sword=0, whole=(0, 0), near=(0, 0), far=(0, 0), green=False, together=False):
-    """up: the upper body (with the sword arm) over the legs; sword: degrees the sword arm turns about her shoulder
-    (counter-clockwise raises it); whole: the whole figure; near / far: (columns forward, rows lifted) of a leg
-    (league_braum's walk: it loses its top rows); green: the reforged blade; together: the far leg mirrored about
-    its hip so both legs run the same way, side by side, slanting back (the fall: whole legs slid together crossed at
-    the hips; turned to lie, legs slanting forward pointed up into the air)."""
+def pose(rig, up=(0, 0), sword=0, whole=(0, 0), near=0, far=0, green=False):
+    """up: the upper body moved - sideways with her hips and legs (a lunge slides her feet), down at most a row over
+    them (breath; lower, the body sank into the legs); sword: degrees the sword arm turns about her shoulder
+    (counter-clockwise raises it); whole: the whole figure; near / far: degrees a leg turns about its hip
+    (counter-clockwise on screen); green: the reforged blade."""
     D = rig.D
-    wx, wy = whole
-    ux, uy = up[0] + wx, up[1] + wy
+    wx, wy = whole[0] + up[0], whole[1]
     layers = []
-    for name, (dx, lift) in (("far_leg", far), ("near_leg", near)):
-        img = D.layer(name)
-        if lift:
-            img = img.copy()
-            img[:BAND + 1 + lift] = 0
-        o = dict(dx=wx + dx, dy=wy - lift)
-        if together and name == "far_leg":
-            o.update(flip=True, about=(hip(D, "far_leg"), 0))
-        layers.append((img, o))
+    for name, leg, ang in (("f", FAR, far), ("n", NEAR, near)):
+        for piece in ("_thigh", "_lower"):
+            layers.append((name + piece, dict(dx=wx, dy=wy, angle=ang, about=leg[0])))
+    ux, uy = wx, wy + min(up[1], 1)
     layers.append(("upper", dict(dx=ux, dy=uy)))
     layers.append(("sword", dict(dx=ux, dy=uy, angle=sword, about=SHOULDER, src=D.green if green else None)))
     return R.compose(rig, layers)
 
 
+def run_frame(rig, i):
+    n, f = WALK[i]
+    return pose(rig, up=(1, RUN_BOB[i]), sword=15, near=n, far=f)
+
+
+def lying(rig, sword=123):
+    """Lying: her legs turned straight down first, then the whole figure a quarter turn (lossless)."""
+    return R.lie(rig, pose(rig, sword=sword, near=vertical(NEAR), far=vertical(FAR)), k=1, dx=-2)
+
+
 def frames(rig, green=False):
     p = lambda **k: pose(rig, green=green, **k)
     out = {}
+    # after League's clip (tools/lol/native_pose.py assets/source/riven/poses.json; 「锐雯的平A也不太一样」): the blade
+    # held up, raised, a lunging cut down ahead of her (she slides in), low, back up level.
+    # Sword angles: 0 hanging as drawn, +48 level ahead, +138 upright
     out["attack"] = [p(up=u, sword=s) for u, s in
-                     [((-1, 0), 100), ((-1, 0), 140), ((2, 1), 40), ((3, 2), -10), ((2, 1), 0), ((0, 0), 0)]]
+                     [((0, 0), 100), ((-1, 0), 130), ((4, 2), 30), ((6, 3), -12), ((5, 3), -18), ((2, 1), 48)]]
     out["skill"] = [p(up=u, sword=s) for u, s in
                     [((-1, 1), 60), ((-1, 1), 120), ((2, 1), 70), ((4, 2), 20), ((4, 2), -10), ((2, 1), 0), ((0, 0), 0)]]
     out["q2"] = [p(up=u, sword=s) for u, s in
@@ -145,16 +161,15 @@ def frames(rig, green=False):
     if green:
         return out
     out["idle"] = [p(up=(0, b)) for b in [0, 0, 1, 1, 1, 1, 0, 0]]
-    out["run"] = [p(up=(1, 0), sword=15, whole=(0, -r), near=n, far=f) for n, f, r in WALK]
+    out["run"] = [run_frame(rig, i) for i in range(8)]
     out["ult"] = [p(sword=s) for s in (40, 90, 123, 123, 90, 30)]
     out["r_slash"] = [p(up=u, sword=s) for u, s in
                       [((-1, 0), 130), ((-2, 0), 150), ((2, 1), 60), ((4, 2), 10), ((3, 1), 0), ((1, 0), 0)]]
     out["hit"] = [R.flash(p(whole=(-2, 0), sword=10)), p(whole=(-1, 0), sword=5)]
-    # lying: her legs side by side first (her stance is wide), the blade up so it runs along her body
-    lying = R.lie(rig, p(sword=123, together=True), k=1, dx=-2)
-    out["dead"] = [p(whole=(-1, 0), sword=20), p(whole=(-2, 0), up=(-1, 1), sword=40),
-                   p(up=(0, 2), sword=10, together=True), p(up=(0, 3), sword=-20, together=True),
-                   R.lie(rig, p(up=(0, 3), sword=123, together=True), k=1, dx=-1), lying, lying.copy(), lying.copy()]
+    # lying: her legs turned straight down first (her stance is wide), the blade up so it runs along her body
+    lie = lying(rig) if not green else None
+    out["dead"] = [p(whole=(-1, 0), sword=20), p(whole=(-2, 0), sword=40), p(whole=(-3, 0), sword=10, up=(0, 1)),
+                   p(whole=(-3, 0), sword=-20, up=(0, 1)), lie, lie.copy(), lie.copy(), lie.copy()]
     return out
 
 

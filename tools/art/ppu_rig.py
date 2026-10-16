@@ -182,6 +182,7 @@ class Design:
         self.order = []
         self.polys = {}
         self.props = set()
+        self.prop_masks = {}
         self.keep_out = None
         self.shafts = {}
         self._turned = {}
@@ -244,13 +245,17 @@ class Design:
             m = np.asarray(img, bool)
             if keep_out is not None:
                 m &= ~keep_out(self.pic[..., :3].astype(int))
+            m &= ~cut                                     # a square belongs to the first prop that takes it
             cut |= m
             self.polys[name] = poly
+            self.prop_masks[name] = m
             self.props.add(name)
         body = self.pic.copy()
         body[cut] = 0
         bop = body[..., 3] > 0
-        closed = ndimage.binary_closing(bop, structure=np.ones((9, 9)), iterations=close)
+        # close > 0: the body's outline closed over the props' width (an arm across the body); 0: only gaps the body
+        # itself encloses (a staff held beside her - closed over, its squares came back as a strip of body)
+        closed = ndimage.binary_closing(bop, structure=np.ones((9, 9)), iterations=close) if close > 0 else bop
         hole = cut & (closed | ndimage.binary_fill_holes(bop) | fill) & ~bop & (self.pic[..., 3] > 0)
         self.pic_body = inpaint(body, hole)
         if self.coarse:
@@ -282,7 +287,7 @@ class Design:
         if colour is None:
             n = int(np.hypot(p1[0] - p0[0], p1[1] - p0[1]) * 2) + 2
             cols = []
-            for t in np.linspace(0.15, 0.85, n):
+            for t in np.linspace(0.45, 0.9, n):          # away from p0 (a grip: the hand's colours)
                 x, y = p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t
                 for dx in (-0.5, 0, 0.5):
                     xi, yi = int(np.floor(x + dx)), int(np.floor(y))
@@ -299,7 +304,8 @@ class Design:
             return self.layer(name)
         key = (name, angle, about, id(src))
         if key not in self._turned:
-            self._turned[key] = self.turned(self.polys[name], angle, about, src, shaft=self.shafts.get(name))
+            self._turned[key] = self.turned(self.polys[name], angle, about, src, shaft=self.shafts.get(name),
+                                            mask=self.prop_masks.get(name))
         return self._turned[key]
 
     def d2p(self, x, y):
@@ -329,7 +335,7 @@ class Design:
 
     TURN_PAD = 40                                   # design squares round the design a turned part may reach
 
-    def turned(self, poly_pts, angle, about, src=None, shaft=None):
+    def turned(self, poly_pts, angle, about, src=None, shaft=None, mask=None):
         """The picture's pixels inside poly_pts (design squares) turned `angle` degrees counter-clockwise about
         `about` (design squares) and brought to the design's own grid, method and colours. -> RGBA covering the
         design plus TURN_PAD squares on every side (its (0, 0) is design (-TURN_PAD, -TURN_PAD))."""
@@ -339,7 +345,12 @@ class Design:
         big = np.zeros((H + 2 * M, W + 2 * M, 4), np.uint8)
         big[M:M + H, M:M + W] = self.pic if src is None else src
         img = Image.new("L", (W + 2 * M, H + 2 * M), 0)
-        ImageDraw.Draw(img).polygon([tuple(v + M for v in self.d2p(x, y)) for x, y in poly_pts], fill=255)
+        if mask is not None:                            # the prop's own picture pixels (cut_props)
+            mm = np.zeros((H + 2 * M, W + 2 * M), np.uint8)
+            mm[M:M + H, M:M + W] = mask * 255
+            img = Image.fromarray(mm)
+        else:
+            ImageDraw.Draw(img).polygon([tuple(v + M for v in self.d2p(x, y)) for x, y in poly_pts], fill=255)
         if shaft is not None:                           # the shaft's middle is drawn as a line afterwards
             (x0, y0), (x1, y1), w, _, keep = shaft
             L = max(1e-6, np.hypot(x1 - x0, y1 - y0))
@@ -518,6 +529,8 @@ def sheet_of(hero):
     px = np.asarray(Image.open(lp(stem + "#sheet.png")).convert("RGBA"))
     out = {}
     for tag, a in anims.items():
+        if tag.startswith(("hd_", "lo_")):              # (ppu_hd's copies: the 1x tags are the timing)
+            continue
         fr = []
         for f_ in a["frames"]:
             d = f_["data"]
@@ -911,3 +924,14 @@ def row_shift(layer, y0, y1, dx):
     if dx:
         out[y0:y1 + 1] = np.roll(layer[y0:y1 + 1], dx, axis=1)
     return out
+
+
+# ------------------------------------------------------------------------------------------------- polygons
+def band(p0, p1, hw0, hw1=None):
+    """A polygon hugging the segment p0 -> p1, hw0 wide at p0 and hw1 at p1 (design squares)."""
+    hw1 = hw0 if hw1 is None else hw1
+    (x0, y0), (x1, y1) = p0, p1
+    L = max(1e-6, np.hypot(x1 - x0, y1 - y0))
+    nx, ny = -(y1 - y0) / L, (x1 - x0) / L
+    return [(x0 + nx * hw0, y0 + ny * hw0), (x1 + nx * hw1, y1 + ny * hw1), (x1 - nx * hw1, y1 - ny * hw1),
+            (x0 - nx * hw0, y0 - ny * hw0)]

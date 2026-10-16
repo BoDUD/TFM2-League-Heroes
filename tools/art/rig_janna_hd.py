@@ -24,16 +24,19 @@ HERO = "janna"
 PPU = 1.5
 ROWS = 45
 PIVOT_COL = 22                               # between her legs
-GRIP = (33.5, 43.5)                          # the staff in her far hand
-HAND = [(28, 40), (36, 40), (36, 46), (28, 46)]
-STAFF = [(29, 12), (42, 12), (42, 34), (38.5, 34), (36, 46), (34, 64), (29, 64), (29, 46), (33, 34), (29, 34)]
+GRIP = (34.5, 43.5)                          # the staff in her far hand
+HAND = [(28, 40.5), (37, 40.5), (37, 44.5), (28, 44.5)]   # her glove (it stays with her, drawn over the staff)
+# the staff above and below her glove (the glove itself is not cut: cut, it went with the staff - 「风女身体有点变形」)
+STAFF = [(29, 12), (42, 12), (42, 34), (38, 34), (36.5, 40.5), (33, 40.5), (33, 34), (29, 34)]
+STAFF_LOW = [(31, 44.5), (35.5, 44.5), (35, 52), (34, 58), (34.5, 64.5), (28.6, 64.5), (29, 58), (30, 52)]
 
 
 def design():
     D = R.Design(HERO, PPU, ROWS, regrid=21)
     D.px = PIVOT_COL
-    D.cut_props({"staff": STAFF})
-    D.shaft("staff", (35.5, 34), (30.8, 61), 1.2)       # the shaft: a straight line at every angle
+    D.cut_props({"staff": STAFF, "staff_low": STAFF_LOW}, close=0)   # held beside her, hiding nothing
+    D.shaft("staff", GRIP, (35.3, 33), 1.2)              # the shaft: a straight line at every angle, from her grip
+    D.shaft("staff_low", GRIP, (30.8, 61), 1.2)
     D.part("hand", HAND)                                 # her glove, drawn over the staff it holds
     D.part("ribbons", [(0, 50), (17, 47), (18, 69), (0, 69)])
     D.part("upper", D.poly([(0, 0), (42, 0), (42, 50), (0, 50)]) & D.rest(), take=False)
@@ -45,13 +48,15 @@ def pose(rig, up=(0, 0), staff=0, rib=0, whole=(0, 0), lift=0):
     """up: the upper body (with the staff) over the legs; staff: degrees about her grip (clockwise points it forward);
     rib: rows the ribbons' ends lift; whole: the whole figure (she floats: negative dy rises); lift: rows the staff
     slides up through her hand (raised high)."""
-    wx, wy = whole
-    ux, uy = up[0] + wx, up[1] + wy
-    st = ("staff", dict(dx=ux, dy=uy - lift, angle=staff, about=GRIP))
+    # her legs and ribbons move with her upper body: slid apart at the waist, the body broke there (「风女身体有点变形」)
+    wx, wy = whole[0] + up[0], whole[1] + up[1]
+    ux, uy = wx, wy
+    st = [("staff", dict(dx=ux, dy=uy - lift, angle=staff, about=GRIP)),
+          ("staff_low", dict(dx=ux, dy=uy - lift, angle=staff, about=GRIP))]
     behind = staff < -25 or staff > 5
     layers = [("ribbons", dict(dx=wx, dy=wy, sway=(0, 18, rib, "right"))),
               ("legs", dict(dx=wx, dy=wy))] + \
-        ([st] if behind else []) + [("upper", dict(dx=ux, dy=uy))] + ([] if behind else [st]) + \
+        (st if behind else []) + [("upper", dict(dx=ux, dy=uy))] + ([] if behind else st) + \
         [("hand", dict(dx=ux, dy=uy))]
     return R.compose(rig, layers)
 

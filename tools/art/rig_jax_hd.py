@@ -28,9 +28,11 @@ PPU = 1.5
 ROWS = 36
 PIVOT_COL = 36
 GRIP = (15.0, 30.5)                          # the post in his fist
+SHOULDER = (25.5, 30.0)                      # his lamp arm's root under the robe
+ARM = [(10, 26.5), (26.5, 25.5), (28, 34), (25, 35), (10, 34.5)]   # the arm and the fist (cut, drawn at any angle)
+TORSO_BEHIND_ARM = [(19, 25), (28.5, 25), (28.5, 35.5), (19, 35.5)]
 LAMP_TOP = [(5, -1), (16, -1), (16.5, 16), (16, 27.5), (11, 27.5), (11, 16), (5, 16)]
 LAMP_LOW = [(13, 33.5), (18, 33.5), (21, 50), (23, 56.5), (16, 56.5), (16.5, 50)]
-FIST = [(10, 27), (25, 27), (25, 34), (10, 34)]
 BAND = 45
 SPLIT = 37
 WALK = [((0, 0), (0, 3), 1), ((0, 0), (2, 5), 2), ((0, 0), (2, 2), 1), ((0, 0), (2, 0), 0),
@@ -40,7 +42,7 @@ WALK = [((0, 0), (0, 3), 1), ((0, 0), (2, 5), 2), ((0, 0), (2, 2), 1), ((0, 0), 
 def design():
     D = R.Design(HERO, PPU, ROWS, chibi=True)
     D.px = PIVOT_COL
-    D.cut_props({"lamp": LAMP_TOP, "foot": LAMP_LOW})
+    D.cut_props({"lamp": LAMP_TOP, "foot": LAMP_LOW, "arm": ARM}, fills=[TORSO_BEHIND_ARM])
     # the post: a straight line at every angle, from his fist
     D.shaft("lamp", GRIP, (12.8, 14), 1.6)
     D.shaft("foot", GRIP, (18.8, 52), 1.6)
@@ -49,8 +51,14 @@ def design():
     D.part("far_leg", op & (yy > BAND) & (xx > SPLIT))
     D.part("near_leg", op & (yy > BAND) & (xx <= SPLIT))
     D.part("upper", D.rest(), take=False)
-    D.part("fist", D.poly(FIST), take=False)
     return D
+
+
+def turn_point(p, about, deg):
+    th = np.radians(deg)
+    ax, ay = about
+    return (ax + (p[0] - ax) * np.cos(th) + (p[1] - ay) * np.sin(th),
+            ay - (p[0] - ax) * np.sin(th) + (p[1] - ay) * np.cos(th))
 
 
 def make_rig(D):
@@ -61,18 +69,25 @@ def make_rig(D):
     return rig
 
 
-def pose(rig, up=(0, 0), lamp=0, whole=(0, 0), near=(0, 0), far=(0, 0), back=False):
-    """up: the upper body (with the lamp) over the legs; lamp: degrees the post turns in his fist (clockwise brings the
-    lantern over and down ahead of him); whole: the whole figure; near / far: (columns forward, rows lifted) of a leg;
-    back: the lamp behind him (the far side of a twirl)."""
+def pose(rig, up=(0, 0), lamp=0, whole=(0, 0), near=(0, 0), far=(0, 0), back=None, arm=0):
+    """up: the upper body (with the lamp) over the legs; arm: degrees his lamp arm turns about the shoulder
+    (counter-clockwise swings it down and forward under him - League's sweep); lamp: degrees the post turns (about his
+    fist, which the arm carries: clockwise brings the lantern over and down ahead of him); whole: the whole figure;
+    near / far: (columns forward, rows lifted) of a leg; back: the lamp behind him (the far side of a twirl; None: when
+    the arm hangs and the lantern goes over his hood)."""
     D = rig.D
     wx, wy = whole
     ux, uy = up[0] + wx, up[1] + wy
     layers = []
-    # on its way over (the lantern from straight up to low ahead) the post would cross his hood: behind him then; the
-    # strike (the lantern low ahead) is in front
-    back = back or -150 < lamp < -15
-    lp_ = [("lamp", dict(dx=ux, dy=uy, angle=lamp, about=GRIP)), ("foot", dict(dx=ux, dy=uy, angle=lamp, about=GRIP))]
+    if back is None:
+        # on its way over (the lantern from straight up to low ahead) the post would cross his hood: behind him then;
+        # the strike (the lantern low ahead) is in front
+        back = arm == 0 and -150 < lamp < -15
+    gx, gy = turn_point(GRIP, SHOULDER, arm)
+    sx, sy = int(round(gx - GRIP[0])), int(round(gy - GRIP[1]))
+    lp_ = [("lamp", dict(dx=ux + sx, dy=uy + sy, angle=lamp, about=GRIP)),
+           ("foot", dict(dx=ux + sx, dy=uy + sy, angle=lamp, about=GRIP)),
+           ("arm", dict(dx=ux, dy=uy, angle=arm, about=SHOULDER))]
     if back:
         layers += lp_
     for name, (dx, lift) in (("far_leg", far), ("near_leg", near)):
@@ -84,7 +99,6 @@ def pose(rig, up=(0, 0), lamp=0, whole=(0, 0), near=(0, 0), far=(0, 0), back=Fal
     layers.append(("upper", dict(dx=ux, dy=uy)))
     if not back:
         layers += lp_
-    layers.append(("fist", dict(dx=ux, dy=uy)))
     return R.compose(rig, layers)
 
 
@@ -93,13 +107,22 @@ def frames(rig):
     out = {}
     out["idle"] = [p(up=(0, b)) for b in [0, 1, 1, 1, 0, 0]]
     out["run"] = [p(up=(1, 0), lamp=-10, whole=(0, -r), near=n, far=f) for n, f, r in WALK]
-    swing = [((-1, 0), 20), ((-1, 0), -40), ((1, 1), -110), ((2, 2), -165), ((1, 1), -60), ((0, 0), 0)]
-    out["attack"] = [p(up=u, lamp=a) for u, a in swing]
-    out["attack_w"] = [p(up=u, lamp=a) for u, a in
-                       [((-1, 0), 25), ((-1, 0), -50), ((2, 2), -120), ((3, 3), -170), ((1, 1), -60), ((0, 0), 0)]]
-    out["attack_e"] = [p(up=u, lamp=a) for u, a in swing]
-    out["attack_r"] = [p(up=u, lamp=a) for u, a in
-                       [((-1, 0), 20), ((-1, 0), -50), ((2, 2), -130), ((3, 3), -170), ((2, 1), -90), ((0, 0), 0)]]
+    # auto attacks after League's clips (tools/lol/native_pose.py assets/source/jax/poses.json; 「贾克斯平A姿势和英雄联盟
+    # 不一样」): the lamp drawn back behind him, swept low and forward under him, the lantern ahead; the crit (W) brought
+    # over his head and slammed down ahead of him. (whole move, arm angle, lantern angle: a lantern pointing along
+    # the arm has lamp = arm + 83)
+    # (whole move, arm angle, lantern angle; the lantern's direction on screen is 97 + lamp degrees, the arm's 180 + arm)
+    # (the lantern kept at shoulder height ahead: raised by his hood it crowded his face)
+    sweep = [((0, 0), 10, 13), ((-1, 0), -10, 53), ((-1, 0), 0, 83), ((1, 0), 150, -77), ((3, 0), 180, -97),
+             ((1, 0), 120, -70)]
+    out["attack"] = [p(whole=w, arm=a, lamp=b) for w, a, b in sweep]
+    out["attack_e"] = [p(whole=w, arm=a, lamp=b) for w, a, b in sweep]
+    out["attack_r"] = [p(whole=w, arm=a, lamp=b) for w, a, b in
+                       [((0, 0), 10, 18), ((-1, 0), -10, 58), ((-1, 0), 0, 88), ((2, 0), 150, -77),
+                        ((4, 0), 182, -99), ((1, 0), 120, -70)]]
+    out["attack_w"] = [p(whole=w, arm=a, lamp=b) for w, a, b in
+                       [((0, 0), -150, -87), ((-1, 0), -40, 40), ((-1, 0), -30, 70), ((2, 0), -205, -150),
+                        ((2, 0), -210, -152), ((1, 0), -195, -120)]]
     # Q Leap Strike: up with the lantern raised, down on the target
     out["skill"] = [p(up=u, lamp=a, whole=w) for u, a, w in
                     [((0, 2), 10, (0, 0)), ((0, 0), 20, (0, -6)), ((0, 0), 0, (0, -9)), ((1, 0), -60, (0, -7)),

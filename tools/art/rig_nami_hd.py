@@ -34,8 +34,9 @@ MS = {"idle": [140] * 8, "run": [125] * 8, "attack": [60, 60, 70, 70, 90, 110], 
 def design():
     D = R.Design(HERO, PPU, ROWS, coarse=True)
     D.px = PIVOT_COL
+    # the staff is held beside her, hiding nothing: close=0 (closed over, its squares came back as a strip of body)
     D.cut_props({"staff": [(40, 1), (57, 1), (57, 24), (49, 24), (49, 50), (51, 50), (51, 68), (42, 68), (42, 50),
-                           (44, 50), (44, 24), (40, 24)]})
+                           (44, 50), (44, 24), (40, 24)]}, close=0)
     D.shaft("staff", (46.5, 23), (46.5, 51), 1.2)       # the shaft: a straight line at every angle
     D.part("hand", [(38, 26), (46, 26), (46, 35), (38, 35)])   # her hand, drawn over the staff it holds
     D.part("fin", [(0, 43), (26, 43), (26, 76), (0, 76)])

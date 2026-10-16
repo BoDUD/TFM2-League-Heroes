@@ -90,15 +90,19 @@ def frames(rig):
     out = {}
     out["idle"] = [p(up=(0, b)) for b in [0, 0, 1, 1, 1, 1, 0, 0]]
     out["run"] = [p(up=(1, 0), axe=10, whole=(0, -r), near=n, far=f) for n, f, r in WALK]
-    # swings: the axe raised behind him (clockwise, so his arm never crosses his face), over the top and down ahead
-    out["attack"] = [p(up=u, axe=a) for u, a in
-                     [((-1, 0), -110), ((-1, 0), -165), ((2, 1), 100), ((3, 2), 40), ((2, 1), 15), ((0, 0), 0)]]
+    # auto attack after League's clip (tools/lol/native_pose.py assets/source/darius/poses.json; 「诺手平A姿势和英雄联盟
+    # 不一样」): the axe up over his head, drawn back level behind him, low, then swept level out ahead of him; he steps
+    # into it (whole moves: the body never sinks into his legs). Axe angles: 0 hanging as drawn, -156 straight up,
+    # -66 level behind, +114 level ahead (+100: a little lower, the haft across his chest, not his neck)
+    out["attack"] = [p(whole=w, axe=a) for w, a in
+                     [((0, 0), -20), ((-1, 0), -156), ((1, 0), -66), ((2, 0), -26), ((4, 0), 100), ((1, 0), 30)]]
     # Q Decimate: the axe swung all the way round him, behind him on the far half
     out["skill"] = [p(up=u, axe=a, axe_back=b) for u, a, b in
                     [((0, 1), -40, False), ((0, 2), -100, True), ((0, 2), -170, True), ((0, 2), -240, False),
                      ((0, 2), -300, False), ((0, 2), -380, False), ((0, 1), -420, False), ((0, 0), -360, False)]]
-    out["w_attack"] = [p(up=u, axe=a) for u, a in
-                       [((-1, 0), -140), ((-1, 0), -175), ((2, 1), 110), ((3, 3), 45), ((2, 2), 20), ((0, 0), 0)]]
+    # W Crippling Strike after League's clip: low and level behind him, then swept low out ahead
+    out["w_attack"] = [p(whole=w, axe=a) for w, a in
+                       [((0, 0), -50), ((1, 0), -56), ((1, 0), -46), ((3, 0), 94), ((3, 0), 100), ((1, 0), 20)]]
     # E Apprehend: the axe thrown forward, the hook pulled back
     out["skill2"] = [p(up=u, axe=a) for u, a in
                      [((-1, 0), 50), ((1, 0), 110), ((3, 0), 135), ((3, 0), 135), ((1, 0), 105), ((-1, 0), 60),
