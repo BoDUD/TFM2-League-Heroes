@@ -1,0 +1,303 @@
+{
+  "status": "partial_art_candidates",
+  "expected_frames": 46,
+  "available_frames": 40,
+  "missing": [
+    "kalista_dead_1.png",
+    "kalista_dead_2.png",
+    "kalista_dead_3.png",
+    "kalista_dead_4.png",
+    "kalista_dead_5.png",
+    "kalista_dead_6.png"
+  ],
+  "palette_actual_colors": 34,
+  "raw_generation_count": 39,
+  "blocker": {
+    "kind": "image_generation_usage_limit",
+    "http": 429,
+    "reset_time_jst": "2026-10-16 20:33:15",
+    "resume_needed": "Generate6 death frames, then repair art inconsistencies and repeat visual QA."
+  },
+  "frames": [
+    {
+      "file": "kalista_run_1.png",
+      "ms": 100,
+      "sha256": "9f321bb8bd2322b4df931b7b0381b959fcf7b562fb6f9ef4bcbf669002ad5486",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_run_2.png",
+      "ms": 100,
+      "sha256": "5d0d4028e2542eca309b94a9d67ba52b59c498aa43d8ffc5e91d2698a8748966",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_run_3.png",
+      "ms": 100,
+      "sha256": "073c0210691d0991aa35cb83126e490c90b1f1931f716fcdbc475ce1bb4eb228",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_run_4.png",
+      "ms": 100,
+      "sha256": "7926ef35d2cda94172c31edef016b77e944fcd2cf259427f69d50696d76e463b",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_run_5.png",
+      "ms": 100,
+      "sha256": "beda128c108384ba48657afd9b9799fe92784cbcc721c6a5c396e6b1e8c59751",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_run_6.png",
+      "ms": 100,
+      "sha256": "6f9b183a29e88ec14cb8469cb3d025ba749ebfaa16139f722242ec42f17923ed",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_run_7.png",
+      "ms": 100,
+      "sha256": "7f8ba027fb2be27ef802d0c3938bd462424f86ccb08fdadeadf381155c4b74e3",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_run_8.png",
+      "ms": 100,
+      "sha256": "8e064fc96d0859eb3cb3d132d41f7e5320f753575feb736e4888f545568734bb",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_attack_1.png",
+      "ms": 60,
+      "sha256": "2ddc142f52dc789aa3d5676aacb29157e327d9c2fac6bbd26db192c423263d31",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_attack_2.png",
+      "ms": 60,
+      "sha256": "0309f6f62a81d5272752bba950420f53d381255f68a07bbdadd02cd3ae597d3e",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_attack_3.png",
+      "ms": 90,
+      "sha256": "29cb5ebf3e342864e10d6740eb6b42c9eee8f31aadafd86656722a704349560b",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_attack_4.png",
+      "ms": 90,
+      "sha256": "d93aa1e0a1e1e81c9c4b7215b3ae90109171412a35b3a1b0884b1815e9b41b8b",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_attack_5.png",
+      "ms": 100,
+      "sha256": "a19cf11124546672822acc284d686a2cb982ce40935876f0c36c930812ca7105",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_b_1.png",
+      "ms": 50,
+      "sha256": "7d8755a3b7a0eea06f812a1ff7ace28594312fce24c213583b745591b96b1aca",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_b_2.png",
+      "ms": 50,
+      "sha256": "f167a53a9a450d7f664ba60e4e0a3f053e46ba8b6ad12ceb1bb27b4b63b5f3d7",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_b_3.png",
+      "ms": 50,
+      "sha256": "293d5e228b89985bc080d2613c84cfc9ea7f0c388d1204d26949bb9a2d6d9108",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_b_4.png",
+      "ms": 50,
+      "sha256": "a19cf11124546672822acc284d686a2cb982ce40935876f0c36c930812ca7105",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_f_1.png",
+      "ms": 50,
+      "sha256": "009f87a1aef097d8db5cc68310ddec1a8356526c6eaa9556c652b71f8ecbb2d1",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_f_2.png",
+      "ms": 50,
+      "sha256": "b9bb950f2b77dfbf38665fb56cc6ba2e8f9cc464bf35c7aa19808ee43b3152da",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_f_3.png",
+      "ms": 50,
+      "sha256": "b36259fd1f86326ee62cf20026160e6df2e6b57533ad36d379351cc6d476d2e7",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_hop_f_4.png",
+      "ms": 50,
+      "sha256": "a19cf11124546672822acc284d686a2cb982ce40935876f0c36c930812ca7105",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill_1.png",
+      "ms": 60,
+      "sha256": "e65aec49668c214029cb3309c6b1a091dad6385c6d14276806bd82f6303446ab",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill_2.png",
+      "ms": 60,
+      "sha256": "a2b4bdece1e83960d4dfd030844295f60feed7b01dd419b4be78ed30b8c24022",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill_3.png",
+      "ms": 90,
+      "sha256": "8c8ab1f02172d26eeedfab543a558ed0d2eea0b8c36ad82d5c7197d8656dedf1",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill_4.png",
+      "ms": 90,
+      "sha256": "ec319dd6e5d28bb99710eddf25a42f2723a029f00270d133f6e01e92fc71f505",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill_5.png",
+      "ms": 100,
+      "sha256": "a19cf11124546672822acc284d686a2cb982ce40935876f0c36c930812ca7105",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill2_1.png",
+      "ms": 60,
+      "sha256": "69a6cd40c4721858cdefa778670f81987ec0bac0dcce0e36b833b50c78ce7463",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill2_2.png",
+      "ms": 70,
+      "sha256": "f6170f5bf6a89fb0bfd8508a6901a2129b099df411dc66f1eb22c9d9f7c86d17",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill2_3.png",
+      "ms": 70,
+      "sha256": "d1bc5cb07954cd14ee7b7378e1bbcbf676aabf1ad96dde6b865a0e52db162256",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill2_4.png",
+      "ms": 80,
+      "sha256": "a076d26f555c03b0c1ab7c0b547071fa40e27e58f634276f85d5b8ca5861013f",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_skill2_5.png",
+      "ms": 100,
+      "sha256": "a19cf11124546672822acc284d686a2cb982ce40935876f0c36c930812ca7105",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult_1.png",
+      "ms": 70,
+      "sha256": "faaa5c85dcd574916585031a0fd5d14ebabd83e1bc9cc15fcb8e32eab5d073d3",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult_2.png",
+      "ms": 80,
+      "sha256": "87f1460a442043b7f778ba9a919e61f2002d9573050781bdab1e540e2b841feb",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult_3.png",
+      "ms": 80,
+      "sha256": "f83a31d552133eacc5b950f3eb9f4221d21b35a903e096ac8803a624453ab4f6",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult_4.png",
+      "ms": 80,
+      "sha256": "5efbf47d2c1b25c08b9a87fab6ab9dfde0c9392f128c72cef4c4399b868fed39",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult_5.png",
+      "ms": 90,
+      "sha256": "409cd018ff953ba6210de690c18442713d938be9c57fafa3336cb85adfc79281",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult2_1.png",
+      "ms": 60,
+      "sha256": "bbe1607fc970c0815eb4407e82d02a03967d53907b6abe45711f486517d845d6",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult2_2.png",
+      "ms": 60,
+      "sha256": "5439969694487439eca38dfc318434d40fa381a8fd5b1e872f83e247ddee25fd",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult2_3.png",
+      "ms": 80,
+      "sha256": "54be33cb0a603c8b160f36b9a34464101cde5b080d09965e919792b915cd3378",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    },
+    {
+      "file": "kalista_ult2_4.png",
+      "ms": 100,
+      "sha256": "a19cf11124546672822acc284d686a2cb982ce40935876f0c36c930812ca7105",
+      "technical_checks": "pass",
+      "art_acceptance": "not_passed"
+    }
+  ]
+}

@@ -93,13 +93,23 @@ def pixelate(a, k, pivot, outline, pal=None):
     1/k dense pixels on a grid through the pivot. Each square: the mean of its opaque pixels snapped to the frame's own
     64 commonest colours (clean shading, no stray colours), clear where half or more is clear, the outline colour where
     40 % or more is near-black (eyes, lines) or, on the silhouette's edge, a quarter or more; single squares unlike all
-    four neighbours take theirs. -> (frame, new pivot)."""
+    four neighbours take theirs. -> (frame, new pivot).
+    k > 1 (a hero drawn coarser than the UI's UI_PPU: league_kalista 1.4, league_tahmkench 1.2, league_malzahar 1.38 x
+    1.15): each square takes the dense pixel under its centre - averaging left squares with no pixel under them clear,
+    an empty row and column every ~1 / (k - 1) squares (the BP cards: 「全是网格」, 2026-10-16)."""
     H, W = a.shape[:2]
     c = 1.0 / k
     px, py = pivot
     nx0, ny0 = int(np.ceil(px / c)), int(np.ceil(py / c))          # squares left of / above the pivot
     nx1, ny1 = int(np.ceil((W - px) / c)), int(np.ceil((H - py) / c))
     Wn, Hn = nx0 + nx1, ny0 + ny1
+    if k > 1:
+        sx = np.floor(px + (np.arange(Wn) - nx0 + 0.5) * c).astype(int)
+        sy = np.floor(py + (np.arange(Hn) - ny0 + 0.5) * c).astype(int)
+        out = np.zeros((Hn, Wn, 4), np.uint8)
+        okx, oky = (sx >= 0) & (sx < W), (sy >= 0) & (sy < H)
+        out[np.ix_(oky, okx)] = a[np.ix_(sy[oky], sx[okx])]
+        return out, (nx0, ny0)
     cx = np.floor((np.arange(W) + 0.5 - px) / c).astype(int) + nx0
     cy = np.floor((np.arange(H) + 0.5 - py) / c).astype(int) + ny0
     cell = (cy[:, None] * Wn + cx[None, :]).ravel()

@@ -763,6 +763,13 @@
         "skill": "舌头鞭打第一个单位，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，<#ef5350ff>减速40%<><#ffb900ff>1.5秒<>；命中英雄回复<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命并叠一层，<#ffb900ff>3层<>时<#ef5350ff>眩晕1.25秒<>。",
         "skill2": "潜入地下<#ffb900ff>1秒<>（不可选中），在目标处冒出，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。",
         "ult": "吞下被控制、身陷敌群的队友<#ffb900ff>2.5秒<>，吐出时给予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>护盾；或吞下<#ffb900ff>3层<>的敌方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法伤害<>和其最大生命6%真实伤害。"
+      },
+      "league_kalista": {
+        "name": "卡莉丝塔",
+        "attack": "投矛，命中的敌人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>武术姿态<>：每次投矛后向后跳开。<#ff9028ff>哨兵<>：有队友在目标身边时，额外造成目标<#ffffffff>12%最大生命值的真实伤害<>（<#ffb900ff>5秒<>一次）。",
+        "skill": "掷出长矛，对第一个敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>并插上一支矛；若将其击杀，长矛穿过去命中下一个。",
+        "skill2": "拔出所有敌人身上的矛：每支造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>并减速8%。击杀英雄时刷新冷却。插满<#ffb900ff>3支<>时自动拔出。",
+        "ult": "把身边一名队友拉进身体保护<#ffb900ff>0.5秒<>，然后甩向目标，落地击飞周围敌人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。"
       }
     },
     "skill_name": {
@@ -1310,6 +1317,11 @@
         "skill1": "巨舌鞭笞",
         "skill2": "深渊潜航",
         "ult": "大快朵颐"
+      },
+      "league_kalista": {
+        "skill1": "穿刺",
+        "skill2": "撕裂",
+        "ult": "命运的召唤"
       }
     }
   },
@@ -2077,6 +2089,13 @@
         "skill": "舌頭鞭打第一個單位，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，<#ef5350ff>緩速40%<><#ffb900ff>1.5秒<>；命中英雄回復<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命並疊一層，<#ffb900ff>3層<>時<#ef5350ff>暈眩1.25秒<>。",
         "skill2": "潛入地下<#ffb900ff>1秒<>（無法被選取），在目標處冒出，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。",
         "ult": "吞下被控制、身陷敵群的隊友<#ffb900ff>2.5秒<>，吐出時給予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>護盾；或吞下<#ffb900ff>3層<>的敵方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法傷害<>和其最大生命6%真實傷害。"
+      },
+      "league_kalista": {
+        "name": "克黎思妲",
+        "attack": "投矛，命中的敵人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>好戰突進<>：每次投矛後向後跳開。<#ff9028ff>憎靈守衛<>：有隊友在目標身邊時，額外造成目標<#ffffffff>12%最大生命的真實傷害<>（<#ffb900ff>5秒<>一次）。",
+        "skill": "擲出長矛，對第一個敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>並插上一支矛；若將其擊殺，長矛穿過去命中下一個。",
+        "skill2": "拔出所有敵人身上的矛：每支造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>並緩速8%。擊殺英雄時重置冷卻。插滿<#ffb900ff>3支<>時自動拔出。",
+        "ult": "把身邊一名隊友拉進身體保護<#ffb900ff>0.5秒<>，然後擲向目標，落地擊飛周圍敵人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。"
       }
     },
     "skill_name": {
@@ -2624,6 +2643,11 @@
         "skill1": "毒舌",
         "skill2": "遨遊深淵",
         "ult": "大快朵頤"
+      },
+      "league_kalista": {
+        "skill1": "赦罪穿刺",
+        "skill2": "痛苦撕扯",
+        "ult": "命運呼喚"
       }
     }
   },
@@ -3391,6 +3415,13 @@
         "skill": "Lashes his tongue at the first unit hit: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>40% slow<> for <#ffb900ff>1.5s<>. On a champion he heals <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> and adds a stack; at <#ffb900ff>3<> it <#ef5350ff>stuns 1.25s<>.",
         "skill2": "Dives underground for <#ffb900ff>1s<> (untargetable) and bursts up at the target: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<>.",
         "ult": "Swallows an ally caught in crowd control among enemies for <#ffb900ff>2.5s<> and spits him out with a <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> shield; or an enemy champion with <#ffb900ff>3<> stacks for <#ffb900ff>2.5s<>: <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> max health <#a974ffff>magic damage<> and 6% of its max health as true damage."
+      },
+      "league_kalista": {
+        "name": "Kalista",
+        "attack": "Throws spears; each one stays in the enemy it hits for <#ffb900ff>4s<>. <#ff9028ff>Martial Poise<>: she hops back after each spear. <#ff9028ff>Sentinel<>: with an ally beside her target, deals <#ffffffff>12% of its max health as true damage<> (once every <#ffb900ff>5s<>).",
+        "skill": "Throws a spear that deals <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> to the first enemy hit and sticks a spear in it; if it kills, the spear passes through to the next.",
+        "skill2": "Rips out every spear: each deals <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<> and slows 8%. Killing a champion refunds the cooldown. Rips on its own at <#ffb900ff>3 spears<>.",
+        "ult": "Draws an ally beside her into herself for <#ffb900ff>0.5s<>, then hurls them at the target; the landing knocks up nearby enemies for <#ffb900ff>1.25s<> and deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>."
       }
     },
     "skill_name": {
@@ -3938,6 +3969,11 @@
         "skill1": "Tongue Lash",
         "skill2": "Abyssal Dive",
         "ult": "Devour"
+      },
+      "league_kalista": {
+        "skill1": "Pierce",
+        "skill2": "Rend",
+        "ult": "Fate's Call"
       }
     }
   },
@@ -4705,6 +4741,13 @@
         "skill": "혀로 첫 대상을 후려쳐 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ffb900ff>1.5초<> <#ef5350ff>40% 둔화<>. 챔피언이면 <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> 회복하고 중첩, <#ffb900ff>3중첩<>에 <#ef5350ff>1.25초 기절<>.",
         "skill2": "<#ffb900ff>1초<> 동안 땅속으로 잠수 (대상 지정 불가) 후 대상 위치에서 솟아올라 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ef5350ff>1초 에어본<>.",
         "ult": "군중 제어에 걸려 적에게 둘러싸인 아군을 <#ffb900ff>2.5초<> 삼켜 뱉을 때 <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> 보호막; 또는 <#ffb900ff>3중첩<> 적 챔피언을 <#ffb900ff>2.5초<> 삼켜 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> 최대 체력 <#a974ffff>마법 피해<>와 대상 최대 체력 6% 고정 피해."
+      },
+      "league_kalista": {
+        "name": "칼리스타",
+        "attack": "창을 던지며, 맞은 적에게 창이 <#ffb900ff>4초<> 꽂힙니다. <#ff9028ff>전투 태세<>: 창을 던질 때마다 뒤로 도약. <#ff9028ff>감시하는 혼<>: 대상 곁에 아군이 있으면 대상 최대 체력의 <#ffffffff>12% 고정 피해<>(<#ffb900ff>5초<>마다).",
+        "skill": "창을 던져 처음 맞은 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>의 <#ff9028ff>물리 피해<>를 입히고 창을 꽂습니다. 처치하면 창이 관통해 다음 적을 맞힙니다.",
+        "skill2": "모든 창을 뽑습니다: 창마다 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 8% 둔화. 챔피언 처치 시 재사용 대기시간 초기화. 창이 <#ffb900ff>3개<>면 자동으로 뽑습니다.",
+        "ult": "곁의 아군을 <#ffb900ff>0.5초<> 동안 몸에 거둔 뒤 대상에게 던집니다. 착지하면 주변 적을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>."
       }
     },
     "skill_name": {
@@ -5252,6 +5295,11 @@
         "skill1": "혀 채찍",
         "skill2": "심연 잠수",
         "ult": "집어삼키기"
+      },
+      "league_kalista": {
+        "skill1": "꿰뚫는 창",
+        "skill2": "뽑아 찢기",
+        "ult": "운명의 부름"
       }
     }
   },
@@ -6019,6 +6067,13 @@
         "skill": "舌で最初のユニットを打ち<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%スロウ<>（<#ffb900ff>1.5秒<>）。チャンピオンなら<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>回復しスタック、<#ffb900ff>3<>で<#ef5350ff>1.25秒スタン<>。",
         "skill2": "<#ffb900ff>1秒<>地中に潜り（対象不可）対象の位置に飛び出し<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒ノックアップ<>。",
         "ult": "敵に囲まれ行動妨害を受けた味方を<#ffb900ff>2.5秒<>丸呑みし吐き出す時<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>のシールド。または<#ffb900ff>3<>スタックの敵チャンピオンを<#ffb900ff>2.5秒<>丸呑みし<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大体力の<#a974ffff>魔法ダメージ<>と最大体力6%の確定ダメージ。"
+      },
+      "league_kalista": {
+        "name": "カリスタ",
+        "attack": "槍を投げ、当たった敵に槍が<#ffb900ff>4秒<>刺さる。<#ff9028ff>戦の所作<>：投擲するたびに後ろへ跳ぶ。<#ff9028ff>執念の霊魂<>：対象の傍に味方がいると最大体力の<#ffffffff>12%の確定ダメージ<>（<#ffb900ff>5秒<>毎）。",
+        "skill": "槍を投げ、最初の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>を与え槍を刺す。倒すと貫通して次の敵に当たる。",
+        "skill2": "全ての槍を引き抜く：1本につき<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>と8%スロウ。チャンピオンを倒すとCD解消。<#ffb900ff>3本<>で自動発動。",
+        "ult": "傍の味方を<#ffb900ff>0.5秒<>身に宿し、対象へ投げ放つ。着地で周囲の敵を<#ffb900ff>1.25秒<>打ち上げ、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。"
       }
     },
     "skill_name": {
@@ -6566,6 +6621,11 @@
         "skill1": "味見",
         "skill2": "川潜り",
         "ult": "丸呑み"
+      },
+      "league_kalista": {
+        "skill1": "貫魂の一投",
+        "skill2": "引き裂く遺恨",
+        "ult": "宿命の呼び声"
       }
     }
   }
