@@ -4141,340 +4141,397 @@
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 1000
-            }
-          },
-          "target": "AllyOnlySelf",
-          "apply_type": "AroundCaster",
+      "type": "SwitchByBuff",
+      "buff_name": "league_samira_g_live",
+      "effect_buff": {
+        "type": "SwitchByBuff",
+        "buff_name": "league_samira_g6",
+        "effect_buff": {
+          "type": "Combine",
           "effects": [
             {
-              "type": "Shield",
-              "amount": 200,
-              "attack_ratio": 0,
-              "ap_ratio": 0,
-              "tick": 1
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_g1"
             },
             {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_samira_ai_value",
-                "duration": {
-                  "Time": {
-                    "tick": 1
-                  }
-                }
-              },
-              "only_to_enemy": false
-            }
-          ]
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_samira_g_live",
-          "effect_buff": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_samira_g6",
-            "effect_buff": {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_g2"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_g3"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_g4"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_g5"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_g6"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_l_a"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_l_m"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_l_q"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_l_e"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_l_w"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_g_live"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_samira_r_armed"
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "ult",
+              "tick": 120
+            },
+            {
+              "type": "Sfx",
+              "name": "league_samira_r_cast"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_samira_r_loop"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_samira_vo_r"
+            },
+            {
               "type": "Combine",
               "effects": [
                 {
                   "type": "RemoveCasterBuff",
-                  "name": "league_samira_g1"
+                  "name": "league_samira_r_on"
                 },
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_g2"
-                },
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_samira_r_on",
+                    "duration": {
+                      "Time": {
+                        "tick": 120
+                      }
+                    },
+                    "vamp": 40
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_g3"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_g4"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_g5"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_g6"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_l_a"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_l_m"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_l_q"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_l_e"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_l_w"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_samira_g_live"
-                },
+                  "type": "AddCasted",
+                  "casted_type": "Heal",
+                  "duration": 120,
+                  "period": 12,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 55000
+                        }
+                      },
+                      "target": "EnemyWithoutTower",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "TargetProjectile",
+                          "name": "league_samira_r_bullet",
+                          "speed": 12000,
+                          "y_offset": -8000,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "RandomTarget",
+                                "range": 1000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": true,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_samira_k_r"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_samira_k_r",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 40
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 10,
+                                "attack_ratio": 40,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_samira_r_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_samira_r_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "RandomTarget",
+                                "range": 1000,
+                                "casting_target": "EnemyChampion",
+                                "from_projectile": true,
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasted",
+                                        "casted_type": "Heal",
+                                        "duration": 3,
+                                        "period": 1,
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_samira_k_r"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "target": "AllyOnlySelf",
+                                        "apply_type": "AroundCaster",
+                                        "effects": [
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 4,
+                                            "effects": [
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_samira_k_r",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_samira_k_r"
+                                                    },
+                                                    {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_samira_reset"
+                                                        },
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_samira_reset",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 2
+                                                              }
+                                                            },
+                                                            "skill_cooldown_mult": 10000
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "CasterViewEffect",
+                                                          "name": "league_samira_e_reset"
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_samira_e_reset"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_samira_r_shot"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
                 {
                   "type": "RemoveCasterBuff",
                   "name": "league_samira_r_armed"
                 },
                 {
-                  "type": "CasterAnimation",
-                  "name": "ult",
-                  "tick": 120
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_samira_r_cast"
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_samira_r_loop"
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_samira_vo_r"
-                },
-                {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_samira_r_on"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_samira_r_on",
-                        "duration": {
-                          "Time": {
-                            "tick": 120
-                          }
-                        },
-                        "vamp": 40
-                      },
-                      "only_to_enemy": false
-                    }
-                  ]
-                },
-                {
-                  "type": "RangeEffect",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1000
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_samira_r_armed",
+                    "duration": {
+                      "Time": {
+                        "tick": 330
+                      }
                     }
                   },
-                  "target": "AllyOnlySelf",
-                  "apply_type": "AroundCaster",
-                  "effects": [
-                    {
-                      "type": "AddCasted",
-                      "casted_type": "Heal",
-                      "duration": 120,
-                      "period": 12,
-                      "effects": [
-                        {
-                          "type": "RangeEffect",
-                          "shape": {
-                            "Circle": {
-                              "radius": 55000
-                            }
-                          },
-                          "target": "EnemyWithoutTower",
-                          "apply_type": "AroundCaster",
-                          "effects": [
-                            {
-                              "type": "TargetProjectile",
-                              "name": "league_samira_r_bullet",
-                              "speed": 12000,
-                              "y_offset": -8000,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "RandomTarget",
-                                    "range": 1000,
-                                    "casting_target": "EnemyChampion",
-                                    "from_projectile": true,
-                                    "effects": [
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_samira_k_r"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_samira_k_r",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 40
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 40,
-                                    "hp_ratio": 0,
-                                    "target_hp_ratio": 0,
-                                    "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_samira_r_hit"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "TargetSfx",
-                                    "name": "league_samira_r_hit"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "RandomTarget",
-                                    "range": 1000,
-                                    "casting_target": "EnemyChampion",
-                                    "from_projectile": true,
-                                    "effects": [
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "AddCasted",
-                                            "casted_type": "Heal",
-                                            "duration": 3,
-                                            "period": 1,
-                                            "effects": [
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_samira_k_r"
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "RangeEffect",
-                                            "shape": {
-                                              "Circle": {
-                                                "radius": 1000
-                                              }
-                                            },
-                                            "target": "AllyOnlySelf",
-                                            "apply_type": "AroundCaster",
-                                            "effects": [
-                                              {
-                                                "type": "Delayed",
-                                                "tick": 4,
-                                                "effects": [
-                                                  {
-                                                    "type": "SwitchByBuff",
-                                                    "buff_name": "league_samira_k_r",
-                                                    "effect_buff": {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "RemoveCasterBuff",
-                                                          "name": "league_samira_k_r"
-                                                        },
-                                                        {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "RemoveCasterBuff",
-                                                              "name": "league_samira_reset"
-                                                            },
-                                                            {
-                                                              "type": "AddCasterBuff",
-                                                              "buff_state": {
-                                                                "name": "league_samira_reset",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 2
-                                                                  }
-                                                                },
-                                                                "skill_cooldown_mult": 10000
-                                                              },
-                                                              "only_to_enemy": false
-                                                            },
-                                                            {
-                                                              "type": "CasterViewEffect",
-                                                              "name": "league_samira_e_reset"
-                                                            },
-                                                            {
-                                                              "type": "Sfx",
-                                                              "name": "league_samira_e_reset"
-                                                            }
-                                                          ]
-                                                        }
-                                                      ]
-                                                    },
-                                                    "effect_none": {
-                                                      "type": "Combine",
-                                                      "effects": []
-                                                    }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "Sfx",
-                          "name": "league_samira_r_shot"
-                        }
-                      ]
-                    }
-                  ]
+                  "only_to_enemy": false
                 }
               ]
             },
-            "effect_none": {
-              "type": "Combine",
+            {
+              "type": "Delayed",
+              "tick": 329,
               "effects": [
                 {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_samira_r_armed",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_samira_r_armed"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_samira_r_refund",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          },
+                          "ult_cooldown_mult": 4900
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_samira_r_armed"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_samira_r_armed",
+                  "duration": {
+                    "Time": {
+                      "tick": 330
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          },
+          {
+            "type": "Delayed",
+            "tick": 329,
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_samira_r_armed",
+                "effect_buff": {
                   "type": "Combine",
                   "effects": [
                     {
@@ -4484,120 +4541,27 @@
                     {
                       "type": "AddCasterBuff",
                       "buff_state": {
-                        "name": "league_samira_r_armed",
+                        "name": "league_samira_r_refund",
                         "duration": {
                           "Time": {
-                            "tick": 330
+                            "tick": 3
                           }
-                        }
+                        },
+                        "ult_cooldown_mult": 4900
                       },
                       "only_to_enemy": false
                     }
                   ]
                 },
-                {
-                  "type": "Delayed",
-                  "tick": 329,
-                  "effects": [
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_samira_r_armed",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_samira_r_armed"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_samira_r_refund",
-                              "duration": {
-                                "Time": {
-                                  "tick": 3
-                                }
-                              },
-                              "ult_cooldown_mult": 4900
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
-                    }
-                  ]
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
                 }
-              ]
-            }
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_samira_r_armed"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_samira_r_armed",
-                      "duration": {
-                        "Time": {
-                          "tick": 330
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 329,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_samira_r_armed",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_samira_r_armed"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_samira_r_refund",
-                            "duration": {
-                              "Time": {
-                                "tick": 3
-                              }
-                            },
-                            "ult_cooldown_mult": 4900
-                          },
-                          "only_to_enemy": false
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
               }
             ]
           }
-        }
-      ]
+        ]
+      }
     }
   },
   "view_projectiles": [

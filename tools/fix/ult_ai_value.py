@@ -1,15 +1,15 @@
-"""Armed ults the game's AI can see a value in (the user, 2026-10-17: 「瑞文、莎弥拉、崔斯特 有问题的话也修复」).
+"""An armed ult the game's AI can see a value in (league_riven; the user, 2026-10-17: 「瑞文、莎弥拉、崔斯特 有问题的话也修复」).
 
     python tools/fix/ult_ai_value.py <hero.data_champion> [...]
 
-Some ult slots only arm a window and the real ult goes later from other trees: league_riven (R armed 10 s, Blade of the
-Exile when an enemy champion is close or at her first hit on one, the cooldown refunded unused), league_samira (R only at
-S style, else armed 330 ticks and refunded), league_twistedfate (Destiny armed 10 s, the gate only when he is alone and an
-ally far away is fighting). The slot itself is worth nothing to game 0.6.4's AI, which almost never picks it - a read-only
-observer of its inputs (2026-10-17): Riven 0 ults in 6 games, Samira 0.3 and Twisted Fate 0.7 every 10 minutes, while most
-ults go 4-12 times a game. Each slot now starts with a 1-tick shield on the caster (SHIELD, RangeEffect AllyOnlySelf): a
-shield is worth its full amount to the AI (champion-data 3; league_kaisa's probe shield made her Q its favourite), it lasts
-one tick, and the window, the checks and the refunds stay as they were. Run once; a slot that already has it is left alone.
+league_riven's R slot only arms a window (10 s; Blade of the Exile when an enemy champion is close or at her first hit on
+one, the cooldown refunded unused) and was worth nothing to game 0.6.4's AI: a read-only observer of its inputs saw 0 ults
+in 6 games, while most ults go 4-12 times a game. The slot now starts with a 1-tick shield on the caster (SHIELD,
+RangeEffect AllyOnlySelf): a shield is worth its full amount to the AI (champion-data 3), it lasts one tick, and the
+window, the checks and the refund stay as they were. In game: 18 ults in 4 games (3.3 every 10 minutes); the classic SDK
+plays her identically. league_samira and league_twistedfate (armed slots too) did not respond to it, at 200 or 1000 -
+not applied to them. Not for a slot whose casting target is often missing (league_kogmaw, champion-data 8). Run once;
+a slot that already has it is left alone.
 """
 import json
 import os
