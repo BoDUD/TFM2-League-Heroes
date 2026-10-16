@@ -273,14 +273,13 @@ def build(p):
     fear = combine(*rm("r_kill"), sfx("vo_r_kill"), cview("r_fear"),
                    around(p["r_fear_r"], "EnemyChampion", [{"type": "Fear", "tick": p["r_fear"]},
                                                           buff("r_flee", p["r_fear"], move_speed_mult=-50)]))
-    if nat:   # league_urgot:mercy reels in and kills a champion under 25% health, and only that one
-        execute = [{"type": "Native", "effect_ref": f"{ID}:mercy"}]
-    else:
-        # pictures from a target's Delayed play on a corpse too: only an AddCasted runs on the living alone
-        execute = [{"type": "Grab", "speed": 3000}, casted(1, 1, view("r_reel")),
-                   delayed(p["r_reel"], refresh("r_kill", 40), true_dmg(p["r_ex"]), casted(1, 1, view("r_ex")),
-                           tsfx("r_ex"), delayed(1, casted(3, 1, *rm("r_kill")))),
-                   on_me(delayed(p["r_reel"] + 4, sw("r_kill", fear)))]
+    # pictures from a target's Delayed play on a corpse too: only an AddCasted runs on the living alone
+    execute = [{"type": "Grab", "speed": 3000}, casted(1, 1, view("r_reel")),
+               delayed(p["r_reel"], refresh("r_kill", 40), true_dmg(p["r_ex"]), casted(1, 1, view("r_ex")),
+                       tsfx("r_ex"), delayed(1, casted(3, 1, *rm("r_kill")))),
+               on_me(delayed(p["r_reel"] + 4, sw("r_kill", fear)))]
+    if nat:   # league_urgot:mercy raises r_low (1 tick) only on a champion under 25% health: only that one is executed
+        execute = [{"type": "Native", "effect_ref": f"{ID}:mercy"}, sw("r_low", combine(*rm("r_low"), *execute))]
     impale = [attack(p["r_dmg"], p["r_ratio"]), buff("r_leash", p["r_t"], move_speed_mult=-p["r_slow"]),
               view("r_hit"), tsfx("r_hit"), delayed(p["r_t"], *execute)]
     drill = line("r_drill", p["r_speed"], p["r_range"], p["r_rad"], "EnemyChampion", False, impale)
