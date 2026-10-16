@@ -1,0 +1,71 @@
+{
+ "hero": "aphelios",
+ "champ": "Aphelios",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 40,
+ "cell": [
+  200,
+  160,
+  30
+ ],
+ "design": "aphelios_A_Idle1@0",
+ "hide_submeshes": [
+  "recall",
+  "scarf_recall",
+  "flower",
+  "severum",
+  "gravitum",
+  "infernum",
+  "crescendum"
+ ],
+ "submesh_textures": {
+  "calibrum": "Guns_TX"
+ },
+ "tags": {
+  "run": {
+   "frames": [
+    [
+     "aphelios_A_Run1@0",
+     133
+    ],
+    [
+     "aphelios_A_Run1@133",
+     133
+    ],
+    [
+     "aphelios_A_Run1@267",
+     133
+    ],
+    [
+     "aphelios_A_Run1@400",
+     133
+    ],
+    [
+     "aphelios_A_Run1@534",
+     133
+    ],
+    [
+     "aphelios_A_Run1@667",
+     133
+    ],
+    [
+     "aphelios_A_Run1@800",
+     133
+    ],
+    [
+     "aphelios_A_Run1@934",
+     133
+    ]
+   ]
+  }
+ }
+}

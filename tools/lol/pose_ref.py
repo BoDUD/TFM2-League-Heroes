@@ -582,6 +582,9 @@ def main():
     ap.add_argument("--size", type=int, default=260, help="cell height in px")
     ap.add_argument("--width", type=float, default=0.9, help="cell width as a fraction of --size")
     ap.add_argument("--fit", type=float, default=0.62, help="bind-pose height as a fraction of --size")
+    ap.add_argument("--fit-all", action="store_true",
+                    help="frame on every vertex, hidden submeshes too, so renders that show different props share one "
+                         "scale (Aphelios: each weapon is a submesh far from his body in the bind pose)")
     ap.add_argument("--shift", type=float, default=0.0, help="move the character right by this fraction of the cell")
     ap.add_argument("--ground", type=float, default=0.84, help="feet line as a fraction of the cell height")
     ap.add_argument("--mirror", action="store_true",
@@ -668,7 +671,7 @@ def main():
     # frame the character once, from the bind pose: height -> cell height
     rest = skin(verts, influences, bind_inv, bind)
     # frame on the drawn vertices only: a hidden submesh (Pyke's Nensi sea monster) must not set the height or the ground
-    drawn = np.unique(np.asarray(tris).ravel())
+    drawn = np.arange(len(verts)) if args.fit_all else np.unique(np.asarray(tris).ravel())
     small = args.head != 1.0 or args.legs != 1.0
     if small:
         legv = leg_vertices(joints, influences, verts)

@@ -43,6 +43,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Orianna: PPU 2.2 (the user's pick after 1.5 read muddy and 2.6 too sharp: 「PPU 2.2（84 行）」), posed by
     // tools/art/rig_orianna.py on that grid, so no SIZES row
     ("league_orianna", 2.2, include_str!("../../../league/champions/league_orianna#anim.fanim")),
+    // Aphelios: PPU 1.5 (the user's pick), posed from the design's own squares at that density; 90 % (SIZES, the user:
+    // 「厄斐琉斯模型是不是在游戏里太大了？」 then 「缩到 90%」 from a sheet: 47 px against the ADCs' 36-45)
+    ("league_aphelios", 1.5, include_str!("../../../league/champions/league_aphelios#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -86,7 +89,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
-                                    ("league_corki", 0.90), ("league_malzahar", 1.15)];
+                                    ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90)];
 
 pub const PREFIX: &str = "hd_";
 
