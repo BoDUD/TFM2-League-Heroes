@@ -766,9 +766,9 @@
       },
       "league_kalista": {
         "name": "卡莉丝塔",
-        "attack": "投矛，命中的敌人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>武术姿态<>：每次投矛后向后跳开。<#ff9028ff>哨兵<>：有队友在目标身边时，额外造成目标<#ffffffff>12%最大生命值的真实伤害<>（<#ffb900ff>5秒<>一次）。",
-        "skill": "掷出长矛，对第一个敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>并插上一支矛；若将其击杀，长矛穿过去命中下一个。",
-        "skill2": "拔出所有敌人身上的矛：每支造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>并减速8%。击杀英雄时刷新冷却。插满<#ffb900ff>3支<>时自动拔出。",
+        "attack": "投矛，命中的敌人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>武术姿态<>：每次投矛后向后跳开。<#ff9028ff>哨兵<>：有队友在目标身边时，额外造成目标<#ffffffff>14%最大生命值的真实伤害<>（<#ffb900ff>5秒<>一次）。",
+        "skill": "掷出长矛，对第一个敌人造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>并插上一支矛；若将其击杀，长矛穿过去命中下一个。",
+        "skill2": "拔出所有敌人身上的矛：每支造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>并减速8%。击杀英雄时刷新冷却。插满<#ffb900ff>3支<>时自动拔出。",
         "ult": "把身边一名队友拉进身体保护<#ffb900ff>0.5秒<>，然后甩向目标，落地击飞周围敌人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。"
       }
     },
@@ -2092,9 +2092,9 @@
       },
       "league_kalista": {
         "name": "克黎思妲",
-        "attack": "投矛，命中的敵人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>好戰突進<>：每次投矛後向後跳開。<#ff9028ff>憎靈守衛<>：有隊友在目標身邊時，額外造成目標<#ffffffff>12%最大生命的真實傷害<>（<#ffb900ff>5秒<>一次）。",
-        "skill": "擲出長矛，對第一個敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>並插上一支矛；若將其擊殺，長矛穿過去命中下一個。",
-        "skill2": "拔出所有敵人身上的矛：每支造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>並緩速8%。擊殺英雄時重置冷卻。插滿<#ffb900ff>3支<>時自動拔出。",
+        "attack": "投矛，命中的敵人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>好戰突進<>：每次投矛後向後跳開。<#ff9028ff>憎靈守衛<>：有隊友在目標身邊時，額外造成目標<#ffffffff>14%最大生命的真實傷害<>（<#ffb900ff>5秒<>一次）。",
+        "skill": "擲出長矛，對第一個敵人造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>並插上一支矛；若將其擊殺，長矛穿過去命中下一個。",
+        "skill2": "拔出所有敵人身上的矛：每支造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>並緩速8%。擊殺英雄時重置冷卻。插滿<#ffb900ff>3支<>時自動拔出。",
         "ult": "把身邊一名隊友拉進身體保護<#ffb900ff>0.5秒<>，然後擲向目標，落地擊飛周圍敵人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。"
       }
     },
@@ -3418,9 +3418,9 @@
       },
       "league_kalista": {
         "name": "Kalista",
-        "attack": "Throws spears; each one stays in the enemy it hits for <#ffb900ff>4s<>. <#ff9028ff>Martial Poise<>: she hops back after each spear. <#ff9028ff>Sentinel<>: with an ally beside her target, deals <#ffffffff>12% of its max health as true damage<> (once every <#ffb900ff>5s<>).",
-        "skill": "Throws a spear that deals <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> to the first enemy hit and sticks a spear in it; if it kills, the spear passes through to the next.",
-        "skill2": "Rips out every spear: each deals <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<> and slows 8%. Killing a champion refunds the cooldown. Rips on its own at <#ffb900ff>3 spears<>.",
+        "attack": "Throws spears; each one stays in the enemy it hits for <#ffb900ff>4s<>. <#ff9028ff>Martial Poise<>: she hops back after each spear. <#ff9028ff>Sentinel<>: with an ally beside her target, deals <#ffffffff>14% of its max health as true damage<> (once every <#ffb900ff>5s<>).",
+        "skill": "Throws a spear that deals <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> to the first enemy hit and sticks a spear in it; if it kills, the spear passes through to the next.",
+        "skill2": "Rips out every spear: each deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> and slows 8%. Killing a champion refunds the cooldown. Rips on its own at <#ffb900ff>3 spears<>.",
         "ult": "Draws an ally beside her into herself for <#ffb900ff>0.5s<>, then hurls them at the target; the landing knocks up nearby enemies for <#ffb900ff>1.25s<> and deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>."
       }
     },
@@ -4744,9 +4744,9 @@
       },
       "league_kalista": {
         "name": "칼리스타",
-        "attack": "창을 던지며, 맞은 적에게 창이 <#ffb900ff>4초<> 꽂힙니다. <#ff9028ff>전투 태세<>: 창을 던질 때마다 뒤로 도약. <#ff9028ff>감시하는 혼<>: 대상 곁에 아군이 있으면 대상 최대 체력의 <#ffffffff>12% 고정 피해<>(<#ffb900ff>5초<>마다).",
-        "skill": "창을 던져 처음 맞은 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>의 <#ff9028ff>물리 피해<>를 입히고 창을 꽂습니다. 처치하면 창이 관통해 다음 적을 맞힙니다.",
-        "skill2": "모든 창을 뽑습니다: 창마다 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 8% 둔화. 챔피언 처치 시 재사용 대기시간 초기화. 창이 <#ffb900ff>3개<>면 자동으로 뽑습니다.",
+        "attack": "창을 던지며, 맞은 적에게 창이 <#ffb900ff>4초<> 꽂힙니다. <#ff9028ff>전투 태세<>: 창을 던질 때마다 뒤로 도약. <#ff9028ff>감시하는 혼<>: 대상 곁에 아군이 있으면 대상 최대 체력의 <#ffffffff>14% 고정 피해<>(<#ffb900ff>5초<>마다).",
+        "skill": "창을 던져 처음 맞은 적에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>의 <#ff9028ff>물리 피해<>를 입히고 창을 꽂습니다. 처치하면 창이 관통해 다음 적을 맞힙니다.",
+        "skill2": "모든 창을 뽑습니다: 창마다 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 <#ff9028ff>물리 피해<>, 8% 둔화. 챔피언 처치 시 재사용 대기시간 초기화. 창이 <#ffb900ff>3개<>면 자동으로 뽑습니다.",
         "ult": "곁의 아군을 <#ffb900ff>0.5초<> 동안 몸에 거둔 뒤 대상에게 던집니다. 착지하면 주변 적을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>."
       }
     },
@@ -6070,9 +6070,9 @@
       },
       "league_kalista": {
         "name": "カリスタ",
-        "attack": "槍を投げ、当たった敵に槍が<#ffb900ff>4秒<>刺さる。<#ff9028ff>戦の所作<>：投擲するたびに後ろへ跳ぶ。<#ff9028ff>執念の霊魂<>：対象の傍に味方がいると最大体力の<#ffffffff>12%の確定ダメージ<>（<#ffb900ff>5秒<>毎）。",
-        "skill": "槍を投げ、最初の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>を与え槍を刺す。倒すと貫通して次の敵に当たる。",
-        "skill2": "全ての槍を引き抜く：1本につき<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>と8%スロウ。チャンピオンを倒すとCD解消。<#ffb900ff>3本<>で自動発動。",
+        "attack": "槍を投げ、当たった敵に槍が<#ffb900ff>4秒<>刺さる。<#ff9028ff>戦の所作<>：投擲するたびに後ろへ跳ぶ。<#ff9028ff>執念の霊魂<>：対象の傍に味方がいると最大体力の<#ffffffff>14%の確定ダメージ<>（<#ffb900ff>5秒<>毎）。",
+        "skill": "槍を投げ、最初の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>を与え槍を刺す。倒すと貫通して次の敵に当たる。",
+        "skill2": "全ての槍を引き抜く：1本につき<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>と8%スロウ。チャンピオンを倒すとCD解消。<#ffb900ff>3本<>で自動発動。",
         "ult": "傍の味方を<#ffb900ff>0.5秒<>身に宿し、対象へ投げ放つ。着地で周囲の敵を<#ffb900ff>1.25秒<>打ち上げ、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。"
       }
     },
