@@ -138,11 +138,12 @@ pub struct Spot {
     pub allies: usize,
 }
 
-/// 落在谁那里：够远、有仗可打（身边有友军，或者落点不止一个敌人）的里面，落点敌人多的优先，再挑血量比例低的。
+/// 落在谁那里：够远、身边有友军在打的里面，落点敌人多的优先，再挑血量比例低的。没有友军也跳（落点两个敌人就算）的
+/// 第一版：日志里 41 次有 35 次身边没有友军，几乎每次落地后半分钟内就死了（用户：「看一下附加包的日志对不对」）。
 pub fn choose(spots: &[Spot], r_min: f64) -> Option<usize> {
     spots
         .iter()
-        .filter(|s| s.far >= r_min && (s.allies >= 1 || s.foes >= 2))
+        .filter(|s| s.far >= r_min && s.allies >= 1)
         .max_by(|a, b| {
             a.foes.cmp(&b.foes).then(b.hp.partial_cmp(&a.hp).unwrap_or(std::cmp::Ordering::Equal))
         })
@@ -491,10 +492,10 @@ mod tests {
         // too near, or nobody fighting there and alone: nobody
         assert_eq!(choose(&[spot(1, 20_000.0, 0.2, 3, 2)], 35_000.0), None);
         assert_eq!(choose(&[spot(1, 90_000.0, 0.2, 1, 0)], 35_000.0), None);
-        // allies fighting it, or two enemies together
+        // allies fighting it; two enemies together and no ally is a fall into them alone: nobody
         assert_eq!(choose(&[spot(1, 90_000.0, 0.9, 1, 1)], 35_000.0), Some(1));
-        assert_eq!(choose(&[spot(1, 90_000.0, 0.9, 2, 0)], 35_000.0), Some(1));
-        // the most enemies first, then the lowest health share
+        assert_eq!(choose(&[spot(1, 90_000.0, 0.9, 2, 0)], 35_000.0), None);
+        // the most enemies first (among those with allies), then the lowest health share
         let s = [spot(1, 90_000.0, 0.3, 1, 2), spot(2, 90_000.0, 0.8, 3, 0), spot(3, 90_000.0, 0.5, 3, 1)];
         assert_eq!(choose(&s, 35_000.0), Some(3));
     }

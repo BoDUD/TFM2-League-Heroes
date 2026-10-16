@@ -32,7 +32,9 @@ recommended option - 「方案可以，全按推荐做（上单，做附加包�
           - else nothing; the slot tries again.
   ult     R Grand Starfall (大荒星陨): the slot arms the ult (league_galio R's way): for r_arm ticks a poll every r_poll
           ticks looks at a champion his team is fighting (EnemyChampionRecentlyAttacked) at least r_min from him with
-          another enemy champion or an allied champion within r_sur of it (a fight to join), and he not in crowd control.
+          an allied champion within r_sur of it (a fight to join), and he not in crowd control. (Another enemy champion
+          there was enough at first: the add-on's log, 2026-10-16, had 35 of 41 falls land with no ally near, mostly on
+          two enemies, and he died within ~30 s of nearly every one - the user: 「看一下附加包的日志对不对」.)
           Then he crouches r_ch ticks (unseen and immune to crowd control: League's first channel), leaps (banished
           r_fall ticks: in the sky) and comes down where that champion stood at the leap, a ring marking it: on r_sp his
           spear strikes it first (r_sp_dmg + r_sp_ratio% AD within r_r and an r_slow% slow for r_slow_t), then he lands
@@ -346,10 +348,8 @@ def build(p):
 
     def probe_r():
         far = pick(p["r_min"], "AllyOnlySelf", flag("r_near", 1), fp=True)
-        crowd = combine(pick(p["r_sur"], "AllyNotSelf", flag("r_ok", 1), fp=True),
-                        pick(p["r_sur"], "EnemyChampion", flag("r_ok2", 1), fp=True))
-        go = combine(far, crowd,
-                     sw("r_near", NONE, sw("r_ok", fire(), sw("r_ok2", fire()))), *rm("r_near", "r_ok", "r_ok2"))
+        crowd = pick(p["r_sur"], "AllyNotSelf", flag("r_ok", 1), fp=True)
+        go = combine(far, crowd, sw("r_near", NONE, sw("r_ok", fire())), *rm("r_near", "r_ok"))
         return homing("r_probe", 1000000, "EnemyChampion", [go])
 
     if nat:   # every enemy champion is asked; league_pantheon:starfall raises the 1-tick flag r_this for the spot

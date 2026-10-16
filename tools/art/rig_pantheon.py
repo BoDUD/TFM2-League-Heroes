@@ -92,6 +92,10 @@ TABLE = {
 # the body frame by frame (69, 67 / 83, 80, 77) - no glide forward.
 RUN_ORDER = [(1, 0), (2, -2), (3, 0), (5, 0), (6, 0), (4, -2), (3, 0)]
 RUN_MS = 133
+# Codex drew the run redo bigger than the design: its helmet 11 squares wide and 17 tall against the idle's 9 and 15 -
+# the user: 「还有模型会变大变小」 (idle <-> run). The run is brought to the idle's size by taking whole rows and columns
+# out (tools/art/shrink_frames.py, league_senna's way: nothing resampled, the soles on their row).
+RUN_SCALE = 0.87
 
 
 def lp(path):
@@ -245,9 +249,38 @@ def hit_frames():
     return out
 
 
+def centred(can):
+    """A canvas frame centred on the pivot square (shrink_frames' form)."""
+    px, py = int(CORNER[0]), int(CORNER[1] - FEET * PPU)
+    w = max(px, can.shape[1] - 1 - px)
+    out = np.zeros((2 * py + 1, 2 * w + 1, 4), np.uint8)
+    out[:can.shape[0], w - px:w - px + can.shape[1]] = can[:2 * py + 1]
+    return out
+
+
+def on_canvas(a, like):
+    """A pivot-centred frame back on the canvas."""
+    px, py = int(CORNER[0]), int(CORNER[1] - FEET * PPU)
+    can = np.zeros_like(like)
+    y0, x0 = py - a.shape[0] // 2, px - a.shape[1] // 2
+    ys, xs = max(0, -y0), max(0, -x0)
+    ye, xe = min(a.shape[0], can.shape[0] - y0), min(a.shape[1], can.shape[1] - x0)
+    can[y0 + ys:y0 + ye, x0 + xs:x0 + xe] = a[ys:ye, xs:xe]
+    return can
+
+
+def shrunk(frames, idle, scale):
+    """frames at `scale` of their size, whole rows and columns out (the idle's body range counts them)."""
+    import shrink_frames as SF
+    cf = [(centred(a), ms) for a, ms in frames]
+    plan = SF.plan_tag(cf, SF.body_of([(centred(idle[0][0]), 0)]), scale)
+    return [(on_canvas(a, frames[0][0]), ms) for a, ms in SF.apply_tag(cf, plan)]
+
+
 def actions():
     out = {"idle": idle_frames(), "hit": hit_frames()}
-    out["run"] = [(tidy(shift(frame(f"run_{k}"), dx, 0)), RUN_MS) for k, dx in RUN_ORDER]
+    out["run"] = shrunk([(tidy(shift(frame(f"run_{k}"), dx, 0)), RUN_MS) for k, dx in RUN_ORDER], out["idle"],
+                        RUN_SCALE)
     for tag, rows in TABLE.items():
         out[tag] = [(tidy(shift(frame(src), dx, dy)), ms) for src, dx, dy, ms in rows]
     return {t: out[t] for t in ORDER}
