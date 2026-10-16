@@ -49,6 +49,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Rell: PPU 1.5 (the user's pick), posed by tools/art/rig_rell.py on that grid (mounted 44 game rows, on foot 40), so no
     // SIZES row
     ("league_rell", 1.5, include_str!("../../../league/champions/league_rell#anim.fanim")),
+    // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
+    // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
+    ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
+    ("league_nami", 1.5, include_str!("../../../league/champions/league_nami#anim.fanim")),
+    ("league_janna", 1.5, include_str!("../../../league/champions/league_janna#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

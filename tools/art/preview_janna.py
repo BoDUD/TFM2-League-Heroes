@@ -3,7 +3,7 @@
 
     python tools/art/preview_janna.py [--out docs/preview]
 
-  league_janna_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_janna_frames.png    every animation's dense frames (hd_, PPU 1.5, as league.dll shows them)
   league_janna_effects.png   every effect animation, 3x
   league_janna_showcase.gif  a scripted fight with Ashe behind her against Darius and Garen, timed like the kit: Janna
                              floats in, Zephyr flies at Darius while Eye of the Storm wraps Ashe (the shield's
@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -47,7 +48,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, to=None):
         nonlocal t
-        an = Anim(frames_of(janna, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Anim(dense(janna, tag, "janna", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
@@ -78,7 +79,7 @@ def showcase(out, z=3, step=40):
         fx_at(small, "storm_end", t1, px, py)
 
     # she floats in; Garen walks up behind Darius
-    run_in = Anim(frames_of(janna, "run"), 0.0, x - 40, gy, loop=True, until=1000, x1=x)
+    run_in = Anim(dense(janna, "run", "janna", z), 0.0, x - 40, gy, loop=True, until=1000, x1=x)
     body.append(run_in)
     t = run_in.until
     g.walks.append((600.0, 2600.0, 152 - g.x))
@@ -117,8 +118,8 @@ def showcase(out, z=3, step=40):
     fx_at(big, "r_gale", blast, x, gy, ground=True)
     for foe in (d, g):
         foe.slides.append((blast, blast + tick(15), 30))
-    body.append(Anim(frames_of(janna, "ult"), start, x, gy, until=blast))
-    body.append(Anim(frames_of(janna, "ult_loop"), blast, x, gy, loop=True, until=blast + tick(200)))
+    body.append(Anim(dense(janna, "ult", "janna", z), start, x, gy, until=blast))
+    body.append(Anim(dense(janna, "ult_loop", "janna", z), blast, x, gy, loop=True, until=blast + tick(200)))
     for k in range(4):
         pulse = start + tick(35 + 60 * k)
         fx_at(big, "r_storm", pulse, x, gy, ground=True)
@@ -129,11 +130,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, px, py, z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -152,7 +153,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -170,7 +171,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_janna_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_janna_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)
