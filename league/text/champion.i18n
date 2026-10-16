@@ -771,6 +771,13 @@
         "skill2": "拔出所有敌人身上的矛：每支造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>并减速8%。击杀英雄时刷新冷却。插满<#ffb900ff>3支<>时自动拔出。",
         "ult": "把身边一名队友拉进身体保护<#ffb900ff>0.5秒<>，然后甩向目标，落地击飞周围敌人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。"
       },
+      "league_drmundo": {
+        "name": "蒙多医生",
+        "attack": "<#ff9028ff>想去哪就去哪<>：首次被控后免控<#ffb900ff>1.5秒<>并丢下药罐，捡起回复<#7dd87dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<>。<#ff9028ff>大力行医<>：每<#ffb900ff>7秒<>一次普攻额外造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>伤害，打死的单位被打飞，撞伤身后的敌人。",
+        "skill": "扔出骨锯，命中第一个单位造成<#a974ffff>140<><#a974ffff>魔法伤害<>，<#ef5350ff>减速40%<><#ffb900ff>2秒<>并回复<#7dd87dff>20<>生命；命中英雄额外造成其最大生命9%真实伤害、多回复<#7dd87dff>40<>。",
+        "skill2": "电击身边的敌人<#ffb900ff>4秒<>（每<#ffb900ff>0.33秒<><#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>），挨打时积攒灰色生命；结束时电击造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>，命中英雄回复全部灰色生命，只命中小兵回复一半。",
+        "ult": "被围攻时给自己注射：立即回复<#7dd87dff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>100%<>生命，<#ffb900ff>10秒<>内最大生命+200、每秒回复<#7dd87dff>40<>生命、移速+25%。"
+      },
       "league_pantheon": {
         "name": "潘森",
         "attack": "长矛突刺。<#ff9028ff>矢志不退<>：普攻命中和放技能各叠一层，<#ffb900ff>5层<>时下一个技能强化（每条命开局满层）。<#ff9028ff>大荒星陨<>被动：护甲穿透15%。",
@@ -1329,6 +1336,11 @@
         "skill1": "穿刺",
         "skill2": "撕裂",
         "ult": "命运的召唤"
+      },
+      "league_drmundo": {
+        "skill1": "病毒屠刀",
+        "skill2": "电击疗法",
+        "ult": "极限剂量"
       },
       "league_pantheon": {
         "skill1": "贯星长枪",
@@ -2109,6 +2121,13 @@
         "skill2": "拔出所有敵人身上的矛：每支造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>並緩速8%。擊殺英雄時重置冷卻。插滿<#ffb900ff>3支<>時自動拔出。",
         "ult": "把身邊一名隊友拉進身體保護<#ffb900ff>0.5秒<>，然後擲向目標，落地擊飛周圍敵人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。"
       },
+      "league_drmundo": {
+        "name": "蒙多醫生",
+        "attack": "<#ff9028ff>想去哪就去哪<>：首次被控後免控<#ffb900ff>1.5秒<>並丟下藥罐，撿起回復<#7dd87dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<>。<#ff9028ff>鈍擊創傷<>：每<#ffb900ff>7秒<>一次普攻額外造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>傷害，打死的單位被打飛，撞傷身後的敵人。",
+        "skill": "扔出骨鋸，命中第一個單位造成<#a974ffff>140<><#a974ffff>魔法傷害<>，<#ef5350ff>緩速40%<><#ffb900ff>2秒<>並回復<#7dd87dff>20<>生命；命中英雄額外造成其最大生命9%真實傷害、多回復<#7dd87dff>40<>。",
+        "skill2": "電擊身邊的敵人<#ffb900ff>4秒<>（每<#ffb900ff>0.33秒<><#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>），挨打時累積灰色生命；結束時電擊造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>，命中英雄回復全部灰色生命，只命中小兵回復一半。",
+        "ult": "被圍攻時替自己注射：立即回復<#7dd87dff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>100%<>生命，<#ffb900ff>10秒<>內最大生命+200、每秒回復<#7dd87dff>40<>生命、跑速+25%。"
+      },
       "league_pantheon": {
         "name": "潘森",
         "attack": "長矛突刺。<#ff9028ff>凡人堅志<>：普攻命中和施放技能各疊一層，<#ffb900ff>5層<>時下一個技能強化（每條命開局滿層）。<#ff9028ff>星殞衝擊<>被動：護甲穿透15%。",
@@ -2667,6 +2686,11 @@
         "skill1": "赦罪穿刺",
         "skill2": "痛苦撕扯",
         "ult": "命運呼喚"
+      },
+      "league_drmundo": {
+        "skill1": "病毒骨鋸",
+        "skill2": "心臟電擊器",
+        "ult": "最大劑量"
       },
       "league_pantheon": {
         "skill1": "彗星戰矛",
@@ -3447,6 +3471,13 @@
         "skill2": "Rips out every spear: each deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> and slows 8%. Killing a champion refunds the cooldown. Rips on its own at <#ffb900ff>3 spears<>.",
         "ult": "Draws an ally beside her into herself for <#ffb900ff>0.5s<>, then hurls them at the target; the landing knocks up nearby enemies for <#ffb900ff>1.25s<> and deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>."
       },
+      "league_drmundo": {
+        "name": "Dr. Mundo",
+        "attack": "<#ff9028ff>Goes Where He Pleases<>: after the first crowd control on him he is immune for <#ffb900ff>1.5s<> and drops a chem-tank; picking it up heals <#7dd87dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<>. <#ff9028ff>Blunt Force Trauma<>: every <#ffb900ff>7s<> an attack deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more; a unit it kills is flung, hurting enemies behind it.",
+        "skill": "Throws his bone saw at the first unit hit: <#a974ffff>140 magic damage<>, a <#ef5350ff>40% slow<> for <#ffb900ff>2s<> and <#7dd87dff>20<> health back. A champion also takes 9% of its max health as true damage and heals him <#7dd87dff>40<> more.",
+        "skill2": "Zaps nearby enemies for <#ffb900ff>4s<> (<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<> every <#ffb900ff>0.33s<>), storing grey health as he is hit. The final zap deals <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>: hitting a champion heals all the grey health, only minions half.",
+        "ult": "Doses himself when cornered: heals <#7dd87dff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>100%<> at once and for <#ffb900ff>10s<> gains 200 max health, <#7dd87dff>40<> health a second and 25% move speed."
+      },
       "league_pantheon": {
         "name": "Pantheon",
         "attack": "Spear thrusts. <#ff9028ff>Mortal Will<>: attacks that land and ability casts each add a stack; at <#ffb900ff>5 stacks<> his next ability is empowered (full at the start of each life). <#ff9028ff>Grand Starfall<> passive: 15% armour penetration.",
@@ -4005,6 +4036,11 @@
         "skill1": "Pierce",
         "skill2": "Rend",
         "ult": "Fate's Call"
+      },
+      "league_drmundo": {
+        "skill1": "Infected Bonesaw",
+        "skill2": "Heart Zapper",
+        "ult": "Maximum Dosage"
       },
       "league_pantheon": {
         "skill1": "Comet Spear",
@@ -4785,6 +4821,13 @@
         "skill2": "모든 창을 뽑습니다: 창마다 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 <#ff9028ff>물리 피해<>, 8% 둔화. 챔피언 처치 시 재사용 대기시간 초기화. 창이 <#ffb900ff>3개<>면 자동으로 뽑습니다.",
         "ult": "곁의 아군을 <#ffb900ff>0.5초<> 동안 몸에 거둔 뒤 대상에게 던집니다. 착지하면 주변 적을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>."
       },
+      "league_drmundo": {
+        "name": "문도 박사",
+        "attack": "<#ff9028ff>가고 싶은 데로 간다<>: 처음 군중 제어를 받으면 <#ffb900ff>1.5초<> 면역, 화학 통을 떨어뜨려 주우면 <#7dd87dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<> 회복. <#ff9028ff>둔기에 의한 외상<>: <#ffb900ff>7초<>마다 기본 공격이 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 피해, 처치한 유닛을 날려 뒤의 적에게 피해.",
+        "skill": "뼈톱을 던져 첫 대상에게 <#a974ffff>140 마법 피해<>, <#ffb900ff>2초<> <#ef5350ff>40% 둔화<>, <#7dd87dff>20<> 회복. 챔피언이면 최대 체력 9% 고정 피해와 <#7dd87dff>40<> 추가 회복.",
+        "skill2": "<#ffb900ff>4초<> 동안 주변 적을 감전 (<#ffb900ff>0.33초<>마다 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>), 맞을 때 회색 체력 저장. 마지막 감전 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>: 챔피언 적중 시 회색 체력 전부, 미니언만 적중 시 절반 회복.",
+        "ult": "포위되면 스스로 투약: 즉시 <#7dd87dff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>100%<> 회복, <#ffb900ff>10초<> 동안 최대 체력 +200, 초당 <#7dd87dff>40<> 회복, 이동 속도 +25%."
+      },
       "league_pantheon": {
         "name": "판테온",
         "attack": "창으로 찌릅니다. <#ff9028ff>필멸자의 의지<>: 적중한 기본 공격과 스킬 사용마다 중첩, <#ffb900ff>5중첩<>이면 다음 스킬 강화(목숨마다 시작 시 최대). <#ff9028ff>거대 유성<> 패시브: 방어구 관통 15%.",
@@ -5343,6 +5386,11 @@
         "skill1": "꿰뚫는 창",
         "skill2": "뽑아 찢기",
         "ult": "운명의 부름"
+      },
+      "league_drmundo": {
+        "skill1": "오염된 뼈톱",
+        "skill2": "심장 전기 충격",
+        "ult": "최대 투여량"
       },
       "league_pantheon": {
         "skill1": "혜성의 창",
@@ -6123,6 +6171,13 @@
         "skill2": "全ての槍を引き抜く：1本につき<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>と8%スロウ。チャンピオンを倒すとCD解消。<#ffb900ff>3本<>で自動発動。",
         "ult": "傍の味方を<#ffb900ff>0.5秒<>身に宿し、対象へ投げ放つ。着地で周囲の敵を<#ffb900ff>1.25秒<>打ち上げ、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。"
       },
+      "league_drmundo": {
+        "name": "ドクター・ムンド",
+        "attack": "<#ff9028ff>気ままな往診<>：最初の行動妨害の後<#ffb900ff>1.5秒<>無効、薬缶を落とし拾うと<#7dd87dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>60%<>回復。<#ff9028ff>野蛮な痛み<>：<#ffb900ff>7秒<>毎に通常攻撃が<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>追加ダメージ、倒した敵を吹き飛ばし後ろの敵に当てる。",
+        "skill": "骨ノコギリを投げ最初の敵に<#a974ffff>140魔法ダメージ<>と<#ef5350ff>40%スロウ<>（<#ffb900ff>2秒<>）、<#7dd87dff>20<>回復。チャンピオンなら最大体力9%の確定ダメージと<#7dd87dff>40<>追加回復。",
+        "skill2": "<#ffb900ff>4秒<>周囲を感電（<#ffb900ff>0.33秒<>毎に<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>6%<>）、被弾でグレー体力を蓄積。最後の電撃<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>：チャンピオンに当たれば全回復、ミニオンのみなら半分。",
+        "ult": "囲まれると自ら投与：即<#7dd87dff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>100%<>回復、<#ffb900ff>10秒<>最大体力+200、毎秒<#7dd87dff>40<>回復、移動速度+25%。"
+      },
       "league_pantheon": {
         "name": "パンテオン",
         "attack": "槍で突く。<#ff9028ff>定命の意志<>：命中した通常攻撃とスキル使用でスタック、<#ffb900ff>5スタック<>で次のスキル強化（各ライフ開始時は最大）。<#ff9028ff>偉大なる星路<>パッシブ：物理防御貫通15%。",
@@ -6681,6 +6736,11 @@
         "skill1": "貫魂の一投",
         "skill2": "引き裂く遺恨",
         "ult": "宿命の呼び声"
+      },
+      "league_drmundo": {
+        "skill1": "骨切りノコギリ",
+        "skill2": "心臓ビリビリ",
+        "ult": "マキシマム投与"
       },
       "league_pantheon": {
         "skill1": "彗星の槍",

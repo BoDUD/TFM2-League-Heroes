@@ -36,6 +36,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_tahmkench", 1.2, include_str!("../../../league/champions/league_tahmkench#anim.fanim")),
     // Kalista: PPU 1.4 (the user's pick), drawn at 85 % in her frames themselves (「大小 85%，PPU 1.4」), so no SIZES row
     ("league_kalista", 1.4, include_str!("../../../league/champions/league_kalista#anim.fanim")),
+    // Dr. Mundo: PPU 1.5 (the user's pick, 42 game rows hair to soles)
+    ("league_drmundo", 1.5, include_str!("../../../league/champions/league_drmundo#anim.fanim")),
     // Pantheon: PPU 1.5 (the user's pick), his strips drawn at that density on the design's grid, so no SIZES row
     ("league_pantheon", 1.5, include_str!("../../../league/champions/league_pantheon#anim.fanim")),
 ];

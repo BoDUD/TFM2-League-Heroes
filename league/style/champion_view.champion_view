@@ -1304,6 +1304,20 @@
         "y": -9
       }
     },
+    "league_drmundo": {
+      "face": {
+        "x": -1,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -8
+      }
+    },
     "league_pantheon": {
       "face": {
         "x": -1,

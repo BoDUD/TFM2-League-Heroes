@@ -56,7 +56,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
-            "tahmkench": 1.2, "kalista": 1.4, "pantheon": 1.5}
+            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -189,6 +189,11 @@ RESTYLE = {
     # brought to the user's PPU 1.4 at 85 % by tools/art/rig_kalista.py (「大小 85%，PPU 1.4」), so no proportion or
     # density change here; the outer outline grown a square like the others; the face point at her helm
     "kalista": dict(ppu=1.4, edge=1, face_to=(0, -39)),
+    # league_drmundo (#111): Codex's strips (sizes, places, the run and the death finished by
+    # tools/art/import_drmundo_strips.py) brought to the user's PPU 1.5 by tools/art/rig_drmundo.py (「选 A，42 行，PPU
+    # 1.5」), so no proportion or density change here; the outer outline grown a square like the others; the face point
+    # by tfm2_ase.py face (his crown, a little ahead of the head centre)
+    "drmundo": dict(ppu=1.5, edge=1, face_to=(-1, -38)),
     # league_pantheon (#112): Codex's strips drawn on the design's own grid at the user's 1.5 squares a game pixel
     # (「选A 40尺寸 PPU1.5」), ordered and moved by whole squares by tools/art/rig_pantheon.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at his helmet's crown
