@@ -10,8 +10,6 @@ observer of its inputs (2026-10-17): Riven 0 ults in 6 games, Samira 0.3 and Twi
 ults go 4-12 times a game. Each slot now starts with a 1-tick shield on the caster (SHIELD, RangeEffect AllyOnlySelf): a
 shield is worth its full amount to the AI (champion-data 3; league_kaisa's probe shield made her Q its favourite), it lasts
 one tick, and the window, the checks and the refunds stay as they were. Run once; a slot that already has it is left alone.
-league_kogmaw gets the same shield from its builder (tools/kit/build_kogmaw.py, r_ai): his R (a 1-tick lob with no
-applied effects, the blast in its end_effects) was cast 0.7 times every 10 minutes after level 5.
 """
 import json
 import os

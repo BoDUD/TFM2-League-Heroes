@@ -1718,37 +1718,6 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 1000
-            }
-          },
-          "target": "AllyOnlySelf",
-          "apply_type": "AroundCaster",
-          "effects": [
-            {
-              "type": "Shield",
-              "amount": 200,
-              "attack_ratio": 0,
-              "ap_ratio": 0,
-              "tick": 1
-            },
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_kogmaw_ai_value",
-                "duration": {
-                  "Time": {
-                    "tick": 1
-                  }
-                }
-              },
-              "only_to_enemy": false
-            }
-          ]
-        },
-        {
           "type": "SwitchByBuff",
           "buff_name": "league_kogmaw_init",
           "effect_buff": {
