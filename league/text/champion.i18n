@@ -756,6 +756,13 @@
         "skill": "人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>和<#ffb900ff>3%<>最大生命真实伤害。<#ff9028ff>剧毒之蜇<>：扑向敌人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>和<#ffb900ff>5%<>最大生命真实伤害。",
         "skill2": "人形：吐茧造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并晕眩<#ffb900ff>1.67秒<>；冷却时放<#ff9028ff>自爆蜘蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。<#ff9028ff>盘丝<>：升空不可选中，落到英雄身上；冷却时<#ff9028ff>掠行狂暴<>，攻速+60%。",
         "ult": "向英雄吐茧，立即化身蜘蛛并重置蜘蛛技能，盘丝落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，再施放剧毒之蜇。"
+      },
+      "league_kalista": {
+        "name": "卡莉丝塔",
+        "attack": "投矛，命中的敌人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>武术姿态<>：被敌方英雄贴近时，投矛后向后跳开。<#ff9028ff>哨兵<>：有队友在目标身边时，额外造成目标<#ffffffff>12%最大生命值的真实伤害<>（<#ffb900ff>5秒<>一次）。",
+        "skill": "掷出长矛，对第一个敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>并插上一支矛；若将其击杀，长矛穿过去命中下一个。",
+        "skill2": "拔出所有敌人身上的矛：每支造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>并减速8%。击杀英雄时刷新冷却。插满<#ffb900ff>3支<>时自动拔出。",
+        "ult": "把身边一名队友拉进身体保护<#ffb900ff>0.5秒<>，然后甩向目标，落地击飞周围敌人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。"
       }
     },
     "skill_name": {
@@ -1298,6 +1305,11 @@
         "skill1": "神经毒素 / 剧毒之蜇",
         "skill2": "结茧 / 盘丝",
         "ult": "蜘蛛形态"
+      },
+      "league_kalista": {
+        "skill1": "穿刺",
+        "skill2": "撕裂",
+        "ult": "命运的召唤"
       }
     }
   },
@@ -2058,6 +2070,13 @@
         "skill": "人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>和<#ffb900ff>3%<>最大生命真實傷害。<#ff9028ff>毒咬<>：撲向敵人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>和<#ffb900ff>5%<>最大生命真實傷害。",
         "skill2": "人形：吐繭造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並暈眩<#ffb900ff>1.67秒<>；冷卻時放<#ff9028ff>爆裂毒蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。<#ff9028ff>韌絲飛躍<>：升空無法選取，落到英雄身上；冷卻時<#ff9028ff>掠食者的狂喜<>，攻速+60%。",
         "ult": "向英雄吐繭，立即化身蜘蛛並重置蜘蛛技能，韌絲飛躍落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，再施放毒咬。"
+      },
+      "league_kalista": {
+        "name": "克黎思妲",
+        "attack": "投矛，命中的敵人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>好戰突進<>：被敵方英雄貼近時，投矛後向後跳開。<#ff9028ff>憎靈守衛<>：有隊友在目標身邊時，額外造成目標<#ffffffff>12%最大生命的真實傷害<>（<#ffb900ff>5秒<>一次）。",
+        "skill": "擲出長矛，對第一個敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>並插上一支矛；若將其擊殺，長矛穿過去命中下一個。",
+        "skill2": "拔出所有敵人身上的矛：每支造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>並緩速8%。擊殺英雄時重置冷卻。插滿<#ffb900ff>3支<>時自動拔出。",
+        "ult": "把身邊一名隊友拉進身體保護<#ffb900ff>0.5秒<>，然後擲向目標，落地擊飛周圍敵人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。"
       }
     },
     "skill_name": {
@@ -2600,6 +2619,11 @@
         "skill1": "神經毒素／毒咬",
         "skill2": "盤纏蛛絲／韌絲飛躍",
         "ult": "蜘蛛型態"
+      },
+      "league_kalista": {
+        "skill1": "赦罪穿刺",
+        "skill2": "痛苦撕扯",
+        "ult": "命運呼喚"
       }
     }
   },
@@ -3360,6 +3384,13 @@
         "skill": "Human: a venom bolt for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ffb900ff>3%<> max health true damage. <#ff9028ff>Venomous Bite<>: lunges for <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ffb900ff>5%<> max health true damage.",
         "skill2": "Human: a cocoon for <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> that stuns <#ffb900ff>1.67s<>; on cooldown a <#ff9028ff>Volatile Spiderling<> for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>Rappel<>: rises out of reach and drops on a champion; on cooldown <#ff9028ff>Skittering Frenzy<>, +60% attack speed.",
         "ult": "Spits a cocoon at a champion, turns into the spider at once with her spider abilities reset, rappels onto it for <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and bites."
+      },
+      "league_kalista": {
+        "name": "Kalista",
+        "attack": "Throws spears; each one stays in the enemy it hits for <#ffb900ff>4s<>. <#ff9028ff>Martial Poise<>: with an enemy champion close, she hops back after each spear. <#ff9028ff>Sentinel<>: with an ally beside her target, deals <#ffffffff>12% of its max health as true damage<> (once every <#ffb900ff>5s<>).",
+        "skill": "Throws a spear that deals <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> to the first enemy hit and sticks a spear in it; if it kills, the spear passes through to the next.",
+        "skill2": "Rips out every spear: each deals <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<> and slows 8%. Killing a champion refunds the cooldown. Rips on its own at <#ffb900ff>3 spears<>.",
+        "ult": "Draws an ally beside her into herself for <#ffb900ff>0.5s<>, then hurls them at the target; the landing knocks up nearby enemies for <#ffb900ff>1.25s<> and deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>."
       }
     },
     "skill_name": {
@@ -3902,6 +3933,11 @@
         "skill1": "Neurotoxin / Venomous Bite",
         "skill2": "Cocoon / Rappel",
         "ult": "Spider Form"
+      },
+      "league_kalista": {
+        "skill1": "Pierce",
+        "skill2": "Rend",
+        "ult": "Fate's Call"
       }
     }
   },
@@ -4662,6 +4698,13 @@
         "skill": "인간: 독을 쏘아 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 최대 체력 <#ffb900ff>3%<> 고정 피해. <#ff9028ff>독이빨<>: 달려들어 <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 최대 체력 <#ffb900ff>5%<> 고정 피해.",
         "skill2": "인간: 고치로 <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.67초<> 기절; 대기 중이면 <#ff9028ff>위험한 새끼 거미<> <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>줄타기<>: 대상 지정 불가로 올라가 챔피언에게 내려옴; 대기 중이면 <#ff9028ff>광란의 질주<>, 공격 속도 +60%.",
         "ult": "챔피언에게 고치를 뱉고 즉시 거미로 변해 거미 스킬을 초기화, 줄타기로 내려와 <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 후 독이빨."
+      },
+      "league_kalista": {
+        "name": "칼리스타",
+        "attack": "창을 던지며, 맞은 적에게 창이 <#ffb900ff>4초<> 꽂힙니다. <#ff9028ff>전투 태세<>: 적 챔피언이 가까우면 창을 던진 뒤 뒤로 도약. <#ff9028ff>감시하는 혼<>: 대상 곁에 아군이 있으면 대상 최대 체력의 <#ffffffff>12% 고정 피해<>(<#ffb900ff>5초<>마다).",
+        "skill": "창을 던져 처음 맞은 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>의 <#ff9028ff>물리 피해<>를 입히고 창을 꽂습니다. 처치하면 창이 관통해 다음 적을 맞힙니다.",
+        "skill2": "모든 창을 뽑습니다: 창마다 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 <#ff9028ff>물리 피해<>, 8% 둔화. 챔피언 처치 시 재사용 대기시간 초기화. 창이 <#ffb900ff>3개<>면 자동으로 뽑습니다.",
+        "ult": "곁의 아군을 <#ffb900ff>0.5초<> 동안 몸에 거둔 뒤 대상에게 던집니다. 착지하면 주변 적을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>."
       }
     },
     "skill_name": {
@@ -5204,6 +5247,11 @@
         "skill1": "신경독 / 독이빨",
         "skill2": "고치 / 줄타기",
         "ult": "거미 형태"
+      },
+      "league_kalista": {
+        "skill1": "꿰뚫는 창",
+        "skill2": "뽑아 찢기",
+        "ult": "운명의 부름"
       }
     }
   },
@@ -5964,6 +6012,13 @@
         "skill": "人間：毒を放ち<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と最大体力<#ffb900ff>3%<>の確定ダメージ。<#ff9028ff>毒牙<>：飛びかかり<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と最大体力<#ffb900ff>5%<>の確定ダメージ。",
         "skill2": "人間：繭で<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>1.67秒<>スタン；クールダウン中は<#ff9028ff>子蜘蛛爆弾<>で<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>。<#ff9028ff>蜘蛛の糸<>：対象不可で上昇しチャンピオンへ降下；クールダウン中は<#ff9028ff>猛食<>、攻撃速度+60%。",
         "ult": "チャンピオンへ繭を吐き、即座に蜘蛛に変身して蜘蛛のスキルをリセット、蜘蛛の糸で降下し<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、毒牙を放つ。"
+      },
+      "league_kalista": {
+        "name": "カリスタ",
+        "attack": "槍を投げ、当たった敵に槍が<#ffb900ff>4秒<>刺さる。<#ff9028ff>戦の所作<>：敵チャンピオンが近いと投擲後に後ろへ跳ぶ。<#ff9028ff>執念の霊魂<>：対象の傍に味方がいると最大体力の<#ffffffff>12%の確定ダメージ<>（<#ffb900ff>5秒<>毎）。",
+        "skill": "槍を投げ、最初の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>を与え槍を刺す。倒すと貫通して次の敵に当たる。",
+        "skill2": "全ての槍を引き抜く：1本につき<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>と8%スロウ。チャンピオンを倒すとCD解消。<#ffb900ff>3本<>で自動発動。",
+        "ult": "傍の味方を<#ffb900ff>0.5秒<>身に宿し、対象へ投げ放つ。着地で周囲の敵を<#ffb900ff>1.25秒<>打ち上げ、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。"
       }
     },
     "skill_name": {
@@ -6506,6 +6561,11 @@
         "skill1": "神経毒/毒牙",
         "skill2": "繭化/蜘蛛の糸",
         "ult": "蜘蛛形態"
+      },
+      "league_kalista": {
+        "skill1": "貫魂の一投",
+        "skill2": "引き裂く遺恨",
+        "ult": "宿命の呼び声"
       }
     }
   }

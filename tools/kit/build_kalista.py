@@ -25,7 +25,7 @@ attack; the hop in the main pack only backward when threatened, the add-on choos
   skill   Q Pierce (穿刺): a `Targeting` cast on `EnemyWithoutTower` (q_range); at q_rel a spear flies straight at where
           the target stands then (dodged by walking off the line), stops on the first unit it hits: q_dmg + q_ratio% AD
           and a spear in it. If that unit dies, the spear goes on along the line to the next (an unseen twin carries
-          the damage; the add-on draws the spear going on). The hop follows as after an attack.
+          the damage). The hop follows as after an attack.
   skill2  E Rend (撕裂): the spear (attack or Q) that brings her ladder to e_need rips at once (from level 3), and a
           3-tick `Targeting` slot on `EnemyChampionRecentlyAttacked` (e_range) tried every e_try ticks rips with e_ok
           (her ladder at e_need or more) and the caster flag e_cd off: her pose, e_pop for 3 ticks
@@ -55,24 +55,26 @@ BIG = "asset/league/effects/league_kalista_big"
 # Numbers: the 10-min classic-SDK simulations (kl_sim/sim/kd.py --lane 3 against gunner, soldier, archer and gambler,
 # three lineups, both sides, 8 seeds each, 2026-10-15/16): the League-ratio draft d0 -1.83; Rend from the attack at e_need
 # and the slot tried every e_try 90 ticks -0.41..-0.92; e_need 3, Rend 15 + 40% a spear, Q 80 -> +0.03; hp 950 and W 10%
-# -> +0.97; attack 104 +1.09, Q 7 s +1.17 (both here). Timed to the strips (attack and Q released on their third frame,
-# Rend's yank on E's second, the hop 12 ticks, R's call 24 and throw 18).
+# -> +0.97; attack 104 +1.09, Q 7 s +1.17. Timed to the strips (attack and Q released on their third frame, Rend's yank
+# on E's second, the hop 12 ticks, R's call 24 and throw 18) she fell to -0.41; 16 seeds from here: attack every 46
+# ticks +0.95, every 44 +0.79; Q 100 and W 12% +1.19, with Q 110 +0.92, with hp 1000 +1.42 (here; Varus +1.63, Twitch
+# +1.59).
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Kalista: 525 range,
     # 59 AD, 560 +114 hp, 24 armour, 330 move, attack speed 0.694, basic attacks 90% AD
-    "hp": 950, "hp_g": 88, "atk": 104, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
+    "hp": 1000, "hp_g": 88, "atk": 104, "atk_g": 20, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     # attack: the spear leaves her hand on a_st
-    "atk_range": 52500, "atk_dur": 24, "atk_cd": 50, "a_st": 7, "a_ratio": 90, "spear_speed": 8000, "spear_y": -3000,
+    "atk_range": 52500, "atk_dur": 24, "atk_cd": 46, "a_st": 7, "a_ratio": 90, "spear_speed": 8000, "spear_y": -3000,
     # spears and the ladder
     "sp_t": 240, "sp_pic": 12, "e_need": 3,
     # W Soul-Marked (League: 14% max health magic, 6 s per target, needs the Oathsworn's hit too)
-    "w_r": 45000, "w_hp": 10, "w_cd": 300,
+    "w_r": 45000, "w_hp": 12, "w_cd": 300,
     # passive Martial Poise (League: a hop of ~300 units after each attack)
     "hop_thr": 40000, "hop_v": 1800, "hop_t": 10, "k_hold": 40, "k_read": 4,
     # skill: Q Pierce (League: 1150 range, 20-120 + 105% AD, 0.25 s cast, width 80, passes through a unit it kills,
     # cd 8 s)
     "q_cd": 420, "q_range": 100000, "q_dur": 24, "q_rel": 7, "q_speed": 9000, "q_len": 115000,
-    "q_rad": 5000, "q_y": -3000, "q_dmg": 80, "q_ratio": 105,
+    "q_rad": 5000, "q_y": -3000, "q_dmg": 100, "q_ratio": 105,
     # skill2: E Rend (League: 1100 range; 5-85 + 70% AD the first spear, 8-24 + 23-36% AD each more, slow 10-50% 2 s,
     # cd 14-6 s, reset on a kill)
     "e_cd": 600, "e_try": 90, "e_range": 100000, "e_reach": 110000, "e_anim": 23, "e_rel": 4,
@@ -82,6 +84,8 @@ P = {
     "r_v": 3000, "r_fly": 40, "r_catch": 14000, "r_kr": 26000, "r_up": 75, "r_dmg": 80, "r_ratio": 60,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
+    # the add-on's copy (addons/league_kalista/make_override.py): 1 = the hop and R's flight left to league_kalista:oath
+    "native": 0, "r_fly_v": 4500, "r_poll": 44,
 }
 
 
@@ -303,6 +307,10 @@ def build(p):
     hop = combine(*rm("thr"), pick(p["hop_thr"], "EnemyChampion", flag("thr", 2)),
                   sw("thr", combine(*rm("thr"), anim("hop_b", p["hop_t"] + 2), sfx("hop"),
                                     {"type": "MoveBack", "speed": p["hop_v"], "tick": p["hop_t"]})))
+    if p["native"]:
+        # the add-on decides the way every tick (hop_f / hop_b on her) and moves her once hop_go is up
+        hop = combine(sw("hop_f", combine(refresh("hop_go", 6), anim("hop_f", p["hop_t"] + 2), sfx("hop")),
+                         sw("hop_b", combine(refresh("hop_go", 6), anim("hop_b", p["hop_t"] + 2), sfx("hop")))))
 
     # ------------------------------------------------------------------ attack
     throw = combine(sfx("a_throw"),
@@ -352,6 +360,24 @@ def build(p):
     refund = flag("r_refund", 3, ult_cooldown_mult=4900)
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(*rm("r_got"), pick(p["r_bind"], "AllyNotSelf", *take), sw("r_got", fire, refund)), key="ult")
+    if p["native"]:
+        # the copy: R cast on the Oathsworn (the add-on's AI hook picks him) when an enemy champion is in reach; the
+        # take on him is the action's target; at the launch r_launch tells the add-on, which flies him to an enemy
+        # champion and raises r_landed there: the knock-up round him (a 1-tick lob onto the action's target)
+        land_n = combine(*rm("r_landed"), lob("r_mark", 1, 1000, "AllyChampion", [], end=[knock, view("r_land")]),
+                         tsfx("r_hit"))
+        polls = [delayed(p["r_hold"] + k, sw("r_landed", land_n)) for k in range(3, p["r_poll"] + 1, 3)]
+        polls.append(on_me(delayed(p["r_hold"] + p["r_poll"] // 2, sw("e_cd", NONE, sw("e_ok2", e_fire)))))
+        take_n = [{"type": "Grab", "speed": p["r_grab_v"]}, *regrab,
+                  delayed(p["r_hold"] - 2, {"type": "Stun", "duration": p["r_poll"] + 4}),
+                  {"type": "Invisible", "tick": p["r_hold"] + p["r_poll"]},
+                  buff("r_safe", p["r_hold"] + p["r_poll"], damaged_reduce=p["r_safe"]), view("r_take"), tsfx("r_take")]
+        fire_n = combine(*take_n, anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
+                         delayed(p["r_hold"], lives(refresh("r_launch", 6), anim("ult2", p["r_throw"]), sfx("r_fly"),
+                                                    voice("vo_r_fly", p))), *polls)
+        ult = action("idle", 3, p["r_cd"], 1, p["r_bind"], "Targeting", "AllyNotSelf",
+                     combine(*rm("r_foe"), pick(p["r_range"], "EnemyChampion", flag("r_foe", 2)),
+                             sw("r_foe", fire_n, refund), *rm("r_foe")), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -366,8 +392,13 @@ def build(p):
                E("w_hit"), E("q_hit"), E("r_take", BIG, 3), E("r_fly", BIG, 3), E("r_land", BIG, -1, **LATE),
                E("r_up")]
     views_b = [B_("e_slow", FX, -1), B_("r_safe", BIG, 3)]
+    extra = {}
+    if p["native"]:
+        extra["passive"] = {"passive_ref": f"{ID}:oath",
+                            "params": {k: p[k] for k in ("hop_thr", "hop_v", "hop_t", "atk_range", "r_bind", "r_range",
+                                                         "r_fly_v", "r_catch", "sp_t", "e_dmg", "e_ratio")}}
     return {
-        "id": ID, "category": "Range", "tags": ["AD", "Range"],
+        "id": ID, "category": "Range", "tags": ["AD", "Range"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
         "stat": {"attack": p["atk"], "magic_power": 0, "hp": p["hp"], "defence": p["def"],
