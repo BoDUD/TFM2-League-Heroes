@@ -56,7 +56,7 @@ KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14
 ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
-            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.5}
+            "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.2, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -219,7 +219,10 @@ RESTYLE = {
     # PPU 1.5」, Codex's step-1 take 2 cut to 63 rows) by tools/art/rig_urgot.py, so no proportion or density change here;
     # the outer outline grown a square like the others; the muzzle flashes drawn into his shot frames
     # (orig/urgot_<tag>.over.png) laid on after the outline (fx); the face point at his bald crown
-    "urgot": dict(ppu=1.5, edge=1, face_to=(3, -24), fx=True),
+    # league_urgot: posed at 1.2 squares a game pixel by rig_urgot.py (the user, 2026-10-17, in game: 「现在像素太高 要降低点」,
+    # then 「1.2」 from a sheet of 1.5 / 1.3 / 1.2 / 1.0): the design brought to 1.2 once and every frame posed on that grid
+    # (each frame pixelated here on its own sampled the moved parts differently), so no density change here
+    "urgot": dict(ppu=1.2, edge=1, face_to=(3, -24), fx=True),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

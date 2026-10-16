@@ -49,9 +49,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Rell: PPU 1.5 (the user's pick), posed by tools/art/rig_rell.py on that grid (mounted 44 game rows, on foot 40), so no
     // SIZES row
     ("league_rell", 1.5, include_str!("../../../league/champions/league_rell#anim.fanim")),
-    // Urgot: PPU 1.5 (the user's pick, 「炮顶到腿尖 42 px，PPU 1.5」), posed from his design's own squares at that density by
-    // tools/art/rig_urgot.py, so no SIZES row
-    ("league_urgot", 1.5, include_str!("../../../league/champions/league_urgot#anim.fanim")),
+    // Urgot: posed at 1.5 squares a game pixel by tools/art/rig_urgot.py (「炮顶到腿尖 42 px，PPU 1.5」), brought to 1.2 by
+    // ppu_restyle after the user saw him in game (「现在像素太高 要降低点」 -> 「1.2」); the size unchanged, so no SIZES row
+    ("league_urgot", 1.2, include_str!("../../../league/champions/league_urgot#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

@@ -31,6 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
+import pixel_down as PD  # noqa: E402
 
 
 def lp(path):
@@ -46,7 +47,8 @@ def load(path):
 SRC = os.path.join(ROOT, "assets", "source", "urgot")
 STEM = os.path.join(ROOT, "league", "champions", "league_urgot")
 ORIG = os.path.join(ROOT, "assets", "source", "ppu", "orig")
-PPU = 1.5
+PPU = 1.5                         # the design's own density; the frames are posed at FINAL_PPU (below)
+FINAL_PPU = 1.2                   # the user in game, 2026-10-17: 「现在像素太高 要降低点」 -> 「1.2」
 FEET = 11                         # 1x rows from the pivot down to the ground row
 DESIGN = load(os.path.join(SRC, "hd", "design.png"))
 DH, DW = DESIGN.shape[:2]         # 63 x 68
@@ -117,8 +119,9 @@ def pose(dx=0, bdx=0, bob=0, rise=0, legs=None, shut=False):
         src = src.copy()
         src[EYE] = (*OUTLINE, 255)
     can = blank()
+    dx, bdx, bob, rise = S(dx), S(bdx), S(bob), S(rise)
+    legs = [(S(a), S(b)) for a, b in (legs or [(0, 0)] * 6)]
     x0, y0 = OX + dx, OY
-    legs = legs or [(0, 0)] * 6
     # each leg's upper part as it stands, under the moved legs (no hole opens where a lifted leg was), then the legs
     for m in LEGS:
         put(can, src, m & (R_ < np.nonzero(m.any(1))[0].max() - CLAW), x0, y0)
@@ -137,6 +140,63 @@ EYE = OP & (DESIGN[..., 0] > 200) & (DESIGN[..., 1] < 60) & (DESIGN[..., 2] < 60
 STEEL_D, STEEL, STEEL_L = (34, 40, 66), (63, 77, 115), (118, 142, 186)
 GOLD, GOLD_L = (206, 130, 40), (252, 208, 67)
 PILLAR_COLS = (24, 41)            # the column's columns (under the torso), design squares
+MUZZLE = (66, 19)                 # design square just under the cannon's mouth (it hooks down at the barrel's end)
+
+
+# ------------------------------------------------------------------------------------------------- the 1.2 grid
+# Every frame pixelated on its own (ppu_restyle's way) sampled the parts differently whenever the body sank by a
+# fraction of the coarser grid - the hoses, the drum and the cannon's edge changed from frame to frame (a deformation by
+# the user's rule). So the design is brought to FINAL_PPU once (pixel_down.pixelate on a grid through its corner), each
+# coarse square keeps the part most of its design squares belong to, and the frames are posed on that grid by whole
+# coarse squares: every part is the same pixels in every frame. The moves below are written in design squares and
+# rounded to the coarse grid (S).
+K = FINAL_PPU / PPU
+
+
+def S(v):
+    return int(round(v * K))
+
+
+def _coarse():
+    lab = np.zeros((DH, DW), int)
+    lab[LOWER] = 1
+    lab[UPPER] = 2
+    lab[CANNON] = 3
+    for i, m in enumerate(LEGS):
+        lab[m] = 4 + i
+    d, _ = PD.pixelate(DESIGN, K, (0.0, 0.0), OUTLINE)
+    h, w = d.shape[:2]
+    cy = np.minimum(np.floor((np.arange(DH) + 0.5) * K).astype(int), h - 1)
+    cx = np.minimum(np.floor((np.arange(DW) + 0.5) * K).astype(int), w - 1)
+    cell = cy[:, None] * w + cx[None, :]
+    votes = np.zeros((h * w, 10), int)
+    np.add.at(votes, (cell[lab > 0], lab[lab > 0]), 1)
+    out = votes.argmax(1).reshape(h, w)
+    out[d[..., 3] == 0] = 0
+    # a coarse square drawn where no design square of a part fell (an edge) takes its neighbour's part
+    miss = (d[..., 3] > 0) & (out == 0)
+    for y, x in zip(*np.nonzero(miss)):
+        win = out[max(0, y - 1):y + 2, max(0, x - 1):x + 2]
+        vals = win[win > 0]
+        out[y, x] = np.bincount(vals).argmax() if len(vals) else 1
+    return d, out
+
+
+_D, _LAB = _coarse()
+DESIGN = _D
+DH, DW = DESIGN.shape[:2]
+OP = DESIGN[..., 3] > 0
+R_, C_ = np.mgrid[0:DH, 0:DW]
+LOWER, UPPER, CANNON = _LAB == 1, _LAB == 2, _LAB == 3
+LEGS = [_LAB == 4 + i for i in range(6)]
+EYE = OP & (DESIGN[..., 0] > 200) & (DESIGN[..., 1] < 60) & (DESIGN[..., 2] < 60) & (R_ < S(20)) & (C_ < S(45))
+CLAW, CHASSIS_ROW = S(CLAW), S(CHASSIS_ROW)
+PILLAR_COLS = (S(PILLAR_COLS[0]), S(PILLAR_COLS[1]))
+MUZZLE = (S(MUZZLE[0]), S(MUZZLE[1]))
+CW, CH, SOLE, BODY_X, PIV_X = S(CW), S(CH), S(SOLE), S(BODY_X), S(PIV_X)
+OX, OY = PIV_X - BODY_X, SOLE - (DH - 1)
+CORNER = (PIV_X + 0.5, SOLE + 1)
+PPU = FINAL_PPU
 
 
 def draw_pillar(can, x0, y0, rise):
@@ -170,7 +230,7 @@ def flash_at(can, x, y, k=1.0):
     """The muzzle flash (FLASH, k = its size) with its middle on canvas square (x, y): an overlay of its own."""
     ov = np.zeros_like(can)
     h, w = len(FLASH), len(FLASH[0])
-    n = max(3, int(round(h * k)))
+    n = max(3, int(round(h * k * K)))
     for j in range(n):
         for i in range(n):
             ch = FLASH[int(j * h / n)][int(i * w / n)]
@@ -181,11 +241,8 @@ def flash_at(can, x, y, k=1.0):
     return ov
 
 
-MUZZLE = (66, 19)                 # design square just under the cannon's mouth (it hooks down at the barrel's end)
-
-
 def muzzle(dx=0, bdx=0, bob=0):
-    return OX + dx + bdx + MUZZLE[0], OY + bob + MUZZLE[1]
+    return OX + S(dx) + S(bdx) + MUZZLE[0], OY + S(bob) + MUZZLE[1]
 
 
 def cut_ground(can):
@@ -266,7 +323,7 @@ def frames():
                      (pose(dx=3, bdx=1, bob=1), 100, None), (pose(dx=1, bdx=-1), 100, None), (pose(), 53, None)]
     # R Fear Beyond Death: the upper body rises on its column, the drill fires from the chest (~130 ms), it sinks back
     out["ult"] = [(pose(rise=4), 70, None), (pose(rise=7), 60, None),
-                  (pose(rise=7), 100, flash_at(blank(), OX + 46, OY - 7 + 24, 1.0)),
+                  (pose(rise=7), 100, flash_at(blank(), OX + S(46), OY - S(7) + S(24), 1.0)),
                   (pose(rise=7), 100, None), (pose(rise=4), 90, None), (pose(), 80, None)]
     # death: the blow, the legs giving (the body sinking over them), down, the eye going out, still
     out["dead"] = [(pose(bdx=-1), 100, None), (pose(bdx=-1, bob=3), 120, None),

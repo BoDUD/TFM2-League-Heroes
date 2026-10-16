@@ -23,7 +23,7 @@ TAGS = ["idle", "run", "attack", "attack_w", "skill", "skill2", "ult", "hit", "d
 NAMES = {"idle": "idle", "run": "run", "attack": "attack", "attack_w": "W shot", "skill": "Q", "skill2": "E",
          "ult": "R", "hit": "hit", "dead": "dead"}
 FEET = 11
-PPU = 1.5
+PPU = 1.2                       # tools/art/ppu_hd.py PPU["urgot"] (1.5 until the user's 「1.2」)
 BG = (96, 112, 96)
 
 
