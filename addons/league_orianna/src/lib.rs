@@ -338,6 +338,8 @@ pub struct Params {
     /// R 的伤害。
     pub r_dmg: usize,
     pub r_ap: usize,
+    /// 带球者的护甲、魔抗（E 的被动；出生时挂上的「球在身边」也带着）。
+    pub e_def: usize,
 }
 
 impl Default for Params {
@@ -354,6 +356,7 @@ impl Default for Params {
             b_back: 4500,
             r_dmg: 250,
             r_ap: 100,
+            e_def: 12,
         }
     }
 }
@@ -377,6 +380,7 @@ pub fn parse_params(json: &str) -> Params {
             "b_back" => p.b_back = v,
             "r_dmg" => p.r_dmg = v,
             "r_ap" => p.r_ap = v,
+            "e_def" => p.e_def = v,
             _ => {}
         }
     }
@@ -776,6 +780,14 @@ impl StablePassive for Keeper {
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
+        // the Ball beside her from the spawn: the data hangs `home` at her first action of a life (it has no spawn
+        // hook), so she walked to her lane and back from the fountain without it (the user: 「一开始走路的时候怎么不带着
+        // 球？」); the same buff the data's is (its view_buffs picture, E's passive armour and magic resistance)
+        let mut home = BuffV1::named(&on("home"));
+        home.defence = self.p.e_def as i32;
+        home.magic_resistance = self.p.e_def as i32;
+        sim.entity_remove_buff(me, &on("home"));
+        sim.add_buff(me, &home);
         let at = alive_at(sim, me).unwrap_or_default();
         let mut tracks = TRACKS.lock().unwrap_or_else(|e| e.into_inner());
         if tracks.len() > 4096 {
@@ -952,7 +964,7 @@ mod tests {
     #[test]
     fn params_parse() {
         let p = parse_params(r#"{"b_back":4500,"e_dap":30,"e_dmg":60,"e_len":60000,"e_near":40000,"e_range":75000,
-                                 "e_speed":3500,"e_w":8000,"q_travel":18,"r_ap":100,"r_dmg":250}"#);
+                                 "e_speed":3500,"e_w":8000,"q_travel":18,"r_ap":100,"r_dmg":250,"e_def":12}"#);
         assert_eq!(p, Params::default());
     }
 
@@ -963,7 +975,7 @@ mod tests {
         let d = Params::default();
         for (key, v) in [("q_travel", d.q_travel), ("e_speed", d.e_speed), ("e_range", d.e_range), ("e_near", d.e_near),
                          ("e_len", d.e_len), ("e_w", d.e_w), ("e_dmg", d.e_dmg), ("e_dap", d.e_dap),
-                         ("b_back", d.b_back), ("r_dmg", d.r_dmg), ("r_ap", d.r_ap)] {
+                         ("b_back", d.b_back), ("r_dmg", d.r_dmg), ("r_ap", d.r_ap), ("e_def", d.e_def)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_orianna.P");
         }
     }

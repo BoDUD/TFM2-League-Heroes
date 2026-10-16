@@ -513,7 +513,7 @@ def build(p):
     }
     if nat:
         kit["passive"] = {"passive_ref": f"{ID}:ball", "params": {k: p[k] for k in (
-            "q_travel", "e_speed", "e_range", "e_near", "e_len", "e_w", "e_dmg", "e_dap", "b_back", "r_dmg", "r_ap")}}
+            "q_travel", "e_speed", "e_range", "e_near", "e_len", "e_w", "e_dmg", "e_dap", "b_back", "r_dmg", "r_ap", "e_def")}}
     return kit
 
 
