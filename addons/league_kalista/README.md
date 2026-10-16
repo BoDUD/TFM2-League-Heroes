@@ -33,7 +33,7 @@ R 命运的召唤都在主包数据里。主包是纯数据：**数据只能往�
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.117.0 以上）要装着并启用。
+1. 主包（League of Legends Heroes 0.119.0 以上）要装着并启用。
 2. 把整个 `league_kalista` 文件夹放进 `<游戏目录>\mods\`，文件夹里要有 `league_kalista.dll`、`mod.mod_info`、`mod.override_info`、`override\`、`text\`
    （或者用附加包合集 `league_addons`，里面已经包含本包）。
 3. 进游戏，在 MOD 菜单里启用它（含代码的 mod 会弹一次确认），确认排在主包后面，重启游戏。

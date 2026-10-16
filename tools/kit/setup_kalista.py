@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_kalista in every language, description + skill_name),
 sound/sfx/league_kalista_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and
-the ban/pick card's point once the sprite is in), mod.mod_info (0.117.0, Kalista named). Only her keys change in the
+the ban/pick card's point once the sprite is in), mod.mod_info (0.119.0, Kalista named). Only her keys change in the
 shared files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: Data Dragon 16.20.1 (zh_CN 复仇之矛 / 卡莉丝塔 - the client swaps name and title: 卡莉丝塔; 武术姿态, 穿刺, 哨兵, 撕裂,
 命运的召唤; zh_TW 克黎思妲 / 復仇之矛, 好戰突進, 赦罪穿刺, 憎靈守衛, 痛苦撕扯, 命運呼喚; ja カリスタ / 復讐の槍, 戦の所作,
@@ -26,7 +26,7 @@ from build_kalista import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_kalista"
-VERSION = "0.117.0"
+VERSION = "0.119.0"
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical

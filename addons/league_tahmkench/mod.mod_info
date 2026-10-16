@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.118.0"
+    }
+  ],
+  "description": "Test build of Tahm Kench as in League (needs League of Legends Heroes): replaces the main pack's Tahm Kench so An Acquired Taste stacks on each champion, Thick Skin stores a share of the real damage as grey health (healed back out of combat, a shield when he is surrounded or low), Devour saves an ally who is low, losing health fast or held among enemies (else eats a champion with three stacks) and carries him away, and Abyssal Dive goes in only with allies beside him. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-16",
+  "mod_id": "league_tahmkench",
+  "mod_type": "native",
+  "name": "League Heroes: Tahm Kench's stacks per champion, grey health, Devour and Abyssal Dive at the right moment (test)",
+  "version": "0.1.0"
+}
