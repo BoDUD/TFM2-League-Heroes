@@ -3913,6 +3913,10 @@ its real `cooltime`; keep a flag only where another action must know it (Q's slo
 
 ## 8. Gotchas
 
+**From game 0.6.4 an ally search inside the effects of an enemy hit can land on the enemy (league_leesin W, 2026-10-16).** W laid a zone at each ally's feet; the zone's applied effects (run on the enemy champion it hit) looked for the ally again with `RandomTarget {range 3000, AllyNotSelf, from_projectile}` and shielded / dashed to it. The classic SDK found the ally (6 of 6 shields on allies), but in game the shield and the dash went to the enemy (the user: 「瞎子W会摸敌人 然后给敌人盾」). Do not look for an ally (or put a shield, heal or dash on a search result) from an enemy's effects: hit the ally himself (a lob onto his spot with `applied_target: AllyNotSelf`) and ask from there with `RandomTarget {EnemyChampion, from_projectile}` for a 1-tick flag read in the same list (tools/fix/fix_leesin_w.py). The exact rule the game uses is not known; flags from such searches (`AddCasterBuff`) still reach the caster.
+
+**A level probe's soak shield counts in the 0.6.x table (league_kaisa, 2026-10-16).** The 1-tick 1000000 shield behind a probe (tools/fix/fix_kayle_probe.py) is a shield, worth its full amount (section 3), so the slot holding the probe read as a 1000000 value: Kai'Sa's Q (players: she "just spams abilities", no attacks). Run the whole probe in `unseen` (tools/fix/hide_probes.py), not only its hit.
+
 **From game 0.6.3 a hit on the caster counts as a threat to every enemy near him (lane recall, 2026-10-15).** The 0.6.x
 lane AI recalls when it expects to die: `my_die = (its health - nuke) x 60 / dps` (trace with the environment
 variable `LANE_RECALL_TRACE=1`: `LANERECALL-S1 ... nuke= dps=` on stdout). `nuke` / `dps` add up, for every visible
