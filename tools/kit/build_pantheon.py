@@ -65,7 +65,7 @@ P = {
     "r_pen": 15,
     # Q Comet Spear (League: 70-190 + 115% bonus AD, the throw 1200 range at 2700 speed, falloff 50%, cd 11-8 s, the
     # tap refunding 60%; empowered 20-266 + 115% bonus AD more)
-    "q_cd": 330, "q_range": 75000, "q_dur": 18, "q_near": 20000, "q_t_at": 7, "q_len": 48000, "q_w": 5000,
+    "q_cd": 330, "q_range": 75000, "q_dur": 18, "q_near": 20000, "q_t_at": 7, "q_len": 48000, "q_w": 5000, "q_thrust_t": 12,
     "q_hold": 19, "q_anim": 36, "q_aim": 6, "q_speed": 4500, "q_line": 100000, "q_rad": 6000, "q_dmg": 90, "q_ratio": 100,
     "q_emp": 50, "q_emp_ratio": 60,
     # skill2 slot
@@ -266,9 +266,10 @@ def build(p):
             out.append({"type": "Native", "effect_ref": f"{ID}:spear"})
         return out
 
-    thrust = combine(sfx("q_tap"), cview("q_tap"),
+    # the thrust's light rides the line (its picture turns with it: a caster picture would point right on the red side)
+    thrust = combine(sfx("q_tap"),
                      {"type": "LineRangeProjectile", "name": n("q_thrust"), "width": p["q_w"], "length": p["q_len"],
-                      "delay": 6, "apply": 1, "applied_target": "EnemyWithoutTower",
+                      "delay": p["q_thrust_t"], "apply": 1, "applied_target": "EnemyWithoutTower",
                       "applied_effects": [T(e) for e in q_hit(p["q_dmg"], p["q_ratio"])]},
                      delayed(3, *rm("q_emp")))
     # the first unit the spear meets takes all of it, the ones after half (q_first lasts the flight)
@@ -322,7 +323,7 @@ def build(p):
     spear_down = [zone("r_spear", p["r_r"], "EnemyWithoutTower",
                        [attack(p["r_sp_dmg"], p["r_sp_ratio"]),
                         buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]), view("r_sp_hit")]),
-                  view("r_spear"), sfx("r_spear")]
+                  sfx("r_spear")]
     # he lands on the landing frame's spot, the blow on its second frame (the spear driven in)
     landing = [{"type": "Teleport"}, anim("ult_land", p["r_land"]), sfx("r_land"),
                delayed(p["r_hit_at"], view("r_land"),
@@ -333,7 +334,8 @@ def build(p):
     leap = combine(anim("ult_leap", p["r_leap"]), sfx("r_leap"), voice("vo_r_leap", p),
                    on_me(delayed(p["r_leap"], {"type": "Banish", "duration": p["r_fall"] - p["r_leap"]})),
                    lob("r_spot", p["r_sp"], "EnemyChampion", spear_down, mark="r_mark"),
-                   lob("r_fall", p["r_fall"], "EnemyChampion", landing))
+                   # the spear's fall plays on the landing spot from the leap (its third frame strikes at r_sp)
+                   lob("r_fall", p["r_fall"], "EnemyChampion", landing, mark="r_spear"))
 
     def fire():
         """On the champion (the probe's hit): the crouch now, the leap at its end, both on where it stands then."""
@@ -369,9 +371,9 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("q_spear")]
-    views_e = [E("a_hit"), E("p_ready", FX, 3), E("q_tap"), E("q_hit"), E("w_hit"), E("e_shield", BIG, 3),
-               E("e_stab"), E("e_bash", BIG, 3, False), E("e_hit"), E("r_cast", BIG, 3), E("r_mark", BIG, -1, False),
+    views_p = [P_("q_spear"), P_("q_thrust", BIG, 2)]
+    views_e = [E("a_hit"), E("p_ready", FX, 3), E("q_hit"), E("w_hit"), E("e_shield", BIG, -1),
+               E("e_stab"), E("e_bash", BIG, 3, False), E("e_hit"), E("r_cast", BIG, -1), E("r_mark", BIG, -1, False),
                E("r_spear", BIG, 2, False), E("r_sp_hit"), E("r_land", BIG, -1, False), E("r_hit")]
     if nat:
         views_e.append(E("q_low"))

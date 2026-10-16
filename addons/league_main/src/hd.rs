@@ -38,7 +38,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_kalista", 1.4, include_str!("../../../league/champions/league_kalista#anim.fanim")),
     // Dr. Mundo: PPU 1.5 (the user's pick, 42 game rows hair to soles)
     ("league_drmundo", 1.5, include_str!("../../../league/champions/league_drmundo#anim.fanim")),
-    // Pantheon: PPU 1.5 (the user's pick), his strips drawn at that density on the design's grid, so no SIZES row
+    // Pantheon: PPU 1.5 (the user's pick), his strips drawn at that density on the design's grid; 90 % (SIZES)
     ("league_pantheon", 1.5, include_str!("../../../league/champions/league_pantheon#anim.fanim")),
 ];
 
@@ -76,12 +76,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Corki: grown 1.2x by the restyle (「飞机像泽丽那样变大点」), then 「飞机在游戏里是不是偏大了？」 - 48 x 37 game px, as wide as
 /// Garen and a solid lump - shown at 80 % (「到80%吧」, from a true-scale sheet), then 「太小了库奇 调到90%吧」 -> 90 %;
 /// he flies, so his frames are not lowered.
+/// Pantheon: 46 game px crest to soles at 100 % (Darius / Garen / Shen 42) -> 「感觉模型太大了」「缩到90%」 -> 90 % (42 px); his
+/// frames lowered 2 squares by the restyle (RESTYLE pantheon lift_sq) so the soles stay on the ground.
 /// Malzahar: 115 % from the size sheet (all actions from the 3/4 front), drawn at PPU 2.2 first, then 「像素有点高 降低点需要」 ->
 /// PPU 1.38 (1.2 squares a game pixel at 115 %); he floats, his frames lifted by the restyle (RESTYLE malzahar lift).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
-                                    ("league_corki", 0.90), ("league_malzahar", 1.15)];
+                                    ("league_corki", 0.90), ("league_malzahar", 1.15),
+                                    ("league_pantheon", 0.90)];
 
 pub const PREFIX: &str = "hd_";
 

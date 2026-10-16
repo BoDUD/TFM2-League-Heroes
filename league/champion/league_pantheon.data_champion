@@ -985,15 +985,11 @@
                                       "name": "league_pantheon_q_tap"
                                     },
                                     {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_pantheon_q_tap"
-                                    },
-                                    {
                                       "type": "LineRangeProjectile",
                                       "name": "league_pantheon_q_thrust",
                                       "width": 5000,
                                       "length": 48000,
-                                      "delay": 6,
+                                      "delay": 12,
                                       "apply": 1,
                                       "applied_target": "EnemyWithoutTower",
                                       "applied_effects": [
@@ -1267,15 +1263,11 @@
                                       "name": "league_pantheon_q_tap"
                                     },
                                     {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_pantheon_q_tap"
-                                    },
-                                    {
                                       "type": "LineRangeProjectile",
                                       "name": "league_pantheon_q_thrust",
                                       "width": 5000,
                                       "length": 48000,
-                                      "delay": 6,
+                                      "delay": 12,
                                       "apply": 1,
                                       "applied_target": "EnemyWithoutTower",
                                       "applied_effects": [
@@ -3682,10 +3674,6 @@
                                                                         ]
                                                                       },
                                                                       {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_pantheon_r_spear"
-                                                                      },
-                                                                      {
                                                                         "type": "Sfx",
                                                                         "name": "league_pantheon_r_spear"
                                                                       }
@@ -3696,7 +3684,7 @@
                                                                     "name": "league_pantheon_r_fall",
                                                                     "travel_time": 40,
                                                                     "range": 960000,
-                                                                    "range_effect_name": "",
+                                                                    "range_effect_name": "league_pantheon_r_spear",
                                                                     "shape": {
                                                                       "Circle": {
                                                                         "radius": 1
@@ -3946,10 +3934,6 @@
                                                                         ]
                                                                       },
                                                                       {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_pantheon_r_spear"
-                                                                      },
-                                                                      {
                                                                         "type": "Sfx",
                                                                         "name": "league_pantheon_r_spear"
                                                                       }
@@ -3960,7 +3944,7 @@
                                                                     "name": "league_pantheon_r_fall",
                                                                     "travel_time": 40,
                                                                     "range": 960000,
-                                                                    "range_effect_name": "",
+                                                                    "range_effect_name": "league_pantheon_r_spear",
                                                                     "shape": {
                                                                       "Circle": {
                                                                         "radius": 1
@@ -4338,10 +4322,6 @@
                                                                           ]
                                                                         },
                                                                         {
-                                                                          "type": "ViewEffect",
-                                                                          "name": "league_pantheon_r_spear"
-                                                                        },
-                                                                        {
                                                                           "type": "Sfx",
                                                                           "name": "league_pantheon_r_spear"
                                                                         }
@@ -4352,7 +4332,7 @@
                                                                       "name": "league_pantheon_r_fall",
                                                                       "travel_time": 40,
                                                                       "range": 960000,
-                                                                      "range_effect_name": "",
+                                                                      "range_effect_name": "league_pantheon_r_spear",
                                                                       "shape": {
                                                                         "Circle": {
                                                                           "radius": 1
@@ -4602,10 +4582,6 @@
                                                                           ]
                                                                         },
                                                                         {
-                                                                          "type": "ViewEffect",
-                                                                          "name": "league_pantheon_r_spear"
-                                                                        },
-                                                                        {
                                                                           "type": "Sfx",
                                                                           "name": "league_pantheon_r_spear"
                                                                         }
@@ -4616,7 +4592,7 @@
                                                                       "name": "league_pantheon_r_fall",
                                                                       "travel_time": 40,
                                                                       "range": 960000,
-                                                                      "range_effect_name": "",
+                                                                      "range_effect_name": "league_pantheon_r_spear",
                                                                       "shape": {
                                                                         "Circle": {
                                                                           "radius": 1
@@ -4828,6 +4804,14 @@
       "tag": "q_spear",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_pantheon_q_thrust",
+      "anim": "asset/league/effects/league_pantheon_big",
+      "tag": "q_thrust",
+      "repeat": true,
+      "z": 2
     }
   ],
   "view_effects": [
@@ -4845,14 +4829,6 @@
       "anim": "asset/league/effects/league_pantheon_fx",
       "tag": "p_ready",
       "z": 3,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_pantheon_q_tap",
-      "anim": "asset/league/effects/league_pantheon_fx",
-      "tag": "q_tap",
-      "z": 2,
       "is_follow": true
     },
     {
@@ -4876,7 +4852,7 @@
       "name": "league_pantheon_e_shield",
       "anim": "asset/league/effects/league_pantheon_big",
       "tag": "e_shield",
-      "z": 3,
+      "z": -1,
       "is_follow": true
     },
     {
@@ -4908,7 +4884,7 @@
       "name": "league_pantheon_r_cast",
       "anim": "asset/league/effects/league_pantheon_big",
       "tag": "r_cast",
-      "z": 3,
+      "z": -1,
       "is_follow": true
     },
     {

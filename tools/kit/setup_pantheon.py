@@ -34,9 +34,10 @@ A = "<#ffb900ff>"      # durations, counts
 M = "<#a974ffff>"      # magic damage
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view: the face at the helmet's crown (tfm2_ase.py face: 40 px over the feet, ppu_restyle's face_to); the idle's
-# crest tops 33 rows over the pivot, above -28 -> banpick_center y = -39 - (-33) (the card rule)
-VIEW = {"face": {"x": -1, "y": -40}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -6}}
+# champion_view, for the 90 % frames the cards and portraits draw (lo_, hd.rs SIZES): the face at the helmet's crown
+# (tfm2_ase.py face: 40 px over the feet at 100 %, 36 at 90 %, ppu_restyle's face_to); the lo_ idle's crest tops 30 px over
+# the pivot, at or above -28 -> banpick_center y = -39 - (-30) (the card rule)
+VIEW = {"face": {"x": -1, "y": -36}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}
 
 
 def phy(d, r):
