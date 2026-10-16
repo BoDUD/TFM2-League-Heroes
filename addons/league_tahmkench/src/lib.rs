@@ -396,7 +396,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { hold: 300, q_stun: 75, r_t: 150, r_ally_t: 150, e_sh: 120, e_sh_ap: 80, e_t: 150, e_near: 35_000,
+        Params { hold: 300, q_stun: 75, r_t: 150, r_ally_t: 150, e_sh: 160, e_sh_ap: 80, e_t: 150, e_near: 35_000,
                  e_cd: 720, store: 30 }
     }
 }
@@ -792,7 +792,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        let p = parse_params(r#"{"e_cd":720,"e_near":35000,"e_sh":120,"e_sh_ap":80,"e_t":150,"hold":300,"q_stun":75,"r_ally_t":150,"r_t":150,"store":30}"#);
+        let p = parse_params(r#"{"e_cd":720,"e_near":35000,"e_sh":160,"e_sh_ap":80,"e_t":150,"hold":300,"q_stun":75,"r_ally_t":150,"r_t":150,"store":30}"#);
         assert_eq!(p, Params::default());
     }
 

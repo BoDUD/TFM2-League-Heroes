@@ -19,8 +19,8 @@
   "stat": {
     "attack": 85,
     "magic_power": 25,
-    "hp": 1750,
-    "defence": 50,
+    "hp": 1900,
+    "defence": 55,
     "magic_resistance": 32,
     "move_speed": 1000,
     "hp_regen": 0,
@@ -99,7 +99,7 @@
             },
             {
               "type": "ApAttack",
-              "damage": 20,
+              "damage": 30,
               "attack_ratio": 0,
               "hp_ratio": 2,
               "can_crit": false,
@@ -241,7 +241,7 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 140,
+                            "damage": 170,
                             "attack_ratio": 60,
                             "hp_ratio": 2,
                             "can_crit": false,
@@ -571,7 +571,7 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 130,
+                                "damage": 160,
                                 "attack_ratio": 70,
                                 "hp_ratio": 2,
                                 "can_crit": false,
@@ -945,7 +945,7 @@
                   },
                   {
                     "type": "ApAttack",
-                    "damage": 180,
+                    "damage": 220,
                     "attack_ratio": 50,
                     "hp_ratio": 3,
                     "can_crit": false,
@@ -1170,12 +1170,12 @@
     "params": {
       "hold": 300,
       "e_red": 15,
-      "e_sh": 120,
+      "e_sh": 160,
       "e_sh_ap": 80,
       "e_t": 150,
       "r_t": 150,
       "r_ally_t": 150,
-      "r_dmg": 180,
+      "r_dmg": 220,
       "r_ap": 50,
       "r_hp": 3,
       "r_thp": 6,

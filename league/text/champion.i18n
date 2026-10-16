@@ -759,10 +759,10 @@
       },
       "league_tahmkench": {
         "name": "塔姆",
-        "attack": "<#ff9028ff>培养品味<>：普攻额外造成<#a974ffff>20<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，普攻、Q、W命中英雄叠一层，最多<#ffb900ff>3层<>。<#ff9028ff>厚实表皮<>：受到伤害降低15%，被两名敌方英雄围住时获得<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>护盾。",
-        "skill": "舌头鞭打第一个单位，造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，<#ef5350ff>减速40%<><#ffb900ff>1.5秒<>；命中英雄回复<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命并叠一层，<#ffb900ff>3层<>时<#ef5350ff>眩晕1.25秒<>。",
-        "skill2": "潜入地下<#ffb900ff>1秒<>（不可选中），在目标处冒出，造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。",
-        "ult": "吞下被控制、身陷敌群的队友<#ffb900ff>2.5秒<>，吐出时给予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>护盾；或吞下<#ffb900ff>3层<>的敌方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法伤害<>和其最大生命6%真实伤害。"
+        "attack": "<#ff9028ff>培养品味<>：普攻额外造成<#a974ffff>30<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，普攻、Q、W命中英雄叠一层，最多<#ffb900ff>3层<>。<#ff9028ff>厚实表皮<>：受到伤害降低15%，被两名敌方英雄围住时获得<#7dd87dff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>护盾。",
+        "skill": "舌头鞭打第一个单位，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，<#ef5350ff>减速40%<><#ffb900ff>1.5秒<>；命中英雄回复<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命并叠一层，<#ffb900ff>3层<>时<#ef5350ff>眩晕1.25秒<>。",
+        "skill2": "潜入地下<#ffb900ff>1秒<>（不可选中），在目标处冒出，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。",
+        "ult": "吞下被控制、身陷敌群的队友<#ffb900ff>2.5秒<>，吐出时给予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>护盾；或吞下<#ffb900ff>3层<>的敌方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法伤害<>和其最大生命6%真实伤害。"
       }
     },
     "skill_name": {
@@ -2073,10 +2073,10 @@
       },
       "league_tahmkench": {
         "name": "貪啃奇",
-        "attack": "<#ff9028ff>品味獨到<>：普攻額外造成<#a974ffff>20<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，普攻、Q、W命中英雄疊一層，最多<#ffb900ff>3層<>。<#ff9028ff>血多皮厚<>：受到傷害降低15%，被兩名敵方英雄圍住時獲得<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>護盾。",
-        "skill": "舌頭鞭打第一個單位，造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，<#ef5350ff>緩速40%<><#ffb900ff>1.5秒<>；命中英雄回復<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命並疊一層，<#ffb900ff>3層<>時<#ef5350ff>暈眩1.25秒<>。",
-        "skill2": "潛入地下<#ffb900ff>1秒<>（無法被選取），在目標處冒出，造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。",
-        "ult": "吞下被控制、身陷敵群的隊友<#ffb900ff>2.5秒<>，吐出時給予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>護盾；或吞下<#ffb900ff>3層<>的敵方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法傷害<>和其最大生命6%真實傷害。"
+        "attack": "<#ff9028ff>品味獨到<>：普攻額外造成<#a974ffff>30<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，普攻、Q、W命中英雄疊一層，最多<#ffb900ff>3層<>。<#ff9028ff>血多皮厚<>：受到傷害降低15%，被兩名敵方英雄圍住時獲得<#7dd87dff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>護盾。",
+        "skill": "舌頭鞭打第一個單位，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，<#ef5350ff>緩速40%<><#ffb900ff>1.5秒<>；命中英雄回復<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命並疊一層，<#ffb900ff>3層<>時<#ef5350ff>暈眩1.25秒<>。",
+        "skill2": "潛入地下<#ffb900ff>1秒<>（無法被選取），在目標處冒出，造成<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。",
+        "ult": "吞下被控制、身陷敵群的隊友<#ffb900ff>2.5秒<>，吐出時給予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>護盾；或吞下<#ffb900ff>3層<>的敵方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法傷害<>和其最大生命6%真實傷害。"
       }
     },
     "skill_name": {
@@ -3387,10 +3387,10 @@
       },
       "league_tahmkench": {
         "name": "Tahm Kench",
-        "attack": "<#ff9028ff>An Acquired Taste<>: attacks deal <#a974ffff>20<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> more; attacks, Q and W stack on champions, up to <#ffb900ff>3<>. <#ff9028ff>Thick Skin<>: 15% less damage taken; surrounded by two enemy champions he gains a <#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> shield.",
-        "skill": "Lashes his tongue at the first unit hit: <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>40% slow<> for <#ffb900ff>1.5s<>. On a champion he heals <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> and adds a stack; at <#ffb900ff>3<> it <#ef5350ff>stuns 1.25s<>.",
-        "skill2": "Dives underground for <#ffb900ff>1s<> (untargetable) and bursts up at the target: <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<>.",
-        "ult": "Swallows an ally caught in crowd control among enemies for <#ffb900ff>2.5s<> and spits him out with a <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> shield; or an enemy champion with <#ffb900ff>3<> stacks for <#ffb900ff>2.5s<>: <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> max health <#a974ffff>magic damage<> and 6% of its max health as true damage."
+        "attack": "<#ff9028ff>An Acquired Taste<>: attacks deal <#a974ffff>30<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> more; attacks, Q and W stack on champions, up to <#ffb900ff>3<>. <#ff9028ff>Thick Skin<>: 15% less damage taken; surrounded by two enemy champions he gains a <#7dd87dff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> shield.",
+        "skill": "Lashes his tongue at the first unit hit: <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>40% slow<> for <#ffb900ff>1.5s<>. On a champion he heals <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> and adds a stack; at <#ffb900ff>3<> it <#ef5350ff>stuns 1.25s<>.",
+        "skill2": "Dives underground for <#ffb900ff>1s<> (untargetable) and bursts up at the target: <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<>.",
+        "ult": "Swallows an ally caught in crowd control among enemies for <#ffb900ff>2.5s<> and spits him out with a <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> shield; or an enemy champion with <#ffb900ff>3<> stacks for <#ffb900ff>2.5s<>: <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> max health <#a974ffff>magic damage<> and 6% of its max health as true damage."
       }
     },
     "skill_name": {
@@ -4701,10 +4701,10 @@
       },
       "league_tahmkench": {
         "name": "탐 켄치",
-        "attack": "<#ff9028ff>절대 미각<>: 기본 공격이 <#a974ffff>20<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<> 추가, 기본 공격·Q·W가 챔피언에 중첩 (최대 <#ffb900ff>3<>). <#ff9028ff>두꺼운 피부<>: 받는 피해 15% 감소, 적 챔피언 둘에게 둘러싸이면 <#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> 보호막.",
-        "skill": "혀로 첫 대상을 후려쳐 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ffb900ff>1.5초<> <#ef5350ff>40% 둔화<>. 챔피언이면 <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> 회복하고 중첩, <#ffb900ff>3중첩<>에 <#ef5350ff>1.25초 기절<>.",
-        "skill2": "<#ffb900ff>1초<> 동안 땅속으로 잠수 (대상 지정 불가) 후 대상 위치에서 솟아올라 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ef5350ff>1초 에어본<>.",
-        "ult": "군중 제어에 걸려 적에게 둘러싸인 아군을 <#ffb900ff>2.5초<> 삼켜 뱉을 때 <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> 보호막; 또는 <#ffb900ff>3중첩<> 적 챔피언을 <#ffb900ff>2.5초<> 삼켜 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> 최대 체력 <#a974ffff>마법 피해<>와 대상 최대 체력 6% 고정 피해."
+        "attack": "<#ff9028ff>절대 미각<>: 기본 공격이 <#a974ffff>30<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<> 추가, 기본 공격·Q·W가 챔피언에 중첩 (최대 <#ffb900ff>3<>). <#ff9028ff>두꺼운 피부<>: 받는 피해 15% 감소, 적 챔피언 둘에게 둘러싸이면 <#7dd87dff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> 보호막.",
+        "skill": "혀로 첫 대상을 후려쳐 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ffb900ff>1.5초<> <#ef5350ff>40% 둔화<>. 챔피언이면 <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> 회복하고 중첩, <#ffb900ff>3중첩<>에 <#ef5350ff>1.25초 기절<>.",
+        "skill2": "<#ffb900ff>1초<> 동안 땅속으로 잠수 (대상 지정 불가) 후 대상 위치에서 솟아올라 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ef5350ff>1초 에어본<>.",
+        "ult": "군중 제어에 걸려 적에게 둘러싸인 아군을 <#ffb900ff>2.5초<> 삼켜 뱉을 때 <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> 보호막; 또는 <#ffb900ff>3중첩<> 적 챔피언을 <#ffb900ff>2.5초<> 삼켜 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> 최대 체력 <#a974ffff>마법 피해<>와 대상 최대 체력 6% 고정 피해."
       }
     },
     "skill_name": {
@@ -6015,10 +6015,10 @@
       },
       "league_tahmkench": {
         "name": "タム・ケンチ",
-        "attack": "<#ff9028ff>舌慣らし<>：通常攻撃に<#a974ffff>20<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>追加、通常攻撃・Q・Wがチャンピオンにスタック（最大<#ffb900ff>3<>）。<#ff9028ff>ゆるゆる皮膜<>：被ダメージ15%軽減、敵チャンピオン2体に囲まれると<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>のシールド。",
-        "skill": "舌で最初のユニットを打ち<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%スロウ<>（<#ffb900ff>1.5秒<>）。チャンピオンなら<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>回復しスタック、<#ffb900ff>3<>で<#ef5350ff>1.25秒スタン<>。",
-        "skill2": "<#ffb900ff>1秒<>地中に潜り（対象不可）対象の位置に飛び出し<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒ノックアップ<>。",
-        "ult": "敵に囲まれ行動妨害を受けた味方を<#ffb900ff>2.5秒<>丸呑みし吐き出す時<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>のシールド。または<#ffb900ff>3<>スタックの敵チャンピオンを<#ffb900ff>2.5秒<>丸呑みし<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大体力の<#a974ffff>魔法ダメージ<>と最大体力6%の確定ダメージ。"
+        "attack": "<#ff9028ff>舌慣らし<>：通常攻撃に<#a974ffff>30<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>追加、通常攻撃・Q・Wがチャンピオンにスタック（最大<#ffb900ff>3<>）。<#ff9028ff>ゆるゆる皮膜<>：被ダメージ15%軽減、敵チャンピオン2体に囲まれると<#7dd87dff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>のシールド。",
+        "skill": "舌で最初のユニットを打ち<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%スロウ<>（<#ffb900ff>1.5秒<>）。チャンピオンなら<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>回復しスタック、<#ffb900ff>3<>で<#ef5350ff>1.25秒スタン<>。",
+        "skill2": "<#ffb900ff>1秒<>地中に潜り（対象不可）対象の位置に飛び出し<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒ノックアップ<>。",
+        "ult": "敵に囲まれ行動妨害を受けた味方を<#ffb900ff>2.5秒<>丸呑みし吐き出す時<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>のシールド。または<#ffb900ff>3<>スタックの敵チャンピオンを<#ffb900ff>2.5秒<>丸呑みし<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大体力の<#a974ffff>魔法ダメージ<>と最大体力6%の確定ダメージ。"
       }
     },
     "skill_name": {

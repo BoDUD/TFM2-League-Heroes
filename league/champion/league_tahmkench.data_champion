@@ -19,8 +19,8 @@
   "stat": {
     "attack": 85,
     "magic_power": 25,
-    "hp": 1750,
-    "defence": 50,
+    "hp": 1900,
+    "defence": 55,
     "magic_resistance": 32,
     "move_speed": 1000,
     "hp_regen": 0,
@@ -174,7 +174,7 @@
                           "effects": [
                             {
                               "type": "Shield",
-                              "amount": 120,
+                              "amount": 160,
                               "attack_ratio": 0,
                               "ap_ratio": 80,
                               "tick": 150
@@ -634,7 +634,7 @@
                                         },
                                         {
                                           "type": "ApAttack",
-                                          "damage": 180,
+                                          "damage": 220,
                                           "attack_ratio": 50,
                                           "hp_ratio": 3,
                                           "can_crit": false,
@@ -726,7 +726,7 @@
             },
             {
               "type": "ApAttack",
-              "damage": 20,
+              "damage": 30,
               "attack_ratio": 0,
               "hp_ratio": 2,
               "can_crit": false,
@@ -983,7 +983,7 @@
                                 },
                                 {
                                   "type": "ApAttack",
-                                  "damage": 180,
+                                  "damage": 220,
                                   "attack_ratio": 50,
                                   "hp_ratio": 3,
                                   "can_crit": false,
@@ -1273,7 +1273,7 @@
                                   },
                                   {
                                     "type": "ApAttack",
-                                    "damage": 180,
+                                    "damage": 220,
                                     "attack_ratio": 50,
                                     "hp_ratio": 3,
                                     "can_crit": false,
@@ -1581,7 +1581,7 @@
                           "effects": [
                             {
                               "type": "Shield",
-                              "amount": 120,
+                              "amount": 160,
                               "attack_ratio": 0,
                               "ap_ratio": 80,
                               "tick": 150
@@ -2041,7 +2041,7 @@
                                         },
                                         {
                                           "type": "ApAttack",
-                                          "damage": 180,
+                                          "damage": 220,
                                           "attack_ratio": 50,
                                           "hp_ratio": 3,
                                           "can_crit": false,
@@ -2179,7 +2179,7 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 140,
+                            "damage": 170,
                             "attack_ratio": 60,
                             "hp_ratio": 2,
                             "can_crit": false,
@@ -2396,7 +2396,7 @@
                                                 },
                                                 {
                                                   "type": "ApAttack",
-                                                  "damage": 180,
+                                                  "damage": 220,
                                                   "attack_ratio": 50,
                                                   "hp_ratio": 3,
                                                   "can_crit": false,
@@ -2715,7 +2715,7 @@
                                                     },
                                                     {
                                                       "type": "ApAttack",
-                                                      "damage": 180,
+                                                      "damage": 220,
                                                       "attack_ratio": 50,
                                                       "hp_ratio": 3,
                                                       "can_crit": false,
@@ -3005,7 +3005,7 @@
                                                       },
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 180,
+                                                        "damage": 220,
                                                         "attack_ratio": 50,
                                                         "hp_ratio": 3,
                                                         "can_crit": false,
@@ -3380,7 +3380,7 @@
                           "effects": [
                             {
                               "type": "Shield",
-                              "amount": 120,
+                              "amount": 160,
                               "attack_ratio": 0,
                               "ap_ratio": 80,
                               "tick": 150
@@ -3759,7 +3759,7 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 130,
+                                            "damage": 160,
                                             "attack_ratio": 70,
                                             "hp_ratio": 2,
                                             "can_crit": false,
@@ -4052,7 +4052,7 @@
                                                               },
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 180,
+                                                                "damage": 220,
                                                                 "attack_ratio": 50,
                                                                 "hp_ratio": 3,
                                                                 "can_crit": false,
@@ -4342,7 +4342,7 @@
                                                                 },
                                                                 {
                                                                   "type": "ApAttack",
-                                                                  "damage": 180,
+                                                                  "damage": 220,
                                                                   "attack_ratio": 50,
                                                                   "hp_ratio": 3,
                                                                   "can_crit": false,
@@ -4916,7 +4916,7 @@
                                                                     },
                                                                     {
                                                                       "type": "ApAttack",
-                                                                      "damage": 180,
+                                                                      "damage": 220,
                                                                       "attack_ratio": 50,
                                                                       "hp_ratio": 3,
                                                                       "can_crit": false,
@@ -5496,7 +5496,7 @@
                                         },
                                         {
                                           "type": "ApAttack",
-                                          "damage": 180,
+                                          "damage": 220,
                                           "attack_ratio": 50,
                                           "hp_ratio": 3,
                                           "can_crit": false,
