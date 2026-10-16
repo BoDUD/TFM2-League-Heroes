@@ -2,7 +2,7 @@
   "zh-hans": {
     "description": {
       "league_kalista": {
-        "attack": "【附加包】投矛，命中的敌人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>武术姿态<>：投矛后自己判断往前追（敌人残血或快跑出射程）还是往后跳开（被贴近）。<#ff9028ff>哨兵<>：有队友在目标身边时，额外造成目标<#ffffffff>12%最大生命值的真实伤害<>。",
+        "attack": "【附加包】投矛，命中的敌人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>武术姿态<>：每次投矛后自己判断往前追（敌人残血或正在逃）还是往后跳开。<#ff9028ff>哨兵<>：有队友在目标身边时，额外造成目标<#ffffffff>12%最大生命值的真实伤害<>。",
         "ult": "【附加包】开局和一名队友立下誓约（辅助优先）。把誓约者拉进身体保护<#ffb900ff>0.5秒<>，然后甩到最近的敌方英雄身边，落地击飞周围敌人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。"
       }
     }
@@ -10,7 +10,7 @@
   "zh-hant": {
     "description": {
       "league_kalista": {
-        "attack": "【附加包】投矛，命中的敵人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>好戰突進<>：投矛後自己判斷往前追（敵人殘血或快跑出射程）還是往後跳開（被貼近）。<#ff9028ff>憎靈守衛<>：有隊友在目標身邊時，額外造成目標<#ffffffff>12%最大生命的真實傷害<>。",
+        "attack": "【附加包】投矛，命中的敵人身上插一支矛（<#ffb900ff>4秒<>）。<#ff9028ff>好戰突進<>：每次投矛後自己判斷往前追（敵人殘血或正在逃）還是往後跳開。<#ff9028ff>憎靈守衛<>：有隊友在目標身邊時，額外造成目標<#ffffffff>12%最大生命的真實傷害<>。",
         "ult": "【附加包】開局和一名隊友立下誓約（輔助優先）。把誓約者拉進身體保護<#ffb900ff>0.5秒<>，然後擲到最近的敵方英雄身邊，落地擊飛周圍敵人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。"
       }
     }
@@ -18,7 +18,7 @@
   "en": {
     "description": {
       "league_kalista": {
-        "attack": "[Add-on] Throws spears; each one stays in the enemy it hits for <#ffb900ff>4s<>. <#ff9028ff>Martial Poise<>: after each spear she hops forward (the enemy low or about to leave her range) or back (an enemy close) on her own. <#ff9028ff>Sentinel<>: with an ally beside her target, deals <#ffffffff>12% of its max health as true damage<>.",
+        "attack": "[Add-on] Throws spears; each one stays in the enemy it hits for <#ffb900ff>4s<>. <#ff9028ff>Martial Poise<>: after each spear she hops forward (the enemy low or running away) or back on her own. <#ff9028ff>Sentinel<>: with an ally beside her target, deals <#ffffffff>12% of its max health as true damage<>.",
         "ult": "[Add-on] She binds an ally at the start (a support first). Draws the Oathsworn into herself for <#ffb900ff>0.5s<>, then hurls them beside the nearest enemy champion; the landing knocks up nearby enemies for <#ffb900ff>1.25s<> and deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>."
       }
     }
@@ -26,7 +26,7 @@
   "ko": {
     "description": {
       "league_kalista": {
-        "attack": "[확장] 창을 던지며, 맞은 적에게 창이 <#ffb900ff>4초<> 꽂힙니다. <#ff9028ff>전투 태세<>: 창을 던진 뒤 스스로 판단해 앞으로(적의 체력이 낮거나 사거리를 벗어날 때) 또는 뒤로(적이 가까울 때) 도약. <#ff9028ff>감시하는 혼<>: 대상 곁에 아군이 있으면 대상 최대 체력의 <#ffffffff>12% 고정 피해<>.",
+        "attack": "[확장] 창을 던지며, 맞은 적에게 창이 <#ffb900ff>4초<> 꽂힙니다. <#ff9028ff>전투 태세<>: 창을 던진 뒤 스스로 판단해 앞으로(적의 체력이 낮거나 도망칠 때) 또는 뒤로 도약. <#ff9028ff>감시하는 혼<>: 대상 곁에 아군이 있으면 대상 최대 체력의 <#ffffffff>12% 고정 피해<>.",
         "ult": "[확장] 시작할 때 아군 하나와 맹약(서포터 우선). 맹약자를 <#ffb900ff>0.5초<> 동안 몸에 거둔 뒤 가장 가까운 적 챔피언 곁으로 던집니다. 착지하면 주변 적을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>."
       }
     }
@@ -34,7 +34,7 @@
   "ja": {
     "description": {
       "league_kalista": {
-        "attack": "【拡張】槍を投げ、当たった敵に槍が<#ffb900ff>4秒<>刺さる。<#ff9028ff>戦の所作<>：投擲後に自ら判断し、前へ（敵が瀕死か射程外へ逃げる時）か後ろへ（敵が近い時）跳ぶ。<#ff9028ff>執念の霊魂<>：対象の傍に味方がいると最大体力の<#ffffffff>12%の確定ダメージ<>。",
+        "attack": "【拡張】槍を投げ、当たった敵に槍が<#ffb900ff>4秒<>刺さる。<#ff9028ff>戦の所作<>：投擲のたびに自ら判断し、前へ（敵が瀕死か逃げる時）か後ろへ跳ぶ。<#ff9028ff>執念の霊魂<>：対象の傍に味方がいると最大体力の<#ffffffff>12%の確定ダメージ<>。",
         "ult": "【拡張】開始時に味方一人と誓約（サポート優先）。誓約者を<#ffb900ff>0.5秒<>身に宿し、最も近い敵チャンピオンの傍へ投げ放つ。着地で周囲の敵を<#ffb900ff>1.25秒<>打ち上げ、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。"
       }
     }

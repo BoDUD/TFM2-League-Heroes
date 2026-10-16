@@ -45,7 +45,7 @@ def phy(d, r):
 TEXT = {
     "zh-hans": {
         "name": "卡莉丝塔",
-        "attack": "投矛，命中的敌人身上插一支矛（" + A + "{sp_t}秒" + E + "）。" + O + "武术姿态" + E + "：被敌方英雄贴近时，投矛后向后跳开。" +
+        "attack": "投矛，命中的敌人身上插一支矛（" + A + "{sp_t}秒" + E + "）。" + O + "武术姿态" + E + "：每次投矛后向后跳开。" +
                   O + "哨兵" + E + "：有队友在目标身边时，额外造成目标" + W_ + "{w_hp}%最大生命值的真实伤害" + E + "（" + A + "{w_cd}秒" + E +
                   "一次）。",
         "skill": "掷出长矛，对第一个敌人造成" + phy("q_dmg", "q_ratio") + O + "物理伤害" + E + "并插上一支矛；若将其击杀，长矛穿过去命中下一个。",
@@ -57,7 +57,7 @@ TEXT = {
     },
     "zh-hant": {
         "name": "克黎思妲",
-        "attack": "投矛，命中的敵人身上插一支矛（" + A + "{sp_t}秒" + E + "）。" + O + "好戰突進" + E + "：被敵方英雄貼近時，投矛後向後跳開。" +
+        "attack": "投矛，命中的敵人身上插一支矛（" + A + "{sp_t}秒" + E + "）。" + O + "好戰突進" + E + "：每次投矛後向後跳開。" +
                   O + "憎靈守衛" + E + "：有隊友在目標身邊時，額外造成目標" + W_ + "{w_hp}%最大生命的真實傷害" + E + "（" + A + "{w_cd}秒" +
                   E + "一次）。",
         "skill": "擲出長矛，對第一個敵人造成" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E + "並插上一支矛；若將其擊殺，長矛穿過去命中下一個。",
@@ -70,7 +70,7 @@ TEXT = {
     "en": {
         "name": "Kalista",
         "attack": "Throws spears; each one stays in the enemy it hits for " + A + "{sp_t}s" + E + ". " + O + "Martial Poise" + E +
-                  ": with an enemy champion close, she hops back after each spear. " + O + "Sentinel" + E + ": with an ally "
+                  ": she hops back after each spear. " + O + "Sentinel" + E + ": with an ally "
                   "beside her target, deals " + W_ + "{w_hp}% of its max health as true damage" + E + " (once every " + A +
                   "{w_cd}s" + E + ").",
         "skill": "Throws a spear that deals " + phy("q_dmg", "q_ratio") + " " + O + "physical damage" + E + " to the first "
@@ -84,8 +84,8 @@ TEXT = {
     },
     "ko": {
         "name": "칼리스타",
-        "attack": "창을 던지며, 맞은 적에게 창이 " + A + "{sp_t}초" + E + " 꽂힙니다. " + O + "전투 태세" + E + ": 적 챔피언이 가까우면 "
-                  "창을 던진 뒤 뒤로 도약. " + O + "감시하는 혼" + E + ": 대상 곁에 아군이 있으면 대상 최대 체력의 " + W_ + "{w_hp}% 고정 피해" + E +
+        "attack": "창을 던지며, 맞은 적에게 창이 " + A + "{sp_t}초" + E + " 꽂힙니다. " + O + "전투 태세" + E + ": 창을 던질 때마다 "
+                  "뒤로 도약. " + O + "감시하는 혼" + E + ": 대상 곁에 아군이 있으면 대상 최대 체력의 " + W_ + "{w_hp}% 고정 피해" + E +
                   "(" + A + "{w_cd}초" + E + "마다).",
         "skill": "창을 던져 처음 맞은 적에게 " + phy("q_dmg", "q_ratio") + "의 " + O + "물리 피해" + E + "를 입히고 창을 꽂습니다. 처치하면 "
                  "창이 관통해 다음 적을 맞힙니다.",
@@ -97,7 +97,7 @@ TEXT = {
     },
     "ja": {
         "name": "カリスタ",
-        "attack": "槍を投げ、当たった敵に槍が" + A + "{sp_t}秒" + E + "刺さる。" + O + "戦の所作" + E + "：敵チャンピオンが近いと投擲後に後ろへ跳ぶ。" +
+        "attack": "槍を投げ、当たった敵に槍が" + A + "{sp_t}秒" + E + "刺さる。" + O + "戦の所作" + E + "：投擲するたびに後ろへ跳ぶ。" +
                   O + "執念の霊魂" + E + "：対象の傍に味方がいると最大体力の" + W_ + "{w_hp}%の確定ダメージ" + E + "（" + A + "{w_cd}秒" + E +
                   "毎）。",
         "skill": "槍を投げ、最初の敵に" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "を与え槍を刺す。倒すと貫通して次の敵に当たる。",

@@ -1101,59 +1101,18 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_kalista_thr"
+                            "type": "CasterAnimation",
+                            "name": "hop_b",
+                            "tick": 12
                           },
                           {
-                            "type": "RandomTarget",
-                            "range": 40000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_kalista_thr",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
+                            "type": "Sfx",
+                            "name": "league_kalista_hop"
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kalista_thr",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kalista_thr"
-                                },
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "hop_b",
-                                  "tick": 12
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_kalista_hop"
-                                },
-                                {
-                                  "type": "MoveBack",
-                                  "speed": 1800,
-                                  "tick": 10
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                            "type": "MoveBack",
+                            "speed": 1800,
+                            "tick": 10
                           }
                         ]
                       }
@@ -1169,59 +1128,18 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_kalista_thr"
+                            "type": "CasterAnimation",
+                            "name": "hop_b",
+                            "tick": 12
                           },
                           {
-                            "type": "RandomTarget",
-                            "range": 40000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_kalista_thr",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
+                            "type": "Sfx",
+                            "name": "league_kalista_hop"
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kalista_thr",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kalista_thr"
-                                },
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "hop_b",
-                                  "tick": 12
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_kalista_hop"
-                                },
-                                {
-                                  "type": "MoveBack",
-                                  "speed": 1800,
-                                  "tick": 10
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                            "type": "MoveBack",
+                            "speed": 1800,
+                            "tick": 10
                           }
                         ]
                       }
@@ -2448,59 +2366,18 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_kalista_thr"
+                            "type": "CasterAnimation",
+                            "name": "hop_b",
+                            "tick": 12
                           },
                           {
-                            "type": "RandomTarget",
-                            "range": 40000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_kalista_thr",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
+                            "type": "Sfx",
+                            "name": "league_kalista_hop"
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kalista_thr",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kalista_thr"
-                                },
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "hop_b",
-                                  "tick": 12
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_kalista_hop"
-                                },
-                                {
-                                  "type": "MoveBack",
-                                  "speed": 1800,
-                                  "tick": 10
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                            "type": "MoveBack",
+                            "speed": 1800,
+                            "tick": 10
                           }
                         ]
                       }
@@ -2516,59 +2393,18 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_kalista_thr"
+                            "type": "CasterAnimation",
+                            "name": "hop_b",
+                            "tick": 12
                           },
                           {
-                            "type": "RandomTarget",
-                            "range": 40000,
-                            "casting_target": "EnemyChampion",
-                            "from_projectile": false,
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_kalista_thr",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 2
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
-                              }
-                            ]
+                            "type": "Sfx",
+                            "name": "league_kalista_hop"
                           },
                           {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kalista_thr",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kalista_thr"
-                                },
-                                {
-                                  "type": "CasterAnimation",
-                                  "name": "hop_b",
-                                  "tick": 12
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_kalista_hop"
-                                },
-                                {
-                                  "type": "MoveBack",
-                                  "speed": 1800,
-                                  "tick": 10
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
+                            "type": "MoveBack",
+                            "speed": 1800,
+                            "tick": 10
                           }
                         ]
                       }

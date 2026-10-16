@@ -3,7 +3,7 @@
     python tools/kit/build_kalista.py [--set key=value ...] [--out file] [--params json] [--nodes]
 
 Kit (the user's picks, 2026-10-15: all the recommended options - W's Sentinel left out, Soul-Marked folded into the
-attack; the hop in the main pack only backward when threatened, the add-on choosing forward or back
+attack; the hop in the main pack only backward, the add-on choosing forward or back
 (「这个得做啊 附加包 往前还是往后灵活判断啊」); pro combos on):
   spears  Rend's stacks (撕裂之矛): every spear she lands (attack, Q) hangs instances on the unit it hits (towers
           excepted): a watcher (period 2, sp_t ticks) that bursts once when the caster flag e_pop rises (league_twitch's
@@ -19,9 +19,10 @@ attack; the hop in the main pack only backward when threatened, the add-on choos
   W       Soul-Marked (灵魂绑定, passive): her spear on an enemy champion that another allied champion stands within w_r
           of (fighting it with her) also deals w_hp% of its maximum health as true damage; w_cd ticks between procs
           (a caster flag: League's 6 s is per target).
-  passive Martial Poise (武术姿态): after each spear (attack or Q), with an enemy champion within hop_thr of her, she hops
-          straight away from her target (MoveBack hop_v x hop_t) - the pros' kiting. The data cannot hop forward a
-          set distance (MoveTo in a Targeting cast runs onto the target), so a forward hop is the add-on's.
+  passive Martial Poise (武术姿态): after every spear (attack or Q), as in League, she hops straight away from her target
+          (MoveBack hop_v x hop_t) - the pros' kiting (the user, 10-16: 「平A 前进后退的动作没了吗？这符合LOL的设定吗？」
+          「前跳后跳」 - it hopped only with an enemy champion within hop_thr). The data cannot hop forward a set distance
+          (MoveTo in a Targeting cast runs onto the target), so a forward hop is the add-on's.
   skill   Q Pierce (穿刺): a `Targeting` cast on `EnemyWithoutTower` (q_range); at q_rel a spear flies straight at where
           the target stands then (dodged by walking off the line), stops on the first unit it hits: q_dmg + q_ratio% AD
           and a spear in it. If that unit dies, the spear goes on along the line to the next (an unseen twin carries
@@ -307,13 +308,12 @@ def build(p):
         return pick(1000, "EnemyChampion", k_set, climb, soul, k_read, rip_now, fp=True)
 
     # ------------------------------------------------------------------ passive: the hop
-    hop = combine(*rm("thr"), pick(p["hop_thr"], "EnemyChampion", flag("thr", 2)),
-                  sw("thr", combine(*rm("thr"), anim("hop_b", p["hop_t"] + 2), sfx("hop"),
-                                    {"type": "MoveBack", "speed": p["hop_v"], "tick": p["hop_t"]})))
+    hop = combine(anim("hop_b", p["hop_t"] + 2), sfx("hop"), {"type": "MoveBack", "speed": p["hop_v"], "tick": p["hop_t"]})
     if p["native"]:
         # the add-on decides the way every tick (hop_f / hop_b on her) and moves her once hop_go is up
+        # (no enemy champion near - minions, monsters: neither flag - the main pack's hop back from the target)
         hop = combine(sw("hop_f", combine(refresh("hop_go", 6), anim("hop_f", p["hop_t"] + 2), sfx("hop")),
-                         sw("hop_b", combine(refresh("hop_go", 6), anim("hop_b", p["hop_t"] + 2), sfx("hop")))))
+                         sw("hop_b", combine(refresh("hop_go", 6), anim("hop_b", p["hop_t"] + 2), sfx("hop")), hop)))
     hop = delayed(p["hop_wait"], lives(hop))
 
     # ------------------------------------------------------------------ attack

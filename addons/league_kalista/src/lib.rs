@@ -3,9 +3,9 @@
 //! 生成：被动 `league_kalista:oath`；投矛后的跳由本包决定方向和挪人；大招改成对队友施放、甩出去的飞行由本包做），本包补数据做不到的事：
 //!
 //! - **武术姿态：往前还是往后跳**（每 tick 判断，挂 `hop_f` / `hop_b` 标记给数据；数据在投矛出手时按标记放前跳 / 后跳的动作并挂
-//!   `hop_go`，本包看到就逐 tick 把她挪过去，`hop_v` x `hop_t`）：最近的敌方英雄残血（40% 以下）就往前追；不然贴近（`hop_thr`
-//!   内）就往后跳、背离它；不然它在逃（15 tick 里离她远了 4000 以上）而且快跑出射程（超过攻击距离的 80%）就往前追；站在射程里
-//!   舒服的位置就不跳。
+//!   `hop_go`，本包看到就逐 tick 把她挪过去，`hop_v` x `hop_t`）：照英雄联盟每次投矛后都跳（用户 10-16：「前跳后跳」——第一版站在
+//!   射程里舒服的位置就不跳）：最近的敌方英雄残血（40% 以下）、或者它在逃（15 tick 里离她远了 4000 以上）而且快跑出射程（超过攻击
+//!   距离的 80%），就往前追；其余都往后跳、背离它（风筝）。身边没有敌方英雄（打小兵、野怪）时两个标记都不挂，数据照主包往后跳。
 //! - **誓约者**：开局（每条命出生时重新看）绑定一名队友——辅助位优先，没有就离她最近的队友英雄；大招的 AI 钩子
 //!   （`league_kalista:fate`）把施放目标换成誓约者（在 `r_bind` 内、能选中时；不然留 AI 自己挑的队友）。
 //! - **命运的召唤的飞行**：数据把队友拉进来、保护、定身，甩出时挂 `r_launch`；本包挑落点（离她最近的敌方英雄，`r_range` 内；
@@ -196,13 +196,13 @@ pub enum Hop {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum HopWhy {
-    Threat,
+    Kite,
     Fleeing,
     Low,
 }
 
-/// 投矛后往哪跳（只看攻击距离 1.4 倍内最近的敌方英雄）：残血（< 40%）就往前追；不然贴近（hop_thr 内）就往后、背离它；
-/// 不然它在逃（离她越来越远）而且快跑出射程（> 80% 攻击距离）就往前追；都不是（站在射程里舒服的位置）就不跳。
+/// 投矛后往哪跳（只看攻击距离 1.4 倍内最近的敌方英雄；没有就 None，数据照主包往后跳）：残血（< 40%），或者在逃（离她越来越远）
+/// 而且快跑出射程（> 80% 攻击距离），就往前追；其余都往后、背离它（风筝）。hop_thr 不再用（第一版：贴近才往后跳）。
 pub fn hop_choice(me: Pt, foes: &[Foe], p: &Params) -> Option<(Hop, HopWhy)> {
     let reach = p.atk_range as f64 * 1.4;
     let near = foes.iter().filter(|f| dist(me, f.at) <= reach).min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)))?;
@@ -210,13 +210,10 @@ pub fn hop_choice(me: Pt, foes: &[Foe], p: &Params) -> Option<(Hop, HopWhy)> {
     if near.hp_pct < 40 {
         return Some((Hop::Forward(*near), HopWhy::Low));
     }
-    if d <= p.hop_thr as f64 {
-        return Some((Hop::Back(*near), HopWhy::Threat));
-    }
     if d > p.atk_range as f64 * 0.8 && near.gain >= FLEE_GAIN {
         return Some((Hop::Forward(*near), HopWhy::Fleeing));
     }
-    None
+    Some((Hop::Back(*near), HopWhy::Kite))
 }
 
 /// 单位方向：往前 = 朝目标，往后 = 背离目标；重合时往后跳朝画面左边（-x）、往前朝右。
@@ -710,34 +707,37 @@ mod tests {
         let ult = &copy[copy.find("\"ult\"").unwrap()..];
         let target = &ult[ult.find("\"casting_target\"").unwrap()..][..40];
         assert!(target.contains("\"AllyNotSelf\""), "the copy's ult is not cast on an ally: {target}");
-        assert!(!copy.contains("\"MoveBack\""), "the copy still hops by data");
+        // the add-on's hop flags first; the main pack's MoveBack stays only for no enemy champion near (neither flag)
+        let f = copy.find(HOP_F).expect("the copy has no hop_f switch");
+        let back = copy.find("\"MoveBack\"").expect("the copy has no fallback hop");
+        assert!(f < back, "the copy's MoveBack comes before the add-on's hop flags");
     }
 
     #[test]
-    fn hop_back_when_close_forward_when_they_run_or_are_low() {
+    fn hop_back_by_default_forward_when_they_run_or_are_low() {
         let p = Params::default();
         let me = (0.0, 0.0);
         // close: back, away from it
         let close = foe(1, (30_000.0, 0.0), 100);
-        assert_eq!(hop_choice(me, &[close], &p), Some((Hop::Back(close), HopWhy::Threat)));
+        assert_eq!(hop_choice(me, &[close], &p), Some((Hop::Back(close), HopWhy::Kite)));
         assert_eq!(hop_dir(me, Hop::Back(close)), (-1.0, 0.0));
-        // at the edge of her range but standing (the ADC's usual spot): no hop; running off: forward
+        // at the edge of her range but standing (the ADC's usual spot): back (kiting); running off: forward
         let edge = foe(2, (0.0, 45_000.0), 100);
-        assert_eq!(hop_choice(me, &[edge], &p), None);
+        assert_eq!(hop_choice(me, &[edge], &p), Some((Hop::Back(edge), HopWhy::Kite)));
         let leaving = Foe { gain: FLEE_GAIN, ..edge };
         assert_eq!(hop_choice(me, &[leaving], &p), Some((Hop::Forward(leaving), HopWhy::Fleeing)));
         assert_eq!(hop_dir(me, Hop::Forward(leaving)), (0.0, 1.0));
-        // low: forward even when close; healthy and close: back; healthy at a good distance: no hop
+        // low: forward even when close; healthy: back wherever it stands
         let low = foe(3, (35_000.0, 0.0), 30);
         assert_eq!(hop_choice(me, &[low], &p).map(|c| c.1), Some(HopWhy::Low));
         let mid = foe(4, (35_000.0, 0.0), 80);
-        assert_eq!(hop_choice(me, &[mid], &p).map(|c| c.1), Some(HopWhy::Threat));
+        assert_eq!(hop_choice(me, &[mid], &p).map(|c| c.1), Some(HopWhy::Kite));
         let comfy = foe(6, (41_000.0, 0.0), 80);
-        assert_eq!(hop_choice(me, &[comfy], &p), None);
+        assert_eq!(hop_choice(me, &[comfy], &p).map(|c| c.1), Some(HopWhy::Kite));
         // nobody near: no hop
         assert_eq!(hop_choice(me, &[foe(5, (200_000.0, 0.0), 10)], &p), None);
         // the nearest decides
-        assert_eq!(hop_choice(me, &[leaving, close], &p).map(|c| c.1), Some(HopWhy::Threat));
+        assert_eq!(hop_choice(me, &[leaving, close], &p).map(|c| c.1), Some(HopWhy::Kite));
     }
 
     #[test]

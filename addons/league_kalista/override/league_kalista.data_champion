@@ -1194,7 +1194,22 @@
                               },
                               "effect_none": {
                                 "type": "Combine",
-                                "effects": []
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  },
+                                  {
+                                    "type": "MoveBack",
+                                    "speed": 1800,
+                                    "tick": 10
+                                  }
+                                ]
                               }
                             }
                           }
@@ -1289,7 +1304,22 @@
                               },
                               "effect_none": {
                                 "type": "Combine",
-                                "effects": []
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  },
+                                  {
+                                    "type": "MoveBack",
+                                    "speed": 1800,
+                                    "tick": 10
+                                  }
+                                ]
                               }
                             }
                           }
@@ -2595,7 +2625,22 @@
                               },
                               "effect_none": {
                                 "type": "Combine",
-                                "effects": []
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  },
+                                  {
+                                    "type": "MoveBack",
+                                    "speed": 1800,
+                                    "tick": 10
+                                  }
+                                ]
                               }
                             }
                           }
@@ -2690,7 +2735,22 @@
                               },
                               "effect_none": {
                                 "type": "Combine",
-                                "effects": []
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  },
+                                  {
+                                    "type": "MoveBack",
+                                    "speed": 1800,
+                                    "tick": 10
+                                  }
+                                ]
                               }
                             }
                           }

@@ -7,8 +7,8 @@
   league_kalista_effects.png   every effect animation, 3x
   league_kalista_showcase.gif  a scripted fight against Darius with Soraka as her Oathsworn, timed like the kit
                                (tools/kit/build_kalista.py, 60 ticks a second): a spear (the hit, the spear stuck in
-                               him, Sentinel's soul mark with Soraka beside him); Darius steps in, the next spear and
-                               her hop back; Pierce and the add-on's hop forward; Rend - the pull-in ring, the spears
+                               him, Sentinel's soul mark with Soraka beside him) and her hop back; Darius steps in, the
+                               next spear and the hop back again; Pierce and the add-on's hop forward; Rend - the pull-in ring, the spears
                                ripped out, the slow ring; Fate's Call - Soraka bound and drawn into her, the shroud,
                                the hurl, the landing's shockwave and Darius knocked up; Rend after the landing kills him
                                and its reset flares over her head; 3x
@@ -58,9 +58,9 @@ def showcase(out, z=3, step=40):
     sp = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_kalista_fx"], fx["league_kalista_big"]
-    W, H = 250, 104
+    W, H = 270, 104
     gy = 70
-    x0 = 70
+    x0 = 92
     d = Foe(load(os.path.join(LEAGUE, "champions", "league_darius")), x0 + 52, gy)     # at her attack range
     s = Ally(load(os.path.join(LEAGUE, "champions", "league_soraka")), x0 + 14, gy - 14)
     me = Me(x0, gy)
@@ -142,9 +142,9 @@ def showcase(out, z=3, step=40):
     rips = []
     wait(400)
     # a spear; Soraka beside Darius: Sentinel's soul mark
-    throw(soul=True)
-    wait(tick(P["atk_cd"] - P["atk_dur"]))
-    # Darius steps in (inside hop_thr): the next spear and her hop back
+    throw(soul=True, hop="b")
+    wait(tick(P["atk_cd"] - P["a_st"] - P["hop_wait"] - P["hop_t"] - 2))
+    # Darius steps in after her: the next spear and her hop back again (League's kiting: a hop after every spear)
     d.slides.append((t - 300, t, -16))
     throw(hop="b")
     wait(tick(P["atk_cd"] - P["a_st"] - P["hop_wait"] - P["hop_t"] - 2))
