@@ -68,7 +68,7 @@ P = {
     # passive An Acquired Taste (League: 8-60 + 2.5% bonus hp on attacks; stacks 5 s, 3 at most)
     "p_dmg": 20, "p_hp": 2, "p_hold": 300,
     # Thick Skin folded in (League: 15-27% of damage stored, shield = the store, cd 3 s)
-    "e_red": 15, "e_cd": 720, "e_near": 35000, "e_sh": 120, "e_sh_ap": 80, "e_t": 150,
+    "e_red": 15, "e_cd": 720, "e_near": 35000, "e_store": 30, "e_sh": 120, "e_sh_ap": 80, "e_t": 150,
     # Q Tongue Lash (League: 900 range, speed 2800, 80-280 + 70% AP, slow 40% 2 s, heal 10-30 + 3% missing hp on a
     # champion, stun 1.25 s at 3 stacks, cd 7-5 s)
     "q_cd": 360, "q_range": 60000, "q_dur": 27, "q_at": 15, "q_speed": 6000, "q_w": 3000, "q_dmg": 140, "q_ap": 60,
@@ -298,7 +298,8 @@ def build(p):
     stun = combine(eat, {"type": "Stun", "duration": p["q_stun"]}, view("q_stun"), tsfx("q_stun"))
     on_champ = combine(*rm("q_c"), on_me({"type": "Heal", "amount": p["q_heal"], "attack_ratio": 0,
                                           "ap_ratio": p["q_heal_ap"], "heal_type": "Caster"}, cview("q_heal")),
-                       sfx("q_heal"), climb if nat else sw("t3", sw("r_armed", eat_here, stun), climb))
+                       sfx("q_heal"), {"type": "Native", "effect_ref": "league_tahmkench:lash"} if nat
+                       else sw("t3", sw("r_armed", eat_here, stun), climb))
     q_hits = [magic(p["q_dmg"], p["q_ap"], p["q_hp"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
               view("q_hit"), tsfx("q_hit"), delayed(1, sw("q_c", on_champ))]
     rng = p["q_range"] + 10000
@@ -344,8 +345,14 @@ def build(p):
                   delayed(p["r_arm"] - 1, sw("r_armed", combine(*rm("r_armed"),
                                                                 flag("r_retry", 3, ult_cooldown_mult=retry)))))
     if nat:     # the hook's pick: an ally (protected) or an enemy (eaten), both on the cast's own target
+        # the swallow itself is data (Banish): a probe that lands only on an ally, one only on an enemy champion; the
+        # add-on records it (league_tahmkench:devour: the stacks eaten, where he spits the unit out)
         devour = {"type": "Native", "effect_ref": "league_tahmkench:devour"}
-        ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "BothChampion", combine(life, devour), key="ult")
+        ally_nat = combine(on_me(gulp("vo_r", "r_ally"), refresh("r_full", p["r_ally_t"])), *ally_in, devour)
+        enemy_nat = combine(on_me(gulp("vo_r", "r_enemy"), refresh("r_full", p["r_t"])), *enemy_in, devour)
+        ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "BothChampion",
+                     combine(life, homing("r_ally_go", 100000, "AllyNotSelf", [ally_nat]),
+                             homing("r_enemy_go", 100000, "EnemyChampion", [enemy_nat])), key="ult")
     else:
         ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", arm, key="ult")
 
@@ -378,7 +385,8 @@ def build(p):
                           "params": {"hold": p["p_hold"], "e_red": p["e_red"], "e_sh": p["e_sh"], "e_sh_ap": p["e_sh_ap"],
                                      "e_t": p["e_t"], "r_t": p["r_t"], "r_ally_t": p["r_ally_t"], "r_dmg": p["r_dmg"],
                                      "r_ap": p["r_ap"], "r_hp": p["r_hp"], "r_thp": p["r_thp"], "r_sh": p["r_sh"],
-                                     "r_sh_ap": p["r_sh_ap"], "r_sh_t": p["r_sh_t"], "q_stun": p["q_stun"]}}
+                                     "r_sh_ap": p["r_sh_ap"], "r_sh_t": p["r_sh_t"], "q_stun": p["q_stun"],
+                                     "e_near": p["e_near"], "e_cd": p["e_cd"], "store": p["e_store"]}}
     return kit
 
 

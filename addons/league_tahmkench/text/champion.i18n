@@ -1,0 +1,47 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_tahmkench_skin": {
+        "attack": "【附加包】<#ff9028ff>培养品味<>：普攻额外造成<#a974ffff>20<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，普攻、Q、W给每个英雄各自叠层，最多<#ffb900ff>3层<>。<#ff9028ff>厚实表皮<>：受到伤害的30%存为灰色生命、脱战回血，被两名敌方英雄围住时获得<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>护盾。",
+        "skill2": "【附加包】看准时机潜入地下<#ffb900ff>1秒<>（不可选中），在目标处冒出，造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。",
+        "ult": "【附加包】吞下残血、掉血快或被控住的队友<#ffb900ff>2.5秒<>，吐出时给予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>护盾；或吞下<#ffb900ff>3层<>的敌方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法伤害<>和其最大生命6%真实伤害。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_tahmkench_skin": {
+        "attack": "【附加包】<#ff9028ff>品味獨到<>：普攻額外造成<#a974ffff>20<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，普攻、Q、W給每個英雄各自疊層，最多<#ffb900ff>3層<>。<#ff9028ff>血多皮厚<>：受到傷害的30%存為灰色生命、脫戰回血，被兩名敵方英雄圍住時獲得<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>護盾。",
+        "skill2": "【附加包】看準時機潛入地下<#ffb900ff>1秒<>（無法被選取），在目標處冒出，造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。",
+        "ult": "【附加包】吞下殘血、掉血快或被控住的隊友<#ffb900ff>2.5秒<>，吐出時給予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>護盾；或吞下<#ffb900ff>3層<>的敵方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法傷害<>和其最大生命6%真實傷害。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_tahmkench_skin": {
+        "attack": "[Add-on] <#ff9028ff>An Acquired Taste<>: attacks deal <#a974ffff>20<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> more; attacks, Q and W stack on each champion, up to <#ffb900ff>3<>. <#ff9028ff>Thick Skin<>: 30% of the damage taken is stored as grey health, healed back out of combat; surrounded by two enemy champions he gains a <#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> shield.",
+        "skill2": "[Add-on] At the right moment, dives underground for <#ffb900ff>1s<> (untargetable) and bursts up at the target: <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<>.",
+        "ult": "[Add-on] Swallows an ally who is low, losing health fast or held among enemies for <#ffb900ff>2.5s<> and spits him out with a <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> shield; or an enemy champion with <#ffb900ff>3<> stacks for <#ffb900ff>2.5s<>: <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> max health <#a974ffff>magic damage<> and 6% of its max health as true damage."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_tahmkench_skin": {
+        "attack": "[애드온] <#ff9028ff>절대 미각<>: 기본 공격이 <#a974ffff>20<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<> 추가, 기본 공격·Q·W가 챔피언마다 중첩 (최대 <#ffb900ff>3<>). <#ff9028ff>두꺼운 피부<>: 받는 피해의 30%를 회색 체력으로 저장, 적 챔피언 둘에게 둘러싸이면 <#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> 보호막.",
+        "skill2": "[애드온] <#ffb900ff>1초<> 동안 때를 봐서 땅속으로 잠수 (대상 지정 불가) 후 대상 위치에서 솟아올라 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ef5350ff>1초 에어본<>.",
+        "ult": "[애드온] 위험한 아군을 <#ffb900ff>2.5초<> 삼켜 뱉을 때 <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> 보호막; 또는 <#ffb900ff>3중첩<> 적 챔피언을 <#ffb900ff>2.5초<> 삼켜 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> 최대 체력 <#a974ffff>마법 피해<>와 대상 최대 체력 6% 고정 피해."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_tahmkench_skin": {
+        "attack": "【アドオン】<#ff9028ff>舌慣らし<>：通常攻撃に<#a974ffff>20<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>追加、通常攻撃・Q・Wがチャンピオンごとにスタック（最大<#ffb900ff>3<>）。<#ff9028ff>ゆるゆる皮膜<>：被ダメージの30%をグレー体力として蓄積、敵チャンピオン2体に囲まれると<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>のシールド。",
+        "skill2": "【アドオン】<#ffb900ff>1秒<>好機に地中に潜り（対象不可）対象の位置に飛び出し<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒ノックアップ<>。",
+        "ult": "【アドオン】危険な味方を<#ffb900ff>2.5秒<>丸呑みし吐き出す時<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>のシールド。または<#ffb900ff>3<>スタックの敵チャンピオンを<#ffb900ff>2.5秒<>丸呑みし<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大体力の<#a974ffff>魔法ダメージ<>と最大体力6%の確定ダメージ。"
+      }
+    }
+  }
+}
