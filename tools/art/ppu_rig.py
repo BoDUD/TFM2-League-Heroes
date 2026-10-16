@@ -131,7 +131,7 @@ class Design:
     (default the soles' middle)."""
 
     def __init__(self, hero, ppu, rows_1x, pic_top=0, coarse=False, colours=24, foot_x=None, outline=None,
-                 chibi=False, regrid=None):
+                 chibi=False, regrid=None, mirror=False):
         """chibi: start from tools/art/chibi_warp.py's chibi.png (its head top and standing column from chibi.json)."""
         self.hero, self.ppu, self.coarse, self.colours = hero, ppu, coarse, colours
         pic = load_picture(hero, "chibi" if chibi else "picture")
@@ -140,6 +140,12 @@ class Design:
                 meta = json.load(f)
             pic_top = meta["head_top"]
             foot_x = meta["foot_x"] if foot_x is None else foot_x
+        if mirror:
+            # a picture facing front-left turned to face front-right like every hero (the sprite faces right;
+            # league_jax's Codex picture looked left: 「你不应该学其他已经完美的英雄四分之三站姿吗」)
+            pic = np.ascontiguousarray(pic[:, ::-1])
+            if foot_x is not None:
+                foot_x = pic.shape[1] - foot_x
         self.pic = pic
         self.k = rows_1x * ppu / (pic.shape[0] - pic_top)
         self.outline = tuple(outline) if outline else PD.edge_colour(pic)
@@ -224,13 +230,14 @@ class Design:
         return out
 
     # -------------------------------------------------------------------------------------------- turned props
-    def cut_props(self, props, close=4, fills=(), keep_out=None):
+    def cut_props(self, props, close=4, fills=(), keep_out=None, bare=()):
         """props {name: polygon (design squares)}: cut out of the picture, the body they hid filled from round it
         (inpaint, inside the body's outline closed over their width), and the design made again from what is left -
         so a prop swung away shows the body behind it. Each prop is drawn from the picture itself by turn(), at any
         angle (0 too). fills: polygons (design squares) of body the props hid where the body's outline does not close
         round it (a leg's edge behind a blade) - filled from round them too. keep_out: rgb -> mask of picture pixels
-        never part of a prop (a cape behind an arm)."""
+        never part of a prop (a cape behind an arm). A prop may also be given as a picture-sized mask (leg_masks); the
+        props named in `bare` (legs) leave their place empty, never filled."""
         self.keep_out = keep_out
         H, W = self.pic.shape[:2]
         cut = np.zeros((H, W), bool)
@@ -239,14 +246,21 @@ class Design:
             img = Image.new("L", (W, H), 0)
             ImageDraw.Draw(img).polygon([self.d2p(x, y) for x, y in poly], fill=1)
             fill |= np.asarray(img, bool)
+        bare_cut = np.zeros((H, W), bool)
         for name, poly in props.items():
-            img = Image.new("L", (W, H), 0)
-            ImageDraw.Draw(img).polygon([self.d2p(x, y) for x, y in poly], fill=1)
-            m = np.asarray(img, bool)
+            if isinstance(poly, np.ndarray):
+                m = poly.copy()
+                poly = None
+            else:
+                img = Image.new("L", (W, H), 0)
+                ImageDraw.Draw(img).polygon([self.d2p(x, y) for x, y in poly], fill=1)
+                m = np.asarray(img, bool)
             if keep_out is not None:
                 m &= ~keep_out(self.pic[..., :3].astype(int))
             m &= ~cut                                     # a square belongs to the first prop that takes it
             cut |= m
+            if name in bare:
+                bare_cut |= m
             self.polys[name] = poly
             self.prop_masks[name] = m
             self.props.add(name)
@@ -256,7 +270,7 @@ class Design:
         # close > 0: the body's outline closed over the props' width (an arm across the body); 0: only gaps the body
         # itself encloses (a staff held beside her - closed over, its squares came back as a strip of body)
         closed = ndimage.binary_closing(bop, structure=np.ones((9, 9)), iterations=close) if close > 0 else bop
-        hole = cut & (closed | ndimage.binary_fill_holes(bop) | fill) & ~bop & (self.pic[..., 3] > 0)
+        hole = cut & (closed | ndimage.binary_fill_holes(bop) | fill) & ~bop & (self.pic[..., 3] > 0) & ~bare_cut
         self.pic_body = inpaint(body, hole)
         if self.coarse:
             d, (nx0, ny0) = PD.pixelate(self.pic_body, self.k, (self.gx0, self.gy0), self.outline, self.pal)
@@ -935,3 +949,198 @@ def band(p0, p1, hw0, hw1=None):
     nx, ny = -(y1 - y0) / L, (x1 - x0) / L
     return [(x0 + nx * hw0, y0 + ny * hw0), (x1 + nx * hw1, y1 + ny * hw1), (x1 - nx * hw1, y1 - ny * hw1),
             (x0 - nx * hw0, y0 - ny * hw0)]
+
+
+# ------------------------------------------------------------------------------------------------- jointed legs
+def leg_masks(D, area, hip, knee, keep_out=None, over_knee=1.6, under_knee=1.8, extend=2.0):
+    """A leg cut from the picture in two for League-driven poses (tools/lol/league_joints.py): the leg's own pixels
+    inside `area` (design squares; keep_out: rgb -> mask of pixels that are not leg, a skirt or a robe), the thigh down
+    to over_knee squares past the knee and the shin from under_knee above it (they overlap over the knee, so the joint
+    never opens), the thigh's top row carried on up along the thigh to `extend` squares above the hip into D.leg_src
+    (the picture the leg props are drawn from: hidden under the skirt, it keeps a turned thigh from opening a gap).
+    -> (thigh mask, shin mask) in picture pixels."""
+    pic = D.pic
+    H, W = pic.shape[:2]
+    img = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(img).polygon([D.d2p(x, y) for x, y in area], fill=1)
+    leg = np.asarray(img, bool) & (pic[..., 3] > 0)
+    if keep_out is not None:
+        leg &= ~keep_out(pic[..., :3].astype(int))
+    lbl, n = ndimage.label(leg, structure=np.ones((3, 3)))
+    if n > 1:
+        sz = ndimage.sum(leg, lbl, range(1, n + 1))
+        leg = lbl == (1 + int(np.argmax(sz)))
+    leg = ndimage.binary_fill_holes(leg) & (pic[..., 3] > 0)
+    yy, xx = np.mgrid[0:H, 0:W]
+    hp, kp = np.array(D.d2p(*hip)), np.array(D.d2p(*knee))
+    u = (kp - hp) / np.hypot(*(kp - hp))
+    along = (xx - kp[0]) * u[0] + (yy - kp[1]) * u[1]
+    sq = 1 / D.k
+    thigh = leg & (along <= over_knee * sq)
+    shin = leg & (along >= -under_knee * sq)
+    if getattr(D, "leg_src", None) is None:
+        D.leg_src = pic.copy()
+    rows = np.nonzero(thigh.any(1))[0]
+    if len(rows):
+        top = min(rows.min() + 2, rows.max())
+        ref = np.nonzero(thigh[top])[0]
+        for y in range(max(0, int(hp[1] - extend * sq)), top):
+            dx = int(round((y - top) * u[0] / u[1])) if abs(u[1]) > 1e-6 else 0
+            xs = ref + dx
+            ok = (xs >= 0) & (xs < W)
+            D.leg_src[y, xs[ok]] = pic[top, ref[ok]]
+            thigh[y, xs[ok]] = True
+    return thigh, shin
+
+
+def heading(v):
+    """Screen angle of a design / game-pixel vector (y down), degrees counter-clockwise from +x."""
+    return float(np.degrees(np.arctan2(-v[1], v[0])))
+
+
+def turn_pt(p, about, deg):
+    """p turned deg counter-clockwise on screen about `about`."""
+    th = np.radians(deg)
+    ax, ay = about
+    return np.array((ax + (p[0] - ax) * np.cos(th) + (p[1] - ay) * np.sin(th),
+                     ay - (p[0] - ax) * np.sin(th) + (p[1] - ay) * np.cos(th)))
+
+
+def wrap(a):
+    return (a + 180.0) % 360.0 - 180.0
+
+
+class Driver:
+    """The design's parts posed after League's skeleton, frame by frame (tools/lol/league_joints.py's json): the
+    whole figure moved with League's pelvis (`lunge` of its way forward kept, as tools/lol/native_pose.py does), the
+    legs - thigh and shin props each (leg_masks) - turned by the change of League's thigh and shin angles from its
+    design pose, the figure set so the lower sole stands as high above the ground as League's lower foot; the weapon
+    arm turned with League's shoulder-to-hand, the weapon with League's weapon (both ends of its mesh), the upper
+    body leaning `lean` of League's chest-over-pelvis shift. Nothing of the body itself turns (memory
+    no-deformation-lossless-poses: a turned torso read as deformed).
+    legs: [dict(name, hip, knee, sole, side "near" | "far")] - "near" is League's leg nearer the camera;
+    arm: dict(name, shoulder, hand) or None; weapons: [dict(name, grip, tip, league=(joint, joint), on_arm)]: the arm
+    and the weapons take League's own directions on screen (shoulder to hand; the weapon's `league` joints, from the grip
+    to the end matching our `tip`) - absolute, since League's idle holds a weapon unlike the design's - unless the frame
+    says keep=True (the idle: the design's own arm and weapon); upper: the body part's name;
+    attach: [dict(name, anchor, league joint, turn=(joint, joint), max_turn)] - props carried by a League joint;
+    per-frame overrides: keep, dx, dy, lean, arm, weapon (degrees added), rise, extra(j, ux, dy) -> (back, front)."""
+
+    def __init__(self, rig, joints, spec_height, rows, legs=(), arm=None, weapons=(), upper="upper", lunge=0.7,
+                 lean=0.8, src=None, depth_margin=0.05, attach=()):
+        self.rig, self.D = rig, rig.D
+        self.J = joints
+        self.s = self.D.ppu * rows / spec_height              # design squares per League game px
+        self.legs, self.arm, self.weapons, self.upper = list(legs), arm, list(weapons), upper
+        self.lunge, self.lean, self.src, self.margin = lunge, lean, src, depth_margin
+        self.attach = list(attach)
+        d = joints["design"]
+        self.d = d
+        # League's near leg: the nearer hip in the design pose
+        near_l = d["l_hip"][2] >= d["r_hip"][2] if "l_hip" in d else True
+        self.side = {"near": "l" if near_l else "r", "far": "r" if near_l else "l"}
+        # the weapon hand: League's hand nearer the weapon's grip
+        if "weapon" in d and "l_hand" in d:
+            dl = np.hypot(d["l_hand"][0] - d["weapon"][0], d["l_hand"][1] - d["weapon"][1])
+            dr = np.hypot(d["r_hand"][0] - d["weapon"][0], d["r_hand"][1] - d["weapon"][1])
+            self.hand = "l" if dl <= dr else "r"
+        else:
+            self.hand = "r"
+
+    def ang(self, j, a, b):
+        return heading((j[b][0] - j[a][0], j[b][1] - j[a][1]))
+
+    def delta(self, j, a, b):
+        return wrap(self.ang(j, a, b) - self.ang(self.d, a, b))
+
+    def frame(self, j, overrides=None):
+        o = overrides or {}
+        s, d = self.s, self.d
+        dx = (j["pelvis"][0] - d["pelvis"][0]) * s * self.lunge + o.get("dx", 0)
+        lean = ((j["chest"][0] - j["pelvis"][0]) - (d["chest"][0] - d["pelvis"][0])) * s * self.lean
+        layers_legs, soles = [], []
+        hx = int(round(dx))
+        for lg in self.legs:
+            sd = self.side[lg["side"]]
+            hip, knee, sole = (np.array(v, float) for v in (lg["hip"], lg["knee"], lg["sole"]))
+            if f"{sd}_hip" in j:
+                r1 = round(self.delta(j, f"{sd}_hip", f"{sd}_knee") / 2) * 2
+                r2 = round(self.delta(j, f"{sd}_knee", f"{sd}_foot") / 2) * 2
+            else:
+                r1 = r2 = 0
+            k_at = turn_pt(knee, hip, r1) + (hx, 0)
+            kx, ky = int(round(k_at[0] - knee[0])), int(round(k_at[1] - knee[1]))
+            s_at = turn_pt(sole, knee, r2) + (kx, ky)
+            soles.append(s_at)
+            layers_legs.append([(lg["name"] + "_shin", dict(dx=kx, dy=ky, angle=r2, about=tuple(knee), src=self.src)),
+                                (lg["name"] + "_thigh", dict(dx=hx, dy=0, angle=r1, about=tuple(hip), src=self.src))])
+        # ground: the lower sole raised as much as League's lower foot joint is above where it is in the design pose
+        # (the joint is the ankle, never on the floor itself)
+        if soles:
+            feet = [j[f"{x}_foot"][1] for x in "lr" if f"{x}_foot" in j]
+            feet0 = [d[f"{x}_foot"][1] for x in "lr" if f"{x}_foot" in d]
+            h = (max(feet0) - max(feet)) if feet else 0.0
+            ground = max(lg["sole"][1] for lg in self.legs)
+            dy = int(round(ground - max(0.0, h) * s * o.get("rise", 1.0) - max(p[1] for p in soles)))
+        else:
+            dy = int(round((j["pelvis"][1] - d["pelvis"][1]) * s * o.get("rise", 1.0)))
+        dy += o.get("dy", 0)
+        ux = hx + int(round(max(-5, min(5, lean)))) + o.get("lean", 0)
+        layers = []
+        order = sorted(range(len(self.legs)), key=lambda i: self.legs[i]["side"] != "far")   # the far leg first
+        for i in order:
+            for name, opt in layers_legs[i]:
+                opt = dict(opt)
+                opt["dy"] += dy
+                layers.append((name, opt))
+        front, back = [], []
+        chest_z = j["chest"][2]
+        arm_r = 0
+        if self.arm is not None:
+            h_ = self.hand
+            if o.get("keep"):
+                arm_r = o.get("arm", 0)
+            else:
+                ours = heading(np.array(self.arm["hand"], float) - np.array(self.arm["shoulder"], float))
+                arm_r = round(wrap(self.ang(j, f"{h_}_shoulder", f"{h_}_hand") - ours) / 2) * 2 + o.get("arm", 0)
+            (back if j[f"{h_}_hand"][2] < chest_z - self.margin else front).append(
+                (self.arm["name"], dict(dx=ux, dy=dy, angle=arm_r, about=tuple(self.arm["shoulder"]))))
+        for w in self.weapons:
+            if o.get("keep"):
+                wr = o.get("weapon", 0)
+            else:
+                a_, b_ = w.get("league", ("weapon_b", "weapon_a"))
+                ours = heading(np.array(w["tip"], float) - np.array(w.get("ref", w["grip"]), float))
+                wr = round(wrap(self.ang(j, a_, b_) - ours) / 2) * 2 + o.get("weapon", 0)
+            grip = np.array(w["grip"], float)
+            g = turn_pt(grip, self.arm["shoulder"], arm_r) if (w.get("on_arm", True) and self.arm) else grip
+            gx, gy = int(round(g[0] - grip[0])), int(round(g[1] - grip[1]))
+            wz = (j["weapon_a"][2] + j["weapon_b"][2]) / 2
+            (back if wz < chest_z - self.margin and not w.get("always_front") else front).append(
+                (w["name"], dict(dx=ux + gx, dy=dy + gy, angle=wr, about=tuple(grip), src=w.get("src"))))
+        for at in self.attach:
+            # a prop carried by a joint of League's (Leona's shield on its own joint): moved as that joint moves
+            # against the chest, turned as League's joint pair turns
+            jn = at["league"]
+            mx_ = ((j[jn][0] - j["chest"][0]) - (d[jn][0] - d["chest"][0])) * s
+            my_ = ((j[jn][1] - j["chest"][1]) - (d[jn][1] - d["chest"][1])) * s
+            rot_ = round(self.delta(j, *at["turn"]) / 2) * 2 if at.get("turn") else 0
+            rot_ = max(-at.get("max_turn", 30), min(at.get("max_turn", 30), rot_))
+            z_ = j[jn][2]
+            (back if z_ < chest_z - self.margin and not at.get("always_front") else front).append(
+                (at["name"], dict(dx=ux + int(round(mx_)), dy=dy + int(round(my_)), angle=rot_,
+                                  about=tuple(at["anchor"]))))
+        if "extra" in o:
+            ex_back, ex_front = o["extra"](j, ux, dy)
+            back += ex_back
+            front += ex_front
+        layers = back + layers + [(self.upper, dict(dx=ux, dy=dy))] + front + o.get("after", [])
+        return compose(self.rig, layers)
+
+
+def fit_rows(rows, n):
+    """League's frames of a tag spread over n frames (the sheet's count: League's idle has 6 where the sheet has 8):
+    frame i takes League's frame at the same share of the clip."""
+    if len(rows) == n:
+        return rows
+    return [rows[min(len(rows) - 1, int(i * len(rows) / n))] for i in range(n)]
