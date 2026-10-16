@@ -216,9 +216,11 @@ RESTYLE = {
     # others; the face point at her crown (tfm2_ase.py face: 43 px over the hooves)
     "rell": dict(ppu=1.5, edge=1, face_to=(-2, -43)),
     # league_reksai (#117): posed by tools/art/rig_reksai.py from Codex's step-1 takes read back square for square (A 57
-    # rows = the user's 36 game px: PPU 57 / 36), so no proportion or density change here; the outer outline grown a
-    # square like the others; the face point between her helmet and her mouth (she has no eyes; the crown is the crest)
-    "reksai": dict(ppu=1.58, edge=1, face_to=(15, -20)),
+    # rows = the user's 36 game px: posed at 57 / 36 = 1.58), then pixelated to 1.2 (the user, 2026-10-17: 「雷克赛像素太高
+    # 需要降低」, picked 1.2 from 1.58 / 1.4 / 1.3 / 1.2 / 1.0 - tools/art/review_reksai_ppu.py); no proportion change; the
+    # outer outline grown a square like the others; the face point between her helmet and her mouth (she has no eyes;
+    # the crown is the crest)
+    "reksai": dict(ppu=1.2, edge=1, face_to=(15, -20)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Rek'Sai's action review from the exported sheet (so it also proves the sheet loads): every hd_ tag at game size (PPU
-1.58, as league.dll draws it) next to league_darius's idle, feet on one line.
+ppu_hd.PPU['reksai'], as league.dll draws it) next to league_darius's idle, feet on one line.
 
     python tools/art/review_reksai_actions.py --out DIR [--z 3]
 
@@ -12,10 +12,13 @@ A frame's centre is its pivot, FEET game px over the ground (rig_reksai.py), for
 import argparse
 import json
 import os
+import sys
 
 from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import ppu_hd  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(HERE))
 if os.name == "nt" and not ROOT.startswith(chr(92) * 2):
     ROOT = chr(92) * 2 + "?" + chr(92) + os.path.abspath(ROOT)
@@ -27,7 +30,7 @@ NAMES = {"idle": "idle", "run": "run", "attack": "attack", "skill": "Q Queen's W
          "ult": "R Void Rush (under)", "ult_hit": "R the lunge", "hit": "hit", "dead": "dead",
          "b_idle": "add-on: burrowed idle", "b_run": "add-on: burrowed run"}
 FEET = 11
-PPU = 1.58
+PPU = ppu_hd.PPU["reksai"]
 BG = (96, 112, 96)
 
 

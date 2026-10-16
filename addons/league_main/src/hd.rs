@@ -50,8 +50,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // SIZES row
     ("league_rell", 1.5, include_str!("../../../league/champions/league_rell#anim.fanim")),
     // Rek'Sai: Codex's step-1 takes read back square for square (A 57 rows = the user's 36 game px), posed by
-    // tools/art/rig_reksai.py on that grid, so PPU 57 / 36 and no SIZES row
-    ("league_reksai", 1.58, include_str!("../../../league/champions/league_reksai#anim.fanim")),
+    // tools/art/rig_reksai.py on that grid (57 / 36 = 1.58), pixelated to 1.2 by ppu_restyle (the user: 「雷克赛像素太高
+    // 需要降低」, picked 1.2); no SIZES row
+    ("league_reksai", 1.2, include_str!("../../../league/champions/league_reksai#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

@@ -3,7 +3,7 @@
 
     python tools/art/preview_reksai.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_reksai_frames.png    every animation's dense frames (hd_, PPU 1.58, as league.dll shows them)
+  league_reksai_frames.png    every animation's dense frames (hd_, PPU 1.2, as league.dll shows them)
   league_reksai_effects.png   every effect animation, 3x
   league_reksai_showcase.gif  a scripted fight against Darius, timed like the kit (tools/kit/build_reksai.py, 60 ticks a
                               second): two bites (the prey mark over him); Queen's Wrath - the whirl at her feet, the
