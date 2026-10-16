@@ -11,8 +11,8 @@ addons/league_orianna/override/league_orianna.data_champion and .../text/champio
     homing flying hidden (the add-on draws the Ball from where it is), E's line from her only while the Ball is beside her
     (the add-on hits the line from the Ball, league_orianna:e_hit);
   * E's ally asked of league_orianna:e_pick (each ally in range; the one picked raises league_orianna_e_this);
-  * R asking league_orianna:r_kill for each enemy champion near the Ball (a kill raises league_orianna_c2), no
-    isolated-target rule;
+  * R asking league_orianna:r_kill for each enemy champion near the Ball (a kill raises league_orianna_c2; R fires for
+    any enemy champion near the Ball anyway since 0.124.2, so it is the log's R-ARMED / KILL lines);
   * passive = the add-on's league_orianna:ball with the numbers of P;
   * the skills' tooltips point to description.league_orianna.skill / .skill2 / .ult with the add-on's wording
     (keys of the add-on's own id), so the tooltip in game shows whether the override took.
@@ -42,7 +42,7 @@ NATIVE = {
                  "减速{w_slow}%" + E + "，队友" + G + "加速{w_haste}%" + E + "。",
         "skill2": "【附加包】球从它所在的位置飞向最危险的队友（自己更危险时回到身边），提供" + G + "{e_sh}" + E + " + " + APi + G +
                   "{e_ap}%护盾" + E + "，路过的敌人受到" + mag("e_dmg", "e_dap") + M + "魔法伤害" + E + "。带球者+{e_def}护甲和魔抗。",
-        "ult": "【附加包】待命" + A + "{r_arm}秒" + E + "，球附近有" + A + "2个" + E + "敌方英雄、或能击杀其中1个时放出冲击波：造成" +
+        "ult": "【附加包】待命" + A + "{r_arm}秒" + E + "，球附近有敌方英雄时放出冲击波：造成" +
                mag("r_dmg", "r_ap") + M + "魔法伤害" + E + "并把敌人" + R + "甩向球" + E + "。",
     },
     "zh-hant": {
@@ -51,7 +51,7 @@ NATIVE = {
                  "緩速{w_slow}%" + E + "，隊友" + G + "加速{w_haste}%" + E + "。",
         "skill2": "【擴充包】球從它所在的位置飛向最危險的隊友（自己更危險時回到身邊），提供" + G + "{e_sh}" + E + " + " + APi + G +
                   "{e_ap}%護盾" + E + "，路過的敵人受到" + mag("e_dmg", "e_dap") + M + "魔法傷害" + E + "。帶球者+{e_def}護甲和魔抗。",
-        "ult": "【擴充包】待命" + A + "{r_arm}秒" + E + "，球附近有" + A + "2個" + E + "敵方英雄、或能擊殺其中1個時放出脈衝：造成" +
+        "ult": "【擴充包】待命" + A + "{r_arm}秒" + E + "，球附近有敵方英雄時放出脈衝：造成" +
                mag("r_dmg", "r_ap") + M + "魔法傷害" + E + "並把敵人" + R + "甩向球" + E + "。",
     },
     "en": {
@@ -63,8 +63,8 @@ NATIVE = {
                   "shielding them for " + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}%" + E + " and dealing " +
                   mag("e_dmg", "e_dap") + " " + M + "magic damage" + E + " to enemies on the way. Its holder gains {e_def} "
                   "Armor and Magic Resist.",
-        "ult": "[Add-on] Waits up to " + A + "{r_arm}s" + E + " for " + A + "2" + E + " enemy champions near the Ball, or one "
-               "it would kill, then the Ball sends out a shockwave: " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E +
+        "ult": "[Add-on] Waits up to " + A + "{r_arm}s" + E + " for an enemy champion near the Ball, then the Ball"
+               " sends out a shockwave: " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E +
                ", enemies " + R + "flung toward the Ball" + E + ".",
     },
     "ko": {
@@ -74,7 +74,7 @@ NATIVE = {
         "skill2": "[확장] 공이 있는 곳에서 가장 위험한 아군에게 날아가(자신이 더 위험하면 자신) " + G + "{e_sh}" + E + " + " + APi + G +
                   "{e_ap}% 보호막" + E + ", 지나가는 적에게 " + mag("e_dmg", "e_dap") + "의 " + M + "마법 피해" + E +
                   ". 공을 가진 자는 방어력·마법 저항력 +{e_def}.",
-        "ult": "[확장] 최대 " + A + "{r_arm}초" + E + " 동안 공 근처에 적 챔피언 " + A + "2명" + E + "이 있거나 1명을 처치할 수 있으면 충격파: " +
+        "ult": "[확장] 최대 " + A + "{r_arm}초" + E + " 동안 공 근처에 적 챔피언이 오면 충격파: " +
                mag("r_dmg", "r_ap") + "의 " + M + "마법 피해" + E + ", 적을 공 쪽으로 " + R + "날려 보냅니다" + E + ".",
     },
     "ja": {
@@ -84,7 +84,7 @@ NATIVE = {
         "skill2": "【拡張】ボールが今ある場所から最も危険な味方へ飛び（自分の方が危険なら自分）、" + G + "{e_sh}" + E + " + " + APi + G +
                   "{e_ap}%のシールド" + E + "、通り道の敵に" + mag("e_dmg", "e_dap") + "の" + M + "魔法ダメージ" + E +
                   "。持ち主は物理・魔法防御+{e_def}。",
-        "ult": "【拡張】最大" + A + "{r_arm}秒" + E + "待機し、ボールの近くに敵チャンピオン" + A + "2体" + E + "か倒せる敵がいれば衝撃波：" +
+        "ult": "【拡張】最大" + A + "{r_arm}秒" + E + "待機し、ボールの近くに敵チャンピオンがいれば衝撃波：" +
                mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "、敵をボールへ" + R + "引き寄せる" + E + "。",
     },
 }
