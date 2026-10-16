@@ -36,7 +36,7 @@ NATIVE = {
                   O + "遁地" + E + "：整个身体钻进土里、移速提高，按怒气回复生命，敌人靠近就破土。",
         "skill2": "【附加包】钻地冲到目标脚下破土：" + phy("w_dmg", "w_ratio") + O + "物理伤害" + E + "并" + R + "击飞{w_up}秒" + E + "。起点和落点连成" + O +
                   "隧道" + E + "（最多8个入口，敌方英雄站上去会踩塌）；残血或突袭时钻隧道。",
-        "ult": "【附加包】" + O + "猎物" + E + "里有能被打死的才放：钻进地底" + A + "{r_hide}秒" + E + "，再扑出造成" + phy("r_dmg", "r_ratio") +
+        "ult": "【附加包】" + O + "猎物" + E + "能被打死、残血（40%以下）或被控（70%以下）时才放：钻进地底" + A + "{r_hide}秒" + E + "，再扑出造成" + phy("r_dmg", "r_ratio") +
                "+目标最大生命{r_hp}%" + O + "物理伤害" + E + "。",
     },
     "zh-hant": {
@@ -44,7 +44,7 @@ NATIVE = {
                   O + "深掘" + E + "：整個身體鑽進土裡、移速提高，按怒氣回復生命，敵人靠近就破土。",
         "skill2": "【擴充包】鑽地衝到目標腳下破土：" + phy("w_dmg", "w_ratio") + O + "物理傷害" + E + "並" + R + "擊飛{w_up}秒" + E + "。起點和落點連成" + O +
                   "隧道" + E + "（最多8個入口，敵方英雄站上去會踩塌）；殘血或突襲時鑽隧道。",
-        "ult": "【擴充包】" + O + "獵物" + E + "裡有能被打死的才施放：鑽進地底" + A + "{r_hide}秒" + E + "，再撲出造成" + phy("r_dmg", "r_ratio") +
+        "ult": "【擴充包】" + O + "獵物" + E + "能被打死、殘血（40%以下）或被控（70%以下）時才施放：鑽進地底" + A + "{r_hide}秒" + E + "，再撲出造成" + phy("r_dmg", "r_ratio") +
                "+目標最大生命{r_hp}%" + O + "物理傷害" + E + "。",
     },
     "en": {
@@ -54,7 +54,7 @@ NATIVE = {
         "skill2": "[Add-on] Tunnels under the target and bursts up: " + phy("w_dmg", "w_ratio") + " " + O + "physical damage" + E + ", " + R +
                   "knocking up {w_up}s" + E + ". Start and landing become a " + O + "tunnel" + E + " (8 entrances at most; enemy champions "
                   "standing on one cave it in); she takes them to escape or to strike.",
-        "ult": "[Add-on] Only when one of her " + O + "Prey" + E + " would die: she goes under for " + A + "{r_hide}s" + E + " and lunges for " +
+        "ult": "[Add-on] Only when one of her " + O + "Prey" + E + " would die, is below 40% health, or is held below 70%: she goes under for " + A + "{r_hide}s" + E + " and lunges for " +
                phy("r_dmg", "r_ratio") + " + {r_hp}% of its max health " + O + "physical damage" + E + ".",
     },
     "ko": {
@@ -62,7 +62,7 @@ NATIVE = {
                   "고정 피해" + E + "). 비전투 이동 중 " + O + "매복" + E + ": 몸 전체가 땅속으로, 더 빠르게, 분노로 회복, 적이 다가오면 솟아오름.",
         "skill2": "[확장] 대상 발밑으로 파고들어 솟아오름: " + phy("w_dmg", "w_ratio") + "의 " + O + "물리 피해" + E + "와 " + R + "{w_up}초 에어본" + E +
                   ". 출발점과 도착점이 " + O + "땅굴" + E + "이 됨(입구 최대 8개, 적 챔피언이 밟으면 무너짐); 도주나 기습에 사용.",
-        "ult": "[확장] " + O + "먹잇감" + E + " 중 처치할 수 있는 대상이 있을 때만: " + A + "{r_hide}초" + E + " 땅속 후 덮쳐 " + phy("r_dmg", "r_ratio") +
+        "ult": "[확장] " + O + "먹잇감" + E + "을 처치할 수 있거나 체력 40% 이하, 또는 군중 제어 중 70% 이하일 때만: " + A + "{r_hide}초" + E + " 땅속 후 덮쳐 " + phy("r_dmg", "r_ratio") +
                " + 대상 최대 체력 {r_hp}%의 " + O + "물리 피해" + E + ".",
     },
     "ja": {
@@ -70,7 +70,7 @@ NATIVE = {
                   "確定ダメージ" + E + "）。非戦闘の移動中は" + O + "潜伏" + E + "：全身が地中へ、速く、怒りで回復、敵が近づくと浮上。",
         "skill2": "【拡張】対象の足元へ潜って襲撃：" + phy("w_dmg", "w_ratio") + "の" + O + "物理ダメージ" + E + "と" + R + "{w_up}秒ノックアップ" + E +
                   "。出発点と着地点が" + O + "トンネル" + E + "に（入口最大8、敵チャンピオンが踏むと崩れる）。逃走や奇襲に使う。",
-        "ult": "【拡張】" + O + "獲物" + E + "に倒せる相手がいる時だけ：" + A + "{r_hide}秒" + E + "地中へ、飛び出して" + phy("r_dmg", "r_ratio") +
+        "ult": "【拡張】" + O + "獲物" + E + "を倒せる、体力40%以下、またはCC中で70%以下の時だけ：" + A + "{r_hide}秒" + E + "地中へ、飛び出して" + phy("r_dmg", "r_ratio") +
                "+対象の最大体力{r_hp}%の" + O + "物理ダメージ" + E + "。",
     },
 }

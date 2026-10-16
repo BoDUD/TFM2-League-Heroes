@@ -10,11 +10,11 @@
 //!   残血被追就钻进去从另一头出来；不在战斗中、另一头附近有敌方英雄就钻过去突袭（每条隧道 `TUNNEL_CD` tick 才能再用）。钻的时候
 //!   她被放逐（不可选取、看不见），按 `TRAVEL_SPEED` 在地下走完才从另一头冒出来。
 //! - **虚空猛冲按真实血量**：数据只知道「被我方打过的英雄」，副本的大招只等本包的 `league_reksai_r_ok`：被她标记为猎物（主包数据
-//!   打中英雄时挂的 `league_reksai_r_mark`，本包记 `prey_t` tick）的敌方英雄里，有一个在大招范围内、R 的伤害（按它的最大生命和护甲
-//!   算）打得死，才上膛。
+//!   打中英雄时挂的 `league_reksai_r_mark`，本包记 `prey_t` tick）的敌方英雄里，有一个在大招范围内、看得见，而且 R 打得死它（按它的
+//!   最大生命和护甲算伤害）、或它剩 `R_LOW_PCT`% 以下、或它被硬控着且剩 `R_CC_PCT`% 以下，才上膛（打得死的先、再残血、再被控）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_reksai.log`，每次启动游戏重写，上一次的留在 .prev.log：`FORM`（模拟里
-//! 钻地 / 破土、画面里换形态）、`HEAL`（遁地回血）、`TUNNEL`（挖成、踩塌、钻过去）、`RKILL`（为哪个猎物上膛：血量和估算伤害）、
+//! 钻地 / 破土、画面里换形态）、`HEAL`（遁地回血）、`TUNNEL`（挖成、踩塌、钻过去）、`RARM`（为哪个猎物上膛、为什么：血量和估算伤害）、
 //! `RFIRE`（大招放出时猎物的血量），都限了条数。
 
 use std::collections::HashMap;
@@ -59,6 +59,10 @@ pub const CHASED_R: f64 = 45_000.0;
 pub const CLEAR_R: f64 = 50_000.0;
 pub const ENGAGE_R: f64 = 35_000.0;
 pub const ENGAGE_HP: usize = 50;
+/// 虚空猛冲上膛：猎物血量在这个百分比以下就算残血；被硬控时在这个百分比以下就打（用户 2026-10-17：「附加包的 R 太保守了，
+/// 放宽一点（不只等能打死的）」——只等打得死的，两局里一次都没放）。
+pub const R_LOW_PCT: usize = 40;
+pub const R_CC_PCT: usize = 70;
 /// 算「被控」的硬控（游戏 0.6.4 把施法动作也记成一种控制 Animation，不能用 cc_count() > 0）。
 pub const HARD_CC: [CcKindV1; 7] = [
     CcKindV1::Airborne,
@@ -218,6 +222,30 @@ pub fn fury_heal(p: &Params, attack: usize, k: usize) -> usize {
 pub fn void_rush(p: &Params, attack: usize, target_max_hp: usize, target_def: usize) -> usize {
     let raw = p.r_dmg + p.r_ratio * attack / 100 + p.r_hp * target_max_hp / 100;
     raw * 100 / (100 + target_def)
+}
+
+/// 一个猎物该不该让她放大招：这一下打得死（kill）、残血（low：R_LOW_PCT% 以下）、被硬控而且不满血（cc：R_CC_PCT% 以下）。
+pub fn arm_reason(hp: usize, max: usize, dmg: usize, in_cc: bool) -> Option<&'static str> {
+    if hp <= dmg {
+        Some("kill")
+    } else if hp * 100 <= R_LOW_PCT * max {
+        Some("low")
+    } else if in_cc && hp * 100 <= R_CC_PCT * max {
+        Some("cc")
+    } else {
+        None
+    }
+}
+
+/// 两个猎物（原因, 血量, 最大生命）里前一个是不是更该打：打得死的先，再残血，再被控；同一档挑血量比例低的。
+pub fn better(a: (&str, usize, usize), b: (&str, usize, usize)) -> bool {
+    let rank = |w: &str| match w {
+        "kill" => 0,
+        "low" => 1,
+        _ => 2,
+    };
+    let (ra, rb) = (rank(a.0), rank(b.0));
+    ra < rb || (ra == rb && a.1 * b.2.max(1) < b.1 * a.2.max(1))
 }
 
 /// 一条隧道：两个入口、每个入口上敌方英雄连续站了多少 tick、什么时候能再钻。
@@ -456,10 +484,10 @@ impl Fury {
         }
     }
 
-    /// 猎物的记忆和大招的上膛。
+    /// 猎物的记忆和大招的上膛：记着的猎物里，打得死的、残血的、被硬控而不满血的，挑最该打的那个上膛。
     fn void_rush(&mut self, sim: &mut StableSim<'_>, me: usize, s: &Seen, p: &Params) {
         let now = sim.tick();
-        let mut best: Option<(usize, usize, usize)> = None;   // (id, hp, damage)
+        let mut best: Option<(usize, &'static str, usize, usize, usize)> = None;   // (id, why, hp, max, damage)
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if u.team() == s.team || !u.is_alive() || !u.is_champion() {
@@ -477,16 +505,17 @@ impl Fury {
             }
             let (hp, max) = u.hp();
             let dmg = void_rush(p, s.attack, max, u.stat().defence);
-            if hp <= dmg && best.is_none_or(|b| hp < b.1) {
-                best = Some((id, hp, dmg));
+            let Some(why) = arm_reason(hp, max, dmg, hard_cc(sim, id)) else { continue };
+            if best.is_none_or(|b| better((why, hp, max), (b.1, b.2, b.3))) {
+                best = Some((id, why, hp, max, dmg));
             }
         }
         self.prey.retain(|_, until| *until >= now);
-        if let Some((id, hp, dmg)) = best {
+        if let Some((id, why, hp, max, dmg)) = best {
             sim.entity_stack_buff(me, &BuffV1::timed(R_OK, 3), 1, true);
             if self.r_armed_for != Some(id) {
-                if let Some(n) = counted("rkill") {
-                    wlog(format!("{} RKILL armed for {}: hp {hp} <= Void Rush {dmg} #{n}", head(sim, me), who(sim, id)));
+                if let Some(n) = counted("rarm") {
+                    wlog(format!("{} RARM ({why}) for {}: hp {hp}/{max}, Void Rush {dmg} #{n}", head(sim, me), who(sim, id)));
                 }
             }
             self.r_armed_for = Some(id);
@@ -565,7 +594,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     view::install_once();
     module.add_native_passive(format!("{ID}:fury"), Fury::default());
-    host.log(LogLevel::Info, "league_reksai loaded (the burrowed body, tunnels, Void Rush by real health).");
+    host.log(LogLevel::Info, "league_reksai loaded (the burrowed body, tunnels, Void Rush by real health: a kill, a low one or one held).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -622,6 +651,18 @@ mod tests {
         // 120 + 100 + 15% of 2000 = 520, armour 30 -> 400
         assert_eq!(void_rush(&p, 100, 2000, 30), 400);
         assert_eq!(void_rush(&p, 100, 2000, 0), 520);
+    }
+
+    #[test]
+    fn void_rush_waits_for_a_kill_a_low_one_or_one_held() {
+        assert_eq!(arm_reason(300, 2000, 400, false), Some("kill"));
+        assert_eq!(arm_reason(700, 2000, 400, false), Some("low")); // 35%
+        assert_eq!(arm_reason(1300, 2000, 400, true), Some("cc")); // 65% and stunned
+        assert_eq!(arm_reason(1300, 2000, 400, false), None); // 65%, free
+        assert_eq!(arm_reason(1900, 2000, 400, true), None); // nearly full, even held
+        assert!(better(("kill", 390, 2000), ("low", 100, 2000)));
+        assert!(better(("low", 300, 2000), ("low", 700, 2000)));
+        assert!(!better(("cc", 100, 2000), ("low", 700, 2000)));
     }
 
     #[test]
