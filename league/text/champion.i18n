@@ -798,6 +798,13 @@
         "skill": "主手武器的技能，各自冷却：通碧狙击造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并追射；断魄加速连射回血；坠明<#ef5350ff>定身<>被它减速的敌人1秒；荧焰扇形波后副手追击；折镜放下哨塔5秒。",
         "skill2": "交换主手和副手武器：主手技能在冷却、副手技能已就绪且附近有敌方英雄时才交换。",
         "ult": "爆点附近有2个以上敌方英雄或目标被控制时，射出月光，在第一个英雄处爆炸，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>，再按主手：通碧追射、断魄回血、坠明减速90%、荧焰加伤、折镜叠3层。"
+      },
+      "league_rell": {
+        "name": "芮尔",
+        "attack": "骑枪突刺，附带<#a974ffff>6+最大生命1%魔法伤害<>。<#ff9028ff>溃敌沉力<>：普攻和技能命中英雄，<#ffb900ff>5秒<>内削减其3%护甲和魔抗，自己获得3点护甲和魔抗（可叠加）。",
+        "skill": "前冲一刺，对直线上的敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>晕眩0.65秒<>。<#ff9028ff>全速冲锋<>：与身边一名队友加速15%→30%，下次普攻或裂阵爆炸，额外造成英雄最大生命5%<#4fc3f7ff>真实伤害<>。",
+        "skill2": "跃向敌方英雄砸下，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞0.83秒<>，获得<#4fc3f7ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#4fc3f7ff>40%<>护盾，下马作战<#ffb900ff>15秒<>（双抗、攻速提升）。<#ff9028ff>驾临<>：上马冲锋，<#ef5350ff>晕眩0.6秒<>并掀飞目标。",
+        "ult": "把附近敌人猛地拉到身边，<#ffb900ff>2秒<>内持续拖拽并共造成<#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>112%<><#a974ffff>魔法伤害<>。等到身边有2个敌方英雄或有被控住的敌人时才放。"
       }
     },
     "skill_name": {
@@ -1370,6 +1377,11 @@
         "skill1": "武器技能",
         "skill2": "月相轮转",
         "ult": "清辉夜凝"
+      },
+      "league_rell": {
+        "skill1": "裂阵",
+        "skill2": "驭铁术：轰落",
+        "ult": "极涌"
       }
     }
   },
@@ -2172,6 +2184,13 @@
         "skill": "主武器的技能，各自冷卻：步槍狙擊造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並追射；槍刃加速連射回血；重砲<#ef5350ff>定身<>被它緩速的敵人1秒；月燄扇形波後副武器追擊；飛刃放下哨兵5秒。",
         "skill2": "交換主武器和副武器：主武器技能冷卻中、副武器技能已就緒且附近有敵方英雄時才交換。",
         "ult": "爆點附近有2個以上敵方英雄或目標被控制時，射出月光，在第一個英雄處爆炸，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>，再依主武器：步槍追射、槍刃回血、重砲緩速90%、月燄加傷、飛刃疊3層。"
+      },
+      "league_rell": {
+        "name": "銳兒",
+        "attack": "騎槍突刺，附帶<#a974ffff>6+最大生命1%魔法傷害<>。<#ff9028ff>破鑄者<>：普攻和技能命中英雄，<#ffb900ff>5秒<>內削減其3%護甲和魔抗，自己獲得3點護甲和魔抗（可疊加）。",
+        "skill": "前衝一刺，對直線上的敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩0.65秒<>。<#ff9028ff>全速突進<>：與身邊一名隊友加速15%→30%，下次普攻或鐵碎之擊爆炸，額外造成英雄最大生命5%<#4fc3f7ff>真實傷害<>。",
+        "skill2": "躍向敵方英雄砸下，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛0.83秒<>，獲得<#4fc3f7ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#4fc3f7ff>40%<>護盾，下馬作戰<#ffb900ff>15秒<>（雙抗、攻速提升）。<#ff9028ff>起駕<>：上馬衝鋒，<#ef5350ff>暈眩0.6秒<>並掀飛目標。",
+        "ult": "把附近敵人猛地拉到身邊，<#ffb900ff>2秒<>內持續拖拽並共造成<#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>112%<><#a974ffff>魔法傷害<>。等到身邊有2個敵方英雄或有被控住的敵人時才施放。"
       }
     },
     "skill_name": {
@@ -2744,6 +2763,11 @@
         "skill1": "武器技能",
         "skill2": "月相輪轉",
         "ult": "月夜守護"
+      },
+      "league_rell": {
+        "skill1": "鐵碎之擊",
+        "skill2": "馭鐵之術：解構",
+        "ult": "磁能風暴"
       }
     }
   },
@@ -3546,6 +3570,13 @@
         "skill": "The main weapon's ability, each on its own cooldown: Calibrum snipes for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and follows up; Severum runs and fires, healing; Gravitum <#ef5350ff>roots<> every enemy it slowed for 1s; Infernum's wave, then off-hand shots; Crescendum a sentry for 5s.",
         "skill2": "Swaps the main and off-hand weapons, only when the main hand's ability is cooling down, the off hand's is ready and an enemy champion is near.",
         "ult": "With 2+ enemy champions round the blast or the target in crowd control, fires moonlight that bursts on the first champion for <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>, then by main weapon: Calibrum follow-up shots, Severum heal, Gravitum 90% slow, Infernum more damage, Crescendum 3 chakrams."
+      },
+      "league_rell": {
+        "name": "Rell",
+        "attack": "Lance thrusts with <#a974ffff>6 + 1% max health magic damage<>. <#ff9028ff>Break the Mold<>: attacks and abilities that hit a champion take 3% of its armour and magic resist for <#ffb900ff>5s<> and give her 3 of each (stacking).",
+        "skill": "Thrusts forward, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ef5350ff>stunning 0.65s<> along a line. <#ff9028ff>Full Tilt<>: she and a nearby ally gain 15% then 30% speed; her next attack or Shattering Strike explodes for <#4fc3f7ff>5% of a champion's max health as true damage<>.",
+        "skill2": "Leaps onto an enemy champion and crashes down for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, <#ef5350ff>knocking up 0.83s<>, gaining a <#4fc3f7ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#4fc3f7ff>40%<> shield and fighting dismounted for <#ffb900ff>15s<> (resists, attack speed). <#ff9028ff>Mount Up<>: charges on her horse, <#ef5350ff>stunning 0.6s<> and flinging the target.",
+        "ult": "Violently pulls nearby enemies to her, then drags them in for <#ffb900ff>2s<> dealing <#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>112%<> <#a974ffff>magic damage<> in all. She waits for 2 enemy champions near her, or one in crowd control."
       }
     },
     "skill_name": {
@@ -4118,6 +4149,11 @@
         "skill1": "Weapon Abilities",
         "skill2": "Phase",
         "ult": "Moonlight Vigil"
+      },
+      "league_rell": {
+        "skill1": "Shattering Strike",
+        "skill2": "Ferromancy: Crash Down",
+        "ult": "Magnet Storm"
       }
     }
   },
@@ -4920,6 +4956,13 @@
         "skill": "주 무기의 스킬(각자 재사용 대기시간): 만월총 저격 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<> 후 추가 사격; 절단검 이동하며 연사·회복; 중력포 둔화된 적 <#ef5350ff>1초 속박<>; 화염포 원뿔 공격 후 보조 무기 추격; 반월검 파수탑 5초.",
         "skill2": "주 무기와 보조 무기를 교체합니다. 주 무기 스킬이 재사용 대기 중이고 보조 무기 스킬이 준비되었으며 근처에 적 챔피언이 있을 때만.",
         "ult": "폭발 지점 근처에 적 챔피언 2명 이상 또는 대상이 군중 제어 상태일 때 월광 발사, 첫 챔피언에서 폭발해 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 <#ff9028ff>물리 피해<>, 주 무기별: 만월총 추가 사격, 절단검 회복, 중력포 90% 둔화, 화염포 추가 피해, 반월검 3중첩."
+      },
+      "league_rell": {
+        "name": "렐",
+        "attack": "창으로 찌르며 <#a974ffff>6 + 최대 체력 1% 마법 피해<>. <#ff9028ff>갑옷 파쇄<>: 기본 공격과 스킬이 챔피언에 적중하면 <#ffb900ff>5초<> 동안 방어력과 마법 저항력 3% 감소, 자신은 각각 3 획득(중첩).",
+        "skill": "앞으로 찔러 직선 위 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>0.65초 기절<>. <#ff9028ff>전속력<>: 자신과 근처 아군 이동 속도 15%→30%, 다음 기본 공격이나 파열의 일격이 폭발해 챔피언 최대 체력 5%의 <#4fc3f7ff>고정 피해<>.",
+        "skill2": "적 챔피언에게 뛰어올라 내려찍어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 <#a974ffff>마법 피해<>와 <#ef5350ff>0.83초 에어본<>, <#4fc3f7ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#4fc3f7ff>40%<> 보호막, <#ffb900ff>15초<> 하마 상태(저항력·공격 속도 증가). <#ff9028ff>탑승<>: 말을 타고 돌진해 <#ef5350ff>0.6초 기절<>시키고 대상을 날립니다.",
+        "ult": "근처 적을 자신에게 강하게 끌어당기고 <#ffb900ff>2초<> 동안 계속 끌며 총 <#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>112%<>의 <#a974ffff>마법 피해<>. 근처에 적 챔피언 2명 또는 군중 제어된 적이 있을 때 사용."
       }
     },
     "skill_name": {
@@ -5492,6 +5535,11 @@
         "skill1": "무기 스킬",
         "skill2": "위상 변화",
         "ult": "월광포화"
+      },
+      "league_rell": {
+        "skill1": "파열의 일격",
+        "skill2": "철마술: 붕괴",
+        "ult": "자기 폭풍"
       }
     }
   },
@@ -6294,6 +6342,13 @@
         "skill": "メイン武器のスキル（個別CD）：キャリブラム狙撃<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と追撃；セヴェラム走りながら連射・回復；グラヴィタム スロウ中の敵を<#ef5350ff>1秒スネア<>；インファーナム扇状攻撃後オフハンド追撃；クレッシェンダム セントリー5秒。",
         "skill2": "メインとオフハンドの武器を入れ替える。メインのスキルがCD中、オフハンドのスキルが使用可能で、近くに敵チャンピオンがいる時のみ。",
         "ult": "爆発地点の近くに敵チャンピオン2体以上、または対象がCC中の時に月光を放ち、最初のチャンピオンで爆発して<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>、メイン武器別：キャリブラム追撃、セヴェラム回復、グラヴィタム90%スロウ、インファーナム追加ダメージ、クレッシェンダム3スタック。"
+      },
+      "league_rell": {
+        "name": "レル",
+        "attack": "騎槍で突き、<#a974ffff>6+最大体力1%の魔法ダメージ<>。<#ff9028ff>革新の鬨<>：通常攻撃とスキルがチャンピオンに当たると<#ffb900ff>5秒<>物理防御と魔法防御を3%下げ、自身はそれぞれ3得る（スタック）。",
+        "skill": "前方へ突き、直線上の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.65秒スタン<>。<#ff9028ff>重槍突貫<>：自身と近くの味方1人が移動速度15%→30%、次の通常攻撃か破鋼撃が爆発しチャンピオンの最大体力5%の<#4fc3f7ff>確定ダメージ<>。",
+        "skill2": "敵チャンピオンへ跳んで叩きつけ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>0.83秒ノックアップ<>、<#4fc3f7ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#4fc3f7ff>40%<>のシールド、<#ffb900ff>15秒<>下馬（防御・攻撃速度上昇）。<#ff9028ff>騎馬<>：馬で突撃し<#ef5350ff>0.6秒スタン<>、対象を弾く。",
+        "ult": "近くの敵を自身へ強く引き寄せ、<#ffb900ff>2秒<>引きずり続けて合計<#a974ffff>280<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>112%<>の<#a974ffff>魔法ダメージ<>。敵チャンピオン2体かCC中の敵がいる時に使う。"
       }
     },
     "skill_name": {
@@ -6866,6 +6921,11 @@
         "skill1": "武器ごとのスキル",
         "skill2": "フェーズ",
         "ult": "月光の祈り"
+      },
+      "league_rell": {
+        "skill1": "破鋼撃",
+        "skill2": "フェロマンシー: 装着",
+        "ult": "磁気嵐流"
       }
     }
   }
