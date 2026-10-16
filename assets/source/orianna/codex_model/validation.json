@@ -1,0 +1,98 @@
+{
+  "orianna-ball-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1500900,
+    "opaque_pixels": 589,
+    "partial_alpha_pixels": 71027,
+    "bbox_alpha_at_least_128": [
+      489,
+      483,
+      766,
+      797
+    ],
+    "visible_width_height": [
+      277,
+      314
+    ],
+    "requested_canvas_pass": false,
+    "hard_alpha_pass": false,
+    "raw_copy_identical": true,
+    "sha256": "8518619021563f3d768496bb6be5158f116d5e7b5b1d4c08587b20fae4af4e4c"
+  },
+  "orianna-ball-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1417778,
+    "opaque_pixels": 760,
+    "partial_alpha_pixels": 153978,
+    "bbox_alpha_at_least_128": [
+      410,
+      435,
+      841,
+      896
+    ],
+    "visible_width_height": [
+      431,
+      461
+    ],
+    "requested_canvas_pass": false,
+    "hard_alpha_pass": false,
+    "raw_copy_identical": true,
+    "sha256": "b7dd46a7bac9caa99756b98799642d6c61a05a5e8b85f86f405a8655e65774fc"
+  },
+  "orianna-model-1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1365079,
+    "opaque_pixels": 1630,
+    "partial_alpha_pixels": 205807,
+    "bbox_alpha_at_least_128": [
+      352,
+      268,
+      903,
+      1234
+    ],
+    "visible_width_height": [
+      551,
+      966
+    ],
+    "requested_canvas_pass": false,
+    "hard_alpha_pass": false,
+    "raw_copy_identical": true,
+    "sha256": "2342ae81512feef31d6a73d89fcc20b835a18cbb8550a05ebef5e2f61f81bb83"
+  },
+  "orianna-model-2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 1343658,
+    "opaque_pixels": 1650,
+    "partial_alpha_pixels": 227208,
+    "bbox_alpha_at_least_128": [
+      354,
+      199,
+      898,
+      1223
+    ],
+    "visible_width_height": [
+      544,
+      1024
+    ],
+    "requested_canvas_pass": false,
+    "hard_alpha_pass": false,
+    "raw_copy_identical": true,
+    "sha256": "6e7bc0c981a6cea8bb45672cead05c947c10b64778123b39a2309099a5d3120f"
+  }
+}
