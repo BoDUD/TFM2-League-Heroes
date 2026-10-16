@@ -34,10 +34,10 @@ A = "<#ffb900ff>"      # durations, counts
 M = "<#a974ffff>"      # magic damage
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
-# champion_view, for the 90 % frames the cards and portraits draw (lo_, hd.rs SIZES): the face at the helmet's crown
-# (tfm2_ase.py face: 40 px over the feet at 100 %, 36 at 90 %, ppu_restyle's face_to); the lo_ idle's crest tops 30 px over
-# the pivot, at or above -28 -> banpick_center y = -39 - (-30) (the card rule)
-VIEW = {"face": {"x": -1, "y": -36}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}
+# champion_view for the idle in Codex's ready stance (rig_pantheon IDLE_SRC): the face at the helmet's crown (tfm2_ase.py
+# face: 36 px over the feet, x -3; ppu_restyle's face_to); the lo_ idle's crest tops 30 px over the pivot, at or above -28 ->
+# banpick_center y = -39 - (-30) (the card rule)
+VIEW = {"face": {"x": -3, "y": -36}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}
 
 
 def phy(d, r):

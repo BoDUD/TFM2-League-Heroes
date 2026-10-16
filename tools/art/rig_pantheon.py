@@ -64,6 +64,13 @@ HOLE_FILL = 8
 SPECK = 10
 # the design's spear: the line from its butt to its head (design squares), the half width taken as the spear
 SPEAR = ((10.5, 31.5), (65.0, 61.0), 1.6)
+# The idle, the hit and the landing's last frame stand in Codex's ready stance (Q's recovery, skill_4), not the upright
+# design: the design stood 66 squares tall and every Codex action crouches (51-60), so each change from the idle
+# dropped him 6-10 game px (Darius's run stays at his idle's height) - the user: 「潘森还是变大变小啊」「局内模型为什么
+# 变这么小了」. skill_4 is the design's own pose drawn lower by Codex at the strips' size, its spear one 2:1 line.
+IDLE_SRC = "skill_4"
+IDLE_SPEAR = ((36.0, 111.0), (92.0, 139.0), 1.9)   # canvas squares: the butt, the tip, the half width (its outline)
+IDLE_HEAD_X = 78                                    # the spear head's first column (its widening, carried too)
 # tag -> [(source, dx, dy, ms)]: source = "<tag>_<n>" of the step-2 strips, "design", dx > 0 = forward (right)
 TABLE = {
     "attack": [("skill_1", 0, 0, 80), ("attack_2", 0, 0, 80), ("attack_3", 0, 0, 100), ("attack_4", 0, 0, 90),
@@ -82,7 +89,7 @@ TABLE = {
     "ult": [(f"ult_{k}", 0, 0, ms) for k, ms in zip(range(1, 5), (100, 100, 150, 650))],
     "ult_leap": [(f"ult_leap_{k}", 0, -LEAP[k - 1], ms) for k, ms in zip(range(1, 4), (80, 80, 120))],
     "ult_land": [("ult_land_1", 0, 0, 80), ("ult_land_2", 0, 0, 120), ("ult_land_2", 0, -RISE, 150),
-                 ("design", 0, 0, 150)],
+                 (IDLE_SRC, 0, 0, 150)],
     "dead": [(f"dead_{k}", 0, 0, ms) for k, ms in zip((1, 2, 3, 4, 5, 4), (100, 100, 110, 120, 150, 400))],
 }
 # the run: Codex's leg redo (RUN_REDO.md) - RUN_ORDER: 1-2 the near leg ahead, 3 the legs crossing, 4-6 the far leg ahead; its 7
@@ -229,16 +236,28 @@ def breathe(a, waist, k, carried):
     return out
 
 
+def idle_spear(can):
+    """The idle frame's spear (IDLE_SPEAR's line, its head's widening too), carried whole by the breath."""
+    (x0, y0), (x1, y1), r = IDLE_SPEAR
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    a = (y1 - y0) / (x1 - x0)
+    d = np.abs((ys + 0.5 - y0) - a * (xs + 0.5 - x0)) / np.hypot(1, a)
+    sel = ((d <= r) & (xs >= x0 - 2)) | ((xs >= IDLE_HEAD_X) & (d <= 3.2))
+    m = np.zeros(can.shape[:2], bool)
+    m[ys[sel], xs[sel]] = True
+    return m
+
+
 def idle_frames():
-    can, at = design_canvas()
+    can = frame(IDLE_SRC)
     ys = np.nonzero(can[..., 3] > 0)[0]
     waist = int(ys.min() + (ys.max() - ys.min()) * 0.55)
-    carried = spear_mask(can, at)
+    carried = idle_spear(can)
     return [(tidy(breathe(can, waist, b, carried)), IDLE_MS) for b in BREATH]
 
 
 def hit_frames():
-    can, _ = design_canvas()
+    can = frame(IDLE_SRC)
     out = []
     for dx, flash, ms in HIT:
         a = shift(can, -dx, 0)

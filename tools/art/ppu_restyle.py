@@ -197,7 +197,7 @@ RESTYLE = {
     # league_pantheon (#112): Codex's strips drawn on the design's own grid at the user's 1.5 squares a game pixel
     # (「选A 40尺寸 PPU1.5」), ordered and moved by whole squares by tools/art/rig_pantheon.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at his helmet's crown
-    "pantheon": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(-1, -36)),   # 90 % (hd.rs SIZES): soles 11 px under the centre
+    "pantheon": dict(ppu=1.5, edge=1, face_to=(-3, -36)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}
