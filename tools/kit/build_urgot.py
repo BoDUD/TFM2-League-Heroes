@@ -72,6 +72,10 @@ P = {
     # recast under 25% max hp: a 1.5 s reel-in then the execute, nearby enemies flee 1.5 s, cd 100-70 s)
     "r_cd": 3000, "r_range": 110000, "r_dur": 30, "r_st": 8, "r_aim": 4, "r_speed": 6000, "r_rad": 8000,
     "r_dmg": 150, "r_ratio": 50, "r_slow": 40, "r_t": 240, "r_reel": 20, "r_ex": 25, "r_fear_r": 40000, "r_fear": 90,
+    # when R fires (the user: 「大招释放逻辑是什么 不会乱放吧」): armed for r_arm ticks; it fires on the r_hits-th of his
+    # hits on champions in a row (each within hit_t ticks of the last: a fight he is in), at the champion just hit;
+    # unused, the cooldown is mostly given back
+    "r_arm": 1200, "r_reset": 4900, "r_hits": 5, "hit_t": 180,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_urgot
@@ -240,36 +244,6 @@ def build(p):
                                               move_speed_mult=-p["w_slow"]),
                                       sfx("w_on")))
 
-    # ------------------------------------------------------------------ attack (a Purge shot while it is on)
-    shot = homing("a_shot", p["shot_speed"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], y=p["shot_y"])
-    gun = homing("w_shot", p["shot_speed"], "Enemy", [attack(p["w_dmg"], p["w_ratio"]), view("w_hit")], y=p["shot_y"])
-    attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy",
-                      sw("w_on", combine(anim("attack_w", 10), sfx("w_shot"), gun, legs),
-                         combine(sfx("a_shot"), shot, legs)),
-                      atype="BaseAttack", cancel=True)
-
-    # ------------------------------------------------------------------ skill: Q Corrosive Charge
-    blow = zone("q_zone", p["q_r"], "EnemyWithoutTower",
-                [attack(p["q_dmg"], p["q_ratio"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
-                 view("q_hit"), purge], apply=p["q_apply"])
-    skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(sfx("q"), voice("vo_q", p),
-                           # the blast's picture plays on the landing spot (a ground zone's own picture turns half
-                           # round when it faces left: SKILL.md "Both sides")
-                           lob("q_charge", p["q_travel"], "EnemyWithoutTower",
-                               [view("q_blast"), blow, sfx("q_land")], mark="q_mark")))
-
-    # ------------------------------------------------------------------ skill2: E Disdain
-    catch = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]}, view("e_hit"), tsfx("e_hit"),
-             delayed(p["e_fling"], {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]}, view("e_fling")),
-             on_me(purge)]
-    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
-                    combine(sfx("e"), voice("vo_e", p), cview("e_shield"),
-                            on_me({"type": "Shield", "amount": p["e_sh"], "attack_ratio": p["e_sh_ratio"],
-                                   "ap_ratio": 0, "tick": p["e_sh_t"]}),
-                            {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"],
-                             "end_effects": catch}))
-
     # ------------------------------------------------------------------ ult: R Fear Beyond Death
     # the fear when the execute kills: the flag stays on him only when the target is dead a tick later
     fear = combine(*rm("r_kill"), sfx("vo_r_kill"), cview("r_fear"),
@@ -285,9 +259,60 @@ def build(p):
     impale = [attack(p["r_dmg"], p["r_ratio"]), buff("r_leash", p["r_t"], move_speed_mult=-p["r_slow"]),
               view("r_hit"), tsfx("r_hit"), delayed(p["r_t"], *execute)]
     drill = line("r_drill", p["r_speed"], p["r_range"], p["r_rad"], "EnemyChampion", False, impale)
-    ult = action("ult", p["r_dur"], p["r_cd"], p["r_st"], p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
-                 combine(sfx("r"), voice("vo_r", p),
-                         lob("r_aim", p["r_aim"], "EnemyChampion", [drill, sfx("r_fire")])))
+    # armed, the r_hits-th of his hits on champions in a row (each within hit_t ticks of the last) fires it at the
+    # champion just hit - the one he is wearing down: his animation, the aim locked r_st + r_aim ticks later, the drill
+    fire = combine(*rm("r_arm"), on_me(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p)),
+                   lob("r_aim", p["r_st"] + p["r_aim"], "EnemyChampion", [drill, sfx("r_fire")]))
+    # ------------------------------------------------------------------ the fight ladder (R's trigger)
+    # each of his hits on a champion climbs h1..h(r_hits - 1) (each lasting hit_t ticks); the next one arms r_ok
+    def climb():
+        # the highest rung is tested first (the outermost switch)
+        node = flag("h1", p["hit_t"])
+        for k in range(1, p["r_hits"]):
+            up = (combine(*rm(f"h{k}"), sw("r_arm", fire)) if k == p["r_hits"] - 1 else
+                  combine(*rm(f"h{k}"), flag(f"h{k + 1}", p["hit_t"])))
+            node = sw(f"h{k}", up, node)
+        return node
+
+    on_champ = pick(3000, "EnemyChampion", climb(), fp=True)    # a projectile's hit on a champion (not a minion)
+
+    # ------------------------------------------------------------------ attack (a Purge shot while it is on)
+    shot = homing("a_shot", p["shot_speed"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit"), on_champ],
+                  y=p["shot_y"])
+    gun = homing("w_shot", p["shot_speed"], "Enemy", [attack(p["w_dmg"], p["w_ratio"]), view("w_hit"), on_champ],
+                 y=p["shot_y"])
+    attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy",
+                      sw("w_on", combine(anim("attack_w", 10), sfx("w_shot"), gun, legs),
+                         combine(sfx("a_shot"), shot, legs)),
+                      atype="BaseAttack", cancel=True)
+
+    # ------------------------------------------------------------------ skill: Q Corrosive Charge
+    blow = zone("q_zone", p["q_r"], "EnemyWithoutTower",
+                [attack(p["q_dmg"], p["q_ratio"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
+                 view("q_hit"), purge], apply=p["q_apply"])
+    skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Targeting", "EnemyWithoutTower",
+                   combine(sfx("q"), voice("vo_q", p),
+                           # the blast's picture plays on the landing spot (a ground zone's own picture turns half
+                           # round when it faces left: SKILL.md "Both sides")
+                           lob("q_charge", p["q_travel"], "EnemyWithoutTower",
+                               [view("q_blast"), blow, zone("q_champ", p["q_r"], "EnemyChampion", [climb()],
+                                                            apply=p["q_apply"]), sfx("q_land")], mark="q_mark")))
+
+    # ------------------------------------------------------------------ skill2: E Disdain
+    catch = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]}, view("e_hit"), tsfx("e_hit"),
+             delayed(p["e_fling"], {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]}, view("e_fling")),
+             on_me(purge), climb()]
+    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyChampion",
+                    combine(sfx("e"), voice("vo_e", p), cview("e_shield"),
+                            on_me({"type": "Shield", "amount": p["e_sh"], "attack_ratio": p["e_sh_ratio"],
+                                   "ap_ratio": 0, "tick": p["e_sh_t"]}),
+                            {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"],
+                             "end_effects": catch}))
+
+    # the slot only arms the ult (league_pantheon R's way); unused for r_arm ticks, the cooldown is given back
+    reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
+    ult = action("idle", 3, p["r_cd"], 1, 960000, "None", "EnemyChampion",
+                 combine(refresh("r_arm", p["r_arm"] + 5), on_me(delayed(p["r_arm"], reset))), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
