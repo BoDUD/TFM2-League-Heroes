@@ -54,10 +54,14 @@ ID = "league_drmundo"
 FX = "asset/league/effects/league_drmundo_fx"
 BIG = "asset/league/effects/league_drmundo_big"
 
+# Balance (classic SDK, top lane against fighter / executioner / lancer / pole_warrior / knight / berserker, 3 lineups,
+# both sides, 12 seeds): the first draft -2.94 (damage half of league_garen's); d4c (atk 96 + 20, Q 140 + 9%, E 80 +
+# 60%, W 18 / 90) -0.21 but R at full health (the 1-point hit sensor); the damage sensor (h_sens 150, r_need 3,
+# h_hold 300: ~2 R a game at ~62% health) -0.73, with hp 1350 / def 38 -0.22 (league_garen -1.15, league_sion +0.78).
 P = {
     # stats (League's Dr. Mundo: 640 +103 hp, 61 AD +2.5 (+ 2.5% bonus hp from E), 32 armour, 29 mr, 345 move, 125
     # range, 0.67 attacks a second; passive regen 0.4-2.5% max hp / 5 s ~ 1-4 hp a second at 1300-2500 hp)
-    "hp": 1250, "hp_g": 125, "atk": 84, "atk_g": 18, "def": 34, "def_g": 8, "mr": 28, "mr_g": 4,
+    "hp": 1350, "hp_g": 125, "atk": 96, "atk_g": 20, "def": 38, "def_g": 8, "mr": 28, "mr_g": 4,
     "ms": 1000, "ms_g": 10, "regen": 6, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 68, "atk_st": 11,
     # passive Goes Where He Pleases (League: cd 60-30 s, 7% current hp, the tank heals 4% max hp and cuts the cd 40%)
@@ -65,18 +69,18 @@ P = {
     "p_heal": 60, "p_heal_ad": 60, "p_cut": 60,
     # E Blunt Force Trauma folded into the attack (League: 5-45 + up to 100% more by missing hp, cd 9-5 s; a killed
     # unit flung, its damage to units hit)
-    "e_cd": 420, "e_dur": 26, "e_st": 12, "e_dmg": 40, "e_ad": 30, "e_fling": 40, "e_fling_ad": 60, "e_fling_r": 5000, "e_fling_v": 4000, "e_fling_l": 70000,
+    "e_cd": 420, "e_dur": 26, "e_st": 12, "e_dmg": 80, "e_ad": 60, "e_fling": 40, "e_fling_ad": 60, "e_fling_r": 5000, "e_fling_v": 4000, "e_fling_l": 70000,
     "e_miss": 100, "e_bonus": 25,
     # Q Infected Bonesaw (League: 1050 range, speed 2000, 20% current hp magic, min 80-280, max 350-550 to monsters,
     # slow 40% 2 s, cost 50 hp refunded 50% / 100% on a champion; cd 4 s)
-    "q_cd": 260, "q_range": 70000, "q_dur": 26, "q_at": 13, "q_speed": 6500, "q_w": 3200, "q_dmg": 90, "q_ap": 0,
-    "q_thp": 7, "q_pct": 20, "q_slow": 40, "q_slow_t": 120, "q_heal": 20, "q_heal_c": 40,
+    "q_cd": 260, "q_range": 70000, "q_dur": 26, "q_at": 13, "q_speed": 6500, "q_w": 3200, "q_dmg": 140, "q_ap": 0,
+    "q_thp": 9, "q_pct": 20, "q_slow": 40, "q_slow_t": 120, "q_heal": 20, "q_heal_c": 40,
     # W Heart Zapper (League: 4 s, 20-80 + 7% bonus hp... a second round him, 75% of damage taken stored as grey
     # health, healed 100% if the end zap hits a champion, else 50%; cd 17-13 s)
-    "w_cd": 900, "w_rad": 22000, "w_anim": 14, "w_n": 12, "w_per": 20, "g_per": 30, "w_tick": 12, "w_ad": 6,
-    "w_end": 60, "w_end_ad": 30, "w_g": 30, "w_end_anim": 12, "w_store": 75,
+    "w_cd": 900, "w_rad": 22000, "w_anim": 14, "w_n": 12, "w_per": 20, "g_per": 30, "w_tick": 18, "w_ad": 6,
+    "w_end": 90, "w_end_ad": 30, "w_g": 30, "w_end_anim": 12, "w_store": 75,
     # the damage count R reads (a shield of h_sens read on his attack, Q and W, its points paid back)
-    "h_sens": 250, "h_hold": 240, "r_need": 3,
+    "h_sens": 150, "h_hold": 300, "r_need": 3,
     # R Maximum Dosage (League: 20-30% missing hp at once, 20-40% max hp over 10 s, 15-35% move speed; cd 110-80 s)
     "r_cd": 4800, "r_range": 50000, "r_arm": 900, "r_anim": 30, "r_n": 40000, "r_t": 600,
     "r_heal": 200, "r_heal_ad": 100, "r_hp": 200, "r_regen": 40, "r_ms": 25, "r_low": 40, "r_burst": 25, "r_miss": 25,

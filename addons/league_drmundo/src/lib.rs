@@ -237,7 +237,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { p_cd: 2400, q_dmg: 90, q_pct: 20, e_dmg: 40, e_ad: 30, e_miss: 100, e_bonus: 25, hp: 1250, hp_g: 125,
+        Params { p_cd: 2400, q_dmg: 140, q_pct: 20, e_dmg: 80, e_ad: 60, e_miss: 100, e_bonus: 25, hp: 1350, hp_g: 125,
                  w_store: 75, r_low: 40, r_burst: 25, r_miss: 25 }
     }
 }
@@ -733,7 +733,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        let p = parse_params(r#"{"e_ad":30,"e_bonus":25,"e_dmg":40,"e_miss":100,"hp":1250,"hp_g":125,"p_cd":2400,"q_dmg":90,"q_pct":20,"r_burst":25,"r_low":40,"r_miss":25,"w_store":75}"#);
+        let p = parse_params(r#"{"e_ad":60,"e_bonus":25,"e_dmg":80,"e_miss":100,"hp":1350,"hp_g":125,"p_cd":2400,"q_dmg":140,"q_pct":20,"r_burst":25,"r_low":40,"r_miss":25,"w_store":75}"#);
         assert_eq!(p, Params::default());
     }
 
