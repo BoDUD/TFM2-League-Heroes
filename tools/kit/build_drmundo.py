@@ -276,17 +276,19 @@ def build(p):
     can_pick = sw("can", combine(*rm("can", "p_cd"), heal(p["p_heal"], p["p_heal_ad"]), view("p_pick"), sfx("p_pick"),
                                  flag("p_cd", p["p_cd"] * p["p_cut"] // 100)))
     can_break = sw("can", combine(*rm("can"), view("p_break"), sfx("p_break")))
-    # the tank lies in links of p_link ticks, each starting the next where it ends while `can` holds: a zone cannot be
+    # the tank lies in links of p_link ticks, the next one laid on the same spot while `can` holds: a zone cannot be
     # taken away, so a tank in one p_can_t-long zone stayed drawn after he picked it up or an enemy broke it
     # the tank's picture is a ground ViewEffect played by each link (a zone's own picture turns with it: on the red side
     # the tank stood on its head over the ground line)
-    def tank(k, first):
-        nxt = [T(sw("can", combine(view("p_tank"), *tank(k - 1, 0))))] if k > 1 else []   # zones' end_effects: targeted
-        z = pzone("p_tank_z", p["p_can_r"], p["p_link"], 6, first, "AllyOnlySelf", [can_pick])
-        z["end_effects"] = nxt
-        return [z, pzone("p_tank_e", p["p_can_r"], p["p_link"], 6, first, "EnemyChampion", [can_break])]
-    canister = [refresh("can", p["p_can_t"]), view("p_land"), view("p_tank"), sfx("p_land"),
-                *tank(p["p_can_t"] // p["p_link"], p["p_arm"])]
+    # FIX 2026-10-16: the links were chained through each zone's end_effects, which a RangePeriodProjectile never runs
+    # (sim: one link a tank, gone 120 ticks after landing while `can` lasted 600 - the add-on's AI walked him to an empty
+    # spot and he stood there). Now the lob's end_effects lay every link up front, each a Delayed of k * p_link.
+    def link(first):
+        return [pzone("p_tank_z", p["p_can_r"], p["p_link"], 6, first, "AllyOnlySelf", [can_pick]),
+                pzone("p_tank_e", p["p_can_r"], p["p_link"], 6, first, "EnemyChampion", [can_break])]
+    links = [delayed(k * p["p_link"], sw("can", combine(view("p_tank"), *link(0))))
+             for k in range(1, p["p_can_t"] // p["p_link"])]
+    canister = [refresh("can", p["p_can_t"]), view("p_land"), view("p_tank"), sfx("p_land"), *link(p["p_arm"]), *links]
     shake = combine(flag("p_cd", p["p_cd"]), flag("p_imm", p["p_imm"], cc_immune=True), cview("p_shake"), sfx("p_shake"),
                     voice("vo_p", p), lob("p_drop", p["p_fly"], 30000, "AllyOnlySelf", canister))
     checker = casted(LIFE, 3, [pick(1, "AllyChampionInCC", sw("p_cd", NONE, shake))])
