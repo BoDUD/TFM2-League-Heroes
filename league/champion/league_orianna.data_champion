@@ -32056,61 +32056,102 @@
           }
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_orianna_polling",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_orianna_e_go"
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_orianna_e_x",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
               },
-              {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_orianna_e_go",
-                  "duration": {
-                    "Time": {
-                      "tick": 4
-                    }
-                  }
-                },
-                "only_to_enemy": false
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 1000
-                  }
-                },
-                "target": "AllyOnlySelf",
-                "apply_type": "AroundCaster",
+              "only_to_enemy": false
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_orianna_e_x",
+              "effect_buff": {
+                "type": "Combine",
                 "effects": [
                   {
-                    "type": "Shield",
-                    "amount": 60,
-                    "attack_ratio": 0,
-                    "ap_ratio": 45,
-                    "tick": 150
+                    "type": "RemoveCasterBuff",
+                    "name": "league_orianna_e_x"
                   },
                   {
-                    "type": "ViewEffect",
-                    "name": "league_orianna_e_shield"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_orianna_polling",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_orianna_e_go"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_orianna_e_go",
+                            "duration": {
+                              "Time": {
+                                "tick": 4
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "Shield",
+                              "amount": 60,
+                              "attack_ratio": 0,
+                              "ap_ratio": 45,
+                              "tick": 150
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_orianna_e_shield"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_orianna_e"
+                        }
+                      ]
+                    }
                   }
                 ]
               },
-              {
-                "type": "Sfx",
-                "name": "league_orianna_e"
+              "effect_none": {
+                "type": "ApAttack",
+                "damage": 60,
+                "attack_ratio": 30,
+                "hp_ratio": 0,
+                "can_crit": false
               }
-            ]
-          }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_orianna_e_x"
+            }
+          ]
         }
       ]
     }

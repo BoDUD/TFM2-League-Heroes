@@ -461,8 +461,13 @@ def build(p):
                    combine(init, voice("vo_q", p), q_go))
 
     # ------------------------------------------------------------------ skill2: E (the controller sends)
-    e_go = sw("polling", refresh("e_go", 4),
-              combine(on_me(shield(p["e_sh"], p["e_ap"], p["e_t"]), view("e_shield")), sfx("e")))
+    e_real = sw("polling", refresh("e_go", 4),
+                combine(on_me(shield(p["e_sh"], p["e_ap"], p["e_t"]), view("e_shield")), sfx("e")))
+    # Q's q_x trick: the game's AI scores the branch the flags pick between ticks, and with the controller running that
+    # was a bare flag - worth nothing, so in game E was hardly ever cast (the add-on's log, 2026-10-16: one E in a
+    # 10-minute match; the classic SDK's AI casts it anyway). e_x is never there between ticks, so the AI reads E's
+    # damage on the champion it targets; when the slot runs, the flag is up and the real branch goes
+    e_go = combine(flag("e_x", 1), sw("e_x", combine(*rm("e_x"), e_real), magic(p["e_dmg"], p["e_dap"])), *rm("e_x"))
     skill2 = action("skill_e", p["e_dur"], p["e_cd"], p["e_st"], p["e_range"], "Targeting", "EnemyChampion",
                     combine(init, voice("vo_e", p), e_go), key="skill2")
 

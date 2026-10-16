@@ -690,6 +690,13 @@ impl StableEffectType for Kill {
         let ap = sim.get_entity(me).map_or(0, |e| e.stat().magic_power);
         let raw = p.r_dmg + p.r_ap * ap / 100;
         if !kills(hp, raw, mr) {
+            // R is armed and looking (the data asks only then): the first calls show it in the log
+            if let Some(k) = counted("armed") {
+                if k <= 20 {
+                    wlog(format!("{} R-ARMED #{k} {} near the Ball at {hp}/{max}: the shockwave would deal {}, no kill",
+                                 head(sim, me), who(sim, target), after_mr(raw, mr)));
+                }
+            }
             return;
         }
         sim.add_buff(me, &BuffV1::timed(&on("c2"), 3));
