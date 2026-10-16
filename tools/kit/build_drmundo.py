@@ -68,7 +68,7 @@ P = {
     "ms": 1000, "ms_g": 10, "regen": 6, "regen_g": 1,
     "atk_range": 25000, "atk_dur": 24, "atk_cd": 68, "atk_st": 11,
     # passive Goes Where He Pleases (League: cd 60-30 s, 7% current hp, the tank heals 4% max hp and cuts the cd 40%)
-    "p_cd": 2400, "p_imm": 90, "p_fly": 20, "p_arm": 30, "p_can_t": 600, "p_can_r": 9000,
+    "p_cd": 2400, "p_imm": 90, "p_fly": 20, "p_arm": 60, "p_can_t": 600, "p_link": 120, "p_can_r": 9000,
     "p_heal": 60, "p_heal_ad": 60, "p_cut": 60,
     # E Blunt Force Trauma folded into the attack (League: 5-45 + up to 100% more by missing hp, cd 9-5 s; a killed
     # unit flung, its damage to units hit)
@@ -276,9 +276,15 @@ def build(p):
     can_pick = sw("can", combine(*rm("can", "p_cd"), heal(p["p_heal"], p["p_heal_ad"]), view("p_pick"), sfx("p_pick"),
                                  flag("p_cd", p["p_cd"] * p["p_cut"] // 100)))
     can_break = sw("can", combine(*rm("can"), view("p_break"), sfx("p_break")))
+    # the tank lies in links of p_link ticks, each starting the next where it ends while `can` holds: a zone cannot be
+    # taken away, so a tank in one p_can_t-long zone stayed drawn after he picked it up or an enemy broke it
+    def tank(k, first):
+        nxt = [T(sw("can", combine(*tank(k - 1, 0))))] if k > 1 else []      # a zone's end_effects are targeted
+        z = pzone("p_tank", p["p_can_r"], p["p_link"], 6, first, "AllyOnlySelf", [can_pick])
+        z["end_effects"] = nxt
+        return [z, pzone("p_tank_e", p["p_can_r"], p["p_link"], 6, first, "EnemyChampion", [can_break])]
     canister = [refresh("can", p["p_can_t"]), view("p_land"), sfx("p_land"),
-                pzone("p_tank", p["p_can_r"], p["p_can_t"], 6, p["p_arm"], "AllyOnlySelf", [can_pick]),
-                pzone("p_tank_e", p["p_can_r"], p["p_can_t"], 6, p["p_arm"], "EnemyChampion", [can_break])]
+                *tank(p["p_can_t"] // p["p_link"], p["p_arm"])]
     shake = combine(flag("p_cd", p["p_cd"]), flag("p_imm", p["p_imm"], cc_immune=True), cview("p_shake"), sfx("p_shake"),
                     voice("vo_p", p), lob("p_drop", p["p_fly"], 30000, "AllyOnlySelf", canister))
     checker = casted(LIFE, 3, [pick(1, "AllyChampionInCC", sw("p_cd", NONE, shake))])
@@ -296,6 +302,7 @@ def build(p):
     if nat:     # the add-on's AI hook fires the slot itself by his real health
         r_check = NONE
     pre = combine(life, sense, r_check)
+    pre_light = combine(sense, r_check)          # W and R: the passive's setup (life) rides on the attack and Q
 
     # ------------------------------------------------------------------ attack (+ E Blunt Force Trauma)
     plain = combine(sfx("a_swing"),
@@ -347,7 +354,7 @@ def build(p):
                 native("zap_end") if nat else None))))
     # the pulses and the end are queued on him (on_me): queued on the cast's target, a minion that died meanwhile
     # dropped the end's own 1-tick check and the full heal never came
-    zap = combine(pre, refresh("w_on", w_end_t + 2), anim("skill2", p["w_anim"]), cview("w_start"), sfx("w"),
+    zap = combine(pre_light, refresh("w_on", w_end_t + 2), anim("skill2", p["w_anim"]), cview("w_start"), sfx("w"),
                   voice("vo_w", p), w_arm, native("zap") if nat else None,
                   zaps, on_me(*greys, final))
     skill2 = action("skill2", p["w_anim"], p["w_cd"], 1, p["w_rad"], "Targeting", "EnemyWithoutTower", zap)
