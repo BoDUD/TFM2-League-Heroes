@@ -756,6 +756,13 @@
         "skill": "人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>和<#ffb900ff>3%<>最大生命真实伤害。<#ff9028ff>剧毒之蜇<>：扑向敌人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>和<#ffb900ff>5%<>最大生命真实伤害。",
         "skill2": "人形：吐茧造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并晕眩<#ffb900ff>1.67秒<>；冷却时放<#ff9028ff>自爆蜘蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。<#ff9028ff>盘丝<>：升空不可选中，落到英雄身上；冷却时<#ff9028ff>掠行狂暴<>，攻速+60%。",
         "ult": "向英雄吐茧，立即化身蜘蛛并重置蜘蛛技能，盘丝落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，再施放剧毒之蜇。"
+      },
+      "league_tahmkench": {
+        "name": "塔姆",
+        "attack": "<#ff9028ff>培养品味<>：普攻额外造成<#a974ffff>20<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，普攻、Q、W命中英雄叠一层，最多<#ffb900ff>3层<>。<#ff9028ff>厚实表皮<>：受到伤害降低15%，被两名敌方英雄围住时获得<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>护盾。",
+        "skill": "舌头鞭打第一个单位，造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>，<#ef5350ff>减速40%<><#ffb900ff>1.5秒<>；命中英雄回复<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命并叠一层，<#ffb900ff>3层<>时<#ef5350ff>眩晕1.25秒<>。",
+        "skill2": "潜入地下<#ffb900ff>1秒<>（不可选中），在目标处冒出，造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。",
+        "ult": "吞下被控制、身陷敌群的队友<#ffb900ff>2.5秒<>，吐出时给予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>护盾；或吞下<#ffb900ff>3层<>的敌方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法伤害<>和其最大生命6%真实伤害。"
       }
     },
     "skill_name": {
@@ -1298,6 +1305,11 @@
         "skill1": "神经毒素 / 剧毒之蜇",
         "skill2": "结茧 / 盘丝",
         "ult": "蜘蛛形态"
+      },
+      "league_tahmkench": {
+        "skill1": "巨舌鞭笞",
+        "skill2": "深渊潜航",
+        "ult": "大快朵颐"
       }
     }
   },
@@ -2058,6 +2070,13 @@
         "skill": "人形：射出毒液造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>和<#ffb900ff>3%<>最大生命真實傷害。<#ff9028ff>毒咬<>：撲向敵人造成<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>和<#ffb900ff>5%<>最大生命真實傷害。",
         "skill2": "人形：吐繭造成<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並暈眩<#ffb900ff>1.67秒<>；冷卻時放<#ff9028ff>爆裂毒蛛<>，<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。<#ff9028ff>韌絲飛躍<>：升空無法選取，落到英雄身上；冷卻時<#ff9028ff>掠食者的狂喜<>，攻速+60%。",
         "ult": "向英雄吐繭，立即化身蜘蛛並重置蜘蛛技能，韌絲飛躍落到其身上造成<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，再施放毒咬。"
+      },
+      "league_tahmkench": {
+        "name": "貪啃奇",
+        "attack": "<#ff9028ff>品味獨到<>：普攻額外造成<#a974ffff>20<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，普攻、Q、W命中英雄疊一層，最多<#ffb900ff>3層<>。<#ff9028ff>血多皮厚<>：受到傷害降低15%，被兩名敵方英雄圍住時獲得<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>護盾。",
+        "skill": "舌頭鞭打第一個單位，造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>，<#ef5350ff>緩速40%<><#ffb900ff>1.5秒<>；命中英雄回復<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>生命並疊一層，<#ffb900ff>3層<>時<#ef5350ff>暈眩1.25秒<>。",
+        "skill2": "潛入地下<#ffb900ff>1秒<>（無法被選取），在目標處冒出，造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大生命<#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。",
+        "ult": "吞下被控制、身陷敵群的隊友<#ffb900ff>2.5秒<>，吐出時給予<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>護盾；或吞下<#ffb900ff>3層<>的敵方英雄<#ffb900ff>2.5秒<>，造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大生命<#a974ffff>魔法傷害<>和其最大生命6%真實傷害。"
       }
     },
     "skill_name": {
@@ -2600,6 +2619,11 @@
         "skill1": "神經毒素／毒咬",
         "skill2": "盤纏蛛絲／韌絲飛躍",
         "ult": "蜘蛛型態"
+      },
+      "league_tahmkench": {
+        "skill1": "毒舌",
+        "skill2": "遨遊深淵",
+        "ult": "大快朵頤"
       }
     }
   },
@@ -3360,6 +3384,13 @@
         "skill": "Human: a venom bolt for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> and <#ffb900ff>3%<> max health true damage. <#ff9028ff>Venomous Bite<>: lunges for <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and <#ffb900ff>5%<> max health true damage.",
         "skill2": "Human: a cocoon for <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> that stuns <#ffb900ff>1.67s<>; on cooldown a <#ff9028ff>Volatile Spiderling<> for <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>Rappel<>: rises out of reach and drops on a champion; on cooldown <#ff9028ff>Skittering Frenzy<>, +60% attack speed.",
         "ult": "Spits a cocoon at a champion, turns into the spider at once with her spider abilities reset, rappels onto it for <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and bites."
+      },
+      "league_tahmkench": {
+        "name": "Tahm Kench",
+        "attack": "<#ff9028ff>An Acquired Taste<>: attacks deal <#a974ffff>20<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> more; attacks, Q and W stack on champions, up to <#ffb900ff>3<>. <#ff9028ff>Thick Skin<>: 15% less damage taken; surrounded by two enemy champions he gains a <#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> shield.",
+        "skill": "Lashes his tongue at the first unit hit: <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>40% slow<> for <#ffb900ff>1.5s<>. On a champion he heals <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> and adds a stack; at <#ffb900ff>3<> it <#ef5350ff>stuns 1.25s<>.",
+        "skill2": "Dives underground for <#ffb900ff>1s<> (untargetable) and bursts up at the target: <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> max health <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<>.",
+        "ult": "Swallows an ally caught in crowd control among enemies for <#ffb900ff>2.5s<> and spits him out with a <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> shield; or an enemy champion with <#ffb900ff>3<> stacks for <#ffb900ff>2.5s<>: <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> max health <#a974ffff>magic damage<> and 6% of its max health as true damage."
       }
     },
     "skill_name": {
@@ -3902,6 +3933,11 @@
         "skill1": "Neurotoxin / Venomous Bite",
         "skill2": "Cocoon / Rappel",
         "ult": "Spider Form"
+      },
+      "league_tahmkench": {
+        "skill1": "Tongue Lash",
+        "skill2": "Abyssal Dive",
+        "ult": "Devour"
       }
     }
   },
@@ -4662,6 +4698,13 @@
         "skill": "인간: 독을 쏘아 <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>와 최대 체력 <#ffb900ff>3%<> 고정 피해. <#ff9028ff>독이빨<>: 달려들어 <#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>와 최대 체력 <#ffb900ff>5%<> 고정 피해.",
         "skill2": "인간: 고치로 <#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>마법 피해<>와 <#ffb900ff>1.67초<> 기절; 대기 중이면 <#ff9028ff>위험한 새끼 거미<> <#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>. <#ff9028ff>줄타기<>: 대상 지정 불가로 올라가 챔피언에게 내려옴; 대기 중이면 <#ff9028ff>광란의 질주<>, 공격 속도 +60%.",
         "ult": "챔피언에게 고치를 뱉고 즉시 거미로 변해 거미 스킬을 초기화, 줄타기로 내려와 <#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<> 후 독이빨."
+      },
+      "league_tahmkench": {
+        "name": "탐 켄치",
+        "attack": "<#ff9028ff>절대 미각<>: 기본 공격이 <#a974ffff>20<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<> 추가, 기본 공격·Q·W가 챔피언에 중첩 (최대 <#ffb900ff>3<>). <#ff9028ff>두꺼운 피부<>: 받는 피해 15% 감소, 적 챔피언 둘에게 둘러싸이면 <#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<> 보호막.",
+        "skill": "혀로 첫 대상을 후려쳐 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ffb900ff>1.5초<> <#ef5350ff>40% 둔화<>. 챔피언이면 <#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<> 회복하고 중첩, <#ffb900ff>3중첩<>에 <#ef5350ff>1.25초 기절<>.",
+        "skill2": "<#ffb900ff>1초<> 동안 땅속으로 잠수 (대상 지정 불가) 후 대상 위치에서 솟아올라 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<> 최대 체력 <#a974ffff>마법 피해<>와 <#ef5350ff>1초 에어본<>.",
+        "ult": "군중 제어에 걸려 적에게 둘러싸인 아군을 <#ffb900ff>2.5초<> 삼켜 뱉을 때 <#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<> 보호막; 또는 <#ffb900ff>3중첩<> 적 챔피언을 <#ffb900ff>2.5초<> 삼켜 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<> 최대 체력 <#a974ffff>마법 피해<>와 대상 최대 체력 6% 고정 피해."
       }
     },
     "skill_name": {
@@ -5204,6 +5247,11 @@
         "skill1": "신경독 / 독이빨",
         "skill2": "고치 / 줄타기",
         "ult": "거미 형태"
+      },
+      "league_tahmkench": {
+        "skill1": "혀 채찍",
+        "skill2": "심연 잠수",
+        "ult": "집어삼키기"
       }
     }
   },
@@ -5964,6 +6012,13 @@
         "skill": "人間：毒を放ち<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と最大体力<#ffb900ff>3%<>の確定ダメージ。<#ff9028ff>毒牙<>：飛びかかり<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と最大体力<#ffb900ff>5%<>の確定ダメージ。",
         "skill2": "人間：繭で<#a974ffff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>1.67秒<>スタン；クールダウン中は<#ff9028ff>子蜘蛛爆弾<>で<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>。<#ff9028ff>蜘蛛の糸<>：対象不可で上昇しチャンピオンへ降下；クールダウン中は<#ff9028ff>猛食<>、攻撃速度+60%。",
         "ult": "チャンピオンへ繭を吐き、即座に蜘蛛に変身して蜘蛛のスキルをリセット、蜘蛛の糸で降下し<#a974ffff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、毒牙を放つ。"
+      },
+      "league_tahmkench": {
+        "name": "タム・ケンチ",
+        "attack": "<#ff9028ff>舌慣らし<>：通常攻撃に<#a974ffff>20<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>追加、通常攻撃・Q・Wがチャンピオンにスタック（最大<#ffb900ff>3<>）。<#ff9028ff>ゆるゆる皮膜<>：被ダメージ15%軽減、敵チャンピオン2体に囲まれると<#7dd87dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>80%<>のシールド。",
+        "skill": "舌で最初のユニットを打ち<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%スロウ<>（<#ffb900ff>1.5秒<>）。チャンピオンなら<#7dd87dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>30%<>回復しスタック、<#ffb900ff>3<>で<#ef5350ff>1.25秒スタン<>。",
+        "skill2": "<#ffb900ff>1秒<>地中に潜り（対象不可）対象の位置に飛び出し<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#a974ffff>2%<>最大体力の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒ノックアップ<>。",
+        "ult": "敵に囲まれ行動妨害を受けた味方を<#ffb900ff>2.5秒<>丸呑みし吐き出す時<#7dd87dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7dd87dff>100%<>のシールド。または<#ffb900ff>3<>スタックの敵チャンピオンを<#ffb900ff>2.5秒<>丸呑みし<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> + <#a974ffff>3%<>最大体力の<#a974ffff>魔法ダメージ<>と最大体力6%の確定ダメージ。"
       }
     },
     "skill_name": {
@@ -6506,6 +6561,11 @@
         "skill1": "神経毒/毒牙",
         "skill2": "繭化/蜘蛛の糸",
         "ult": "蜘蛛形態"
+      },
+      "league_tahmkench": {
+        "skill1": "味見",
+        "skill2": "川潜り",
+        "ult": "丸呑み"
       }
     }
   }

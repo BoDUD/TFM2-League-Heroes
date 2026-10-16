@@ -714,7 +714,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 10,
           "effects": [
             {
               "type": "Attack",
@@ -2150,7 +2150,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 2,
+          "tick": 6,
           "effects": [
             {
               "type": "ParabolicProjectile",
@@ -3684,7 +3684,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 14,
+                          "tick": 18,
                           "effects": [
                             {
                               "type": "Combine",
