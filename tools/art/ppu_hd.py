@@ -52,7 +52,7 @@ import strips as G  # noqa: E402
 # his PPU design by tools/art/rig_kassadin.py (134 design rows / 37 game rows); vladimir, karma, ashe,
 # yasuo: Codex's strips read back by tools/art/import_ppu_strips.py; corki: tools/art/rig_corki_hd.py; braum: Codex's
 # strips (tools/art/import_braum_strips.py) brought to the sheets by tools/art/rig_braum.py, 121 rows / 42 (all in assets/source/ppu)
-PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 1.65, "nilah": 1.98, "kindred": 2.2, "malzahar": 1.38, "smolder": 1.5, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5}
+PPU = {"yasuo": 2.2, "gragas": 1.45, "zeri": 3, "vladimir": 1.8, "karma": 2.2, "ashe": 2.2, "irelia": 2, "kassadin": 2.42, "corki": 2.2, "garen": 1.9, "braum": 1.98, "mordekaiser": 2.0, "soraka": 2.2, "nidalee": 2.2, "galio": 1.65, "nilah": 1.98, "kindred": 2.2, "malzahar": 1.38, "smolder": 1.5, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5, "tahmkench": 1.2}
 PREFIX = "hd_"
 # lo_<tag>: the same frames at UI_PPU squares a displayed game pixel - what the BP grid, the encyclopedia, the pick
 # slots and the pick moment draw (league.dll's UI table; the user, 2026-10-13: 「BP界面里看英雄还是太清晰」, picked the
@@ -415,6 +415,24 @@ def lo_size(w1, h1):
     return round(w1 * UI_PPU), round(h1 * UI_PPU)
 
 
+def grow(a, k, pivot):
+    """`a` brought to k times as many pixels a side (k > 1) on a grid through the pivot, each new pixel the dense pixel
+    under its centre (nearest). pixel_down.pixelate averages squares of 1/k pixels: for k > 1 a square can hold no pixel
+    centre, so every few rows and columns came out clear - the grid of lines over Malzahar, Kalista and Tahm Kench on
+    the BP cards (the user, 2026-10-16: 「BP界面这塔姆怎么回事？全是网格」). -> (frame, new pivot)."""
+    H, W = a.shape[:2]
+    c = 1.0 / k
+    px, py = pivot
+    nx0, ny0 = int(np.ceil(px / c)), int(np.ceil(py / c))
+    nx1, ny1 = int(np.ceil((W - px) / c)), int(np.ceil((H - py) / c))
+    sx = np.floor(px + (np.arange(nx0 + nx1) - nx0 + 0.5) * c).astype(int)
+    sy = np.floor(py + (np.arange(ny0 + ny1) - ny0 + 0.5) * c).astype(int)
+    out = np.zeros((ny0 + ny1, nx0 + nx1, 4), np.uint8)
+    okx, oky = (sx >= 0) & (sx < W), (sy >= 0) & (sy < H)
+    out[np.ix_(oky, okx)] = a[np.ix_(sy[oky], sx[okx])]
+    return out, (nx0, ny0)
+
+
 def add_lo(hero, sheet):
     """lo_<tag> for every tag: its hd_ frames brought to UI_PPU squares a displayed game pixel (tools/art/pixel_down.py;
     the hero's SIZES size counted in), each on a frame of round(UI_PPU x the 1x size) - grown alike at both ends where
@@ -426,7 +444,11 @@ def add_lo(hero, sheet):
         out = []
         for (one, ms), (b, _) in zip(sheet[tag], sheet[PREFIX + tag]):
             outline = D.edge_colour(b) if (b[..., 3] > 0).any() else (0, 0, 0)
-            lo, (px, py) = D.pixelate(b, UI_PPU * size / k, (b.shape[1] / 2, b.shape[0] / 2), outline)
+            f_ = UI_PPU * size / k
+            if f_ > 1:                                   # a hero drawn coarser than the BP frames: grown, not averaged
+                lo, (px, py) = grow(b, f_, (b.shape[1] / 2, b.shape[0] / 2))
+            else:
+                lo, (px, py) = D.pixelate(b, f_, (b.shape[1] / 2, b.shape[0] / 2), outline)
             W, H = lo_size(one.shape[1], one.shape[0])
             op = lo[..., 3] > 0
             if op.any():

@@ -1,0 +1,38 @@
+{
+  "tahmkench-A.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 887055,
+    "opaque_pixels": 0,
+    "semitransparent_pixels": 685809,
+    "silhouette_bbox_alpha128": [
+      203,
+      25,
+      1355,
+      1010
+    ],
+    "silhouette_height": 985,
+    "strict_11px_grid_verified": false
+  },
+  "tahmkench-B.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 740052,
+    "opaque_pixels": 0,
+    "semitransparent_pixels": 832812,
+    "silhouette_bbox_alpha128": [
+      44,
+      21,
+      1524,
+      1016
+    ],
+    "silhouette_height": 995,
+    "strict_11px_grid_verified": false
+  }
+}
