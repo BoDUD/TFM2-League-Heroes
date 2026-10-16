@@ -784,6 +784,13 @@
         "skill": "近处向前突刺，远处蓄力后掷出长矛，对线上的敌人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>（掷出时第一个之后减半）。强化：额外<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>。",
         "skill2": "跃向敌方英雄，造成其7%最大生命的伤害并<#ef5350ff>晕眩1秒<>；强化：下次普攻连刺3下。<#ff9028ff>神佑枪阵<>：举盾<#ffb900ff>1.5秒<>，免疫控制、减伤60%，连刺前方后盾击造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。",
         "ult": "下蹲<#ffb900ff>1秒<>后跃起，落向交战中的敌人：长矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并减速50%，落地造成<#a974ffff>300魔法伤害<>（边缘减半），叠满被动。"
+      },
+      "league_aphelios": {
+        "name": "厄斐琉斯",
+        "attack": "用主手武器开火，每把<#ffb900ff>20发<>，打空换下一把：<#ff9028ff>通碧<>射程更远，<#ff9028ff>断魄<>吸血10%、攻速+20%，<#ff9028ff>坠明<>减速25%，<#ff9028ff>荧焰<>溅射，<#ff9028ff>折镜<>每次命中攻击+5%（4秒，可叠加）。<#ff9028ff>传知者与真知者<>：随等级额外成长。",
+        "skill": "主手武器的技能，各自冷却：通碧狙击造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并追射；断魄加速连射回血；坠明<#ef5350ff>定身<>被它减速的敌人1秒；荧焰扇形波后副手追击；折镜放下哨塔5秒。",
+        "skill2": "交换主手和副手武器：主手技能在冷却、副手技能已就绪且附近有敌方英雄时才交换。",
+        "ult": "爆点附近有2个以上敌方英雄或目标被控制时，射出月光，在第一个英雄处爆炸，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>，再按主手：通碧追射、断魄回血、坠明减速90%、荧焰加伤、折镜叠3层。"
       }
     },
     "skill_name": {
@@ -1346,6 +1353,11 @@
         "skill1": "贯星长枪",
         "skill2": "斗盾跃击",
         "ult": "大荒星陨"
+      },
+      "league_aphelios": {
+        "skill1": "武器技能",
+        "skill2": "月相轮转",
+        "ult": "清辉夜凝"
       }
     }
   },
@@ -2134,6 +2146,13 @@
         "skill": "近處向前突刺，遠處蓄力後擲出長矛，對線上的敵人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>（擲出時第一個之後減半）。強化：額外<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>。",
         "skill2": "躍向敵方英雄，造成其7%最大生命的傷害並<#ef5350ff>暈眩1秒<>；強化：下次普攻連刺3下。<#ff9028ff>聖盾猛襲<>：舉盾<#ffb900ff>1.5秒<>，免疫控制、減傷60%，連刺前方後盾擊造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。",
         "ult": "蹲伏<#ffb900ff>1秒<>後躍起，落向交戰中的敵人：長矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並緩速50%，落地造成<#a974ffff>300魔法傷害<>（邊緣減半），疊滿被動。"
+      },
+      "league_aphelios": {
+        "name": "亞菲利歐",
+        "attack": "用主武器開火，每把<#ffb900ff>20發<>，打空換下一把：<#ff9028ff>月影步槍<>射程更遠，<#ff9028ff>月鐮槍刃<>吸血10%、攻速+20%，<#ff9028ff>月殞重砲<>緩速25%，<#ff9028ff>熾夜月燄<>濺射，<#ff9028ff>月曲終章<>每次命中攻擊+5%（4秒，可疊加）。<#ff9028ff>殺手與先知<>：隨等級額外成長。",
+        "skill": "主武器的技能，各自冷卻：步槍狙擊造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並追射；槍刃加速連射回血；重砲<#ef5350ff>定身<>被它緩速的敵人1秒；月燄扇形波後副武器追擊；飛刃放下哨兵5秒。",
+        "skill2": "交換主武器和副武器：主武器技能冷卻中、副武器技能已就緒且附近有敵方英雄時才交換。",
+        "ult": "爆點附近有2個以上敵方英雄或目標被控制時，射出月光，在第一個英雄處爆炸，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>，再依主武器：步槍追射、槍刃回血、重砲緩速90%、月燄加傷、飛刃疊3層。"
       }
     },
     "skill_name": {
@@ -2696,6 +2715,11 @@
         "skill1": "彗星戰矛",
         "skill2": "盾之躍擊",
         "ult": "星殞衝擊"
+      },
+      "league_aphelios": {
+        "skill1": "武器技能",
+        "skill2": "月相輪轉",
+        "ult": "月夜守護"
       }
     }
   },
@@ -3484,6 +3508,13 @@
         "skill": "Thrusts at a near target, or charges and throws the spear at a far one, dealing <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> to enemies on the line (a throw: half after the first). Empowered: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more.",
         "skill2": "Leaps at an enemy champion, dealing 7% of its max health and <#ef5350ff>stunning it 1s<>; empowered: his next attack strikes 3 times. <#ff9028ff>Aegis Assault<>: raises the shield <#ffb900ff>1.5s<>, immune to crowd control, 60% less damage, stabbing ahead, then bashes for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>.",
         "ult": "Crouches <#ffb900ff>1s<>, leaps and falls on enemies in a fight: his spear strikes first for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a 50% slow, then the landing deals <#a974ffff>300 magic damage<> (half at the edge) and fills Mortal Will."
+      },
+      "league_aphelios": {
+        "name": "Aphelios",
+        "attack": "Fires his main weapon, <#ffb900ff>20 shots<> each, then the next takes its place: <#ff9028ff>Calibrum<> longer range, <#ff9028ff>Severum<> 10% lifesteal and +20% attack speed, <#ff9028ff>Gravitum<> 25% slow, <#ff9028ff>Infernum<> splash, <#ff9028ff>Crescendum<> +5% attack per hit (4s, stacking). <#ff9028ff>The Hitman and the Seer<>: extra growth.",
+        "skill": "The main weapon's ability, each on its own cooldown: Calibrum snipes for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and follows up; Severum runs and fires, healing; Gravitum <#ef5350ff>roots<> every enemy it slowed for 1s; Infernum's wave, then off-hand shots; Crescendum a sentry for 5s.",
+        "skill2": "Swaps the main and off-hand weapons, only when the main hand's ability is cooling down, the off hand's is ready and an enemy champion is near.",
+        "ult": "With 2+ enemy champions round the blast or the target in crowd control, fires moonlight that bursts on the first champion for <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>, then by main weapon: Calibrum follow-up shots, Severum heal, Gravitum 90% slow, Infernum more damage, Crescendum 3 chakrams."
       }
     },
     "skill_name": {
@@ -4046,6 +4077,11 @@
         "skill1": "Comet Spear",
         "skill2": "Shield Vault",
         "ult": "Grand Starfall"
+      },
+      "league_aphelios": {
+        "skill1": "Weapon Abilities",
+        "skill2": "Phase",
+        "ult": "Moonlight Vigil"
       }
     }
   },
@@ -4834,6 +4870,13 @@
         "skill": "가까우면 앞으로 찌르고, 멀면 힘을 모아 창을 던져 선 위의 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>(던질 때 첫 적 이후 절반). 강화: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가.",
         "skill2": "적 챔피언에게 도약해 최대 체력의 7% 피해와 <#ef5350ff>1초 기절<>; 강화: 다음 기본 공격 3연타. <#ff9028ff>방패 돌격<>: <#ffb900ff>1.5초<> 방패를 들어 군중 제어 면역, 피해 60% 감소, 앞을 찌른 뒤 방패로 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>.",
         "ult": "<#ffb900ff>1초<> 웅크렸다 도약해 교전 중인 적에게 떨어집니다: 창이 먼저 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>와 50% 둔화, 착지 시 <#a974ffff>300 마법 피해<>(가장자리 절반), 패시브 최대."
+      },
+      "league_aphelios": {
+        "name": "아펠리오스",
+        "attack": "주 무기로 공격, 무기마다 <#ffb900ff>20발<>, 다 쓰면 다음 무기: <#ff9028ff>만월총<> 사거리 증가, <#ff9028ff>절단검<> 생명력 흡수 10%·공격 속도 +20%, <#ff9028ff>중력포<> 25% 둔화, <#ff9028ff>화염포<> 범위 피해, <#ff9028ff>반월검<> 적중마다 공격력 +5%(4초, 중첩). <#ff9028ff>암살자와 예언자<>: 추가 성장.",
+        "skill": "주 무기의 스킬(각자 재사용 대기시간): 만월총 저격 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<> 후 추가 사격; 절단검 이동하며 연사·회복; 중력포 둔화된 적 <#ef5350ff>1초 속박<>; 화염포 원뿔 공격 후 보조 무기 추격; 반월검 파수탑 5초.",
+        "skill2": "주 무기와 보조 무기를 교체합니다. 주 무기 스킬이 재사용 대기 중이고 보조 무기 스킬이 준비되었으며 근처에 적 챔피언이 있을 때만.",
+        "ult": "폭발 지점 근처에 적 챔피언 2명 이상 또는 대상이 군중 제어 상태일 때 월광 발사, 첫 챔피언에서 폭발해 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 <#ff9028ff>물리 피해<>, 주 무기별: 만월총 추가 사격, 절단검 회복, 중력포 90% 둔화, 화염포 추가 피해, 반월검 3중첩."
       }
     },
     "skill_name": {
@@ -5396,6 +5439,11 @@
         "skill1": "혜성의 창",
         "skill2": "방호의 도약",
         "ult": "거대 유성"
+      },
+      "league_aphelios": {
+        "skill1": "무기 스킬",
+        "skill2": "위상 변화",
+        "ult": "월광포화"
       }
     }
   },
@@ -6184,6 +6232,13 @@
         "skill": "近くなら前へ突き、遠ければ溜めて槍を投げ、線上の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>（投擲は最初の敵以降半減）。強化：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>追加。",
         "skill2": "敵チャンピオンへ跳び、最大体力の7%のダメージと<#ef5350ff>1秒スタン<>。強化：次の通常攻撃が3連撃。<#ff9028ff>イージスの猛攻<>：<#ffb900ff>1.5秒<>盾を構え、CC無効・被ダメージ60%軽減、前方を突いた後に盾で<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。",
         "ult": "<#ffb900ff>1秒<>身を屈めて跳び、交戦中の敵へ落下：槍が先に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と50%スロウ、着地で<#a974ffff>300の魔法ダメージ<>（外側は半減）、パッシブ最大。"
+      },
+      "league_aphelios": {
+        "name": "アフェリオス",
+        "attack": "メイン武器で攻撃、各<#ffb900ff>20発<>、撃ち尽くすと次の武器に：<#ff9028ff>キャリブラム<>射程増加、<#ff9028ff>セヴェラム<>ライフスティール10%・攻撃速度+20%、<#ff9028ff>グラヴィタム<>25%スロウ、<#ff9028ff>インファーナム<>範囲攻撃、<#ff9028ff>クレッシェンダム<>命中ごとに攻撃力+5%（4秒、累積）。<#ff9028ff>殺す者と導く者<>：追加成長。",
+        "skill": "メイン武器のスキル（個別CD）：キャリブラム狙撃<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と追撃；セヴェラム走りながら連射・回復；グラヴィタム スロウ中の敵を<#ef5350ff>1秒スネア<>；インファーナム扇状攻撃後オフハンド追撃；クレッシェンダム セントリー5秒。",
+        "skill2": "メインとオフハンドの武器を入れ替える。メインのスキルがCD中、オフハンドのスキルが使用可能で、近くに敵チャンピオンがいる時のみ。",
+        "ult": "爆発地点の近くに敵チャンピオン2体以上、または対象がCC中の時に月光を放ち、最初のチャンピオンで爆発して<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>、メイン武器別：キャリブラム追撃、セヴェラム回復、グラヴィタム90%スロウ、インファーナム追加ダメージ、クレッシェンダム3スタック。"
       }
     },
     "skill_name": {
@@ -6746,6 +6801,11 @@
         "skill1": "彗星の槍",
         "skill2": "跳撃の盾",
         "ult": "偉大なる星路"
+      },
+      "league_aphelios": {
+        "skill1": "武器ごとのスキル",
+        "skill2": "フェーズ",
+        "ult": "月光の祈り"
       }
     }
   }
