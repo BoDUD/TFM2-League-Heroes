@@ -65,7 +65,7 @@
             "type": "TargetProjectile",
             "name": "league_urgot_w_shot",
             "speed": 6000,
-            "y_offset": -2000,
+            "y_offset": -8000,
             "applied_target": "Enemy",
             "applied_effects": [
               {
@@ -189,7 +189,7 @@
             "type": "TargetProjectile",
             "name": "league_urgot_a_shot",
             "speed": 6000,
-            "y_offset": -2000,
+            "y_offset": -8000,
             "applied_target": "Enemy",
             "applied_effects": [
               {

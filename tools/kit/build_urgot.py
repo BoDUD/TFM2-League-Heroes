@@ -56,7 +56,7 @@ P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, attack every 65 ticks);
     # League's Urgot: 655 +102 hp, 63 AD +5, 36 armour +5.2, 32 mr, 330 move, 350 range, 0.625 attack speed
     "hp": 960, "hp_g": 108, "atk": 86, "atk_g": 17, "def": 32, "def_g": 8, "mr": 28, "mr_g": 4, "ms": 980, "ms_g": 10,
-    "atk_range": 38000, "atk_dur": 26, "atk_cd": 72, "a_st": 8, "shot_speed": 6000, "shot_y": -2000,
+    "atk_range": 38000, "atk_dur": 26, "atk_cd": 72, "a_st": 8, "shot_speed": 6000, "shot_y": -8000,
     # passive Echoing Flames (League: 6 legs, 30/20/10/5/2.5 s each by level, cone 700 x 60 deg, 40-100% AD + 2-6% max hp)
     "leg_t0": 480, "leg_t": 180, "p_r": 52000, "p_cone": 850, "p_ratio": 40, "p_hp": 1, "p_len": 52000, "p_w": 14000,
     # Q Corrosive Charge (League: 800 range, 210 radius, 0.3 s fuse, 25-205 + 70% AD, slow 45-65% 1.25 s, cd 10-8 s)
