@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.128.0"
+    }
+  ],
+  "description": "Test build of Rek'Sai as in League (needs League of Legends Heroes): replaces the main pack's Rek'Sai so she burrows out of fights with her whole body under the earth (idle and walk; game 0.6.4), faster and healing by her Fury, leaves tunnels where she digs (8 entrances at most, trampled in by enemy champions standing on them) and takes them to escape or to strike, and saves Void Rush for a marked champion it would kill. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-17",
+  "mod_id": "league_reksai",
+  "mod_type": "native",
+  "name": "League Heroes: Rek'Sai burrowed body, tunnels, Void Rush to kill (test)",
+  "version": "0.1.0"
+}

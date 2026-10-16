@@ -78,6 +78,8 @@ P = {
     # ult: R Void Rush (League: 1500 range, untargetable 0.9 s, 150-350 + 100% bAD + 15/20/25% max hp, cd 120-80 s)
     "r_cd": 3600, "r_range": 70000, "r_dur": 30, "r_hide": 54, "r_speed": 9000, "r_dmg": 120, "r_ratio": 100,
     "r_hp": 15,
+    # Marked as Prey: the picture's pieces (the add-on remembers a mark for prey_t)
+    "mark_t": 60, "prey_t": 300,
     # the watch
     "watch_p": 12, "w_count": 60000, "w_ally": 45000,
     # her spoken lines, at most one every vo_gap ticks
@@ -238,8 +240,8 @@ def build(p):
                            [sw("c_e2", flag("c_e3", 3), sw("c_e1", flag("c_e2", 3), flag("c_e1", 3)))]),
                     around(p["w_ally"], "AllyChampion", [sw("c_a1", flag("c_a2", 3), flag("c_a1", 3))]),
                     pick(p["r_range"], "EnemyChampionInCC", flag("c_cc", 3)))
-    decide = combine(sw("c_e3", sw("c_a2", NONE, refresh("w_hold", tick + 2))),
-                     sw("c_cc", refresh("r_ok", tick + 2), sw("c_a2", sw("c_e1", refresh("r_ok", tick + 2)))))
+    arm = NONE if p["native"] else sw("c_cc", refresh("r_ok", tick + 2), sw("c_a2", sw("c_e1", refresh("r_ok", tick + 2))))
+    decide = combine(sw("c_e3", sw("c_a2", NONE, refresh("w_hold", tick + 2))), arm)
     watch = on_me(casted(1000000, tick, count, delayed(1, decide)))
     life = sw("init", NONE, combine(flag("init", None), watch))
 
@@ -264,8 +266,12 @@ def build(p):
     choose = combine(sw("f4", sw("e_cd", NONE, flag("e_go", 1))),
                      sw("e_go", combine(*rm("e_go"), bite),
                         sw("q_1", wrath_attack("q_2"), sw("q_2", wrath_attack(None), plain))))
+    # Marked as Prey: a champion she hits carries r_mark (its picture) - mark_t-tick pieces behind a caster gate so one
+    # instance at a time (same-name buffs add up; league_amumu's curse); the add-on remembers a mark for prey_t
+    mark = sw("p_mk", NONE, combine(flag("p_mk", p["mark_t"] - 5),
+                                    homing("r_prey", 100000, 0, "EnemyChampion", [buff("r_mark", p["mark_t"])])))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(life, choose), atype="BaseAttack", cancel=True)
+                      combine(life, choose, delayed(p["a_hit"] - 1, mark)), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Queen's Wrath / Prey Seeker
     wrath = combine(anim("skill", p["q_dur"]), sfx("q"), voice("vo_q", p),
@@ -292,8 +298,9 @@ def build(p):
     unburrow = [around(p["w_r"], "EnemyWithoutTower",
                        [attack(p["w_dmg"], p["w_ratio"]), {"type": "Airborne", "duration": p["w_up"]}, view("w_up"),
                         tsfx("w_hit")]),
-                cview("w_burst"), sfx("w_up"), gain(), anim("skill2_up", p["w_up_t"])]
-    dive = combine(anim("skill2", p["w_dig"]), sfx("w"), voice("vo_w", p), burrow_heal, spend, cview("w_dig"),
+                around(p["w_r"], "EnemyChampion", [buff("r_mark", p["mark_t"])]),
+                cview("w_burst"), sfx("w_up"), gain(), anim("skill2_up", p["w_up_t"]), flag("w_land", 3)]
+    dive = combine(flag("w_go", p["w_dig"]), anim("skill2", p["w_dig"]), sfx("w"), voice("vo_w", p), burrow_heal, spend, cview("w_dig"),
                    delayed(p["w_go"] - 1, {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"] + 20000,
                                            "end_effects": unburrow}))
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
@@ -319,11 +326,15 @@ def build(p):
     views_p = [{"type": "Animated", "name": n("q2_shot"), "anim": FX, "tag": "q2_shot", "repeat": True, "z": 2}]
     views_e = [E("a_hit"), E("q_hit"), E("e_hit"), E("q2_cast", FX, 2, False), E("q2_hit"),
                E("w_dig", BIG, -1, False), E("w_burst", BIG, -1, False), E("w_up"), E("w_heal", FX, 3),
-               E("r_dive", BIG, -1, False), E("r_burst", BIG, 2, False), E("r_hit", BIG)]
+               E("r_dive", BIG, -1, False), E("r_burst", BIG, 2, False), E("r_hit", BIG),
+               # the add-on's tunnels (addons/league_reksai plays them at the entrances; nothing in the data does)
+               E("e_tunnel", FX, -1, False), E("e_break", FX, 1, False)]
     views_b = [B_("f4", "p_full", FX, 4), B_("q_as", "q_buff", FX, -1), B_("r_mark", "r_mark", FX, 4)]
     extra = {}
     if p["native"]:
-        extra["passive"] = {"passive_ref": "league_reksai:fury", "params": {"r_hp": p["r_hp"]}}
+        extra["passive"] = {"passive_ref": "league_reksai:fury",
+                            "params": {k: p[k] for k in ("w_heal", "w_heal_r", "r_dmg", "r_ratio", "r_hp", "r_range",
+                                                         "prey_t", "w_dig")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

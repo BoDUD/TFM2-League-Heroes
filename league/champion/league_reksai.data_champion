@@ -1126,6 +1126,60 @@
               }
             }
           ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_reksai_p_mk",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_reksai_p_mk",
+                      "duration": {
+                        "Time": {
+                          "tick": 55
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_reksai_r_prey",
+                    "speed": 100000,
+                    "y_offset": 0,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_reksai_r_mark",
+                            "duration": {
+                              "Time": {
+                                "tick": 60
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     }
@@ -2351,6 +2405,18 @@
             "type": "Combine",
             "effects": [
               {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_reksai_w_go",
+                  "duration": {
+                    "Time": {
+                      "tick": 28
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
                 "type": "CasterAnimation",
                 "name": "skill2",
                 "tick": 28
@@ -2521,6 +2587,29 @@
                         ]
                       },
                       {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 17000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_reksai_r_mark",
+                              "duration": {
+                                "Time": {
+                                  "tick": 60
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
                         "type": "CasterViewEffect",
                         "name": "league_reksai_w_burst"
                       },
@@ -2684,6 +2773,18 @@
                         "type": "CasterAnimation",
                         "name": "skill2_up",
                         "tick": 20
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_reksai_w_land",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
                       }
                     ]
                   }
@@ -3284,6 +3385,22 @@
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_reksai_e_tunnel",
+      "anim": "asset/league/effects/league_reksai_fx",
+      "tag": "e_tunnel",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_reksai_e_break",
+      "anim": "asset/league/effects/league_reksai_fx",
+      "tag": "e_break",
+      "z": 1,
+      "is_follow": false
     }
   ],
   "view_buffs": [
