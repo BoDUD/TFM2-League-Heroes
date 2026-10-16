@@ -26,11 +26,11 @@ itself on (League's W has no cast time) and Icathian Surprise watches for his de
           wasted on a champion at full health). Each cast is one shell: the target's spot is marked at the release and
           r_delay ticks later it bursts (r_r): r_dmg + r_ratio% AD, and on champions League's "more against the
           wounded" as league_pyke R's execute - r_x + r_x_ratio% AD true damage, healed back a tick later on whoever
-          lives through it. Volleys: the first shell locks the ult for r_lock ticks and opens r_vol; the slot's own
-          cooldown is only r_gap, so the AI fires again while the volley lasts - three shells at most.
+          lives through it. Volleys: the slot's cooldown is r_lock; the first shell opens r_vol, shells 1 and 2 cap
+          the cooldown at r_gap, so the AI fires again while the volley lasts - three shells at most.
   combos  (「加入高手连招」)
-          E -> R (减速接大炮): a champion the ooze hits gets a shell e_r_wait ticks later, slowed, when a shell is
-                  available (the volley rules above).
+          E -> R (减速接大炮): a champion the ooze hits gets a shell e_r_wait ticks later, slowed, while a volley
+                  is open (a shell more).
           W -> Q (开W接Q破甲): when the barrage turns on with an enemy champion within its reach and Q is ready, the
                   spittle follows the attack at that champion (its armour shred then feeds the barrage).
           R execute (大炮收割): R's execute share (above).
@@ -290,15 +290,19 @@ def build(p):
             delayed(p["r_delay"] - 8, view("r_fall"))])
 
     def volley(fire):
-        """Shell 1 locks the ult and opens the volley, shell 2 counts, shell 3 ends it; outside a volley while the
-        lock lasts nothing (the empty branch keeps the AI from casting)."""
-        first = combine(refresh("r_lock", p["r_lock"]), refresh("r_vol", p["r_win"]), fire)
-        inside = sw("r_c1", combine(*rm("r_c1", "r_vol"), fire), combine(refresh("r_c1", p["r_win"]), fire))
-        return sw("r_lock", sw("r_vol", inside), combine(*rm("r_c1"), first))
+        """Shell 1 opens the volley, shell 2 counts, shell 3 ends it. The slot's cooldown is the lock (r_lock): after
+        shells 1 and 2 a 2-tick ult_cooldown_mult caps it at r_gap, so the AI fires again while the volley lasts. Every
+        cast fires; the volley stays open the whole lock, so three shells at most in it (the players: 「大嘴五级后就不会普通攻击了」 - the slot used to have a 50-tick cooldown and an empty
+        branch through the lock, and the game's AI casts a slot whose branch is empty: the ult every second, no
+        attacks)."""
+        cap = delayed(2, refresh("r_cap", 2, ult_cooldown_mult=100 * p["r_lock"] // p["r_gap"] - 100))
+        first = combine(*rm("r_c1"), refresh("r_vol", p["r_lock"]), fire, cap)
+        inside = sw("r_c1", combine(*rm("r_c1", "r_vol"), fire), combine(refresh("r_c1", p["r_lock"]), fire, cap))
+        return sw("r_vol", inside, first)
 
     r_cast = combine(anim("ult", p["r_dur"]), voice("vo_r", p),
                      delayed(p["r_rel"], sfx("r_shot"), shell()))
-    ult = action("ult", p["r_dur"], p["r_gap"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
+    ult = action("ult", p["r_dur"], p["r_lock"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
                  combine(life, volley(r_cast)))
 
     # ------------------------------------------------------------------ E Void Ooze
@@ -307,8 +311,9 @@ def build(p):
                     end=[field("e_zone", p["e_zone_r"], p["e_trail"], 15, "EnemyWithoutTower",
                                [buff("e_slow", 16, move_speed_mult=-p["e_slow"])])])
                for d in range(p["e_step"] // 2, p["e_len"] + 1, p["e_step"])]
-    # E -> R: a champion the ooze hits gets a shell when one is available (the volley rules)
-    e_r = delayed(p["e_r_wait"], volley(combine(sfx("r_shot"), shell())))
+    # E -> R: a champion the ooze hits gets a shell while a volley is open (a shell more, not counted: the ult's
+    # cooldown is the slot's, E cannot spend it)
+    e_r = delayed(p["e_r_wait"], sw("r_vol", combine(sfx("r_shot"), shell())))
     e_fire = combine(anim("skill2", p["e_dur"]), sfx("e_cast"), voice("vo_e", p),
                      delayed(p["e_rel"], sfx("e_shot"), band("e_trail", p["e_len"], p["e_zone_r"] * 2, p["e_trail"]),
                              line("e_ooze", p["e_speed"], p["e_len"], p["e_rad"], p["e_y"], "EnemyWithoutTower", True,
