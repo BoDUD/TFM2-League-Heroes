@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.122.0"
+      "version": ">=0.124.1"
     }
   ],
-  "description": "Test build of Orianna as in League (needs League of Legends Heroes): replaces the main pack's Orianna so the Ball flies from where it really is (on the ground, on an ally or on its way back) for Command: Attack and Command: Protect, Command: Protect goes to the ally in the most danger, and Command: Shockwave goes off for two enemy champions or a kill. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Orianna as in League (needs League of Legends Heroes): replaces the main pack's Orianna so the Ball flies from where it really is (on the ground, on an ally or on its way back) for Command: Attack and Command: Protect, Command: Protect goes to the ally in the most danger, and Command: Shockwave goes off for any enemy champion near the Ball (whether it would kill is still written to the log). Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-16",
   "mod_id": "league_orianna",
   "mod_type": "native",
-  "name": "League Heroes: Orianna's Ball from where it is, Protect to the ally in danger, Shockwave for a kill (test)",
-  "version": "0.1.0"
+  "name": "League Heroes: Orianna's Ball from where it is, Protect to the ally in danger (test)",
+  "version": "0.1.1"
 }

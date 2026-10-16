@@ -38,9 +38,9 @@ recommended option - W fires by itself at the ball sharing Q's icon, R waits for
           it; else herself): e_sh + e_ap% AP shield for e_t ticks, e_dmg + e_dap% AP to
           enemies on the line toward him, and while it rides him e_def armour and magic resistance (League's passive).
   ult     R Command: Shockwave (指令：冲击波): the slot arms the ult for r_arm ticks (league_syndra / league_pantheon R);
-          wherever the ball is, it fires once two enemy champions stand within r_r of it, or one champion his team is
-          fighting (EnemyChampionRecentlyAttacked) within r_r with no second enemy champion within r_iso (an isolated
-          target). r_delay ticks after the cast (League: 0.5 s) r_dmg + r_ap% AP to every enemy within r_r, flung
+          wherever the ball is, it fires once an enemy champion stands within r_r of it (r_rule 2, 0.122.1; the user:
+          「发条的大招条件太苛刻」 - before, two champions or one his team was fighting with no second within r_iso: 11
+          shockwaves in 18 windows of 4 simulated games, now 17 in 20). r_delay ticks after the cast (League: 0.5 s) r_dmg + r_ap% AP to every enemy within r_r, flung
           toward the ball and through it (`Pull` r_pull x r_pull_t at the ball's spot; League: 325 units). Unused, the
           window ends with the cooldown capped (r_reset).
 """
@@ -71,24 +71,28 @@ P = {
     # the ball (League: leash 1290, +100 on an ally)
     "b_step": 15, "b_life": 300, "leash": 110000, "leash_ally": 118000, "b_back": 4500,
     # Q (League: 60-180 + 55% AP, the others 70%, radius 175, range 825, speed 1400, cd 7-3 s)
-    "q_cd": 300, "q_range": 70000, "q_dur": 20, "q_st": 6, "q_travel": 18, "q_r": 16000, "q_dmg": 70, "q_ap": 55,
+    "q_cd": 300, "q_range": 70000, "q_dur": 20, "q_st": 6, "q_travel": 18, "q_r": 16000, "q_dmg": 85, "q_ap": 65,
     "q_next": 70,
     # W (League: 70-230 + 80% AP, radius 225, 20-40% haste / slow, cd 7 s)
-    "w_cd": 420, "w_r": 24000, "w_farm": 70000, "w_dmg": 70, "w_ap": 70, "w_slow": 30, "w_haste": 30, "w_t": 120,
+    "w_cd": 420, "w_r": 24000, "w_farm": 70000, "w_dmg": 85, "w_ap": 85, "w_slow": 30, "w_haste": 30, "w_t": 120,
     "w_anim": 18,
     # E (League: shield 55-195 + 45% AP 2.5 s, 60-180 + 30% AP on the way, 6-30 armour / mr, range 1120, cd 9 s)
     "e_cd": 540, "e_range": 75000, "e_dur": 18, "e_st": 6, "e_self": 10000, "e_near": 40000,
     "e_sh": 60, "e_ap": 45, "e_t": 150, "e_speed": 3500, "e_y": -3000, "e_dmg": 60, "e_dap": 30, "e_len": 60000,
     "e_w": 8000, "e_def": 12, "e_ride": 600, "e_period": 4,
     # R (League: 225-475 + 110% AP radius 415 after 0.5 s, flung 325 units, cd 110-80 s)
-    "r_cd": 4200, "r_slot": 90000, "r_arm": 360, "r_reset": 4900, "r_delay": 30, "r_r": 36000, "r_iso": 70000,
+    "r_cd": 4200, "r_slot": 90000, "r_arm": 360, "r_reset": 4900, "r_delay": 30, "r_r": 42000, "r_iso": 70000,
     "r_dmg": 250, "r_ap": 100, "r_pull": 2400, "r_pull_t": 12, "r_anim": 36,
+    # when R fires (the user, 2026-10-16: 「发条的大招条件太苛刻」): 0 = two enemy champions within r_r of the ball, or one
+    # his team is fighting with no second one within r_iso (0.122.0); 1 = two, or one his team is fighting; 2 = any enemy
+    # champion within r_r
+    "r_rule": 2,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_orianna: the Ball's flights start where it really is (league_orianna:q / :e / :back
     # draw them, the data's own lob and homing fly hidden from her), E goes to the ally native picks (league_orianna:e_pick
     # raises e_this on him), E's line hits from where the ball was (league_orianna:e_hit; the data's line only from her),
-    # R fires for two champions or a kill (league_orianna:r_kill raises c2) instead of an isolated target
+    # R also fires for a kill (league_orianna:r_kill raises c2; with r_rule 2 any champion near the ball already does)
     "native": 0,
 }
 
@@ -303,29 +307,27 @@ def build(p):
         return combine(*rm("r_arm"), anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p), *blow)
 
     counts = ("c1", "c2", "ra", "i1", "i2")
-    # two enemy champions within r_r, or one his team is fighting with no second one within r_iso: r_go (the blow
+    # two enemy champions within r_r (with the add-on also one the shockwave kills: league_orianna:r_kill raises c2), or
+    # one his team is fighting (r_rule 0: only when no second one is within r_iso), or (r_rule 2) any one: r_go (the blow
     # written once, not once per rule)
     def r_check(here):
-        rule = flag("r_go", 1) if nat else sw("ra", sw("i2", NONE, flag("r_go", 1)))
+        lone = p["r_rule"] == 0 and not nat
+        rule = sw("ra", sw("i2", NONE, flag("r_go", 1)) if lone else flag("r_go", 1))
+        if p["r_rule"] == 2:
+            rule = sw("c1", flag("r_go", 1))
         go = lambda: [sw("c2", flag("r_go", 1), rule), *rm(*counts),
                       sw("r_go", combine(*rm("r_go"), r_fire(here)))]
-        if nat and here:
-            return sw("r_arm", combine(
-                zone("r_c", p["r_r"], "EnemyChampion", [ladder("c1", "c2", 3), native("r_kill")]),
-                delayed(2, alive(sw("r_arm", combine(*go()), combine(*rm(*counts)))))))
-        if nat:
-            return sw("r_arm", combine(
-                around(p["r_r"], "EnemyChampion", [ladder("c1", "c2", 2), native("r_kill")]), *go()))
+        kill = [native("r_kill")] if nat else []
         if here:   # areas at the spot count on the next tick
             return sw("r_arm", combine(
-                zone("r_c", p["r_r"], "EnemyChampion", [ladder("c1", "c2", 3)]),
-                zone("r_ra", p["r_r"], "EnemyChampionRecentlyAttacked", [refresh("ra", 3)]),
-                zone("r_i", p["r_iso"], "EnemyChampion", [ladder("i1", "i2", 3)]),
+                zone("r_c", p["r_r"], "EnemyChampion", [ladder("c1", "c2", 3), *kill]),
+                zone("r_ra", p["r_r"], "EnemyChampionRecentlyAttacked", [refresh("ra", 3)]) if p["r_rule"] < 2 else None,
+                zone("r_i", p["r_iso"], "EnemyChampion", [ladder("i1", "i2", 3)]) if lone else None,
                 delayed(2, alive(sw("r_arm", combine(*go()), combine(*rm(*counts)))))))
         return sw("r_arm", combine(
-            around(p["r_r"], "EnemyChampion", [ladder("c1", "c2", 2)]),
-            around(p["r_r"], "EnemyChampionRecentlyAttacked", [refresh("ra", 2)]),
-            around(p["r_iso"], "EnemyChampion", [ladder("i1", "i2", 2)]),
+            around(p["r_r"], "EnemyChampion", [ladder("c1", "c2", 2), *kill]),
+            around(p["r_r"], "EnemyChampionRecentlyAttacked", [refresh("ra", 2)]) if p["r_rule"] < 2 else None,
+            around(p["r_iso"], "EnemyChampion", [ladder("i1", "i2", 2)]) if lone else None,
             *go()))
 
     # ------------------------------------------------------------------ the ball's moves

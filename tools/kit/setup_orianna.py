@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_orianna in every language, description + skill_name),
 sound/sfx/league_orianna_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and
-the ban/pick card's point once the sprite is in), mod.mod_info (0.122.0, Orianna named). Only her keys change in the
+the ban/pick card's point once the sprite is in), mod.mod_info (0.124.1 or higher, Orianna named). Only her keys change in the
 shared files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: Data Dragon 16.20.1 (zh_CN 发条魔灵 / 奥莉安娜 - the client swaps name and title: 奥莉安娜; 发条协奏, 指令：攻击,
 指令：杂音, 指令：防卫, 指令：冲击波; zh_TW 奧莉安娜 / 發條少女, 魔法發條, 指令：貫穿, 指令：失衡, 指令：守護, 終極指令：脈衝;
@@ -27,7 +27,7 @@ from build_orianna import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_orianna"
-VERSION = "0.122.0"
+VERSION = "0.124.1"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage / AP
@@ -55,7 +55,7 @@ TEXT = {
                  G + "加速{w_haste}%" + E + "。",
         "skill2": "把球送给离敌人最近的队友（被贴身时给自己），提供" + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}%护盾" + E + "，路过的敌人受到" +
                   mag("e_dmg", "e_dap") + M + "魔法伤害" + E + "。带球者+{e_def}护甲和魔抗。",
-        "ult": "待命" + A + "{r_arm}秒" + E + "，球附近有" + A + "2个" + E + "敌方英雄或1个落单目标时放出冲击波：造成" + mag("r_dmg", "r_ap") +
+        "ult": "待命" + A + "{r_arm}秒" + E + "，球附近有敌方英雄时放出冲击波：造成" + mag("r_dmg", "r_ap") +
                M + "魔法伤害" + E + "并把敌人" + R + "甩向球" + E + "。",
         "names": ("指令：攻击", "指令：防卫", "指令：冲击波"),
     },
@@ -68,7 +68,7 @@ TEXT = {
                  G + "加速{w_haste}%" + E + "。",
         "skill2": "把球送給離敵人最近的隊友（被貼身時給自己），提供" + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}%護盾" + E + "，路過的敵人受到" +
                   mag("e_dmg", "e_dap") + M + "魔法傷害" + E + "。帶球者+{e_def}護甲和魔抗。",
-        "ult": "待命" + A + "{r_arm}秒" + E + "，球附近有" + A + "2個" + E + "敵方英雄或1個落單目標時放出脈衝：造成" + mag("r_dmg", "r_ap") +
+        "ult": "待命" + A + "{r_arm}秒" + E + "，球附近有敵方英雄時放出脈衝：造成" + mag("r_dmg", "r_ap") +
                M + "魔法傷害" + E + "並把敵人" + R + "甩向球" + E + "。",
         "names": ("指令：貫穿", "指令：守護", "終極指令：脈衝"),
     },
@@ -83,8 +83,8 @@ TEXT = {
         "skill2": "Sends the Ball to the ally nearest the enemy (to herself when an enemy is on her), shielding them for " + G +
                   "{e_sh}" + E + " + " + APi + G + "{e_ap}%" + E + " and dealing " + mag("e_dmg", "e_dap") + " " + M +
                   "magic damage" + E + " to enemies on the way. Its holder gains {e_def} Armor and Magic Resist.",
-        "ult": "Waits up to " + A + "{r_arm}s" + E + " for " + A + "2" + E + " enemy champions near the Ball, or one isolated target, "
-               "then the Ball sends out a shockwave: " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E + ", enemies " + R +
+        "ult": "Waits up to " + A + "{r_arm}s" + E + " for an enemy champion near the Ball, then the Ball"
+               " sends out a shockwave: " + mag("r_dmg", "r_ap") + " " + M + "magic damage" + E + ", enemies " + R +
                "flung toward the Ball" + E + ".",
         "names": ("Command: Attack", "Command: Protect", "Command: Shockwave"),
     },
@@ -97,7 +97,7 @@ TEXT = {
                  E + ", 아군 " + G + "{w_haste}% 가속" + E + ".",
         "skill2": "적에게 가장 가까운 아군에게 공을 보내(적이 붙으면 자신) " + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}% 보호막" + E +
                   ", 지나가는 적에게 " + mag("e_dmg", "e_dap") + "의 " + M + "마법 피해" + E + ". 공을 가진 자는 방어력·마법 저항력 +{e_def}.",
-        "ult": "최대 " + A + "{r_arm}초" + E + " 동안 공 근처에 적 챔피언 " + A + "2명" + E + " 또는 고립된 대상이 생기면 충격파: " +
+        "ult": "최대 " + A + "{r_arm}초" + E + " 동안 공 근처에 적 챔피언이 오면 충격파: " +
                mag("r_dmg", "r_ap") + "의 " + M + "마법 피해" + E + ", 적을 공 쪽으로 " + R + "날려 보냅니다" + E + ".",
         "names": ("명령: 공격", "명령: 보호", "명령: 충격파"),
     },
@@ -110,7 +110,7 @@ TEXT = {
                  "、敵を" + R + "{w_slow}%スロウ" + E + "、味方は" + G + "{w_haste}%加速" + E + "。",
         "skill2": "敵に最も近い味方へボールを送り（敵に詰められたら自分）、" + G + "{e_sh}" + E + " + " + APi + G + "{e_ap}%のシールド" + E +
                   "、通り道の敵に" + mag("e_dmg", "e_dap") + "の" + M + "魔法ダメージ" + E + "。持ち主は物理・魔法防御+{e_def}。",
-        "ult": "最大" + A + "{r_arm}秒" + E + "待機し、ボールの近くに敵チャンピオン" + A + "2体" + E + "か孤立した対象がいれば衝撃波：" +
+        "ult": "最大" + A + "{r_arm}秒" + E + "待機し、ボールの近くに敵チャンピオンがいれば衝撃波：" +
                mag("r_dmg", "r_ap") + "の" + M + "魔法ダメージ" + E + "、敵をボールへ" + R + "引き寄せる" + E + "。",
         "names": ("オーダー: 攻撃", "オーダー: 防御", "オーダー: ショックウェーブ"),
     },

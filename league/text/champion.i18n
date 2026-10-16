@@ -788,9 +788,9 @@
       "league_orianna": {
         "name": "奥莉安娜",
         "attack": "发射发条弹。<#ff9028ff>发条协奏<>：普攻附带<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法伤害<>，<#ffb900ff>4秒<>内连续普攻再叠加，最多<#ffb900ff>2层<>。",
-        "skill": "把球扔到敌方英雄脚下并停留，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法伤害<>。<#ff9028ff>指令：杂音<>：球附近有敌人时自动放电，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>，<#ef5350ff>减速30%<>，队友<#7ee787ff>加速30%<>。",
+        "skill": "把球扔到敌方英雄脚下并停留，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>。<#ff9028ff>指令：杂音<>：球附近有敌人时自动放电，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>，<#ef5350ff>减速30%<>，队友<#7ee787ff>加速30%<>。",
         "skill2": "把球送给离敌人最近的队友（被贴身时给自己），提供<#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%护盾<>，路过的敌人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>。带球者+12护甲和魔抗。",
-        "ult": "待命<#ffb900ff>6秒<>，球附近有<#ffb900ff>2个<>敌方英雄或1个落单目标时放出冲击波：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>并把敌人<#ef5350ff>甩向球<>。"
+        "ult": "待命<#ffb900ff>6秒<>，球附近有敌方英雄时放出冲击波：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>并把敌人<#ef5350ff>甩向球<>。"
       },
       "league_aphelios": {
         "name": "厄斐琉斯",
@@ -2162,9 +2162,9 @@
       "league_orianna": {
         "name": "奧莉安娜",
         "attack": "發射發條彈。<#ff9028ff>魔法發條<>：普攻附帶<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法傷害<>，<#ffb900ff>4秒<>內連續普攻再疊加，最多<#ffb900ff>2層<>。",
-        "skill": "把球擲到敵方英雄腳下並停留，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<><#a974ffff>魔法傷害<>。<#ff9028ff>指令：失衡<>：球附近有敵人時自動放電，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>，<#ef5350ff>緩速30%<>，隊友<#7ee787ff>加速30%<>。",
+        "skill": "把球擲到敵方英雄腳下並停留，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>。<#ff9028ff>指令：失衡<>：球附近有敵人時自動放電，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>，<#ef5350ff>緩速30%<>，隊友<#7ee787ff>加速30%<>。",
         "skill2": "把球送給離敵人最近的隊友（被貼身時給自己），提供<#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%護盾<>，路過的敵人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>。帶球者+12護甲和魔抗。",
-        "ult": "待命<#ffb900ff>6秒<>，球附近有<#ffb900ff>2個<>敵方英雄或1個落單目標時放出脈衝：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>並把敵人<#ef5350ff>甩向球<>。"
+        "ult": "待命<#ffb900ff>6秒<>，球附近有敵方英雄時放出脈衝：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>並把敵人<#ef5350ff>甩向球<>。"
       },
       "league_aphelios": {
         "name": "亞菲利歐",
@@ -3536,9 +3536,9 @@
       "league_orianna": {
         "name": "Orianna",
         "attack": "Fires a clockwork bolt. <#ff9028ff>Clockwork Windup<>: attacks deal <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> more; attacks within <#ffb900ff>4s<> of each other stack it, up to <#ffb900ff>2<>.",
-        "skill": "Throws the Ball at an enemy champion's feet, where it stays, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> <#a974ffff>magic damage<>. <#ff9028ff>Command: Dissonance<>: with enemies near the Ball it pulses by itself for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing enemies 30%<> and <#7ee787ff>hasting allies 30%<>.",
+        "skill": "Throws the Ball at an enemy champion's feet, where it stays, dealing <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<>. <#ff9028ff>Command: Dissonance<>: with enemies near the Ball it pulses by itself for <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing enemies 30%<> and <#7ee787ff>hasting allies 30%<>.",
         "skill2": "Sends the Ball to the ally nearest the enemy (to herself when an enemy is on her), shielding them for <#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%<> and dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> to enemies on the way. Its holder gains 12 Armor and Magic Resist.",
-        "ult": "Waits up to <#ffb900ff>6s<> for <#ffb900ff>2<> enemy champions near the Ball, or one isolated target, then the Ball sends out a shockwave: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<>, enemies <#ef5350ff>flung toward the Ball<>."
+        "ult": "Waits up to <#ffb900ff>6s<> for an enemy champion near the Ball, then the Ball sends out a shockwave: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<>, enemies <#ef5350ff>flung toward the Ball<>."
       },
       "league_aphelios": {
         "name": "Aphelios",
@@ -4910,9 +4910,9 @@
       "league_orianna": {
         "name": "오리아나",
         "attack": "태엽 탄환을 쏩니다. <#ff9028ff>시계태엽 감기<>: 기본 공격이 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>의 <#a974ffff>마법 피해<>를 추가로 입히며, <#ffb900ff>4초<> 안에 연속 공격하면 중첩(최대 <#ffb900ff>2<>).",
-        "skill": "공을 적 챔피언 발밑에 던져 남겨 두고 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>의 <#a974ffff>마법 피해<>. <#ff9028ff>명령: 불협화음<>: 공 근처에 적이 있으면 저절로 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>의 <#a974ffff>마법 피해<>, 적 <#ef5350ff>30% 둔화<>, 아군 <#7ee787ff>30% 가속<>.",
+        "skill": "공을 적 챔피언 발밑에 던져 남겨 두고 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>의 <#a974ffff>마법 피해<>. <#ff9028ff>명령: 불협화음<>: 공 근처에 적이 있으면 저절로 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>의 <#a974ffff>마법 피해<>, 적 <#ef5350ff>30% 둔화<>, 아군 <#7ee787ff>30% 가속<>.",
         "skill2": "적에게 가장 가까운 아군에게 공을 보내(적이 붙으면 자신) <#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45% 보호막<>, 지나가는 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>. 공을 가진 자는 방어력·마법 저항력 +12.",
-        "ult": "최대 <#ffb900ff>6초<> 동안 공 근처에 적 챔피언 <#ffb900ff>2명<> 또는 고립된 대상이 생기면 충격파: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>, 적을 공 쪽으로 <#ef5350ff>날려 보냅니다<>."
+        "ult": "최대 <#ffb900ff>6초<> 동안 공 근처에 적 챔피언이 오면 충격파: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>, 적을 공 쪽으로 <#ef5350ff>날려 보냅니다<>."
       },
       "league_aphelios": {
         "name": "아펠리오스",
@@ -6284,9 +6284,9 @@
       "league_orianna": {
         "name": "オリアナ",
         "attack": "ぜんまい弾を撃つ。<#ff9028ff>ぜんまい仕掛け<>：通常攻撃が<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の<#a974ffff>魔法ダメージ<>を追加、<#ffb900ff>4秒<>以内の連続攻撃でスタック（最大<#ffb900ff>2<>）。",
-        "skill": "ボールを敵チャンピオンの足元へ投げて残し、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>オーダー: 乱磁場<>：ボールの近くに敵がいると自動で放電し<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>、敵を<#ef5350ff>30%スロウ<>、味方は<#7ee787ff>30%加速<>。",
+        "skill": "ボールを敵チャンピオンの足元へ投げて残し、<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>オーダー: 乱磁場<>：ボールの近くに敵がいると自動で放電し<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>、敵を<#ef5350ff>30%スロウ<>、味方は<#7ee787ff>30%加速<>。",
         "skill2": "敵に最も近い味方へボールを送り（敵に詰められたら自分）、<#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%のシールド<>、通り道の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>。持ち主は物理・魔法防御+12。",
-        "ult": "最大<#ffb900ff>6秒<>待機し、ボールの近くに敵チャンピオン<#ffb900ff>2体<>か孤立した対象がいれば衝撃波：<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、敵をボールへ<#ef5350ff>引き寄せる<>。"
+        "ult": "最大<#ffb900ff>6秒<>待機し、ボールの近くに敵チャンピオンがいれば衝撃波：<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、敵をボールへ<#ef5350ff>引き寄せる<>。"
       },
       "league_aphelios": {
         "name": "アフェリオス",
