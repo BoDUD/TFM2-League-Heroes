@@ -70,10 +70,46 @@ def load(path):
     return np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
 
 
-DESIGN = load(os.path.join(SRC, "hd", "design.png"))
-DH, DW = DESIGN.shape[:2]                         # 84 x 46
+DESIGN0 = load(os.path.join(SRC, "hd", "design.png"))
+DH, DW0 = DESIGN0.shape[:2]                       # 84 x 46
+OP0 = DESIGN0[..., 3] > 0
+# widened (the user, 2026-10-16: 「怎么在局内身体看着感觉有点细 和其他英雄画风不搭」 - her middle 13 game px against Lux's 18
+# and Syndra's 20 - and 「我直接把现在的造型加宽」): WIDEN of the design's columns, spread evenly over the figure, each
+# shown twice (the eyes' and the gear emblem's columns never: they keep their size); every part below is cut in the
+# design's own columns and widened with it, the column numbers in it are the design's (nx() maps them)
+WIDEN = int(os.environ.get("ORIANNA_WIDEN", "18"))   # +39%: her middle 16 game px (the user picked it of 22 / 30 / 39 %)
+KEEP_COLS = {27, 28, 31} | set(range(28, 33))     # the eyes (row 19: 27-28 and 31) and the throat's gear emblem
+
+
+def widened_columns(op, extra):
+    xs = np.nonzero(op.any(0))[0]
+    cand = [x for x in range(xs.min() + 1, xs.max()) if x not in KEEP_COLS]
+    picks = {cand[int((i + 0.5) * len(cand) / extra)] for i in range(extra)} if extra else set()
+    cols = []
+    for x in range(op.shape[1]):
+        cols += [x, x] if x in picks else [x]
+    return cols
+
+
+COLS = widened_columns(OP0, WIDEN)
+
+
+def nx(c):
+    """Design column c's (first) column in the widened design."""
+    return COLS.index(c)
+
+
+def ncx(c):
+    """Design column c's middle in the widened design (a square's centre: c + 0.5 there)."""
+    k = [i for i, v in enumerate(COLS) if v == c]
+    return (k[0] + k[-1] + 1) / 2.0
+
+
+K_W = len(COLS) / DW0                             # the widening factor
+DESIGN = DESIGN0[:, COLS].copy()
+DW = DESIGN.shape[1]
 OP = DESIGN[..., 3] > 0
-FEET_MID = 31                                     # the design's column between the feet
+FEET_MID = nx(31)                                 # the design's column between the feet
 X0, Y0 = PIV_X - FEET_MID, SOLE - (DH - 1)        # where the design's (0, 0) goes standing
 
 
@@ -84,12 +120,12 @@ def palette():
 
 PAL = palette()
 OUTLINE = tuple(int(v) for v in PAL[0])
-TEAL = tuple(int(v) for v in DESIGN[19, 27, :3])  # the eyes' colour (row 19, columns 27-28 and 31)
+TEAL = tuple(int(v) for v in DESIGN0[19, 27, :3])  # the eyes' colour (row 19, columns 27-28 and 31)
 
 # ------------------------------------------------------------------------------------------------- parts (design)
 ARM_TOP = 32                                      # the near arm from this row (the shoulder's gold ball, rows 28-31,
                                                   # stays on the body)
-SHOULDER = (17.5, 32.0)                           # its pivot: the top of the upper arm
+SHOULDER = (ncx(17), 32.0)                        # its pivot: the top of the upper arm (design column 17's middle)
 
 
 def arm_lim(y):
@@ -100,11 +136,12 @@ def arm_lim(y):
 
 
 def mask(pred):
-    m = np.zeros((DH, DW), bool)
+    """A part cut by pred(y, x) in the design's own squares, widened like the design."""
+    m = np.zeros((DH, DW0), bool)
     for y in range(DH):
-        for x in range(DW):
-            m[y, x] = OP[y, x] and pred(y, x)
-    return m
+        for x in range(DW0):
+            m[y, x] = OP0[y, x] and pred(y, x)
+    return m[:, COLS]
 
 
 NEAR_ARM = mask(lambda y, x: ARM_TOP <= y <= 55 and x <= arm_lim(y))
@@ -115,8 +152,8 @@ HEAD_BOTTOM = 23                                  # the bun to the chin
 
 def greyish(y, x):
     """A square of the limbs' metal (grey, silver, white): the skirt is gold, orange and brown, its outline dark."""
-    r, g, b = (int(v) for v in DESIGN[y, x, :3])
-    return OP[y, x] and r + g + b >= 110 and max(r, g, b) - min(r, g, b) < 60
+    r, g, b = (int(v) for v in DESIGN0[y, x, :3])
+    return OP0[y, x] and r + g + b >= 110 and max(r, g, b) - min(r, g, b) < 60
 
 
 # the thighs showing between the skirt's spikes (design rows 47-54, grey squares over the legs' columns): they move with
@@ -136,7 +173,7 @@ def run_leg():
         a[y - RUN_TOP] = row
     xs = np.nonzero(a[..., 3].max(0) > 0)[0]
     a = a[:, xs.min():xs.max() + 1][:, ::-1].copy()
-    hip = a.shape[1] - 1 - (22 - xs.min())       # the leg's top middle column (design column 22)
+    hip = a.shape[1] - 1 - (nx(22) - xs.min())   # the leg's top middle column (design column 22)
     return a, hip
 
 
@@ -171,7 +208,7 @@ TURNS = {
 # where the turned arm's shoulder end goes (columns forward, rows down): an arm turned forward over the chest from the
 # shoulder itself merges with the torso; moved this far it reaches out past the body at chest height, its root on the
 # chest, clear of the neck
-TURN_AT = {"point": (8, -4)}
+TURN_AT = {"point": (round(8 * K_W), -4)}
 
 
 def arm(dst, turn, dx=0, dy=0, under=False):
@@ -285,13 +322,13 @@ LEAGUE_RUN = [(-7.5, 4.3, -3.3, 8.0, 0.0, 5.7), (-7.2, 4.5, -1.5, 3.6, 0.1, 6.5)
               (5.3, 0.0, 3.5, -4.1, 0.3, 1.2), (6.1, 0.2, 3.3, -6.2, 5.6, -0.3), (2.5, 0.0, 3.7, -5.7, 4.8, 1.1),
               (-0.9, 0.0, 2.6, -0.5, 3.0, 5.5), (-4.3, 0.2, -0.4, 5.7, 0.0, 5.6)]
 LEAGUE_HIPS = (-1.6, 1.2)         # League's left / right thigh x (the feet are taken from their own hip)
-RUN_K = 1.0                       # design squares a League px for the feet's swing (PPU 2.2 x 0.45)
+RUN_K = 1.0 * K_W                 # design squares a League px for the feet's swing (PPU 2.2 x 0.45, widened)
 RUN_LIFT = 0.4                    # the lifts: League's foot comes up behind on a folded shin - a turn no lossless move
                                   # makes; lifting the whole leg that high read as a short, floating, dislocated leg
                                   # (「腿部看着很奇怪 感觉还是变形的」), so the legs swing straight like a pendulum and the
                                   # swinging foot only clears the ground
-RUN_BEND = 1.5                    # the swinging leg's knee this many columns ahead of its line
-RUN_HIPS = (22, 32)               # the legs' tops (design columns): the design's own (nearer, the two thighs ran into one
+RUN_BEND = 1.5 * K_W              # the swinging leg's knee this many columns ahead of its line
+RUN_HIPS = (nx(22), nx(32))       # the legs' tops (design columns 22, 32): the design's own (nearer, the two thighs ran into one
                                   # dark block under the skirt)
 RUN_BOB = [0, 1, 2, 1, 0, 1, 2, 1]   # the pelvis is highest at the widest split (League: frames 0 and 4)
 RUN_MS = 169

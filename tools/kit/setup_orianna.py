@@ -38,7 +38,7 @@ G = "<#7ee787ff>"      # shields, haste
 E = "<>"
 # champion_view: face from tfm2_ase.py face; no banpick_center - her idle tops at -27.5 game px (lo_ -27.3), inside the
 # card's -28 like Riven / Vayne / Akali (the card rule sets it only above -28)
-VIEW = {"face": {"x": -3, "y": -36}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": -4, "y": -37}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

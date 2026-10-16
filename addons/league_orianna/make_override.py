@@ -33,7 +33,7 @@ HERO = "league_orianna"
 O, A, M, R, G, E = setup.O, setup.A, setup.M, setup.R, setup.G, setup.E
 APi = setup.APi
 mag = setup.mag
-REFS = ("q", "e", "e_hit", "back", "e_pick", "r_kill")
+REFS = ("q", "e", "e_hit", "back", "e_pick", "r_kill", "e_cast", "e_try")
 # lang -> the add-on's skill, skill2 and ult texts
 NATIVE = {
     "zh-hans": {

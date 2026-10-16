@@ -707,6 +707,42 @@ impl StableEffectType for Kill {
     }
 }
 
+/// 每次 E 真正放出（日志用）：控制器在不在跑、球在哪、离她最近的敌方英雄多远。
+struct ECast;
+
+impl StableEffectType for ECast {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
+        let Some(her) = alive_at(sim, me) else { return };
+        let team = team_of(sim, me);
+        let near = champions(sim, team, false).iter().map(|f| dist(her, f.1)).fold(f64::INFINITY, f64::min);
+        let polling = has_buff(sim, me, &on("polling"));
+        let (_, _, ball) = start(sim, me, her);
+        if let Some(k) = counted("e_cast") {
+            wlog(format!("{} E-CAST #{k}: controller {}, the ball {ball}, nearest enemy champion {near:.0} away",
+                         head(sim, me), if polling { "running" } else { "not running (shield on herself)" }));
+        }
+    }
+}
+
+/// E 走到「送给队友」这一步（日志用）：范围内的队友、其中身边有敌方英雄的。
+struct ETry;
+
+impl StableEffectType for ETry {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
+        let Some(her) = alive_at(sim, me) else { return };
+        let p = params_of(me);
+        let team = team_of(sim, me);
+        let foes = champions(sim, team, false);
+        let mates: Vec<_> = champions(sim, team, true).into_iter()
+            .filter(|a| a.0 != me && dist(her, a.1) <= p.e_range as f64).collect();
+        let fighting = mates.iter().filter(|a| foes.iter().any(|f| dist(a.1, f.1) <= p.e_near as f64)).count();
+        if let Some(k) = counted("e_try") {
+            wlog(format!("{} E-TRY #{k}: {} allies within {}, {fighting} with an enemy champion within {}",
+                         head(sim, me), mates.len(), p.e_range, p.e_near));
+        }
+    }
+}
+
 /// 只画画面的投射物（Q / E 的球、飞回来的球）碰到东西时什么都不做。
 struct Noop;
 
@@ -819,6 +855,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:e_pick"), Pick);
     module.add_native_effect(format!("{ID}:r_kill"), Kill);
     module.add_native_effect(format!("{ID}:noop"), Noop);
+    module.add_native_effect(format!("{ID}:e_cast"), ECast);
+    module.add_native_effect(format!("{ID}:e_try"), ETry);
     host.log(LogLevel::Info, "league_orianna loaded (the Ball from where it is, Protect to the ally in danger, Shockwave for a kill).");
 }
 

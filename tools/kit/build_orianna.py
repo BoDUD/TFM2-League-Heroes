@@ -80,8 +80,6 @@ P = {
     "e_cd": 540, "e_range": 75000, "e_dur": 18, "e_st": 6, "e_self": 22000, "e_near": 40000,
     "e_sh": 60, "e_ap": 45, "e_t": 150, "e_speed": 3500, "e_y": -3000, "e_dmg": 60, "e_dap": 30, "e_len": 60000,
     "e_w": 8000, "e_def": 12, "e_ride": 600, "e_period": 4,
-    # the magic damage the game's AI reads for E between ticks (the e_x trick in build): enough to be worth a cast
-    "e_ai": 1,
     # R (League: 225-475 + 110% AP radius 415 after 0.5 s, flung 325 units, cd 110-80 s)
     "r_cd": 4200, "r_slot": 90000, "r_arm": 360, "r_reset": 4900, "r_delay": 30, "r_r": 36000, "r_iso": 70000,
     "r_dmg": 250, "r_ap": 100, "r_pull": 2400, "r_pull_t": 12, "r_anim": 36,
@@ -415,8 +413,8 @@ def build(p):
                        on_me(shield(p["e_sh"], p["e_ap"], p["e_t"]), view("e_shield")))
 
     if nat:
-        beside = around(p["e_range"], "AllyNotSelf", [native("e_pick"), sw("e_this", combine(
-            *rm("e_this"), sw("e_lock", NONE, send())))])
+        beside = combine(native("e_try"), around(p["e_range"], "AllyNotSelf", [native("e_pick"), sw("e_this", combine(
+            *rm("e_this"), sw("e_lock", NONE, send())))]))
     else:
         beside = pick(p["e_range"], "EnemyChampion",
                       lob("e_look", 1, "EnemyChampion", [pick(p["e_near"], "AllyNotSelf", sw("e_lock", NONE, send()),
@@ -467,9 +465,12 @@ def build(p):
                 combine(on_me(shield(p["e_sh"], p["e_ap"], p["e_t"]), view("e_shield")), sfx("e")))
     # Q's q_x trick: the game's AI scores the branch the flags pick between ticks, and with the controller running that
     # was a bare flag - worth nothing, so in game E was hardly ever cast (the add-on's log, 2026-10-16: one E in a
-    # 10-minute match; the classic SDK's AI casts it anyway). e_x is never there between ticks, so the AI reads e_ai
-    # magic damage on the champion it targets; when the slot runs, the flag is up and the real branch goes
-    e_go = combine(flag("e_x", 1), sw("e_x", combine(*rm("e_x"), e_real), magic(p["e_ai"], 0)), *rm("e_x"))
+    # 10-minute match; the classic SDK's AI casts it anyway). e_x is never there between ticks, so the AI reads E's
+    # shield (a shield is worth its full amount on anyone - league_janna's E; damage there made the classic AI play
+    # worse: 6% less damage dealt, and 1 damage left the game's AI casting E 1-2 times a match); when the slot runs,
+    # the flag is up and the real branch goes
+    e_go = combine(flag("e_x", 1), sw("e_x", combine(*rm("e_x"), native("e_cast"), e_real),
+                                      on_me(shield(p["e_sh"], p["e_ap"], p["e_t"]))), *rm("e_x"))
     skill2 = action("skill_e", p["e_dur"], p["e_cd"], p["e_st"], p["e_range"], "Targeting", "EnemyChampion",
                     combine(init, voice("vo_e", p), e_go), key="skill2")
 
