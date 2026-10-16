@@ -12,7 +12,8 @@ the ground. The user: 「完成下一步 有问题的地方你帮忙修复 然�
      brought back by taking whole rows and columns out (design_akali.dp_keep: never two neighbours, the soles' row
      kept) round the feet;
   2. place: every standing frame moved so the middle of his two feet (their purple in the bottom rows) is where the
-     design's is - Codex put most frames 10-20 columns to the right, so the actions jumped sideways;
+     design's is - Codex put most frames 10-20 columns to the right, so the actions jumped sideways; the design stands
+     with its torso (not its feet) over the pivot (DESIGN_AT);
   3. heads: Codex's own kept. Its heads are the design's size with the same black spikes, pink eye and teeth (Temp
      md_work/heads_cmp.png); pasting the design head over them (by colour or by the hair) landed on shoulders and chests
      in a third of the frames and left two heads - the Kalista paste is not used;
@@ -46,7 +47,10 @@ SRC = os.path.join(ROOT, "assets", "source", "drmundo")
 CODEX = os.path.join(SRC, "codex_strips")
 OUT = os.path.join(SRC, "frames")
 COLS, ROWS, SOLE, PIV_X = 219, 146, 138, 100
-DESIGN_AT = (48, 49)                     # design A on the canvas (its feet middle on the pivot)
+# design A on the canvas: its torso's middle (design column 70) on the pivot - the pivot between his feet left his body
+# 8 game px to the right of it, so every picture on him (the shock, the rings, the dose) sat off his body, and
+# a picture's offset cannot follow him to the red side (pictures are never mirrored)
+DESIGN_AT = (30, 49)
 SPECK = 6
 
 

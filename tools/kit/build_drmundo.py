@@ -278,12 +278,14 @@ def build(p):
     can_break = sw("can", combine(*rm("can"), view("p_break"), sfx("p_break")))
     # the tank lies in links of p_link ticks, each starting the next where it ends while `can` holds: a zone cannot be
     # taken away, so a tank in one p_can_t-long zone stayed drawn after he picked it up or an enemy broke it
+    # the tank's picture is a ground ViewEffect played by each link (a zone's own picture turns with it: on the red side
+    # the tank stood on its head over the ground line)
     def tank(k, first):
-        nxt = [T(sw("can", combine(*tank(k - 1, 0))))] if k > 1 else []      # a zone's end_effects are targeted
-        z = pzone("p_tank", p["p_can_r"], p["p_link"], 6, first, "AllyOnlySelf", [can_pick])
+        nxt = [T(sw("can", combine(view("p_tank"), *tank(k - 1, 0))))] if k > 1 else []   # zones' end_effects: targeted
+        z = pzone("p_tank_z", p["p_can_r"], p["p_link"], 6, first, "AllyOnlySelf", [can_pick])
         z["end_effects"] = nxt
         return [z, pzone("p_tank_e", p["p_can_r"], p["p_link"], 6, first, "EnemyChampion", [can_break])]
-    canister = [refresh("can", p["p_can_t"]), view("p_land"), sfx("p_land"),
+    canister = [refresh("can", p["p_can_t"]), view("p_land"), view("p_tank"), sfx("p_land"),
                 *tank(p["p_can_t"] // p["p_link"], p["p_arm"])]
     shake = combine(flag("p_cd", p["p_cd"]), flag("p_imm", p["p_imm"], cc_immune=True), cview("p_shake"), sfx("p_shake"),
                     voice("vo_p", p), lob("p_drop", p["p_fly"], 30000, "AllyOnlySelf", canister))
@@ -376,10 +378,10 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    views_p = [P_("q_saw"), P_("e_fling"), P_("p_tank", FX, 0)]
+    views_p = [P_("q_saw"), P_("e_fling")]
     views_e = [E("a_hit"), E("e_hit"), E("e_fling_hit"), E("q_hit"), E("q_heal", FX, 3),
                E("w_start", BIG, 1), E("w_zap"), E("w_burst", BIG, 1), E("w_end_hit"), E("r_cast", BIG, 3),
-               E("p_shake", FX, 3), E("p_land", FX, 0, False), E("p_pick", FX, 3, False), E("p_break", FX, 2, False)]
+               E("p_shake", FX, 3), E("p_land", FX, 0, False), E("p_tank", FX, 0, False), E("p_pick", FX, 3, False), E("p_break", FX, 2, False)]
     views_b = [B_("q_slow", FX, -1), B_("w_on", BIG, -1), B_("r_on", FX, 3)]
     kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "Heal"],

@@ -193,7 +193,7 @@ RESTYLE = {
     # tools/art/import_drmundo_strips.py) brought to the user's PPU 1.5 by tools/art/rig_drmundo.py (「选 A，42 行，PPU
     # 1.5」), so no proportion or density change here; the outer outline grown a square like the others; the face point
     # by tfm2_ase.py face (his crown, a little ahead of the head centre)
-    "drmundo": dict(ppu=1.5, edge=1, face_to=(7, -38)),
+    "drmundo": dict(ppu=1.5, edge=1, face_to=(-1, -38)),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

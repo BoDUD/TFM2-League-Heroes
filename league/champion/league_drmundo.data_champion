@@ -241,12 +241,16 @@
                                           "name": "league_drmundo_p_land"
                                         },
                                         {
+                                          "type": "ViewEffect",
+                                          "name": "league_drmundo_p_tank"
+                                        },
+                                        {
                                           "type": "Sfx",
                                           "name": "league_drmundo_p_land"
                                         },
                                         {
                                           "type": "RangePeriodProjectile",
-                                          "name": "league_drmundo_p_tank",
+                                          "name": "league_drmundo_p_tank_z",
                                           "shape": {
                                             "Circle": {
                                               "radius": 9000
@@ -319,8 +323,12 @@
                                                   "type": "Combine",
                                                   "effects": [
                                                     {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_tank"
+                                                    },
+                                                    {
                                                       "type": "RangePeriodProjectile",
-                                                      "name": "league_drmundo_p_tank",
+                                                      "name": "league_drmundo_p_tank_z",
                                                       "shape": {
                                                         "Circle": {
                                                           "radius": 9000
@@ -393,8 +401,12 @@
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_drmundo_p_tank"
+                                                                },
+                                                                {
                                                                   "type": "RangePeriodProjectile",
-                                                                  "name": "league_drmundo_p_tank",
+                                                                  "name": "league_drmundo_p_tank_z",
                                                                   "shape": {
                                                                     "Circle": {
                                                                       "radius": 9000
@@ -467,8 +479,12 @@
                                                                           "type": "Combine",
                                                                           "effects": [
                                                                             {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_drmundo_p_tank"
+                                                                            },
+                                                                            {
                                                                               "type": "RangePeriodProjectile",
-                                                                              "name": "league_drmundo_p_tank",
+                                                                              "name": "league_drmundo_p_tank_z",
                                                                               "shape": {
                                                                                 "Circle": {
                                                                                   "radius": 9000
@@ -541,8 +557,12 @@
                                                                                       "type": "Combine",
                                                                                       "effects": [
                                                                                         {
+                                                                                          "type": "ViewEffect",
+                                                                                          "name": "league_drmundo_p_tank"
+                                                                                        },
+                                                                                        {
                                                                                           "type": "RangePeriodProjectile",
-                                                                                          "name": "league_drmundo_p_tank",
+                                                                                          "name": "league_drmundo_p_tank_z",
                                                                                           "shape": {
                                                                                             "Circle": {
                                                                                               "radius": 9000
@@ -1698,12 +1718,16 @@
                                           "name": "league_drmundo_p_land"
                                         },
                                         {
+                                          "type": "ViewEffect",
+                                          "name": "league_drmundo_p_tank"
+                                        },
+                                        {
                                           "type": "Sfx",
                                           "name": "league_drmundo_p_land"
                                         },
                                         {
                                           "type": "RangePeriodProjectile",
-                                          "name": "league_drmundo_p_tank",
+                                          "name": "league_drmundo_p_tank_z",
                                           "shape": {
                                             "Circle": {
                                               "radius": 9000
@@ -1776,8 +1800,12 @@
                                                   "type": "Combine",
                                                   "effects": [
                                                     {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_drmundo_p_tank"
+                                                    },
+                                                    {
                                                       "type": "RangePeriodProjectile",
-                                                      "name": "league_drmundo_p_tank",
+                                                      "name": "league_drmundo_p_tank_z",
                                                       "shape": {
                                                         "Circle": {
                                                           "radius": 9000
@@ -1850,8 +1878,12 @@
                                                               "type": "Combine",
                                                               "effects": [
                                                                 {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_drmundo_p_tank"
+                                                                },
+                                                                {
                                                                   "type": "RangePeriodProjectile",
-                                                                  "name": "league_drmundo_p_tank",
+                                                                  "name": "league_drmundo_p_tank_z",
                                                                   "shape": {
                                                                     "Circle": {
                                                                       "radius": 9000
@@ -1924,8 +1956,12 @@
                                                                           "type": "Combine",
                                                                           "effects": [
                                                                             {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_drmundo_p_tank"
+                                                                            },
+                                                                            {
                                                                               "type": "RangePeriodProjectile",
-                                                                              "name": "league_drmundo_p_tank",
+                                                                              "name": "league_drmundo_p_tank_z",
                                                                               "shape": {
                                                                                 "Circle": {
                                                                                   "radius": 9000
@@ -1998,8 +2034,12 @@
                                                                                       "type": "Combine",
                                                                                       "effects": [
                                                                                         {
+                                                                                          "type": "ViewEffect",
+                                                                                          "name": "league_drmundo_p_tank"
+                                                                                        },
+                                                                                        {
                                                                                           "type": "RangePeriodProjectile",
-                                                                                          "name": "league_drmundo_p_tank",
+                                                                                          "name": "league_drmundo_p_tank_z",
                                                                                           "shape": {
                                                                                             "Circle": {
                                                                                               "radius": 9000
@@ -4491,12 +4531,16 @@
                                       "name": "league_drmundo_p_land"
                                     },
                                     {
+                                      "type": "ViewEffect",
+                                      "name": "league_drmundo_p_tank"
+                                    },
+                                    {
                                       "type": "Sfx",
                                       "name": "league_drmundo_p_land"
                                     },
                                     {
                                       "type": "RangePeriodProjectile",
-                                      "name": "league_drmundo_p_tank",
+                                      "name": "league_drmundo_p_tank_z",
                                       "shape": {
                                         "Circle": {
                                           "radius": 9000
@@ -4569,8 +4613,12 @@
                                               "type": "Combine",
                                               "effects": [
                                                 {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_drmundo_p_tank"
+                                                },
+                                                {
                                                   "type": "RangePeriodProjectile",
-                                                  "name": "league_drmundo_p_tank",
+                                                  "name": "league_drmundo_p_tank_z",
                                                   "shape": {
                                                     "Circle": {
                                                       "radius": 9000
@@ -4643,8 +4691,12 @@
                                                           "type": "Combine",
                                                           "effects": [
                                                             {
+                                                              "type": "ViewEffect",
+                                                              "name": "league_drmundo_p_tank"
+                                                            },
+                                                            {
                                                               "type": "RangePeriodProjectile",
-                                                              "name": "league_drmundo_p_tank",
+                                                              "name": "league_drmundo_p_tank_z",
                                                               "shape": {
                                                                 "Circle": {
                                                                   "radius": 9000
@@ -4717,8 +4769,12 @@
                                                                       "type": "Combine",
                                                                       "effects": [
                                                                         {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_drmundo_p_tank"
+                                                                        },
+                                                                        {
                                                                           "type": "RangePeriodProjectile",
-                                                                          "name": "league_drmundo_p_tank",
+                                                                          "name": "league_drmundo_p_tank_z",
                                                                           "shape": {
                                                                             "Circle": {
                                                                               "radius": 9000
@@ -4791,8 +4847,12 @@
                                                                                   "type": "Combine",
                                                                                   "effects": [
                                                                                     {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_drmundo_p_tank"
+                                                                                    },
+                                                                                    {
                                                                                       "type": "RangePeriodProjectile",
-                                                                                      "name": "league_drmundo_p_tank",
+                                                                                      "name": "league_drmundo_p_tank_z",
                                                                                       "shape": {
                                                                                         "Circle": {
                                                                                           "radius": 9000
@@ -5385,14 +5445,6 @@
       "tag": "e_fling",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_drmundo_p_tank",
-      "anim": "asset/league/effects/league_drmundo_fx",
-      "tag": "p_tank",
-      "repeat": true,
-      "z": 0
     }
   ],
   "view_effects": [
@@ -5489,6 +5541,14 @@
       "name": "league_drmundo_p_land",
       "anim": "asset/league/effects/league_drmundo_fx",
       "tag": "p_land",
+      "z": 0,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_drmundo_p_tank",
+      "anim": "asset/league/effects/league_drmundo_fx",
+      "tag": "p_tank",
       "z": 0,
       "is_follow": false
     },
