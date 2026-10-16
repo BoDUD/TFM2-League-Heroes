@@ -3,7 +3,7 @@
 
     python tools/art/preview_nami.py [--out docs/preview]
 
-  league_nami_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_nami_frames.png    every animation's dense frames (hd_, PPU 1.5, as league.dll shows them)
   league_nami_effects.png   every effect animation, 3x
   league_nami_showcase.gif  a scripted fight with Lucian behind her against Darius and Garen, timed like the kit: Nami
                             swims in and her orb shoots two water bolts at Darius; Ebb and Flow's stream hits Darius,
@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -60,7 +61,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, to=None):
         nonlocal t
-        an = Anim(frames_of(nami, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Anim(dense(nami, tag, "nami", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
@@ -80,7 +81,7 @@ def showcase(out, z=3, step=40):
 
     orb = (x + 16, gy - 17)                           # the staff's orb when she thrusts it
     # she swims in; Garen walks up behind Darius
-    run_in = Anim(frames_of(nami, "run"), 0.0, x - 44, gy, loop=True, until=1000, x1=x)
+    run_in = Anim(dense(nami, "run", "nami", z), 0.0, x - 44, gy, loop=True, until=1000, x1=x)
     body.append(run_in)
     t = run_in.until
     g.walks.append((600.0, 3000.0, 144 - g.x))
@@ -144,11 +145,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, px, py, z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -167,7 +168,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -185,7 +186,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_nami_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_nami_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

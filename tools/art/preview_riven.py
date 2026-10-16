@@ -3,7 +3,7 @@
 
     python tools/art/preview_riven.py [--out docs/preview]
 
-  league_riven_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_riven_frames.png    every animation's dense frames (hd_, PPU 1.5, as league.dll shows them)
   league_riven_effects.png   every effect animation, 3x
   league_riven_showcase.gif  a scripted fight against Darius, timed like the kit (60 ticks a second): Riven runs in
                              and chops (the plain hit); Broken Wings' first strike hops onto him (the slash and the
@@ -28,6 +28,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jinx import Follow, Walker  # noqa: E402
 from preview_yone import Path  # noqa: E402
@@ -58,17 +59,28 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, way=None):
         nonlocal t
-        an = Path(frames_of(riven, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or ())
+        an = Path(dense(riven, tag, "riven", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or ())
         body.append(an)
         t = an.until
 
     def reforged(tag):
         return f"{tag}_r" if r_on is not None else tag
 
+    # the effect layers assets/source/native/riven_bake.json draws into her own frames (the tags below carry them, as
+    # in the game): drawn again here they doubled
+    baked = {"q1_back", "q1_front", "q2_back", "q2_front", "q3_back", "e_back", "e_front", "r_on_back", "r_on_front",
+             "r_slash_back"}
+    # the tags the kit plays for a cast without and with the reforged blade (league_riven.data_champion)
+    played = {"skill": ("skill_fx1", "skill_r"), "q2": ("q2", "q2_r"), "q3": ("q3", "q3_r"),
+              "skill2": ("skill2_fx1", "skill2_r")}
+
     def overlay(sheet, name, t0):
-        """Codex's effect drawn on her strip: the back layer under the units, the front layer over them."""
-        under.append(Follow(frames_of(sheet, f"{name}_back"), t0, x, gy, on=body, z=-1))
-        if f"{name}_front" in [tg["name"] for tg in sheet.tags]:
+        """Codex's effect drawn on her strip: the back layer under the units, the front layer over them (the layers
+        not baked into her frames)."""
+        names = [tg["name"] for tg in sheet.tags]
+        if f"{name}_back" in names and f"{name}_back" not in baked:
+            under.append(Follow(frames_of(sheet, f"{name}_back"), t0, x, gy, on=body, z=-1))
+        if f"{name}_front" in names and f"{name}_front" not in baked:
             over.append(Follow(frames_of(sheet, f"{name}_front"), t0, x, gy, on=body, z=2))
 
     def count(at):
@@ -86,7 +98,7 @@ def showcase(out, z=3, step=40):
         start = t
         overlay(small, name, start)
         runes.append((start, 1))
-        a(reforged(tag), tick(ticks), way=[(start + tick(3), x), (start + tick(9), to)])
+        a(played[tag][1 if r_on is not None else 0], tick(ticks), way=[(start + tick(3), x), (start + tick(9), to)])
         x = to
         hit = start + tick(hit_tick)
         d.flinches.append(hit)
@@ -130,7 +142,7 @@ def showcase(out, z=3, step=40):
     over.append(Follow(shield_in, start, x, gy, on=body, z=2))
     over.append(Follow(frames_of(big, "shield"), start + t_in, x, gy, loop=True, until=start + SHIELD, on=body, z=2))
     over.append(Follow(frames_of(big, "shield_out"), start + SHIELD, x, gy, on=body, z=2))
-    a("skill2", tick(33), way=[(start + tick(2), x), (start + tick(8), 152)])
+    a(played["skill2"][0], tick(33), way=[(start + tick(2), x), (start + tick(8), 152)])
     x = 152
     hit = start + tick(13)
     runes.append((hit, 1))
@@ -146,7 +158,7 @@ def showcase(out, z=3, step=40):
     runes.append((start, 1))
     aura = Follow(frames_of(big, "r_aura"), start, x, gy, loop=True, until=None, on=body, z=-2)
     under.append(aura)
-    a("ult", tick(31))
+    a("ult_fx1", tick(31))
     r_on = start
     a("idle", 200, loop=True)
     attack()
@@ -156,8 +168,7 @@ def showcase(out, z=3, step=40):
     g.walks.append((t - 900, t + 300, -64))
     a("idle", 400, loop=True)
     start = t
-    under.append(Follow(frames_of(small, "r_slash_back"), start, x, gy, on=body, z=-1))
-    a("r_slash", tick(29))
+    a("r_slash_fx1", tick(29))
     launch = start + tick(8)
     x1 = x + WAVE_LEN
     over.append(Anim(frames_of(small, "r_wave"), launch, x, gy - WAVE_LIFT, loop=True,
@@ -186,11 +197,11 @@ def showcase(out, z=3, step=40):
             over.append(Follow(frames_of(small, f"rune_{k}"), on_, x, gy, loop=True, until=end, on=body, z=4))
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (int(px) - f.width // 2, int(py) - f.height // 2))
+        put(img, f, px, py, z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in sorted(under, key=lambda o: o.z):
             f = an.frame(tt)
             if f is not None:
@@ -208,7 +219,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -226,7 +237,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_riven_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_riven_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)
