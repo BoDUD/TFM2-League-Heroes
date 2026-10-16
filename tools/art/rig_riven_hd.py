@@ -40,20 +40,22 @@ BAND = 41                                    # legs start below this row
 # knee - a thigh and a lower leg turned apart - the knee showed a step). (hip, knee, sole) in design squares
 NEAR = ((15.5, 33.2), (9, 44.2), (3.5, 58.8))
 FAR = ((27.5, 34.5), (34.5, 45.5), (42, 59.3))
-# the run after League's (tools/lol/native_pose.py assets/source/riven/poses.json run; 「锐雯走路姿势不对啊」 - her
-# wide stance kept, the legs barely moved): her hips brought together under her skirt (she turns side-on to run) and
-# each straight leg swung forward and back as a whole from its hip - a scissor stride, the near leg forward in frames
-# 1-2 and back in 5-6, the far leg the other way, crossing just under the hem like a side view's. The leg swinging
-# forward is lifted (its top goes up under her skirt), the body comes down as the stride opens so the planted feet stay
-# on the ground, the blade held low ahead as League's. Degrees past straight down (counter-clockwise on screen = the
-# foot forward); the far leg's are the near leg's negated
-RUN_NEAR = [24, 13, 0, -13, -24, -13, 0, 13]
-NEAR_LIFT = [0, 0, 0, 0, 0, 2, 3, 2]
-FAR_LIFT = [0, 2, 3, 2, 0, 0, 0, 0]
-RUN_HIPS = (3, -3)                           # columns the near / far leg moves in under her skirt
+# the run after League's (tools/lol/native_pose.py assets/source/riven/poses.json run). Straight legs swung from the
+# hips (「你觉得对吗 两个腿这样走路的？」) and a wide stance barely moved (「锐雯走路姿势不对啊」) were both wrong: a run bends
+# the knees - the front leg reaching with the knee nearly straight, the back leg pushing off and the foot kicked up
+# behind with the shin folded. Both legs are her far (right) leg cut from the picture in two - the thigh (its top
+# carried on up under the skirt) and the shin with the boot, the knee's wrap shared so the joint never opens - because
+# its boot points forward (the near boot in the picture points out to the left: running right, that foot pointed back).
+# Per phase (thigh, shin) in degrees from straight down, positive = the foot forward; the near leg in phase i, the far
+# leg 4 phases on; the body set so the lower sole stands on the ground; hips 3 columns in each under the skirt.
+RUN_GAIT = [(28, 6), (16, -6), (2, -10), (-14, -24), (-26, -56), (-14, -96), (14, -74), (32, -22)]
+RUN_HIPS = (3, -3)
 RUN_LEAN = 2                                 # columns her upper body leans ahead of her hips
-LEG_LEN = 26.0                               # hip to sole, design squares
 RUN_SWORD = [26, 24, 22, 24, 26, 24, 22, 24]
+# the run leg in picture pixels (the far leg): its outline region, the knee line, the sword's lower edge to keep out
+RUN_LEG_AREA = [(312, 405), (402, 405), (428, 468), (472, 540), (478, 600), (525, 640), (600, 676), (600, 756),
+                (440, 756), (432, 700), (392, 640), (372, 580), (336, 520), (306, 468)]
+SWORD_EDGE = ((420, 476), (600, 640))       # picture pixels above this line (right of x 420) are the sword's
 
 
 def vertical(leg):
@@ -115,6 +117,7 @@ def design():
                 fills=[[(22, 12), (27, 13), (28, 20), (27.5, 27), (27, 33), (22, 33)]])
     D.part("upper", D.rest(), take=False)
     D.green = reforged(D.pic)
+    run_legs(D)
     return D
 
 
@@ -142,12 +145,103 @@ def pose(rig, up=(0, 0), sword=0, whole=(0, 0), near=0, far=0, green=False, lift
     return R.compose(rig, layers)
 
 
+def run_legs(D):
+    """The run's thigh and shin (Design props "run_thigh", "run_shin") from the far leg in the picture: the leg's own
+    pixels (skin, wraps, leather, boot, outline; not the skirt's greens, not the sword), split across the knee with an
+    overlap (the thigh to 1.6 squares below the knee, the shin from 1.8 above it); the thigh's top row carried on up
+    along the thigh to 2 squares above the hip, under the skirt, so no gap opens there when it turns. D.run_src is the
+    picture with that extension painted in."""
+    from PIL import Image, ImageDraw
+    pic = D.pic
+    H, W = pic.shape[:2]
+    img = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(img).polygon(RUN_LEG_AREA, fill=1)
+    area = np.asarray(img, bool) & (pic[..., 3] > 0)
+    yy, xx = np.mgrid[0:H, 0:W]
+    (sx0, sy0), (sx1, sy1) = SWORD_EDGE
+    area &= ~((xx > sx0) & (yy < sy0 + (xx - sx0) * (sy1 - sy0) / (sx1 - sx0)))
+    rgb = pic[..., :3].astype(int)
+    skirt = (rgb[..., 1] >= rgb[..., 0] - 12) & (rgb[..., 2] < rgb[..., 1] - 12) & (rgb.sum(-1) > 90)
+    leg = area & ~skirt
+    # the leg is the biggest piece of that (skirt crumbs and strap ends off)
+    lbl, n = ndimage.label(leg, structure=np.ones((3, 3)))
+    sz = ndimage.sum(leg, lbl, range(1, n + 1))
+    leg = lbl == (1 + int(np.argmax(sz)))
+    leg = ndimage.binary_fill_holes(leg) & (pic[..., 3] > 0)
+    hip, knee = (np.array(D.d2p(*v)) for v in (FAR[0], FAR[1]))
+    u = (knee - hip) / np.hypot(*(knee - hip))
+    along = (xx - knee[0]) * u[0] + (yy - knee[1]) * u[1]       # picture px past the knee, along the thigh
+    sq = 1 / D.k
+    thigh = leg & (along <= 1.6 * sq)
+    shin = leg & (along >= -1.8 * sq)
+    # the thigh carried up: each picture row above its top visible row copies that row, moved along the thigh
+    src = pic.copy()
+    rows = np.nonzero(thigh.any(1))[0]
+    top = rows.min() + 2
+    ref = np.nonzero(thigh[top])[0]
+    for y in range(int(hip[1] - 2 * sq), top):
+        dx = int(round((y - top) * u[0] / u[1]))
+        xs = ref + dx
+        ok = (xs >= 0) & (xs < W)
+        src[y, xs[ok]] = pic[top, ref[ok]]
+        thigh[y, xs[ok]] = True
+    for name, m in (("run_thigh", thigh), ("run_shin", shin)):
+        D.props.add(name)
+        D.prop_masks[name] = m
+        D.polys[name] = RUN_LEG_AREA
+    D.run_src = src
+
+
+def turned_point(p, about, deg):
+    """p turned deg counter-clockwise on screen about `about` (design squares)."""
+    th = np.radians(deg)
+    ax, ay = about
+    return np.array((ax + (p[0] - ax) * np.cos(th) + (p[1] - ay) * np.sin(th),
+                     ay - (p[0] - ax) * np.sin(th) + (p[1] - ay) * np.cos(th)))
+
+
+def heading(v):
+    """Degrees from straight down of a design vector, positive = toward +x (forward)."""
+    return float(np.degrees(np.arctan2(v[0], v[1])))
+
+
+def run_leg(hip_to, t1, t2, dx, dy):
+    """compose() layers (shin first, then the thigh over the knee) for a run leg with its hip at hip_to (design
+    squares, before the whole move dx, dy), the thigh at t1 and the shin at t2 degrees from straight down. -> (layers,
+    sole design position)."""
+    hip, knee, sole = (np.array(v, float) for v in FAR)
+    r1 = round((t1 - heading(knee - hip)) / 2) * 2
+    r2 = round((t2 - heading(sole - knee)) / 2) * 2
+    hx, hy = int(round(hip_to[0] - hip[0])), int(round(hip_to[1] - hip[1]))
+    k_at = turned_point(knee, hip, r1) + (hx, hy)
+    kx, ky = int(round(k_at[0] - knee[0])), int(round(k_at[1] - knee[1]))
+    s_at = turned_point(sole, knee, r2) + (kx, ky)
+    src = DESIGN.run_src
+    return [("run_shin", dict(dx=kx + dx, dy=ky + dy, angle=r2, about=tuple(knee), src=src)),
+            ("run_thigh", dict(dx=hx + dx, dy=hy + dy, angle=r1, about=tuple(hip), src=src))], s_at
+
+
 def run_frame(rig, i):
-    n, f = RUN_NEAR[i], -RUN_NEAR[i]
-    drop = int(round(LEG_LEN * (1 - np.cos(np.radians(abs(n))))))
-    return pose(rig, up=(1, 0), whole=(0, drop), sword=RUN_SWORD[i], near=vertical(NEAR) + n,
-                far=vertical(FAR) + f, lift=(NEAR_LIFT[i], FAR_LIFT[i]), hips=RUN_HIPS,
-                lean=RUN_LEAN)
+    D = rig.D
+    up = (1, 0)
+    legs, soles = [], []
+    for leg, ph, hx in ((FAR, (i + 4) % 8, RUN_HIPS[1]), (NEAR, i, RUN_HIPS[0])):
+        hip_to = (leg[0][0] + hx, leg[0][1])
+        lay, sole = run_leg(hip_to, *RUN_GAIT[ph], 0, 0)
+        legs.append(lay)
+        soles.append(sole)
+    drop = int(round(FAR[2][1] - max(s[1] for s in soles)))    # the lower sole on the ground
+    wx, wy = up[0], drop
+    layers = []
+    for lay in legs:
+        for name, o in lay:
+            o = dict(o)
+            o["dx"] += wx
+            o["dy"] += wy
+            layers.append((name, o))
+    layers.append(("upper", dict(dx=wx + RUN_LEAN, dy=wy)))
+    layers.append(("sword", dict(dx=wx + RUN_LEAN, dy=wy, angle=RUN_SWORD[i], about=SHOULDER)))
+    return R.compose(rig, layers)
 
 
 def lying(rig, sword=123):
