@@ -293,7 +293,7 @@ impl Void {
                 }
                 continue;
             };
-            let mut mark = BuffV1::timed(&sn("e_markb"), self.p.e_t);
+            let mark = BuffV1::timed(&sn("e_markb"), self.p.e_t);
             sim.entity_remove_buff(next, &sn("e_markb"));
             sim.add_buff(next, &mark);
             sim.play_sfx(&sn("e_jump"), me, &InputTargetV1::target(next));

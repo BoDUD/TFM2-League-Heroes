@@ -14602,5 +14602,117 @@
   "asset/base/sound/sfx/league_pantheon_sfx_w_tri": {
     "remapping": "asset/league/sound/sfx/league_pantheon_sfx_w_tri",
     "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_a_shot": {
+    "remapping": "asset/league/sound/sfx/league_orianna_a_shot",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_a_hit": {
+    "remapping": "asset/league/sound/sfx/league_orianna_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_q": {
+    "remapping": "asset/league/sound/sfx/league_orianna_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_q_land": {
+    "remapping": "asset/league/sound/sfx/league_orianna_q_land",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_orianna_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_w": {
+    "remapping": "asset/league/sound/sfx/league_orianna_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_e": {
+    "remapping": "asset/league/sound/sfx/league_orianna_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_e_shield": {
+    "remapping": "asset/league/sound/sfx/league_orianna_e_shield",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_r": {
+    "remapping": "asset/league/sound/sfx/league_orianna_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_orianna_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_orianna_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_vo_w": {
+    "remapping": "asset/league/sound/sfx/league_orianna_vo_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_vo_e": {
+    "remapping": "asset/league/sound/sfx/league_orianna_vo_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_orianna_vo_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_a_hit": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_a_shot": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_a_shot",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_e": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_e_shield": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_e_shield",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_q": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_q_land": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_q_land",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_r": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_vo_e": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_vo_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_vo_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_vo_w": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_vo_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_orianna_sfx_w": {
+    "remapping": "asset/league/sound/sfx/league_orianna_sfx_w",
+    "type": "override"
   }
 }
