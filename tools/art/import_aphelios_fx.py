@@ -55,6 +55,8 @@ MOD = os.path.join(ROOT, "league")
 SHEET = os.path.join(MOD, "champions", "league_aphelios")
 FEET = 11                       # game px from the pivot down to the soles' row
 RING = (0, 9)                   # a ring on the ground round a unit's feet (the ellipse's middle 2 over the soles)
+SOLE_RING = (0, FEET)           # the low buff rings (5-7 rows): their middle on the soles, the front half below the feet
+                                # (2 over the soles his coat and legs hid all but the tips)
 HIT = (0, -10)                  # a hit on the upper body (his and the ADCs' 36-47 px)
 SIZE = 0.90                     # hd.rs SIZES: league_aphelios
 MS = 1000 / 60
@@ -134,11 +136,11 @@ FX = {
     "swap": ("swap", 0, "lr", False, "feet", (0, FEET), seq(range(5), [50, 60, 70, 80, 90]), None),
     "q_s_on": ("q_s_on", 0, "lr", False, "mid", RING, loop(4, P["q_s_t"] * MS, 90), None),
     # buffs (Animated, looping on the unit)
-    **{f"mw_{w}": ("mw", 0, "lr", False, "mid", RING, seq(range(4), [130] * 4), w) for w in WEAPONS},
-    "g_slow": ("g_slow", 0, "lr", False, "mid", RING, seq(range(4), [100] * 4), None),
-    "q_s_haste": ("q_s_haste", 0, "lr", False, "mid", RING, seq(range(4), [80] * 4), None),
-    # the chakrams' orbit (20 rows over the cell's bottom) round his chest
-    "cre": ("cre", 0, "lr", False, ("row", 20), (0, -13), seq(range(4), [110] * 4), None),
+    **{f"mw_{w}": ("mw", 0, "lr", False, "mid", SOLE_RING, seq(range(4), [130] * 4), w) for w in WEAPONS},
+    "g_slow": ("g_slow", 0, "lr", False, "mid", SOLE_RING, seq(range(4), [100] * 4), None),
+    "q_s_haste": ("q_s_haste", 0, "lr", False, "mid", SOLE_RING, seq(range(4), [80] * 4), None),
+    # the chakrams round his chest (their drawn middle: Codex drew them lower in the cell than the pack's row 20)
+    "cre": ("cre", 0, "lr", False, "mid", (0, -15), seq(range(4), [110] * 4), None),
     # ---- big
     "q_c_shot": ("q_c_shot", 0, "ud", True, "front", (0, 0),
                  flight(4, 50, P["q_c_len"] / P["q_c_speed"] * MS, lead(MUZ["cal"][0], P["q_c_speed"])), None),
