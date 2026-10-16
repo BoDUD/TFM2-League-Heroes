@@ -25,6 +25,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -249,10 +250,17 @@ struct Carry {
     release: usize,
 }
 
-/// 塔姆的 entity id -> 他嘴里的人。
-static CARRY: LazyLock<Mutex<HashMap<usize, Carry>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// 英雄 id -> 最近几次记下的 (tick, 生命)（每 10 tick 一次，留 BURST_TICKS 以内的）。
-static HP_LOG: LazyLock<Mutex<HashMap<usize, Vec<(usize, usize)>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 每份模拟的塔姆一个编号，出生时由被动挂在他身上（buff `league_tahmkench_sim:<编号>`，没有数值、没有画面），吞人、吐人、
+/// AI 钩子按他身上的它找到同一份记录。游戏同时跑同一局的几份模拟（两份预模拟 + 画面那份），实体编号一样：按编号记时一份
+/// 吐出就删了别份的记录，那几份的人原地出来、塔姆不再往回走，画面那场和预模拟算的就不是同一场了（2026-10-16 第 588 场日志：
+/// 画面里吞下的墨菲特、布隆没有 SPIT）。莫德凯撒、蛮王附加包的做法。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+const SIM_TAG: &str = "league_tahmkench_sim:";
+
+/// (这份模拟的编号, 塔姆的 entity id) -> 他嘴里的人。
+static CARRY: LazyLock<Mutex<HashMap<(u64, usize), Carry>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// (这份模拟的编号, 英雄 id) -> 最近几次记下的 (tick, 生命)（每 10 tick 一次，留 BURST_TICKS 以内的）。
+static HP_LOG: LazyLock<Mutex<HashMap<(u64, usize), Vec<(usize, usize)>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// 参数（英雄数据的 passive.params；钩子和效果也要读）。
 static PARAMS: LazyLock<Mutex<Params>> = LazyLock::new(|| Mutex::new(Params::default()));
 
@@ -260,9 +268,18 @@ fn params() -> Params {
     *PARAMS.lock().unwrap_or_else(|e| e.into_inner())
 }
 
-fn peak_hp(id: usize, now: usize, hp: usize) -> usize {
+/// The number the passive hung on `tahm` when he spawned in this sim (0: none).
+pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
+    names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
+}
+
+fn sim_of(sim: &StableSim<'_>, tahm: usize) -> u64 {
+    sim.get_entity(tahm).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string())))
+}
+
+fn peak_hp(tag: u64, id: usize, now: usize, hp: usize) -> usize {
     let log = HP_LOG.lock().unwrap_or_else(|e| e.into_inner());
-    log.get(&id).map_or(hp, |v| v.iter().filter(|s| s.0 + BURST_TICKS >= now).map(|s| s.1).max().unwrap_or(hp).max(hp))
+    log.get(&(tag, id)).map_or(hp, |v| v.iter().filter(|s| s.0 + BURST_TICKS >= now).map(|s| s.1).max().unwrap_or(hp).max(hp))
 }
 
 // ===================== 培养品味 =====================
@@ -370,7 +387,7 @@ impl StableEffectType for Devour {
             clear_stacks(sim, target);
         }
         let release = sim.tick() as usize + hold;
-        CARRY.lock().unwrap_or_else(|e| e.into_inner()).insert(caster, Carry { target, ally, release });
+        CARRY.lock().unwrap_or_else(|e| e.into_inner()).insert((sim_of(sim, caster), caster), Carry { target, ally, release });
         if let Some(n) = counted("devour") {
             wlog(format!("{} DEVOUR #{n} {} {} for {hold} ticks", head(sim, caster), if ally { "ALLY" } else { "ENEMY" },
                          who(sim, target)));
@@ -432,6 +449,8 @@ struct Skin {
     last_hit: usize,
     ready_at: usize,
     mended: usize,
+    /// This sim's number (`SIM_TAG`), drawn at his first spawn.
+    sim_no: u64,
 }
 
 impl Skin {
@@ -443,7 +462,7 @@ impl Skin {
         let mut log = HP_LOG.lock().unwrap_or_else(|e| e.into_inner());
         for (id, _) in champions(sim, team, true) {
             let Some(e) = sim.get_entity(id) else { continue };
-            let v = log.entry(id).or_default();
+            let v = log.entry((self.sim_no, id)).or_default();
             v.push((now, e.hp().0));
             v.retain(|s| s.0 + BURST_TICKS + 10 >= now);
         }
@@ -453,18 +472,18 @@ impl Skin {
         let now = sim.tick() as usize;
         let due = {
             let carry = CARRY.lock().unwrap_or_else(|e| e.into_inner());
-            carry.get(&me).copied().filter(|c| now >= c.release)
+            carry.get(&(self.sim_no, me)).copied().filter(|c| now >= c.release)
         };
         let Some(c) = due else { return };
         let Some(t) = sim.get_entity(c.target) else {
-            CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+            CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, me));
             return;
         };
         // a banished unit does not move: wait until the banish is over (a few ticks at most), then put it down once
         if !t.is_targetable() && now < c.release + 5 {
             return;
         }
-        CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+        CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, me));
         let Some(at) = alive_at(sim, me) else { return };
         let foes: Vec<(f64, f64)> = champions(sim, team, false).into_iter().map(|c| c.1).collect();
         let front = centre(&foes).unwrap_or((at.0 + 1.0, at.1));
@@ -525,8 +544,15 @@ impl StablePassive for Skin {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.grey = 0;
         self.ready_at = 0;
+        if self.sim_no == 0 {
+            self.sim_no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim_no);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Tahm Kench (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        wlog(format!("{} SPAWN: the add-on's Tahm Kench (player {player}, team {team}, sim {}), {:?}", head(sim, me),
+                     self.sim_no, self.p));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -550,7 +576,7 @@ impl StablePassive for Skin {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
         self.grey = 0;
         // dying with someone in his belly spits them out where he fell
-        let c = CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+        let c = CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, me));
         if let (Some(c), Some(at)) = (c, sim.get_entity(me).map(|e| e.pos())) {
             sim.entity_set_pos(c.target, at.0, at.1);
         }
@@ -578,7 +604,8 @@ impl Ai {
         let foes = champions(sim, team, false);
         let mates: Vec<(usize, (f64, f64))> = champions(sim, team, true).into_iter().filter(|c| c.0 != me).collect();
         // carrying someone: walk (an ally away from the enemies, an enemy to his team)
-        let carry = CARRY.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied();
+        let tag = sim_of(sim, me);
+        let carry = CARRY.lock().unwrap_or_else(|e| e.into_inner()).get(&(tag, me)).copied();
         if let Some(c) = carry {
             let enemies: Vec<(f64, f64)> = foes.iter().map(|f| f.1).collect();
             let friends: Vec<(f64, f64)> = mates.iter().map(|m| m.1).collect();
@@ -597,7 +624,7 @@ impl Ai {
                 for &(id, p) in mates.iter().filter(|m| dist(at, m.1) <= R_ALLY_R) {
                     let Some(u) = sim.get_entity(id) else { continue };
                     let (h, mx) = u.hp();
-                    let m = Mate { id, at: p, hp: h, max: mx, peak: peak_hp(id, now, h), cc: u.cc_count() > 0 };
+                    let m = Mate { id, at: p, hp: h, max: mx, peak: peak_hp(tag, id, now, h), cc: u.cc_count() > 0 };
                     if let Some(why) = in_danger(&m, within(&foes, p, NEAR)) {
                         if best.is_none_or(|b| pct(m.hp, m.max) < pct(b.0.hp, b.0.max)) {
                             best = Some((m, why));
@@ -674,7 +701,7 @@ impl StablePlayerAi for Ai {
             if !me.is_alive() {
                 return None;
             }
-            let carrying = CARRY.lock().unwrap_or_else(|e| e.into_inner()).contains_key(&me.id());
+            let carrying = CARRY.lock().unwrap_or_else(|e| e.into_inner()).contains_key(&(sim_of(&sim, me.id()), me.id()));
             if !carrying && !matches!(kind, InputKindV1::Ult | InputKindV1::Skill2) {
                 return None;
             }
@@ -753,6 +780,13 @@ mod tests {
 
     fn mate(hp: usize, peak: usize, cc: bool) -> Mate {
         Mate { id: 1, at: (0.0, 0.0), hp, max: 1000, peak, cc }
+    }
+
+    #[test]
+    fn the_sim_tag_reads_back() {
+        let names = vec!["league_tahmkench_t_mark".to_string(), format!("{SIM_TAG}7")];
+        assert_eq!(sim_tag(names.into_iter()), 7);
+        assert_eq!(sim_tag(vec!["league_mordekaiser_sim:3".to_string()].into_iter()), 0);
     }
 
     #[test]
