@@ -798,6 +798,13 @@
         "skill": "主手武器的技能，各自冷却：通碧狙击造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并追射；断魄加速连射回血；坠明<#ef5350ff>定身<>被它减速的敌人1秒；荧焰扇形波后副手追击；折镜放下哨塔5秒。",
         "skill2": "交换主手和副手武器：主手技能在冷却、副手技能已就绪且附近有敌方英雄时才交换。",
         "ult": "爆点附近有2个以上敌方英雄或目标被控制时，射出月光，在第一个英雄处爆炸，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>，再按主手：通碧追射、断魄回血、坠明减速90%、荧焰加伤、折镜叠3层。"
+      },
+      "league_urgot": {
+        "name": "厄加特",
+        "attack": "炮臂霰弹。<#ff9028ff>回响烈焰<>：普攻和净除的子弹会让腿上的霰弹轮流朝目标喷扇形火焰，造成40%攻击力+目标1%最大生命的<#ff9028ff>物理伤害<>（每3秒一次，3级前8秒）。",
+        "skill": "抛出电荷，落地后爆炸，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>并减速45%。命中后开启<#ff9028ff>净除<><#ffb900ff>4秒<>：普攻换成机枪连射，每发<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
+        "skill2": "获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>护盾，冲向敌方英雄，撞上后造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、<#ef5350ff>晕眩1秒<>并把他甩到身后，开启<#ff9028ff>净除<>。",
+        "ult": "发射钻头钉住第一个敌方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>并减速，<#ffb900ff>4秒<>后拽回来处决：造成其25%最大生命的<#ffffffff>真实伤害<>；处决成功时周围敌人<#ef5350ff>恐惧1.5秒<>。"
       }
     },
     "skill_name": {
@@ -1370,6 +1377,11 @@
         "skill1": "武器技能",
         "skill2": "月相轮转",
         "ult": "清辉夜凝"
+      },
+      "league_urgot": {
+        "skill1": "腐蚀电荷",
+        "skill2": "鄙弃",
+        "ult": "超越死亡的恐惧"
       }
     }
   },
@@ -2172,6 +2184,13 @@
         "skill": "主武器的技能，各自冷卻：步槍狙擊造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並追射；槍刃加速連射回血；重砲<#ef5350ff>定身<>被它緩速的敵人1秒；月燄扇形波後副武器追擊；飛刃放下哨兵5秒。",
         "skill2": "交換主武器和副武器：主武器技能冷卻中、副武器技能已就緒且附近有敵方英雄時才交換。",
         "ult": "爆點附近有2個以上敵方英雄或目標被控制時，射出月光，在第一個英雄處爆炸，造成<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>，再依主武器：步槍追射、槍刃回血、重砲緩速90%、月燄加傷、飛刃疊3層。"
+      },
+      "league_urgot": {
+        "name": "烏爾加特",
+        "attack": "砲臂霰彈。<#ff9028ff>振盪火砲<>：普攻和殺戮射擊的子彈會讓腿上的霰彈輪流朝目標噴扇形火焰，造成40%攻擊力+目標1%最大生命的<#ff9028ff>物理傷害<>（每3秒一次，3級前8秒）。",
+        "skill": "拋出榴彈，落地後爆炸，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>並緩速45%。命中後開啟<#ff9028ff>殺戮射擊<><#ffb900ff>4秒<>：普攻換成機槍連射，每發<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
+        "skill2": "獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>護盾，衝向敵方英雄，撞上後造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、<#ef5350ff>暈眩1秒<>並把他甩到身後，開啟<#ff9028ff>殺戮射擊<>。",
+        "ult": "發射鑽頭釘住第一個敵方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>並緩速，<#ffb900ff>4秒<>後拽回來處決：造成其25%最大生命的<#ffffffff>真實傷害<>；處決成功時周圍敵人<#ef5350ff>恐懼1.5秒<>。"
       }
     },
     "skill_name": {
@@ -2744,6 +2763,11 @@
         "skill1": "武器技能",
         "skill2": "月相輪轉",
         "ult": "月夜守護"
+      },
+      "league_urgot": {
+        "skill1": "酸性榴彈",
+        "skill2": "恐怖襲擊",
+        "ult": "索命虐殺"
       }
     }
   },
@@ -3546,6 +3570,13 @@
         "skill": "The main weapon's ability, each on its own cooldown: Calibrum snipes for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and follows up; Severum runs and fires, healing; Gravitum <#ef5350ff>roots<> every enemy it slowed for 1s; Infernum's wave, then off-hand shots; Crescendum a sentry for 5s.",
         "skill2": "Swaps the main and off-hand weapons, only when the main hand's ability is cooling down, the off hand's is ready and an enemy champion is near.",
         "ult": "With 2+ enemy champions round the blast or the target in crowd control, fires moonlight that bursts on the first champion for <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>, then by main weapon: Calibrum follow-up shots, Severum heal, Gravitum 90% slow, Infernum more damage, Crescendum 3 chakrams."
+      },
+      "league_urgot": {
+        "name": "Urgot",
+        "attack": "Shotgun blasts from his cannon arm. <#ff9028ff>Echoing Flames<>: attacks and Purge's shots make his leg shotguns take turns blasting a cone at the target for 40% AD + 1% of its max health as <#ff9028ff>physical damage<> (once every 3s, 8s below level 3).",
+        "skill": "Fires a charge that explodes where it lands, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<> and slowing 45%. A hit starts <#ff9028ff>Purge<> for <#ffb900ff>4s<>: his attacks become machine-gun shots of <#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>.",
+        "skill2": "Gains a <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> shield and charges an enemy champion: on contact <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, a <#ef5350ff>1s stun<>, and he hurls it behind him, starting <#ff9028ff>Purge<>.",
+        "ult": "Fires a drill that impales the first enemy champion for <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> and a slow; after <#ffb900ff>4s<> he reels it in and executes it for 25% of its max health as <#ffffffff>true damage<>. An execution makes nearby enemies <#ef5350ff>flee for 1.5s<>."
       }
     },
     "skill_name": {
@@ -4118,6 +4149,11 @@
         "skill1": "Weapon Abilities",
         "skill2": "Phase",
         "ult": "Moonlight Vigil"
+      },
+      "league_urgot": {
+        "skill1": "Corrosive Charge",
+        "skill2": "Disdain",
+        "ult": "Fear Beyond Death"
       }
     }
   },
@@ -4920,6 +4956,13 @@
         "skill": "주 무기의 스킬(각자 재사용 대기시간): 만월총 저격 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<> 후 추가 사격; 절단검 이동하며 연사·회복; 중력포 둔화된 적 <#ef5350ff>1초 속박<>; 화염포 원뿔 공격 후 보조 무기 추격; 반월검 파수탑 5초.",
         "skill2": "주 무기와 보조 무기를 교체합니다. 주 무기 스킬이 재사용 대기 중이고 보조 무기 스킬이 준비되었으며 근처에 적 챔피언이 있을 때만.",
         "ult": "폭발 지점 근처에 적 챔피언 2명 이상 또는 대상이 군중 제어 상태일 때 월광 발사, 첫 챔피언에서 폭발해 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>의 <#ff9028ff>물리 피해<>, 주 무기별: 만월총 추가 사격, 절단검 회복, 중력포 90% 둔화, 화염포 추가 피해, 반월검 3중첩."
+      },
+      "league_urgot": {
+        "name": "우르곳",
+        "attack": "포신 팔로 산탄을 쏩니다. <#ff9028ff>화염의 메아리<>: 기본 공격과 심판의 원 탄환마다 다리의 산탄총이 번갈아 대상에게 부채꼴로 발사해 공격력의 40% + 대상 최대 체력의 1% <#ff9028ff>물리 피해<>(3초마다, 3레벨 전 8초).",
+        "skill": "폭약을 던져 떨어진 곳에서 폭발, <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>의 <#ff9028ff>물리 피해<>와 45% 둔화. 적중 시 <#ff9028ff>심판의 원<> <#ffb900ff>4초<>: 기본 공격이 기관총 연사로 바뀌어 발당 <#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>.",
+        "skill2": "<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>의 보호막을 얻고 적 챔피언에게 돌진, 충돌 시 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, <#ef5350ff>1초 기절<> 후 뒤로 던지며 <#ff9028ff>심판의 원<> 시작.",
+        "ult": "드릴을 쏘아 첫 적 챔피언을 꿰뚫어 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 <#ff9028ff>물리 피해<>와 둔화, <#ffb900ff>4초<> 후 끌어당겨 처형: 최대 체력의 25% <#ffffffff>고정 피해<>. 처형 성공 시 주변 적 <#ef5350ff>1.5초 공포<>."
       }
     },
     "skill_name": {
@@ -5492,6 +5535,11 @@
         "skill1": "무기 스킬",
         "skill2": "위상 변화",
         "ult": "월광포화"
+      },
+      "league_urgot": {
+        "skill1": "부식성 폭약",
+        "skill2": "경멸",
+        "ult": "불사의 공포"
       }
     }
   },
@@ -6294,6 +6342,13 @@
         "skill": "メイン武器のスキル（個別CD）：キャリブラム狙撃<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と追撃；セヴェラム走りながら連射・回復；グラヴィタム スロウ中の敵を<#ef5350ff>1秒スネア<>；インファーナム扇状攻撃後オフハンド追撃；クレッシェンダム セントリー5秒。",
         "skill2": "メインとオフハンドの武器を入れ替える。メインのスキルがCD中、オフハンドのスキルが使用可能で、近くに敵チャンピオンがいる時のみ。",
         "ult": "爆発地点の近くに敵チャンピオン2体以上、または対象がCC中の時に月光を放ち、最初のチャンピオンで爆発して<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>、メイン武器別：キャリブラム追撃、セヴェラム回復、グラヴィタム90%スロウ、インファーナム追加ダメージ、クレッシェンダム3スタック。"
+      },
+      "league_urgot": {
+        "name": "アーゴット",
+        "attack": "砲腕で散弾を撃つ。<#ff9028ff>エコーフレイム<>：通常攻撃とパージの弾ごとに脚のショットガンが交代で対象へ扇状に撃ち、攻撃力の40%+対象の最大体力の1%の<#ff9028ff>物理ダメージ<>（3秒に1回、レベル3未満は8秒）。",
+        "skill": "炸裂弾を放ち、着弾地点で爆発して<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>と45%スロウ。命中すると<#ff9028ff>パージ<>が<#ffb900ff>4秒<>発動：通常攻撃が機関銃の連射になり1発<#ff9028ff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>。",
+        "skill2": "<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>のシールドを得て敵チャンピオンへ突進、衝突で<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>1秒スタン<>、背後へ投げ飛ばし<#ff9028ff>パージ<>発動。",
+        "ult": "ドリルを撃ち最初の敵チャンピオンを貫き<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>とスロウ、<#ffb900ff>4秒<>後に引き寄せて処刑：最大体力の25%の<#ffffffff>確定ダメージ<>。処刑成功で周囲の敵が<#ef5350ff>1.5秒恐怖<>。"
       }
     },
     "skill_name": {
@@ -6866,6 +6921,11 @@
         "skill1": "武器ごとのスキル",
         "skill2": "フェーズ",
         "ult": "月光の祈り"
+      },
+      "league_urgot": {
+        "skill1": "コラプトシェル",
+        "skill2": "ディスデイン",
+        "ult": "デスグラインダー"
       }
     }
   }
