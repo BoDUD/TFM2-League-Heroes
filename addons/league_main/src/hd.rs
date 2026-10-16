@@ -56,6 +56,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Urgot: posed at 1.5 squares a game pixel by tools/art/rig_urgot.py (「炮顶到腿尖 42 px，PPU 1.5」), brought to 1.2 by
     // ppu_restyle after the user saw him in game (「现在像素太高 要降低点」 -> 「1.2」); the size unchanged, so no SIZES row
     ("league_urgot", 1.2, include_str!("../../../league/champions/league_urgot#anim.fanim")),
+    // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
+    // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
+    ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
+    ("league_nami", 1.5, include_str!("../../../league/champions/league_nami#anim.fanim")),
+    ("league_janna", 1.5, include_str!("../../../league/champions/league_janna#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
