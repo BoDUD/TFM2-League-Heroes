@@ -9,8 +9,8 @@
 //! - **走自己想去的地方**：被动好了（身上没有 `p_cd`）时，硬控落到他身上的那个 tick 就清掉（`entity_clear_cc`），扣当前生命的
 //!   7%，挂 `p_drop_n`：数据那边 3 tick 的自检看到它，就给 `p_cd`、短暂免控、丢药罐（药罐的区域、捡起回血和减冷却都还是
 //!   数据）。数据的药罐跟着他飞 `p_fly` tick、落在他脚下（他身上挂上 `can`）：落地那个 tick 记下位置，`can` 没了（捡起、
-//!   被踩碎、过期）才忘掉。药罐在场、他生命不满 `CAN_PCT`% 时 AI 走过去捡：身边 `SAFE` 以内没有敌方英雄，或者药罐就在
-//!   `NEAR_TANK` 以内（两步路）；该放 R 的时候先放 R。
+//!   被踩碎、过期）才忘掉。药罐在场、他生命不满 `CAN_PCT`%、身边 `SAFE` 以内没有敌方英雄时 AI 走过去捡；该放 R 的时候
+//!   先放 R。
 //! - **感染之锯**：打中英雄时按对方**当前生命**的 `q_pct`%（至少 `q_dmg`）算魔法伤害，补上主包那一下 `q_dmg` 的差额。
 //! - **钝器创伤**：强化普攻按他**已损生命**最多再加 `e_miss`%（`e_dmg` + `e_ad`% 攻击力那部分）；他的攻击力随**额外生命**
 //!   （最大生命高出这一级本来的部分，装备给的）涨 `e_bonus`‰。
@@ -47,10 +47,10 @@ pub const R_NEAR: f64 = 40_000.0;
 pub const BURST_TICKS: usize = 60;
 /// 被动扣当前生命的 %。
 pub const SHAKE_PCT: usize = 7;
-/// 去捡药罐：生命低于这个 %、身边这么远没有敌方英雄（或者药罐就在 NEAR_TANK 以内）、药罐不超过这么远。
+/// 去捡药罐：生命低于这个 %、身边这么远没有敌方英雄、药罐不超过这么远（模拟器里有敌人时也去捡 15000 以内的药罐，
+/// 12 种子对六个基础上单 −0.26：只在安全时去）。
 pub const CAN_PCT: usize = 85;
 pub const SAFE: f64 = 35_000.0;
-pub const NEAR_TANK: f64 = 15_000.0;
 pub const CAN_REACH: f64 = 45_000.0;
 /// 丢出后这么久还没落地就算没丢成（数据 3 tick 一次的自检 + p_fly 20 tick 的飞行）。
 pub const LAND_WAIT: usize = 60;
@@ -172,18 +172,9 @@ pub fn shake_cost(hp: usize) -> usize {
     (hp * SHAKE_PCT / 100).min(hp.saturating_sub(1))
 }
 
-/// 去不去捡药罐：生命 %、离药罐多远、身边的敌方英雄数。
-pub fn tank_ok(hp_pct: usize, d: f64, foes_near: usize) -> Option<&'static str> {
-    if hp_pct >= CAN_PCT || d > CAN_REACH {
-        return None;
-    }
-    if foes_near == 0 {
-        Some("safe")
-    } else if d <= NEAR_TANK {
-        Some("close")
-    } else {
-        None
-    }
+/// 去不去捡药罐：生命 %、离药罐多远、身边（SAFE 以内）的敌方英雄数。
+pub fn tank_ok(hp_pct: usize, d: f64, foes_near: usize) -> bool {
+    hp_pct < CAN_PCT && d <= CAN_REACH && foes_near == 0
 }
 
 /// 药罐没了没有：`can` 在身上就还在；不在的话，落过地（`seen`）就是没了，没落过地的等 LAND_WAIT。
@@ -652,15 +643,15 @@ impl Ai {
                 return Some(Plan::Keep);
             }
         }
-        // the tank on the ground (landed, `can` on him), not full, safe or close: walk over it (the data picks it up)
+        // the tank on the ground (landed, `can` on him), not full, nobody near: walk over it (the data picks it up)
         let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some(s.can_at));
         if let Some(c) = can.filter(|_| has(sim, me, &md("can"))) {
             let d = dist(at, c);
             let foes_near = within(&enemies, at, SAFE);
-            if let Some(why) = tank_ok(pct(hp, max), d, foes_near) {
+            if tank_ok(pct(hp, max), d, foes_near) {
                 let started = with_state(key, |s| !std::mem::replace(&mut s.walking, true));
                 let line = started.then(|| {
-                    ("tank", format!("TANK: walking to it at {}% hp, {d:.0} away ({why}: {foes_near} enemy champions within {SAFE:.0})",
+                    ("tank", format!("TANK: walking to it at {}% hp, {d:.0} away, no enemy champion within {SAFE:.0}",
                                      pct(hp, max)))
                 });
                 return Some(Plan::Instead(InputV1::move_to(c.0.max(0.0) as u64, c.1.max(0.0) as u64), line));
@@ -810,11 +801,10 @@ mod tests {
 
     #[test]
     fn when_to_walk_to_the_tank() {
-        assert_eq!(tank_ok(70, 20_000.0, 0), Some("safe"));
-        assert_eq!(tank_ok(70, 10_000.0, 2), Some("close"), "two steps away: grab it in the fight");
-        assert_eq!(tank_ok(70, 20_000.0, 1), None, "an enemy near and the tank far");
-        assert_eq!(tank_ok(90, 0.0, 0), None, "nearly full");
-        assert_eq!(tank_ok(50, 50_000.0, 0), None, "too far");
+        assert!(tank_ok(70, 20_000.0, 0));
+        assert!(!tank_ok(70, 5_000.0, 1), "an enemy champion near: keep fighting");
+        assert!(!tank_ok(90, 0.0, 0), "nearly full");
+        assert!(!tank_ok(50, 50_000.0, 0), "too far");
     }
 
     #[test]
