@@ -46,23 +46,26 @@ BIG = "asset/league/effects/league_urgot_big"
 
 # Numbers: the first draft from League's ratios inside the base Melee ranges (champion-data 2), to be tuned by 10-min
 # classic-SDK simulations (Temp/ur_sim/sim/kd.py --lane 0 against fighter, executioner, lancer, pole_warrior, knight,
-# berserker, three lineups, both sides, two batches of seeds).
+# berserker, three lineups, both sides, two batches of seeds). The draft u1 (hp 1080, atk 90, legs 50% AD + 3% max hp every
+# 120 / 300 ticks, E stun 90 shield 80 + 60%, Q 70 + 70%) +5.16 on 12 seeds (league_darius +1.71, league_pantheon +1.40);
+# taken apart on 8: no W +5.90 (Purge's gun is a net loss), no legs +3.00, no E +2.47, no R damage +4.93, range 30000
+# +5.24; legs, E, Q and his stats cut step by step: +3.31, +2.36, +2.38, then here (hp 960, def 32) +1.53.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, attack every 65 ticks);
     # League's Urgot: 655 +102 hp, 63 AD +5, 36 armour +5.2, 32 mr, 330 move, 350 range, 0.625 attack speed
-    "hp": 1080, "hp_g": 108, "atk": 90, "atk_g": 17, "def": 36, "def_g": 8, "mr": 28, "mr_g": 4, "ms": 980, "ms_g": 10,
+    "hp": 960, "hp_g": 108, "atk": 86, "atk_g": 17, "def": 32, "def_g": 8, "mr": 28, "mr_g": 4, "ms": 980, "ms_g": 10,
     "atk_range": 38000, "atk_dur": 26, "atk_cd": 72, "a_st": 8, "shot_speed": 6000, "shot_y": -2000,
     # passive Echoing Flames (League: 6 legs, 30/20/10/5/2.5 s each by level, cone 700 x 60 deg, 40-100% AD + 2-6% max hp)
-    "leg_t0": 300, "leg_t": 120, "p_r": 52000, "p_cone": 850, "p_ratio": 50, "p_hp": 3, "p_len": 52000, "p_w": 14000,
+    "leg_t0": 480, "leg_t": 180, "p_r": 52000, "p_cone": 850, "p_ratio": 40, "p_hp": 1, "p_len": 52000, "p_w": 14000,
     # Q Corrosive Charge (League: 800 range, 210 radius, 0.3 s fuse, 25-205 + 70% AD, slow 45-65% 1.25 s, cd 10-8 s)
     "q_cd": 480, "q_range": 75000, "q_dur": 20, "q_st": 6, "q_travel": 16, "q_apply": 12, "q_r": 21000,
-    "q_dmg": 70, "q_ratio": 70, "q_slow": 45, "q_slow_t": 75,
+    "q_dmg": 50, "q_ratio": 55, "q_slow": 45, "q_slow_t": 75,
     # W Purge (League: 4 s, 3 shots a second at 12 + 20-34% AD, on-hit at 50%, -125 move speed, cd 12-0 s)
     "w_t": 240, "w_gap": 360, "w_as": 180, "w_slow": 15, "w_dmg": 14, "w_ratio": 45,
     # E Disdain (League: 475 range, shield 55-135 + 135% bonus AD 4 s, 90-210 + 100% bonus AD, stun 1.5 s, the fling
     # 0.25 s after, cd 16-14 s)
-    "e_cd": 840, "e_range": 46000, "e_dur": 26, "e_speed": 3200, "e_sh": 80, "e_sh_ratio": 60, "e_sh_t": 240,
-    "e_dmg": 70, "e_ratio": 80, "e_stun": 90, "e_fling": 15, "e_pull": 2600, "e_pull_t": 10,
+    "e_cd": 960, "e_range": 46000, "e_dur": 26, "e_speed": 3200, "e_sh": 60, "e_sh_ratio": 40, "e_sh_t": 240,
+    "e_dmg": 40, "e_ratio": 80, "e_stun": 60, "e_fling": 15, "e_pull": 2600, "e_pull_t": 10,
     # R Fear Beyond Death (League: 2500 range, 3200 speed, 100-350 + 50% bonus AD, leash 4 s with a slow to 75%,
     # recast under 25% max hp: a 1.5 s reel-in then the execute, nearby enemies flee 1.5 s, cd 100-70 s)
     "r_cd": 3000, "r_range": 110000, "r_dur": 30, "r_st": 8, "r_aim": 4, "r_speed": 6000, "r_rad": 8000,
@@ -233,7 +236,7 @@ def build(p):
     purge = sw("w_gap", NONE, combine(flag("w_gap", p["w_gap"]),
                                       refresh("w_on", p["w_t"], attack_speed_mult=p["w_as"],
                                               move_speed_mult=-p["w_slow"]),
-                                      cview("w_on"), sfx("w_on")))
+                                      sfx("w_on")))
 
     # ------------------------------------------------------------------ attack (a Purge shot while it is on)
     shot = homing("a_shot", p["shot_speed"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], y=p["shot_y"])
@@ -244,13 +247,15 @@ def build(p):
                       atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ skill: Q Corrosive Charge
-    blow = zone("q_blast", p["q_r"], "EnemyWithoutTower",
+    blow = zone("q_zone", p["q_r"], "EnemyWithoutTower",
                 [attack(p["q_dmg"], p["q_ratio"]), buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
                  view("q_hit"), purge], apply=p["q_apply"])
     skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(sfx("q"), voice("vo_q", p),
+                           # the blast's picture plays on the landing spot (a ground zone's own picture turns half
+                           # round when it faces left: SKILL.md "Both sides")
                            lob("q_charge", p["q_travel"], "EnemyWithoutTower",
-                               [blow, sfx("q_land")], mark="q_mark")))
+                               [view("q_blast"), blow, sfx("q_land")], mark="q_mark")))
 
     # ------------------------------------------------------------------ skill2: E Disdain
     catch = [attack(p["e_dmg"], p["e_ratio"]), {"type": "Stun", "duration": p["e_stun"]}, view("e_hit"), tsfx("e_hit"),
@@ -290,9 +295,8 @@ def build(p):
                                       "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("a_shot"), P_("w_shot"), P_("p_fan", BIG, 2), P_("q_charge"), P_("q_blast", BIG, 2),
-               P_("r_drill")]
-    views_e = [E("a_hit"), E("w_hit"), E("p_hit"), E("w_on", FX, 3), E("q_mark", FX, -1, False), E("q_hit"),
+    views_p = [P_("a_shot"), P_("w_shot"), P_("p_fan", BIG, 2), P_("q_charge"), P_("r_drill")]
+    views_e = [E("a_hit"), E("w_hit"), E("p_hit"), E("q_mark", FX, -1, False), E("q_blast", BIG, 2, False), E("q_hit"),
                E("e_shield", FX, 3), E("e_hit"), E("e_fling"), E("r_hit"), E("r_reel"), E("r_ex", BIG, 3),
                E("r_fear", BIG, -1)]
     views_b = [B_("q_slow", FX, -1), B_("r_leash", FX, 3), B_("w_on", FX, -1), B_("r_flee", FX, 3)]
