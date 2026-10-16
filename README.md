@@ -218,6 +218,7 @@
 ![奥莉安娜演示：发条球漂在她身边；两记发条电弹打中德莱厄斯；Q 指令：攻击：球飞到他脚下炸开电光并停在那里；球旁边有敌人，W 指令：杂音自己放：地上一圈电磁脉冲和金色发条符文，德莱厄斯减速、队友盖伦加速；E 指令：防卫：球飞到盖伦身上，套上一层电光护盾，之后挂在他身边；R 指令：冲击波：球那里的漩涡收拢，光柱冲起、冲击波推开，把德莱厄斯甩向球，他倒下](docs/preview/league_orianna_showcase.gif?v=1016b)
 ![厄斐琉斯演示：对德莱厄斯，五把武器按主包的顺序轮换：通碧的狙击弹，Q 通碧·狙杀一道长光束打中、留下月痕，随后追射引爆；W 换上断魄，镰刃弹，Q 断魄·恒月强袭脚下血色旋光、两手轮流连射；弹匣打空换坠明，重力弹减速并留印记，Q 坠明·引力枷锁脚下月蚀、把他钉住；荧焰的蓝焰弹，Q 荧焰·余晖波向前喷出扇形蓝焰、副手追击；折镜的回旋刃，Q 折镜·驻灵哨卫在他身边放下哨塔连续射击；R 清辉夜凝射出月光在他身上炸开](docs/preview/league_aphelios_showcase.gif?v=1016a)
 ![芮尔演示：骑着铁甲战马的芮尔对德莱厄斯：骑枪一刺，他头顶出现裂开的铁甲片（溃敌沉力）；E 全速冲锋脚下金光一圈、头顶出现磁铁印记，Q 裂阵一道金色冲击沿直线刺出，打中炸开、他被晕住；W 轰落：马蹄下尘土炸起，马炸成甲片、她披着铁甲跃起砸下，地上砸出土坑、他被击飞，她身边两片金色铁盾、身上铁甲碎片绕着漂；W 驾临：甲片合回成马，她冲上去把他掀飞；R 极涌：蓝紫色的磁力场把他拖到身边、持续造成伤害，他倒下](docs/preview/league_rell_showcase.gif?v=1017a)
+![厄加特演示：对德莱厄斯：两记炮臂霰弹，第一记腿上喷出扇形火焰；Q 腐蚀电荷抛出电荷罐，落点亮起绿色警示圈，引信闪烁后炸成酸液，他脚下一摊减速酸液；净除开启，厄加特脚下一圈热浪，机枪连射，中途腿上再喷一次；E 鄙弃带着护盾冲上去撞晕德莱厄斯，把他从头顶甩到身后，落地扬起尘土；R 超越死亡的恐惧：上身沿钢柱升起，胸口射出化学钻头钉住他，锁链缠住 4 秒后拽回来处决，紫色恐惧冲击波向外推开](docs/preview/league_urgot_showcase.gif?v=1017a)
 
 ## 英雄：盖伦
 
@@ -4940,6 +4941,42 @@ python addons/league_rell/make_override.py         # 附加包的副本（主包
 美术提示词见 [`assets/source/rell/`](assets/source/rell/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
 
 逐帧预览：[`docs/preview/league_rell_frames.png`](docs/preview/league_rell_frames.png?v=1017a)，特效：[`docs/preview/league_rell_effects.png`](docs/preview/league_rell_effects.png?v=1017a)。
+
+## 英雄：厄加特
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（Melee，标签 AD / Melee / CC），第 116 位英雄。无畏战车 厄加特：苍白光头、戴防毒面具的人身装在六条腿的青铜战车上，头顶举着霰弹炮臂。用户的选择：「方案可以，全按推荐做（上单，W 并进 Q/E，做附加包，PPU 1.5）」——技能 1 = Q 腐蚀电荷，技能 2 = E 鄙弃，W 净除没有自己的格子，由 Q、E 打中时自动开 |
+| 普攻 / 被动 | 炮臂霰弹，射程 38000（比近战远、比射手近；英雄联盟他是 350），攻击间隔 72 tick；子弹从炮口高度飞出，炮口火光画在他自己的帧里（红色方不反）。**回响烈焰**：普攻和净除的每一发打中时，腿上的霰弹轮流朝目标喷一道 60° 扇形火焰（52000 长），40% 攻击力 + 目标 1% 最大生命的物理伤害；六条腿共用一个冷却，3 级起 3 秒、3 级前 8 秒（数据只认得 3 级） |
+| 技能1 | **Q 腐蚀电荷**：对 75000 内的敌人放（小兵、野怪也打），出手时锁定落点抛出电荷罐（走开就躲得掉），落地 0.2 秒后炸开，21000 内 50 + 55% 攻击力物理伤害、减速 45% 1.25 秒。打中任何敌人都会开 **W 净除**（最多每 6 秒一次）：4 秒内普攻换成机枪连射（攻速 +180%，每发 14 + 45% 攻击力，也触发腿），自己减速 15% |
+| 技能2 | **E 鄙弃**（3 级起）：对 46000 内的敌方英雄（不做成方向冲锋，免得 AI 没人时也冲），获得 60 + 40% 攻击力护盾 4 秒，冲到英雄身上，40 + 80% 攻击力物理伤害、晕眩 1 秒，0.25 秒后把他从头顶甩到身后（强制位移，算亚索大招要的控制），也开净除 |
+| 大招 | **R 超越死亡的恐惧**，**看时机**（用户：「大招释放逻辑是什么 不会乱放吧」）：冷却好了先待命 20 秒；待命期间厄加特自己连续打中英雄满 4 下（普攻、机枪、Q、E 都算，每两下间隔不超过 3 秒）才放，钻头朝第 4 下打中的那个英雄（他正在磨血的人）发射，提前锁定方向（走开躲得掉），只停在第一个英雄身上（小兵挡不住）：250 + 50% 攻击力物理伤害、拴住减速 40% 4 秒，之后拽回来处决——造成最大生命 25% 的真实伤害（英雄联盟的处决线：生命低于 25% 的必死）；处决杀死了人，40000 内的敌方英雄恐惧 1.5 秒。20 秒内没放出去就把冷却还回来。原来是冷却一好、射程里有被打过的英雄就放：96 局里钻头钉中时目标 40% 在 75% 生命以上；现在 22%，50% 以下的从 23% 升到 45%；每局发射 2.4 次、钉中 1.6 次（原来 5.6 次） |
+| 附加包 | 可选的附加包 [`addons/league_urgot`](addons/league_urgot/README.md)（在附加包合集里，原生代码，主包不装它也完整）：**回响烈焰按方向**（六条腿各朝 60°、各自冷却，由朝目标的两条腿轮流喷，平均快慢和主包一样）；**真处决**（拴满 4 秒时读当前生命，低于 25% 才拽回来处决，血多的只吃钻头伤害和减速） |
+| 数值 | 攻击 86（+17）、生命 960（+108）、护甲 32（+8）、魔抗 28（+4）、移速 980（+10）、射程 38000 |
+| 平衡 | 上单对六个基础上单（fighter / executioner / lancer / pole_warrior / knight / berserker），三套阵容、两边各打，10 分钟经典引擎模拟：草案 +5.16（种子 1–12；德莱厄斯 +1.71、潘森 +1.40），逐项拆开看：去掉腿 +3.00、去掉 E +2.47、去掉 R 伤害 +4.93、射程 30000 +5.24、去掉 W 反而 +5.90（机枪模式本身不赚）；腿、E、Q 和属性一步步削到 +1.74 / +1.99（种子 1–12 / 13–24，德莱厄斯 +1.71 / +1.75）。大招改成「待命 + 连续命中」后掉到 +0.70（每局 R 从 5.6 次降到 1.8 次），触发要求 5 下改 4 下、钻头 150 改 250：+1.53 / +1.25（种子 1–12 / 13–24，德莱厄斯 +1.71 / +1.75），定下这版。亚索联动（厄加特放在打野位、和上路亚索同队，12 个种子两边各打）：亚索每局对英雄放 2.46 次大招（德莱厄斯 1.50、原版战士 2.33），亚索不用调 |
+| 精灵图（高清帧 PPU 1.5） | Codex 第 0 步画了两张原画（[`tools/art/pack_urgot_picture.py`](tools/art/pack_urgot_picture.py)；pose_ref 原来把他的特效贴图当成身体贴图，渲染成亮绿色，已改），用户：「选 A，炮顶到腿尖 42 px，PPU 1.5，第 1 步按游戏格子重画」（头放大到约 9 格）。第 1 步 Codex 画了两稿，[`tools/art/design_urgot_cut.py`](tools/art/design_urgot_cut.py) 读回成 63 行，用户：「造型用第 2 稿删行列的版本」。动作帧由 [`tools/art/rig_urgot.py`](tools/art/rig_urgot.py) 用造型自己的部件无损摆（炮臂、上身、底盘、六条腿；跑步是两组三条腿交替抬起；R 是上身沿画出来的钢柱升起），用户第一次看：「上下摆动模型变形」——改成上身、炮臂、底盘一整块往腿上沉，不再分开动 |
+| 特效 | 第 3 步 22 张特效（[`tools/art/pack_urgot_fx.py`](tools/art/pack_urgot_fx.py)，颜色照英雄联盟：霰弹橙黄、化学药剂毒绿、电荷罐和钻头钢灰、处决和恐惧深紫），Codex 画并读回成游戏大小（`assets/source/urgot/codex_fx`）。[`tools/art/import_urgot_fx.py`](tools/art/import_urgot_fx.py) 按清单切格、检查对称（飞出去的和腿上的扇形上下对称，其余左右对称），Q 的爆炸画在落点（地面区域自己的画面朝左会转半圈） |
+| 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_urgot.py`](tools/lol/extract_urgot.py)，18 段）：霰弹开火 / 打中、腿上的霰弹、净除开火和机枪、电荷抛出 / 爆炸、冲锋和甩人、大招发射 / 钉中 / 碾碎 / 恐惧，配音是他的 Q / E / R / 处决台词（中文） |
+| 图标 | 官方技能图标（腐蚀电荷、鄙弃、超越死亡的恐惧，另有净除和被动），从本地客户端取 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_urgot.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
+python tools/kit/build_urgot.py                    # 技能数据，数字都在脚本的参数表 P 里
+python tools/kit/setup_urgot.py                    # 五种语言的文字、音效配置、共享文件里他的键（头像点、卡片位置在 VIEW）
+python tools/art/design_urgot_cut.py               # 第 1 步的造型读回到 63 行（删行列 / 按面积缩小）
+python tools/art/rig_urgot.py                      # 1 倍帧和 1.5 的原帧（无损摆姿，炮口火光另存 .over.png）
+python tools/art/ppu_restyle.py --hero urgot       # 描边（不要加 --preview）
+python tools/art/ppu_hd.py --hero urgot            # hd_ / lo_ 帧
+python tools/art/import_urgot_fx.py                # 特效
+python tools/art/preview_urgot.py                  # 预览和演示 GIF
+python addons/league_urgot/make_override.py        # 附加包的副本（主包的厄加特改了就重跑）
+```
+
+美术提示词见 [`assets/source/urgot/`](assets/source/urgot/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_fx/`。
+
+逐帧预览：[`docs/preview/league_urgot_frames.png`](docs/preview/league_urgot_frames.png?v=1017a)，特效：[`docs/preview/league_urgot_effects.png`](docs/preview/league_urgot_effects.png?v=1017a)。
 
 ## 选人卡片位置（`banpick_center`）
 

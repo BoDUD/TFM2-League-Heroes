@@ -52,6 +52,9 @@ BIG = "asset/league/effects/league_urgot_big"
 # +5.24; legs, E, Q and his stats cut step by step: +3.31, +2.36, +2.38, then here (hp 960, def 32) +1.53.
 # Here on 12 seeds: +1.74 (seeds 1-12; league_darius +1.71, league_pantheon +1.40) and +1.99 (13-24; league_darius
 # +1.75). League_yasuo's R beside him (yas.py, Urgot in the jungle slot): 2.46 a game (darius 1.50, base fighter 2.33).
+# R made to wait for a fight (the armed window + the hit ladder, below): +0.70 on seeds 1-12 (5.6 drills a game -> 1.8);
+# fired on the 4th hit with the drill at 250: +1.53 / +1.25 (seeds 1-12 / 13-24; league_darius +1.71 / +1.75). Drills
+# landing on targets at 75% health or more 40% -> 22%, under half 23% -> 45% (Temp sim hplog, 96 games).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, attack every 65 ticks);
     # League's Urgot: 655 +102 hp, 63 AD +5, 36 armour +5.2, 32 mr, 330 move, 350 range, 0.625 attack speed
