@@ -28092,7 +28092,7 @@
                                     },
                                     {
                                       "type": "RandomTarget",
-                                      "range": 22000,
+                                      "range": 10000,
                                       "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [

@@ -77,7 +77,7 @@ P = {
     "w_cd": 420, "w_r": 24000, "w_farm": 70000, "w_dmg": 70, "w_ap": 70, "w_slow": 30, "w_haste": 30, "w_t": 120,
     "w_anim": 18,
     # E (League: shield 55-195 + 45% AP 2.5 s, 60-180 + 30% AP on the way, 6-30 armour / mr, range 1120, cd 9 s)
-    "e_cd": 540, "e_range": 75000, "e_dur": 18, "e_st": 6, "e_self": 22000, "e_near": 40000,
+    "e_cd": 540, "e_range": 75000, "e_dur": 18, "e_st": 6, "e_self": 10000, "e_near": 40000,
     "e_sh": 60, "e_ap": 45, "e_t": 150, "e_speed": 3500, "e_y": -3000, "e_dmg": 60, "e_dap": 30, "e_len": 60000,
     "e_w": 8000, "e_def": 12, "e_ride": 600, "e_period": 4,
     # R (League: 225-475 + 110% AP radius 415 after 0.5 s, flung 325 units, cd 110-80 s)
@@ -419,9 +419,15 @@ def build(p):
         beside = pick(p["e_range"], "EnemyChampion",
                       lob("e_look", 1, "EnemyChampion", [pick(p["e_near"], "AllyNotSelf", sw("e_lock", NONE, send()),
                                                               fp=True)]))
-    e_send = combine(*rm("e_lock", "e_me"), pick(p["e_self"], "EnemyChampion", flag("e_me", 1)),
-                     sw("e_me", combine(*rm("e_me"), to_me()),
-                        combine(beside, delayed(2, alive(sw("e_lock", NONE, to_me()))))))
+    # an enemy champion right on her (e_self; the game's AI casts E only with one 4000-21000 away - the add-on's log,
+    # 2026-10-16: at 22000 every E of a match went to herself): the ball to her. The add-on's copy weighs her danger
+    # against her allies' itself (league_orianna:e_pick keeps it when she is in more), so it skips the rule
+    pick_ally = combine(beside, delayed(2, alive(sw("e_lock", NONE, to_me()))))
+    if nat:
+        e_send = combine(*rm("e_lock"), pick_ally)
+    else:
+        e_send = combine(*rm("e_lock", "e_me"), pick(p["e_self"], "EnemyChampion", flag("e_me", 1)),
+                         sw("e_me", combine(*rm("e_me"), to_me()), pick_ally))
 
     # the ball's ally is gone (dead, or the ride ran out): beside her again
     lost = sw("eA", sw("ride", NONE, combine(*rm("eA", "eB"), refresh("home", None, **held), cview("b_home_in"))),
