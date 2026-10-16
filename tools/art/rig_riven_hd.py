@@ -40,10 +40,20 @@ BAND = 41                                    # legs start below this row
 # knee - a thigh and a lower leg turned apart - the knee showed a step). (hip, knee, sole) in design squares
 NEAR = ((15.5, 33.2), (9, 44.2), (3.5, 58.8))
 FAR = ((27.5, 34.5), (34.5, 45.5), (42, 59.3))
-# the run: her wide stance kept, a foot at a time swung out and up about its hip (the back foot kicking back, the front
-# one reaching forward), the body down a row as it lands; degrees (counter-clockwise on screen) of the near / far leg
-WALK = [(0, 0), (-5, 0), (-10, 0), (-5, 0), (0, 0), (0, 5), (0, 10), (0, 5)]
-RUN_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+# the run after League's (tools/lol/native_pose.py assets/source/riven/poses.json run; 「锐雯走路姿势不对啊」 - her
+# wide stance kept, the legs barely moved): her hips brought together under her skirt (she turns side-on to run) and
+# each straight leg swung forward and back as a whole from its hip - a scissor stride, the near leg forward in frames
+# 1-2 and back in 5-6, the far leg the other way, crossing just under the hem like a side view's. The leg swinging
+# forward is lifted (its top goes up under her skirt), the body comes down as the stride opens so the planted feet stay
+# on the ground, the blade held low ahead as League's. Degrees past straight down (counter-clockwise on screen = the
+# foot forward); the far leg's are the near leg's negated
+RUN_NEAR = [24, 13, 0, -13, -24, -13, 0, 13]
+NEAR_LIFT = [0, 0, 0, 0, 0, 2, 3, 2]
+FAR_LIFT = [0, 2, 3, 2, 0, 0, 0, 0]
+RUN_HIPS = (3, -3)                           # columns the near / far leg moves in under her skirt
+RUN_LEAN = 2                                 # columns her upper body leans ahead of her hips
+LEG_LEN = 26.0                               # hip to sole, design squares
+RUN_SWORD = [26, 24, 22, 24, 26, 24, 22, 24]
 
 
 def vertical(leg):
@@ -113,26 +123,31 @@ def make_rig(D):
     return R.Rig(D)
 
 
-def pose(rig, up=(0, 0), sword=0, whole=(0, 0), near=0, far=0, green=False):
+def pose(rig, up=(0, 0), sword=0, whole=(0, 0), near=0, far=0, green=False, lift=(0, 0), hips=(0, 0), lean=0):
     """up: the upper body moved - sideways with her hips and legs (a lunge slides her feet), down at most a row over
     them (breath; lower, the body sank into the legs); sword: degrees the sword arm turns about her shoulder
     (counter-clockwise raises it); whole: the whole figure; near / far: degrees a leg turns about its hip
-    (counter-clockwise on screen); green: the reforged blade."""
+    (counter-clockwise on screen); green: the reforged blade; lift: rows the near / far leg goes up (its top under
+    her skirt); hips: columns the near / far leg moves sideways under her skirt; lean: columns the upper body moves
+    ahead of the hips (the legs' tops stay under the skirt)."""
     D = rig.D
     wx, wy = whole[0] + up[0], whole[1]
     layers = []
-    for name, leg, ang in (("f", FAR, far), ("n", NEAR, near)):
+    for name, leg, ang, up_, hx in (("f", FAR, far, lift[1], hips[1]), ("n", NEAR, near, lift[0], hips[0])):
         for piece in ("_thigh", "_lower"):
-            layers.append((name + piece, dict(dx=wx, dy=wy, angle=ang, about=leg[0])))
-    ux, uy = wx, wy + min(up[1], 1)
+            layers.append((name + piece, dict(dx=wx + hx, dy=wy - up_, angle=ang, about=leg[0])))
+    ux, uy = wx + lean, wy + min(up[1], 1)
     layers.append(("upper", dict(dx=ux, dy=uy)))
     layers.append(("sword", dict(dx=ux, dy=uy, angle=sword, about=SHOULDER, src=D.green if green else None)))
     return R.compose(rig, layers)
 
 
 def run_frame(rig, i):
-    n, f = WALK[i]
-    return pose(rig, up=(1, RUN_BOB[i]), sword=15, near=n, far=f)
+    n, f = RUN_NEAR[i], -RUN_NEAR[i]
+    drop = int(round(LEG_LEN * (1 - np.cos(np.radians(abs(n))))))
+    return pose(rig, up=(1, 0), whole=(0, drop), sword=RUN_SWORD[i], near=vertical(NEAR) + n,
+                far=vertical(FAR) + f, lift=(NEAR_LIFT[i], FAR_LIFT[i]), hips=RUN_HIPS,
+                lean=RUN_LEAN)
 
 
 def lying(rig, sword=123):
