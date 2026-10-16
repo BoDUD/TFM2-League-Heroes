@@ -29655,8 +29655,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 60,
-                "attack_ratio": 30,
+                "damage": 1,
+                "attack_ratio": 0,
                 "hp_ratio": 0,
                 "can_crit": false
               }
