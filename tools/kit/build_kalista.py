@@ -71,6 +71,9 @@ P = {
     "w_r": 45000, "w_hp": 12, "w_cd": 300,
     # passive Martial Poise (League: a hop of ~300 units after each attack)
     "hop_thr": 40000, "hop_v": 1800, "hop_t": 10, "k_hold": 40, "k_read": 4,
+    # the hop waits hop_wait ticks after the release: the throw's release frame (90 ms) shows first (the user, 10-16 in
+    # game: 「平A动作还是不对啊 不用武器啊」 - the hop's frames replaced the throw right on the release)
+    "hop_wait": 5,
     # skill: Q Pierce (League: 1150 range, 20-120 + 105% AD, 0.25 s cast, width 80, passes through a unit it kills,
     # cd 8 s)
     "q_cd": 420, "q_range": 100000, "q_dur": 24, "q_rel": 7, "q_speed": 9000, "q_len": 115000,
@@ -311,6 +314,7 @@ def build(p):
         # the add-on decides the way every tick (hop_f / hop_b on her) and moves her once hop_go is up
         hop = combine(sw("hop_f", combine(refresh("hop_go", 6), anim("hop_f", p["hop_t"] + 2), sfx("hop")),
                          sw("hop_b", combine(refresh("hop_go", 6), anim("hop_b", p["hop_t"] + 2), sfx("hop")))))
+    hop = delayed(p["hop_wait"], lives(hop))
 
     # ------------------------------------------------------------------ attack
     throw = combine(sfx("a_throw"),

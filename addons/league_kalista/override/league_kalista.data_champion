@@ -1081,89 +1081,228 @@
           ]
         },
         {
-          "type": "Combine",
+          "type": "Delayed",
+          "tick": 5,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_kalista_hop_f",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_kalista_hop_go"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_kalista_hop_go",
-                          "duration": {
-                            "Time": {
-                              "tick": 6
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
-                  },
-                  {
-                    "type": "CasterAnimation",
-                    "name": "hop_f",
-                    "tick": 12
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_kalista_hop"
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_kalista_hop_b",
-                "effect_buff": {
-                  "type": "Combine",
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
                   "effects": [
                     {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_hop_go"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_kalista_hop_go",
-                            "duration": {
-                              "Time": {
-                                "tick": 6
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kalista_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
                         }
-                      ]
-                    },
-                    {
-                      "type": "CasterAnimation",
-                      "name": "hop_b",
-                      "tick": 12
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_kalista_hop"
+                      },
+                      "only_to_enemy": false
                     }
                   ]
                 },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kalista_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_hop_f",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kalista_hop_go"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_kalista_hop_go",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 6
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_f",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kalista_hop_b",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_kalista_hop_go"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kalista_hop_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 6
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_hop_f",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kalista_hop_go"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_kalista_hop_go",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 6
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_f",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kalista_hop_b",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_kalista_hop_go"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kalista_hop_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 6
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kalista_live"
                 }
-              }
+              ]
             }
           ]
         }
@@ -2343,89 +2482,228 @@
           "y_offset": -3000
         },
         {
-          "type": "Combine",
+          "type": "Delayed",
+          "tick": 5,
           "effects": [
             {
-              "type": "SwitchByBuff",
-              "buff_name": "league_kalista_hop_f",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_kalista_hop_go"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_kalista_hop_go",
-                          "duration": {
-                            "Time": {
-                              "tick": 6
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
-                  },
-                  {
-                    "type": "CasterAnimation",
-                    "name": "hop_f",
-                    "tick": 12
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_kalista_hop"
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_kalista_hop_b",
-                "effect_buff": {
-                  "type": "Combine",
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
                   "effects": [
                     {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_kalista_hop_go"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_kalista_hop_go",
-                            "duration": {
-                              "Time": {
-                                "tick": 6
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kalista_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
                         }
-                      ]
-                    },
-                    {
-                      "type": "CasterAnimation",
-                      "name": "hop_b",
-                      "tick": 12
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_kalista_hop"
+                      },
+                      "only_to_enemy": false
                     }
                   ]
                 },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kalista_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_hop_f",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kalista_hop_go"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_kalista_hop_go",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 6
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_f",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kalista_hop_b",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_kalista_hop_go"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kalista_hop_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 6
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_hop_f",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_kalista_hop_go"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_kalista_hop_go",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 6
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_f",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_kalista_hop_b",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_kalista_hop_go"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_kalista_hop_go",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 6
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "hop_b",
+                                    "tick": 12
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_kalista_hop"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kalista_live"
                 }
-              }
+              ]
             }
           ]
         }

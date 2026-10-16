@@ -1065,62 +1065,174 @@
           ]
         },
         {
-          "type": "Combine",
+          "type": "Delayed",
+          "tick": 5,
           "effects": [
             {
-              "type": "RemoveCasterBuff",
-              "name": "league_kalista_thr"
-            },
-            {
-              "type": "RandomTarget",
-              "range": 40000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_kalista_thr",
-                    "duration": {
-                      "Time": {
-                        "tick": 2
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kalista_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kalista_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_thr"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 40000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_kalista_thr",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_thr",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_thr"
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_b",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                },
+                                {
+                                  "type": "MoveBack",
+                                  "speed": 1800,
+                                  "tick": 10
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_thr"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 40000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_kalista_thr",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_thr",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_thr"
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_b",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                },
+                                {
+                                  "type": "MoveBack",
+                                  "speed": 1800,
+                                  "tick": 10
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kalista_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_kalista_thr",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_kalista_thr"
-                  },
-                  {
-                    "type": "CasterAnimation",
-                    "name": "hop_b",
-                    "tick": 12
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_kalista_hop"
-                  },
-                  {
-                    "type": "MoveBack",
-                    "speed": 1800,
-                    "tick": 10
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
             }
           ]
         }
@@ -2300,62 +2412,174 @@
           "y_offset": -3000
         },
         {
-          "type": "Combine",
+          "type": "Delayed",
+          "tick": 5,
           "effects": [
             {
-              "type": "RemoveCasterBuff",
-              "name": "league_kalista_thr"
-            },
-            {
-              "type": "RandomTarget",
-              "range": 40000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_kalista_thr",
-                    "duration": {
-                      "Time": {
-                        "tick": 2
-                      }
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kalista_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_kalista_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_thr"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 40000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_kalista_thr",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_thr",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_thr"
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_b",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                },
+                                {
+                                  "type": "MoveBack",
+                                  "speed": 1800,
+                                  "tick": 10
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  "only_to_enemy": false
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_kalista_thr"
+                          },
+                          {
+                            "type": "RandomTarget",
+                            "range": 40000,
+                            "casting_target": "EnemyChampion",
+                            "from_projectile": false,
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_kalista_thr",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 2
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_kalista_thr",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_kalista_thr"
+                                },
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "hop_b",
+                                  "tick": 12
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_kalista_hop"
+                                },
+                                {
+                                  "type": "MoveBack",
+                                  "speed": 1800,
+                                  "tick": 10
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kalista_live"
                 }
               ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_kalista_thr",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_kalista_thr"
-                  },
-                  {
-                    "type": "CasterAnimation",
-                    "name": "hop_b",
-                    "tick": 12
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_kalista_hop"
-                  },
-                  {
-                    "type": "MoveBack",
-                    "speed": 1800,
-                    "tick": 10
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
             }
           ]
         }

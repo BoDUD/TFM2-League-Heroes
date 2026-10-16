@@ -4,7 +4,8 @@
 //!
 //! - **武术姿态：往前还是往后跳**（每 tick 判断，挂 `hop_f` / `hop_b` 标记给数据；数据在投矛出手时按标记放前跳 / 后跳的动作并挂
 //!   `hop_go`，本包看到就逐 tick 把她挪过去，`hop_v` x `hop_t`）：最近的敌方英雄残血（40% 以下）就往前追；不然贴近（`hop_thr`
-//!   内）就往后跳、背离它；不然它快跑出射程（超过攻击距离的 80%）就往前追；站在射程里舒服的位置就不跳。
+//!   内）就往后跳、背离它；不然它在逃（15 tick 里离她远了 4000 以上）而且快跑出射程（超过攻击距离的 80%）就往前追；站在射程里
+//!   舒服的位置就不跳。
 //! - **誓约者**：开局（每条命出生时重新看）绑定一名队友——辅助位优先，没有就离她最近的队友英雄；大招的 AI 钩子
 //!   （`league_kalista:fate`）把施放目标换成誓约者（在 `r_bind` 内、能选中时；不然留 AI 自己挑的队友）。
 //! - **命运的召唤的飞行**：数据把队友拉进来、保护、定身，甩出时挂 `r_launch`；本包挑落点（离她最近的敌方英雄，`r_range` 内；
@@ -171,13 +172,19 @@ pub fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 一个敌方英雄：id、位置、生命百分比。
+/// 一个敌方英雄：id、位置、生命百分比、最近 FLEE_WINDOW tick 里离她远了多少（负数 = 近了）。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Foe {
     pub id: usize,
     pub at: Pt,
     pub hp_pct: usize,
+    pub gain: f64,
 }
+
+/// 「在逃」：FLEE_WINDOW tick 里离她远了 FLEE_GAIN 以上（用户 10-16 进游戏：58 次跳全是往前——原来只看距离超过射程 80%，
+/// 射手本来就站在射程边上打，等于每下都往前扑）。
+pub const FLEE_WINDOW: usize = 15;
+pub const FLEE_GAIN: f64 = 4000.0;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Hop {
@@ -195,7 +202,7 @@ pub enum HopWhy {
 }
 
 /// 投矛后往哪跳（只看攻击距离 1.4 倍内最近的敌方英雄）：残血（< 40%）就往前追；不然贴近（hop_thr 内）就往后、背离它；
-/// 不然它快跑出射程（> 80% 攻击距离）就往前追；都不是（站在射程里舒服的位置）就不跳。
+/// 不然它在逃（离她越来越远）而且快跑出射程（> 80% 攻击距离）就往前追；都不是（站在射程里舒服的位置）就不跳。
 pub fn hop_choice(me: Pt, foes: &[Foe], p: &Params) -> Option<(Hop, HopWhy)> {
     let reach = p.atk_range as f64 * 1.4;
     let near = foes.iter().filter(|f| dist(me, f.at) <= reach).min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)))?;
@@ -206,7 +213,7 @@ pub fn hop_choice(me: Pt, foes: &[Foe], p: &Params) -> Option<(Hop, HopWhy)> {
     if d <= p.hop_thr as f64 {
         return Some((Hop::Back(*near), HopWhy::Threat));
     }
-    if d > p.atk_range as f64 * 0.8 {
+    if d > p.atk_range as f64 * 0.8 && near.gain >= FLEE_GAIN {
         return Some((Hop::Forward(*near), HopWhy::Fleeing));
     }
     None
@@ -301,6 +308,8 @@ struct Oath {
     flight: Option<Flight>,
     /// 敌方英雄 -> 她每根矛插上的 tick。
     spears: HashMap<usize, Vec<usize>>,
+    /// 敌方英雄 -> (取样的 tick, 那时离她的距离, 上一段 FLEE_WINDOW 里远了多少)。
+    gaps: HashMap<usize, (usize, f64, f64)>,
 }
 
 fn ent_has(e: &StableEntity<'_, '_>, name: &str) -> bool {
@@ -323,7 +332,8 @@ fn foes(sim: &StableSim<'_>, team: usize) -> Vec<Foe> {
             continue;
         }
         let (hp, max) = u.hp();
-        out.push(Foe { id: u.id(), at: (u.pos().0 as f64, u.pos().1 as f64), hp_pct: if max == 0 { 100 } else { hp * 100 / max } });
+        out.push(Foe { id: u.id(), at: (u.pos().0 as f64, u.pos().1 as f64), hp_pct: if max == 0 { 100 } else { hp * 100 / max },
+                       gain: 0.0 });
     }
     out
 }
@@ -365,7 +375,15 @@ impl Oath {
         let tick = sim.tick();
         let Some(at) = pos_of(sim, me) else { return };
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        let fs = foes(sim, team);
+        let mut fs = foes(sim, team);
+        for f in fs.iter_mut() {
+            let d = dist(at, f.at);
+            let g = self.gaps.entry(f.id).or_insert((tick, d, 0.0));
+            if tick >= g.0 + FLEE_WINDOW || tick < g.0 {
+                *g = (tick, d, if tick < g.0 { 0.0 } else { d - g.1 });
+            }
+            f.gain = g.2.max(d - g.1);
+        }
         let choice = hop_choice(at, &fs, p);
         let want = match choice {
             Some((Hop::Forward(_), _)) => Some(HOP_F),
@@ -666,7 +684,7 @@ mod tests {
     use super::*;
 
     fn foe(id: usize, at: Pt, hp_pct: usize) -> Foe {
-        Foe { id, at, hp_pct }
+        Foe { id, at, hp_pct, gain: 0.0 }
     }
 
     #[test]
@@ -703,8 +721,10 @@ mod tests {
         let close = foe(1, (30_000.0, 0.0), 100);
         assert_eq!(hop_choice(me, &[close], &p), Some((Hop::Back(close), HopWhy::Threat)));
         assert_eq!(hop_dir(me, Hop::Back(close)), (-1.0, 0.0));
-        // leaving her range: forward
-        let leaving = foe(2, (0.0, 45_000.0), 100);
+        // at the edge of her range but standing (the ADC's usual spot): no hop; running off: forward
+        let edge = foe(2, (0.0, 45_000.0), 100);
+        assert_eq!(hop_choice(me, &[edge], &p), None);
+        let leaving = Foe { gain: FLEE_GAIN, ..edge };
         assert_eq!(hop_choice(me, &[leaving], &p), Some((Hop::Forward(leaving), HopWhy::Fleeing)));
         assert_eq!(hop_dir(me, Hop::Forward(leaving)), (0.0, 1.0));
         // low: forward even when close; healthy and close: back; healthy at a good distance: no hop

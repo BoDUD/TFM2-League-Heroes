@@ -116,8 +116,9 @@ def showcase(out, z=3, step=40):
         if hop is None:
             a(tag, tick(dur))
             return
-        # the hop leaves on the release: the throw's first frames, then hop_b / hop_f while she moves hop_v x hop_t
-        a(tag, tick(st))
+        # the hop leaves hop_wait ticks after the release (the release frame shows): the throw, then hop_b / hop_f while
+        # she moves hop_v x hop_t
+        a(tag, tick(st + P["hop_wait"]))
         mx = me.pos(t)[0]
         step_ = P["hop_v"] * P["hop_t"] / 1000.0
         me.moves.append((t, t + tick(P["hop_t"]), mx, mx - step_ if hop == "b" else mx + step_))
@@ -146,7 +147,7 @@ def showcase(out, z=3, step=40):
     # Darius steps in (inside hop_thr): the next spear and her hop back
     d.slides.append((t - 300, t, -16))
     throw(hop="b")
-    wait(tick(P["atk_cd"] - P["a_st"] - P["hop_t"] - 2))
+    wait(tick(P["atk_cd"] - P["a_st"] - P["hop_wait"] - P["hop_t"] - 2))
     # Pierce, and the add-on's hop forward (he is out at the edge of her reach)
     throw("skill", P["q_dur"], P["q_rel"], "q_spear", "q_hit", P["q_y"], P["q_speed"], hop="f")
     wait(200)
