@@ -280,8 +280,8 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 49,
-                                                                "attack_ratio": 38,
+                                                                "damage": 59,
+                                                                "attack_ratio": 45,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
                                                               }
@@ -292,8 +292,8 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 70,
-                                                                "attack_ratio": 55,
+                                                                "damage": 85,
+                                                                "attack_ratio": 65,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
                                                               },
@@ -602,8 +602,8 @@
                                                                                                   "casting_type": "Targeting",
                                                                                                   "effect": {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 70,
-                                                                                                    "attack_ratio": 70,
+                                                                                                    "damage": 85,
+                                                                                                    "attack_ratio": 85,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   }
@@ -684,7 +684,7 @@
                                                                                     "name": "league_orianna_r_c",
                                                                                     "shape": {
                                                                                       "Circle": {
-                                                                                        "radius": 36000
+                                                                                        "radius": 42000
                                                                                       }
                                                                                     },
                                                                                     "delay": 1,
@@ -808,16 +808,24 @@
                                                                                                           "only_to_enemy": false
                                                                                                         },
                                                                                                         "effect_none": {
-                                                                                                          "type": "AddCasterBuff",
-                                                                                                          "buff_state": {
-                                                                                                            "name": "league_orianna_r_go",
-                                                                                                            "duration": {
-                                                                                                              "Time": {
-                                                                                                                "tick": 1
+                                                                                                          "type": "SwitchByBuff",
+                                                                                                          "buff_name": "league_orianna_c1",
+                                                                                                          "effect_buff": {
+                                                                                                            "type": "AddCasterBuff",
+                                                                                                            "buff_state": {
+                                                                                                              "name": "league_orianna_r_go",
+                                                                                                              "duration": {
+                                                                                                                "Time": {
+                                                                                                                  "tick": 1
+                                                                                                                }
                                                                                                               }
-                                                                                                            }
+                                                                                                            },
+                                                                                                            "only_to_enemy": false
                                                                                                           },
-                                                                                                          "only_to_enemy": false
+                                                                                                          "effect_none": {
+                                                                                                            "type": "Combine",
+                                                                                                            "effects": []
+                                                                                                          }
                                                                                                         }
                                                                                                       },
                                                                                                       {
@@ -908,7 +916,7 @@
                                                                                                                       "name": "league_orianna_r_dmg",
                                                                                                                       "shape": {
                                                                                                                         "Circle": {
-                                                                                                                          "radius": 36000
+                                                                                                                          "radius": 42000
                                                                                                                         }
                                                                                                                       },
                                                                                                                       "delay": 1,
@@ -1395,8 +1403,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -1853,8 +1861,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -1935,7 +1943,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -2059,16 +2067,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -2159,7 +2175,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -2648,8 +2664,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -3106,8 +3122,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -3188,7 +3204,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -3312,16 +3328,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -3412,7 +3436,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -3901,8 +3925,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -4359,8 +4383,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -4441,7 +4465,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -4565,16 +4589,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -4665,7 +4697,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -5154,8 +5186,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -5612,8 +5644,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -5694,7 +5726,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -5818,16 +5850,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -5918,7 +5958,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -6407,8 +6447,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -6865,8 +6905,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -6947,7 +6987,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -7071,16 +7111,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -7171,7 +7219,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -7660,8 +7708,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -8118,8 +8166,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -8200,7 +8248,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -8324,16 +8372,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -8424,7 +8480,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -8913,8 +8969,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -9371,8 +9427,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -9453,7 +9509,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -9577,16 +9633,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -9677,7 +9741,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -10166,8 +10230,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -10624,8 +10688,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -10706,7 +10770,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -10830,16 +10894,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -10930,7 +11002,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -11419,8 +11491,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -11877,8 +11949,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -11959,7 +12031,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -12083,16 +12155,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -12183,7 +12263,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -12672,8 +12752,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -13129,8 +13209,8 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 49,
-                                                                "attack_ratio": 38,
+                                                                "damage": 59,
+                                                                "attack_ratio": 45,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
                                                               }
@@ -13141,8 +13221,8 @@
                                                             "effects": [
                                                               {
                                                                 "type": "ApAttack",
-                                                                "damage": 70,
-                                                                "attack_ratio": 55,
+                                                                "damage": 85,
+                                                                "attack_ratio": 65,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
                                                               },
@@ -13451,8 +13531,8 @@
                                                                                                   "casting_type": "Targeting",
                                                                                                   "effect": {
                                                                                                     "type": "ApAttack",
-                                                                                                    "damage": 70,
-                                                                                                    "attack_ratio": 70,
+                                                                                                    "damage": 85,
+                                                                                                    "attack_ratio": 85,
                                                                                                     "hp_ratio": 0,
                                                                                                     "can_crit": false
                                                                                                   }
@@ -13533,7 +13613,7 @@
                                                                                     "name": "league_orianna_r_c",
                                                                                     "shape": {
                                                                                       "Circle": {
-                                                                                        "radius": 36000
+                                                                                        "radius": 42000
                                                                                       }
                                                                                     },
                                                                                     "delay": 1,
@@ -13657,16 +13737,24 @@
                                                                                                           "only_to_enemy": false
                                                                                                         },
                                                                                                         "effect_none": {
-                                                                                                          "type": "AddCasterBuff",
-                                                                                                          "buff_state": {
-                                                                                                            "name": "league_orianna_r_go",
-                                                                                                            "duration": {
-                                                                                                              "Time": {
-                                                                                                                "tick": 1
+                                                                                                          "type": "SwitchByBuff",
+                                                                                                          "buff_name": "league_orianna_c1",
+                                                                                                          "effect_buff": {
+                                                                                                            "type": "AddCasterBuff",
+                                                                                                            "buff_state": {
+                                                                                                              "name": "league_orianna_r_go",
+                                                                                                              "duration": {
+                                                                                                                "Time": {
+                                                                                                                  "tick": 1
+                                                                                                                }
                                                                                                               }
-                                                                                                            }
+                                                                                                            },
+                                                                                                            "only_to_enemy": false
                                                                                                           },
-                                                                                                          "only_to_enemy": false
+                                                                                                          "effect_none": {
+                                                                                                            "type": "Combine",
+                                                                                                            "effects": []
+                                                                                                          }
                                                                                                         }
                                                                                                       },
                                                                                                       {
@@ -13757,7 +13845,7 @@
                                                                                                                       "name": "league_orianna_r_dmg",
                                                                                                                       "shape": {
                                                                                                                         "Circle": {
-                                                                                                                          "radius": 36000
+                                                                                                                          "radius": 42000
                                                                                                                         }
                                                                                                                       },
                                                                                                                       "delay": 1,
@@ -14244,8 +14332,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -14702,8 +14790,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -14784,7 +14872,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -14908,16 +14996,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -15008,7 +15104,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -15497,8 +15593,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -15955,8 +16051,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -16037,7 +16133,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -16161,16 +16257,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -16261,7 +16365,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -16750,8 +16854,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -17208,8 +17312,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -17290,7 +17394,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -17414,16 +17518,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -17514,7 +17626,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -18003,8 +18115,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -18461,8 +18573,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -18543,7 +18655,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -18667,16 +18779,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -18767,7 +18887,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -19256,8 +19376,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -19714,8 +19834,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -19796,7 +19916,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -19920,16 +20040,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -20020,7 +20148,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -20509,8 +20637,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -20967,8 +21095,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -21049,7 +21177,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -21173,16 +21301,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -21273,7 +21409,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -21762,8 +21898,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -22220,8 +22356,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -22302,7 +22438,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -22426,16 +22562,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -22526,7 +22670,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -23015,8 +23159,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -23473,8 +23617,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -23555,7 +23699,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -23679,16 +23823,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -23779,7 +23931,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -24268,8 +24420,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -24726,8 +24878,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -24808,7 +24960,7 @@
                                                                                         "name": "league_orianna_r_c",
                                                                                         "shape": {
                                                                                           "Circle": {
-                                                                                            "radius": 36000
+                                                                                            "radius": 42000
                                                                                           }
                                                                                         },
                                                                                         "delay": 1,
@@ -24932,16 +25084,24 @@
                                                                                                               "only_to_enemy": false
                                                                                                             },
                                                                                                             "effect_none": {
-                                                                                                              "type": "AddCasterBuff",
-                                                                                                              "buff_state": {
-                                                                                                                "name": "league_orianna_r_go",
-                                                                                                                "duration": {
-                                                                                                                  "Time": {
-                                                                                                                    "tick": 1
+                                                                                                              "type": "SwitchByBuff",
+                                                                                                              "buff_name": "league_orianna_c1",
+                                                                                                              "effect_buff": {
+                                                                                                                "type": "AddCasterBuff",
+                                                                                                                "buff_state": {
+                                                                                                                  "name": "league_orianna_r_go",
+                                                                                                                  "duration": {
+                                                                                                                    "Time": {
+                                                                                                                      "tick": 1
+                                                                                                                    }
                                                                                                                   }
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "only_to_enemy": false
                                                                                                               },
-                                                                                                              "only_to_enemy": false
+                                                                                                              "effect_none": {
+                                                                                                                "type": "Combine",
+                                                                                                                "effects": []
+                                                                                                              }
                                                                                                             }
                                                                                                           },
                                                                                                           {
@@ -25032,7 +25192,7 @@
                                                                                                                           "name": "league_orianna_r_dmg",
                                                                                                                           "shape": {
                                                                                                                             "Circle": {
-                                                                                                                              "radius": 36000
+                                                                                                                              "radius": 42000
                                                                                                                             }
                                                                                                                           },
                                                                                                                           "delay": 1,
@@ -25521,8 +25681,8 @@
                                                                                                       "casting_type": "Targeting",
                                                                                                       "effect": {
                                                                                                         "type": "ApAttack",
-                                                                                                        "damage": 70,
-                                                                                                        "attack_ratio": 70,
+                                                                                                        "damage": 85,
+                                                                                                        "attack_ratio": 85,
                                                                                                         "hp_ratio": 0,
                                                                                                         "can_crit": false
                                                                                                       }
@@ -26402,8 +26562,8 @@
                                                                                                                             "casting_type": "Targeting",
                                                                                                                             "effect": {
                                                                                                                               "type": "ApAttack",
-                                                                                                                              "damage": 70,
-                                                                                                                              "attack_ratio": 70,
+                                                                                                                              "damage": 85,
+                                                                                                                              "attack_ratio": 85,
                                                                                                                               "hp_ratio": 0,
                                                                                                                               "can_crit": false
                                                                                                                             }
@@ -26484,7 +26644,7 @@
                                                                                                               "name": "league_orianna_r_c",
                                                                                                               "shape": {
                                                                                                                 "Circle": {
-                                                                                                                  "radius": 36000
+                                                                                                                  "radius": 42000
                                                                                                                 }
                                                                                                               },
                                                                                                               "delay": 1,
@@ -26608,16 +26768,24 @@
                                                                                                                                     "only_to_enemy": false
                                                                                                                                   },
                                                                                                                                   "effect_none": {
-                                                                                                                                    "type": "AddCasterBuff",
-                                                                                                                                    "buff_state": {
-                                                                                                                                      "name": "league_orianna_r_go",
-                                                                                                                                      "duration": {
-                                                                                                                                        "Time": {
-                                                                                                                                          "tick": 1
+                                                                                                                                    "type": "SwitchByBuff",
+                                                                                                                                    "buff_name": "league_orianna_c1",
+                                                                                                                                    "effect_buff": {
+                                                                                                                                      "type": "AddCasterBuff",
+                                                                                                                                      "buff_state": {
+                                                                                                                                        "name": "league_orianna_r_go",
+                                                                                                                                        "duration": {
+                                                                                                                                          "Time": {
+                                                                                                                                            "tick": 1
+                                                                                                                                          }
                                                                                                                                         }
-                                                                                                                                      }
+                                                                                                                                      },
+                                                                                                                                      "only_to_enemy": false
                                                                                                                                     },
-                                                                                                                                    "only_to_enemy": false
+                                                                                                                                    "effect_none": {
+                                                                                                                                      "type": "Combine",
+                                                                                                                                      "effects": []
+                                                                                                                                    }
                                                                                                                                   }
                                                                                                                                 },
                                                                                                                                 {
@@ -26708,7 +26876,7 @@
                                                                                                                                                 "name": "league_orianna_r_dmg",
                                                                                                                                                 "shape": {
                                                                                                                                                   "Circle": {
-                                                                                                                                                    "radius": 36000
+                                                                                                                                                    "radius": 42000
                                                                                                                                                   }
                                                                                                                                                 },
                                                                                                                                                 "delay": 1,
@@ -27290,8 +27458,8 @@
                                                                                                                             "casting_type": "Targeting",
                                                                                                                             "effect": {
                                                                                                                               "type": "ApAttack",
-                                                                                                                              "damage": 70,
-                                                                                                                              "attack_ratio": 70,
+                                                                                                                              "damage": 85,
+                                                                                                                              "attack_ratio": 85,
                                                                                                                               "hp_ratio": 0,
                                                                                                                               "can_crit": false
                                                                                                                             }
@@ -27372,7 +27540,7 @@
                                                                                                               "name": "league_orianna_r_c",
                                                                                                               "shape": {
                                                                                                                 "Circle": {
-                                                                                                                  "radius": 36000
+                                                                                                                  "radius": 42000
                                                                                                                 }
                                                                                                               },
                                                                                                               "delay": 1,
@@ -27496,16 +27664,24 @@
                                                                                                                                     "only_to_enemy": false
                                                                                                                                   },
                                                                                                                                   "effect_none": {
-                                                                                                                                    "type": "AddCasterBuff",
-                                                                                                                                    "buff_state": {
-                                                                                                                                      "name": "league_orianna_r_go",
-                                                                                                                                      "duration": {
-                                                                                                                                        "Time": {
-                                                                                                                                          "tick": 1
+                                                                                                                                    "type": "SwitchByBuff",
+                                                                                                                                    "buff_name": "league_orianna_c1",
+                                                                                                                                    "effect_buff": {
+                                                                                                                                      "type": "AddCasterBuff",
+                                                                                                                                      "buff_state": {
+                                                                                                                                        "name": "league_orianna_r_go",
+                                                                                                                                        "duration": {
+                                                                                                                                          "Time": {
+                                                                                                                                            "tick": 1
+                                                                                                                                          }
                                                                                                                                         }
-                                                                                                                                      }
+                                                                                                                                      },
+                                                                                                                                      "only_to_enemy": false
                                                                                                                                     },
-                                                                                                                                    "only_to_enemy": false
+                                                                                                                                    "effect_none": {
+                                                                                                                                      "type": "Combine",
+                                                                                                                                      "effects": []
+                                                                                                                                    }
                                                                                                                                   }
                                                                                                                                 },
                                                                                                                                 {
@@ -27596,7 +27772,7 @@
                                                                                                                                                 "name": "league_orianna_r_dmg",
                                                                                                                                                 "shape": {
                                                                                                                                                   "Circle": {
-                                                                                                                                                    "radius": 36000
+                                                                                                                                                    "radius": 42000
                                                                                                                                                   }
                                                                                                                                                 },
                                                                                                                                                 "delay": 1,
@@ -28191,8 +28367,8 @@
                                                   "effects": [
                                                     {
                                                       "type": "ApAttack",
-                                                      "damage": 70,
-                                                      "attack_ratio": 70,
+                                                      "damage": 85,
+                                                      "attack_ratio": 85,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
                                                     },
@@ -28260,7 +28436,7 @@
                                         "type": "RangeEffect",
                                         "shape": {
                                           "Circle": {
-                                            "radius": 36000
+                                            "radius": 42000
                                           }
                                         },
                                         "target": "EnemyChampion",
@@ -28334,16 +28510,24 @@
                                           "only_to_enemy": false
                                         },
                                         "effect_none": {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_orianna_r_go",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 1
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_orianna_c1",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_orianna_r_go",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 1
+                                                }
                                               }
-                                            }
+                                            },
+                                            "only_to_enemy": false
                                           },
-                                          "only_to_enemy": false
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
                                         }
                                       },
                                       {
@@ -28466,7 +28650,7 @@
                                                                 "type": "RangeEffect",
                                                                 "shape": {
                                                                   "Circle": {
-                                                                    "radius": 36000
+                                                                    "radius": 42000
                                                                   }
                                                                 },
                                                                 "target": "EnemyWithoutTower",
@@ -29055,8 +29239,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "ApAttack",
-                                          "damage": 70,
-                                          "attack_ratio": 55,
+                                          "damage": 85,
+                                          "attack_ratio": 65,
                                           "hp_ratio": 0,
                                           "can_crit": false
                                         }
@@ -29237,8 +29421,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "ApAttack",
-                                    "damage": 70,
-                                    "attack_ratio": 55,
+                                    "damage": 85,
+                                    "attack_ratio": 65,
                                     "hp_ratio": 0,
                                     "can_crit": false
                                   }
@@ -29343,8 +29527,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 70,
-                "attack_ratio": 55,
+                "damage": 85,
+                "attack_ratio": 65,
                 "hp_ratio": 0,
                 "can_crit": false
               }

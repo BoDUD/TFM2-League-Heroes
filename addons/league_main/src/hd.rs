@@ -46,6 +46,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Aphelios: PPU 1.5 (the user's pick), posed from the design's own squares at that density; 90 % (SIZES, the user:
     // 「厄斐琉斯模型是不是在游戏里太大了？」 then 「缩到 90%」 from a sheet: 47 px against the ADCs' 36-45)
     ("league_aphelios", 1.5, include_str!("../../../league/champions/league_aphelios#anim.fanim")),
+    // Rell: PPU 1.5 (the user's pick), posed by tools/art/rig_rell.py on that grid (mounted 44 game rows, on foot 40), so no
+    // SIZES row
+    ("league_rell", 1.5, include_str!("../../../league/champions/league_rell#anim.fanim")),
     // Urgot: PPU 1.5 (the user's pick, 「炮顶到腿尖 42 px，PPU 1.5」), posed from his design's own squares at that density by
     // tools/art/rig_urgot.py, so no SIZES row
     ("league_urgot", 1.5, include_str!("../../../league/champions/league_urgot#anim.fanim")),
