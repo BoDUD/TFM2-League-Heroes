@@ -50,6 +50,8 @@ BIG = "asset/league/effects/league_urgot_big"
 # 120 / 300 ticks, E stun 90 shield 80 + 60%, Q 70 + 70%) +5.16 on 12 seeds (league_darius +1.71, league_pantheon +1.40);
 # taken apart on 8: no W +5.90 (Purge's gun is a net loss), no legs +3.00, no E +2.47, no R damage +4.93, range 30000
 # +5.24; legs, E, Q and his stats cut step by step: +3.31, +2.36, +2.38, then here (hp 960, def 32) +1.53.
+# Here on 12 seeds: +1.74 (seeds 1-12; league_darius +1.71, league_pantheon +1.40) and +1.99 (13-24; league_darius
+# +1.75). League_yasuo's R beside him (yas.py, Urgot in the jungle slot): 2.46 a game (darius 1.50, base fighter 2.33).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30, mr 25, move 1000, range 25000, attack every 65 ticks);
     # League's Urgot: 655 +102 hp, 63 AD +5, 36 armour +5.2, 32 mr, 330 move, 350 range, 0.625 attack speed
