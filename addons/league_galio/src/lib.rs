@@ -28,7 +28,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_galio";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 
 // ===================== 数值（主包 build_galio.P） =====================
 
@@ -156,6 +156,21 @@ pub fn choose(allies: &[Ally], r_far: f64) -> Option<usize> {
 }
 
 // ===================== 小工具 =====================
+
+/// 硬控（击飞、晕眩、定身、嘲讽、恐惧、魅惑、被强制位移）：英雄登场优先飞去「被控住」的队友身边。
+/// 不是 `cc_count() > 0`：游戏 0.6.4 把正在播的施法动作也记成一种控制（`CcKindV1::Animation`），哪个队友在放技能都算
+/// 「被控」、都被当成苦战（卡莉丝塔附加包 10-16 查出：她每一跳都被自己的动作叫停）。
+const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
+                                CcKindV1::Charm, CcKindV1::ForceMove];
+
+/// One CC entry's kind is hard CC (not a cast animation, silence or disarm).
+pub fn is_hard_cc(kind: u32) -> bool {
+    HARD_CC.iter().any(|k| k.code() == kind)
+}
+
+fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| is_hard_cc(c.kind)))
+}
 
 fn alive_at(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
     let e = sim.get_entity(id)?;
@@ -304,7 +319,7 @@ fn pick_for(sim: &StableSim<'_>, me: usize) -> Option<usize> {
             id,
             far: dist(at, pos),
             hp: if max > 0 { hp as f64 / max as f64 } else { 1.0 },
-            in_cc: e.cc_count() > 0,
+            in_cc: hard_cc(&e),
             near: foes.iter().filter(|f| dist(pos, f.1) <= p.r_sur as f64).count(),
             close: foes.iter().filter(|f| dist(pos, f.1) <= p.r_r as f64).count(),
         });
@@ -447,6 +462,16 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_cast_animation_is_not_hard_cc() {
+        assert!(!is_hard_cc(CcKindV1::Animation.code()));
+        assert!(!is_hard_cc(CcKindV1::BlockSkill.code()));
+        for k in [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm,
+                  CcKindV1::ForceMove] {
+            assert!(is_hard_cc(k.code()));
+        }
+    }
 
     fn ally(id: usize, far: f64, hp: f64, in_cc: bool, near: usize, close: usize) -> Ally {
         Ally { id, far, hp, in_cc, near, close }
