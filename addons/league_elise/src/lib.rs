@@ -28,7 +28,8 @@ pub mod view;
 
 const ID: &str = "league_elise";
 const HERO: &str = "league_elise";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.1";
 /// 蜘蛛形态（主包数据的永久 buff）。
 pub const FORM: &str = "league_elise_sp";
 /// 结茧、盘丝的冷却标记（主包数据的施法者 buff）。
@@ -267,6 +268,21 @@ pub fn skill2_kind(spider: bool, e_cd: bool, ce_cd: bool, champ_in: bool) -> Ski
     }
 }
 
+/// 硬控（击飞、晕眩、定身、嘲讽、恐惧、魅惑、被强制位移）：结茧、盘丝和茧缚猎杀优先「被控住」的英雄。
+/// 不是 `cc_count() > 0`：游戏 0.6.4 把正在播的施法动作也记成一种控制（`CcKindV1::Animation`），哪个敌人在放技能都算
+/// 「被控」、都被优先选中（卡莉丝塔附加包 10-16 查出：她每一跳都被自己的动作叫停）。
+const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
+                                CcKindV1::Charm, CcKindV1::ForceMove];
+
+/// One CC entry's kind is hard CC (not a cast animation, silence or disarm).
+pub fn is_hard_cc(kind: u32) -> bool {
+    HARD_CC.iter().any(|k| k.code() == kind)
+}
+
+fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| is_hard_cc(c.kind)))
+}
+
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
@@ -362,7 +378,7 @@ impl StablePlayerAi for AimAi {
                 }
                 let (hp, max) = u.hp();
                 units.push(Unit { id: u.id(), at: (u.pos().0 as f64, u.pos().1 as f64), hp, max, r: u.radius() as f64,
-                                  champion: u.is_champion(), cc: u.cc_count() > 0 });
+                                  champion: u.is_champion(), cc: hard_cc(&u) });
             }
             let champ_within = |r: usize| units.iter().any(|u| u.champion && dist(at, u.at) <= r as f64);
             let (got, tag) = if kind == InputKindV1::Ult {
@@ -443,6 +459,16 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_cast_animation_is_not_hard_cc() {
+        assert!(!is_hard_cc(CcKindV1::Animation.code()));
+        assert!(!is_hard_cc(CcKindV1::BlockSkill.code()));
+        for k in [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm,
+                  CcKindV1::ForceMove] {
+            assert!(is_hard_cc(k.code()));
+        }
+    }
 
     fn champ(id: usize, at: Pt, hp: usize, max: usize) -> Unit {
         Unit { id, at, hp, max, r: 6_000.0, champion: true, cc: false }

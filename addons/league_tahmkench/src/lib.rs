@@ -32,7 +32,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_tahmkench";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 const HERO: &str = "league_tahmkench";
 
 // ===================== 数值（主包 build_tahmkench.P） =====================
@@ -203,6 +203,16 @@ pub fn stored(grey: usize, damage: usize, store: usize, cap: usize) -> usize {
 
 fn count_buff(sim: &StableSim<'_>, id: usize, name: &str) -> usize {
     sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == name).count())
+}
+
+/// 硬控（击飞、晕眩、定身、嘲讽、恐惧、魅惑、被强制位移）：「被控住」的队友才值得吞、被控住的目标才值得潜过去接。不是
+/// `cc_count() > 0`：游戏把正在播的施法动作也记成一种控制（`CcKindV1::Animation`），谁在放技能都算「被控」，大招和 W 的
+/// 时机就松了（卡莉丝塔附加包 10-16 查出：她每一跳都被自己的动作叫停）。
+const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
+                                CcKindV1::Charm, CcKindV1::ForceMove];
+
+fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| HARD_CC.iter().any(|k| k.code() == c.kind)))
 }
 
 fn alive_at(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
@@ -624,7 +634,7 @@ impl Ai {
                 for &(id, p) in mates.iter().filter(|m| dist(at, m.1) <= R_ALLY_R) {
                     let Some(u) = sim.get_entity(id) else { continue };
                     let (h, mx) = u.hp();
-                    let m = Mate { id, at: p, hp: h, max: mx, peak: peak_hp(tag, id, now, h), cc: u.cc_count() > 0 };
+                    let m = Mate { id, at: p, hp: h, max: mx, peak: peak_hp(tag, id, now, h), cc: hard_cc(&u) };
                     if let Some(why) = in_danger(&m, within(&foes, p, NEAR)) {
                         if best.is_none_or(|b| pct(m.hp, m.max) < pct(b.0.hp, b.0.max)) {
                             best = Some((m, why));
@@ -646,7 +656,7 @@ impl Ai {
                 let t = current?;
                 let tp = alive_at(sim, t)?;
                 let allies = within(&mates, at, W_ALLY_R);
-                let held = sim.get_entity(t).is_some_and(|u| u.cc_count() > 0);
+                let held = sim.get_entity(t).is_some_and(|u| hard_cc(&u));
                 let crowd = within(&foes, tp, LANDING);
                 if dive_ok(allies, held, crowd, pct(hp, max)) {
                     return Some(Plan::Keep);

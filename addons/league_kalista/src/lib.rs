@@ -128,8 +128,8 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { hop_thr: 40000, hop_v: 2500, hop_t: 12, atk_range: 52500, r_bind: 70000, r_range: 90000, r_fly_v: 4500,
-               r_catch: 14000, sp_t: 240, e_dmg: 15, e_ratio: 40 }
+        Self { hop_thr: 40000, hop_v: 2000, hop_t: 12, atk_range: 52500, r_bind: 70000, r_range: 90000, r_fly_v: 4500,
+               r_catch: 14000, sp_t: 240, e_dmg: 20, e_ratio: 50 }
     }
 }
 
@@ -320,6 +320,17 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| ent_has(&e, name))
 }
 
+/// 硬控（击飞、晕眩、定身、嘲讽、恐惧、魅惑、被强制位移）。不是 `cc_count() > 0`：游戏把正在播的施法动作也记成一种控制
+/// （`CcKindV1::Animation`），跳的动作一开始就把挪人叫停了——游戏里 89 跳全是「moved 0 ... cut by CC」（用户 10-16：「还是不前后跳」）。
+const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
+                                CcKindV1::Charm, CcKindV1::ForceMove];
+
+fn hard_cc(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| {
+        (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| HARD_CC.iter().any(|k| k.code() == c.kind)))
+    })
+}
+
 fn pos_of(sim: &StableSim<'_>, id: usize) -> Option<Pt> {
     sim.get_entity(id).map(|e| (e.pos().0 as f64, e.pos().1 as f64))
 }
@@ -416,7 +427,7 @@ impl Oath {
             }
         }
         if let Some(h) = self.hopping.as_mut() {
-            let held = sim.get_entity(me).is_some_and(|e| e.cc_count() > 0);
+            let held = hard_cc(sim, me);
             if h.left == 0 || held {
                 if let Some(k) = counted("hop_done") {
                     wlog(format!("{} HOP DONE moved {:.0} of {} ({} steps refused{}) #{k}", head(sim, me), dist(h.from, at),
@@ -791,8 +802,8 @@ mod tests {
     #[test]
     fn rend_kills_when_the_spears_are_enough() {
         let p = Params::default();
-        // 4 spears, 200 attack: 4 x (15 + 80) = 380, armour 50: 253
-        assert_eq!(rend_damage(4, 200, 50, &p), 253);
+        // 4 spears, 200 attack: 4 x (20 + 100) = 480, armour 50: 320
+        assert_eq!(rend_damage(4, 200, 50, &p), 320);
         assert_eq!(rend_damage(0, 200, 50, &p), 0);
     }
 }

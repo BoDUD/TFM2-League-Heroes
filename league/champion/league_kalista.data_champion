@@ -13,10 +13,10 @@
     "asset/league/icons/league_kalista_ult"
   ],
   "stat": {
-    "attack": 104,
+    "attack": 116,
     "magic_power": 0,
-    "hp": 1000,
-    "defence": 20,
+    "hp": 1150,
+    "defence": 26,
     "magic_resistance": 15,
     "move_speed": 900,
     "hp_regen": 0,
@@ -118,8 +118,8 @@
                               "effects": [
                                 {
                                   "type": "Attack",
-                                  "damage": 15,
-                                  "attack_ratio": 40,
+                                  "damage": 20,
+                                  "attack_ratio": 50,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -207,8 +207,8 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 15,
-                                    "attack_ratio": 40,
+                                    "damage": 20,
+                                    "attack_ratio": 50,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
@@ -304,8 +304,8 @@
                                   "effects": [
                                     {
                                       "type": "Attack",
-                                      "damage": 15,
-                                      "attack_ratio": 40,
+                                      "damage": 20,
+                                      "attack_ratio": 50,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -685,7 +685,7 @@
                                 "damage": 0,
                                 "attack_ratio": 0,
                                 "hp_ratio": 0,
-                                "target_hp_ratio": 12,
+                                "target_hp_ratio": 14,
                                 "attack_effect_type": "Target"
                               },
                               {
@@ -1111,7 +1111,7 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 2500,
+                            "speed": 2000,
                             "tick": 12
                           }
                         ]
@@ -1138,7 +1138,7 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 2500,
+                            "speed": 2000,
                             "tick": 12
                           }
                         ]
@@ -1298,7 +1298,7 @@
                     },
                     {
                       "type": "Attack",
-                      "damage": 100,
+                      "damage": 120,
                       "attack_ratio": 105,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
@@ -1327,8 +1327,8 @@
                                     "effects": [
                                       {
                                         "type": "Attack",
-                                        "damage": 15,
-                                        "attack_ratio": 40,
+                                        "damage": 20,
+                                        "attack_ratio": 50,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"
@@ -1416,8 +1416,8 @@
                                       "effects": [
                                         {
                                           "type": "Attack",
-                                          "damage": 15,
-                                          "attack_ratio": 40,
+                                          "damage": 20,
+                                          "attack_ratio": 50,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
@@ -1513,8 +1513,8 @@
                                         "effects": [
                                           {
                                             "type": "Attack",
-                                            "damage": 15,
-                                            "attack_ratio": 40,
+                                            "damage": 20,
+                                            "attack_ratio": 50,
                                             "hp_ratio": 0,
                                             "target_hp_ratio": 0,
                                             "attack_effect_type": "Target"
@@ -1899,7 +1899,7 @@
                                       "damage": 0,
                                       "attack_ratio": 0,
                                       "hp_ratio": 0,
-                                      "target_hp_ratio": 12,
+                                      "target_hp_ratio": 14,
                                       "attack_effect_type": "Target"
                                     },
                                     {
@@ -2376,7 +2376,7 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 2500,
+                            "speed": 2000,
                             "tick": 12
                           }
                         ]
@@ -2403,7 +2403,7 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 2500,
+                            "speed": 2000,
                             "tick": 12
                           }
                         ]
