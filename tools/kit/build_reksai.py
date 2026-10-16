@@ -315,8 +315,14 @@ def build(p):
                    delayed(p["r_hide"] - 1, sfx("r_leap"), anim("ult_hit", p["r_dur"]), {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + 30000,
                                              "end_effects": [homing("r_strike", 100000, 0, "EnemyChampion", strike),
                                                              cview("r_burst")]}))
+    # league_orianna's x trick: the game's AI scores the branch the flags pick between ticks, and rush's blow sits in a
+    # MoveToTarget's end_effects, which it does not count - in game R was never cast (the add-on's log, 2026-10-17: 11
+    # armed windows, no RFIRE; the classic SDK's AI casts it anyway). r_x is never there between ticks, so the AI reads
+    # Void Rush's blow; when the slot runs, the flag is up and the real branch goes
+    scored = combine(flag("r_x", 1), sw("r_x", combine(*rm("r_x"), rush), attack(p["r_dmg"], p["r_ratio"], p["r_hp"])),
+                     *rm("r_x"))
     ult = action("ult", p["r_dur"] + p["r_hide"], p["r_cd"], 1, p["r_range"], "Targeting",
-                 "EnemyChampionRecentlyAttacked", combine(life, sw("r_ok", rush)))
+                 "EnemyChampionRecentlyAttacked", combine(life, sw("r_ok", scored)))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

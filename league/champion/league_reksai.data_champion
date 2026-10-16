@@ -3113,161 +3113,203 @@
             "type": "Combine",
             "effects": [
               {
-                "type": "CasterAnimation",
-                "name": "ult",
-                "tick": 54
-              },
-              {
-                "type": "Sfx",
-                "name": "league_reksai_r"
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_reksai_r_x",
+                  "duration": {
+                    "Time": {
+                      "tick": 1
+                    }
+                  }
+                },
+                "only_to_enemy": false
               },
               {
                 "type": "SwitchByBuff",
-                "buff_name": "league_reksai_vo_cd",
+                "buff_name": "league_reksai_r_x",
                 "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
                   "type": "Combine",
                   "effects": [
                     {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_reksai_vo_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 600
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
+                      "type": "RemoveCasterBuff",
+                      "name": "league_reksai_r_x"
                     },
                     {
-                      "type": "Sfx",
-                      "name": "league_reksai_vo_r"
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "ult",
+                          "tick": 54
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_reksai_r"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_reksai_vo_cd",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_reksai_vo_cd",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 600
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_reksai_vo_r"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "CasterInvisible",
+                              "tick": 54
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_reksai_r_hid"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_reksai_r_hid",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 54
+                                      }
+                                    },
+                                    "damaged_reduce": 100,
+                                    "cc_immune": true
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_reksai_r_dive"
+                        },
+                        {
+                          "type": "TargetProjectile",
+                          "name": "league_reksai_r_tag",
+                          "speed": 100000,
+                          "y_offset": 0,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_reksai_r_mark",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 74
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 53,
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "league_reksai_r_leap"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "ult_hit",
+                              "tick": 30
+                            },
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 9000,
+                              "range": 100000,
+                              "end_effects": [
+                                {
+                                  "type": "TargetProjectile",
+                                  "name": "league_reksai_r_strike",
+                                  "speed": 100000,
+                                  "y_offset": 0,
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 120,
+                                        "attack_ratio": 100,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 15,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_reksai_r_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_reksai_r_hit"
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_reksai_r_burst"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
+                },
+                "effect_none": {
+                  "type": "Attack",
+                  "damage": 120,
+                  "attack_ratio": 100,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 15,
+                  "attack_effect_type": "Target"
                 }
               },
               {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "CasterInvisible",
-                    "tick": 54
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_reksai_r_hid"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_reksai_r_hid",
-                          "duration": {
-                            "Time": {
-                              "tick": 54
-                            }
-                          },
-                          "damaged_reduce": 100,
-                          "cc_immune": true
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_reksai_r_dive"
-              },
-              {
-                "type": "TargetProjectile",
-                "name": "league_reksai_r_tag",
-                "speed": 100000,
-                "y_offset": 0,
-                "applied_target": "EnemyChampion",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "AddBuff",
-                      "buff_state": {
-                        "name": "league_reksai_r_mark",
-                        "duration": {
-                          "Time": {
-                            "tick": 74
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 53,
-                "effects": [
-                  {
-                    "type": "Sfx",
-                    "name": "league_reksai_r_leap"
-                  },
-                  {
-                    "type": "CasterAnimation",
-                    "name": "ult_hit",
-                    "tick": 30
-                  },
-                  {
-                    "type": "MoveToTarget",
-                    "speed": 9000,
-                    "range": 100000,
-                    "end_effects": [
-                      {
-                        "type": "TargetProjectile",
-                        "name": "league_reksai_r_strike",
-                        "speed": 100000,
-                        "y_offset": 0,
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 120,
-                              "attack_ratio": 100,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 15,
-                              "attack_effect_type": "Target"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_reksai_r_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_reksai_r_hit"
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_reksai_r_burst"
-                      }
-                    ]
-                  }
-                ]
+                "type": "RemoveCasterBuff",
+                "name": "league_reksai_r_x"
               }
             ]
           },
