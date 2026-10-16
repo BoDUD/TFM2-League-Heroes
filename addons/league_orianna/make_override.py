@@ -12,7 +12,7 @@ addons/league_orianna/override/league_orianna.data_champion and .../text/champio
     (the add-on hits the line from the Ball, league_orianna:e_hit);
   * E's ally asked of league_orianna:e_pick (each ally in range; the one picked raises league_orianna_e_this);
   * R asking league_orianna:r_kill for each enemy champion near the Ball (a kill raises league_orianna_c2; R fires for
-    any enemy champion near the Ball anyway since 0.122.1, so it is the log's R-ARMED / KILL lines);
+    any enemy champion near the Ball anyway since 0.124.2, so it is the log's R-ARMED / KILL lines);
   * passive = the add-on's league_orianna:ball with the numbers of P;
   * the skills' tooltips point to description.league_orianna.skill / .skill2 / .ult with the add-on's wording
     (keys of the add-on's own id), so the tooltip in game shows whether the override took.

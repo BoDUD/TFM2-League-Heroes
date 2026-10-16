@@ -38,7 +38,7 @@ recommended option - W fires by itself at the ball sharing Q's icon, R waits for
           it; else herself): e_sh + e_ap% AP shield for e_t ticks, e_dmg + e_dap% AP to
           enemies on the line toward him, and while it rides him e_def armour and magic resistance (League's passive).
   ult     R Command: Shockwave (指令：冲击波): the slot arms the ult for r_arm ticks (league_syndra / league_pantheon R);
-          wherever the ball is, it fires once an enemy champion stands within r_r of it (r_rule 2, 0.122.1; the user:
+          wherever the ball is, it fires once an enemy champion stands within r_r of it (r_rule 2, 0.124.2; the user:
           「发条的大招条件太苛刻」 - before, two champions or one his team was fighting with no second within r_iso: 11
           shockwaves in 18 windows of 4 simulated games, now 17 in 20). r_delay ticks after the cast (League: 0.5 s) r_dmg + r_ap% AP to every enemy within r_r, flung
           toward the ball and through it (`Pull` r_pull x r_pull_t at the ball's spot; League: 325 units). Unused, the

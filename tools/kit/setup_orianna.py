@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_orianna in every language, description + skill_name),
 sound/sfx/league_orianna_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and
-the ban/pick card's point once the sprite is in), mod.mod_info (0.124.1 or higher, Orianna named). Only her keys change in the
+the ban/pick card's point once the sprite is in), mod.mod_info (0.124.2 or higher, Orianna named). Only her keys change in the
 shared files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: Data Dragon 16.20.1 (zh_CN 发条魔灵 / 奥莉安娜 - the client swaps name and title: 奥莉安娜; 发条协奏, 指令：攻击,
 指令：杂音, 指令：防卫, 指令：冲击波; zh_TW 奧莉安娜 / 發條少女, 魔法發條, 指令：貫穿, 指令：失衡, 指令：守護, 終極指令：脈衝;
@@ -27,7 +27,7 @@ from build_orianna import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_orianna"
-VERSION = "0.124.1"
+VERSION = "0.124.2"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 M = "<#a974ffff>"      # magic damage / AP
