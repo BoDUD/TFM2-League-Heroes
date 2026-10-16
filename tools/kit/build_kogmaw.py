@@ -76,6 +76,9 @@ P = {
     # x2 below 40% health, cd 2-1.5 s with a growing mana cost)
     "r_lock": 1200, "r_gap": 50, "r_win": 360, "r_range": 130000, "r_dur": 37, "r_rel": 17, "r_delay": 40,
     "r_r": 15000, "r_dmg": 90, "r_ratio": 65, "r_x": 50, "r_x_ratio": 35,
+    # a 1-tick shield on him first in the ult slot, worth its amount to game 0.6.4's AI (tools/fix/ult_ai_value.py): the slot
+    # had no value it could see and was cast 0.7 times every 10 minutes after level 5 (other marksmen 5-8)
+    "r_ai": 200,
     # combos
     "e_r_wait": 10,
     # his spoken lines, at most one every vo_gap ticks
@@ -302,8 +305,10 @@ def build(p):
 
     r_cast = combine(anim("ult", p["r_dur"]), voice("vo_r", p),
                      delayed(p["r_rel"], sfx("r_shot"), shell()))
+    ai_value = on_me({"type": "Shield", "amount": p["r_ai"], "attack_ratio": 0, "ap_ratio": 0, "tick": 1},
+                     flag("ai_value", 1))
     ult = action("ult", p["r_dur"], p["r_lock"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
-                 combine(life, volley(r_cast)))
+                 combine(ai_value, life, volley(r_cast)))
 
     # ------------------------------------------------------------------ E Void Ooze
     slow = buff("e_slow", p["e_slow_t"], move_speed_mult=-p["e_slow"])
