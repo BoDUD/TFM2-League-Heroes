@@ -1103,7 +1103,7 @@
                           {
                             "type": "CasterAnimation",
                             "name": "hop_b",
-                            "tick": 12
+                            "tick": 14
                           },
                           {
                             "type": "Sfx",
@@ -1111,8 +1111,8 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 1800,
-                            "tick": 10
+                            "speed": 2500,
+                            "tick": 12
                           }
                         ]
                       }
@@ -1130,7 +1130,7 @@
                           {
                             "type": "CasterAnimation",
                             "name": "hop_b",
-                            "tick": 12
+                            "tick": 14
                           },
                           {
                             "type": "Sfx",
@@ -1138,8 +1138,8 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 1800,
-                            "tick": 10
+                            "speed": 2500,
+                            "tick": 12
                           }
                         ]
                       }
@@ -2368,7 +2368,7 @@
                           {
                             "type": "CasterAnimation",
                             "name": "hop_b",
-                            "tick": 12
+                            "tick": 14
                           },
                           {
                             "type": "Sfx",
@@ -2376,8 +2376,8 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 1800,
-                            "tick": 10
+                            "speed": 2500,
+                            "tick": 12
                           }
                         ]
                       }
@@ -2395,7 +2395,7 @@
                           {
                             "type": "CasterAnimation",
                             "name": "hop_b",
-                            "tick": 12
+                            "tick": 14
                           },
                           {
                             "type": "Sfx",
@@ -2403,8 +2403,8 @@
                           },
                           {
                             "type": "MoveBack",
-                            "speed": 1800,
-                            "tick": 10
+                            "speed": 2500,
+                            "tick": 12
                           }
                         ]
                       }

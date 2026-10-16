@@ -128,7 +128,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { hop_thr: 40000, hop_v: 1800, hop_t: 10, atk_range: 52500, r_bind: 70000, r_range: 90000, r_fly_v: 4500,
+        Self { hop_thr: 40000, hop_v: 2500, hop_t: 12, atk_range: 52500, r_bind: 70000, r_range: 90000, r_fly_v: 4500,
                r_catch: 14000, sp_t: 240, e_dmg: 15, e_ratio: 40 }
     }
 }
@@ -286,6 +286,9 @@ pub fn rend_damage(n: usize, ad: usize, def: usize, p: &Params) -> usize {
 struct Hopping {
     dir: Pt,
     left: usize,
+    /// 起跳的位置、游戏拒绝挪人的次数（日志 HOP DONE 用：用户 10-16 进游戏：「还是不前后跳」）。
+    from: Pt,
+    refused: usize,
 }
 
 #[derive(Clone, Copy)]
@@ -402,7 +405,7 @@ impl Oath {
         if has_buff(sim, me, HOP_GO) && self.hopping.is_none() {
             sim.entity_remove_buff(me, HOP_GO);
             if let Some((hop, why)) = choice {
-                self.hopping = Some(Hopping { dir: hop_dir(at, hop), left: p.hop_t.max(1) });
+                self.hopping = Some(Hopping { dir: hop_dir(at, hop), left: p.hop_t.max(1), from: at, refused: 0 });
                 if let Some(k) = counted("hop") {
                     let (way, f) = match hop {
                         Hop::Forward(f) => ("FORWARD to", f),
@@ -415,11 +418,17 @@ impl Oath {
         if let Some(h) = self.hopping.as_mut() {
             let held = sim.get_entity(me).is_some_and(|e| e.cc_count() > 0);
             if h.left == 0 || held {
+                if let Some(k) = counted("hop_done") {
+                    wlog(format!("{} HOP DONE moved {:.0} of {} ({} steps refused{}) #{k}", head(sim, me), dist(h.from, at),
+                                 p.hop_v * p.hop_t, h.refused, if held { ", cut by CC" } else { "" }));
+                }
                 self.hopping = None;
             } else {
                 let step = p.hop_v as f64;
                 let next = clamp((at.0 + h.dir.0 * step, at.1 + h.dir.1 * step));
-                sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64);
+                if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
+                    h.refused += 1;
+                }
                 h.left -= 1;
             }
         }
@@ -688,7 +697,7 @@ mod tests {
     fn params_from_the_main_pack() {
         assert_eq!(parse_params("{}"), Params::default());
         let p = parse_params(r#"{"hop_v":2000,"junk":3,"r_fly_v":5000}"#);
-        assert_eq!((p.hop_v, p.r_fly_v, p.hop_t), (2000, 5000, 10));
+        assert_eq!((p.hop_v, p.r_fly_v, p.hop_t), (2000, 5000, 12));
     }
 
     #[test]

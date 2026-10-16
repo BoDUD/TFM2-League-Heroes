@@ -70,8 +70,9 @@ P = {
     "sp_t": 240, "sp_pic": 12, "e_need": 3,
     # W Soul-Marked (League: 14% max health magic, 6 s per target, needs the Oathsworn's hit too)
     "w_r": 45000, "w_hp": 12, "w_cd": 300,
-    # passive Martial Poise (League: a hop of ~300 units after each attack)
-    "hop_thr": 40000, "hop_v": 1800, "hop_t": 10, "k_hold": 40, "k_read": 4,
+    # passive Martial Poise (League: a hop of ~300 units after each attack, ~57% of her 525 range: 30 px here; 18 px went
+    # unseen in game - the user, 10-16: 「还是不前后跳」)
+    "hop_thr": 40000, "hop_v": 2500, "hop_t": 12, "k_hold": 40, "k_read": 4,
     # the hop waits hop_wait ticks after the release: the throw's release frame (90 ms) shows first (the user, 10-16 in
     # game: 「平A动作还是不对啊 不用武器啊」 - the hop's frames replaced the throw right on the release)
     "hop_wait": 5,

@@ -9,8 +9,8 @@
     "passive_ref": "league_kalista:oath",
     "params": {
       "hop_thr": 40000,
-      "hop_v": 1800,
-      "hop_t": 10,
+      "hop_v": 2500,
+      "hop_t": 12,
       "atk_range": 52500,
       "r_bind": 70000,
       "r_range": 90000,
@@ -1146,7 +1146,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "hop_f",
-                                  "tick": 12
+                                  "tick": 14
                                 },
                                 {
                                   "type": "Sfx",
@@ -1184,7 +1184,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -1198,7 +1198,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -1206,8 +1206,8 @@
                                   },
                                   {
                                     "type": "MoveBack",
-                                    "speed": 1800,
-                                    "tick": 10
+                                    "speed": 2500,
+                                    "tick": 12
                                   }
                                 ]
                               }
@@ -1256,7 +1256,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "hop_f",
-                                  "tick": 12
+                                  "tick": 14
                                 },
                                 {
                                   "type": "Sfx",
@@ -1294,7 +1294,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -1308,7 +1308,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -1316,8 +1316,8 @@
                                   },
                                   {
                                     "type": "MoveBack",
-                                    "speed": 1800,
-                                    "tick": 10
+                                    "speed": 2500,
+                                    "tick": 12
                                   }
                                 ]
                               }
@@ -2577,7 +2577,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "hop_f",
-                                  "tick": 12
+                                  "tick": 14
                                 },
                                 {
                                   "type": "Sfx",
@@ -2615,7 +2615,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -2629,7 +2629,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -2637,8 +2637,8 @@
                                   },
                                   {
                                     "type": "MoveBack",
-                                    "speed": 1800,
-                                    "tick": 10
+                                    "speed": 2500,
+                                    "tick": 12
                                   }
                                 ]
                               }
@@ -2687,7 +2687,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "hop_f",
-                                  "tick": 12
+                                  "tick": 14
                                 },
                                 {
                                   "type": "Sfx",
@@ -2725,7 +2725,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -2739,7 +2739,7 @@
                                   {
                                     "type": "CasterAnimation",
                                     "name": "hop_b",
-                                    "tick": 12
+                                    "tick": 14
                                   },
                                   {
                                     "type": "Sfx",
@@ -2747,8 +2747,8 @@
                                   },
                                   {
                                     "type": "MoveBack",
-                                    "speed": 1800,
-                                    "tick": 10
+                                    "speed": 2500,
+                                    "tick": 12
                                   }
                                 ]
                               }
