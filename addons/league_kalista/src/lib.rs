@@ -128,8 +128,8 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Self { hop_thr: 40000, hop_v: 2500, hop_t: 12, atk_range: 52500, r_bind: 70000, r_range: 90000, r_fly_v: 4500,
-               r_catch: 14000, sp_t: 240, e_dmg: 15, e_ratio: 40 }
+        Self { hop_thr: 40000, hop_v: 2000, hop_t: 12, atk_range: 52500, r_bind: 70000, r_range: 90000, r_fly_v: 4500,
+               r_catch: 14000, sp_t: 240, e_dmg: 20, e_ratio: 50 }
     }
 }
 
@@ -802,8 +802,8 @@ mod tests {
     #[test]
     fn rend_kills_when_the_spears_are_enough() {
         let p = Params::default();
-        // 4 spears, 200 attack: 4 x (15 + 80) = 380, armour 50: 253
-        assert_eq!(rend_damage(4, 200, 50, &p), 253);
+        // 4 spears, 200 attack: 4 x (20 + 100) = 480, armour 50: 320
+        assert_eq!(rend_damage(4, 200, 50, &p), 320);
         assert_eq!(rend_damage(0, 200, 50, &p), 0);
     }
 }
