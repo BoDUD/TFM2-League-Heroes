@@ -770,6 +770,13 @@
         "skill": "掷出长矛，对第一个敌人造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理伤害<>并插上一支矛；若将其击杀，长矛穿过去命中下一个。",
         "skill2": "拔出所有敌人身上的矛：每支造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>并减速8%。击杀英雄时刷新冷却。插满<#ffb900ff>3支<>时自动拔出。",
         "ult": "把身边一名队友拉进身体保护<#ffb900ff>0.5秒<>，然后甩向目标，落地击飞周围敌人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。"
+      },
+      "league_pantheon": {
+        "name": "潘森",
+        "attack": "长矛突刺。<#ff9028ff>矢志不退<>：普攻命中和放技能各叠一层，<#ffb900ff>5层<>时下一个技能强化（每条命开局满层）。<#ff9028ff>大荒星陨<>被动：护甲穿透15%。",
+        "skill": "近处向前突刺，远处蓄力后掷出长矛，对线上的敌人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>（掷出时第一个之后减半）。强化：额外<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>。",
+        "skill2": "跃向敌方英雄，造成其7%最大生命的伤害并<#ef5350ff>晕眩1秒<>；强化：下次普攻连刺3下。<#ff9028ff>神佑枪阵<>：举盾<#ffb900ff>1.5秒<>，免疫控制、减伤60%，连刺前方后盾击造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。",
+        "ult": "下蹲<#ffb900ff>1秒<>后跃起，落向交战中的敌人：长矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并减速50%，落地造成<#a974ffff>300魔法伤害<>（边缘减半），叠满被动。"
       }
     },
     "skill_name": {
@@ -1322,6 +1329,11 @@
         "skill1": "穿刺",
         "skill2": "撕裂",
         "ult": "命运的召唤"
+      },
+      "league_pantheon": {
+        "skill1": "贯星长枪",
+        "skill2": "斗盾跃击",
+        "ult": "大荒星陨"
       }
     }
   },
@@ -2096,6 +2108,13 @@
         "skill": "擲出長矛，對第一個敵人造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<><#ff9028ff>物理傷害<>並插上一支矛；若將其擊殺，長矛穿過去命中下一個。",
         "skill2": "拔出所有敵人身上的矛：每支造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>並緩速8%。擊殺英雄時重置冷卻。插滿<#ffb900ff>3支<>時自動拔出。",
         "ult": "把身邊一名隊友拉進身體保護<#ffb900ff>0.5秒<>，然後擲向目標，落地擊飛周圍敵人<#ffb900ff>1.25秒<>，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。"
+      },
+      "league_pantheon": {
+        "name": "潘森",
+        "attack": "長矛突刺。<#ff9028ff>凡人堅志<>：普攻命中和施放技能各疊一層，<#ffb900ff>5層<>時下一個技能強化（每條命開局滿層）。<#ff9028ff>星殞衝擊<>被動：護甲穿透15%。",
+        "skill": "近處向前突刺，遠處蓄力後擲出長矛，對線上的敵人造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>（擲出時第一個之後減半）。強化：額外<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>。",
+        "skill2": "躍向敵方英雄，造成其7%最大生命的傷害並<#ef5350ff>暈眩1秒<>；強化：下次普攻連刺3下。<#ff9028ff>聖盾猛襲<>：舉盾<#ffb900ff>1.5秒<>，免疫控制、減傷60%，連刺前方後盾擊造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。",
+        "ult": "蹲伏<#ffb900ff>1秒<>後躍起，落向交戰中的敵人：長矛先砸下造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並緩速50%，落地造成<#a974ffff>300魔法傷害<>（邊緣減半），疊滿被動。"
       }
     },
     "skill_name": {
@@ -2648,6 +2667,11 @@
         "skill1": "赦罪穿刺",
         "skill2": "痛苦撕扯",
         "ult": "命運呼喚"
+      },
+      "league_pantheon": {
+        "skill1": "彗星戰矛",
+        "skill2": "盾之躍擊",
+        "ult": "星殞衝擊"
       }
     }
   },
@@ -3422,6 +3446,13 @@
         "skill": "Throws a spear that deals <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<> <#ff9028ff>physical damage<> to the first enemy hit and sticks a spear in it; if it kills, the spear passes through to the next.",
         "skill2": "Rips out every spear: each deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> and slows 8%. Killing a champion refunds the cooldown. Rips on its own at <#ffb900ff>3 spears<>.",
         "ult": "Draws an ally beside her into herself for <#ffb900ff>0.5s<>, then hurls them at the target; the landing knocks up nearby enemies for <#ffb900ff>1.25s<> and deals <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>."
+      },
+      "league_pantheon": {
+        "name": "Pantheon",
+        "attack": "Spear thrusts. <#ff9028ff>Mortal Will<>: attacks that land and ability casts each add a stack; at <#ffb900ff>5 stacks<> his next ability is empowered (full at the start of each life). <#ff9028ff>Grand Starfall<> passive: 15% armour penetration.",
+        "skill": "Thrusts at a near target, or charges and throws the spear at a far one, dealing <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> to enemies on the line (a throw: half after the first). Empowered: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> more.",
+        "skill2": "Leaps at an enemy champion, dealing 7% of its max health and <#ef5350ff>stunning it 1s<>; empowered: his next attack strikes 3 times. <#ff9028ff>Aegis Assault<>: raises the shield <#ffb900ff>1.5s<>, immune to crowd control, 60% less damage, stabbing ahead, then bashes for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>.",
+        "ult": "Crouches <#ffb900ff>1s<>, leaps and falls on enemies in a fight: his spear strikes first for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a 50% slow, then the landing deals <#a974ffff>300 magic damage<> (half at the edge) and fills Mortal Will."
       }
     },
     "skill_name": {
@@ -3974,6 +4005,11 @@
         "skill1": "Pierce",
         "skill2": "Rend",
         "ult": "Fate's Call"
+      },
+      "league_pantheon": {
+        "skill1": "Comet Spear",
+        "skill2": "Shield Vault",
+        "ult": "Grand Starfall"
       }
     }
   },
@@ -4748,6 +4784,13 @@
         "skill": "창을 던져 처음 맞은 적에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>의 <#ff9028ff>물리 피해<>를 입히고 창을 꽂습니다. 처치하면 창이 관통해 다음 적을 맞힙니다.",
         "skill2": "모든 창을 뽑습니다: 창마다 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>의 <#ff9028ff>물리 피해<>, 8% 둔화. 챔피언 처치 시 재사용 대기시간 초기화. 창이 <#ffb900ff>3개<>면 자동으로 뽑습니다.",
         "ult": "곁의 아군을 <#ffb900ff>0.5초<> 동안 몸에 거둔 뒤 대상에게 던집니다. 착지하면 주변 적을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>의 <#ff9028ff>물리 피해<>."
+      },
+      "league_pantheon": {
+        "name": "판테온",
+        "attack": "창으로 찌릅니다. <#ff9028ff>필멸자의 의지<>: 적중한 기본 공격과 스킬 사용마다 중첩, <#ffb900ff>5중첩<>이면 다음 스킬 강화(목숨마다 시작 시 최대). <#ff9028ff>거대 유성<> 패시브: 방어구 관통 15%.",
+        "skill": "가까우면 앞으로 찌르고, 멀면 힘을 모아 창을 던져 선 위의 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>(던질 때 첫 적 이후 절반). 강화: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가.",
+        "skill2": "적 챔피언에게 도약해 최대 체력의 7% 피해와 <#ef5350ff>1초 기절<>; 강화: 다음 기본 공격 3연타. <#ff9028ff>방패 돌격<>: <#ffb900ff>1.5초<> 방패를 들어 군중 제어 면역, 피해 60% 감소, 앞을 찌른 뒤 방패로 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>.",
+        "ult": "<#ffb900ff>1초<> 웅크렸다 도약해 교전 중인 적에게 떨어집니다: 창이 먼저 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>의 <#ff9028ff>물리 피해<>와 50% 둔화, 착지 시 <#a974ffff>300 마법 피해<>(가장자리 절반), 패시브 최대."
       }
     },
     "skill_name": {
@@ -5300,6 +5343,11 @@
         "skill1": "꿰뚫는 창",
         "skill2": "뽑아 찢기",
         "ult": "운명의 부름"
+      },
+      "league_pantheon": {
+        "skill1": "혜성의 창",
+        "skill2": "방호의 도약",
+        "ult": "거대 유성"
       }
     }
   },
@@ -6074,6 +6122,13 @@
         "skill": "槍を投げ、最初の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>105%<>の<#ff9028ff>物理ダメージ<>を与え槍を刺す。倒すと貫通して次の敵に当たる。",
         "skill2": "全ての槍を引き抜く：1本につき<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>と8%スロウ。チャンピオンを倒すとCD解消。<#ffb900ff>3本<>で自動発動。",
         "ult": "傍の味方を<#ffb900ff>0.5秒<>身に宿し、対象へ投げ放つ。着地で周囲の敵を<#ffb900ff>1.25秒<>打ち上げ、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。"
+      },
+      "league_pantheon": {
+        "name": "パンテオン",
+        "attack": "槍で突く。<#ff9028ff>定命の意志<>：命中した通常攻撃とスキル使用でスタック、<#ffb900ff>5スタック<>で次のスキル強化（各ライフ開始時は最大）。<#ff9028ff>偉大なる星路<>パッシブ：物理防御貫通15%。",
+        "skill": "近くなら前へ突き、遠ければ溜めて槍を投げ、線上の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>（投擲は最初の敵以降半減）。強化：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>追加。",
+        "skill2": "敵チャンピオンへ跳び、最大体力の7%のダメージと<#ef5350ff>1秒スタン<>。強化：次の通常攻撃が3連撃。<#ff9028ff>イージスの猛攻<>：<#ffb900ff>1.5秒<>盾を構え、CC無効・被ダメージ60%軽減、前方を突いた後に盾で<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。",
+        "ult": "<#ffb900ff>1秒<>身を屈めて跳び、交戦中の敵へ落下：槍が先に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と50%スロウ、着地で<#a974ffff>300の魔法ダメージ<>（外側は半減）、パッシブ最大。"
       }
     },
     "skill_name": {
@@ -6626,6 +6681,11 @@
         "skill1": "貫魂の一投",
         "skill2": "引き裂く遺恨",
         "ult": "宿命の呼び声"
+      },
+      "league_pantheon": {
+        "skill1": "彗星の槍",
+        "skill2": "跳撃の盾",
+        "ult": "偉大なる星路"
       }
     }
   }

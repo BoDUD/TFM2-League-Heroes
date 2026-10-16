@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_pantheon": {
+    "remapping": "asset/league_pantheon/override/league_pantheon",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_pantheon/text/champion",
+    "type": "merge"
+  }
+}
