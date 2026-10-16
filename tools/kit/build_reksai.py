@@ -46,29 +46,37 @@ ID = "league_reksai"
 FX = "asset/league/effects/league_reksai_fx"
 BIG = "asset/league/effects/league_reksai_big"
 
-# Timings are placeholders until the strips exist (rig_reksai.py).
+# Timings from the strips (tools/art/rig_reksai.py): the bite-swipe hits on tick 11 (attack frame 3), Queen's Wrath's
+# slam on 10, Prey Seeker leaves on 8, Furious Bite on 12, the dash under the ground starts on 7 (skill2: into the
+# ground by then, the mound for w_dig ticks; skill2_up, the burst, is played on arrival), Void Rush's leap (ult_hit) at
+# the end of r_hide.
+# Numbers = the 10-min classic-SDK simulations (jungle lane 1 against demon, circus_blade, hunter, inquisitor and ninja,
+# three lineups, both sides, 2026-10-17): the draft r0 +0.67 (8 seeds; league_xinzhao +1.80, league_vi +2.73); attack
+# 80 -> 86, Queen's Wrath 120 -> 140% + 35 -> 45%, Furious Bite 50 + 90% -> 70 + 110%, Unburrow 45 + 70% -> 60 + 90%:
+# +2.17 over 16 seeds (league_xinzhao +0.95, league_vi +2.38); with W's cooldown 420 too +2.60, with hp 1060 +3.26.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Rek'Sai:
     # 600 +99 hp, 62 AD +3, 35 armour +4.5, 340 move, 175 range, 0.667 attack speed
-    "hp": 1000, "hp_g": 100, "atk": 80, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000,
+    "hp": 1000, "hp_g": 100, "atk": 86, "atk_g": 17, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000,
     "ms_g": 11, "regen": 2, "regen_g": 1,
     # attack
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 11,
     # Fury (League: 25 a hit, 100 at most, decays after 8 s out of combat)
     "fury_t": 480,
     # E Furious Bite folded into the attack (League: 70-170 + 60% bAD, at 100 Fury 120% of it as true damage, cd 6 s)
-    "e_cd": 360, "e_dur": 28, "e_hit": 12, "e_dmg": 50, "e_ratio": 90,
+    "e_cd": 360, "e_dur": 28, "e_hit": 12, "e_dmg": 70, "e_ratio": 110,
     # skill: Q Queen's Wrath (League: next 3 attacks +30-50% AD round the target, 325 radius, +35% attack speed 3 s,
     # cd 4-2 s) / Prey Seeker (League: 1500 range, width 130, speed 1950, 50-170 + 25% bAD magic, cd 10 s)
-    "q_cd": 330, "q_range": 60000, "q_near": 30000, "q_dur": 24, "q_hit": 10, "q_dmg": 15, "q_ratio": 120,
-    "q_bonus": 35, "q_splash": 16000, "q_as": 35, "q_t": 180,
+    "q_cd": 330, "q_range": 60000, "q_near": 30000, "q_dur": 24, "q_hit": 10, "q_dmg": 15, "q_ratio": 140,
+    "q_bonus": 45, "q_splash": 16000, "q_as": 35, "q_t": 180,
     "q2_dur": 22, "q2_at": 8, "q2_speed": 9000, "q2_len": 64000, "q2_rad": 4500, "q2_dmg": 40, "q2_ratio": 55,
     # skill2: W Burrow / Unburrow (League: burrowed +5-25 move; Unburrow 30-130 + 80% AP magic, knock-up 1 s, radius
     # 250; the burrow heals 9-21% max hp over 3 s at 100 Fury)
-    "w_cd": 480, "w_range": 45000, "w_dur": 34, "w_go": 7, "w_speed": 3500, "w_r": 17000, "w_dmg": 45, "w_ratio": 70,
+    "w_cd": 480, "w_range": 45000, "w_dur": 48, "w_dig": 28, "w_go": 7, "w_speed": 3500, "w_r": 17000, "w_up_t": 20,
+    "w_dmg": 60, "w_ratio": 90,
     "w_up": 60, "w_heal": 50, "w_heal_r": 50,
     # ult: R Void Rush (League: 1500 range, untargetable 0.9 s, 150-350 + 100% bAD + 15/20/25% max hp, cd 120-80 s)
-    "r_cd": 3600, "r_range": 70000, "r_dur": 40, "r_hide": 54, "r_speed": 9000, "r_dmg": 120, "r_ratio": 100,
+    "r_cd": 3600, "r_range": 70000, "r_dur": 30, "r_hide": 54, "r_speed": 9000, "r_dmg": 120, "r_ratio": 100,
     "r_hp": 15,
     # the watch
     "watch_p": 12, "w_count": 60000, "w_ally": 45000,
@@ -284,8 +292,8 @@ def build(p):
     unburrow = [around(p["w_r"], "EnemyWithoutTower",
                        [attack(p["w_dmg"], p["w_ratio"]), {"type": "Airborne", "duration": p["w_up"]}, view("w_up"),
                         tsfx("w_hit")]),
-                cview("w_burst"), sfx("w_up"), gain()]
-    dive = combine(anim("skill2", p["w_dur"]), sfx("w"), voice("vo_w", p), burrow_heal, spend, cview("w_dig"),
+                cview("w_burst"), sfx("w_up"), gain(), anim("skill2_up", p["w_up_t"])]
+    dive = combine(anim("skill2", p["w_dig"]), sfx("w"), voice("vo_w", p), burrow_heal, spend, cview("w_dig"),
                    delayed(p["w_go"] - 1, {"type": "MoveToTarget", "speed": p["w_speed"], "range": p["w_range"] + 20000,
                                            "end_effects": unburrow}))
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Targeting", "EnemyWithoutTower",
@@ -295,9 +303,9 @@ def build(p):
     hide = combine({"type": "CasterInvisible", "tick": p["r_hide"]},
                    refresh("r_hid", p["r_hide"], damaged_reduce=100, cc_immune=True))
     strike = [attack(p["r_dmg"], p["r_ratio"], p["r_hp"]), view("r_hit"), tsfx("r_hit")]
-    rush = combine(anim("ult", p["r_dur"] + p["r_hide"]), sfx("r"), voice("vo_r", p), hide, cview("r_dive"),
+    rush = combine(anim("ult", p["r_hide"]), sfx("r"), voice("vo_r", p), hide, cview("r_dive"),
                    homing("r_tag", 100000, 0, "EnemyChampion", [buff("r_mark", p["r_hide"] + 20)]),
-                   delayed(p["r_hide"] - 1, sfx("r_leap"), {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + 30000,
+                   delayed(p["r_hide"] - 1, sfx("r_leap"), anim("ult_hit", p["r_dur"]), {"type": "MoveToTarget", "speed": p["r_speed"], "range": p["r_range"] + 30000,
                                              "end_effects": [homing("r_strike", 100000, 0, "EnemyChampion", strike),
                                                              cview("r_burst")]}))
     ult = action("ult", p["r_dur"] + p["r_hide"], p["r_cd"], 1, p["r_range"], "Targeting",
