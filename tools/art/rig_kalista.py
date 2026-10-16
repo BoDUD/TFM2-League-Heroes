@@ -58,6 +58,11 @@ SPECK = 10
 EYE, DARK_LINE = 0.2, 0.35
 EYES = (26, 38, 86, 100)          # design rows / columns: the eyes and the brow line
 HEAD_EXACT = 20                   # mean colour distance of a frame's head to the design's: pasted there
+# the attack throws the long spear like League's Attack1 (the user, 10-16: 「怎么平A的时候武器不动啊 看着好奇怪啊」 - Codex's
+# attack threw an unseen spear from the far hand, the long one never moved): Pierce's approved wind-up and release (the
+# spear raised over the shoulder, then flung, the hand empty), then the attack's own follow-through with the spear back
+# in her hand (League's spears come back to her); the attack's times kept (released on the third frame, a_st)
+ATTACK_FILES = ["skill_1.png", "skill_2.png", "skill_3.png", "attack_4.png", "attack_5.png"]
 
 
 def lp(path):
@@ -269,6 +274,7 @@ def hit_frames():
 def actions():
     table = json.load(open(lp(os.path.join(FRAMES, "frames.json")), encoding="utf-8"))["tags"]
     out = {"idle": idle_frames(), "hit": hit_frames()}
+    table["attack"] = [dict(e, file=f) for e, f in zip(table["attack"], ATTACK_FILES)]
     for tag, frames in table.items():
         out[tag] = []
         for e in frames:

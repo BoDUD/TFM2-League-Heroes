@@ -211,6 +211,7 @@
 
 ![伊莉丝演示：两口毒液普攻打中德莱厄斯；Q 神经毒素：毒液弹打中溅开；E 结茧：蛛网茧飞过去把他裹住晕眩；W 自爆蜘蛛：小蜘蛛爬过去炸开；变成蜘蛛；蜘蛛 Q 剧毒之蜇：扑到他身上咬一口；蜘蛛普攻带三只小蜘蛛一起咬；W 掠行狂暴：身上一闪红光、脚下一圈红圈，两下快咬；E 盘丝：顺着蛛丝升空消失，落在他身边砸出一圈蛛网；变回人形](docs/preview/league_elise_showcase.gif?v=1015a)
 ![卡特琳娜演示：两记匕首刺击打中德莱厄斯；Q 弹射之刃：旋转的飞刀打中他，匕首从他身上弹上天、落在他站过的地方，她瞬步过去捡刀旋斩一圈；W 伺机待发：瞬步切到他身边砍一刀，把匕首抛上天，脚下加速，匕首落在脚边再旋斩；死亡莲华：原地旋转，一圈刀光不停向他飞出匕首，头上重伤；贪婪刷新](docs/preview/league_katarina_showcase.gif?v=1015b)
+![卡莉丝塔演示：投矛打中德莱厄斯，矛插在他身上，索拉卡在旁边时一闪灵魂印记（哨兵）；德莱厄斯逼近，再投一矛往后跳开；Q 穿刺：长矛裹着幽灵光飞过去打中，往前跳；E 撕裂：她脚下一圈光往里收，他身上的矛一起被拔出、脚下减速环；大招命运的召唤：索拉卡被蓝色灵魂光带缠住、拉进她体内的光框里，再被甩向德莱厄斯，落地蓝色冲击波把他击飞；落地后再撕裂把他拔死，头顶一闪刷新星光](docs/preview/league_kalista_showcase.gif?v=1016a)
 
 ## 英雄：盖伦
 
@@ -4666,6 +4667,43 @@ python addons/league_katarina/make_override.py     # 附加包的副本（主包
 美术提示词见 [`assets/source/katarina/`](assets/source/katarina/) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`MODEL_STRIPS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_side/`、`codex_strips/`、`codex_fx/`。
 
 逐帧预览：[`docs/preview/league_katarina_frames.png`](docs/preview/league_katarina_frames.png?v=1015b)，特效：[`docs/preview/league_katarina_effects.png`](docs/preview/league_katarina_effects.png?v=1015b)。
+
+## 英雄：卡莉丝塔
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | ADC（Marksman，标签 AD / Range），第 109 位英雄。复仇之矛 卡莉丝塔（官方简中「卡莉丝塔」）：投矛的射手，矛插在敌人身上、撕裂一起拔出，大招把誓约者甩进敌阵。用户的选择（「全按推荐做」）：ADC；W 灵魂绑定做成被动的「哨兵」伤害、灵魂标记并进普攻；武术姿态主包只在被贴近时往后跳、附加包自己判断往前还是往后（「这个得做啊 附加包 往前还是往后灵活判断啊」）；职业连招开；原画选 A；大小 85%、高清 PPU 1.4（「模型太大 第二像素太高 需要降低」） |
+| 普攻 / 被动 | 投矛（攻击距离 52500，攻击间隔 46 tick，第 7 tick 出手、追踪，90% 攻击力物理）。每支打中的矛（普攻、Q）插在敌人身上 240 tick（塔除外），画面每 12 tick 闪一次。「武术姿态」：投矛后 40000 内有敌方英雄，就背离目标往后跳 18 格（10 tick）。普攻动作照英雄联盟：把手里的长矛举过肩甩出去，收势时矛回到手里（用户：「怎么平A的时候武器不动啊」，用 Q 那几帧，没有重画） |
+| W | 「哨兵」（灵魂绑定，被动）：她的矛打中的敌方英雄身边 45000 内站着另一个己方英雄时，额外造成目标 12% 最大生命的真实伤害，300 tick 一次 |
+| 技能1 | Q「穿刺」：冷却 420 tick，对 100000 内的敌人放（小兵、野怪也打），第 7 tick 朝他当时站的地方直线投出（走位能躲），停在第一个打中的单位上：100 + 105% 攻击力物理并插一支矛；这个单位被打死，就由一支看不见的矛沿直线接着打后面的单位。投完也会跳 |
+| 技能2 | E「撕裂」：每支矛只拔一次（数据里的矛按「代」记，每次撕裂换一代，拔过的不会再炸）。插在英雄身上的矛攒到 3 支时，带来第 3 支的那一下当场拔（3 级起）；另外每 90 tick 看一次 100000 内被己方打过的英雄，矛够了就拔：每支矛 15 + 40% 攻击力物理、减速 8%（120 tick）；冷却 600 tick，拔死英雄就返还冷却（金克丝的击杀检查） |
+| 大招 | 「命运的召唤」：冷却 4800 tick，90000 内有敌方英雄、70000 内有队友时放（没有队友就返还冷却）。把队友拉进身体保护 30 tick（隐身、受到伤害 −90%），甩向目标：落地时周围 26000 内的敌人击飞 75 tick，80 + 60% 攻击力物理；落地后能拔矛就接撕裂（R→E） |
+| 附加包 | 可选的附加包 [`addons/league_kalista`](addons/league_kalista/README.md)（在附加包合集里，原生代码，主包不装它也完整）：**武术姿态自己判断往前还是往后跳**（最近的敌方英雄残血就追、被贴近就退、快跑出射程就追）；**开局绑定誓约者**（辅助位优先，没有就最近的队友），大招对誓约者施放；**甩出去的飞行**逐 tick 飞向离她最近的敌方英雄；**撕裂按护甲算伤害，够杀就立刻拔**。Q 打死后矛转到下一个目标那一条原生代码挪不了数据挂的矛，没有做。日志 `league_kalista.log`。还没在游戏里看过日志 |
+| 数值 | 攻击 104（+20）、生命 1000（+88）、护甲 20（+7）、魔抗 15（+3）、移速 900（+9） |
+| 平衡 | 下路对四个基础射手（枪手、士兵、弓箭手、赌徒），三套阵容、两边各打，10 分钟经典引擎模拟 16 个种子：定稿 +1.42（同组射手：韦鲁斯 +1.63、图奇 +1.59）。照英雄联盟比例的草案 −1.83；撕裂改成攒 3 支自动拔、每支 15 + 40% → +0.03；生命 950、哨兵 10% → +0.97；攻击 104、Q 7 秒 → +1.17；按动作重排时间后掉到 −0.41，攻击间隔 46 → +0.95；Q 100、哨兵 12% → +1.19；生命 1000 → +1.42。亚索大招联动：她在队里时亚索每局对英雄放大招 0.67 次（韦鲁斯 0.67、基础弓箭手 0.58），亚索不用改 |
+| 精灵图（高清帧 PPU 1.4） | Codex 第 0 步画了两张原画，用户选 A；Codex 第 2 步照英雄联盟的骨架画了 40 帧就没额度了（用户：「你能画吗？用点工具和技术」），[`tools/art/import_kalista_strips.py`](tools/art/import_kalista_strips.py) 补完：按头的大小把画大的帧拉回原尺寸、每帧贴造型的整颗头，跑步用造型的身体 + 英雄联盟 Run1 的腿关节重画（两条腿交叉换步），阵亡从通过的帧和造型 B 转出来。[`tools/art/rig_kalista.py`](tools/art/rig_kalista.py) 缩到 85%、降到 PPU 1.4，待机呼吸（矛跟着身体走）、受击闪白 |
+| 特效 | Codex 第 3 步的 15 个特效（用户转来的截图，`assets/source/kalista/codex_fx`），[`tools/art/import_kalista_fx.py`](tools/art/import_kalista_fx.py) 逐个去底、按游戏尺寸读回（`league_kalista_fx` 小的、`league_kalista_big` 大的）：截图里飞出去的矛身比一个游戏像素还细，单独补回中线的黑矛身；小特效按用户的意思放大约 30%（「有的特效也做大点吧稍微 看起来不太明显」） |
+| 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_kalista.py`](tools/lol/extract_kalista.py)，16 段） |
+| 图标 | 官方技能图标（Q 穿刺 / E 撕裂 / R 命运的召唤，另有 W 哨兵、被动武术姿态），从本地客户端取 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_kalista.py
+python tools/kit/build_kalista.py                  # 技能数据，数字都在脚本的参数表 P 里
+python tools/kit/setup_kalista.py                  # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/import_kalista_strips.py          # Codex 的 40 帧补完：大小拉回、贴造型的头、跑步和阵亡
+python tools/art/rig_kalista.py                    # 85%、PPU 1.4 的帧和 1 倍图
+python tools/art/ppu_restyle.py --hero kalista     # 描边（不要加 --preview）
+python tools/art/ppu_hd.py --hero kalista          # hd_ / lo_ 帧
+python tools/art/import_kalista_fx.py              # 特效
+python tools/art/preview_kalista.py                # 预览和演示 GIF
+python addons/league_kalista/make_override.py      # 附加包的副本（主包的卡莉丝塔改了就重跑）
+```
+
+美术提示词见 [`assets/source/kalista/`](assets/source/kalista/) 里的 `PICTURE_PROMPT.md`、`MODEL_STRIPS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_strips/`、`codex_fx/`。
+
+逐帧预览：[`docs/preview/league_kalista_frames.png`](docs/preview/league_kalista_frames.png?v=1016a)，特效：[`docs/preview/league_kalista_effects.png`](docs/preview/league_kalista_effects.png?v=1016a)。
 
 ## 选人卡片位置（`banpick_center`）
 
