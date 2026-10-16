@@ -8,7 +8,9 @@
 //!
 //! - **走自己想去的地方**：被动好了（身上没有 `p_cd`）时，硬控落到他身上的那个 tick 就清掉（`entity_clear_cc`），扣当前生命的
 //!   7%，挂 `p_drop_n`：数据那边 3 tick 的自检看到它，就给 `p_cd`、短暂免控、丢药罐（药罐的区域、捡起回血和减冷却都还是
-//!   数据）。药罐在场、他生命不满 `CAN_PCT`% 且身边 `SAFE` 以内没有敌方英雄时，AI 走过去捡。
+//!   数据）。数据的药罐跟着他飞 `p_fly` tick、落在他脚下（他身上挂上 `can`）：落地那个 tick 记下位置，`can` 没了（捡起、
+//!   被踩碎、过期）才忘掉。药罐在场、他生命不满 `CAN_PCT`% 时 AI 走过去捡：身边 `SAFE` 以内没有敌方英雄，或者药罐就在
+//!   `NEAR_TANK` 以内（两步路）；该放 R 的时候先放 R。
 //! - **感染之锯**：打中英雄时按对方**当前生命**的 `q_pct`%（至少 `q_dmg`）算魔法伤害，补上主包那一下 `q_dmg` 的差额。
 //! - **钝器创伤**：强化普攻按他**已损生命**最多再加 `e_miss`%（`e_dmg` + `e_ad`% 攻击力那部分）；他的攻击力随**额外生命**
 //!   （最大生命高出这一级本来的部分，装备给的）涨 `e_bonus`‰。
@@ -33,7 +35,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_drmundo";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 const HERO: &str = "league_drmundo";
 
 // ===================== 数值 =====================
@@ -45,10 +47,13 @@ pub const R_NEAR: f64 = 40_000.0;
 pub const BURST_TICKS: usize = 60;
 /// 被动扣当前生命的 %。
 pub const SHAKE_PCT: usize = 7;
-/// 去捡药罐：生命低于这个 %、身边这么远没有敌方英雄、药罐不超过这么远。
+/// 去捡药罐：生命低于这个 %、身边这么远没有敌方英雄（或者药罐就在 NEAR_TANK 以内）、药罐不超过这么远。
 pub const CAN_PCT: usize = 85;
 pub const SAFE: f64 = 35_000.0;
+pub const NEAR_TANK: f64 = 15_000.0;
 pub const CAN_REACH: f64 = 45_000.0;
+/// 丢出后这么久还没落地就算没丢成（数据 3 tick 一次的自检 + p_fly 20 tick 的飞行）。
+pub const LAND_WAIT: usize = 60;
 /// 药罐在地上多久（p_can_t）。
 pub const CAN_TICKS: usize = 600;
 /// 灰色生命最多存最大生命的几成。
@@ -165,6 +170,25 @@ pub fn bonus_hp(max: usize, base: usize, growth: usize, level: usize) -> usize {
 /// 被动扣多少（当前生命的 SHAKE_PCT%，留至少 1 点）。
 pub fn shake_cost(hp: usize) -> usize {
     (hp * SHAKE_PCT / 100).min(hp.saturating_sub(1))
+}
+
+/// 去不去捡药罐：生命 %、离药罐多远、身边的敌方英雄数。
+pub fn tank_ok(hp_pct: usize, d: f64, foes_near: usize) -> Option<&'static str> {
+    if hp_pct >= CAN_PCT || d > CAN_REACH {
+        return None;
+    }
+    if foes_near == 0 {
+        Some("safe")
+    } else if d <= NEAR_TANK {
+        Some("close")
+    } else {
+        None
+    }
+}
+
+/// 药罐没了没有：`can` 在身上就还在；不在的话，落过地（`seen`）就是没了，没落过地的等 LAND_WAIT。
+pub fn tank_gone(has_can: bool, seen: bool, now: usize, dropped: usize) -> bool {
+    !has_can && (seen || now > dropped + LAND_WAIT)
 }
 
 /// R 的时机：生命 %、1 秒内掉的 %、身边的敌方英雄数。
@@ -285,9 +309,14 @@ struct State {
     /// 心脏电击器开着时存的灰色生命。
     grey: usize,
     zapping: bool,
-    /// 药罐：落点和消失的 tick（0 = 没有）。
+    /// 药罐：落点和消失的 tick（0 = 没有）、丢出的 tick、落地了没有、AI 正在走过去。
     can_at: (f64, f64),
     can_until: usize,
+    can_drop: usize,
+    can_seen: bool,
+    walking: bool,
+    /// 上个 tick p_cd 还剩多少（捡起时数据把冷却重设成缩短后的，就不是正好少 1）。
+    cd_left: usize,
 }
 
 /// (这份模拟的编号, 蒙多的 entity id) -> 状态。
@@ -460,10 +489,51 @@ impl Pleases {
         let now = sim.tick() as usize;
         with_state(self.key(me), |s| {
             s.can_at = (at.0 as f64, at.1 as f64);
-            s.can_until = now + CAN_TICKS + 30;
+            s.can_until = now + LAND_WAIT + CAN_TICKS;
+            s.can_drop = now;
+            s.can_seen = false;
+            s.walking = false;
         });
         if let Some(n) = counted("shake") {
             wlog(format!("{} SHAKE #{n}: {cleared} controls cleared, {cost} hp paid, tank dropped", head(sim, me)));
+        }
+    }
+
+    /// 药罐落地那个 tick 记下位置（数据的药罐跟着他飞、落在他脚下，挂上 `can`）；`can` 没了就忘掉。
+    fn tank(&self, sim: &StableSim<'_>, me: usize) {
+        let Some(e) = sim.get_entity(me) else { return };
+        let now = sim.tick() as usize;
+        let has_can = has(sim, me, &md("can"));
+        let cd = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == md("p_cd")).map_or(0, |b| b.duration_tick);
+        let at = (e.pos().0 as f64, e.pos().1 as f64);
+        let mut line = None;
+        with_state(self.key(me), |s| {
+            if s.can_until > now {
+                if has_can && !s.can_seen {
+                    s.can_seen = true;
+                    let off = dist(at, s.can_at);
+                    s.can_at = at;
+                    line = Some(("tank_land", format!("TANK LANDED {} ticks after the shake, {off:.0} from the shake spot",
+                                                      now - s.can_drop)));
+                } else if tank_gone(has_can, s.can_seen, now, s.can_drop) {
+                    let how = if !s.can_seen {
+                        "never landed"
+                    } else if cd + 1 != s.cd_left {
+                        "picked up"
+                    } else {
+                        "broken / expired"
+                    };
+                    line = Some(("tank_gone", format!("TANK GONE: {how}{}", if s.walking { " (he walked to it)" } else { "" })));
+                    s.can_until = 0;
+                    s.walking = false;
+                }
+            }
+            s.cd_left = cd;
+        });
+        if let Some((kind, msg)) = line {
+            if let Some(n) = counted(kind) {
+                wlog(format!("{} {msg} #{n}", head(sim, me)));
+            }
         }
     }
 
@@ -519,6 +589,7 @@ impl StablePassive for Pleases {
         }
         self.record_hp(sim, me);
         self.shake(sim, me);
+        self.tank(sim, me);
         self.bonus(sim, me);
     }
 
@@ -552,7 +623,8 @@ struct Ai;
 
 enum Plan {
     Keep,
-    Instead(InputV1, String),
+    /// 换成这个输入；有话就按这一类记一行日志（R 每 tick 都在等、TANK 只记开始走的那一下：两类分开数）。
+    Instead(InputV1, Option<(&'static str, String)>),
 }
 
 impl Ai {
@@ -564,36 +636,45 @@ impl Ai {
         let now = sim.tick() as usize;
         let enemies = foes(sim, team);
         let key = (sim_of(sim, me), me);
-        // the tank on the ground, nobody near, not full: walk over it (the data picks it up)
-        let can = with_state(key, |s| (s.can_until > now).then_some(s.can_at));
-        if let Some(c) = can {
-            if !has(sim, me, &md("can")) {
-                with_state(key, |s| s.can_until = 0);
-            } else if kind != InputKindV1::Ult && pct(hp, max) < CAN_PCT && within(&enemies, at, SAFE) == 0
-                && dist(at, c) <= CAN_REACH {
-                return Some(Plan::Instead(InputV1::move_to(c.0.max(0.0) as u64, c.1.max(0.0) as u64),
-                                          format!("TANK: walking to it at {}% hp", pct(hp, max))));
-            }
-        }
-        if kind != InputKindV1::Ult {
-            return None;
-        }
+        let ult = kind == InputKindV1::Ult;
         let peak = peak_hp(key, now, hp);
         let lost = if peak > hp { (peak - hp) * 100 / max.max(1) } else { 0 };
         let near = within(&enemies, at, R_NEAR);
         let p = params();
-        if let Some(why) = dose_ok(pct(hp, max), lost, near, p.r_low, p.r_burst) {
-            if let Some(n) = counted("dose_ok") {
-                wlog(format!("{} R GO #{n} ({why}: {}% hp, {lost}% lost in 1 s, {near} enemy champions near)",
-                             head(sim, me), pct(hp, max)));
+        // R first: when it is time, cast it
+        if ult {
+            if let Some(why) = dose_ok(pct(hp, max), lost, near, p.r_low, p.r_burst) {
+                if let Some(n) = counted("dose_ok") {
+                    wlog(format!("{} R GO #{n} ({why}: {}% hp, {lost}% lost in 1 s, {near} enemy champions near)",
+                                 head(sim, me), pct(hp, max)));
+                }
+                with_state(key, |s| s.walking = false);
+                return Some(Plan::Keep);
             }
-            return Some(Plan::Keep);
+        }
+        // the tank on the ground (landed, `can` on him), not full, safe or close: walk over it (the data picks it up)
+        let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some(s.can_at));
+        if let Some(c) = can.filter(|_| has(sim, me, &md("can"))) {
+            let d = dist(at, c);
+            let foes_near = within(&enemies, at, SAFE);
+            if let Some(why) = tank_ok(pct(hp, max), d, foes_near) {
+                let started = with_state(key, |s| !std::mem::replace(&mut s.walking, true));
+                let line = started.then(|| {
+                    ("tank", format!("TANK: walking to it at {}% hp, {d:.0} away ({why}: {foes_near} enemy champions within {SAFE:.0})",
+                                     pct(hp, max)))
+                });
+                return Some(Plan::Instead(InputV1::move_to(c.0.max(0.0) as u64, c.1.max(0.0) as u64), line));
+            }
+        }
+        with_state(key, |s| s.walking = false);
+        if !ult {
+            return None;
         }
         let why = format!("R HELD: {}% hp, {lost}% lost in 1 s, {near} enemy champions near", pct(hp, max));
         let target = current.filter(|c| enemies.iter().any(|f| f.0 == *c));
         Some(match target {
-            Some(t) => Plan::Instead(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), why),
-            None => Plan::Instead(InputV1::move_to(at.0.max(0.0) as u64, at.1.max(0.0) as u64), why),
+            Some(t) => Plan::Instead(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), Some(("held", why))),
+            None => Plan::Instead(InputV1::move_to(at.0.max(0.0) as u64, at.1.max(0.0) as u64), Some(("held", why))),
         })
     }
 }
@@ -635,8 +716,10 @@ impl StablePlayerAi for Ai {
                 if !ctx.is_valid_input(&input) && input.kind == InputKindV1::Attack.code() {
                     return None;
                 }
-                if let Some(k) = counted("held") {
-                    wlog(format!("{line} {why} #{k}"));
+                if let Some((kind, why)) = why {
+                    if let Some(k) = counted(kind) {
+                        wlog(format!("{line} {why} #{k}"));
+                    }
                 }
                 Some(input)
             }
@@ -726,6 +809,24 @@ mod tests {
     }
 
     #[test]
+    fn when_to_walk_to_the_tank() {
+        assert_eq!(tank_ok(70, 20_000.0, 0), Some("safe"));
+        assert_eq!(tank_ok(70, 10_000.0, 2), Some("close"), "two steps away: grab it in the fight");
+        assert_eq!(tank_ok(70, 20_000.0, 1), None, "an enemy near and the tank far");
+        assert_eq!(tank_ok(90, 0.0, 0), None, "nearly full");
+        assert_eq!(tank_ok(50, 50_000.0, 0), None, "too far");
+    }
+
+    #[test]
+    fn the_tank_is_kept_until_it_lands() {
+        // 0.1.0 forgot it on the first tick without `can`: the data's tank lands p_fly + up to 3 ticks after the shake
+        assert!(!tank_gone(false, false, 105, 100), "in the air");
+        assert!(!tank_gone(true, true, 400, 100), "on the ground");
+        assert!(tank_gone(false, true, 400, 100), "picked up or broken");
+        assert!(tank_gone(false, false, 100 + LAND_WAIT + 1, 100), "never landed");
+    }
+
+    #[test]
     fn grey_health_is_capped() {
         assert_eq!(stored(0, 200, 75, 500), 150);
         assert_eq!(stored(450, 200, 75, 500), 500);
@@ -744,6 +845,10 @@ mod tests {
         for (key, v) in [("r_range", R_RANGE as usize), ("r_n", R_NEAR as usize), ("p_can_t", CAN_TICKS)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_drmundo.P");
         }
+        // the tank flies p_fly ticks after the data's 3-tick check: LAND_WAIT must outlast both
+        let fly: usize = src.split("\"p_fly\": ").nth(1).and_then(|v| v.split(',').next()).and_then(|v| v.trim().parse().ok())
+            .expect("p_fly in build_drmundo.P");
+        assert!(fly + 3 < LAND_WAIT, "p_fly {fly} + 3 >= LAND_WAIT {LAND_WAIT}");
         let d = Params::default();
         for (key, v) in [("p_cd", d.p_cd), ("q_dmg", d.q_dmg), ("q_pct", d.q_pct), ("e_dmg", d.e_dmg), ("e_ad", d.e_ad),
                          ("e_miss", d.e_miss), ("e_bonus", d.e_bonus), ("hp", d.hp), ("hp_g", d.hp_g),
